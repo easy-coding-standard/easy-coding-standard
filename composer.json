@@ -1,7 +1,6 @@
 {
     "name": "symplify/multi-coding-standard",
     "description": "Allows to use multiple coding standards with ease.",
-    "license": "MIT",
     "require": {
         "php": "^7.1",
         "friendsofphp/php-cs-fixer": "^2.0",
