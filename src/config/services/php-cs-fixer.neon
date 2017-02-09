@@ -1,0 +1,14 @@
+services:
+    # application
+    - Symplify\EasyCodingStandard\PhpCsFixer\Application\Application
+
+    # fixer factory
+    - Symplify\EasyCodingStandard\PhpCsFixer\Fixer\FixerFactory
+    - Symplify\EasyCodingStandard\Configuration\ConfigurationResolverFactory
+
+    # runner and his dependencies
+    - Symplify\EasyCodingStandard\PhpCsFixer\Runner\RunnerFactory
+    - PhpCsFixer\Error\ErrorsManager
+    - PhpCsFixer\Linter\Linter
+    - PhpCsFixer\Cache\NullCacheManager
+    - PhpCsFixer\Differ\SebastianBergmannDiffer

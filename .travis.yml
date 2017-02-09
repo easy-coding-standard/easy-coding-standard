@@ -1,0 +1,16 @@
+language: php
+
+matrix:
+  include:
+    - php: 7.1
+      env: PHPUNIT_FLAGS="--coverage-clover coverage.clover" # CHECK_CS=true
+
+install:
+  - composer install --prefer-source
+
+script:
+  - vendor/bin/phpunit $PHPUNIT_FLAGS
+  - if [[ "$CHECK_CS" != "" ]]; then composer check-cs; fi
+
+after_script:
+  - if [[ "$PHPUNIT_FLAGS" != "" ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi

@@ -1,0 +1,15 @@
+{
+    "standards": [
+        "PSR2"
+    ],
+    "fixer-levels": [
+        "psr1",
+        "psr2"
+    ],
+    "fixers": [
+        "array_element_no_space_before_comma"
+    ],
+    "exclude-fixers": [
+        "braces"
+    ]
+}

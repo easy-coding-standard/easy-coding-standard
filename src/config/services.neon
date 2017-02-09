@@ -1,0 +1,10 @@
+includes:
+    - services/console.neon
+    - services/php-cs-fixer.neon
+
+services:
+    # application
+    - Symplify\EasyCodingStandard\Application\ApplicationRunner
+
+    # configuration
+    - Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
