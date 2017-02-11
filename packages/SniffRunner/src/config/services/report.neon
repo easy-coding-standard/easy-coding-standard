@@ -1,0 +1,4 @@
+services:
+    - Symplify\SniffRunner\Report\ErrorDataCollector
+    - Symplify\SniffRunner\Report\ErrorMessageSorter
+

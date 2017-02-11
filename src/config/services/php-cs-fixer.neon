@@ -1,13 +1,13 @@
 services:
     # application
-    - Symplify\EasyCodingStandard\PhpCsFixer\Application\Application
+    - Symplify\EasyCodingStandard\RuleRunner\Application\Application
 
     # fixer factory
-    - Symplify\EasyCodingStandard\PhpCsFixer\Fixer\FixerFactory
+    - Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory
     - Symplify\EasyCodingStandard\Configuration\ConfigurationResolverFactory
 
     # runner and his dependencies
-    - Symplify\EasyCodingStandard\PhpCsFixer\Runner\RunnerFactory
+    - Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory
     - PhpCsFixer\Error\ErrorsManager
     - PhpCsFixer\Linter\Linter
     - PhpCsFixer\Cache\NullCacheManager

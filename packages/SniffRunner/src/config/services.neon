@@ -1,0 +1,14 @@
+includes:
+    - services/application.neon
+    - services/files.neon
+    - services/sniffs.neon
+    - services/report.neon
+
+services:
+    # event dispatcher
+    - Symplify\SniffRunner\EventDispatcher\SniffDispatcher
+    # parser
+    - Symplify\SniffRunner\Parser\FileToTokensParser
+
+    - Symplify\SniffRunner\Repository\SniffRepository
+    - Symplify\SniffRunner\Validator\GroupValidator

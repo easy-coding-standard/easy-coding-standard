@@ -1,0 +1,75 @@
+<?php declare(strict_types=1);
+
+namespace Symplify\SniffRunner\Tests\File;
+
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
+use Symplify\SniffRunner\DI\ContainerFactory;
+use Symplify\SniffRunner\File\File;
+use Symplify\SniffRunner\File\FileFactory;
+use Symplify\SniffRunner\Report\ErrorDataCollector;
+
+final class FileTest extends TestCase
+{
+    /**
+     * @var File
+     */
+    private $file;
+
+    protected function setUp()
+    {
+        $container = (new ContainerFactory())->create();
+        $fileFactory = $container->getByType(FileFactory::class);
+        $this->file = $fileFactory->create(__DIR__ . '/FileFactorySource/SomeFile.php', false);
+    }
+
+    public function testErrorDataCollector()
+    {
+        /** @var ErrorDataCollector $errorDataCollector */
+        $errorDataCollector = Assert::getObjectAttribute(
+            $this->file,
+            'errorDataCollector'
+        );
+        $this->assertSame(0, $errorDataCollector->getErrorCount());
+
+        $this->file->addError('Some Error', 0, 'code');
+        $this->assertSame(1, $errorDataCollector->getErrorCount());
+        $this->assertSame(0, $errorDataCollector->getFixableErrorCount());
+
+        $this->file->addFixableError('Some Other Error', 0, 'code');
+        $this->assertSame(2, $errorDataCollector->getErrorCount());
+        $this->assertSame(1, $errorDataCollector->getFixableErrorCount());
+    }
+
+    /**
+     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     */
+    public function testNotImplementedGetErrorCount()
+    {
+        $this->file->getErrorCount();
+    }
+
+    /**
+     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     */
+    public function testNotImplementedGetErrors()
+    {
+        $this->file->getErrors();
+    }
+
+    /**
+     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     */
+    public function testNotImplementedProcess()
+    {
+        $this->file->process();
+    }
+
+    /**
+     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     */
+    public function testNotImplementedParse()
+    {
+        $this->file->parse();
+    }
+}

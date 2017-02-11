@@ -1,0 +1,6 @@
+application:
+    scanComposer: false
+
+
+extensions:
+    - Symplify\SniffRunner\DI\SniffRunnerExtension

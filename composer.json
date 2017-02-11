@@ -29,9 +29,13 @@
             "Symplify\\EasyCodingStandard\\Tests\\": "tests"
         }
     },
+    "repositories": [
+        { "type": "path", "url": "packages/SniffRunner" },
+        { "type": "path", "url": "packages/RuleRunner" }
+    ],
     "scripts": {
         "check-cs": "vendor/bin/symplify-cs check src tests",
         "fix-cs": "vendor/bin/symplify-cs fix src tests"
     },
-    "bin": ["bin/coding-standard"]
+    "bin": ["bin/easy-cs"]
 }
