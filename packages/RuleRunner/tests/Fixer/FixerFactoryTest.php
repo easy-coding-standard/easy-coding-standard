@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Tests\PhpCsFixer\Fixer;
 
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\FixerInterface;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DI\ContainerFactory;
@@ -23,19 +24,24 @@ final class FixerFactoryTest extends TestCase
     /**
      * @dataProvider provideCreateData
      */
-    public function testCreateFromRulesAndExcludedRules(array $rules, array $excludedRules, int $expectedFixerCount)
+    public function testCreateFromRulesAndExcludedRules(array $fixers, array $excludedRules, int $expectedFixerCount)
     {
-        $rules = $this->fixerFactory->createFromRulesAndExcludedRules($rules, $excludedRules);
-        $this->assertCount($expectedFixerCount, $rules);
+        $fixers = $this->fixerFactory->createFromRulesAndExcludedRules($fixers, $excludedRules);
+        $this->assertCount($expectedFixerCount, $fixers);
 
-        if (count($rules)) {
-            $fixer = $rules[0];
+        if (count($fixers)) {
+            $fixer = $fixers[0];
             $this->assertInstanceOf(FixerInterface::class, $fixer);
         }
     }
 
     public function testRuleConfiguration()
     {
+        $rules = $this->fixerFactory->createFromRulesAndExcludedRules(['array_syntax'], []);
+        /** @var ArraySyntaxFixer $arrayRule */
+        $arrayRule = $rules[0];
+        $this->assertInstanceOf(ArraySyntaxFixer::class, $arrayRule);
+        dump($arrayRule);
         // @todo: e.g. array => short
     }
 
