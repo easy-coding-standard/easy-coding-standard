@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Exception\File;
+namespace Symplify\EasyCodingStandard\SniffRunner\Exception\File;
 
 use Exception;
 

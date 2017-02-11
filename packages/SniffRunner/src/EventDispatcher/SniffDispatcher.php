@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\EventDispatcher;
+namespace Symplify\EasyCodingStandard\SniffRunner\EventDispatcher;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symplify\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
 
 final class SniffDispatcher extends EventDispatcher
 {

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\Composer;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Composer;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\Composer\VendorDirProvider;
+use Symplify\EasyCodingStandard\SniffRunner\Composer\VendorDirProvider;
 
 final class VendorDirProviderTest extends TestCase
 {

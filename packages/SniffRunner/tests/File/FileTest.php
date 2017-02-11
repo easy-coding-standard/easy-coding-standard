@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\File;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\File\File;
-use Symplify\SniffRunner\File\FileFactory;
-use Symplify\SniffRunner\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
+use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorDataCollector;
 
 final class FileTest extends TestCase
 {
@@ -42,7 +42,7 @@ final class FileTest extends TestCase
     }
 
     /**
-     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
     public function testNotImplementedGetErrorCount()
     {
@@ -50,7 +50,7 @@ final class FileTest extends TestCase
     }
 
     /**
-     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
     public function testNotImplementedGetErrors()
     {
@@ -58,7 +58,7 @@ final class FileTest extends TestCase
     }
 
     /**
-     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
     public function testNotImplementedProcess()
     {
@@ -66,7 +66,7 @@ final class FileTest extends TestCase
     }
 
     /**
-     * @expectedException \Symplify\SniffRunner\Exception\File\NotImplementedException
+     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
     public function testNotImplementedParse()
     {

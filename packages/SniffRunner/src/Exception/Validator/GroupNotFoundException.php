@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Exception\Validator;
+namespace Symplify\EasyCodingStandard\SniffRunner\Exception\Validator;
 
 use Exception;
 

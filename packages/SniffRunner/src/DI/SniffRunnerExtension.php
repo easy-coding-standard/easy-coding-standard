@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\DI;
+namespace Symplify\EasyCodingStandard\SniffRunner\DI;
 
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;

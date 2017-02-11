@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\Application\Command;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application\Command;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\SniffRunner\Application\Command\RunApplicationCommand;
 
 final class RunApplicationCommandTest extends TestCase
 {

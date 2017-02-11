@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Repository;
+namespace Symplify\EasyCodingStandard\SniffRunner\Repository;
 
-use Symplify\SniffRunner\Naming\SniffGroupNameResolver;
-use Symplify\SniffRunner\Sniff\Finder\SniffFinder;
+use Symplify\EasyCodingStandard\SniffRunner\Naming\SniffGroupNameResolver;
+use Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder;
 
 final class SniffRepository
 {

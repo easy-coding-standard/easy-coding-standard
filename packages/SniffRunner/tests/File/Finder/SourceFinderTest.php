@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\File\Finder;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File\Finder;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\File\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\File\Finder\SourceFinder;
 
 final class SourceFinderTest extends TestCase
 {

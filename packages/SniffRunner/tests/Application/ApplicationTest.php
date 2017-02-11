@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\Application;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\Application\Application;
-use Symplify\SniffRunner\Application\Command\RunApplicationCommand;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\Tests\Instantiator;
+use Symplify\EasyCodingStandard\SniffRunner\Application\Application;
+use Symplify\EasyCodingStandard\SniffRunner\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Tests\Instantiator;
 
 final class ApplicationTest extends TestCase
 {

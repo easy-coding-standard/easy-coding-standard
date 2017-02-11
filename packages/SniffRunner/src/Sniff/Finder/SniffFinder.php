@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Sniff\Finder;
+namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder;
 
-use Symplify\SniffRunner\Composer\VendorDirProvider;
+use Symplify\EasyCodingStandard\SniffRunner\Composer\VendorDirProvider;
 
 final class SniffFinder
 {

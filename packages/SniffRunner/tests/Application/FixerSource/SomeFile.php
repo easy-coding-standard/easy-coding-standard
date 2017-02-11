@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\SniffRunner\Tests\Application\FixerSource;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application\FixerSource;
 
 final class SomeFile
 {

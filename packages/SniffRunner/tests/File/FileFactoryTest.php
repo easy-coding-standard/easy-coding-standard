@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\File;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\Application\Fixer;
-use Symplify\SniffRunner\Contract\File\FileInterface;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\File\File;
-use Symplify\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Application\Fixer;
+use Symplify\EasyCodingStandard\SniffRunner\Contract\File\FileInterface;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
+use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 
 final class FileFactoryTest extends TestCase
 {

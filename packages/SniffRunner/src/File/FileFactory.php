@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\File;
+namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use Nette\FileNotFoundException;
-use Symplify\SniffRunner\Application\Fixer;
-use Symplify\SniffRunner\Parser\FileToTokensParser;
-use Symplify\SniffRunner\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\SniffRunner\Application\Fixer;
+use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
+use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorDataCollector;
 
 final class FileFactory
 {

@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Application;
+namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
-use Symplify\SniffRunner\EventDispatcher\SniffDispatcher;
-use Symplify\SniffRunner\File\Provider\FilesProvider;
-use Symplify\SniffRunner\Legacy\LegacyCompatibilityLayer;
-use Symplify\SniffRunner\Sniff\Factory\SniffFactory;
-use Symplify\SniffRunner\Sniff\SniffCollectionResolver;
+use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\File\Provider\FilesProvider;
+use Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer;
+use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Sniff\SniffCollectionResolver;
 
 final class Application implements ApplicationInterface
 {

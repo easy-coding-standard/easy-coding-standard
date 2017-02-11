@@ -1,4 +1,4 @@
 services:
-    - Symplify\SniffRunner\Application\Application
-    - Symplify\SniffRunner\Application\FileProcessor
-    - Symplify\SniffRunner\Application\Fixer
+    - Symplify\EasyCodingStandard\SniffRunner\Application\Application
+    - Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor
+    - Symplify\EasyCodingStandard\SniffRunner\Application\Fixer

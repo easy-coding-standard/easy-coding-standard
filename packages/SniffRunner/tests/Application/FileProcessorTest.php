@@ -3,9 +3,9 @@
 namespace Symplify\PHP7_CdeSniffer\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\Application\FileProcessor;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 
 final class FileProcessorTest extends TestCase
 {

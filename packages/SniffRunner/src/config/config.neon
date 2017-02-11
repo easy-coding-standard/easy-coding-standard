@@ -3,4 +3,4 @@ application:
 
 
 extensions:
-    - Symplify\SniffRunner\DI\SniffRunnerExtension
+    - Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension

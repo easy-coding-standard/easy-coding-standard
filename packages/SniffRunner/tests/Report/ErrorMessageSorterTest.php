@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\Report;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Report;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\Report\ErrorMessageSorter;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorMessageSorter;
 
 final class ErrorMessageSorterTest extends TestCase
 {

@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Sniff\Finder;
+namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder;
 
 use Nette\Caching\Storages\FileStorage;
 use Nette\Loaders\RobotLoader;
-use Symplify\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 
 final class SniffClassRobotLoaderFactory
 {

@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\File\Provider;
+namespace Symplify\EasyCodingStandard\SniffRunner\File\Provider;
 
 use SplFileInfo;
-use Symplify\SniffRunner\File\File;
-use Symplify\SniffRunner\File\FileFactory;
-use Symplify\SniffRunner\File\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
+use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\File\Finder\SourceFinder;
 
 final class FilesProvider
 {

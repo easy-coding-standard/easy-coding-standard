@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\EventDispatcher;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\EventDispatcher;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
-use Symplify\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
 
 final class SniffDispatcherTest extends TestCase
 {

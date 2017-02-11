@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\EventDispatcher\Event;
+namespace Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event;
 
 use PHP_CodeSniffer\Files\File;
 use Symfony\Component\EventDispatcher\Event;

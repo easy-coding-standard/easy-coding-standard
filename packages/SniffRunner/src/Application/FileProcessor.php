@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Application;
+namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Files\File;
-use Symplify\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
-use Symplify\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
 
 final class FileProcessor
 {

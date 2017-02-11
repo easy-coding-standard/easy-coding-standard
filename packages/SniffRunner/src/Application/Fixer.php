@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Application;
+namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
-use Symplify\SniffRunner\File\File;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
 
 final class Fixer
 {

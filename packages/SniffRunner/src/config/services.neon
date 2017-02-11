@@ -6,9 +6,9 @@ includes:
 
 services:
     # event dispatcher
-    - Symplify\SniffRunner\EventDispatcher\SniffDispatcher
+    - Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher
     # parser
-    - Symplify\SniffRunner\Parser\FileToTokensParser
+    - Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser
 
-    - Symplify\SniffRunner\Repository\SniffRepository
-    - Symplify\SniffRunner\Validator\GroupValidator
+    - Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository
+    - Symplify\EasyCodingStandard\SniffRunner\Validator\GroupValidator

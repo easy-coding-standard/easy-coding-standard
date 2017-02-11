@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\File\Finder;
+namespace Symplify\EasyCodingStandard\SniffRunner\File\Finder;
 
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;

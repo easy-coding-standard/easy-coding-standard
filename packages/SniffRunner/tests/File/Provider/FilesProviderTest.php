@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\File\Provider;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File\Provider;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\File\File;
-use Symplify\SniffRunner\File\Provider\FilesProvider;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
+use Symplify\EasyCodingStandard\SniffRunner\File\Provider\FilesProvider;
 
 final class FilesProviderTest extends TestCase
 {

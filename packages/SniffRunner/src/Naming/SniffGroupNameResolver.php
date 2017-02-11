@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Naming;
+namespace Symplify\EasyCodingStandard\SniffRunner\Naming;
 
 use Gherkins\RegExpBuilderPHP\RegExp;
 use Gherkins\RegExpBuilderPHP\RegExpBuilder;

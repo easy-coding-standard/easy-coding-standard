@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Composer;
+namespace Symplify\EasyCodingStandard\SniffRunner\Composer;
 
 use Composer\Autoload\ClassLoader;
 use ReflectionClass;

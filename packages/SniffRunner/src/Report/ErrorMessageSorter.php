@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Report;
+namespace Symplify\EasyCodingStandard\SniffRunner\Report;
 
 final class ErrorMessageSorter
 {

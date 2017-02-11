@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Validator;
+namespace Symplify\EasyCodingStandard\SniffRunner\Validator;
 
-use Symplify\SniffRunner\Exception\Validator\GroupNotFoundException;
-use Symplify\SniffRunner\Repository\SniffRepository;
+use Symplify\EasyCodingStandard\SniffRunner\Exception\Validator\GroupNotFoundException;
+use Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository;
 
 final class GroupValidator
 {

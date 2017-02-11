@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Tests\Sniff\Factory;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Sniff\Factory;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\Sniff\Factory\SniffFactory;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
 
 final class SniffFactoryTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class SniffFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \Symplify\SniffRunner\Exception\ClassNotFoundException
+     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\ClassNotFoundException
      */
     public function testCreateInvalidClassName()
     {

@@ -3,10 +3,10 @@
 namespace Symplify\PHP7_CdeSniffer\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\SniffRunner\Application\Fixer;
-use Symplify\SniffRunner\DI\ContainerFactory;
-use Symplify\SniffRunner\File\File;
-use Symplify\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Application\Fixer;
+use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
+use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 
 final class FixerTest extends TestCase
 {

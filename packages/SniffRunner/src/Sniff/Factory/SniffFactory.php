@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Sniff\Factory;
+namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
-use Symplify\SniffRunner\Exception\ClassNotFoundException;
+use Symplify\EasyCodingStandard\SniffRunner\Exception\ClassNotFoundException;
 
 final class SniffFactory
 {

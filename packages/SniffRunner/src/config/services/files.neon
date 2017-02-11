@@ -1,4 +1,4 @@
 services:
-    - Symplify\SniffRunner\File\FileFactory
-    - Symplify\SniffRunner\File\Provider\FilesProvider
-    - Symplify\SniffRunner\File\Finder\SourceFinder
+    - Symplify\EasyCodingStandard\SniffRunner\File\FileFactory
+    - Symplify\EasyCodingStandard\SniffRunner\File\Provider\FilesProvider
+    - Symplify\EasyCodingStandard\SniffRunner\File\Finder\SourceFinder

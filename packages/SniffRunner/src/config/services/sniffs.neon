@@ -1,11 +1,11 @@
 services:
-    - Symplify\SniffRunner\Sniff\SniffCollectionResolver
-    - Symplify\SniffRunner\Sniff\Factory\SniffFactory
+    - Symplify\EasyCodingStandard\SniffRunner\Sniff\SniffCollectionResolver
+    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory
 
     # finder
-    - Symplify\SniffRunner\Sniff\Finder\SniffFinder
-    - Symplify\SniffRunner\Sniff\Finder\SniffClassFilter
-    - Symplify\SniffRunner\Sniff\Finder\SniffClassRobotLoaderFactory
+    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder
+    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffClassFilter
+    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffClassRobotLoaderFactory
 
     # naming
-    - Symplify\SniffRunner\Naming\SniffGroupNameResolver
+    - Symplify\EasyCodingStandard\SniffRunner\Naming\SniffGroupNameResolver

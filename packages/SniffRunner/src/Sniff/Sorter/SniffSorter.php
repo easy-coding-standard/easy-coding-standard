@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Sniff\Sorter;
+namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Sorter;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Parser;
+namespace Symplify\EasyCodingStandard\SniffRunner\Parser;
 
 use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Config;

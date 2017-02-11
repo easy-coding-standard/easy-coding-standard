@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Exception\Configuration\OptionResolver;
+namespace Symplify\EasyCodingStandard\SniffRunner\Exception\Configuration\OptionResolver;
 
 use Exception;
 

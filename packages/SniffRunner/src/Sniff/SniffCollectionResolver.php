@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\SniffRunner\Sniff;
+namespace Symplify\EasyCodingStandard\SniffRunner\Sniff;
 
-use Symplify\SniffRunner\Repository\SniffRepository;
-use Symplify\SniffRunner\Validator\GroupValidator;
+use Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository;
+use Symplify\EasyCodingStandard\SniffRunner\Validator\GroupValidator;
 
 final class SniffCollectionResolver
 {
