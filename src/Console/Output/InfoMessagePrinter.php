@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Symfony\Component\Console\Style\StyleInterface;
-use Symplify\EasyCodingStandard\RuleRunner\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class InfoMessagePrinter
 {

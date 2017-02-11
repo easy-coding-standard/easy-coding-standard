@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Report;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
-use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorMessageSorter;
+use Symplify\EasyCodingStandard\Report\ErrorMessageSorter;
 
 final class ErrorMessageSorterTest extends TestCase
 {

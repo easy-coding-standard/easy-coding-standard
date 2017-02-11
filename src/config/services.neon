@@ -1,10 +1,20 @@
-includes:
-    - services/console.neon
-    - services/php-cs-fixer.neon
-
 services:
-    # application
+    # Application
     - Symplify\EasyCodingStandard\Application\ApplicationRunner
 
-    # configuration
+    # Configuration
     - Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
+
+    # Console & Commands
+    - Symfony\Component\Console\Application
+    - Symplify\EasyCodingStandard\Console\Command\RunCommand
+
+    # Symfony Output style
+    - Symfony\Component\Console\Input\ArgvInput
+    - Symfony\Component\Console\Output\ConsoleOutput
+    - Symplify\EasyCodingStandard\Console\Style\StyleFactory
+    -
+        factory: [@Symplify\EasyCodingStandard\Console\Style\StyleFactory, "create"]
+
+    # Reporting
+    - Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter

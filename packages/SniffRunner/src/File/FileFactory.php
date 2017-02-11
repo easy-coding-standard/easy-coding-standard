@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 use Nette\FileNotFoundException;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
-use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class FileFactory
 {

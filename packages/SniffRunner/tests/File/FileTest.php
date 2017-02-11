@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class FileTest extends TestCase
 {

@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Report;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
-use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class ErrorDataCollectorTest extends TestCase
 {

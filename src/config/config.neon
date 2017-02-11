@@ -4,4 +4,5 @@ application:
 
 extensions:
     - Symplify\EasyCodingStandard\DI\MultiCodingStandardExtension
-    - Symplify\EasyCodingStandard\RuleRunner\DI\SniffRunnerExtension
+    - Symplify\EasyCodingStandard\RuleRunner\DI\RuleRunnerExtension
+    - Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension

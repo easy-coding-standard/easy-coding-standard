@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Validator;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\Validator\GroupNotFoundException;
 use Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository;
 
-final class GroupValidator
+final class SniffGroupValidator
 {
     /**
      * @var SniffRepository

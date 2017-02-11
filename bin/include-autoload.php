@@ -25,7 +25,8 @@ final class AutoloadIncluder
     private function includeFileIfExists(string $file) : bool
     {
         if (file_exists($file)) {
-            return (bool) include $file;
+            require_once $file;
+            return true;
         }
 
         return false;

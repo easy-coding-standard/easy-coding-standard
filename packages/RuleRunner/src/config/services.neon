@@ -4,7 +4,7 @@ services:
 
     # fixer factory
     - Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory
-    - Symplify\EasyCodingStandard\Configuration\ConfigurationResolverFactory
+    - Symplify\EasyCodingStandard\RuleRunner\Configuration\ConfigurationResolverFactory
 
     # runner and his dependencies
     - Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory

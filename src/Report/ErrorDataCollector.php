@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\SniffRunner\Report;
+namespace Symplify\EasyCodingStandard\Report;
 
 final class ErrorDataCollector
 {
@@ -69,7 +69,7 @@ final class ErrorDataCollector
         string $sniffClass = null,
         array $data = [],
         bool $isFixable = false
-    ) {
+    ) : void {
         $this->errorCount++;
 
         if ($isFixable) {

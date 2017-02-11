@@ -3,12 +3,12 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff;
 
 use Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository;
-use Symplify\EasyCodingStandard\SniffRunner\Validator\GroupValidator;
+use Symplify\EasyCodingStandard\SniffRunner\Validator\SniffGroupValidator;
 
 final class SniffCollectionResolver
 {
     /**
-     * @var GroupValidator
+     * @var SniffGroupValidator
      */
     private $standardsOptionResolver;
 
@@ -18,7 +18,7 @@ final class SniffCollectionResolver
     private $sniffRepository;
 
     public function __construct(
-        GroupValidator $standardsOptionResolver,
+        SniffGroupValidator $standardsOptionResolver,
         SniffRepository $sniffRepository
     ) {
         $this->standardsOptionResolver = $standardsOptionResolver;

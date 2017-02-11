@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Configuration;
+namespace Symplify\EasyCodingStandard\RuleRunner\Configuration;
 
 use PhpCsFixer\Config;
 use PhpCsFixer\Console\ConfigurationResolver;

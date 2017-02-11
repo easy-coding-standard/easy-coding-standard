@@ -5,10 +5,11 @@ includes:
     - services/report.neon
 
 services:
-    # event dispatcher
+    # Event Dispatcher
     - Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher
-    # parser
+
+    # Parser
     - Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser
 
     - Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository
-    - Symplify\EasyCodingStandard\SniffRunner\Validator\GroupValidator
+    - Symplify\EasyCodingStandard\SniffRunner\Validator\SniffGroupValidator

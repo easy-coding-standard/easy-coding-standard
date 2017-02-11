@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\RuleRunner\Fixer;
 
 use PhpCsFixer\Fixer\FixerInterface;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationResolverFactory;
+use Symplify\EasyCodingStandard\RuleRunner\Configuration\ConfigurationResolverFactory;
 
 final class FixerFactory
 {

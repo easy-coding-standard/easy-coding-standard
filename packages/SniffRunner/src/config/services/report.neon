@@ -1,4 +1,4 @@
 services:
-    - Symplify\EasyCodingStandard\SniffRunner\Report\ErrorDataCollector
-    - Symplify\EasyCodingStandard\SniffRunner\Report\ErrorMessageSorter
+    - Symplify\EasyCodingStandard\Report\ErrorDataCollector
+    - Symplify\EasyCodingStandard\Report\ErrorMessageSorter
 

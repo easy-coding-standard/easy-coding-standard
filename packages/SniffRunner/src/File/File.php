@@ -6,7 +6,7 @@ use PHP_CodeSniffer\Files\File as BaseFile;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Contract\File\FileInterface;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
-use Symplify\EasyCodingStandard\SniffRunner\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class File extends BaseFile implements FileInterface
 {
