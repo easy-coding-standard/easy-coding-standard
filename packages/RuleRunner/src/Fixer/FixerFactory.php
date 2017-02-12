@@ -4,25 +4,24 @@ namespace Symplify\EasyCodingStandard\RuleRunner\Fixer;
 
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory as NativeFixerFactory;
-use PhpCsFixer\RuleSet;
-use Symplify\EasyCodingStandard\RuleRunner\Validator\RuleValidator;
+use Symplify\EasyCodingStandard\RuleRunner\Rule\RuleSetFactory;
 
 final class FixerFactory
 {
-    /**
-     * @var RuleValidator
-     */
-    private $ruleValidator;
-
     /**
      * @var NativeFixerFactory
      */
     private $nativeFixerFactory;
 
-    public function __construct(RuleValidator $ruleValidator, NativeFixerFactory $nativeFixerFactory)
+    /**
+     * @var RuleSetFactory
+     */
+    private $ruleSetFactory;
+
+    public function __construct(NativeFixerFactory $nativeFixerFactory, RuleSetFactory $ruleSetFactory)
     {
-        $this->ruleValidator = $ruleValidator;
         $this->nativeFixerFactory = $nativeFixerFactory;
+        $this->ruleSetFactory = $ruleSetFactory;
     }
 
     /**
@@ -34,30 +33,8 @@ final class FixerFactory
             return [];
         }
 
-        $ruleSet = $this->createRuleSetFromEnabledAndExcludedRules($enabledRules, $excludedRules);
+        $ruleSet = $this->ruleSetFactory->createFromEnabledAndExcludedRules($enabledRules, $excludedRules);
         $this->nativeFixerFactory->useRuleSet($ruleSet);
         return $this->nativeFixerFactory->getFixers();
-    }
-
-    private function createRuleSetFromEnabledAndExcludedRules(array $enabledRules, array $excludedRules) : RuleSet
-    {
-        $rules = [];
-        foreach ($enabledRules as $name => $rule) {
-            if (is_array($rule)) {
-                $config = $rule;
-                $rules[$name] = $config;
-            } else {
-                $name = $rule;
-                $rules[$name] = true;
-            }
-        }
-
-        foreach ($excludedRules as $name) {
-            $rules[$name] = false;
-        }
-
-        $this->ruleValidator->validateRules($rules);
-
-        return new RuleSet($rules);
     }
 }

@@ -2,6 +2,7 @@ services:
     # application
     - Symplify\EasyCodingStandard\RuleRunner\Application\Application
     - Symplify\EasyCodingStandard\RuleRunner\Validator\RuleValidator
+    - Symplify\EasyCodingStandard\RuleRunner\Rule\RuleSetFactory
 
     # fixer factory
     - Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory
