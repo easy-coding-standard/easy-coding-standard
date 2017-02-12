@@ -1,10 +1,14 @@
 services:
     # application
     - Symplify\EasyCodingStandard\RuleRunner\Application\Application
+    - Symplify\EasyCodingStandard\RuleRunner\Validator\RuleValidator
 
     # fixer factory
     - Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory
-    - Symplify\EasyCodingStandard\RuleRunner\Configuration\ConfigurationResolverFactory
+    -
+        class: PhpCsFixer\FixerFactory
+        setup:
+            - registerBuiltInFixers()
 
     # runner and his dependencies
     - Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory
@@ -12,3 +16,4 @@ services:
     - PhpCsFixer\Linter\Linter
     - PhpCsFixer\Cache\NullCacheManager
     - PhpCsFixer\Differ\SebastianBergmannDiffer
+

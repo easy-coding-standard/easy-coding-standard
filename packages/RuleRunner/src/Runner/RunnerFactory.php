@@ -59,9 +59,9 @@ final class RunnerFactory
         $this->fixerFactory = $fixerFactory;
     }
 
-    public function create(array $rules, array $excludedRules, string $source, bool $isFixer) : Runner
+    public function create(array $enabledRules, array $excludedRules, string $source, bool $isFixer) : Runner
     {
-        $fixers = $this->fixerFactory->createFromRulesAndExcludedRules($rules, $excludedRules);
+        $fixers = $this->fixerFactory->createFromEnabledRulesAndExcludedRules($enabledRules, $excludedRules);
 
         return new Runner(
             $this->createFinderForSource($source),

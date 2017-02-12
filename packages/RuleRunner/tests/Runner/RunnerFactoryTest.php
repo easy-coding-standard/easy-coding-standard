@@ -29,7 +29,7 @@ final class RunnerFactoryTest extends TestCase
 
     public function testProperties()
     {
-        // @todo: test properites!
+// @todo: test properites!
 //        array_syntax
 //PHP arrays should be declared using the configured syntax (requires PHP
 //    >= 5.4 for short syntax).

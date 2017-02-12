@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests\PhpCsFixer\Fixer;
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\FixerInterface;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory;
@@ -26,7 +27,7 @@ final class FixerFactoryTest extends TestCase
      */
     public function testCreateFromRulesAndExcludedRules(array $fixers, array $excludedRules, int $expectedFixerCount)
     {
-        $fixers = $this->fixerFactory->createFromRulesAndExcludedRules($fixers, $excludedRules);
+        $fixers = $this->fixerFactory->createFromEnabledRulesAndExcludedRules($fixers, $excludedRules);
         $this->assertCount($expectedFixerCount, $fixers);
 
         if (count($fixers)) {
@@ -37,12 +38,37 @@ final class FixerFactoryTest extends TestCase
 
     public function testRuleConfiguration()
     {
-        $rules = $this->fixerFactory->createFromRulesAndExcludedRules(['array_syntax'], []);
+        $rules = $this->fixerFactory->createFromEnabledRulesAndExcludedRules(['array_syntax'], []);
+
         /** @var ArraySyntaxFixer $arrayRule */
         $arrayRule = $rules[0];
         $this->assertInstanceOf(ArraySyntaxFixer::class, $arrayRule);
-        dump($arrayRule);
-        // @todo: e.g. array => short
+        $this->assertSame(
+            'long',
+            Assert::getObjectAttribute($arrayRule, 'config')
+        );
+
+        $rules = $this->fixerFactory->createFromEnabledRulesAndExcludedRules([
+            'array_syntax' => [
+                'syntax' => 'short'
+            ]
+        ], []);
+
+        /** @var ArraySyntaxFixer $arrayRule */
+        $arrayRule = $rules[0];
+        $this->assertInstanceOf(ArraySyntaxFixer::class, $arrayRule);
+        $this->assertSame(
+            'short',
+            Assert::getObjectAttribute($arrayRule, 'config')
+        );
+    }
+
+    /**
+     * @expectedException \PhpCsFixer\ConfigurationException\InvalidConfigurationException
+     */
+    public function testInvalid()
+    {
+        $this->fixerFactory->createFromEnabledRulesAndExcludedRules(['array_syntax_typo'], []);
     }
 
     public function provideCreateData() : array
@@ -50,7 +76,7 @@ final class FixerFactoryTest extends TestCase
         return [
             [[], [], 0],
             [['no_whitespace_before_comma_in_array'], [], 1],
-            [['declare_strict_types,'], [], 1],
+            [['declare_strict_types'], [], 1],
             [['@PSR1'], [], 2],
             [['@PSR2'], [], 24],
             [['@PSR2', 'whitespace_after_comma_in_array'], [], 25],
