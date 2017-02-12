@@ -65,6 +65,7 @@ final class FixerFactoryTest extends TestCase
 
     /**
      * @expectedException \PhpCsFixer\ConfigurationException\InvalidConfigurationException
+     * @expectedExceptionMessage The rule "array_syntax_typo" was not found. Did you mean "array_syntax"?
      */
     public function testInvalid()
     {

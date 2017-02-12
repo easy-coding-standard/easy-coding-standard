@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Validator;
 
+use Nette\Utils\ObjectMixin;
 use PhpCsFixer\ConfigurationException\InvalidConfigurationException;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\FixerFactory;
@@ -15,40 +16,38 @@ final class RuleValidator
     /**
      * @var FixerFactory
      */
-    private $fixerFactory;
+    private $nativeFixerFactory;
 
-    public function __construct(FixerFactory $fixerFactory)
+    public function __construct(FixerFactory $nativeFixerFactory)
     {
-        $this->fixerFactory = $fixerFactory;
+        $this->nativeFixerFactory = $nativeFixerFactory;
     }
 
     public function validateRules(array $rules)
     {
-//        /**
-//         * Create a ruleset that contains all configured rules, even when they originally have been disabled.
-//         *
-//         * @see RuleSet::resolveSet()
-//         */
-//        $ruleSet = RuleSet::create(array_map(function () {
-//            return true;
-//        }, $rules));
+        $usedFixers = array_keys(RuleSet::create($rules)->getRules());
 
-        $ruleSet = RuleSet::create($rules);
+        $availableFixers = $this->getAvailableFixers();
 
-        $configuredFixers = array_keys($ruleSet->getRules());
-
-        $availableFixers = array_map(function (FixerInterface $fixer) {
-            return $fixer->getName();
-        }, $this->fixerFactory->getFixers());
-
-        $unknownFixers = array_diff($configuredFixers, $availableFixers);
-
-        if (count($unknownFixers)) {
-            throw new InvalidConfigurationException(sprintf(
-                'The rules contain unknown fixers (%s).',
-                implode(', ', $unknownFixers)
-            ));
-            // @todo: suggest correct one, throw per value!, not diff
+        foreach ($usedFixers as $usedFixer) {
+            if ( !in_array($usedFixer, $availableFixers)) {
+                $suggestion = ObjectMixin::getSuggestion($availableFixers, $usedFixer);
+                throw new InvalidConfigurationException(sprintf(
+                    'The rule "%s" was not found. Did you mean "%s"?',
+                    $usedFixer,
+                    $suggestion
+                ));
+            }
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getAvailableFixers(): array
+    {
+        return array_map(function (FixerInterface $fixer) {
+            return $fixer->getName();
+        }, $this->nativeFixerFactory->getFixers());
     }
 }

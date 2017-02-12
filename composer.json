@@ -11,6 +11,7 @@
         "nette/di": "^2.4",
         "nette/bootstrap": "^2.4",
         "nette/utils": "^2.4",
+        "nette/neon": "^2.4",
         "tracy/tracy": "^2.4",
         "symplify/sniff-runner": "@dev",
         "symplify/package-builder": "@dev"
