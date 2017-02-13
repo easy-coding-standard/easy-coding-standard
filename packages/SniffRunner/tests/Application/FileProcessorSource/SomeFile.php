@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PHP7_CdeSniffer\Tests\Application\FileProcessorSource;
+namespace Symplify\EasyCodingStandard\Tests\Application\FileProcessorSource;
 
 class SomeFile
 {

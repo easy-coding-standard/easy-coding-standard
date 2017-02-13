@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\PHP7_CdeSniffer\Tests\Application;
+namespace Symplify\EasyCodingStandard\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
@@ -29,9 +29,17 @@ final class FileProcessorTest extends TestCase
     public function testProcessFiles()
     {
         $file = $this->fileFactory->create(__DIR__.'/FileProcessorSource/SomeFile.php', false);
+        $tokensBefore = $file->getTokens();
         $this->fileProcessor->processFiles([$file], false);
 
+        $tokensAfter = $file->getTokens();
+        $this->assertSame($tokensBefore, $tokensAfter);
+
         $file = $this->fileFactory->create(__DIR__.'/FileProcessorSource/SomeFile.php', true);
+        $tokensBefore = $file->getTokens();
         $this->fileProcessor->processFiles([$file], true);
+
+        $tokensAfter = $file->getTokens();
+        $this->assertSame($tokensBefore, $tokensAfter);
     }
 }

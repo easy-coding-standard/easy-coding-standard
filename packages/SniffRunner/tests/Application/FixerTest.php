@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\PHP7_CdeSniffer\Tests\Application;
+namespace Symplify\EasyCodingStandard\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Fixer;
@@ -90,25 +90,18 @@ final class FixerTest extends TestCase
         $this->fixer->startFile($this->file);
 
         $token = $this->fixer->getTokenContent(6);
-        $this->assertSame('SniffRunner', $token);
+        $this->assertSame('EasyCodingStandard', $token);
 
         $this->fixer->substrToken(6, 0, 4);
         $token = $this->fixer->getTokenContent(6);
-        $this->assertSame('Snif', $token);
+        $this->assertSame('Easy', $token);
 
         $this->fixer->substrToken(6, 3);
         $token = $this->fixer->getTokenContent(6);
-        $this->assertSame('f', $token);
+        $this->assertSame('y', $token);
 
         $this->fixer->substrToken(8, 3, 0);
         $token = $this->fixer->getTokenContent(8);
         $this->assertSame('', $token);
-    }
-
-    public function testLegacyEmptyMethods()
-    {
-        $this->fixer->startFile($this->file);
-        $this->fixer->beginChangeset();
-        $this->fixer->endChangeset();
     }
 }

@@ -82,18 +82,4 @@ final class Fixer
 
         return $this->replaceToken($stackPtr, $newContent);
     }
-
-    /**
-     * Needed for legacy compatibility.
-     */
-    public function beginChangeset()
-    {
-    }
-
-    /**
-     * Needed for legacy compatibility.
-     */
-    public function endChangeset()
-    {
-    }
 }

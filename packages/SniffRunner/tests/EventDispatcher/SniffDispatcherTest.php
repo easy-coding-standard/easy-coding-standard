@@ -41,5 +41,6 @@ final class SniffDispatcherTest extends TestCase
 
         $event = new CheckFileTokenEvent($fileMock, 5);
         $this->sniffDispatcher->dispatch(T_CLASS, $event);
+        $this->assertSame(5,$event->getStackPointer());
     }
 }

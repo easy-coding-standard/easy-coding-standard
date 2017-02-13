@@ -24,11 +24,12 @@ final class RunApplicationCommand
 
     public static function createFromInputAndData(InputInterface $input, array $data) : self
     {
-        return new self(
-            $input->getArgument('source'),
-            $input->getOption('fix'),
-            $data
-        );
+        return new self($input->getArgument('source'), $input->getOption('fix'), $data);
+    }
+
+    public static function createFromSourceFixerAndData(array $source, bool $isFixer, array $data) : self
+    {
+        return new self($source, $isFixer, $data);
     }
 
     private function __construct(array $source, bool $isFixer, array $jsonConfiguration)

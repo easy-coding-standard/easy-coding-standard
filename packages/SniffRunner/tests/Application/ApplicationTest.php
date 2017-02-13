@@ -3,10 +3,9 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application;
-use Symplify\EasyCodingStandard\SniffRunner\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
-use Symplify\EasyCodingStandard\SniffRunner\Tests\Instantiator;
 
 final class ApplicationTest extends TestCase
 {
@@ -24,16 +23,19 @@ final class ApplicationTest extends TestCase
     public function testRunCommand()
     {
         $this->application->runCommand($this->createCommand());
+        $this->assertTrue(true);
     }
 
     private function createCommand() : RunApplicationCommand
     {
-        return new RunApplicationCommand(
+        return RunApplicationCommand::createFromSourceFixerAndData(
             $source = [__DIR__ . '/ApplicationSource'],
-            $standards = ['PSR2'],
-            $sniffs = [],
-            $excludedSniffs = [],
-            $isFixer = true
+            $isFixer = true,
+            [
+                'standards' => 'PSR2',
+                'sniffs' => '',
+                'excludedSniffs' => ''
+            ]
         );
     }
 }
