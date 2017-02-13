@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Application;
 
+use PhpCsFixer\Runner\Runner;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
 use Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory;
@@ -25,15 +26,19 @@ final class Application implements ApplicationInterface
         }
     }
 
-    private function runForSource(string $source, RunApplicationCommand $command)
+    private function runForSource(string $source, RunApplicationCommand $command) : void
     {
-        $runner = $this->runnerFactory->create(
+        $runner = $this->createRunnerForSource($source, $command);
+        $runner->fix();
+    }
+
+    private function createRunnerForSource(string $source, RunApplicationCommand $command) : Runner
+    {
+        return $this->runnerFactory->create(
             $command->getRules(),
             $command->getExcludedRules(),
             $source,
             $command->isFixer()
         );
-
-        $runner->fix();
     }
 }

@@ -23,31 +23,34 @@ final class RuleValidator
         $this->nativeFixerFactory = $nativeFixerFactory;
     }
 
-    public function validateRules(array $rules)
+    public function validateRules(array $rules) : void
     {
         $usedFixers = array_keys(RuleSet::create($rules)->getRules());
-
         $availableFixers = $this->getAvailableFixers();
 
         foreach ($usedFixers as $usedFixer) {
-            if ( !in_array($usedFixer, $availableFixers)) {
-                $suggestion = ObjectMixin::getSuggestion($availableFixers, $usedFixer);
-                throw new InvalidConfigurationException(sprintf(
-                    'The rule "%s" was not found. Did you mean "%s"?',
-                    $usedFixer,
-                    $suggestion
-                ));
+            if ( !in_array($usedFixer, $availableFixers, true)) {
+                throw new InvalidConfigurationException($this->createMessage($usedFixer, $availableFixers));
             }
         }
     }
 
-    /**
-     * @return string[]
-     */
-    private function getAvailableFixers(): array
+    private function getAvailableFixers() : array
     {
         return array_map(function (FixerInterface $fixer) {
             return $fixer->getName();
         }, $this->nativeFixerFactory->getFixers());
+    }
+
+    private function createMessage(string $usedFixer, array $availableFixers) : string
+    {
+        $message = sprintf('The rule "%s" was not found.', $usedFixer);
+
+        $suggestion = ObjectMixin::getSuggestion($availableFixers, $usedFixer);
+        if ($suggestion) {
+            $message .= sprintf(' Did you mean "%s"?', $suggestion);
+        }
+
+        return $message;
     }
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\SniffRunner\Application;
+namespace Symplify\EasyCodingStandard\SniffRunner\Fixer;
 
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 
@@ -48,16 +48,19 @@ final class Fixer
         return true;
     }
 
+    /**
+     * Name is for back compatibility. Better would be "addContentAfter".
+     */
     public function addContent(int $stackPtr, string $content) : bool
     {
         $current = $this->getTokenContent($stackPtr);
-        return $this->replaceToken($stackPtr, $current.$content);
+        return $this->replaceToken($stackPtr, $current . $content);
     }
 
     public function addContentBefore(int $stackPtr, string $content) : bool
     {
         $current = $this->getTokenContent($stackPtr);
-        return $this->replaceToken($stackPtr, $content.$current);
+        return $this->replaceToken($stackPtr, $content . $current);
     }
 
     public function addNewline(int $stackPtr) : bool

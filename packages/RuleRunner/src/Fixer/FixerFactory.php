@@ -27,7 +27,7 @@ final class FixerFactory
     /**
      * @return FixerInterface[]
      */
-    public function createFromEnabledRulesAndExcludedRules(array $enabledRules, array $excludedRules) : array
+    public function createFromEnabledAndExcludedRules(array $enabledRules, array $excludedRules) : array
     {
         if (!count($enabledRules)) {
             return [];

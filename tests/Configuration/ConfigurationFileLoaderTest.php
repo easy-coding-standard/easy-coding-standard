@@ -9,7 +9,7 @@ final class ConfigurationFileLoaderTest extends TestCase
 {
     public function test()
     {
-        $multiCsFileLoader = new ConfigurationFileLoader(__DIR__.'/coding-standard-key-value.json');
+        $multiCsFileLoader = new ConfigurationFileLoader(__DIR__.'/coding-standard.neon');
 
         $loadedFile = $multiCsFileLoader->load();
         $this->assertSame([

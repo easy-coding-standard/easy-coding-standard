@@ -27,7 +27,7 @@ final class FixerFactoryTest extends TestCase
      */
     public function testCreateFromRulesAndExcludedRules(array $fixers, array $excludedRules, int $expectedFixerCount)
     {
-        $fixers = $this->fixerFactory->createFromEnabledRulesAndExcludedRules($fixers, $excludedRules);
+        $fixers = $this->fixerFactory->createFromEnabledAndExcludedRules($fixers, $excludedRules);
         $this->assertCount($expectedFixerCount, $fixers);
 
         if (count($fixers)) {
@@ -38,7 +38,7 @@ final class FixerFactoryTest extends TestCase
 
     public function testRuleConfiguration()
     {
-        $rules = $this->fixerFactory->createFromEnabledRulesAndExcludedRules(['array_syntax'], []);
+        $rules = $this->fixerFactory->createFromEnabledAndExcludedRules(['array_syntax'], []);
 
         /** @var ArraySyntaxFixer $arrayRule */
         $arrayRule = $rules[0];
@@ -48,7 +48,7 @@ final class FixerFactoryTest extends TestCase
             Assert::getObjectAttribute($arrayRule, 'config')
         );
 
-        $rules = $this->fixerFactory->createFromEnabledRulesAndExcludedRules([
+        $rules = $this->fixerFactory->createFromEnabledAndExcludedRules([
             'array_syntax' => [
                 'syntax' => 'short'
             ]
@@ -69,7 +69,7 @@ final class FixerFactoryTest extends TestCase
      */
     public function testInvalid()
     {
-        $this->fixerFactory->createFromEnabledRulesAndExcludedRules(['array_syntax_typo'], []);
+        $this->fixerFactory->createFromEnabledAndExcludedRules(['array_syntax_typo'], []);
     }
 
     public function provideCreateData() : array

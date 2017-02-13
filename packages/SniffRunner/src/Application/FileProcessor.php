@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 use PHP_CodeSniffer\Files\File;
 use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 
 final class FileProcessor
 {
@@ -33,10 +34,20 @@ final class FileProcessor
 
     private function processFile(File $file, bool $isFixer)
     {
-        if ($isFixer) {
+        if ($isFixer === false) {
             $this->processFileWithFixer($file);
         } else {
             $this->processFileWithoutFixer($file);
+        }
+    }
+
+    private function processFileWithoutFixer(File $file)
+    {
+        foreach ($file->getTokens() as $stackPointer => $token) {
+            $this->sniffDispatcher->dispatch(
+                $token['code'],
+                new CheckFileTokenEvent($file, $stackPointer)
+            );
         }
     }
 
@@ -52,15 +63,5 @@ final class FileProcessor
         $newContent = $file->fixer->getContents();
 
         file_put_contents($file->getFilename(), $newContent);
-    }
-
-    private function processFileWithoutFixer(File $file)
-    {
-        foreach ($file->getTokens() as $stackPointer => $token) {
-            $this->sniffDispatcher->dispatch(
-                $token['code'],
-                new CheckFileTokenEvent($file, $stackPointer)
-            );
-        }
     }
 }

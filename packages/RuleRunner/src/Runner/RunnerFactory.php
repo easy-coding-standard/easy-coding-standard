@@ -61,7 +61,7 @@ final class RunnerFactory
 
     public function create(array $enabledRules, array $excludedRules, string $source, bool $isFixer) : Runner
     {
-        $fixers = $this->fixerFactory->createFromEnabledRulesAndExcludedRules($enabledRules, $excludedRules);
+        $fixers = $this->fixerFactory->createFromEnabledAndExcludedRules($enabledRules, $excludedRules);
 
         return new Runner(
             $this->createFinderForSource($source),
@@ -75,7 +75,7 @@ final class RunnerFactory
         );
     }
 
-    private function createFinderForSource(string $source): Finder
+    private function createFinderForSource(string $source) : Finder
     {
         return (new Finder)->files()
             ->in($source)

@@ -1,6 +1,6 @@
 {
     "name": "symplify/rule-runner",
-    "description": "Rule Runner finds all sniffs and runes them on your code.",
+    "description": "Rule Runner finds all rules and runs them on your code.",
     "require": {
         "php": "^7.1",
         "friendsofphp/php-cs-fixer": "^2.0"

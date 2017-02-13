@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use Nette\Utils\Json;
+use Nette\Neon\Neon;
 use Symplify\EasyCodingStandard\Exception\Configuration\ConfigurationFileNotFoundException;
 
 final class ConfigurationFileLoader
@@ -10,7 +10,7 @@ final class ConfigurationFileLoader
     /**
      * @var string
      */
-    private const CONFIGURATION_FILE = 'coding-standard.json';
+    private const CONFIGURATION_FILE = 'coding-standard.neon';
 
     /**
      * @var string
@@ -28,7 +28,7 @@ final class ConfigurationFileLoader
 
         $fileContent = file_get_contents($this->configurationFile);
 
-        return Json::decode($fileContent, true);
+        return Neon::decode($fileContent);
     }
 
     private function ensureFileExists(string $multiCsJsonFile) : void
