@@ -10,7 +10,7 @@ final class ConfigurationFileLoader
     /**
      * @var string
      */
-    private const CONFIGURATION_FILE = 'coding-standard.neon';
+    private const CONFIGURATION_FILE = 'easy-coding-standard.neon';
 
     /**
      * @var string

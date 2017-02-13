@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Runner;
 
-use PhpCsFixer\Runner\Runner;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DI\ContainerFactory;

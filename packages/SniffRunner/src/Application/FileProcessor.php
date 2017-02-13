@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
@@ -35,9 +37,9 @@ final class FileProcessor
     private function processFile(File $file, bool $isFixer)
     {
         if ($isFixer === false) {
-            $this->processFileWithFixer($file);
-        } else {
             $this->processFileWithoutFixer($file);
+        } else {
+            $this->processFileWithFixer($file);
         }
     }
 

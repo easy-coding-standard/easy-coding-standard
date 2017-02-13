@@ -10,11 +10,10 @@ services:
     - Symplify\EasyCodingStandard\Console\Command\RunCommand
 
     # Symfony Output style
+    - Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
+    - Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory
     - Symfony\Component\Console\Input\ArgvInput
     - Symfony\Component\Console\Output\ConsoleOutput
-    - Symplify\EasyCodingStandard\Console\Style\StyleFactory
-    -
-        factory: [@Symplify\EasyCodingStandard\Console\Style\StyleFactory, "create"]
 
     # Reporting
     - Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter

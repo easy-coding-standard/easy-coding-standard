@@ -39,6 +39,8 @@ final class Fixer
 
     public function getTokenContent(int $stackPtr) : string
     {
+        dump($this->tokens);
+        dump($this->tokens[$stackPtr]);
         return $this->tokens[$stackPtr];
     }
 
@@ -84,5 +86,19 @@ final class Fixer
         }
 
         return $this->replaceToken($stackPtr, $newContent);
+    }
+
+    /**
+     * For BC
+     */
+    public function beginChangeSet()
+    {
+    }
+
+    /**
+     * For BC
+     */
+    public function endChangeSet()
+    {
     }
 }

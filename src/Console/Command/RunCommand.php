@@ -6,16 +6,16 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\StyleInterface;
 use Symplify\EasyCodingStandard\Application\ApplicationRunner;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
 use Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 
 final class RunCommand extends Command
 {
     /**
-     * @var StyleInterface
+     * @var EasyCodingStandardStyle
      */
     private $style;
 
@@ -36,7 +36,7 @@ final class RunCommand extends Command
 
     public function __construct(
         ApplicationRunner $applicationRunner,
-        StyleInterface $style,
+        EasyCodingStandardStyle $style,
         ConfigurationFileLoader $multiCsFileLoader,
         InfoMessagePrinter $infoMessagePrinter
     ) {
@@ -56,11 +56,11 @@ final class RunCommand extends Command
         $this->setDescription('Check coding standard in one or more directories.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : int
     {
-        $this->applicationRunner->runCommand(
-            RunApplicationCommand::createFromInputAndData($input, $this->multiCsFileLoader->load())
-        );
+        $runCommand = RunApplicationCommand::createFromInputAndData($input, $this->multiCsFileLoader->load());
+
+        $this->applicationRunner->runCommand($runCommand);
 
         if ($this->infoMessagePrinter->hasSomeErrorMessages()) {
             $this->infoMessagePrinter->printFoundErrorsStatus($input->getOption('fix'));
@@ -68,10 +68,7 @@ final class RunCommand extends Command
             return 1;
         }
 
-        $this->style->success(sprintf(
-            'Sources "%s" were checked!',
-            implode(',', $input->getArgument('source'))
-        ));
+        $this->style->success('No errors found!');
 
         return 0;
     }

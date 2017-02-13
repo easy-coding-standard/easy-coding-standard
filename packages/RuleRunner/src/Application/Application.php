@@ -2,9 +2,10 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Application;
 
-use PhpCsFixer\Runner\Runner;
+use PhpCsFixer\Error\ErrorsManager;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
+use Symplify\EasyCodingStandard\RuleRunner\Runner\Runner;
 use Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory;
 
 final class Application implements ApplicationInterface
@@ -14,9 +15,15 @@ final class Application implements ApplicationInterface
      */
     private $runnerFactory;
 
-    public function __construct(RunnerFactory $runnerFactory)
+    /**
+     * @var ErrorsManager
+     */
+    private $errorsManager;
+
+    public function __construct(RunnerFactory $runnerFactory, ErrorsManager $errorsManager)
     {
         $this->runnerFactory = $runnerFactory;
+        $this->errorsManager = $errorsManager;
     }
 
     public function runCommand(RunApplicationCommand $command) : void
@@ -24,6 +31,9 @@ final class Application implements ApplicationInterface
         foreach ($command->getSources() as $source) {
             $this->runForSource($source, $command);
         }
+
+        dump($this->errorsManager->isEmpty());
+        // load errors to error Data collector
     }
 
     private function runForSource(string $source, RunApplicationCommand $command) : void

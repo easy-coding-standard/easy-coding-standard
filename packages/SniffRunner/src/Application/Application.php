@@ -54,11 +54,14 @@ final class Application implements ApplicationInterface
         LegacyCompatibilityLayer::add();
     }
 
-    public function runCommand(RunApplicationCommand $command) : void
+    public function runCommand(RunApplicationCommand $command): void
     {
         $sniffClasses = $this->sniffCollectionResolver->resolve(
-            $command->getStandards(), $command->getSniffs(), $command->getExcludedSniffs()
+            $command->getStandards(),
+            $command->getSniffs(),
+            $command->getExcludedSniffs()
         );
+
         $sniffs = $this->createSniffsFromSniffClasses($sniffClasses);
         $this->registerSniffsToSniffDispatcher($sniffs);
 
@@ -66,27 +69,27 @@ final class Application implements ApplicationInterface
     }
 
     /**
-     * @param string[] $sniffClasses
      * @return Sniff[]
      */
-    private function createSniffsFromSniffClasses(array $sniffClasses) : array
+    private function createSniffsFromSniffClasses(array $sniffClasses): array
     {
-        $sniffs = [];
+        $sniffs = array();
         foreach ($sniffClasses as $sniffClass) {
             $sniffs[] = $this->sniffFactory->create($sniffClass);
         }
+
         return $sniffs;
     }
 
     /**
      * @param Sniff[] $sniffs
      */
-    private function registerSniffsToSniffDispatcher(array $sniffs) : void
+    private function registerSniffsToSniffDispatcher(array $sniffs): void
     {
         $this->sniffDispatcher->addSniffListeners($sniffs);
     }
 
-    private function runForSource(array $source, bool $isFixer) : void
+    private function runForSource(array $source, bool $isFixer): void
     {
         $files = $this->filesProvider->getFilesForSource($source, $isFixer);
         $this->fileProcessor->processFiles($files, $isFixer);

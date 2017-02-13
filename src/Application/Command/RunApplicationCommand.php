@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Application\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Symplify\EasyCodingStandard\RuleRunner\Exception\Configuration\OptionResolver\SourceNotFoundException;
+use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 
 final class RunApplicationCommand
 {

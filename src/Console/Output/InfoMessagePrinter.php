@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Symfony\Component\Console\Style\StyleInterface;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class InfoMessagePrinter
@@ -13,16 +13,16 @@ final class InfoMessagePrinter
     private $errorDataCollector;
 
     /**
-     * @var StyleInterface
+     * @var EasyCodingStandardStyle
      */
-    private $output;
+    private $easyCodingStandardStyle;
 
     public function __construct(
         ErrorDataCollector $errorDataCollector,
-        StyleInterface $output
+        EasyCodingStandardStyle $easyCodingStandardStyle
     ) {
         $this->errorDataCollector = $errorDataCollector;
-        $this->output = $output;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
     public function hasSomeErrorMessages() : bool
@@ -34,35 +34,56 @@ final class InfoMessagePrinter
         return false;
     }
 
-    public function printFoundErrorsStatus(bool $isFixer)
+    public function printFoundErrorsStatus() : void
     {
-        $this->output->title(sprintf(
-            'Found %d errors',
-            $this->errorDataCollector->getErrorCount()
-        ));
         foreach ($this->errorDataCollector->getErrorMessages() as $file => $errors) {
-
-            $this->output->newLine();
-
-            $this->output->section($file);
-
+            $rows = [];
             foreach ($errors as $error) {
-                $message = 'Line ' . $error['line'] . ' - ' . $error['message'];
-                if ($error['isFixable']) {
-                    $this->output->caution($message);
-                } else {
-                    $this->output->warning($message);
-                }
+                $rows[] = [
+                    'line' => $this->wrapMessageToStyle((string) $error['line'], $error['isFixable']),
+                    'message' => $this->wrapMessageToStyle($error['message'], $error['isFixable'])
+                ];
             }
-        }
-        die;
 
-        // @todo: combine to onw printer!!!!
+            $this->easyCodingStandardStyle->table(['Line', $file], $rows);
+        }
+
+        $this->easyCodingStandardStyle->error($this->buildErrorMessage());
 
         // code sniffer
-        $this->phpCodeSnifferInfoMessagePrinter->printFoundErrorsStatus($isFixer);
-
+//        $this->phpCodeSnifferInfoMessagePrinter->printFoundErrorsStatus($isFixer);
 //        $diffs = $this->diffDataCollector->getDiffs();
 //        $this->printDiffs($diffs);
+    }
+
+    private function buildErrorMessage(): string
+    {
+        $errorCount = $this->errorDataCollector->getErrorCount();
+        $message = sprintf(
+            $errorCount === 1 ? 'Found %d error.' : 'Found %d errors.',
+            $errorCount
+        );
+
+        if ($this->errorDataCollector->getFixableErrorCount()) {
+            if ($errorCount === $this->errorDataCollector->getFixableErrorCount()) {
+                $howMany = ' All';
+            } else {
+                $howMany =$this->errorDataCollector->getFixableErrorCount();
+            }
+
+            $message .= sprintf('%s of them are fixable!', $howMany);
+            $message .= ' Just add "--fix" to console command and rerun to apply.';
+        }
+
+        return $message;
+    }
+
+    private function wrapMessageToStyle(string $message, bool $isFixable) : string
+    {
+        if ($isFixable) {
+            return sprintf('<fg=black;bg=green>%s</>', $message);
+        }
+
+        return sprintf('<fg=black;bg=red>%s</>', $message);
     }
 }
