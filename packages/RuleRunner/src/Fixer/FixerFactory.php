@@ -34,7 +34,9 @@ final class FixerFactory
         }
 
         $ruleSet = $this->ruleSetFactory->createFromEnabledAndExcludedRules($enabledRules, $excludedRules);
+
         $this->nativeFixerFactory->useRuleSet($ruleSet);
+
         return $this->nativeFixerFactory->getFixers();
     }
 }

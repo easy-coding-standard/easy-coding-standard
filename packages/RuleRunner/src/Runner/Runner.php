@@ -23,6 +23,7 @@ final class Runner
      */
     private $directory;
 
+
     /**
      * @var bool
      */

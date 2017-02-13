@@ -66,7 +66,7 @@ final class RunApplicationCommand
 
     public function getExcludedSniffs() : array
     {
-        return $this->jsonConfiguration['php-code-sniffer']['excluded_sniffs'] ?? [];
+        return $this->jsonConfiguration['php-code-sniffer']['excluded-sniffs'] ?? [];
     }
 
     public function getRules() : array
@@ -76,7 +76,7 @@ final class RunApplicationCommand
 
     public function getExcludedRules() : array
     {
-        return $this->jsonConfiguration['php-cs-fixer']['excluded_rules'] ?? [];
+        return $this->jsonConfiguration['php-cs-fixer']['excluded-rules'] ?? [];
     }
 
     private function setSources(array $sources) : void

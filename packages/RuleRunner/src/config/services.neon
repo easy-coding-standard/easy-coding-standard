@@ -13,8 +13,5 @@ services:
 
     # runner and his dependencies
     - Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory
-    - PhpCsFixer\Error\ErrorsManager
-    - PhpCsFixer\Linter\Linter
-    - PhpCsFixer\Cache\NullCacheManager
     - PhpCsFixer\Differ\SebastianBergmannDiffer
 
