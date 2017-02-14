@@ -2,27 +2,25 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Runner;
 
+use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Cache\Directory;
 use PhpCsFixer\Cache\DirectoryInterface;
-use PhpCsFixer\Differ\DifferInterface;
+use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\FixerDefinition\FixerDefinition;
+use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Finder\Finder;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class Runner
 {
     /**
-     * @var DifferInterface
-     */
-    private $differ;
-
-    /**
      * @var DirectoryInterface
      */
     private $directory;
-
 
     /**
      * @var bool
@@ -39,16 +37,21 @@ final class Runner
      */
     private $fixers;
 
+    /**
+     * @var ErrorDataCollector
+     */
+    private $errorDataCollector;
+
     public function __construct(
         Finder $finder,
+        bool $isDryRun,
         array $fixers,
-        DifferInterface $differ,
-        bool $isDryRun
+        ErrorDataCollector $errorDataCollector
     ) {
         $this->finder = $finder;
         $this->fixers = $fixers;
-        $this->differ = $differ;
         $this->isDryRun = $isDryRun;
+        $this->errorDataCollector = $errorDataCollector;
         $this->directory = new Directory('');
     }
 
@@ -58,7 +61,6 @@ final class Runner
 
         foreach ($this->finder->getIterator() as $file) {
             $fixInfo = $this->fixFile($file); //, $collection->currentLintingResult());
-
             if ($fixInfo) {
                 $name = $this->directory->getRelativePathTo($file);
                 $changed[$name] = $fixInfo;
@@ -90,12 +92,12 @@ final class Runner
             $fixer->fix($file, $tokens);
 
             if ($tokens->isChanged()) {
+                $this->addErrorToErrorMessageCollector($file, $fixer, $tokens);
+
                 $tokens->clearEmptyTokens();
                 $tokens->clearChanged();
                 $appliedFixers[] = $fixer->getName();
 
-                // todo: get changed content or line or sth to ErrorDataCollector
-                // code: $fixer->getName()
             }
         }
 
@@ -130,10 +132,48 @@ final class Runner
 
             $fixInfo = [
                 'appliedFixers' => $appliedFixers,
-                'diff' => $this->differ->diff($old, $new),
             ];
         }
 
         return $fixInfo;
+    }
+
+    private function detectChangedLineFromTokens(Tokens $tokens) : int
+    {
+        $line = 0;
+        foreach ($tokens as $token) {
+            if ($token->getContent() === "\n") {
+                $line++;
+            }
+            if ($token->isChanged()) {
+                return $line;
+            }
+        }
+
+        return 0;
+    }
+
+    private function addErrorToErrorMessageCollector(SplFileInfo $file, AbstractFixer $fixer, Tokens $tokens): void
+    {
+        $filePath = str_replace('//', '/', $file->getPathname());
+
+        $this->errorDataCollector->addErrorMessage(
+            $filePath,
+            $this->prepareErrorMessage($fixer),
+            $this->detectChangedLineFromTokens($tokens),
+            get_class($fixer),
+            [],
+            true
+        );
+    }
+
+    private function prepareErrorMessage(AbstractFixer $fixer): string
+    {
+        if ($fixer instanceof DefinedFixerInterface) {
+            $definition = $fixer->getDefinition();
+            return $definition->getSummary();
+        }
+
+        return $fixer->getName();
     }
 }

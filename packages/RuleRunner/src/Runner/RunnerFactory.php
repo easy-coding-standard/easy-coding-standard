@@ -2,26 +2,26 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Runner;
 
-use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Finder;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 use Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory;
 
 final class RunnerFactory
 {
     /**
-     * @var DifferInterface
-     */
-    private $differ;
-
-    /**
      * @var FixerFactory
      */
     private $fixerFactory;
 
-    public function __construct(DifferInterface $differ, FixerFactory $fixerFactory)
+    /**
+     * @var ErrorDataCollector
+     */
+    private $errorDataCollector;
+
+    public function __construct(FixerFactory $fixerFactory, ErrorDataCollector $errorDataCollector)
     {
-        $this->differ = $differ;
         $this->fixerFactory = $fixerFactory;
+        $this->errorDataCollector = $errorDataCollector;
     }
 
     public function create(array $enabledRules, array $excludedRules, string $source, bool $isFixer) : Runner
@@ -30,9 +30,9 @@ final class RunnerFactory
 
         return new Runner(
             $this->createFinderForSource($source),
+            ! $isFixer,
             $fixers,
-            $this->differ,
-            ! $isFixer
+            $this->errorDataCollector
         );
     }
 
