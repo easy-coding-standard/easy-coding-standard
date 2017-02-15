@@ -9,7 +9,6 @@ use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
 use Symplify\EasyCodingStandard\SniffRunner\File\Provider\FilesProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer;
 use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
-use Symplify\EasyCodingStandard\SniffRunner\Sniff\SniffCollectionResolver;
 
 final class Application implements ApplicationInterface
 {
@@ -33,52 +32,26 @@ final class Application implements ApplicationInterface
      */
     private $sniffFactory;
 
-    /**
-     * @var SniffCollectionResolver
-     */
-    private $sniffCollectionResolver;
-
     public function __construct(
         SniffDispatcher $sniffDispatcher,
         FilesProvider $sourceFilesProvider,
         FileProcessor $fileProcessor,
-        SniffFactory $sniffFactory,
-        SniffCollectionResolver $sniffCollectionResolver
+        SniffFactory $sniffFactory
     ) {
         $this->sniffDispatcher = $sniffDispatcher;
         $this->filesProvider = $sourceFilesProvider;
         $this->fileProcessor = $fileProcessor;
         $this->sniffFactory = $sniffFactory;
-        $this->sniffCollectionResolver = $sniffCollectionResolver;
 
         LegacyCompatibilityLayer::add();
     }
 
     public function runCommand(RunApplicationCommand $command): void
     {
-        $sniffClasses = $this->sniffCollectionResolver->resolve(
-            $command->getStandards(),
-            $command->getSniffs(),
-            $command->getExcludedSniffs()
-        );
-
-        $sniffs = $this->createSniffsFromSniffClasses($sniffClasses);
+        $sniffs = $this->sniffFactory->createFromSniffClasses($command->getSniffs());
         $this->registerSniffsToSniffDispatcher($sniffs);
 
         $this->runForSource($command->getSources(), $command->isFixer());
-    }
-
-    /**
-     * @return Sniff[]
-     */
-    private function createSniffsFromSniffClasses(array $sniffClasses): array
-    {
-        $sniffs = array();
-        foreach ($sniffClasses as $sniffClass) {
-            $sniffs[] = $this->sniffFactory->create($sniffClass);
-        }
-
-        return $sniffs;
     }
 
     /**

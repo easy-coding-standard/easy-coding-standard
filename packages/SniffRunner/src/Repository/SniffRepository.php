@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Repository;
 
-use Symplify\EasyCodingStandard\SniffRunner\Naming\SniffGroupNameResolver;
 use Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder;
 
 final class SniffRepository
@@ -17,40 +16,15 @@ final class SniffRepository
      */
     private $sniffClasses;
 
-    /**
-     * @var SniffGroupNameResolver
-     */
-    private $sniffGroupNameResolver;
-
-    public function __construct(SniffFinder $sniffFinder, SniffGroupNameResolver $sniffGroupNameResolver)
+    public function __construct(SniffFinder $sniffFinder)
     {
         $this->sniffFinder = $sniffFinder;
-        $this->sniffGroupNameResolver = $sniffGroupNameResolver;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getGroups(): array
+    public function getByClass(string $class)
     {
         $this->init();
-
-        $groups = array_keys($this->sniffClasses);
-        return array_combine($groups, $groups);
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getByGroup(string $group): array
-    {
-        $this->init();
-
-        if (!isset($this->sniffClasses[$group])) {
-            return [];
-        }
-
-        return $this->sniffClasses[$group];
+        return $this->sniffClasses[$class];
     }
 
     private function init(): void
@@ -60,10 +34,8 @@ final class SniffRepository
         }
 
         $sniffClasses = $this->sniffFinder->findAllSniffClasses();
-
         foreach ($sniffClasses as $sniffClass) {
-            $group = $this->sniffGroupNameResolver->resolveFromSniffClass($sniffClass);
-            $this->sniffClasses[$group][] = $sniffClass;
+            $this->sniffClasses[$sniffClass] = $sniffClass;
         }
     }
 }

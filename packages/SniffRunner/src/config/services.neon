@@ -12,4 +12,3 @@ services:
     - Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser
 
     - Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository
-    - Symplify\EasyCodingStandard\SniffRunner\Validator\SniffGroupValidator

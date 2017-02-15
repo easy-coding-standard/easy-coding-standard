@@ -32,9 +32,7 @@ final class ApplicationTest extends TestCase
             $source = [__DIR__ . '/ApplicationSource'],
             $isFixer = true,
             [
-                'standards' => 'PSR2',
                 'sniffs' => '',
-                'excludedSniffs' => ''
             ]
         );
     }

@@ -17,6 +17,19 @@ final class SniffFactory
         $this->sniffPropertyValues = $sniffPropertyValues;
     }
 
+    /**
+     * @return Sniff[]
+     */
+    public function createFromSniffClasses(array $sniffClasses): array
+    {
+        $sniffs = [];
+        foreach ($sniffClasses as $sniffClass) {
+            $sniffs[] = $this->create($sniffClass);
+        }
+
+        return $sniffs;
+    }
+
     public function create(string $sniffClass) : Sniff
     {
         $this->ensureSniffClassExists($sniffClass);
