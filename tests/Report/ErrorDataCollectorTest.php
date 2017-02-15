@@ -2,13 +2,15 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Report;
 
+use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
-use Symplify\EasyCodingStandard\DI\ContainerFactory;
+//use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 use Symplify\EasyCodingStandard\RuleRunner\Application\Application as RuleRunnerApplication;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application as SniffRunnerApplication;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class ErrorDataCollectorTest extends TestCase
 {
@@ -29,7 +31,7 @@ final class ErrorDataCollectorTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
         $this->errorDataCollector = $container->getByType(ErrorDataCollector::class);
         $this->sniffRunnerApplication = $container->getByType(SniffRunnerApplication::class);
         $this->ruleRunnerApplication = $container->getByType(RuleRunnerApplication::class);
@@ -53,7 +55,9 @@ final class ErrorDataCollectorTest extends TestCase
             false,
             [
                 'php-code-sniffer' => [
-                    'standards' => ['PSR2']
+                    'sniffs' => [
+                        ClassDeclarationSniff::class
+                    ]
                 ]
             ]
         );
@@ -82,7 +86,7 @@ final class ErrorDataCollectorTest extends TestCase
             false,
             [
                 'php-cs-fixer' => [
-                    'rules' => ['declare_strict_types']
+                    'rules' => [DeclareStrictTypesFixer::class]
                 ]
             ]
         );
