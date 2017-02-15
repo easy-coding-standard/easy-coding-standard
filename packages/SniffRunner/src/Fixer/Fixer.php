@@ -39,8 +39,6 @@ final class Fixer
 
     public function getTokenContent(int $stackPtr) : string
     {
-        dump($this->tokens);
-        dump($this->tokens[$stackPtr]);
         return $this->tokens[$stackPtr];
     }
 

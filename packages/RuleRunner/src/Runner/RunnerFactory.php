@@ -24,13 +24,13 @@ final class RunnerFactory
         $this->errorDataCollector = $errorDataCollector;
     }
 
-    public function create(array $enabledRules, array $excludedRules, string $source, bool $isFixer) : Runner
+    public function create(array $fixerClasses, string $source, bool $isFixer) : Runner
     {
-        $fixers = $this->fixerFactory->createFromEnabledAndExcludedRules($enabledRules, $excludedRules);
+        $fixers = $this->fixerFactory->createFromFixerClasses($fixerClasses);
 
         return new Runner(
             $this->createFinderForSource($source),
-            ! $isFixer,
+            $isFixer,
             $fixers,
             $this->errorDataCollector
         );

@@ -1,0 +1,27 @@
+php-cs-fixer:
+    rules:
+        # PSR2 (official)
+        - PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer
+        - PhpCsFixer\Fixer\Basic\BracesFixer
+        - PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer
+        - PhpCsFixer\Fixer\ControlStructure\ElseifFixer
+        - PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer
+        - PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer
+        - PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer
+        - PhpCsFixer\Fixer\Whitespace\LineEndingFixer
+        - PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff
+        - PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer
+        - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
+        - PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer
+        - PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer
+        - PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer
+        - PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer
+        - PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer
+        - PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer
+        PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
+            - property
+        - PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer
+        - PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer
+        - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer
+        - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer
+        - PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer

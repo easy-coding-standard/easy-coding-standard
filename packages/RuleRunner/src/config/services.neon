@@ -2,15 +2,12 @@ services:
     # Application
     - Symplify\EasyCodingStandard\RuleRunner\Application\Application
 
-    - Symplify\EasyCodingStandard\RuleRunner\Validator\RuleValidator
-    - Symplify\EasyCodingStandard\RuleRunner\Rule\RuleSetFactory
-
     # Fixer Factory
     - Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory
-    -
-        class: PhpCsFixer\FixerFactory
-        setup:
-            - registerBuiltInFixers()
+#    -
+#        class: PhpCsFixer\FixerFactory
+#        setup:
+#            - registerBuiltInFixers()
 
     # Runner
     - Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory

@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Tests\PhpCsFixer\Fixer;
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
-use PhpCsFixer\Fixer\FixerInterface;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DI\ContainerFactory;
@@ -22,23 +21,9 @@ final class FixerFactoryTest extends TestCase
         $this->fixerFactory = $container->getByType(FixerFactory::class);
     }
 
-    /**
-     * @dataProvider provideCreateData
-     */
-    public function testCreateFromRulesAndExcludedRules(array $fixers, array $excludedRules, int $expectedFixerCount)
-    {
-        $fixers = $this->fixerFactory->createFromEnabledAndExcludedRules($fixers, $excludedRules);
-        $this->assertCount($expectedFixerCount, $fixers);
-
-        if (count($fixers)) {
-            $fixer = $fixers[0];
-            $this->assertInstanceOf(FixerInterface::class, $fixer);
-        }
-    }
-
     public function testRuleConfiguration()
     {
-        $rules = $this->fixerFactory->createFromEnabledAndExcludedRules(['array_syntax'], []);
+        $rules = $this->fixerFactory->createFromFixerClasses([ArraySyntaxFixer::class], []);
 
         /** @var ArraySyntaxFixer $arrayRule */
         $arrayRule = $rules[0];
@@ -48,8 +33,8 @@ final class FixerFactoryTest extends TestCase
             Assert::getObjectAttribute($arrayRule, 'config')
         );
 
-        $rules = $this->fixerFactory->createFromEnabledAndExcludedRules([
-            'array_syntax' => [
+        $rules = $this->fixerFactory->createFromFixerClasses([
+            ArraySyntaxFixer::class => [
                 'syntax' => 'short'
             ]
         ], []);
@@ -61,27 +46,5 @@ final class FixerFactoryTest extends TestCase
             'short',
             Assert::getObjectAttribute($arrayRule, 'config')
         );
-    }
-
-    /**
-     * @expectedException \PhpCsFixer\ConfigurationException\InvalidConfigurationException
-     * @expectedExceptionMessage The rule "array_syntax_typo" was not found. Did you mean "array_syntax"?
-     */
-    public function testInvalid()
-    {
-        $this->fixerFactory->createFromEnabledAndExcludedRules(['array_syntax_typo'], []);
-    }
-
-    public function provideCreateData() : array
-    {
-        return [
-            [[], [], 0],
-            [['no_whitespace_before_comma_in_array'], [], 1],
-            [['declare_strict_types'], [], 1],
-            [['@PSR1'], [], 2],
-            [['@PSR2'], [], 24],
-            [['@PSR2', 'whitespace_after_comma_in_array'], [], 25],
-            [['@PSR1', '@PSR2'], [], 24]
-        ];
     }
 }

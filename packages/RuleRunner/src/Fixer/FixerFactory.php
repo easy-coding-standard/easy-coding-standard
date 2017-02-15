@@ -2,41 +2,39 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Fixer;
 
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\FixerFactory as NativeFixerFactory;
-use Symplify\EasyCodingStandard\RuleRunner\Rule\RuleSetFactory;
 
 final class FixerFactory
 {
     /**
-     * @var NativeFixerFactory
-     */
-    private $nativeFixerFactory;
-
-    /**
-     * @var RuleSetFactory
-     */
-    private $ruleSetFactory;
-
-    public function __construct(NativeFixerFactory $nativeFixerFactory, RuleSetFactory $ruleSetFactory)
-    {
-        $this->nativeFixerFactory = $nativeFixerFactory;
-        $this->ruleSetFactory = $ruleSetFactory;
-    }
-
-    /**
      * @return FixerInterface[]
      */
-    public function createFromEnabledAndExcludedRules(array $enabledRules, array $excludedRules) : array
+    public function createFromFixerClasses(array $enabledRules) : array
     {
-        if (!count($enabledRules)) {
-            return [];
+        $fixers = [];
+
+        $rules = [];
+        foreach ($enabledRules as $name => $rule) {
+            if (is_array($rule)) {
+                $config = $rule;
+                $rules[$name] = $config;
+            } else {
+                $name = $rule;
+                $rules[$name] = true;
+            }
         }
 
-        $ruleSet = $this->ruleSetFactory->createFromEnabledAndExcludedRules($enabledRules, $excludedRules);
+        foreach ($rules as $class => $config) {
+            $fixer = new $class;
+            if ($fixer instanceof ConfigurableFixerInterface) {
+                if (is_array($config)) {
+                    $fixer->configure($config);
+                }
+            }
+            $fixers[] = $fixer;
+        }
 
-        $this->nativeFixerFactory->useRuleSet($ruleSet);
-
-        return $this->nativeFixerFactory->getFixers();
+        return $fixers;
     }
 }

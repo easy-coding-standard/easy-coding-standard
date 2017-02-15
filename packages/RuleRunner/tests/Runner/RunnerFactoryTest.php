@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\RuleRunner\Runner;
 
+use Nette\Neon\Neon;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DI\ContainerFactory;
@@ -21,8 +22,13 @@ final class RunnerFactoryTest extends TestCase
 
     public function test()
     {
-        $runner = $this->runnerFactory->create(['@Symfony'], [], __DIR__, false);
+        $symfonyFixersFile = file_get_contents(__DIR__ . '/../../../../config/php-cs-fixer/symfony-fixers.neon');
+
+        $symfonyFixersNeon = Neon::decode($symfonyFixersFile);
+        $fixerClasses = $symfonyFixersNeon['php-cs-fixer']['fixers'];
+
+        $runner = $this->runnerFactory->create($fixerClasses, __DIR__, false);
         $this->assertInstanceOf(Runner::class, $runner);
-        $this->assertCount(90, Assert::getObjectAttribute($runner, 'fixers'));
+        $this->assertCount(68, Assert::getObjectAttribute($runner, 'fixers'));
     }
 }

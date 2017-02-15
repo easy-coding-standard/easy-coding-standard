@@ -36,7 +36,6 @@ final class Application implements ApplicationInterface
     {
         return $this->runnerFactory->create(
             $command->getRules(),
-            $command->getExcludedRules(),
             $source,
             $command->isFixer()
         );

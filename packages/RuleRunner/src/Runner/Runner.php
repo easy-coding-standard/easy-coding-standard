@@ -25,7 +25,7 @@ final class Runner
     /**
      * @var bool
      */
-    private $isDryRun;
+    private $isFixer;
 
     /**
      * @var Finder
@@ -44,13 +44,13 @@ final class Runner
 
     public function __construct(
         Finder $finder,
-        bool $isDryRun,
+        bool $isFixer,
         array $fixers,
         ErrorDataCollector $errorDataCollector
     ) {
         $this->finder = $finder;
         $this->fixers = $fixers;
-        $this->isDryRun = $isDryRun;
+        $this->isFixer = $isFixer;
         $this->errorDataCollector = $errorDataCollector;
         $this->directory = new Directory('');
     }
@@ -113,7 +113,7 @@ final class Runner
         // work of other and both of them will mark collection as changed.
         // Therefore we need to check if code hashes changed.
         if ($oldHash !== $newHash) {
-            if (!$this->isDryRun) {
+            if ($this->isFixer) {
                 if (false === @file_put_contents($file->getRealPath(), $new)) {
                     $error = error_get_last();
 

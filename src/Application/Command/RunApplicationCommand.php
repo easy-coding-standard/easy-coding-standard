@@ -74,11 +74,6 @@ final class RunApplicationCommand
         return $this->jsonConfiguration['php-cs-fixer']['rules'] ?? [];
     }
 
-    public function getExcludedRules() : array
-    {
-        return $this->jsonConfiguration['php-cs-fixer']['excluded-rules'] ?? [];
-    }
-
     private function setSources(array $sources) : void
     {
         $this->ensureSourceExists($sources);
