@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 use Symplify\EasyCodingStandard\RuleRunner\Application\Application as RuleRunnerApplication;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application as SniffRunnerApplication;
-use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
+use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class ErrorDataCollectorTest extends TestCase
 {
@@ -30,7 +30,7 @@ final class ErrorDataCollectorTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
         $this->errorDataCollector = $container->getByType(ErrorDataCollector::class);
         $this->sniffRunnerApplication = $container->getByType(SniffRunnerApplication::class);
         $this->ruleRunnerApplication = $container->getByType(RuleRunnerApplication::class);

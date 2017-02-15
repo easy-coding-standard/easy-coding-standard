@@ -6,7 +6,7 @@ use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory;
-use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
+use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FixerFactoryTest extends TestCase
 {
@@ -17,7 +17,7 @@ final class FixerFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->fixerFactory = $container->getByType(FixerFactory::class);
     }
 

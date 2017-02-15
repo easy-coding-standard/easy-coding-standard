@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Tests\Application;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
+use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FileProcessorTest extends TestCase
 {
@@ -21,7 +21,7 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
         $this->fileProcessor = $container->getByType(FileProcessor::class);
         $this->fileFactory = $container->getByType(FileFactory::class);
     }

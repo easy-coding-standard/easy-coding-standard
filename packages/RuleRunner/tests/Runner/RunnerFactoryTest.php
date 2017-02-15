@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\RuleRunner\Runner;
 use Nette\Neon\Neon;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
+use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class RunnerFactoryTest extends TestCase
 {
@@ -16,7 +16,7 @@ final class RunnerFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->runnerFactory = $container->getByType(RunnerFactory::class);
     }
 

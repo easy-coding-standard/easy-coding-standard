@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application;
-use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
+use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class ApplicationTest extends TestCase
 {
@@ -16,7 +16,7 @@ final class ApplicationTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
         $this->application = $container->getByType(Application::class);
     }
 

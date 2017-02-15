@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder;
 
 use Nette\Caching\Storages\FileStorage;
 use Nette\Loaders\RobotLoader;
-use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
+use Nette\Utils\FileSystem;
 
 final class SniffClassRobotLoaderFactory
 {
@@ -22,6 +22,8 @@ final class SniffClassRobotLoaderFactory
 
     private function createCacheStorage(): FileStorage
     {
-        return new FileStorage(ContainerFactory::createAndReturnTempDir());
+        $tempDir = sys_get_temp_dir() . '/sniff-runner-robot-loader';
+        FileSystem::createDir($tempDir);
+        return new FileStorage($tempDir);
     }
 }
