@@ -30,7 +30,9 @@ final class ErrorDataCollectorTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(
+            __DIR__ . '/../../src/config/config.neon'
+        );
         $this->errorDataCollector = $container->getByType(ErrorDataCollector::class);
         $this->sniffRunnerApplication = $container->getByType(SniffRunnerApplication::class);
         $this->ruleRunnerApplication = $container->getByType(RuleRunnerApplication::class);
@@ -85,7 +87,7 @@ final class ErrorDataCollectorTest extends TestCase
             false,
             [
                 'php-cs-fixer' => [
-                    'rules' => [DeclareStrictTypesFixer::class]
+                    'fixers' => [DeclareStrictTypesFixer::class]
                 ]
             ]
         );

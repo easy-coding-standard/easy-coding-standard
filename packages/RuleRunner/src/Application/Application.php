@@ -35,7 +35,7 @@ final class Application implements ApplicationInterface
     private function createRunnerForSource(string $source, RunApplicationCommand $command) : Runner
     {
         return $this->runnerFactory->create(
-            $command->getRules(),
+            $command->getFixers(),
             $source,
             $command->isFixer()
         );

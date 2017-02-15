@@ -54,24 +54,14 @@ final class RunApplicationCommand
         return $this->isFixer;
     }
 
-    public function getStandards() : array
-    {
-        return $this->jsonConfiguration['php-code-sniffer']['standards'] ?? [];
-    }
-
     public function getSniffs() : array
     {
         return $this->jsonConfiguration['php-code-sniffer']['sniffs'] ?? [];
     }
 
-    public function getExcludedSniffs() : array
+    public function getFixers() : array
     {
-        return $this->jsonConfiguration['php-code-sniffer']['excluded-sniffs'] ?? [];
-    }
-
-    public function getRules() : array
-    {
-        return $this->jsonConfiguration['php-cs-fixer']['rules'] ?? [];
+        return $this->jsonConfiguration['php-cs-fixer']['fixers'] ?? [];
     }
 
     private function setSources(array $sources) : void

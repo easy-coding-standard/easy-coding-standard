@@ -26,12 +26,10 @@ final class RunnerFactory
 
     public function create(array $fixerClasses, string $source, bool $isFixer) : Runner
     {
-        $fixers = $this->fixerFactory->createFromFixerClasses($fixerClasses);
-
         return new Runner(
             $this->createFinderForSource($source),
             $isFixer,
-            $fixers,
+            $this->fixerFactory->createFromFixerClasses($fixerClasses),
             $this->errorDataCollector
         );
     }
