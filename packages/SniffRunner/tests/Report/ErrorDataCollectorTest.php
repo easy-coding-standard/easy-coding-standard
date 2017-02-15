@@ -3,8 +3,8 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Report;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class ErrorDataCollectorTest extends TestCase
 {
@@ -15,7 +15,7 @@ final class ErrorDataCollectorTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
         $this->errorDataCollector = $container->getByType(ErrorDataCollector::class);
 
         $this->errorDataCollector->addErrorMessage('filePath', 'Message', 5, 'Code', [], false);

@@ -5,8 +5,8 @@ namespace Symplify\EasyCodingStandard\Tests\PhpCsFixer\Fixer;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class FixerFactoryTest extends TestCase
 {
@@ -17,13 +17,13 @@ final class FixerFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->fixerFactory = $container->getByType(FixerFactory::class);
     }
 
     public function testRuleConfiguration()
     {
-        $rules = $this->fixerFactory->createFromFixerClasses([ArraySyntaxFixer::class], []);
+        $rules = $this->fixerFactory->createFromFixerClasses([ArraySyntaxFixer::class]);
 
         /** @var ArraySyntaxFixer $arrayRule */
         $arrayRule = $rules[0];
@@ -37,7 +37,7 @@ final class FixerFactoryTest extends TestCase
             ArraySyntaxFixer::class => [
                 'syntax' => 'short'
             ]
-        ], []);
+        ]);
 
         /** @var ArraySyntaxFixer $arrayRule */
         $arrayRule = $rules[0];

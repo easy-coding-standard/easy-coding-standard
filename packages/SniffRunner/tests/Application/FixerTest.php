@@ -4,9 +4,9 @@ namespace Symplify\EasyCodingStandard\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
-use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class FixerTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class FixerTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
         $fileFactory = $container->getByType(FileFactory::class);
         $this->file = $fileFactory->create(__DIR__ . '/FixerSource/SomeFile.php', true);
         $this->fixer = $container->getByType(Fixer::class);

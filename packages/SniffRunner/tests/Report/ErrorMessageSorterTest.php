@@ -3,14 +3,14 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Report;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\Report\ErrorMessageSorter;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class ErrorMessageSorterTest extends TestCase
 {
     public function test()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
         $errorMessageSorter = $container->getByType(ErrorMessageSorter::class);
 
         $this->assertSame(

@@ -5,8 +5,8 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Sniff\Factory;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class SniffFactoryTest extends TestCase
 {
@@ -17,7 +17,7 @@ final class SniffFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../../src/config/config.neon');
         $this->sniffFactory = $container->getByType(SniffFactory::class);
     }
 

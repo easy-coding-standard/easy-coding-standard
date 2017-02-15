@@ -8,7 +8,8 @@
         "symfony/event-dispatcher": "^3.2",
         "symfony/finder": "^3.2",
         "nette/robot-loader": "^2.4",
-        "nette/utils": "^2.4"
+        "nette/utils": "^2.4",
+        "symplify/package-builder": "@dev"
     },
     "autoload": {
         "psr-4": {

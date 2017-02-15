@@ -3,9 +3,9 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File\Provider;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\Provider\FilesProvider;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class FilesProviderTest extends TestCase
 {
@@ -16,7 +16,7 @@ final class FilesProviderTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../../src/config/config.neon');
         $this->filesProvider = $container->getByType(FilesProvider::class);
     }
 

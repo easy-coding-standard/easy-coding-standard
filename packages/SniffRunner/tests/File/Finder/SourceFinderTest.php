@@ -3,8 +3,8 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File\Finder;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\File\Finder\SourceFinder;
+use Symplify\PackageBuilder\Adapter\Nette\ContainerFactory;
 
 final class SourceFinderTest extends TestCase
 {
@@ -15,7 +15,7 @@ final class SourceFinderTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new ContainerFactory())->create();
+        $container = (new ContainerFactory())->createFromConfig(__DIR__ . '/../../../src/config/config.neon');
         $this->sourceFinder = $container->getByType(SourceFinder::class);
     }
 

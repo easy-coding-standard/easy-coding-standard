@@ -6,7 +6,6 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
-//use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 use Symplify\EasyCodingStandard\RuleRunner\Application\Application as RuleRunnerApplication;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application as SniffRunnerApplication;
