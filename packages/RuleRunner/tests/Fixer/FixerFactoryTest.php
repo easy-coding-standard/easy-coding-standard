@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\PhpCsFixer\Fixer;
+namespace Symplify\EasyCodingStandard\RuleRunner\Tests\Fixer;
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\Assert;

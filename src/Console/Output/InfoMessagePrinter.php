@@ -34,7 +34,7 @@ final class InfoMessagePrinter
         return false;
     }
 
-    public function printFoundErrorsStatus() : void
+    public function printFoundErrorsStatus(bool $isFixer) : void
     {
         foreach ($this->errorDataCollector->getErrorMessages() as $file => $errors) {
             $rows = [];

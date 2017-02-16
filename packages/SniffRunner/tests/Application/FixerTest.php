@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Application;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
