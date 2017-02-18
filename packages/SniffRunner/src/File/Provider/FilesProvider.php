@@ -47,13 +47,14 @@ final class FilesProvider
     }
 
     /**
-     * @param SplFileInfo[] $files
+     * @param SplFileInfo[] $fileInfos
      * @param bool $isFixer
      * @return File[]
      */
-    private function wrapFilesToValueObjects(array $files, bool $isFixer) : array
+    private function wrapFilesToValueObjects(array $fileInfos, bool $isFixer) : array
     {
-        foreach ($files as $name => $fileInfo) {
+        $files = [];
+        foreach ($fileInfos as $name => $fileInfo) {
             $files[$name] = $this->fileFactory->create($name, $isFixer);
         }
 

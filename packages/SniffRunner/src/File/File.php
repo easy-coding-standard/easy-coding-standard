@@ -16,6 +16,11 @@ final class File extends BaseFile implements FileInterface
     public $tokenizerType = 'PHP';
 
     /**
+     * @var Fixer
+     */
+    public $fixer;
+
+    /**
      * @var ErrorDataCollector
      */
     private $errorDataCollector;

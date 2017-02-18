@@ -40,7 +40,7 @@ final class FileFactory
 
         $tokens = $this->fileToTokenParser->parseFromFilePath($filePath);
 
-        return new File($filePath, $tokens, $this->fixer, $this->reportCollector, $isFixer, "\n");
+        return new File($filePath, $tokens, $this->fixer, $this->reportCollector, $isFixer);
     }
 
     private function ensureFileExists(string $filePath)
