@@ -42,8 +42,8 @@ final class FixerFactory
 
     private function configureFixer(FixerInterface $fixer, array $config): void
     {
-        if ($fixer instanceof ConfigurableFixerInterface) {
-            $fixer->configure(count($config) ? $config : null);
+        if ($fixer instanceof ConfigurableFixerInterface && count($config)) {
+            $fixer->configure($config);
         }
     }
 }
