@@ -34,7 +34,11 @@ final class FixerFactory
         return $fixers;
     }
 
-    private function configureFixer(FixerInterface $fixer, array $config): void
+    /**
+     * @param FixerInterface $fixer
+     * @param array|bool $config
+     */
+    private function configureFixer(FixerInterface $fixer, $config): void
     {
         if ($fixer instanceof ConfigurableFixerInterface) {
             if (is_array($config)) {
