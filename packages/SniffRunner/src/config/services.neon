@@ -2,7 +2,6 @@ includes:
     - services/application.neon
     - services/files.neon
     - services/sniffs.neon
-    - services/report.neon
 
 services:
     # Event Dispatcher

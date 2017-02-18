@@ -22,7 +22,7 @@ final class FixerTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $fileFactory = $container->getByType(FileFactory::class);
         $this->file = $fileFactory->create(__DIR__ . '/FixerSource/SomeFile.php', true);
         $this->fixer = $container->getByType(Fixer::class);

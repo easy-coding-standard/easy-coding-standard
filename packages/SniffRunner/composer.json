@@ -3,7 +3,6 @@
     "description": "SniffRunner finds all sniffs and runes them on your code.",
     "require": {
         "php": "^7.1",
-        "ext-tokenizer": "*",
         "tomas-votruba/php_codesniffer-3-pretagged": "^3.0",
         "symfony/event-dispatcher": "^3.2",
         "symfony/finder": "^3.2",

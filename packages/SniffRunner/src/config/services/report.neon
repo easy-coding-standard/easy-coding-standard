@@ -1,4 +1,0 @@
-services:
-    - Symplify\EasyCodingStandard\Report\ErrorDataCollector
-    - Symplify\EasyCodingStandard\Report\ErrorMessageSorter
-

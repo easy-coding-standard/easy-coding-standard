@@ -10,12 +10,12 @@ final class FixerFactory
     /**
      * @return FixerInterface[]
      */
-    public function createFromFixerClasses(array $enabledRules) : array
+    public function createFromFixerClasses(array $fixerClasses) : array
     {
         $fixers = [];
 
         $rules = [];
-        foreach ($enabledRules as $name => $rule) {
+        foreach ($fixerClasses as $name => $rule) {
             if (is_array($rule)) {
                 $config = $rule;
                 $rules[$name] = $config;
@@ -27,14 +27,19 @@ final class FixerFactory
 
         foreach ($rules as $class => $config) {
             $fixer = new $class;
-            if ($fixer instanceof ConfigurableFixerInterface) {
-                if (is_array($config)) {
-                    $fixer->configure($config);
-                }
-            }
+            $this->configureFixer($fixer, $config);
             $fixers[] = $fixer;
         }
 
         return $fixers;
+    }
+
+    private function configureFixer(FixerInterface $fixer, array $config): void
+    {
+        if ($fixer instanceof ConfigurableFixerInterface) {
+            if (is_array($config)) {
+                $fixer->configure($config);
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ final class SniffDispatcherTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->sniffDispatcher = $container->getByType(SniffDispatcher::class);
     }
 

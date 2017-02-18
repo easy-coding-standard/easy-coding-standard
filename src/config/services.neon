@@ -17,3 +17,5 @@ services:
 
     # Reporting
     - Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter
+    - Symplify\EasyCodingStandard\Report\ErrorMessageSorter
+    - Symplify\EasyCodingStandard\Report\ErrorDataCollector

@@ -16,7 +16,7 @@ final class FilesProviderTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../src/config/config.neon');
+        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../../../src/config/config.neon');
         $this->filesProvider = $container->getByType(FilesProvider::class);
     }
 
