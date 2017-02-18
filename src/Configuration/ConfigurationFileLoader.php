@@ -33,7 +33,7 @@ final class ConfigurationFileLoader
 
     private function ensureFileExists(string $multiCsJsonFile) : void
     {
-        if (!file_exists($multiCsJsonFile)) {
+        if ( ! file_exists($multiCsJsonFile)) {
             throw new ConfigurationFileNotFoundException(
                 sprintf(
                     'File "%s" was not found in "%s". Did you forget to create it?',

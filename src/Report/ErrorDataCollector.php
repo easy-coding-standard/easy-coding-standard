@@ -66,7 +66,7 @@ final class ErrorDataCollector
         string $filePath,
         string $message,
         int $line,
-        string $sniffClass = null,
+        string $sourceClass,
         array $data = [],
         bool $isFixable = false
     ) : void {
@@ -79,11 +79,14 @@ final class ErrorDataCollector
         $this->errorMessages[$filePath][] = [
             'line' => $line,
             'message' => $this->applyDataToMessage($message, $data),
-            'sniffClass' => $sniffClass,
+            'sourceClass' => $sourceClass,
             'isFixable'  => $isFixable
         ];
     }
 
+    /**
+     * For back compatibility with PHP_CodeSniffer.
+     */
     private function applyDataToMessage(string $message, array $data) : string
     {
         if (count($data)) {

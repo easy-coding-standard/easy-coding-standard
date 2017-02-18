@@ -39,9 +39,11 @@ final class InfoMessagePrinter
         foreach ($this->errorDataCollector->getErrorMessages() as $file => $errors) {
             $rows = [];
             foreach ($errors as $error) {
+                $message = $error['message'] . PHP_EOL . '(' . $error['sourceClass'] . ')';
+
                 $rows[] = [
                     'line' => $this->wrapMessageToStyle((string) $error['line'], $error['isFixable']),
-                    'message' => $this->wrapMessageToStyle($error['message'], $error['isFixable'])
+                    'message' => $this->wrapMessageToStyle($message, $error['isFixable'])
                 ];
             }
 
@@ -49,11 +51,6 @@ final class InfoMessagePrinter
         }
 
         $this->easyCodingStandardStyle->error($this->buildErrorMessage());
-
-        // code sniffer
-//        $this->phpCodeSnifferInfoMessagePrinter->printFoundErrorsStatus($isFixer);
-//        $diffs = $this->diffDataCollector->getDiffs();
-//        $this->printDiffs($diffs);
     }
 
     private function buildErrorMessage(): string
