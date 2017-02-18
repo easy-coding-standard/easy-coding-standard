@@ -75,7 +75,7 @@ final class ErrorDataCollectorTest extends TestCase
         $this->assertSame([
             'line' => 6,
             'message' => 'Opening class brace must be on a line by itself',
-            'sniffClass' => 'OpenBraceNotAlone',
+            'sourceClass' => 'OpenBraceNotAlone',
             'isFixable' => true,
         ], array_pop($errorMessages)[0]);
     }
@@ -105,7 +105,7 @@ final class ErrorDataCollectorTest extends TestCase
         $this->assertSame([
             'line' => 0,
             'message' => 'Force strict types declaration in all files. Requires PHP >= 7.0.',
-            'sniffClass' => DeclareStrictTypesFixer::class,
+            'sourceClass' => DeclareStrictTypesFixer::class,
             'isFixable' => true,
         ], array_pop($errorMessages)[0]);
     }

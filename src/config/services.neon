@@ -1,21 +1,21 @@
-services:
-    # Application
-    - Symplify\EasyCodingStandard\Application\ApplicationRunner
+# Application
+- Symplify\EasyCodingStandard\Application\ApplicationRunner
 
-    # Configuration
-    - Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
+# Configuration
+- Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
+- Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer
 
-    # Console & Commands
-    - Symfony\Component\Console\Application
-    - Symplify\EasyCodingStandard\Console\Command\RunCommand
+# Console & Commands
+- Symfony\Component\Console\Application
+- Symplify\EasyCodingStandard\Console\Command\RunCommand
 
-    # Symfony Output style
-    - Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
-    - Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory
-    - Symfony\Component\Console\Input\ArgvInput
-    - Symfony\Component\Console\Output\ConsoleOutput
+# Symfony Output style
+- Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
+- Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory
+- Symfony\Component\Console\Input\ArgvInput
+- Symfony\Component\Console\Output\ConsoleOutput
 
-    # Reporting
-    - Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter
-    - Symplify\EasyCodingStandard\Report\ErrorMessageSorter
-    - Symplify\EasyCodingStandard\Report\ErrorDataCollector
+# Reporting
+- Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter
+- Symplify\EasyCodingStandard\Report\ErrorMessageSorter
+- Symplify\EasyCodingStandard\Report\ErrorDataCollector

@@ -21,27 +21,21 @@ final class SniffFactoryTest extends TestCase
         $this->sniffFactory = $container->getByType(SniffFactory::class);
     }
 
-    /**
-     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\ClassNotFoundException
-     */
-    public function testCreateInvalidClassName()
+    public function testCreateFromClasses()
     {
-        $this->sniffFactory->create('mmissing');
-    }
-
-    public function testCreate()
-    {
-        $sniff = $this->sniffFactory->create(ClassDeclarationSniff::class);
-        $this->assertInstanceOf(ClassDeclarationSniff::class, $sniff);
+        $sniffs = $this->sniffFactory->createFromClasses([ClassDeclarationSniff::class]);
+        $this->assertInstanceOf(ClassDeclarationSniff::class, $sniffs[0]);
     }
 
     public function testPropertiesAreChanged()
     {
-        /** @var LineLengthSniff $lineLenghtSniff */
-        $lineLenghtSniff = $this->sniffFactory->create(LineLengthSniff::class);
-        $this->assertSame(80, $lineLenghtSniff->lineLimit);
-        $this->assertSame(100, $lineLenghtSniff->absoluteLineLimit);
+        $sniffs = $this->sniffFactory->createFromClasses([LineLengthSniff::class => [
+            'lineLimit' => 15
+        ]]);
 
-        // @todo
+        /** @var LineLengthSniff $lineLengthSniff */
+        $lineLengthSniff = $sniffs[0];
+
+        $this->assertSame(15, $lineLengthSniff->lineLimit);
     }
 }

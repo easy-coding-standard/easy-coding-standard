@@ -3,15 +3,26 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 
 final class SniffFactory
 {
+    /**
+     * @var ConfigurationNormalizer
+     */
+    private $configurationNormalizer;
+
+    public function __construct(ConfigurationNormalizer $configurationNormalizer)
+    {
+        $this->configurationNormalizer = $configurationNormalizer;
+    }
+
     /**
      * @return Sniff[]
      */
     public function createFromClasses(array $classes): array
     {
-        $configuredClasses = $this->normalizeClassAndConfiguration($classes);
+        $configuredClasses = $this->configurationNormalizer->normalizeClassesConfiguration($classes);
 
         $sniffs = [];
         foreach ($configuredClasses as $class => $config) {
@@ -19,23 +30,6 @@ final class SniffFactory
         }
 
         return $sniffs;
-    }
-
-    // todo: extract to common service!
-    private function normalizeClassAndConfiguration(array $classes): array
-    {
-        $configuredClasses = [];
-        foreach ($classes as $name => $class) {
-            if (is_array($class)) {
-                $config = $class;
-                $configuredClasses[$name] = $config;
-            } else {
-                $name = $class;
-                $configuredClasses[$name] = [];
-            }
-        }
-
-        return $configuredClasses;
     }
 
     private function create(string $sniffClass, array $config): Sniff
