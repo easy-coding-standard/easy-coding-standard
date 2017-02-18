@@ -3,59 +3,52 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
-use Symplify\EasyCodingStandard\SniffRunner\Exception\ClassNotFoundException;
 
 final class SniffFactory
 {
     /**
-     * @var array[][] { sniffClass => { property => value }}
-     */
-    private $sniffPropertyValues;
-
-    public function setSniffPropertyValues(array $sniffPropertyValues)
-    {
-        $this->sniffPropertyValues = $sniffPropertyValues;
-    }
-
-    /**
      * @return Sniff[]
      */
-    public function createFromSniffClasses(array $sniffClasses): array
+    public function createFromClasses(array $classes): array
     {
+        $configuredClasses = $this->normalizeClassAndConfiguration($classes);
+
         $sniffs = [];
-        foreach ($sniffClasses as $sniffClass) {
-            $sniffs[] = $this->create($sniffClass);
+        foreach ($configuredClasses as $class => $config) {
+            $sniffs[] = $this->create($class, $config);
         }
 
         return $sniffs;
     }
 
-    public function create(string $sniffClass) : Sniff
+    // todo: extract to common service!
+    private function normalizeClassAndConfiguration(array $classes): array
     {
-        $this->ensureSniffClassExists($sniffClass);
+        $configuredClasses = [];
+        foreach ($classes as $name => $class) {
+            if (is_array($class)) {
+                $config = $class;
+                $configuredClasses[$name] = $config;
+            } else {
+                $name = $class;
+                $configuredClasses[$name] = [];
+            }
+        }
 
+        return $configuredClasses;
+    }
+
+    private function create(string $sniffClass, array $config): Sniff
+    {
         $sniff = new $sniffClass;
-        $this->decorateSniffWithValues($sniff, $sniffClass);
+        $this->configureSniff($sniff, $config);
         return $sniff;
     }
 
-    private function decorateSniffWithValues(Sniff $sniff, string $sniffClass) : void
+    private function configureSniff(Sniff $sniff, array $config): void
     {
-        if (!isset($sniffPropertyValues[$sniffClass])) {
-            return;
-        }
-
-        foreach ($sniffPropertyValues[$sniffClass] as $property => $value) {
+        foreach ($config as $property => $value) {
             $sniff->$property = $value;
-        }
-    }
-
-    private function ensureSniffClassExists(string $sniffClass) : void
-    {
-        if (!class_exists($sniffClass)) {
-            throw new ClassNotFoundException(sprintf(
-                "Sniff class '%s' was not found.", $sniffClass
-            ));
         }
     }
 }

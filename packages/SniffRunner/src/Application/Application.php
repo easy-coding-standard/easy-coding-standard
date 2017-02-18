@@ -48,7 +48,7 @@ final class Application implements ApplicationInterface
 
     public function runCommand(RunApplicationCommand $command): void
     {
-        $sniffs = $this->sniffFactory->createFromSniffClasses($command->getSniffs());
+        $sniffs = $this->sniffFactory->createFromClasses($command->getSniffs());
         $this->registerSniffsToSniffDispatcher($sniffs);
 
         $this->runForSource($command->getSources(), $command->isFixer());

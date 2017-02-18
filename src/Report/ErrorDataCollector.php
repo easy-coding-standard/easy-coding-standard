@@ -85,7 +85,7 @@ final class ErrorDataCollector
     }
 
     /**
-     * For back compatibility with PHP_CodeSniffer.
+     * For back compatibility with PHP_CodeSniffer 3.0.
      */
     private function applyDataToMessage(string $message, array $data) : string
     {

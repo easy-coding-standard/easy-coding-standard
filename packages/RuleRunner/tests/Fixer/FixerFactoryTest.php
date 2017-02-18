@@ -23,7 +23,7 @@ final class FixerFactoryTest extends TestCase
 
     public function testRuleConfiguration()
     {
-        $rules = $this->fixerFactory->createFromFixerClasses([ArraySyntaxFixer::class]);
+        $rules = $this->fixerFactory->createFromClasses([ArraySyntaxFixer::class]);
 
         /** @var ArraySyntaxFixer $arrayRule */
         $arrayRule = $rules[0];
@@ -33,7 +33,7 @@ final class FixerFactoryTest extends TestCase
             Assert::getObjectAttribute($arrayRule, 'config')
         );
 
-        $rules = $this->fixerFactory->createFromFixerClasses([
+        $rules = $this->fixerFactory->createFromClasses([
             ArraySyntaxFixer::class => [
                 'syntax' => 'short'
             ]

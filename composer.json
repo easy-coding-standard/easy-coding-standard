@@ -9,6 +9,7 @@
         "nette/utils": "^2.4",
         "nette/neon": "^2.4",
         "tracy/tracy": "^2.4",
+        "symplify/rule-runner": "@dev",
         "symplify/sniff-runner": "@dev",
         "symplify/package-builder": "@dev"
     },

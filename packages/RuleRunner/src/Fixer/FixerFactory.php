@@ -10,40 +10,46 @@ final class FixerFactory
     /**
      * @return FixerInterface[]
      */
-    public function createFromFixerClasses(array $fixerClasses) : array
+    public function createFromClasses(array $classes) : array
     {
+        $configuredClasses = $this->normalizeClassAndConfiguration($classes);
+
         $fixers = [];
-
-        $rules = [];
-        foreach ($fixerClasses as $name => $rule) {
-            if (is_array($rule)) {
-                $config = $rule;
-                $rules[$name] = $config;
-            } else {
-                $name = $rule;
-                $rules[$name] = true;
-            }
-        }
-
-        foreach ($rules as $class => $config) {
-            $fixer = new $class;
-            $this->configureFixer($fixer, $config);
-            $fixers[] = $fixer;
+        foreach ($configuredClasses as $class => $config) {
+            $fixers[] = $this->create($class, $config);
         }
 
         return $fixers;
     }
 
-    /**
-     * @param FixerInterface $fixer
-     * @param array|bool $config
-     */
-    private function configureFixer(FixerInterface $fixer, $config): void
+    // todo: extract to common service!
+    private function normalizeClassAndConfiguration(array $fixerClasses): array
+    {
+        $configuredFixers = [];
+        foreach ($fixerClasses as $name => $class) {
+            if (is_array($class)) {
+                $config = $class;
+                $configuredFixers[$name] = $config;
+            } else {
+                $name = $class;
+                $configuredFixers[$name] = [];
+            }
+        }
+
+        return $configuredFixers;
+    }
+
+    private function create(string $class, array $config): FixerInterface
+    {
+        $fixer = new $class;
+        $this->configureFixer($fixer, $config);
+        return $fixer;
+    }
+
+    private function configureFixer(FixerInterface $fixer, array $config): void
     {
         if ($fixer instanceof ConfigurableFixerInterface) {
-            if (is_array($config)) {
-                $fixer->configure($config);
-            }
+            $fixer->configure($config);
         }
     }
 }

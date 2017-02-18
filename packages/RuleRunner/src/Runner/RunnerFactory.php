@@ -29,7 +29,7 @@ final class RunnerFactory
         return new Runner(
             $this->createFinderForSource($source),
             $isFixer,
-            $this->fixerFactory->createFromFixerClasses($fixerClasses),
+            $this->fixerFactory->createFromClasses($fixerClasses),
             $this->errorDataCollector
         );
     }
