@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\RuleRunner\Runner;
+namespace Symplify\EasyCodingStandard\FixerRunner\Runner;
 
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Cache\Directory;

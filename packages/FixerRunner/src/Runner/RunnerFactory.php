@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\RuleRunner\Runner;
+namespace Symplify\EasyCodingStandard\FixerRunner\Runner;
 
 use PhpCsFixer\Finder;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
-use Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory;
+use Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory;
 
 final class RunnerFactory
 {

@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\RuleRunner\Tests\Runner;
+namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Runner;
 
 use Nette\Neon\Neon;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\RuleRunner\Runner\Runner;
-use Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory;
+use Symplify\EasyCodingStandard\FixerRunner\Runner\Runner;
+use Symplify\EasyCodingStandard\FixerRunner\Runner\RunnerFactory;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class RunnerFactoryTest extends TestCase

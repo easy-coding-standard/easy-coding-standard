@@ -9,7 +9,7 @@
         "nette/utils": "^2.4",
         "nette/neon": "^2.4",
         "tracy/tracy": "^2.4",
-        "symplify/rule-runner": "@dev",
+        "symplify/fixer-runner": "@dev",
         "symplify/sniff-runner": "@dev",
         "symplify/package-builder": "@dev"
     },
@@ -29,7 +29,7 @@
     },
     "repositories": [
         { "type": "path", "url": "packages/SniffRunner" },
-        { "type": "path", "url": "packages/RuleRunner" }
+        { "type": "path", "url": "packages/FixerRunner"}
     ],
     "scripts": {
         "check-cs": "vendor/bin/symplify-cs check src tests",

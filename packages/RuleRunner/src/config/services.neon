@@ -1,4 +1,0 @@
-services:
-    - Symplify\EasyCodingStandard\RuleRunner\Application\Application
-    - Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory
-    - Symplify\EasyCodingStandard\RuleRunner\Runner\RunnerFactory

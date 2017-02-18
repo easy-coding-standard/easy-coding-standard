@@ -1,5 +1,5 @@
 {
-    "name": "symplify/rule-runner",
+    "name": "symplify/fixer-runner",
     "description": "Rule Runner finds all rules and runs them on your code.",
     "require": {
         "php": "^7.1",
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Symplify\\EasyCodingStandard\\RuleRunner\\": "src"
+            "Symplify\\EasyCodingStandard\\FixerRunner\\": "src"
         }
     }
 }

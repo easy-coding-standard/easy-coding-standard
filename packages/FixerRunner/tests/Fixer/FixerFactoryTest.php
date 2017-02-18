@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\RuleRunner\Tests\Fixer;
+namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Fixer;
 
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\RuleRunner\Fixer\FixerFactory;
+use Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FixerFactoryTest extends TestCase

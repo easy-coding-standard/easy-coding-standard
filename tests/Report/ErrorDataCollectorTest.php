@@ -7,7 +7,7 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
-use Symplify\EasyCodingStandard\RuleRunner\Application\Application as RuleRunnerApplication;
+use Symplify\EasyCodingStandard\FixerRunner\Application\Application as FixerRunnerApplication;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application as SniffRunnerApplication;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
@@ -24,7 +24,7 @@ final class ErrorDataCollectorTest extends TestCase
     private $sniffRunnerApplication;
 
     /**
-     * @var RuleRunnerApplication
+     * @var FixerRunnerApplication
      */
     private $ruleRunnerApplication;
 
@@ -35,7 +35,7 @@ final class ErrorDataCollectorTest extends TestCase
         );
         $this->errorDataCollector = $container->getByType(ErrorDataCollector::class);
         $this->sniffRunnerApplication = $container->getByType(SniffRunnerApplication::class);
-        $this->ruleRunnerApplication = $container->getByType(RuleRunnerApplication::class);
+        $this->ruleRunnerApplication = $container->getByType(FixerRunnerApplication::class);
     }
 
     public function testEmptyState()
@@ -80,7 +80,7 @@ final class ErrorDataCollectorTest extends TestCase
         ], array_pop($errorMessages)[0]);
     }
 
-    public function testRuleRunner()
+    public function testFixerRunner()
     {
         $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
             [__DIR__ . '/ErrorDataCollectorSource/'],

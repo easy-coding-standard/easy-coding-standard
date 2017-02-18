@@ -1,0 +1,3 @@
+- Symplify\EasyCodingStandard\FixerRunner\Application\Application
+- Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory
+- Symplify\EasyCodingStandard\FixerRunner\Runner\RunnerFactory
