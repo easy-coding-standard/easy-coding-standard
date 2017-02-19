@@ -39,11 +39,6 @@ final class ErrorDataCollector
         return $this->fixableErrorCount;
     }
 
-    public function getUnfixableErrorCount() : int
-    {
-        return $this->errorCount - $this->fixableErrorCount;
-    }
-
     public function getErrorMessages() : array
     {
         return $this->errorMessageSorter->sortByFileAndLine($this->errorMessages);

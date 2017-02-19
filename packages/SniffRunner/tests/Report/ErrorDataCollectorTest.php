@@ -25,7 +25,6 @@ final class ErrorDataCollectorTest extends TestCase
     {
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());
         $this->assertSame(0, $this->errorDataCollector->getFixableErrorCount());
-        $this->assertSame(1, $this->errorDataCollector->getUnfixableErrorCount());
     }
 
     public function testGetErrorMessages()

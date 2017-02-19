@@ -32,7 +32,7 @@ final class ApplicationTest extends TestCase
             $source = [__DIR__ . '/ApplicationSource'],
             $isFixer = true,
             [
-                'sniffs' => '',
+                'php-code-sniffer' => [],
             ]
         );
     }

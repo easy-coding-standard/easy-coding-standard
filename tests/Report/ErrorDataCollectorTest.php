@@ -45,7 +45,6 @@ final class ErrorDataCollectorTest extends TestCase
 
         $this->assertSame(0, $this->errorDataCollector->getFixableErrorCount());
 
-        $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
         $this->assertSame([], $this->errorDataCollector->getUnfixableErrorMessages());
     }
 
@@ -55,18 +54,13 @@ final class ErrorDataCollectorTest extends TestCase
             [__DIR__ . '/ErrorDataCollectorSource/'],
             false,
             [
-                'php-code-sniffer' => [
-                    'sniffs' => [
-                        ClassDeclarationSniff::class
-                    ]
-                ]
+                'php-code-sniffer' => [ClassDeclarationSniff::class]
             ]
         );
         $this->sniffRunnerApplication->runCommand($runCommand);
 
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());
         $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
-        $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
 
         $errorMessages = $this->errorDataCollector->getErrorMessages();
         $this->assertCount(1, $errorMessages);
@@ -86,9 +80,7 @@ final class ErrorDataCollectorTest extends TestCase
             [__DIR__ . '/ErrorDataCollectorSource/'],
             false,
             [
-                'php-cs-fixer' => [
-                    'fixers' => [DeclareStrictTypesFixer::class]
-                ]
+                'php-cs-fixer' => [DeclareStrictTypesFixer::class]
             ]
         );
 
@@ -96,7 +88,6 @@ final class ErrorDataCollectorTest extends TestCase
 
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());
         $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
-        $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
 
         $errorMessages = $this->errorDataCollector->getErrorMessages();
         $this->assertCount(1, $errorMessages);
