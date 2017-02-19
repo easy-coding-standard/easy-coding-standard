@@ -4,6 +4,7 @@
 # Configuration
 - Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
 - Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer
+- Symplify\EasyCodingStandard\Finder\SourceFinder
 
 # Console & Commands
 - Symfony\Component\Console\Application

@@ -11,7 +11,7 @@ final class SniffRunnerExtension extends CompilerExtension
     {
         Compiler::loadDefinitions(
             $this->getContainerBuilder(),
-            $this->loadFromFile(__DIR__ . '/../config/services.neon')['services']
+            $this->loadFromFile(__DIR__ . '/../config/services.neon')
         );
     }
 }

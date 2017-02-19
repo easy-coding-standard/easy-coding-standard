@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\SniffRunner\File\Finder;
+namespace Symplify\EasyCodingStandard\Finder;
 
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
@@ -28,11 +28,9 @@ final class SourceFinder
 
     private function processFile(array $files, string $file) : array
     {
-        return array_merge(
-            $files, [
-                $file => new SplFileInfo($file)
-            ]
-        );
+        return array_merge($files, [
+            $file => new SplFileInfo($file)
+        ]);
     }
 
     private function processDirectory(array $files, string $directory) : array
@@ -41,9 +39,6 @@ final class SourceFinder
             ->name('*.php')
             ->in($directory);
 
-        return array_merge(
-            $files,
-            iterator_to_array($finder->getIterator())
-        );
+        return array_merge($files, iterator_to_array($finder->getIterator()));
     }
 }

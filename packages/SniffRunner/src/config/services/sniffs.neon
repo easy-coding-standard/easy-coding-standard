@@ -1,7 +1,0 @@
-services:
-    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory
-
-    # finder
-    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder
-    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffClassFilter
-    - Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffClassRobotLoaderFactory

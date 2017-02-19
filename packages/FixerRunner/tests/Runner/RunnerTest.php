@@ -5,23 +5,29 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Runner;
 use Nette\Neon\Neon;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Runner\Runner;
-use Symplify\EasyCodingStandard\FixerRunner\Runner\RunnerFactory;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
-final class RunnerFactoryTest extends TestCase
+final class RunnerTest extends TestCase
 {
     /**
-     * @var RunnerFactory
+     * @var Runner
      */
-    private $runnerFactory;
+    private $runner;
+
+    /**
+     * @var FixerFactory
+     */
+    private $fixerFactory;
 
     protected function setUp()
     {
         $container = (new GeneralContainerFactory())->createFromConfig(
             __DIR__ . '/../../../../src/config/config.neon'
         );
-        $this->runnerFactory = $container->getByType(RunnerFactory::class);
+        $this->runner = $container->getByType(Runner::class);
+        $this->fixerFactory = $container->getByType(FixerFactory::class);
     }
 
     public function test()
@@ -30,8 +36,8 @@ final class RunnerFactoryTest extends TestCase
 
         $symfonyFixersNeon = Neon::decode($symfonyFixersFile);
         $fixerClasses = $symfonyFixersNeon['php-cs-fixer']['fixers'];
-        $runner = $this->runnerFactory->create($fixerClasses, __DIR__, false);
-        $this->assertInstanceOf(Runner::class, $runner);
-        $this->assertCount(68, Assert::getObjectAttribute($runner, 'fixers'));
+        $this->runner->registerFixers($fixerClasses);
+
+        $this->assertCount(70, Assert::getObjectAttribute($this->runner, 'fixers'));
     }
 }

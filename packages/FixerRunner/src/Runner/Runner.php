@@ -3,8 +3,6 @@
 namespace Symplify\EasyCodingStandard\FixerRunner\Runner;
 
 use PhpCsFixer\AbstractFixer;
-use PhpCsFixer\Cache\Directory;
-use PhpCsFixer\Cache\DirectoryInterface;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -15,21 +13,6 @@ use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 final class Runner
 {
     /**
-     * @var DirectoryInterface
-     */
-    private $directory;
-
-    /**
-     * @var bool
-     */
-    private $isFixer;
-
-    /**
-     * @var array
-     */
-    private $files;
-
-    /**
      * @var FixerInterface[]
      */
     private $fixers;
@@ -39,38 +22,27 @@ final class Runner
      */
     private $errorDataCollector;
 
-    public function __construct(
-        array $files,
-        bool $isFixer,
-        array $fixers,
-        ErrorDataCollector $errorDataCollector
-    ) {
-        $this->files = $files;
-        $this->fixers = $fixers;
-        $this->isFixer = $isFixer;
+    public function __construct(ErrorDataCollector $errorDataCollector)
+    {
         $this->errorDataCollector = $errorDataCollector;
-        $this->directory = new Directory('');
     }
 
-    public function fix() : array
+    public function registerFixers(array $fixers)
     {
-        $changed = [];
+        $this->fixers = $fixers;
+    }
 
-        foreach ($this->files as $file) {
-            $fixInfo = $this->fixFile($file); //, $collection->currentLintingResult());
-            if ($fixInfo) {
-                $name = $this->directory->getRelativePathTo($file);
-                $changed[$name] = $fixInfo;
-            }
+    public function fix(array $files, bool $isFixer)
+    {
+        foreach ($files as $file) {
+            $this->fixFile($file, $isFixer);
 
             // we do not need Tokens to still caching just fixed file - so clear the cache
             Tokens::clearCache();
         }
-
-        return $changed;
     }
 
-    private function fixFile(SplFileInfo $file): array
+    private function fixFile(SplFileInfo $file, bool $isFixer)
     {
         $old = file_get_contents($file->getRealPath());
         $tokens = Tokens::fromCode($old);
@@ -98,8 +70,6 @@ final class Runner
             }
         }
 
-        $fixInfo = [];
-
         if (!empty($appliedFixers)) {
             $new = $tokens->generateCode();
             $newHash = $tokens->getCodeHash();
@@ -110,7 +80,7 @@ final class Runner
         // work of other and both of them will mark collection as changed.
         // Therefore we need to check if code hashes changed.
         if ($oldHash !== $newHash) {
-            if ($this->isFixer) {
+            if ($isFixer) {
                 if (false === @file_put_contents($file->getRealPath(), $new)) {
                     $error = error_get_last();
 
@@ -126,13 +96,7 @@ final class Runner
                     );
                 }
             }
-
-            $fixInfo = [
-                'appliedFixers' => $appliedFixers,
-            ];
         }
-
-        return $fixInfo;
     }
 
     private function detectChangedLineFromTokens(Tokens $tokens) : int

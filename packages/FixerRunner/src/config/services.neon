@@ -1,3 +1,5 @@
 - Symplify\EasyCodingStandard\FixerRunner\Application\Application
+- Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor
+
 - Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory
-- Symplify\EasyCodingStandard\FixerRunner\Runner\RunnerFactory
+- Symplify\EasyCodingStandard\FixerRunner\Runner\Runner

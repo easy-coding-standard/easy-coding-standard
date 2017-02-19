@@ -3,8 +3,8 @@
     "description": "Rule Runner finds any fixers you need and runs them on your code.",
     "require": {
         "php": "^7.1",
+        "nette/di": "^2.4",
         "friendsofphp/php-cs-fixer": "^2.1",
-        "symplify/package-builder": "@dev"
     },
     "autoload": {
         "psr-4": {

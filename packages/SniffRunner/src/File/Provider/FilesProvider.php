@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File\Provider;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\EasyCodingStandard\SniffRunner\File\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Finder\SourceFinder;
 
 final class FilesProvider
 {

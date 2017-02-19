@@ -1,13 +1,22 @@
-includes:
-    - services/application.neon
-    - services/files.neon
-    - services/sniffs.neon
+# Appliation
+- Symplify\EasyCodingStandard\SniffRunner\Application\Application
+- Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor
+- Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer
 
-services:
-    # Event Dispatcher
-    - Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher
+# Event Dispatcher
+- Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher
 
-    # Parser
-    - Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser
+# Parser
+- Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser
 
-    - Symplify\EasyCodingStandard\SniffRunner\Repository\SniffRepository
+# Sniffs
+- Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory
+
+# Sniff Finder
+- Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder
+- Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffClassFilter
+- Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffClassRobotLoaderFactory
+
+# Files
+- Symplify\EasyCodingStandard\SniffRunner\File\FileFactory
+- Symplify\EasyCodingStandard\SniffRunner\File\Provider\FilesProvider

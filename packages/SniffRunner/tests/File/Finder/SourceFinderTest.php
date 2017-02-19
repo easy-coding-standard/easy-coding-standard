@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File\Finder;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\File\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class SourceFinderTest extends TestCase
@@ -40,7 +40,7 @@ final class SourceFinderTest extends TestCase
             ], [
                 [__DIR__.'/SourceFinderSource/SomeFiles/SomeSource.php'], 1
             ], [
-                [__DIR__.'/SourceFinderSource/SomeFiles/SomeSource.txt'], 0
+                [__DIR__.'/SourceFinderSource/SomeFiles/SomeSource.txt'], 1
             ]
         ];
     }

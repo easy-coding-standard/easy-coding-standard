@@ -4,40 +4,55 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
+use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Runner\Runner;
-use Symplify\EasyCodingStandard\FixerRunner\Runner\RunnerFactory;
 
 final class Application implements ApplicationInterface
 {
     /**
-     * @var RunnerFactory
+     * @var SourceFinder
      */
-    private $runnerFactory;
+    private $sourceFinder;
 
-    public function __construct(RunnerFactory $runnerFactory)
-    {
-        $this->runnerFactory = $runnerFactory;
+    /**
+     * @var Runner
+     */
+    private $runner;
+
+    /**
+     * @var FixerFactory
+     */
+    private $fixerFactory;
+
+    /**
+     * @var FileProcessor
+     */
+    private $fileProcessor;
+
+    public function __construct(
+        Runner $runner,
+        FixerFactory $fixerFactory,
+        SourceFinder $sourceFinder,
+        FileProcessor $fileProcessor
+    ) {
+        $this->runner = $runner;
+        $this->fixerFactory = $fixerFactory;
+        $this->sourceFinder = $sourceFinder;
+        $this->fileProcessor = $fileProcessor;
     }
 
     public function runCommand(RunApplicationCommand $command) : void
     {
-        foreach ($command->getSources() as $source) {
-            $this->runForSource($source, $command);
-        }
+        $fixers = $this->fixerFactory->createFromClasses($command->getFixers());
+        $this->runner->registerFixers($fixers);
+
+        $this->runForSource($command->getSources(), $command->isFixer());
     }
 
-    private function runForSource(string $source, RunApplicationCommand $command) : void
+    private function runForSource(array $source, bool $isFixer)
     {
-        $runner = $this->createRunnerForSource($source, $command);
-        $runner->fix();
-    }
-
-    private function createRunnerForSource(string $source, RunApplicationCommand $command) : Runner
-    {
-        return $this->runnerFactory->create(
-            $command->getFixers(),
-            $source,
-            $command->isFixer()
-        );
+        $files = $this->sourceFinder->find($source);
+        $this->fileProcessor->processFiles($files, $isFixer);
     }
 }
