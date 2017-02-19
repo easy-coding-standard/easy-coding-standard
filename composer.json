@@ -1,5 +1,5 @@
 {
-    "name": "symplify/multi-coding-standard",
+    "name": "symplify/easy-coding-standard",
     "description": "Allows to use multiple coding standards with ease.",
     "require": {
         "php": "^7.1",
