@@ -28,14 +28,11 @@ final class SourceFinder
 
     private function processFile(array $files, string $file) : array
     {
-        $fileInfo = new SplFileInfo($file);
-        if ($fileInfo->getExtension() !== 'php') {
-            return $files;
-        }
-
-        $files[$file] = $fileInfo;
-
-        return $files;
+        return array_merge(
+            $files, [
+                $file => new SplFileInfo($file)
+            ]
+        );
     }
 
     private function processDirectory(array $files, string $directory) : array

@@ -1,6 +1,6 @@
 {
     "name": "symplify/sniff-runner",
-    "description": "SniffRunner finds all sniffs and runes them on your code.",
+    "description": "Sniff Runner finds any sniffs you need and runs them on your code.",
     "require": {
         "php": "^7.1",
         "tomas-votruba/php_codesniffer-3-pretagged": "^3.0",

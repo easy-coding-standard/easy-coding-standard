@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Report;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
+use Symplify\EasyCodingStandard\Report\Error\Error;
 
 final class ErrorDataCollector
 {
@@ -36,17 +37,17 @@ final class ErrorDataCollector
         return $this->errorCount;
     }
 
-    public function getFixableErrorCount() : int
+    public function getFixableErrorCount(): int
     {
         return $this->fixableErrorCount;
     }
 
-    public function getErrorMessages() : array
+    public function getErrorMessages(): array
     {
         return $this->errorMessageSorter->sortByFileAndLine($this->errorMessages);
     }
 
-    public function getUnfixableErrorMessages() : array
+    public function getUnfixableErrorMessages(): array
     {
         $unfixableErrorMessages = [];
         foreach ($this->getErrorMessages() as $file => $errorMessagesForFile) {
@@ -74,10 +75,10 @@ final class ErrorDataCollector
         }
 
         $this->errorMessages[$filePath][] = [
-            'line' => $line,
-            'message' => $this->applyDataToMessage($message, $data),
-            'sourceClass' => $this->normalizeSniffClass($sourceClass),
-            'isFixable'  => $isFixable
+            Error::LINE => $line,
+            Error::MESSAGE => $this->applyDataToMessage($message, $data),
+            Error::SOURCE_CLASS => $this->normalizeSniffClass($sourceClass),
+            Error::IS_FIXABLE => $isFixable
         ];
     }
 
@@ -97,7 +98,7 @@ final class ErrorDataCollector
     {
         $unfixableErrorMessages = [];
         foreach ($errorMessagesForFile as $errorMessage) {
-            if ($errorMessage['isFixable']) {
+            if ($errorMessage[self::IS_FIXABLE]) {
                 continue;
             }
 
@@ -112,11 +113,18 @@ final class ErrorDataCollector
         if (class_exists($sourceClass, false)) {
             return $sourceClass;
         }
+
         $trace = debug_backtrace(0, 6);
-        if (is_a($trace[5]['class'], Sniff::class)) {
+
+        if ($this->isSniffClass($trace[5]['class'])) {
             return $trace[5]['class'];
         }
 
         return $trace[4]['class'];
+    }
+
+    private function isSniffClass(string $class): bool
+    {
+        return is_a($class, Sniff::class, true);
     }
 }

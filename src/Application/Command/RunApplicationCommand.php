@@ -73,12 +73,14 @@ final class RunApplicationCommand
     private function ensureSourceExists(array $sources) : void
     {
         foreach ($sources as $source) {
-            if ( ! file_exists($source)) {
-                throw new SourceNotFoundException(sprintf(
-                    'Source "%s" does not exist.',
-                    $source
-                ));
+            if (file_exists($source)) {
+                continue;
             }
+
+            throw new SourceNotFoundException(sprintf(
+                'Source "%s" does not exist.',
+                $source
+            ));
         }
     }
 }

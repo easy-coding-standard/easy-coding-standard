@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Report\Error\Error;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class InfoMessagePrinter
@@ -36,18 +37,20 @@ final class InfoMessagePrinter
 
     public function printFoundErrorsStatus(bool $isFixer) : void
     {
-        foreach ($this->errorDataCollector->getErrorMessages() as $file => $errors) {
+        $errorMessages = $isFixer ? $this->errorDataCollector->getUnfixableErrorMessages() : $this->errorDataCollector->getErrorMessages();
+
+        foreach ($errorMessages as $file => $errors) {
             $rows = [];
             foreach ($errors as $error) {
-                $message = $error['message'] . PHP_EOL . '(' . $error['sourceClass'] . ')';
+                $message = $error[Error::MESSAGE] . PHP_EOL . '(' . $error[Error::SOURCE_CLASS] . ')';
 
                 $rows[] = [
-                    'line' => $this->wrapMessageToStyle((string) $error['line'], $error['isFixable']),
-                    'message' => $this->wrapMessageToStyle($message, $error['isFixable'])
+                    Error::LINE => $this->wrapMessageToStyle((string) $error[Error::LINE], $error[Error::IS_FIXABLE]),
+                    Error::MESSAGE => $this->wrapMessageToStyle($message, $error[Error::IS_FIXABLE])
                 ];
             }
 
-            $this->easyCodingStandardStyle->table(['Line', $file], $rows);
+            $this->easyCodingStandardStyle->table([Error::LINE, $file], $rows);
         }
 
         $this->easyCodingStandardStyle->error($this->buildErrorMessage());
@@ -63,12 +66,12 @@ final class InfoMessagePrinter
 
         if ($this->errorDataCollector->getFixableErrorCount()) {
             if ($errorCount === $this->errorDataCollector->getFixableErrorCount()) {
-                $howMany = ' All';
+                $howMany = 'All';
             } else {
                 $howMany =$this->errorDataCollector->getFixableErrorCount();
             }
 
-            $message .= sprintf('%s of them are fixable!', $howMany);
+            $message .= sprintf(' %s of them are fixable!', $howMany);
             $message .= ' Just add "--fix" to console command and rerun to apply.';
         }
 

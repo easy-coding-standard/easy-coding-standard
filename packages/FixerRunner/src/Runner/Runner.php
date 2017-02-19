@@ -7,12 +7,9 @@ use PhpCsFixer\Cache\Directory;
 use PhpCsFixer\Cache\DirectoryInterface;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\FixerDefinition\FixerDefinition;
-use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class Runner
@@ -28,9 +25,9 @@ final class Runner
     private $isFixer;
 
     /**
-     * @var Finder
+     * @var array
      */
-    private $finder;
+    private $files;
 
     /**
      * @var FixerInterface[]
@@ -43,12 +40,12 @@ final class Runner
     private $errorDataCollector;
 
     public function __construct(
-        Finder $finder,
+        array $files,
         bool $isFixer,
         array $fixers,
         ErrorDataCollector $errorDataCollector
     ) {
-        $this->finder = $finder;
+        $this->files = $files;
         $this->fixers = $fixers;
         $this->isFixer = $isFixer;
         $this->errorDataCollector = $errorDataCollector;
@@ -59,7 +56,7 @@ final class Runner
     {
         $changed = [];
 
-        foreach ($this->finder->getIterator() as $file) {
+        foreach ($this->files as $file) {
             $fixInfo = $this->fixFile($file); //, $collection->currentLintingResult());
             if ($fixInfo) {
                 $name = $this->directory->getRelativePathTo($file);

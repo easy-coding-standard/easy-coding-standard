@@ -1,6 +1,6 @@
 {
     "name": "symplify/fixer-runner",
-    "description": "Rule Runner finds all rules and runs them on your code.",
+    "description": "Rule Runner finds any fixers you need and runs them on your code.",
     "require": {
         "php": "^7.1",
         "friendsofphp/php-cs-fixer": "^2.1",
