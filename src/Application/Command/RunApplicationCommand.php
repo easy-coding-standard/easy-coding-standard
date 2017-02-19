@@ -20,7 +20,7 @@ final class RunApplicationCommand
     /**
      * @var array
      */
-    private $jsonConfiguration = [];
+    private $configuration = [];
 
     public static function createFromInputAndData(InputInterface $input, array $data) : self
     {
@@ -36,7 +36,7 @@ final class RunApplicationCommand
     {
         $this->setSources($source);
         $this->isFixer = $isFixer;
-        $this->jsonConfiguration = $jsonConfiguration;
+        $this->configuration = $jsonConfiguration;
     }
 
     public function getSources() : array
@@ -44,9 +44,9 @@ final class RunApplicationCommand
         return $this->sources;
     }
 
-    public function getJsonConfiguration() : array
+    public function getConfiguration() : array
     {
-        return $this->jsonConfiguration;
+        return $this->configuration;
     }
 
     public function isFixer() : bool
@@ -56,12 +56,12 @@ final class RunApplicationCommand
 
     public function getSniffs() : array
     {
-        return $this->jsonConfiguration['php-code-sniffer']['sniffs'] ?? [];
+        return $this->configuration['php-code-sniffer'] ?? [];
     }
 
     public function getFixers() : array
     {
-        return $this->jsonConfiguration['php-cs-fixer']['fixers'] ?? [];
+        return $this->configuration['php-cs-fixer'] ?? [];
     }
 
     private function setSources(array $sources) : void
