@@ -5,8 +5,8 @@ FILES=$(git diff --name-only --cached --diff-filter=ACMRTUXB *.php);
 
 # run phpcs
 if [ ! -z "$FILES" ]; then
-	printf "Checking Symplify Coding Standard"
-	vendor/bin/symplify-cs check $FILES
+	printf "Checking Easy Coding Standard"
+	vendor/bin/easy-coding-standard $FILES
 
 	if [ $? -ne 0 ]
 	then

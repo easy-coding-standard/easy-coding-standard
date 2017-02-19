@@ -25,3 +25,23 @@ composer require symplify/easy-coding-standard --dev
 ```sh
 vendor/bin/easy-coding-standard src
 ```
+
+
+### Composer hook
+
+In case you don't want to use this tool manually for every change in the code you make, you can add pre-commit hook via `composer.json`:
+
+```json
+"scripts": {
+	"post-install-cmd": [
+		"Symplify\\EasyCodingStandard\\Composer\\ScriptHandler::addPhpCsToPreCommitHook"
+	],
+	"post-update-cmd": [
+		"Symplify\\EasyCodingStandard\\Composer\\ScriptHandler::addPhpCsToPreCommitHook"
+	]
+}
+```
+
+**Every time you try to commit, it will check changed `.php` files only.**
+
+It's much faster than checking whole project, running manually or wait for CI server.

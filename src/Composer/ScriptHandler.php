@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\CodingStandard\Composer;
+namespace Symplify\EasyCodingStandard\Composer;
 
 final class ScriptHandler
 {
