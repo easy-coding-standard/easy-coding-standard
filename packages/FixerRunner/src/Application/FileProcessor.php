@@ -8,6 +8,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class FileProcessor
@@ -22,9 +23,15 @@ final class FileProcessor
      */
     private $errorDataCollector;
 
-    public function __construct(ErrorDataCollector $errorDataCollector)
+    /**
+     * @var EasyCodingStandardStyle
+     */
+    private $style;
+
+    public function __construct(ErrorDataCollector $errorDataCollector, EasyCodingStandardStyle $style)
     {
         $this->errorDataCollector = $errorDataCollector;
+        $this->style = $style;
     }
 
     public function registerFixers(array $fixers)
@@ -36,6 +43,7 @@ final class FileProcessor
     {
         foreach ($files as $file) {
             $this->fixFile($file, $isFixer);
+            $this->style->progressAdvance();
 
             // we do not need Tokens to still caching just fixed file - so clear the cache
             Tokens::clearCache();

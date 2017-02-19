@@ -56,4 +56,14 @@ final class EasyCodingStandardStyle
         $table->render();
         $this->symfonyStyle->newLine();
     }
+
+    public function progressStart(int $max) : void
+    {
+        $this->symfonyStyle->progressStart($max);
+    }
+
+    public function progressAdvance() : void
+    {
+        $this->symfonyStyle->progressAdvance();
+    }
 }

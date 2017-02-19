@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Files\File;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -21,16 +22,23 @@ final class FileProcessor
      */
     private $fixer;
 
-    public function __construct(SniffDispatcher $sniffDispatcher, Fixer $fixer)
+    /**
+     * @var EasyCodingStandardStyle
+     */
+    private $style;
+
+    public function __construct(SniffDispatcher $sniffDispatcher, Fixer $fixer, EasyCodingStandardStyle $style)
     {
         $this->sniffDispatcher = $sniffDispatcher;
         $this->fixer = $fixer;
+        $this->style = $style;
     }
 
     public function processFiles(array $files, bool $isFixer)
     {
         foreach ($files as $file) {
             $this->processFile($file, $isFixer);
+            $this->style->progressAdvance();
         }
     }
 
