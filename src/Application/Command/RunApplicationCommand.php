@@ -22,6 +22,13 @@ final class RunApplicationCommand
      */
     private $configuration = [];
 
+    private function __construct(array $source, bool $isFixer, array $jsonConfiguration)
+    {
+        $this->setSources($source);
+        $this->isFixer = $isFixer;
+        $this->configuration = $jsonConfiguration;
+    }
+
     public static function createFromInputAndData(InputInterface $input, array $data) : self
     {
         return new self($input->getArgument('source'), $input->getOption('fix'), $data);
@@ -30,13 +37,6 @@ final class RunApplicationCommand
     public static function createFromSourceFixerAndData(array $source, bool $isFixer, array $data) : self
     {
         return new self($source, $isFixer, $data);
-    }
-
-    private function __construct(array $source, bool $isFixer, array $jsonConfiguration)
-    {
-        $this->setSources($source);
-        $this->isFixer = $isFixer;
-        $this->configuration = $jsonConfiguration;
     }
 
     public function getSources() : array

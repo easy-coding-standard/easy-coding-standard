@@ -2,6 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Report;
 
+use PHP_CodeSniffer\Sniffs\Sniff;
+
 final class ErrorDataCollector
 {
     /**
@@ -111,6 +113,10 @@ final class ErrorDataCollector
             return $sourceClass;
         }
         $trace = debug_backtrace(0, 6);
-        return $trace[5]['class'];
+        if (is_a($trace[5]['class'], Sniff::class)) {
+            return $trace[5]['class'];
+        }
+
+        return $trace[4]['class'];
     }
 }
