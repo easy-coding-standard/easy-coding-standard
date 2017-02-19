@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Report;
 
+use PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\ClassDeclarationSniff as PearClassDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
@@ -38,16 +39,6 @@ final class ErrorDataCollectorTest extends TestCase
         $this->ruleRunnerApplication = $container->getByType(FixerRunnerApplication::class);
     }
 
-    public function testEmptyState()
-    {
-        $this->assertSame(0, $this->errorDataCollector->getErrorCount());
-        $this->assertSame([], $this->errorDataCollector->getErrorMessages());
-
-        $this->assertSame(0, $this->errorDataCollector->getFixableErrorCount());
-
-        $this->assertSame([], $this->errorDataCollector->getUnfixableErrorMessages());
-    }
-
     public function testSniffRunner()
     {
         $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
@@ -69,7 +60,7 @@ final class ErrorDataCollectorTest extends TestCase
         $this->assertSame([
             'line' => 6,
             'message' => 'Opening class brace must be on a line by itself',
-            'sourceClass' => 'OpenBraceNotAlone',
+            'sourceClass' => PearClassDeclarationSniff::class,
             'isFixable' => true,
         ], array_pop($errorMessages)[0]);
     }

@@ -64,7 +64,7 @@ final class ErrorDataCollector
         string $sourceClass,
         array $data = [],
         bool $isFixable = false
-    ) : void {
+    ): void {
         $this->errorCount++;
 
         if ($isFixable) {
@@ -74,7 +74,7 @@ final class ErrorDataCollector
         $this->errorMessages[$filePath][] = [
             'line' => $line,
             'message' => $this->applyDataToMessage($message, $data),
-            'sourceClass' => $sourceClass,
+            'sourceClass' => $this->normalizeSniffClass($sourceClass),
             'isFixable'  => $isFixable
         ];
     }
@@ -82,7 +82,7 @@ final class ErrorDataCollector
     /**
      * For back compatibility with PHP_CodeSniffer 3.0.
      */
-    private function applyDataToMessage(string $message, array $data) : string
+    private function applyDataToMessage(string $message, array $data): string
     {
         if (count($data)) {
             $message = vsprintf($message, $data);
@@ -91,7 +91,7 @@ final class ErrorDataCollector
         return $message;
     }
 
-    private function filterUnfixableErrorMessagesForFile(array $errorMessagesForFile) : array
+    private function filterUnfixableErrorMessagesForFile(array $errorMessagesForFile): array
     {
         $unfixableErrorMessages = [];
         foreach ($errorMessagesForFile as $errorMessage) {
@@ -103,5 +103,14 @@ final class ErrorDataCollector
         }
 
         return $unfixableErrorMessages;
+    }
+
+    private function normalizeSniffClass(string $sourceClass): string
+    {
+        if (class_exists($sourceClass, false)) {
+            return $sourceClass;
+        }
+        $trace = debug_backtrace(0, 6);
+        return $trace[5]['class'];
     }
 }
