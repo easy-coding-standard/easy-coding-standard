@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# get changed .php files, ready to be commited, all but deleted
+FILES=$(git diff --name-only --cached --diff-filter=ACMRTUXB *.php);
+
+# run phpcs
+if [ ! -z "$FILES" ]; then
+	printf "Checking Symplify Coding Standard"
+	vendor/bin/symplify-cs check $FILES
+
+	if [ $? -ne 0 ]
+	then
+		printf "\033[0;41;37mFix coding standards before commit!\033[0m\n"
+		exit 1
+	fi
+fi
