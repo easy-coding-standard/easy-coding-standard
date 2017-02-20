@@ -47,6 +47,11 @@ final class ErrorDataCollector
         return $this->errorMessageSorter->sortByFileAndLine($this->errorMessages);
     }
 
+    public function getUnfixableErrorCount(): int
+    {
+        return count($this->getUnfixableErrorMessages());
+    }
+
     public function getUnfixableErrorMessages(): array
     {
         $unfixableErrorMessages = [];
@@ -98,7 +103,7 @@ final class ErrorDataCollector
     {
         $unfixableErrorMessages = [];
         foreach ($errorMessagesForFile as $errorMessage) {
-            if ($errorMessage[self::IS_FIXABLE]) {
+            if ($errorMessage[Error::IS_FIXABLE]) {
                 continue;
             }
 

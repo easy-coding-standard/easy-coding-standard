@@ -37,7 +37,9 @@ final class InfoMessagePrinter
 
     public function printFoundErrorsStatus(bool $isFixer) : void
     {
-        $errorMessages = $isFixer ? $this->errorDataCollector->getUnfixableErrorMessages() : $this->errorDataCollector->getErrorMessages();
+        $errorMessages = $isFixer
+            ? $this->errorDataCollector->getUnfixableErrorMessages()
+            : $this->errorDataCollector->getErrorMessages();
 
         foreach ($errorMessages as $file => $errors) {
             $rows = [];
@@ -53,12 +55,15 @@ final class InfoMessagePrinter
             $this->easyCodingStandardStyle->table([Error::LINE, $file], $rows);
         }
 
-        $this->easyCodingStandardStyle->error($this->buildErrorMessage());
+        $this->easyCodingStandardStyle->error($this->buildErrorMessage($isFixer));
     }
 
-    private function buildErrorMessage(): string
+    private function buildErrorMessage(bool $isFixer): string
     {
-        $errorCount = $this->errorDataCollector->getErrorCount();
+        $errorCount = $isFixer
+            ? $this->errorDataCollector->getUnfixableErrorCount()
+            : $this->errorDataCollector->getErrorCount();
+
         $message = sprintf(
             $errorCount === 1 ? 'Found %d error.' : 'Found %d errors.',
             $errorCount
