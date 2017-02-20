@@ -62,7 +62,7 @@ final class FileProcessor
         $appliedFixers = [];
 
         foreach ($this->fixers as $fixer) {
-            if (!$fixer->supports($file) || !$fixer->isCandidate($tokens)) {
+            if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
                 continue;
             }
 
@@ -78,7 +78,7 @@ final class FileProcessor
             }
         }
 
-        if (!empty($appliedFixers)) {
+        if (! empty($appliedFixers)) {
             $new = $tokens->generateCode();
             $newHash = $tokens->getCodeHash();
         }
@@ -89,7 +89,7 @@ final class FileProcessor
         // Therefore we need to check if code hashes changed.
         if ($oldHash !== $newHash) {
             if ($isFixer) {
-                if (false === @file_put_contents($file->getRealPath(), $new)) {
+                if (@file_put_contents($file->getRealPath(), $new) === false) {
                     $error = error_get_last();
 
                     throw new IOException(

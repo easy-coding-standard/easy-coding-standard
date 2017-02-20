@@ -19,7 +19,7 @@ final class LegacyCompatibilityLayer
 
         self::ensureLineEndingsAreDetected();
         self::setupVerbosityToMakeLegacyCodeRun();
-        new Tokens();
+        new Tokens;
 
         self::$isAdded = true;
     }
@@ -35,7 +35,7 @@ final class LegacyCompatibilityLayer
 
     private static function setupVerbosityToMakeLegacyCodeRun() : void
     {
-        if (!defined('PHP_CODESNIFFER_VERBOSITY')) {
+        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
             define('PHP_CODESNIFFER_VERBOSITY', 0);
         }
     }

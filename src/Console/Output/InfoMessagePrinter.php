@@ -69,7 +69,7 @@ final class InfoMessagePrinter
             $errorCount
         );
 
-        if ($this->errorDataCollector->getFixableErrorCount()) {
+        if ($isFixer === false && $this->errorDataCollector->getFixableErrorCount()) {
             if ($errorCount === $this->errorDataCollector->getFixableErrorCount()) {
                 $howMany = 'All';
             } else {

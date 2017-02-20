@@ -35,7 +35,7 @@ final class SourceFinder
 
     private function processDirectory(array $files, string $directory) : array
     {
-        $finder = (new Finder())->files()
+        $finder = (new Finder)->files()
             ->name('*.php')
             ->in($directory);
 

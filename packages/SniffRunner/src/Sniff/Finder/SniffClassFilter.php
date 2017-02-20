@@ -10,7 +10,7 @@ final class SniffClassFilter
     {
         $finalSniffClasses = [];
         foreach ($originSniffClasses as $sniffClass) {
-            if (!class_exists($sniffClass)) {
+            if (! class_exists($sniffClass)) {
                 continue;
             }
 
@@ -18,7 +18,7 @@ final class SniffClassFilter
                 continue;
             }
 
-            if (!$this->doesSniffSupportsPhp($sniffClass)) {
+            if (! $this->doesSniffSupportsPhp($sniffClass)) {
                 continue;
             }
 
@@ -36,7 +36,7 @@ final class SniffClassFilter
     private function doesSniffSupportsPhp(string $className) : bool
     {
         $vars = get_class_vars($className);
-        if (!isset($vars['supportedTokenizers'])) {
+        if (! isset($vars['supportedTokenizers'])) {
             return true;
         }
 

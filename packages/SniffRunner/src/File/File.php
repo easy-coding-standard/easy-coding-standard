@@ -3,10 +3,10 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
-use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Contract\File\FileInterface;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 
 final class File extends BaseFile implements FileInterface
 {
@@ -109,7 +109,7 @@ final class File extends BaseFile implements FileInterface
      */
     protected function addMessage($error, $message, $line, $column, $code, $data, $severity, $isFixable = false) : bool
     {
-        if (!$error) { // skip warnings
+        if (! $error) { // skip warnings
             return false;
         }
 

@@ -15,7 +15,9 @@ final class SourceFinderTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../../../src/config/config.neon');
+        $container = (new GeneralContainerFactory)->createFromConfig(
+            __DIR__ . '/../../../../../src/config/config.neon'
+        );
         $this->sourceFinder = $container->getByType(SourceFinder::class);
     }
 

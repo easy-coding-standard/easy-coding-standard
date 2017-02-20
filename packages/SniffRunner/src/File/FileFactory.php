@@ -3,9 +3,9 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use Nette\FileNotFoundException;
+use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
 
 final class FileFactory
 {
@@ -45,7 +45,7 @@ final class FileFactory
 
     private function ensureFileExists(string $filePath)
     {
-        if (!is_file($filePath) || !file_exists($filePath)) {
+        if (! is_file($filePath) || ! file_exists($filePath)) {
             throw new FileNotFoundException(sprintf(
                 'File "%s" was not found.',
                 $filePath

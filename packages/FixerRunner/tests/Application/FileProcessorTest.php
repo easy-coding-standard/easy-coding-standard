@@ -23,7 +23,7 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(
+        $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../../src/config/config.neon'
         );
         $this->fileProcessor = $container->getByType(FileProcessor::class);

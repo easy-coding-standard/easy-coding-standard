@@ -24,7 +24,7 @@ final class ErrorDataCollectorFixerRunnerTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(
+        $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../src/config/config.neon'
         );
         $this->errorDataCollector = $container->getByType(ErrorDataCollector::class);

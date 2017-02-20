@@ -18,13 +18,13 @@ final class SniffDispatcherTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+        $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->sniffDispatcher = $container->getByType(SniffDispatcher::class);
     }
 
     public function testAddSniffListeners()
     {
-        $sniffs = [new ClassDeclarationSniff()];
+        $sniffs = [new ClassDeclarationSniff];
         $this->sniffDispatcher->addSniffListeners($sniffs);
 
         $this->assertCount(3, $this->sniffDispatcher->getListeners());
@@ -33,7 +33,7 @@ final class SniffDispatcherTest extends TestCase
 
     public function testDispatch()
     {
-        $sniffs = [new ClassDeclarationSniff()];
+        $sniffs = [new ClassDeclarationSniff];
         $this->sniffDispatcher->addSniffListeners($sniffs);
 
         $fileMock = $this->prophesize(File::class)
@@ -41,6 +41,6 @@ final class SniffDispatcherTest extends TestCase
 
         $event = new CheckFileTokenEvent($fileMock, 5);
         $this->sniffDispatcher->dispatch(T_CLASS, $event);
-        $this->assertSame(5,$event->getStackPointer());
+        $this->assertSame(5, $event->getStackPointer());
     }
 }

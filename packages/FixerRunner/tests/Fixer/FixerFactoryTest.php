@@ -17,7 +17,7 @@ final class FixerFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $container = (new GeneralContainerFactory())->createFromConfig(
+        $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../../src/config/config.neon'
         );
         $this->fixerFactory = $container->getByType(FixerFactory::class);
