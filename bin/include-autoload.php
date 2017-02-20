@@ -18,7 +18,7 @@ final class AutoloadIncluder
         __DIR__ . '/../../../vendor/autoload.php'
     ];
 
-    public function includeAutoload() : bool
+    public function includeAutoload(): bool
     {
         foreach ($this->possibleAutoloadFileLocations as $autoloadFileLocation) {
             if ($this->includeFileIfExists($autoloadFileLocation)) {
@@ -29,7 +29,7 @@ final class AutoloadIncluder
         return false;
     }
 
-    private function includeFileIfExists(string $file) : bool
+    private function includeFileIfExists(string $file): bool
     {
         if (file_exists($file)) {
             require_once $file;

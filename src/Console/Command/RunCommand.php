@@ -56,7 +56,7 @@ final class RunCommand extends Command
         $this->setDescription('Check coding standard in one or more directories.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) : int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $runCommand = RunApplicationCommand::createFromInputAndData($input, $this->multiCsFileLoader->load());
 

@@ -12,7 +12,7 @@ final class VendorDirProvider
      */
     private static $vendorDir;
 
-    public static function provide() : string
+    public static function provide(): string
     {
         if (self::$vendorDir) {
             return self::$vendorDir;

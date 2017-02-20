@@ -4,8 +4,6 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
-use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 

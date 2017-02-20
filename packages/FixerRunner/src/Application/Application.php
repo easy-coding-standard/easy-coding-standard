@@ -34,7 +34,7 @@ final class Application implements ApplicationInterface
         $this->fileProcessor = $fileProcessor;
     }
 
-    public function runCommand(RunApplicationCommand $command) : void
+    public function runCommand(RunApplicationCommand $command): void
     {
         $fixers = $this->fixerFactory->createFromClasses($command->getFixers());
         $this->fileProcessor->registerFixers($fixers);

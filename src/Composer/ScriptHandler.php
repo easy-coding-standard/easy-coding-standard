@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Composer;
 
 final class ScriptHandler
 {
-    public static function addPhpCsToPreCommitHook() : void
+    public static function addPhpCsToPreCommitHook(): void
     {
         $originFile = getcwd() . '/.git/hooks/pre-commit';
         $templateContent = file_get_contents(__DIR__ . '/templates/git/hooks/pre-commit-phpcs');

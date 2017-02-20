@@ -8,7 +8,7 @@ use Nette\Utils\FileSystem;
 
 final class SniffClassRobotLoaderFactory
 {
-    public function createForDirectory(string $directory) : RobotLoader
+    public function createForDirectory(string $directory): RobotLoader
     {
         $robot = new RobotLoader;
         $robot->setCacheStorage($this->createCacheStorage());

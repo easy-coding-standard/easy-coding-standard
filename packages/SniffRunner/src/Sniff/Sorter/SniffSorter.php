@@ -2,15 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Sorter;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
-
 final class SniffSorter
 {
     /**
      * @param Sniff[] $sniffs
      * @return Sniff[]
      */
-    public static function sort(array $sniffs) : array
+    public static function sort(array $sniffs): array
     {
         usort($sniffs, function ($oneSniff, $otherSniff) {
             return strcmp(

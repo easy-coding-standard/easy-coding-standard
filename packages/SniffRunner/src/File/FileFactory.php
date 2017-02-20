@@ -34,7 +34,7 @@ final class FileFactory
         $this->fileToTokenParser = $fileToTokenParser;
     }
 
-    public function create(string $filePath, bool $isFixer) : File
+    public function create(string $filePath, bool $isFixer): File
     {
         $this->ensureFileExists($filePath);
 

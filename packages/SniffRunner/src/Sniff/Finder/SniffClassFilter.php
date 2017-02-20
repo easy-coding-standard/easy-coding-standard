@@ -6,7 +6,7 @@ use ReflectionClass;
 
 final class SniffClassFilter
 {
-    public function filterOutAbstractAndNonPhpSniffClasses(array $originSniffClasses) : array
+    public function filterOutAbstractAndNonPhpSniffClasses(array $originSniffClasses): array
     {
         $finalSniffClasses = [];
         foreach ($originSniffClasses as $sniffClass) {
@@ -28,12 +28,12 @@ final class SniffClassFilter
         return $finalSniffClasses;
     }
 
-    private function isAbstractClass(string $className) : bool
+    private function isAbstractClass(string $className): bool
     {
         return (new ReflectionClass($className))->isAbstract();
     }
 
-    private function doesSniffSupportsPhp(string $className) : bool
+    private function doesSniffSupportsPhp(string $className): bool
     {
         $vars = get_class_vars($className);
         if (! isset($vars['supportedTokenizers'])) {

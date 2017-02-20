@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;

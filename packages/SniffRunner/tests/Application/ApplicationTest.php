@@ -26,7 +26,7 @@ final class ApplicationTest extends TestCase
         $this->assertTrue(true);
     }
 
-    private function createCommand() : RunApplicationCommand
+    private function createCommand(): RunApplicationCommand
     {
         return RunApplicationCommand::createFromSourceFixerAndData(
             $source = [__DIR__ . '/ApplicationSource'],

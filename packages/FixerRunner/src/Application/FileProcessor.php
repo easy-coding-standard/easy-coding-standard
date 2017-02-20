@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
-use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -107,7 +106,7 @@ final class FileProcessor
         }
     }
 
-    private function detectChangedLineFromTokens(Tokens $tokens) : int
+    private function detectChangedLineFromTokens(Tokens $tokens): int
     {
         $line = 0;
         foreach ($tokens as $token) {

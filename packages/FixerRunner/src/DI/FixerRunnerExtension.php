@@ -7,7 +7,7 @@ use Nette\DI\CompilerExtension;
 
 final class FixerRunnerExtension extends CompilerExtension
 {
-    public function loadConfiguration() : void
+    public function loadConfiguration(): void
     {
         Compiler::loadDefinitions(
             $this->getContainerBuilder(),

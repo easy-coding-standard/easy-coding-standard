@@ -29,48 +29,48 @@ final class RunApplicationCommand
         $this->configuration = $jsonConfiguration;
     }
 
-    public static function createFromInputAndData(InputInterface $input, array $data) : self
+    public static function createFromInputAndData(InputInterface $input, array $data): self
     {
         return new self($input->getArgument('source'), $input->getOption('fix'), $data);
     }
 
-    public static function createFromSourceFixerAndData(array $source, bool $isFixer, array $data) : self
+    public static function createFromSourceFixerAndData(array $source, bool $isFixer, array $data): self
     {
         return new self($source, $isFixer, $data);
     }
 
-    public function getSources() : array
+    public function getSources(): array
     {
         return $this->sources;
     }
 
-    public function getConfiguration() : array
+    public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
-    public function isFixer() : bool
+    public function isFixer(): bool
     {
         return $this->isFixer;
     }
 
-    public function getSniffs() : array
+    public function getSniffs(): array
     {
         return $this->configuration['php-code-sniffer'] ?? [];
     }
 
-    public function getFixers() : array
+    public function getFixers(): array
     {
         return $this->configuration['php-cs-fixer'] ?? [];
     }
 
-    private function setSources(array $sources) : void
+    private function setSources(array $sources): void
     {
         $this->ensureSourceExists($sources);
         $this->sources = $sources;
     }
 
-    private function ensureSourceExists(array $sources) : void
+    private function ensureSourceExists(array $sources): void
     {
         foreach ($sources as $source) {
             if (file_exists($source)) {

@@ -26,7 +26,7 @@ final class InfoMessagePrinter
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
-    public function hasSomeErrorMessages() : bool
+    public function hasSomeErrorMessages(): bool
     {
         if ($this->errorDataCollector->getErrorCount()) {
             return true;
@@ -35,7 +35,7 @@ final class InfoMessagePrinter
         return false;
     }
 
-    public function printFoundErrorsStatus(bool $isFixer) : void
+    public function printFoundErrorsStatus(bool $isFixer): void
     {
         $errorMessages = $isFixer
             ? $this->errorDataCollector->getUnfixableErrorMessages()
@@ -83,7 +83,7 @@ final class InfoMessagePrinter
         return $message;
     }
 
-    private function wrapMessageToStyle(string $message, bool $isFixable) : string
+    private function wrapMessageToStyle(string $message, bool $isFixable): string
     {
         if ($isFixable) {
             return sprintf('<fg=black;bg=green>%s</>', $message);

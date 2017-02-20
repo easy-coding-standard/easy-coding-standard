@@ -6,7 +6,6 @@ use Nette\Neon\Neon;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor;
-use Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FileProcessorTest extends TestCase
@@ -16,18 +15,12 @@ final class FileProcessorTest extends TestCase
      */
     private $fileProcessor;
 
-    /**
-     * @var FixerFactory
-     */
-    private $fixerFactory;
-
     protected function setUp()
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../../src/config/config.neon'
         );
         $this->fileProcessor = $container->getByType(FileProcessor::class);
-        $this->fixerFactory = $container->getByType(FixerFactory::class);
     }
 
     public function test()

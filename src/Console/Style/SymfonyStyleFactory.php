@@ -24,7 +24,7 @@ final class SymfonyStyleFactory
         $this->output = $output;
     }
 
-    public function create() : SymfonyStyle
+    public function create(): SymfonyStyle
     {
         return new SymfonyStyle($this->input, $this->output);
     }

@@ -32,7 +32,7 @@ final class SourceFinderTest extends TestCase
         );
     }
 
-    public function provideFindData() : array
+    public function provideFindData(): array
     {
         return [
             [

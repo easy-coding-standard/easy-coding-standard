@@ -32,7 +32,7 @@ final class ErrorDataCollector
         $this->errorMessageSorter = $errorMessageSorter;
     }
 
-    public function getErrorCount() : int
+    public function getErrorCount(): int
     {
         return $this->errorCount;
     }

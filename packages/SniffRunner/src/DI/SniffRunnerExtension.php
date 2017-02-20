@@ -7,7 +7,7 @@ use Nette\DI\CompilerExtension;
 
 final class SniffRunnerExtension extends CompilerExtension
 {
-    public function loadConfiguration() : void
+    public function loadConfiguration(): void
     {
         Compiler::loadDefinitions(
             $this->getContainerBuilder(),

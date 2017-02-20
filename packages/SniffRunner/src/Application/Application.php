@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
 use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;

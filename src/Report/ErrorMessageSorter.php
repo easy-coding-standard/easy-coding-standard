@@ -4,7 +4,10 @@ namespace Symplify\EasyCodingStandard\Report;
 
 final class ErrorMessageSorter
 {
-    public function sortByFileAndLine(array $errorMessages) : array
+    /**
+     * @param array[] $errorMessages
+     */
+    public function sortByFileAndLine(array $errorMessages): array
     {
         ksort($errorMessages);
 

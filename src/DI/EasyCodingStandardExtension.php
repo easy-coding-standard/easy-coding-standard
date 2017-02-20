@@ -12,7 +12,7 @@ use Symplify\PackageBuilder\Adapter\Nette\DI\DefinitionCollector;
 
 final class EasyCodingStandardExtension extends CompilerExtension
 {
-    public function loadConfiguration() : void
+    public function loadConfiguration(): void
     {
         Compiler::loadDefinitions(
             $this->getContainerBuilder(),
@@ -20,13 +20,13 @@ final class EasyCodingStandardExtension extends CompilerExtension
         );
     }
 
-    public function beforeCompile() : void
+    public function beforeCompile(): void
     {
         $this->loadCommandsToConsoleApplication();
         $this->loadApplicationsToApplicationRunner();
     }
 
-    private function loadCommandsToConsoleApplication() : void
+    private function loadCommandsToConsoleApplication(): void
     {
         DefinitionCollector::loadCollectorWithType(
             $this->getContainerBuilder(),
@@ -36,7 +36,7 @@ final class EasyCodingStandardExtension extends CompilerExtension
         );
     }
 
-    private function loadApplicationsToApplicationRunner() : void
+    private function loadApplicationsToApplicationRunner(): void
     {
         DefinitionCollector::loadCollectorWithType(
             $this->getContainerBuilder(),

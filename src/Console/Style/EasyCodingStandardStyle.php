@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Console\Style;
 
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class EasyCodingStandardStyle
 {
@@ -17,32 +16,32 @@ final class EasyCodingStandardStyle
         $this->symfonyStyle = $symfonyStyleFactory->create();
     }
 
-    public function title(string $message) : void
+    public function title(string $message): void
     {
         $this->symfonyStyle->title($message);
     }
 
-    public function section(string $message) : void
+    public function section(string $message): void
     {
         $this->symfonyStyle->section($message);
     }
 
-    public function text(string $message) : void
+    public function text(string $message): void
     {
         $this->symfonyStyle->text($message);
     }
 
-    public function success(string $message) : void
+    public function success(string $message): void
     {
         $this->symfonyStyle->success($message);
     }
 
-    public function error(string $message) : void
+    public function error(string $message): void
     {
         $this->symfonyStyle->error($message);
     }
 
-    public function table(array $headers, array $rows) : void
+    public function table(array $headers, array $rows): void
     {
         $style = clone Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('%s');
@@ -57,12 +56,12 @@ final class EasyCodingStandardStyle
         $this->symfonyStyle->newLine();
     }
 
-    public function progressStart(int $max) : void
+    public function progressStart(int $max): void
     {
         $this->symfonyStyle->progressStart($max);
     }
 
-    public function progressAdvance() : void
+    public function progressAdvance(): void
     {
         $this->symfonyStyle->progressAdvance();
     }

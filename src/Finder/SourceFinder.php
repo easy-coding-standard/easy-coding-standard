@@ -11,7 +11,7 @@ final class SourceFinder
      * @param string[]
      * @return SplFileInfo[]
      */
-    public function find(array $source) : array
+    public function find(array $source): array
     {
         $files = [];
 
@@ -26,14 +26,14 @@ final class SourceFinder
         return $files;
     }
 
-    private function processFile(array $files, string $file) : array
+    private function processFile(array $files, string $file): array
     {
         return array_merge($files, [
             $file => new SplFileInfo($file)
         ]);
     }
 
-    private function processDirectory(array $files, string $directory) : array
+    private function processDirectory(array $files, string $directory): array
     {
         $finder = (new Finder)->files()
             ->name('*.php')

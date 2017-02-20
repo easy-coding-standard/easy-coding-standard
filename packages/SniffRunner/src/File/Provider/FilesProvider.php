@@ -2,9 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\File\Provider;
 
-use SplFileInfo;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 
 final class FilesProvider
@@ -33,7 +31,7 @@ final class FilesProvider
     /**
      * @return File[]
      */
-    public function getFilesForSource(array $source, bool $isFixer) : array
+    public function getFilesForSource(array $source, bool $isFixer): array
     {
         $sourceHash = md5(json_encode($source));
         if (isset($this->filesBySource[$sourceHash])) {
@@ -51,7 +49,7 @@ final class FilesProvider
      * @param bool $isFixer
      * @return File[]
      */
-    private function wrapFilesToValueObjects(array $fileInfos, bool $isFixer) : array
+    private function wrapFilesToValueObjects(array $fileInfos, bool $isFixer): array
     {
         $files = [];
         foreach ($fileInfos as $name => $fileInfo) {

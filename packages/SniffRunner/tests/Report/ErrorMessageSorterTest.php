@@ -19,7 +19,7 @@ final class ErrorMessageSorterTest extends TestCase
         );
     }
 
-    private function getUnsortedMessages() : array
+    private function getUnsortedMessages(): array
     {
         return [
             'filePath' => [
@@ -37,7 +37,7 @@ final class ErrorMessageSorterTest extends TestCase
         ];
     }
 
-    private function getExpectedSortedMessages() : array
+    private function getExpectedSortedMessages(): array
     {
         return [
             'anotherFilePath' => [

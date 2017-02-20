@@ -23,12 +23,12 @@ final class CheckFileTokenEvent extends Event
         $this->stackPointer = $stackPointer;
     }
 
-    public function getFile() : File
+    public function getFile(): File
     {
         return $this->file;
     }
 
-    public function getStackPointer() : int
+    public function getStackPointer(): int
     {
         return $this->stackPointer;
     }

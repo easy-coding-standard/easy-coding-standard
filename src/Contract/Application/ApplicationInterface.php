@@ -6,5 +6,5 @@ use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 
 interface ApplicationInterface
 {
-    public function runCommand(RunApplicationCommand $command) : void;
+    public function runCommand(RunApplicationCommand $command): void;
 }

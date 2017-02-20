@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
-
-use PHP_CodeSniffer\Files\File;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 
 final class FileProcessor
@@ -64,13 +63,13 @@ final class FileProcessor
     private function processFileWithFixer(File $file)
     {
         // 1. puts tokens into fixer
-        $file->fixer->startFile($file);
+        $this->fixer->startFile($file);
 
         // 2. run all Sniff fixers
         $this->processFileWithoutFixer($file);
 
         // 3. content has changed, save it!
-        $newContent = $file->fixer->getContents();
+        $newContent = $this->fixer->getContents();
 
         file_put_contents($file->getFilename(), $newContent);
     }

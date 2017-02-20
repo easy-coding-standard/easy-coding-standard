@@ -98,7 +98,7 @@ final class File extends BaseFile implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0) : bool
+    public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
     {
         $this->addError($error, $stackPtr, $code, $data, $severity, true);
         return $this->isFixer;
@@ -107,7 +107,7 @@ final class File extends BaseFile implements FileInterface
     /**
      * {@inheritdoc}
      */
-    protected function addMessage($error, $message, $line, $column, $code, $data, $severity, $isFixable = false) : bool
+    protected function addMessage($error, $message, $line, $column, $code, $data, $severity, $isFixable = false): bool
     {
         if (! $error) { // skip warnings
             return false;
