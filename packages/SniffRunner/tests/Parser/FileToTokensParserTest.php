@@ -13,6 +13,6 @@ final class FileToTokensParserTest extends TestCase
             __DIR__.'/FileToTokensParserSource/SimplePhpFile.php'
         );
 
-        $this->assertCount(9, $tokens);
+        $this->assertCount(15, $tokens);
     }
 }

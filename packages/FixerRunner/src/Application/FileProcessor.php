@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
+use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;

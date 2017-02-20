@@ -41,7 +41,7 @@ final class FileProcessor
         }
     }
 
-    private function processFile(File $file, bool $isFixer)
+    private function processFile(File $file, bool $isFixer): void
     {
         if ($isFixer === false) {
             $this->processFileWithoutFixer($file);
@@ -50,7 +50,7 @@ final class FileProcessor
         }
     }
 
-    private function processFileWithoutFixer(File $file)
+    private function processFileWithoutFixer(File $file): void
     {
         foreach ($file->getTokens() as $stackPointer => $token) {
             $this->sniffDispatcher->dispatch(
@@ -60,7 +60,7 @@ final class FileProcessor
         }
     }
 
-    private function processFileWithFixer(File $file)
+    private function processFileWithFixer(File $file): void
     {
         // 1. puts tokens into fixer
         $this->fixer->startFile($file);

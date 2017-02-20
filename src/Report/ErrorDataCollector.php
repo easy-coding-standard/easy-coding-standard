@@ -18,7 +18,7 @@ final class ErrorDataCollector
     private $fixableErrorCount = 0;
 
     /**
-     * @var array[]
+     * @var Error[]
      */
     private $errorMessages = [];
 
@@ -42,6 +42,9 @@ final class ErrorDataCollector
         return $this->fixableErrorCount;
     }
 
+    /**
+     * @return Error[][]
+     */
     public function getErrorMessages(): array
     {
         return $this->errorMessageSorter->sortByFileAndLine($this->errorMessages);
@@ -52,6 +55,9 @@ final class ErrorDataCollector
         return count($this->getUnfixableErrorMessages());
     }
 
+    /**
+     * @return Error[][]
+     */
     public function getUnfixableErrorMessages(): array
     {
         $unfixableErrorMessages = [];
@@ -79,12 +85,14 @@ final class ErrorDataCollector
             $this->fixableErrorCount++;
         }
 
-        $this->errorMessages[$filePath][] = [
-            Error::LINE => $line,
-            Error::MESSAGE => $this->applyDataToMessage($message, $data),
-            Error::SOURCE_CLASS => $this->normalizeSniffClass($sourceClass),
-            Error::IS_FIXABLE => $isFixable
-        ];
+        $error = new Error(
+            $line,
+            $this->applyDataToMessage($message, $data),
+            $this->normalizeSniffClass($sourceClass),
+            $isFixable
+        );
+
+        $this->errorMessages[$filePath][] = $error;
     }
 
     /**
@@ -99,11 +107,15 @@ final class ErrorDataCollector
         return $message;
     }
 
+    /**
+     * @param Error[] $errorMessagesForFile
+     * @return Error[]
+     */
     private function filterUnfixableErrorMessagesForFile(array $errorMessagesForFile): array
     {
         $unfixableErrorMessages = [];
         foreach ($errorMessagesForFile as $errorMessage) {
-            if ($errorMessage[Error::IS_FIXABLE]) {
+            if ($errorMessage->isFixable()) {
                 continue;
             }
 

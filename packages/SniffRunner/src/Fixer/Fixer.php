@@ -13,11 +13,6 @@ final class Fixer
      */
     public $loops;
 
-//    /**
-//     * @var File
-//     */
-//    private $currentFile;
-
     /**
      * @var string[]|array<int, string>
      */
@@ -25,8 +20,6 @@ final class Fixer
 
     public function startFile(File $file)
     {
-//        $this->currentFile = $file;
-
         $tokens = $file->getTokens();
 
         $this->tokens = [];

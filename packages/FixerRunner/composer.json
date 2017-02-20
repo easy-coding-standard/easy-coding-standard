@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.1",
         "nette/di": "^2.4",
-        "friendsofphp/php-cs-fixer": "^2.1",
+        "friendsofphp/php-cs-fixer": "^2.1"
     },
     "autoload": {
         "psr-4": {

@@ -3,15 +3,16 @@
     "description": "Sniff Runner finds any sniffs you need and runs them on your code.",
     "require": {
         "php": "^7.1",
-        "tomas-votruba/php_codesniffer-3-pretagged": "^3.0",
+        "squizlabs/php_codesniffer": "3.0.x-dev as 2.8",
         "symfony/event-dispatcher": "^3.2",
         "symfony/finder": "^3.2",
         "nette/di": "^2.4",
         "nette/robot-loader": "^2.4",
-        "nette/utils": "^2.4",
+        "nette/utils": "^2.4"
     },
     "autoload": {
         "psr-4": {
+            "PHP_CodeSniffer\\": "vendor/squizlabs/php_codesniffer/src",
             "Symplify\\EasyCodingStandard\\SniffRunner\\": "src"
         }
     }

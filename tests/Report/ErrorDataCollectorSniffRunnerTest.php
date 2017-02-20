@@ -50,11 +50,11 @@ final class ErrorDataCollectorSniffRunnerTest extends TestCase
         $this->assertCount(1, $errorMessages);
 
         $this->assertStringEndsWith('Report/ErrorDataCollectorSource/NotPsr2Class.php.inc', key($errorMessages));
-        $this->assertSame([
-            Error::LINE => 6,
-            Error::MESSAGE => 'Opening class brace must be on a line by itself',
-            Error::SOURCE_CLASS => PearClassDeclarationSniff::class,
-            Error::IS_FIXABLE => true,
-        ], array_pop($errorMessages)[0]);
+        $this->assertEquals(new Error(
+            6,
+            'Opening class brace must be on a line by itself',
+            PearClassDeclarationSniff::class,
+            true
+        ), array_pop($errorMessages)[0]);
     }
 }

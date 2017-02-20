@@ -19,10 +19,7 @@ final class LegacyCompatibilityLayer
             return;
         }
 
-        class_alias(Sniff::class, 'PHP_CodeSniffer_Sniff');
-        class_alias(File::class, 'PHP_CodeSniffer_File');
-        class_alias(Tokens::class, 'PHP_CodeSniffer_Tokens');
-
+        self::setupVersion2ClassAliases();
         self::ensureLineEndingsAreDetected();
         self::setupVerbosityToMakeLegacyCodeRun();
         new Tokens;
@@ -44,5 +41,12 @@ final class LegacyCompatibilityLayer
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
             define('PHP_CODESNIFFER_VERBOSITY', 0);
         }
+    }
+
+    private static function setupVersion2ClassAliases(): void
+    {
+        class_alias(Sniff::class, 'PHP_CodeSniffer_Sniff');
+        class_alias(File::class, 'PHP_CodeSniffer_File');
+        class_alias(Tokens::class, 'PHP_CodeSniffer_Tokens');
     }
 }

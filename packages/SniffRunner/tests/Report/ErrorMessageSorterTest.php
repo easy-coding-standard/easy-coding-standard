@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Report;
 
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Report\Error\Error;
 use Symplify\EasyCodingStandard\Report\ErrorMessageSorter;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
@@ -13,7 +14,7 @@ final class ErrorMessageSorterTest extends TestCase
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $errorMessageSorter = $container->getByType(ErrorMessageSorter::class);
 
-        $this->assertSame(
+        $this->assertEquals(
             $this->getExpectedSortedMessages(),
             $errorMessageSorter->sortByFileAndLine($this->getUnsortedMessages())
         );
@@ -23,16 +24,11 @@ final class ErrorMessageSorterTest extends TestCase
     {
         return [
             'filePath' => [
-                [
-                    'line' => 5
-                ]
+                new Error(5, 'error', 'SomeClass', false)
             ],
             'anotherFilePath' => [
-                [
-                    'line' => 15
-                ], [
-                    'line' => 5
-                ]
+                new Error(15, 'error', 'SomeClass', false),
+                new Error(5, 'error', 'SomeClass', false)
             ]
         ];
     }
@@ -41,16 +37,11 @@ final class ErrorMessageSorterTest extends TestCase
     {
         return [
             'anotherFilePath' => [
-                [
-                    'line' => 5
-                ], [
-                    'line' => 15
-                ]
+                new Error(5, 'error', 'SomeClass', false),
+                new Error(15, 'error', 'SomeClass', false)
             ],
             'filePath' => [
-                [
-                    'line' => 5
-                ]
+                new Error(5, 'error', 'SomeClass', false)
             ]
         ];
     }

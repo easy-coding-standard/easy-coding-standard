@@ -50,11 +50,11 @@ final class ErrorDataCollectorFixerRunnerTest extends TestCase
         $this->assertCount(1, $errorMessages);
 
         $this->assertStringEndsWith('Report/ErrorDataCollectorSource/NotPsr2Class.php.inc', key($errorMessages));
-        $this->assertSame([
-            Error::LINE => 0,
-            Error::MESSAGE => 'Force strict types declaration in all files. Requires PHP >= 7.0.',
-            Error::SOURCE_CLASS => DeclareStrictTypesFixer::class,
-            Error::IS_FIXABLE => true,
-        ], array_pop($errorMessages)[0]);
+        $this->assertEquals(new Error(
+            0,
+            'Force strict types declaration in all files. Requires PHP >= 7.0.',
+            DeclareStrictTypesFixer::class,
+            true
+        ), array_pop($errorMessages)[0]);
     }
 }

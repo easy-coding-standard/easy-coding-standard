@@ -2,10 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\Report;
 
+use Symplify\EasyCodingStandard\Report\Error\Error;
+
 final class ErrorMessageSorter
 {
     /**
-     * @param array[] $errorMessages
+     * @param Error[] $errorMessages
+     * @return Error[]
      */
     public function sortByFileAndLine(array $errorMessages): array
     {
@@ -16,8 +19,8 @@ final class ErrorMessageSorter
                 continue;
             }
 
-            usort($errorMessagesForFile, function ($first, $second) {
-                return ($first['line'] > $second['line']);
+            usort($errorMessagesForFile, function (Error $first, Error $second) {
+                return ($first->getLine() > $second->getLine());
             });
 
             $errorMessages[$file] = $errorMessagesForFile;

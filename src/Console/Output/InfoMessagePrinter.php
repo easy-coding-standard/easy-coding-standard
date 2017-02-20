@@ -28,27 +28,24 @@ final class InfoMessagePrinter
 
     public function hasSomeErrorMessages(): bool
     {
-        if ($this->errorDataCollector->getErrorCount()) {
-            return true;
-        }
-
-        return false;
+        return (bool) $this->errorDataCollector->getErrorCount();
     }
 
     public function printFoundErrorsStatus(bool $isFixer): void
     {
-        $errorMessages = $isFixer
-            ? $this->errorDataCollector->getUnfixableErrorMessages()
-            : $this->errorDataCollector->getErrorMessages();
+        $this->easyCodingStandardStyle->newLine();
 
+        $errorMessages = $this->getRelevantErrorMessages($isFixer);
+
+        /** @var Error[] $errors */
         foreach ($errorMessages as $file => $errors) {
             $rows = [];
             foreach ($errors as $error) {
-                $message = $error[Error::MESSAGE] . PHP_EOL . '(' . $error[Error::SOURCE_CLASS] . ')';
+                $message = $error->getMessage() . PHP_EOL . '(' . $error->getSourceClass() . ')';
 
                 $rows[] = [
-                    Error::LINE => $this->wrapMessageToStyle((string) $error[Error::LINE], $error[Error::IS_FIXABLE]),
-                    Error::MESSAGE => $this->wrapMessageToStyle($message, $error[Error::IS_FIXABLE])
+                    Error::LINE => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
+                    Error::MESSAGE => $this->wrapMessageToStyle($message, $error->isFixable())
                 ];
             }
 
@@ -60,9 +57,7 @@ final class InfoMessagePrinter
 
     private function buildErrorMessage(bool $isFixer): string
     {
-        $errorCount = $isFixer
-            ? $this->errorDataCollector->getUnfixableErrorCount()
-            : $this->errorDataCollector->getErrorCount();
+        $errorCount = $this->getRelevantErrorCount($isFixer);
 
         $message = sprintf(
             $errorCount === 1 ? 'Found %d error.' : 'Found %d errors.',
@@ -90,5 +85,26 @@ final class InfoMessagePrinter
         }
 
         return sprintf('<fg=black;bg=red>%s</>', $message);
+    }
+
+    /**
+     * @return Error[]
+     */
+    private function getRelevantErrorMessages(bool $isFixer): array
+    {
+        if ($isFixer) {
+            return $this->errorDataCollector->getUnfixableErrorMessages();
+        }
+
+        return $this->errorDataCollector->getErrorMessages();
+    }
+
+    private function getRelevantErrorCount(bool $isFixer): int
+    {
+        if ($isFixer) {
+            return $this->errorDataCollector->getUnfixableErrorCount();
+        }
+
+        return $this->errorDataCollector->getErrorCount();
     }
 }

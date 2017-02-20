@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Console\Style;
 
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class EasyCodingStandardStyle
 {
@@ -10,6 +11,11 @@ final class EasyCodingStandardStyle
      * @var SymfonyStyle
      */
     private $symfonyStyle;
+
+    /**
+     * @var bool
+     */
+    private $progressStarted = false;
 
     public function __construct(SymfonyStyleFactory $symfonyStyleFactory)
     {
@@ -41,6 +47,11 @@ final class EasyCodingStandardStyle
         $this->symfonyStyle->error($message);
     }
 
+    public function newLine(): void
+    {
+        $this->symfonyStyle->newLine();
+    }
+
     public function table(array $headers, array $rows): void
     {
         $style = clone Table::getStyleDefinition('symfony-style-guide');
@@ -58,11 +69,16 @@ final class EasyCodingStandardStyle
 
     public function progressStart(int $max): void
     {
+        $this->progressStarted = true;
         $this->symfonyStyle->progressStart($max);
     }
 
     public function progressAdvance(): void
     {
+        if (! $this->progressStarted) {
+            return;
+        }
+
         $this->symfonyStyle->progressAdvance();
     }
 }
