@@ -1,0 +1,18 @@
+<?php declare(strict_types=1);
+
+namespace Symplify\EasyCodingStandard\Tests\Report\Error;
+
+use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Report\Error\Error;
+
+final class ErrorTest extends TestCase
+{
+    public function test()
+    {
+        $error = new Error(1, 'message', 'class', true);
+        $this->assertSame(1, $error->getLine());
+        $this->assertSame('message', $error->getMessage());
+        $this->assertSame('class', $error->getSourceClass());
+        $this->assertTrue($error->isFixable());
+    }
+}

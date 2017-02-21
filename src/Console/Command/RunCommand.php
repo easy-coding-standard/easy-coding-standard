@@ -58,7 +58,9 @@ final class RunCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $runCommand = RunApplicationCommand::createFromInputAndData($input, $this->multiCsFileLoader->load());
+        $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
+            $input->getArgument('source'), $input->getOption('fix'), $this->multiCsFileLoader->load()
+        );
 
         $this->applicationRunner->runCommand($runCommand);
 

@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Contract\File\FileInterface;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -21,7 +21,7 @@ final class File extends BaseFile implements FileInterface
     public $fixer;
 
     /**
-     * @var ErrorDataCollector
+     * @var ErrorCollector
      */
     private $errorDataCollector;
 
@@ -34,7 +34,7 @@ final class File extends BaseFile implements FileInterface
         string $path,
         array $tokens,
         Fixer $fixer,
-        ErrorDataCollector $errorDataCollector,
+        ErrorCollector $errorDataCollector,
         bool $isFixer
     ) {
         $this->path = $path;
@@ -79,7 +79,7 @@ final class File extends BaseFile implements FileInterface
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',
             __METHOD__,
-            ErrorDataCollector::class
+            ErrorCollector::class
         ));
     }
 
@@ -91,7 +91,7 @@ final class File extends BaseFile implements FileInterface
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',
             __METHOD__,
-            ErrorDataCollector::class
+            ErrorCollector::class
         ));
     }
 

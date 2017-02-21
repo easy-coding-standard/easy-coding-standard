@@ -7,14 +7,14 @@ use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Report\Error\Error;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class ErrorDataCollectorSniffRunnerTest extends TestCase
 {
     /**
-     * @var ErrorDataCollector
+     * @var ErrorCollector
      */
     private $errorDataCollector;
 
@@ -28,7 +28,7 @@ final class ErrorDataCollectorSniffRunnerTest extends TestCase
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../src/config/config.neon'
         );
-        $this->errorDataCollector = $container->getByType(ErrorDataCollector::class);
+        $this->errorDataCollector = $container->getByType(ErrorCollector::class);
         $this->application = $container->getByType(Application::class);
     }
 
@@ -46,15 +46,18 @@ final class ErrorDataCollectorSniffRunnerTest extends TestCase
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());
         $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
 
-        $errorMessages = $this->errorDataCollector->getErrorMessages();
+        $errorMessages = $this->errorDataCollector->getErrors();
         $this->assertCount(1, $errorMessages);
 
         $this->assertStringEndsWith('Report/ErrorDataCollectorSource/NotPsr2Class.php.inc', key($errorMessages));
-        $this->assertEquals(new Error(
-            6,
-            'Opening class brace must be on a line by itself',
-            PearClassDeclarationSniff::class,
-            true
-        ), array_pop($errorMessages)[0]);
+
+        /** @var Error $error */
+        $error = array_pop($errorMessages)[0];
+        $this->assertInstanceOf(Error::class, $error);
+
+        $this->assertSame(6, $error->getLine());
+        $this->assertSame('Opening class brace must be on a line by itself', $error->getMessage());
+        $this->assertSame(PearClassDeclarationSniff::class, $error->getSourceClass());
+        $this->assertSame(true, $error->isFixable());
     }
 }

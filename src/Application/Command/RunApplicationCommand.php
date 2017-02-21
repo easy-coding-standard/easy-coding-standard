@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Application\Command;
 
-use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 
 final class RunApplicationCommand
@@ -27,11 +26,6 @@ final class RunApplicationCommand
         $this->setSources($source);
         $this->isFixer = $isFixer;
         $this->configuration = $jsonConfiguration;
-    }
-
-    public static function createFromInputAndData(InputInterface $input, array $data): self
-    {
-        return new self($input->getArgument('source'), $input->getOption('fix'), $data);
     }
 
     public static function createFromSourceFixerAndData(array $source, bool $isFixer, array $data): self

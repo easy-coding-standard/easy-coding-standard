@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Report;
 
 use Symplify\EasyCodingStandard\Report\Error\Error;
 
-final class ErrorMessageSorter
+final class ErrorSorter
 {
     /**
      * @param Error[] $errorMessages

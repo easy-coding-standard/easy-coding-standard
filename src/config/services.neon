@@ -18,5 +18,5 @@
 
 # Reporting
 - Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter
-- Symplify\EasyCodingStandard\Report\ErrorMessageSorter
-- Symplify\EasyCodingStandard\Report\ErrorDataCollector
+- Symplify\EasyCodingStandard\Report\ErrorSorter
+- Symplify\EasyCodingStandard\Report\ErrorCollector

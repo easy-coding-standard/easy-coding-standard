@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Report;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Report\Error\Error;
-use Symplify\EasyCodingStandard\Report\ErrorMessageSorter;
+use Symplify\EasyCodingStandard\Report\ErrorSorter;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class ErrorMessageSorterTest extends TestCase
@@ -12,7 +12,7 @@ final class ErrorMessageSorterTest extends TestCase
     public function test()
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
-        $errorMessageSorter = $container->getByType(ErrorMessageSorter::class);
+        $errorMessageSorter = $container->getByType(ErrorSorter::class);
 
         $this->assertEquals(
             $this->getExpectedSortedMessages(),

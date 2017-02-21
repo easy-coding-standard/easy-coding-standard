@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
+use Nette\Utils\Strings;
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -9,7 +10,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorCollector;
 
 final class FileProcessor
 {
@@ -19,7 +20,7 @@ final class FileProcessor
     private $fixers;
 
     /**
-     * @var ErrorDataCollector
+     * @var ErrorCollector
      */
     private $errorDataCollector;
 
@@ -28,7 +29,7 @@ final class FileProcessor
      */
     private $style;
 
-    public function __construct(ErrorDataCollector $errorDataCollector, EasyCodingStandardStyle $style)
+    public function __construct(ErrorCollector $errorDataCollector, EasyCodingStandardStyle $style)
     {
         $this->errorDataCollector = $errorDataCollector;
         $this->style = $style;
@@ -66,6 +67,7 @@ final class FileProcessor
                 continue;
             }
 
+            /** @var AbstractFixer $fixer */
             $fixer->fix($file, $tokens);
 
             if ($tokens->isChanged()) {
@@ -87,33 +89,35 @@ final class FileProcessor
         // But we can't simple check $appliedFixers, because one fixer may revert
         // work of other and both of them will mark collection as changed.
         // Therefore we need to check if code hashes changed.
-        if ($oldHash !== $newHash) {
-            if ($isFixer) {
-                if (@file_put_contents($file->getRealPath(), $new) === false) {
-                    $error = error_get_last();
+        if ($isFixer && ($oldHash !== $newHash)) {
+            if (@file_put_contents($file->getRealPath(), $new) === false) {
+                $error = error_get_last();
 
-                    throw new IOException(
-                        sprintf(
-                            'Failed to write file "%s", "%s".',
-                            $file->getPathname(),
-                            $error ? $error['message'] : 'no reason available'
-                        ),
-                        0,
-                        null,
-                        $file->getRealPath()
-                    );
-                }
+                throw new IOException(
+                    sprintf(
+                        'Failed to write file "%s", "%s".',
+                        $file->getPathname(),
+                        $error ? $error['message'] : 'no reason available'
+                    ),
+                    0,
+                    null,
+                    $file->getRealPath()
+                );
             }
         }
     }
 
     private function detectChangedLineFromTokens(Tokens $tokens): int
     {
-        $line = 0;
+        $line = 1;
         foreach ($tokens as $token) {
-            if ($token->getContent() === "\n") {
+            if (Strings::contains($token->getContent(), PHP_EOL)) {
                 $line++;
+                if (Strings::contains($token->getContent(), PHP_EOL . PHP_EOL)) {
+                    $line++;
+                }
             }
+
             if ($token->isChanged()) {
                 return $line;
             }

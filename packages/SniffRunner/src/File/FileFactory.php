@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use Nette\FileNotFoundException;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 
@@ -15,7 +15,7 @@ final class FileFactory
     private $fixer;
 
     /**
-     * @var ErrorDataCollector
+     * @var ErrorCollector
      */
     private $reportCollector;
 
@@ -26,7 +26,7 @@ final class FileFactory
 
     public function __construct(
         Fixer $fixer,
-        ErrorDataCollector $reportCollector,
+        ErrorCollector $reportCollector,
         FileToTokensParser $fileToTokenParser
     ) {
         $this->fixer = $fixer;

@@ -4,12 +4,12 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Report\Error\Error;
-use Symplify\EasyCodingStandard\Report\ErrorDataCollector;
+use Symplify\EasyCodingStandard\Report\ErrorCollector;
 
 final class InfoMessagePrinter
 {
     /**
-     * @var ErrorDataCollector
+     * @var ErrorCollector
      */
     private $errorDataCollector;
 
@@ -19,7 +19,7 @@ final class InfoMessagePrinter
     private $easyCodingStandardStyle;
 
     public function __construct(
-        ErrorDataCollector $errorDataCollector,
+        ErrorCollector $errorDataCollector,
         EasyCodingStandardStyle $easyCodingStandardStyle
     ) {
         $this->errorDataCollector = $errorDataCollector;
@@ -44,12 +44,12 @@ final class InfoMessagePrinter
                 $message = $error->getMessage() . PHP_EOL . '(' . $error->getSourceClass() . ')';
 
                 $rows[] = [
-                    Error::LINE => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
-                    Error::MESSAGE => $this->wrapMessageToStyle($message, $error->isFixable())
+                    'line' => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
+                    'message' => $this->wrapMessageToStyle($message, $error->isFixable())
                 ];
             }
 
-            $this->easyCodingStandardStyle->table([Error::LINE, $file], $rows);
+            $this->easyCodingStandardStyle->table(['Line', $file], $rows);
         }
 
         $this->easyCodingStandardStyle->error($this->buildErrorMessage($isFixer));
@@ -96,7 +96,7 @@ final class InfoMessagePrinter
             return $this->errorDataCollector->getUnfixableErrorMessages();
         }
 
-        return $this->errorDataCollector->getErrorMessages();
+        return $this->errorDataCollector->getErrors();
     }
 
     private function getRelevantErrorCount(bool $isFixer): int

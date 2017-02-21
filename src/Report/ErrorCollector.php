@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Report;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Report\Error\Error;
 
-final class ErrorDataCollector
+final class ErrorCollector
 {
     /**
      * @var int
@@ -18,16 +18,16 @@ final class ErrorDataCollector
     private $fixableErrorCount = 0;
 
     /**
-     * @var Error[]
+     * @var Error[][]
      */
-    private $errorMessages = [];
+    private $errors = [];
 
     /**
-     * @var ErrorMessageSorter
+     * @var ErrorSorter
      */
     private $errorMessageSorter;
 
-    public function __construct(ErrorMessageSorter $errorMessageSorter)
+    public function __construct(ErrorSorter $errorMessageSorter)
     {
         $this->errorMessageSorter = $errorMessageSorter;
     }
@@ -45,9 +45,9 @@ final class ErrorDataCollector
     /**
      * @return Error[][]
      */
-    public function getErrorMessages(): array
+    public function getErrors(): array
     {
-        return $this->errorMessageSorter->sortByFileAndLine($this->errorMessages);
+        return $this->errorMessageSorter->sortByFileAndLine($this->errors);
     }
 
     public function getUnfixableErrorCount(): int
@@ -61,7 +61,7 @@ final class ErrorDataCollector
     public function getUnfixableErrorMessages(): array
     {
         $unfixableErrorMessages = [];
-        foreach ($this->getErrorMessages() as $file => $errorMessagesForFile) {
+        foreach ($this->getErrors() as $file => $errorMessagesForFile) {
             $unfixableErrorMessagesForFile = $this->filterUnfixableErrorMessagesForFile($errorMessagesForFile);
             if (count($unfixableErrorMessagesForFile)) {
                 $unfixableErrorMessages[$file] = $unfixableErrorMessagesForFile;
@@ -92,7 +92,7 @@ final class ErrorDataCollector
             $isFixable
         );
 
-        $this->errorMessages[$filePath][] = $error;
+        $this->errors[$filePath][] = $error;
     }
 
     /**
