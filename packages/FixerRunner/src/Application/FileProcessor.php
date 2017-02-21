@@ -111,13 +111,7 @@ final class FileProcessor
     {
         $line = 1;
         foreach ($tokens as $token) {
-            if (Strings::contains($token->getContent(), PHP_EOL)) {
-                $line++;
-                if (Strings::contains($token->getContent(), PHP_EOL . PHP_EOL)) {
-                    $line++;
-                }
-            }
-
+            $line += substr_count($token->getContent(), PHP_EOL);
             if ($token->isChanged()) {
                 return $line;
             }
