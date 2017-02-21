@@ -1,17 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Report;
+namespace Symplify\EasyCodingStandard\Tests\Report\ErrorCollector;
 
-use PHP_CodeSniffer\Standards\PEAR\Sniffs\Classes\ClassDeclarationSniff as PearClassDeclarationSniff;
-use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHPUnit\Framework\TestCase;
+use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Report\Error\Error;
 use Symplify\EasyCodingStandard\Report\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
-final class ErrorDataCollectorSniffRunnerTest extends TestCase
+final class SniffRunnerTest extends TestCase
 {
     /**
      * @var ErrorCollector
@@ -26,19 +25,19 @@ final class ErrorDataCollectorSniffRunnerTest extends TestCase
     protected function setUp()
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
-            __DIR__ . '/../../src/config/config.neon'
+            __DIR__ . '/../../../src/config/config.neon'
         );
         $this->errorDataCollector = $container->getByType(ErrorCollector::class);
         $this->application = $container->getByType(Application::class);
     }
 
-    public function testSniffRunner()
+    public function test()
     {
         $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
-            [__DIR__ . '/ErrorDataCollectorSource/NotPsr2Class.php.inc'],
+            [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
             false,
             [
-                'php-code-sniffer' => [ClassDeclarationSniff::class]
+                'php-code-sniffer' => [AbstractClassNameSniff::class]
             ]
         );
         $this->application->runCommand($runCommand);
@@ -49,15 +48,15 @@ final class ErrorDataCollectorSniffRunnerTest extends TestCase
         $errorMessages = $this->errorDataCollector->getErrors();
         $this->assertCount(1, $errorMessages);
 
-        $this->assertStringEndsWith('Report/ErrorDataCollectorSource/NotPsr2Class.php.inc', key($errorMessages));
+        $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
 
         /** @var Error $error */
         $error = array_pop($errorMessages)[0];
         $this->assertInstanceOf(Error::class, $error);
 
-        $this->assertSame(6, $error->getLine());
-        $this->assertSame('Opening class brace must be on a line by itself', $error->getMessage());
-        $this->assertSame(PearClassDeclarationSniff::class, $error->getSourceClass());
-        $this->assertSame(true, $error->isFixable());
+        $this->assertSame(5, $error->getLine());
+        $this->assertSame('Abstract class should have prefix "Abstract".', $error->getMessage());
+        $this->assertSame(AbstractClassNameSniff::class, $error->getSourceClass());
+        $this->assertTrue($error->isFixable());
     }
 }
