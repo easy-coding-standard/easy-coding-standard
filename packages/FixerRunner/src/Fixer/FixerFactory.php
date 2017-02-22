@@ -19,6 +19,7 @@ final class FixerFactory
     }
 
     /**
+     * @param string[]
      * @return FixerInterface[]
      */
     public function createFromClasses(array $classes): array
@@ -33,6 +34,10 @@ final class FixerFactory
         return $fixers;
     }
 
+    /**
+     * @param string $class
+     * @param array[] $config
+     */
     private function create(string $class, array $config): FixerInterface
     {
         $fixer = new $class;
@@ -40,6 +45,10 @@ final class FixerFactory
         return $fixer;
     }
 
+    /**
+     * @param FixerInterface $fixer
+     * @param array[] $config
+     */
     private function configureFixer(FixerInterface $fixer, array $config): void
     {
         if ($fixer instanceof ConfigurableFixerInterface && count($config)) {

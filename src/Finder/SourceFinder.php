@@ -26,6 +26,11 @@ final class SourceFinder
         return $files;
     }
 
+    /**
+     * @param SplFileInfo[] $files
+     * @param string $file
+     * @return SplFileInfo[]
+     */
     private function processFile(array $files, string $file): array
     {
         return array_merge($files, [
@@ -33,6 +38,11 @@ final class SourceFinder
         ]);
     }
 
+    /**
+     * @param SplFileInfo[] $files
+     * @param string $file
+     * @return SplFileInfo[]
+     */
     private function processDirectory(array $files, string $directory): array
     {
         $finder = (new Finder)->files()

@@ -30,17 +30,24 @@ final class File extends BaseFile implements FileInterface
      */
     private $isFixer;
 
+    /**
+     * @param string $path
+     * @param array[] $tokens
+     * @param Fixer $fixer
+     * @param ErrorCollector $errorCollector
+     * @param bool $isFixer
+     */
     public function __construct(
         string $path,
         array $tokens,
         Fixer $fixer,
-        ErrorCollector $errorDataCollector,
+        ErrorCollector $errorCollector,
         bool $isFixer
     ) {
         $this->path = $path;
         $this->tokens = $tokens;
         $this->fixer = $fixer;
-        $this->errorDataCollector = $errorDataCollector;
+        $this->errorDataCollector = $errorCollector;
 
         $this->numTokens = count($this->tokens);
         $this->content = file_get_contents($path);
@@ -52,7 +59,7 @@ final class File extends BaseFile implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function parse()
+    public function parse(): void
     {
         throw new NotImplementedException(sprintf(
             'Method %s not needed to be public. File is already parsed on __construct.',
@@ -63,7 +70,7 @@ final class File extends BaseFile implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function process()
+    public function process(): void
     {
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use external processing.',
@@ -74,7 +81,7 @@ final class File extends BaseFile implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function getErrorCount()
+    public function getErrorCount(): void
     {
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',
@@ -86,7 +93,7 @@ final class File extends BaseFile implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public function getErrors()
+    public function getErrors(): void
     {
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',
@@ -107,14 +114,18 @@ final class File extends BaseFile implements FileInterface
     /**
      * {@inheritdoc}
      */
-    protected function addMessage($error, $message, $line, $column, $code, $data, $severity, $isFixable = false): bool
+    protected function addMessage($isError, $message, $line, $column, $code, $data, $severity, $isFixable = false): bool
     {
-        if (! $error) { // skip warnings
+        if (! $isError) { // skip warnings
             return false;
         }
 
+        if (count($data)) {
+            $message = vsprintf($message, $data);
+        }
+
         $this->errorDataCollector->addErrorMessage(
-            $this->path, $message, $line, $code, $data, $isFixable
+            $this->path, $message, $line, $code, $isFixable
         );
 
         return true;

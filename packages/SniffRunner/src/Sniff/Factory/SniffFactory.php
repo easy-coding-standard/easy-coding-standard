@@ -18,6 +18,7 @@ final class SniffFactory
     }
 
     /**
+     * @param string[] $classes
      * @return Sniff[]
      */
     public function createFromClasses(array $classes): array
@@ -32,6 +33,10 @@ final class SniffFactory
         return $sniffs;
     }
 
+    /**
+     * @param string $sniffClass
+     * @param string[] $config
+     */
     private function create(string $sniffClass, array $config): Sniff
     {
         $sniff = new $sniffClass;
@@ -39,6 +44,10 @@ final class SniffFactory
         return $sniff;
     }
 
+    /**
+     * @param Sniff $sniff
+     * @param string[] $config
+     */
     private function configureSniff(Sniff $sniff, array $config): void
     {
         foreach ($config as $property => $value) {

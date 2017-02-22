@@ -13,6 +13,9 @@ final class FileToTokensParser
      */
     private $legacyConfig;
 
+    /**
+     * @return array[]
+     */
     public function parseFromFilePath(string $filePath): array
     {
         $fileContent = FileSystem::read($filePath);

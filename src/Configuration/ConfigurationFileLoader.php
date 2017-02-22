@@ -22,6 +22,9 @@ final class ConfigurationFileLoader
         $this->configurationFile = $configurationFile ?: getcwd().DIRECTORY_SEPARATOR. self::CONFIGURATION_FILE;
     }
 
+    /**
+     * @return array[]
+     */
     public function load(): array
     {
         $this->ensureFileExists($this->configurationFile);

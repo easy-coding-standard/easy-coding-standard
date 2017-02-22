@@ -7,19 +7,33 @@ use Symplify\EasyCodingStandard\Report\Error\Error;
 use Symplify\EasyCodingStandard\Report\ErrorSorter;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
-final class ErrorMessageSorterTest extends TestCase
+final class ErrorSorterTest extends TestCase
 {
-    public function test()
+    /**
+     * @var ErrorSorter
+     */
+    private $errorSorter;
+
+    public function setUp()
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
-        $errorMessageSorter = $container->getByType(ErrorSorter::class);
-
-        $this->assertEquals(
-            $this->getExpectedSortedMessages(),
-            $errorMessageSorter->sortByFileAndLine($this->getUnsortedMessages())
-        );
+        $this->errorSorter = $container->getByType(ErrorSorter::class);
     }
 
+
+    public function test(): void
+    {
+        /** @var Error[][] $sortedMessages */
+        $sortedMessages = $this->errorSorter->sortByFileAndLine($this->getUnsortedMessages());
+
+        $this->assertSame(['anotherFilePath', 'filePath'], array_keys($sortedMessages));
+        $this->assertSame(5, $sortedMessages['anotherFilePath'][0]->getLine());
+        $this->assertSame(15, $sortedMessages['anotherFilePath'][1]->getLine());
+    }
+
+    /**
+     * @return Error[][]
+     */
     private function getUnsortedMessages(): array
     {
         return [
@@ -28,19 +42,6 @@ final class ErrorMessageSorterTest extends TestCase
             ],
             'anotherFilePath' => [
                 new Error(15, 'error', 'SomeClass', false),
-                new Error(5, 'error', 'SomeClass', false)
-            ]
-        ];
-    }
-
-    private function getExpectedSortedMessages(): array
-    {
-        return [
-            'anotherFilePath' => [
-                new Error(5, 'error', 'SomeClass', false),
-                new Error(15, 'error', 'SomeClass', false)
-            ],
-            'filePath' => [
                 new Error(5, 'error', 'SomeClass', false)
             ]
         ];

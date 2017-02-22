@@ -53,6 +53,10 @@ final class Application implements ApplicationInterface
         $this->runForSource($command->getSources(), $command->isFixer());
     }
 
+    /**
+     * @param string[] $source
+     * @param bool $isFixer
+     */
     private function runForSource(array $source, bool $isFixer): void
     {
         $files = $this->filesProvider->getFilesForSource($source, $isFixer);

@@ -14,13 +14,13 @@ final class ApplicationTest extends TestCase
      */
     private $application;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->application = $container->getByType(Application::class);
     }
 
-    public function testRunCommand()
+    public function testRunCommand(): void
     {
         $this->application->runCommand($this->createCommand());
         $this->assertTrue(true);

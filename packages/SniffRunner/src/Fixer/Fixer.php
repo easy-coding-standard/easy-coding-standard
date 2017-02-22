@@ -18,7 +18,7 @@ final class Fixer
      */
     private $tokens = [];
 
-    public function startFile(File $file)
+    public function startFile(File $file): void
     {
         $tokens = $file->getTokens();
 
@@ -89,14 +89,14 @@ final class Fixer
     /**
      * For BC
      */
-    public function beginChangeSet()
+    public function beginChangeSet(): void
     {
     }
 
     /**
      * For BC
      */
-    public function endChangeSet()
+    public function endChangeSet(): void
     {
     }
 }

@@ -6,6 +6,10 @@ use ReflectionClass;
 
 final class SniffClassFilter
 {
+    /**
+     * @param string[] $originSniffClasses
+     * @return string[]
+     */
     public function filterOutAbstractAndNonPhpSniffClasses(array $originSniffClasses): array
     {
         $finalSniffClasses = [];

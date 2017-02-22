@@ -19,7 +19,7 @@ final class LegacyCompatibilityLayer
             return;
         }
 
-        self::setupVersion2ClassAliases();
+        self::setupClassAliases();
         self::ensureLineEndingsAreDetected();
         self::setupVerbosityToMakeLegacyCodeRun();
         new Tokens;
@@ -43,7 +43,7 @@ final class LegacyCompatibilityLayer
         }
     }
 
-    private static function setupVersion2ClassAliases(): void
+    private static function setupClassAliases(): void
     {
         class_alias(Sniff::class, 'PHP_CodeSniffer_Sniff');
         class_alias(File::class, 'PHP_CodeSniffer_File');

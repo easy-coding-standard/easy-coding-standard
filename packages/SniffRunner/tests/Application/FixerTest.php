@@ -20,7 +20,7 @@ final class FixerTest extends TestCase
      */
     private $file;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $fileFactory = $container->getByType(FileFactory::class);
@@ -28,7 +28,7 @@ final class FixerTest extends TestCase
         $this->fixer = $container->getByType(Fixer::class);
     }
 
-    public function testStartFile()
+    public function testStartFile(): void
     {
         $this->assertSame('', $this->fixer->getContents());
         $this->fixer->startFile($this->file);
@@ -39,7 +39,7 @@ final class FixerTest extends TestCase
         );
     }
 
-    public function testTokenContent()
+    public function testTokenContent(): void
     {
         $this->fixer->startFile($this->file);
 
@@ -56,7 +56,7 @@ final class FixerTest extends TestCase
         );
     }
 
-    public function testAddContent()
+    public function testAddContent(): void
     {
         $this->fixer->startFile($this->file);
 
@@ -69,7 +69,7 @@ final class FixerTest extends TestCase
         $this->assertSame('A\\B', $token);
     }
 
-    public function testAddNewline()
+    public function testAddNewline(): void
     {
         $this->fixer->startFile($this->file);
 
@@ -85,7 +85,7 @@ final class FixerTest extends TestCase
         $this->assertSame(PHP_EOL.'\\'.PHP_EOL, $token);
     }
 
-    public function testSubstrToken()
+    public function testSubstrToken(): void
     {
         $this->fixer->startFile($this->file);
 

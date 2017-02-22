@@ -17,13 +17,13 @@ final class FileFactoryTest extends TestCase
      */
     private $fileFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->fileFactory = $container->getByType(FileFactory::class);
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $file = $this->fileFactory->create(__DIR__ . '/FileFactorySource/SomeFile.php', false);
         $this->assertInstanceOf(File::class, $file);
@@ -33,9 +33,9 @@ final class FileFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \Nette\FileNotFoundException
+     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\FileNotFoundException
      */
-    public function testCreateFromNotFile()
+    public function testCreateFromNotFile(): void
     {
         $this->fileFactory->create(__DIR__, false);
     }

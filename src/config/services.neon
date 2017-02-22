@@ -9,6 +9,7 @@
 # Console & Commands
 - Symfony\Component\Console\Application
 - Symplify\EasyCodingStandard\Console\Command\RunCommand
+- Symfony\Component\Console\Terminal
 
 # Symfony Output style
 - Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle

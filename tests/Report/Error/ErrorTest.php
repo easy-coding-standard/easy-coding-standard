@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\Report\Error\Error;
 
 final class ErrorTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $error = new Error(1, 'message', 'class', true);
         $this->assertSame(1, $error->getLine());

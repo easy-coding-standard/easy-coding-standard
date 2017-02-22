@@ -48,7 +48,7 @@ final class RunCommand extends Command
         $this->infoMessagePrinter = $infoMessagePrinter;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('run');
         $this->addArgument('source', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'The path(s) to be checked.');

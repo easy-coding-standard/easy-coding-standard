@@ -22,7 +22,7 @@ final class FixerRunnerTest extends TestCase
      */
     private $application;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../src/config/config.neon'

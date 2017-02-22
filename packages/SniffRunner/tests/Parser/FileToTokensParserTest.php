@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 
 final class FileToTokensParserTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $tokens = (new FileToTokensParser)->parseFromFilePath(
             __DIR__.'/FileToTokensParserSource/SimplePhpFile.php'

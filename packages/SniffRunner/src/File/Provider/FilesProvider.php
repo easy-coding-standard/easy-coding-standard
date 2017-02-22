@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File\Provider;
 
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 
 final class FilesProvider
@@ -29,6 +30,8 @@ final class FilesProvider
     }
 
     /**
+     * @param string[] $source
+     * @param bool $isFixer
      * @return File[]
      */
     public function getFilesForSource(array $source, bool $isFixer): array

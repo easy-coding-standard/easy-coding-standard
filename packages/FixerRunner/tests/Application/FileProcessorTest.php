@@ -15,7 +15,7 @@ final class FileProcessorTest extends TestCase
      */
     private $fileProcessor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../../src/config/config.neon'
@@ -23,7 +23,7 @@ final class FileProcessorTest extends TestCase
         $this->fileProcessor = $container->getByType(FileProcessor::class);
     }
 
-    public function test()
+    public function test(): void
     {
         $symfonyFixersFile = file_get_contents(__DIR__ . '/../../../../config/php-cs-fixer/symfony-fixers.neon');
 

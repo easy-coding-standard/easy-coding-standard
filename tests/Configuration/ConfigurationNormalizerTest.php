@@ -7,9 +7,9 @@ use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 
 final class ConfigurationNormalizerTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
-        $configurationNormalizer = new ConfigurationNormalizer();
+        $configurationNormalizer = new ConfigurationNormalizer;
         $normalizedConfiguration = $configurationNormalizer->normalizeClassesConfiguration([
             0 => 'sniff',
             'sniffAndItsConfig' => ['key' => 'value']

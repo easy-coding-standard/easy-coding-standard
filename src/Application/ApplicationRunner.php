@@ -30,12 +30,12 @@ final class ApplicationRunner
         $this->sourceFinder = $sourceFinder;
     }
 
-    public function addApplication(ApplicationInterface $application)
+    public function addApplication(ApplicationInterface $application): void
     {
         $this->applications[] = $application;
     }
 
-    public function runCommand(RunApplicationCommand $command)
+    public function runCommand(RunApplicationCommand $command): void
     {
         $files = $this->sourceFinder->find($command->getSources());
         $this->easyCodingStandardStyle->progressStart(count($files) * count($this->applications));

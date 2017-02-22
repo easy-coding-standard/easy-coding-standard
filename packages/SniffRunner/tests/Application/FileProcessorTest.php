@@ -19,14 +19,14 @@ final class FileProcessorTest extends TestCase
      */
     private $fileFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->fileProcessor = $container->getByType(FileProcessor::class);
         $this->fileFactory = $container->getByType(FileFactory::class);
     }
 
-    public function testProcessFiles()
+    public function testProcessFiles(): void
     {
         $file = $this->fileFactory->create(__DIR__.'/FileProcessorSource/SomeFile.php', false);
         $tokensBefore = $file->getTokens();

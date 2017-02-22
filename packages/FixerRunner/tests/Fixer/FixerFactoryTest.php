@@ -15,7 +15,7 @@ final class FixerFactoryTest extends TestCase
      */
     private $fixerFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../../src/config/config.neon'
@@ -23,7 +23,7 @@ final class FixerFactoryTest extends TestCase
         $this->fixerFactory = $container->getByType(FixerFactory::class);
     }
 
-    public function testRuleConfiguration()
+    public function testRuleConfiguration(): void
     {
         $rules = $this->fixerFactory->createFromClasses([ArraySyntaxFixer::class]);
 

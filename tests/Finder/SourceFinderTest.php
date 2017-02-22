@@ -7,9 +7,9 @@ use Symplify\EasyCodingStandard\Finder\SourceFinder;
 
 final class SourceFinderTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
-        $sourceFinder = new SourceFinder();
+        $sourceFinder = new SourceFinder;
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource']);
         $this->assertCount(1, $foundFiles);
 

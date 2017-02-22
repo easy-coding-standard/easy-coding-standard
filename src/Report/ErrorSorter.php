@@ -8,7 +8,7 @@ final class ErrorSorter
 {
     /**
      * @param Error[] $errorMessages
-     * @return Error[]
+     * @return Error[][]
      */
     public function sortByFileAndLine(array $errorMessages): array
     {

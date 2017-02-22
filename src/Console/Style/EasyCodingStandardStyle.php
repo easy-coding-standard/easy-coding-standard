@@ -4,9 +4,19 @@ namespace Symplify\EasyCodingStandard\Console\Style;
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Terminal;
 
 final class EasyCodingStandardStyle
 {
+    /**
+     * @var int
+     */
+    private const LINE_COLUMN_WIDTH = 4;
+//    /**
+//     * @var int
+//     */
+//    private const MESSAGE_COLUMN_WIDTH = 120;
+
     /**
      * @var SymfonyStyle
      */
@@ -17,9 +27,15 @@ final class EasyCodingStandardStyle
      */
     private $progressStarted = false;
 
-    public function __construct(SymfonyStyleFactory $symfonyStyleFactory)
+    /**
+     * @var Terminal
+     */
+    private $terminal;
+
+    public function __construct(SymfonyStyleFactory $symfonyStyleFactory, Terminal $terminal)
     {
         $this->symfonyStyle = $symfonyStyleFactory->create();
+        $this->terminal = $terminal;
     }
 
     public function title(string $message): void
@@ -52,13 +68,19 @@ final class EasyCodingStandardStyle
         $this->symfonyStyle->newLine();
     }
 
+    /**
+     * @param string[] $headers
+     * @param array[] $rows
+     */
     public function table(array $headers, array $rows): void
     {
         $style = clone Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('%s');
 
+        $rows = $this->wrapTextSoItFitsTheColumnWidth($rows);
+
         $table = new Table($this->symfonyStyle);
-        $table->setColumnWidths([4, 110]);
+        $table->setColumnWidths([self::LINE_COLUMN_WIDTH, $this->countMessageColumnWidth()]);
         $table->setHeaders($headers);
         $table->setRows($rows);
         $table->setStyle($style);
@@ -80,5 +102,23 @@ final class EasyCodingStandardStyle
         }
 
         $this->symfonyStyle->progressAdvance();
+    }
+
+    /**
+     * @param array[] $rows
+     * @return array[]
+     */
+    private function wrapTextSoItFitsTheColumnWidth(array $rows): array
+    {
+        foreach ($rows as $id => $row) {
+            $rows[$id]['message'] = wordwrap($row['message'], $this->countMessageColumnWidth());
+        }
+
+        return $rows;
+    }
+
+    private function countMessageColumnWidth(): int
+    {
+        return $this->terminal->getWidth() - self::LINE_COLUMN_WIDTH - 7;
     }
 }

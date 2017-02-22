@@ -15,7 +15,7 @@ final class SniffFactoryTest extends TestCase
      */
     private $sniffFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../../../src/config/config.neon'
@@ -23,13 +23,13 @@ final class SniffFactoryTest extends TestCase
         $this->sniffFactory = $container->getByType(SniffFactory::class);
     }
 
-    public function testCreateFromClasses()
+    public function testCreateFromClasses(): void
     {
         $sniffs = $this->sniffFactory->createFromClasses([ClassDeclarationSniff::class]);
         $this->assertInstanceOf(ClassDeclarationSniff::class, $sniffs[0]);
     }
 
-    public function testPropertiesAreChanged()
+    public function testPropertiesAreChanged(): void
     {
         $sniffs = $this->sniffFactory->createFromClasses([LineLengthSniff::class => [
             'lineLimit' => 15

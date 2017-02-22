@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
-use Nette\FileNotFoundException;
 use Symplify\EasyCodingStandard\Report\ErrorCollector;
+use Symplify\EasyCodingStandard\SniffRunner\Exception\File\FileNotFoundException;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 
@@ -24,11 +24,8 @@ final class FileFactory
      */
     private $fileToTokenParser;
 
-    public function __construct(
-        Fixer $fixer,
-        ErrorCollector $reportCollector,
-        FileToTokensParser $fileToTokenParser
-    ) {
+    public function __construct(Fixer $fixer, ErrorCollector $reportCollector, FileToTokensParser $fileToTokenParser)
+    {
         $this->fixer = $fixer;
         $this->reportCollector = $reportCollector;
         $this->fileToTokenParser = $fileToTokenParser;
@@ -43,7 +40,7 @@ final class FileFactory
         return new File($filePath, $tokens, $this->fixer, $this->reportCollector, $isFixer);
     }
 
-    private function ensureFileExists(string $filePath)
+    private function ensureFileExists(string $filePath): void
     {
         if (! is_file($filePath) || ! file_exists($filePath)) {
             throw new FileNotFoundException(sprintf(

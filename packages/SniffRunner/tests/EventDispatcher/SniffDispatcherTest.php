@@ -16,13 +16,13 @@ final class SniffDispatcherTest extends TestCase
      */
     private $sniffDispatcher;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->sniffDispatcher = $container->getByType(SniffDispatcher::class);
     }
 
-    public function testAddSniffListeners()
+    public function testAddSniffListeners(): void
     {
         $sniffs = [new ClassDeclarationSniff];
         $this->sniffDispatcher->addSniffListeners($sniffs);
@@ -31,7 +31,7 @@ final class SniffDispatcherTest extends TestCase
         $this->assertCount(1, $this->sniffDispatcher->getListeners(T_CLASS));
     }
 
-    public function testDispatch()
+    public function testDispatch(): void
     {
         $sniffs = [new ClassDeclarationSniff];
         $this->sniffDispatcher->addSniffListeners($sniffs);

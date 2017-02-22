@@ -22,7 +22,7 @@ final class SniffRunnerTest extends TestCase
      */
     private $application;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../src/config/config.neon'
@@ -31,7 +31,7 @@ final class SniffRunnerTest extends TestCase
         $this->application = $container->getByType(Application::class);
     }
 
-    public function test()
+    public function test(): void
     {
         $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
             [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],

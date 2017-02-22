@@ -4,6 +4,8 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Report\ErrorCollector;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
@@ -14,16 +16,16 @@ final class FileTest extends TestCase
      */
     private $file;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $fileFactory = $container->getByType(FileFactory::class);
         $this->file = $fileFactory->create(__DIR__ . '/FileFactorySource/SomeFile.php', false);
     }
 
-    public function testErrorDataCollector()
+    public function testErrorDataCollector(): void
     {
-        /** @var ErrorDataCollector $errorDataCollector */
+        /** @var ErrorCollector $errorDataCollector */
         $errorDataCollector = Assert::getObjectAttribute(
             $this->file,
             'errorDataCollector'
@@ -42,7 +44,7 @@ final class FileTest extends TestCase
     /**
      * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
-    public function testNotImplementedGetErrorCount()
+    public function testNotImplementedGetErrorCount(): void
     {
         $this->file->getErrorCount();
     }
@@ -50,7 +52,7 @@ final class FileTest extends TestCase
     /**
      * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
-    public function testNotImplementedGetErrors()
+    public function testNotImplementedGetErrors(): void
     {
         $this->file->getErrors();
     }
@@ -58,7 +60,7 @@ final class FileTest extends TestCase
     /**
      * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
-    public function testNotImplementedProcess()
+    public function testNotImplementedProcess(): void
     {
         $this->file->process();
     }
@@ -66,7 +68,7 @@ final class FileTest extends TestCase
     /**
      * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
      */
-    public function testNotImplementedParse()
+    public function testNotImplementedParse(): void
     {
         $this->file->parse();
     }

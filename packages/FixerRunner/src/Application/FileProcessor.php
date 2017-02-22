@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
-use Nette\Utils\Strings;
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -17,7 +16,7 @@ final class FileProcessor
     /**
      * @var FixerInterface[]
      */
-    private $fixers;
+    private $fixers = [];
 
     /**
      * @var ErrorCollector
@@ -35,12 +34,19 @@ final class FileProcessor
         $this->style = $style;
     }
 
-    public function registerFixers(array $fixers)
+    /**
+     * @param FixerInterface[] $fixers
+     */
+    public function registerFixers(array $fixers): void
     {
         $this->fixers = $fixers;
     }
 
-    public function processFiles(array $files, bool $isFixer)
+    /**
+     * @param SplFileInfo[] $files
+     * @param bool $isFixer
+     */
+    public function processFiles(array $files, bool $isFixer): void
     {
         foreach ($files as $file) {
             $this->fixFile($file, $isFixer);
@@ -51,7 +57,7 @@ final class FileProcessor
         }
     }
 
-    private function fixFile(SplFileInfo $file, bool $isFixer)
+    private function fixFile(SplFileInfo $file, bool $isFixer): void
     {
         $old = file_get_contents($file->getRealPath());
         $tokens = Tokens::fromCode($old);
@@ -128,9 +134,7 @@ final class FileProcessor
             $filePath,
             $this->prepareErrorMessage($fixer),
             $this->detectChangedLineFromTokens($tokens),
-            get_class($fixer),
-            [],
-            true
+            get_class($fixer)
         );
     }
 

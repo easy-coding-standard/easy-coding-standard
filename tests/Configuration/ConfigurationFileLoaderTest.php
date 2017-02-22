@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
 
 final class ConfigurationFileLoaderTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $multiCsFileLoader = new ConfigurationFileLoader(__DIR__.'/coding-standard.neon');
 

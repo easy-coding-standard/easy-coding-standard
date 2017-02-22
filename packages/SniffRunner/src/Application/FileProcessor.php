@@ -32,7 +32,11 @@ final class FileProcessor
         $this->style = $style;
     }
 
-    public function processFiles(array $files, bool $isFixer)
+    /**
+     * @param string[] $files
+     * @param bool $isFixer
+     */
+    public function processFiles(array $files, bool $isFixer): void
     {
         foreach ($files as $file) {
             $this->processFile($file, $isFixer);
