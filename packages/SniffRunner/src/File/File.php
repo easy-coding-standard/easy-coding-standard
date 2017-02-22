@@ -146,6 +146,10 @@ final class File extends BaseFile implements FileInterface
 
         $trace = debug_backtrace(0, 6);
 
+        if ($this->isSniffClass($trace[3]['class'])) {
+            return $trace[3]['class'];
+        }
+
         if ($this->isSniffClass($trace[5]['class'])) {
             return $trace[5]['class'];
         }
