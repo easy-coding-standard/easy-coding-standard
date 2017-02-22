@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Report\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
@@ -16,29 +15,30 @@ final class FileTest extends TestCase
      */
     private $file;
 
+    /**
+     * @var ErrorCollector
+     */
+    private $errorCollector;
+
     protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $fileFactory = $container->getByType(FileFactory::class);
         $this->file = $fileFactory->create(__DIR__ . '/FileFactorySource/SomeFile.php', false);
+        $this->errorCollector = $container->getByType(ErrorCollector::class);
     }
 
     public function testErrorDataCollector(): void
     {
-        /** @var ErrorCollector $errorDataCollector */
-        $errorDataCollector = Assert::getObjectAttribute(
-            $this->file,
-            'errorDataCollector'
-        );
-        $this->assertSame(0, $errorDataCollector->getErrorCount());
+        $this->assertSame(0, $this->errorCollector->getErrorCount());
 
         $this->file->addError('Some Error', 0, 'code');
-        $this->assertSame(1, $errorDataCollector->getErrorCount());
-        $this->assertSame(0, $errorDataCollector->getFixableErrorCount());
+        $this->assertSame(1, $this->errorCollector->getErrorCount());
+        $this->assertSame(0, $this->errorCollector->getFixableErrorCount());
 
         $this->file->addFixableError('Some Other Error', 0, 'code');
-        $this->assertSame(2, $errorDataCollector->getErrorCount());
-        $this->assertSame(1, $errorDataCollector->getFixableErrorCount());
+        $this->assertSame(2, $this->errorCollector->getErrorCount());
+        $this->assertSame(1, $this->errorCollector->getFixableErrorCount());
     }
 
     /**

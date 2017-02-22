@@ -12,10 +12,6 @@ final class EasyCodingStandardStyle
      * @var int
      */
     private const LINE_COLUMN_WIDTH = 4;
-//    /**
-//     * @var int
-//     */
-//    private const MESSAGE_COLUMN_WIDTH = 120;
 
     /**
      * @var SymfonyStyle

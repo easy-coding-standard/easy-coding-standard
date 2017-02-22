@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
-use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -21,16 +20,16 @@ final class FileProcessor
     /**
      * @var ErrorCollector
      */
-    private $errorDataCollector;
+    private $errorCollector;
 
     /**
      * @var EasyCodingStandardStyle
      */
     private $style;
 
-    public function __construct(ErrorCollector $errorDataCollector, EasyCodingStandardStyle $style)
+    public function __construct(ErrorCollector $errorCollector, EasyCodingStandardStyle $style)
     {
-        $this->errorDataCollector = $errorDataCollector;
+        $this->errorCollector = $errorCollector;
         $this->style = $style;
     }
 
@@ -73,7 +72,7 @@ final class FileProcessor
                 continue;
             }
 
-            /** @var AbstractFixer $fixer */
+            /** @var FixerInterface $fixer */
             $fixer->fix($file, $tokens);
 
             if ($tokens->isChanged()) {
@@ -126,19 +125,19 @@ final class FileProcessor
         return 0;
     }
 
-    private function addErrorToErrorMessageCollector(SplFileInfo $file, AbstractFixer $fixer, Tokens $tokens): void
+    private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): void
     {
         $filePath = str_replace('//', '/', $file->getPathname());
 
-        $this->errorDataCollector->addErrorMessage(
+        $this->errorCollector->addErrorMessage(
             $filePath,
-            $this->prepareErrorMessage($fixer),
+            $this->prepareErrorMessageFromFixer($fixer),
             $this->detectChangedLineFromTokens($tokens),
             get_class($fixer)
         );
     }
 
-    private function prepareErrorMessage(AbstractFixer $fixer): string
+    private function prepareErrorMessageFromFixer(FixerInterface $fixer): string
     {
         if ($fixer instanceof DefinedFixerInterface) {
             $definition = $fixer->getDefinition();

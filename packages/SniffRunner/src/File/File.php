@@ -23,7 +23,7 @@ final class File extends BaseFile implements FileInterface
     /**
      * @var ErrorCollector
      */
-    private $errorDataCollector;
+    private $errorCollector;
 
     /**
      * @var bool
@@ -47,7 +47,7 @@ final class File extends BaseFile implements FileInterface
         $this->path = $path;
         $this->tokens = $tokens;
         $this->fixer = $fixer;
-        $this->errorDataCollector = $errorCollector;
+        $this->errorCollector = $errorCollector;
 
         $this->numTokens = count($this->tokens);
         $this->content = file_get_contents($path);
@@ -103,6 +103,8 @@ final class File extends BaseFile implements FileInterface
     }
 
     /**
+     * Delegate to addError()
+     *
      * {@inheritdoc}
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
@@ -112,6 +114,8 @@ final class File extends BaseFile implements FileInterface
     }
 
     /**
+     * Delegated from addError()
+     *
      * {@inheritdoc}
      */
     protected function addMessage($isError, $message, $line, $column, $code, $data, $severity, $isFixable = false): bool
@@ -124,7 +128,9 @@ final class File extends BaseFile implements FileInterface
             $message = vsprintf($message, $data);
         }
 
-        $this->errorDataCollector->addErrorMessage(
+
+
+        $this->errorCollector->addErrorMessage(
             $this->path, $message, $line, $code, $isFixable
         );
 

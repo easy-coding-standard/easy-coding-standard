@@ -71,16 +71,6 @@ final class ErrorCollector
         return $unfixableErrorMessages;
     }
 
-    /**
-     * For back compatibility with PHP_CodeSniffer addErrorMessage() method.
-     *
-     * @param string $filePath
-     * @param string $message
-     * @param int $line
-     * @param string $sourceClass
-     * @param string[] $data
-     * @param bool $isFixable
-     */
     public function addErrorMessage(
         string $filePath,
         string $message,
@@ -94,9 +84,7 @@ final class ErrorCollector
             $this->fixableErrorCount++;
         }
 
-        $error = new Error($line, $message, $this->normalizeSniffClass($sourceClass), $isFixable);
-
-        $this->errors[$filePath][] = $error;
+        $this->errors[$filePath][] = new Error($line, $message, $this->normalizeSniffClass($sourceClass), $isFixable);
     }
 
     /**
