@@ -72,11 +72,7 @@ final class ErrorCollector
     }
 
     public function addErrorMessage(
-        string $filePath,
-        string $message,
-        int $line,
-        string $sourceClass,
-        bool $isFixable = true
+        string $filePath, int $line, string $message, string $sourceClass, bool $isFixable = true
     ): void {
         $this->errorCount++;
 
@@ -84,7 +80,7 @@ final class ErrorCollector
             $this->fixableErrorCount++;
         }
 
-        $this->errors[$filePath][] = new Error($line, $message, $this->normalizeSniffClass($sourceClass), $isFixable);
+        $this->errors[$filePath][] = new Error($line, $message, $sourceClass, $isFixable);
     }
 
     /**
@@ -103,25 +99,5 @@ final class ErrorCollector
         }
 
         return $unfixableErrorMessages;
-    }
-
-    private function normalizeSniffClass(string $sourceClass): string
-    {
-        if (class_exists($sourceClass, false)) {
-            return $sourceClass;
-        }
-
-        $trace = debug_backtrace(0, 6);
-
-        if ($this->isSniffClass($trace[5]['class'])) {
-            return $trace[5]['class'];
-        }
-
-        return $trace[4]['class'];
-    }
-
-    private function isSniffClass(string $class): bool
-    {
-        return is_a($class, Sniff::class, true);
     }
 }

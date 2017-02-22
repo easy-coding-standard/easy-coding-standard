@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
+use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Report\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Contract\File\FileInterface;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
@@ -118,7 +119,7 @@ final class File extends BaseFile implements FileInterface
      *
      * {@inheritdoc}
      */
-    protected function addMessage($isError, $message, $line, $column, $code, $data, $severity, $isFixable = false): bool
+    protected function addMessage($isError, $message, $line, $column, $sniffClass, $data, $severity, $isFixable = false): bool
     {
         if (! $isError) { // skip warnings
             return false;
@@ -128,12 +129,32 @@ final class File extends BaseFile implements FileInterface
             $message = vsprintf($message, $data);
         }
 
-
+        $sniffClass = $this->normalizeSniffClass($sniffClass);
 
         $this->errorCollector->addErrorMessage(
-            $this->path, $message, $line, $code, $isFixable
+            $this->path, $line, $message, $sniffClass, $isFixable
         );
 
         return true;
+    }
+
+    private function normalizeSniffClass(string $sourceClass): string
+    {
+        if (class_exists($sourceClass, false)) {
+            return $sourceClass;
+        }
+
+        $trace = debug_backtrace(0, 6);
+
+        if ($this->isSniffClass($trace[5]['class'])) {
+            return $trace[5]['class'];
+        }
+
+        return $trace[4]['class'];
+    }
+
+    private function isSniffClass(string $class): bool
+    {
+        return is_a($class, Sniff::class, true);
     }
 }

@@ -130,10 +130,7 @@ final class FileProcessor
         $filePath = str_replace('//', '/', $file->getPathname());
 
         $this->errorCollector->addErrorMessage(
-            $filePath,
-            $this->prepareErrorMessageFromFixer($fixer),
-            $this->detectChangedLineFromTokens($tokens),
-            get_class($fixer)
+            $filePath, $this->detectChangedLineFromTokens($tokens), $this->prepareErrorMessageFromFixer($fixer), get_class($fixer)
         );
     }
 
