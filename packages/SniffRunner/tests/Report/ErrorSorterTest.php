@@ -20,7 +20,6 @@ final class ErrorSorterTest extends TestCase
         $this->errorSorter = $container->getByType(ErrorSorter::class);
     }
 
-
     public function test(): void
     {
         /** @var Error[][] $sortedMessages */

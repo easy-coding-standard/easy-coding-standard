@@ -119,8 +119,16 @@ final class File extends BaseFile implements FileInterface
      *
      * {@inheritdoc}
      */
-    protected function addMessage($isError, $message, $line, $column, $sniffClass, $data, $severity, $isFixable = false): bool
-    {
+    protected function addMessage(
+        $isError,
+        $message,
+        $line,
+        $column,
+        $sniffClass,
+        $data,
+        $severity,
+        $isFixable = false
+    ): bool {
         if (! $isError) { // skip warnings
             return false;
         }

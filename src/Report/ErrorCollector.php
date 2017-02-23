@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Report;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Report\Error\Error;
 
 final class ErrorCollector
@@ -72,7 +71,11 @@ final class ErrorCollector
     }
 
     public function addErrorMessage(
-        string $filePath, int $line, string $message, string $sourceClass, bool $isFixable = true
+        string $filePath,
+        int $line,
+        string $message,
+        string $sourceClass,
+        bool $isFixable = true
     ): void {
         $this->errorCount++;
 
