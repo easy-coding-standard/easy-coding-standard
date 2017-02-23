@@ -14,7 +14,7 @@ final class ErrorSorterTest extends TestCase
      */
     private $errorSorter;
 
-    public function setUp()
+    public function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->errorSorter = $container->getByType(ErrorSorter::class);
