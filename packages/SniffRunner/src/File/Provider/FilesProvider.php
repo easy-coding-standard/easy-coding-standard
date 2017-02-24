@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\File\Provider;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;

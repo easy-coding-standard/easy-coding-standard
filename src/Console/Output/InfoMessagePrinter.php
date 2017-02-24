@@ -88,7 +88,7 @@ final class InfoMessagePrinter
     }
 
     /**
-     * @return Error[]
+     * @return Error[][]
      */
     private function getRelevantErrorMessages(bool $isFixer): array
     {
