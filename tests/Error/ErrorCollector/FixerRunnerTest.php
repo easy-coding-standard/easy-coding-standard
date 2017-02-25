@@ -37,6 +37,7 @@ final class FixerRunnerTest extends TestCase
 
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());
         $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
+        $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
 
         $errorMessages = $this->errorDataCollector->getErrors();
         $this->assertCount(1, $errorMessages);

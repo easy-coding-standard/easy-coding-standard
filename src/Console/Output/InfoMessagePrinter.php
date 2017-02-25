@@ -97,7 +97,7 @@ final class InfoMessagePrinter
     private function getRelevantErrorMessages(bool $isFixer, array $ignoredErrors): array
     {
         if ($isFixer) {
-            return $this->errorDataCollector->getUnfixableErrorMessages();
+            return $this->errorDataCollector->getUnfixableErrors();
         }
 
         // @todo: filter out those ignored!

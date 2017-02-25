@@ -24,48 +24,15 @@ final class ErrorCollector
      */
     private $errorMessageSorter;
 
-    public function __construct(ErrorSorter $errorMessageSorter)
+    /**
+     * @var ErrorFilter
+     */
+    private $errorFilter;
+
+    public function __construct(ErrorSorter $errorMessageSorter, ErrorFilter $errorFilter)
     {
         $this->errorMessageSorter = $errorMessageSorter;
-    }
-
-    public function getErrorCount(): int
-    {
-        return $this->errorCount;
-    }
-
-    public function getFixableErrorCount(): int
-    {
-        return $this->fixableErrorCount;
-    }
-
-    /**
-     * @return Error[][]
-     */
-    public function getErrors(): array
-    {
-        return $this->errorMessageSorter->sortByFileAndLine($this->errors);
-    }
-
-    public function getUnfixableErrorCount(): int
-    {
-        return count($this->getUnfixableErrorMessages());
-    }
-
-    /**
-     * @return Error[][]
-     */
-    public function getUnfixableErrorMessages(): array
-    {
-        $unfixableErrorMessages = [];
-        foreach ($this->getErrors() as $file => $errorMessagesForFile) {
-            $unfixableErrorMessagesForFile = $this->filterUnfixableErrorMessagesForFile($errorMessagesForFile);
-            if (count($unfixableErrorMessagesForFile)) {
-                $unfixableErrorMessages[$file] = $unfixableErrorMessagesForFile;
-            }
-        }
-
-        return $unfixableErrorMessages;
+        $this->errorFilter = $errorFilter;
     }
 
     public function addErrorMessage(
@@ -84,21 +51,34 @@ final class ErrorCollector
         $this->errors[$filePath][] = new Error($line, $message, $sourceClass, $isFixable);
     }
 
-    /**
-     * @param Error[] $errorMessagesForFile
-     * @return Error[]
-     */
-    private function filterUnfixableErrorMessagesForFile(array $errorMessagesForFile): array
+    public function getErrorCount(): int
     {
-        $unfixableErrorMessages = [];
-        foreach ($errorMessagesForFile as $errorMessage) {
-            if ($errorMessage->isFixable()) {
-                continue;
-            }
+        return $this->errorCount;
+    }
 
-            $unfixableErrorMessages[] = $errorMessage;
-        }
+    public function getFixableErrorCount(): int
+    {
+        return $this->fixableErrorCount;
+    }
 
-        return $unfixableErrorMessages;
+    public function getUnfixableErrorCount(): int
+    {
+        return count($this->getUnfixableErrors());
+    }
+
+    /**
+     * @return Error[][]
+     */
+    public function getErrors(): array
+    {
+        return $this->errorMessageSorter->sortByFileAndLine($this->errors);
+    }
+
+    /**
+     * @return Error[][]
+     */
+    public function getUnfixableErrors(): array
+    {
+        return $this->errorFilter->filterOutFixableErrors($this->getErrors());
     }
 }
