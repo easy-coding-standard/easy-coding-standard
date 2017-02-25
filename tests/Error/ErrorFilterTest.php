@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Tests\Error\Error;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorFilter;
 
@@ -21,7 +22,8 @@ final class ErrorFilterTest extends TestCase
     protected function setUp()
     {
         $this->errorFilter = new ErrorFilter();
-        $this->errors[] = new Error(5,'Total failed check', \stdClass::class, false);
+        $this->errors['someFile'][] = $this->createError();
+
     }
 
     public function testEmptyFilterOutIgnoredErrors()
@@ -37,5 +39,10 @@ final class ErrorFilterTest extends TestCase
         $filteredErrors = $this->errorFilter->filterOutIgnoredErrors($this->errors);
 
         $this->assertCount(0, $filteredErrors);
+    }
+
+    private function createError(): Error
+    {
+        return new Error(5, 'Total failed check', stdClass::class, false);
     }
 }

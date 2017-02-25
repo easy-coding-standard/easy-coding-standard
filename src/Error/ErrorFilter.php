@@ -81,8 +81,8 @@ final class ErrorFilter
         $unfixableErrors = [];
         foreach ($errorsForFile as $error) {
             foreach ($this->ignoredErrors as $ignored) {
-                if (Strings::match($error->getMessage(), '#' . $ignored . '#') !== null) {
-                    continue;
+                if (Strings::match($error->getMessage(), '#' . $ignored . '#')) {
+                    continue 2;
                 }
             }
 
