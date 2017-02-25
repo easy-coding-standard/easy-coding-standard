@@ -40,37 +40,37 @@ final class ErrorFilterTest extends TestCase
         $this->assertCount(0, $filteredErrors);
     }
 
-//    public function testEmptyFilterOutIgnoredErrors(): void
-//    {
-//        $filteredErrors = $this->errorFilter->filterOutIgnoredErrors($this->errors);
-//
-//        $this->assertCount(2, $filteredErrors);
-//    }
-//
-//    public function testFilterOutIgnoredErrorsWholeFile(): void
-//    {
-//        $this->errorFilter->setIgnoredErrors(['someFile']);
-//        $filteredErrors = $this->errorFilter->filterOutIgnoredErrors($this->errors);
-//
-//        $this->assertCount(1, $filteredErrors);
-//
-//        $this->errorFilter->setIgnoredErrors(['someFile' => []]);
-//        $filteredErrorsWithAnotherConfiguration = $this->errorFilter->filterOutIgnoredErrors($this->errors);
-//
-//        $this->errorFilter->setIgnoredErrors(['some*']);
-//        $filteredErrorsWithAsterixConfiguration = $this->errorFilter->filterOutIgnoredErrors($this->errors);
-//
-//        $this->assertSame($filteredErrors, $filteredErrorsWithAnotherConfiguration);
-//        $this->assertSame($filteredErrors, $filteredErrorsWithAsterixConfiguration);
-//    }
+    public function testEmptyFilterOutIgnoredErrors(): void
+    {
+        $filteredErrors = $this->errorFilter->filterOutIgnoredErrors($this->errors);
 
-//    public function testFilterOutIgnoredErrorFileWithOneClass(): void
-//    {
-//        $this->errorFilter->setIgnoredErrors(['someFile' => [stdClass::class]]);
-//
-//        $filteredErrors = $this->errorFilter->filterOutIgnoredErrors($this->errors);
-//        $this->assertCount(1, $filteredErrors);
-//    }
+        $this->assertCount(2, $filteredErrors);
+    }
+
+    public function testFilterOutIgnoredErrorsWholeFile(): void
+    {
+        $this->errorFilter->setIgnoredErrors(['someFile']);
+        $filteredErrors = $this->errorFilter->filterOutIgnoredErrors($this->errors);
+
+        $this->assertCount(1, $filteredErrors);
+
+        $this->errorFilter->setIgnoredErrors(['someFile' => []]);
+        $filteredErrorsWithAnotherConfiguration = $this->errorFilter->filterOutIgnoredErrors($this->errors);
+
+        $this->errorFilter->setIgnoredErrors(['some*']);
+        $filteredErrorsWithAsterixConfiguration = $this->errorFilter->filterOutIgnoredErrors($this->errors);
+
+        $this->assertSame($filteredErrors, $filteredErrorsWithAnotherConfiguration);
+        $this->assertSame($filteredErrors, $filteredErrorsWithAsterixConfiguration);
+    }
+
+    public function testFilterOutIgnoredErrorFileWithOneClass(): void
+    {
+        $this->errorFilter->setIgnoredErrors(['someFile' => [stdClass::class]]);
+
+        $filteredErrors = $this->errorFilter->filterOutIgnoredErrors($this->errors);
+        $this->assertCount(1, $filteredErrors);
+    }
 
     private function createError(): Error
     {

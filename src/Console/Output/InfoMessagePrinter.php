@@ -66,7 +66,7 @@ final class InfoMessagePrinter
             if ($errorCount === $this->errorDataCollector->getFixableErrorCount()) {
                 $howMany = 'All';
             } else {
-                $howMany = $this-> errorDataCollector->getFixableErrorCount();
+                $howMany = $this->errorDataCollector->getFixableErrorCount();
             }
 
             $message .= sprintf(' %s of them are fixable!', $howMany);
