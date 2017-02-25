@@ -133,7 +133,8 @@ final class FileProcessor
             $filePath,
             $this->detectChangedLineFromTokens($tokens),
             $this->prepareErrorMessageFromFixer($fixer),
-            get_class($fixer)
+            get_class($fixer),
+            true
         );
     }
 

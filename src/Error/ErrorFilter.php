@@ -20,12 +20,6 @@ final class ErrorFilter
         $this->ignoredErrors = $ignoredErrors;
     }
 
-//    @todo
-//    public function filterOutFixableErrors()
-//    {
-//
-//    }
-
     /**
      * @param Error[] $errors
      * @return Error[]

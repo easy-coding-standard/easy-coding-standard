@@ -5,16 +5,6 @@ namespace Symplify\EasyCodingStandard\Error;
 final class ErrorCollector
 {
     /**
-     * @var int
-     */
-    private $errorCount = 0;
-
-    /**
-     * @var int
-     */
-    private $fixableErrorCount = 0;
-
-    /**
      * @var Error[][]
      */
     private $errors = [];
@@ -40,25 +30,24 @@ final class ErrorCollector
         int $line,
         string $message,
         string $sourceClass,
-        bool $isFixable = true
+        bool $isFixable
     ): void {
-        $this->errorCount++;
-
-        if ($isFixable) {
-            $this->fixableErrorCount++;
-        }
-
         $this->errors[$filePath][] = new Error($line, $message, $sourceClass, $isFixable);
     }
 
     public function getErrorCount(): int
     {
-        return $this->errorCount;
+        $errorCount = 0;
+        foreach ($this->getErrors() as $errorsForFile) {
+            $errorCount += count($errorsForFile);
+        }
+
+        return $errorCount;
     }
 
     public function getFixableErrorCount(): int
     {
-        return $this->fixableErrorCount;
+        return $this->getErrorCount() - $this->getUnfixableErrorCount();
     }
 
     public function getUnfixableErrorCount(): int
