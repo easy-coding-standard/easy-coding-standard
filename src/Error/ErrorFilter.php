@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use Closure;
 use Nette\Utils\Strings;
 
 final class ErrorFilter

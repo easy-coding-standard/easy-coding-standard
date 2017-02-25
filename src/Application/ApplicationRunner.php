@@ -6,8 +6,8 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
-use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\Error\ErrorFilter;
+use Symplify\EasyCodingStandard\Finder\SourceFinder;
 
 final class ApplicationRunner
 {

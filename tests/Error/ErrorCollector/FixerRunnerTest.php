@@ -5,9 +5,9 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
-use Symplify\EasyCodingStandard\FixerRunner\Application\Application;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\FixerRunner\Application\Application;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FixerRunnerTest extends TestCase

@@ -21,7 +21,7 @@ final class ErrorFilterTest extends TestCase
 
     protected function setUp()
     {
-        $this->errorFilter = new ErrorFilter();
+        $this->errorFilter = new ErrorFilter;
         $this->errors['someFile'][] = $this->createError();
 
     }

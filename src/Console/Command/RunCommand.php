@@ -65,10 +65,7 @@ final class RunCommand extends Command
         $this->applicationRunner->runCommand($runCommand);
 
         if ($this->infoMessagePrinter->hasSomeErrorMessages()) {
-            $this->infoMessagePrinter->printFoundErrorsStatus(
-                $input->getOption('fix'),
-                $runCommand->getIgnoredErrors()
-            );
+            $this->infoMessagePrinter->printFoundErrorsStatus($input->getOption('fix'));
 
             return 1;
         }

@@ -102,10 +102,9 @@ final class InfoMessagePrinter
     {
         if ($isFixer) {
             $errors = $this->errorDataCollector->getUnfixableErrors();
-            return $this->errorFilter->filterOutIgnoredErrors($errors);
+        } else {
+            $errors = $this->errorDataCollector->getErrors();
         }
-
-        $errors = $this->errorDataCollector->getErrors();
 
         return $this->errorFilter->filterOutIgnoredErrors($errors);
     }
