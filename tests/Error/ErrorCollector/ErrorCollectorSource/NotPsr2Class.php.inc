@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\EasyCodingStandard\Tests\Report\ErrorDataCollectorSource;
+namespace Symplify\EasyCodingStandard\Tests\Error\ErrorDataCollectorSource;
 
 abstract class SomeClass
 {

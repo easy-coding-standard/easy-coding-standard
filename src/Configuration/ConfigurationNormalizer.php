@@ -14,11 +14,12 @@ final class ConfigurationNormalizer
         foreach ($classes as $name => $class) {
             if (is_array($class)) {
                 $config = $class;
-                $configuredClasses[$name] = $config;
             } else {
                 $name = $class;
-                $configuredClasses[$name] = [];
+                $config = [];
             }
+
+            $configuredClasses[$name] = $config;
         }
 
         return $configuredClasses;

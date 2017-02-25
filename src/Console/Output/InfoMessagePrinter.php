@@ -3,8 +3,8 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Report\Error\Error;
-use Symplify\EasyCodingStandard\Report\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\Error\Error;
+use Symplify\EasyCodingStandard\Error\ErrorCollector;
 
 final class InfoMessagePrinter
 {
@@ -31,11 +31,15 @@ final class InfoMessagePrinter
         return (bool) $this->errorDataCollector->getErrorCount();
     }
 
-    public function printFoundErrorsStatus(bool $isFixer): void
+    /**
+     * @param bool $isFixer
+     * @param string[] $ignoredErrors
+     */
+    public function printFoundErrorsStatus(bool $isFixer, array $ignoredErrors): void
     {
         $this->easyCodingStandardStyle->newLine();
 
-        $errorMessages = $this->getRelevantErrorMessages($isFixer);
+        $errorMessages = $this->getRelevantErrorMessages($isFixer, $ignoredErrors);
 
         /** @var Error[] $errors */
         foreach ($errorMessages as $file => $errors) {
@@ -90,11 +94,16 @@ final class InfoMessagePrinter
     /**
      * @return Error[][]
      */
-    private function getRelevantErrorMessages(bool $isFixer): array
+    private function getRelevantErrorMessages(bool $isFixer, array $ignoredErrors): array
     {
         if ($isFixer) {
             return $this->errorDataCollector->getUnfixableErrorMessages();
         }
+
+        // @todo: filter out those ignored!
+        dump($ignoredErrors);
+        dump($this->errorDataCollector->getErrors());
+        die;
 
         return $this->errorDataCollector->getErrors();
     }

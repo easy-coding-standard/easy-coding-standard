@@ -1,6 +1,6 @@
 {
     "name": "symplify/easy-coding-standard",
-    "description": "Allows to use multiple coding standards with ease.",
+    "description": "Use coding standard Fixers and Sniffers with 0-knowledge.",
     "require": {
         "php": "^7.1",
         "symfony/console": "^3.2",

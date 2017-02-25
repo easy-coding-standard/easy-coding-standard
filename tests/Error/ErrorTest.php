@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Report\Error;
+namespace Symplify\EasyCodingStandard\Tests\Error\Error;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\Report\Error\Error;
+use Symplify\EasyCodingStandard\Error\Error;
 
 final class ErrorTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Report\Error;
+namespace Symplify\EasyCodingStandard\Error;
 
 final class Error
 {

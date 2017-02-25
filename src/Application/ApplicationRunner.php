@@ -2,10 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\Application;
 
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Error\ErrorFilter;
 
 final class ApplicationRunner
 {
@@ -24,10 +26,19 @@ final class ApplicationRunner
      */
     private $sourceFinder;
 
-    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, SourceFinder $sourceFinder)
-    {
+    /**
+     * @var ErrorFilter
+     */
+    private $errorFilter;
+
+    public function __construct(
+        EasyCodingStandardStyle $easyCodingStandardStyle,
+        SourceFinder $sourceFinder,
+        ErrorFilter $errorFilter
+    ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
+        $this->errorFilter = $errorFilter;
     }
 
     public function addApplication(ApplicationInterface $application): void
@@ -37,11 +48,24 @@ final class ApplicationRunner
 
     public function runCommand(RunApplicationCommand $command): void
     {
+        dump($command->getIgnoredErrors());
+        die;
+        $this->errorFilter->setIgnoredErrors($command->getIgnoredErrors());
+
         $files = $this->sourceFinder->find($command->getSources());
-        $this->easyCodingStandardStyle->progressStart(count($files) * count($this->applications));
+        $this->startProgressBar($files);
 
         foreach ($this->applications as $application) {
             $application->runCommand($command);
         }
+    }
+
+    /**
+     * @param SplFileInfo[] $files
+     */
+    private function startProgressBar(array$files): void
+    {
+        $max = count($files) * count($this->applications);
+        $this->easyCodingStandardStyle->progressBarStart($max);
     }
 }

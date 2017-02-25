@@ -3,14 +3,25 @@ language: php
 matrix:
   include:
     - php: 7.1
-      env: PHPUNIT_FLAGS="--coverage-clover coverage.clover" # CHECK_CS=true
+      env: PHPUNIT_FLAGS="--coverage-clover coverage.xml"
 
 install:
+  # install composer dependencies
   - composer install --prefer-source
 
 script:
+  # run tests
   - vendor/bin/phpunit $PHPUNIT_FLAGS
-  - if [[ "$CHECK_CS" != "" ]]; then composer check-cs; fi
 
 after_script:
-  - if [[ "$PHPUNIT_FLAGS" != "" ]]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  # upload coverage.xml file to Scrutinizer to analyze it
+  - |
+    if [[ "$PHPUNIT_FLAGS" != "" ]]; then
+      wget https://scrutinizer-ci.com/ocular.phar
+      php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+    fi
+
+# do not send success notifications, they have no value
+notifications:
+  email:
+    on_success: never

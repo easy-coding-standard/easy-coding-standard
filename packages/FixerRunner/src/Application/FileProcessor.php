@@ -8,7 +8,7 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Report\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorCollector;
 
 final class FileProcessor
 {
@@ -49,7 +49,7 @@ final class FileProcessor
     {
         foreach ($files as $file) {
             $this->fixFile($file, $isFixer);
-            $this->style->progressAdvance();
+            $this->style->progressBarAdvance();
 
             // we do not need Tokens to still caching just fixed file - so clear the cache
             Tokens::clearCache();

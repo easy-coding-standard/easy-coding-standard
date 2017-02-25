@@ -81,6 +81,14 @@ final class RunApplicationCommand
     }
 
     /**
+     * @return string[]
+     */
+    public function getIgnoredErrors() : array
+    {
+        return $this->configuration['ignore-errors'] ?? [];
+    }
+
+    /**
      * @param string[] $sources
      */
     private function setSources(array $sources): void

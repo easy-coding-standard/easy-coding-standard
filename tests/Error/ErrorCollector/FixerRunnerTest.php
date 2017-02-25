@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Report\ErrorCollector;
+namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\FixerRunner\Application\Application;
-use Symplify\EasyCodingStandard\Report\Error\Error;
-use Symplify\EasyCodingStandard\Report\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\Error;
+use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FixerRunnerTest extends TestCase

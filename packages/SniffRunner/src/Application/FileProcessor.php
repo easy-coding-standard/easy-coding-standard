@@ -40,7 +40,7 @@ final class FileProcessor
     {
         foreach ($files as $file) {
             $this->processFile($file, $isFixer);
-            $this->style->progressAdvance();
+            $this->style->progressBarAdvance();
         }
     }
 

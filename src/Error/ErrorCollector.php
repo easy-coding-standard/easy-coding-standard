@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Report;
-
-use Symplify\EasyCodingStandard\Report\Error\Error;
+namespace Symplify\EasyCodingStandard\Error;
 
 final class ErrorCollector
 {
