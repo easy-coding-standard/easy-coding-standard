@@ -21,14 +21,20 @@ final class ErrorFilter
     }
 
     /**
-     * @param Error[] $errors
-     * @return Error[]
+     * @param Error[][] $errors
+     * @return Error[][]
      */
-    public function filterOutIgnoredErrors(array $errors)
+    public function filterOutIgnoredErrors(array $errors): array
     {
-        return array_values(
-            array_filter($errors, $this->isErrorIgnored())
-        );
+        $nonIgnoredErrors = [];
+        foreach ($errors as $file => $errorsForFile) {
+            $nonIgnoredErrorsForFile = $this->filterOutIgnoredErrorsForFile($errorsForFile);
+            if (count($nonIgnoredErrorsForFile)) {
+                $nonIgnoredErrors[$file] = $nonIgnoredErrorsForFile;
+            }
+        }
+
+        return $nonIgnoredErrors;
     }
 
     /**
@@ -48,19 +54,6 @@ final class ErrorFilter
         return $unfixableErrors;
     }
 
-    private function isErrorIgnored(): Closure
-    {
-        return function (Error $error): bool {
-            foreach ($this->ignoredErrors as $ignored) {
-                if (Strings::match($error->getMessage(), '#' . $ignored . '#') !== null) {
-                    return false;
-                }
-            }
-
-            return true;
-        };
-    }
-
     /**
      * @param Error[] $errorsForFile
      * @return Error[]
@@ -71,6 +64,26 @@ final class ErrorFilter
         foreach ($errorsForFile as $error) {
             if ($error->isFixable()) {
                 continue;
+            }
+
+            $unfixableErrors[] = $error;
+        }
+
+        return $unfixableErrors;
+    }
+
+    /**
+     * @param Error[] $errorsForFile
+     * @return Error[]
+     */
+    private function filterOutIgnoredErrorsForFile(array $errorsForFile): array
+    {
+        $unfixableErrors = [];
+        foreach ($errorsForFile as $error) {
+            foreach ($this->ignoredErrors as $ignored) {
+                if (Strings::match($error->getMessage(), '#' . $ignored . '#') !== null) {
+                    continue;
+                }
             }
 
             $unfixableErrors[] = $error;

@@ -2,6 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
+/**
+ * @todo Maybe use fixableErrors and unfixableErrors properties.
+ * Better usability, e.g.: "only show unfixableErrors", to display errors,
+ * that need to be fixed manually. Also could drop that weird filter API.
+ */
 final class ErrorCollector
 {
     /**

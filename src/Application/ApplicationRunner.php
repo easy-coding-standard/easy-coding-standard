@@ -48,8 +48,6 @@ final class ApplicationRunner
 
     public function runCommand(RunApplicationCommand $command): void
     {
-        dump($command->getIgnoredErrors());
-        die;
         $this->errorFilter->setIgnoredErrors($command->getIgnoredErrors());
 
         $files = $this->sourceFinder->find($command->getSources());

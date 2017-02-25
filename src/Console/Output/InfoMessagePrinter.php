@@ -3,8 +3,9 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Error\Error\Error;
+use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorFilter;
 
 final class InfoMessagePrinter
 {
@@ -18,11 +19,18 @@ final class InfoMessagePrinter
      */
     private $easyCodingStandardStyle;
 
+    /**
+     * @var ErrorFilter
+     */
+    private $errorFilter;
+
     public function __construct(
         ErrorCollector $errorDataCollector,
+        ErrorFilter $errorFilter,
         EasyCodingStandardStyle $easyCodingStandardStyle
     ) {
         $this->errorDataCollector = $errorDataCollector;
+        $this->errorFilter = $errorFilter;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
@@ -31,15 +39,11 @@ final class InfoMessagePrinter
         return (bool) $this->errorDataCollector->getErrorCount();
     }
 
-    /**
-     * @param bool $isFixer
-     * @param string[] $ignoredErrors
-     */
-    public function printFoundErrorsStatus(bool $isFixer, array $ignoredErrors): void
+    public function printFoundErrorsStatus(bool $isFixer): void
     {
         $this->easyCodingStandardStyle->newLine();
 
-        $errorMessages = $this->getRelevantErrorMessages($isFixer, $ignoredErrors);
+        $errorMessages = $this->getRelevantErrors($isFixer);
 
         /** @var Error[] $errors */
         foreach ($errorMessages as $file => $errors) {
@@ -94,26 +98,27 @@ final class InfoMessagePrinter
     /**
      * @return Error[][]
      */
-    private function getRelevantErrorMessages(bool $isFixer, array $ignoredErrors): array
+    private function getRelevantErrors(bool $isFixer): array
     {
         if ($isFixer) {
-            return $this->errorDataCollector->getUnfixableErrors();
+            $errors = $this->errorDataCollector->getUnfixableErrors();
+            return $this->errorFilter->filterOutIgnoredErrors($errors);
         }
 
-        // @todo: filter out those ignored!
-        dump($ignoredErrors);
-        dump($this->errorDataCollector->getErrors());
-        die;
+        $errors = $this->errorDataCollector->getErrors();
 
-        return $this->errorDataCollector->getErrors();
+        return $this->errorFilter->filterOutIgnoredErrors($errors);
     }
 
     private function getRelevantErrorCount(bool $isFixer): int
     {
-        if ($isFixer) {
-            return $this->errorDataCollector->getUnfixableErrorCount();
+        $errors = $this->getRelevantErrors($isFixer);
+
+        $errorCount = 0;
+        foreach ($errors as $errorsForFile) {
+            $errorCount += count($errorsForFile);
         }
 
-        return $this->errorDataCollector->getErrorCount();
+        return $errorCount;
     }
 }
