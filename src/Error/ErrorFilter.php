@@ -3,20 +3,32 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Strings;
+use Symfony\Component\Finder\Glob;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 
 final class ErrorFilter
 {
     /**
-     * @var string[]
+     * @var string[][]
      */
     private $ignoredErrors = [];
 
     /**
+     * @var ConfigurationNormalizer
+     */
+    private $configurationNormalizer;
+
+    public function __construct(ConfigurationNormalizer $configurationNormalizer)
+    {
+        $this->configurationNormalizer = $configurationNormalizer;
+    }
+
+    /**
      * @param string[] $ignoredErrors
      */
-    public function setIgnoredErrors(array $ignoredErrors)
+    public function setIgnoredErrors(array $ignoredErrors): void
     {
-        $this->ignoredErrors = $ignoredErrors;
+        $this->ignoredErrors = $this->configurationNormalizer->normalizeClassesConfiguration($ignoredErrors);
     }
 
     /**
@@ -27,7 +39,7 @@ final class ErrorFilter
     {
         $nonIgnoredErrors = [];
         foreach ($errors as $file => $errorsForFile) {
-            $nonIgnoredErrorsForFile = $this->filterOutIgnoredErrorsForFile($errorsForFile);
+            $nonIgnoredErrorsForFile = $this->filterOutIgnoredErrorsForFile($file, $errorsForFile);
             if (count($nonIgnoredErrorsForFile)) {
                 $nonIgnoredErrors[$file] = $nonIgnoredErrorsForFile;
             }
@@ -72,16 +84,25 @@ final class ErrorFilter
     }
 
     /**
+     * @param string $file
      * @param Error[] $errorsForFile
      * @return Error[]
      */
-    private function filterOutIgnoredErrorsForFile(array $errorsForFile): array
+    private function filterOutIgnoredErrorsForFile(string $file, array $errorsForFile): array
     {
         $unfixableErrors = [];
         foreach ($errorsForFile as $error) {
-            foreach ($this->ignoredErrors as $ignored) {
-                if (Strings::match($error->getMessage(), '#' . $ignored . '#')) {
-                    continue 2;
+            foreach ($this->ignoredErrors as $ignoredFile => $ignoredSourceClasses) {
+                if ($this->fileMatchesPattern($file , $ignoredFile) && $ignoredSourceClasses === []) {
+                    return [];
+                }
+
+                if ($this->fileMatchesPattern($file, $ignoredFile)) {
+                    foreach ($ignoredSourceClasses as $ignoredSourceClass) {
+                        if ($error->getSourceClass() === $ignoredSourceClass) {
+                            continue 3;
+                        }
+                    }
                 }
             }
 
@@ -89,5 +110,10 @@ final class ErrorFilter
         }
 
         return $unfixableErrors;
+    }
+
+    private function fileMatchesPattern(string $file, string $ignoredPath): bool
+    {
+        return (bool) Strings::match($file, Glob::toRegex($ignoredPath));
     }
 }

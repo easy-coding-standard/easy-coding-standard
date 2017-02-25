@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Parser;
 
 use Nette\Utils\FileSystem;
+use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Tokenizers\PHP;
 use stdClass;
 
@@ -14,13 +15,12 @@ final class FileToTokensParser
     private $legacyConfig;
 
     /**
-     * @return array[]
+     * @return mixed[]
      */
     public function parseFromFilePath(string $filePath): array
     {
         $fileContent = FileSystem::read($filePath);
         return (new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL))->getTokens();
-
     }
 
     /**

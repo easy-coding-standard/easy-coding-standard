@@ -24,7 +24,7 @@ final class RunApplicationCommand
     /**
      * @param string[] $source
      * @param bool $isFixer
-     * @param array[] $configuration
+     * @param mixed[] $configuration
      */
     private function __construct(array $source, bool $isFixer, array $configuration)
     {
@@ -36,7 +36,7 @@ final class RunApplicationCommand
     /**
      * @param string[] $source
      * @param bool $isFixer
-     * @param array[] $data
+     * @param mixed[] $data
      */
     public static function createFromSourceFixerAndData(array $source, bool $isFixer, array $data): self
     {
@@ -52,7 +52,7 @@ final class RunApplicationCommand
     }
 
     /**
-     * @return array[]
+     * @return mixed[]
      */
     public function getConfiguration(): array
     {

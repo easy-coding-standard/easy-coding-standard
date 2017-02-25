@@ -23,7 +23,7 @@ final class ConfigurationFileLoader
     }
 
     /**
-     * @return array[]
+     * @return mixed[]
      */
     public function load(): array
     {

@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
-use Symplify\EasyCodingStandard\Error\ErrorFilter;
 
 final class InfoMessagePrinter
 {
@@ -19,18 +18,9 @@ final class InfoMessagePrinter
      */
     private $easyCodingStandardStyle;
 
-    /**
-     * @var ErrorFilter
-     */
-    private $errorFilter;
-
-    public function __construct(
-        ErrorCollector $errorDataCollector,
-        ErrorFilter $errorFilter,
-        EasyCodingStandardStyle $easyCodingStandardStyle
-    ) {
+    public function __construct(ErrorCollector $errorDataCollector, EasyCodingStandardStyle $easyCodingStandardStyle)
+    {
         $this->errorDataCollector = $errorDataCollector;
-        $this->errorFilter = $errorFilter;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
@@ -76,7 +66,7 @@ final class InfoMessagePrinter
             if ($errorCount === $this->errorDataCollector->getFixableErrorCount()) {
                 $howMany = 'All';
             } else {
-                $howMany = $this->errorDataCollector->getFixableErrorCount();
+                $howMany = $this-> errorDataCollector->getFixableErrorCount();
             }
 
             $message .= sprintf(' %s of them are fixable!', $howMany);
@@ -106,7 +96,7 @@ final class InfoMessagePrinter
             $errors = $this->errorDataCollector->getErrors();
         }
 
-        return $this->errorFilter->filterOutIgnoredErrors($errors);
+        return $errors;
     }
 
     private function getRelevantErrorCount(bool $isFixer): int

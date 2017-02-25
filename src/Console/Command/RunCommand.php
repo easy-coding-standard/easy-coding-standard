@@ -70,6 +70,7 @@ final class RunCommand extends Command
             return 1;
         }
 
+        $this->style->newLine();
         $this->style->success('No errors found!');
 
         return 0;

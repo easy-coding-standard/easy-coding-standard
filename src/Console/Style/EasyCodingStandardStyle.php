@@ -66,7 +66,7 @@ final class EasyCodingStandardStyle
 
     /**
      * @param string[] $headers
-     * @param array[] $rows
+     * @param mixed[] $rows
      */
     public function table(array $headers, array $rows): void
     {
@@ -101,8 +101,8 @@ final class EasyCodingStandardStyle
     }
 
     /**
-     * @param array[] $rows
-     * @return array[]
+     * @param mixed[] $rows
+     * @return mixed[]
      */
     private function wrapTextSoItFitsTheColumnWidth(array $rows): array
     {

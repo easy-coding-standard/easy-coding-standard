@@ -36,7 +36,7 @@ final class FixerFactory
 
     /**
      * @param string $class
-     * @param array[] $config
+     * @param mixed[] $config
      */
     private function create(string $class, array $config): FixerInterface
     {
@@ -47,7 +47,7 @@ final class FixerFactory
 
     /**
      * @param FixerInterface $fixer
-     * @param array[] $config
+     * @param mixed[] $config
      */
     private function configureFixer(FixerInterface $fixer, array $config): void
     {

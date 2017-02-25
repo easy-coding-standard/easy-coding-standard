@@ -65,7 +65,9 @@ final class ErrorCollector
      */
     public function getErrors(): array
     {
-        return $this->errorMessageSorter->sortByFileAndLine($this->errors);
+        $errors = $this->errorMessageSorter->sortByFileAndLine($this->errors);
+
+        return $this->errorFilter->filterOutIgnoredErrors($errors);
     }
 
     /**

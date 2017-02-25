@@ -5,8 +5,8 @@ namespace Symplify\EasyCodingStandard\Configuration;
 final class ConfigurationNormalizer
 {
     /**
-     * @param string[]|array[] $classes
-     * @return array[]
+     * @param string[]|string[][] $classes
+     * @return string[][]
      */
     public function normalizeClassesConfiguration(array $classes): array
     {
