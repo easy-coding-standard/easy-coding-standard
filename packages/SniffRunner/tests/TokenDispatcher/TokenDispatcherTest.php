@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\SniffRunner\Tests\EventDispatcher;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\TokenDispatcher;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
-final class tokenDispatcherTest extends TestCase
+final class TokenDispatcherTest extends TestCase
 {
     /**
      * @var TokenDispatcher
