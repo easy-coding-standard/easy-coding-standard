@@ -3,17 +3,17 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
-use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 
 final class FileProcessor
 {
     /**
-     * @var SniffDispatcher
+     * @var TokenDispatcher
      */
-    private $sniffDispatcher;
+    private $tokenDispatcher;
 
     /**
      * @var Fixer
@@ -25,9 +25,9 @@ final class FileProcessor
      */
     private $style;
 
-    public function __construct(SniffDispatcher $sniffDispatcher, Fixer $fixer, EasyCodingStandardStyle $style)
+    public function __construct(TokenDispatcher $tokenDispatcher, Fixer $fixer, EasyCodingStandardStyle $style)
     {
-        $this->sniffDispatcher = $sniffDispatcher;
+        $this->tokenDispatcher = $tokenDispatcher;
         $this->fixer = $fixer;
         $this->style = $style;
     }
@@ -56,7 +56,7 @@ final class FileProcessor
     private function processFileWithoutFixer(File $file): void
     {
         foreach ($file->getTokens() as $stackPointer => $token) {
-            $this->sniffDispatcher->dispatch(
+            $this->tokenDispatcher->dispatchToken(
                 $token['code'],
                 new CheckFileTokenEvent($file, $stackPointer)
             );

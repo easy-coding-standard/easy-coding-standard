@@ -4,7 +4,7 @@
 - Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer
 
 # Event Dispatcher
-- Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher
+- Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher
 
 # Parser
 - Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser

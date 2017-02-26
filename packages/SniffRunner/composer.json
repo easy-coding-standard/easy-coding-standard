@@ -4,7 +4,6 @@
     "require": {
         "php": "^7.1",
         "squizlabs/php_codesniffer": "3.0.x-dev as 2.8",
-        "symfony/event-dispatcher": "^3.2",
         "symfony/finder": "^3.2",
         "nette/di": "^2.4",
         "nette/robot-loader": "^2.4",

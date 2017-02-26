@@ -5,6 +5,7 @@
 - Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
 - Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer
 - Symplify\EasyCodingStandard\Finder\SourceFinder
+- Symplify\EasyCodingStandard\Skipper
 
 # Console & Commands
 - Symfony\Component\Console\Application

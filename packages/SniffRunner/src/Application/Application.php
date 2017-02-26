@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
-use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 use Symplify\EasyCodingStandard\SniffRunner\File\Provider\FilesProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer;
 use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
@@ -12,9 +12,9 @@ use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
 final class Application implements ApplicationInterface
 {
     /**
-     * @var SniffDispatcher
+     * @var TokenDispatcher
      */
-    private $sniffDispatcher;
+    private $tokenDispatcher;
 
     /**
      * @var FilesProvider
@@ -32,12 +32,12 @@ final class Application implements ApplicationInterface
     private $sniffFactory;
 
     public function __construct(
-        SniffDispatcher $sniffDispatcher,
+        TokenDispatcher $tokenDispatcher,
         FilesProvider $sourceFilesProvider,
         FileProcessor $fileProcessor,
         SniffFactory $sniffFactory
     ) {
-        $this->sniffDispatcher = $sniffDispatcher;
+        $this->tokenDispatcher = $tokenDispatcher;
         $this->filesProvider = $sourceFilesProvider;
         $this->fileProcessor = $fileProcessor;
         $this->sniffFactory = $sniffFactory;
@@ -48,7 +48,7 @@ final class Application implements ApplicationInterface
     public function runCommand(RunApplicationCommand $command): void
     {
         $sniffs = $this->sniffFactory->createFromClasses($command->getSniffs());
-        $this->sniffDispatcher->addSniffListeners($sniffs);
+        $this->tokenDispatcher->addSniffListeners($sniffs);
 
         $this->runForSource($command->getSources(), $command->isFixer());
     }

@@ -5,42 +5,33 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\EventDispatcher;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\Event\CheckFileTokenEvent;
-use Symplify\EasyCodingStandard\SniffRunner\EventDispatcher\SniffDispatcher;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
-final class SniffDispatcherTest extends TestCase
+final class tokenDispatcherTest extends TestCase
 {
     /**
-     * @var SniffDispatcher
+     * @var TokenDispatcher
      */
-    private $sniffDispatcher;
+    private $tokenDispatcher;
 
     protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
-        $this->sniffDispatcher = $container->getByType(SniffDispatcher::class);
-    }
-
-    public function testAddSniffListeners(): void
-    {
-        $sniffs = [new ClassDeclarationSniff];
-        $this->sniffDispatcher->addSniffListeners($sniffs);
-
-        $this->assertCount(3, $this->sniffDispatcher->getListeners());
-        $this->assertCount(1, $this->sniffDispatcher->getListeners(T_CLASS));
+        $this->tokenDispatcher = $container->getByType(TokenDispatcher::class);
     }
 
     public function testDispatch(): void
     {
         $sniffs = [new ClassDeclarationSniff];
-        $this->sniffDispatcher->addSniffListeners($sniffs);
+        $this->tokenDispatcher->addSniffListeners($sniffs);
 
         $fileMock = $this->prophesize(File::class)
             ->reveal();
 
         $event = new CheckFileTokenEvent($fileMock, 5);
-        $this->sniffDispatcher->dispatch(T_CLASS, $event);
-        $this->assertSame(5, $event->getStackPointer());
+        $this->tokenDispatcher->dispatchToken(T_CLASS, $event);
+        $this->assertSame(5, $event->getPosition());
     }
 }

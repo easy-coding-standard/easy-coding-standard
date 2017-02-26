@@ -68,6 +68,8 @@ final class FileProcessor
         $appliedFixers = [];
 
         foreach ($this->fixers as $fixer) {
+            // @todo: put that ignore check here!!!!
+
             if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
                 continue;
             }
