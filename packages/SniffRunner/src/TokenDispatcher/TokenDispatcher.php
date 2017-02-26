@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 
 final class TokenDispatcher
 {
@@ -37,17 +37,14 @@ final class TokenDispatcher
 
     /**
      * @param int|string $token
-     * @param CheckFileTokenEvent $tokenEvent
+     * @param FileTokenEvent $fileTokenEvent
      */
-    public function dispatchToken($token, CheckFileTokenEvent $tokenEvent): void
+    public function dispatchToken($token, FileTokenEvent $fileTokenEvent): void
     {
         $tokenListeners = $this->tokenListeners[$token] ?? [];
 
         foreach ($tokenListeners as $tokenListener) {
-            $tokenListener->process(
-                $tokenEvent->getFile(),
-                $tokenEvent->getPosition()
-            );
+            $tokenListener->process($fileTokenEvent->getFile(), $fileTokenEvent->getPosition());
         }
     }
 }

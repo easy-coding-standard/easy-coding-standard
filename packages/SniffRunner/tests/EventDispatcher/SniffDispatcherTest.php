@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\EventDispatcher;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
@@ -30,7 +30,7 @@ final class tokenDispatcherTest extends TestCase
         $fileMock = $this->prophesize(File::class)
             ->reveal();
 
-        $event = new CheckFileTokenEvent($fileMock, 5);
+        $event = new FileTokenEvent($fileMock, 5);
         $this->tokenDispatcher->dispatchToken(T_CLASS, $event);
         $this->assertSame(5, $event->getPosition());
     }

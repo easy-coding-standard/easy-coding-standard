@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event;
 
 use PHP_CodeSniffer\Files\File;
 
-final class CheckFileTokenEvent
+final class FileTokenEvent
 {
     /**
      * @var File

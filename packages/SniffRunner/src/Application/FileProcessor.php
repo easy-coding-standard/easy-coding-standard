@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\CheckFileTokenEvent;
+use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -58,7 +58,7 @@ final class FileProcessor
         foreach ($file->getTokens() as $stackPointer => $token) {
             $this->tokenDispatcher->dispatchToken(
                 $token['code'],
-                new CheckFileTokenEvent($file, $stackPointer)
+                new FileTokenEvent($file, $stackPointer)
             );
         }
     }
