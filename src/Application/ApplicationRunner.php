@@ -8,6 +8,7 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
 use Symplify\EasyCodingStandard\Error\ErrorFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Skipper;
 
 final class ApplicationRunner
 {
@@ -31,14 +32,21 @@ final class ApplicationRunner
      */
     private $errorFilter;
 
+    /**
+     * @var Skipper
+     */
+    private $skipper;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
-        ErrorFilter $errorFilter
+        ErrorFilter $errorFilter,
+        Skipper $skipper
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
         $this->errorFilter = $errorFilter;
+        $this->skipper = $skipper;
     }
 
     public function addApplication(ApplicationInterface $application): void
@@ -48,7 +56,7 @@ final class ApplicationRunner
 
     public function runCommand(RunApplicationCommand $command): void
     {
-        $this->errorFilter->setIgnoredErrors($command->getIgnoredErrors());
+        $this->skipper->setIgnoredErrors($command->getIgnoredErrors());
 
         $files = $this->sourceFinder->find($command->getSources());
         $this->startProgressBar($files);

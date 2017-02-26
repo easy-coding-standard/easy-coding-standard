@@ -2,23 +2,68 @@
 
 namespace Symplify\EasyCodingStandard;
 
-use Symplify\EasyCodingStandard\Error\ErrorFilter;
+use Nette\Utils\Strings;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\FixerInterface;
+use Symfony\Component\Finder\Glob;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 
 final class Skipper
 {
     /**
-     * @var ErrorFilter
+     * @var ConfigurationNormalizer
      */
-    private $errorFilter;
+    private $configurationNormalizer;
 
-    public function __construct(ErrorFilter $errorFilter)
+    /**
+     * @var string[][]
+     */
+    private $ignoredErrors = [];
+
+    public function __construct(ConfigurationNormalizer $configurationNormalizer)
     {
-        $this->errorFilter = $errorFilter;
+        $this->configurationNormalizer = $configurationNormalizer;
     }
 
-    public function isFileRuleSkippedForSourceClass(string $file, string $sourceClass)
+    /**
+     * @param string[] $ignoredErrors
+     */
+    public function setIgnoredErrors(array $ignoredErrors): void
     {
-        dump($file, $sourceClass);
-        die;
+        $this->ignoredErrors = $this->configurationNormalizer->normalizeClassesConfiguration(
+            $ignoredErrors
+        );
+    }
+
+    /**
+     * @param Sniff|FixerInterface $sourceClass
+     * @param string $relativeFilePath
+     */
+    public function shouldSkipSourceClassAndFile($sourceClass, string $relativeFilePath) : bool
+    {
+        foreach ($this->ignoredErrors as $ignoredFile => $ignoredSourceClasses) {
+            if ($this->fileMatchesPattern($relativeFilePath, $ignoredFile)) {
+                if ($ignoredSourceClasses === []) {
+                    return true;
+                }
+
+                foreach ($ignoredSourceClasses as $ignoredSourceClass) {
+                    if ($sourceClass instanceof $ignoredSourceClass) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private function fileMatchesPattern(string $file, string $ignoredPath): bool
+    {
+        if ((bool) Strings::match($file, Glob::toRegex($ignoredPath))) {
+            return true;
+        }
+
+        return Strings::endsWith($file, $ignoredPath);
     }
 }

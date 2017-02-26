@@ -43,8 +43,15 @@ final class TokenDispatcher
     {
         $tokenListeners = $this->tokenListeners[$token] ?? [];
 
-        foreach ($tokenListeners as $tokenListener) {
-            $tokenListener->process($fileTokenEvent->getFile(), $fileTokenEvent->getPosition());
+        foreach ($tokenListeners as $sniff) {
+            $filename = $fileTokenEvent->getFile()
+                ->getFilename();
+
+            if ($this->skipper->shouldSkipSourceClassAndFile($sniff, $filename)) {
+                return;
+            }
+
+            $sniff->process($fileTokenEvent->getFile(), $fileTokenEvent->getPosition());
         }
     }
 }

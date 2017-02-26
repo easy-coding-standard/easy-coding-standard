@@ -9,6 +9,7 @@ use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Skipper;
 
 final class FileProcessor
 {
@@ -27,10 +28,19 @@ final class FileProcessor
      */
     private $style;
 
-    public function __construct(ErrorCollector $errorCollector, EasyCodingStandardStyle $style)
-    {
+    /**
+     * @var Skipper
+     */
+    private $skipper;
+
+    public function __construct(
+        ErrorCollector $errorCollector,
+        EasyCodingStandardStyle $style,
+        Skipper $skipper
+    ) {
         $this->errorCollector = $errorCollector;
         $this->style = $style;
+        $this->skipper = $skipper;
     }
 
     /**
@@ -68,7 +78,9 @@ final class FileProcessor
         $appliedFixers = [];
 
         foreach ($this->fixers as $fixer) {
-            // @todo: put that ignore check here!!!!
+            if ($this->skipper->shouldSkipSourceClassAndFile($fixer, $file->getRealPath())) {
+                continue;
+            }
 
             if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
                 continue;
