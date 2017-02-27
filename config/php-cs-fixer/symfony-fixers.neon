@@ -36,8 +36,7 @@ php-cs-fixer:
             - use
         - PhpCsFixer\Fixer\Import\NoLeadingImportSlashFixer
         - PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer
-        PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer:
-            use: echo
+        - PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer
         - PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer
         - PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer
         - PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer

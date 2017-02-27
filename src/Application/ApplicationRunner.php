@@ -61,7 +61,7 @@ final class ApplicationRunner
     /**
      * @param SplFileInfo[] $files
      */
-    private function startProgressBar(array$files): void
+    private function startProgressBar(array $files): void
     {
         $max = count($files) * count($this->applications);
         $this->easyCodingStandardStyle->progressBarStart($max);
