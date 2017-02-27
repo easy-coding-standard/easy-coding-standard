@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Error\Error;
+namespace Symplify\EasyCodingStandard\Tests\Error;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Error\Error;

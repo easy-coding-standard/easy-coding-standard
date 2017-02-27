@@ -39,7 +39,7 @@ final class Skipper
      * @param Sniff|FixerInterface $sourceClass
      * @param string $relativeFilePath
      */
-    public function shouldSkipSourceClassAndFile($sourceClass, string $relativeFilePath) : bool
+    public function shouldSkipSourceClassAndFile($sourceClass, string $relativeFilePath): bool
     {
         foreach ($this->ignoredErrors as $ignoredFile => $ignoredSourceClasses) {
             if ($this->fileMatchesPattern($relativeFilePath, $ignoredFile)) {

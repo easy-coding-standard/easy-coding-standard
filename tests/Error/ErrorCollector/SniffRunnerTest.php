@@ -72,6 +72,7 @@ final class SniffRunnerTest extends TestCase
         $errorMessages = $this->errorDataCollector->getErrors();
         $this->assertCount(0, $errorMessages);
     }
+
     public function testSkipperSpecificFixer(): void
     {
         $runCommand = $this->createRunCommand();

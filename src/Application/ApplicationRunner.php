@@ -6,7 +6,6 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
-use Symplify\EasyCodingStandard\Error\ErrorFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\Skipper;
 
@@ -28,11 +27,6 @@ final class ApplicationRunner
     private $sourceFinder;
 
     /**
-     * @var ErrorFilter
-     */
-    private $errorFilter;
-
-    /**
      * @var Skipper
      */
     private $skipper;
@@ -40,12 +34,10 @@ final class ApplicationRunner
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
-        ErrorFilter $errorFilter,
         Skipper $skipper
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
-        $this->errorFilter = $errorFilter;
         $this->skipper = $skipper;
     }
 
