@@ -2,32 +2,28 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-/**
- * @todo Maybe use fixableErrors and unfixableErrors properties.
- * Better usability, e.g.: "only show unfixableErrors", to display errors,
- * that need to be fixed manually. Also could drop that weird filter API.
- */
+use Nette\Utils\Arrays;
+
 final class ErrorCollector
 {
     /**
      * @var Error[][]
      */
-    private $errors = [];
+    private $fixableErrors = [];
+
+    /**
+     * @var Error[][]
+     */
+    private $unfixableErrors = [];
 
     /**
      * @var ErrorSorter
      */
     private $errorMessageSorter;
 
-    /**
-     * @var ErrorFilter
-     */
-    private $errorFilter;
-
-    public function __construct(ErrorSorter $errorMessageSorter, ErrorFilter $errorFilter)
+    public function __construct(ErrorSorter $errorMessageSorter)
     {
         $this->errorMessageSorter = $errorMessageSorter;
-        $this->errorFilter = $errorFilter;
     }
 
     public function addErrorMessage(
@@ -37,27 +33,29 @@ final class ErrorCollector
         string $sourceClass,
         bool $isFixable
     ): void {
-        $this->errors[$filePath][] = new Error($line, $message, $sourceClass, $isFixable);
+
+        $error = new Error($line, $message, $sourceClass, $isFixable);
+
+        if ($isFixable) {
+            $this->fixableErrors[$filePath][] = $error;
+        } else {
+            $this->unfixableErrors[$filePath][] = $error;
+        }
     }
 
     public function getErrorCount(): int
     {
-        $errorCount = 0;
-        foreach ($this->getErrors() as $errorsForFile) {
-            $errorCount += count($errorsForFile);
-        }
-
-        return $errorCount;
+        return $this->getFixableErrorCount() + $this->getUnfixableErrorCount();
     }
 
     public function getFixableErrorCount(): int
     {
-        return $this->getErrorCount() - $this->getUnfixableErrorCount();
+        return count(Arrays::flatten($this->fixableErrors));
     }
 
     public function getUnfixableErrorCount(): int
     {
-        return count($this->getUnfixableErrors());
+        return count(Arrays::flatten($this->unfixableErrors));
     }
 
     /**
@@ -65,7 +63,10 @@ final class ErrorCollector
      */
     public function getErrors(): array
     {
-        return $this->errorMessageSorter->sortByFileAndLine($this->errors);
+        $fixableErrors = $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors);
+        $unfixableErrors = $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors);
+
+        return $fixableErrors + $unfixableErrors;
     }
 
     /**
@@ -73,6 +74,6 @@ final class ErrorCollector
      */
     public function getUnfixableErrors(): array
     {
-        return $this->errorFilter->filterOutFixableErrors($this->getErrors());
+        return $this->errorMessageSorter->sortByFileAndLine($this->unfixableErrors);
     }
 }

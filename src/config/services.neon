@@ -22,4 +22,3 @@
 - Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter
 - Symplify\EasyCodingStandard\Error\ErrorSorter
 - Symplify\EasyCodingStandard\Error\ErrorCollector
-- Symplify\EasyCodingStandard\Error\ErrorFilter
