@@ -83,9 +83,9 @@ final class RunApplicationCommand
     /**
      * @return string[]
      */
-    public function getIgnoredErrors(): array
+    public function getSkipped(): array
     {
-        return $this->configuration['ignore-errors'] ?? [];
+        return $this->configuration['skip'] ?? [];
     }
 
     /**

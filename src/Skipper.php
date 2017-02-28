@@ -18,7 +18,7 @@ final class Skipper
     /**
      * @var string[][]
      */
-    private $ignoredErrors = [];
+    private $skipped = [];
 
     public function __construct(ConfigurationNormalizer $configurationNormalizer)
     {
@@ -26,12 +26,12 @@ final class Skipper
     }
 
     /**
-     * @param string[] $ignoredErrors
+     * @param string[] $skipped
      */
-    public function setIgnoredErrors(array $ignoredErrors): void
+    public function setSkipped(array $skipped): void
     {
-        $this->ignoredErrors = $this->configurationNormalizer->normalizeClassesConfiguration(
-            $ignoredErrors
+        $this->skipped = $this->configurationNormalizer->normalizeSkipperConfiguration(
+            $skipped
         );
     }
 
@@ -41,16 +41,14 @@ final class Skipper
      */
     public function shouldSkipSourceClassAndFile($sourceClass, string $relativeFilePath): bool
     {
-        foreach ($this->ignoredErrors as $ignoredFile => $ignoredSourceClasses) {
-            if ($this->fileMatchesPattern($relativeFilePath, $ignoredFile)) {
-                if ($ignoredSourceClasses === []) {
-                    return true;
-                }
+        foreach ($this->skipped as $skippedFile => $skippedSourceClass) {
+            if ( ! $this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
+                continue;
+            }
 
-                foreach ($ignoredSourceClasses as $ignoredSourceClass) {
-                    if ($sourceClass instanceof $ignoredSourceClass) {
-                        return true;
-                    }
+            foreach ($skippedSourceClass as $ignoredSourceClass) {
+                if ($sourceClass instanceof $ignoredSourceClass) {
+                    return true;
                 }
             }
         }

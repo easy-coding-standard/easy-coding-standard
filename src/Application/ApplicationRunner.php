@@ -48,7 +48,7 @@ final class ApplicationRunner
 
     public function runCommand(RunApplicationCommand $command): void
     {
-        $this->skipper->setIgnoredErrors($command->getIgnoredErrors());
+        $this->skipper->setSkipped($command->getSkipped());
 
         $files = $this->sourceFinder->find($command->getSources());
         $this->startProgressBar($files);

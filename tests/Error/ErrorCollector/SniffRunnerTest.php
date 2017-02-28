@@ -66,7 +66,7 @@ final class SniffRunnerTest extends TestCase
     {
         $runCommand = $this->createRunCommand();
 
-        $this->skipper->setIgnoredErrors([__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc']);
+        $this->skipper->setSkipped([__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc']);
         $this->application->runCommand($runCommand);
 
         $errorMessages = $this->errorDataCollector->getErrors();
@@ -77,7 +77,7 @@ final class SniffRunnerTest extends TestCase
     {
         $runCommand = $this->createRunCommand();
 
-        $this->skipper->setIgnoredErrors([__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc']);
+        $this->skipper->setSkipped([__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc']);
         $this->application->runCommand($runCommand);
 
         $errorMessages = $this->errorDataCollector->getErrors();

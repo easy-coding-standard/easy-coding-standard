@@ -24,4 +24,32 @@ final class ConfigurationNormalizer
 
         return $configuredClasses;
     }
+
+    /**
+     * @param string[]|string[][] $skipperRules
+     * @return string[][]
+     */
+    public function normalizeSkipperConfiguration(array $skipperRules): array
+    {
+        $normalizedSkipperRules = [];
+        foreach ($skipperRules as $file => $sourceClass) {
+            if (class_exists($file)) {
+                $files = [];
+                if (is_array($sourceClass)) {
+                    [$files, $sourceClass] = [$sourceClass, $file];
+                } else {
+                    [$file, $sourceClass] = [$sourceClass, $file];
+                    $files[] = $file;
+                }
+
+                foreach ($files as $file) {
+                    $normalizedSkipperRules[$file][] = $sourceClass;
+                }
+            } else {
+                $normalizedSkipperRules[$file] = $sourceClass;
+            }
+        }
+
+        return $normalizedSkipperRules;
+    }
 }

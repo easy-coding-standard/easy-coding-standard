@@ -63,10 +63,7 @@ final class ErrorCollector
      */
     public function getErrors(): array
     {
-        $fixableErrors = $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors);
-        $unfixableErrors = $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors);
-
-        return $fixableErrors + $unfixableErrors;
+        return $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors) + $this->getUnfixableErrors();
     }
 
     /**
