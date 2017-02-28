@@ -13,10 +13,6 @@ final class ErrorSorter
         ksort($errorMessages);
 
         foreach ($errorMessages as $file => $errorMessagesForFile) {
-            if (count($errorMessagesForFile) <= 1) {
-                continue;
-            }
-
             usort($errorMessagesForFile, function (Error $first, Error $second) {
                 return ($first->getLine() > $second->getLine());
             });
