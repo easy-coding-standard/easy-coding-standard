@@ -42,7 +42,7 @@ final class Skipper
     public function shouldSkipSourceClassAndFile($sourceClass, string $relativeFilePath): bool
     {
         foreach ($this->skipped as $skippedFile => $skippedSourceClass) {
-            if ( ! $this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
+            if (! $this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
                 continue;
             }
 

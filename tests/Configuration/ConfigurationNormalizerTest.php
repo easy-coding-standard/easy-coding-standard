@@ -12,7 +12,7 @@ final class ConfigurationNormalizerTest extends TestCase
      */
     private $configurationNormalizer;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configurationNormalizer = new ConfigurationNormalizer;
     }
