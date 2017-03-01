@@ -14,8 +14,7 @@
         "symplify/package-builder": "@dev"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0",
-        "symplify/coding-standard": "@dev"
+        "phpunit/phpunit": "^6.0"
     },
     "autoload": {
         "psr-4": {
@@ -30,9 +29,5 @@
     "repositories": [
         { "type": "path", "url": "packages/SniffRunner" },
         { "type": "path", "url": "packages/FixerRunner"}
-    ],
-    "scripts": {
-        "check-cs": "vendor/bin/symplify-cs check src tests",
-        "fix-cs": "vendor/bin/symplify-cs fix src tests"
-    }
+    ]
 }

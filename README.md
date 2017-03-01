@@ -44,3 +44,9 @@ In case you don't want to use this tool manually for every change in the code yo
 **Every time you try to commit, it will check changed `.php` files only.**
 
 It's much faster than checking whole project, running manually or wait for CI server.
+
+
+
+## Contributing
+
+Send [issue](https://github.com/Symplify/Symplify/issues) or [pull-request](https://github.com/Symplify/Symplify/pulls) to main repository.
