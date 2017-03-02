@@ -9,9 +9,10 @@
         "nette/utils": "^2.4",
         "nette/neon": "^2.4",
         "tracy/tracy": "^2.4",
-        "symplify/fixer-runner": "@dev",
+        "symplify/package-builder": "^1.4",
         "symplify/sniff-runner": "@dev",
-        "symplify/package-builder": "@dev"
+        "symplify/fixer-runner": "@dev",
+        "symplify/fixer-runner": "@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0"
@@ -28,6 +29,7 @@
     },
     "repositories": [
         { "type": "path", "url": "packages/SniffRunner" },
-        { "type": "path", "url": "packages/FixerRunner"}
+        { "type": "path", "url": "packages/FixerRunner" },
+        { "type": "path", "url": "packages/ChangedFilesDetector" }
     ]
 }

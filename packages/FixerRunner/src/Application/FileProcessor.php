@@ -7,6 +7,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Skipper;
@@ -33,14 +34,21 @@ final class FileProcessor
      */
     private $skipper;
 
+    /**
+     * @var ChangedFilesDetector
+     */
+    private $changedFilesDetector;
+
     public function __construct(
         ErrorCollector $errorCollector,
         EasyCodingStandardStyle $style,
-        Skipper $skipper
+        Skipper $skipper,
+        ChangedFilesDetector $changedFilesDetector
     ) {
         $this->errorCollector = $errorCollector;
         $this->style = $style;
         $this->skipper = $skipper;
+        $this->changedFilesDetector = $changedFilesDetector;
     }
 
     /**
@@ -58,6 +66,11 @@ final class FileProcessor
     public function processFiles(array $files, bool $isFixer): void
     {
         foreach ($files as $file) {
+            if ($this->changedFilesDetector->hasFileChanged($file->getRealPath()) === false) {
+                $this->style->progressBarAdvance();
+                continue;
+            }
+
             $this->fixFile($file, $isFixer);
             $this->style->progressBarAdvance();
 

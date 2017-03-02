@@ -6,3 +6,4 @@ extensions:
     - Symplify\EasyCodingStandard\DI\EasyCodingStandardExtension
     - Symplify\EasyCodingStandard\FixerRunner\DI\FixerRunnerExtension
     - Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension
+    - Symplify\EasyCodingStandard\ChangedFilesDetector\DI\ChangedFilesDetectorExtension

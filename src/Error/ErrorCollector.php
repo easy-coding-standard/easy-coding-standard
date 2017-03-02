@@ -33,7 +33,6 @@ final class ErrorCollector
         string $sourceClass,
         bool $isFixable
     ): void {
-
         $error = new Error($line, $message, $sourceClass, $isFixable);
 
         if ($isFixable) {
@@ -41,6 +40,8 @@ final class ErrorCollector
         } else {
             $this->unfixableErrors[$filePath][] = $error;
         }
+
+        // todo: drop file from cache
     }
 
     public function getErrorCount(): int
@@ -63,7 +64,15 @@ final class ErrorCollector
      */
     public function getErrors(): array
     {
-        return $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors) + $this->getUnfixableErrors();
+        return $this->getFixableErrors() + $this->getUnfixableErrors();
+    }
+
+    /**
+     * @return Error[][]
+     */
+    private function getFixableErrors(): array
+    {
+        return $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors);
     }
 
     /**
