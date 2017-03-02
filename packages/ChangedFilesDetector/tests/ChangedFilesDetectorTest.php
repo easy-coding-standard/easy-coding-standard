@@ -24,26 +24,26 @@ final class ChangedFilesDetectorTest extends TestCase
             __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.neon'
         );
     }
-//
-//    public function testAddFile()
-//    {
-//        $this->assertTrue($this->changedFilesDetector->hasFileChanged(
-//            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php'
-//        ));
-//
-//        $this->assertFalse($this->changedFilesDetector->hasFileChanged(
-//            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
-//        );
-//    }
-//
-//    public function testHasFileChanged()
-//    {
-//        $this->changedFilesDetector->addFile(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php');
-//
-//        $this->assertFalse($this->changedFilesDetector->hasFileChanged(
-//            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
-//        );
-//    }
+
+    public function testAddFile()
+    {
+        $this->assertTrue($this->changedFilesDetector->hasFileChanged(
+            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php'
+        ));
+
+        $this->assertFalse($this->changedFilesDetector->hasFileChanged(
+            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
+        );
+    }
+
+    public function testHasFileChanged()
+    {
+        $this->changedFilesDetector->addFile(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php');
+
+        $this->assertFalse($this->changedFilesDetector->hasFileChanged(
+            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
+        );
+    }
 
     public function testInvalidateCacheOnConfigurationChange()
     {
