@@ -2,6 +2,7 @@
 - Symplify\EasyCodingStandard\Application\ApplicationRunner
 
 # Configuration
+- Nette\DI\Config\Loader
 - Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
 - Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer
 - Symplify\EasyCodingStandard\Finder\SourceFinder
@@ -9,10 +10,11 @@
 
 # Console & Commands
 - Symfony\Component\Console\Application
-- Symplify\EasyCodingStandard\Console\Command\RunCommand
-- Symfony\Component\Console\Terminal
+- Symplify\EasyCodingStandard\Console\Command\CheckCommand
+- Symplify\EasyCodingStandard\Console\Command\ShowSettingsCommand
 
 # Symfony Output style
+- Symfony\Component\Console\Terminal
 - Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle
 - Symplify\EasyCodingStandard\Console\Style\SymfonyStyleFactory
 - Symfony\Component\Console\Input\ArgvInput
