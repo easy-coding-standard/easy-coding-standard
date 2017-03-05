@@ -22,25 +22,37 @@ final class RunApplicationCommand
     private $configuration = [];
 
     /**
+     * @var bool
+     */
+    private $shouldClearCache;
+
+    /**
      * @param string[] $source
      * @param bool $isFixer
+     * @param bool $shouldClearCache
      * @param mixed[] $configuration
      */
-    private function __construct(array $source, bool $isFixer, array $configuration)
+    private function __construct(array $source, bool $isFixer, bool $shouldClearCache, array $configuration)
     {
         $this->setSources($source);
         $this->isFixer = $isFixer;
+        $this->shouldClearCache = $shouldClearCache;
         $this->configuration = $configuration;
     }
 
     /**
      * @param string[] $source
      * @param bool $isFixer
+     * @param bool $shouldClearCache
      * @param mixed[] $data
      */
-    public static function createFromSourceFixerAndData(array $source, bool $isFixer, array $data): self
-    {
-        return new self($source, $isFixer, $data);
+    public static function createFromSourceFixerAndData(
+        array $source,
+        bool $isFixer,
+        bool $shouldClearCache,
+        array $data
+    ): self {
+        return new self($source, $isFixer, $shouldClearCache, $data);
     }
 
     /**
@@ -62,6 +74,11 @@ final class RunApplicationCommand
     public function isFixer(): bool
     {
         return $this->isFixer;
+    }
+
+    public function shouldClearCache(): bool
+    {
+        return $this->shouldClearCache;
     }
 
     /**
