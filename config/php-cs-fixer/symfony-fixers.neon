@@ -3,7 +3,6 @@ php-cs-fixer:
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
         align_double_arrow: false
         align_equals: false
-    - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
     - PhpCsFixer\Fixer\ReturnNotation\BlankLineBeforeReturnFixer
     PhpCsFixer\Fixer\Basic\BracesFixer:
         allow_single_line_closure: true
@@ -20,7 +19,6 @@ php-cs-fixer:
 
     - PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer
     - PhpCsFixer\Fixer\Casing\NativeFunctionCasingFixer
-    - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
     - PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer
     - PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer
     - PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer
@@ -49,13 +47,10 @@ php-cs-fixer:
     - PhpCsFixer\Fixer\ArrayNotation\NormalizeIndexBraceFixer
     - PhpCsFixer\Fixer\Operator\ObjectOperatorWithoutWhitespaceFixer
     - PhpCsFixer\Fixer\PhpUnit\PhpUnitFqcnAnnotationFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocInlineTagFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoAccessFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoPackageFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoUselessInheritdocFixer
