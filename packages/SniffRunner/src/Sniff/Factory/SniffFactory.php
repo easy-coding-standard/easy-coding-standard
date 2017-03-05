@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
+use Symplify\EasyCodingStandard\SniffRunner\Exception\Sniff\NotASniffClassException;
 
 final class SniffFactory
 {
@@ -34,12 +35,14 @@ final class SniffFactory
     }
 
     /**
-     * @param string $sniffClass
+     * @param string $class
      * @param string[] $config
      */
-    private function create(string $sniffClass, array $config): Sniff
+    private function create(string $class, array $config): Sniff
     {
-        $sniff = new $sniffClass;
+        $this->ensureIsSniffClass($class);
+
+        $sniff = new $class;
         $this->configureSniff($sniff, $config);
         return $sniff;
     }
@@ -52,6 +55,19 @@ final class SniffFactory
     {
         foreach ($config as $property => $value) {
             $sniff->$property = $value;
+        }
+    }
+
+    private function ensureIsSniffClass(string $class): void
+    {
+        if ( ! is_a($class, Sniff::class, true)) {
+            throw new NotASniffClassException(
+                sprintf(
+                    'Sniff class has to implement "%s". "%s" given.',
+                    Sniff::class,
+                    $class
+                )
+            );
         }
     }
 }

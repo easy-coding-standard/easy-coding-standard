@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Fixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
+use Symplify\EasyCodingStandard\FixerRunner\Exception\Fixer\NotAFixerClassException;
 
 final class FixerFactory
 {
@@ -40,6 +41,8 @@ final class FixerFactory
      */
     private function create(string $class, array $config): FixerInterface
     {
+        $this->ensureIsFixerClass($class);
+
         $fixer = new $class;
         $this->configureFixer($fixer, $config);
         return $fixer;
@@ -53,6 +56,19 @@ final class FixerFactory
     {
         if ($fixer instanceof ConfigurableFixerInterface && count($config)) {
             $fixer->configure($config);
+        }
+    }
+
+    private function ensureIsFixerClass(string $class): void
+    {
+        if ( ! is_a($class, FixerInterface::class, true)) {
+            throw new NotAFixerClassException(
+                sprintf(
+                    'Fixer class has to implement "%s". "%s" given.',
+                    FixerInterface::class,
+                    $class
+                )
+            );
         }
     }
 }
