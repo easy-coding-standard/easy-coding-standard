@@ -1,6 +1,5 @@
 php-cs-fixer:
-    fixers:
-        # PHP 7.0 migration (official)
-        PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
-            mt_rand: random_int
-            rand: random_int
+    # PHP 7.0 migration (official)
+    PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
+        mt_rand: random_int
+        rand: random_int
