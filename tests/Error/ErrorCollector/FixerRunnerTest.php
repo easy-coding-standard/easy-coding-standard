@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\Application;
@@ -29,6 +30,10 @@ final class FixerRunnerTest extends TestCase
         );
         $this->errorDataCollector = $container->getByType(ErrorCollector::class);
         $this->application = $container->getByType(Application::class);
+
+        /** @var ChangedFilesDetectorInterface $changedFilesDetector */
+        $changedFilesDetector = $container->getByType(ChangedFilesDetectorInterface::class);
+        $changedFilesDetector->clearCache();
     }
 
     public function test(): void

@@ -5,6 +5,8 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 use PHPUnit\Framework\TestCase;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Skipper;
@@ -36,6 +38,10 @@ final class SniffRunnerTest extends TestCase
         $this->errorDataCollector = $container->getByType(ErrorCollector::class);
         $this->application = $container->getByType(Application::class);
         $this->skipper = $container->getByType(Skipper::class);
+
+        /** @var ChangedFilesDetectorInterface $changedFilesDetector */
+        $changedFilesDetector = $container->getByType(ChangedFilesDetectorInterface::class);
+        $changedFilesDetector->clearCache();
     }
 
     public function test(): void
