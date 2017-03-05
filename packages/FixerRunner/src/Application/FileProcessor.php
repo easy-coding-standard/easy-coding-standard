@@ -108,7 +108,6 @@ final class FileProcessor
                 $tokens->clearEmptyTokens();
                 $tokens->clearChanged();
                 $appliedFixers[] = $fixer->getName();
-
             }
         }
 

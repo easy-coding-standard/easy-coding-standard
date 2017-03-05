@@ -4,5 +4,4 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Contract\File;
 
 interface FileInterface
 {
-
 }

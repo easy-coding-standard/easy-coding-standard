@@ -6,5 +6,4 @@ use Exception;
 
 final class GroupNotFoundException extends Exception
 {
-
 }
