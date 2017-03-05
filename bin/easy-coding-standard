@@ -14,5 +14,5 @@ $container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../sr
 $application = $container->getByType(Application::class);
 
 // 3. run it!
-$application->setDefaultCommand('run', true);
+$application->setDefaultCommand('run');
 $application->run();
