@@ -37,7 +37,8 @@ php-cs-fixer:
     - PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer
     - PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer
     - PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer
-    - PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer
+    # buggy, temp down: https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/2454
+    # - PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer
     - PhpCsFixer\Fixer\ControlStructure\NoTrailingCommaInListCallFixer
     - PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer
     - PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer
