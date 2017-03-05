@@ -3,30 +3,25 @@
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Nette\Caching\Cache;
-use Nette\Caching\Storages\FileStorage;
-use Nette\Utils\FileSystem;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
 
-final class ChangedFilesDetector
+final class ChangedFilesDetector implements ChangedFilesDetectorInterface
 {
     /**
      * @var string
      */
-    const CONFIGURATION_HASH_KEY = 'configuration_hash';
+    private const CONFIGURATION_HASH_KEY = 'configuration_hash';
 
     /**
      * @var Cache
      */
     private $cache;
-
     // todo: introduce an interface, that return a "string" as unique signature
-    // todo: add cache factory
-    public function __construct(Cache $cache, ConfigurationFileLoader $configurationFileLoader)
+    public function __construct(CacheFactory $cacheFactory, ConfigurationFileLoader $configurationFileLoader)
     {
-        $tempDirectory = sys_get_temp_dir(). '/_changed_files_detector';
-        FileSystem::createDir($tempDirectory);
-
-        $this->cache = new Cache(new FileStorage($tempDirectory));
+        $this->cache = $cacheFactory->create();
         $this->storeConfigurationDataHash($configurationFileLoader->load());
     }
 
@@ -34,6 +29,11 @@ final class ChangedFilesDetector
     {
         $hash = $this->hashFile($filePath);
         $this->cache->save($filePath, $hash);
+    }
+
+    public function invalidateFile(string $filePath): void
+    {
+        $this->cache->remove($filePath);
     }
 
     public function hasFileChanged(string $filePath): bool
@@ -49,11 +49,19 @@ final class ChangedFilesDetector
         return false;
     }
 
-    private function hashFile(string $filePath): string
+    public function clearCache(): void
     {
-        return hash_file('md5',$filePath);
+        $this->cache->clean([Cache::ALL => true]);
     }
 
+    private function hashFile(string $filePath): string
+    {
+        return hash_file('md5', $filePath);
+    }
+
+    /**
+     * @param mixed[] $configuration
+     */
     private function storeConfigurationDataHash(array $configuration): void
     {
         $configurationHash = $this->calculateConfigurationHash($configuration);
@@ -62,6 +70,9 @@ final class ChangedFilesDetector
         $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash);
     }
 
+    /**
+     * @param mixed[] $configuration
+     */
     private function calculateConfigurationHash(array $configuration): string
     {
         return md5(serialize($configuration));
@@ -71,12 +82,7 @@ final class ChangedFilesDetector
     {
         $oldConfigurationHash = $this->cache->load(self::CONFIGURATION_HASH_KEY);
         if ($configurationHash !== $oldConfigurationHash) {
-            $this->cleanCache();
+            $this->clearCache();
         }
-    }
-
-    private function cleanCache(): void
-    {
-        $this->cache->clean([Cache::ALL => true]);
     }
 }

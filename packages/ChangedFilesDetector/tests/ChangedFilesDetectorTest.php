@@ -7,16 +7,17 @@ use Nette\Caching\Storages\FileStorage;
 use Nette\Utils\FileSystem;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
 
 final class ChangedFilesDetectorTest extends TestCase
 {
     /**
-     * @var ChangedFilesDetector
+     * @var ChangedFilesDetectorInterface
      */
     private $changedFilesDetector;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         FileSystem::createDir($this->getCacheDirectory());
 
@@ -25,7 +26,12 @@ final class ChangedFilesDetectorTest extends TestCase
         );
     }
 
-    public function testAddFile()
+    protected function tearDown(): void
+    {
+        FileSystem::delete($this->getCacheDirectory());
+    }
+
+    public function testAddFile(): void
     {
         $this->assertTrue($this->changedFilesDetector->hasFileChanged(
             __DIR__ . '/ChangedFilesDetectorSource/OneClass.php'
@@ -36,7 +42,7 @@ final class ChangedFilesDetectorTest extends TestCase
         );
     }
 
-    public function testHasFileChanged()
+    public function testHasFileChanged(): void
     {
         $this->changedFilesDetector->addFile(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php');
 
@@ -45,7 +51,7 @@ final class ChangedFilesDetectorTest extends TestCase
         );
     }
 
-    public function testInvalidateCacheOnConfigurationChange()
+    public function testInvalidateCacheOnConfigurationChange(): void
     {
         $this->changedFilesDetector->addFile(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php');
 
@@ -64,11 +70,6 @@ final class ChangedFilesDetectorTest extends TestCase
         $this->assertFalse($changedFilesDetectorWithNewConfiguration->hasFileChanged(
             __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
         );
-    }
-
-    protected function tearDown()
-    {
-        FileSystem::delete($this->getCacheDirectory());
     }
 
     private function getCacheDirectory(): string

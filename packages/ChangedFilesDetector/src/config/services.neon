@@ -1,2 +1,3 @@
 - Nette\Caching\Cache
+- Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory
 - Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector

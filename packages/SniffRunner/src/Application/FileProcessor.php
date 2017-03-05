@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
-use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -27,7 +27,7 @@ final class FileProcessor
     private $style;
 
     /**
-     * @var ChangedFilesDetector
+     * @var ChangedFilesDetectorInterface
      */
     private $changedFilesDetector;
 
@@ -35,7 +35,7 @@ final class FileProcessor
         TokenDispatcher $tokenDispatcher,
         Fixer $fixer,
         EasyCodingStandardStyle $style,
-        ChangedFilesDetector $changedFilesDetector
+        ChangedFilesDetectorInterface $changedFilesDetector
     ) {
         $this->tokenDispatcher = $tokenDispatcher;
         $this->fixer = $fixer;

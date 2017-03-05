@@ -7,7 +7,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Skipper;
@@ -35,7 +35,7 @@ final class FileProcessor
     private $skipper;
 
     /**
-     * @var ChangedFilesDetector
+     * @var ChangedFilesDetectorInterface
      */
     private $changedFilesDetector;
 
@@ -43,7 +43,7 @@ final class FileProcessor
         ErrorCollector $errorCollector,
         EasyCodingStandardStyle $style,
         Skipper $skipper,
-        ChangedFilesDetector $changedFilesDetector
+        ChangedFilesDetectorInterface $changedFilesDetector
     ) {
         $this->errorCollector = $errorCollector;
         $this->style = $style;

@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Application;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
@@ -31,14 +32,21 @@ final class ApplicationRunner
      */
     private $skipper;
 
+    /**
+     * @var ChangedFilesDetectorInterface
+     */
+    private $changedFilesDetector;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
-        Skipper $skipper
+        Skipper $skipper,
+        ChangedFilesDetectorInterface $changedFilesDetector
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
         $this->skipper = $skipper;
+        $this->changedFilesDetector = $changedFilesDetector;
     }
 
     public function addApplication(ApplicationInterface $application): void
@@ -48,10 +56,18 @@ final class ApplicationRunner
 
     public function runCommand(RunApplicationCommand $command): void
     {
+        if ($command->shouldClearCache()) {
+            $this->changedFilesDetector->clearCache();
+        }
+
         $this->skipper->setSkipped($command->getSkipped());
 
         $files = $this->sourceFinder->find($command->getSources());
         $this->startProgressBar($files);
+
+        // @todo: find all files here and just process file?
+        // might be faster, since it drops duplicate search and file creation
+        // for cached file checks
 
         foreach ($this->applications as $application) {
             $application->runCommand($command);
