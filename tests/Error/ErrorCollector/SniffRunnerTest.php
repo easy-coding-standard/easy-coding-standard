@@ -80,6 +80,7 @@ final class SniffRunnerTest extends TestCase
         return RunApplicationCommand::createFromSourceFixerAndData(
             [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
             false,
+            true,
             [
                 'php-code-sniffer' => [AbstractClassNameSniff::class]
             ]

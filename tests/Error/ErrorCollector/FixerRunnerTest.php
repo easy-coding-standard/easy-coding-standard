@@ -56,7 +56,10 @@ final class FixerRunnerTest extends TestCase
     private function runApplicationWithFixer(string $fixerClass): void
     {
         $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
-            [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'], false, [
+            [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
+            false,
+            false,
+            [
                 'php-cs-fixer' => [$fixerClass]
             ]
         );

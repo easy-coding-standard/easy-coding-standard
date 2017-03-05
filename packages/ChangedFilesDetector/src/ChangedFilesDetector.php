@@ -18,6 +18,7 @@ final class ChangedFilesDetector implements ChangedFilesDetectorInterface
      * @var Cache
      */
     private $cache;
+
     // todo: introduce an interface, that return a "string" as unique signature
     public function __construct(CacheFactory $cacheFactory, ConfigurationFileLoader $configurationFileLoader)
     {

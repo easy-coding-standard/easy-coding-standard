@@ -28,7 +28,7 @@ final class FileProcessorTest extends TestCase
         $symfonyFixersFile = file_get_contents(__DIR__ . '/../../../../config/php-cs-fixer/symfony-fixers.neon');
 
         $symfonyFixersNeon = Neon::decode($symfonyFixersFile);
-        $fixerClasses = $symfonyFixersNeon['php-cs-fixer']['fixers'];
+        $fixerClasses = $symfonyFixersNeon['php-cs-fixer'];
         $this->fileProcessor->registerFixers($fixerClasses);
 
         $this->assertCount(70, Assert::getObjectAttribute($this->fileProcessor, 'fixers'));

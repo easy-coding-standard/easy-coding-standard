@@ -29,8 +29,9 @@ final class ApplicationTest extends TestCase
     private function createCommand(): RunApplicationCommand
     {
         return RunApplicationCommand::createFromSourceFixerAndData(
-            $source = [__DIR__ . '/ApplicationSource'],
-            $isFixer = true,
+            [__DIR__ . '/ApplicationSource'],
+            true,
+            false,
             [
                 'php-code-sniffer' => [],
             ]

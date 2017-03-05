@@ -4,8 +4,10 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
 use Nette\Caching\Cache;
 use Nette\Caching\Storages\FileStorage;
+use Nette\DI\Config\Loader;
 use Nette\Utils\FileSystem;
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
@@ -79,12 +81,7 @@ final class ChangedFilesDetectorTest extends TestCase
 
     private function createChangedFilesDetectorFromConfigurationFile(string $configurationFile): ChangedFilesDetector
     {
-        $configurationFileLoader = new ConfigurationFileLoader($configurationFile);
-        return new ChangedFilesDetector($this->getCache(), $configurationFileLoader);
-    }
-
-    private function getCache(): Cache
-    {
-        return new Cache(new FileStorage($this->getCacheDirectory()));
+        $configurationFileLoader = new ConfigurationFileLoader($configurationFile, new Loader);
+        return new ChangedFilesDetector(new CacheFactory, $configurationFileLoader);
     }
 }
