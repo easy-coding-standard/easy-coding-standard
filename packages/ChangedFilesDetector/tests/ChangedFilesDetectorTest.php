@@ -80,6 +80,7 @@ final class ChangedFilesDetectorTest extends TestCase
     private function createChangedFilesDetectorFromConfigurationFile(string $configurationFile): ChangedFilesDetector
     {
         $configurationFileLoader = new ConfigurationFileLoader($configurationFile, new Loader);
+
         return new ChangedFilesDetector(new CacheFactory, $configurationFileLoader);
     }
 }

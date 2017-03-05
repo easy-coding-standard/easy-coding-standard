@@ -19,6 +19,7 @@ final class VendorDirProvider
         }
 
         $classLoaderReflection = new ReflectionClass(ClassLoader::class);
+
         return self::$vendorDir = dirname(dirname($classLoaderReflection->getFileName()));
     }
 }

@@ -78,11 +78,11 @@ final class FixerTest extends TestCase
 
         $this->fixer->addNewline(13);
         $token = $this->fixer->getTokenContent(13);
-        $this->assertSame('\\'.PHP_EOL, $token);
+        $this->assertSame('\\' . PHP_EOL, $token);
 
         $this->fixer->addNewlineBefore(13);
         $token = $this->fixer->getTokenContent(13);
-        $this->assertSame(PHP_EOL.'\\'.PHP_EOL, $token);
+        $this->assertSame(PHP_EOL . '\\' . PHP_EOL, $token);
     }
 
     public function testSubstrToken(): void

@@ -14,7 +14,7 @@ final class ErrorSorter
 
         foreach ($errorMessages as $file => $errorMessagesForFile) {
             usort($errorMessagesForFile, function (Error $first, Error $second) {
-                return ($first->getLine() > $second->getLine());
+                return $first->getLine() > $second->getLine();
             });
 
             $errorMessages[$file] = $errorMessagesForFile;

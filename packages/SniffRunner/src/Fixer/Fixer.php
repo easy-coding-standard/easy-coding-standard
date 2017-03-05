@@ -45,6 +45,7 @@ final class Fixer
     public function replaceToken(int $stackPtr, string $content): bool
     {
         $this->tokens[$stackPtr] = $content;
+
         return true;
     }
 
@@ -54,12 +55,14 @@ final class Fixer
     public function addContent(int $stackPtr, string $content): bool
     {
         $current = $this->getTokenContent($stackPtr);
+
         return $this->replaceToken($stackPtr, $current . $content);
     }
 
     public function addContentBefore(int $stackPtr, string $content): bool
     {
         $current = $this->getTokenContent($stackPtr);
+
         return $this->replaceToken($stackPtr, $content . $current);
     }
 
@@ -87,14 +90,14 @@ final class Fixer
     }
 
     /**
-     * For BC
+     * For BC.
      */
     public function beginChangeSet(): void
     {
     }
 
     /**
-     * For BC
+     * For BC.
      */
     public function endChangeSet(): void
     {

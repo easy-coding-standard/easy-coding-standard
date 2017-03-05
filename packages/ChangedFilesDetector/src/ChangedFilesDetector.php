@@ -43,6 +43,7 @@ final class ChangedFilesDetector implements ChangedFilesDetectorInterface
 
         if ($newFileHash !== $oldFileHash) {
             $this->addFile($filePath);
+
             return true;
         }
 

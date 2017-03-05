@@ -28,14 +28,14 @@ final class FileProcessorTest extends TestCase
 
     public function testProcessFiles(): void
     {
-        $file = $this->fileFactory->create(__DIR__.'/FileProcessorSource/SomeFile.php', false);
+        $file = $this->fileFactory->create(__DIR__ . '/FileProcessorSource/SomeFile.php', false);
         $tokensBefore = $file->getTokens();
         $this->fileProcessor->processFiles([$file], false);
 
         $tokensAfter = $file->getTokens();
         $this->assertSame($tokensBefore, $tokensAfter);
 
-        $file = $this->fileFactory->create(__DIR__.'/FileProcessorSource/SomeFile.php', true);
+        $file = $this->fileFactory->create(__DIR__ . '/FileProcessorSource/SomeFile.php', true);
         $tokensBefore = $file->getTokens();
         $this->fileProcessor->processFiles([$file], true);
 

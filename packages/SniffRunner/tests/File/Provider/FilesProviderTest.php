@@ -24,7 +24,7 @@ final class FilesProviderTest extends TestCase
 
     public function test(): void
     {
-        $source = [__DIR__.'/FilesProviderSource'];
+        $source = [__DIR__ . '/FilesProviderSource'];
         $files = $this->filesProvider->getFilesForSource($source, false);
         $this->assertCount(1, $files);
 

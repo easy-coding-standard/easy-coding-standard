@@ -16,7 +16,7 @@ final class EasyCodingStandardExtension extends CompilerExtension
     {
         Compiler::loadDefinitions(
             $this->getContainerBuilder(),
-            $this->loadFromFile(__DIR__.'/../config/services.neon')
+            $this->loadFromFile(__DIR__ . '/../config/services.neon')
         );
     }
 

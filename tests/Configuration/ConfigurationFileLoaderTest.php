@@ -11,7 +11,7 @@ final class ConfigurationFileLoaderTest extends TestCase
     public function test(): void
     {
         $multiCsFileLoader = new ConfigurationFileLoader(
-            __DIR__.'/coding-standard.neon',
+            __DIR__ . '/coding-standard.neon',
             new Loader
         );
 

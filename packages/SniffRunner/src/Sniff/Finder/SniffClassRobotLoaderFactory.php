@@ -24,6 +24,7 @@ final class SniffClassRobotLoaderFactory
     {
         $tempDir = sys_get_temp_dir() . '/sniff-runner-robot-loader';
         FileSystem::createDir($tempDir);
+
         return new FileStorage($tempDir);
     }
 }

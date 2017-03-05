@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 use PHPUnit\Framework\TestCase;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;

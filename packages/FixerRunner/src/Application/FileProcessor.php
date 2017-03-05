@@ -99,7 +99,7 @@ final class FileProcessor
                 continue;
             }
 
-            /** @var FixerInterface $fixer */
+            /* @var FixerInterface $fixer */
             $fixer->fix($file, $tokens);
 
             if ($tokens->isChanged()) {
@@ -168,6 +168,7 @@ final class FileProcessor
     {
         if ($fixer instanceof DefinedFixerInterface) {
             $definition = $fixer->getDefinition();
+
             return $definition->getSummary();
         }
 

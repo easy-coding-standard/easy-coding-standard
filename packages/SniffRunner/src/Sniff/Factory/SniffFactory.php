@@ -44,6 +44,7 @@ final class SniffFactory
 
         $sniff = new $class;
         $this->configureSniff($sniff, $config);
+
         return $sniff;
     }
 

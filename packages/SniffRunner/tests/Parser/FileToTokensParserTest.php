@@ -10,7 +10,7 @@ final class FileToTokensParserTest extends TestCase
     public function test(): void
     {
         $tokens = (new FileToTokensParser)->parseFromFilePath(
-            __DIR__.'/FileToTokensParserSource/SimplePhpFile.php'
+            __DIR__ . '/FileToTokensParserSource/SimplePhpFile.php'
         );
 
         $this->assertCount(15, $tokens);

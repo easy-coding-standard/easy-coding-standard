@@ -10,7 +10,7 @@ final class CacheFactory
 {
     public function create(): Cache
     {
-        $tempDirectory = sys_get_temp_dir(). '/_changed_files_detector';
+        $tempDirectory = sys_get_temp_dir() . '/_changed_files_detector';
         FileSystem::createDir($tempDirectory);
 
         return new Cache(new FileStorage($tempDirectory));

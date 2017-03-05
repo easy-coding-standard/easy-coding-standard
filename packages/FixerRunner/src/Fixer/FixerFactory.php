@@ -45,6 +45,7 @@ final class FixerFactory
 
         $fixer = new $class;
         $this->configureFixer($fixer, $config);
+
         return $fixer;
     }
 

@@ -56,7 +56,6 @@ php-cs-fixer:
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoUselessInheritdocFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocToCommentFixer
@@ -73,7 +72,5 @@ php-cs-fixer:
     - PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer
     - PhpCsFixer\Fixer\Operator\StandardizeNotEqualsFixer
     - PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer
-    - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
     - PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer
-    - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
     - PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer
