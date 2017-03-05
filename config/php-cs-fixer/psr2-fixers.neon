@@ -8,7 +8,6 @@ php-cs-fixer:
     - PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer
     - PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer
     - PhpCsFixer\Fixer\Whitespace\LineEndingFixer
-    - PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff
     - PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer
     - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
     - PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer

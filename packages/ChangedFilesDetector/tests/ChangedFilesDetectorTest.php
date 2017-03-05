@@ -2,8 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
-use Nette\Caching\Cache;
-use Nette\Caching\Storages\FileStorage;
 use Nette\DI\Config\Loader;
 use Nette\Utils\FileSystem;
 use PHPUnit\Framework\TestCase;

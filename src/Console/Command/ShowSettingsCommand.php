@@ -20,8 +20,10 @@ final class ShowSettingsCommand extends Command
      */
     private $easyCodingStandardStyle;
 
-    public function __construct(ConfigurationFileLoader $configurationFileLoader, EasyCodingStandardStyle $easyCodingStandardStyle)
-    {
+    public function __construct(
+        ConfigurationFileLoader $configurationFileLoader,
+        EasyCodingStandardStyle $easyCodingStandardStyle
+    ) {
         parent::__construct();
 
         $this->configurationFileLoader = $configurationFileLoader;
@@ -39,14 +41,9 @@ final class ShowSettingsCommand extends Command
         $configuration = $this->configurationFileLoader->load();
 
         $this->easyCodingStandardStyle->title('Settings for EasyCodingStandard');
-
-//        dump($configuration);
-        die;
-
-        return 1;
-
         $this->easyCodingStandardStyle->newLine();
-        $this->easyCodingStandardStyle->success('No errors found!');
+
+        // @todo: display all fixers and sniffers with configuration: $configuration
 
         return 0;
     }
