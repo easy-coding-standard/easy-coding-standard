@@ -67,12 +67,12 @@ final class FileProcessor
     {
         foreach ($files as $file) {
             if ($this->changedFilesDetector->hasFileChanged($file->getRealPath()) === false) {
-                $this->style->progressBarAdvance();
+                $this->style->advanceProgressBar();
                 continue;
             }
 
             $this->fixFile($file, $isFixer);
-            $this->style->progressBarAdvance();
+            $this->style->advanceProgressBar();
 
             // we do not need Tokens to still caching just fixed file - so clear the cache
             Tokens::clearCache();

@@ -56,14 +56,28 @@ final class ApplicationRunner
 
     public function runCommand(RunApplicationCommand $command): void
     {
+        // 1. clear cache
         if ($command->shouldClearCache()) {
             $this->changedFilesDetector->clearCache();
         }
 
+        // 2. set skipped checkers and their files
         $this->skipper->setSkipped($command->getSkipped());
 
+        // 3. find files in sources
         $files = $this->sourceFinder->find($command->getSources());
         $this->startProgressBar($files);
+
+        // @todo: setup applications/fileRunners with command first
+        // $this->application->configureWithCommand($command);
+
+        // 4. process those files by each processors
+        foreach ($files as $file) {
+//            dump($file);
+//            foreach ($this->fileProcessors as $fileProcessors) {
+//                $fileProcessors->processFile($file /*$command*/);
+//            }
+        }
 
         // @todo: find all files here and just process file?
         // might be faster, since it drops duplicate search and file creation
@@ -79,7 +93,9 @@ final class ApplicationRunner
      */
     private function startProgressBar(array $files): void
     {
+        // @todo: maybe add fixer count, might be more relevant?
+        // or keep only file count?
         $max = count($files) * count($this->applications);
-        $this->easyCodingStandardStyle->progressBarStart($max);
+        $this->easyCodingStandardStyle->startProgressBar($max);
     }
 }

@@ -39,16 +39,7 @@ final class Application implements ApplicationInterface
         $fixers = $this->fixerFactory->createFromClasses($command->getFixers());
         $this->fileProcessor->registerFixers($fixers);
 
-        $this->runForSource($command->getSources(), $command->isFixer());
-    }
-
-    /**
-     * @param string[] $source
-     * @param bool $isFixer
-     */
-    private function runForSource(array $source, bool $isFixer): void
-    {
-        $files = $this->sourceFinder->find($source);
-        $this->fileProcessor->processFiles($files, $isFixer);
+        $files = $this->sourceFinder->find($command->getSources());
+        $this->fileProcessor->processFiles($files, $command->isFixer());
     }
 }

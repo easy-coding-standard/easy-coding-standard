@@ -51,12 +51,12 @@ final class FileProcessor
     {
         foreach ($files as $file) {
             if ($this->changedFilesDetector->hasFileChanged($file->getFilename()) === false) {
-                $this->style->progressBarAdvance();
+                $this->style->advanceProgressBar();
                 continue;
             }
 
             $this->processFile($file, $isFixer);
-            $this->style->progressBarAdvance();
+            $this->style->advanceProgressBar();
         }
     }
 

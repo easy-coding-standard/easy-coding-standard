@@ -21,7 +21,7 @@ final class EasyCodingStandardStyle
     /**
      * @var bool
      */
-    private $progressBarStarted = false;
+    private $hasProgressBarStarted = false;
 
     /**
      * @var Terminal
@@ -85,15 +85,15 @@ final class EasyCodingStandardStyle
         $this->symfonyStyle->newLine();
     }
 
-    public function progressBarStart(int $max): void
+    public function startProgressBar(int $max): void
     {
-        $this->progressBarStarted = true;
+        $this->hasProgressBarStarted = true;
         $this->symfonyStyle->progressStart($max);
     }
 
-    public function progressBarAdvance(): void
+    public function advanceProgressBar(): void
     {
-        if (! $this->progressBarStarted) {
+        if (! $this->hasProgressBarStarted) {
             return;
         }
 
