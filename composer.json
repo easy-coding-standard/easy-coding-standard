@@ -11,7 +11,6 @@
         "tracy/tracy": "^2.4",
         "symplify/package-builder": "^1.4",
         "symplify/sniff-runner": "@dev",
-        "symplify/fixer-runner": "@dev",
         "symplify/fixer-runner": "@dev"
     },
     "require-dev": {
