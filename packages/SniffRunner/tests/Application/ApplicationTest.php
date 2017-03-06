@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\SniffRunner\Application\Application;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
@@ -26,9 +26,9 @@ final class ApplicationTest extends TestCase
         $this->assertTrue(true);
     }
 
-    private function createCommand(): RunApplicationCommand
+    private function createCommand(): RunCommand
     {
-        return RunApplicationCommand::createFromSourceFixerAndData(
+        return RunCommand::createFromSourceFixerAndData(
             [__DIR__ . '/ApplicationSource'],
             true,
             false,

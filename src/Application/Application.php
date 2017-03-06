@@ -3,19 +3,20 @@
 namespace Symplify\EasyCodingStandard\Application;
 
 use SplFileInfo;
-use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\Skipper;
 
-final class ApplicationRunner
+final class Application
 {
     /**
-     * @var ApplicationInterface[]
+     * @var FileProcessorInterface[]
      */
-    private $applications = [];
+    private $fileProcessors = [];
 
     /**
      * @var EasyCodingStandardStyle
@@ -49,12 +50,12 @@ final class ApplicationRunner
         $this->changedFilesDetector = $changedFilesDetector;
     }
 
-    public function addApplication(ApplicationInterface $application): void
+    public function addFileProcessor(FileProcessorInterface $fileProcessor): void
     {
-        $this->applications[] = $application;
+        $this->fileProcessors[] = $fileProcessor;
     }
 
-    public function runCommand(RunApplicationCommand $command): void
+    public function runCommand(RunCommand $command): void
     {
         // 1. clear cache
         if ($command->shouldClearCache()) {
@@ -68,24 +69,42 @@ final class ApplicationRunner
         $files = $this->sourceFinder->find($command->getSources());
         $this->startProgressBar($files);
 
+        //
+        foreach ($this->fileProcessors as $fileProcessor) {
+            $fileProcessor->setupWithCommand($command);
+        }
+
         // @todo: setup applications/fileRunners with command first
         // $this->application->configureWithCommand($command);
 
         // 4. process those files by each processors
-        foreach ($files as $file) {
-//            dump($file);
-//            foreach ($this->fileProcessors as $fileProcessors) {
-//                $fileProcessors->processFile($file /*$command*/);
-//            }
+        foreach ($files as $relativePath => $splFile) {
+            // skip file if it didn't change
+            if ($this->changedFilesDetector->hasFileChanged($relativePath) === false) {
+                $this->easyCodingStandardStyle->advanceProgressBar();
+                continue;
+            }
+
+            foreach ($this->fileProcessors as $fileProcessor) {
+                $fileProcessor->processFile($splFile, $command->isFixer());
+            }
+            // dump($relativePath);
+
+            // store changed file to cache
+
+            // @OR: better just store if file had no errors?
+            // processFile => return TRUE if ok, FALSE if failed
+            // => drops redundant invalidate file method :)
+            $this->changedFilesDetector->addFile($relativePath);
         }
 
         // @todo: find all files here and just process file?
         // might be faster, since it drops duplicate search and file creation
         // for cached file checks
 
-        foreach ($this->applications as $application) {
-            $application->runCommand($command);
-        }
+//        foreach ($this->fileProcessors as $application) {
+//            $application->runCommand($command);
+//        }
     }
 
     /**
@@ -95,7 +114,7 @@ final class ApplicationRunner
     {
         // @todo: maybe add fixer count, might be more relevant?
         // or keep only file count?
-        $max = count($files) * count($this->applications);
+        $max = count($files) * count($this->fileProcessors);
         $this->easyCodingStandardStyle->startProgressBar($max);
     }
 }

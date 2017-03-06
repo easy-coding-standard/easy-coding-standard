@@ -4,8 +4,18 @@ namespace Symplify\EasyCodingStandard\Application\Command;
 
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 
-final class RunApplicationCommand
+final class RunCommand
 {
+    /**
+     * @var string
+     */
+    private const PHP_CODE_SNIFFER_KEY = 'php-code-sniffer';
+
+    /**
+     * @var string
+     */
+    private const PHP_CS_FIXER_KEY = 'php-cs-fixer';
+
     /**
      * @var string[]
      */
@@ -86,7 +96,7 @@ final class RunApplicationCommand
      */
     public function getSniffs(): array
     {
-        return $this->configuration['php-code-sniffer'] ?? [];
+        return $this->configuration[self::PHP_CODE_SNIFFER_KEY] ?? [];
     }
 
     /**
@@ -94,7 +104,7 @@ final class RunApplicationCommand
      */
     public function getFixers(): array
     {
-        return $this->configuration['php-cs-fixer'] ?? [];
+        return $this->configuration[self::PHP_CS_FIXER_KEY] ?? [];
     }
 
     /**
@@ -110,14 +120,14 @@ final class RunApplicationCommand
      */
     private function setSources(array $sources): void
     {
-        $this->ensureSourceExists($sources);
+        $this->ensureSourcesExists($sources);
         $this->sources = $sources;
     }
 
     /**
      * @param string[] $sources
      */
-    private function ensureSourceExists(array $sources): void
+    private function ensureSourcesExists(array $sources): void
     {
         foreach ($sources as $source) {
             if (file_exists($source)) {

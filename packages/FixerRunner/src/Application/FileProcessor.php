@@ -7,12 +7,13 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory;
 use Symplify\EasyCodingStandard\Skipper;
 
-final class FileProcessor
+final class FileProcessor implements FileProcessorInterface
 {
     /**
      * @var FixerInterface[]
@@ -25,61 +26,46 @@ final class FileProcessor
     private $errorCollector;
 
     /**
-     * @var EasyCodingStandardStyle
-     */
-    private $style;
-
-    /**
      * @var Skipper
      */
     private $skipper;
 
     /**
-     * @var ChangedFilesDetectorInterface
+     * @var FixerFactory
      */
-    private $changedFilesDetector;
+    private $fixerFactory;
 
-    public function __construct(
-        ErrorCollector $errorCollector,
-        EasyCodingStandardStyle $style,
-        Skipper $skipper,
-        ChangedFilesDetectorInterface $changedFilesDetector
-    ) {
+    public function __construct(ErrorCollector $errorCollector, Skipper $skipper, FixerFactory $fixerFactory)
+    {
         $this->errorCollector = $errorCollector;
-        $this->style = $style;
         $this->skipper = $skipper;
-        $this->changedFilesDetector = $changedFilesDetector;
+        $this->fixerFactory = $fixerFactory;
+    }
+
+//    /**
+
+//     * @param SplFileInfo[] $files
+//     * @param bool $isFixer
+//     */
+//    public function processFiles(array $files, bool $isFixer): void
+//    {
+//        foreach ($files as $file) {
+//            $this->fixFile($file, $isFixer);
+//
+//            // we do not need Tokens to still caching just fixed file - so clear the cache
+//            Tokens::clearCache();
+//        }
+//    }
+    public function setupWithCommand(RunCommand $runCommand): void
+    {
+        $fixers = $this->fixerFactory->createFromClasses($runCommand->getFixers());
+        $this->registerFixers($fixers);
     }
 
     /**
-     * @param FixerInterface[] $fixers
+     * @todo this method is too long, decouple to smallerones
      */
-    public function registerFixers(array $fixers): void
-    {
-        $this->fixers = $fixers;
-    }
-
-    /**
-     * @param SplFileInfo[] $files
-     * @param bool $isFixer
-     */
-    public function processFiles(array $files, bool $isFixer): void
-    {
-        foreach ($files as $file) {
-            if ($this->changedFilesDetector->hasFileChanged($file->getRealPath()) === false) {
-                $this->style->advanceProgressBar();
-                continue;
-            }
-
-            $this->fixFile($file, $isFixer);
-            $this->style->advanceProgressBar();
-
-            // we do not need Tokens to still caching just fixed file - so clear the cache
-            Tokens::clearCache();
-        }
-    }
-
-    private function fixFile(SplFileInfo $file, bool $isFixer): void
+    public function processFile(SplFileInfo $file, bool $isFixer): void
     {
         $old = file_get_contents($file->getRealPath());
         $tokens = Tokens::fromCode($old);
@@ -136,6 +122,16 @@ final class FileProcessor
                 );
             }
         }
+
+        Tokens::clearCache();
+    }
+
+    /**
+     * @param FixerInterface[] $fixers
+     */
+    private function registerFixers(array $fixers): void
+    {
+        $this->fixers = $fixers;
     }
 
     private function detectChangedLineFromTokens(Tokens $tokens): int

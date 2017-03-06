@@ -25,7 +25,7 @@ final class FileFactoryTest extends TestCase
 
     public function testCreate(): void
     {
-        $file = $this->fileFactory->create(__DIR__ . '/FileFactorySource/SomeFile.php', false);
+        $file = $this->fileFactory->createFromFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php', false);
         $this->assertInstanceOf(File::class, $file);
         $this->assertInstanceOf(BaseFile::class, $file);
         $this->assertInstanceOf(FileInterface::class, $file);
@@ -37,6 +37,6 @@ final class FileFactoryTest extends TestCase
      */
     public function testCreateFromNotFile(): void
     {
-        $this->fileFactory->create(__DIR__, false);
+        $this->fileFactory->createFromFileInfo(__DIR__, false);
     }
 }

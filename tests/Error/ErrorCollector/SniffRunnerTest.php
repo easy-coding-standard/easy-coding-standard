@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
-use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
@@ -80,9 +80,9 @@ final class SniffRunnerTest extends TestCase
         $this->assertCount(0, $errorMessages);
     }
 
-    private function createRunCommand(): RunApplicationCommand
+    private function createRunCommand(): RunCommand
     {
-        return RunApplicationCommand::createFromSourceFixerAndData(
+        return RunCommand::createFromSourceFixerAndData(
             [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
             false,
             true,

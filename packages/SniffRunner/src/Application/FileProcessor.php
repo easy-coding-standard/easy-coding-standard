@@ -2,14 +2,18 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use SplFileInfo;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
+use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
+use Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer;
+use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 
-final class FileProcessor
+final class FileProcessor implements FileProcessorInterface
 {
     /**
      * @var TokenDispatcher
@@ -22,46 +26,39 @@ final class FileProcessor
     private $fixer;
 
     /**
-     * @var EasyCodingStandardStyle
+     * @var SniffFactory
      */
-    private $style;
+    private $sniffFactory;
 
     /**
-     * @var ChangedFilesDetectorInterface
+     * @var FileFactory
      */
-    private $changedFilesDetector;
+    private $fileFactory;
 
     public function __construct(
         TokenDispatcher $tokenDispatcher,
+        SniffFactory $sniffFactory,
         Fixer $fixer,
-        EasyCodingStandardStyle $style,
-        ChangedFilesDetectorInterface $changedFilesDetector
+        FileFactory $fileFactory
     ) {
         $this->tokenDispatcher = $tokenDispatcher;
+        $this->sniffFactory = $sniffFactory;
         $this->fixer = $fixer;
-        $this->style = $style;
-        $this->changedFilesDetector = $changedFilesDetector;
+        $this->fileFactory = $fileFactory;
+
+        LegacyCompatibilityLayer::add(); // @todo: service like?
     }
 
-    /**
-     * @param \PHP_CodeSniffer\Files\File[] $files
-     * @param bool $isFixer
-     */
-    public function processFiles(array $files, bool $isFixer): void
+    public function setupWithCommand(RunCommand $runCommand): void
     {
-        foreach ($files as $file) {
-            if ($this->changedFilesDetector->hasFileChanged($file->getFilename()) === false) {
-                $this->style->advanceProgressBar();
-                continue;
-            }
-
-            $this->processFile($file, $isFixer);
-            $this->style->advanceProgressBar();
-        }
+        $sniffs = $this->sniffFactory->createFromClasses($runCommand->getSniffs());
+        $this->tokenDispatcher->addSniffListeners($sniffs);
     }
 
-    private function processFile(File $file, bool $isFixer): void
+    public function processFile(SplFileInfo $fileInfo, bool $isFixer): void
     {
+        $file = $this->fileFactory->createFromFileInfo($fileInfo, $isFixer);
+
         if ($isFixer === false) {
             $this->processFileWithoutFixer($file);
         } else {

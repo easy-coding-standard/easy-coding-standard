@@ -6,8 +6,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Application\ApplicationRunner;
-use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\Application\Application;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
 use Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -20,7 +20,7 @@ final class CheckCommand extends Command
     private $style;
 
     /**
-     * @var ApplicationRunner
+     * @var Application
      */
     private $applicationRunner;
 
@@ -35,7 +35,7 @@ final class CheckCommand extends Command
     private $infoMessagePrinter;
 
     public function __construct(
-        ApplicationRunner $applicationRunner,
+        Application $applicationRunner,
         EasyCodingStandardStyle $style,
         ConfigurationFileLoader $configurationFileLoader,
         InfoMessagePrinter $infoMessagePrinter
@@ -59,7 +59,7 @@ final class CheckCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
+        $runCommand = RunCommand::createFromSourceFixerAndData(
             $input->getArgument('source'),
             $input->getOption('fix'),
             $input->getOption('clear-cache'),

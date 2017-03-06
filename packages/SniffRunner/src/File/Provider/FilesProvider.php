@@ -57,7 +57,7 @@ final class FilesProvider
     {
         $files = [];
         foreach ($fileInfos as $name => $fileInfo) {
-            $files[$name] = $this->fileFactory->create($name, $isFixer);
+            $files[$name] = $this->fileFactory->createFromFileInfo($name, $isFixer);
         }
 
         return $files;

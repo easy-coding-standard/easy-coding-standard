@@ -2,9 +2,9 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
-use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 
 interface ApplicationInterface
 {
-    public function runCommand(RunApplicationCommand $command): void;
+    public function runCommand(RunCommand $command): void;
 }

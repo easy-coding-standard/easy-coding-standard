@@ -1,5 +1,5 @@
 # Application
-- Symplify\EasyCodingStandard\Application\ApplicationRunner
+- Symplify\EasyCodingStandard\Application\Application
 
 # Configuration
 - Nette\DI\Config\Loader

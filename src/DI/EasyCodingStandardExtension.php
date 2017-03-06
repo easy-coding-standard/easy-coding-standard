@@ -4,10 +4,10 @@ namespace Symplify\EasyCodingStandard\DI;
 
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
-use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Console\Command\Command;
-use Symplify\EasyCodingStandard\Application\ApplicationRunner;
-use Symplify\EasyCodingStandard\Contract\Application\ApplicationInterface;
+use Symplify\EasyCodingStandard\Application\Application;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\PackageBuilder\Adapter\Nette\DI\DefinitionCollector;
 
 final class EasyCodingStandardExtension extends CompilerExtension
@@ -23,26 +23,26 @@ final class EasyCodingStandardExtension extends CompilerExtension
     public function beforeCompile(): void
     {
         $this->loadCommandsToConsoleApplication();
-        $this->loadApplicationsToApplicationRunner();
+        $this->loadFileProcessorsToApplication();
     }
 
     private function loadCommandsToConsoleApplication(): void
     {
         DefinitionCollector::loadCollectorWithType(
             $this->getContainerBuilder(),
-            Application::class,
+            ConsoleApplication::class,
             Command::class,
             'add'
         );
     }
 
-    private function loadApplicationsToApplicationRunner(): void
+    private function loadFileProcessorsToApplication(): void
     {
         DefinitionCollector::loadCollectorWithType(
             $this->getContainerBuilder(),
-            ApplicationRunner::class,
-            ApplicationInterface::class,
-            'addApplication'
+            Application::class,
+            FileProcessorInterface::class,
+            'addFileProcessor'
         );
     }
 }

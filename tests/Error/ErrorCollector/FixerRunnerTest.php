@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\Application\Command\RunApplicationCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
@@ -60,7 +60,7 @@ final class FixerRunnerTest extends TestCase
 
     private function runApplicationWithFixer(string $fixerClass): void
     {
-        $runCommand = RunApplicationCommand::createFromSourceFixerAndData(
+        $runCommand = RunCommand::createFromSourceFixerAndData(
             [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
             false,
             false,
