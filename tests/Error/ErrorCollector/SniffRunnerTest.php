@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
@@ -47,7 +48,7 @@ final class SniffRunnerTest extends TestCase
     {
         $runCommand = $this->createRunCommand();
         $this->fileProcessor->setupWithCommand($runCommand);
-        $fileInfo =new \SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
+        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
         $this->fileProcessor->processFile($fileInfo);
 
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());

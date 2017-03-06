@@ -28,6 +28,11 @@ final class FileProcessorTest extends TestCase
         $this->initialFileContent = file_get_contents($this->getFileLocation());
     }
 
+    protected function tearDown(): void
+    {
+        file_put_contents($this->getFileLocation(), $this->initialFileContent);
+    }
+
     public function test(): void
     {
         $fileInfo = new SplFileInfo($this->getFileLocation());
@@ -46,13 +51,8 @@ final class FileProcessorTest extends TestCase
         $this->assertNotSame($initialFileHash, $fixedFileHash);
     }
 
-    protected function tearDown(): void
-    {
-         file_put_contents($this->getFileLocation(), $this->initialFileContent);
-    }
-
     private function getFileLocation(): string
     {
-        return __DIR__ . '/FileProcessorSource/SomeFile.php';
+        return __DIR__ . '/FileProcessorSource/SomeFile.php.inc';
     }
 }

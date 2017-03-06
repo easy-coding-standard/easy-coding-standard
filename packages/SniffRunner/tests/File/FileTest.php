@@ -25,13 +25,12 @@ final class FileTest extends TestCase
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
 
-       $this->errorCollector = $container->getByType(ErrorCollector::class);
+        $this->errorCollector = $container->getByType(ErrorCollector::class);
 
         /** @var FileFactory $fileFactory */
         $fileFactory = $container->getByType(FileFactory::class);
         $fileInfo = new SplFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
         $this->file = $fileFactory->createFromFileInfo($fileInfo, false);
-
     }
 
     public function testErrorDataCollector(): void

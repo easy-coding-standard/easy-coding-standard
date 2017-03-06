@@ -75,9 +75,10 @@ final class Application
 
         // 5. process found files by each processors
         foreach ($files as $relativePath => $fileInfo) {
+            $this->easyCodingStandardStyle->advanceProgressBar();
+
             // skip file if it didn't change
             if ($this->changedFilesDetector->hasFileChanged($relativePath) === false) {
-                $this->easyCodingStandardStyle->advanceProgressBar();
                 continue;
             }
 

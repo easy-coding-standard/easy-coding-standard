@@ -53,9 +53,6 @@ final class FileProcessor implements FileProcessorInterface
         $this->isFixer = $runCommand->isFixer();
     }
 
-    /**
-     * @todo this method is too long, decouple to smaller ones
-     */
     public function processFile(SplFileInfo $file): void
     {
         $old = file_get_contents($file->getRealPath());
