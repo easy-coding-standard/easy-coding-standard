@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
-use Symplify\EasyCodingStandard\SniffRunner\Exception\File\FileNotFoundException;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 
@@ -32,24 +31,12 @@ final class FileFactory
         $this->fileToTokenParser = $fileToTokenParser;
     }
 
-    public function createFromFileInfo(SplFileInfo $filePath, bool $isFixer): File
+    public function createFromFileInfo(SplFileInfo $fileInfo, bool $isFixer): File
     {
-        $file = $filePath->getPathname();
-        $this->ensureFileExists($file);
+        $file = $fileInfo->getPathname();
 
         $tokens = $this->fileToTokenParser->parseFromFilePath($file);
 
         return new File($file, $tokens, $this->fixer, $this->reportCollector, $isFixer);
-    }
-
-    // @todo: already checked in layer above
-    private function ensureFileExists(string $filePath): void
-    {
-        if (! is_file($filePath) || ! file_exists($filePath)) {
-            throw new FileNotFoundException(sprintf(
-                'File "%s" was not found.',
-                $filePath
-            ));
-        }
     }
 }

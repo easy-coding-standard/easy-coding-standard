@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\Contract\File\FileInterface;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
@@ -19,24 +20,19 @@ final class FileFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+        $container = (new GeneralContainerFactory)->createFromConfig(
+            __DIR__ . '/../../../../src/config/config.neon'
+        );
         $this->fileFactory = $container->getByType(FileFactory::class);
     }
 
-    public function testCreate(): void
+    public function test(): void
     {
-        $file = $this->fileFactory->createFromFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php', false);
+        $fileInfo = new SplFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
+        $file = $this->fileFactory->createFromFileInfo($fileInfo, false);
         $this->assertInstanceOf(File::class, $file);
         $this->assertInstanceOf(BaseFile::class, $file);
         $this->assertInstanceOf(FileInterface::class, $file);
         $this->assertInstanceOf(Fixer::class, $file->fixer);
-    }
-
-    /**
-     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\FileNotFoundException
-     */
-    public function testCreateFromNotFile(): void
-    {
-        $this->fileFactory->createFromFileInfo(__DIR__, false);
     }
 }

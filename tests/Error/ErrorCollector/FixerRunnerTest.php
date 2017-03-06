@@ -4,11 +4,12 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
-use Symplify\EasyCodingStandard\FixerRunner\Application\Application;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FixerRunnerTest extends TestCase
@@ -19,9 +20,9 @@ final class FixerRunnerTest extends TestCase
     private $errorDataCollector;
 
     /**
-     * @var Application
+     * @var FileProcessor
      */
-    private $application;
+    private $fileProcessor;
 
     protected function setUp(): void
     {
@@ -29,7 +30,7 @@ final class FixerRunnerTest extends TestCase
             __DIR__ . '/../../../src/config/config.neon'
         );
         $this->errorDataCollector = $container->getByType(ErrorCollector::class);
-        $this->application = $container->getByType(Application::class);
+        $this->fileProcessor = $container->getByType(FileProcessor::class);
 
         /** @var ChangedFilesDetectorInterface $changedFilesDetector */
         $changedFilesDetector = $container->getByType(ChangedFilesDetectorInterface::class);
@@ -63,12 +64,15 @@ final class FixerRunnerTest extends TestCase
         $runCommand = RunCommand::createFromSourceFixerAndData(
             [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
             false,
-            false,
+            true,
             [
-                'php-cs-fixer' => [$fixerClass]
+                RunCommand::PHP_CS_FIXER_KEY => [$fixerClass]
             ]
         );
 
-        $this->application->runCommand($runCommand);
+        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
+
+        $this->fileProcessor->setupWithCommand($runCommand);
+        $this->fileProcessor->processFile($fileInfo);
     }
 }

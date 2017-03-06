@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
@@ -23,9 +24,14 @@ final class FileTest extends TestCase
     protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+
+       $this->errorCollector = $container->getByType(ErrorCollector::class);
+
+        /** @var FileFactory $fileFactory */
         $fileFactory = $container->getByType(FileFactory::class);
-        $this->file = $fileFactory->create(__DIR__ . '/FileFactorySource/SomeFile.php', false);
-        $this->errorCollector = $container->getByType(ErrorCollector::class);
+        $fileInfo = new SplFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
+        $this->file = $fileFactory->createFromFileInfo($fileInfo, false);
+
     }
 
     public function testErrorDataCollector(): void

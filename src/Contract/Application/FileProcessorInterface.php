@@ -9,5 +9,5 @@ interface FileProcessorInterface
 {
     public function setupWithCommand(RunCommand $runCommand): void;
 
-    public function processFile(SplFileInfo $file, bool $isFixer): void;
+    public function processFile(SplFileInfo $file): void;
 }

@@ -35,6 +35,11 @@ final class FileProcessor implements FileProcessorInterface
      */
     private $fileFactory;
 
+    /**
+     * @var bool
+     */
+    private $isFixer = false;
+
     public function __construct(
         TokenDispatcher $tokenDispatcher,
         SniffFactory $sniffFactory,
@@ -53,13 +58,14 @@ final class FileProcessor implements FileProcessorInterface
     {
         $sniffs = $this->sniffFactory->createFromClasses($runCommand->getSniffs());
         $this->tokenDispatcher->addSniffListeners($sniffs);
+        $this->isFixer = $runCommand->isFixer();
     }
 
-    public function processFile(SplFileInfo $fileInfo, bool $isFixer): void
+    public function processFile(SplFileInfo $fileInfo): void
     {
-        $file = $this->fileFactory->createFromFileInfo($fileInfo, $isFixer);
+        $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer);
 
-        if ($isFixer === false) {
+        if ($this->isFixer === false) {
             $this->processFileWithoutFixer($file);
         } else {
             $this->processFileWithFixer($file);

@@ -3,8 +3,10 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
+use Symplify\CodingStandard\Sniffs\Classes\ClassDeclarationSniff;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
-use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class FileProcessorTest extends TestCase
@@ -15,31 +17,42 @@ final class FileProcessorTest extends TestCase
     private $fileProcessor;
 
     /**
-     * @var FileFactory
+     * @var string
      */
-    private $fileFactory;
+    private $initialFileContent;
 
     protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
         $this->fileProcessor = $container->getByType(FileProcessor::class);
-        $this->fileFactory = $container->getByType(FileFactory::class);
+        $this->initialFileContent = file_get_contents($this->getFileLocation());
     }
 
-    public function testProcessFiles(): void
+    public function test(): void
     {
-        $file = $this->fileFactory->createFromFileInfo(__DIR__ . '/FileProcessorSource/SomeFile.php', false);
-        $tokensBefore = $file->getTokens();
-        $this->fileProcessor->processFiles([$file], false);
+        $fileInfo = new SplFileInfo($this->getFileLocation());
+        $initialFileHash = md5_file($this->getFileLocation());
 
-        $tokensAfter = $file->getTokens();
-        $this->assertSame($tokensBefore, $tokensAfter);
+        $runCommand = RunCommand::createFromSourceFixerAndData([__DIR__], true, true, [
+            RunCommand::PHP_CODE_SNIFFER_KEY => [
+                ClassDeclarationSniff::class
+            ]
+        ]);
 
-        $file = $this->fileFactory->createFromFileInfo(__DIR__ . '/FileProcessorSource/SomeFile.php', true);
-        $tokensBefore = $file->getTokens();
-        $this->fileProcessor->processFiles([$file], true);
+        $this->fileProcessor->setupWithCommand($runCommand);
+        $this->fileProcessor->processFile($fileInfo); // @todo: do not allow run without configuration exception?
+        $fixedFileHash = md5_file($this->getFileLocation());
 
-        $tokensAfter = $file->getTokens();
-        $this->assertSame($tokensBefore, $tokensAfter);
+        $this->assertNotSame($initialFileHash, $fixedFileHash);
+    }
+
+    protected function tearDown(): void
+    {
+         file_put_contents($this->getFileLocation(), $this->initialFileContent);
+    }
+
+    private function getFileLocation(): string
+    {
+        return __DIR__ . '/FileProcessorSource/SomeFile.php';
     }
 }

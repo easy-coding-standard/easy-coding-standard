@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -23,8 +24,13 @@ final class FixerTest extends TestCase
     protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+
+        /** @var FileFactory $fileFactory */
         $fileFactory = $container->getByType(FileFactory::class);
-        $this->file = $fileFactory->create(__DIR__ . '/FixerSource/SomeFile.php', true);
+
+        $fileInfo = new SplFileInfo(__DIR__ . '/FixerSource/SomeFile.php');
+
+        $this->file = $fileFactory->createFromFileInfo($fileInfo, true);
         $this->fixer = $container->getByType(Fixer::class);
     }
 

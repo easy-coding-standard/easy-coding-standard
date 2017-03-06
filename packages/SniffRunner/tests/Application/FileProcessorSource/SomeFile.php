@@ -4,4 +4,9 @@ namespace Symplify\EasyCodingStandard\Tests\Application\FileProcessorSource;
 
 class SomeFile
 {
+
+    public function hi()
+    {
+
+    }
 }

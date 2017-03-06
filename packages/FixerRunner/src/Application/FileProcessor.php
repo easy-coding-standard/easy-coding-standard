@@ -35,6 +35,11 @@ final class FileProcessor implements FileProcessorInterface
      */
     private $fixerFactory;
 
+    /**
+     * @var bool
+     */
+    private $isFixer = false;
+
     public function __construct(ErrorCollector $errorCollector, Skipper $skipper, FixerFactory $fixerFactory)
     {
         $this->errorCollector = $errorCollector;
@@ -42,30 +47,16 @@ final class FileProcessor implements FileProcessorInterface
         $this->fixerFactory = $fixerFactory;
     }
 
-//    /**
-
-//     * @param SplFileInfo[] $files
-//     * @param bool $isFixer
-//     */
-//    public function processFiles(array $files, bool $isFixer): void
-//    {
-//        foreach ($files as $file) {
-//            $this->fixFile($file, $isFixer);
-//
-//            // we do not need Tokens to still caching just fixed file - so clear the cache
-//            Tokens::clearCache();
-//        }
-//    }
     public function setupWithCommand(RunCommand $runCommand): void
     {
-        $fixers = $this->fixerFactory->createFromClasses($runCommand->getFixers());
-        $this->registerFixers($fixers);
+        $this->fixers = $this->fixerFactory->createFromClasses($runCommand->getFixers());
+        $this->isFixer = $runCommand->isFixer();
     }
 
     /**
-     * @todo this method is too long, decouple to smallerones
+     * @todo this method is too long, decouple to smaller ones
      */
-    public function processFile(SplFileInfo $file, bool $isFixer): void
+    public function processFile(SplFileInfo $file): void
     {
         $old = file_get_contents($file->getRealPath());
         $tokens = Tokens::fromCode($old);
@@ -106,8 +97,9 @@ final class FileProcessor implements FileProcessorInterface
         // But we can't simple check $appliedFixers, because one fixer may revert
         // work of other and both of them will mark collection as changed.
         // Therefore we need to check if code hashes changed.
-        if ($isFixer && ($oldHash !== $newHash)) {
+        if ($this->isFixer && ($oldHash !== $newHash)) {
             if (@file_put_contents($file->getRealPath(), $new) === false) {
+                // @todo: move to sniffer FileProcessor as well, decouple FileSystem service?
                 $error = error_get_last();
 
                 throw new IOException(
@@ -124,14 +116,6 @@ final class FileProcessor implements FileProcessorInterface
         }
 
         Tokens::clearCache();
-    }
-
-    /**
-     * @param FixerInterface[] $fixers
-     */
-    private function registerFixers(array $fixers): void
-    {
-        $this->fixers = $fixers;
     }
 
     private function detectChangedLineFromTokens(Tokens $tokens): int

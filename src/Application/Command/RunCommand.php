@@ -9,12 +9,12 @@ final class RunCommand
     /**
      * @var string
      */
-    private const PHP_CODE_SNIFFER_KEY = 'php-code-sniffer';
+    public const PHP_CODE_SNIFFER_KEY = 'php-code-sniffer';
 
     /**
      * @var string
      */
-    private const PHP_CS_FIXER_KEY = 'php-cs-fixer';
+    public const PHP_CS_FIXER_KEY = 'php-cs-fixer';
 
     /**
      * @var string[]
