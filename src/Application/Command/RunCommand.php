@@ -86,7 +86,7 @@ final class RunCommand
     }
 
     /**
-     * @return string[]
+     * @return string[][]
      */
     public function getSkipped(): array
     {

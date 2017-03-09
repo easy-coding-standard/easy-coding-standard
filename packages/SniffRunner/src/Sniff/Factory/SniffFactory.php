@@ -19,7 +19,7 @@ final class SniffFactory
     }
 
     /**
-     * @param string[] $classes
+     * @param string[]|int[][]|string[][] $classes
      * @return Sniff[]
      */
     public function createFromClasses(array $classes): array

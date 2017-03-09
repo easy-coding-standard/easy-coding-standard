@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Error;
 final class ErrorSorter
 {
     /**
-     * @param Error[] $errorMessages
+     * @param Error[][] $errorMessages
      * @return Error[][]
      */
     public function sortByFileAndLine(array $errorMessages): array
