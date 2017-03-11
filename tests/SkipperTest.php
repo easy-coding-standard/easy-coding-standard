@@ -32,6 +32,10 @@ final class SkipperTest extends TestCase
             ClassDeclarationSniff::class, 'someFile'
         ));
 
+        $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
+            DeclareStrictTypesFixer::class, 'someOtherFile'
+        ));
+
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
             DeclareStrictTypesFixer::class, 'someFile'
         ));

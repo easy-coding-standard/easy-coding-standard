@@ -39,7 +39,7 @@ final class FileProcessorTest extends TestCase
         $initialFileHash = md5_file($this->getFileLocation());
 
         $runCommand = RunCommand::createFromSourceFixerAndData([__DIR__], true, true, [
-            RunCommand::PHP_CODE_SNIFFER_KEY => [
+            RunCommand::OPTION_CHECKERS => [
                 ClassDeclarationSniff::class
             ]
         ]);

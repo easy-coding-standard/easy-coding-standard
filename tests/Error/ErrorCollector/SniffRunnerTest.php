@@ -90,7 +90,7 @@ final class SniffRunnerTest extends TestCase
             false,
             true,
             [
-                RunCommand::PHP_CODE_SNIFFER_KEY => [AbstractClassNameSniff::class]
+                RunCommand::OPTION_CHECKERS => [AbstractClassNameSniff::class]
             ]
         );
     }

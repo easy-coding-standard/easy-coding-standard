@@ -2,6 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Application\Command;
 
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 
 final class RunCommand
@@ -9,12 +11,7 @@ final class RunCommand
     /**
      * @var string
      */
-    public const PHP_CODE_SNIFFER_KEY = 'php-code-sniffer';
-
-    /**
-     * @var string
-     */
-    public const PHP_CS_FIXER_KEY = 'php-cs-fixer';
+    public const OPTION_CHECKERS = 'checkers';
 
     /**
      * @var string[]
@@ -96,7 +93,9 @@ final class RunCommand
      */
     public function getSniffs(): array
     {
-        return $this->configuration[self::PHP_CODE_SNIFFER_KEY] ?? [];
+        return isset($this->configuration[self::OPTION_CHECKERS])
+            ? $this->filterClassesByType($this->configuration[self::OPTION_CHECKERS], Sniff::class)
+            : [];
     }
 
     /**
@@ -104,7 +103,9 @@ final class RunCommand
      */
     public function getFixers(): array
     {
-        return $this->configuration[self::PHP_CS_FIXER_KEY] ?? [];
+        return isset($this->configuration[self::OPTION_CHECKERS])
+            ? $this->filterClassesByType($this->configuration[self::OPTION_CHECKERS], FixerInterface::class)
+            : [];
     }
 
     /**
@@ -139,5 +140,15 @@ final class RunCommand
                 $source
             ));
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    private function filterClassesByType(array $classes, string $type): array
+    {
+        return array_filter($classes, function ($class) use ($type) {
+            return is_a($class, $type, true);
+        });
     }
 }

@@ -66,7 +66,7 @@ final class FixerRunnerTest extends TestCase
             false,
             true,
             [
-                RunCommand::PHP_CS_FIXER_KEY => [$fixerClass]
+                RunCommand::OPTION_CHECKERS => [$fixerClass]
             ]
         );
 
