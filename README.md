@@ -21,7 +21,7 @@ composer require symplify/easy-coding-standard --dev
 
 Create a `easy-coding-standard.neon` file in your root directory.
 
-Here you can use 2 options:
+Here you can use 2 types of classes:
 
 - Sniffs from [PHP_CodeSniffer]()
 - and Fixers from [PHP-CS-Fixer]() (from Symfony world)
@@ -35,11 +35,10 @@ I recommend starting slow, instead bumping into 20-30 checkers at once. It's mor
 For example:
 
 ```yaml
-php-cs-fixer:
+checkers:
     # declare(strict_types=1);
     - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
 
-php-code-sniffer:
     # proper spacing around "class" keyword, after opening brace etc.
     - PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff
 ```
@@ -48,12 +47,11 @@ php-code-sniffer:
 
 I didn't really typed "PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer" or even "declare_strict_types". Who would remember that (and other 100+ ones)?
 
-Awesome [NEON plugin] to PHPStorm by [David Matejka]() helps us with fuzzy class autocomplete:
+Awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/) helps us by **fuzzy class auto complete**:
 
 @todo - fuzzy image typing class parts
 
-
-Usually 2 letters from each important word is engouht. Like "Sttyfi" in this case.
+Usually 2 letters from each important word is enought. Like "Sttyfi" in this case.
 
 This also allows you to add your checker very easily.
 
@@ -135,52 +133,22 @@ Nice and clear.
 Now run again. Voilá!
 
 
-
-### Lazy Tip #1: One "checkers" for them all section @todo implement!
-
-I'm programmer and I want to focus on important algorythigms, not on where to put this checker. Why am I telling you this?
-
-Did you noticed I put Fixer into Sniff section?
-
-```bash
-php-code-sniffer:
-    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
-        syntax: short
-```
-
-ECS thinks about it, so it would produce this message:
-
-@image error message
-
-Yet that could be really annoying. Moreover when this tool is bout using Sniff and Fixers together with no pain. This IS pain.
-
-Well, you can either learn difference between fixers and sniffer and if fixer is php-cs-fixer and sniff is php-code-sniffer, even if sniffer fixer and fixer sniffers...
-
-
-**Or just use "checkers" section and let this decision to computer**:
-
-```html
-checkers:
-    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
-        syntax: short
-```
-
-
-### Lazy Tip #2:
+### Lazy Tip #1: Group by Type
 
 When you use this tool, you'd probably end up with 50 to 60 checkers. That's fine. But hard to orientate.
 
-See for yourself:
+You can group checkers by type:
+
+```bash
+checkers:
+    # php syntax
+    ...
+
+    # classes
 
 
-@todo: messy 2 ways to put sniffs together
 
-
-@todo: nicely grouped in one checker section
-
-
-
-### Lazy Tip #3: Ignore What You Can't Fix
+### Lazy Tip #2: Ignore What You Can't Fix
 
 Sometimes checker founds an error on code, that inherits from 3rd party code. You are forced to use code, that doesn't comply with your standards. Simple step:
 
