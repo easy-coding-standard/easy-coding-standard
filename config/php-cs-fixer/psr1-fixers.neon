@@ -1,4 +1,4 @@
-php-cs-fixer:
+checkers:
     # PSR1 (official)
     - PhpCsFixer\Fixer\Basic\EncodingFixer
     - PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer

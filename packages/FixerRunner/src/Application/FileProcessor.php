@@ -65,7 +65,7 @@ final class FileProcessor implements FileProcessorInterface
         $appliedFixers = [];
 
         foreach ($this->fixers as $fixer) {
-            if ($this->skipper->shouldSkipSourceClassAndFile($fixer, $file->getRealPath())) {
+            if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
                 continue;
             }
 

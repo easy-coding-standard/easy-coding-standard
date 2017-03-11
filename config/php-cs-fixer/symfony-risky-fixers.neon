@@ -1,4 +1,4 @@
-php-cs-fixer:
+checkers:
     # Symfony:risky (official)
     - PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer
     - PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer

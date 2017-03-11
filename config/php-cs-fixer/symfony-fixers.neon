@@ -1,4 +1,4 @@
-php-cs-fixer:
+checkers:
     # Symfony (official)
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
         align_double_arrow: false
@@ -37,7 +37,7 @@ php-cs-fixer:
     - PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer
     - PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer
     - PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer
-    # buggy, temp down: https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/2454
+    # buggy, temp down: https://github.com/FriendsOfPHP/checkers/issues/2454
     # - PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer
     - PhpCsFixer\Fixer\ControlStructure\NoTrailingCommaInListCallFixer
     - PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer

@@ -46,7 +46,7 @@ final class TokenDispatcher
             ->getFilename();
 
         foreach ($tokenListeners as $sniff) {
-            if ($this->skipper->shouldSkipSourceClassAndFile($sniff, $filename)) {
+            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $filename)) {
                 return;
             }
 

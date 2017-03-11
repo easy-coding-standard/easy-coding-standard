@@ -1,4 +1,4 @@
-php-cs-fixer:
+checkers:
     # PSR2 (official)
     - PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer
     - PhpCsFixer\Fixer\Basic\BracesFixer

@@ -36,18 +36,18 @@ final class Skipper
     }
 
     /**
-     * @param Sniff|FixerInterface $sourceClass
+     * @param Sniff|FixerInterface $checker
      * @param string $relativeFilePath
      */
-    public function shouldSkipSourceClassAndFile($sourceClass, string $relativeFilePath): bool
+    public function shouldSkipCheckerAndFile($checker, string $relativeFilePath): bool
     {
-        foreach ($this->skipped as $skippedFile => $skippedSourceClass) {
+        foreach ($this->skipped as $skippedFile => $skippedCheckerClasses) {
             if (! $this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
                 continue;
             }
 
-            foreach ($skippedSourceClass as $ignoredSourceClass) {
-                if ($sourceClass instanceof $ignoredSourceClass) {
+            foreach ($skippedCheckerClasses as $ignoredCheckerClass) {
+                if (is_a($checker, $ignoredCheckerClass, true)) {
                     return true;
                 }
             }
