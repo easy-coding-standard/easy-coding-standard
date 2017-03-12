@@ -21,7 +21,7 @@ final class RunCommand
     /**
      * @var bool
      */
-    private $isFixer = false;
+    private $isFixer;
 
     /**
      * @var string[]|array[]

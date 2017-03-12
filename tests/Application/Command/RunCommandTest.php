@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Application\Command;
 
@@ -30,6 +30,7 @@ final class RunCommandTest extends TestCase
         ]);
 
         $this->assertCount(1, $runCommand->getSniffs());
+        $this->assertSame([0 => ClassDeclarationSniff::class], $runCommand->getSniffs());
     }
 
     public function testFixers()
@@ -42,6 +43,7 @@ final class RunCommandTest extends TestCase
         ]);
 
         $this->assertCount(1, $runCommand->getFixers());
+        $this->assertSame([1 => DeclareStrictTypesFixer::class], $runCommand->getFixers());
     }
 
     private function createRunCommandWithConfiguration(array $configuration = []): RunCommand

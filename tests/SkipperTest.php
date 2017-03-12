@@ -17,7 +17,7 @@ final class SkipperTest extends TestCase
 
     protected function setUp()
     {
-        $this->skipper = new Skipper(new ConfigurationNormalizer());
+        $this->skipper = new Skipper(new ConfigurationNormalizer);
     }
 
     public function test()
