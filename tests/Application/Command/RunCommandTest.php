@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 
 final class RunCommandTest extends TestCase
 {
-    public function testConfiguration()
+    public function testConfiguration(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([]);
         $this->assertEmpty($runCommand->getSkipped());
@@ -20,7 +20,7 @@ final class RunCommandTest extends TestCase
         $this->assertFalse($runCommand->shouldClearCache());
     }
 
-    public function testSniffs()
+    public function testSniffs(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([
             RunCommand::OPTION_CHECKERS => [
@@ -33,7 +33,7 @@ final class RunCommandTest extends TestCase
         $this->assertSame([ClassDeclarationSniff::class => []], $runCommand->getSniffs());
     }
 
-    public function testFixers()
+    public function testFixers(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([
             RunCommand::OPTION_CHECKERS => [

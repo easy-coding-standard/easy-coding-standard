@@ -4,8 +4,8 @@ namespace Symplify\EasyCodingStandard\Application\Command;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 
 final class RunCommand
@@ -138,6 +138,7 @@ final class RunCommand
     private function getCheckers(): array
     {
         $checkers = $this->configuration[ConfigurationOptions::CHECKERS] ?? [];
+
         return ConfigurationNormalizer::normalizeClassesConfiguration($checkers);
     }
 }
