@@ -62,7 +62,7 @@ final class CheckCommand extends Command
         $runCommand = RunCommand::createFromSourceFixerAndData(
             $input->getArgument('source'),
             $input->getOption('fix'),
-            $input->getOption('clear-cache'),
+            (bool) $input->getOption('clear-cache'),
             $this->configurationFileLoader->load()
         );
 
