@@ -37,16 +37,7 @@ final class InfoMessagePrinter
 
         /** @var Error[] $errors */
         foreach ($errorMessages as $file => $errors) {
-            $rows = [];
-            foreach ($errors as $error) {
-                $message = $error->getMessage() . PHP_EOL . '(' . $error->getSourceClass() . ')';
-
-                $rows[] = [
-                    'line' => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
-                    'message' => $this->wrapMessageToStyle($message, $error->isFixable())
-                ];
-            }
-
+            $rows = $this->buildFileTable($errors);
             $this->easyCodingStandardStyle->table(['Line', $file], $rows);
         }
 
@@ -76,15 +67,6 @@ final class InfoMessagePrinter
         return $message;
     }
 
-    private function wrapMessageToStyle(string $message, bool $isFixable): string
-    {
-        if ($isFixable) {
-            return sprintf('<fg=black;bg=green>%s</>', $message);
-        }
-
-        return sprintf('<fg=black;bg=red>%s</>', $message);
-    }
-
     /**
      * @return Error[][]
      */
@@ -109,5 +91,40 @@ final class InfoMessagePrinter
         }
 
         return $errorCount;
+    }
+
+    /**
+     * @param Error[] $errors
+     * @return mixed[]
+     */
+    private function buildFileTable(array $errors): array
+    {
+        $rows = [];
+        foreach ($errors as $error) {
+            $message = $error->getMessage() . PHP_EOL . '(' . $error->getSourceClass() . ')';
+            $rows[] = $this->buildRow($error, $message);
+        }
+
+        return $rows;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function buildRow(Error $error, string $message): array
+    {
+        return [
+            'line' => $this->wrapMessageToStyle((string)$error->getLine(), $error->isFixable()),
+            'message' => $this->wrapMessageToStyle($message, $error->isFixable())
+        ];
+    }
+
+    private function wrapMessageToStyle(string $message, bool $isFixable): string
+    {
+        if ($isFixable) {
+            return sprintf('<fg=black;bg=green>%s</>', $message);
+        }
+
+        return sprintf('<fg=black;bg=red>%s</>', $message);
     }
 }

@@ -46,6 +46,9 @@ final class RunCommandTest extends TestCase
         $this->assertSame([DeclareStrictTypesFixer::class => []], $runCommand->getFixers());
     }
 
+    /**
+     * @param mixed[] $configuration
+     */
     private function createRunCommandWithConfiguration(array $configuration = []): RunCommand
     {
         return RunCommand::createFromSourceFixerAndData(
