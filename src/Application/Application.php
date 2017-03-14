@@ -74,6 +74,23 @@ final class Application
         }
 
         // 5. process found files by each processors
+        $this->processFoundFiles($files);
+    }
+
+    /**
+     * @param SplFileInfo[] $files
+     */
+    private function startProgressBar(array $files): void
+    {
+        $max = count($files);
+        $this->easyCodingStandardStyle->startProgressBar($max);
+    }
+
+    /**
+     * @param SplFileInfo[] $files
+     */
+    private function processFoundFiles(array $files): void
+    {
         foreach ($files as $relativePath => $fileInfo) {
             $this->easyCodingStandardStyle->advanceProgressBar();
 
@@ -89,14 +106,5 @@ final class Application
                 $fileProcessor->processFile($fileInfo);
             }
         }
-    }
-
-    /**
-     * @param SplFileInfo[] $files
-     */
-    private function startProgressBar(array $files): void
-    {
-        $max = count($files);
-        $this->easyCodingStandardStyle->startProgressBar($max);
     }
 }
