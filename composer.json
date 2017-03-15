@@ -1,6 +1,9 @@
 {
     "name": "symplify/easy-coding-standard",
     "description": "Use coding standard Fixers and Sniffers with 0-knowledge.",
+    "bin": [
+        "bin/easy-coding-standard"
+    ],
     "require": {
         "php": "^7.1",
         "symfony/console": "^3.2",
