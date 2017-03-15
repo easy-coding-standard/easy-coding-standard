@@ -1,6 +1,0 @@
-checkers:
-    # PHP 7.1 migration (official)
-    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
-        - const
-        - property
-        - method

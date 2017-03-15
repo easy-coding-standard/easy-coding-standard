@@ -1,3 +1,0 @@
-checkers:
-    # PHP 5.6 migration (official)
-    - PhpCsFixer\Fixer\Alias\PowToExponentiationFixer

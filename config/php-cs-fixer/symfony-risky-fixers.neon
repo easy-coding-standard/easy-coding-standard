@@ -1,7 +1,0 @@
-checkers:
-    # Symfony:risky (official)
-    - PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer
-    - PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitDedicateAssertFixer
-    - PhpCsFixer\Fixer\LanguageConstruct\SilencedDeprecationErrorFixer
