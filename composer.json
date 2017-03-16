@@ -7,12 +7,19 @@
     "require": {
         "php": "^7.1",
         "symfony/console": "^3.2",
-        "nette/di": "^2.4",
+        "symfony/finder": "^3.2",
+        "nette/application": "^2.4",
         "nette/bootstrap": "^2.4",
+        "nette/cache": "^2.4",
+        "nette/di": "^2.4",
+        "nette/robot-loader": "^3.0",
         "nette/utils": "^2.4",
         "nette/neon": "^2.4",
         "tracy/tracy": "^2.4",
-        "symplify/package-builder": "^1.4"
+
+        "symplify/package-builder": "^1.4",
+        "friendsofphp/php-cs-fixer": "^2.1",
+        "squizlabs/php_codesniffer": "3.0.0RC4 as 2.8.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0"
@@ -22,7 +29,8 @@
             "Symplify\\EasyCodingStandard\\": "src",
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\": "packages/ChangedFilesDetector/src",
             "Symplify\\EasyCodingStandard\\FixerRunner\\": "packages/FixerRunner/src",
-            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/SniffRunner/src"
+            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/SniffRunner/src",
+            "PHP_CodeSniffer\\": "vendor/squizlabs/php_codesniffer/src"
         }
     },
     "autoload-dev": {
