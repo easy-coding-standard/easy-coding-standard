@@ -7,10 +7,21 @@
 
 ## Install
 
-Add to `composer.json`:
+Add to your `composer.json`:
 
 ```json
-composer require symplify/easy-coding-standard --dev
+{
+    "require": {
+        "symplify/easy-coding-standard": "^1.4",
+        "squizlabs/php_codesniffer": "3.0.0RC4 as 2.8.1"
+    }
+}
+```
+
+and update:
+
+```bash
+composer udpate
 ```
 
 
@@ -23,16 +34,17 @@ Create a `easy-coding-standard.neon` file in your root directory.
 
 Here you can use 2 types of classes:
 
-- Sniffs from [PHP_CodeSniffer]()
-- and Fixers from [PHP-CS-Fixer]() (from Symfony world)
+- *Sniffs* from [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+- and *Fixers* from [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) (from Symfony world)
 
-We call both of these by group name *Checkers*.
+**We call both of these by group name *Checkers*.**
 
 #### Start Slow, Grow Fast
 
-I recommend starting slow, instead bumping into 20-30 checkers at once. It's more pleasent and you have everything under control.
+I recommend starting slow, instead bumping into 20-30 checkers at once. It's more natural and you have everything under control.
 
-For example:
+
+Let's start with 2 checkers:
 
 ```yaml
 checkers:
@@ -45,26 +57,19 @@ checkers:
 
 ### Don't write Checkers Classes, Make use of NEON Plugin
 
-I didn't really typed "PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer" or even "declare_strict_types". Who would remember that (and other 100+ ones)?
-
-Awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/) helps us by **fuzzy class auto complete**:
+I didn't really typed `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too lazy for that. I used **fuzzy search** instead. Thanks to awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/)
 
 @todo - fuzzy image typing class parts
-
-Usually 2 letters from each important word is enought. Like "Sttyfi" in this case.
-
-This also allows you to add your checker very easily.
 
 
 ### 2. Run it!
 
 We have configuration.
 
-Now run Easy Coding Standard via CLI:
+Now run CLI:
 
 ```bash
 vendor/bin/easy-coding-standard check src
-# or for lazy people like me: vendor/bin/ecs
 ```
 
 You can use also name matching:
@@ -73,7 +78,7 @@ You can use also name matching:
 vendor/bin/easy-coding-standard check src/Doctrine*
 ```
 
-And multiple sources:
+Or multiple sources:
 
 ```bash
 vendor/bin/easy-coding-standard check src/Repository src/Entity
@@ -96,7 +101,7 @@ Red = bad error
 ### Fix it
 
 ```bash
-@todo --fix
+vendor/bin/easy-coding-standard check src --fix
 ```
 
 
@@ -108,7 +113,7 @@ There are also user-friendly checkers, that doesn't force you in one directory, 
 Let's say you want to add short syntax checker:
 
 ```yaml
-php-code-sniffer:
+checkers:
    - PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer
 ```
 
@@ -123,7 +128,7 @@ This fixer requires to setup.
 @how and what are the properties? Here we can use Neon plugin again. Just cltr + click the class and see. Look for `$defaultConfiguration` property.
 
 ```bash
-php-code-sniffer:
+checkers:
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
 ```
@@ -141,21 +146,27 @@ You can group checkers by type:
 
 ```bash
 checkers:
+    # php 7 features
+    ...
+
     # php syntax
     ...
 
     # classes
-
+    ...
 
 
 ### Lazy Tip #2: Ignore What You Can't Fix
 
-Sometimes checker founds an error on code, that inherits from 3rd party code. You are forced to use code, that doesn't comply with your standards. Simple step:
+Sometimes checker founds an error on code, that inherits from 3rd party code. You are forced to use code, that doesn't comply with your standards.
 
+Just add this checker and the file to `skip` section:
 
-@todo
-
-
+```bash
+skip:
+    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
+        - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
+```
 
 ## Contributing
 
