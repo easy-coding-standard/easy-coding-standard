@@ -14,7 +14,7 @@ final class ApplicationTest extends TestCase
      */
     private $application;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../src/config/config.neon'
@@ -23,7 +23,7 @@ final class ApplicationTest extends TestCase
         $this->application = $container->getByType(Application::class);
     }
 
-    public function testFileProcessorsAreLoaded()
+    public function testFileProcessorsAreLoaded(): void
     {
         $this->assertCount(2, Assert::getObjectAttribute($this->application, 'fileProcessors'));
     }

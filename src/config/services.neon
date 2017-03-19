@@ -1,5 +1,6 @@
 # Application
 - Symplify\EasyCodingStandard\Application\Application
+- Symplify\EasyCodingStandard\Application\Command\RunCommandFactory
 
 # Configuration
 - Nette\DI\Config\Loader

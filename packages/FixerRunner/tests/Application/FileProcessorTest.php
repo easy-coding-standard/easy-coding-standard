@@ -2,10 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Application;
 
-use Nette\DI\Config\Loader;
+use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
@@ -17,17 +19,17 @@ final class FileProcessorTest extends TestCase
     private $fileProcessor;
 
     /**
-     * @var Loader
+     * @var RunCommandFactory
      */
-    private $configLoader;
+    private $runCommandFactory;
 
     protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../../src/config/config.neon'
         );
+        $this->runCommandFactory = $container->getByType(RunCommandFactory::class);
         $this->fileProcessor = $container->getByType(FileProcessor::class);
-        $this->configLoader = $container->getByType(Loader::class);
     }
 
     public function test(): void
@@ -35,15 +37,15 @@ final class FileProcessorTest extends TestCase
         $runCommand = $this->createRunCommand();
         $this->fileProcessor->setupWithCommand($runCommand);
 
-        $this->assertGreaterThan(50, Assert::getObjectAttribute($this->fileProcessor, 'fixers'));
+        $this->assertCount(1, Assert::getObjectAttribute($this->fileProcessor, 'fixers'));
     }
 
     private function createRunCommand(): RunCommand
     {
-        $configurationData = $this->configLoader->load(
-            __DIR__ . '/../../../../config/php-cs-fixer/symfony-fixers.neon'
-        );
-
-        return RunCommand::createFromSourceFixerAndData([__DIR__], false, true, $configurationData);
+        return $this->runCommandFactory->create([__DIR__], false, true, [
+            ConfigurationOptions::CHECKERS => [
+                DeclareStrictTypesFixer::class
+            ]
+        ]);
     }
 }

@@ -22,6 +22,7 @@ final class EasyCodingStandardExtension extends CompilerExtension
 
     public function beforeCompile(): void
     {
+        // @todo: use external package for this
         $this->loadCommandsToConsoleApplication();
         $this->loadFileProcessorsToApplication();
     }

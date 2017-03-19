@@ -6,33 +6,20 @@ use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Glob;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 
 final class Skipper
 {
     /**
-     * @var ConfigurationNormalizer
-     */
-    private $configurationNormalizer;
-
-    /**
      * @var string[][]
      */
     private $skipped = [];
-
-    public function __construct(ConfigurationNormalizer $configurationNormalizer)
-    {
-        $this->configurationNormalizer = $configurationNormalizer;
-    }
 
     /**
      * @param string[] $skipped
      */
     public function setSkipped(array $skipped): void
     {
-        $this->skipped = $this->configurationNormalizer->normalizeSkipperConfiguration(
-            $skipped
-        );
+        $this->skipped = $skipped;
     }
 
     /**
@@ -41,13 +28,13 @@ final class Skipper
      */
     public function shouldSkipCheckerAndFile($checker, string $relativeFilePath): bool
     {
-        foreach ($this->skipped as $skippedFile => $skippedCheckerClasses) {
-            if (! $this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
-                continue;
+        foreach ($this->skipped as $skippedClass => $skippedFiles) {
+            if (! is_a($checker, $skippedClass, true)) {
+                return false;
             }
 
-            foreach ($skippedCheckerClasses as $ignoredCheckerClass) {
-                if (is_a($checker, $ignoredCheckerClass, true)) {
+            foreach ($skippedFiles as $skippedFile) {
+                if ($this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
                     return true;
                 }
             }

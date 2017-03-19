@@ -31,21 +31,4 @@ final class ConfigurationNormalizerTest extends TestCase
             ]
         ], $normalizedConfiguration);
     }
-
-    public function testSkipperRulesInverts(): void
-    {
-        $fileFirst = [
-            'packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php'
-                => ['SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff']
-        ];
-        $normalizedFileFirst = $this->configurationNormalizer->normalizeSkipperConfiguration($fileFirst);
-
-        $classFirst = [
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'
-                => ['packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php']
-        ];
-        $normalizedClassFirst = $this->configurationNormalizer->normalizeSkipperConfiguration($classFirst);
-
-        $this->assertSame($normalizedFileFirst, $normalizedClassFirst);
-    }
 }

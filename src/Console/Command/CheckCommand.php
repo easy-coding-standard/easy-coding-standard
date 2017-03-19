@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Application;
-use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
 use Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -34,11 +34,17 @@ final class CheckCommand extends Command
      */
     private $infoMessagePrinter;
 
+    /**
+     * @var RunCommandFactory
+     */
+    private $runCommandFactory;
+
     public function __construct(
         Application $applicationRunner,
         EasyCodingStandardStyle $style,
         ConfigurationFileLoader $configurationFileLoader,
-        InfoMessagePrinter $infoMessagePrinter
+        InfoMessagePrinter $infoMessagePrinter,
+        RunCommandFactory $runCommandFactory
     ) {
         parent::__construct();
 
@@ -46,6 +52,7 @@ final class CheckCommand extends Command
         $this->style = $style;
         $this->configurationFileLoader = $configurationFileLoader;
         $this->infoMessagePrinter = $infoMessagePrinter;
+        $this->runCommandFactory = $runCommandFactory;
     }
 
     protected function configure(): void
@@ -59,7 +66,7 @@ final class CheckCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $runCommand = RunCommand::createFromSourceFixerAndData(
+        $runCommand = $this->runCommandFactory->create(
             $input->getArgument('source'),
             $input->getOption('fix'),
             (bool) $input->getOption('clear-cache'),

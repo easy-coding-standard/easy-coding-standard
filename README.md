@@ -164,9 +164,12 @@ Just add this checker and the file to `skip` section:
 
 ```bash
 skip:
+    # checkers to skip
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
+        # list all the files you want to skip
         - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
 ```
+
 
 ## Contributing
 
