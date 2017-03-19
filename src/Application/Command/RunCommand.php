@@ -122,7 +122,7 @@ final class RunCommand
     /**
      * @param string[] $classes
      * @param string $type
-     * @return string[]
+     * @return mixed[]
      */
     private function filterClassesByType(array $classes, string $type): array
     {

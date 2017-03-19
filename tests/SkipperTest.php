@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Tests;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\CodingStandard\Sniffs\Classes\ClassDeclarationSniff;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Skipper;
 
 final class SkipperTest extends TestCase
@@ -17,7 +16,7 @@ final class SkipperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->skipper = new Skipper(new ConfigurationNormalizer);
+        $this->skipper = new Skipper;
     }
 
     public function test(): void
