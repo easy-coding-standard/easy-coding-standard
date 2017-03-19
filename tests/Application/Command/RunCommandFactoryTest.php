@@ -67,6 +67,9 @@ final class RunCommandFactoryTest extends TestCase
         ]], $runCommand->getSkipped());
     }
 
+    /**
+     * @param mixed[][] $configuration
+     */
     private function createWithConfiguration(array $configuration): RunCommand
     {
         return $this->runCommandFactory->create([__DIR__], false, false, $configuration);

@@ -7,3 +7,4 @@ extensions:
     - Symplify\EasyCodingStandard\FixerRunner\DI\FixerRunnerExtension
     - Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension
     - Symplify\EasyCodingStandard\ChangedFilesDetector\DI\ChangedFilesDetectorExtension
+    - Contributte\Console\DI\ConsoleExtension

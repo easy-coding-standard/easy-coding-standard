@@ -10,7 +10,6 @@
 - Symplify\EasyCodingStandard\Skipper
 
 # Console & Commands
-- Symfony\Component\Console\Application
 - Symplify\EasyCodingStandard\Console\Command\CheckCommand
 - Symplify\EasyCodingStandard\Console\Command\ShowSettingsCommand
 
