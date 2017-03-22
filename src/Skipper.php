@@ -30,7 +30,7 @@ final class Skipper
     {
         foreach ($this->skipped as $skippedClass => $skippedFiles) {
             if (! is_a($checker, $skippedClass, true)) {
-                return false;
+                continue;
             }
 
             foreach ($skippedFiles as $skippedFile) {
