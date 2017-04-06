@@ -114,7 +114,7 @@ final class InfoMessagePrinter
     private function buildRow(Error $error, string $message): array
     {
         return [
-            'line' => $this->wrapMessageToStyle((string)$error->getLine(), $error->isFixable()),
+            'line' => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
             'message' => $this->wrapMessageToStyle($message, $error->isFixable())
         ];
     }
