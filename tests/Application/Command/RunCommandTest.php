@@ -6,6 +6,9 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\CodingStandard\Sniffs\Classes\ClassDeclarationSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
+use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 
 final class RunCommandTest extends TestCase
 {
@@ -23,7 +26,7 @@ final class RunCommandTest extends TestCase
     public function testSniffs(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([
-            RunCommand::OPTION_CHECKERS => [
+            ConfigurationOptions::CHECKERS => [
                 ClassDeclarationSniff::class,
                 DeclareStrictTypesFixer::class
             ]
@@ -36,7 +39,7 @@ final class RunCommandTest extends TestCase
     public function testFixers(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([
-            RunCommand::OPTION_CHECKERS => [
+            ConfigurationOptions::CHECKERS => [
                 ClassDeclarationSniff::class,
                 DeclareStrictTypesFixer::class
             ]
@@ -51,7 +54,9 @@ final class RunCommandTest extends TestCase
      */
     private function createRunCommandWithConfiguration(array $configuration = []): RunCommand
     {
-        return RunCommand::createFromSourceFixerAndData(
+        $runCommandFactory = new RunCommandFactory(new ConfigurationNormalizer);
+
+        return $runCommandFactory->create(
             [__DIR__],
             false,
             false,

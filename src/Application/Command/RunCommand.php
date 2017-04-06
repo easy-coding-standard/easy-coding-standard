@@ -133,7 +133,7 @@ final class RunCommand
     }
 
     /**
-     * @return string[]
+     * @return string[][]
      */
     private function getCheckers(): array
     {
