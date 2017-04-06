@@ -18,7 +18,7 @@
         "tracy/tracy": "^2.4",
 
         "symplify/package-builder": "^1.4",
-        "friendsofphp/php-cs-fixer": "^2.1",
+        "friendsofphp/php-cs-fixer": "^2.2",
         "squizlabs/php_codesniffer": "^2.8",
         "contributte/console": "^0.1"
     },
