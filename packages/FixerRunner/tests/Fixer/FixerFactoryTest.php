@@ -31,8 +31,8 @@ final class FixerFactoryTest extends TestCase
         $arrayRule = $rules[0];
         $this->assertInstanceOf(ArraySyntaxFixer::class, $arrayRule);
         $this->assertSame(
-            'long',
-            Assert::getObjectAttribute($arrayRule, 'config')
+            ['syntax' => 'long'],
+            Assert::getObjectAttribute($arrayRule, 'configuration')
         );
     }
 
@@ -48,8 +48,8 @@ final class FixerFactoryTest extends TestCase
         $arrayRule = $rules[0];
         $this->assertInstanceOf(ArraySyntaxFixer::class, $arrayRule);
         $this->assertSame(
-            'short',
-            Assert::getObjectAttribute($arrayRule, 'config')
+            ['syntax' => 'short'],
+            Assert::getObjectAttribute($arrayRule, 'configuration')
         );
     }
 }
