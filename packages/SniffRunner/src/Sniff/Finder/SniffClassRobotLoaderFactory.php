@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder;
 
-use Nette\Caching\Storages\FileStorage;
 use Nette\Loaders\RobotLoader;
 use Nette\Utils\FileSystem;
 

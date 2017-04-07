@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests\Application\Command;
 
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
-use Symplify\CodingStandard\Sniffs\Classes\ClassDeclarationSniff;
+use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
@@ -16,7 +16,7 @@ final class RunCommandTest extends TestCase
     {
         $runCommand = $this->createRunCommandWithConfiguration([]);
         $this->assertEmpty($runCommand->getSkipped());
-        $this->assertSame(['checkers' => []], $runCommand->getConfiguration());
+        $this->assertSame([ConfigurationOptions::CHECKERS => []], $runCommand->getConfiguration());
         $this->assertEmpty($runCommand->getSniffs());
         $this->assertSame([__DIR__], $runCommand->getSources());
         $this->assertFalse($runCommand->isFixer());
@@ -27,20 +27,20 @@ final class RunCommandTest extends TestCase
     {
         $runCommand = $this->createRunCommandWithConfiguration([
             ConfigurationOptions::CHECKERS => [
-                ClassDeclarationSniff::class,
+                FinalInterfaceSniff::class,
                 DeclareStrictTypesFixer::class
             ]
         ]);
 
         $this->assertCount(1, $runCommand->getSniffs());
-        $this->assertSame([ClassDeclarationSniff::class => []], $runCommand->getSniffs());
+        $this->assertSame([FinalInterfaceSniff::class => []], $runCommand->getSniffs());
     }
 
     public function testFixers(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([
             ConfigurationOptions::CHECKERS => [
-                ClassDeclarationSniff::class,
+                FinalInterfaceSniff::class,
                 DeclareStrictTypesFixer::class
             ]
         ]);

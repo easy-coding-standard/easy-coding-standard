@@ -15,6 +15,11 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 final class CheckCommand extends Command
 {
     /**
+     * @var string
+     */
+    private const NAME = 'check';
+
+    /**
      * @var EasyCodingStandardStyle
      */
     private $style;
@@ -57,11 +62,11 @@ final class CheckCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('check');
+        $this->setName(self::NAME);
+        $this->setDescription('Check coding standard in one or more directories.');
         $this->addArgument('source', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'The path(s) to be checked.');
         $this->addOption('fix', null, null, 'Fix found violations.');
         $this->addOption('clear-cache', null, null, 'Clear cache for already checked files.');
-        $this->setDescription('Check coding standard in one or more directories.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

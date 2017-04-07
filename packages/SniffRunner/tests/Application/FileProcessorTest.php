@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
-use Symplify\CodingStandard\Sniffs\Classes\ClassDeclarationSniff;
+use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
@@ -29,7 +29,9 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+        $containerFactory = new GeneralContainerFactory;
+        $container = $containerFactory->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+
         $this->fileProcessor = $container->getByType(FileProcessor::class);
         $this->runCommandFactory = $container->getByType(RunCommandFactory::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());
@@ -47,7 +49,7 @@ final class FileProcessorTest extends TestCase
 
         $runCommand = $this->runCommandFactory->create([__DIR__], true, true, [
             ConfigurationOptions::CHECKERS => [
-                ClassDeclarationSniff::class
+                FinalInterfaceSniff::class
             ]
         ]);
 

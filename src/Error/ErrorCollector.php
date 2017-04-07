@@ -69,9 +69,18 @@ final class ErrorCollector
     /**
      * @return Error[][]
      */
-    public function getErrors(): array
+    public function getAllErrors(): array
     {
-        return $this->getFixableErrors() + $this->getUnfixableErrors();
+        $unfixableErrors = $this->getUnfixableErrors();
+        $fixableErrors = $this->getFixableErrors();
+
+        $allErrors = $unfixableErrors;
+
+        foreach ($fixableErrors as $file => $fixableError) {
+            $allErrors[$file] = array_merge($unfixableErrors[$file] ?? [], $fixableError);
+        }
+
+        return $allErrors;
     }
 
     /**

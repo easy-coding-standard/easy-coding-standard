@@ -2,9 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Application\FileProcessorSource;
 
-class SomeFile
+class SomeFile implements SomeInterface
 {
-
     public function hi()
     {
 

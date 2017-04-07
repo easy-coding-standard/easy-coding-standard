@@ -4,10 +4,14 @@
 use Symfony\Component\Console\Application;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
-require_once __DIR__ . '/include-autoload.php';
+// performance boost
+gc_disable();
+
+require_once getcwd() . '/vendor/autoload.php';
 
 // 1. build DI container
-$container = (new GeneralContainerFactory())->createFromConfig(__DIR__ . '/../src/config/config.neon');
+$containerFactory = new GeneralContainerFactory;
+$container = $containerFactory->createFromConfig(__DIR__ . '/../src/config/config.neon');
 
 // 2. get Console Application
 /** @var Application $application */

@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests\Application\Command;
 
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
-use Symplify\CodingStandard\Sniffs\Classes\ClassDeclarationSniff;
+use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
@@ -38,14 +38,14 @@ final class RunCommandFactoryTest extends TestCase
     {
         $runCommand = $this->createWithConfiguration([
             ConfigurationOptions::CHECKERS => [
-                ClassDeclarationSniff::class,
+                FinalInterfaceSniff::class,
                 DeclareStrictTypesFixer::class
             ]
         ]);
 
         $sniffs = $runCommand->getSniffs();
         $this->assertCount(1, $sniffs);
-        $this->assertSame([ClassDeclarationSniff::class => []], $sniffs);
+        $this->assertSame([FinalInterfaceSniff::class => []], $sniffs);
 
         $fixers = $runCommand->getFixers();
         $this->assertCount(1, $fixers);

@@ -75,7 +75,7 @@ final class InfoMessagePrinter
         if ($isFixer) {
             $errors = $this->errorDataCollector->getUnfixableErrors();
         } else {
-            $errors = $this->errorDataCollector->getErrors();
+            $errors = $this->errorDataCollector->getAllErrors();
         }
 
         return $errors;

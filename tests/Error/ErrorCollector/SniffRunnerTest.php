@@ -63,7 +63,7 @@ final class SniffRunnerTest extends TestCase
         $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
         $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
 
-        $errorMessages = $this->errorDataCollector->getErrors();
+        $errorMessages = $this->errorDataCollector->getAllErrors();
 
         $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
 
@@ -81,7 +81,7 @@ final class SniffRunnerTest extends TestCase
         ]);
         $this->fileProcessor->setupWithCommand($runCommand);
 
-        $errorMessages = $this->errorDataCollector->getErrors();
+        $errorMessages = $this->errorDataCollector->getAllErrors();
         $this->assertCount(0, $errorMessages);
     }
 
