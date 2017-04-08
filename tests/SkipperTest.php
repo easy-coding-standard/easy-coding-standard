@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests;
 
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
-use Symplify\CodingStandard\Sniffs\Classes\ClassDeclarationSniff;
+use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Skipper;
 
 final class SkipperTest extends TestCase
@@ -26,11 +26,11 @@ final class SkipperTest extends TestCase
         ]);
 
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
-            ClassDeclarationSniff::class, 'someFile'
+            FinalInterfaceSniff::class, 'someFile'
         ));
 
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
-            DeclareStrictTypesFixer::class, 'someOtherFile'
+            FinalInterfaceSniff::class, 'someOtherFile'
         ));
 
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(

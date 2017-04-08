@@ -23,7 +23,7 @@ final class Skipper
     }
 
     /**
-     * @param Sniff|FixerInterface $checker
+     * @param Sniff|FixerInterface|string $checker
      * @param string $relativeFilePath
      */
     public function shouldSkipCheckerAndFile($checker, string $relativeFilePath): bool
