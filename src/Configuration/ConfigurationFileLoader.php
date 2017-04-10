@@ -23,7 +23,7 @@ final class ConfigurationFileLoader
 
     public function __construct(?string $configurationFile = null, Loader $neonLoader)
     {
-        $this->setConfigurationFile($configurationFile);
+        $this->configurationFile = $configurationFile ?: $this->getDefaultConfigurationFile();
         $this->neonLoader = $neonLoader;
     }
 
@@ -35,8 +35,8 @@ final class ConfigurationFileLoader
         return $this->neonLoader->load($this->configurationFile);
     }
 
-    private function setConfigurationFile(?string $configurationFile = null): void
+    private function getDefaultConfigurationFile(): string
     {
-        $this->configurationFile = $configurationFile ?: getcwd() . DIRECTORY_SEPARATOR . self::CONFIGURATION_FILE;
+        return getcwd() . DIRECTORY_SEPARATOR . self::CONFIGURATION_FILE;
     }
 }
