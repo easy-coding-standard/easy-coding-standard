@@ -73,7 +73,7 @@ final class RunCommandFactoryTest extends TestCase
     /**
      * @expectedException \Symplify\EasyCodingStandard\Exception\Validator\CheckerIsNotSupportedException
      */
-    public function testCheckerTypeValidator()
+    public function testCheckerTypeValidator(): void
     {
         $this->createWithConfiguration([
             ConfigurationOptions::CHECKERS => [
@@ -85,7 +85,7 @@ final class RunCommandFactoryTest extends TestCase
     /**
      * @expectedException \Symplify\EasyCodingStandard\Exception\Validator\CheckerIsNotSupportedException
      */
-    public function testCheckerTypeValidatorForSkipper()
+    public function testCheckerTypeValidatorForSkipper(): void
     {
         $this->createWithConfiguration([
             ConfigurationOptions::SKIP => [

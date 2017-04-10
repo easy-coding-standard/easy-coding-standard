@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
@@ -18,7 +17,7 @@ final class RunCommandTest extends TestCase
      */
     private $runCommandFactory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $container = (new GeneralContainerFactory)->createFromConfig(
             __DIR__ . '/../../../src/config/config.neon'
