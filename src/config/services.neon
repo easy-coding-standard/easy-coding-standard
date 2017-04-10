@@ -8,7 +8,7 @@
 - Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer
 - Symplify\EasyCodingStandard\Finder\SourceFinder
 - Symplify\EasyCodingStandard\Skipper
-- Symplify\EasyCodingStandard\Validator\CheckersConfigurationValidator
+- Symplify\EasyCodingStandard\Validator\CheckerTypeValidator
 
 # Console & Commands
 - Symplify\EasyCodingStandard\Console\Command\CheckCommand

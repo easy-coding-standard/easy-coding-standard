@@ -31,7 +31,10 @@ final class RunCommandTest extends TestCase
     {
         $runCommand = $this->createRunCommandWithConfiguration([]);
         $this->assertEmpty($runCommand->getSkipped());
-        $this->assertSame([ConfigurationOptions::CHECKERS => []], $runCommand->getConfiguration());
+        $this->assertSame([
+            ConfigurationOptions::CHECKERS => [],
+            ConfigurationOptions::SKIP => []
+        ], $runCommand->getConfiguration());
         $this->assertEmpty($runCommand->getSniffs());
         $this->assertSame([__DIR__], $runCommand->getSources());
         $this->assertFalse($runCommand->isFixer());
