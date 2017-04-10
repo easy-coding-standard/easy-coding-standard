@@ -1,4 +1,4 @@
-# Enjoy coding standards with 0-knowledge of PHP_CodeSniffer nor PHP-CS-Fixer
+# Enjoy Coding Standards with 0-knowledge of PHP_CodeSniffer nor PHP-CS-Fixer
 
 [![Build Status *nix](https://img.shields.io/travis/Symplify/EasyCodingStandard.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/Symplify/EasyCodingStandard.svg?style=flat-square)](https://scrutinizer-ci.com/g/Symplify/EasyCodingStandard)
@@ -21,7 +21,7 @@ Add to your `composer.json`:
 and update:
 
 ```bash
-composer udpate
+composer update
 ```
 
 
@@ -43,7 +43,6 @@ Here you can use 2 types of classes:
 
 I recommend starting slow, instead bumping into 20-30 checkers at once. It's more natural and you have everything under control.
 
-
 Let's start with 2 checkers:
 
 ```yaml
@@ -63,8 +62,6 @@ I didn't really typed `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too
 
 
 ### 2. Run it!
-
-We have configuration.
 
 Now run CLI:
 
@@ -121,7 +118,7 @@ Run it:
 
 @error screen
 
-Hm. It looks like it's long by default. But we are PHP 7.1, we wan't modern syntax!
+Hm. It looks like it's long by default. But we are PHP 7.1, we want modern syntax!
 
 This fixer requires to setup.
 
