@@ -37,11 +37,12 @@ Here you can use 2 types of classes:
 - *Sniffs* from [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
 - and *Fixers* from [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) (from Symfony world)
 
-**We call both of these by group name *Checkers*.**
+**We call both of these by common name *Checkers*.**
 
 #### Start Slow, Grow Fast
 
-I recommend starting slow, instead bumping into 20-30 checkers at once. It's more natural and you have everything under control.
+I recommend starting slow, instead of bumping into 20-30 checkers at once. It's more natural and you have everything under control.
+
 
 Let's start with 2 checkers:
 
@@ -54,22 +55,22 @@ checkers:
     - PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff
 ```
 
-### Don't write Checkers Classes, Make use of NEON Plugin
+### Don't write Checker Classes, Make use of NEON Plugin
 
-I didn't really typed `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too lazy for that. I used **fuzzy search** instead. Thanks to awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/)
+I didn't really type `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too lazy for that. I used **fuzzy search** instead. Thanks to the awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/)
 
 @todo - fuzzy image typing class parts
 
 
 ### 2. Run it!
 
-Now run CLI:
+Now run in CLI:
 
 ```bash
 vendor/bin/easy-coding-standard check src
 ```
 
-You can use also name matching:
+You can also use name matching:
 
 ```bash
 vendor/bin/easy-coding-standard check src/Doctrine*
@@ -92,7 +93,7 @@ Green = good error
 Red = bad error
 
 
-@todo expalin
+@todo explain
 
 
 ### Fix it
@@ -104,7 +105,7 @@ vendor/bin/easy-coding-standard check src --fix
 
 ### Configure checker
 
-There are also user-friendly checkers, that doesn't force you in one directory, but allows you to setup your preferences. For example short array `[]` vs long `array()`.
+There are also user-friendly checkers that don't force you in one direction, but allow you to setup your preferences. For example short array `[]` vs long `array()`.
 
 
 Let's say you want to add short syntax checker:
@@ -118,9 +119,9 @@ Run it:
 
 @error screen
 
-Hm. It looks like it's long by default. But we are PHP 7.1, we want modern syntax!
+Hm. It looks like it's long by default. But we are using PHP 7.1, we want modern syntax!
 
-This fixer requires to setup.
+This fixer requires us to configure this preference.
 
 @how and what are the properties? Here we can use Neon plugin again. Just cltr + click the class and see. Look for `$defaultConfiguration` property.
 
@@ -132,12 +133,12 @@ checkers:
 
 Nice and clear.
 
-Now run again. Voilá!
+Now run again. Voilà!
 
 
 ### Lazy Tip #1: Group by Type
 
-When you use this tool, you'd probably end up with 50 to 60 checkers. That's fine. But hard to orientate.
+When you use this tool, you'd probably end up with 50 to 60 checkers. That's fine. But hard to navigate.
 
 You can group checkers by type:
 
@@ -155,7 +156,7 @@ checkers:
 
 ### Lazy Tip #2: Ignore What You Can't Fix
 
-Sometimes checker founds an error on code, that inherits from 3rd party code. You are forced to use code, that doesn't comply with your standards.
+Sometimes checker finds an error in code that inherits from 3rd party code. You are forced to use code that doesn't comply with your standards.
 
 Just add this checker and the file to `skip` section:
 
