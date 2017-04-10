@@ -63,13 +63,11 @@ final class FixerFactory
     private function ensureIsFixerClass(string $class): void
     {
         if (! is_a($class, FixerInterface::class, true)) {
-            throw new NotAFixerClassException(
-                sprintf(
-                    'Fixer class has to implement "%s". "%s" given.',
-                    FixerInterface::class,
-                    $class
-                )
-            );
+            throw new NotAFixerClassException(sprintf(
+                'Fixer class has to implement "%s". "%s" given.',
+                FixerInterface::class,
+                $class
+            ));
         }
     }
 }

@@ -41,7 +41,12 @@ final class InfoMessagePrinter
             $this->easyCodingStandardStyle->table(['Line', $file], $rows);
         }
 
-        $this->easyCodingStandardStyle->error($this->buildErrorMessage($isFixer));
+        $errorCount = $this->getRelevantErrorCount($isFixer);
+        if ($errorCount === 0 && $isFixer === true) {
+            $this->easyCodingStandardStyle->success($this->buildErrorMessage($isFixer));
+        } else {
+            $this->easyCodingStandardStyle->error($this->buildErrorMessage($isFixer));
+        }
     }
 
     private function buildErrorMessage(bool $isFixer): string

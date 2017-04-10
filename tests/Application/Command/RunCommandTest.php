@@ -9,9 +9,24 @@ use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
+use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class RunCommandTest extends TestCase
 {
+    /**
+     * @var RunCommandFactory
+     */
+    private $runCommandFactory;
+
+    protected function setUp()
+    {
+        $container = (new GeneralContainerFactory)->createFromConfig(
+            __DIR__ . '/../../../src/config/config.neon'
+        );
+
+        $this->runCommandFactory = $container->getByType(RunCommandFactory::class);
+    }
+
     public function testConfiguration(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([]);
@@ -54,9 +69,7 @@ final class RunCommandTest extends TestCase
      */
     private function createRunCommandWithConfiguration(array $configuration = []): RunCommand
     {
-        $runCommandFactory = new RunCommandFactory(new ConfigurationNormalizer);
-
-        return $runCommandFactory->create(
+        return $this->runCommandFactory->create(
             [__DIR__],
             false,
             false,

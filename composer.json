@@ -1,6 +1,6 @@
 {
     "name": "symplify/easy-coding-standard",
-    "description": "Use coding standard Fixers and Sniffers with 0-knowledge.",
+    "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer.",
     "bin": [
         "bin/easy-coding-standard"
     ],

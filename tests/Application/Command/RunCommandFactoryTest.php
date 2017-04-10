@@ -9,6 +9,7 @@ use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
+use Symplify\EasyCodingStandard\Validator\CheckersConfigurationValidator;
 
 final class RunCommandFactoryTest extends TestCase
 {
@@ -19,7 +20,9 @@ final class RunCommandFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->runCommandFactory = new RunCommandFactory(new ConfigurationNormalizer);
+        $this->runCommandFactory = new RunCommandFactory(
+            new ConfigurationNormalizer, new CheckersConfigurationValidator
+        );
     }
 
     public function testEmpty(): void

@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Application\Command;
 
 use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
+use Symplify\EasyCodingStandard\Validator\CheckersConfigurationValidator;
 
 final class RunCommandFactory
 {
@@ -12,9 +13,17 @@ final class RunCommandFactory
      */
     private $configurationNormalizer;
 
-    public function __construct(ConfigurationNormalizer $configurationNormalizer)
-    {
+    /**
+     * @var CheckersConfigurationValidator
+     */
+    private $checkersConfigurationValidator;
+
+    public function __construct(
+        ConfigurationNormalizer $configurationNormalizer,
+        CheckersConfigurationValidator $checkersConfigurationValidator
+    ) {
         $this->configurationNormalizer = $configurationNormalizer;
+        $this->checkersConfigurationValidator = $checkersConfigurationValidator;
     }
 
     /**
@@ -26,6 +35,10 @@ final class RunCommandFactory
     public function create(array $source, bool $isFixer, bool $shouldClearCache, array $configuration): RunCommand
     {
         $configuration = $this->normalizerCheckers($configuration);
+
+        $this->checkersConfigurationValidator->validate(
+            array_keys($configuration[ConfigurationOptions::CHECKERS])
+        );
 
         return new RunCommand($source, $isFixer, $shouldClearCache, $configuration);
     }

@@ -11,6 +11,11 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 final class ShowSettingsCommand extends Command
 {
     /**
+     * @var string
+     */
+    private const NAME = 'show-settings';
+
+    /**
      * @var ConfigurationFileLoader
      */
     private $configurationFileLoader;
@@ -32,7 +37,7 @@ final class ShowSettingsCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('show-settings');
+        $this->setName(self::NAME);
         $this->setDescription('Show used fixers and sniffs and ignored files and sniffs.');
     }
 

@@ -62,13 +62,11 @@ final class SniffFactory
     private function ensureIsSniffClass(string $class): void
     {
         if (! is_a($class, Sniff::class, true)) {
-            throw new NotASniffClassException(
-                sprintf(
-                    'Sniff class has to implement "%s". "%s" given.',
-                    Sniff::class,
-                    $class
-                )
-            );
+            throw new NotASniffClassException(sprintf(
+                'Sniff class has to implement "%s". "%s" given.',
+                Sniff::class,
+                $class
+            ));
         }
     }
 }
