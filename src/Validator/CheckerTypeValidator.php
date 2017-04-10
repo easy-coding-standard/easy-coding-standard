@@ -24,7 +24,7 @@ final class CheckerTypeValidator
             }
 
             throw new CheckerIsNotSupportedException(sprintf(
-                'Checker "%s" is not supported. Use class that implements any of %s.',
+                'Checker "%s" was not found or is not supported. Use class that implements any of %s.',
                 $checker,
                 implode(' or ', $this->allowedCheckerTypes)
             ));
