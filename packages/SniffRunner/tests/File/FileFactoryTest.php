@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
-use Symplify\EasyCodingStandard\SniffRunner\Contract\File\FileInterface;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -32,7 +31,6 @@ final class FileFactoryTest extends TestCase
         $file = $this->fileFactory->createFromFileInfo($fileInfo, false);
         $this->assertInstanceOf(File::class, $file);
         $this->assertInstanceOf(BaseFile::class, $file);
-        $this->assertInstanceOf(FileInterface::class, $file);
         $this->assertInstanceOf(Fixer::class, $file->fixer);
     }
 }
