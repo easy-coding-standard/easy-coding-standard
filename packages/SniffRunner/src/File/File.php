@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PHP_CodeSniffer\Tokenizers\PHP;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -55,8 +54,6 @@ final class File extends BaseFile
         $this->isFixer = $isFixer;
 
         $this->eolChar = PHP_EOL;
-
-        $this->tokenizer = $this->createPhpTokenizer();
     }
 
     /**
@@ -171,10 +168,5 @@ final class File extends BaseFile
     private function isSniffClass(string $class): bool
     {
         return is_a($class, Sniff::class, true);
-    }
-
-    private function createPhpTokenizer(): PHP
-    {
-        return new PHP($this->content, $this->config, $this->eolChar);
     }
 }
