@@ -9,6 +9,8 @@ gc_disable();
 
 require_once getcwd() . '/vendor/autoload.php';
 
+Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer::add();
+
 // 1. build DI container
 $container = (new ContainerFactory)->create();
 

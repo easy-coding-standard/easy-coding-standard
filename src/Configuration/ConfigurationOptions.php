@@ -4,11 +4,6 @@ namespace Symplify\EasyCodingStandard\Configuration;
 
 final class ConfigurationOptions
 {
-//    /**
-//     * @var string
-//     */
-//    public const SKIP = 'skip';
-//
     /**
      * @var string
      */
