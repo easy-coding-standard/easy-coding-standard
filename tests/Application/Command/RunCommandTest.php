@@ -8,7 +8,7 @@ use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
-use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
+use Symplify\EasyCodingStandard\DI\ContainerFactory;
 
 final class RunCommandTest extends TestCase
 {
@@ -19,10 +19,7 @@ final class RunCommandTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(
-            __DIR__ . '/../../../src/config/config.neon'
-        );
-
+        $container = (new ContainerFactory)->create();
         $this->runCommandFactory = $container->getByType(RunCommandFactory::class);
     }
 
@@ -30,8 +27,7 @@ final class RunCommandTest extends TestCase
     {
         $runCommand = $this->createRunCommandWithConfiguration([]);
         $this->assertSame([
-            ConfigurationOptions::CHECKERS => [],
-            ConfigurationOptions::SKIP => []
+            ConfigurationOptions::CHECKERS => []
         ], $runCommand->getConfiguration());
         $this->assertEmpty($runCommand->getSniffs());
         $this->assertSame([__DIR__], $runCommand->getSources());

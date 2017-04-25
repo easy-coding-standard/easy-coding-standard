@@ -67,10 +67,6 @@ final class RunCommandFactory
             $configuration[ConfigurationOptions::CHECKERS] = [];
         }
 
-        if (! isset($configuration[ConfigurationOptions::SKIP])) {
-            $configuration[ConfigurationOptions::SKIP] = [];
-        }
-
         return $configuration;
     }
 
@@ -81,10 +77,6 @@ final class RunCommandFactory
     {
         $this->checkerTypeValidator->validate(
             array_keys($configuration[ConfigurationOptions::CHECKERS])
-        );
-
-        $this->checkerTypeValidator->validate(
-            array_keys($configuration[ConfigurationOptions::SKIP])
         );
     }
 }

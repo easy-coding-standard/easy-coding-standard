@@ -67,18 +67,6 @@ final class RunCommandFactoryTest extends TestCase
     }
 
     /**
-     * @expectedException \Symplify\EasyCodingStandard\Exception\Validator\CheckerIsNotSupportedException
-     */
-    public function testCheckerTypeValidatorForSkipper(): void
-    {
-        $this->createWithConfiguration([
-            ConfigurationOptions::SKIP => [
-                'NotAChecker' => []
-            ]
-        ]);
-    }
-
-    /**
      * @param mixed[][] $configuration
      */
     private function createWithConfiguration(array $configuration): RunCommand

@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Configuration\Contract\Parameter\ParameterProviderInterface;
 use Symplify\EasyCodingStandard\Skipper;
+use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
 final class SkipperTest extends TestCase
 {
@@ -17,7 +18,10 @@ final class SkipperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->skipper = new Skipper($this->createParameterProvider());
+        $this->skipper = new Skipper(
+            $this->createParameterProvider(),
+            new CheckerTypeValidator
+        );
     }
 
     public function test(): void

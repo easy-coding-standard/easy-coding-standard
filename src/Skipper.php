@@ -8,6 +8,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Glob;
 use Symplify\EasyCodingStandard\Configuration\Contract\Parameter\ParameterProviderInterface;
 use Symplify\EasyCodingStandard\Contract\SkipperInterface;
+use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
 final class Skipper implements SkipperInterface
 {
@@ -16,9 +17,13 @@ final class Skipper implements SkipperInterface
      */
     private $skipped = [];
 
-    public function __construct(ParameterProviderInterface $parameterProvider)
-    {
-        $this->skipped = $parameterProvider->provide()['skip'] ?? [];
+    public function __construct(
+        ParameterProviderInterface $parameterProvider,
+        CheckerTypeValidator $checkerTypeValidator
+    ) {
+        $skipped = $parameterProvider->provide()['skip'] ?? [];
+        $checkerTypeValidator->validate(array_keys($skipped));
+        $this->skipped = $skipped;
     }
 
     /**
