@@ -3,13 +3,13 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
-use Symplify\EasyCodingStandard\Skipper;
+use Symplify\EasyCodingStandard\Contract\SkipperInterface;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 
 final class TokenDispatcher
 {
     /**
-     * @var Skipper
+     * @var SkipperInterface
      */
     private $skipper;
 
@@ -18,7 +18,7 @@ final class TokenDispatcher
      */
     private $tokenListeners;
 
-    public function __construct(Skipper $skipper)
+    public function __construct(SkipperInterface $skipper)
     {
         $this->skipper = $skipper;
     }

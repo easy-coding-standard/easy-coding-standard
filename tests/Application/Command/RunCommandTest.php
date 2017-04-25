@@ -29,7 +29,6 @@ final class RunCommandTest extends TestCase
     public function testConfiguration(): void
     {
         $runCommand = $this->createRunCommandWithConfiguration([]);
-        $this->assertEmpty($runCommand->getSkipped());
         $this->assertSame([
             ConfigurationOptions::CHECKERS => [],
             ConfigurationOptions::SKIP => []

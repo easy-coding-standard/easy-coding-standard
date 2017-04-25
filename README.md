@@ -1,27 +1,14 @@
-# Enjoy Coding Standards with 0-knowledge of PHP_CodeSniffer nor PHP-CS-Fixer
+# Combine PHP_CodeSniffer and PHP-CS-Fixer in one Config
 
-[![Build Status *nix](https://img.shields.io/travis/Symplify/EasyCodingStandard/master.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
+[![Build Status](https://img.shields.io/travis/Symplify/EasyCodingStandard/master.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/Symplify/EasyCodingStandard.svg?style=flat-square)](https://scrutinizer-ci.com/g/Symplify/EasyCodingStandard)
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 
 
 ## Install
 
-Add to your `composer.json`:
-
-```json
-{
-    "require": {
-        "symplify/easy-coding-standard": "^1.4",
-        "squizlabs/php_codesniffer": "3.0.0RC4 as 2.8.1"
-    }
-}
-```
-
-and update:
-
 ```bash
-composer update
+composer require symplify/easy-coding-standard:2.0-RC1 squizlabs/php_codesniffer:"3.0.0RC4 as 2.8.1"
 ```
 
 
@@ -32,19 +19,13 @@ composer update
 
 Create a `easy-coding-standard.neon` file in your root directory.
 
-Here you can use 2 types of classes:
+Here you can use both [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) and [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
-- *Sniffs* from [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
-- and *Fixers* from [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) (from Symfony world)
-
-**We call both of these by common name *Checkers*.**
+**We call them *Checkers*.**
 
 #### Start Slow, Grow Fast
 
-I recommend starting slow, instead of bumping into 20-30 checkers at once. It's more natural and you have everything under control.
-
-
-Let's start with 2 checkers:
+I recommend starting slow with 2 checkers, so you have everything under control.
 
 ```yaml
 checkers:
@@ -55,16 +36,14 @@ checkers:
     - PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff
 ```
 
-### Don't write Checker Classes, Make use of NEON Plugin
+#### Don't write Checker Classes, Make use of NEON Plugin
 
 I didn't really type `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too lazy for that. I used **fuzzy search** instead. Thanks to the awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/)
 
 @todo - fuzzy image typing class parts
 
 
-### 2. Run it!
-
-Now run in CLI:
+### 2. Run it in CLI
 
 ```bash
 vendor/bin/easy-coding-standard check src

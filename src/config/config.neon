@@ -1,10 +1,7 @@
-application:
-    scanComposer: false
-
-
 extensions:
-    - Symplify\EasyCodingStandard\DI\EasyCodingStandardExtension
+    checkers: Symplify\EasyCodingStandard\DI\EasyCodingStandardExtension
     - Symplify\EasyCodingStandard\FixerRunner\DI\FixerRunnerExtension
     - Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension
+    - Symplify\EasyCodingStandard\Configuration\DI\ConfigurationExtension
     - Symplify\EasyCodingStandard\ChangedFilesDetector\DI\ChangedFilesDetectorExtension
     - Contributte\Console\DI\ConsoleExtension

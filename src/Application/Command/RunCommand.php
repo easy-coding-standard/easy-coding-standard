@@ -87,14 +87,6 @@ final class RunCommand
     }
 
     /**
-     * @return string[][]
-     */
-    public function getSkipped(): array
-    {
-        return $this->configuration[ConfigurationOptions::SKIP] ?? [];
-    }
-
-    /**
      * @param string[] $sources
      */
     private function setSources(array $sources): void
