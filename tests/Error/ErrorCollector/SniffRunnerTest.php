@@ -46,7 +46,6 @@ final class SniffRunnerTest extends TestCase
         $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
 
         $errorMessages = $this->errorDataCollector->getAllErrors();
-
         $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
 
         /** @var Error $error */
@@ -57,6 +56,7 @@ final class SniffRunnerTest extends TestCase
     private function runFileProcessor(): void
     {
         $runCommand = $this->createRunCommand();
+
         $this->fileProcessor->setupWithCommand($runCommand);
         $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
         $this->fileProcessor->processFile($fileInfo);

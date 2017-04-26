@@ -2,7 +2,6 @@
 - Symplify\EasyCodingStandard\Application\Application
 
 # Configuration
-- Nette\DI\Config\Loader
 - Symplify\EasyCodingStandard\Finder\SourceFinder
 - Symplify\EasyCodingStandard\Skipper
 - Symplify\EasyCodingStandard\Validator\CheckerTypeValidator

@@ -1,0 +1,3 @@
+checkers:
+    - PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer
+    - PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\ArrayDeclarationSniff

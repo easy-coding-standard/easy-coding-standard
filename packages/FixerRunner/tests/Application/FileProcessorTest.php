@@ -3,11 +3,12 @@
 namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Application;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
 
-final class FileProcessorTest extends AbstractContainerAwareTestCase
+final class FileProcessorTest extends TestCase
 {
     /**
      * @var FileProcessor
@@ -16,7 +17,11 @@ final class FileProcessorTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileProcessor = $this->container->getByType(FileProcessor::class);
+        $container = (new ContainerFactoryWithCustomConfig)->createWithConfig(
+            __DIR__ . '/FileProcessorSource/easy-coding-standard.neon'
+        );
+
+        $this->fileProcessor = $container->getByType(FileProcessor::class);
     }
 
     public function test(): void

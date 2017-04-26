@@ -1,2 +1,2 @@
 checkers:
-    - PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff
+    - Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff

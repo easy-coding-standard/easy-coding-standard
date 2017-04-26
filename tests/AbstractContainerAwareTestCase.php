@@ -13,8 +13,10 @@ abstract class AbstractContainerAwareTestCase extends TestCase
      */
     protected $container;
 
-    public function __construct()
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
         $this->container = (new ContainerFactory)->create();
+
+        parent::__construct($name, $data, $dataName);
     }
 }

@@ -60,7 +60,8 @@ final class FileProcessor implements FileProcessorInterface, SniffCollectorInter
 
     public function setupWithCommand(RunCommand $runCommand): void
     {
-//        $this->tokenDispatcher->addSniffListeners($sniffs);
+        // todo: move SniffCollectorInterface directly to TokenDispatcher
+        $this->tokenDispatcher->addSniffListeners($this->sniffs);
 
         $this->isFixer = $runCommand->isFixer();
     }

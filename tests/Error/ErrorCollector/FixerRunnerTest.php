@@ -56,7 +56,7 @@ final class FixerRunnerTest extends TestCase
             'PHPUnit methods like `assertSame` should be used instead of `assertEquals`.',
             $error->getMessage()
         );
-        $this->assertSame(9, $error->getLine());
+        $this->assertSame(11, $error->getLine());
     }
 
     private function runFileProcessor(): void
