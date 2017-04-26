@@ -3,11 +3,10 @@
 namespace Symplify\EasyCodingStandard\Tests\Application;
 
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Application;
-use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class ApplicationTest extends TestCase
+final class ApplicationTest extends AbstractContainerAwareTestCase
 {
     /**
      * @var Application
@@ -16,11 +15,7 @@ final class ApplicationTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(
-            __DIR__ . '/../../src/config/config.neon'
-        );
-
-        $this->application = $container->getByType(Application::class);
+        $this->application = $this->container->getByType(Application::class);
     }
 
     public function testFileProcessorsAreLoaded(): void

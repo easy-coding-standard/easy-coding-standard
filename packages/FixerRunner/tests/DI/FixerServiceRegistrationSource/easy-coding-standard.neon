@@ -1,0 +1,3 @@
+checkers:
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short

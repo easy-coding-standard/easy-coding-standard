@@ -1,0 +1,6 @@
+checkers:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff:
+        lineLimit: 15
+    SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff:
+        forbiddenAnnotations:
+            - @author

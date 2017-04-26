@@ -2,18 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Sniff\Finder;
 
-use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder;
-use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class SniffFinderTest extends TestCase
+final class SniffFinderTest extends AbstractContainerAwareTestCase
 {
     public function test(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(
-            __DIR__ . '/../../../../../src/config/config.neon'
-        );
-        $sniffFinder = $container->getByType(SniffFinder::class);
+        $sniffFinder = $this->container->getByType(SniffFinder::class);
         $this->assertGreaterThan(250, $sniffFinder->findAllSniffClasses());
     }
 }

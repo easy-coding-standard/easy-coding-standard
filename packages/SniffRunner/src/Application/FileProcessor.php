@@ -2,18 +2,19 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
+use PHP_CodeSniffer\Sniffs\Sniff;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use Symplify\EasyCodingStandard\SniffRunner\Contract\SniffCollectorInterface;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer;
-use Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory\SniffFactory;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 
-final class FileProcessor implements FileProcessorInterface
+final class FileProcessor implements FileProcessorInterface, SniffCollectorInterface
 {
     /**
      * @var TokenDispatcher
@@ -26,11 +27,6 @@ final class FileProcessor implements FileProcessorInterface
     private $fixer;
 
     /**
-     * @var SniffFactory
-     */
-    private $sniffFactory;
-
-    /**
      * @var FileFactory
      */
     private $fileFactory;
@@ -40,24 +36,32 @@ final class FileProcessor implements FileProcessorInterface
      */
     private $isFixer = false;
 
+    /**
+     * @var Sniff[]
+     */
+    private $sniffs = [];
+
     public function __construct(
         TokenDispatcher $tokenDispatcher,
-        SniffFactory $sniffFactory,
         Fixer $fixer,
         FileFactory $fileFactory
     ) {
         $this->tokenDispatcher = $tokenDispatcher;
-        $this->sniffFactory = $sniffFactory;
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
 
-        LegacyCompatibilityLayer::add(); // @todo: service like?
+        LegacyCompatibilityLayer::add();
+    }
+
+    public function addSniff(Sniff $sniff): void
+    {
+        $this->sniffs[] = $sniff;
     }
 
     public function setupWithCommand(RunCommand $runCommand): void
     {
-        $sniffs = $this->sniffFactory->createFromClasses($runCommand->getSniffs());
-        $this->tokenDispatcher->addSniffListeners($sniffs);
+//        $this->tokenDispatcher->addSniffListeners($sniffs);
+
         $this->isFixer = $runCommand->isFixer();
     }
 

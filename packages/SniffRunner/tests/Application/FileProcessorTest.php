@@ -2,13 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
-use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
-use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class FileProcessorTest extends TestCase
+final class FileProcessorTest extends AbstractContainerAwareTestCase
 {
     /**
      * @var FileProcessor
@@ -22,10 +21,7 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $containerFactory = new GeneralContainerFactory;
-        $container = $containerFactory->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
-
-        $this->fileProcessor = $container->getByType(FileProcessor::class);
+        $this->fileProcessor = $this->container->getByType(FileProcessor::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());
     }
 

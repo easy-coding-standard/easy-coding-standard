@@ -3,9 +3,9 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Error;
 
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorSorter;
-use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
 
 final class ErrorSorterTest extends TestCase
 {
@@ -16,7 +16,7 @@ final class ErrorSorterTest extends TestCase
 
     public function setUp(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(__DIR__ . '/../../../../src/config/config.neon');
+        $container = (new ContainerFactory)->create();
         $this->errorSorter = $container->getByType(ErrorSorter::class);
     }
 

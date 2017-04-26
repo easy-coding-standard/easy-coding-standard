@@ -3,14 +3,13 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
-use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
-use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class FileFactoryTest extends TestCase
+final class FileFactoryTest extends AbstractContainerAwareTestCase
 {
     /**
      * @var FileFactory
@@ -19,10 +18,7 @@ final class FileFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(
-            __DIR__ . '/../../../../src/config/config.neon'
-        );
-        $this->fileFactory = $container->getByType(FileFactory::class);
+        $this->fileFactory = $this->container->getByType(FileFactory::class);
     }
 
     public function test(): void

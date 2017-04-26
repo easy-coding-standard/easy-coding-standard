@@ -10,10 +10,10 @@ use Symfony\Component\Filesystem\Exception\IOException;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
-use Symplify\EasyCodingStandard\FixerRunner\Fixer\FixerFactory;
+use Symplify\EasyCodingStandard\FixerRunner\Contract\FixerCollectorInterface;
 use Symplify\EasyCodingStandard\Skipper;
 
-final class FileProcessor implements FileProcessorInterface
+final class FileProcessor implements FileProcessorInterface, FixerCollectorInterface
 {
     /**
      * @var FixerInterface[]
@@ -31,35 +31,23 @@ final class FileProcessor implements FileProcessorInterface
     private $skipper;
 
     /**
-     * @var FixerFactory
-     */
-    private $fixerFactory;
-
-    /**
      * @var bool
      */
     private $isFixer = false;
 
-    public function __construct(ErrorCollector $errorCollector, Skipper $skipper, FixerFactory $fixerFactory)
+    public function __construct(ErrorCollector $errorCollector, Skipper $skipper)
     {
         $this->errorCollector = $errorCollector;
         $this->skipper = $skipper;
-        $this->fixerFactory = $fixerFactory;
     }
 
-    /**
-     * @var string $class
-     * @var mixed[] $configuration
-     */
-    public function addFixer(string $class, array $configuration = [])
+    public function addFixer(FixerInterface $fixer): void
     {
-        dump($class, $configuration);
-        die;
+        $this->fixers[] = $fixer;
     }
 
     public function setupWithCommand(RunCommand $runCommand): void
     {
-        $this->fixers = $this->fixerFactory->createFromClasses($runCommand->getFixers());
         $this->isFixer = $runCommand->isFixer();
     }
 
