@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\DI;
+namespace Symplify\EasyCodingStandard\Tests;
 
 use Nette\Bridges\CacheDI\CacheExtension;
 use Nette\Configurator;
@@ -8,17 +8,17 @@ use Nette\DI\Container;
 use Nette\DI\Extensions\ExtensionsExtension;
 use Nette\DI\Extensions\PhpExtension;
 use Nette\Utils\FileSystem;
-use Symplify\EasyCodingStandard\Configuration\Option\ConfigurationFileOption;
 
-final class ContainerFactory
+final class ContainerFactoryWithCustomConfig
 {
-    public function create(): Container
+    public function createWithConfig(string $customConfig): Container
     {
         $configurator = new Configurator;
         $configurator->setDebugMode(true);
         $configurator->setTempDirectory($this->createAndReturnTempDir());
 
-        $this->loadConfigFiles($configurator);
+        $configurator->addConfig(__DIR__ . '/../src/config/config.neon');
+        $configurator->addConfig($customConfig);
 
         $configurator->defaultExtensions = [
             'php' => PhpExtension::class,
@@ -31,19 +31,10 @@ final class ContainerFactory
 
     private function createAndReturnTempDir(): string
     {
-        $tempDir = sys_get_temp_dir() . '/_' . sha1(self::class);
+        $tempDir = sys_get_temp_dir() . '/_' . sha1(self::class) . '_tests';
         FileSystem::delete($tempDir);
         FileSystem::createDir($tempDir);
 
         return $tempDir;
-    }
-
-    private function loadConfigFiles(Configurator $configurator): void
-    {
-        $configurator->addConfig(__DIR__ . '/../config/config.neon');
-        $localConfig = getcwd() . '/' . ConfigurationFileOption::FILE_NAME;
-        if (file_exists($localConfig)) {
-            $configurator->addConfig($localConfig);
-        }
     }
 }

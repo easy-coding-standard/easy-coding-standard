@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
-use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
@@ -10,7 +9,7 @@ use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetect
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor;
-use Symplify\PackageBuilder\Adapter\Nette\GeneralContainerFactory;
+use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
 
 final class FixerRunnerTest extends TestCase
 {
@@ -26,9 +25,10 @@ final class FixerRunnerTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new GeneralContainerFactory)->createFromConfig(
-            __DIR__ . '/../../../src/config/config.neon'
+        $container = (new ContainerFactoryWithCustomConfig)->createWithConfig(
+            __DIR__ . '/FixerRunnerSource/easy-coding-standard.neon'
         );
+
         $this->errorDataCollector = $container->getByType(ErrorCollector::class);
         $this->fileProcessor = $container->getByType(FileProcessor::class);
 
@@ -39,7 +39,7 @@ final class FixerRunnerTest extends TestCase
 
     public function test(): void
     {
-        $this->runApplicationWithFixer(PhpUnitStrictFixer::class);
+        $this->runFileProcessor();
 
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());
         $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
@@ -59,15 +59,12 @@ final class FixerRunnerTest extends TestCase
         $this->assertSame(9, $error->getLine());
     }
 
-    private function runApplicationWithFixer(string $fixerClass): void
+    private function runFileProcessor(): void
     {
         $runCommand = RunCommand::createForSourceFixerAndClearCache(
             [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
             false,
             true
-//            [
-//                ConfigurationOptions::CHECKERS => [$fixerClass]
-//            ]
         );
 
         $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');

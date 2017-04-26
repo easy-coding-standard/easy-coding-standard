@@ -44,27 +44,6 @@ final class EasyCodingStandardExtension extends CompilerExtension
         $this->checkerTypeValidator->validate(array_keys($checkers));
         $this->setCheckersToGlobalParameters($checkers);
 
-        die;
-        // todo: register them as services :)
-        # 0. validate them :)
-
-        # 1.
-        // fixer this way
-        // sniff that way
-        // addDefinition()
-
-        /// fixer
-        // add method->configure
-
-        // sniff
-        // add addsetup ($... = $value)
-
-        # drop fixer and sniff factory then ;)
-
-        # 2.
-        // collect them in beforeCompile in SniffRunnerExtension
-        // collect them in beforeCompile in FixerRunnerExtension
-
         Compiler::loadDefinitions(
             $this->getContainerBuilder(),
             $this->loadFromFile(__DIR__ . '/../config/services.neon')
