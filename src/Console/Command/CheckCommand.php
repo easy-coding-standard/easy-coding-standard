@@ -7,8 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Application;
-use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
+use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 
@@ -30,34 +29,20 @@ final class CheckCommand extends Command
     private $applicationRunner;
 
     /**
-     * @var ConfigurationFileLoader
-     */
-    private $configurationFileLoader;
-
-    /**
      * @var InfoMessagePrinter
      */
     private $infoMessagePrinter;
 
-    /**
-     * @var RunCommandFactory
-     */
-    private $runCommandFactory;
-
     public function __construct(
         Application $applicationRunner,
         EasyCodingStandardStyle $style,
-        ConfigurationFileLoader $configurationFileLoader,
-        InfoMessagePrinter $infoMessagePrinter,
-        RunCommandFactory $runCommandFactory
+        InfoMessagePrinter $infoMessagePrinter
     ) {
         parent::__construct();
 
         $this->applicationRunner = $applicationRunner;
         $this->style = $style;
-        $this->configurationFileLoader = $configurationFileLoader;
         $this->infoMessagePrinter = $infoMessagePrinter;
-        $this->runCommandFactory = $runCommandFactory;
     }
 
     protected function configure(): void
@@ -71,11 +56,10 @@ final class CheckCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $runCommand = $this->runCommandFactory->create(
+        $runCommand = RunCommand::createForSourceFixerAndClearCache(
             $input->getArgument('source'),
             $input->getOption('fix'),
-            (bool) $input->getOption('clear-cache'),
-            $this->configurationFileLoader->load()
+            (bool) $input->getOption('clear-cache')
         );
 
         $this->applicationRunner->runCommand($runCommand);

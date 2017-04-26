@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
-use Symplify\EasyCodingStandard\Application\Command\RunCommandFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\EasyCodingStandard\DI\ContainerFactory;
@@ -26,18 +25,12 @@ final class SniffRunnerTest extends TestCase
      */
     private $fileProcessor;
 
-    /**
-     * @var RunCommandFactory
-     */
-    private $runCommandFactory;
-
     protected function setUp(): void
     {
         $container = (new ContainerFactory)->create();
 
         $this->errorDataCollector = $container->getByType(ErrorCollector::class);
         $this->fileProcessor = $container->getByType(FileProcessor::class);
-        $this->runCommandFactory = $container->getByType(RunCommandFactory::class);
 
         /** @var ChangedFilesDetectorInterface $changedFilesDetector */
         $changedFilesDetector = $container->getByType(ChangedFilesDetectorInterface::class);
@@ -66,15 +59,10 @@ final class SniffRunnerTest extends TestCase
 
     private function createRunCommand(): RunCommand
     {
-        return $this->runCommandFactory->create(
+        return RunCommand::createForSourceFixerAndClearCache(
             [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
             false,
-            true,
-            [
-                ConfigurationOptions::CHECKERS => [
-                    AbstractClassNameSniff::class
-                ]
-            ]
+            true
         );
     }
 

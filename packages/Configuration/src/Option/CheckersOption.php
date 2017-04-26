@@ -1,7 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
+namespace Symplify\EasyCodingStandard\Configuration\Option;
 
-class CheckersOption
+final class CheckersOption
 {
-
+    /**
+     * @var string
+     */
+    public const NAME = 'checkers';
 }

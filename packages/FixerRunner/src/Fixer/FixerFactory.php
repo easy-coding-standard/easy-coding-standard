@@ -4,17 +4,17 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Fixer;
 
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
+use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Fixer\NotAFixerClassException;
 
 final class FixerFactory
 {
     /**
-     * @var ConfigurationNormalizer
+     * @var CheckerConfigurationNormalizer
      */
     private $configurationNormalizer;
 
-    public function __construct(ConfigurationNormalizer $configurationNormalizer)
+    public function __construct(CheckerConfigurationNormalizer $configurationNormalizer)
     {
         $this->configurationNormalizer = $configurationNormalizer;
     }
@@ -25,7 +25,7 @@ final class FixerFactory
      */
     public function createFromClasses(array $classes): array
     {
-        $configuredClasses = $this->configurationNormalizer->normalizeClassesConfiguration($classes);
+        $configuredClasses = $this->configurationNormalizer->normalize($classes);
 
         $fixers = [];
         foreach ($configuredClasses as $class => $config) {

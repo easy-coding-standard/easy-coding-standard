@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 use Nette\Caching\Cache;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
+use Symplify\EasyCodingStandard\Configuration\Option\ConfigurationFileOption;
 
 final class ChangedFilesDetector implements ChangedFilesDetectorInterface
 {
@@ -19,10 +19,12 @@ final class ChangedFilesDetector implements ChangedFilesDetectorInterface
      */
     private $cache;
 
-    public function __construct(CacheFactory $cacheFactory, ConfigurationFileLoader $configurationFileLoader)
+    public function __construct(CacheFactory $cacheFactory, string $configurationFile = null)
     {
         $this->cache = $cacheFactory->create();
-        $this->storeConfigurationDataHash($configurationFileLoader->load());
+        $this->storeConfigurationDataHash(
+            md5_file($configurationFile ?: getcwd() . '/' . ConfigurationFileOption::FILE_NAME)
+        );
     }
 
     public function addFile(string $filePath): void
@@ -57,26 +59,16 @@ final class ChangedFilesDetector implements ChangedFilesDetectorInterface
 
     private function hashFile(string $filePath): string
     {
-        return hash_file('md5', $filePath);
+        return md5_file($filePath);
     }
 
     /**
      * @param mixed[] $configuration
      */
-    private function storeConfigurationDataHash(array $configuration): void
+    private function storeConfigurationDataHash(string $configurationHash): void
     {
-        $configurationHash = $this->calculateConfigurationHash($configuration);
-
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash);
-    }
-
-    /**
-     * @param mixed[] $configuration
-     */
-    private function calculateConfigurationHash(array $configuration): string
-    {
-        return md5(serialize($configuration));
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void

@@ -2,10 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Application\Command;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\Fixer\FixerInterface;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 
 final class RunCommand
@@ -21,11 +17,6 @@ final class RunCommand
     private $isFixer;
 
     /**
-     * @var string[]|array[]
-     */
-    private $configuration = [];
-
-    /**
      * @var bool
      */
     private $shouldClearCache;
@@ -34,14 +25,22 @@ final class RunCommand
      * @param string[] $source
      * @param bool $isFixer
      * @param bool $shouldClearCache
-     * @param mixed[] $configuration
      */
-    public function __construct(array $source, bool $isFixer, bool $shouldClearCache, array $configuration)
+    private function __construct(array $source, bool $isFixer, bool $shouldClearCache)
     {
         $this->setSources($source);
         $this->isFixer = $isFixer;
         $this->shouldClearCache = $shouldClearCache;
-        $this->configuration = $configuration;
+    }
+
+    /**
+     * @param string[] $source
+     * @param bool $isFixer
+     * @param bool $shouldClearCache
+     */
+    public static function createForSourceFixerAndClearCache(array $source, bool $isFixer, bool $shouldClearCache): self
+    {
+        return new self($source, $isFixer, $shouldClearCache);
     }
 
     /**
@@ -50,14 +49,6 @@ final class RunCommand
     public function getSources(): array
     {
         return $this->sources;
-    }
-
-    /**
-     * @return mixed[]
-     */
-    public function getConfiguration(): array
-    {
-        return $this->configuration;
     }
 
     public function isFixer(): bool
@@ -70,21 +61,21 @@ final class RunCommand
         return $this->shouldClearCache;
     }
 
-    /**
-     * @return mixed[][]
-     */
-    public function getSniffs(): array
-    {
-        return $this->filterClassesByType($this->getCheckers(), Sniff::class);
-    }
-
-    /**
-     * @return mixed[][]
-     */
-    public function getFixers(): array
-    {
-        return $this->filterClassesByType($this->getCheckers(), FixerInterface::class);
-    }
+//    /**
+//     * @return mixed[][]
+//     */
+//    public function getSniffs(): array
+//    {
+//        return $this->filterClassesByType($this->getCheckers(), Sniff::class);
+//    }
+//
+//    /**
+//     * @return mixed[][]
+//     */
+//    public function getFixers(): array
+//    {
+//        return $this->filterClassesByType($this->getCheckers(), FixerInterface::class);
+//    }
 
     /**
      * @param string[] $sources
@@ -112,25 +103,25 @@ final class RunCommand
         }
     }
 
-    /**
-     * @param string[] $classes
-     * @param string $type
-     * @return mixed[]
-     */
-    private function filterClassesByType(array $classes, string $type): array
-    {
-        return array_filter($classes, function ($class) use ($type) {
-            return is_a($class, $type, true);
-        }, ARRAY_FILTER_USE_KEY);
-    }
-
-    /**
-     * @return string[][]
-     */
-    private function getCheckers(): array
-    {
-        $checkers = $this->configuration[ConfigurationOptions::CHECKERS] ?? [];
-
-        return ConfigurationNormalizer::normalizeClassesConfiguration($checkers);
-    }
+//    /**
+//     * @param string[] $classes
+//     * @param string $type
+//     * @return mixed[]
+//     */
+//    private function filterClassesByType(array $classes, string $type): array
+//    {
+//        return array_filter($classes, function ($class) use ($type) {
+//            return is_a($class, $type, true);
+//        }, ARRAY_FILTER_USE_KEY);
+//    }
+//
+//    /**
+//     * @return string[][]
+//     */
+//    private function getCheckers(): array
+//    {
+//        $checkers = $this->configuration[ConfigurationOptions::CHECKERS] ?? [];
+//
+//        return ConfigurationNormalizer::normalizeClassesConfiguration($checkers);
+//    }
 }

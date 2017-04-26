@@ -1,10 +1,8 @@
 # Application
 - Symplify\EasyCodingStandard\Application\Application
-- Symplify\EasyCodingStandard\Application\Command\RunCommandFactory
 
 # Configuration
 - Nette\DI\Config\Loader
-- Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader
 - Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer
 - Symplify\EasyCodingStandard\Finder\SourceFinder
 - Symplify\EasyCodingStandard\Skipper
@@ -12,7 +10,6 @@
 
 # Console & Commands
 - Symplify\EasyCodingStandard\Console\Command\CheckCommand
-- Symplify\EasyCodingStandard\Console\Command\ShowSettingsCommand
 
 # Symfony Output style
 - Symfony\Component\Console\Terminal

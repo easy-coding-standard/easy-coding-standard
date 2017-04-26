@@ -2,10 +2,10 @@
 
 namespace Symplify\EasyCodingStandard\Configuration\Option;
 
-final class CheckersOption
+final class ConfigurationFileOption
 {
     /**
      * @var string
      */
-    public const NAME = 'checkers';
+    public const FILE_NAME = 'easy-coding-standard.neon';
 }

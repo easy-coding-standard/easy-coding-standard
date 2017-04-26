@@ -2,13 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-final class ConfigurationNormalizer
+final class CheckerConfigurationNormalizer
 {
     /**
      * @param string[]|int[][]|string[][] $classes
      * @return string[][]
      */
-    public static function normalizeClassesConfiguration(array $classes): array
+    public static function normalize(array $classes): array
     {
         $configuredClasses = [];
         foreach ($classes as $name => $class) {

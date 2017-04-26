@@ -47,6 +47,16 @@ final class FileProcessor implements FileProcessorInterface
         $this->fixerFactory = $fixerFactory;
     }
 
+    /**
+     * @var string $class
+     * @var mixed[] $configuration
+     */
+    public function addFixer(string $class, array $configuration = [])
+    {
+        dump($class, $configuration);
+        die;
+    }
+
     public function setupWithCommand(RunCommand $runCommand): void
     {
         $this->fixers = $this->fixerFactory->createFromClasses($runCommand->getFixers());

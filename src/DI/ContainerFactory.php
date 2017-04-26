@@ -8,6 +8,8 @@ use Nette\DI\Container;
 use Nette\DI\Extensions\ExtensionsExtension;
 use Nette\DI\Extensions\PhpExtension;
 use Nette\Utils\FileSystem;
+use Symplify\EasyCodingStandard\FixerRunner\DI\FixerRunnerExtension;
+use Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension;
 
 final class ContainerFactory
 {
@@ -24,11 +26,18 @@ final class ContainerFactory
 
         $this->loadConfigFiles($configurator);
 
+//        $configurator->addParameters([
+//           'checkers' => [123]
+//        ]);
+//        $configurator->addDynamicParameters(['checkers']);
+
         $configurator->defaultExtensions = [
             'php' => PhpExtension::class,
             'extensions' => ExtensionsExtension::class,
             'cache' => [CacheExtension::class, ['%tempDir%']]
         ];
+
+        $configurator->addDynamicParameters(['checkers']);
 
         return $configurator->createContainer();
     }

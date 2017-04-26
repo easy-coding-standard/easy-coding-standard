@@ -3,17 +3,17 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
+use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\Sniff\NotASniffClassException;
 
 final class SniffFactory
 {
     /**
-     * @var ConfigurationNormalizer
+     * @var CheckerConfigurationNormalizer
      */
     private $configurationNormalizer;
 
-    public function __construct(ConfigurationNormalizer $configurationNormalizer)
+    public function __construct(CheckerConfigurationNormalizer $configurationNormalizer)
     {
         $this->configurationNormalizer = $configurationNormalizer;
     }
@@ -24,7 +24,7 @@ final class SniffFactory
      */
     public function createFromClasses(array $classes): array
     {
-        $configuredClasses = $this->configurationNormalizer->normalizeClassesConfiguration($classes);
+        $configuredClasses = $this->configurationNormalizer->normalize($classes);
 
         $sniffs = [];
         foreach ($configuredClasses as $class => $config) {

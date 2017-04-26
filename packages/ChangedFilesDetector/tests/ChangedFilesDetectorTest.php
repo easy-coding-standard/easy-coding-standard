@@ -2,13 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
-use Nette\DI\Config\Loader;
 use Nette\Utils\FileSystem;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationFileLoader;
 
 final class ChangedFilesDetectorTest extends TestCase
 {
@@ -79,8 +77,6 @@ final class ChangedFilesDetectorTest extends TestCase
 
     private function createChangedFilesDetectorFromConfigurationFile(string $configurationFile): ChangedFilesDetector
     {
-        $configurationFileLoader = new ConfigurationFileLoader($configurationFile, new Loader);
-
-        return new ChangedFilesDetector(new CacheFactory, $configurationFileLoader);
+        return new ChangedFilesDetector(new CacheFactory, $configurationFile);
     }
 }
