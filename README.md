@@ -137,14 +137,15 @@ checkers:
 
 Sometimes checker finds an error in code that inherits from 3rd party code. You are forced to use code that doesn't comply with your standards.
 
-Just add this checker and the file to `skip` section:
+Just add this checker and the file to under `skip` key in parameters section:
 
 ```bash
-skip:
-    # checkers to skip
-    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-        # list all the files you want to skip
-        - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
+parameters:
+    skip:
+        # checkers to skip
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
+            # list all the files you want to skip
+            - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
 ```
 
 
