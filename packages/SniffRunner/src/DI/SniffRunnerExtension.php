@@ -52,7 +52,7 @@ final class SniffRunnerExtension extends CompilerExtension
      */
     private function createSniffDefinition(string $sniffClass, array $configuration): ServiceDefinition
     {
-        $sniffDefinition = new ServiceDefinition();
+        $sniffDefinition = new ServiceDefinition;
         $sniffDefinition->setClass($sniffClass);
 
         foreach ($configuration as $property => $value) {
@@ -72,15 +72,26 @@ final class SniffRunnerExtension extends CompilerExtension
     private function escapeValue($value)
     {
         if (is_array($value)) {
-            foreach ($value as $key => $subValue) {
-                if (is_string($subValue)) {
-                    $value[$key] = $this->escapeAtSign($subValue);
-                }
-            }
+            return $this->escapeAtSignInArray($value);
         }
 
         if (is_string($value)) {
             return $this->escapeAtSign($value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param mixed[] $value
+     * @return mixed[]
+     */
+    private function escapeAtSignInArray(array $value): array
+    {
+        foreach ($value as $key => $subValue) {
+            if (is_string($subValue)) {
+                $value[$key] = $this->escapeAtSign($subValue);
+            }
         }
 
         return $value;

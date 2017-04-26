@@ -52,7 +52,7 @@ final class FixerRunnerExtension extends CompilerExtension
      */
     private function createFixerDefinition(string $fixerClass, array $configuration): ServiceDefinition
     {
-        $fixerDefinition = new ServiceDefinition();
+        $fixerDefinition = new ServiceDefinition;
         $fixerDefinition->setClass($fixerClass);
 
         if (count($configuration) && is_a($fixerClass, ConfigurableFixerInterface::class, true)) {

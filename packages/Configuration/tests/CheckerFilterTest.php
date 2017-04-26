@@ -14,9 +14,9 @@ final class CheckerFilterTest extends TestCase
      */
     private $checkerFilter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->checkerFilter = new CheckerFilter();
+        $this->checkerFilter = new CheckerFilter;
     }
 
     public function testFilterSniffs(): void
@@ -28,16 +28,16 @@ final class CheckerFilterTest extends TestCase
 
         $this->assertCount(1, $sniffs);
         $this->assertSame([FinalInterfaceSniff::class => []], $sniffs);
-     }
+    }
 
     public function testFixers(): void
     {
-         $fixers = $this->checkerFilter->filterFixers([
-             FinalInterfaceSniff::class => [],
-             DeclareStrictTypesFixer::class => []
-         ]);
+        $fixers = $this->checkerFilter->filterFixers([
+            FinalInterfaceSniff::class => [],
+            DeclareStrictTypesFixer::class => []
+        ]);
 
-         $this->assertCount(1, $fixers);
-         $this->assertSame([DeclareStrictTypesFixer::class => []], $fixers);
+        $this->assertCount(1, $fixers);
+        $this->assertSame([DeclareStrictTypesFixer::class => []], $fixers);
     }
 }

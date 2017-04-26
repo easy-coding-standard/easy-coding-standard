@@ -19,7 +19,7 @@ final class ChangedFilesDetector implements ChangedFilesDetectorInterface
      */
     private $cache;
 
-    public function __construct(CacheFactory $cacheFactory, string $configurationFile = null)
+    public function __construct(CacheFactory $cacheFactory, ?string $configurationFile = null)
     {
         $this->cache = $cacheFactory->create();
         $this->storeConfigurationDataHash(
@@ -62,9 +62,6 @@ final class ChangedFilesDetector implements ChangedFilesDetectorInterface
         return md5_file($filePath);
     }
 
-    /**
-     * @param mixed[] $configuration
-     */
     private function storeConfigurationDataHash(string $configurationHash): void
     {
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
