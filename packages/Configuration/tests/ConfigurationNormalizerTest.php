@@ -3,23 +3,23 @@
 namespace Symplify\EasyCodingStandard\Tests\Configuration;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationNormalizer;
+use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 
 final class ConfigurationNormalizerTest extends TestCase
 {
     /**
-     * @var ConfigurationNormalizer
+     * @var CheckerConfigurationNormalizer
      */
     private $configurationNormalizer;
 
     protected function setUp(): void
     {
-        $this->configurationNormalizer = new ConfigurationNormalizer;
+        $this->configurationNormalizer = new CheckerConfigurationNormalizer;
     }
 
     public function test(): void
     {
-        $normalizedConfiguration = $this->configurationNormalizer->normalizeClassesConfiguration([
+        $normalizedConfiguration = $this->configurationNormalizer->normalize([
             0 => 'sniff',
             'sniffAndItsConfig' => ['key' => 'value']
         ]);
