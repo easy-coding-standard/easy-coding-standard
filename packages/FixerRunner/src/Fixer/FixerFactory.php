@@ -4,31 +4,22 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Fixer;
 
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
-use Symplify\EasyCodingStandard\FixerRunner\Exception\Fixer\NotAFixerClassException;
+use Symplify\EasyCodingStandard\FixerRunner\DI\FixerRunnerExtension;
 
+/**
+ * @todo
+ * Move to @see FixerRunnerExtension
+ */
 final class FixerFactory
 {
-    /**
-     * @var CheckerConfigurationNormalizer
-     */
-    private $configurationNormalizer;
-
-    public function __construct(CheckerConfigurationNormalizer $configurationNormalizer)
-    {
-        $this->configurationNormalizer = $configurationNormalizer;
-    }
-
     /**
      * @param string[]
      * @return FixerInterface[]
      */
     public function createFromClasses(array $classes): array
     {
-        $configuredClasses = $this->configurationNormalizer->normalize($classes);
-
         $fixers = [];
-        foreach ($configuredClasses as $class => $config) {
+        foreach ($classes as $class => $config) {
             $fixers[] = $this->create($class, $config);
         }
 
@@ -41,8 +32,6 @@ final class FixerFactory
      */
     private function create(string $class, array $config): FixerInterface
     {
-        $this->ensureIsFixerClass($class);
-
         $fixer = new $class;
         $this->configureFixer($fixer, $config);
 
@@ -57,17 +46,6 @@ final class FixerFactory
     {
         if ($fixer instanceof ConfigurableFixerInterface && count($config)) {
             $fixer->configure($config);
-        }
-    }
-
-    private function ensureIsFixerClass(string $class): void
-    {
-        if (! is_a($class, FixerInterface::class, true)) {
-            throw new NotAFixerClassException(sprintf(
-                'Fixer class has to implement "%s". "%s" given.',
-                FixerInterface::class,
-                $class
-            ));
         }
     }
 }

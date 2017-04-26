@@ -7,7 +7,6 @@ use SplFileInfo;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
-use Symplify\EasyCodingStandard\Configuration\ConfigurationOptions;
 use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;

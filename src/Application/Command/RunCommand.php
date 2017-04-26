@@ -61,22 +61,6 @@ final class RunCommand
         return $this->shouldClearCache;
     }
 
-//    /**
-//     * @return mixed[][]
-//     */
-//    public function getSniffs(): array
-//    {
-//        return $this->filterClassesByType($this->getCheckers(), Sniff::class);
-//    }
-//
-//    /**
-//     * @return mixed[][]
-//     */
-//    public function getFixers(): array
-//    {
-//        return $this->filterClassesByType($this->getCheckers(), FixerInterface::class);
-//    }
-
     /**
      * @param string[] $sources
      */
@@ -102,26 +86,4 @@ final class RunCommand
             ));
         }
     }
-
-//    /**
-//     * @param string[] $classes
-//     * @param string $type
-//     * @return mixed[]
-//     */
-//    private function filterClassesByType(array $classes, string $type): array
-//    {
-//        return array_filter($classes, function ($class) use ($type) {
-//            return is_a($class, $type, true);
-//        }, ARRAY_FILTER_USE_KEY);
-//    }
-//
-//    /**
-//     * @return string[][]
-//     */
-//    private function getCheckers(): array
-//    {
-//        $checkers = $this->configuration[ConfigurationOptions::CHECKERS] ?? [];
-//
-//        return ConfigurationNormalizer::normalizeClassesConfiguration($checkers);
-//    }
 }

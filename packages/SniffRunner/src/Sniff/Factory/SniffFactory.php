@@ -3,28 +3,21 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Factory;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
-use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
-use Symplify\EasyCodingStandard\SniffRunner\Exception\Sniff\NotASniffClassException;
+use Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension;
 
+/**
+ * @todo
+ * Move to @see SniffRunnerExtension
+ */
 final class SniffFactory
 {
-    /**
-     * @var CheckerConfigurationNormalizer
-     */
-    private $configurationNormalizer;
-
-    public function __construct(CheckerConfigurationNormalizer $configurationNormalizer)
-    {
-        $this->configurationNormalizer = $configurationNormalizer;
-    }
-
     /**
      * @param string[]|int[][]|string[][] $classes
      * @return Sniff[]
      */
     public function createFromClasses(array $classes): array
     {
-        $configuredClasses = $this->configurationNormalizer->normalize($classes);
+        $configuredClasses = $classes;
 
         $sniffs = [];
         foreach ($configuredClasses as $class => $config) {
@@ -40,8 +33,6 @@ final class SniffFactory
      */
     private function create(string $class, array $config): Sniff
     {
-        $this->ensureIsSniffClass($class);
-
         $sniff = new $class;
         $this->configureSniff($sniff, $config);
 
@@ -56,17 +47,6 @@ final class SniffFactory
     {
         foreach ($config as $property => $value) {
             $sniff->$property = $value;
-        }
-    }
-
-    private function ensureIsSniffClass(string $class): void
-    {
-        if (! is_a($class, Sniff::class, true)) {
-            throw new NotASniffClassException(sprintf(
-                'Sniff class has to implement "%s". "%s" given.',
-                Sniff::class,
-                $class
-            ));
         }
     }
 }

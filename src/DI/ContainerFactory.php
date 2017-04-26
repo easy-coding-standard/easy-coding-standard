@@ -8,16 +8,10 @@ use Nette\DI\Container;
 use Nette\DI\Extensions\ExtensionsExtension;
 use Nette\DI\Extensions\PhpExtension;
 use Nette\Utils\FileSystem;
-use Symplify\EasyCodingStandard\FixerRunner\DI\FixerRunnerExtension;
-use Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension;
+use Symplify\EasyCodingStandard\Configuration\Option\ConfigurationFileOption;
 
 final class ContainerFactory
 {
-    /**
-     * @var string
-     */
-    private const CONFIG_NAME = 'easy-coding-standard.neon';
-
     public function create(): Container
     {
         $configurator = new Configurator;
@@ -25,11 +19,6 @@ final class ContainerFactory
         $configurator->setTempDirectory($this->createAndReturnTempDir());
 
         $this->loadConfigFiles($configurator);
-
-//        $configurator->addParameters([
-//           'checkers' => [123]
-//        ]);
-//        $configurator->addDynamicParameters(['checkers']);
 
         $configurator->defaultExtensions = [
             'php' => PhpExtension::class,
@@ -54,7 +43,7 @@ final class ContainerFactory
     private function loadConfigFiles(Configurator $configurator): void
     {
         $configurator->addConfig(__DIR__ . '/../config/config.neon');
-        $localConfig = getcwd() . '/' . self::CONFIG_NAME;
+        $localConfig = getcwd() . '/' . ConfigurationFileOption::FILE_NAME;
         if (file_exists($localConfig)) {
             $configurator->addConfig($localConfig);
         }
