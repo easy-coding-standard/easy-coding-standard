@@ -40,6 +40,7 @@
         "psr-4": {
             "Symplify\\EasyCodingStandard\\Tests\\": "tests",
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\Tests\\": "packages/ChangedFilesDetector/tests",
+            "Symplify\\EasyCodingStandard\\Configuration\\Tests\\": "packages/Configuration/tests",
             "Symplify\\EasyCodingStandard\\FixerRunner\\Tests\\": "packages/FixerRunner/tests",
             "Symplify\\EasyCodingStandard\\SniffRunner\\Tests\\": "packages/SniffRunner/tests"
         }
