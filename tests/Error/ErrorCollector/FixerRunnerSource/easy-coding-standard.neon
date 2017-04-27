@@ -1,2 +1,6 @@
 checkers:
     - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer
+    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
+        - const
+        - property
+        - method

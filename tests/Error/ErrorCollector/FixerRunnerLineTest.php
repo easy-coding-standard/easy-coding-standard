@@ -11,13 +11,8 @@ use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor;
 use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
 
-final class FixerRunnerTest extends TestCase
+final class FixerRunnerLineTest extends TestCase
 {
-    /**
-     * @var int
-     */
-    private const LINE_WITH_ERROR = 9;
-
     /**
      * @var ErrorCollector
      */
@@ -47,32 +42,25 @@ final class FixerRunnerTest extends TestCase
         $this->runFileProcessor();
 
         $this->assertSame(1, $this->errorDataCollector->getErrorCount());
-        $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
-        $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
 
         $errorMessages = $this->errorDataCollector->getAllErrors();
-        $this->assertCount(1, $errorMessages);
 
         /** @var Error $error */
         $error = array_pop($errorMessages)[0];
         $this->assertInstanceOf(Error::class, $error);
 
-        $this->assertSame(
-            'PHPUnit methods like `assertSame` should be used instead of `assertEquals`.',
-            $error->getMessage()
-        );
-        $this->assertSame(self::LINE_WITH_ERROR, $error->getLine());
+        $this->assertSame(8, $error->getLine());
     }
 
     private function runFileProcessor(): void
     {
         $runCommand = RunCommand::createForSourceFixerAndClearCache(
-            [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
+            [__DIR__ . '/ErrorCollectorSource/ConstantWithoutPublicDeclaration.php.inc'],
             false,
             true
         );
 
-        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
+        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/ConstantWithoutPublicDeclaration.php.inc');
 
         $this->fileProcessor->setupWithCommand($runCommand);
         $this->fileProcessor->processFile($fileInfo);

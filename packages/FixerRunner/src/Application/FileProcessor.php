@@ -115,15 +115,15 @@ final class FileProcessor implements FileProcessorInterface, FixerCollectorInter
 
     private function detectChangedLineFromTokens(Tokens $tokens): int
     {
-        $line = 1;
+        $line = 0;
         foreach ($tokens as $token) {
             $line += substr_count($token->getContent(), PHP_EOL);
             if ($token->isChanged()) {
-                return $line;
+                return ++$line;
             }
         }
 
-        return 0;
+        return $line;
     }
 
     private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): void
