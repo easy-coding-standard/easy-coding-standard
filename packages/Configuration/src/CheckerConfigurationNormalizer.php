@@ -2,6 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
+use Symplify\EasyCodingStandard\Configuration\Exception\DuplicatedCheckerFoundException;
+
 final class CheckerConfigurationNormalizer
 {
     /**
@@ -19,9 +21,27 @@ final class CheckerConfigurationNormalizer
                 $config = [];
             }
 
+            self::ensureThereAreNoDuplications($configuredClasses, $name);
             $configuredClasses[$name] = $config;
         }
 
         return $configuredClasses;
+    }
+
+    /**
+     * @param string[] $configuredClasses
+     * @param string $name
+     */
+    private static function ensureThereAreNoDuplications(array $configuredClasses, string $name): void
+    {
+        if (! isset($configuredClasses[$name])) {
+            return;
+        }
+
+        throw new DuplicatedCheckerFoundException(sprintf(
+            'Checker "%s" is being registered twice.'
+             . ' Keep it only once, so configuration is clear and performance better.',
+            $name
+        ));
     }
 }
