@@ -23,8 +23,6 @@ final class RunCommand
 
     /**
      * @param string[] $source
-     * @param bool $isFixer
-     * @param bool $shouldClearCache
      */
     private function __construct(array $source, bool $isFixer, bool $shouldClearCache)
     {
@@ -35,8 +33,6 @@ final class RunCommand
 
     /**
      * @param string[] $source
-     * @param bool $isFixer
-     * @param bool $shouldClearCache
      */
     public static function createForSourceFixerAndClearCache(array $source, bool $isFixer, bool $shouldClearCache): self
     {

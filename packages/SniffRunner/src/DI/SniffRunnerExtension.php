@@ -47,7 +47,6 @@ final class SniffRunnerExtension extends CompilerExtension
     }
 
     /**
-     * @param string $sniffClass
      * @param mixed[] $configuration
      */
     private function createSniffDefinition(string $sniffClass, array $configuration): ServiceDefinition

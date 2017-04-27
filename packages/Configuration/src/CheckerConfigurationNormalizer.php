@@ -30,7 +30,6 @@ final class CheckerConfigurationNormalizer
 
     /**
      * @param string[] $configuredClasses
-     * @param string $name
      */
     private static function ensureThereAreNoDuplications(array $configuredClasses, string $name): void
     {

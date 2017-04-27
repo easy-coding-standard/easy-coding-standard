@@ -28,7 +28,6 @@ final class SourceFinder
 
     /**
      * @param SplFileInfo[] $files
-     * @param string $file
      * @return SplFileInfo[]
      */
     private function processFile(array $files, string $file): array

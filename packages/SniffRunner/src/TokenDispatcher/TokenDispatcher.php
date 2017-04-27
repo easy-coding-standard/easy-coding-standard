@@ -37,7 +37,6 @@ final class TokenDispatcher
 
     /**
      * @param int|string $token
-     * @param FileTokenEvent $fileTokenEvent
      */
     public function dispatchToken($token, FileTokenEvent $fileTokenEvent): void
     {

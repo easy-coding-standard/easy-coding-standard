@@ -28,7 +28,6 @@ final class Skipper implements SkipperInterface
 
     /**
      * @param Sniff|FixerInterface|string $checker
-     * @param string $relativeFilePath
      */
     public function shouldSkipCheckerAndFile($checker, string $relativeFilePath): bool
     {
@@ -46,7 +45,6 @@ final class Skipper implements SkipperInterface
     }
 
     /**
-     * @param string $relativeFilePath
      * @param string[] $skippedFiles
      */
     private function doesFileMatchSkippedFiles(string $relativeFilePath, array $skippedFiles): bool

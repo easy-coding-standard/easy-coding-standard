@@ -47,7 +47,6 @@ final class FixerRunnerExtension extends CompilerExtension
     }
 
     /**
-     * @param string $fixerClass
      * @param mixed[] $configuration
      */
     private function createFixerDefinition(string $fixerClass, array $configuration): ServiceDefinition

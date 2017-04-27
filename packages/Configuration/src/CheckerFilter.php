@@ -27,7 +27,6 @@ final class CheckerFilter
 
     /**
      * @param mixed[][] $classes
-     * @param string $type
      * @return mixed[][]
      */
     private function filterClassesByType(array $classes, string $type): array
