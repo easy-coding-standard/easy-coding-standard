@@ -5,45 +5,13 @@ namespace Symplify\EasyCodingStandard\DI;
 use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
 use Symplify\EasyCodingStandard\Application\Application;
-use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
-use Symplify\EasyCodingStandard\Configuration\CheckerFilter;
-use Symplify\EasyCodingStandard\Configuration\Option\FixersOption;
-use Symplify\EasyCodingStandard\Configuration\Option\SniffsOption;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 use Symplify\PackageBuilder\Adapter\Nette\DI\DefinitionCollector;
 
 final class EasyCodingStandardExtension extends CompilerExtension
 {
-    /**
-     * @var CheckerConfigurationNormalizer
-     */
-    private $configurationNormalizer;
-
-    /**
-     * @var CheckerTypeValidator
-     */
-    private $checkerTypeValidator;
-
-    /**
-     * @var CheckerFilter
-     */
-    private $checkerFilter;
-
-    public function __construct()
-    {
-        $this->configurationNormalizer = new CheckerConfigurationNormalizer;
-        $this->checkerTypeValidator = new CheckerTypeValidator;
-        $this->checkerFilter = new CheckerFilter;
-    }
-
     public function loadConfiguration(): void
     {
-        $checkers = $this->configurationNormalizer->normalize($this->getConfig());
-
-        $this->checkerTypeValidator->validate(array_keys($checkers));
-        $this->setCheckersToGlobalParameters($checkers);
-
         Compiler::loadDefinitions(
             $this->getContainerBuilder(),
             $this->loadFromFile(__DIR__ . '/../config/services.neon')
@@ -58,14 +26,5 @@ final class EasyCodingStandardExtension extends CompilerExtension
             FileProcessorInterface::class,
             'addFileProcessor'
         );
-    }
-
-    /**
-     * @param mixed[][] $checkers
-     */
-    private function setCheckersToGlobalParameters(array $checkers): void
-    {
-        $this->getContainerBuilder()->parameters[SniffsOption::NAME] = $this->checkerFilter->filterSniffs($checkers);
-        $this->getContainerBuilder()->parameters[FixersOption::NAME] = $this->checkerFilter->filterFixers($checkers);
     }
 }
