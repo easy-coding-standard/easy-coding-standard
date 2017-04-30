@@ -33,8 +33,7 @@
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\": "packages/ChangedFilesDetector/src",
             "Symplify\\EasyCodingStandard\\Configuration\\": "packages/Configuration/src",
             "Symplify\\EasyCodingStandard\\FixerRunner\\": "packages/FixerRunner/src",
-            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/SniffRunner/src",
-            "PHP_CodeSniffer\\": "vendor/squizlabs/php_codesniffer/src"
+            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/SniffRunner/src"
         }
     },
     "autoload-dev": {

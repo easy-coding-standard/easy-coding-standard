@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Legacy;
 
+use Nette\Loaders\RobotLoader;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
@@ -19,6 +20,7 @@ final class LegacyCompatibilityLayer
             return;
         }
 
+        self::autoloadCodeSniffer();
         self::setupClassAliases();
         self::ensureLineEndingsAreDetected();
         self::setupVerbosityToMakeLegacyCodeRun();
@@ -41,6 +43,15 @@ final class LegacyCompatibilityLayer
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
             define('PHP_CODESNIFFER_VERBOSITY', 0);
         }
+    }
+
+    private static function autoloadCodeSniffer()
+    {
+        $robotLoader = new RobotLoader();
+        $robotLoader->acceptFiles = '*.php';
+        $robotLoader->setTempDirectory(sys_get_temp_dir() . '/_robot_loader');
+        $robotLoader->addDirectory(getcwd() . '/vendor/squizlabs/php_codesniffer/src');
+        $robotLoader->register();
     }
 
     private static function setupClassAliases(): void
