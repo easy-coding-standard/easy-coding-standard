@@ -45,9 +45,9 @@ final class LegacyCompatibilityLayer
         }
     }
 
-    private static function autoloadCodeSniffer()
+    private static function autoloadCodeSniffer(): void
     {
-        $robotLoader = new RobotLoader();
+        $robotLoader = new RobotLoader;
         $robotLoader->acceptFiles = '*.php';
         $robotLoader->setTempDirectory(sys_get_temp_dir() . '/_robot_loader');
         $robotLoader->addDirectory(getcwd() . '/vendor/squizlabs/php_codesniffer/src');
