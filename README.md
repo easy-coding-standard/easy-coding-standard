@@ -4,28 +4,24 @@
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/Symplify/EasyCodingStandard.svg?style=flat-square)](https://scrutinizer-ci.com/g/Symplify/EasyCodingStandard)
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 
-
 ## Install
 
 ```bash
-composer require symplify/easy-coding-standard:2.0-RC1 squizlabs/php_codesniffer:"3.0.0RC4 as 2.8.1"
+composer require symplify/easy-coding-standard:2.0-RC4
 ```
 
 
 ## Usage
 
-
-### 1. Create Configuration
+### 1. Create Configuration and Setup Checkers
 
 Create a `easy-coding-standard.neon` file in your root directory.
 
-Here you can use both [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) and [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
-
-**We call them *Checkers*.**
+Here you can use 2 *checker classes*: [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) and [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
 #### Start Slow, Grow Fast
 
-I recommend starting slow with 2 checkers, so you have everything under control.
+Let's start slow with 2 checkers, so we have everything under control.
 
 ```yaml
 checkers:
@@ -38,12 +34,15 @@ checkers:
 
 #### Don't write Checker Classes, Make use of NEON Plugin
 
-I didn't really type `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too lazy for that. I used **fuzzy search** instead. Thanks to the awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/)
+I didn't really type `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too lazy for that. 
 
-@todo - fuzzy image typing class parts
+I used **class autocomplete** thanks to the awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/) :clap:.
 
 
-### 2. Run it in CLI
+![ECS-Run](docs/neon-autocomplete.gif)
+
+
+### 2. Run it in CLI... and Fix It!
 
 ```bash
 vendor/bin/easy-coding-standard check src
@@ -58,51 +57,26 @@ vendor/bin/easy-coding-standard check src/Doctrine*
 Or multiple sources:
 
 ```bash
-vendor/bin/easy-coding-standard check src/Repository src/Entity
+vendor/bin/easy-coding-standard check src tests
 ```
 
-
-Ok, we get output:
-
-@todo: image gif
-
-
-
-Green = good error
-Red = bad error
-
-
-@todo explain
-
-
-### Fix it
+#### How to Fix Things?
 
 ```bash
 vendor/bin/easy-coding-standard check src --fix
 ```
 
 
-### Configure checker
-
-There are also user-friendly checkers that don't force you in one direction, but allow you to setup your preferences. For example short array `[]` vs long `array()`.
+![ECS-Run](docs/run-and-fix.gif)
 
 
-Let's say you want to add short syntax checker:
+## More Features
 
-```yaml
-checkers:
-   - PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer
-```
+### Configure Your Checker
 
-Run it:
+There are also user-friendly checkers that allow you to **setup YOUR preferences**.
 
-@error screen
-
-Hm. It looks like it's long by default. But we are using PHP 7.1, we want modern syntax!
-
-This fixer requires us to configure this preference.
-
-@how and what are the properties? Here we can use Neon plugin again. Just cltr + click the class and see. Look for `$defaultConfiguration` property.
+For example short array `[]` vs long `array()`. I prefer `[]`:
 
 ```bash
 checkers:
@@ -110,41 +84,18 @@ checkers:
         syntax: short
 ```
 
-Nice and clear.
+### Ignore What You Can't Fix
 
-Now run again. Voilà!
+Sometimes, checker finds an error in code that inherits from 3rd party code, that you can't change. 
 
+No worries! You can **skip checker for this file** in `skip` section.
 
-### Lazy Tip #1: Group by Type
-
-When you use this tool, you'd probably end up with 50 to 60 checkers. That's fine. But hard to navigate.
-
-You can group checkers by type:
-
-```bash
-checkers:
-    # php 7 features
-    ...
-
-    # php syntax
-    ...
-
-    # classes
-    ...
-
-
-### Lazy Tip #2: Ignore What You Can't Fix
-
-Sometimes checker finds an error in code that inherits from 3rd party code. You are forced to use code that doesn't comply with your standards.
-
-Just add this checker and the file to under `skip` key in parameters section:
-
-```bash
+```yaml
 parameters:
     skip:
-        # checkers to skip
+        # checkers to skip (you can use autocomplete here as well)
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-            # list all the files you want to skip
+            # list all the files you want to skip (I usually just copy this from error report)
             - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
 ```
 
