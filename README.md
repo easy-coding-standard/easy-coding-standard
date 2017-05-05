@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-composer require symplify/easy-coding-standard:2.0-RC4
+composer require symplify/easy-coding-standard:v2.0.0-RC3
 ```
 
 
