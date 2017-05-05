@@ -6,8 +6,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/console": "^3.3",
-        "symfony/finder": "^3.3",
+        "symfony/console": "^3.2",
+        "symfony/finder": "^3.2",
         "nette/application": "^2.4",
         "nette/bootstrap": "^2.4",
         "nette/caching": "^2.4",
@@ -19,7 +19,7 @@
 
         "symplify/package-builder": "^1.4",
         "friendsofphp/php-cs-fixer": "^2.3",
-        "squizlabs/php_codesniffer": "3.0.0RC4 as 2.8.1",
+        "squizlabs/php_codesniffer": "3.0.0 as 2.8.1",
         "contributte/console": "^0.1"
     },
     "require-dev": {
