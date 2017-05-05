@@ -25,18 +25,15 @@ Let's start slow with 2 checkers, so we have everything under control.
 
 ```yaml
 checkers:
-    # declare(strict_types=1);
-    - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
-
-    # proper spacing around "class" keyword, after opening brace etc.
-    - PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff
+    - PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff
+    - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
 ```
 
 #### Don't write Checker Classes, Make use of NEON Plugin
 
-I didn't really type `PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer`. I'm too lazy for that. 
+I didn't really type `PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff`. I'm too lazy for that. 
 
-I used **class autocomplete** thanks to the awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matějka](http://www.matej21.cz/) :clap:.
+I used **class autocomplete** thanks to awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matejka](https://github.com/matej21/) :clap:.
 
 
 ![ECS-Run](docs/neon-autocomplete.gif)
@@ -78,7 +75,7 @@ There are also user-friendly checkers that allow you to **setup YOUR preferences
 
 For example short array `[]` vs long `array()`. I prefer `[]`:
 
-```bash
+```yaml
 checkers:
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
