@@ -1,6 +1,7 @@
 {
     "name": "symplify/easy-coding-standard",
     "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer.",
+    "license": "MIT",
     "bin": [
         "bin/easy-coding-standard"
     ],
