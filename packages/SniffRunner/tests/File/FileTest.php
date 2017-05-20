@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
@@ -43,35 +44,27 @@ final class FileTest extends AbstractContainerAwareTestCase
         $this->assertSame(1, $this->errorCollector->getFixableErrorCount());
     }
 
-    /**
-     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
-     */
     public function testNotImplementedGetErrorCount(): void
     {
+        $this->expectException(NotImplementedException::class);
         $this->file->getErrorCount();
     }
 
-    /**
-     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
-     */
     public function testNotImplementedGetErrors(): void
     {
+        $this->expectException(NotImplementedException::class);
         $this->file->getErrors();
     }
 
-    /**
-     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
-     */
     public function testNotImplementedProcess(): void
     {
+        $this->expectException(NotImplementedException::class);
         $this->file->process();
     }
 
-    /**
-     * @expectedException \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException
-     */
     public function testNotImplementedParse(): void
     {
+        $this->expectException(NotImplementedException::class);
         $this->file->parse();
     }
 }
