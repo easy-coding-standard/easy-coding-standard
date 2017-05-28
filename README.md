@@ -1,7 +1,7 @@
 # Combine PHP_CodeSniffer and PHP-CS-Fixer in one Config
 
 [![Build Status](https://img.shields.io/travis/Symplify/EasyCodingStandard/master.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/Symplify/EasyCodingStandard.svg?style=flat-square)](https://scrutinizer-ci.com/g/Symplify/EasyCodingStandard)
+[![Code Coverage](https://img.shields.io/coveralls/Symplify/EasyCodingStandard.svg?style=flat-square)](https://coveralls.io/github/Symplify/EasyCodingStandard)
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 
 ## Install
