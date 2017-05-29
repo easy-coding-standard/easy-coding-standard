@@ -7,8 +7,8 @@
     ],
     "require": {
         "php": "^7.1",
-        "symfony/console": "^3.2",
-        "symfony/finder": "^3.2",
+        "symfony/console": "^3.3",
+        "symfony/finder": "^3.3",
         "nette/application": "^2.4",
         "nette/bootstrap": "^2.4",
         "nette/caching": "^2.4",
