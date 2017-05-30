@@ -6,7 +6,6 @@ use Nette\Bridges\CacheDI\CacheExtension;
 use Nette\Configurator;
 use Nette\DI\Container;
 use Nette\DI\Extensions\ExtensionsExtension;
-use Nette\DI\Extensions\PhpExtension;
 use Nette\Utils\FileSystem;
 use Symplify\EasyCodingStandard\Configuration\Option\ConfigurationFileOption;
 
@@ -21,7 +20,6 @@ final class ContainerFactory
         $this->loadConfigFiles($configurator);
 
         $configurator->defaultExtensions = [
-            'php' => PhpExtension::class,
             'extensions' => ExtensionsExtension::class,
             'cache' => [CacheExtension::class, ['%tempDir%']]
         ];
