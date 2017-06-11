@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Tests\DI;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
+use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 
 final class FixerServiceRegistrationTest extends TestCase
 {
@@ -16,7 +16,7 @@ final class FixerServiceRegistrationTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactoryWithCustomConfig)->createWithConfig(
+        $container = (new ContainerFactory())->createWithCustomConfig(
             __DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.neon'
         );
 

@@ -6,10 +6,10 @@ use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
 
 final class FixerRunnerTest extends TestCase
 {
@@ -30,7 +30,7 @@ final class FixerRunnerTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactoryWithCustomConfig)->createWithConfig(
+        $container = (new ContainerFactory())->createWithCustomConfig(
             __DIR__ . '/FixerRunnerSource/easy-coding-standard.neon'
         );
 

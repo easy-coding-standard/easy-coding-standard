@@ -6,11 +6,11 @@ use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
-use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
 
 final class SniffRunnerTest extends TestCase
 {
@@ -26,14 +26,14 @@ final class SniffRunnerTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactoryWithCustomConfig)->createWithConfig(
+        $container = (new ContainerFactory())->createWithCustomConfig(
             __DIR__ . '/SniffRunnerSource/easy-coding-standard.neon'
         );
         $this->errorDataCollector = $container->get(ErrorCollector::class);
         $this->fileProcessor = $container->get(FileProcessor::class);
 
-        /** @var ChangedFilesDetectorInterface $changedFilesDetector */
-        $changedFilesDetector = $container->get(ChangedFilesDetectorInterface::class);
+        /** @var ChangedFilesDetector $changedFilesDetector */
+        $changedFilesDetector = $container->get(ChangedFilesDetector::class);
         $changedFilesDetector->clearCache();
     }
 

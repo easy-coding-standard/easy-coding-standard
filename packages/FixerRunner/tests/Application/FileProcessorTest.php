@@ -5,8 +5,8 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Application;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
 
 final class FileProcessorTest extends TestCase
 {
@@ -17,7 +17,7 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactoryWithCustomConfig)->createWithConfig(
+        $container = (new ContainerFactory())->createWithCustomConfig(
             __DIR__ . '/FileProcessorSource/easy-coding-standard.neon'
         );
 

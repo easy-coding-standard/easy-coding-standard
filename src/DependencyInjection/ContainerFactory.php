@@ -8,7 +8,12 @@ final class ContainerFactory
 {
     public function create(): ContainerInterface
     {
-        $appKernel = new AppKernel('dev', true);
+        return $this->createWithCustomConfig([]);
+    }
+
+    public function createWithCustomConfig(string $customConfig): ContainerInterface
+    {
+        $appKernel = new AppKernel($customConfig);
         $appKernel->boot();
 
         return $appKernel->getContainer();

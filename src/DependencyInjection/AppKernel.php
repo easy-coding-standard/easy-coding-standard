@@ -19,6 +19,17 @@ final class AppKernel extends Kernel
      */
     private const CONFIG_NAME = 'easy-coding-standard.neon';
 
+    /**
+     * @var string
+     */
+    private $customConfig;
+
+    public function __construct(string $customConfig = '')
+    {
+        $this->customConfig = $customConfig;
+        parent::__construct('dev', true);
+    }
+
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../config/services.yml');
@@ -26,6 +37,10 @@ final class AppKernel extends Kernel
         $localConfig = getcwd() . '/' . self::CONFIG_NAME;
         if (file_exists($localConfig)) {
             $loader->load($localConfig);
+        }
+
+        if ($this->customConfig && file_exists($this->customConfig)) {
+            $loader->load($this->customConfig);
         }
     }
 
