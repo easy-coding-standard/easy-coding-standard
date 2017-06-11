@@ -1,8 +1,0 @@
-extensions:
-    checkers: Symplify\EasyCodingStandard\DI\CheckerExtension
-    - Symplify\EasyCodingStandard\DI\EasyCodingStandardExtension
-    - Symplify\EasyCodingStandard\FixerRunner\DI\FixerRunnerExtension
-    - Symplify\EasyCodingStandard\SniffRunner\DI\SniffRunnerExtension
-    - Symplify\EasyCodingStandard\Configuration\DI\ConfigurationExtension
-    - Symplify\EasyCodingStandard\ChangedFilesDetector\DI\ChangedFilesDetectorExtension
-    - Contributte\Console\DI\ConsoleExtension
