@@ -14,8 +14,8 @@ final class ContainerFactoryWithCustomConfig
     public function createWithConfig(string $customConfig): Container
     {
         $configurator = new Configurator;
-        $configurator->setDebugMode(true);
-        $configurator->setTempDirectory($this->createAndReturnTempDir());
+//        $configurator->setDebugMode(true);
+//        $configurator->setTempDirectory($this->createAndReturnTempDir());
 
         $configurator->addConfig(__DIR__ . '/../src/config/config.neon');
         $configurator->addConfig($customConfig);

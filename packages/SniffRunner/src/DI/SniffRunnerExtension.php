@@ -2,36 +2,17 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\DI;
 
-use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
 use Nette\DI\ServiceDefinition;
 use Nette\Utils\Strings;
-use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Configuration\Option\SniffsOption;
-use Symplify\EasyCodingStandard\SniffRunner\Contract\SniffCollectorInterface;
-use Symplify\PackageBuilder\Adapter\Nette\DI\DefinitionCollector;
 
 final class SniffRunnerExtension extends CompilerExtension
 {
     public function loadConfiguration(): void
     {
-        Compiler::loadDefinitions(
-            $this->getContainerBuilder(),
-            $this->loadFromFile(__DIR__ . '/../config/services.neon')
-        );
-
         $sniffs = $this->getContainerBuilder()->parameters[SniffsOption::NAME];
         $this->registerSniffsAsServices($sniffs);
-    }
-
-    public function beforeCompile(): void
-    {
-        DefinitionCollector::loadCollectorWithType(
-            $this->getContainerBuilder(),
-            SniffCollectorInterface::class,
-            Sniff::class,
-            'addSniff'
-        );
     }
 
     /**

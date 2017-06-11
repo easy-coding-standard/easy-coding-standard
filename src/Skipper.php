@@ -7,10 +7,9 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\Glob;
 use Symplify\EasyCodingStandard\Configuration\Parameter\ParameterProvider;
-use Symplify\EasyCodingStandard\Contract\SkipperInterface;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
-final class Skipper implements SkipperInterface
+final class Skipper
 {
     /**
      * @var string[][]

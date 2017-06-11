@@ -2,9 +2,6 @@ services:
     _defaults:
         autowire: true
 
-#    Symplify\EasyCodingStandard\Configuration\Parameter\ParameterProvider:
-#        arguments: ['@service_container']
-
     # PSR-4 autodiscovery
     Symplify\EasyCodingStandard\:
         resource: '../../src'

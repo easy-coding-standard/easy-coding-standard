@@ -1,23 +1,23 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\DependencyInjection;
+namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 final class CheckersExtension extends Extension
 {
+    public function getAlias(): string
+    {
+        return 'checkers';
+    }
 
     /**
-     * Loads a specific configuration.
-     *
-     * @param array $configs An array of configuration values
-     * @param ContainerBuilder $container A ContainerBuilder instance
-     *
-     * @throws \InvalidArgumentException When provided tag is not defined in this extension
+     * @param mixed[] $configs
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
-        // TODO: Implement load() method.
+        dump($configs);
+        die;
     }
 }

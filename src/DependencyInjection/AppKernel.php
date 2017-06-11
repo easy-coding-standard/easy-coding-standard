@@ -6,6 +6,7 @@ use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symplify\EasyCodingStandard\Configuration\Loader\NeonLoader;
@@ -20,12 +21,7 @@ final class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        /** @var DelegatingLoader $loader */
         $loader->load(__DIR__ . '/../config/services.yml');
-
-        /** @var LoaderResolver $resolver */
-        $resolver = $loader->getResolver();
-        $resolver->addLoader(new NeonLoader);
 
         $localConfig = getcwd() . '/' . self::CONFIG_NAME;
         if (file_exists($localConfig)) {
@@ -38,7 +34,9 @@ final class AppKernel extends Kernel
      */
     public function registerBundles(): array
     {
-        return [];
+        return [
+            new CheckersBundle
+        ];
     }
 
     public function getCacheDir(): string
@@ -54,5 +52,17 @@ final class AppKernel extends Kernel
     protected function build(ContainerBuilder $containerBuilder): void
     {
         $containerBuilder->addCompilerPass(new CollectorCompilerPass);
+    }
+
+    protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
+    {
+        /** @var DelegatingLoader $delegationLoader */
+        $delegationLoader = parent::getContainerLoader($container);
+
+        /** @var LoaderResolver $resolver */
+        $resolver = $delegationLoader->getResolver();
+        $resolver->addLoader(new NeonLoader);
+
+        return $delegationLoader;
     }
 }
