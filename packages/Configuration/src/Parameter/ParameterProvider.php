@@ -2,19 +2,25 @@
 
 namespace Symplify\EasyCodingStandard\Configuration\Parameter;
 
-use Nette\DI\Container;
-use Symplify\EasyCodingStandard\Configuration\Contract\Parameter\ParameterProviderInterface;
+use Nette\Utils\Strings;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class ParameterProvider implements ParameterProviderInterface
+final class ParameterProvider
 {
     /**
      * @var mixed[]
      */
     private $parameters = [];
 
-    public function __construct(Container $container)
+    /**
+     * @param Container|ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
     {
-        $this->parameters = $this->unsetNetteParameters($container->getParameters());
+        $parameters = $container->getParameterBag()
+            ->all();
+        $this->parameters = $this->unsetKernelParameters($parameters);
     }
 
     /**
@@ -29,13 +35,13 @@ final class ParameterProvider implements ParameterProviderInterface
      * @param mixed[] $parameters
      * @return mixed[]
      */
-    private function unsetNetteParameters(array $parameters): array
+    private function unsetKernelParameters(array $parameters): array
     {
-        unset(
-            $parameters['appDir'], $parameters['wwwDir'],
-            $parameters['debugMode'], $parameters['productionMode'],
-            $parameters['consoleMode'], $parameters['tempDir']
-        );
+        foreach ($parameters as $name => $value) {
+            if (Strings::startsWith($name, 'kernel')) {
+                unset($parameters[$name]);
+            }
+        }
 
         return $parameters;
     }

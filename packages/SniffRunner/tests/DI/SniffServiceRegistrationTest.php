@@ -19,7 +19,7 @@ final class SniffServiceRegistrationTest extends TestCase
             __DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.neon'
         );
 
-        $this->lineLengthSniff = $container->getByType(LineLengthSniff::class);
+        $this->lineLengthSniff = $container->get(LineLengthSniff::class);
     }
 
     public function test(): void

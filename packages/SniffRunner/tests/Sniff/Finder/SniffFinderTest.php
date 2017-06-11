@@ -9,7 +9,7 @@ final class SniffFinderTest extends AbstractContainerAwareTestCase
 {
     public function test(): void
     {
-        $sniffFinder = $this->container->getByType(SniffFinder::class);
+        $sniffFinder = $this->container->get(SniffFinder::class);
         $this->assertGreaterThan(250, $sniffFinder->findAllSniffClasses());
     }
 }

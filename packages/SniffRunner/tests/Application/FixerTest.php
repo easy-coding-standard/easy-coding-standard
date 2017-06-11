@@ -26,12 +26,12 @@ final class FixerTest extends TestCase
         $container = (new ContainerFactory)->create();
 
         /** @var FileFactory $fileFactory */
-        $fileFactory = $container->getByType(FileFactory::class);
+        $fileFactory = $container->get(FileFactory::class);
 
         $fileInfo = new SplFileInfo(__DIR__ . '/FixerSource/SomeFile.php');
 
         $this->file = $fileFactory->createFromFileInfo($fileInfo, true);
-        $this->fixer = $container->getByType(Fixer::class);
+        $this->fixer = $container->get(Fixer::class);
     }
 
     public function testStartFile(): void

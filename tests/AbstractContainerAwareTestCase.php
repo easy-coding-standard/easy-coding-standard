@@ -2,14 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\Tests;
 
-use Nette\DI\Container;
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DI\ContainerFactory;
+use Psr\Container\ContainerInterface;
+use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 
 abstract class AbstractContainerAwareTestCase extends TestCase
 {
     /**
-     * @var Container
+     * @var ContainerInterface
      */
     protected $container;
 

@@ -15,7 +15,7 @@ final class ApplicationTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->application = $this->container->getByType(Application::class);
+        $this->application = $this->container->get(Application::class);
     }
 
     public function testFileProcessorsAreLoaded(): void

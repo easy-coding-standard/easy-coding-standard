@@ -17,7 +17,7 @@ final class ErrorSorterTest extends TestCase
     public function setUp(): void
     {
         $container = (new ContainerFactory)->create();
-        $this->errorSorter = $container->getByType(ErrorSorter::class);
+        $this->errorSorter = $container->get(ErrorSorter::class);
     }
 
     public function test(): void

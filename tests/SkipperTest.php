@@ -4,8 +4,9 @@ namespace Symplify\EasyCodingStandard\Tests;
 
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\Container;
 use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
-use Symplify\EasyCodingStandard\Configuration\Contract\Parameter\ParameterProviderInterface;
+use Symplify\EasyCodingStandard\Configuration\Parameter\ParameterProvider;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
@@ -39,21 +40,13 @@ final class SkipperTest extends TestCase
         ));
     }
 
-    private function createParameterProvider(): ParameterProviderInterface
+    private function createParameterProvider(): ParameterProvider
     {
-        return new class implements ParameterProviderInterface
-        {
-            /**
-             * @return mixed[]
-             */
-            public function provide(): array
-            {
-                return [
-                    'skip' => [
-                        DeclareStrictTypesFixer::class => ['someFile']
-                    ]
-                ];
-            }
-        };
+        $container = new Container();
+        $container->setParameter('skip', [
+            DeclareStrictTypesFixer::class => ['someFile']
+        ]);
+
+        return new ParameterProvider($container);
     }
 }

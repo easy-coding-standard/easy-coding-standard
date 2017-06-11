@@ -20,7 +20,7 @@ final class FixerServiceRegistrationTest extends TestCase
             __DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.neon'
         );
 
-        $this->arraySyntaxFixer = $container->getByType(ArraySyntaxFixer::class);
+        $this->arraySyntaxFixer = $container->get(ArraySyntaxFixer::class);
     }
 
     public function test(): void

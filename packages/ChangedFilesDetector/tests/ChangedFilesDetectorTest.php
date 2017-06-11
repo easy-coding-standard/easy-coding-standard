@@ -6,12 +6,11 @@ use Nette\Utils\FileSystem;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 
 final class ChangedFilesDetectorTest extends TestCase
 {
     /**
-     * @var ChangedFilesDetectorInterface
+     * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
 

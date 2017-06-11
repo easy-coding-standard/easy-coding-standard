@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 
 final class ErrorCollector
 {
@@ -23,11 +23,11 @@ final class ErrorCollector
     private $errorMessageSorter;
 
     /**
-     * @var ChangedFilesDetectorInterface
+     * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
 
-    public function __construct(ErrorSorter $errorMessageSorter, ChangedFilesDetectorInterface $changedFilesDetector)
+    public function __construct(ErrorSorter $errorMessageSorter, ChangedFilesDetector $changedFilesDetector)
     {
         $this->errorMessageSorter = $errorMessageSorter;
         $this->changedFilesDetector = $changedFilesDetector;

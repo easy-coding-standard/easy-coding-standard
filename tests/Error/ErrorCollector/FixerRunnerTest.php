@@ -5,10 +5,10 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
-use Symplify\EasyCodingStandard\FixerRunner\Application\FileProcessor;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Tests\ContainerFactoryWithCustomConfig;
 
 final class FixerRunnerTest extends TestCase
@@ -24,7 +24,7 @@ final class FixerRunnerTest extends TestCase
     private $errorDataCollector;
 
     /**
-     * @var FileProcessor
+     * @var FixerFileProcessor
      */
     private $fileProcessor;
 
@@ -34,11 +34,11 @@ final class FixerRunnerTest extends TestCase
             __DIR__ . '/FixerRunnerSource/easy-coding-standard.neon'
         );
 
-        $this->errorDataCollector = $container->getByType(ErrorCollector::class);
-        $this->fileProcessor = $container->getByType(FileProcessor::class);
+        $this->errorDataCollector = $container->get(ErrorCollector::class);
+        $this->fileProcessor = $container->get(FixerFileProcessor::class);
 
-        /** @var ChangedFilesDetectorInterface $changedFilesDetector */
-        $changedFilesDetector = $container->getByType(ChangedFilesDetectorInterface::class);
+        /** @var ChangedFilesDetector $changedFilesDetector */
+        $changedFilesDetector = $container->get(ChangedFilesDetector::class);
         $changedFilesDetector->clearCache();
     }
 

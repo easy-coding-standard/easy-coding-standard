@@ -10,10 +10,9 @@ use Symfony\Component\Filesystem\Exception\IOException;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
-use Symplify\EasyCodingStandard\FixerRunner\Contract\FixerCollectorInterface;
 use Symplify\EasyCodingStandard\Skipper;
 
-final class FileProcessor implements FileProcessorInterface, FixerCollectorInterface
+final class FixerFileProcessor implements FileProcessorInterface
 {
     /**
      * @var FixerInterface[]
@@ -94,7 +93,7 @@ final class FileProcessor implements FileProcessorInterface, FixerCollectorInter
         // Therefore we need to check if code hashes changed.
         if ($this->isFixer && ($oldHash !== $newHash)) {
             if (@file_put_contents($file->getRealPath(), $new) === false) {
-                // @todo: move to sniffer FileProcessor as well, decouple FileSystem service?
+                // @todo: move to sniffer FixerFileProcessor as well, decouple FileSystem service?
                 $error = error_get_last();
 
                 throw new IOException(

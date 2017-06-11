@@ -2,7 +2,7 @@
 <?php declare(strict_types=1);
 
 use Symfony\Component\Console\Application;
-use Symplify\EasyCodingStandard\DI\ContainerFactory;
+use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 
 // performance boost
 gc_disable();
@@ -14,9 +14,7 @@ Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer::add();
 // 1. build DI container
 $container = (new ContainerFactory)->create();
 
-// 2. get Console Application
+// 2. Run Console Application
 /** @var Application $application */
-$application = $container->getByType(Application::class);
-
-// 3. run it!
+$application = $container->get(Application::class);
 $application->run();

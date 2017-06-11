@@ -21,7 +21,7 @@ final class FileProcessorTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileProcessor = $this->container->getByType(FileProcessor::class);
+        $this->fileProcessor = $this->container->get(FileProcessor::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());
     }
 

@@ -4,10 +4,9 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Nette\Caching\Cache;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
 use Symplify\EasyCodingStandard\Configuration\Option\ConfigurationFileOption;
 
-final class ChangedFilesDetector implements ChangedFilesDetectorInterface
+final class ChangedFilesDetector
 {
     /**
      * @var string

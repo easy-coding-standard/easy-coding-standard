@@ -23,10 +23,10 @@ final class FileTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->errorCollector = $this->container->getByType(ErrorCollector::class);
+        $this->errorCollector = $this->container->get(ErrorCollector::class);
 
         /** @var FileFactory $fileFactory */
-        $fileFactory = $this->container->getByType(FileFactory::class);
+        $fileFactory = $this->container->get(FileFactory::class);
         $fileInfo = new SplFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
         $this->file = $fileFactory->createFromFileInfo($fileInfo, false);
     }

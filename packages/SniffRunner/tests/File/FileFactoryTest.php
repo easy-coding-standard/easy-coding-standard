@@ -18,7 +18,7 @@ final class FileFactoryTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileFactory = $this->container->getByType(FileFactory::class);
+        $this->fileFactory = $this->container->get(FileFactory::class);
     }
 
     public function test(): void

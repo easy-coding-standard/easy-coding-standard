@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Application;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Contract\ChangedFilesDetectorInterface;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
@@ -27,14 +27,14 @@ final class Application
     private $sourceFinder;
 
     /**
-     * @var ChangedFilesDetectorInterface
+     * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
 
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
-        ChangedFilesDetectorInterface $changedFilesDetector
+        ChangedFilesDetector $changedFilesDetector
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;

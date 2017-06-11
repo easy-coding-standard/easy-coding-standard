@@ -29,11 +29,11 @@ final class SniffRunnerTest extends TestCase
         $container = (new ContainerFactoryWithCustomConfig)->createWithConfig(
             __DIR__ . '/SniffRunnerSource/easy-coding-standard.neon'
         );
-        $this->errorDataCollector = $container->getByType(ErrorCollector::class);
-        $this->fileProcessor = $container->getByType(FileProcessor::class);
+        $this->errorDataCollector = $container->get(ErrorCollector::class);
+        $this->fileProcessor = $container->get(FileProcessor::class);
 
         /** @var ChangedFilesDetectorInterface $changedFilesDetector */
-        $changedFilesDetector = $container->getByType(ChangedFilesDetectorInterface::class);
+        $changedFilesDetector = $container->get(ChangedFilesDetectorInterface::class);
         $changedFilesDetector->clearCache();
     }
 

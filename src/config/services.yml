@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true
+
+#    Symplify\EasyCodingStandard\Configuration\Parameter\ParameterProvider:
+#        arguments: ['@service_container']
+
+    # PSR-4 autodiscovery
+    Symplify\EasyCodingStandard\:
+        resource: '../../src'
+        exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection}'
+    Symplify\EasyCodingStandard\ChangedFilesDetector\:
+        resource: '../../packages/ChangedFilesDetector/src'
+        exclude: '../../packages/ChangedFilesDetector/src/{Cache/CacheFactory}'
+    Symplify\EasyCodingStandard\Configuration\:
+        resource: '../../packages/Configuration/src'
+        exclude: '../../packages/Configuration/src/{Exception}'
+    Symplify\EasyCodingStandard\SniffRunner\:
+        resource: '../../packages/SniffRunner/src'
+        exclude: '../../packages/SniffRunner/src/{Exception,File/File.php,TokenDispatcher/Event}'
+    Symplify\EasyCodingStandard\FixerRunner\:
+        resource: '../../packages/FixerRunner/src'
+        exclude: '../../packages/FixerRunner/src/{Exception}'
+
+    Symfony\Component\Console\Terminal: ~
+    Symfony\Component\Console\Input\ArgvInput: ~
+    Symfony\Component\Console\Output\ConsoleOutput: ~
