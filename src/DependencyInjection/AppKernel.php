@@ -35,6 +35,7 @@ final class AppKernel extends Kernel
         $loader->load(__DIR__ . '/../config/services.yml');
 
         $localConfig = getcwd() . '/' . self::CONFIG_NAME;
+
         if (file_exists($localConfig)) {
             $loader->load($localConfig);
         }
@@ -76,7 +77,7 @@ final class AppKernel extends Kernel
 
         /** @var LoaderResolver $resolver */
         $resolver = $delegationLoader->getResolver();
-        $resolver->addLoader(new NeonLoader);
+        $resolver->addLoader(new NeonLoader($container));
 
         return $delegationLoader;
     }

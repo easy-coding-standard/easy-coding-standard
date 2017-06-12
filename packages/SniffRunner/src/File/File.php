@@ -146,6 +146,10 @@ final class File extends BaseFile
         return true;
     }
 
+    /**
+     * @todo improve
+     *
+     */
     private function normalizeSniffClass(string $sourceClass): string
     {
         if (class_exists($sourceClass, false)) {

@@ -6,6 +6,7 @@ use Nette\Neon\Decoder;
 use Nette\Utils\Strings;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class NeonLoader implements LoaderInterface
 {
@@ -13,6 +14,15 @@ final class NeonLoader implements LoaderInterface
      * @var LoaderResolverInterface
      */
     private $resolver;
+    /**
+     * @var ContainerBuilder
+     */
+    private $containerBuilder;
+
+    public function __construct(ContainerBuilder $containerBuilder)
+    {
+        $this->containerBuilder = $containerBuilder;
+    }
 
     /**
      * @param mixed $resource
@@ -27,10 +37,13 @@ final class NeonLoader implements LoaderInterface
      * @param mixed $resource
      * @param string|null $type
      */
-    public function load($resource, $type = null)
+    public function load($resource, $type = null): void
     {
         $neonFileContent = file_get_contents($resource);
-        return (new Decoder)->decode($neonFileContent);
+        $content = (new Decoder)->decode($neonFileContent);
+        foreach ($content as $key => $value) {
+            $this->containerBuilder->setParameter($key, $value);
+        }
     }
 
     public function getResolver(): LoaderResolverInterface
