@@ -68,7 +68,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     {
         // @todo: move to more appropriate place
         $this->tokenDispatcher->addSniffListeners($this->sniffs);
-        $this->isFixer = $runCommand->isFixer();
+        $this->setIsFixer($runCommand->isFixer());
     }
 
     public function processFile(SplFileInfo $fileInfo, bool $dryRun = false): void

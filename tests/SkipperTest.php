@@ -42,7 +42,7 @@ final class SkipperTest extends TestCase
 
     private function createParameterProvider(): ParameterProvider
     {
-        $container = new Container();
+        $container = new Container;
         $container->setParameter('parameters', [
             'skip' => [
                 DeclareStrictTypesFixer::class => ['someFile']

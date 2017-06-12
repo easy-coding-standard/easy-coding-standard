@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
-use Symplify\EasyCodingStandard\Configuration\CheckerFilter;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
@@ -30,16 +29,10 @@ final class CheckersExtension extends Extension
      */
     private $checkerTypeValidator;
 
-    /**
-     * @var CheckerFilter
-     */
-    private $checkerFilter;
-
     public function __construct()
     {
         $this->configurationNormalizer = new CheckerConfigurationNormalizer;
         $this->checkerTypeValidator = new CheckerTypeValidator;
-        $this->checkerFilter = new CheckerFilter;
     }
 
     /**
@@ -82,7 +75,6 @@ final class CheckersExtension extends Extension
             if (count($configuration) && is_a($checkerClass, ConfigurableFixerInterface::class, true)) {
                 $checkerDefinition->addMethodCall('configure', [$configuration]);
             }
-
         } elseif (is_a($checkerClass, Sniff::class, true)) {
             foreach ($configuration as $property => $value) {
                 $this->ensurePropertyExists($checkerClass, $property);

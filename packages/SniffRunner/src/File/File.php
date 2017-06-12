@@ -148,7 +148,6 @@ final class File extends BaseFile
 
     /**
      * @todo improve
-     *
      */
     private function normalizeSniffClass(string $sourceClass): string
     {

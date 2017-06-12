@@ -8,6 +8,7 @@ use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Skipper;
 
 final class Application
 {
@@ -30,15 +31,21 @@ final class Application
      * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
+    /**
+     * @var Skipper
+     */
+    private $skipper;
 
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
-        ChangedFilesDetector $changedFilesDetector
+        ChangedFilesDetector $changedFilesDetector,
+        Skipper $skipper
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
         $this->changedFilesDetector = $changedFilesDetector;
+        $this->skipper = $skipper;
     }
 
     public function addFileProcessor(FileProcessorInterface $fileProcessor): void
@@ -85,6 +92,7 @@ final class Application
 
             // skip file if it didn't change
             if ($this->changedFilesDetector->hasFileChanged($relativePath) === false) {
+                $this->skipper->removeFileFromUnused($relativePath);
                 continue;
             }
 

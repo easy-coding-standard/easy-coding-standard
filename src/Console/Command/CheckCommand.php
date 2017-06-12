@@ -10,6 +10,7 @@ use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Skipper;
 
 final class CheckCommand extends Command
 {
@@ -33,16 +34,23 @@ final class CheckCommand extends Command
      */
     private $infoMessagePrinter;
 
+    /**
+     * @var Skipper
+     */
+    private $skipper;
+
     public function __construct(
         Application $applicationRunner,
         EasyCodingStandardStyle $style,
-        InfoMessagePrinter $infoMessagePrinter
+        InfoMessagePrinter $infoMessagePrinter,
+        Skipper $skipper
     ) {
         parent::__construct();
 
         $this->applicationRunner = $applicationRunner;
         $this->style = $style;
         $this->infoMessagePrinter = $infoMessagePrinter;
+        $this->skipper = $skipper;
     }
 
     protected function configure(): void
@@ -66,13 +74,32 @@ final class CheckCommand extends Command
 
         if ($this->infoMessagePrinter->hasSomeErrorMessages()) {
             $this->infoMessagePrinter->printFoundErrorsStatus($input->getOption('fix'));
+            $this->reportUnusedSkipped();
 
             return 1;
         }
 
         $this->style->newLine();
         $this->style->success('No errors found!');
+        $this->reportUnusedSkipped();
 
         return 0;
+    }
+
+    private function reportUnusedSkipped(): void
+    {
+        if (! count($this->skipper->getUnusedSkipped())) {
+            return;
+        }
+
+        foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
+            foreach ($skippedFiles as $skippedFile) {
+                $this->style->error(sprintf(
+                    'Skipped checker "%s" and skipped "%s" were not found',
+                    $skippedClass,
+                    $skippedFile
+                ));
+            }
+        }
     }
 }

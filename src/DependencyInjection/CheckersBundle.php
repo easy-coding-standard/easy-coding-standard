@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\Extension\CheckersExtension;
 
 final class CheckersBundle extends Bundle
 {
-    public function getContainerExtension()
+    public function getContainerExtension(): CheckersExtension
     {
         return new CheckersExtension;
     }

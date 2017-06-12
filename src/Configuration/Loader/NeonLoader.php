@@ -30,7 +30,7 @@ final class NeonLoader implements LoaderInterface
      */
     public function supports($resource, $type = null): bool
     {
-        return Strings::endsWith($resource,'.neon');
+        return Strings::endsWith($resource, '.neon');
     }
 
     /**

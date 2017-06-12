@@ -16,11 +16,17 @@ final class Skipper
      */
     private $skipped = [];
 
+    /**
+     * @var string[][]
+     */
+    private $unusedSkipped = [];
+
     public function __construct(ParameterProvider $parameterProvider, CheckerTypeValidator $checkerTypeValidator)
     {
         $skipped = $parameterProvider->provide()['skip'] ?? [];
         $checkerTypeValidator->validate(array_keys($skipped));
         $this->skipped = $skipped;
+        $this->unusedSkipped = $skipped;
     }
 
     /**
@@ -33,7 +39,7 @@ final class Skipper
                 continue;
             }
 
-            if ($this->doesFileMatchSkippedFiles($relativeFilePath, $skippedFiles)) {
+            if ($this->doesFileMatchSkippedFiles($skippedClass, $relativeFilePath, $skippedFiles)) {
                 return true;
             }
         }
@@ -41,13 +47,37 @@ final class Skipper
         return false;
     }
 
+    public function removeFileFromUnused(string $relativePath): void
+    {
+        foreach ($this->unusedSkipped as $skippedChecker => $skippedFiles) {
+            foreach ($skippedFiles as $key => $skippedFile) {
+                if ($this->fileMatchesPattern($relativePath, $skippedFile)) {
+                    unset($this->unusedSkipped[$skippedChecker][$key]);
+                }
+            }
+        }
+    }
+
+    /**
+     * @return mixed[][]
+     */
+    public function getUnusedSkipped(): array
+    {
+        return $this->unusedSkipped;
+    }
+
     /**
      * @param string[] $skippedFiles
      */
-    private function doesFileMatchSkippedFiles(string $relativeFilePath, array $skippedFiles): bool
-    {
-        foreach ($skippedFiles as $skippedFile) {
+    private function doesFileMatchSkippedFiles(
+        string $skippedClass,
+        string $relativeFilePath,
+        array $skippedFiles
+    ): bool {
+        foreach ($skippedFiles as $key => $skippedFile) {
             if ($this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
+                unset($this->unusedSkipped[$skippedClass][$key]);
+
                 return true;
             }
         }
