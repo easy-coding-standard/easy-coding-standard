@@ -4,13 +4,13 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
-use Symplify\EasyCodingStandard\SniffRunner\Application\FileProcessor;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
 final class FileProcessorTest extends AbstractContainerAwareTestCase
 {
     /**
-     * @var FileProcessor
+     * @var SniffFileProcessor
      */
     private $fileProcessor;
 
@@ -21,7 +21,7 @@ final class FileProcessorTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileProcessor = $this->container->get(FileProcessor::class);
+        $this->fileProcessor = $this->container->get(SniffFileProcessor::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());
     }
 

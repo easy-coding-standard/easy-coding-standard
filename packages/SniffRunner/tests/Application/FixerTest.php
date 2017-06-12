@@ -2,14 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
-use PHPUnit\Framework\TestCase;
 use SplFileInfo;
-use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class FixerTest extends TestCase
+final class FixerTest extends AbstractContainerAwareTestCase
 {
     /**
      * @var Fixer
@@ -23,15 +22,13 @@ final class FixerTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory)->create();
-
         /** @var FileFactory $fileFactory */
-        $fileFactory = $container->get(FileFactory::class);
+        $fileFactory = $this->container->get(FileFactory::class);
 
         $fileInfo = new SplFileInfo(__DIR__ . '/FixerSource/SomeFile.php');
 
         $this->file = $fileFactory->createFromFileInfo($fileInfo, true);
-        $this->fixer = $container->get(Fixer::class);
+        $this->fixer = $this->container->get(Fixer::class);
     }
 
     public function testStartFile(): void

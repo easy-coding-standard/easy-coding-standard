@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\SniffRunner\Contract\SniffCollectorInterface;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Adapter\Symfony\DependencyInjection\DefinitionCollector;
 
 final class CollectorCompilerPass implements CompilerPassInterface
@@ -58,7 +58,7 @@ final class CollectorCompilerPass implements CompilerPassInterface
     {
         DefinitionCollector::loadCollectorWithType(
             $containerBuilder,
-            SniffCollectorInterface::class,
+            SniffFileProcessor::class,
             Sniff::class,
             'addSniff'
         );

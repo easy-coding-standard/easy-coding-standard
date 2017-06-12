@@ -2,10 +2,16 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
+use Nette\Utils\Strings;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
+use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\CheckerFilter;
+use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
 final class CheckersExtension extends Extension
@@ -45,114 +51,109 @@ final class CheckersExtension extends Extension
         $checkersConfiguration = $containerBuilder->getParameterBag()
             ->get(self::NAME);
         $checkers = $this->configurationNormalizer->normalize($checkersConfiguration);
-
         $this->checkerTypeValidator->validate(array_keys($checkers));
 
-        dump($checkers);
-//        $this->registerFixersAsServices($fixers);
-        die;
-        // 1. register as services and
-        // 2. split to factories
+        $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
 
     /**
-     * @param mixed[] $fixers
+     * @param mixed[] $checkers
      */
-    private function registerFixersAsServices(array $fixers): void
+    private function registerCheckersAsServices(ContainerBuilder $containerBuilder, array $checkers): void
     {
-        $containerBuilder = $this->getContainerBuilder();
-        foreach ($fixers as $fixerClass => $configuration) {
-            $fixerDefinition = $this->createFixerDefinition($fixerClass, $configuration);
-            $containerBuilder->addDefinition(md5($fixerClass), $fixerDefinition);
+        foreach ($checkers as $checkerClass => $configuration) {
+            if (is_a($checkerClass, FixerInterface::class, true)) {
+                $fixerDefinition = $this->createFixerDefinition($checkerClass, $configuration);
+                $containerBuilder->setDefinition($checkerClass, $fixerDefinition);
+            } elseif (is_a($checkerClass, Sniff::class, true)) {
+                $sniffDefinition = $this->createSniffDefinition($checkerClass, $configuration);
+                $containerBuilder->setDefinition($checkerClass, $sniffDefinition);
+            }
         }
     }
 
     /**
      * @param mixed[] $configuration
      */
-    private function createFixerDefinition(string $fixerClass, array $configuration): ServiceDefinition
+    private function createFixerDefinition(string $fixerClass, array $configuration): Definition
     {
-        $fixerDefinition = new ServiceDefinition;
-        $fixerDefinition->setClass($fixerClass);
+        $fixerDefinition = new Definition($fixerClass);
 
-        // 1. register first one
         if (count($configuration) && is_a($fixerClass, ConfigurableFixerInterface::class, true)) {
-            $fixerDefinition->addSetup('configure', [$configuration]);
+            $fixerDefinition->addMethodCall('configure', [$configuration]);
         }
-
-        // 2. register second one
 
         return $fixerDefinition;
     }
 
     /**
-     * @param mixed[] $sniffs
-     */
-    private function registerSniffsAsServices(array $sniffs): void
-    {
-        $containerBuilder = $this->getContainerBuilder();
-        foreach ($sniffs as $sniffClass => $configuration) {
-            $sniffDefinition = $this->createSniffDefinition($sniffClass, $configuration);
-            $containerBuilder->addDefinition(md5($sniffClass), $sniffDefinition);
-        }
-    }
-
-    /**
      * @param mixed[] $configuration
      */
-    private function createSniffDefinition(string $sniffClass, array $configuration): ServiceDefinition
+    private function createSniffDefinition(string $sniffClass, array $configuration): Definition
     {
-        $sniffDefinition = new ServiceDefinition;
-        $sniffDefinition->setClass($sniffClass);
+        $sniffDefinition = new Definition($sniffClass);
 
         foreach ($configuration as $property => $value) {
-            $sniffDefinition->addSetup(
-                '$' . $property,
-                [$this->escapeValue($value)]
-            );
+            $this->ensurePropertyExists($sniffClass, $property);
+
+            // Is escape value needed? Reference class is required in Symfony
+            $sniffDefinition->setProperty($property, $value);
         }
 
         return $sniffDefinition;
     }
 
-    /**
-     * @param mixed $value
-     * @return mixed
-     */
-    private function escapeValue($value)
+//    /**
+//     * @param mixed $value
+//     * @return mixed
+//     */
+//    private function escapeValue($value)
+//    {
+//        if (is_array($value)) {
+//            return $this->escapeAtSignInArray($value);
+//        }
+//
+//        if (is_string($value)) {
+//            return $this->escapeAtSign($value);
+//        }
+//
+//        return $value;
+//    }
+
+//    /**
+//     * @param mixed[] $value
+//     * @return mixed[]
+//     */
+//    private function escapeAtSignInArray(array $value): array
+//    {
+//        foreach ($value as $key => $subValue) {
+//            if (is_string($subValue)) {
+//                $value[$key] = $this->escapeAtSign($subValue);
+//            }
+//        }
+//
+//        return $value;
+//    }
+
+//    private function escapeAtSign(string $value): string
+//    {
+//        if (Strings::startsWith($value, '@')) {
+//            return '@' . $value;
+//        }
+//
+//        return $value;
+//    }
+
+    private function ensurePropertyExists(string $sniffClass, string $property): void
     {
-        if (is_array($value)) {
-            return $this->escapeAtSignInArray($value);
+        if (property_exists($sniffClass, $property)) {
+            return;
         }
 
-        if (is_string($value)) {
-            return $this->escapeAtSign($value);
-        }
-
-        return $value;
-    }
-
-    /**
-     * @param mixed[] $value
-     * @return mixed[]
-     */
-    private function escapeAtSignInArray(array $value): array
-    {
-        foreach ($value as $key => $subValue) {
-            if (is_string($subValue)) {
-                $value[$key] = $this->escapeAtSign($subValue);
-            }
-        }
-
-        return $value;
-    }
-
-    private function escapeAtSign(string $value): string
-    {
-        if (Strings::startsWith($value, '@')) {
-            return '@' . $value;
-        }
-
-        return $value;
+        throw new InvalidSniffPropertyException(sprintf(
+            'Property "%s" was not found on "%s" sniff class. Possible typo in its configuration?',
+            $property,
+            $sniffClass
+        ));
     }
 }

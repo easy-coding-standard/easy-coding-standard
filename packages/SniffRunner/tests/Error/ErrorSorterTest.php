@@ -2,12 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Error;
 
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DI\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorSorter;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class ErrorSorterTest extends TestCase
+final class ErrorSorterTest extends AbstractContainerAwareTestCase
 {
     /**
      * @var ErrorSorter
@@ -16,8 +15,7 @@ final class ErrorSorterTest extends TestCase
 
     public function setUp(): void
     {
-        $container = (new ContainerFactory)->create();
-        $this->errorSorter = $container->get(ErrorSorter::class);
+        $this->errorSorter = $this->container->get(ErrorSorter::class);
     }
 
     public function test(): void

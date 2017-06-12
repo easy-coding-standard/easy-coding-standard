@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
+use Nette\Utils\FileSystem;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolver;
@@ -27,7 +28,8 @@ final class AppKernel extends Kernel
     public function __construct(string $customConfig = '')
     {
         $this->customConfig = $customConfig;
-        parent::__construct('dev', true);
+        // randomize name to prevent using container same cache for custom configs (e.g. ErrorCollector test)
+        parent::__construct(random_int(1,1000), true);
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void

@@ -6,7 +6,6 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\SniffRunner\Contract\SniffCollectorInterface;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -14,7 +13,7 @@ use Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 
-final class FileProcessor implements FileProcessorInterface, SniffCollectorInterface
+final class SniffFileProcessor implements FileProcessorInterface
 {
     /**
      * @var TokenDispatcher

@@ -30,7 +30,7 @@ final class FixerRunnerTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory())->createWithCustomConfig(
+        $container = (new ContainerFactory)->createWithCustomConfig(
             __DIR__ . '/FixerRunnerSource/easy-coding-standard.neon'
         );
 
