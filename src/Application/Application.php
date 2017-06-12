@@ -31,6 +31,7 @@ final class Application
      * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
+
     /**
      * @var Skipper
      */
