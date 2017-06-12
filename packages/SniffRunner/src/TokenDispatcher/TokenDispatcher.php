@@ -49,15 +49,18 @@ final class TokenDispatcher
     public function dispatchToken($token, FileTokenEvent $fileTokenEvent): void
     {
         $tokenListeners = $this->tokenListeners[$token] ?? [];
+        if (! count($tokenListeners)) {
+            return;
+        }
+
         $file = $fileTokenEvent->getFile();
-        $filename = $file->getFilename();
 
         foreach ($tokenListeners as $sniff) {
-            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $filename)) {
+            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $file->getFilename())) {
                 return;
             }
 
-            $sniff->process($fileTokenEvent->getFile(), $fileTokenEvent->getPosition());
+            $sniff->process($file, $fileTokenEvent->getPosition());
         }
     }
 }

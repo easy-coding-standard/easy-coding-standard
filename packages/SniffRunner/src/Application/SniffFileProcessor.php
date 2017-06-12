@@ -59,6 +59,11 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->sniffs[] = $sniff;
     }
 
+    public function setIsFixer(bool $isFixer): void
+    {
+        $this->isFixer = $isFixer;
+    }
+
     public function setupWithCommand(RunCommand $runCommand): void
     {
         // @todo: move to more appropriate place
@@ -66,14 +71,14 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->isFixer = $runCommand->isFixer();
     }
 
-    public function processFile(SplFileInfo $fileInfo): void
+    public function processFile(SplFileInfo $fileInfo, bool $dryRun = false): void
     {
         $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer);
 
         if ($this->isFixer === false) {
             $this->processFileWithoutFixer($file);
         } else {
-            $this->processFileWithFixer($file);
+            $this->processFileWithFixer($file, $dryRun);
         }
     }
 
@@ -87,7 +92,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
     }
 
-    private function processFileWithFixer(File $file): void
+    private function processFileWithFixer(File $file, bool $dryRun = false): void
     {
         // 1. puts tokens into fixer
         $this->fixer->startFile($file);
@@ -98,6 +103,8 @@ final class SniffFileProcessor implements FileProcessorInterface
         // 3. content has changed, save it!
         $newContent = $this->fixer->getContents();
 
-        file_put_contents($file->getFilename(), $newContent);
+        if ($dryRun === false) {
+            file_put_contents($file->getFilename(), $newContent);
+        }
     }
 }
