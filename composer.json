@@ -8,6 +8,8 @@
     "require": {
         "php": "^7.1",
         "symfony/console": "^3.3",
+        "symfony/config": "^3.3",
+        "symfony/http-kernel": "^3.3",
         "symfony/dependency-injection": "^3.3",
         "symfony/finder": "^3.3",
         "nette/caching": "^2.4|^3.0",
