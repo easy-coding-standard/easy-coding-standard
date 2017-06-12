@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
-use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -62,87 +61,33 @@ final class CheckersExtension extends Extension
     private function registerCheckersAsServices(ContainerBuilder $containerBuilder, array $checkers): void
     {
         foreach ($checkers as $checkerClass => $configuration) {
-            if (is_a($checkerClass, FixerInterface::class, true)) {
-                $fixerDefinition = $this->createFixerDefinition($checkerClass, $configuration);
-                $containerBuilder->setDefinition($checkerClass, $fixerDefinition);
-            } elseif (is_a($checkerClass, Sniff::class, true)) {
-                $sniffDefinition = $this->createSniffDefinition($checkerClass, $configuration);
-                $containerBuilder->setDefinition($checkerClass, $sniffDefinition);
+            $checkerDefinition = new Definition($checkerClass);
+            $checkerDefinition = $this->setupCheckerConfiguration($checkerDefinition, $configuration);
+            $containerBuilder->setDefinition($checkerClass, $checkerDefinition);
+        }
+    }
+
+    /**
+     * @param mixed[] $configuration
+     */
+    private function setupCheckerConfiguration(Definition $checkerDefinition, array $configuration): Definition
+    {
+        $checkerClass = $checkerDefinition->getClass();
+
+        if (is_a($checkerClass, FixerInterface::class, true)) {
+            if (count($configuration) && is_a($checkerClass, ConfigurableFixerInterface::class, true)) {
+                $checkerDefinition->addMethodCall('configure', [$configuration]);
+            }
+
+        } elseif (is_a($checkerClass, Sniff::class, true)) {
+            foreach ($configuration as $property => $value) {
+                $this->ensurePropertyExists($checkerClass, $property);
+                $checkerDefinition->setProperty($property, $value);
             }
         }
+
+        return $checkerDefinition;
     }
-
-    /**
-     * @param mixed[] $configuration
-     */
-    private function createFixerDefinition(string $fixerClass, array $configuration): Definition
-    {
-        $fixerDefinition = new Definition($fixerClass);
-
-        if (count($configuration) && is_a($fixerClass, ConfigurableFixerInterface::class, true)) {
-            $fixerDefinition->addMethodCall('configure', [$configuration]);
-        }
-
-        return $fixerDefinition;
-    }
-
-    /**
-     * @param mixed[] $configuration
-     */
-    private function createSniffDefinition(string $sniffClass, array $configuration): Definition
-    {
-        $sniffDefinition = new Definition($sniffClass);
-
-        foreach ($configuration as $property => $value) {
-            $this->ensurePropertyExists($sniffClass, $property);
-
-            // Is escape value needed? Reference class is required in Symfony
-            $sniffDefinition->setProperty($property, $value);
-        }
-
-        return $sniffDefinition;
-    }
-
-//    /**
-//     * @param mixed $value
-//     * @return mixed
-//     */
-//    private function escapeValue($value)
-//    {
-//        if (is_array($value)) {
-//            return $this->escapeAtSignInArray($value);
-//        }
-//
-//        if (is_string($value)) {
-//            return $this->escapeAtSign($value);
-//        }
-//
-//        return $value;
-//    }
-
-//    /**
-//     * @param mixed[] $value
-//     * @return mixed[]
-//     */
-//    private function escapeAtSignInArray(array $value): array
-//    {
-//        foreach ($value as $key => $subValue) {
-//            if (is_string($subValue)) {
-//                $value[$key] = $this->escapeAtSign($subValue);
-//            }
-//        }
-//
-//        return $value;
-//    }
-
-//    private function escapeAtSign(string $value): string
-//    {
-//        if (Strings::startsWith($value, '@')) {
-//            return '@' . $value;
-//        }
-//
-//        return $value;
-//    }
 
     private function ensurePropertyExists(string $sniffClass, string $property): void
     {
