@@ -25,21 +25,29 @@ final class AppKernel extends Kernel
      */
     private $customConfig;
 
-    public function __construct(string $customConfig = '')
+    /**
+     * @var bool
+     */
+    private $autoloadLocalConfig = true;
+
+    public function __construct(?string $customConfig = '', bool $autoloadLocalConfig = true)
     {
         $this->customConfig = $customConfig;
         // randomize name to prevent using container same cache for custom configs (e.g. ErrorCollector test)
         parent::__construct(random_int(1,1000), true);
+        $this->autoloadLocalConfig = $autoloadLocalConfig;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../config/services.yml');
 
-        $localConfig = getcwd() . '/' . self::CONFIG_NAME;
+        if ($this->autoloadLocalConfig) {
+            $localConfig = getcwd() . '/' . self::CONFIG_NAME;
 
-        if (file_exists($localConfig)) {
-            $loader->load($localConfig);
+            if (file_exists($localConfig)) {
+                $loader->load($localConfig);
+            }
         }
 
         if ($this->customConfig && file_exists($this->customConfig)) {
@@ -55,16 +63,6 @@ final class AppKernel extends Kernel
         return [
             new CheckersBundle
         ];
-    }
-
-    public function getCacheDir(): string
-    {
-        return sys_get_temp_dir() . '/_easy_coding_standard_cache';
-    }
-
-    public function getLogDir(): string
-    {
-        return sys_get_temp_dir() . '/_easy_coding_standard_log';
     }
 
     protected function build(ContainerBuilder $containerBuilder): void

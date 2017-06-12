@@ -47,8 +47,12 @@ final class CheckersExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
-        $checkersConfiguration = $containerBuilder->getParameterBag()
-            ->get(self::NAME);
+        $parameterBag = $containerBuilder->getParameterBag();
+        if (! $parameterBag->has(self::NAME)) {
+            return;
+        }
+
+        $checkersConfiguration = $parameterBag->get(self::NAME);
         $checkers = $this->configurationNormalizer->normalize($checkersConfiguration);
         $this->checkerTypeValidator->validate(array_keys($checkers));
 

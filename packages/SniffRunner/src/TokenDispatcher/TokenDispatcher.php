@@ -23,6 +23,14 @@ final class TokenDispatcher
         $this->skipper = $skipper;
     }
 
+    public function addSingleSniffListener(Sniff $sniff): void
+    {
+        $this->tokenListeners = [];
+        foreach ($sniff->register() as $token) {
+            $this->tokenListeners[$token][] = $sniff;
+        }
+    }
+
     /**
      * @param Sniff[] $sniffs
      */

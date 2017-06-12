@@ -9,6 +9,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class ParameterProvider
 {
     /**
+     * @var string
+     */
+    private const PARAMETERS_KEY = 'parameters';
+
+    /**
      * @var mixed[]
      */
     private $parameters = [];
@@ -18,8 +23,12 @@ final class ParameterProvider
      */
     public function __construct(ContainerInterface $container)
     {
-        $parameters = $container->getParameterBag()
-            ->all();
+        $parameterBag = $container->getParameterBag();
+        if (! $parameterBag->has(self::PARAMETERS_KEY)) {
+            return;
+        }
+
+        $parameters = $parameterBag->get(self::PARAMETERS_KEY);
         $this->parameters = $this->unsetKernelParameters($parameters);
     }
 

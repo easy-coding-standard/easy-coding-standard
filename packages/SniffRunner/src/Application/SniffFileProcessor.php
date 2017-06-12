@@ -40,16 +40,18 @@ final class SniffFileProcessor implements FileProcessorInterface
      */
     private $sniffs = [];
 
-    public function __construct(
-        TokenDispatcher $tokenDispatcher,
-        Fixer $fixer,
-        FileFactory $fileFactory
-    ) {
+    public function __construct(TokenDispatcher $tokenDispatcher, Fixer $fixer, FileFactory $fileFactory)
+    {
         $this->tokenDispatcher = $tokenDispatcher;
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
 
         LegacyCompatibilityLayer::add();
+    }
+
+    public function setSingleSniff(Sniff $sniff): void
+    {
+        $this->tokenDispatcher->addSingleSniffListener($sniff);
     }
 
     public function addSniff(Sniff $sniff): void
@@ -59,9 +61,8 @@ final class SniffFileProcessor implements FileProcessorInterface
 
     public function setupWithCommand(RunCommand $runCommand): void
     {
-        // todo: move SniffCollectorInterface directly to TokenDispatcher
+        // @todo: move to more appropriate place
         $this->tokenDispatcher->addSniffListeners($this->sniffs);
-
         $this->isFixer = $runCommand->isFixer();
     }
 

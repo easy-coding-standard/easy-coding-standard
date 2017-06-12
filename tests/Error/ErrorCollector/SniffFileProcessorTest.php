@@ -12,7 +12,7 @@ use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
-final class SniffRunnerTest extends TestCase
+final class SniffFileProcessorTest extends TestCase
 {
     /**
      * @var ErrorCollector

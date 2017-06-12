@@ -66,6 +66,12 @@ final class ErrorCollector
         return count(Arrays::flatten($this->unfixableErrors));
     }
 
+    public function resetCounters(): void
+    {
+        $this->fixableErrors = [];
+        $this->unfixableErrors = [];
+    }
+
     /**
      * @return Error[][]
      */
