@@ -112,6 +112,6 @@ final class SniffFileProcessor implements FileProcessorInterface
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
             define('PHP_CODESNIFFER_VERBOSITY', 0);
         }
-        new Tokens();
+        new Tokens;
     }
 }
