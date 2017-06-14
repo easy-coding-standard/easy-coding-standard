@@ -3,13 +3,13 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
-use Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 
@@ -45,8 +45,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->tokenDispatcher = $tokenDispatcher;
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
-
-        LegacyCompatibilityLayer::add();
+        $this->addCompatibilityLayer();
     }
 
     public function setSingleSniff(Sniff $sniff): void
@@ -106,5 +105,13 @@ final class SniffFileProcessor implements FileProcessorInterface
         if ($dryRun === false) {
             file_put_contents($file->getFilename(), $newContent);
         }
+    }
+
+    private function addCompatibilityLayer(): void
+    {
+        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
+            define('PHP_CODESNIFFER_VERBOSITY', 0);
+        }
+        new Tokens();
     }
 }

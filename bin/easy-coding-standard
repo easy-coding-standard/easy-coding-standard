@@ -8,8 +8,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 gc_disable();
 
 require_once getcwd() . '/vendor/autoload.php';
-
-Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer::add();
+require_once getcwd() . '/vendor/squizlabs/php_codesniffer/autoload.php';
 
 // 1. build DI container
 $container = (new ContainerFactory)->create();

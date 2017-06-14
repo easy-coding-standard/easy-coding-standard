@@ -1,6 +1,4 @@
 <?php declare(strict_types=1);
 
-require __DIR__ . '/../vendor/autoload.php';
-
-// packages/sniff-runner
-Symplify\EasyCodingStandard\SniffRunner\Legacy\LegacyCompatibilityLayer::add();
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/squizlabs/php_codesniffer/autoload.php';
