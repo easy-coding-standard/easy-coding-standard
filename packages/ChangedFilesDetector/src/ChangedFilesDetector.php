@@ -24,7 +24,7 @@ final class ChangedFilesDetector
 
         $configurationFile = $configurationFile ?: getcwd() . '/' . ConfigurationFileOption::FILE_NAME;
         if (file_exists($configurationFile)) {
-            $this->storeConfigurationDataHash($configurationFile);
+            $this->storeConfigurationDataHash($this->hashFile($configurationFile));
         }
     }
 
