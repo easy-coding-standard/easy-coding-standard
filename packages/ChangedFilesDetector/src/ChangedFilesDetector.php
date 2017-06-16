@@ -21,9 +21,11 @@ final class ChangedFilesDetector
     public function __construct(CacheFactory $cacheFactory, ?string $configurationFile = null)
     {
         $this->cache = $cacheFactory->create();
-        $this->storeConfigurationDataHash(
-            md5_file($configurationFile ?: getcwd() . '/' . ConfigurationFileOption::FILE_NAME)
-        );
+
+        $configurationFile = $configurationFile ?: getcwd() . '/' . ConfigurationFileOption::FILE_NAME;
+        if (file_exists($configurationFile)) {
+            $this->storeConfigurationDataHash($configurationFile);
+        }
     }
 
     public function addFile(string $filePath): void
