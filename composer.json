@@ -12,6 +12,7 @@
         "symfony/http-kernel": "^3.3",
         "symfony/dependency-injection": "^3.3",
         "symfony/finder": "^3.3",
+        "symfony/yaml": "^3.3",
         "nette/caching": "^2.4|^3.0",
         "nette/utils": "^2.4|^3.0",
         "nette/neon": "^2.4|^3.0",
