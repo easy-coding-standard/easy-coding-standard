@@ -7,8 +7,19 @@ use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 // performance boost
 gc_disable();
 
-require_once getcwd() . '/vendor/autoload.php';
-require_once getcwd() . '/vendor/squizlabs/php_codesniffer/autoload.php';
+$possibleAutoloadPaths = [
+    getcwd() . '/vendor',
+    __DIR__ . '/../vendor',
+    __DIR__ . '/../../..'
+];
+
+foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
+    if (is_dir($possibleAutoloadPath)) {
+        require_once $possibleAutoloadPath . '/autoload.php';
+        require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
+        break;
+    }
+}
 
 // 1. build DI container
 $container = (new ContainerFactory)->create();
