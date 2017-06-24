@@ -41,12 +41,8 @@ final class AppKernel extends Kernel
     {
         $loader->load(__DIR__ . '/../config/services.yml');
 
-        if ($this->autoloadLocalConfig) {
-            $localConfig = getcwd() . '/' . self::CONFIG_NAME;
-
-            if (file_exists($localConfig)) {
-                $loader->load($localConfig);
-            }
+        if ($this->autoloadLocalConfig && $localConfig = $this->getConfigPath()) {
+            $loader->load($localConfig);
         }
 
         if ($this->customConfig && file_exists($this->customConfig)) {
@@ -84,5 +80,25 @@ final class AppKernel extends Kernel
         $resolver->addLoader(new NeonLoader($container));
 
         return $delegationLoader;
+    }
+
+    /**
+     * @return string|false
+     */
+    private function getConfigPath()
+    {
+        $possibleConfigPaths = [
+            getcwd() . '/' . self::CONFIG_NAME,
+            __DIR__ . '/../../' . self::CONFIG_NAME,
+            __DIR__ . '/../../../../' . self::CONFIG_NAME,
+        ];
+
+        foreach ($possibleConfigPaths as $possibleConfigPath) {
+            if (file_exists($possibleConfigPath)) {
+                return $possibleConfigPath;
+            }
+        }
+
+        return false;
     }
 }
