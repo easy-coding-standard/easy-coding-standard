@@ -62,7 +62,6 @@ vendor/bin/easy-coding-standard check src tests
 vendor/bin/easy-coding-standard check src --fix
 ```
 
-
 ![ECS-Run](docs/run-and-fix.gif)
 
 
@@ -94,6 +93,16 @@ parameters:
             # list all the files you want to skip (I usually just copy this from error report)
             - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
 ```
+ 
+### `show` Command to Display All Checkers
+
+How many checkers and what exactly are loaded? Just run:
+
+```bash
+vendor/bin/easy-coding-standard show
+```
+
+List of active checkers will be shown.
 
 
 ## Contributing

@@ -50,6 +50,14 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->isFixer = $runCommand->isFixer();
     }
 
+    /**
+     * @return FixerInterface[]
+     */
+    public function getFixers(): array
+    {
+        return $this->fixers;
+    }
+
     public function processFile(SplFileInfo $file): void
     {
         $old = file_get_contents($file->getRealPath());

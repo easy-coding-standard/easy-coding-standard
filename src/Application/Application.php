@@ -6,17 +6,13 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Skipper;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class Application
 {
-    /**
-     * @var FileProcessorInterface[]
-     */
-    private $fileProcessors = [];
-
     /**
      * @var EasyCodingStandardStyle
      */
@@ -37,21 +33,30 @@ final class Application
      */
     private $skipper;
 
+    /**
+     * @var SniffFileProcessor
+     */
+    private $sniffFileProcessor;
+
+    /**
+     * @var FixerFileProcessor
+     */
+    private $fixerFileProcessor;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
-        Skipper $skipper
+        Skipper $skipper,
+        SniffFileProcessor $sniffFileProcessor,
+        FixerFileProcessor $fixerFileProcessor
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->skipper = $skipper;
-    }
-
-    public function addFileProcessor(FileProcessorInterface $fileProcessor): void
-    {
-        $this->fileProcessors[] = $fileProcessor;
+        $this->sniffFileProcessor = $sniffFileProcessor;
+        $this->fixerFileProcessor = $fixerFileProcessor;
     }
 
     public function runCommand(RunCommand $command): void
@@ -66,9 +71,8 @@ final class Application
         $this->startProgressBar($files);
 
         // 3. configure file processors
-        foreach ($this->fileProcessors as $fileProcessor) {
-            $fileProcessor->setupWithCommand($command);
-        }
+        $this->fixerFileProcessor->setupWithCommand($command);
+        $this->sniffFileProcessor->setupWithCommand($command);
 
         // 4. process found files by each processors
         $this->processFoundFiles($files);
@@ -100,9 +104,8 @@ final class Application
             // add it elsewhere
             $this->changedFilesDetector->addFile($relativePath);
 
-            foreach ($this->fileProcessors as $fileProcessor) {
-                $fileProcessor->processFile($fileInfo);
-            }
+            $this->fixerFileProcessor->processFile($fileInfo);
+            $this->sniffFileProcessor->processFile($fileInfo);
         }
     }
 }

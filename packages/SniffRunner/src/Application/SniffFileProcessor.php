@@ -58,6 +58,14 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->sniffs[] = $sniff;
     }
 
+    /**
+     * @return Sniff[]
+     */
+    public function getSniffs(): array
+    {
+        return $this->sniffs;
+    }
+
     public function setIsFixer(bool $isFixer): void
     {
         $this->isFixer = $isFixer;
