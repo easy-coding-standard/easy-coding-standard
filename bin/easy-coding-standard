@@ -7,14 +7,15 @@ use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 // performance boost
 gc_disable();
 
+// prefer local vendor over analyzed project (e.g. for "composer create-project symplify/easy-coding-standard")
 $possibleAutoloadPaths = [
-    getcwd() . '/vendor',
+    __DIR__ . '/../../..',
     __DIR__ . '/../vendor',
-    __DIR__ . '/../../..'
+    getcwd() . '/vendor',
 ];
 
 foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
-    if (is_dir($possibleAutoloadPath)) {
+    if (file_exists($possibleAutoloadPath . '/autoload.php')) {
         require_once $possibleAutoloadPath . '/autoload.php';
         require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
         break;
