@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 
 // performance boost
 gc_disable();
 
-// prefer local vendor over analyzed project (e.g. for "composer create-project symplify/easy-coding-standard")
+// 0. Prefer local vendor over analyzed project (e.g. for "composer create-project symplify/easy-coding-standard")
 $possibleAutoloadPaths = [
     __DIR__ . '/../../..',
     __DIR__ . '/../vendor',
@@ -21,10 +22,29 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     }
 }
 
-// 1. build DI container
-$container = (new ContainerFactory)->create();
+// 1. Detect configuration
+$input = new ArgvInput;
+$configurationFile = null;
+if ($input->hasParameterOption('--configuration') || $input->hasParameterOption('-c')) {
+    $filePath = getcwd() . '/' . $input->getParameterOption('-c');
+    if (file_exists($filePath)) {
+        $configurationFile = $filePath;
+    }
 
-// 2. Run Console Application
+    $filePath = getcwd() . '/' . $input->getParameterOption('--configuration');
+    if (file_exists($filePath)) {
+        $configurationFile = $filePath;
+    }
+}
+
+// 2. Build DI container
+if ($configurationFile) {
+    $container = (new ContainerFactory)->createWithCustomConfig($configurationFile);
+} else {
+    $container = (new ContainerFactory)->create();
+}
+
+// 3. Run Console Application
 /** @var Application $application */
 $application = $container->get(Application::class);
 $application->run();
