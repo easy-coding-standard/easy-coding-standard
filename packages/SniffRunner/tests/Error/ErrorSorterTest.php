@@ -35,12 +35,12 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
     {
         return [
             'filePath' => [
-                new Error(5, 'error', 'SomeClass', false)
+                new Error(5, 'error', 'SomeClass', false),
             ],
             'anotherFilePath' => [
                 new Error(15, 'error', 'SomeClass', false),
-                new Error(5, 'error', 'SomeClass', false)
-            ]
+                new Error(5, 'error', 'SomeClass', false),
+            ],
         ];
     }
 }

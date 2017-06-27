@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder;
 
-use Symplify\EasyCodingStandard\SniffRunner\Composer\VendorDirProvider;
+use Symplify\PackageBuilder\Composer\VendorDirProvider;
 
 final class SniffFinder
 {

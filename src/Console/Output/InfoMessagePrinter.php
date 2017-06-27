@@ -120,7 +120,7 @@ final class InfoMessagePrinter
     {
         return [
             'line' => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
-            'message' => $this->wrapMessageToStyle($message, $error->isFixable())
+            'message' => $this->wrapMessageToStyle($message, $error->isFixable()),
         ];
     }
 

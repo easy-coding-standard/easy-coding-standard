@@ -33,7 +33,7 @@ final class SourceFinder
     private function processFile(array $files, string $file): array
     {
         return array_merge($files, [
-            $file => new SplFileInfo($file)
+            $file => new SplFileInfo($file),
         ]);
     }
 
