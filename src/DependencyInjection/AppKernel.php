@@ -33,7 +33,7 @@ final class AppKernel extends Kernel
     {
         $this->customConfig = $customConfig;
         // randomize name to prevent using container same cache for custom configs (e.g. ErrorCollector test)
-        parent::__construct(random_int(1, 1000), true);
+        parent::__construct(random_int(1, 10000), true);
         $this->autoloadLocalConfig = $autoloadLocalConfig;
     }
 
