@@ -87,6 +87,7 @@ final class Skipper
 
     private function fileMatchesPattern(string $file, string $ignoredPath): bool
     {
+        $file = strtr($file, '\\', '/');
         if ((bool) Strings::match($file, Glob::toRegex($ignoredPath))) {
             return true;
         }
