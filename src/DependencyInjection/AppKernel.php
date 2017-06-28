@@ -13,18 +13,11 @@ final class AppKernel extends AbstractCliKernel
     /**
      * @var string
      */
-    private $customConfig;
+    private $configFile;
 
-    /**
-     * @var bool
-     */
-    private $autoloadLocalConfig = true;
-
-    public function __construct(?string $customConfig = '', bool $autoloadLocalConfig = true)
+    public function __construct(?string $configFile = '')
     {
-        $this->customConfig = $customConfig;
-        // randomize name to prevent using container same cache for custom configs (e.g. ErrorCollector test)
-        $this->autoloadLocalConfig = $autoloadLocalConfig;
+        $this->configFile = $configFile;
         parent::__construct();
     }
 
@@ -32,12 +25,8 @@ final class AppKernel extends AbstractCliKernel
     {
         $loader->load(__DIR__ . '/../config/services.yml');
 
-        if ($this->autoloadLocalConfig) {
-            $this->registerLocalConfig($loader, 'easy-coding-standard.neon');
-        }
-
-        if ($this->customConfig && file_exists($this->customConfig)) {
-            $loader->load($this->customConfig);
+        if ($this->configFile) {
+            $this->registerLocalConfig($loader, $this->configFile);
         }
     }
 

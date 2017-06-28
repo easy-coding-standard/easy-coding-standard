@@ -2,12 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
+use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Configuration\ConfigFilePathHelper;
+use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class FileProcessorTest extends AbstractContainerAwareTestCase
+final class FileProcessorTest extends TestCase
 {
     /**
      * @var SniffFileProcessor
@@ -21,7 +23,11 @@ final class FileProcessorTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileProcessor = $this->container->get(SniffFileProcessor::class);
+        ConfigFilePathHelper::set(__DIR__ . '/FileProcessorSource/easy-coding-standard.neon');
+
+        $container = (new ContainerFactory)->createWithConfig(ConfigFilePathHelper::provide());
+
+        $this->fileProcessor = $container->get(SniffFileProcessor::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());
     }
 
@@ -42,6 +48,12 @@ final class FileProcessorTest extends AbstractContainerAwareTestCase
         $fixedFileHash = md5_file($this->getFileLocation());
 
         $this->assertNotSame($initialFileHash, $fixedFileHash);
+    }
+
+    public function testGetSniffs(): void
+    {
+        $sniffs = $this->fileProcessor->getSniffs();
+        $this->assertCount(1, $sniffs);
     }
 
     private function getFileLocation(): string

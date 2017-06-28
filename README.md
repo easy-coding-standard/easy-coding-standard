@@ -3,6 +3,15 @@
 [![Build Status](https://img.shields.io/travis/Symplify/EasyCodingStandard/master.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 
+
+```yaml
+# easy-coding-standard.neon
+checkers:
+    - PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff
+    - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
+```
+
+
 ## Install
 
 ```bash
@@ -56,6 +65,12 @@ Or multiple sources:
 vendor/bin/easy-coding-standard check src tests
 ```
 
+You can also use typo-proof shortcut:
+
+```bash
+vendor/bin/ecs check src tests
+```
+
 #### How to Fix Things?
 
 ```bash
@@ -96,7 +111,7 @@ parameters:
  
 ### `show` Command to Display All Checkers
 
-How many checkers and what exactly are loaded? Just run:
+To see how many checkers and which exactly are loaded run:
 
 ```bash
 vendor/bin/easy-coding-standard show

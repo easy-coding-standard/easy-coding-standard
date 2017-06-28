@@ -2,17 +2,17 @@
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symplify\EasyCodingStandard\Configuration\ConfigFilePathHelper;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 
 // performance boost
 gc_disable();
 
-// 0. Prefer local vendor over analyzed project (e.g. for "composer create-project symplify/easy-coding-standard")
-$possibleAutoloadPaths = [
-    __DIR__ . '/../../..',
-    __DIR__ . '/../vendor',
-    getcwd() . '/vendor',
-];
+/**
+ * This allows to load "vendor/autoload.php" both from
+ * "composer create-project ..." and "composer require" installation.
+ */
+$possibleAutoloadPaths = [__DIR__ . '/../../..', __DIR__ . '/../vendor', getcwd() . '/vendor'];
 
 foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     if (file_exists($possibleAutoloadPath . '/autoload.php')) {
@@ -23,26 +23,11 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
 }
 
 // 1. Detect configuration
-$input = new ArgvInput;
-$configurationFile = null;
-if ($input->hasParameterOption('--configuration') || $input->hasParameterOption('-c')) {
-    $filePath = getcwd() . '/' . $input->getParameterOption('-c');
-    if (file_exists($filePath)) {
-        $configurationFile = $filePath;
-    }
-
-    $filePath = getcwd() . '/' . $input->getParameterOption('--configuration');
-    if (file_exists($filePath)) {
-        $configurationFile = $filePath;
-    }
-}
+ConfigFilePathHelper::detectFromInput(new ArgvInput);
 
 // 2. Build DI container
-if ($configurationFile) {
-    $container = (new ContainerFactory)->createWithCustomConfig($configurationFile);
-} else {
-    $container = (new ContainerFactory)->create();
-}
+$containerFactory = new ContainerFactory;
+$container = $containerFactory->createWithConfig(ConfigFilePathHelper::provide());
 
 // 3. Run Console Application
 /** @var Application $application */
