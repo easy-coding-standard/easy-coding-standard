@@ -6,9 +6,9 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
-use Symplify\EasyCodingStandard\Configuration\Parameter\ParameterProvider;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
+use Symplify\PackageBuilder\Adapter\Symfony\Parameter\ParameterProvider;
 
 final class SkipperTest extends TestCase
 {
@@ -43,10 +43,8 @@ final class SkipperTest extends TestCase
     private function createParameterProvider(): ParameterProvider
     {
         $container = new Container;
-        $container->setParameter('parameters', [
-            'skip' => [
-                DeclareStrictTypesFixer::class => ['someFile'],
-            ],
+        $container->setParameter('skip', [
+            DeclareStrictTypesFixer::class => ['someFile'],
         ]);
 
         return new ParameterProvider($container);
