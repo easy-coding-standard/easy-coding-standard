@@ -16,7 +16,7 @@ final class TokenDispatcher
     /**
      * @var Sniff[][]
      */
-    private $tokenListeners;
+    private $tokenListeners = [];
 
     public function __construct(Skipper $skipper)
     {
