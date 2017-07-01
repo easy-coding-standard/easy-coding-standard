@@ -62,8 +62,8 @@ final class CheckCommand extends Command
         $this->addOption('fix', null, null, 'Fix found violations.');
         $this->addOption('clear-cache', null, null, 'Clear cache for already checked files.');
         $this->addOption(
-            'configuration',
-            'c',
+            'config',
+            null,
             InputOption::VALUE_REQUIRED,
             'Path to config file.', getcwd() . '/easy-coding-standard.neon');
     }

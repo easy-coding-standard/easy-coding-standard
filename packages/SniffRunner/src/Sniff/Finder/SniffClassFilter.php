@@ -22,7 +22,7 @@ final class SniffClassFilter
                 continue;
             }
 
-            if (! $this->doesSniffSupportsPhp($sniffClass)) {
+            if (! $this->doesSniffSupportPhp($sniffClass)) {
                 continue;
             }
 
@@ -37,7 +37,7 @@ final class SniffClassFilter
         return (new ReflectionClass($className))->isAbstract();
     }
 
-    private function doesSniffSupportsPhp(string $className): bool
+    private function doesSniffSupportPhp(string $className): bool
     {
         $vars = get_class_vars($className);
         if (! isset($vars['supportedTokenizers'])) {

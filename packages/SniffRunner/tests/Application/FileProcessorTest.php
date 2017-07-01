@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\Command\RunCommand;
-use Symplify\EasyCodingStandard\Configuration\ConfigFilePathHelper;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
@@ -23,9 +22,9 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        ConfigFilePathHelper::set(__DIR__ . '/FileProcessorSource/easy-coding-standard.neon');
-
-        $container = (new ContainerFactory)->createWithConfig(ConfigFilePathHelper::provide());
+        $container = (new ContainerFactory)->createWithConfig(
+            __DIR__ . '/FileProcessorSource/easy-coding-standard.neon'
+        );
 
         $this->fileProcessor = $container->get(SniffFileProcessor::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());
