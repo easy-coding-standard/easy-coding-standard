@@ -1,2 +1,0 @@
-checkers:
-    - Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff
