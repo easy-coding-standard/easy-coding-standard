@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
 

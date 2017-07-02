@@ -2,6 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -54,13 +56,20 @@ final class ShowCommand extends Command
         $this->displayCheckerList($this->sniffFileProcessor->getSniffs(), 'PHP_CodeSniffer');
         $this->displayCheckerList($this->fixerFileProcessor->getFixers(), 'PHP-CS-Fixer');
 
+        $checkersTotal = count($this->sniffFileProcessor->getSniffs()) + count($this->fixerFileProcessor->getFixers());
+
+        $this->style->success(sprintf(
+            'Loaded %d checkers in total',
+            $checkersTotal
+        ));
+
         $this->style->newLine();
 
         return 0;
     }
 
     /**
-     * @param object[] $fixers
+     * @param FixerInterface[]|Sniff[] $fixers
      */
     private function displayCheckerList(array $fixers, string $type): void
     {

@@ -20,7 +20,6 @@ services:
         exclude: '../../packages/FixerRunner/src/{Exception}'
 
     # 3rd party services
-    Symfony\Component\Console\Application: ~
     Symfony\Component\Console\Terminal: ~
     Symfony\Component\Console\Input\ArgvInput: ~
     Symfony\Component\Console\Output\ConsoleOutput: ~
