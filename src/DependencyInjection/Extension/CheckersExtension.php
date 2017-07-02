@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
+use Nette\Utils\ObjectMixin;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
@@ -91,11 +92,13 @@ final class CheckersExtension extends Extension
             return;
         }
 
+        $suggested = ObjectMixin::getSuggestion(array_keys(get_class_vars($sniffClass)), $property);
+
         throw new InvalidSniffPropertyException(sprintf(
-            // @todo: add "Did you mean?"
-            'Property "%s" was not found on "%s" sniff class. Possible typo in its configuration?',
+            'Property "%s" was not found on "%s" sniff class in configuration. %s',
             $property,
-            $sniffClass
+            $sniffClass,
+            $suggested ? sprintf('Did you mean "%s"?', $suggested) : ''
         ));
     }
 }

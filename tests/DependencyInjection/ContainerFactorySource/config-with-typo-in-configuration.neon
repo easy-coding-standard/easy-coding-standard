@@ -1,0 +1,3 @@
+checkers:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff:
+        line_limit: 120 # correct property name is "lineLimit"
