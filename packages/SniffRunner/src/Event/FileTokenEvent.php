@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event;
+namespace Symplify\EasyCodingStandard\SniffRunner\Event;
 
 use PHP_CodeSniffer\Files\File;
 

@@ -3,8 +3,8 @@
 namespace Symplify\EasyCodingStandard\Application;
 
 use SplFileInfo;
-use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
@@ -43,13 +43,19 @@ final class Application
      */
     private $fixerFileProcessor;
 
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
         Skipper $skipper,
         SniffFileProcessor $sniffFileProcessor,
-        FixerFileProcessor $fixerFileProcessor
+        FixerFileProcessor $fixerFileProcessor,
+        Configuration $configuration
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -57,24 +63,21 @@ final class Application
         $this->skipper = $skipper;
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
+        $this->configuration = $configuration;
     }
 
-    public function runCommand(RunCommand $command): void
+    public function run(): void
     {
         // 1. clear cache
-        if ($command->shouldClearCache()) {
+        if ($this->configuration->shouldClearCache()) {
             $this->changedFilesDetector->clearCache();
         }
 
         // 2. find files in sources
-        $files = $this->sourceFinder->find($command->getSources());
+        $files = $this->sourceFinder->find($this->configuration->getSources());
         $this->startProgressBar($files);
 
-        // 3. configure file processors
-        $this->fixerFileProcessor->setupWithCommand($command);
-        $this->sniffFileProcessor->setupWithCommand($command);
-
-        // 4. process found files by each processors
+        // 3. process found files by each processors
         $this->processFoundFiles($files);
     }
 

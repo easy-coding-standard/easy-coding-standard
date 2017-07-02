@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
-use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
@@ -55,20 +54,8 @@ final class SniffFileProcessorTest extends TestCase
 
     private function runFileProcessor(): void
     {
-        $runCommand = $this->createRunCommand();
-
-        $this->fileProcessor->setupWithCommand($runCommand);
         $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
         $this->fileProcessor->processFile($fileInfo);
-    }
-
-    private function createRunCommand(): RunCommand
-    {
-        return RunCommand::createForSourceFixerAndClearCache(
-            [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
-            false,
-            true
-        );
     }
 
     private function validateError(Error $error): void

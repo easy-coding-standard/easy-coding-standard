@@ -5,21 +5,16 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use SplFileInfo;
-use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use Symplify\EasyCodingStandard\Skipper;
+use Symplify\EasyCodingStandard\SniffRunner\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
-use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\Event\FileTokenEvent;
-use Symplify\EasyCodingStandard\SniffRunner\TokenDispatcher\TokenDispatcher;
 
 final class SniffFileProcessor implements FileProcessorInterface
 {
-    /**
-     * @var TokenDispatcher
-     */
-    private $tokenDispatcher;
-
     /**
      * @var Fixer
      */
@@ -31,31 +26,55 @@ final class SniffFileProcessor implements FileProcessorInterface
     private $fileFactory;
 
     /**
+     * @var Sniff[]
+     */
+    private $sniffs = [];
+
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    /**
      * @var bool
      */
     private $isFixer = false;
 
     /**
-     * @var Sniff[]
+     * @var Skipper
      */
-    private $sniffs = [];
+    private $skipper;
 
-    public function __construct(TokenDispatcher $tokenDispatcher, Fixer $fixer, FileFactory $fileFactory)
-    {
-        $this->tokenDispatcher = $tokenDispatcher;
+    /**
+     * @var Sniff[][]
+     */
+    private $tokenListeners = [];
+
+    public function __construct(
+        Fixer $fixer,
+        FileFactory $fileFactory,
+        Configuration $configuration,
+        Skipper $skipper
+    ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
+        $this->configuration = $configuration;
+        $this->skipper = $skipper;
         $this->addCompatibilityLayer();
-    }
-
-    public function setSingleSniff(Sniff $sniff): void
-    {
-        $this->tokenDispatcher->addSingleSniffListener($sniff);
     }
 
     public function addSniff(Sniff $sniff): void
     {
         $this->sniffs[] = $sniff;
+        foreach ($sniff->register() as $token) {
+            $this->tokenListeners[$token][] = $sniff;
+        }
+    }
+
+    public function setSingleSniff(Sniff $sniff): void
+    {
+        $this->tokenListeners = [];
+        $this->addSniff($sniff);
     }
 
     /**
@@ -66,36 +85,26 @@ final class SniffFileProcessor implements FileProcessorInterface
         return $this->sniffs;
     }
 
-    public function setIsFixer(bool $isFixer): void
-    {
-        $this->isFixer = $isFixer;
-    }
-
-    public function setupWithCommand(RunCommand $runCommand): void
-    {
-        // @todo: move to more appropriate place
-        $this->tokenDispatcher->addSniffListeners($this->sniffs);
-        $this->setIsFixer($runCommand->isFixer());
-    }
-
     public function processFile(SplFileInfo $fileInfo, bool $dryRun = false): void
     {
-        $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer);
+        $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
 
-        if ($this->isFixer === false) {
+        if ($this->isFixer() === false) {
             $this->processFileWithoutFixer($file);
         } else {
             $this->processFileWithFixer($file, $dryRun);
         }
     }
 
+    public function setIsFixer(bool $isFixer): void
+    {
+        $this->isFixer = $isFixer;
+    }
+
     private function processFileWithoutFixer(File $file): void
     {
         foreach ($file->getTokens() as $stackPointer => $token) {
-            $this->tokenDispatcher->dispatchToken(
-                $token['code'],
-                new FileTokenEvent($file, $stackPointer)
-            );
+            $this->dispatchToken($token['code'], new FileTokenEvent($file, $stackPointer));
         }
     }
 
@@ -121,5 +130,31 @@ final class SniffFileProcessor implements FileProcessorInterface
             define('PHP_CODESNIFFER_VERBOSITY', 0);
         }
         new Tokens;
+    }
+
+    private function isFixer(): bool
+    {
+        return $this->isFixer || $this->configuration->isFixer();
+    }
+
+    /**
+     * @param int|string $token
+     */
+    private function dispatchToken($token, FileTokenEvent $fileTokenEvent): void
+    {
+        $tokenListeners = $this->tokenListeners[$token] ?? [];
+        if (! count($tokenListeners)) {
+            return;
+        }
+
+        $file = $fileTokenEvent->getFile();
+
+        foreach ($tokenListeners as $sniff) {
+            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $file->getFilename())) {
+                return;
+            }
+
+            $sniff->process($file, $fileTokenEvent->getPosition());
+        }
     }
 }

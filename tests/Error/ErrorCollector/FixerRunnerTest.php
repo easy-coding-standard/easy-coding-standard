@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
-use Symplify\EasyCodingStandard\Application\Command\RunCommand;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
@@ -66,15 +65,8 @@ final class FixerRunnerTest extends TestCase
 
     private function runFileProcessor(): void
     {
-        $runCommand = RunCommand::createForSourceFixerAndClearCache(
-            [__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc'],
-            false,
-            true
-        );
-
         $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
 
-        $this->fileProcessor->setupWithCommand($runCommand);
         $this->fileProcessor->processFile($fileInfo);
     }
 }

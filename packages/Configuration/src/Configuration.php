@@ -1,11 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Application\Command;
+namespace Symplify\EasyCodingStandard\Configuration;
 
+use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 
-final class RunCommand
+final class Configuration
 {
+    /**
+     * @var bool
+     */
+    private $isFixer = false;
+
     /**
      * @var string[]
      */
@@ -14,29 +20,13 @@ final class RunCommand
     /**
      * @var bool
      */
-    private $isFixer;
+    private $shouldClearCache = false;
 
-    /**
-     * @var bool
-     */
-    private $shouldClearCache;
-
-    /**
-     * @param string[] $source
-     */
-    private function __construct(array $source, bool $isFixer, bool $shouldClearCache)
+    public function resolveFromInput(InputInterface $input): void
     {
-        $this->setSources($source);
-        $this->isFixer = $isFixer;
-        $this->shouldClearCache = $shouldClearCache;
-    }
-
-    /**
-     * @param string[] $source
-     */
-    public static function createForSourceFixerAndClearCache(array $source, bool $isFixer, bool $shouldClearCache): self
-    {
-        return new self($source, $isFixer, $shouldClearCache);
+        $this->setSources($input->getArgument('source'));
+        $this->isFixer = (bool) $input->getOption('fix');
+        $this->shouldClearCache = (bool) $input->getOption('clear-cache');
     }
 
     /**
@@ -55,6 +45,14 @@ final class RunCommand
     public function shouldClearCache(): bool
     {
         return $this->shouldClearCache;
+    }
+
+    /**
+     * @param mixed[] $options
+     */
+    public function resolveFromArray(array $options): void
+    {
+        $this->isFixer = isset($options['isFixer']) && $options['isFixer'];
     }
 
     /**

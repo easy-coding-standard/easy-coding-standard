@@ -7,7 +7,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Symplify\EasyCodingStandard\Application\Command\RunCommand;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Skipper;
@@ -30,24 +30,20 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $skipper;
 
     /**
-     * @var bool
+     * @var Configuration
      */
-    private $isFixer = false;
+    private $configuration;
 
-    public function __construct(ErrorCollector $errorCollector, Skipper $skipper)
+    public function __construct(ErrorCollector $errorCollector, Skipper $skipper, Configuration $configuration)
     {
         $this->errorCollector = $errorCollector;
         $this->skipper = $skipper;
+        $this->configuration = $configuration;
     }
 
     public function addFixer(FixerInterface $fixer): void
     {
         $this->fixers[] = $fixer;
-    }
-
-    public function setupWithCommand(RunCommand $runCommand): void
-    {
-        $this->isFixer = $runCommand->isFixer();
     }
 
     /**
@@ -99,7 +95,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         // But we can't simple check $appliedFixers, because one fixer may revert
         // work of other and both of them will mark collection as changed.
         // Therefore we need to check if code hashes changed.
-        if ($this->isFixer && ($oldHash !== $newHash)) {
+        if ($this->configuration->isFixer() && ($oldHash !== $newHash)) {
             if (@file_put_contents($file->getRealPath(), $new) === false) {
                 // @todo: move to sniffer FixerFileProcessor as well, decouple FileSystem service?
                 $error = error_get_last();

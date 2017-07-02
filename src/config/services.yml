@@ -14,7 +14,7 @@ services:
         exclude: '../../packages/Configuration/src/{Exception}'
     Symplify\EasyCodingStandard\SniffRunner\:
         resource: '../../packages/SniffRunner/src'
-        exclude: '../../packages/SniffRunner/src/{Exception,File/File.php,TokenDispatcher/Event}'
+        exclude: '../../packages/SniffRunner/src/{Exception,File/File.php,Event}'
     Symplify\EasyCodingStandard\FixerRunner\:
         resource: '../../packages/FixerRunner/src'
         exclude: '../../packages/FixerRunner/src/{Exception}'
