@@ -4,6 +4,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
+use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 // performance boost
 gc_disable();
@@ -22,19 +23,25 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     }
 }
 
-// 1. Detect configuration
-ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput);
+try {
+    // 1. Detect configuration
+    ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput);
 
-// 2. Build DI container
-$containerFactory = new ContainerFactory;
-$configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.neon');
-if ($configFile) {
-    $container = $containerFactory->createWithConfig($configFile);
-} else {
-    $container = $containerFactory->create();
+    // 2. Build DI container
+    $containerFactory = new ContainerFactory;
+    $configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.neon');
+
+    if ($configFile) {
+        $container = $containerFactory->createWithConfig($configFile);
+    } else {
+        $container = $containerFactory->create();
+    }
+
+    // 3. Run Console Application
+    /** @var Application $application */
+    $application = $container->get(Application::class);
+    $application->run();
+} catch (Throwable $throwable) {
+    $symfonyStyle = SymfonyStyleFactory::create();
+    $symfonyStyle->error($throwable->getMessage());
 }
-
-// 3. Run Console Application
-/** @var Application $application */
-$application = $container->get(Application::class);
-$application->run();
