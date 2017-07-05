@@ -21,6 +21,12 @@ final class ContainerFactoryTest extends TestCase
         $this->containerFactory = new ContainerFactory;
     }
 
+    public function testCreate(): void
+    {
+        $container = $this->containerFactory->create();
+        $this->assertInstanceOf(ContainerInterface::class, $container);
+    }
+
     public function testCreateFromConfig(): void
     {
         $container = $this->containerFactory->createWithConfig(

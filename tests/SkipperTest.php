@@ -40,6 +40,13 @@ final class SkipperTest extends TestCase
         ));
     }
 
+    public function testRemoveFileFromUnused(): void
+    {
+        $this->assertSame([DeclareStrictTypesFixer::class => ['someFile']], $this->skipper->getUnusedSkipped());
+        $this->skipper->removeFileFromUnused('someFile');
+        $this->assertSame([], $this->skipper->getUnusedSkipped());
+    }
+
     private function createParameterProvider(): ParameterProvider
     {
         $container = new Container;

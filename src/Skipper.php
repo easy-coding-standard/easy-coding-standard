@@ -53,6 +53,7 @@ final class Skipper
             foreach ($skippedFiles as $key => $skippedFile) {
                 if ($this->fileMatchesPattern($relativePath, $skippedFile)) {
                     unset($this->unusedSkipped[$skippedChecker][$key]);
+                    $this->removeEmptyUnusedSkipped($skippedChecker);
                 }
             }
         }
@@ -87,11 +88,18 @@ final class Skipper
 
     private function fileMatchesPattern(string $file, string $ignoredPath): bool
     {
-        $file = strtr($file, '\\', '/');
+        $file = str_replace('\\', '/', $file);
         if ((bool) Strings::match($file, Glob::toRegex($ignoredPath))) {
             return true;
         }
 
         return Strings::endsWith($file, $ignoredPath);
+    }
+
+    private function removeEmptyUnusedSkipped(string $skippedChecker): void
+    {
+        if ($this->unusedSkipped[$skippedChecker] === []) {
+            unset($this->unusedSkipped[$skippedChecker]);
+        }
     }
 }
