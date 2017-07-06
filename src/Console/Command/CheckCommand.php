@@ -92,7 +92,11 @@ final class CheckCommand extends Command
         $this->easyCodingStandardStyle->printErrors($this->errorDataCollector->getUnfixableErrors());
 
         if ($this->errorDataCollector->getUnfixableErrorCount() === 0) {
-            $this->easyCodingStandardStyle->success('No errors found!');
+            $this->easyCodingStandardStyle->success(sprintf(
+                '%d %s successfully fixed and no other found!',
+                $this->errorDataCollector->getFixableErrorCount(),
+                $this->errorDataCollector->getFixableErrorCount() === 1 ? 'error' : 'errors'
+            ));
 
             return 0;
         }
