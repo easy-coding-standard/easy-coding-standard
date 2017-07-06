@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Console\Style;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
+use Symplify\EasyCodingStandard\Error\Error;
 
 final class EasyCodingStandardStyle
 {
@@ -65,10 +66,36 @@ final class EasyCodingStandardStyle
     }
 
     /**
+     * @param Error[][] $errors
+     */
+    public function printErrors(array $errors): void
+    {
+        /** @var Error[] $errors */
+        foreach ($errors as $file => $fileErrors) {
+            $this->table(['Line', $file], $this->buildFileTableRowsFromErrors($fileErrors));
+        }
+    }
+
+    public function startProgressBar(int $max): void
+    {
+        $this->hasProgressBarStarted = true;
+        $this->symfonyStyle->progressStart($max);
+    }
+
+    public function advanceProgressBar(): void
+    {
+        if (! $this->hasProgressBarStarted) {
+            return;
+        }
+
+        $this->symfonyStyle->progressAdvance();
+    }
+
+    /**
      * @param string[] $headers
      * @param mixed[] $rows
      */
-    public function table(array $headers, array $rows): void
+    private function table(array $headers, array $rows): void
     {
         $style = clone Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('%s');
@@ -85,19 +112,39 @@ final class EasyCodingStandardStyle
         $this->symfonyStyle->newLine();
     }
 
-    public function startProgressBar(int $max): void
+    /**
+     * @param Error[] $errors
+     * @return mixed[]
+     */
+    private function buildFileTableRowsFromErrors(array $errors): array
     {
-        $this->hasProgressBarStarted = true;
-        $this->symfonyStyle->progressStart($max);
-    }
-
-    public function advanceProgressBar(): void
-    {
-        if (! $this->hasProgressBarStarted) {
-            return;
+        $rows = [];
+        foreach ($errors as $error) {
+            $message = $error->getMessage() . PHP_EOL . '(' . $error->getSourceClass() . ')';
+            $rows[] = $this->buildRow($error, $message);
         }
 
-        $this->symfonyStyle->progressAdvance();
+        return $rows;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function buildRow(Error $error, string $message): array
+    {
+        return [
+            'line' => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
+            'message' => $this->wrapMessageToStyle($message, $error->isFixable()),
+        ];
+    }
+
+    private function wrapMessageToStyle(string $message, bool $isFixable): string
+    {
+        if ($isFixable) {
+            return sprintf('<fg=black;bg=green>%s</>', $message);
+        }
+
+        return sprintf('<fg=black;bg=red>%s</>', $message);
     }
 
     /**

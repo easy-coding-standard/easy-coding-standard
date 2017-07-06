@@ -8,8 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Console\Output\InfoMessagePrinter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Skipper;
 
 final class CheckCommand extends Command
@@ -22,17 +22,12 @@ final class CheckCommand extends Command
     /**
      * @var EasyCodingStandardStyle
      */
-    private $style;
+    private $easyCodingStandardStyle;
 
     /**
      * @var Application
      */
     private $applicationRunner;
-
-    /**
-     * @var InfoMessagePrinter
-     */
-    private $infoMessagePrinter;
 
     /**
      * @var Skipper
@@ -44,20 +39,25 @@ final class CheckCommand extends Command
      */
     private $configuration;
 
+    /**
+     * @var ErrorCollector
+     */
+    private $errorDataCollector;
+
     public function __construct(
-        Application $applicationRunner,
-        EasyCodingStandardStyle $style,
-        InfoMessagePrinter $infoMessagePrinter,
+        Application $application,
+        EasyCodingStandardStyle $easyCodingStandardStyle,
         Skipper $skipper,
-        Configuration $configuration
+        Configuration $configuration,
+        ErrorCollector $errorDataCollector
     ) {
         parent::__construct();
 
-        $this->applicationRunner = $applicationRunner;
-        $this->style = $style;
-        $this->infoMessagePrinter = $infoMessagePrinter;
+        $this->applicationRunner = $application;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
+        $this->errorDataCollector = $errorDataCollector;
     }
 
     protected function configure(): void
@@ -72,33 +72,75 @@ final class CheckCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->configuration->resolveFromInput($input);
-
         $this->applicationRunner->run();
 
-        if ($this->infoMessagePrinter->hasSomeErrorMessages()) {
-            $this->infoMessagePrinter->printFoundErrorsStatus($input->getOption('fix'));
+        if ($this->errorDataCollector->getErrorCount() === 0) {
+            $this->easyCodingStandardStyle->newLine();
+            $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
             $this->reportUnusedSkipped();
 
-            return 1;
+            return 0;
         }
 
-        $this->style->newLine();
-        $this->style->success('No errors found!');
-        $this->reportUnusedSkipped();
+        $this->easyCodingStandardStyle->newLine();
+
+        return $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
+    }
+
+    private function printAfterFixerStatus(): int
+    {
+        $this->easyCodingStandardStyle->printErrors($this->errorDataCollector->getUnfixableErrors());
+
+        if ($this->errorDataCollector->getUnfixableErrorCount() === 0) {
+            $this->easyCodingStandardStyle->success('No errors found!');
+
+            return 0;
+        }
+
+        $this->printErrorMessageFromErrorCounts(
+            $this->errorDataCollector->getUnfixableErrorCount(),
+            $this->errorDataCollector->getFixableErrorCount()
+        );
+
+        return 1;
+    }
+
+    private function printNoFixerStatus(): int
+    {
+        $this->easyCodingStandardStyle->printErrors($this->errorDataCollector->getAllErrors());
+
+        $this->printErrorMessageFromErrorCounts(
+            $this->errorDataCollector->getErrorCount(),
+            $this->errorDataCollector->getFixableErrorCount()
+        );
 
         return 0;
     }
 
-    private function reportUnusedSkipped(): void
+    private function printErrorMessageFromErrorCounts(int $errorCount, int $fixableErrorCount): void
     {
-        if (! count($this->skipper->getUnusedSkipped())) {
+        $this->easyCodingStandardStyle->error(sprintf(
+            $errorCount === 1 ? 'Found %d error.' : 'Found %d errors.',
+            $errorCount
+        ));
+
+        if (! $fixableErrorCount || $this->configuration->isFixer()) {
             return;
         }
 
+        $this->easyCodingStandardStyle->success(sprintf(
+            ' %s of them %s fixable! Just add "--fix" to console command and rerun to apply.',
+            ($errorCount === $fixableErrorCount) ? 'ALL' : $fixableErrorCount,
+            ($fixableErrorCount === 1) ? 'is' : 'are'
+        ));
+    }
+
+    private function reportUnusedSkipped(): void
+    {
         foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
             foreach ($skippedFiles as $skippedFile) {
-                $this->style->error(sprintf(
-                    'Skipped checker "%s" and skipped "%s" were not found',
+                $this->easyCodingStandardStyle->error(sprintf(
+                    'Skipped checker "%s" and file path "%s" were not found',
                     $skippedClass,
                     $skippedFile
                 ));
