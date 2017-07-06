@@ -4,12 +4,13 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
 use Nette\Utils\ObjectMixin;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\Fixer\ConfigurableFixerInterface;
+use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
+use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
@@ -73,7 +74,8 @@ final class CheckersExtension extends Extension
         $checkerClass = $checkerDefinition->getClass();
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
-            if (count($configuration) && is_a($checkerClass, ConfigurableFixerInterface::class, true)) {
+            if (count($configuration)) {
+                $this->ensureFixerIsConfigurable($checkerClass, $configuration);
                 $checkerDefinition->addMethodCall('configure', [$configuration]);
             }
         } elseif (is_a($checkerClass, Sniff::class, true)) {
@@ -84,6 +86,22 @@ final class CheckersExtension extends Extension
         }
 
         return $checkerDefinition;
+    }
+
+    /**
+     * @param mixed[] $configuration
+     */
+    private function ensureFixerIsConfigurable(string $fixerClass, array $configuration): void
+    {
+        if (is_a($fixerClass, ConfigurationDefinitionFixerInterface::class, true)) {
+            return;
+        }
+
+        throw new FixerIsNotConfigurableException(sprintf(
+            'Fixer "%s" is not configurable with configuration: %s.',
+            $fixerClass,
+            json_encode($configuration)
+        ));
     }
 
     private function ensurePropertyExists(string $sniffClass, string $property): void
