@@ -71,13 +71,15 @@ final class CheckersExtension extends Extension
      */
     private function setupCheckerConfiguration(Definition $checkerDefinition, array $configuration): Definition
     {
+        if (! count($configuration)) {
+            return $checkerDefinition;
+        }
+
         $checkerClass = $checkerDefinition->getClass();
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
-            if (count($configuration)) {
-                $this->ensureFixerIsConfigurable($checkerClass, $configuration);
-                $checkerDefinition->addMethodCall('configure', [$configuration]);
-            }
+            $this->ensureFixerIsConfigurable($checkerClass, $configuration);
+            $checkerDefinition->addMethodCall('configure', [$configuration]);
         } elseif (is_a($checkerClass, Sniff::class, true)) {
             foreach ($configuration as $property => $value) {
                 $this->ensurePropertyExists($checkerClass, $property);
