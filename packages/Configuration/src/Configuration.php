@@ -48,14 +48,6 @@ final class Configuration
     }
 
     /**
-     * @param mixed[] $options
-     */
-    public function resolveFromArray(array $options): void
-    {
-        $this->isFixer = isset($options['isFixer']) && $options['isFixer'];
-    }
-
-    /**
      * @param string[] $sources
      */
     private function setSources(array $sources): void

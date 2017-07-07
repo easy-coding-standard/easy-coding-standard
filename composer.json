@@ -4,6 +4,7 @@
     "license": "MIT",
     "bin": [
         "bin/easy-coding-standard"
+        "bin/ecs"
     ],
     "require": {
         "php": "^7.1",

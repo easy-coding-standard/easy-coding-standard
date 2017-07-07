@@ -6,8 +6,11 @@ use Nette\Utils\ObjectMixin;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
+use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
@@ -30,6 +33,11 @@ final class CheckersExtension extends Extension
      * @var CheckerTypeValidator
      */
     private $checkerTypeValidator;
+
+    /**
+     * @var bool
+     */
+    private $isWhitespaceFixerConfigRegistered = false;
 
     public function __construct()
     {
@@ -61,7 +69,8 @@ final class CheckersExtension extends Extension
     {
         foreach ($checkers as $checkerClass => $configuration) {
             $checkerDefinition = new Definition($checkerClass);
-            $checkerDefinition = $this->setupCheckerConfiguration($checkerDefinition, $configuration);
+            $this->setupCheckerConfiguration($checkerDefinition, $configuration);
+            $this->setupCheckerWithIndentation($checkerDefinition, $containerBuilder);
             $containerBuilder->setDefinition($checkerClass, $checkerDefinition);
         }
     }
@@ -69,14 +78,13 @@ final class CheckersExtension extends Extension
     /**
      * @param mixed[] $configuration
      */
-    private function setupCheckerConfiguration(Definition $checkerDefinition, array $configuration): Definition
+    private function setupCheckerConfiguration(Definition $checkerDefinition, array $configuration): void
     {
         if (! count($configuration)) {
-            return $checkerDefinition;
+            return;
         }
 
         $checkerClass = $checkerDefinition->getClass();
-
         if (is_a($checkerClass, FixerInterface::class, true)) {
             $this->ensureFixerIsConfigurable($checkerClass, $configuration);
             $checkerDefinition->addMethodCall('configure', [$configuration]);
@@ -86,8 +94,6 @@ final class CheckersExtension extends Extension
                 $checkerDefinition->setProperty($property, $value);
             }
         }
-
-        return $checkerDefinition;
     }
 
     /**
@@ -120,5 +126,37 @@ final class CheckersExtension extends Extension
             $sniffClass,
             $suggested ? sprintf('Did you mean "%s"?', $suggested) : ''
         ));
+    }
+
+    private function setupCheckerWithIndentation(Definition $definition, ContainerBuilder $containerBuilder): void
+    {
+        $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
+        $checkerClass = $definition->getClass();
+        if (! is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
+            return;
+        }
+
+        $definition->addMethodCall('setWhitespacesConfig', [new Reference('fixerWhitespaceConfig')]);
+    }
+
+    private function registerWhitespacesFixerConfigDefinition(ContainerBuilder $containerBuilder): void
+    {
+        if ($this->isWhitespaceFixerConfigRegistered) {
+            return;
+        }
+
+        $indentation = $containerBuilder->hasParameter('indentation') ?
+            $containerBuilder->getParameter('indentation') : 'spaces';
+        if ($indentation === 'spaces') {
+            $indentation = '    ';
+        }
+        if ($indentation === 'tab') {
+            $indentation = '	';
+        }
+
+        $whitespacesFixerConfigDefinition = new Definition(WhitespacesFixerConfig::class, [$indentation]);
+        $containerBuilder->setDefinition('fixerWhitespaceConfig', $whitespacesFixerConfigDefinition);
+
+        $this->isWhitespaceFixerConfigRegistered = true;
     }
 }

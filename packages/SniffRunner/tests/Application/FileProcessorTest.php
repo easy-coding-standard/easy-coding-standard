@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
@@ -28,7 +29,7 @@ final class FileProcessorTest extends TestCase
 
         /** @var Configuration $configuration */
         $configuration = $container->get(Configuration::class);
-        $configuration->resolveFromArray(['isFixer' => true]);
+        $configuration->resolveFromInput(new ArrayInput(['isFixer' => true]));
 
         $this->fileProcessor = $container->get(SniffFileProcessor::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());

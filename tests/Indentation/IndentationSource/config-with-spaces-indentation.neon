@@ -1,0 +1,5 @@
+parameters:
+    indentation: "spaces"
+
+checkers:
+    - PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer
