@@ -19,7 +19,7 @@ final class IndentationTest extends TestCase
         /** @var IndentationTypeFixer $indentationFixer */
         $indentationFixer = $container->get(IndentationTypeFixer::class);
 
-        $spacesConfig = new WhitespacesFixerConfig('    ', "\n");
+        $spacesConfig = new WhitespacesFixerConfig('    ', PHP_EOL);
         $this->assertEquals($spacesConfig, Assert::getObjectAttribute($indentationFixer, 'whitespacesConfig'));
     }
 
@@ -32,7 +32,7 @@ final class IndentationTest extends TestCase
         /** @var IndentationTypeFixer $indentationFixer */
         $indentationFixer = $container->get(IndentationTypeFixer::class);
 
-        $tabsConfig = new WhitespacesFixerConfig('	', "\n");
+        $tabsConfig = new WhitespacesFixerConfig('	', PHP_EOL);
         $this->assertEquals($tabsConfig, Assert::getObjectAttribute($indentationFixer, 'whitespacesConfig'));
     }
 }
