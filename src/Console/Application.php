@@ -18,6 +18,8 @@ final class Application extends SymfonyApplication
                 'Path to config file.', getcwd() . '/easy-coding-standard.neon'
             ),
             new InputOption('--help', '-h', InputOption::VALUE_NONE, 'Display this help message'),
+            new InputOption('--ansi', '', InputOption::VALUE_NONE, 'Force ANSI output'),
+            new InputOption('--no-ansi', '', InputOption::VALUE_NONE, 'Disable ANSI output'),
         ]);
     }
 }

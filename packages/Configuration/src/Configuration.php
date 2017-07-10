@@ -30,6 +30,14 @@ final class Configuration
     }
 
     /**
+     * @param mixed[] $options
+     */
+    public function resolveFromArray(array $options): void
+    {
+        $this->isFixer = (bool) $options['isFixer'];
+    }
+
+    /**
      * @return string[]
      */
     public function getSources(): array

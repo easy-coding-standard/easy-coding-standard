@@ -3,6 +3,10 @@
 [![Build Status](https://img.shields.io/travis/Symplify/EasyCodingStandard/master.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 
+Includes **caching that speeds-up 2nd run to few seconds**, **skipping files for specific checkers** and checker **autocomplete**.
+
+
+The easiest coding standard to start with:
 
 ```yaml
 # easy-coding-standard.neon
@@ -23,7 +27,7 @@ composer require symplify/easy-coding-standard
 
 ### 1. Create Configuration and Setup Checkers
 
-Create a `easy-coding-standard.neon` file in your root directory.
+Create an `easy-coding-standard.neon` file in your root directory.
 
 Here you can use 2 *checker classes*: [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) and [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
@@ -78,6 +82,17 @@ vendor/bin/easy-coding-standard check src --fix
 ```
 
 ![ECS-Run](docs/run-and-fix.gif)
+
+
+#### How to Clear Cache?
+
+To be sure your code base it checked completely, just clear the cache:
+
+```bash
+vendor/bin/easy-coding-standard check src --clear-cache
+```
+
+Cache stores all files without errors that haven't changed. It's handled by [`ChangedFilesDetector`](/packages/ChangedFilesDetector/src/ChangedFilesDetector.php)
 
 
 ## More Features
@@ -145,6 +160,13 @@ checkers:
     - PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer
 ```
 
+
+### Tabs over Spaces? We got this!
+
+```yaml
+parameters:
+    indentation: tab # "spaces" by default
+```
 
 ## Contributing
 

@@ -3,12 +3,16 @@
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
 use Nette\Utils\FileSystem;
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class ChangedFilesDetectorTest extends TestCase
+final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 {
+    /**
+     * @var string
+     */
+    private $phpFile = __DIR__ . '/ChangedFilesDetectorSource/OneClass.php';
+
     /**
      * @var ChangedFilesDetector
      */
@@ -18,7 +22,8 @@ final class ChangedFilesDetectorTest extends TestCase
     {
         FileSystem::createDir($this->getCacheDirectory());
 
-        $this->changedFilesDetector = $this->createChangedFilesDetectorFromConfigurationFile(
+        $this->changedFilesDetector = $this->container->get(ChangedFilesDetector::class);
+        $this->changedFilesDetector->changeConfigurationFile(
             __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.neon'
         );
     }
@@ -30,43 +35,28 @@ final class ChangedFilesDetectorTest extends TestCase
 
     public function testAddFile(): void
     {
-        $this->assertTrue($this->changedFilesDetector->hasFileChanged(
-            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php'
-        ));
-
-        $this->assertFalse($this->changedFilesDetector->hasFileChanged(
-            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
-        );
+        $this->assertFileHasChanged($this->phpFile);
+        $this->assertFileHasNotChanged($this->phpFile);
     }
 
     public function testHasFileChanged(): void
     {
-        $this->changedFilesDetector->addFile(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php');
+        $this->changedFilesDetector->addFile($this->phpFile);
 
-        $this->assertFalse($this->changedFilesDetector->hasFileChanged(
-            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
-        );
+        $this->assertFileHasNotChanged($this->phpFile);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void
     {
-        $this->changedFilesDetector->addFile(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php');
+        $this->changedFilesDetector->addFile($this->phpFile);
+        $this->assertFileHasNotChanged($this->phpFile);
 
-        $this->assertFalse($this->changedFilesDetector->hasFileChanged(
-            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
-        );
-
-        $changedFilesDetectorWithNewConfiguration = $this->createChangedFilesDetectorFromConfigurationFile(
+        $this->changedFilesDetector->changeConfigurationFile(
             __DIR__ . '/ChangedFilesDetectorSource/another-configuration.neon'
         );
 
-        $this->assertTrue($changedFilesDetectorWithNewConfiguration->hasFileChanged(
-            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
-        );
-
-        $this->assertFalse($changedFilesDetectorWithNewConfiguration->hasFileChanged(
-            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php')
-        );
+        $this->assertFileHasChanged($this->phpFile);
+        $this->assertFileHasNotChanged($this->phpFile);
     }
 
     private function getCacheDirectory(): string
@@ -74,8 +64,17 @@ final class ChangedFilesDetectorTest extends TestCase
         return __DIR__ . '/cache';
     }
 
-    private function createChangedFilesDetectorFromConfigurationFile(string $configurationFile): ChangedFilesDetector
+    private function assertFileHasChanged(string $file): void
     {
-        return new ChangedFilesDetector(new CacheFactory, $configurationFile);
+        $this->assertTrue($this->changedFilesDetector->hasFileChanged($file), sprintf(
+            'Failed asserting that file "%s" has changed.', $file
+        ));
+    }
+
+    private function assertFileHasNotChanged(string $file): void
+    {
+        $this->assertFalse($this->changedFilesDetector->hasFileChanged($file), sprintf(
+            'Failed asserting that file "%s" has not changed.', $file
+        ));
     }
 }

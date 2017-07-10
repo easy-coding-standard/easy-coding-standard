@@ -15,6 +15,12 @@ final class EasyCodingStandardStyle
     private const LINE_COLUMN_WIDTH = 4;
 
     /**
+     * To fit in Linux/Windows terminal windows to prevent overflow.
+     * @var int
+     */
+    private const BULGARIAN_CONSTANT = 8;
+
+    /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
@@ -100,6 +106,7 @@ final class EasyCodingStandardStyle
         $style = clone Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('%s');
 
+        $rows = $this->fixCrLfSplit($rows);
         $rows = $this->wrapTextSoItFitsTheColumnWidth($rows);
 
         $table = new Table($this->symfonyStyle);
@@ -154,7 +161,7 @@ final class EasyCodingStandardStyle
     private function wrapTextSoItFitsTheColumnWidth(array $rows): array
     {
         foreach ($rows as $id => $row) {
-            $rows[$id]['message'] = wordwrap($row['message'], $this->countMessageColumnWidth());
+            $rows[$id]['message'] = wordwrap($row['message'], $this->countMessageColumnWidth(), PHP_EOL);
         }
 
         return $rows;
@@ -162,6 +169,16 @@ final class EasyCodingStandardStyle
 
     private function countMessageColumnWidth(): int
     {
-        return $this->terminal->getWidth() - self::LINE_COLUMN_WIDTH - 7;
+        return $this->terminal->getWidth() - self::LINE_COLUMN_WIDTH - self::BULGARIAN_CONSTANT;
+    }
+
+    /**
+     * This prevents message override in Windows system.
+     * @param mixed[] $rows
+     * @return mixed[]
+     */
+    private function fixCrLfSplit(array $rows): array
+    {
+        return str_replace("\r", '', $rows);
     }
 }

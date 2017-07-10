@@ -18,19 +18,30 @@ final class ChangedFilesDetector
      */
     private $cache;
 
-    public function __construct(CacheFactory $cacheFactory, ?string $configurationFile = null)
+    /**
+     * @var FileHashComputer
+     */
+    private $fileHashComputer;
+
+    public function __construct(CacheFactory $cacheFactory, FileHashComputer $fileHashComputer)
     {
         $this->cache = $cacheFactory->create();
+        $this->fileHashComputer = $fileHashComputer;
 
-        $configurationFile = $configurationFile ?: ConfigFilePathHelper::provide('ecs');
+        $configurationFile = ConfigFilePathHelper::provide('ecs');
         if (file_exists($configurationFile)) {
-            $this->storeConfigurationDataHash($this->hashFile($configurationFile));
+            $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
         }
+    }
+
+    public function changeConfigurationFile(string $configurationFile): void
+    {
+        $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
     }
 
     public function addFile(string $filePath): void
     {
-        $hash = $this->hashFile($filePath);
+        $hash = $this->fileHashComputer->compute($filePath);
         $this->cache->save($filePath, $hash);
     }
 
@@ -41,7 +52,7 @@ final class ChangedFilesDetector
 
     public function hasFileChanged(string $filePath): bool
     {
-        $newFileHash = $this->hashFile($filePath);
+        $newFileHash = $this->fileHashComputer->compute($filePath);
         $oldFileHash = $this->cache->load($filePath);
 
         if ($newFileHash !== $oldFileHash) {
@@ -56,11 +67,6 @@ final class ChangedFilesDetector
     public function clearCache(): void
     {
         $this->cache->clean([Cache::ALL => true]);
-    }
-
-    private function hashFile(string $filePath): string
-    {
-        return md5_file($filePath);
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void

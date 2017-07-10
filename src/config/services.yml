@@ -20,6 +20,7 @@ services:
         exclude: '../../packages/FixerRunner/src/{Exception}'
 
     # 3rd party services
+    Nette\DI\Config\Loader: ~
     Symfony\Component\Console\Terminal: ~
     Symfony\Component\Console\Input\ArgvInput: ~
     Symfony\Component\Console\Output\ConsoleOutput: ~

@@ -149,8 +149,7 @@ final class CheckersExtension extends Extension
             $containerBuilder->getParameter('indentation') : 'spaces';
         if ($indentation === 'spaces') {
             $indentation = '    ';
-        }
-        if ($indentation === 'tab') {
+        } elseif ($indentation === 'tab') {
             $indentation = '	';
         }
 
