@@ -29,7 +29,7 @@ final class ChangedFilesDetector
         $this->fileHashComputer = $fileHashComputer;
 
         $configurationFile = ConfigFilePathHelper::provide('ecs');
-        if (file_exists($configurationFile)) {
+        if ($configurationFile !== null && is_file($configurationFile)) {
             $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
         }
     }

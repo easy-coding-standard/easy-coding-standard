@@ -16,7 +16,7 @@ gc_disable();
 $possibleAutoloadPaths = [__DIR__ . '/../../..', __DIR__ . '/../vendor', __DIR__ . '/../../../vendor'];
 
 foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
-    if (file_exists($possibleAutoloadPath . '/autoload.php')) {
+    if (is_file($possibleAutoloadPath . '/autoload.php')) {
         require_once $possibleAutoloadPath . '/autoload.php';
         require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
         break;
