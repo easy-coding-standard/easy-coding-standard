@@ -1,4 +1,4 @@
 #!/usr/bin/env php
-<?php declare(strict_types=1);
+<?php
 
 require_once __DIR__ . '/easy-coding-standard.php';
