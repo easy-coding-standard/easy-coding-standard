@@ -75,6 +75,12 @@ final class Application
 
         // 2. find files in sources
         $files = $this->sourceFinder->find($this->configuration->getSources());
+
+        // no files found
+        if (! count($files)) {
+            return;
+        }
+
         $this->startProgressBar($files);
 
         // 3. process found files by each processors
@@ -86,8 +92,7 @@ final class Application
      */
     private function startProgressBar(array $files): void
     {
-        $max = count($files);
-        $this->easyCodingStandardStyle->startProgressBar($max);
+        $this->easyCodingStandardStyle->startProgressBar(count($files));
     }
 
     /**

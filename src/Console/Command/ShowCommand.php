@@ -7,7 +7,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
@@ -19,11 +19,6 @@ final class ShowCommand extends Command
     private const NAME = 'show';
 
     /**
-     * @var EasyCodingStandardStyle
-     */
-    private $style;
-
-    /**
      * @var SniffFileProcessor
      */
     private $sniffFileProcessor;
@@ -33,16 +28,21 @@ final class ShowCommand extends Command
      */
     private $fixerFileProcessor;
 
+    /**
+     * @var SymfonyStyle
+     */
+    private $symfonyStyle;
+
     public function __construct(
-        EasyCodingStandardStyle $style,
         SniffFileProcessor $sniffFileProcessor,
-        FixerFileProcessor $fixerFileProcessor
+        FixerFileProcessor $fixerFileProcessor,
+        SymfonyStyle $symfonyStyle
     ) {
         parent::__construct();
 
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
-        $this->style = $style;
+        $this->symfonyStyle = $symfonyStyle;
     }
 
     protected function configure(): void
@@ -58,12 +58,12 @@ final class ShowCommand extends Command
 
         $checkersTotal = count($this->sniffFileProcessor->getSniffs()) + count($this->fixerFileProcessor->getFixers());
 
-        $this->style->success(sprintf(
+        $this->symfonyStyle->success(sprintf(
             'Loaded %d checkers in total',
             $checkersTotal
         ));
 
-        $this->style->newLine();
+        $this->symfonyStyle->newLine();
 
         return 0;
     }
@@ -82,7 +82,7 @@ final class ShowCommand extends Command
             return;
         }
 
-        $this->style->section(sprintf(
+        $this->symfonyStyle->section(sprintf(
             '%d checkers from %s:',
             count($checkerNames),
             $type
@@ -91,7 +91,7 @@ final class ShowCommand extends Command
         sort($checkerNames);
 
         foreach ($checkerNames as $checkerName) {
-            $this->style->text(' - ' . $checkerName);
+            $this->symfonyStyle->text(' - ' . $checkerName);
         }
     }
 }

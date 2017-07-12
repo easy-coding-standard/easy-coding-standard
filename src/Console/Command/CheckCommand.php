@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -44,12 +45,18 @@ final class CheckCommand extends Command
      */
     private $errorDataCollector;
 
+    /**
+     * @var SymfonyStyle
+     */
+    private $symfonyStyle;
+
     public function __construct(
         Application $application,
         EasyCodingStandardStyle $easyCodingStandardStyle,
         Skipper $skipper,
         Configuration $configuration,
-        ErrorCollector $errorDataCollector
+        ErrorCollector $errorDataCollector,
+        SymfonyStyle $symfonyStyle
     ) {
         parent::__construct();
 
@@ -58,6 +65,7 @@ final class CheckCommand extends Command
         $this->skipper = $skipper;
         $this->configuration = $configuration;
         $this->errorDataCollector = $errorDataCollector;
+        $this->symfonyStyle = $symfonyStyle;
     }
 
     protected function configure(): void
@@ -75,14 +83,14 @@ final class CheckCommand extends Command
         $this->applicationRunner->run();
 
         if ($this->errorDataCollector->getErrorCount() === 0) {
-            $this->easyCodingStandardStyle->newLine();
-            $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
+            $this->symfonyStyle->newLine();
+            $this->symfonyStyle->success('No errors found. Great job - your code is shiny in style!');
             $this->reportUnusedSkipped();
 
             return 0;
         }
 
-        $this->easyCodingStandardStyle->newLine();
+        $this->symfonyStyle->newLine();
 
         return $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
     }
@@ -92,7 +100,7 @@ final class CheckCommand extends Command
         $this->easyCodingStandardStyle->printErrors($this->errorDataCollector->getUnfixableErrors());
 
         if ($this->errorDataCollector->getUnfixableErrorCount() === 0) {
-            $this->easyCodingStandardStyle->success(sprintf(
+            $this->symfonyStyle->success(sprintf(
                 '%d %s successfully fixed and no other found!',
                 $this->errorDataCollector->getFixableErrorCount(),
                 $this->errorDataCollector->getFixableErrorCount() === 1 ? 'error' : 'errors'
@@ -118,12 +126,12 @@ final class CheckCommand extends Command
             $this->errorDataCollector->getFixableErrorCount()
         );
 
-        return 0;
+        return 1;
     }
 
     private function printErrorMessageFromErrorCounts(int $errorCount, int $fixableErrorCount): void
     {
-        $this->easyCodingStandardStyle->error(sprintf(
+        $this->symfonyStyle->error(sprintf(
             $errorCount === 1 ? 'Found %d error.' : 'Found %d errors.',
             $errorCount
         ));
@@ -132,7 +140,7 @@ final class CheckCommand extends Command
             return;
         }
 
-        $this->easyCodingStandardStyle->success(sprintf(
+        $this->symfonyStyle->success(sprintf(
             ' %s of them %s fixable! Just add "--fix" to console command and rerun to apply.',
             ($errorCount === $fixableErrorCount) ? 'ALL' : $fixableErrorCount,
             ($fixableErrorCount === 1) ? 'is' : 'are'
@@ -143,7 +151,7 @@ final class CheckCommand extends Command
     {
         foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
             foreach ($skippedFiles as $skippedFile) {
-                $this->easyCodingStandardStyle->error(sprintf(
+                $this->symfonyStyle->error(sprintf(
                     'Skipped checker "%s" and file path "%s" were not found',
                     $skippedClass,
                     $skippedFile
