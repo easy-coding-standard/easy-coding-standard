@@ -44,4 +44,5 @@ try {
 } catch (Throwable $throwable) {
     $symfonyStyle = SymfonyStyleFactory::create();
     $symfonyStyle->error($throwable->getMessage());
+    exit(1);
 }
