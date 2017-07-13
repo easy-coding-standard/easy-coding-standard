@@ -3,6 +3,8 @@
 namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Application;
 
 use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;
+use PhpCsFixer\Fixer\Basic\EncodingFixer;
+use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
@@ -25,7 +27,15 @@ final class FileProcessorTest extends TestCase
 
     public function testGetFixers(): void
     {
-        $this->assertCount(1, $this->fileProcessor->getFixers());
-        $this->assertInstanceOf(NoTrailingCommaInSinglelineArrayFixer::class, $this->fileProcessor->getFixers()[0]);
+        $this->assertCount(3, $this->fileProcessor->getFixers());
+    }
+
+    public function testSortFixers(): void
+    {
+        $sortedFixers = $this->fileProcessor->getFixers();
+
+        $this->assertInstanceOf(EncodingFixer::class, $sortedFixers[0]);
+        $this->assertInstanceOf(FullOpeningTagFixer::class, $sortedFixers[1]);
+        $this->assertInstanceOf(NoTrailingCommaInSinglelineArrayFixer::class, $sortedFixers[2]);
     }
 }

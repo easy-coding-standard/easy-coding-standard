@@ -51,6 +51,8 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     public function getFixers(): array
     {
+        $this->sortFixers();
+
         return $this->fixers;
     }
 
@@ -65,7 +67,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $appliedFixers = [];
 
-        foreach ($this->fixers as $fixer) {
+        foreach ($this->getFixers() as $fixer) {
             if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
                 continue;
             }
@@ -151,5 +153,12 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         return $fixer->getName();
+    }
+
+    private function sortFixers(): void
+    {
+        usort($this->fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer) {
+            return $firstFixer->getPriority() < $secondFixer->getPriority();
+        });
     }
 }
