@@ -8,6 +8,8 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symplify\EasyCodingStandard\Contract\Finder\ExtraFilesProviderInterface;
+use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Adapter\Symfony\DependencyInjection\DefinitionCollector;
@@ -19,6 +21,7 @@ final class CollectorCompilerPass implements CompilerPassInterface
         $this->collectCommandsToConsoleApplication($containerBuilder);
         $this->collectFixersToFixerFileProcessor($containerBuilder);
         $this->collectSniffsToSniffFileProcessor($containerBuilder);
+        $this->collectExtraFilesProvidersToSourceFinder($containerBuilder);
     }
 
     private function collectCommandsToConsoleApplication(ContainerBuilder $containerBuilder): void
@@ -48,6 +51,16 @@ final class CollectorCompilerPass implements CompilerPassInterface
             SniffFileProcessor::class,
             Sniff::class,
             'addSniff'
+        );
+    }
+
+    private function collectExtraFilesProvidersToSourceFinder(ContainerBuilder $containerBuilder): void
+    {
+        DefinitionCollector::loadCollectorWithType(
+            $containerBuilder,
+            SourceFinder::class,
+            ExtraFilesProviderInterface::class,
+            'addExtraFilesProvider'
         );
     }
 }

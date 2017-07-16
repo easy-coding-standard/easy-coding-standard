@@ -12,7 +12,7 @@ final class SniffClassRobotLoaderFactory
         $robot = new RobotLoader;
         $robot->setTempDirectory($this->createCacheDirectory());
         $robot->addDirectory($directory);
-        $robot->ignoreDirs .= ', tests, Tests';
+        $robot->ignoreDirs += ['tests', 'Tests'];
         $robot->acceptFiles = ['*Sniff.php'];
         $robot->rebuild();
 

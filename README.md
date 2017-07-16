@@ -168,6 +168,54 @@ parameters:
     indentation: tab # "spaces" by default
 ```
 
+### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
+
+Normally you want to exclude these files, because they're not common code - they're just test files or dummy fixtures. In case you want to check them as well, **you can**.
+
+Let's say you want to include `*.phpt` files.
+
+- Create a class in `src/Finder/PhptFilesProvider.php`
+- Implement `Symplify\EasyCodingStandard\Contract\Finder\ExtraFilesProviderInterface`
+- Register it as services to `easy-coding-standard.neon`:
+
+    ```yaml
+    services:
+        - App/Finder/PhptFilesProvider
+    ```
+
+The `PhptFilesProvider` might look like this:
+
+```php
+namespace App\Finder;
+
+use Nette\Utils\Finder;
+use SplFileInfo;
+use Symplify\EasyCodingStandard\Contract\Finder\ExtraFilesProviderInterface;
+
+final class PhptFilesProvider implements ExtraFilesProviderInterface
+{
+    /**
+     * @param string[] $source
+     * @return SplFileInfo[]
+     */
+    public function provideForSource(array $source): array
+    {
+        # $source is "source" argument passed in CLI
+        # inc CLI: "vendor/bin/ecs check /src" => here: ['/src']
+        $finder = Finder::find('*.phpt')->in($source);
+
+        return iterator_to_array($finder->getIterator());
+    }
+}
+```
+
+*Don't forget to autoload it with composer.*
+
+**Use any Finder you like**
+
+You can use [Nette\Finder](https://doc.nette.org/en/finder), [Symfony\Finder](https://symfony.com/doc/current/components/finder.html), [`glob`](http://php.net/manual/en/function.glob.php) or anything else you prefer. All you need to do is return array of [`SplFileInfo` objects](http://php.net/manual/en/class.splfileinfo.php).
+
+
 ## Contributing
 
 Send [issue](https://github.com/Symplify/Symplify/issues) or [pull-request](https://github.com/Symplify/Symplify/pulls) to main repository.
