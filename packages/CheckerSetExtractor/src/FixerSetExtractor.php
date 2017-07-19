@@ -6,7 +6,6 @@ use Nette\Utils\Strings;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\RuleSet;
 use ReflectionClass;
-use Sabberworm\CSS\Rule\Rule;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Exception\MissingFixerSetException;
