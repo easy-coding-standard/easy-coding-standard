@@ -76,7 +76,7 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            /* @var FixerInterface $fixer */
+            // @var FixerInterface $fixer
             $fixer->fix($file, $tokens);
 
             if ($tokens->isChanged()) {
