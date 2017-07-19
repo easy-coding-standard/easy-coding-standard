@@ -7,7 +7,7 @@ use Symplify\PackageBuilder\Composer\VendorDirProvider;
 final class SniffFinder
 {
     /**
-     * @var string[]|array
+     * @var string[]
      */
     private $sniffClassesPerDirectory = [];
 
