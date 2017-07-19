@@ -48,7 +48,7 @@ final class FixerRunnerLineTest extends TestCase
         $error = array_pop($errorMessages)[0];
         $this->assertInstanceOf(Error::class, $error);
 
-        $this->assertSame(8, $error->getLine());
+        $this->assertSame(7, $error->getLine());
     }
 
     private function runFileProcessor(): void
