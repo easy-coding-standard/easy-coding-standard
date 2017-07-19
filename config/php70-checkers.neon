@@ -1,0 +1,10 @@
+checkers:
+    # PHP-CS-Fixer only
+    - PhpCsFixer\Fixer\Alias\PowToExponentiationFixer
+    - PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer
+    PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
+        mt_rand: random_int
+        rand: random_int
+
+    # risky
+    - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer

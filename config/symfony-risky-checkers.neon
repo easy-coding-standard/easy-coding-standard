@@ -1,0 +1,13 @@
+checkers:
+    # PHP-CS-Fixer only
+    - PhpCsFixer\Fixer\LanguageConstruct\DirConstantFixer
+    - PhpCsFixer\Fixer\Alias\EregToPregFixer
+    - PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer
+    - PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer
+    - PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer
+    - PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer
+    - PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer
+    - PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer
+    - PhpCsFixer\Fixer\PhpUnit\PhpUnitDedicateAssertFixer
+    - PhpCsFixer\Fixer\Basic\Psr4Fixer
+    - PhpCsFixer\Fixer\LanguageConstruct\SilencedDeprecationErrorFixer

@@ -1,0 +1,29 @@
+checkers:
+    # PHP-CS-Fixer only
+    - PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer
+    - PhpCsFixer\Fixer\Basic\BracesFixer
+    - PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer
+    - PhpCsFixer\Fixer\ControlStructure\ElseifFixer
+    - PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer
+    - PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer
+    - PhpCsFixer\Fixer\Whitespace\LineEndingFixer
+    - PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer
+    - PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer
+    - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
+    - PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer
+    - PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer
+    - PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer
+    - PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer
+    - PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer
+    - PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer
+    PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
+        elements:
+            - property
+    - PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer
+    - PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer
+    - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer
+    - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer
+    # @todo: fix merging of include files from bottom to top with priority
+    # - PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer
+    - PhpCsFixer\Fixer\Basic\EncodingFixer
+    - PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer

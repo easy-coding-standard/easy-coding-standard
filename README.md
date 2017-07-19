@@ -134,6 +134,18 @@ vendor/bin/easy-coding-standard show
 
 List of active checkers will be shown.
 
+**You can also see what checkers are in another config**
+
+```bash
+vendor/bin/easy-coding-standard show --config vendor/nette/coding-standard/coding-standard-php71.neon
+```
+
+**Or explore a fixer set of PHP-CS-Fixer**:
+
+```bash
+vendor/bin/easy-coding-standard show --fixer-set Symfony
+```
+
 
 ### Pick Config in CLI
 
