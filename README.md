@@ -186,16 +186,16 @@ Normally you want to exclude these files, because they're not common code - they
 
 Let's say you want to include `*.phpt` files.
 
-- Create a class in `src/Finder/PhptFilesProvider.php`
-- Implement `Symplify\EasyCodingStandard\Contract\Finder\ExtraFilesProviderInterface`
-- Register it as services to `easy-coding-standard.neon`:
+- Create a class in `src/Finder/PhpAndPhptFilesProvider.php`
+- Implement `Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface`
+- Register it as services to `easy-coding-standard.neon` like any other Symfony service:
 
     ```yaml
     services:
-        - App/Finder/PhptFilesProvider
+        App/Finder/PhpAndPhptFilesProvider: ~
     ```
 
-The `PhptFilesProvider` might look like this:
+The `PhpAndPhptFilesProvider` might look like this:
 
 ```php
 namespace App\Finder;
@@ -204,7 +204,7 @@ use Nette\Utils\Finder;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Contract\Finder\ExtraFilesProviderInterface;
 
-final class PhptFilesProvider implements ExtraFilesProviderInterface
+final class PhpAndPhptFilesProvider implements ExtraFilesProviderInterface
 {
     /**
      * @param string[] $source
@@ -214,7 +214,7 @@ final class PhptFilesProvider implements ExtraFilesProviderInterface
     {
         # $source is "source" argument passed in CLI
         # inc CLI: "vendor/bin/ecs check /src" => here: ['/src']
-        $finder = Finder::find('*.phpt')->in($source);
+        $finder = Finder::find('*.php', '*.phpt')->in($source);
 
         return iterator_to_array($finder->getIterator());
     }

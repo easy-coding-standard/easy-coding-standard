@@ -1,2 +1,2 @@
 services:
-    - Symplify\EasyCodingStandard\Tests\Finder\SourceFinderSource\IncFilesExtraFilesProvider
+    Symplify\EasyCodingStandard\Tests\Finder\SourceFinderSource\PhpAndIncFilesSourceProvider: ~

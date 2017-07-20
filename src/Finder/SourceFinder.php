@@ -4,18 +4,18 @@ namespace Symplify\EasyCodingStandard\Finder;
 
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
-use Symplify\EasyCodingStandard\Contract\Finder\ExtraFilesProviderInterface;
+use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 
 final class SourceFinder
 {
     /**
-     * @var ExtraFilesProviderInterface[]
+     * @var CustomSourceProviderInterface
      */
-    private $extraFilesProvider = [];
+    private $customSourceProvider;
 
-    public function addExtraFilesProvider(ExtraFilesProviderInterface $sourceProvider): void
+    public function setCustomSourceProvider(?CustomSourceProviderInterface $customSourceProvider = null): void
     {
-        $this->extraFilesProvider[] = $sourceProvider;
+        $this->customSourceProvider = $customSourceProvider;
     }
 
     /**
@@ -26,16 +26,16 @@ final class SourceFinder
     {
         $files = [];
 
+        if ($this->customSourceProvider) {
+            return $this->customSourceProvider->find($source);
+        }
+
         foreach ($source as $singleSource) {
             if (is_file($singleSource)) {
                 $files = $this->processFile($files, $singleSource);
             } else {
                 $files = $this->processDirectory($files, $singleSource);
             }
-        }
-
-        foreach ($this->extraFilesProvider as $extraFilesProvider) {
-            $files[] = $extraFilesProvider->provideForSource($source);
         }
 
         return $files;
