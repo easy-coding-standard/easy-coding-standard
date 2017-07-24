@@ -33,7 +33,7 @@ final class ChangedLinesDetector
                 }
             }
 
-            $currentLine++;
+            ++$currentLine;
         }
 
         return $changedLines;

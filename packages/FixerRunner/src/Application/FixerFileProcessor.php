@@ -133,19 +133,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         Tokens::clearCache();
     }
 
-    private function detectChangedLineFromTokens(Tokens $tokens): int
-    {
-        $line = 0;
-        foreach ($tokens as $token) {
-            $line += substr_count($token->getContent(), PHP_EOL);
-            if ($token->isChanged()) {
-                return ++$line;
-            }
-        }
-
-        return $line;
-    }
-
     private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, int $line): void
     {
         $filePath = str_replace('//', '/', $file->getPathname());

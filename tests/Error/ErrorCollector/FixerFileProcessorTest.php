@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
@@ -29,6 +30,10 @@ final class FixerFileProcessorTest extends TestCase
 
         $this->errorDataCollector = $container->get(ErrorCollector::class);
         $this->fileProcessor = $container->get(FixerFileProcessor::class);
+
+        /** @var ChangedFilesDetector $changedFilesDetector */
+        $changedFilesDetector = $container->get(ChangedFilesDetector::class);
+        $changedFilesDetector->clearCache();
     }
 
     public function test(): void
