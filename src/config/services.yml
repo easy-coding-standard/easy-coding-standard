@@ -21,6 +21,7 @@ services:
 
     # 3rd party services
     Nette\DI\Config\Loader: ~
+    SebastianBergmann\Diff\Differ: ~
     Symfony\Component\Console\Terminal: ~
 
     Symfony\Component\Console\Input\ArgvInput: ~

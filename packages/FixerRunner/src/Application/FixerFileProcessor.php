@@ -10,6 +10,7 @@ use Symfony\Component\Filesystem\Exception\IOException;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\FixerRunner\ChangedLinesDetector;
 use Symplify\EasyCodingStandard\Skipper;
 
 final class FixerFileProcessor implements FileProcessorInterface
@@ -34,11 +35,21 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $configuration;
 
-    public function __construct(ErrorCollector $errorCollector, Skipper $skipper, Configuration $configuration)
-    {
+    /**
+     * @var ChangedLinesDetector
+     */
+    private $changedLinesDetector;
+
+    public function __construct(
+        ErrorCollector $errorCollector,
+        Skipper $skipper,
+        Configuration $configuration,
+        ChangedLinesDetector $changedLinesDetector
+    ) {
         $this->errorCollector = $errorCollector;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
+        $this->changedLinesDetector = $changedLinesDetector;
     }
 
     public function addFixer(FixerInterface $fixer): void
@@ -58,12 +69,12 @@ final class FixerFileProcessor implements FileProcessorInterface
 
     public function processFile(SplFileInfo $file): void
     {
-        $old = file_get_contents($file->getRealPath());
-        $tokens = Tokens::fromCode($old);
+        $oldContent = file_get_contents($file->getRealPath());
+        $tokens = Tokens::fromCode($oldContent);
         $oldHash = $tokens->getCodeHash();
 
         $newHash = $oldHash;
-        $new = $old;
+        $newContent = $oldContent;
 
         $appliedFixers = [];
 
@@ -79,8 +90,12 @@ final class FixerFileProcessor implements FileProcessorInterface
             // @var FixerInterface $fixer
             $fixer->fix($file, $tokens);
 
+            $changedLines = $this->changedLinesDetector->detectInBeforeAfter($oldContent, $tokens->generateCode());
+
             if ($tokens->isChanged()) {
-                $this->addErrorToErrorMessageCollector($file, $fixer, $tokens);
+                foreach ($changedLines as $changedLine) {
+                    $this->addErrorToErrorMessageCollector($file, $fixer, $changedLine);
+                }
 
                 $tokens->clearEmptyTokens();
                 $tokens->clearChanged();
@@ -89,7 +104,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         if (! empty($appliedFixers)) {
-            $new = $tokens->generateCode();
+            $newContent = $tokens->generateCode();
             $newHash = $tokens->getCodeHash();
         }
 
@@ -98,7 +113,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         // work of other and both of them will mark collection as changed.
         // Therefore we need to check if code hashes changed.
         if ($this->configuration->isFixer() && ($oldHash !== $newHash)) {
-            if (@file_put_contents($file->getRealPath(), $new) === false) {
+            if (@file_put_contents($file->getRealPath(), $newContent) === false) {
                 // @todo: move to sniffer FixerFileProcessor as well, decouple FileSystem service?
                 $error = error_get_last();
 
@@ -131,13 +146,13 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $line;
     }
 
-    private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): void
+    private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, int $line): void
     {
         $filePath = str_replace('//', '/', $file->getPathname());
 
         $this->errorCollector->addErrorMessage(
             $filePath,
-            $this->detectChangedLineFromTokens($tokens),
+            $line,
             $this->prepareErrorMessageFromFixer($fixer),
             get_class($fixer),
             true
