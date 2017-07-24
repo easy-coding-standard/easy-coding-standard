@@ -10,7 +10,7 @@ use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 
-final class FixerRunnerTest extends TestCase
+final class FixerFileProcessorTest extends TestCase
 {
     /**
      * @var int
