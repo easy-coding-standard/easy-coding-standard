@@ -8,7 +8,7 @@ use Symplify\EasyCodingStandard\Configuration\Exception\InvalidConfigurationType
 final class CheckerConfigurationNormalizer
 {
     /**
-     * @param string[]|int[][]|string[][] $classes
+     * @param mixed[] $classes
      * @return string[][]
      */
     public function normalize(array $classes): array
