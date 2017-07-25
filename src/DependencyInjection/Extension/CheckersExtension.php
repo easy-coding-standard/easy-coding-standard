@@ -49,7 +49,7 @@ final class CheckersExtension extends Extension
     {
         $this->configurationNormalizer = new CheckerConfigurationNormalizer;
         $this->checkerTypeValidator = new CheckerTypeValidator;
-        $this->checkerExtensionGuardian = new CheckersExtensionGuardian();
+        $this->checkerExtensionGuardian = new CheckersExtensionGuardian;
     }
 
     /**
