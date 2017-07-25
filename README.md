@@ -192,7 +192,7 @@ Let's say you want to include `*.phpt` files.
 
     ```yaml
     services:
-        App/Finder/PhpAndPhptFilesProvider: ~
+        App\Finder\PhpAndPhptFilesProvider: ~
     ```
 
 The `PhpAndPhptFilesProvider` might look like this:
@@ -202,15 +202,15 @@ namespace App\Finder;
 
 use Nette\Utils\Finder;
 use SplFileInfo;
-use Symplify\EasyCodingStandard\Contract\Finder\ExtraFilesProviderInterface;
+use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 
-final class PhpAndPhptFilesProvider implements ExtraFilesProviderInterface
+final class PhpAndPhptFilesProvider implements CustomSourceProviderInterface
 {
     /**
      * @param string[] $source
      * @return SplFileInfo[]
      */
-    public function provideForSource(array $source): array
+    public function find(array $source): array
     {
         # $source is "source" argument passed in CLI
         # inc CLI: "vendor/bin/ecs check /src" => here: ['/src']

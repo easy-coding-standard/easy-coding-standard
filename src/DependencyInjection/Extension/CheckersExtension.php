@@ -53,7 +53,7 @@ final class CheckersExtension extends Extension
     }
 
     /**
-     * @param mixed[] $configs
+     * @param string[] $configs
      */
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
@@ -62,12 +62,11 @@ final class CheckersExtension extends Extension
             return;
         }
 
+        $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
+
         $checkersConfiguration = $parameterBag->get(self::NAME) ?? [];
         $checkers = $this->configurationNormalizer->normalize($checkersConfiguration);
         $this->checkerTypeValidator->validate(array_keys($checkers));
-
-        $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
-
         $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
 
