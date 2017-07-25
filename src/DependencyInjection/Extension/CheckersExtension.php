@@ -2,9 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
-use Nette\Utils\ObjectMixin;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
@@ -13,8 +11,6 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
-use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
-use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
 final class CheckersExtension extends Extension
@@ -44,10 +40,16 @@ final class CheckersExtension extends Extension
      */
     private $checkerTypeValidator;
 
+    /**
+     * @var CheckersExtensionGuardian
+     */
+    private $checkerExtensionGuardian;
+
     public function __construct()
     {
         $this->configurationNormalizer = new CheckerConfigurationNormalizer;
         $this->checkerTypeValidator = new CheckerTypeValidator;
+        $this->checkerExtensionGuardian = new CheckersExtensionGuardian();
     }
 
     /**
@@ -92,47 +94,18 @@ final class CheckersExtension extends Extension
         }
 
         $checkerClass = $checkerDefinition->getClass();
+
         if (is_a($checkerClass, FixerInterface::class, true)) {
-            $this->ensureFixerIsConfigurable($checkerClass, $configuration);
+            $this->checkerExtensionGuardian->ensureFixerIsConfigurable($checkerClass, $configuration);
             $checkerDefinition->addMethodCall('configure', [$configuration]);
-        } elseif (is_a($checkerClass, Sniff::class, true)) {
+        }
+
+        if (is_a($checkerClass, Sniff::class, true)) {
             foreach ($configuration as $property => $value) {
-                $this->ensurePropertyExists($checkerClass, $property);
+                $this->checkerExtensionGuardian->ensurePropertyExists($checkerClass, $property);
                 $checkerDefinition->setProperty($property, $value);
             }
         }
-    }
-
-    /**
-     * @param mixed[] $configuration
-     */
-    private function ensureFixerIsConfigurable(string $fixerClass, array $configuration): void
-    {
-        if (is_a($fixerClass, ConfigurationDefinitionFixerInterface::class, true)) {
-            return;
-        }
-
-        throw new FixerIsNotConfigurableException(sprintf(
-            'Fixer "%s" is not configurable with configuration: %s.',
-            $fixerClass,
-            json_encode($configuration)
-        ));
-    }
-
-    private function ensurePropertyExists(string $sniffClass, string $property): void
-    {
-        if (property_exists($sniffClass, $property)) {
-            return;
-        }
-
-        $suggested = ObjectMixin::getSuggestion(array_keys(get_class_vars($sniffClass)), $property);
-
-        throw new InvalidSniffPropertyException(sprintf(
-            'Property "%s" was not found on "%s" sniff class in configuration. %s',
-            $property,
-            $sniffClass,
-            $suggested ? sprintf('Did you mean "%s"?', $suggested) : ''
-        ));
     }
 
     private function setupCheckerWithIndentation(Definition $definition, ContainerBuilder $containerBuilder): void
