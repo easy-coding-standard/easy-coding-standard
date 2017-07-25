@@ -9,9 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Skipper;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class CheckCommand extends Command
 {
@@ -50,13 +53,25 @@ final class CheckCommand extends Command
      */
     private $symfonyStyle;
 
+    /**
+     * @var FixerFileProcessor
+     */
+    private $fixerFileProcessor;
+
+    /**
+     * @var SniffFileProcessor
+     */
+    private $sniffFileProcessor;
+
     public function __construct(
         Application $application,
         EasyCodingStandardStyle $easyCodingStandardStyle,
         Skipper $skipper,
         Configuration $configuration,
         ErrorCollector $errorDataCollector,
-        SymfonyStyle $symfonyStyle
+        SymfonyStyle $symfonyStyle,
+        FixerFileProcessor $fixerFileProcessor,
+        SniffFileProcessor $sniffFileProcessor
     ) {
         parent::__construct();
 
@@ -66,6 +81,8 @@ final class CheckCommand extends Command
         $this->configuration = $configuration;
         $this->errorDataCollector = $errorDataCollector;
         $this->symfonyStyle = $symfonyStyle;
+        $this->fixerFileProcessor = $fixerFileProcessor;
+        $this->sniffFileProcessor = $sniffFileProcessor;
     }
 
     protected function configure(): void
@@ -79,6 +96,8 @@ final class CheckCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->ensureSomeCheckersAreRegistered();
+
         $this->configuration->resolveFromInput($input);
         $this->applicationRunner->run();
 
@@ -152,11 +171,25 @@ final class CheckCommand extends Command
         foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
             foreach ($skippedFiles as $skippedFile) {
                 $this->symfonyStyle->error(sprintf(
-                    'Skipped checker "%s" and file path "%s" were not found',
+                    'Skipped checker "%s" and file path "%s" were not found. '
+                        . 'You can remove them from "parameters: > skip:" section in your config.',
                     $skippedClass,
                     $skippedFile
                 ));
             }
+        }
+    }
+
+    private function ensureSomeCheckersAreRegistered(): void
+    {
+        $totalCheckersLoaded = count($this->sniffFileProcessor->getSniffs())
+            + count($this->fixerFileProcessor->getFixers());
+
+        if ($totalCheckersLoaded === 0) {
+            throw new NoCheckersLoadedException(
+                'No checkers were found. Registers them in your config in "checkers:" '
+                . 'section or load them via "--config <file>.neon" option.'
+            );
         }
     }
 }

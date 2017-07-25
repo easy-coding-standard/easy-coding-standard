@@ -4,6 +4,6 @@ namespace Symplify\EasyCodingStandard\Configuration\Exception;
 
 use Exception;
 
-final class InvalidConfigurationTypeException extends Exception
+final class NoCheckersLoadedException extends Exception
 {
 }
