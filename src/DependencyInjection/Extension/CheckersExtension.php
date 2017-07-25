@@ -22,6 +22,16 @@ final class CheckersExtension extends Extension
     /**
      * @var string
      */
+    private const FOUR_SPACES = '    ';
+
+    /**
+     * @var string
+     */
+    private const ONE_TAB = '	';
+
+    /**
+     * @var string
+     */
     private const NAME = 'checkers';
 
     /**
@@ -58,6 +68,8 @@ final class CheckersExtension extends Extension
         $checkersConfiguration = $parameterBag->get(self::NAME) ?? [];
         $checkers = $this->configurationNormalizer->normalize($checkersConfiguration);
         $this->checkerTypeValidator->validate(array_keys($checkers));
+
+        $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
 
         $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
@@ -130,7 +142,6 @@ final class CheckersExtension extends Extension
 
     private function setupCheckerWithIndentation(Definition $definition, ContainerBuilder $containerBuilder): void
     {
-        $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
         $checkerClass = $definition->getClass();
         if (! is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
             return;
@@ -141,21 +152,25 @@ final class CheckersExtension extends Extension
 
     private function registerWhitespacesFixerConfigDefinition(ContainerBuilder $containerBuilder): void
     {
-        if ($this->isWhitespaceFixerConfigRegistered) {
-            return;
-        }
-
-        $indentation = $containerBuilder->hasParameter('indentation') ?
-            $containerBuilder->getParameter('indentation') : 'spaces';
-        if ($indentation === 'spaces') {
-            $indentation = '    ';
-        } elseif ($indentation === 'tab') {
-            $indentation = '	';
-        }
+        $indentation = $this->resolveIndentationValueFromParameter($containerBuilder);
 
         $whitespacesFixerConfigDefinition = new Definition(WhitespacesFixerConfig::class, [$indentation, PHP_EOL]);
         $containerBuilder->setDefinition('fixerWhitespaceConfig', $whitespacesFixerConfigDefinition);
 
         $this->isWhitespaceFixerConfigRegistered = true;
+    }
+
+    private function resolveIndentationValueFromParameter(ContainerBuilder $containerBuilder): string
+    {
+        if (! $containerBuilder->hasParameter('indentation')) {
+            return self::FOUR_SPACES;
+        }
+
+        $indentation = $containerBuilder->getParameter('indentation');
+        if ($indentation === 'tab') {
+            return self::ONE_TAB;
+        }
+
+        return self::FOUR_SPACES;
     }
 }
