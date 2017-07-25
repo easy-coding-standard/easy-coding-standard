@@ -41,7 +41,7 @@ final class CheckerConfigurationNormalizer
 
     /**
      * @param string[] $configuredClasses
-     * @parma mixed[] $config
+     * @param mixed[] $config
      */
     private function ensureThereAreNoDuplications(array $configuredClasses, string $name, array $config): void
     {
