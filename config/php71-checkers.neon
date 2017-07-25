@@ -4,3 +4,4 @@ checkers:
         - const
         - method
         - property
+    - PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer

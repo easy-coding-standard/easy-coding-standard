@@ -18,6 +18,11 @@ final class CheckersExtension extends Extension
     /**
      * @var string
      */
+    private const SERVICE_NAME_WHITESPACE_CONFIG = 'fixerWhitespaceConfig';
+
+    /**
+     * @var string
+     */
     private const FOUR_SPACES = '    ';
 
     /**
@@ -78,7 +83,7 @@ final class CheckersExtension extends Extension
         foreach ($checkers as $checkerClass => $configuration) {
             $checkerDefinition = new Definition($checkerClass);
             $this->setupCheckerConfiguration($checkerDefinition, $configuration);
-            $this->setupCheckerWithIndentation($checkerDefinition, $containerBuilder);
+            $this->setupCheckerWithIndentation($checkerDefinition);
             $containerBuilder->setDefinition($checkerClass, $checkerDefinition);
         }
     }
@@ -107,22 +112,28 @@ final class CheckersExtension extends Extension
         }
     }
 
-    private function setupCheckerWithIndentation(Definition $definition, ContainerBuilder $containerBuilder): void
+    private function setupCheckerWithIndentation(Definition $definition): void
     {
         $checkerClass = $definition->getClass();
         if (! is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
             return;
         }
 
-        $definition->addMethodCall('setWhitespacesConfig', [new Reference('fixerWhitespaceConfig')]);
+        $definition->addMethodCall(
+            'setWhitespacesConfig',
+            [new Reference(self::SERVICE_NAME_WHITESPACE_CONFIG)]
+        );
     }
 
     private function registerWhitespacesFixerConfigDefinition(ContainerBuilder $containerBuilder): void
     {
         $indentation = $this->resolveIndentationValueFromParameter($containerBuilder);
 
-        $whitespacesFixerConfigDefinition = new Definition(WhitespacesFixerConfig::class, [$indentation, PHP_EOL]);
-        $containerBuilder->setDefinition('fixerWhitespaceConfig', $whitespacesFixerConfigDefinition);
+        $whitespacesFixerConfigDefinition = new Definition(
+            WhitespacesFixerConfig::class,
+            [$indentation, PHP_EOL]
+        );
+        $containerBuilder->setDefinition(self::SERVICE_NAME_WHITESPACE_CONFIG, $whitespacesFixerConfigDefinition);
     }
 
     private function resolveIndentationValueFromParameter(ContainerBuilder $containerBuilder): string
