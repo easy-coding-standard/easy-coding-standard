@@ -32,7 +32,7 @@ final class CheckerConfigurationNormalizer
                 ));
             }
 
-            $this->ensureThereAreNoDuplications($configuredClasses, $name);
+            $this->ensureThereAreNoDuplications($configuredClasses, $name, $config);
             $configuredClasses[$name] = $config;
         }
 
@@ -41,10 +41,16 @@ final class CheckerConfigurationNormalizer
 
     /**
      * @param string[] $configuredClasses
+     * @parma mixed[] $config
      */
-    private function ensureThereAreNoDuplications(array $configuredClasses, string $name): void
+    private function ensureThereAreNoDuplications(array $configuredClasses, string $name, array $config): void
     {
         if (! isset($configuredClasses[$name])) {
+            return;
+        }
+
+        // new configuration? => not a duplicate, merge it
+        if ($configuredClasses[$name] !== $config) {
             return;
         }
 

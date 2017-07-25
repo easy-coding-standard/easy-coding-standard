@@ -50,6 +50,7 @@ final class ConfigurationNormalizerTest extends TestCase
         ]);
     }
 
+
     public function testNonArrayConfiguration(): void
     {
         $this->expectException(InvalidConfigurationTypeException::class);
@@ -60,5 +61,21 @@ final class ConfigurationNormalizerTest extends TestCase
         $this->configurationNormalizer->normalize([
             'sniff' => 'configuration',
         ]);
+    }
+
+    public function testMerging(): void
+    {
+        $normalizedConfiguration = $this->configurationNormalizer->normalize([
+            0 => 'sniff',
+            'sniff' => [
+                'key' => 'value'
+            ]
+        ]);
+
+        $this->assertSame([
+            'sniff' => [
+                'key' => 'value'
+            ]
+        ], $normalizedConfiguration);
     }
 }

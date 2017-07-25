@@ -23,7 +23,6 @@ checkers:
     - PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer
     - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer
     - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer
-    # @todo: fix merging of include files from bottom to top with priority
-    # - PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer
+    - PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer
     - PhpCsFixer\Fixer\Basic\EncodingFixer
     - PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer
