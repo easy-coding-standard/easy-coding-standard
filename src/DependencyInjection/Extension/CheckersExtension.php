@@ -44,11 +44,6 @@ final class CheckersExtension extends Extension
      */
     private $checkerTypeValidator;
 
-    /**
-     * @var bool
-     */
-    private $isWhitespaceFixerConfigRegistered = false;
-
     public function __construct()
     {
         $this->configurationNormalizer = new CheckerConfigurationNormalizer;
@@ -156,8 +151,6 @@ final class CheckersExtension extends Extension
 
         $whitespacesFixerConfigDefinition = new Definition(WhitespacesFixerConfig::class, [$indentation, PHP_EOL]);
         $containerBuilder->setDefinition('fixerWhitespaceConfig', $whitespacesFixerConfigDefinition);
-
-        $this->isWhitespaceFixerConfigRegistered = true;
     }
 
     private function resolveIndentationValueFromParameter(ContainerBuilder $containerBuilder): string
