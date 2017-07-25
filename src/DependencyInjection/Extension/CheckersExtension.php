@@ -98,6 +98,9 @@ final class CheckersExtension extends Extension
         }
 
         $checkerClass = $checkerDefinition->getClass();
+        if ($checkerClass === null) {
+            return;
+        }
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
             $this->checkerExtensionGuardian->ensureFixerIsConfigurable($checkerClass, $configuration);

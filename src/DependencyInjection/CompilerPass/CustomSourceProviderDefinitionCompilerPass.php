@@ -18,12 +18,14 @@ final class CustomSourceProviderDefinitionCompilerPass implements CompilerPassIn
             CustomSourceProviderInterface::class
         );
 
-        if ($customSourceProviderDefinition) {
-            $sourceFinderDefinition = DefinitionFinder::getByType($containerBuilder, SourceFinder::class);
-            $sourceFinderDefinition->addMethodCall(
-                'setCustomSourceProvider',
-                [new Reference($customSourceProviderDefinition->getClass())]
-            );
+        if ($customSourceProviderDefinition === null) {
+            return;
         }
+
+        $sourceFinderDefinition = DefinitionFinder::getByType($containerBuilder, SourceFinder::class);
+        $sourceFinderDefinition->addMethodCall(
+            'setCustomSourceProvider',
+            [new Reference($customSourceProviderDefinition->getClass())]
+        );
     }
 }

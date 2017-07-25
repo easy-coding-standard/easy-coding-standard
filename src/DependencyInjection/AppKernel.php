@@ -15,7 +15,7 @@ final class AppKernel extends AbstractCliKernel
     use NeonLoaderAwareKernelTrait;
 
     /**
-     * @var string
+     * @var null|string
      */
     private $configFile;
 
