@@ -12,6 +12,5 @@ script:
   # run tests
   - vendor/bin/phpunit
 
-# do not send success notifications, they have no value
 notifications:
   email: never
