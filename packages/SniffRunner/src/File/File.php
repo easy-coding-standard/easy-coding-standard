@@ -140,7 +140,11 @@ final class File extends BaseFile
         $sniffClass = $this->normalizeSniffClass($sniffClass);
 
         $this->errorCollector->addErrorMessage(
-            $this->path, $line, $message, $sniffClass, $isFixable
+            $this->path,
+            $line,
+            $message,
+            $sniffClass,
+            $isFixable
         );
 
         return true;

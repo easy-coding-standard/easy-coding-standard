@@ -28,15 +28,18 @@ final class SkipperTest extends TestCase
     public function test(): void
     {
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
-            FinalInterfaceSniff::class, 'someFile'
+            FinalInterfaceSniff::class,
+            'someFile'
         ));
 
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
-            FinalInterfaceSniff::class, 'someOtherFile'
+            FinalInterfaceSniff::class,
+            'someOtherFile'
         ));
 
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
-            DeclareStrictTypesFixer::class, 'someFile'
+            DeclareStrictTypesFixer::class,
+            'someFile'
         ));
     }
 

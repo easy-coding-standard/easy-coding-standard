@@ -67,14 +67,16 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
     private function assertFileHasChanged(string $file): void
     {
         $this->assertTrue($this->changedFilesDetector->hasFileChanged($file), sprintf(
-            'Failed asserting that file "%s" has changed.', $file
+            'Failed asserting that file "%s" has changed.',
+            $file
         ));
     }
 
     private function assertFileHasNotChanged(string $file): void
     {
         $this->assertFalse($this->changedFilesDetector->hasFileChanged($file), sprintf(
-            'Failed asserting that file "%s" has not changed.', $file
+            'Failed asserting that file "%s" has not changed.',
+            $file
         ));
     }
 }
