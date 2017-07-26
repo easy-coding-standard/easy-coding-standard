@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\FixerSetExtractor;
+use Symplify\EasyCodingStandard\CheckerSetExtractor\SniffSetExtractor;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
@@ -24,6 +25,11 @@ final class ShowCommand extends Command
      * @var string
      */
     private const OPTION_FIXER_SET_NAME = 'fixer-set';
+
+    /**
+     * @var string
+     */
+    private const OPTION_SNIFF_SET_NAME = 'sniff-set';
 
     /**
      * @var string
@@ -55,11 +61,17 @@ final class ShowCommand extends Command
      */
     private $checkersTotal = 0;
 
+    /**
+     * @var SniffSetExtractor
+     */
+    private $sniffSetExtractor;
+
     public function __construct(
         SniffFileProcessor $sniffFileProcessor,
         FixerFileProcessor $fixerFileProcessor,
         SymfonyStyle $symfonyStyle,
-        FixerSetExtractor $fixerSetExtractor
+        FixerSetExtractor $fixerSetExtractor,
+        SniffSetExtractor $sniffSetExtractor
     ) {
         parent::__construct();
 
@@ -67,6 +79,7 @@ final class ShowCommand extends Command
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->symfonyStyle = $symfonyStyle;
         $this->fixerSetExtractor = $fixerSetExtractor;
+        $this->sniffSetExtractor = $sniffSetExtractor;
     }
 
     protected function configure(): void
@@ -78,6 +91,12 @@ final class ShowCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'Show fixers in PHP-CS-Fixer sets (@PSR1, @PSR2, @Symfony...)'
+        );
+        $this->addOption(
+            self::OPTION_SNIFF_SET_NAME,
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Show fixers in PHP_CodeSniffer sets (PEAR, PHPCS, PSR1, PSR2, Squiz and Zend)'
         );
         $this->addOption(
             self::OPTION_WITH_CONFIG,
@@ -98,6 +117,10 @@ final class ShowCommand extends Command
                 $fixerNames = array_keys($fixerSet);
                 $this->displayCheckerList($fixerNames, 'PHP-CS-Fixer - fixer set ' . $fixerSetName);
             }
+        } elseif ($sniffSetName = $input->getOption(self::OPTION_SNIFF_SET_NAME)) {
+            $sniffSet = $this->sniffSetExtractor->extract($sniffSetName);
+            $this->displayCheckerList($sniffSetName, 'PHP-CS-Fixer - sniff set ' . $sniffSet);
+
         } else {
             $this->displayCheckerList($this->sniffFileProcessor->getSniffs(), 'PHP_CodeSniffer');
             $this->displayCheckerList($this->fixerFileProcessor->getFixers(), 'PHP-CS-Fixer');

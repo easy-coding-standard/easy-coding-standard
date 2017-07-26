@@ -146,6 +146,11 @@ vendor/bin/easy-coding-standard show --config vendor/nette/coding-standard/codin
 vendor/bin/easy-coding-standard show --fixer-set Symfony
 ```
 
+**And print with config-like configuration** - handy for copy-pasting to your own config:
+
+```bash
+vendor/bin/easy-coding-standard show --fixer-set Symfony --with-config
+```
 
 ### Pick Config in CLI
 
