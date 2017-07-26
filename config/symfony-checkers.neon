@@ -4,7 +4,9 @@ checkers:
         align_double_arrow: false
         align_equals: false
     - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
-    - PhpCsFixer\Fixer\ReturnNotation\BlankLineBeforeReturnFixer
+    PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer:
+        statements:
+            - return
     PhpCsFixer\Fixer\Basic\BracesFixer:
         allow_single_line_closure: true
     - PhpCsFixer\Fixer\CastNotation\CastSpacesFixer
@@ -18,6 +20,7 @@ checkers:
     - PhpCsFixer\Fixer\ControlStructure\IncludeFixer
     - PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer
     - PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer
+    - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
     - PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer
     - PhpCsFixer\Fixer\Casing\NativeFunctionCasingFixer
     - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
@@ -91,8 +94,7 @@ checkers:
     - PhpCsFixer\Fixer\Whitespace\LineEndingFixer
     - PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer
     - PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer
-    PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer:
-        ensure_fully_multiline: true
+    - PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer
     - PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer
     - PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer
     - PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer

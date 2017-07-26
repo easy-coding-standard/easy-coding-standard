@@ -9,7 +9,9 @@ checkers:
     - PhpCsFixer\Fixer\Whitespace\LineEndingFixer
     - PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer
     - PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer
-    - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
+    PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer:
+        ensure_fully_multiline: true
+    - PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer
     - PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer
     - PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer
     - PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer
