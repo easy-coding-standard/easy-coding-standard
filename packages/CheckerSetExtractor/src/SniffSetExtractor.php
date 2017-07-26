@@ -6,6 +6,7 @@ use SimpleXMLElement;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Exception\MissingSniffSetException;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Sniff\SniffNaming;
+use Symplify\EasyCodingStandard\CheckerSetExtractor\Sniff\XmlConfigurationExtractor;
 use Symplify\PackageBuilder\Composer\VendorDirProvider;
 
 final class SniffSetExtractor
@@ -20,13 +21,19 @@ final class SniffSetExtractor
      */
     private $sniffNaming;
 
-    public function __construct(SniffNaming $sniffNaming)
+    /**
+     * @var XmlConfigurationExtractor
+     */
+    private $xmlConfigurationExtractor;
+
+    public function __construct(SniffNaming $sniffNaming, XmlConfigurationExtractor $xmlConfigurationExtractor)
     {
         $this->sniffNaming = $sniffNaming;
+        $this->xmlConfigurationExtractor = $xmlConfigurationExtractor;
     }
 
     /**
-     * @return string[]
+     * @return mixed[]
      */
     public function extract(string $name): array
     {
@@ -41,7 +48,7 @@ final class SniffSetExtractor
     /**
      * @return string[]
      */
-    private function getSniffSets() : array
+    private function getSniffSets(): array
     {
         if ($this->sniffSets) {
             return $this->sniffSets;
@@ -59,7 +66,7 @@ final class SniffSetExtractor
     /**
      * @return string[]
      */
-    private function findRulesetFiles() : array
+    private function findRulesetFiles(): array
     {
         $installedStandards = (new Finder)->files()
             ->in(VendorDirProvider::provide())
@@ -81,7 +88,7 @@ final class SniffSetExtractor
         }
     }
 
-    private function isRuleXmlElementSkipped(SimpleXMLElement $ruleXmlElement) : bool
+    private function isRuleXmlElementSkipped(SimpleXMLElement $ruleXmlElement): bool
     {
         if (! isset($ruleXmlElement['ref'])) {
             return true;
@@ -95,8 +102,8 @@ final class SniffSetExtractor
     }
 
     /**
-     * @param string[] $sniffs
-     * @return string[]
+     * @param mixed[] $sniffs
+     * @return mixed[]
      */
     private function addSniffsFromSniffSet(array $sniffs, string $name): array
     {
@@ -108,7 +115,7 @@ final class SniffSetExtractor
                 continue;
             }
 
-            $ruleId = (string)$ruleXmlElement['ref'];
+            $ruleId = (string) $ruleXmlElement['ref'];
 
             // is ruleset => recurse!
             if (isset($this->getSniffSets()[$ruleId])) {
@@ -117,9 +124,8 @@ final class SniffSetExtractor
             }
 
             $sniffClass = $this->sniffNaming->guessSniffClassByName($ruleId);
-            // @todo
-            $settings = [];
-            $sniffs[$sniffClass] = $settings;
+            $configuration = $this->xmlConfigurationExtractor->extractFromRuleXmlElement($ruleXmlElement);
+            $sniffs[$sniffClass] = $configuration;
         }
 
         return $sniffs;

@@ -3,9 +3,11 @@
 namespace Symplify\EasyCodingStandard\CheckerSetExtractor\Tests;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Exception\MissingSniffSetException;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Sniff\SniffNaming;
+use Symplify\EasyCodingStandard\CheckerSetExtractor\Sniff\XmlConfigurationExtractor;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\SniffSetExtractor;
 
 final class SniffSetExtractorTest extends TestCase
@@ -17,7 +19,7 @@ final class SniffSetExtractorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->sniffSetExtractor = new SniffSetExtractor(new SniffNaming);
+        $this->sniffSetExtractor = new SniffSetExtractor(new SniffNaming, new XmlConfigurationExtractor);
     }
 
     public function test(): void
@@ -35,18 +37,15 @@ final class SniffSetExtractorTest extends TestCase
         $this->expectException(MissingSniffSetException::class);
         $this->sniffSetExtractor->extract('Nette');
     }
-//
-//    public function testNormalizeName(): void
-//    {
-//        $firstSniffSet = $this->fixerSetExtractor->extract('PSR2');
-//        $secondSniffSet = $this->fixerSetExtractor->extract('psr2');
-//        $thirdSniffSet = $this->fixerSetExtractor->extract('@psr2');
-//
-//        $this->assertSame($firstSniffSet, $secondSniffSet);
-//        $this->assertSame($firstSniffSet, $thirdSniffSet);
-//
-//        $firstSniffSet = $this->fixerSetExtractor->extract('SYMFONY');
-//        $secondSniffSet = $this->fixerSetExtractor->extract('@symfony');
-//        $this->assertSame($firstSniffSet, $secondSniffSet);
-//    }
+
+    public function testConfiguration(): void
+    {
+        $psr2SniffSet = $this->sniffSetExtractor->extract('PSR2');
+        $lineLengthSniffConfiguration = $psr2SniffSet[LineLengthSniff::class];
+
+        $this->assertSame([
+            'lineLimit' => 120,
+            'absoluteLineLimit' => 0,
+        ], $lineLengthSniffConfiguration);
+    }
 }

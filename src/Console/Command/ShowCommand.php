@@ -120,7 +120,6 @@ final class ShowCommand extends Command
         } elseif ($sniffSetName = $input->getOption(self::OPTION_SNIFF_SET_NAME)) {
             $sniffSet = $this->sniffSetExtractor->extract($sniffSetName);
             $this->displayCheckerList($sniffSetName, 'PHP-CS-Fixer - sniff set ' . $sniffSet);
-
         } else {
             $this->displayCheckerList($this->sniffFileProcessor->getSniffs(), 'PHP_CodeSniffer');
             $this->displayCheckerList($this->fixerFileProcessor->getFixers(), 'PHP-CS-Fixer');
