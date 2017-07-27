@@ -7,6 +7,7 @@ use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Exception\MissingSniffSetException;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Sniff\SniffNaming;
 use Symplify\EasyCodingStandard\CheckerSetExtractor\Sniff\XmlConfigurationExtractor;
+use Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder;
 use Symplify\PackageBuilder\Composer\VendorDirProvider;
 
 final class SniffSetExtractor
@@ -26,10 +27,19 @@ final class SniffSetExtractor
      */
     private $xmlConfigurationExtractor;
 
-    public function __construct(SniffNaming $sniffNaming, XmlConfigurationExtractor $xmlConfigurationExtractor)
-    {
+    /**
+     * @var SniffFinder
+     */
+    private $sniffFinder;
+
+    public function __construct(
+        SniffNaming $sniffNaming,
+        XmlConfigurationExtractor $xmlConfigurationExtractor,
+        SniffFinder $sniffFinder
+    ) {
         $this->sniffNaming = $sniffNaming;
         $this->xmlConfigurationExtractor = $xmlConfigurationExtractor;
+        $this->sniffFinder = $sniffFinder;
     }
 
     /**
@@ -40,9 +50,9 @@ final class SniffSetExtractor
         $this->ensureSetExists($name);
 
         $sniffs = [];
-        $sniffs = $this->addSniffsFromSniffSet($sniffs, $name);
+        $sniffs = $this->addSniffsFromOwnSet($sniffs, $this->getRulesetXmlFileForSetName($name));
 
-        return $sniffs;
+        return $this->addSniffsFromSniffSet($sniffs, $name);
     }
 
     /**
@@ -78,12 +88,11 @@ final class SniffSetExtractor
 
     private function ensureSetExists(string $name): void
     {
-        $availableSniffSetNames = array_keys($this->getSniffSets());
-        if (! in_array($name, $availableSniffSetNames, true)) {
+        if (! isset($this->getSniffSets()[$name])) {
             throw new MissingSniffSetException(sprintf(
                 'Set "%s" was not found. Try one of: "%s.',
                 $name,
-                implode(', ', $availableSniffSetNames)
+                implode(', ', array_keys($this->getSniffSets()))
             ));
         }
     }
@@ -105,9 +114,27 @@ final class SniffSetExtractor
      * @param mixed[] $sniffs
      * @return mixed[]
      */
-    private function addSniffsFromSniffSet(array $sniffs, string $name): array
+    private function addSniffsFromOwnSet(array $sniffs, string $sniffSetFile): array
     {
-        $sniffSetFile = $this->getSniffSets()[$name];
+        $sniffDir = dirname($sniffSetFile) . '/Sniffs';
+        if (! is_dir($sniffDir)) {
+            return [];
+        }
+
+        $ownSniffs = $this->sniffFinder->findAllSniffClassesInDirectory($sniffDir);
+        $normalizedOwnSniffs = array_fill_keys($ownSniffs, []);
+        $sniffs += $normalizedOwnSniffs;
+
+        return $sniffs;
+    }
+
+    /**
+     * @param mixed[] $sniffs
+     * @return mixed[]
+     */
+    private function addSniffsFromSniffSet(array $sniffs, string $sniffSetName): array
+    {
+        $sniffSetFile = $this->getSniffSets()[$sniffSetName];
         $sniffSetXml = simplexml_load_file($sniffSetFile);
 
         foreach ($sniffSetXml->rule as $ruleXmlElement) {
@@ -117,8 +144,7 @@ final class SniffSetExtractor
 
             $ruleId = (string) $ruleXmlElement['ref'];
 
-            // is ruleset => recurse!
-            if (isset($this->getSniffSets()[$ruleId])) {
+            if ($this->isRuleSet($ruleId)) {
                 $sniffs += $this->addSniffsFromSniffSet($sniffs, $ruleId);
                 continue;
             }
@@ -129,5 +155,18 @@ final class SniffSetExtractor
         }
 
         return $sniffs;
+    }
+
+    private function isRuleSet(string $name): bool
+    {
+        return isset($this->getSniffSets()[$name]);
+    }
+
+    /**
+     * @return mixed|string
+     */
+    private function getRulesetXmlFileForSetName(string $name)
+    {
+        return $this->getSniffSets()[$name];
     }
 }

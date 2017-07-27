@@ -9,6 +9,9 @@ services:
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '../../packages/ChangedFilesDetector/src'
         exclude: '../../packages/ChangedFilesDetector/src/{Cache/CacheFactory}'
+    Symplify\EasyCodingStandard\CheckerSetExtractor\:
+        resource: '../../packages/CheckerSetExtractor/src'
+        exclude: '../../packages/CheckerSetExtractor/src/{Exception}'
     Symplify\EasyCodingStandard\Configuration\:
         resource: '../../packages/Configuration/src'
         exclude: '../../packages/Configuration/src/{Exception}'

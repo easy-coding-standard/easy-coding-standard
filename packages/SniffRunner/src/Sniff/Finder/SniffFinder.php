@@ -43,7 +43,7 @@ final class SniffFinder
     /**
      * @return string[]
      */
-    private function findAllSniffClassesInDirectory(string $directory): array
+    public function findAllSniffClassesInDirectory(string $directory): array
     {
         if (isset($this->sniffClassesPerDirectory[$directory])) {
             return $this->sniffClassesPerDirectory[$directory];
