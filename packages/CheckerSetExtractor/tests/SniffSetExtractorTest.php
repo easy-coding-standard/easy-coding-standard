@@ -30,12 +30,6 @@ final class SniffSetExtractorTest extends AbstractContainerAwareTestCase
         }
     }
 
-    public function testSlevomat(): void
-    {
-        $slevomatSniffSet = $this->sniffSetExtractor->extract('Slevomat Coding Standard');
-        $this->assertGreaterThanOrEqual(30, count($slevomatSniffSet));
-    }
-
     public function testMissingSetException(): void
     {
         $this->expectException(MissingSniffSetException::class);

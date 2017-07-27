@@ -79,7 +79,7 @@ final class SniffSetExtractor
     private function findRulesetFiles(): array
     {
         $installedStandards = (new Finder)->files()
-            ->in(VendorDirProvider::provide())
+            ->in(VendorDirProvider::provide() . '/squizlabs/php_codesniffer/src')
             ->name('ruleset.xml')
             ->getIterator();
 
