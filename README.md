@@ -146,6 +146,14 @@ vendor/bin/easy-coding-standard show --config vendor/nette/coding-standard/codin
 vendor/bin/easy-coding-standard show --fixer-set Symfony
 ```
 
+**Or explore or a sniff set of PHP_CodeSniffer**:
+
+```bash
+vendor/bin/easy-coding-standard show --sniff-set PSR2
+```
+
+
+
 **And print with config-like configuration** - handy for copy-pasting to your own config:
 
 ```bash

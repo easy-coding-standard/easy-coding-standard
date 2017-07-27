@@ -122,7 +122,7 @@ final class SniffSetExtractor
         }
 
         $ownSniffs = $this->sniffFinder->findAllSniffClassesInDirectory($sniffDir);
-        $normalizedOwnSniffs = array_fill_keys($ownSniffs, []);
+        $normalizedOwnSniffs = array_fill_keys($ownSniffs, null);
         $sniffs += $normalizedOwnSniffs;
 
         return $sniffs;

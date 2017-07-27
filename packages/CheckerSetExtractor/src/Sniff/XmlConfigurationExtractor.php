@@ -19,10 +19,10 @@ final class XmlConfigurationExtractor
     /**
      * @return mixed[]
      */
-    public function extractFromRuleXmlElement(SimpleXMLElement $ruleXmlElement): array
+    public function extractFromRuleXmlElement(SimpleXMLElement $ruleXmlElement): ?array
     {
         if (! isset($ruleXmlElement->properties)) {
-            return [];
+            return null;
         }
 
         $propertyValues = [];
