@@ -110,16 +110,25 @@ final class ShowCommand extends Command
     {
         if ($fixerSetName = $input->getOption(self::OPTION_FIXER_SET_NAME)) {
             $fixerSet = $this->fixerSetExtractor->extract($fixerSetName);
+            $type = 'PHP-CS-Fixer - fixer set ' . $fixerSetName;
 
             if ($input->getOption(self::OPTION_WITH_CONFIG)) {
-                $this->displayCheckerListWithConfig($fixerSet, 'PHP-CS-Fixer - fixer set ' . $fixerSetName);
+                $this->displayCheckerListWithConfig($fixerSet, $type);
             } else {
                 $fixerNames = array_keys($fixerSet);
-                $this->displayCheckerList($fixerNames, 'PHP-CS-Fixer - fixer set ' . $fixerSetName);
+                $this->displayCheckerList($fixerNames, $type);
             }
         } elseif ($sniffSetName = $input->getOption(self::OPTION_SNIFF_SET_NAME)) {
             $sniffSet = $this->sniffSetExtractor->extract($sniffSetName);
-            $this->displayCheckerList($sniffSetName, 'PHP-CS-Fixer - sniff set ' . $sniffSet);
+            $type = 'PHP-CS-Fixer - sniff set ' . $sniffSetName;
+
+            if ($input->getOption(self::OPTION_WITH_CONFIG)) {
+                $this->displayCheckerListWithConfig($sniffSet, $type);
+            } else {
+                $sniffNames = array_keys($sniffSet);
+                $this->displayCheckerList($sniffNames, $type);
+            }
+
         } else {
             $this->displayCheckerList($this->sniffFileProcessor->getSniffs(), 'PHP_CodeSniffer');
             $this->displayCheckerList($this->fixerFileProcessor->getFixers(), 'PHP-CS-Fixer');
