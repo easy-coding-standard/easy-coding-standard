@@ -128,7 +128,6 @@ final class ShowCommand extends Command
                 $sniffNames = array_keys($sniffSet);
                 $this->displayCheckerList($sniffNames, $type);
             }
-
         } else {
             $this->displayCheckerList($this->sniffFileProcessor->getSniffs(), 'PHP_CodeSniffer');
             $this->displayCheckerList($this->fixerFileProcessor->getFixers(), 'PHP-CS-Fixer');
