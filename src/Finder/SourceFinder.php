@@ -61,7 +61,8 @@ final class SourceFinder
     {
         $finder = (new Finder)->files()
             ->name('*.php')
-            ->in($directory);
+            ->in($directory)
+            ->size('> 0');
 
         return array_merge($files, iterator_to_array($finder->getIterator()));
     }
