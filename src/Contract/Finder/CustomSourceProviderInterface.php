@@ -10,7 +10,7 @@ interface CustomSourceProviderInterface
 {
     /**
      * @param string[]
-     * @return SplFileInfo[]|SymfonyFinder|NetteFinder
+     * @return NetteFinder|SplFileInfo[]|SymfonyFinder
      */
     public function find(array $source);
 }
