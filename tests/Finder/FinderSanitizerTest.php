@@ -6,6 +6,7 @@ use Nette\Utils\Finder as NetteFinder;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
+use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
 use Symplify\EasyCodingStandard\Finder\FinderSanitizer;
 
 final class FinderSanitizerTest extends TestCase
@@ -20,13 +21,11 @@ final class FinderSanitizerTest extends TestCase
         $this->finderSanitizer = new FinderSanitizer;
     }
 
-    public function testSplFiles(): void
+    public function testValidTypes(): void
     {
-        $files[] = new SplFileInfo(__DIR__ . '/FinderSanitizerSource/EmptyFile.php');
-        $files[] = new SplFileInfo(__DIR__ . '/FinderSanitizerSource/FileWithClass.php');
-
-        $files = $this->finderSanitizer->sanitize($files);
-        $this->assertCount(1, $files);
+        $this->expectException(InvalidSourceTypeException::class);
+        $files = [new SplFileInfo(__DIR__ . '/FinderSanitizerSource/FileWithClass.php')];
+        $this->finderSanitizer->sanitize($files);
     }
 
     public function testSymfonyFinder(): void

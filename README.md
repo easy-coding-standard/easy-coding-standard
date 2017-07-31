@@ -221,15 +221,12 @@ final class PhpAndPhptFilesProvider implements CustomSourceProviderInterface
 {
     /**
      * @param string[] $source
-     * @return SplFileInfo[]
      */
-    public function find(array $source): array
+    public function find(array $source): Finder
     {
         # $source is "source" argument passed in CLI
         # inc CLI: "vendor/bin/ecs check /src" => here: ['/src']
-        $finder = Finder::find('*.php', '*.phpt')->in($source);
-
-        return iterator_to_array($finder->getIterator());
+        return Finder::find('*.php', '*.phpt')->in($source);
     }
 }
 ```
@@ -238,7 +235,7 @@ final class PhpAndPhptFilesProvider implements CustomSourceProviderInterface
 
 **Use any Finder you like**
 
-You can use [Nette\Finder](https://doc.nette.org/en/finder), [Symfony\Finder](https://symfony.com/doc/current/components/finder.html), [`glob`](http://php.net/manual/en/function.glob.php) or anything else you prefer. All you need to do is return array of [`SplFileInfo` objects](http://php.net/manual/en/class.splfileinfo.php).
+You can use [Nette\Finder](https://doc.nette.org/en/finder) or [Symfony\Finder](https://symfony.com/doc/current/components/finder.html).
 
 
 ## Contributing

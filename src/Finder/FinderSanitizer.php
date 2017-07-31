@@ -3,8 +3,11 @@
 namespace Symplify\EasyCodingStandard\Finder;
 
 use Nette\Utils\Finder as NetteFinder;
+use Nette\Utils\Json;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
+use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
+use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
 
 final class FinderSanitizer
 {
@@ -14,27 +17,25 @@ final class FinderSanitizer
      */
     public function sanitize($finder): array
     {
+        $this->ensureIsFinder($finder);
+
         $finder = $this->filterOutEmptyFiles($finder);
 
         return $this->turnToSplFilesIfFinder($finder);
     }
 
     /**
-     * @param NetteFinder|SplFileInfo[]|SymfonyFinder $finder
+     * @param NetteFinder|SymfonyFinder $finder
      * @return SplFileInfo[]
      */
     private function turnToSplFilesIfFinder($finder): array
     {
-        if (! $finder instanceof NetteFinder && ! $finder instanceof SymfonyFinder) {
-            return $finder;
-        }
-
         return iterator_to_array($finder->getIterator());
     }
 
     /**
-     * @param NetteFinder|SplFileInfo[]|SymfonyFinder $finder
-     * @return NetteFinder|SplFileInfo[]|SymfonyFinder
+     * @param NetteFinder|SymfonyFinder $finder
+     * @return NetteFinder|SymfonyFinder
      */
     private function filterOutEmptyFiles($finder)
     {
@@ -50,6 +51,27 @@ final class FinderSanitizer
             return $finder;
         }
 
-        return array_filter($finder, 'filesize');
+        return $finder;
+    }
+
+    /**
+     * @param mixed $finder
+     */
+    private function ensureIsFinder($finder): void
+    {
+        if ($finder instanceof NetteFinder || $finder instanceof SymfonyFinder) {
+            return;
+        }
+
+        $sourceType = is_object($finder) ? get_class($finder) :
+            is_array($finder) ? gettype($finder) : $finder;
+
+        throw new InvalidSourceTypeException(sprintf(
+            '%s is not valid source type, probably in your %s class. Return "%s" or "%s"',
+            $sourceType,
+            CustomSourceProviderInterface::class,
+            NetteFinder::class,
+            SymfonyFinder::class
+        ));
     }
 }
