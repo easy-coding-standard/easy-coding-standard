@@ -12,6 +12,7 @@ use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
 final class FinderSanitizer
 {
     /**
+     * @param IteratorAggregate|mixed $finder
      * @return SplFileInfo[]
      */
     public function sanitize($finder): array
@@ -53,7 +54,8 @@ final class FinderSanitizer
             is_array($finder) ? gettype($finder) : $finder;
 
         throw new InvalidSourceTypeException(sprintf(
-            '%s is not valid source type, probably in your %s class in "find()" method. Return "%s", "%s" or %s instance.',
+            '%s is not valid source type, probably in your %s class in "find()" method. '
+                . 'Return "%s", "%s" or %s instance.',
             $sourceType,
             CustomSourceProviderInterface::class,
             NetteFinder::class,
