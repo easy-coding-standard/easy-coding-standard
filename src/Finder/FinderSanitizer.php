@@ -11,16 +11,16 @@ use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
 final class FinderSanitizer
 {
     /**
-     * @param NetteFinder|SplFileInfo[]|SymfonyFinder $finder
+     * @param NetteFinder|SymfonyFinder $finder
      * @return SplFileInfo[]
      */
     public function sanitize($finder): array
     {
         $this->ensureIsFinder($finder);
 
-        $finder = $this->filterOutEmptyFiles($finder);
+        $splFiles = $this->turnToSplFiles($finder);
 
-        return $this->turnToSplFiles($finder);
+        return $this->filterOutEmptyFiles($splFiles);
     }
 
     /**
@@ -33,22 +33,12 @@ final class FinderSanitizer
     }
 
     /**
-     * @param NetteFinder|SymfonyFinder $finder
-     * @return NetteFinder|SymfonyFinder
+     * @param SplFileInfo[] $splFiles
+     * @return SplFileInfo[]
      */
-    private function filterOutEmptyFiles($finder)
+    private function filterOutEmptyFiles(array $splFiles): array
     {
-        if ($finder instanceof SymfonyFinder) {
-            $finder->size('> 0');
-
-            return $finder;
-        }
-
-        if ($finder instanceof NetteFinder) {
-            $finder->size('> 0');
-
-            return $finder;
-        }
+        return array_filter($splFiles, 'filesize');
     }
 
     /**
@@ -64,7 +54,7 @@ final class FinderSanitizer
             is_array($finder) ? gettype($finder) : $finder;
 
         throw new InvalidSourceTypeException(sprintf(
-            '%s is not valid source type, probably in your %s class. Return "%s" or "%s"',
+            '%s is not valid source type, probably in your %s class in "find()" method. Return "%s" or "%s"',
             $sourceType,
             CustomSourceProviderInterface::class,
             NetteFinder::class,
