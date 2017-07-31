@@ -13,6 +13,16 @@ final class SourceFinder
      */
     private $customSourceProvider;
 
+    /**
+     * @var FinderSanitizer
+     */
+    private $finderSanitizer;
+
+    public function __construct(FinderSanitizer $finderSanitizer)
+    {
+        $this->finderSanitizer = $finderSanitizer;
+    }
+
     public function setCustomSourceProvider(?CustomSourceProviderInterface $customSourceProvider = null): void
     {
         $this->customSourceProvider = $customSourceProvider;
@@ -27,7 +37,8 @@ final class SourceFinder
         $files = [];
 
         if ($this->customSourceProvider) {
-            return $this->customSourceProvider->find($source);
+            $finder = $this->customSourceProvider->find($source);
+            return $this->finderSanitizer->sanitize($finder);
         }
 
         foreach ($source as $singleSource) {
@@ -64,6 +75,7 @@ final class SourceFinder
             ->in($directory)
             ->size('> 0');
 
-        return array_merge($files, iterator_to_array($finder->getIterator()));
+        $newFiles = $this->finderSanitizer->sanitize($finder);
+        return array_merge($files, $newFiles);
     }
 }

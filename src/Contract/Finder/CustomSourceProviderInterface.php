@@ -2,13 +2,15 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Finder;
 
+use Nette\Utils\Finder as NetteFinder;
 use SplFileInfo;
+use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 interface CustomSourceProviderInterface
 {
     /**
      * @param string[]
-     * @return SplFileInfo[]
+     * @return SplFileInfo[]|SymfonyFinder|NetteFinder
      */
-    public function find(array $source): array;
+    public function find(array $source);
 }

@@ -4,13 +4,14 @@ namespace Symplify\EasyCodingStandard\Tests\Finder;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
+use Symplify\EasyCodingStandard\Finder\FinderSanitizer;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 
 final class SourceFinderTest extends TestCase
 {
     public function test(): void
     {
-        $sourceFinder = new SourceFinder;
+        $sourceFinder = new SourceFinder(new FinderSanitizer);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source']);
         $this->assertCount(1, $foundFiles);
 
