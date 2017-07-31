@@ -23,7 +23,7 @@ final class SourceFinder
         $this->finderSanitizer = $finderSanitizer;
     }
 
-    public function setCustomSourceProvider(?CustomSourceProviderInterface $customSourceProvider = null): void
+    public function setCustomSourceProvider(CustomSourceProviderInterface $customSourceProvider): void
     {
         $this->customSourceProvider = $customSourceProvider;
     }

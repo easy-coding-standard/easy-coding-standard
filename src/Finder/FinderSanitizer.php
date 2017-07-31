@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Finder;
 
 use Nette\Utils\Finder as NetteFinder;
-use Nette\Utils\Json;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
@@ -21,14 +20,14 @@ final class FinderSanitizer
 
         $finder = $this->filterOutEmptyFiles($finder);
 
-        return $this->turnToSplFilesIfFinder($finder);
+        return $this->turnToSplFiles($finder);
     }
 
     /**
      * @param NetteFinder|SymfonyFinder $finder
      * @return SplFileInfo[]
      */
-    private function turnToSplFilesIfFinder($finder): array
+    private function turnToSplFiles($finder): array
     {
         return iterator_to_array($finder->getIterator());
     }
@@ -50,8 +49,6 @@ final class FinderSanitizer
 
             return $finder;
         }
-
-        return $finder;
     }
 
     /**
