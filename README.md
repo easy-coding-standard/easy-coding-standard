@@ -213,6 +213,7 @@ The `PhpAndPhptFilesProvider` might look like this:
 ```php
 namespace App\Finder;
 
+use IteratorAggregate;
 use Nette\Utils\Finder;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
@@ -222,7 +223,7 @@ final class PhpAndPhptFilesProvider implements CustomSourceProviderInterface
     /**
      * @param string[] $source
      */
-    public function find(array $source): Finder
+    public function find(array $source): IteratorAggregate
     {
         # $source is "source" argument passed in CLI
         # inc CLI: "vendor/bin/ecs check /src" => here: ['/src']

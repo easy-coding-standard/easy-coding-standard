@@ -34,13 +34,12 @@ final class SourceFinder
      */
     public function find(array $source): array
     {
-        $files = [];
-
         if ($this->customSourceProvider) {
             $finder = $this->customSourceProvider->find($source);
             return $this->finderSanitizer->sanitize($finder);
         }
 
+        $files = [];
         foreach ($source as $singleSource) {
             if (is_file($singleSource)) {
                 $files = $this->processFile($files, $singleSource);
@@ -65,17 +64,16 @@ final class SourceFinder
 
     /**
      * @param SplFileInfo[] $files
-     * @param string $file
      * @return SplFileInfo[]
      */
     private function processDirectory(array $files, string $directory): array
     {
         $finder = (new Finder)->files()
             ->name('*.php')
-            ->in($directory)
-            ->size('> 0');
+            ->in($directory);
 
         $newFiles = $this->finderSanitizer->sanitize($finder);
+
         return array_merge($files, $newFiles);
     }
 }

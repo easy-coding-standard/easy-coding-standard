@@ -2,15 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Finder;
 
-use Nette\Utils\Finder as NetteFinder;
-use SplFileInfo;
-use Symfony\Component\Finder\Finder as SymfonyFinder;
+use IteratorAggregate;
 
 interface CustomSourceProviderInterface
 {
     /**
      * @param string[]
-     * @return NetteFinder|SplFileInfo[]|SymfonyFinder
      */
-    public function find(array $source);
+    public function find(array $source): IteratorAggregate;
 }
