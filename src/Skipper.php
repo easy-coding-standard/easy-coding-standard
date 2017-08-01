@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard;
 use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symfony\Component\Finder\Glob;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 use Symplify\PackageBuilder\Adapter\Symfony\Parameter\ParameterProvider;
 
@@ -89,11 +88,12 @@ final class Skipper
     private function fileMatchesPattern(string $file, string $ignoredPath): bool
     {
         $file = str_replace('\\', '/', $file);
-        if ((bool) Strings::match($file, Glob::toRegex($ignoredPath))) {
+
+        if (Strings::endsWith($file, $ignoredPath)) {
             return true;
         }
 
-        return Strings::endsWith($file, $ignoredPath);
+        return fnmatch($ignoredPath, $file);
     }
 
     private function removeEmptyUnusedSkipped(string $skippedChecker): void

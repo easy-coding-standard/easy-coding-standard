@@ -25,26 +25,29 @@ final class SkipperTest extends TestCase
         );
     }
 
-    public function test(): void
+    public function testNotSkipped(): void
     {
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
             FinalInterfaceSniff::class,
-            'someFile'
+            __DIR__ . '/someFile'
         ));
 
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
             FinalInterfaceSniff::class,
-            'someOtherFile'
+            __DIR__ . '/someOtherFile'
+        ));
+    }
+
+    public function testSkipped(): void
+    {
+        $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
+            DeclareStrictTypesFixer::class,
+            __DIR__ . '/someFile'
         ));
 
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
             DeclareStrictTypesFixer::class,
-            'someFile'
-        ));
-
-        $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
-            DeclareStrictTypesFixer::class,
-            'someDirectory/anotherFile.php'
+            __DIR__ . '/someDirectory/anotherFile.php'
         ));
 
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
@@ -55,15 +58,11 @@ final class SkipperTest extends TestCase
 
     public function testRemoveFileFromUnused(): void
     {
-        $this->assertSame([
-            DeclareStrictTypesFixer::class => ['someFile', 'someDirectory/**']
-        ], $this->skipper->getUnusedSkipped());
-
         $this->skipper->removeFileFromUnused('someFile');
 
         $this->assertSame([
             DeclareStrictTypesFixer::class => [
-                1 => 'someDirectory/**'
+                1 => '*/someDirectory/*'
             ]
         ], $this->skipper->getUnusedSkipped());
     }
@@ -74,7 +73,7 @@ final class SkipperTest extends TestCase
         $container->setParameter('skip', [
             DeclareStrictTypesFixer::class => [
                 'someFile',
-                'someDirectory/**'
+                '*/someDirectory/*'
             ],
         ]);
 
