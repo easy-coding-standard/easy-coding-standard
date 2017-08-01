@@ -120,8 +120,10 @@ parameters:
     skip:
         # checkers to skip (you can use autocomplete here as well)
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-            # list all the files you want to skip (I usually just copy this from error report)
+            # A. relative path to file (I usually just copy this from error report)
             - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
+            # B. or multiple files by path to match against "fnmatch()"
+            - *packages/CodingStandard/src/Sniffs/*/*Sniff.php
 ```
  
 ### `show` Command to Display All Checkers
