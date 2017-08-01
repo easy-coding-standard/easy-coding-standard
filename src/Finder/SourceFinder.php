@@ -13,7 +13,17 @@ final class SourceFinder
      */
     private $customSourceProvider;
 
-    public function setCustomSourceProvider(?CustomSourceProviderInterface $customSourceProvider = null): void
+    /**
+     * @var FinderSanitizer
+     */
+    private $finderSanitizer;
+
+    public function __construct(FinderSanitizer $finderSanitizer)
+    {
+        $this->finderSanitizer = $finderSanitizer;
+    }
+
+    public function setCustomSourceProvider(CustomSourceProviderInterface $customSourceProvider): void
     {
         $this->customSourceProvider = $customSourceProvider;
     }
@@ -24,12 +34,12 @@ final class SourceFinder
      */
     public function find(array $source): array
     {
-        $files = [];
-
         if ($this->customSourceProvider) {
-            return $this->customSourceProvider->find($source);
+            $finder = $this->customSourceProvider->find($source);
+            return $this->finderSanitizer->sanitize($finder);
         }
 
+        $files = [];
         foreach ($source as $singleSource) {
             if (is_file($singleSource)) {
                 $files = $this->processFile($files, $singleSource);
@@ -54,16 +64,16 @@ final class SourceFinder
 
     /**
      * @param SplFileInfo[] $files
-     * @param string $file
      * @return SplFileInfo[]
      */
     private function processDirectory(array $files, string $directory): array
     {
         $finder = (new Finder)->files()
             ->name('*.php')
-            ->in($directory)
-            ->size('> 0');
+            ->in($directory);
 
-        return array_merge($files, iterator_to_array($finder->getIterator()));
+        $newFiles = $this->finderSanitizer->sanitize($finder);
+
+        return array_merge($files, $newFiles);
     }
 }

@@ -2,13 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Finder;
 
-use SplFileInfo;
+use IteratorAggregate;
 
 interface CustomSourceProviderInterface
 {
     /**
      * @param string[]
-     * @return SplFileInfo[]
      */
-    public function find(array $source): array;
+    public function find(array $source): IteratorAggregate;
 }

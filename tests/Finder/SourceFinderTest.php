@@ -2,15 +2,15 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Finder;
 
-use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class SourceFinderTest extends TestCase
+final class SourceFinderTest extends AbstractContainerAwareTestCase
 {
     public function test(): void
     {
-        $sourceFinder = new SourceFinder;
+        $sourceFinder = $this->container->get(SourceFinder::class);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source']);
         $this->assertCount(1, $foundFiles);
 
