@@ -30,7 +30,7 @@ final class FixerSetExtractor
         } catch (Throwable $throwable) {
             $availableFixerSetNames = (new RuleSet)->getSetDefinitionNames();
             throw new MissingFixerSetException(sprintf(
-            'Set "%s" was not found. Try one of: "%s.',
+                'Set "%s" was not found. Try one of: "%s.',
                 $name,
                 implode(', ', $availableFixerSetNames)
             ));
