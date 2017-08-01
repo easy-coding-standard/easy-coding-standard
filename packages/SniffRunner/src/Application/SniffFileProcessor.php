@@ -90,9 +90,9 @@ final class SniffFileProcessor implements FileProcessorInterface
         $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
 
         if ($this->isFixer() === false) {
-            $this->processFileWithoutFixer($file);
+            $this->processFileWithoutFixer($file, $fileInfo);
         } else {
-            $this->processFileWithFixer($file, $dryRun);
+            $this->processFileWithFixer($file, $dryRun, $fileInfo);
         }
     }
 
@@ -101,20 +101,20 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->isFixer = $isFixer;
     }
 
-    private function processFileWithoutFixer(File $file): void
+    private function processFileWithoutFixer(File $file, SplFileInfo $fileInfo): void
     {
         foreach ($file->getTokens() as $stackPointer => $token) {
-            $this->dispatchToken($token['code'], new FileTokenEvent($file, $stackPointer));
+            $this->dispatchToken($token['code'], new FileTokenEvent($file, $stackPointer, $fileInfo));
         }
     }
 
-    private function processFileWithFixer(File $file, bool $dryRun = false): void
+    private function processFileWithFixer(File $file, bool $dryRun, SplFileInfo $fileInfo): void
     {
         // 1. puts tokens into fixer
         $this->fixer->startFile($file);
 
         // 2. run all Sniff fixers
-        $this->processFileWithoutFixer($file);
+        $this->processFileWithoutFixer($file, $fileInfo);
 
         // 3. content has changed, save it!
         $newContent = $this->fixer->getContents();
@@ -148,9 +148,10 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
 
         $file = $fileTokenEvent->getFile();
+        $fileInfo = $fileTokenEvent->getFileInfo();
 
         foreach ($tokenListeners as $sniff) {
-            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $file->getFilename())) {
+            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileInfo->getRealPath())) {
                 return;
             }
 

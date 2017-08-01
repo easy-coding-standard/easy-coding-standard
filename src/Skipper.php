@@ -32,14 +32,14 @@ final class Skipper
     /**
      * @param FixerInterface|Sniff|string $checker
      */
-    public function shouldSkipCheckerAndFile($checker, string $relativeFilePath): bool
+    public function shouldSkipCheckerAndFile($checker, string $absoluteFilePath): bool
     {
         foreach ($this->skipped as $skippedClass => $skippedFiles) {
             if (! is_a($checker, $skippedClass, true)) {
                 continue;
             }
 
-            if ($this->doesFileMatchSkippedFiles($skippedClass, $relativeFilePath, $skippedFiles)) {
+            if ($this->doesFileMatchSkippedFiles($skippedClass, $absoluteFilePath, $skippedFiles)) {
                 return true;
             }
         }
@@ -72,11 +72,11 @@ final class Skipper
      */
     private function doesFileMatchSkippedFiles(
         string $skippedClass,
-        string $relativeFilePath,
+        string $absoluteFilePath,
         array $skippedFiles
     ): bool {
         foreach ($skippedFiles as $key => $skippedFile) {
-            if ($this->fileMatchesPattern($relativeFilePath, $skippedFile)) {
+            if ($this->fileMatchesPattern($absoluteFilePath, $skippedFile)) {
                 unset($this->unusedSkipped[$skippedClass][$key]);
 
                 return true;

@@ -41,20 +41,41 @@ final class SkipperTest extends TestCase
             DeclareStrictTypesFixer::class,
             'someFile'
         ));
+
+        $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
+            DeclareStrictTypesFixer::class,
+            'someDirectory/anotherFile.php'
+        ));
+
+        $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
+            DeclareStrictTypesFixer::class,
+            __DIR__ . '/someDirectory/anotherFile.php'
+        ));
     }
 
     public function testRemoveFileFromUnused(): void
     {
-        $this->assertSame([DeclareStrictTypesFixer::class => ['someFile']], $this->skipper->getUnusedSkipped());
+        $this->assertSame([
+            DeclareStrictTypesFixer::class => ['someFile', 'someDirectory/**']
+        ], $this->skipper->getUnusedSkipped());
+
         $this->skipper->removeFileFromUnused('someFile');
-        $this->assertSame([], $this->skipper->getUnusedSkipped());
+
+        $this->assertSame([
+            DeclareStrictTypesFixer::class => [
+                1 => 'someDirectory/**'
+            ]
+        ], $this->skipper->getUnusedSkipped());
     }
 
     private function createParameterProvider(): ParameterProvider
     {
         $container = new Container;
         $container->setParameter('skip', [
-            DeclareStrictTypesFixer::class => ['someFile'],
+            DeclareStrictTypesFixer::class => [
+                'someFile',
+                'someDirectory/**'
+            ],
         ]);
 
         return new ParameterProvider($container);

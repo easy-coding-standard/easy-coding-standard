@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Event;
 
 use PHP_CodeSniffer\Files\File;
+use SplFileInfo;
 
 final class FileTokenEvent
 {
@@ -16,10 +17,16 @@ final class FileTokenEvent
      */
     private $position;
 
-    public function __construct(File $file, int $position)
+    /**
+     * @var SplFileInfo
+     */
+    private $fileInfo;
+
+    public function __construct(File $file, int $position, SplFileInfo $fileInfo)
     {
         $this->file = $file;
         $this->position = $position;
+        $this->fileInfo = $fileInfo;
     }
 
     public function getFile(): File
@@ -30,5 +37,10 @@ final class FileTokenEvent
     public function getPosition(): int
     {
         return $this->position;
+    }
+
+    public function getFileInfo(): SplFileInfo
+    {
+        return $this->fileInfo;
     }
 }
