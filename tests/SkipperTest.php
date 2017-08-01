@@ -62,8 +62,8 @@ final class SkipperTest extends TestCase
 
         $this->assertSame([
             DeclareStrictTypesFixer::class => [
-                1 => '*/someDirectory/*'
-            ]
+                1 => '*/someDirectory/*',
+            ],
         ], $this->skipper->getUnusedSkipped());
     }
 
@@ -73,7 +73,7 @@ final class SkipperTest extends TestCase
         $container->setParameter('skip', [
             DeclareStrictTypesFixer::class => [
                 'someFile',
-                '*/someDirectory/*'
+                '*/someDirectory/*',
             ],
         ]);
 
