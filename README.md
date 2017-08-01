@@ -97,6 +97,18 @@ Cache stores all files without errors that haven't changed. It's handled by [`Ch
 
 ## More Features
 
+### Use Prepared Checker Sets
+
+There are several common sets you can use. You fin all in [/config](/config) directory:
+
+```bash
+vendor/bin/ecs --config vendor/symplify/easy-coding-standard/psr2-checkers.neon
+vendor/bin/ecs --config vendor/symplify/easy-coding-standard/php70-checkers.neon
+vendor/bin/ecs --config vendor/symplify/easy-coding-standard/php71-checkers.neon
+vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-checkers.neon
+vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-riskycheckers.neon
+```
+
 ### Configure Your Checker
 
 There are also user-friendly checkers that allow you to **setup YOUR preferences**.

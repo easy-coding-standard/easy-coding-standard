@@ -16,9 +16,6 @@ checkers:
     - PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff
     PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff:
         eolChar: \n
-    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff:
-        lineLimit: 120
-        absoluteLineLimit: 0
     PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff:
         ignoreBlankLines: true
     - PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\DisallowMultipleStatementsSniff
