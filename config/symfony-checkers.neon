@@ -1,3 +1,6 @@
+includes:
+    - psr2-checkers.neon
+
 checkers:
     # PHP-CS-Fixer only
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
@@ -87,24 +90,3 @@ checkers:
     - PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer
     - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
     - PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer
-    - PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer
-    - PhpCsFixer\Fixer\ControlStructure\ElseifFixer
-    - PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer
-    - PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer
-    - PhpCsFixer\Fixer\Whitespace\LineEndingFixer
-    - PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer
-    - PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer
-    - PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer
-    - PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer
-    - PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer
-    - PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer
-    - PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer
-    - PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer
-    - PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer
-    - PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer
-    - PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer
-    - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer
-    - PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer
-    - PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer
-    - PhpCsFixer\Fixer\Basic\EncodingFixer
-    - PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer
