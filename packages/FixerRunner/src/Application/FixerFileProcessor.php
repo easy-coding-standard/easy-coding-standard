@@ -78,6 +78,8 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $appliedFixers = [];
 
+        $latestContent = $oldContent;
+
         foreach ($this->getFixers() as $fixer) {
             if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
                 continue;
@@ -90,7 +92,8 @@ final class FixerFileProcessor implements FileProcessorInterface
             // @var FixerInterface $fixer
             $fixer->fix($file, $tokens);
 
-            $changedLines = $this->changedLinesDetector->detectInBeforeAfter($oldContent, $tokens->generateCode());
+            $changedLines = $this->changedLinesDetector->detectInBeforeAfter($latestContent, $tokens->generateCode());
+            $latestContent = $tokens->generateCode();
 
             if ($tokens->isChanged()) {
                 foreach ($changedLines as $changedLine) {

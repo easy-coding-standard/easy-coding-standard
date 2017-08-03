@@ -28,6 +28,11 @@ final class ChangedLinesDetector
         foreach ($diffTokens as $key => $diffToken) {
             if ($diffToken[1] === 2) { // line was added removed
                 $changedLines[] = $currentLine;
+
+                if (! isset($diffTokens[$key + 1])) {
+                    continue;
+                }
+
                 if ($diffTokens[$key + 1][1] === 1) { // next line was added
                     continue;
                 }

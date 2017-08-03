@@ -2,6 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
+use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
+use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
@@ -45,7 +47,7 @@ final class FixerLineTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(2, $this->errorDataCollector->getErrorCount());
+        $this->assertSame(3, $this->errorDataCollector->getErrorCount());
 
         $errorMessages = $this->errorDataCollector->getAllErrors()[self::PROCESSED_FILE];
 
@@ -53,11 +55,17 @@ final class FixerLineTest extends TestCase
         $firstError = $errorMessages[0];
         $this->assertInstanceOf(Error::class, $firstError);
         $this->assertSame(7, $firstError->getLine());
+        $this->assertSame(VisibilityRequiredFixer::class, $firstError->getSourceClass());
 
         /** @var Error $secondError */
         $secondError = $errorMessages[1];
-        $this->assertInstanceOf(Error::class, $secondError);
         $this->assertSame(9, $secondError->getLine());
+        $this->assertSame(VisibilityRequiredFixer::class, $secondError->getSourceClass());
+
+        /** @var Error $thirdError */
+        $thirdError = $errorMessages[2];
+        $this->assertSame(12, $thirdError->getLine());
+        $this->assertSame(SingleBlankLineAtEofFixer::class, $thirdError->getSourceClass());
     }
 
     private function runFileProcessor(): void

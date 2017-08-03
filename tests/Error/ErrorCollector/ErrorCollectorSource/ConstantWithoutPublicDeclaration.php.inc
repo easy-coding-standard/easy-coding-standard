@@ -8,3 +8,4 @@ abstract class ConstantWithoutPublicDeclaration
 
     const HOU = 'hello';
 }
+
