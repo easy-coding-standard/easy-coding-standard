@@ -18,6 +18,11 @@ final class CheckersExtension extends Extension
     /**
      * @var string
      */
+    private const EXCLUDE_CHECKERS_OPTION = 'exclude_checkers';
+
+    /**
+     * @var string
+     */
     private const SERVICE_NAME_WHITESPACE_CONFIG = 'fixerWhitespaceConfig';
 
     /**
@@ -71,7 +76,12 @@ final class CheckersExtension extends Extension
 
         $checkersConfiguration = $parameterBag->get(self::NAME) ?? [];
         $checkers = $this->configurationNormalizer->normalize($checkersConfiguration);
+
         $this->checkerTypeValidator->validate(array_keys($checkers));
+
+        $excludedCheckers = $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION) ?? [];
+        $checkers = $this->removeExcludedCheckers($checkers, $excludedCheckers);
+
         $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
 
@@ -151,5 +161,19 @@ final class CheckersExtension extends Extension
         }
 
         return self::FOUR_SPACES;
+    }
+
+    /**
+     * @param mixed[] $checkers
+     * @param string[] $excludedCheckers
+     * @return string[]
+     */
+    private function removeExcludedCheckers(array $checkers, array $excludedCheckers): array
+    {
+        foreach ($excludedCheckers as $excludedChecker) {
+            unset($checkers[$excludedChecker]);
+        }
+
+        return $checkers;
     }
 }

@@ -107,7 +107,21 @@ vendor/bin/ecs --config vendor/symplify/easy-coding-standard/php71-checkers.neon
 vendor/bin/ecs --config vendor/symplify/easy-coding-standard/psr2-checkers.neon
 vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-checkers.neon
 vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-risky-checkers.neon
+vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symplify.neon
 ```
+
+
+### Exclude Checkers
+
+If you use preset, there might be 1 or 2 checkers you don't like. I love Symfony set, but I don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`:
+
+
+```yaml
+parameters:
+    exclude_checkers:
+        - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
+```
+
 
 ### Configure Your Checker
 
@@ -120,6 +134,7 @@ checkers:
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
 ```
+
 
 ### Ignore What You Can't Fix
 
@@ -138,6 +153,7 @@ parameters:
             - *packages/CodingStandard/src/Sniffs/*/*Sniff.php
 ```
  
+
 ### `show` Command to Display All Checkers
 
 To see how many checkers and which exactly are loaded run:
@@ -168,11 +184,13 @@ vendor/bin/easy-coding-standard show --sniff-set PSR2
 
 
 
+
 **And print with config-like configuration** - handy for copy-pasting to your own config:
 
 ```bash
 vendor/bin/easy-coding-standard show --fixer-set Symfony --with-config
 ```
+
 
 ### Pick Config in CLI
 

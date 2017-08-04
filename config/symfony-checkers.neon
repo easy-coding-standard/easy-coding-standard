@@ -2,15 +2,12 @@ includes:
     - psr2-checkers.neon
 
 checkers:
-    # disabled due to define(strict_types=1) on 1st line:
-    # PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
-    # disabled due to opinionated:
-    # PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
-    #   - spacing: none
-    # - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
-    # - PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer
-    # - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
-
+    - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: none
+    - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer
+    - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
         align_double_arrow: false
         align_equals: false
