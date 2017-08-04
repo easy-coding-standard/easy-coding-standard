@@ -5,3 +5,5 @@ checkers:
         - method
         - property
     - PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer
+    PhpCsFixer\Fixer\ListNotation\ListSyntaxFixer:
+        syntax: short
