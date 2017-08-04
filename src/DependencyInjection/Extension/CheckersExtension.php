@@ -74,12 +74,14 @@ final class CheckersExtension extends Extension
 
         $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
 
-        $checkersConfiguration = $parameterBag->get(self::NAME) ?? [];
+        $checkersConfiguration = $parameterBag->has(self::NAME) ? $parameterBag->get(self::NAME) : [];
         $checkers = $this->configurationNormalizer->normalize($checkersConfiguration);
 
         $this->checkerTypeValidator->validate(array_keys($checkers));
 
-        $excludedCheckers = $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION) ?? [];
+        $excludedCheckers = $parameterBag->has(self::EXCLUDE_CHECKERS_OPTION)
+            ? $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION) : [];
+
         $checkers = $this->removeExcludedCheckers($checkers, $excludedCheckers);
 
         $this->registerCheckersAsServices($containerBuilder, $checkers);
