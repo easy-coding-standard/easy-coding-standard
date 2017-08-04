@@ -2,73 +2,62 @@ includes:
     - psr2-checkers.neon
 
 checkers:
-    # PHP-CS-Fixer only
+    # disabled checkers
+    # PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer, due to define(strict_types=1) on 1st line
+    # opinionated
+    # PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+    #   - spacing: none
+    # opinionated
+    # - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
+    # opinionated
+    # - PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer
+
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
         align_double_arrow: false
         align_equals: false
-    - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
-    PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer:
-        statements:
-            - return
-    PhpCsFixer\Fixer\Basic\BracesFixer:
-        allow_single_line_closure: true
+    - PhpCsFixer\Fixer\ReturnNotation\BlankLineBeforeReturnFixer
     - PhpCsFixer\Fixer\CastNotation\CastSpacesFixer
-    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
-        singleLine: true
-    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
-        spacing: none
     - PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer
     - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
     - PhpCsFixer\Fixer\Comment\HashToSlashCommentFixer
     - PhpCsFixer\Fixer\ControlStructure\IncludeFixer
     - PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer
-    - PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer
-    - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
     - PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer
     - PhpCsFixer\Fixer\Casing\NativeFunctionCasingFixer
-    - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
     - PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer
     - PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer
     - PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer
     - PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer
     - PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer
     PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer:
-        tokens:
-            - curly_brace_block
-            - extra
-            - parenthesis_brace_block
-            - square_brace_block
-            - throw
-            - use
-    - PhpCsFixer\Fixer\Import\NoLeadingImportSlashFixer
+        - curly_brace_block
+        - extra
+        - parenthesis_brace_block
+        - square_brace_block
+        - throw
+        - use
     - PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer
-    PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer:
-        use: echo
+    - PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer
     - PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer
     - PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer
     - PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer
     - PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer
     - PhpCsFixer\Fixer\ControlStructure\NoTrailingCommaInListCallFixer
     - PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer
+    - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
     - PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer
-    - PhpCsFixer\Fixer\Import\NoUnusedImportsFixer
     - PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer
     - PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer
     - PhpCsFixer\Fixer\ArrayNotation\NormalizeIndexBraceFixer
     - PhpCsFixer\Fixer\Operator\ObjectOperatorWithoutWhitespaceFixer
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitFqcnAnnotationFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocAnnotationWithoutDotFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocInlineTagFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoAccessFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocNoAliasTagFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoPackageFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoUselessInheritdocFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocToCommentFixer
@@ -76,17 +65,25 @@ checkers:
     - PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer
     - PhpCsFixer\Fixer\Operator\PreIncrementFixer
-    - PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer
     - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
     - PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer
     - PhpCsFixer\Fixer\CastNotation\ShortScalarCastFixer
-    - PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer
-    - PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer
     - PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer
     - PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer
     - PhpCsFixer\Fixer\Operator\StandardizeNotEqualsFixer
     - PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer
-    - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
     - PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer
-    - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
     - PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer
+    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
+        singleLine: true
+    - PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer
+    - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
+    PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer:
+        use: echo
+    - PhpCsFixer\Fixer\Import\NoUnusedImportsFixer
+    - PhpCsFixer\Fixer\PhpUnit\PhpUnitFqcnAnnotationFixer
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocNoAliasTagFixer
+    - PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer
+    - PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer
+    - PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer
+    - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
