@@ -2,15 +2,14 @@ includes:
     - psr2-checkers.neon
 
 checkers:
-    # disabled checkers
-    # PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer, due to define(strict_types=1) on 1st line
-    # opinionated
+    # disabled due to define(strict_types=1) on 1st line:
+    # PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
+    # disabled due to opinionated:
     # PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
     #   - spacing: none
-    # opinionated
     # - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
-    # opinionated
     # - PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer
+    # - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
 
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
         align_double_arrow: false
@@ -86,4 +85,3 @@ checkers:
     - PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer
     - PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer
     - PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer
-    - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
