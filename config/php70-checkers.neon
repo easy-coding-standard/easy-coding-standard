@@ -1,5 +1,5 @@
 checkers:
-    # PHP-CS-Fixer only
+    # PHP-CS-Fixer
     - PhpCsFixer\Fixer\Alias\PowToExponentiationFixer
     - PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer
     PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
@@ -8,3 +8,12 @@ checkers:
 
     # risky
     - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
+
+    # Typehints
+    - SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff
+    - SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff
+    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
+        usefulAnnotations:
+            - @todo
+            - @dataProvider
+        enableEachParameterAndReturnInspection: true
