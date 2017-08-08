@@ -54,19 +54,19 @@ I used **class autocomplete** thanks to awesome [NEON plugin for PHPStorm](https
 ### 2. Run it in CLI... and Fix It!
 
 ```bash
-vendor/bin/easy-coding-standard check src
+vendor/bin/ecs check src
 ```
 
 You can also use name matching:
 
 ```bash
-vendor/bin/easy-coding-standard check src/Doctrine*
+vendor/bin/ecs check src/Doctrine*
 ```
 
 Or multiple sources:
 
 ```bash
-vendor/bin/easy-coding-standard check src tests
+vendor/bin/ecs check src tests
 ```
 
 You can also use **lazy-friendly typo-proof shortcut** `ecs`:
@@ -78,7 +78,7 @@ vendor/bin/ecs check src tests
 #### How to Fix Things?
 
 ```bash
-vendor/bin/easy-coding-standard check src --fix
+vendor/bin/ecs check src --fix
 ```
 
 ![ECS-Run](docs/run-and-fix.gif)
@@ -89,7 +89,7 @@ vendor/bin/easy-coding-standard check src --fix
 To be sure your code base it checked completely, just clear the cache:
 
 ```bash
-vendor/bin/easy-coding-standard check src --clear-cache
+vendor/bin/ecs check src --clear-cache
 ```
 
 Cache stores all files without errors that haven't changed. It's handled by [`ChangedFilesDetector`](/packages/ChangedFilesDetector/src/ChangedFilesDetector.php)
@@ -179,7 +179,7 @@ parameters:
 To see how many checkers and which exactly are loaded run:
 
 ```bash
-vendor/bin/easy-coding-standard show
+vendor/bin/ecs show
 ```
 
 List of active checkers will be shown.
@@ -187,19 +187,19 @@ List of active checkers will be shown.
 **You can also see what checkers are in another config**
 
 ```bash
-vendor/bin/easy-coding-standard show --config vendor/nette/coding-standard/coding-standard-php71.neon
+vendor/bin/ecs show --config vendor/nette/coding-standard/coding-standard-php71.neon
 ```
 
 **Or explore a fixer set of PHP-CS-Fixer**:
 
 ```bash
-vendor/bin/easy-coding-standard show --fixer-set Symfony
+vendor/bin/ecs show --fixer-set Symfony
 ```
 
 **Or explore or a sniff set of PHP_CodeSniffer**:
 
 ```bash
-vendor/bin/easy-coding-standard show --sniff-set PSR2
+vendor/bin/ecs show --sniff-set PSR2
 ```
 
 
@@ -207,7 +207,7 @@ vendor/bin/easy-coding-standard show --sniff-set PSR2
 **And print with config-like configuration** - handy for copy-pasting to your own config:
 
 ```bash
-vendor/bin/easy-coding-standard show --fixer-set Symfony --with-config
+vendor/bin/ecs show --fixer-set Symfony --with-config
 ```
 
 
@@ -218,7 +218,7 @@ Do you want to use another config than `easy-coding-standard.neon` in your root 
 You can use `--config` option:
 
 ```bash
-vendor/bin/easy-coding-standard show --config vendor/nette/coding-standard/general-coding-standard.neon
+vendor/bin/ecs show --config vendor/nette/coding-standard/general-coding-standard.neon
 ```  
 
 
