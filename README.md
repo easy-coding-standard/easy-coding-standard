@@ -120,7 +120,7 @@ You [pick single config in CLI](#pick-config-in-cli):
 vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-checkers.neon
 ```
 
-or use [include more files in config](#how-to-combine-more-configs):
+or [include more files in config](#how-to-combine-more-configs):
 
 
 ```bash
