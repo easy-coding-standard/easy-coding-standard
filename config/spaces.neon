@@ -1,0 +1,11 @@
+checkers:
+    # "string" . "another string"
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: one
+
+    # if (! $statement) {...
+    - PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer
+
+    # ...
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff:
+        ignoreBlankLines: false

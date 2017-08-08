@@ -1,0 +1,37 @@
+checkers:
+    # PSR-4
+    - PhpCsFixer\Fixer\Basic\Psr4Fixer
+
+    # Namespaces
+    - PhpCsFixer\Fixer\Import\OrderedImportsFixer
+
+    # Naming Conventions
+    - PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff
+
+    # Language Constructions
+    - SlevomatCodingStandard\Sniffs\ControlStructures\YodaComparisonSniff
+    - PhpCsFixer\Fixer\Semicolon\SemicolonAfterInstructionFixer
+    - PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer
+    - PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveUnsetsFixer
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer
+    - PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff
+    - PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer
+
+    # Unused or Redundant Code
+    - SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff
+    - PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer
+    - PhpCsFixer\Fixer\ReturnNotation\NoUselessReturnFixer
+    - PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\NonExecutableCodeSniff
+    - PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff
+
+    # Strict Code
+    - PhpCsFixer\Fixer\Strict\StrictComparisonFixer
+    PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer:
+        use_yoda_style: false
+
+    # Comments
+    - PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer
+
+    # PHPUnit
+    - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer
+

@@ -17,3 +17,6 @@ checkers:
             - @todo
             - @dataProvider
         enableEachParameterAndReturnInspection: true
+
+    # Throwable
+    - SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff
