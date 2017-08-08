@@ -102,12 +102,32 @@ Cache stores all files without errors that haven't changed. It's handled by [`Ch
 There are several common sets you can use. You find all in [/config](/config) directory:
 
 ```bash
-vendor/bin/ecs --config vendor/symplify/easy-coding-standard/php70-checkers.neon
-vendor/bin/ecs --config vendor/symplify/easy-coding-standard/php71-checkers.neon
-vendor/bin/ecs --config vendor/symplify/easy-coding-standard/psr2-checkers.neon
+vendor/symplify/easy-coding-standard/php54-checkers.neon
+vendor/symplify/easy-coding-standard/php70-checkers.neon
+vendor/symplify/easy-coding-standard/php71-checkers.neon
+vendor/symplify/easy-coding-standard/psr2-checkers.neon
+vendor/symplify/easy-coding-standard/symfony-checkers.neon
+vendor/symplify/easy-coding-standard/symfony-risky-checkers.neon
+vendor/symplify/easy-coding-standard/symplify.neon
+vendor/symplify/easy-coding-standard/spaces.neon
+vendor/symplify/easy-coding-standard/common.neon
+```
+
+You [pick single config in CLI](#pick-config-in-cli):
+
+
+```bash
 vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-checkers.neon
-vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-risky-checkers.neon
-vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symplify.neon
+```
+
+or use [include more files in config](#how-to-combine-more-configs):
+
+
+```bash
+includes:
+    - vendor/symplify/easy-coding-standard/php70-checkers.neon
+    - vendor/symplify/easy-coding-standard/php71-checkers.neon
+    - vendor/symplify/easy-coding-standard/psr2-checkers.neon
 ```
 
 
@@ -184,7 +204,6 @@ vendor/bin/easy-coding-standard show --sniff-set PSR2
 
 
 
-
 **And print with config-like configuration** - handy for copy-pasting to your own config:
 
 ```bash
@@ -224,6 +243,7 @@ checkers:
 parameters:
     indentation: tab # "spaces" by default
 ```
+
 
 ### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
 
