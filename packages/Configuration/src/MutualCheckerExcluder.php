@@ -71,7 +71,13 @@ final class MutualCheckerExcluder
         ], [
             'PhpCsFixer\Fixer\Import\OrderedImportsFixer',
             'SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff',
-        ]
+        ], [
+            'PhpCsFixer\Fixer\Import\NoUnusedImportsFixer',
+            'SlevomatCodingStandard\Sniffs\Namespaces\UnusedUses',
+        ], [
+            'PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer',
+            'SlevomatCodingStandard\Sniffs\Arrays\TrailingArrayCommaSniff',
+        ],
     ];
 
     /**
