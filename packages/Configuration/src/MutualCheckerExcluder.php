@@ -19,12 +19,44 @@ final class MutualCheckerExcluder
             'SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff',
             'Symplify\CodingStandard\Sniffs\Namespaces\ClassNamesWithoutPreSlashSniff',
         ],
+        [
+            'PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowTabIndentSniff',
+        ],
+        [
+            'PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowSpaceIndentSniff',
+        ],
+        [
+            'PhpCsFixer\Fixer\Strict\StrictComparisonFixer',
+            'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEqualOperatorsSniff',
+        ],
+        [
+            'PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer',
+            'SlevomatCodingStandard\Sniffs\Classes\ClassConstantVisibilitySniff',
+        ],
+        [
+            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff',
+            'Symplify\CodingStandard\Sniffs\Commenting\MethodCommentSniff',
+        ],
+        [
+            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff',
+            'Symplify\CodingStandard\Sniffs\Commenting\MethodReturnTypeSniff',
+        ],
+        [
+            'PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff',
+        ],
+        [
+            'PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff',
+        ],
     ];
 
     /**
      * @param mixed[][] $checkers
      * @return mixed[][]
-    */
+     */
     public function exclude(array $checkers): array
     {
         foreach ($this->matchingCheckerGroups as $matchingCheckerGroup) {
