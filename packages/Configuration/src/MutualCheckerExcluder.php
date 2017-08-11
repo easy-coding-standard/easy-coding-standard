@@ -50,7 +50,28 @@ final class MutualCheckerExcluder
         [
             'PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff',
-        ],
+        ], [
+            'PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer',
+            'PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\LowercaseClassKeywordsSniff',
+        ], [
+            'PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff',
+        ], [
+            'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer',
+            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\UseDeclarationSniff',
+        ], [
+            'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer',
+            'SlevomatCodingStandard\Sniffs\Namespaces\DisallowGroupUseSniff',
+        ], [
+            'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer',
+            'SlevomatCodingStandard\Sniffs\Namespaces\MultipleUsesPerLineSniff',
+        ], [
+            'PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer',
+            'SlevomatCodingStandard\Sniffs\TypeHints\LongTypeHintsSniff',
+        ], [
+            'PhpCsFixer\Fixer\Import\OrderedImportsFixer',
+            'SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff',
+        ]
     ];
 
     /**
