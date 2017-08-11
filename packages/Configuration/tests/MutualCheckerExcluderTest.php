@@ -20,13 +20,15 @@ final class MutualCheckerExcluderTest extends TestCase
     public function test(): void
     {
         $checkers = [
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff',
-            'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff',
+            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
+            'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff' => [],
         ];
 
         $uniqueCheckers = $this->mutualCheckerExcluder->exclude($checkers);
         $this->assertCount(1, $uniqueCheckers);
 
-        $this->assertSame(['SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff'], $uniqueCheckers);
+        $this->assertSame([
+            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
+        ], $uniqueCheckers);
     }
 }

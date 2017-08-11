@@ -37,8 +37,7 @@ final class MutualCheckerExcluder
 
             array_shift($matchingCheckerGroup);
             foreach ($matchingCheckerGroup as $checkerToRemove) {
-                $keyToRemove = array_search($checkerToRemove, $checkers, true);
-                unset($checkers[$keyToRemove]);
+                unset($checkers[$checkerToRemove]);
             }
         }
 
@@ -51,6 +50,8 @@ final class MutualCheckerExcluder
      */
     private function isMatch(array $checkers, array $matchingCheckerGroup): bool
     {
-        return count(array_intersect_key($matchingCheckerGroup, $checkers)) === count($matchingCheckerGroup);
+        $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
+
+        return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
     }
 }
