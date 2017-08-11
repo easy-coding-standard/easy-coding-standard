@@ -102,22 +102,22 @@ Cache stores all files without errors that haven't changed. It's handled by [`Ch
 There are several common sets you can use. You find all in [/config](/config) directory:
 
 ```bash
-vendor/symplify/easy-coding-standard/php54-checkers.neon
-vendor/symplify/easy-coding-standard/php70-checkers.neon
-vendor/symplify/easy-coding-standard/php71-checkers.neon
-vendor/symplify/easy-coding-standard/psr2-checkers.neon
-vendor/symplify/easy-coding-standard/symfony-checkers.neon
-vendor/symplify/easy-coding-standard/symfony-risky-checkers.neon
-vendor/symplify/easy-coding-standard/symplify.neon
-vendor/symplify/easy-coding-standard/spaces.neon
-vendor/symplify/easy-coding-standard/common.neon
+vendor/symplify/easy-coding-standard/config/php54-checkers.neon
+vendor/symplify/easy-coding-standard/config/php70-checkers.neon
+vendor/symplify/easy-coding-standard/config/php71-checkers.neon
+vendor/symplify/easy-coding-standard/config/psr2-checkers.neon
+vendor/symplify/easy-coding-standard/config/symfony-checkers.neon
+vendor/symplify/easy-coding-standard/config/symfony-risky-checkers.neon
+vendor/symplify/easy-coding-standard/config/symplify.neon
+vendor/symplify/easy-coding-standard/config/spaces.neon
+vendor/symplify/easy-coding-standard/config/common.neon
 ```
 
 You [pick single config in CLI](#pick-config-in-cli):
 
 
 ```bash
-vendor/bin/ecs --config vendor/symplify/easy-coding-standard/symfony-checkers.neon
+vendor/bin/ecs --config vendor/symplify/easy-coding-standard/config/symfony-checkers.neon
 ```
 
 or [include more files in config](#how-to-combine-more-configs):
