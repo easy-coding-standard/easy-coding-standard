@@ -36,6 +36,7 @@ final class SourceFinder
     {
         if ($this->customSourceProvider) {
             $finder = $this->customSourceProvider->find($source);
+
             return $this->finderSanitizer->sanitize($finder);
         }
 

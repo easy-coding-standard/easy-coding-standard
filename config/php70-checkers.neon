@@ -10,8 +10,10 @@ checkers:
     - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
 
     # Typehints
-    - SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff
-    - SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff
+    # todo: fix bug with merging included files
+    # - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
+    # todo: fix bug with merging included files
+    # - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
         usefulAnnotations:
             - @todo

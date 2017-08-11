@@ -95,6 +95,7 @@ final class CheckersExtension extends Extension
 
         $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
+
     /**
      * @param mixed[] $checkers
      */

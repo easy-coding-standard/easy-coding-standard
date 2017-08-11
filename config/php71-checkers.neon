@@ -1,9 +1,7 @@
 checkers:
     # PHP-CS-Fixer
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
-        - const
-        - method
-        - property
+        elements: [const, property, method]
     - PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer
     PhpCsFixer\Fixer\ListNotation\ListSyntaxFixer:
         syntax: short
