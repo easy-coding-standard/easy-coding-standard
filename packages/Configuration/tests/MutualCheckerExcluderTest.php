@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Configuration\Test;
+namespace Symplify\EasyCodingStandard\Configuration\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Configuration\MutualCheckerExcluder;

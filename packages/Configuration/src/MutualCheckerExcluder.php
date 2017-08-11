@@ -2,9 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
-use PhpCsFixer\Fixer\FixerInterface;
-
 final class MutualCheckerExcluder
 {
     /**
@@ -25,9 +22,9 @@ final class MutualCheckerExcluder
     ];
 
     /**
-     * @param Sniff[]|FixerInterface[] $checkers
-     * @return Sniff[]|FixerInterface[]
-     */
+     * @param mixed[][] $checkers
+     * @return mixed[][]
+    */
     public function exclude(array $checkers): array
     {
         foreach ($this->matchingCheckerGroups as $matchingCheckerGroup) {
@@ -46,7 +43,7 @@ final class MutualCheckerExcluder
 
     /**
      * @param mixed[] $checkers
-     * @param mixed[] $matchingCheckerGroup
+     * @param string[] $matchingCheckerGroup
      */
     private function isMatch(array $checkers, array $matchingCheckerGroup): bool
     {

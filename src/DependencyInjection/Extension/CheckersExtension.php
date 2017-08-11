@@ -176,7 +176,7 @@ final class CheckersExtension extends Extension
     /**
      * @param mixed[] $checkers
      * @param string[] $excludedCheckers
-     * @return string[]
+     * @return mixed[]
      */
     private function removeExcludedCheckers(array $checkers, array $excludedCheckers): array
     {
