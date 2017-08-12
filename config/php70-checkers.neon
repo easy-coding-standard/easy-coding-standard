@@ -10,10 +10,8 @@ checkers:
     - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
 
     # Typehints
-    # todo: fix bug with merging included files
-    # - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
-    # todo: fix bug with merging included files
-    # - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
+    - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
+    - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
         usefulAnnotations:
             - @todo

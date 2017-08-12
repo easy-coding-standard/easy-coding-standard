@@ -30,6 +30,7 @@ final class AppKernel extends AbstractCliKernel
         $loader->load(__DIR__ . '/../config/services.yml');
 
         if ($this->configFile) {
+            // separete including validation and checkers validion to 2 steps! own loader? :)
             $loader->load($this->configFile, ['parameters', 'checkers', 'includes', 'services']);
         }
     }
