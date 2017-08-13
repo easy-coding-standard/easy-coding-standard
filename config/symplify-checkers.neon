@@ -1,9 +1,12 @@
 checkers:
     - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
-    - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
     - Symplify\CodingStandard\Sniffs\PHPUnit\FinalTestCaseSniff
     - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
+
+    # Control Structures
     - Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff
+    - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
+    - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
 
     # Comments
     - Symplify\CodingStandard\Sniffs\Commenting\BlockPropertyCommentSniff
