@@ -158,7 +158,7 @@ final class File extends BaseFile
 
         $trace = debug_backtrace(0, 6);
 
-        for ($i = 2; $i < count($trace); $i++) {
+        for ($i = 2; $i < count($trace); ++$i) {
             if ($this->isSniffClass($trace[$i]['class'])) {
                 return $trace[$i]['class'];
             }
