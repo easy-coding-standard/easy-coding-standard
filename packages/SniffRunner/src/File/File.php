@@ -150,9 +150,6 @@ final class File extends BaseFile
         return true;
     }
 
-    /**
-     * @todo improve
-     */
     private function normalizeSniffClass(string $sourceClass): string
     {
         if (class_exists($sourceClass, false)) {
@@ -161,15 +158,13 @@ final class File extends BaseFile
 
         $trace = debug_backtrace(0, 6);
 
-        if ($this->isSniffClass($trace[3]['class'])) {
-            return $trace[3]['class'];
+        for ($i = 2; $i < count($trace); $i++) {
+            if ($this->isSniffClass($trace[$i]['class'])) {
+                return $trace[$i]['class'];
+            }
         }
 
-        if ($this->isSniffClass($trace[5]['class'])) {
-            return $trace[5]['class'];
-        }
-
-        return $trace[4]['class'];
+        return 'Unable to determined responsible sniff class.';
     }
 
     private function isSniffClass(string $class): bool
