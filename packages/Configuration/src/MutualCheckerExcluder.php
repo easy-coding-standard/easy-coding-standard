@@ -96,6 +96,30 @@ final class MutualCheckerExcluder
             'PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer',
             'SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff',
         ],
+        // PSR2
+        [
+            'PhpCsFixer\Fixer\Basic\BracesFixer',
+            'PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ScopeClosingBraceSniff',
+        ], [
+            'PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer',
+            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\NamespaceDeclarationSniff',
+        ], [
+            'PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\DisallowMultipleStatementsSniff',
+        ], [
+            'PhpCsFixer\Fixer\Whitespace\LineEndingFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff',
+        ], [
+            'PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff',
+        ], [
+            'PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff',
+        ], [
+            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff',
+            // PhpCsFixer is bugged at the moment: https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/2976
+            'PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer',
+        ],
     ];
 
     /**
