@@ -25,15 +25,19 @@ final class ChangedLinesDetector
         $currentLine = 1;
 
         $diffTokens = $this->differ->diffToArray($oldContent, $newContent);
-        foreach ($diffTokens as $key => $diffToken) {
+
+        for ($i = 0; $i < count($diffTokens); ++$i) {
+            $diffToken = $diffTokens[$i];
+
             if ($diffToken[1] === 2) { // line was removed
                 $changedLines[] = $currentLine;
-                if (! isset($diffTokens[$key + 1])) {
+                if (! isset($diffTokens[$i + 1])) {
                     continue;
                 }
 
-                if ($diffTokens[$key + 1][1] === 1) { // next line was added
-                    ++$currentLine; // do not record it twice
+                if ($diffTokens[$i + 1][1] === 1) { // next line was added
+                    ++$i; // do not record it twice, skip next $diffToken
+                    ++$currentLine;
                     continue;
                 }
             } elseif ($diffToken[1] === 1) {
