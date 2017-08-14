@@ -116,9 +116,8 @@ final class MutualCheckerExcluder
             'PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff',
         ], [
-            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff',
-            // PhpCsFixer is bugged at the moment: https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/2976
             'PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer',
+            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff',
         ],
     ];
 

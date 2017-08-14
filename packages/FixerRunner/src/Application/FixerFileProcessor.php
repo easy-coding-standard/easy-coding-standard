@@ -11,7 +11,9 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\ChangedLinesDetector;
+use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\Skipper;
+use Throwable;
 
 final class FixerFileProcessor implements FileProcessorInterface
 {
@@ -89,8 +91,16 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            // @var FixerInterface $fixer
-            $fixer->fix($file, $tokens);
+            try {
+                $fixer->fix($file, $tokens);
+            } catch (Throwable $throwable) {
+                throw new FixerFailedException(sprintf(
+                    'Fixing of "%s" file by "%s" failed: %s',
+                    $file,
+                    get_class($fixer),
+                    $throwable->getMessage()
+                ));
+            }
 
             $changedLines = $this->changedLinesDetector->detectInBeforeAfter($latestContent, $tokens->generateCode());
             $latestContent = $tokens->generateCode();
