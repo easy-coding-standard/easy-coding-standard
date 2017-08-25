@@ -19,7 +19,7 @@
         "nette/caching": "^2.4|^3.0",
         "nette/utils": "^2.4|^3.0",
         "nette/neon": "^2.4|^3.0",
-        "nette/robot-loader": "^3.0.1",
+        "nette/robot-loader": "^2.4|^3.0.1",
         "tracy/tracy": "^2.4|^3.0",
 
         "symplify/package-builder": "^2.2",
