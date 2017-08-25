@@ -19,7 +19,7 @@ checkers:
 ## Install
 
 ```bash
-composer require symplify/easy-coding-standard
+composer require --dev symplify/easy-coding-standard
 ```
 
 
