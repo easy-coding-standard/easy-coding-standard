@@ -125,9 +125,9 @@ or [include more files in config](#how-to-combine-more-configs):
 
 ```bash
 includes:
-    - vendor/symplify/easy-coding-standard/php70-checkers.neon
-    - vendor/symplify/easy-coding-standard/php71-checkers.neon
-    - vendor/symplify/easy-coding-standard/psr2-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/php70-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/php71-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/psr2-checkers.neon
 ```
 
 
