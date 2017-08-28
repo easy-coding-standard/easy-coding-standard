@@ -1,15 +1,12 @@
 language: php
 
 php:
-  # php versions to check
   - 7.1
 
 install:
-  # install composer dependencies
   - composer install --prefer-source
 
 script:
-  # run tests
   - vendor/bin/phpunit
 
 notifications:
