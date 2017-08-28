@@ -69,7 +69,7 @@ final class SourceFinder
      */
     private function processDirectory(array $files, string $directory): array
     {
-        $finder = (new Finder)->files()
+        $finder = Finder::create()->files()
             ->name('*.php')
             ->in($directory);
 
