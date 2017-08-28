@@ -3,6 +3,7 @@ imports:
     - { resource: '../../packages/ChangedFilesDetector/src/config/services.yml' }
     - { resource: '../../packages/CheckerSetExtractor/src/config/services.yml' }
     - { resource: '../../packages/FixerRunner/src/config/services.yml' }
+    - { resource: '../../packages/Performance/src/config/services.yml' }
     - { resource: '../../packages/SniffRunner/src/config/services.yml' }
 
 services:

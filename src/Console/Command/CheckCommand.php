@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\Application;
@@ -92,6 +93,12 @@ final class CheckCommand extends Command
         $this->addArgument('source', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'The path(s) to be checked.');
         $this->addOption('fix', null, null, 'Fix found violations.');
         $this->addOption('clear-cache', null, null, 'Clear cache for already checked files.');
+        $this->addOption(
+            'show-performance',
+            null,
+            InputOption::VALUE_NONE,
+            'Show performance of every checker.'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
