@@ -51,31 +51,16 @@ I used **class autocomplete** thanks to awesome [NEON plugin for PHPStorm](https
 ![ECS-Run](docs/neon-autocomplete.gif)
 
 
-### 2. Run it in CLI... and Fix It!
+### 2. Run it in CLI...
 
 ```bash
+vendor/bin/ecs check [one or more sources] 
 vendor/bin/ecs check src
-```
-
-You can also use name matching:
-
-```bash
+vendor/bin/ecs check src tests
 vendor/bin/ecs check src/Doctrine*
 ```
 
-Or multiple sources:
-
-```bash
-vendor/bin/ecs check src tests
-```
-
-You can also use **lazy-friendly typo-proof shortcut** `ecs`:
-
-```bash
-vendor/bin/ecs check src tests
-```
-
-#### How to Fix Things?
+#### ...and Fix It!
 
 ```bash
 vendor/bin/ecs check src --fix
@@ -125,9 +110,9 @@ or [include more files in config](#how-to-combine-more-configs):
 
 ```bash
 includes:
-    - vendor/symplify/easy-coding-standard/config/php70-checkers.neon
-    - vendor/symplify/easy-coding-standard/config/php71-checkers.neon
-    - vendor/symplify/easy-coding-standard/config/psr2-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/php70-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/php71-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/psr2-checkers.neon
 ```
 
 
@@ -243,6 +228,16 @@ checkers:
 parameters:
     indentation: tab # "spaces" by default
 ```
+
+
+### Find the Slowest Checker
+
+Add this option to show the slowest 20 checkers under all error report:
+
+```bash
+vendor/bin/ecs check src tests --show-performance
+```
+
 
 
 ### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
