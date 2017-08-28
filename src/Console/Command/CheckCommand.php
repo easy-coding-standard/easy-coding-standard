@@ -126,9 +126,12 @@ final class CheckCommand extends Command
         }
 
         $this->symfonyStyle->newLine();
+
+        $exitCode = $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
+
         $this->reportPerformance();
 
-        return $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
+        return $exitCode;
     }
 
     private function printAfterFixerStatus(): int
@@ -222,7 +225,7 @@ final class CheckCommand extends Command
 
         $metrics = $this->checkerMetricRecorder->getMetrics();
         $metricsForTable = $this->prepareForTable($metrics);
-        $this->symfonyStyle->table(['Checker', 'Total duration [ms]'], $metricsForTable);
+        $this->symfonyStyle->table(['Checker', 'Total duration'], $metricsForTable);
     }
 
     /**
@@ -233,7 +236,7 @@ final class CheckCommand extends Command
     {
         $metricsForTable = [];
         foreach ($metrics as $checkerClass => $duration) {
-            $metricsForTable[] = [$checkerClass, $duration];
+            $metricsForTable[] = [$checkerClass, $duration . ' ms'];
         }
 
         return $metricsForTable;

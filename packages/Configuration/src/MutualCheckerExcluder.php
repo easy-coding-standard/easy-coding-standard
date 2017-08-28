@@ -95,6 +95,9 @@ final class MutualCheckerExcluder
         ], [
             'PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer',
             'SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff',
+        ], [
+            'PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer',
+            'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff',
         ],
         // PSR2
         [
@@ -118,6 +121,9 @@ final class MutualCheckerExcluder
         ], [
             'PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff',
+        ], [
+            'PhpCsFixer\Fixer\Basic\BracesFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff',
         ],
     ];
 

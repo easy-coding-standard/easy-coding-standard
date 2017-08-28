@@ -238,6 +238,7 @@ Add this option to show the slowest 20 checkers under all error report:
 vendor/bin/ecs check src tests --show-performance
 ```
 
+![Performance Table](docs/performance.png)
 
 
 ### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
