@@ -12,6 +12,7 @@ use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\ChangedLinesDetector;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
+use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Throwable;
 
@@ -42,16 +43,23 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $changedLinesDetector;
 
+    /**
+     * @var CheckerMetricRecorder
+     */
+    private $checkerMetricRecorder;
+
     public function __construct(
         ErrorCollector $errorCollector,
         Skipper $skipper,
         Configuration $configuration,
-        ChangedLinesDetector $changedLinesDetector
+        ChangedLinesDetector $changedLinesDetector,
+        CheckerMetricRecorder $checkerMetricRecorder
     ) {
         $this->errorCollector = $errorCollector;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
         $this->changedLinesDetector = $changedLinesDetector;
+        $this->checkerMetricRecorder = $checkerMetricRecorder;
     }
 
     public function addFixer(FixerInterface $fixer): void
@@ -83,11 +91,15 @@ final class FixerFileProcessor implements FileProcessorInterface
         $latestContent = $oldContent;
 
         foreach ($this->getFixers() as $fixer) {
+            $this->checkerMetricRecorder->startWithChecker($fixer);
+
             if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
+                $this->checkerMetricRecorder->endWithChecker($fixer);
                 continue;
             }
 
             if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
+                $this->checkerMetricRecorder->endWithChecker($fixer);
                 continue;
             }
 
@@ -100,6 +112,8 @@ final class FixerFileProcessor implements FileProcessorInterface
                     get_class($fixer),
                     $throwable->getMessage()
                 ));
+            } finally {
+                $this->checkerMetricRecorder->endWithChecker($fixer);
             }
 
             $changedLines = $this->changedLinesDetector->detectInBeforeAfter($latestContent, $tokens->generateCode());
@@ -144,6 +158,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         Tokens::clearCache();
+
+        $this->checkerMetricRecorder->endWithChecker($fixer);
     }
 
     private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, int $line): void

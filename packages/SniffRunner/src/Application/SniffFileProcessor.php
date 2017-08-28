@@ -7,6 +7,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
@@ -50,17 +51,24 @@ final class SniffFileProcessor implements FileProcessorInterface
      */
     private $tokenListeners = [];
 
+    /**
+     * @var CheckerMetricRecorder
+     */
+    private $checkerMetricRecorder;
+
     public function __construct(
         Fixer $fixer,
         FileFactory $fileFactory,
         Configuration $configuration,
-        Skipper $skipper
+        Skipper $skipper,
+        CheckerMetricRecorder $checkerMetricRecorder
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
         $this->configuration = $configuration;
         $this->skipper = $skipper;
         $this->addCompatibilityLayer();
+        $this->checkerMetricRecorder = $checkerMetricRecorder;
     }
 
     public function addSniff(Sniff $sniff): void
@@ -152,11 +160,15 @@ final class SniffFileProcessor implements FileProcessorInterface
         $fileInfo = $fileTokenEvent->getFileInfo();
 
         foreach ($tokenListeners as $sniff) {
+            $this->checkerMetricRecorder->startWithChecker($sniff);
             if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileInfo->getRealPath())) {
+                $this->checkerMetricRecorder->endWithChecker($sniff);
+
                 return;
             }
 
             $sniff->process($file, $fileTokenEvent->getPosition());
+            $this->checkerMetricRecorder->endWithChecker($sniff);
         }
     }
 }

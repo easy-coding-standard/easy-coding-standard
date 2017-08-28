@@ -14,6 +14,7 @@ use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedExceptio
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
@@ -64,6 +65,11 @@ final class CheckCommand extends Command
      */
     private $sniffFileProcessor;
 
+    /**
+     * @var CheckerMetricRecorder
+     */
+    private $checkerMetricRecorder;
+
     public function __construct(
         Application $application,
         EasyCodingStandardStyle $easyCodingStandardStyle,
@@ -72,7 +78,8 @@ final class CheckCommand extends Command
         ErrorCollector $errorDataCollector,
         SymfonyStyle $symfonyStyle,
         FixerFileProcessor $fixerFileProcessor,
-        SniffFileProcessor $sniffFileProcessor
+        SniffFileProcessor $sniffFileProcessor,
+        CheckerMetricRecorder $checkerMetricRecorder
     ) {
         parent::__construct();
 
@@ -84,6 +91,7 @@ final class CheckCommand extends Command
         $this->symfonyStyle = $symfonyStyle;
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->sniffFileProcessor = $sniffFileProcessor;
+        $this->checkerMetricRecorder = $checkerMetricRecorder;
     }
 
     protected function configure(): void
@@ -112,11 +120,13 @@ final class CheckCommand extends Command
             $this->symfonyStyle->newLine();
             $this->symfonyStyle->success('No errors found. Great job - your code is shiny in style!');
             $this->reportUnusedSkipped();
+            $this->reportPerformance();
 
             return 0;
         }
 
         $this->symfonyStyle->newLine();
+        $this->reportPerformance();
 
         return $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
     }
@@ -198,5 +208,34 @@ final class CheckCommand extends Command
                 . 'section or load them via "--config <file>.neon" option.'
             );
         }
+    }
+
+    private function reportPerformance(): void
+    {
+        if (! $this->configuration->showPerformance()) {
+            return;
+        }
+
+        $this->symfonyStyle->newLine();
+
+        $this->symfonyStyle->title('Performance Statistics');
+
+        $metrics = $this->checkerMetricRecorder->getMetrics();
+        $metricsForTable = $this->prepareForTable($metrics);
+        $this->symfonyStyle->table(['Checker', 'Total duration [ms]'], $metricsForTable);
+    }
+
+    /**
+     * @param mixed[] $metrics
+     * @return mixed[]
+     */
+    private function prepareForTable(array $metrics): array
+    {
+        $metricsForTable = [];
+        foreach ($metrics as $checkerClass => $duration) {
+            $metricsForTable[] = [$checkerClass, $duration];
+        }
+
+        return $metricsForTable;
     }
 }

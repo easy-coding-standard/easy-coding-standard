@@ -61,6 +61,11 @@ final class Configuration
         return $this->shouldClearCache;
     }
 
+    public function showPerformance(): bool
+    {
+        return $this->showPerformance;
+    }
+
     /**
      * @param string[] $sources
      */
@@ -68,11 +73,6 @@ final class Configuration
     {
         $this->ensureSourcesExists($sources);
         $this->sources = $sources;
-    }
-
-    public function showPerformance(): bool
-    {
-        return $this->showPerformance;
     }
 
     /**

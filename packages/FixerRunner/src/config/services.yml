@@ -5,3 +5,5 @@ services:
     Symplify\EasyCodingStandard\FixerRunner\:
         resource: '..'
         exclude: '../{Exception}'
+
+    Symfony\Component\Stopwatch\Stopwatch: ~
