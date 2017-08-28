@@ -22,3 +22,4 @@ checkers:
     # Architecture
     - Symplify\CodingStandard\Sniffs\Classes\EqualInterfaceImplementationSniff
     - Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff
+    - Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff
