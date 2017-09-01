@@ -121,7 +121,7 @@ final class EasyCodingStandardStyle
             return sprintf('<fg=black;bg=green>%s</>', $message);
         }
 
-        return sprintf('<fg=black;bg=red>%s</>', $message);
+        return $message;
     }
 
     private function wrapMessageSoItFitsTheColumnWidth(string $message): string
