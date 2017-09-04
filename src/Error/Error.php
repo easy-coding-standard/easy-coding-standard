@@ -11,7 +11,7 @@ final class Error
 
     /**
      * @var string
-     */
+     */ fix
     private $message;
 
     /**
@@ -32,8 +32,12 @@ final class Error
         $this->isFixable = $isFixable;
     }
 
-    public static function createFromLineMessageSourceClassAndFixable(int $line, string $message, string $sourceClass, bool $isFixable): Error
-    {
+    public static function createFromLineMessageSourceClassAndFixable(
+        int $line,
+        string $message,
+        string $sourceClass,
+        bool $isFixable
+    ): Error {
         return new self($line, $message, $sourceClass, $isFixable);
     }
 
