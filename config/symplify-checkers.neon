@@ -1,27 +1,27 @@
 checkers:
-    - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
-    - Symplify\CodingStandard\Sniffs\PHPUnit\FinalTestCaseSniff
-    - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
-    - Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff
-
-    # Control Structures
-    - Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff
-    - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
-    - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
+#    - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
+#    - Symplify\CodingStandard\Sniffs\PHPUnit\FinalTestCaseSniff
+#    - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
+#    - Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff
+#
+#    # Control Structures
+#    - Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff
+#    - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
+#    - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
     - Symplify\CodingStandard\Fixer\ClassNotation\PropertyAndConstantSeparationFixer
 
     # Comments
-    - Symplify\CodingStandard\Sniffs\Commenting\BlockPropertyCommentSniff
-    - Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff
-    - Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff
-
-    # Naming
-    - Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff
-    - Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff
-    - Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff
-    - Symplify\CodingStandard\Fixer\Naming\MagicMethodsNamingFixer
-
-    # Architecture
-    - Symplify\CodingStandard\Sniffs\Classes\EqualInterfaceImplementationSniff
-    - Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff
-    - Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff
+#    - Symplify\CodingStandard\Sniffs\Commenting\BlockPropertyCommentSniff
+#    - Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff
+#    - Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff
+#
+#    # Naming
+#    - Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff
+#    - Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff
+#    - Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff
+#    - Symplify\CodingStandard\Fixer\Naming\MagicMethodsNamingFixer
+#
+#    # Architecture
+#    - Symplify\CodingStandard\Sniffs\Classes\EqualInterfaceImplementationSniff
+#    - Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff
+#    - Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff
