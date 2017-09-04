@@ -11,7 +11,7 @@ final class Error
 
     /**
      * @var string
-     */ fix
+     */
     private $message;
 
     /**

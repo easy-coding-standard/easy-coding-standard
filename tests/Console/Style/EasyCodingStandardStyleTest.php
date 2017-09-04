@@ -22,8 +22,8 @@ final class EasyCodingStandardStyleTest extends AbstractContainerAwareTestCase
     public function testBuildFileTableRowsFromErrors(): void
     {
         $errors = [];
-        $errors[] = new Error(5, 'message', BracesFixer::class, true);
-        $errors[] = new Error(100, 'message', BracesFixer::class, false);
+        $errors[] = Error::createFromLineMessageSourceClassAndFixable(5, 'message', BracesFixer::class, true);
+        $errors[] = Error::createFromLineMessageSourceClassAndFixable(100, 'message', BracesFixer::class, false);
 
         $errorRows = $this->easyCodingStandardStyle->buildFileTableRowsFromErrors($errors);
         $this->assertCount(2, $errorRows);
