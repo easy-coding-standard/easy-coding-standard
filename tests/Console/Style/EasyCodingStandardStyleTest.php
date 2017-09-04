@@ -36,8 +36,8 @@ final class EasyCodingStandardStyleTest extends AbstractContainerAwareTestCase
 
         $unfixableErrorRow = $errorRows[1];
         $this->assertSame([
-            'line' => '<fg=black;bg=red>100</>',
-            'message' => '<fg=black;bg=red>message' . PHP_EOL . '(PhpCsFixer\Fixer\Basic\BracesFixer)</>',
+            'line' => '100',
+            'message' => 'message' . PHP_EOL . '(PhpCsFixer\Fixer\Basic\BracesFixer)',
         ], $unfixableErrorRow);
     }
 }
