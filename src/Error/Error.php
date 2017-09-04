@@ -24,12 +24,17 @@ final class Error
      */
     private $isFixable;
 
-    public function __construct(int $line, string $message, string $sourceClass, bool $isFixable)
+    private function __construct(int $line, string $message, string $sourceClass, bool $isFixable)
     {
         $this->line = $line;
         $this->message = $message;
         $this->sourceClass = $sourceClass;
         $this->isFixable = $isFixable;
+    }
+
+    public static function createFromLineMessageSourceClassAndFixable(int $line, string $message, string $sourceClass, bool $isFixable): Error
+    {
+        return new self($line, $message, $sourceClass, $isFixable);
     }
 
     public function getLine(): int

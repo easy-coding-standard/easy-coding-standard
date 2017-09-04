@@ -40,7 +40,7 @@ final class ErrorCollector
         string $sourceClass,
         bool $isFixable
     ): void {
-        $error = new Error($line, $message, $sourceClass, $isFixable);
+        $error = Error::createFromLineMessageSourceClassAndFixable($line, $message, $sourceClass, $isFixable);
 
         if ($isFixable) {
             $this->fixableErrors[$filePath][] = $error;
