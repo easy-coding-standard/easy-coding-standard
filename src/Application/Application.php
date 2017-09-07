@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Application;
 
+use ParseError;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
@@ -47,7 +48,7 @@ final class Application
     /**
      * @var ErrorCollector
      */
-    private $errorReporter;
+    private $errorCollector;
 
     /**
      * @var Configuration
@@ -70,7 +71,7 @@ final class Application
         $this->skipper = $skipper;
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
-        $this->errorReporter = $errorReporter;
+        $this->errorCollector = $errorReporter;
         $this->configuration = $configuration;
     }
 
@@ -123,13 +124,13 @@ final class Application
             try {
                 $this->fixerFileProcessor->processFile($fileInfo);
                 $this->sniffFileProcessor->processFile($fileInfo);
-            } catch(\ParseError $e) {
+            } catch (ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFile($relativePath);
-                $this->errorReporter->addErrorMessage(
+                $this->errorCollector->addErrorMessage(
                     $relativePath,
-                    $e->getLine(),
-                    $e->getMessage(),
-                    "ParseError",
+                    $parseError->getLine(),
+                    $parseError->getMessage(),
+                    ParseError::class,
                     false
                 );
             }
