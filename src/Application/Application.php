@@ -6,6 +6,7 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Skipper;
@@ -44,6 +45,11 @@ final class Application
     private $fixerFileProcessor;
 
     /**
+     * @var ErrorCollector
+     */
+    private $errorReporter;
+
+    /**
      * @var Configuration
      */
     private $configuration;
@@ -55,6 +61,7 @@ final class Application
         Skipper $skipper,
         SniffFileProcessor $sniffFileProcessor,
         FixerFileProcessor $fixerFileProcessor,
+        ErrorCollector $errorReporter,
         Configuration $configuration
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
@@ -63,6 +70,7 @@ final class Application
         $this->skipper = $skipper;
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
+        $this->errorReporter = $errorReporter;
         $this->configuration = $configuration;
     }
 
@@ -112,8 +120,19 @@ final class Application
             // add it elsewhere
             $this->changedFilesDetector->addFile($relativePath);
 
-            $this->fixerFileProcessor->processFile($fileInfo);
-            $this->sniffFileProcessor->processFile($fileInfo);
+            try {
+                $this->fixerFileProcessor->processFile($fileInfo);
+                $this->sniffFileProcessor->processFile($fileInfo);
+            } catch(\ParseError $e) {
+                $this->changedFilesDetector->invalidateFile($relativePath);
+                $this->errorReporter->addErrorMessage(
+                    $relativePath,
+                    $e->getLine(),
+                    $e->getMessage(),
+                    "ParseError",
+                    false
+                );
+            }
         }
     }
 }
