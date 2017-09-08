@@ -128,6 +128,8 @@ final class FixerFileProcessor implements FileProcessorInterface
                 $tokens->clearChanged();
                 $appliedFixers[] = $fixer->getName();
             }
+            
+            $this->checkerMetricRecorder->endWithChecker($fixer);
         }
 
         if (! empty($appliedFixers)) {
@@ -158,8 +160,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         Tokens::clearCache();
-
-        $this->checkerMetricRecorder->endWithChecker($fixer);
     }
 
     private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, int $line): void
