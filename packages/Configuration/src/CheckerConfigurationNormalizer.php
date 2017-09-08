@@ -23,6 +23,7 @@ final class CheckerConfigurationNormalizer
                 $config = [];
             } else {
                 $config = $class;
+
                 throw new InvalidConfigurationTypeException(sprintf(
                     'Configuration of "%s" checker has to be array; "%s" given with "%s".',
                     $name,

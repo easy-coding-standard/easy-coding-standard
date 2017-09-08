@@ -95,11 +95,13 @@ final class FixerFileProcessor implements FileProcessorInterface
 
             if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
                 $this->checkerMetricRecorder->endWithChecker($fixer);
+
                 continue;
             }
 
             if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
                 $this->checkerMetricRecorder->endWithChecker($fixer);
+
                 continue;
             }
 
@@ -128,7 +130,7 @@ final class FixerFileProcessor implements FileProcessorInterface
                 $tokens->clearChanged();
                 $appliedFixers[] = $fixer->getName();
             }
-            
+
             $this->checkerMetricRecorder->endWithChecker($fixer);
         }
 

@@ -29,6 +29,7 @@ final class FixerSetExtractor
             $fixerSet = RuleSet::create([$name => true]);
         } catch (Throwable $throwable) {
             $availableFixerSetNames = RuleSet::create()->getSetDefinitionNames();
+
             throw new MissingFixerSetException(sprintf(
                 'Set "%s" was not found. Try one of: "%s.',
                 $name,

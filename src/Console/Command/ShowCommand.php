@@ -185,6 +185,7 @@ final class ShowCommand extends Command
         foreach ($checkerSet as $checkerName => $config) {
             if (! is_array($config)) {
                 $this->symfonyStyle->text('   - ' . $checkerName);
+
                 continue;
             }
 

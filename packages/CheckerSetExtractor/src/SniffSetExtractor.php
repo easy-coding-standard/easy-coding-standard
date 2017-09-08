@@ -146,6 +146,7 @@ final class SniffSetExtractor
 
             if ($this->isRuleSet($ruleId)) {
                 $sniffs += $this->addSniffsFromSniffSet($sniffs, $ruleId);
+
                 continue;
             }
 

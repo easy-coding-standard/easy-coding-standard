@@ -115,6 +115,7 @@ final class Application
             // skip file if it didn't change
             if ($this->changedFilesDetector->hasFileChanged($relativePath) === false) {
                 $this->skipper->removeFileFromUnused($relativePath);
+
                 continue;
             }
 

@@ -38,6 +38,7 @@ final class ChangedLinesDetector
                 if ($diffTokens[$i + 1][1] === 1) { // next line was added
                     ++$i; // do not record it twice, skip next $diffToken
                     ++$currentLine;
+
                     continue;
                 }
             } elseif ($diffToken[1] === 1) {
