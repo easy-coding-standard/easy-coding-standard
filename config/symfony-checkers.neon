@@ -11,7 +11,7 @@ checkers:
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
         align_double_arrow: false
         align_equals: false
-    - PhpCsFixer\Fixer\ReturnNotation\BlankLineBeforeReturnFixer
+    - PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer
     - PhpCsFixer\Fixer\CastNotation\CastSpacesFixer
     - PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer
     - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
