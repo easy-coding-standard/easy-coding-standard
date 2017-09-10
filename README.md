@@ -1,9 +1,15 @@
-# Combine PHP_CodeSniffer and PHP-CS-Fixer in one Config
+# The Easiest Way to Use Any Coding Standard
 
 [![Build Status](https://img.shields.io/travis/Symplify/EasyCodingStandard/master.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 
-Includes **caching that speeds-up 2nd run to few seconds**, **skipping files for specific checkers** and checker **autocomplete**.
+
+## Features
+
+- Use [PHP_CodeSniffer || PHP-CS-Fixer](https://www.tomasvotruba.cz/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
+- **2nd run under few seconds** with caching
+- [Skipping files](#ignore-what-you-cant-fix) for specific checkers
+- [Prepared checker sets](#use-prepared-checker-sets) - PSR2, Symfony, Common, Symplify and more...
 
 
 The easiest coding standard to start with:
@@ -29,7 +35,10 @@ composer require --dev symplify/easy-coding-standard
 
 Create an `easy-coding-standard.neon` file in your root directory.
 
-Here you can use 2 *checker classes*: [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) and [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
+Here you can use 2 *checker classes*:
+
+- Sniffs from [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+- and Fixers [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 
 #### Start Slow, Grow Fast
 
@@ -41,11 +50,9 @@ checkers:
     - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
 ```
 
-#### Don't write Checker Classes, Make use of NEON Plugin
+#### Don't type Checker Classes manually, Make use of NEON Plugin
 
-I didn't really type `PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff`. I'm too lazy for that. 
-
-I used **class autocomplete** thanks to awesome [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matejka](https://github.com/matej21/) :clap:.
+You don't have to type `PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff`. You can use **class autocomplete** thanks to [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matejka](https://github.com/matej21/) :clap:.
 
 
 ![ECS-Run](docs/neon-autocomplete.gif)
@@ -108,7 +115,7 @@ vendor/bin/ecs --config vendor/symplify/easy-coding-standard/config/symfony-chec
 or [include more files in config](#how-to-combine-more-configs):
 
 
-```bash
+```yaml
 includes:
     - vendor/symplify/easy-coding-standard/config/php70-checkers.neon
     - vendor/symplify/easy-coding-standard/config/php71-checkers.neon
@@ -118,10 +125,13 @@ includes:
 
 ### Exclude Checkers
 
-If you use preset, there might be 1 or 2 checkers you don't like. I love Symfony set, but I don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`:
+If you use prepared checker set, there might be 1 or 2 checkers you don't like. I love Symfony set, but I don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`:
 
 
 ```yaml
+includes:
+    - vendor/symplify/easy-coding-standard/config/symfony-checkers.neon
+
 parameters:
     exclude_checkers:
         - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
@@ -130,9 +140,7 @@ parameters:
 
 ### Configure Your Checker
 
-There are also user-friendly checkers that allow you to **setup YOUR preferences**.
-
-For example short array `[]` vs long `array()`. I prefer `[]`:
+There are also user-friendly checkers that **can be configured**.
 
 ```yaml
 checkers:
@@ -152,7 +160,7 @@ parameters:
     skip:
         # checkers to skip (you can use autocomplete here as well)
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-            # A. relative path to file (I usually just copy this from error report)
+            # A. relative path to file (you can copy this from error report)
             - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
             # B. or multiple files by path to match against "fnmatch()"
             - *packages/CodingStandard/src/Sniffs/*/*Sniff.php
