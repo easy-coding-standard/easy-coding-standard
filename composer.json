@@ -25,7 +25,7 @@
         "symplify/package-builder": "^2.3",
         "symplify/coding-standard": "^2.3",
         "slevomat/coding-standard": "^3.3",
-        "friendsofphp/php-cs-fixer": "^2.5",
+        "friendsofphp/php-cs-fixer": "^2.6",
         "squizlabs/php_codesniffer": "^3.0.2"
     },
     "require-dev": {
