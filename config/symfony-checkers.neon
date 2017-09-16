@@ -82,3 +82,9 @@ checkers:
     - PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer
     - PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer
     - PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer
+
+    # new since PHP-CS-Fixer 2.6
+    - PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer
+    - PhpCsFixer\Fixer\ClassNotation\NoUnneededFinalMethodFixer
+    - PhpCsFixer\Fixer\Semicolon\SemicolonAfterInstructionFixer
+    - PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer
