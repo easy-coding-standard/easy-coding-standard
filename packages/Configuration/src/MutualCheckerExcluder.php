@@ -128,10 +128,50 @@ final class MutualCheckerExcluder
     ];
 
     /**
+     * These groups do the opposite of each other, e.g. Yoda vs NoYoda.
+     *
+     * @var string[][]
+     */
+    private static $viceVersaMatchingCheckerGroups = [
+        [
+            'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff',
+            'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer',
+        ], [
+            'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer',
+            'PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer',
+        ], [
+            'Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff',
+            'PhpCsFixer\Fixer\Operator\NewWithBracesFixer',
+        ],
+    ];
+
+    /**
      * @param mixed[][] $checkers
      * @return mixed[][]
      */
     public function exclude(array $checkers): array
+    {
+        $checkers = $this->excludeDuplicatedGroups($checkers);
+
+        return $this->excludeViseVersaGroups($checkers);
+    }
+
+    /**
+     * @param mixed[] $checkers
+     * @param string[] $matchingCheckerGroup
+     */
+    private function isMatch(array $checkers, array $matchingCheckerGroup): bool
+    {
+        $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
+
+        return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
+    }
+
+    /**
+     * @param mixed[] $checkers
+     * @return mixed[]
+     */
+    private function excludeDuplicatedGroups(array $checkers): array
     {
         foreach (self::$matchingCheckerGroups as $matchingCheckerGroup) {
             if (! $this->isMatch($checkers, $matchingCheckerGroup)) {
@@ -148,13 +188,29 @@ final class MutualCheckerExcluder
     }
 
     /**
+     * If matched, use only last checkers. That allows overriding general configs.
+     *
      * @param mixed[] $checkers
-     * @param string[] $matchingCheckerGroup
+     * @return mixed[]
      */
-    private function isMatch(array $checkers, array $matchingCheckerGroup): bool
+    private function excludeViseVersaGroups(array $checkers): array
     {
-        $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
+        foreach (self::$viceVersaMatchingCheckerGroups as $viceVersaMatchingCheckerGroup) {
+            if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
+                continue;
+            }
 
-        return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
+            [$firstCheckerClass, $secondCheckerClass] = $viceVersaMatchingCheckerGroup;
+
+            $firstCheckerPosition = array_search($firstCheckerClass, array_keys($checkers), true);
+            $secondCheckerPosition = array_search($secondCheckerClass, array_keys($checkers), true);
+
+            $checkerClassToRemove = ($firstCheckerPosition < $secondCheckerPosition)
+                ? $firstCheckerClass : $secondCheckerClass;
+
+            unset($checkers[$checkerClassToRemove]);
+        }
+
+        return $checkers;
     }
 }
