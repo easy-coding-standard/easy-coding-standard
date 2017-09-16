@@ -9,7 +9,7 @@ checkers:
     - PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff
 
     # Language Constructions
-    - SlevomatCodingStandard\Sniffs\ControlStructures\YodaComparisonSniff
+    - SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff
     - PhpCsFixer\Fixer\Semicolon\SemicolonAfterInstructionFixer
     - PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer
     - PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveUnsetsFixer
