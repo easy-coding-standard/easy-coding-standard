@@ -158,17 +158,6 @@ final class MutualCheckerExcluder
 
     /**
      * @param mixed[] $checkers
-     * @param string[] $matchingCheckerGroup
-     */
-    private function isMatch(array $checkers, array $matchingCheckerGroup): bool
-    {
-        $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
-
-        return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
-    }
-
-    /**
-     * @param mixed[] $checkers
      * @return mixed[]
      */
     private function excludeDuplicatedGroups(array $checkers): array
@@ -212,5 +201,16 @@ final class MutualCheckerExcluder
         }
 
         return $checkers;
+    }
+
+    /**
+     * @param mixed[] $checkers
+     * @param string[] $matchingCheckerGroup
+     */
+    private function isMatch(array $checkers, array $matchingCheckerGroup): bool
+    {
+        $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
+
+        return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
     }
 }
