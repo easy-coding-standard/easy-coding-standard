@@ -109,6 +109,8 @@ final class ShowCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $fixerSetName = $input->getOption(self::OPTION_FIXER_SET_NAME);
+        $sniffSetName = $input->getOption(self::OPTION_SNIFF_SET_NAME);
+
         if ($fixerSetName) {
             $fixerSet = $this->fixerSetExtractor->extract($fixerSetName);
             $type = 'PHP-CS-Fixer - fixer set ' . $fixerSetName;
@@ -119,10 +121,7 @@ final class ShowCommand extends Command
                 $fixerNames = array_keys($fixerSet);
                 $this->displayCheckerList($fixerNames, $type);
             }
-        }
-
-        $sniffSetName = $input->getOption(self::OPTION_SNIFF_SET_NAME);
-        if ($sniffSetName) {
+        } elseif ($sniffSetName) {
             $sniffSet = $this->sniffSetExtractor->extract($sniffSetName);
             $type = 'PHP-CS-Fixer - sniff set ' . $sniffSetName;
 
