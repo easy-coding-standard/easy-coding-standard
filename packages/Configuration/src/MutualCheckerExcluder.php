@@ -2,6 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
+use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
+
 final class MutualCheckerExcluder
 {
     /**
@@ -153,7 +155,9 @@ final class MutualCheckerExcluder
     {
         $checkers = $this->excludeDuplicatedGroups($checkers);
 
-        return $this->excludeViseVersaGroups($checkers);
+        $this->ensureThereAreNoConflictingCheckers($checkers);
+
+        return $checkers;
     }
 
     /**
@@ -177,30 +181,20 @@ final class MutualCheckerExcluder
     }
 
     /**
-     * If matched, use only last checkers. That allows overriding general configs.
-     *
      * @param mixed[] $checkers
-     * @return mixed[]
      */
-    private function excludeViseVersaGroups(array $checkers): array
+    private function ensureThereAreNoConflictingCheckers(array $checkers): void
     {
         foreach (self::$viceVersaMatchingCheckerGroups as $viceVersaMatchingCheckerGroup) {
             if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
                 continue;
             }
 
-            [$firstCheckerClass, $secondCheckerClass] = $viceVersaMatchingCheckerGroup;
-
-            $firstCheckerPosition = array_search($firstCheckerClass, array_keys($checkers), true);
-            $secondCheckerPosition = array_search($secondCheckerClass, array_keys($checkers), true);
-
-            $checkerClassToRemove = ($firstCheckerPosition < $secondCheckerPosition)
-                ? $firstCheckerClass : $secondCheckerClass;
-
-            unset($checkers[$checkerClassToRemove]);
+            throw new ConflictingCheckersLoadedException(sprintf(
+                'Checkers "%s" mutually exclude each other. Use only one or exclude the unwanted one in "parameters > exclude_checkers" in your config.',
+                implode('" and "', $viceVersaMatchingCheckerGroup)
+            ));
         }
-
-        return $checkers;
     }
 
     /**
