@@ -12,7 +12,7 @@ final class MutualCheckerExcluder
      *
      * @var string[][]
      */
-    private static $matchingCheckerGroups = [
+    private static $duplicatedCheckerGroups = [
         [
             'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff',
             'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff',
@@ -134,7 +134,7 @@ final class MutualCheckerExcluder
      *
      * @var string[][]
      */
-    private static $viceVersaMatchingCheckerGroups = [
+    private static $conflictingCheckerGroups = [
         [
             'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff',
             'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer',
@@ -166,7 +166,7 @@ final class MutualCheckerExcluder
      */
     private function excludeDuplicatedGroups(array $checkers): array
     {
-        foreach (self::$matchingCheckerGroups as $matchingCheckerGroup) {
+        foreach (self::$duplicatedCheckerGroups as $matchingCheckerGroup) {
             if (! $this->isMatch($checkers, $matchingCheckerGroup)) {
                 continue;
             }
@@ -185,7 +185,7 @@ final class MutualCheckerExcluder
      */
     private function ensureThereAreNoConflictingCheckers(array $checkers): void
     {
-        foreach (self::$viceVersaMatchingCheckerGroups as $viceVersaMatchingCheckerGroup) {
+        foreach (self::$conflictingCheckerGroups as $viceVersaMatchingCheckerGroup) {
             if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
                 continue;
             }
