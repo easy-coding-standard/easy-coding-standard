@@ -191,7 +191,8 @@ final class MutualCheckerExcluder
             }
 
             throw new ConflictingCheckersLoadedException(sprintf(
-                'Checkers "%s" mutually exclude each other. Use only one or exclude the unwanted one in "parameters > exclude_checkers" in your config.',
+                'Checkers "%s" mutually exclude each other. Use only one or exclude '
+                . 'the unwanted one in "parameters > exclude_checkers" in your config.',
                 implode('" and "', $viceVersaMatchingCheckerGroup)
             ));
         }
