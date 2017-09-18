@@ -85,6 +85,10 @@ final class Skipper
         return false;
     }
 
+    /**
+     * Supports both relative and absolute $file path.
+     * They differ for PHP-CS-Fixer and PHP_CodeSniffer.
+     */
     private function fileMatchesPattern(string $file, string $ignoredPath): bool
     {
         $file = str_replace('\\', '/', $file);
@@ -93,7 +97,7 @@ final class Skipper
             return true;
         }
 
-        return fnmatch($ignoredPath, $file);
+        return fnmatch($ignoredPath, $file) || fnmatch($ignoredPath, '*/' . $file);
     }
 
     private function removeEmptyUnusedSkipped(string $skippedChecker): void
