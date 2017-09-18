@@ -109,10 +109,12 @@ final class FixerFileProcessor implements FileProcessorInterface
                 $fixer->fix($file, $tokens);
             } catch (Throwable $throwable) {
                 throw new FixerFailedException(sprintf(
-                    'Fixing of "%s" file by "%s" failed: %s',
+                    'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
                     $file,
                     get_class($fixer),
-                    $throwable->getMessage()
+                    $throwable->getMessage(),
+                    $throwable->getFile(),
+                    $throwable->getLine()
                 ));
             } finally {
                 $this->checkerMetricRecorder->endWithChecker($fixer);
