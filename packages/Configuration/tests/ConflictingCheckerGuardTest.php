@@ -22,7 +22,7 @@ final class ConflictingCheckerGuardTest extends TestCase
     {
         $checkers = [
             'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer' => [],
-            'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer' => []
+            'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer' => [],
         ];
 
         $this->conflictingCheckerGuard->processCheckers($checkers);
