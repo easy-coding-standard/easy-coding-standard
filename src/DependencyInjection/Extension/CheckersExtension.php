@@ -8,9 +8,11 @@ use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
+use Symplify\EasyCodingStandard\Configuration\ConflictingCheckerGuard;
 use Symplify\EasyCodingStandard\Configuration\MutualCheckerExcluder;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
@@ -61,12 +63,18 @@ final class CheckersExtension extends Extension
      */
     private $mutualCheckerExcluder;
 
+    /**
+     * @var ConflictingCheckerGuard
+     */
+    private $conflictingCheckerGuard;
+
     public function __construct()
     {
         $this->configurationNormalizer = new CheckerConfigurationNormalizer;
         $this->checkerTypeValidator = new CheckerTypeValidator;
         $this->checkerExtensionGuardian = new CheckersExtensionGuardian;
         $this->mutualCheckerExcluder = new MutualCheckerExcluder;
+        $this->conflictingCheckerGuard = new ConflictingCheckerGuard;
     }
 
     /**
@@ -86,12 +94,11 @@ final class CheckersExtension extends Extension
 
         $this->checkerTypeValidator->validate(array_keys($checkers));
 
-        $excludedCheckers = $parameterBag->has(self::EXCLUDE_CHECKERS_OPTION)
-            ? (array) $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION) : [];
+        $checkers = $this->removeExcludedCheckers($checkers, $parameterBag);
 
-        $checkers = $this->removeExcludedCheckers($checkers, $excludedCheckers);
+        $checkers = $this->mutualCheckerExcluder->processCheckers($checkers);
 
-        $checkers = $this->mutualCheckerExcluder->exclude($checkers);
+        $this->conflictingCheckerGuard->processCheckers($checkers);
 
         $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
@@ -176,11 +183,13 @@ final class CheckersExtension extends Extension
 
     /**
      * @param mixed[] $checkers
-     * @param string[] $excludedCheckers
      * @return mixed[]
      */
-    private function removeExcludedCheckers(array $checkers, array $excludedCheckers): array
+    private function removeExcludedCheckers(array $checkers, ParameterBagInterface $parameterBag): array
     {
+        $excludedCheckers = $parameterBag->has(self::EXCLUDE_CHECKERS_OPTION)
+            ? (array) $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION) : [];
+
         foreach ($excludedCheckers as $excludedChecker) {
             unset($checkers[$excludedChecker]);
         }

@@ -2,8 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
-
 final class MutualCheckerExcluder
 {
     /**
@@ -130,41 +128,10 @@ final class MutualCheckerExcluder
     ];
 
     /**
-     * These groups do the opposite of each other, e.g. Yoda vs NoYoda.
-     *
-     * @var string[][]
-     */
-    private static $conflictingCheckerGroups = [
-        [
-            'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff',
-            'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer',
-        ], [
-            'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer',
-            'PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer',
-        ], [
-            'Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff',
-            'PhpCsFixer\Fixer\Operator\NewWithBracesFixer',
-        ],
-    ];
-
-    /**
-     * @param mixed[][] $checkers
-     * @return mixed[][]
-     */
-    public function exclude(array $checkers): array
-    {
-        $checkers = $this->excludeDuplicatedGroups($checkers);
-
-        $this->ensureThereAreNoConflictingCheckers($checkers);
-
-        return $checkers;
-    }
-
-    /**
      * @param mixed[] $checkers
      * @return mixed[]
      */
-    private function excludeDuplicatedGroups(array $checkers): array
+    public function processCheckers(array $checkers): array
     {
         foreach (self::$duplicatedCheckerGroups as $matchingCheckerGroup) {
             if (! $this->isMatch($checkers, $matchingCheckerGroup)) {
@@ -178,24 +145,6 @@ final class MutualCheckerExcluder
         }
 
         return $checkers;
-    }
-
-    /**
-     * @param mixed[] $checkers
-     */
-    private function ensureThereAreNoConflictingCheckers(array $checkers): void
-    {
-        foreach (self::$conflictingCheckerGroups as $viceVersaMatchingCheckerGroup) {
-            if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
-                continue;
-            }
-
-            throw new ConflictingCheckersLoadedException(sprintf(
-                'Checkers "%s" mutually exclude each other. Use only one or exclude '
-                . 'the unwanted one in "parameters > exclude_checkers" in your config.',
-                implode('" and "', $viceVersaMatchingCheckerGroup)
-            ));
-        }
     }
 
     /**
