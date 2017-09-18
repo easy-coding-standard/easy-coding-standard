@@ -7,24 +7,16 @@ use Symplify\EasyCodingStandard\Configuration\MutualCheckerExcluder;
 
 final class MutualCheckerExcluderTest extends TestCase
 {
-    /**
-     * @var MutualCheckerExcluder
-     */
-    private $mutualCheckerExcluder;
-
-    protected function setUp(): void
-    {
-        $this->mutualCheckerExcluder = new MutualCheckerExcluder;
-    }
-
     public function test(): void
     {
+        $mutualCheckerExcluder = new MutualCheckerExcluder;
         $checkers = [
             'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
             'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff' => [],
         ];
 
-        $uniqueCheckers = $this->mutualCheckerExcluder->exclude($checkers);
+        $uniqueCheckers = $mutualCheckerExcluder->processCheckers($checkers);
+
         $this->assertCount(1, $uniqueCheckers);
 
         $this->assertSame([

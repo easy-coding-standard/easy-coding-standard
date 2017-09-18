@@ -4,32 +4,39 @@ namespace Symplify\EasyCodingStandard\Configuration\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Configuration\ConflictingCheckerGuard;
-use Symplify\EasyCodingStandard\Configuration\MutualCheckerExcluder;
+use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
 
 final class ConflictingCheckerGuardTest extends TestCase
 {
     /**
-     * @var MutualCheckerExcluder
+     * @var ConflictingCheckerGuard
      */
-    private $mutualCheckerExcluder;
+    private $conflictingCheckerGuard;
 
     protected function setUp(): void
     {
-        $this->mutualCheckerExcluder = new ConflictingCheckerGuard;
+        $this->conflictingCheckerGuard = new ConflictingCheckerGuard;
     }
 
-    public function test(): void
+    public function testFriendlyCheckers(): void
     {
         $checkers = [
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
-            'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff' => [],
+            'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer' => [],
+            'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer' => []
         ];
 
-        $uniqueCheckers = $this->mutualCheckerExcluder->exclude($checkers);
-        $this->assertCount(1, $uniqueCheckers);
+        $this->conflictingCheckerGuard->processCheckers($checkers);
+        $this->assertTrue(true);
+    }
 
-        $this->assertSame([
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
-        ], $uniqueCheckers);
+    public function testConflictingCheckers(): void
+    {
+        $checkers = [
+            'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer' => [],
+            'PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer' => [],
+        ];
+
+        $this->expectException(ConflictingCheckersLoadedException::class);
+        $this->conflictingCheckerGuard->processCheckers($checkers);
     }
 }
