@@ -113,6 +113,12 @@ final class CheckCommand extends Command
             InputOption::VALUE_NONE,
             'Hide progress bar. Useful e.g. for nicer CI output.'
         );
+        $this->addOption(
+            'no-error-table',
+            null,
+            InputOption::VALUE_NONE,
+            'Hide error table. Useful e.g. for fast check of error count.'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -142,7 +148,9 @@ final class CheckCommand extends Command
 
     private function printAfterFixerStatus(): int
     {
-        $this->easyCodingStandardStyle->printErrors($this->errorCollector->getUnfixableErrors());
+        if ($this->configuration->showErrorTable()) {
+            $this->easyCodingStandardStyle->printErrors($this->errorCollector->getUnfixableErrors());
+        }
 
         if ($this->errorCollector->getUnfixableErrorCount() === 0) {
             $this->symfonyStyle->success(sprintf(
@@ -164,7 +172,9 @@ final class CheckCommand extends Command
 
     private function printNoFixerStatus(): int
     {
-        $this->easyCodingStandardStyle->printErrors($this->errorCollector->getAllErrors());
+        if ($this->configuration->showErrorTable()) {
+            $this->easyCodingStandardStyle->printErrors($this->errorCollector->getAllErrors());
+        }
 
         $this->printErrorMessageFromErrorCounts(
             $this->errorCollector->getErrorCount(),
