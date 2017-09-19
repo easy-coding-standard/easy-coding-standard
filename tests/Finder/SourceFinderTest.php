@@ -10,6 +10,7 @@ final class SourceFinderTest extends AbstractContainerAwareTestCase
 {
     public function test(): void
     {
+        /** @var SourceFinder $sourceFinder */
         $sourceFinder = $this->container->get(SourceFinder::class);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source']);
         $this->assertCount(1, $foundFiles);
