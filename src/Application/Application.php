@@ -90,7 +90,9 @@ final class Application
             return;
         }
 
-        $this->startProgressBar($files);
+        if ($this->configuration->showProgressBar()) {
+            $this->startProgressBar($files);
+        }
 
         // 3. process found files by each processors
         $this->processFoundFiles($files);

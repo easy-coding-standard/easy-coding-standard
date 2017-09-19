@@ -107,6 +107,12 @@ final class CheckCommand extends Command
             InputOption::VALUE_NONE,
             'Show performance of every checker.'
         );
+        $this->addOption(
+            'no-progress-bar',
+            null,
+            InputOption::VALUE_NONE,
+            'Hide progress bar. Useful e.g. for nicer CI output.'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
