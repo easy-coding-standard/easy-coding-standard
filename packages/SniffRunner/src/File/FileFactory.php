@@ -17,26 +17,26 @@ final class FileFactory
     /**
      * @var ErrorCollector
      */
-    private $reportCollector;
+    private $errorCollector;
 
     /**
      * @var FileToTokensParser
      */
-    private $fileToTokenParser;
+    private $fileToTokensParser;
 
-    public function __construct(Fixer $fixer, ErrorCollector $reportCollector, FileToTokensParser $fileToTokenParser)
+    public function __construct(Fixer $fixer, ErrorCollector $errorCollector, FileToTokensParser $fileToTokensParser)
     {
         $this->fixer = $fixer;
-        $this->reportCollector = $reportCollector;
-        $this->fileToTokenParser = $fileToTokenParser;
+        $this->errorCollector = $errorCollector;
+        $this->fileToTokensParser = $fileToTokensParser;
     }
 
     public function createFromFileInfo(SplFileInfo $fileInfo, bool $isFixer): File
     {
         $file = $fileInfo->getPathname();
 
-        $tokens = $this->fileToTokenParser->parseFromFilePath($file);
+        $tokens = $this->fileToTokensParser->parseFromFilePath($file);
 
-        return new File($file, $tokens, $this->fixer, $this->reportCollector, $isFixer);
+        return new File($file, $tokens, $this->fixer, $this->errorCollector, $isFixer);
     }
 }

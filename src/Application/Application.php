@@ -62,7 +62,7 @@ final class Application
         Skipper $skipper,
         SniffFileProcessor $sniffFileProcessor,
         FixerFileProcessor $fixerFileProcessor,
-        ErrorCollector $errorReporter,
+        ErrorCollector $errorCollector,
         Configuration $configuration
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
@@ -71,7 +71,7 @@ final class Application
         $this->skipper = $skipper;
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
-        $this->errorCollector = $errorReporter;
+        $this->errorCollector = $errorCollector;
         $this->configuration = $configuration;
     }
 

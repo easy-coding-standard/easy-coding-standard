@@ -16,20 +16,20 @@ final class SniffFileProcessorTest extends TestCase
     /**
      * @var ErrorCollector
      */
-    private $errorDataCollector;
+    private $errorCollector;
 
     /**
      * @var SniffFileProcessor
      */
-    private $fileProcessor;
+    private $sniffFileProcessor;
 
     protected function setUp(): void
     {
         $container = (new ContainerFactory)->createWithConfig(
             __DIR__ . '/SniffRunnerSource/easy-coding-standard.neon'
         );
-        $this->errorDataCollector = $container->get(ErrorCollector::class);
-        $this->fileProcessor = $container->get(SniffFileProcessor::class);
+        $this->errorCollector = $container->get(ErrorCollector::class);
+        $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
 
         /** @var ChangedFilesDetector $changedFilesDetector */
         $changedFilesDetector = $container->get(ChangedFilesDetector::class);
@@ -40,11 +40,11 @@ final class SniffFileProcessorTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(1, $this->errorDataCollector->getErrorCount());
-        $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
-        $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
+        $this->assertSame(1, $this->errorCollector->getErrorCount());
+        $this->assertSame(1, $this->errorCollector->getFixableErrorCount());
+        $this->assertSame(0, $this->errorCollector->getUnfixableErrorCount());
 
-        $errorMessages = $this->errorDataCollector->getAllErrors();
+        $errorMessages = $this->errorCollector->getAllErrors();
         $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
 
         /** @var Error $error */
@@ -55,7 +55,7 @@ final class SniffFileProcessorTest extends TestCase
     private function runFileProcessor(): void
     {
         $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
-        $this->fileProcessor->processFile($fileInfo);
+        $this->sniffFileProcessor->processFile($fileInfo);
     }
 
     private function validateError(Error $error): void

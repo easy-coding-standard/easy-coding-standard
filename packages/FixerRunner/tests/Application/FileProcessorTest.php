@@ -14,7 +14,7 @@ final class FileProcessorTest extends TestCase
     /**
      * @var FixerFileProcessor
      */
-    private $fileProcessor;
+    private $fixerFileProcessor;
 
     protected function setUp(): void
     {
@@ -22,17 +22,17 @@ final class FileProcessorTest extends TestCase
             __DIR__ . '/FileProcessorSource/easy-coding-standard.neon'
         );
 
-        $this->fileProcessor = $container->get(FixerFileProcessor::class);
+        $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
     }
 
     public function testGetFixers(): void
     {
-        $this->assertCount(3, $this->fileProcessor->getFixers());
+        $this->assertCount(3, $this->fixerFileProcessor->getFixers());
     }
 
     public function testSortFixers(): void
     {
-        $sortedFixers = $this->fileProcessor->getFixers();
+        $sortedFixers = $this->fixerFileProcessor->getFixers();
 
         $this->assertInstanceOf(EncodingFixer::class, $sortedFixers[0]);
         $this->assertInstanceOf(FullOpeningTagFixer::class, $sortedFixers[1]);

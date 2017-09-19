@@ -20,16 +20,16 @@ final class ErrorCollector
     /**
      * @var ErrorSorter
      */
-    private $errorMessageSorter;
+    private $errorSorter;
 
     /**
      * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
 
-    public function __construct(ErrorSorter $errorMessageSorter, ChangedFilesDetector $changedFilesDetector)
+    public function __construct(ErrorSorter $errorSorter, ChangedFilesDetector $changedFilesDetector)
     {
-        $this->errorMessageSorter = $errorMessageSorter;
+        $this->errorSorter = $errorSorter;
         $this->changedFilesDetector = $changedFilesDetector;
     }
 
@@ -94,7 +94,7 @@ final class ErrorCollector
      */
     public function getUnfixableErrors(): array
     {
-        return $this->errorMessageSorter->sortByFileAndLine($this->unfixableErrors);
+        return $this->errorSorter->sortByFileAndLine($this->unfixableErrors);
     }
 
     /**
@@ -102,6 +102,6 @@ final class ErrorCollector
      */
     private function getFixableErrors(): array
     {
-        return $this->errorMessageSorter->sortByFileAndLine($this->fixableErrors);
+        return $this->errorSorter->sortByFileAndLine($this->fixableErrors);
     }
 }

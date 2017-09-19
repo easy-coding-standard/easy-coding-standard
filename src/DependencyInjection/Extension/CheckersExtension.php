@@ -46,7 +46,7 @@ final class CheckersExtension extends Extension
     /**
      * @var CheckerConfigurationNormalizer
      */
-    private $configurationNormalizer;
+    private $checkerConfigurationNormalizer;
 
     /**
      * @var CheckerTypeValidator
@@ -56,7 +56,7 @@ final class CheckersExtension extends Extension
     /**
      * @var CheckersExtensionGuardian
      */
-    private $checkerExtensionGuardian;
+    private $checkersExtensionGuardian;
 
     /**
      * @var MutualCheckerExcluder
@@ -70,9 +70,9 @@ final class CheckersExtension extends Extension
 
     public function __construct()
     {
-        $this->configurationNormalizer = new CheckerConfigurationNormalizer;
+        $this->checkerConfigurationNormalizer = new CheckerConfigurationNormalizer;
         $this->checkerTypeValidator = new CheckerTypeValidator;
-        $this->checkerExtensionGuardian = new CheckersExtensionGuardian;
+        $this->checkersExtensionGuardian = new CheckersExtensionGuardian;
         $this->mutualCheckerExcluder = new MutualCheckerExcluder;
         $this->conflictingCheckerGuard = new ConflictingCheckerGuard;
     }
@@ -90,7 +90,7 @@ final class CheckersExtension extends Extension
         $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
 
         $checkersConfiguration = $parameterBag->has(self::NAME) ? (array) $parameterBag->get(self::NAME) : [];
-        $checkers = $this->configurationNormalizer->normalize($checkersConfiguration);
+        $checkers = $this->checkerConfigurationNormalizer->normalize($checkersConfiguration);
 
         $this->checkerTypeValidator->validate(array_keys($checkers));
 
@@ -131,13 +131,13 @@ final class CheckersExtension extends Extension
         }
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
-            $this->checkerExtensionGuardian->ensureFixerIsConfigurable($checkerClass, $configuration);
+            $this->checkersExtensionGuardian->ensureFixerIsConfigurable($checkerClass, $configuration);
             $checkerDefinition->addMethodCall('configure', [$configuration]);
         }
 
         if (is_a($checkerClass, Sniff::class, true)) {
             foreach ($configuration as $property => $value) {
-                $this->checkerExtensionGuardian->ensurePropertyExists($checkerClass, $property);
+                $this->checkersExtensionGuardian->ensurePropertyExists($checkerClass, $property);
                 $checkerDefinition->setProperty($property, $value);
             }
         }

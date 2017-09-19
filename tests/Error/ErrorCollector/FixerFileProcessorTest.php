@@ -15,12 +15,12 @@ final class FixerFileProcessorTest extends TestCase
     /**
      * @var ErrorCollector
      */
-    private $errorDataCollector;
+    private $errorCollector;
 
     /**
      * @var FixerFileProcessor
      */
-    private $fileProcessor;
+    private $fixerFileProcessor;
 
     protected function setUp(): void
     {
@@ -28,8 +28,8 @@ final class FixerFileProcessorTest extends TestCase
             __DIR__ . '/FixerRunnerSource/phpunit-fixer-config.neon'
         );
 
-        $this->errorDataCollector = $container->get(ErrorCollector::class);
-        $this->fileProcessor = $container->get(FixerFileProcessor::class);
+        $this->errorCollector = $container->get(ErrorCollector::class);
+        $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
 
         /** @var ChangedFilesDetector $changedFilesDetector */
         $changedFilesDetector = $container->get(ChangedFilesDetector::class);
@@ -40,11 +40,11 @@ final class FixerFileProcessorTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(1, $this->errorDataCollector->getErrorCount());
-        $this->assertSame(1, $this->errorDataCollector->getFixableErrorCount());
-        $this->assertSame(0, $this->errorDataCollector->getUnfixableErrorCount());
+        $this->assertSame(1, $this->errorCollector->getErrorCount());
+        $this->assertSame(1, $this->errorCollector->getFixableErrorCount());
+        $this->assertSame(0, $this->errorCollector->getUnfixableErrorCount());
 
-        $errorMessages = $this->errorDataCollector->getAllErrors();
+        $errorMessages = $this->errorCollector->getAllErrors();
         $this->assertCount(1, $errorMessages);
 
         /** @var Error $error */
@@ -61,6 +61,6 @@ final class FixerFileProcessorTest extends TestCase
     {
         $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
 
-        $this->fileProcessor->processFile($fileInfo);
+        $this->fixerFileProcessor->processFile($fileInfo);
     }
 }

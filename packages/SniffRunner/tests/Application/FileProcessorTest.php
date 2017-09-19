@@ -13,7 +13,7 @@ final class FileProcessorTest extends TestCase
     /**
      * @var SniffFileProcessor
      */
-    private $fileProcessor;
+    private $sniffFileProcessor;
 
     /**
      * @var string
@@ -30,7 +30,7 @@ final class FileProcessorTest extends TestCase
         $configuration = $container->get(Configuration::class);
         $configuration->resolveFromArray(['isFixer' => true]);
 
-        $this->fileProcessor = $container->get(SniffFileProcessor::class);
+        $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
         $this->initialFileContent = file_get_contents($this->getFileLocation());
     }
 
@@ -44,7 +44,7 @@ final class FileProcessorTest extends TestCase
         $fileInfo = new SplFileInfo($this->getFileLocation());
         $initialFileHash = md5_file($this->getFileLocation());
 
-        $this->fileProcessor->processFile($fileInfo);
+        $this->sniffFileProcessor->processFile($fileInfo);
         $fixedFileHash = md5_file($this->getFileLocation());
 
         $this->assertNotSame($initialFileHash, $fixedFileHash);
@@ -52,7 +52,7 @@ final class FileProcessorTest extends TestCase
 
     public function testGetSniffs(): void
     {
-        $sniffs = $this->fileProcessor->getSniffs();
+        $sniffs = $this->sniffFileProcessor->getSniffs();
         $this->assertCount(1, $sniffs);
     }
 

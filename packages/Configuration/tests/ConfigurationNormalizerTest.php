@@ -11,16 +11,16 @@ final class ConfigurationNormalizerTest extends TestCase
     /**
      * @var CheckerConfigurationNormalizer
      */
-    private $configurationNormalizer;
+    private $checkerConfigurationNormalizer;
 
     protected function setUp(): void
     {
-        $this->configurationNormalizer = new CheckerConfigurationNormalizer;
+        $this->checkerConfigurationNormalizer = new CheckerConfigurationNormalizer;
     }
 
     public function test(): void
     {
-        $normalizedConfiguration = $this->configurationNormalizer->normalize([
+        $normalizedConfiguration = $this->checkerConfigurationNormalizer->normalize([
             0 => 'sniff',
             'someSniffWithCommentedConfig' => null,
             'sniffAndItsConfig' => ['key' => 'value'],
@@ -42,14 +42,14 @@ final class ConfigurationNormalizerTest extends TestCase
             'Configuration of "sniff" checker has to be array; ' .
             '"string" given with "configuration".'
         );
-        $this->configurationNormalizer->normalize([
+        $this->checkerConfigurationNormalizer->normalize([
             'sniff' => 'configuration',
         ]);
     }
 
     public function testMerging(): void
     {
-        $normalizedConfiguration = $this->configurationNormalizer->normalize([
+        $normalizedConfiguration = $this->checkerConfigurationNormalizer->normalize([
             0 => 'sniff',
             'sniff' => [
                 'key' => 'value',
