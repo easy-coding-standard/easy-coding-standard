@@ -21,6 +21,12 @@ final class ConflictingCheckerGuard
         ], [
             'Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff',
             'PhpCsFixer\Fixer\Operator\NewWithBracesFixer',
+        ], [
+            'SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff',
+            'PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer',
+        ], [
+            'SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff',
+            'PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer',
         ],
     ];
 
