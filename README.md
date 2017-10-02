@@ -101,7 +101,7 @@ vendor/symplify/easy-coding-standard/config/php71-checkers.neon
 vendor/symplify/easy-coding-standard/config/psr2-checkers.neon
 vendor/symplify/easy-coding-standard/config/symfony-checkers.neon
 vendor/symplify/easy-coding-standard/config/symfony-risky-checkers.neon
-vendor/symplify/easy-coding-standard/config/symplify.neon
+vendor/symplify/easy-coding-standard/config/symplify-checkers.neon
 vendor/symplify/easy-coding-standard/config/spaces.neon
 vendor/symplify/easy-coding-standard/config/common.neon
 ```
