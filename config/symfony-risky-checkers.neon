@@ -11,3 +11,5 @@ checkers:
     - PhpCsFixer\Fixer\PhpUnit\PhpUnitDedicateAssertFixer
     - PhpCsFixer\Fixer\Basic\Psr4Fixer
     - PhpCsFixer\Fixer\LanguageConstruct\SilencedDeprecationErrorFixer
+    # php-cs-fixer 2.7+
+    - PhpCsFixer\Fixer\Naming\NoHomoglyphNamesFixer
