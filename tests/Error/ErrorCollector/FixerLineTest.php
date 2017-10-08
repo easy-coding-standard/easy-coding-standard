@@ -64,7 +64,7 @@ final class FixerLineTest extends TestCase
 
         /** @var Error $thirdError */
         $thirdError = $errorMessages[2];
-        $this->assertSame(11, $thirdError->getLine());
+        $this->assertSame(10, $thirdError->getLine());
         $this->assertSame(SingleBlankLineAtEofFixer::class, $thirdError->getSourceClass());
     }
 

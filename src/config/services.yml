@@ -1,23 +1,16 @@
 imports:
-    - { resource: '../../packages/Configuration/src/config/services.yml' }
-    - { resource: '../../packages/ChangedFilesDetector/src/config/services.yml' }
-    - { resource: '../../packages/CheckerSetExtractor/src/config/services.yml' }
-    - { resource: '../../packages/FixerRunner/src/config/services.yml' }
-    - { resource: '../../packages/Performance/src/config/services.yml' }
-    - { resource: '../../packages/SniffRunner/src/config/services.yml' }
+    - { resource: '../../packages/**/src/config/services.yml' }
 
 services:
     _defaults:
         autowire: true
 
-    # PSR-4 autodiscovery
     Symplify\EasyCodingStandard\:
         resource: '../../src'
         exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection,Configuration/Loader/NeonLoader.php}'
 
     # 3rd party services
     Nette\DI\Config\Loader: ~
-    SebastianBergmann\Diff\Differ: ~
     Symfony\Component\Console\Terminal: ~
 
     Symfony\Component\Console\Input\ArgvInput: ~

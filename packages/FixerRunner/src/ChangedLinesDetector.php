@@ -41,7 +41,9 @@ final class ChangedLinesDetector
 
                     continue;
                 }
-            } elseif ($diffToken[1] === 1) {
+
+
+            } elseif ($diffToken[1] === 1) { // line was added
                 $changedLines[] = $currentLine;
             }
 
