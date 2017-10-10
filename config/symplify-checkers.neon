@@ -8,6 +8,7 @@ checkers:
     - Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff
     - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
     - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
+    - Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer
 
     # Spaces
     - Symplify\CodingStandard\Fixer\ClassNotation\PropertyAndConstantSeparationFixer
