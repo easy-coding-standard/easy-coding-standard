@@ -41,7 +41,7 @@ try {
     // 3. Run Console Application
     /** @var Application $application */
     $application = $container->get(Application::class);
-    $application->run();
+    exit($application->run());
 } catch (Throwable $throwable) {
     $symfonyStyle = SymfonyStyleFactory::create();
     $symfonyStyle->error($throwable->getMessage());
