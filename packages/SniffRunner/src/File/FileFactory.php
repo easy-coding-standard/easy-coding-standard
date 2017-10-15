@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 
@@ -24,11 +25,21 @@ final class FileFactory
      */
     private $fileToTokensParser;
 
-    public function __construct(Fixer $fixer, ErrorCollector $errorCollector, FileToTokensParser $fileToTokensParser)
-    {
+    /**
+     * @var CurrentSniffProvider
+     */
+    private $currentSniffProvider;
+
+    public function __construct(
+        Fixer $fixer,
+        ErrorCollector $errorCollector,
+        FileToTokensParser $fileToTokensParser,
+        CurrentSniffProvider $currentSniffProvider
+    ) {
         $this->fixer = $fixer;
         $this->errorCollector = $errorCollector;
         $this->fileToTokensParser = $fileToTokensParser;
+        $this->currentSniffProvider = $currentSniffProvider;
     }
 
     public function createFromFileInfo(SplFileInfo $fileInfo, bool $isFixer): File
@@ -37,6 +48,6 @@ final class FileFactory
 
         $tokens = $this->fileToTokensParser->parseFromFilePath($file);
 
-        return new File($file, $tokens, $this->fixer, $this->errorCollector, $isFixer);
+        return new File($file, $tokens, $this->fixer, $this->errorCollector, $isFixer, $this->currentSniffProvider);
     }
 }

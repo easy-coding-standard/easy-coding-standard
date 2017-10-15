@@ -56,12 +56,18 @@ final class SniffFileProcessor implements FileProcessorInterface
      */
     private $checkerMetricRecorder;
 
+    /**
+     * @var CurrentSniffProvider
+     */
+    private $currentSniffProvider;
+
     public function __construct(
         Fixer $fixer,
         FileFactory $fileFactory,
         Configuration $configuration,
         Skipper $skipper,
-        CheckerMetricRecorder $checkerMetricRecorder
+        CheckerMetricRecorder $checkerMetricRecorder,
+        CurrentSniffProvider $currentSniffProvider
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
@@ -69,6 +75,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->skipper = $skipper;
         $this->addCompatibilityLayer();
         $this->checkerMetricRecorder = $checkerMetricRecorder;
+        $this->currentSniffProvider = $currentSniffProvider;
     }
 
     public function addSniff(Sniff $sniff): void
@@ -160,6 +167,8 @@ final class SniffFileProcessor implements FileProcessorInterface
         $fileInfo = $fileTokenEvent->getFileInfo();
 
         foreach ($tokenListeners as $sniff) {
+            $this->currentSniffProvider->setSniff($sniff);
+
             $this->checkerMetricRecorder->startWithChecker($sniff);
             if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileInfo->getRealPath())) {
                 $this->checkerMetricRecorder->endWithChecker($sniff);

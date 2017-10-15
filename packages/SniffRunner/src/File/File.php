@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 
@@ -31,6 +32,11 @@ final class File extends BaseFile
     private $isFixer;
 
     /**
+     * @var CurrentSniffProvider
+     */
+    private $currentSniffProvider;
+
+    /**
      * @param string $path
      * @param array[] $tokens
      * @param Fixer $fixer
@@ -42,7 +48,8 @@ final class File extends BaseFile
         array $tokens,
         Fixer $fixer,
         ErrorCollector $errorCollector,
-        bool $isFixer
+        bool $isFixer,
+        CurrentSniffProvider $currentSniffProvider
     ) {
         $this->path = $path;
         $this->tokens = $tokens;
@@ -54,6 +61,7 @@ final class File extends BaseFile
         $this->isFixer = $isFixer;
 
         $this->eolChar = PHP_EOL;
+        $this->currentSniffProvider = $currentSniffProvider;
     }
 
     /**
@@ -119,18 +127,10 @@ final class File extends BaseFile
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
-        /**
-         * check code here...
-         *
-         * @nice: detect: sniff class
-         * - how to add this to @see \Symplify\EasyCodingStandard\Skipper
-         * probably some CurrentSniffProvider
-         *
-         * - api in configuration?
-         */
-
+        // SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff
+        dump($this->currentSniffProvider->getSniffClass());
+        // UselessDocComment
         dump($code);
-        die;
 
         return parent::addError($error, $stackPtr, $code, $data, $severity, $fixable);
     }
