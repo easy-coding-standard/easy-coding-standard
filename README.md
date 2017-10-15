@@ -170,6 +170,14 @@ parameters:
             - *packages/CodingStandard/src/Sniffs/*/*Sniff.php
 ```
  
+You can also skip specific codes:
+
+```yaml
+parameters:
+    skip_codes:
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff::UselessDocComment
+```
+
 
 ### `show` Command to Display All Checkers
 

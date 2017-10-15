@@ -16,6 +16,11 @@ final class Skipper
     private $skipped = [];
 
     /**
+     * @var string[]
+     */
+    private $skippedCodes = [];
+
+    /**
      * @var string[][]
      */
     private $unusedSkipped = [];
@@ -26,6 +31,13 @@ final class Skipper
         $checkerTypeValidator->validate(array_keys($skipped));
         $this->skipped = $skipped;
         $this->unusedSkipped = $skipped;
+
+        $this->skippedCodes = $parameterProvider->provide()['skip_codes'] ?? [];
+    }
+
+    public function shouldSkipCode(string $code): bool
+    {
+        return in_array($code, $this->skippedCodes, true);
     }
 
     /**
