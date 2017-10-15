@@ -135,7 +135,7 @@ final class File extends BaseFile
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
-        $fullyQualifiedCode = $this->currentSniffProvider->getSniffClass() . '::' . $code;
+        $fullyQualifiedCode = $this->currentSniffProvider->getSniffClass() . '.' . $code;
         if ($this->skipper->shouldSkipCode($fullyQualifiedCode)) {
             return false;
         }
@@ -166,38 +166,16 @@ final class File extends BaseFile
             $message = vsprintf($message, $data);
         }
 
-        $sniffClass = $this->normalizeSniffClass($sniffClass);
+        $fullyQualifiedCode = $this->currentSniffProvider->getSniffClass() . '.' . $sniffClass;
 
         $this->errorCollector->addErrorMessage(
             $this->path,
             $line,
             $message,
-            $sniffClass,
+            $fullyQualifiedCode,
             $isFixable
         );
 
         return true;
-    }
-
-    private function normalizeSniffClass(string $sourceClass): string
-    {
-        if (class_exists($sourceClass, false)) {
-            return $sourceClass;
-        }
-
-        $trace = debug_backtrace(0, 6);
-
-        for ($i = 2; $i < count($trace); ++$i) {
-            if ($this->isSniffClass($trace[$i]['class'])) {
-                return $trace[$i]['class'];
-            }
-        }
-
-        return 'Unable to determined responsible sniff class.';
-    }
-
-    private function isSniffClass(string $class): bool
-    {
-        return is_a($class, Sniff::class, true);
     }
 }

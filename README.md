@@ -175,7 +175,7 @@ You can also skip specific codes:
 ```yaml
 parameters:
     skip_codes:
-        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff::UselessDocComment
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment
 ```
 
 
