@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -35,6 +36,10 @@ final class File extends BaseFile
      * @var CurrentSniffProvider
      */
     private $currentSniffProvider;
+    /**
+     * @var Skipper
+     */
+    private $skipper;
 
     /**
      * @param string $path
@@ -49,7 +54,8 @@ final class File extends BaseFile
         Fixer $fixer,
         ErrorCollector $errorCollector,
         bool $isFixer,
-        CurrentSniffProvider $currentSniffProvider
+        CurrentSniffProvider $currentSniffProvider,
+        Skipper $skipper
     ) {
         $this->path = $path;
         $this->tokens = $tokens;
@@ -62,6 +68,7 @@ final class File extends BaseFile
 
         $this->eolChar = PHP_EOL;
         $this->currentSniffProvider = $currentSniffProvider;
+        $this->skipper = $skipper;
     }
 
     /**
@@ -127,6 +134,7 @@ final class File extends BaseFile
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
+        // dump($this->skipper) -- check for ignored code
         // SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff
         dump($this->currentSniffProvider->getSniffClass());
         // UselessDocComment
