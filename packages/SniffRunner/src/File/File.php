@@ -115,6 +115,28 @@ final class File extends BaseFile
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
+    {
+        /**
+         * check code here...
+         *
+         * @nice: detect: sniff class
+         * - how to add this to @see \Symplify\EasyCodingStandard\Skipper
+         * probably some CurrentSniffProvider
+         *
+         * - api in configuration?
+         */
+
+        dump($code);
+        die;
+
+        return parent::addError($error, $stackPtr, $code, $data, $severity, $fixable);
+    }
+
+
+    /**
      * Delegated from addError().
      *
      * {@inheritdoc}
