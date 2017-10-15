@@ -152,7 +152,7 @@ final class File extends BaseFile
         $message,
         $line,
         $column,
-        $sniffClass,
+        $sniffClassOrCode,
         $data,
         $severity,
         $isFixable = false
@@ -165,16 +165,23 @@ final class File extends BaseFile
             $message = vsprintf($message, $data);
         }
 
-        $fullyQualifiedCode = $this->currentSniffProvider->getSniffClass() . '.' . $sniffClass;
-
         $this->errorCollector->addErrorMessage(
             $this->path,
             $line,
             $message,
-            $fullyQualifiedCode,
+            $this->resolveFullyQualifiedCode($sniffClassOrCode),
             $isFixable
         );
 
         return true;
+    }
+
+    private function resolveFullyQualifiedCode(string $sniffClassOrCode): string
+    {
+        if (class_exists($sniffClassOrCode)) {
+            return $sniffClassOrCode;
+        }
+
+        return $this->currentSniffProvider->getSniffClass() . '.' . $sniffClassOrCode;
     }
 }
