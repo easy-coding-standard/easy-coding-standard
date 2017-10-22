@@ -16,7 +16,7 @@ final class CheckerTypeValidator
     /**
      * @param string[] $checkers
      */
-    public function validate(array $checkers): void
+    public function validate(array $checkers, string $location): void
     {
         foreach ($checkers as $checker) {
             if ($this->isCheckerSupported($checker)) {
@@ -24,9 +24,11 @@ final class CheckerTypeValidator
             }
 
             throw new CheckerIsNotSupportedException(sprintf(
-                'Checker "%s" was not found or is not supported. Use class that implements any of %s.',
+                'Checker "%s" was not found or is not supported. Use class that implements any of %s. '
+                    . 'Invalid checker defined in %s',
                 $checker,
-                implode(' or ', $this->allowedCheckerTypes)
+                implode(' or ', $this->allowedCheckerTypes),
+                $location
             ));
         }
     }

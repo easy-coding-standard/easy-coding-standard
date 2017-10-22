@@ -28,7 +28,7 @@ final class Skipper
     public function __construct(ParameterProvider $parameterProvider, CheckerTypeValidator $checkerTypeValidator)
     {
         $skipped = $parameterProvider->provide()['skip'] ?? [];
-        $checkerTypeValidator->validate(array_keys($skipped));
+        $checkerTypeValidator->validate(array_keys($skipped), 'parameters > skip');
         $this->skipped = $skipped;
         $this->unusedSkipped = $skipped;
 

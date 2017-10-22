@@ -25,16 +25,19 @@ final class CheckerTypeValidatorTest extends TestCase
 
     public function test(): void
     {
-        $this->checkerTypeValidator->validate([ArraySyntaxFixer::class]);
-        $this->checkerTypeValidator->validate([ArrayDeclarationSniff::class]);
+        $location = 'location';
+        $this->checkerTypeValidator->validate([ArraySyntaxFixer::class], $location);
+        $this->checkerTypeValidator->validate([ArrayDeclarationSniff::class], $location);
 
         $this->expectException(CheckerIsNotSupportedException::class);
         $this->expectExceptionMessage(sprintf(
-            'Checker "%s" was not found or is not supported. Use class that implements any of %s or %s.',
+            'Checker "%s" was not found or is not supported. Use class that implements any of %s or %s. '
+                . 'Invalid checker defined in %s',
             stdClass::class,
             Sniff::class,
-            FixerInterface::class
+            FixerInterface::class,
+            $location
         ));
-        $this->checkerTypeValidator->validate([stdClass::class]);
+        $this->checkerTypeValidator->validate([stdClass::class], $location);
     }
 }
