@@ -190,7 +190,7 @@ final class CheckersExtension extends Extension
         $excludedCheckers = $parameterBag->has(self::EXCLUDE_CHECKERS_OPTION)
             ? (array) $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION) : [];
 
-        $this->checkerTypeValidator->validate(array_keys($excludedCheckers), 'parameters > exclude_checkers');
+        $this->checkerTypeValidator->validate($excludedCheckers, 'parameters > exclude_checkers');
 
         foreach ($excludedCheckers as $excludedChecker) {
             unset($checkers[$excludedChecker]);
