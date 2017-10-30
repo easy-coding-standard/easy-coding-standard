@@ -135,7 +135,7 @@ final class File extends BaseFile
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
         $fullyQualifiedCode = $this->currentSniffProvider->getSniffClass() . '.' . $code;
-        if ($this->skipper->shouldSkipCode($fullyQualifiedCode)) {
+        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $this->path)) {
             return false;
         }
 

@@ -36,6 +36,9 @@ final class SkipperTest extends TestCase
             FinalInterfaceSniff::class,
             __DIR__ . '/someOtherFile'
         ));
+
+        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someForeignCode', __DIR__ . 'someFile'));
+        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someOtherCode', __DIR__ . 'someFile'));
     }
 
     public function testSkipped(): void
@@ -54,6 +57,9 @@ final class SkipperTest extends TestCase
             DeclareStrictTypesFixer::class,
             __DIR__ . '/someDirectory/anotherFile.php'
         ));
+
+        $this->assertTrue($this->skipper->shouldSkipCodeAndFile('someCode', __DIR__ . '/someFile'));
+        $this->assertTrue($this->skipper->shouldSkipCodeAndFile('someOtherCode', __DIR__ . '/someDirectory/someFile'));
     }
 
     public function testRemoveFileFromUnused(): void
@@ -73,6 +79,13 @@ final class SkipperTest extends TestCase
         $container->setParameter('skip', [
             DeclareStrictTypesFixer::class => [
                 'someFile',
+                '*/someDirectory/*',
+            ],
+        ]);
+
+        $container->setParameter('skip_codes', [
+            'someCode',
+            'someOtherCode' => [
                 '*/someDirectory/*',
             ],
         ]);

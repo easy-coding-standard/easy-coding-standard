@@ -175,7 +175,11 @@ You can also skip specific codes:
 ```yaml
 parameters:
     skip_codes:
+        # code to skip for all files
         - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment
+        # code to skip for specific files/patterns
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification:
+            -  *src/Form/Type/*Type.php
 ```
 
 

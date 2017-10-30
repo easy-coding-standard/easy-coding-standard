@@ -35,9 +35,19 @@ final class Skipper
         $this->skippedCodes = $parameterProvider->provide()['skip_codes'] ?? [];
     }
 
-    public function shouldSkipCode(string $code): bool
+    public function shouldSkipCodeAndFile(string $code, string $absoluteFilePath): bool
     {
-        return in_array($code, $this->skippedCodes, true);
+        foreach ($this->skippedCodes as $index => $value) {
+            if ($value === $code) {
+                return true;
+            }
+
+            if ($index === $code && $this->doesFileMatchSkippedFiles($code, $absoluteFilePath, (array) $value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
