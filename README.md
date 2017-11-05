@@ -54,10 +54,7 @@ checkers:
     - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
 ```
 
-#### Don't type Checker Classes manually, Make use of NEON Plugin
-
-You don't have to type `PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowShortArraySyntaxSniff`. You can use **class autocomplete** thanks to [NEON plugin for PHPStorm](https://plugins.jetbrains.com/plugin/7060-neon-support) by [David Matejka](https://github.com/matej21/) :clap:.
-
+Tip: Use **class autocomplete** with [NEON Plugin](https://plugins.jetbrains.com/plugin/7060-neon-support) to PhpStorm:
 
 ![ECS-Run](docs/neon-autocomplete.gif)
 
@@ -170,7 +167,7 @@ parameters:
             - *packages/CodingStandard/src/Sniffs/*/*Sniff.php
 ```
  
-You can also skip specific codes:
+You can also skip specific codes that you know from PHP_CodeSniffer:
 
 ```yaml
 parameters:
@@ -199,24 +196,14 @@ List of active checkers will be shown.
 vendor/bin/ecs show --config vendor/nette/coding-standard/coding-standard-php71.neon
 ```
 
-**Or explore a fixer set of PHP-CS-Fixer**:
+**Or explore a fixer set of PHP-CS-Fixer or PHP_CodeSniffer**:
 
 ```bash
 vendor/bin/ecs show --fixer-set Symfony
-```
-
-**Or explore or a sniff set of PHP_CodeSniffer**:
-
-```bash
-vendor/bin/ecs show --sniff-set PSR2
-```
-
-
-
-**And print with config-like configuration** - handy for copy-pasting to your own config:
-
-```bash
 vendor/bin/ecs show --fixer-set Symfony --with-config
+
+vendor/bin/ecs show --sniff-set PSR2
+vendor/bin/ecs show --sniff-set PSR2 --with-config
 ```
 
 
