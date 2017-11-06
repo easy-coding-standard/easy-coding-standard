@@ -27,7 +27,7 @@ final class Application extends SymfonyApplication
     private function addExtraOptions(InputDefinition $inputDefinition): void
     {
         $inputDefinition->addOption(new InputOption(
-            '--config',
+            'config',
             null,
             InputOption::VALUE_REQUIRED,
             'Path to config file.',
