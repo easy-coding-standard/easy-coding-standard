@@ -13,6 +13,7 @@ final class Application extends SymfonyApplication
         $inputDefinition = parent::getDefaultInputDefinition();
         $this->removeUnusedOptions($inputDefinition);
         $this->addExtraOptions($inputDefinition);
+
         return $inputDefinition;
     }
 
