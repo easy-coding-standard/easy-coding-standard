@@ -125,8 +125,8 @@ final class Application
             $this->changedFilesDetector->addFile($relativePath);
 
             try {
-                $this->fixerFileProcessor->processFile($fileInfo);
                 $this->sniffFileProcessor->processFile($fileInfo);
+                $this->fixerFileProcessor->processFile($fileInfo);
             } catch (ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFile($relativePath);
                 $this->errorCollector->addErrorMessage(
