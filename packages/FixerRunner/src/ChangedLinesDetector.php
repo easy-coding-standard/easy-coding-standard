@@ -69,7 +69,6 @@ final class ChangedLinesDetector
 
     /**
      * @param mixed[] $diffTokens
-     * @return bool
      */
     private function hasRemovedLines(array $diffTokens): bool
     {
