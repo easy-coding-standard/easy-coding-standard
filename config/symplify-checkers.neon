@@ -4,6 +4,9 @@ checkers:
     - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
     - Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff
 
+    # Imports
+    - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
+
     # Control Structures
     - Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff
     - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
