@@ -10,3 +10,6 @@ checkers:
 
     # remove empty lines in phpdoc
     - PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer
+
+    # remove empty space after removed phpdoc
+    - PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer
