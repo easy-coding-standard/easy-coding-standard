@@ -21,7 +21,7 @@ final class SourceFinderTest extends AbstractContainerAwareTestCase
 
     public function testSourceProviders(): void
     {
-        $container = (new ContainerFactory)->createWithConfig(
+        $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/SourceFinderSource/config-with-source-provider.neon'
         );
 

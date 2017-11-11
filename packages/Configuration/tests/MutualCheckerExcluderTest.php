@@ -9,7 +9,7 @@ final class MutualCheckerExcluderTest extends TestCase
 {
     public function test(): void
     {
-        $mutualCheckerExcluder = new MutualCheckerExcluder;
+        $mutualCheckerExcluder = new MutualCheckerExcluder();
         $checkers = [
             'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
             'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff' => [],

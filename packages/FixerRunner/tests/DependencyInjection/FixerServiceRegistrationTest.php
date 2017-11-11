@@ -14,7 +14,7 @@ final class FixerServiceRegistrationTest extends TestCase
 {
     public function test(): void
     {
-        $container = (new ContainerFactory)->createWithConfig(
+        $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.neon'
         );
 
@@ -39,7 +39,7 @@ final class FixerServiceRegistrationTest extends TestCase
             StrictParamFixer::class
         ));
 
-        (new ContainerFactory)->createWithConfig(
+        (new ContainerFactory())->createWithConfig(
             __DIR__ . '/FixerServiceRegistrationSource/non-configurable-fixer.neon'
         );
     }

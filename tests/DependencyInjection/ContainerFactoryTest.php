@@ -18,7 +18,7 @@ final class ContainerFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->containerFactory = new ContainerFactory;
+        $this->containerFactory = new ContainerFactory();
     }
 
     public function testCreate(): void

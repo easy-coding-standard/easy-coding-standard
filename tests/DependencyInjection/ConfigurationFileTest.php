@@ -11,7 +11,7 @@ final class ConfigurationFileTest extends TestCase
 {
     public function testEmptyConfig(): void
     {
-        $container = (new ContainerFactory)->createWithConfig(__DIR__ . '/ConfigurationFileSource/empty-config.neon');
+        $container = (new ContainerFactory())->createWithConfig(__DIR__ . '/ConfigurationFileSource/empty-config.neon');
 
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getFixers());
@@ -22,7 +22,7 @@ final class ConfigurationFileTest extends TestCase
 
     public function testIncludeConfig(): void
     {
-        $container = (new ContainerFactory)->createWithConfig(
+        $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/ConfigurationFileSource/include-another-config.neon'
         );
 

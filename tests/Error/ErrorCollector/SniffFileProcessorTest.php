@@ -25,7 +25,7 @@ final class SniffFileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory)->createWithConfig(
+        $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/SniffRunnerSource/easy-coding-standard.neon'
         );
         $this->errorCollector = $container->get(ErrorCollector::class);

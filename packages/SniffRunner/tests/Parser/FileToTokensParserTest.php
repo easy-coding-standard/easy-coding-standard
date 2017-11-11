@@ -9,7 +9,7 @@ final class FileToTokensParserTest extends TestCase
 {
     public function test(): void
     {
-        $tokens = (new FileToTokensParser)->parseFromFilePath(
+        $tokens = (new FileToTokensParser())->parseFromFilePath(
             __DIR__ . '/FileToTokensParserSource/SimplePhpFile.php'
         );
 

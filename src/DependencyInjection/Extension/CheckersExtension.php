@@ -70,11 +70,11 @@ final class CheckersExtension extends Extension
 
     public function __construct()
     {
-        $this->checkerConfigurationNormalizer = new CheckerConfigurationNormalizer;
-        $this->checkerTypeValidator = new CheckerTypeValidator;
-        $this->checkersExtensionGuardian = new CheckersExtensionGuardian;
-        $this->mutualCheckerExcluder = new MutualCheckerExcluder;
-        $this->conflictingCheckerGuard = new ConflictingCheckerGuard;
+        $this->checkerConfigurationNormalizer = new CheckerConfigurationNormalizer();
+        $this->checkerTypeValidator = new CheckerTypeValidator();
+        $this->checkersExtensionGuardian = new CheckersExtensionGuardian();
+        $this->mutualCheckerExcluder = new MutualCheckerExcluder();
+        $this->conflictingCheckerGuard = new ConflictingCheckerGuard();
     }
 
     /**

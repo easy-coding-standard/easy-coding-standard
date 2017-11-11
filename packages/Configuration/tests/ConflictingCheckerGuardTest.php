@@ -15,7 +15,7 @@ final class ConflictingCheckerGuardTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->conflictingCheckerGuard = new ConflictingCheckerGuard;
+        $this->conflictingCheckerGuard = new ConflictingCheckerGuard();
     }
 
     public function testFriendlyCheckers(): void

@@ -45,13 +45,13 @@ final class AppKernel extends AbstractCliKernel
     public function registerBundles(): array
     {
         return [
-            new CheckersBundle,
+            new CheckersBundle(),
         ];
     }
 
     protected function build(ContainerBuilder $containerBuilder): void
     {
-        $containerBuilder->addCompilerPass(new CollectorCompilerPass);
-        $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass);
+        $containerBuilder->addCompilerPass(new CollectorCompilerPass());
+        $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
     }
 }

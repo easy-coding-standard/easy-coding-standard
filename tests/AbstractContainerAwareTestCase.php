@@ -24,7 +24,7 @@ abstract class AbstractContainerAwareTestCase extends TestCase
     public function __construct(?string $name = null, array $data = [], string $dataName = '')
     {
         if (! self::$cachedContainer) {
-            self::$cachedContainer = (new ContainerFactory)->create();
+            self::$cachedContainer = (new ContainerFactory())->create();
         }
 
         $this->container = self::$cachedContainer;

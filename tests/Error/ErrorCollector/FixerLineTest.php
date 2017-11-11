@@ -31,7 +31,7 @@ final class FixerLineTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory)->createWithConfig(
+        $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/FixerRunnerSource/easy-coding-standard.neon'
         );
 

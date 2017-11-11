@@ -15,7 +15,7 @@ final class SniffServiceRegistrationTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory)->createWithConfig(
+        $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.neon'
         );
 

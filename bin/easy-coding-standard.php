@@ -30,16 +30,16 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
 
 try {
     // 1. Detect configuration from --level
-    $configFile = (new LevelConfigShortcutFinder)->resolveLevel(new ArgvInput, __DIR__ . '/../config/');
+    $configFile = (new LevelConfigShortcutFinder())->resolveLevel(new ArgvInput(), __DIR__ . '/../config/');
 
     // 2. Detect configuration
     if ($configFile === null) {
-        ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput);
+        ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput());
         $configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.neon');
     }
 
     // 3. Build DI container
-    $containerFactory = new ContainerFactory;
+    $containerFactory = new ContainerFactory();
     if ($configFile) {
         $container = $containerFactory->createWithConfig($configFile);
     } else {

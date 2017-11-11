@@ -15,7 +15,7 @@ final class ConfigurationNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->checkerConfigurationNormalizer = new CheckerConfigurationNormalizer;
+        $this->checkerConfigurationNormalizer = new CheckerConfigurationNormalizer();
     }
 
     public function test(): void

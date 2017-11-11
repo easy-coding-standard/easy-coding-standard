@@ -9,6 +9,6 @@ final class CheckersBundle extends Bundle
 {
     public function getContainerExtension(): CheckersExtension
     {
-        return new CheckersExtension;
+        return new CheckersExtension();
     }
 }

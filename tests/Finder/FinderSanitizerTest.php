@@ -18,7 +18,7 @@ final class FinderSanitizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->finderSanitizer = new FinderSanitizer;
+        $this->finderSanitizer = new FinderSanitizer();
     }
 
     public function testValidTypes(): void

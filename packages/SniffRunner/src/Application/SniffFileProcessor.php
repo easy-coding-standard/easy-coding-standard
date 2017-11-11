@@ -145,7 +145,7 @@ final class SniffFileProcessor implements FileProcessorInterface
             define('PHP_CODESNIFFER_VERBOSITY', 0);
         }
 
-        new Tokens;
+        new Tokens();
     }
 
     private function isFixer(): bool

@@ -9,7 +9,7 @@ final class SniffClassRobotLoaderFactory
 {
     public function createForDirectory(string $directory): RobotLoader
     {
-        $robot = new RobotLoader;
+        $robot = new RobotLoader();
         $robot->setTempDirectory($this->createCacheDirectory());
         $robot->addDirectory($directory);
         $robot->ignoreDirs += ['tests', 'Tests'];

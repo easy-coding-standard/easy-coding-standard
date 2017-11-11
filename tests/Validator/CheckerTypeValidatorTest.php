@@ -20,7 +20,7 @@ final class CheckerTypeValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->checkerTypeValidator = new CheckerTypeValidator;
+        $this->checkerTypeValidator = new CheckerTypeValidator();
     }
 
     public function test(): void

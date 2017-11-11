@@ -33,7 +33,7 @@ final class FileToTokensParser
             return $this->legacyConfig;
         }
 
-        $config = new stdClass;
+        $config = new stdClass();
         $config->tabWidth = 4;
         $config->annotations = false;
 

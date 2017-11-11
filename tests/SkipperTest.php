@@ -21,7 +21,7 @@ final class SkipperTest extends TestCase
     {
         $this->skipper = new Skipper(
             $this->createParameterProvider(),
-            new CheckerTypeValidator
+            new CheckerTypeValidator()
         );
     }
 
@@ -75,7 +75,7 @@ final class SkipperTest extends TestCase
 
     private function createParameterProvider(): ParameterProvider
     {
-        $container = new Container;
+        $container = new Container();
         $container->setParameter('skip', [
             DeclareStrictTypesFixer::class => [
                 'someFile',
