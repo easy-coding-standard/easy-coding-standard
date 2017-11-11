@@ -9,11 +9,14 @@ use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 gc_disable();
 
-/**
- * This allows to load "vendor/autoload.php" both from
- * "composer create-project ..." and "composer require" installation.
- */
-$possibleAutoloadPaths = [__DIR__ . '/../../..', __DIR__ . '/../vendor', __DIR__ . '/../../../vendor'];
+$possibleAutoloadPaths = [
+    // composer create-project
+    __DIR__ . '/../../..',
+    // composer require
+    __DIR__ . '/../vendor',
+    // mono-repository
+    __DIR__ . '/../../../vendor',
+];
 
 foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     if (is_file($possibleAutoloadPath . '/autoload.php')) {
