@@ -34,7 +34,6 @@
     "autoload": {
         "psr-4": {
             "Symplify\\EasyCodingStandard\\": "src",
-            "Symplify\\EasyCodingStandard\\CheckerSetExtractor\\": "packages/CheckerSetExtractor/src",
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\": "packages/ChangedFilesDetector/src",
             "Symplify\\EasyCodingStandard\\Configuration\\": "packages/Configuration/src",
             "Symplify\\EasyCodingStandard\\FixerRunner\\": "packages/FixerRunner/src",
@@ -45,7 +44,6 @@
     "autoload-dev": {
         "psr-4": {
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\Tests\\": "packages/ChangedFilesDetector/tests",
-            "Symplify\\EasyCodingStandard\\CheckerSetExtractor\\Tests\\": "packages/CheckerSetExtractor/tests",
             "Symplify\\EasyCodingStandard\\Configuration\\Tests\\": "packages/Configuration/tests",
             "Symplify\\EasyCodingStandard\\FixerRunner\\Tests\\": "packages/FixerRunner/tests",
             "Symplify\\EasyCodingStandard\\SniffRunner\\Tests\\": "packages/SniffRunner/tests",
