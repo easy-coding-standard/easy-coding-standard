@@ -8,7 +8,6 @@ checkers:
     - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
 
     # Control Structures
-    - Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff
     - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
     - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
     - Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer
@@ -22,6 +21,7 @@ checkers:
     - Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff
     - Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff
     - Symplify\CodingStandard\Fixer\Commenting\AnnotateMagicContainerGetterFixer
+    - Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer
 
     # Naming
     - Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff
