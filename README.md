@@ -201,28 +201,6 @@ List of active checkers will be shown.
 vendor/bin/ecs show --config vendor/nette/coding-standard/coding-standard-php71.neon
 ```
 
-**Or explore a fixer set of PHP-CS-Fixer or PHP_CodeSniffer**:
-
-```bash
-vendor/bin/ecs show --fixer-set Symfony
-vendor/bin/ecs show --fixer-set Symfony --with-config
-
-vendor/bin/ecs show --sniff-set PSR2
-vendor/bin/ecs show --sniff-set PSR2 --with-config
-```
-
-
-### Pick Config in CLI
-
-Do you want to use another config than `easy-coding-standard.neon` in your root directory? 
-
-You can use `--config` option:
-
-```bash
-vendor/bin/ecs show --config vendor/nette/coding-standard/general-coding-standard.neon
-```  
-
-
 ### How to Combine More Configs
 
 Do you have one global configuration and still want something extra for this repository? Just include the global configuration via `includes` section and add extra checkers.
