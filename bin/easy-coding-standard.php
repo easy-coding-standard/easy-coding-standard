@@ -4,6 +4,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
+use Symplify\PackageBuilder\Configuration\LevelConfigShortcutFinder;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 // performance boost
@@ -28,20 +29,24 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
 }
 
 try {
-    // 1. Detect configuration
-    ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput);
+    // 1. Detect configuration from --level
+    $configFile = (new LevelConfigShortcutFinder)->resolveLevel(new ArgvInput, __DIR__ . '/../config/');
 
-    // 2. Build DI container
+    // 2. Detect configuration
+    if ($configFile === null) {
+        ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput);
+        $configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.neon');
+    }
+
+    // 3. Build DI container
     $containerFactory = new ContainerFactory;
-    $configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.neon');
-
     if ($configFile) {
         $container = $containerFactory->createWithConfig($configFile);
     } else {
         $container = $containerFactory->create();
     }
 
-    // 3. Run Console Application
+    // 4. Run Console Application
     /** @var Application $application */
     $application = $container->get(Application::class);
     exit($application->run());
