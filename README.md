@@ -96,7 +96,7 @@ There are several common sets you can use. You find all in [/config](/config) di
 
 ```bash
 vendor/symplify/easy-coding-standard/config/clean-code.neon
-vendor/symplify/easy-coding-standard/config/clean-docs.neon
+vendor/symplify/easy-coding-standard/config/clean-docblock.neon
 vendor/symplify/easy-coding-standard/config/common.neon
 
 # php
