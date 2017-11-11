@@ -1,0 +1,12 @@
+checkers:
+    # remove redundant lines in phpdocs
+    - Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer
+
+    # remove empty phpdocs
+    - PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer
+
+    # remove empty spaces in phpdoc
+    - PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer
+
+    # remove empty lines in phpdoc
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer
