@@ -42,11 +42,7 @@ final class File extends BaseFile
     private $skipper;
 
     /**
-     * @param string $path
      * @param array[] $tokens
-     * @param Fixer $fixer
-     * @param ErrorCollector $errorCollector
-     * @param bool $isFixer
      */
     public function __construct(
         string $path,
