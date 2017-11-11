@@ -33,5 +33,12 @@ final class Application extends SymfonyApplication
             'Path to config file.',
             getcwd() . '/easy-coding-standard.neon'
         ));
+
+        $inputDefinition->addOption(new InputOption(
+            'level',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Finds config by shortcut name.'
+        ));
     }
 }
