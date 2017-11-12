@@ -110,6 +110,7 @@ final class CheckersExtension extends Extension
     {
         foreach ($checkers as $checkerClass => $configuration) {
             $checkerDefinition = new Definition($checkerClass);
+            $checkerDefinition->setPublic(true);
             $this->setupCheckerConfiguration($checkerDefinition, $configuration);
             $this->setupCheckerWithIndentation($checkerDefinition);
             $containerBuilder->setDefinition($checkerClass, $checkerDefinition);

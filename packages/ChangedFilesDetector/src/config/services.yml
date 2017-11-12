@@ -5,3 +5,6 @@ services:
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '..'
         exclude: '../{Cache/CacheFactory}'
+
+    Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector:
+        public: true
