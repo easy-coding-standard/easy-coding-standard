@@ -7,7 +7,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 final class CurrentSniffProvider
 {
     /**
-     * @var Sniff
+     * @var Sniff|null
      */
     private $sniff;
 
@@ -16,8 +16,12 @@ final class CurrentSniffProvider
         $this->sniff = $sniff;
     }
 
-    public function getSniffClass(): string
+    public function getSniffClass(): ?string
     {
-        return get_class($this->sniff);
+        if ($this->sniff) {
+            return get_class($this->sniff);
+        }
+
+        return null;
     }
 }
