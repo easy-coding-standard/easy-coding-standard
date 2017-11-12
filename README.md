@@ -72,7 +72,7 @@ You pick config in CLI with `--config`:
 vendor/bin/ecs check src --config vendor/symplify/easy-coding-standard/config/clean-code.neon
 ```
 
-Too long? Try `--level` shortcut:
+**Too long? Try `--level` shortcut**:
 
 ```bash
 vendor/bin/ecs check src --level clean-code
