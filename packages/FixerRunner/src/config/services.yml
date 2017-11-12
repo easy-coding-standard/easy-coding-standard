@@ -10,3 +10,6 @@ services:
 
     # differ
     SebastianBergmann\Diff\Differ: ~
+
+    Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor:
+        public: true # for tests

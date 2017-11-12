@@ -28,7 +28,6 @@ final class AppKernel extends AbstractCliKernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../config/services.yml');
-
         if ($this->configFile) {
             $loader->load($this->configFile, ['parameters', 'checkers', 'includes', 'services']);
         }

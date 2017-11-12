@@ -5,3 +5,10 @@ services:
     Symplify\EasyCodingStandard\SniffRunner\:
         resource: '..'
         exclude: '../{Exception,File/File.php,Event}'
+
+    # for tests
+    Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor:
+        public: true
+
+    Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer:
+        public: true
