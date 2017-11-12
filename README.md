@@ -8,6 +8,9 @@
 **Used by [Nette](https://github.com/nette/coding-standard) and [Sylius](https://github.com/SyliusLabs/CodingStandard).**
 
 
+![ECS-Run](docs/run-and-fix.gif)
+
+
 ## Features
 
 - Use [PHP_CodeSniffer || PHP-CS-Fixer](https://www.tomasvotruba.cz/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
@@ -45,10 +48,6 @@ vendor/bin/ecs check src
 # fix
 vendor/bin/ecs check src --fix
 ```
-
-
-![ECS-Run](docs/run-and-fix.gif)
-
 
 
 *Tip: Do you want [autocomplete too](https://plugins.jetbrains.com/plugin/7060-neon-support)?*
