@@ -9,6 +9,9 @@ services:
         resource: '../../src'
         exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection,Configuration/Loader/NeonLoader.php}'
 
+    Symplify\EasyCodingStandard\Console\Application:
+        public: true
+
     # public for tests
     Symplify\EasyCodingStandard\Error\ErrorCollector:
         public: true
