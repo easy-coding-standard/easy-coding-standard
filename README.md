@@ -8,7 +8,7 @@
 **Used by [Nette](https://github.com/nette/coding-standard) and [Sylius](https://github.com/SyliusLabs/CodingStandard).**
 
 
-![ECS-Run](docs/run-and-fix.gif)
+![ECS-Run](docs/run-and-fix-smaller.gif)
 
 
 ## Features
