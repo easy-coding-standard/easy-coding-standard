@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
-use Symplify\PackageBuilder\Adapter\Symfony\Parameter\ParameterProvider;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class SkipperTest extends TestCase
 {

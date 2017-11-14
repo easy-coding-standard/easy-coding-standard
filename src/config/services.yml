@@ -26,4 +26,4 @@ services:
     Symfony\Component\Console\Output\OutputInterface:
         alias: Symfony\Component\Console\Output\ConsoleOutput
 
-    Symplify\PackageBuilder\Adapter\Symfony\Parameter\ParameterProvider: ~
+    Symplify\PackageBuilder\Parameter\ParameterProvider: ~

@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\PackageBuilder\Adapter\Symfony\DependencyInjection\DefinitionFinder;
+use Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 
 final class CustomSourceProviderDefinitionCompilerPass implements CompilerPassInterface
 {
