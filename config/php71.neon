@@ -13,3 +13,8 @@ checkers:
 
     # Void Typehints
     - PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer
+
+    # All Typehints
+    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
+        enableVoidTypeHint: true
+        enableNullableTypeHints: true
