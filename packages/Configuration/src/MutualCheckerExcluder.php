@@ -98,6 +98,9 @@ final class MutualCheckerExcluder
         ], [
             'PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff',
+        ], [
+            'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff',
+            'PhpCsFixer\Fixer\ControlStructure\IncludeFixer',
         ],
         // PSR2
         [
@@ -133,6 +136,9 @@ final class MutualCheckerExcluder
         ], [
             'PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\ClosingTagSniff',
+        ], [
+            'PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer',
+            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff',
         ],
     ];
 

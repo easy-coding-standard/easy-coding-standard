@@ -1,15 +1,17 @@
 checkers:
-    # PHP-CS-Fixer
-    - PhpCsFixer\Fixer\Alias\PowToExponentiationFixer
-    - PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer
+    # new methods
     PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
         mt_rand: random_int
         rand: random_int
 
-    # risky
-    - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
+    # ?? operator
+    - PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer
 
-    # Typehints
+    # strict types
+    - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
+    - PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer
+
+    # typehints
     - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
     - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
@@ -18,5 +20,5 @@ checkers:
             - @dataProvider
         enableEachParameterAndReturnInspection: true
 
-    # Throwable
+    # throwable
     - SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff
