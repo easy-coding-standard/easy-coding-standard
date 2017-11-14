@@ -1,6 +1,5 @@
 checkers:
     - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
-    - Symplify\CodingStandard\Sniffs\PHPUnit\FinalTestCaseSniff
     - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
     - Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff
 
