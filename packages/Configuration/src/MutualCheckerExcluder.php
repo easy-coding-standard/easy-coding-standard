@@ -124,6 +124,15 @@ final class MutualCheckerExcluder
         ], [
             'PhpCsFixer\Fixer\Basic\BracesFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff',
+        ], [
+            'PhpCsFixer\Fixer\Basic\BracesFixer',
+            'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff',
+        ], [
+            'PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer',
+            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff',
+        ], [
+            'PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer',
+            'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\ClosingTagSniff',
         ],
     ];
 
