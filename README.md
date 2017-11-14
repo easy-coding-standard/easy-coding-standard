@@ -62,8 +62,8 @@ There are prepared sets in [`/config` directory](/config) that you can use:
 - [clean-code.neon](config/clean-code.neon)
 - [clean-docblock.neon](config/clean-docblock.neon)
 - [spaces.neon](config/common.neon)
-- [php71-checkers.neon](config/php71-checkers.neon)
-- [psr2-checkers.neon](config/psr2-checkers.neon)
+- [php71.neon](config/php71.neon)
+- [psr2.neon](config/psr2.neon)
 - ...
 
 You pick config in CLI with `--config`:
@@ -84,17 +84,17 @@ or include more of them in config:
 # easy-coding-standard.neon
 includes:
     - vendor/symplify/easy-coding-standard/config/clean-code.neon
-    - vendor/symplify/easy-coding-standard/config/psr2-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/psr2.neon
 ```
 
 
 ### Exclude Checkers
 
-What if you add `symfony-checkers.neon` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
+What if you add `symfony.neon` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
 
 ```yaml
 includes:
-    - vendor/symplify/easy-coding-standard/config/symfony-checkers.neon
+    - vendor/symplify/easy-coding-standard/config/symfony.neon
 
 parameters:
     exclude_checkers:
