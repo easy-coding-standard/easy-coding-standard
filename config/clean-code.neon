@@ -3,7 +3,7 @@ checkers:
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
 
-    # drop dead code
+    # detect dead code
     - SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff
 
     # drop dead use namespaces
@@ -11,6 +11,3 @@ checkers:
 
     # and sort them A → Z
     - PhpCsFixer\Fixer\Import\OrderedImportsFixer
-
-    # no empty doc blocks
-    - PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer

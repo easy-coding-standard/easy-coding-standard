@@ -5,9 +5,6 @@ checkers:
     # Namespaces
     - PhpCsFixer\Fixer\Import\OrderedImportsFixer
 
-    # Naming Conventions
-    - PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\CamelCapsFunctionNameSniff
-
     # Language Constructions
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
         equal: false
@@ -16,14 +13,11 @@ checkers:
 
     - PhpCsFixer\Fixer\Semicolon\SemicolonAfterInstructionFixer
     - PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer
-    - PhpCsFixer\Fixer\LanguageConstruct\CombineConsecutiveUnsetsFixer
     - PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer
     - PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff
     - PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer
 
     # Unused or Redundant Code
-    - SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff
-    - PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer
     - PhpCsFixer\Fixer\ReturnNotation\NoUselessReturnFixer
     - PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\NonExecutableCodeSniff
     - PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff

@@ -1,10 +1,15 @@
 checkers:
-    # PHP-CS-Fixer
+    # All elements should have visibility
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
         elements: [const, property, method]
-    - PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer
+
+    # Turn list() into []
     PhpCsFixer\Fixer\ListNotation\ListSyntaxFixer:
         syntax: short
 
-    # Typehints
+    # Nullable Typehints
     - SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff
+    - PhpCsFixer\Fixer\Whitespace\CompactNullableTypehintFixer
+
+    # Void Typehints
+    - PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer

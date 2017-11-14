@@ -1,5 +1,5 @@
 checkers:
-    # remove redundant lines in phpdocs
+    # no useless doc blocks
     - Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer
 
     # remove empty spaces in phpdoc
@@ -10,3 +10,6 @@ checkers:
 
     # remove empty phpdocs
     - Symplify\CodingStandard\Fixer\Commenting\RemoveEmptyDocBlockFixer
+
+    # no empty doc blocks
+    - PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer
