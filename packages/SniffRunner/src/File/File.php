@@ -120,6 +120,11 @@ final class File extends BaseFile
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
     {
+        $fullyQualifiedCode = $this->currentSniffProvider->getSniffClass() . '.' . $code;
+        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $this->path)) {
+            return false;
+        }
+
         $this->addError($error, $stackPtr, $code, $data, $severity, true);
 
         return $this->isFixer;
