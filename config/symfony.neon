@@ -1,5 +1,5 @@
 includes:
-    - psr2-checkers.neon
+    - psr2.neon
 
 checkers:
     - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
