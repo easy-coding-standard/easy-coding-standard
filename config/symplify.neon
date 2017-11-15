@@ -1,12 +1,12 @@
 checkers:
+    # PHP 5.5
     - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
-    - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
-    - Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff
 
     # Imports
     - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
 
     # Control Structures
+    - Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff
     - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
     - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
     - Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer
@@ -19,7 +19,6 @@ checkers:
     # Comments
     - Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer
     - Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff
-    - Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff
     - Symplify\CodingStandard\Fixer\Commenting\AnnotateMagicContainerGetterFixer
     - Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer
 
@@ -34,3 +33,7 @@ checkers:
     - Symplify\CodingStandard\Sniffs\Classes\EqualInterfaceImplementationSniff
     - Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff
     - Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff
+
+    # Debug
+    - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
+    - Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff

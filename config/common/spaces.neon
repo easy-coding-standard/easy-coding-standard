@@ -32,3 +32,22 @@ checkers:
 
     # /**    @var   Type   $variable */
     - PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer
+
+    # ++ $value; - verify conflict!
+    - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
+    - PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer
+
+    #      namespace ...;
+    - PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer
+
+    # $value[ 'key' ];
+    - PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer
+
+    # \n    \n
+    - PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer
+
+    # someMethod()    :    Type
+    - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
+
+    # $var = 5;     $hello = 'hi';
+    - PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer

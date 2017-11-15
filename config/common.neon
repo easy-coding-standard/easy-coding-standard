@@ -2,9 +2,6 @@ checkers:
     # PSR-4
     - PhpCsFixer\Fixer\Basic\Psr4Fixer
 
-    # Namespaces
-    - PhpCsFixer\Fixer\Import\OrderedImportsFixer
-
     # Language Constructions
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
         equal: false
@@ -19,16 +16,12 @@ checkers:
 
     # Unused or Redundant Code
     - PhpCsFixer\Fixer\ReturnNotation\NoUselessReturnFixer
-    - PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\NonExecutableCodeSniff
     - PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff
 
     # Strict Code
     - PhpCsFixer\Fixer\Strict\StrictComparisonFixer
     PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer:
         use_yoda_style: false
-
-    # Comments
-    - PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer
 
     # PHPUnit
     - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer
