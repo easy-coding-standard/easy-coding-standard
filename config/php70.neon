@@ -15,12 +15,14 @@ checkers:
     - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
     - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-        usefulAnnotations:
-            - @todo
-            - @dataProvider
         enableEachParameterAndReturnInspection: true
         enableVoidTypeHint: false
         enableNullableTypeHints: false
 
     # throwable
     - SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff
+
+parameters:
+    # disable any annotation removal
+    skip_codes:
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment
