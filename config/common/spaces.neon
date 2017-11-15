@@ -1,5 +1,5 @@
 checkers:
-    # 1 empty line betweent methods
+    # 1 empty line between methods
     - PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer
 
     # "string" . "another string"
@@ -33,8 +33,7 @@ checkers:
     # /**    @var   Type   $variable */
     - PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer
 
-    # ++ $value; - verify conflict!
-    - PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer
+    # !$value;   =>   ! $value;
     - PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer
 
     #      namespace ...;
