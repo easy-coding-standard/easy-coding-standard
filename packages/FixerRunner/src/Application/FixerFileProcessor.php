@@ -132,8 +132,6 @@ final class FixerFileProcessor implements FileProcessorInterface
                 $tokens->clearChanged();
                 $appliedFixers[] = $fixer->getName();
             }
-
-            $this->checkerMetricRecorder->endWithChecker($fixer);
         }
 
         if (! empty($appliedFixers)) {
