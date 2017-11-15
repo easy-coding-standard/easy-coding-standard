@@ -1,3 +1,6 @@
+includes:
+    - php70.neon
+
 checkers:
     # All elements should have visibility
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:

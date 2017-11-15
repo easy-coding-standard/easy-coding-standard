@@ -1,0 +1,22 @@
+checkers:
+    # private $one, $two;
+    - PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer
+
+    # new SomeClass;
+    - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
+
+    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
+        singleLine: true
+
+    # $value++;
+    PhpCsFixer\Fixer\Operator\IncrementStyleFixer:
+        style: pre
+
+    # class SomeClass { ... return SomeClass; }
+    - PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer
+
+    # __dir__
+    - PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer
+
+    # if ($this = 5) { ... }
+    - SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff

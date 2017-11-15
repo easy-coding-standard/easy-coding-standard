@@ -14,5 +14,14 @@ checkers:
     # no empty doc blocks
     - PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer
 
-    #
+    # @return null | @return void
     - PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer
+
+    # /** docblock */\n\t$code;
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer
+
+    # /** boolean */
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer
+
+    # SomeClass { ... /** @return SomeClass */ ... }
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer

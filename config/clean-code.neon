@@ -12,5 +12,14 @@ checkers:
     # and sort them A → Z
     - PhpCsFixer\Fixer\Import\OrderedImportsFixer
 
+    # $value;;
+    - PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer
+
+    # final class { ... protected ... }
+    - PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer
+
     # continue (2);
     - PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer
+
+    # { echo 'hi'; }
+    - PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer
