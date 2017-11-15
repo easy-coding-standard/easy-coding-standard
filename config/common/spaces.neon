@@ -50,3 +50,6 @@ checkers:
 
     # $var = 5;     $hello = 'hi';
     - PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer
+
+    # '$value   ?    'yes'    :    'no';
+    - PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer

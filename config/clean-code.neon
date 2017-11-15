@@ -11,3 +11,6 @@ checkers:
 
     # and sort them A → Z
     - PhpCsFixer\Fixer\Import\OrderedImportsFixer
+
+    # continue (2);
+    - PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer

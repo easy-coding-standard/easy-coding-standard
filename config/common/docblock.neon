@@ -13,3 +13,6 @@ checkers:
 
     # no empty doc blocks
     - PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer
+
+    #
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer

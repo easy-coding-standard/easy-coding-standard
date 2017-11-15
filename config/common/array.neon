@@ -1,6 +1,9 @@
 checkers:
-    # [ 1   , 2];
+    # [ 1 , 2];
     - PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer
+
+    # [    1, 2   ];
+    - PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer
 
     # [ 1,\n2 ];
     - PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer
@@ -8,3 +11,6 @@ checkers:
     # array(    );
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
+
+    # [1,2]
+    - PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer
