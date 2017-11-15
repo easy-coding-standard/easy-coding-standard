@@ -17,11 +17,3 @@ checkers:
     # Unused or Redundant Code
     - PhpCsFixer\Fixer\ReturnNotation\NoUselessReturnFixer
     - PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff
-
-    # Strict Code
-    - PhpCsFixer\Fixer\Strict\StrictComparisonFixer
-    PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer:
-        use_yoda_style: false
-
-    # PHPUnit
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer
