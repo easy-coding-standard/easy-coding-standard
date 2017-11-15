@@ -1,4 +1,7 @@
 checkers:
+    # 1 empty line betweent methods
+    - PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer
+
     # "string" . "another string"
     PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
         spacing: one
@@ -9,3 +12,23 @@ checkers:
     # ...
     PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff:
         ignoreBlankLines: false
+
+   # $value = (  type ) ...;
+    - PhpCsFixer\Fixer\CastNotation\CastSpacesFixer
+
+    # $value   +  =   5;
+    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
+        align_double_arrow: false
+        align_equals: false
+
+    # someMethod(  string   $value)
+    - PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer
+
+    # class someClass {\n\n
+    - PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer
+
+    # $value = 5   ;
+    - PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer
+
+    # /**    @var   Type   $variable */
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer
