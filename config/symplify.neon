@@ -12,6 +12,7 @@ checkers:
     - Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer
 
     # Spaces
+    - Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer
     - Symplify\CodingStandard\Fixer\ClassNotation\PropertyAndConstantSeparationFixer
     - Symplify\CodingStandard\Fixer\ClassNotation\LastPropertyAndFirstMethodSeparationFixer
 
