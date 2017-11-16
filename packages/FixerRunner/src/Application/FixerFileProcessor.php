@@ -86,7 +86,6 @@ final class FixerFileProcessor implements FileProcessorInterface
     {
         $oldContent = file_get_contents($file->getRealPath());
         $tokens = Tokens::fromCode($oldContent);
-        $oldHash = $tokens->getCodeHash();
 
         $appliedFixers = [];
         $latestContent = $oldContent;
@@ -134,7 +133,7 @@ final class FixerFileProcessor implements FileProcessorInterface
             return;
         }
 
-        if ($this->configuration->isFixer() && $oldHash !== $tokens->getCodeHash()) {
+        if ($this->configuration->isFixer() && $oldContent !== $tokens->getCodeHash()) {
             file_put_contents($file->getRealPath(), $tokens->generateCode());
         }
 
