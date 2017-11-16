@@ -127,7 +127,6 @@ final class FixerFileProcessor implements FileProcessorInterface
             $appliedFixers[] = $fixer->getName();
         }
 
-
         if (! $appliedFixers) {
             Tokens::clearCache();
             return;
