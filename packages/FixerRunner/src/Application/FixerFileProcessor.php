@@ -157,9 +157,8 @@ final class FixerFileProcessor implements FileProcessorInterface
     private function prepareErrorMessageFromFixer(FixerInterface $fixer): string
     {
         if ($fixer instanceof DefinedFixerInterface) {
-            $definition = $fixer->getDefinition();
-
-            return $definition->getSummary();
+            return $fixer->getDefinition()
+                ->getSummary();
         }
 
         return $fixer->getName();
