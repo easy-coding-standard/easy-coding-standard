@@ -60,8 +60,7 @@ vendor/bin/ecs check src --fix
 There are prepared sets in [`/config` directory](/config) that you can use: 
 
 - [clean-code.neon](config/clean-code.neon)
-- [clean-docblock.neon](config/clean-docblock.neon)
-- [spaces.neon](config/common.neon)
+- [common.neon](config/common.neon)
 - [php71.neon](config/php71.neon)
 - [psr2.neon](config/psr2.neon)
 - ...
