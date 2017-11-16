@@ -47,6 +47,11 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $checkerMetricRecorder;
 
+    /**
+     * @var bool
+     */
+    private $areFixersSorted = false;
+
     public function __construct(
         ErrorCollector $errorCollector,
         Skipper $skipper,
@@ -71,8 +76,9 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     public function getFixers(): array
     {
-        $this->sortFixers();
-
+        if (! $this->areFixersSorted) {
+            $this->sortFixers();
+        }
         return $this->fixers;
     }
 
@@ -85,12 +91,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         $appliedFixers = [];
         $latestContent = $oldContent;
 
-        foreach ($this->getFixers() as $fixer) {
-            if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
-                continue;
-            }
-
-            if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
+        foreach ($this->getFixers() as $name => $fixer) {
+            if ($this->shouldSkip($file, $fixer, $tokens)) {
                 continue;
             }
 
@@ -107,9 +109,9 @@ final class FixerFileProcessor implements FileProcessorInterface
                     $throwable->getFile(),
                     $throwable->getLine()
                 ));
-            } finally {
-                $this->checkerMetricRecorder->endWithChecker($fixer);
             }
+
+            $this->checkerMetricRecorder->endWithChecker($fixer);
 
             if (! $tokens->isChanged()) {
                 continue;
@@ -163,10 +165,25 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $fixer->getName();
     }
 
+    private function shouldSkip(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): bool
+    {
+        if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
+            return true;
+        }
+
+        if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
+            return true;
+        }
+
+        return false;
+    }
+
     private function sortFixers(): void
     {
         usort($this->fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer) {
             return $firstFixer->getPriority() < $secondFixer->getPriority();
         });
+
+        $this->areFixersSorted = true;
     }
 }
