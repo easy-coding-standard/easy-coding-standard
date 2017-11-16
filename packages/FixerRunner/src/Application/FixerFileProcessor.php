@@ -6,7 +6,6 @@ use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
-use Symfony\Component\Filesystem\Exception\IOException;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
@@ -128,34 +127,14 @@ final class FixerFileProcessor implements FileProcessorInterface
             $appliedFixers[] = $fixer->getName();
         }
 
+
         if (! $appliedFixers) {
             Tokens::clearCache();
             return;
         }
 
-        $newContent = $tokens->generateCode();
-        $newHash = $tokens->getCodeHash();
-
-        // We need to check if content was changed and then applied changes.
-        // But we can't simple check $appliedFixers, because one fixer may revert
-        // work of other and both of them will mark collection as changed.
-        // Therefore we need to check if code hashes changed.
-        if ($this->configuration->isFixer() && ($oldHash !== $newHash)) {
-            if (@file_put_contents($file->getRealPath(), $newContent) === false) {
-                // @todo: move to sniffer FixerFileProcessor as well, decouple FileSystem service?
-                $error = error_get_last();
-
-                throw new IOException(
-                    sprintf(
-                        'Failed to write file "%s", "%s".',
-                        $file->getPathname(),
-                        $error ? $error['message'] : 'no reason available'
-                    ),
-                    0,
-                    null,
-                    $file->getRealPath()
-                );
-            }
+        if ($this->configuration->isFixer() && $oldHash !== $tokens->getCodeHash()) {
+            file_put_contents($file->getRealPath(), $tokens->generateCode());
         }
 
         Tokens::clearCache();
