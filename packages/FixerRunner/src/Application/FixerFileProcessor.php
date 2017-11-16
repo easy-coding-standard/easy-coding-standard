@@ -79,6 +79,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         if (! $this->areFixersSorted) {
             $this->sortFixers();
         }
+
         return $this->fixers;
     }
 
