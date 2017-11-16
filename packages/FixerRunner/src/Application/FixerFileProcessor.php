@@ -112,18 +112,20 @@ final class FixerFileProcessor implements FileProcessorInterface
                 $this->checkerMetricRecorder->endWithChecker($fixer);
             }
 
+            if (! $tokens->isChanged()) {
+                continue;
+            }
+
             $changedLines = $this->changedLinesDetector->detectInBeforeAfter($latestContent, $tokens->generateCode());
             $latestContent = $tokens->generateCode();
 
-            if ($tokens->isChanged()) {
-                foreach ($changedLines as $changedLine) {
-                    $this->addErrorToErrorMessageCollector($file, $fixer, $changedLine);
-                }
-
-                $tokens->clearEmptyTokens();
-                $tokens->clearChanged();
-                $appliedFixers[] = $fixer->getName();
+            foreach ($changedLines as $changedLine) {
+                $this->addErrorToErrorMessageCollector($file, $fixer, $changedLine);
             }
+
+            $tokens->clearEmptyTokens();
+            $tokens->clearChanged();
+            $appliedFixers[] = $fixer->getName();
         }
 
         if (! $appliedFixers) {
