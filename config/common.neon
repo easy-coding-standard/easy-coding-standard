@@ -1,22 +1,7 @@
-checkers:
-    # PSR-4
-    - PhpCsFixer\Fixer\Basic\Psr4Fixer
-
-    # Language Constructions
-    PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
-        equal: false
-        identical: false
-        less_and_greater: false
-
-    - PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer
-    - PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer
-    - PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff
-
-    # private $property; public $anotherProperty;
-    - PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer
-
-    # Unused or Redundant Code
-    - PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff
-
-    # "value"
-    - PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer
+includes:
+    - common/array.neon
+    - common/control-structures.neon
+    - common/docblock.neon
+    - common/namespaces.neon
+    - common/spaces.neon
+    - common/strict.neon

@@ -56,3 +56,5 @@ checkers:
 
     # someFunction($value,$anotherValue)
     - PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer
+
+    - PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff

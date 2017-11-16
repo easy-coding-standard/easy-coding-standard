@@ -1,6 +1,10 @@
 checkers:
+    # PSR-4
+    - PhpCsFixer\Fixer\Basic\Psr4Fixer
+
     # private $one, $two;
-    - PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer
+    PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
+        elements: ['property', 'const']
 
     # new SomeClass;
     - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
@@ -20,3 +24,18 @@ checkers:
 
     # if ($this = 5) { ... }
     - SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff
+
+    # if (...) { return 1; } else { return 2; }
+    - PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer
+
+    # "value"
+    - PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer
+
+    # if ("result" === $value)
+    PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
+        equal: false
+        identical: false
+        less_and_greater: false
+
+    # private $property; public $anotherProperty;
+    - PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer
