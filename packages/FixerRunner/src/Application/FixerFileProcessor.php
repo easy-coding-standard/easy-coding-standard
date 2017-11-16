@@ -83,27 +83,19 @@ final class FixerFileProcessor implements FileProcessorInterface
         $tokens = Tokens::fromCode($oldContent);
         $oldHash = $tokens->getCodeHash();
 
-        $newHash = $oldHash;
-        $newContent = $oldContent;
-
         $appliedFixers = [];
-
         $latestContent = $oldContent;
 
         foreach ($this->getFixers() as $fixer) {
-            $this->checkerMetricRecorder->startWithChecker($fixer);
-
             if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
-                $this->checkerMetricRecorder->endWithChecker($fixer);
-
                 continue;
             }
 
             if (! $fixer->supports($file) || ! $fixer->isCandidate($tokens)) {
-                $this->checkerMetricRecorder->endWithChecker($fixer);
-
                 continue;
             }
+
+            $this->checkerMetricRecorder->startWithChecker($fixer);
 
             try {
                 $fixer->fix($file, $tokens);
@@ -134,10 +126,13 @@ final class FixerFileProcessor implements FileProcessorInterface
             }
         }
 
-        if (! empty($appliedFixers)) {
-            $newContent = $tokens->generateCode();
-            $newHash = $tokens->getCodeHash();
+        if (! $appliedFixers) {
+            Tokens::clearCache();
+            return;
         }
+
+        $newContent = $tokens->generateCode();
+        $newHash = $tokens->getCodeHash();
 
         // We need to check if content was changed and then applied changes.
         // But we can't simple check $appliedFixers, because one fixer may revert

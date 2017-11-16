@@ -131,11 +131,9 @@ final class SniffFileProcessor implements FileProcessorInterface
         // 2. run all Sniff fixers
         $this->processFileWithoutFixer($file, $fileInfo);
 
-        // 3. content has changed, save it!
-        $newContent = $this->fixer->getContents();
-
+        // 3. save file content (faster without changes check)
         if ($dryRun === false) {
-            file_put_contents($file->getFilename(), $newContent);
+            file_put_contents($file->getFilename(), $this->fixer->getContents());
         }
     }
 
