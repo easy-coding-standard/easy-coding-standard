@@ -1,6 +1,6 @@
 services:
     _defaults:
-        autowire: truega
+        autowire: true
         public: true # for tests
 
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
