@@ -38,6 +38,8 @@ try {
     if ($configFile === null) {
         ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput());
         $configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.neon');
+    } else {
+        ConfigFilePathHelper::set('ecs', $configFile);
     }
 
     // 3. Build DI container
