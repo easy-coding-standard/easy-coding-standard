@@ -31,7 +31,6 @@ checkers:
     - Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer
 
     # Architecture
-    - Symplify\CodingStandard\Sniffs\Classes\EqualInterfaceImplementationSniff
     - Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff
     - Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff
 
