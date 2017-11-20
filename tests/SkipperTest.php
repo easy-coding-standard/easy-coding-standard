@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Tests;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
-use Symplify\CodingStandard\Sniffs\Classes\FinalInterfaceSniff;
+use Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -28,12 +28,12 @@ final class SkipperTest extends TestCase
     public function testNotSkipped(): void
     {
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
-            FinalInterfaceSniff::class,
+            FinalInterfaceFixer::class,
             __DIR__ . '/someFile'
         ));
 
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
-            FinalInterfaceSniff::class,
+            FinalInterfaceFixer::class,
             __DIR__ . '/someOtherFile'
         ));
 
