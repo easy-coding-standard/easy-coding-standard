@@ -16,6 +16,9 @@ abstract class AbstractDualRunTestCase extends AbstractFixerTestCase
     {
         $this->fixer = $this->createFixer();
 
+        // natural order
+        [$expected, $input] = [$input, $expected];
+
         // autoload files
         [$expected, $input] = $this->loadFileContents($expected, $input);
 
@@ -23,7 +26,7 @@ abstract class AbstractDualRunTestCase extends AbstractFixerTestCase
             $this->lintSource($input);
         }
 
-        if ($file == null) {
+        if ($file === null) {
             $file = new SplFileInfo(__FILE__);
         }
 
