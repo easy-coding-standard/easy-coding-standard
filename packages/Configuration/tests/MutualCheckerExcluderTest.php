@@ -11,8 +11,8 @@ final class MutualCheckerExcluderTest extends TestCase
     {
         $mutualCheckerExcluder = new MutualCheckerExcluder();
         $checkers = [
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
-            'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff' => [],
+            'PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer' => [],
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowTabIndentSniff' => [],
         ];
 
         $uniqueCheckers = $mutualCheckerExcluder->processCheckers($checkers);
@@ -20,7 +20,7 @@ final class MutualCheckerExcluderTest extends TestCase
         $this->assertCount(1, $uniqueCheckers);
 
         $this->assertSame([
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff' => [],
+            'PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer' => [],
         ], $uniqueCheckers);
     }
 }

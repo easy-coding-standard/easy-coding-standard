@@ -12,10 +12,6 @@ final class MutualCheckerExcluder
      */
     private static $duplicatedCheckerGroups = [
         [
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff',
-            'Symplify\CodingStandard\Sniffs\Commenting\VarPropertyCommentSniff',
-        ],
-        [
             'SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff',
             'Symplify\CodingStandard\Sniffs\Namespaces\ClassNamesWithoutPreSlashSniff',
         ],
