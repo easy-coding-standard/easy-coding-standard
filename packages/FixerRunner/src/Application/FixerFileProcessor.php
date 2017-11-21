@@ -7,6 +7,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FixerRunner\ChangedLinesDetector;
@@ -100,6 +101,9 @@ final class FixerFileProcessor implements FileProcessorInterface
 
             try {
                 $fixer->fix($file, $tokens);
+                if ($fixer instanceof DualRunInterface) {
+                    $fixer->fix($file, $tokens);
+                }
             } catch (Throwable $throwable) {
                 throw new FixerFailedException(sprintf(
                     'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
