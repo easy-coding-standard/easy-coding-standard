@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Sniff\Finder;
 
 use Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\PackageBuilder\Composer\VendorDirProvider;
 
 final class SniffFinderTest extends AbstractContainerAwareTestCase
 {
@@ -11,6 +12,9 @@ final class SniffFinderTest extends AbstractContainerAwareTestCase
     {
         /** @var SniffFinder $sniffFinder */
         $sniffFinder = $this->container->get(SniffFinder::class);
-        $this->assertGreaterThan(250, $sniffFinder->findAllSniffClasses());
+        $this->assertGreaterThan(
+            250,
+            $sniffFinder->findAllSniffClassesInDirectory(VendorDirProvider::provide())
+        );
     }
 }

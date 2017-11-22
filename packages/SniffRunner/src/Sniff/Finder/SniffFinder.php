@@ -2,8 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder;
 
-use Symplify\PackageBuilder\Composer\VendorDirProvider;
-
 final class SniffFinder
 {
     /**
@@ -27,17 +25,6 @@ final class SniffFinder
     ) {
         $this->sniffClassRobotLoaderFactory = $sniffClassRobotLoaderFactory;
         $this->sniffClassFilter = $sniffClassFilter;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function findAllSniffClasses(): array
-    {
-        $vendorSniffs = $this->findAllSniffClassesInDirectory(VendorDirProvider::provide());
-        $packagesSniffs = $this->findAllSniffClassesInDirectory(getcwd() . '/packages');
-
-        return array_merge($vendorSniffs, $packagesSniffs);
     }
 
     /**
