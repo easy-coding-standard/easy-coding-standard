@@ -4,4 +4,5 @@ namespace Symplify\EasyCodingStandard\Contract\Application;
 
 interface DualRunInterface
 {
+    public function increaseRun(): void;
 }
