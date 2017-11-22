@@ -189,10 +189,8 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
 
         $this->tokenListeners = [];
-        $this->sniffs = [];
         $oldSniffs = $this->sniffs;
-
-        dump($oldSniffs);
+        $this->sniffs = [];
 
         foreach ($oldSniffs as $sniff) {
             if (! $sniff instanceof DualRunInterface) {
