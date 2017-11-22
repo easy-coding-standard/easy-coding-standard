@@ -96,6 +96,9 @@ final class Application
 
         // 3. process found files by each processors
         $this->processFoundFiles($files);
+
+        // 4. process files with DualRun
+        $this->processFoundFilesSecondRun($files);
     }
 
     /**
@@ -137,6 +140,16 @@ final class Application
                     false
                 );
             }
+        }
+    }
+
+    /**
+     * @param SplFileInfo[] $files
+     */
+    private function processFoundFilesSecondRun(array $files): void
+    {
+        foreach ($files as $file) {
+            dump($file);
         }
     }
 }

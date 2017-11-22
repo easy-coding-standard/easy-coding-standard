@@ -73,9 +73,10 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->fileFactory = $fileFactory;
         $this->configuration = $configuration;
         $this->skipper = $skipper;
-        $this->addCompatibilityLayer();
         $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->currentSniffProvider = $currentSniffProvider;
+
+        $this->addCompatibilityLayer();
     }
 
     public function addSniff(Sniff $sniff): void
@@ -141,9 +142,8 @@ final class SniffFileProcessor implements FileProcessorInterface
     {
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
             define('PHP_CODESNIFFER_VERBOSITY', 0);
+            new Tokens();
         }
-
-        new Tokens();
     }
 
     private function isFixer(): bool
@@ -161,20 +161,18 @@ final class SniffFileProcessor implements FileProcessorInterface
             return;
         }
 
-        $file = $fileTokenEvent->getFile();
-        $fileInfo = $fileTokenEvent->getFileInfo();
-
         foreach ($tokenListeners as $sniff) {
             $this->currentSniffProvider->setSniff($sniff);
 
             $this->checkerMetricRecorder->startWithChecker($sniff);
-            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileInfo->getRealPath())) {
+
+            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileTokenEvent->getFileInfo()->getRealPath())) {
                 $this->checkerMetricRecorder->endWithChecker($sniff);
 
                 return;
             }
 
-            $sniff->process($file, $fileTokenEvent->getPosition());
+            $sniff->process($fileTokenEvent->getFile(), $fileTokenEvent->getPosition());
             $this->checkerMetricRecorder->endWithChecker($sniff);
         }
     }
