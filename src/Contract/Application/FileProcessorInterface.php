@@ -7,4 +7,6 @@ use SplFileInfo;
 interface FileProcessorInterface
 {
     public function processFile(SplFileInfo $file): void;
+
+    public function processFileSecondRun(SplFileInfo $file): void;
 }

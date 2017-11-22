@@ -6,10 +6,10 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\Event\FileTokenEvent;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -60,6 +60,11 @@ final class SniffFileProcessor implements FileProcessorInterface
      * @var CurrentSniffProvider
      */
     private $currentSniffProvider;
+
+    /**
+     * @var bool
+     */
+    private $secondRunPrepared = false;
 
     public function __construct(
         Fixer $fixer,
@@ -112,6 +117,19 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
     }
 
+    public function processFileSecondRun(SplFileInfo $fileInfo, bool $dryRun = false): void
+    {
+        $this->prepareSecondRun();
+
+        $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
+
+        if ($this->isFixer() === false) {
+            $this->processFileWithoutFixer($file, $fileInfo);
+        } else {
+            $this->processFileWithFixer($file, $dryRun, $fileInfo);
+        }
+    }
+
     public function setIsFixer(bool $isFixer): void
     {
         $this->isFixer = $isFixer;
@@ -119,8 +137,21 @@ final class SniffFileProcessor implements FileProcessorInterface
 
     private function processFileWithoutFixer(File $file, SplFileInfo $fileInfo): void
     {
-        foreach ($file->getTokens() as $stackPointer => $token) {
-            $this->dispatchToken($token['code'], new FileTokenEvent($file, $stackPointer, $fileInfo));
+        foreach ($file->getTokens() as $position => $token) {
+            if (! array_key_exists($token['code'], $this->tokenListeners)) {
+                continue;
+            }
+
+            foreach ($this->tokenListeners[$token['code']] as $sniff) {
+                if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileInfo->getRealPath())) {
+                    continue;
+                }
+
+                $this->checkerMetricRecorder->startWithChecker($sniff);
+                $this->currentSniffProvider->setSniff($sniff);
+                $sniff->process($file, $position);
+                $this->checkerMetricRecorder->endWithChecker($sniff);
+            }
         }
     }
 
@@ -151,29 +182,28 @@ final class SniffFileProcessor implements FileProcessorInterface
         return $this->isFixer || $this->configuration->isFixer();
     }
 
+
     /**
-     * @param int|string $token
+     * @return Sniff[]|DualRunInterface[]
      */
-    private function dispatchToken($token, FileTokenEvent $fileTokenEvent): void
+    private function getDualSniffs(): array
     {
-        $tokenListeners = $this->tokenListeners[$token] ?? [];
-        if (! count($tokenListeners)) {
+        return array_filter($this->sniffs, function (Sniff $sniff) {
+            return $sniff instanceof DualRunInterface;
+        });
+    }
+
+    private function prepareSecondRun(): void
+    {
+        if ($this->secondRunPrepared) {
             return;
         }
 
-        foreach ($tokenListeners as $sniff) {
-            $this->currentSniffProvider->setSniff($sniff);
-
-            $this->checkerMetricRecorder->startWithChecker($sniff);
-
-            if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileTokenEvent->getFileInfo()->getRealPath())) {
-                $this->checkerMetricRecorder->endWithChecker($sniff);
-
-                return;
-            }
-
-            $sniff->process($fileTokenEvent->getFile(), $fileTokenEvent->getPosition());
-            $this->checkerMetricRecorder->endWithChecker($sniff);
+        $this->tokenListeners = [];
+        foreach ($this->getDualSniffs() as $sniff) {
+            $this->addSniff($sniff);
         }
+
+        $this->secondRunPrepared = true;
     }
 }

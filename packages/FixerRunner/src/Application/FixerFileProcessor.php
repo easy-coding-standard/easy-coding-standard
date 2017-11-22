@@ -189,4 +189,19 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $this->areFixersSorted = true;
     }
+
+    public function processFileSecondRun(SplFileInfo $file): void
+    {
+        die;
+    }
+
+    /**
+     * @return FixerInterface|DualRunInterface
+     */
+    private function getDualFixers(): array
+    {
+        return array_filter($this->fixers, function (FixerInterface $fixer) {
+            return $fixer instanceof DualRunInterface;
+        });
+    }
 }

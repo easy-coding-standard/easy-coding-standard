@@ -67,9 +67,6 @@ final class File extends BaseFile
         $this->skipper = $skipper;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function parse(): void
     {
         throw new NotImplementedException(sprintf(
@@ -78,9 +75,6 @@ final class File extends BaseFile
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function process(): void
     {
         throw new NotImplementedException(sprintf(
@@ -89,9 +83,6 @@ final class File extends BaseFile
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getErrorCount(): void
     {
         throw new NotImplementedException(sprintf(
@@ -101,9 +92,6 @@ final class File extends BaseFile
         ));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getErrors(): void
     {
         throw new NotImplementedException(sprintf(

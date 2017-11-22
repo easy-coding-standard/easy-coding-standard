@@ -144,12 +144,13 @@ final class Application
     }
 
     /**
-     * @param SplFileInfo[] $files
+     * @param SplFileInfo[] $fileInfos
      */
-    private function processFoundFilesSecondRun(array $files): void
+    private function processFoundFilesSecondRun(array $fileInfos): void
     {
-        foreach ($files as $file) {
-            dump($file);
+        foreach ($fileInfos as $fileInfo) {
+            $this->sniffFileProcessor->processFileSecondRun($fileInfo);
+            $this->fixerFileProcessor->processFileSecondRun($fileInfo);
         }
     }
 }
