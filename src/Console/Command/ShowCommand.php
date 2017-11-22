@@ -72,7 +72,7 @@ final class ShowCommand extends Command
     }
 
     /**
-     * @param FixerInterface[]|Sniff[]|string $fixers
+     * @param FixerInterface[]|Sniff[]|string[] $fixers
      */
     private function displayCheckerList(array $fixers, string $type): void
     {

@@ -29,7 +29,7 @@ final class SourceFinder
     }
 
     /**
-     * @param string[]
+     * @param string[] $source
      * @return SplFileInfo[]
      */
     public function find(array $source): array

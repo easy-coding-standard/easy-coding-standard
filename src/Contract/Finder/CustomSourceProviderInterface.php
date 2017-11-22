@@ -7,7 +7,7 @@ use IteratorAggregate;
 interface CustomSourceProviderInterface
 {
     /**
-     * @param string[]
+     * @param string[] $source
      */
     public function find(array $source): IteratorAggregate;
 }
