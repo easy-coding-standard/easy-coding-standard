@@ -106,7 +106,7 @@ final class Application
      */
     private function startProgressBar(array $files): void
     {
-        $this->easyCodingStandardStyle->startProgressBar(count($files));
+        $this->easyCodingStandardStyle->startProgressBar(count($files) * 2);
     }
 
     /**
@@ -149,6 +149,8 @@ final class Application
     private function processFoundFilesSecondRun(array $fileInfos): void
     {
         foreach ($fileInfos as $fileInfo) {
+            $this->easyCodingStandardStyle->advanceProgressBar();
+
             $this->sniffFileProcessor->processFileSecondRun($fileInfo);
             $this->fixerFileProcessor->processFileSecondRun($fileInfo);
         }

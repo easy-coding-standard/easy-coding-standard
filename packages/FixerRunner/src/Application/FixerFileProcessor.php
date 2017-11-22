@@ -56,7 +56,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     /**
      * @var bool
      */
-    private $secondRunPrepared = false;
+    private $isSecondRunPrepared = false;
 
     public function __construct(
         ErrorCollector $errorCollector,
@@ -203,7 +203,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
     private function prepareSecondRun(): void
     {
-        if ($this->secondRunPrepared) {
+        if ($this->isSecondRunPrepared) {
             return;
         }
 
@@ -217,6 +217,6 @@ final class FixerFileProcessor implements FileProcessorInterface
             return $fixer;
         });
 
-        $this->secondRunPrepared = true;
+        $this->isSecondRunPrepared = true;
     }
 }

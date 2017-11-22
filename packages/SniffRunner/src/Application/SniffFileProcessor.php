@@ -64,7 +64,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     /**
      * @var bool
      */
-    private $secondRunPrepared = false;
+    private $isSecondRunPrepared = false;
 
     public function __construct(
         Fixer $fixer,
@@ -184,13 +184,17 @@ final class SniffFileProcessor implements FileProcessorInterface
 
     private function prepareSecondRun(): void
     {
-        if ($this->secondRunPrepared) {
+        if ($this->isSecondRunPrepared) {
             return;
         }
 
         $this->tokenListeners = [];
+        $this->sniffs = [];
+        $oldSniffs = $this->sniffs;
 
-        foreach ($this->sniffs as $sniff) {
+        dump($oldSniffs);
+
+        foreach ($oldSniffs as $sniff) {
             if (! $sniff instanceof DualRunInterface) {
                 continue;
             }
@@ -199,6 +203,6 @@ final class SniffFileProcessor implements FileProcessorInterface
             $this->addSniff($sniff);
         }
 
-        $this->secondRunPrepared = true;
+        $this->isSecondRunPrepared = true;
     }
 }
