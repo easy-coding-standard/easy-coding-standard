@@ -182,17 +182,6 @@ final class SniffFileProcessor implements FileProcessorInterface
         return $this->isFixer || $this->configuration->isFixer();
     }
 
-
-    /**
-     * @return Sniff[]|DualRunInterface[]
-     */
-    private function getDualSniffs(): array
-    {
-        return array_filter($this->sniffs, function (Sniff $sniff) {
-            return $sniff instanceof DualRunInterface;
-        });
-    }
-
     private function prepareSecondRun(): void
     {
         if ($this->secondRunPrepared) {
@@ -200,7 +189,13 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
 
         $this->tokenListeners = [];
-        foreach ($this->getDualSniffs() as $sniff) {
+
+        foreach ($this->sniffs as $sniff) {
+            if (! $sniff instanceof DualRunInterface) {
+                continue;
+            }
+
+            $sniff->increaseRun();
             $this->addSniff($sniff);
         }
 

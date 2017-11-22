@@ -53,6 +53,11 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $areFixersSorted = false;
 
+    /**
+     * @var bool
+     */
+    private $secondRunPrepared = false;
+
     public function __construct(
         ErrorCollector $errorCollector,
         Skipper $skipper,
@@ -145,6 +150,12 @@ final class FixerFileProcessor implements FileProcessorInterface
         Tokens::clearCache();
     }
 
+    public function processFileSecondRun(SplFileInfo $file): void
+    {
+        $this->prepareSecondRun();
+        $this->processFile($file);
+    }
+
     private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, int $line): void
     {
         $filePath = str_replace('//', '/', $file->getPathname());
@@ -190,18 +201,22 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->areFixersSorted = true;
     }
 
-    public function processFileSecondRun(SplFileInfo $file): void
+    private function prepareSecondRun(): void
     {
-        die;
-    }
+        if ($this->secondRunPrepared) {
+            return;
+        }
 
-    /**
-     * @return FixerInterface|DualRunInterface
-     */
-    private function getDualFixers(): array
-    {
-        return array_filter($this->fixers, function (FixerInterface $fixer) {
-            return $fixer instanceof DualRunInterface;
+        $this->fixers = array_filter($this->fixers, function (FixerInterface $fixer) {
+            if (! $fixer instanceof DualRunInterface) {
+                return false;
+            }
+
+            $fixer->increaseRun();
+
+            return $fixer;
         });
+
+        $this->secondRunPrepared = true;
     }
 }
