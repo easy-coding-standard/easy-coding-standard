@@ -110,11 +110,11 @@ final class Application
     }
 
     /**
-     * @param SplFileInfo[] $files
+     * @param SplFileInfo[] $fileInfos
      */
-    private function processFoundFiles(array $files): void
+    private function processFoundFiles(array $fileInfos): void
     {
-        foreach ($files as $relativePath => $fileInfo) {
+        foreach ($fileInfos as $relativePath => $fileInfo) {
             $this->easyCodingStandardStyle->advanceProgressBar();
 
             // skip file if it didn't change
@@ -148,8 +148,14 @@ final class Application
      */
     private function processFoundFilesSecondRun(array $fileInfos): void
     {
-        foreach ($fileInfos as $fileInfo) {
+        foreach ($fileInfos as $relativePath => $fileInfo) {
             $this->easyCodingStandardStyle->advanceProgressBar();
+
+            if ($this->changedFilesDetector->hasFileChanged($relativePath) === false) {
+                $this->skipper->removeFileFromUnused($relativePath);
+
+                continue;
+            }
 
             $this->sniffFileProcessor->processFileSecondRun($fileInfo);
             $this->fixerFileProcessor->processFileSecondRun($fileInfo);
