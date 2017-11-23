@@ -92,14 +92,15 @@ final class Application
             return;
         }
 
+        // 3. start progress bar
         if ($this->configuration->showProgressBar()) {
             $this->easyCodingStandardStyle->startProgressBar(count($files));
         }
 
-        // 3. process found files by each processors
+        // 4. process found files by each processors
         $this->processFoundFiles($files);
 
-        // 4. process files with DualRun
+        // 5. process files with DualRun
         if ($this->isDualRunEnabled()) {
             $this->processFoundFilesSecondRun($files);
         }
