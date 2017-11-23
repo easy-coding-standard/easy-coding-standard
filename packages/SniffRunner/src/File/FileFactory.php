@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -41,18 +42,25 @@ final class FileFactory
      */
     private $filesByHash = [];
 
+    /**
+     * @var CachedFileLoader
+     */
+    private $cachedFileLoader;
+
     public function __construct(
         Fixer $fixer,
         ErrorCollector $errorCollector,
         FileToTokensParser $fileToTokensParser,
         CurrentSniffProvider $currentSniffProvider,
-        Skipper $skipper
+        Skipper $skipper,
+        CachedFileLoader $cachedFileLoader
     ) {
         $this->fixer = $fixer;
         $this->errorCollector = $errorCollector;
         $this->fileToTokensParser = $fileToTokensParser;
         $this->currentSniffProvider = $currentSniffProvider;
         $this->skipper = $skipper;
+        $this->cachedFileLoader = $cachedFileLoader;
     }
 
     public function createFromFileInfo(SplFileInfo $fileInfo, bool $isFixer): File
@@ -67,6 +75,7 @@ final class FileFactory
 
         $file = new File(
             $filePathName,
+            $this->cachedFileLoader->getFileContent($fileInfo),
             $this->fileToTokensParser->parseFromFilePath($filePathName),
             $this->fixer,
             $this->errorCollector,

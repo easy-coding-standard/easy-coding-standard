@@ -46,6 +46,7 @@ final class File extends BaseFile
      */
     public function __construct(
         string $path,
+        string $content,
         array $tokens,
         Fixer $fixer,
         ErrorCollector $errorCollector,
@@ -54,12 +55,12 @@ final class File extends BaseFile
         Skipper $skipper
     ) {
         $this->path = $path;
+        $this->content = $content;
         $this->tokens = $tokens;
         $this->fixer = $fixer;
         $this->errorCollector = $errorCollector;
 
         $this->numTokens = count($this->tokens);
-        $this->content = file_get_contents($path);
         $this->isFixer = $isFixer;
 
         $this->eolChar = PHP_EOL;

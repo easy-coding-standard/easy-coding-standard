@@ -10,6 +10,7 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\EasyCodingStandard\FixerRunner\ChangedLinesDetector;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
@@ -64,13 +65,19 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $fileToTokensParser;
 
+    /**
+     * @var CachedFileLoader
+     */
+    private $cachedFileLoader;
+
     public function __construct(
         ErrorCollector $errorCollector,
         Skipper $skipper,
         Configuration $configuration,
         ChangedLinesDetector $changedLinesDetector,
         CheckerMetricRecorder $checkerMetricRecorder,
-        FileToTokensParser $fileToTokensParser
+        FileToTokensParser $fileToTokensParser,
+        CachedFileLoader $cachedFileLoader
     ) {
         $this->errorCollector = $errorCollector;
         $this->skipper = $skipper;
@@ -78,6 +85,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->changedLinesDetector = $changedLinesDetector;
         $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->fileToTokensParser = $fileToTokensParser;
+        $this->cachedFileLoader = $cachedFileLoader;
     }
 
     public function addFixer(FixerInterface $fixer): void
@@ -97,28 +105,28 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $this->fixers;
     }
 
-    public function processFile(SplFileInfo $file): void
+    public function processFile(SplFileInfo $fileInfo): void
     {
-        $oldContent = file_get_contents($file->getRealPath());
+        $oldContent = $this->cachedFileLoader->getFileContent($fileInfo);
 
-        $tokens = $this->fileToTokensParser->parseFromFilePath($file->getRealPath());
+        $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());
 
         $appliedFixers = [];
         $latestContent = $oldContent;
 
         foreach ($this->getCheckers() as $name => $fixer) {
-            if ($this->shouldSkip($file, $fixer, $tokens)) {
+            if ($this->shouldSkip($fileInfo, $fixer, $tokens)) {
                 continue;
             }
 
             $this->checkerMetricRecorder->startWithChecker($fixer);
 
             try {
-                $fixer->fix($file, $tokens);
+                $fixer->fix($fileInfo, $tokens);
             } catch (Throwable $throwable) {
                 throw new FixerFailedException(sprintf(
                     'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
-                    $file,
+                    $fileInfo,
                     get_class($fixer),
                     $throwable->getMessage(),
                     $throwable->getFile(),
@@ -136,7 +144,7 @@ final class FixerFileProcessor implements FileProcessorInterface
             $latestContent = $tokens->generateCode();
 
             foreach ($changedLines as $changedLine) {
-                $this->addErrorToErrorMessageCollector($file, $fixer, $changedLine);
+                $this->addErrorToErrorMessageCollector($fileInfo, $fixer, $changedLine);
             }
 
             $tokens->clearEmptyTokens();
@@ -150,7 +158,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         if ($this->configuration->isFixer() && $oldContent !== $tokens->getCodeHash()) {
-            file_put_contents($file->getRealPath(), $tokens->generateCode());
+            file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());
         }
 
         Tokens::clearCache();
