@@ -21,8 +21,6 @@ final class FileToTokensParser
 
         $content = file_get_contents($filePath);
 
-        // from array? - investigave transability from PHP_CodeSniffer
-
         return $this->tokensByFileHash[$fileHash] = Tokens::fromCode($content);
     }
 
