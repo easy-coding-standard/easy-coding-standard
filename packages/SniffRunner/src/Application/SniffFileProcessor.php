@@ -27,7 +27,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     private $fileFactory;
 
     /**
-     * @var Sniff[]
+     * @var Sniff[]|DualRunInterface[]
      */
     private $sniffs = [];
 
@@ -99,7 +99,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     }
 
     /**
-     * @return Sniff[]
+     * @return Sniff[]|DualRunInterface[]
      */
     public function getSniffs(): array
     {
@@ -107,7 +107,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     }
 
     /**
-     * @return DualRunInterface[]
+     * @return DualRunInterface[]|Sniff[]
      */
     public function getDualRunSniffs(): array
     {

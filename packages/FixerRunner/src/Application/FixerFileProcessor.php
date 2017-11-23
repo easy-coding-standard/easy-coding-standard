@@ -20,7 +20,7 @@ use Throwable;
 final class FixerFileProcessor implements FileProcessorInterface
 {
     /**
-     * @var FixerInterface[]
+     * @var FixerInterface[]|DualRunInterface[]
      */
     private $fixers = [];
 
@@ -86,7 +86,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     }
 
     /**
-     * @return FixerInterface[]
+     * @return FixerInterface[]|DualRunInterface[]
      */
     public function getFixers(): array
     {
