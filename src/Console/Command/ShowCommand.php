@@ -58,8 +58,8 @@ final class ShowCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->displayCheckerList($this->sniffFileProcessor->getSniffs(), 'PHP_CodeSniffer');
-        $this->displayCheckerList($this->fixerFileProcessor->getFixers(), 'PHP-CS-Fixer');
+        $this->displayCheckerList($this->sniffFileProcessor->getCheckers(), 'PHP_CodeSniffer');
+        $this->displayCheckerList($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
 
         $this->symfonyStyle->success(sprintf(
             'Loaded %d checkers in total',

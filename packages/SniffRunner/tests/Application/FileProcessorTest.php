@@ -52,7 +52,7 @@ final class FileProcessorTest extends TestCase
 
     public function testGetSniffs(): void
     {
-        $sniffs = $this->sniffFileProcessor->getSniffs();
+        $sniffs = $this->sniffFileProcessor->getCheckers();
         $this->assertCount(1, $sniffs);
     }
 

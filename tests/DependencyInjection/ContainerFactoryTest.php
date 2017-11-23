@@ -36,7 +36,7 @@ final class ContainerFactoryTest extends TestCase
 
         /** @var SniffFileProcessor $sniffFileProcessor */
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
-        $this->assertCount(1, $sniffFileProcessor->getSniffs());
+        $this->assertCount(1, $sniffFileProcessor->getCheckers());
     }
 
     public function testCreateFromConfigWithMissingProperty(): void

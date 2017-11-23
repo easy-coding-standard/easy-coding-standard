@@ -14,10 +14,10 @@ final class ConfigurationFileTest extends TestCase
         $container = (new ContainerFactory())->createWithConfig(__DIR__ . '/ConfigurationFileSource/empty-config.neon');
 
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
-        $this->assertCount(0, $fixerFileProcessor->getFixers());
+        $this->assertCount(0, $fixerFileProcessor->getCheckers());
 
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
-        $this->assertCount(0, $sniffFileProcessor->getSniffs());
+        $this->assertCount(0, $sniffFileProcessor->getCheckers());
     }
 
     public function testIncludeConfig(): void
@@ -27,9 +27,9 @@ final class ConfigurationFileTest extends TestCase
         );
 
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
-        $this->assertCount(1, $fixerFileProcessor->getFixers());
+        $this->assertCount(1, $fixerFileProcessor->getCheckers());
 
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
-        $this->assertCount(1, $sniffFileProcessor->getSniffs());
+        $this->assertCount(1, $sniffFileProcessor->getCheckers());
     }
 }

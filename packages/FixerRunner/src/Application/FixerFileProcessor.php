@@ -88,7 +88,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     /**
      * @return FixerInterface[]|DualRunInterface[]
      */
-    public function getFixers(): array
+    public function getCheckers(): array
     {
         if (! $this->areFixersSorted) {
             $this->sortFixers();
@@ -106,7 +106,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $appliedFixers = [];
         $latestContent = $oldContent;
 
-        foreach ($this->getFixers() as $name => $fixer) {
+        foreach ($this->getCheckers() as $name => $fixer) {
             if ($this->shouldSkip($file, $fixer, $tokens)) {
                 continue;
             }

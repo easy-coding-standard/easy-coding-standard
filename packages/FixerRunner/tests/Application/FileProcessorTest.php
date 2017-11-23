@@ -27,12 +27,12 @@ final class FileProcessorTest extends TestCase
 
     public function testGetFixers(): void
     {
-        $this->assertCount(3, $this->fixerFileProcessor->getFixers());
+        $this->assertCount(3, $this->fixerFileProcessor->getCheckers());
     }
 
     public function testSortFixers(): void
     {
-        $sortedFixers = $this->fixerFileProcessor->getFixers();
+        $sortedFixers = $this->fixerFileProcessor->getCheckers();
 
         $this->assertInstanceOf(EncodingFixer::class, $sortedFixers[0]);
         $this->assertInstanceOf(FullOpeningTagFixer::class, $sortedFixers[1]);
