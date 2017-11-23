@@ -108,6 +108,7 @@ final class SniffFileProcessor implements FileProcessorInterface
 
     public function processFile(SplFileInfo $fileInfo, bool $dryRun = false): void
     {
+        // @todo cacheable
         $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
 
         if ($this->isFixer() === false) {
