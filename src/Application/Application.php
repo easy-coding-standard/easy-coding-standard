@@ -84,21 +84,22 @@ final class Application
 
         // 2. find files in sources
         $files = $this->sourceFinder->find($this->configuration->getSources());
+        $changedFiles = $this->filterOnlyChangedFiles($files);
 
         // no files found
-        if (! count($files)) {
+        if (! count($changedFiles)) {
             return;
         }
 
         if ($this->configuration->showProgressBar()) {
-            $this->startProgressBar($files);
+            $this->startProgressBar($changedFiles);
         }
 
         // 3. process found files by each processors
-        $this->processFoundFiles($files);
+        $this->processFoundFiles($changedFiles);
 
         // 4. process files with DualRun
-        $this->processFoundFilesSecondRun($files);
+        $this->processFoundFilesSecondRun($changedFiles);
     }
 
     /**
@@ -116,16 +117,6 @@ final class Application
     {
         foreach ($fileInfos as $relativePath => $fileInfo) {
             $this->easyCodingStandardStyle->advanceProgressBar();
-
-            // skip file if it didn't change
-            if ($this->changedFilesDetector->hasFileChanged($relativePath) === false) {
-                $this->skipper->removeFileFromUnused($relativePath);
-
-                continue;
-            }
-
-            // add it elsewhere
-            $this->changedFilesDetector->addFile($relativePath);
 
             try {
                 $this->sniffFileProcessor->processFile($fileInfo);
@@ -151,14 +142,29 @@ final class Application
         foreach ($fileInfos as $relativePath => $fileInfo) {
             $this->easyCodingStandardStyle->advanceProgressBar();
 
-            if ($this->changedFilesDetector->hasFileChanged($relativePath) === false) {
-                $this->skipper->removeFileFromUnused($relativePath);
-
-                continue;
-            }
-
             $this->sniffFileProcessor->processFileSecondRun($fileInfo);
             $this->fixerFileProcessor->processFileSecondRun($fileInfo);
         }
+    }
+
+    /**
+     * @param SplFileInfo[] $fileInfos
+     * @return SplFileInfo[]
+     */
+    private function filterOnlyChangedFiles(array $fileInfos): array
+    {
+        $changedFiles = [];
+
+        foreach ($fileInfos as $relativePath => $fileInfo) {
+            if ($this->changedFilesDetector->hasFileChanged($relativePath)) {
+                $changedFiles[] = $fileInfo;
+
+                $this->changedFilesDetector->addFile($relativePath);
+            } else {
+                $this->skipper->removeFileFromUnused($relativePath);
+            }
+        }
+
+        return $changedFiles;
     }
 }
