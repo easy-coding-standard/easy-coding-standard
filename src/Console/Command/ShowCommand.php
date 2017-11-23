@@ -72,24 +72,23 @@ final class ShowCommand extends Command
     }
 
     /**
-     * @param FixerInterface[]|Sniff[]|string[] $fixers
+     * @param FixerInterface[]|Sniff[]|string[] $checkers
      */
-    private function displayCheckerList(array $fixers, string $type): void
+    private function displayCheckerList(array $checkers, string $type): void
     {
-        $checkerNames = array_map(function ($fixer) {
-            return is_string($fixer) ? $fixer : get_class($fixer);
-        }, $fixers);
-
-        $checkerCount = count($checkerNames);
-        if (! $checkerCount) {
+        if (! count($checkers)) {
             return;
         }
 
-        $this->checkersTotal += $checkerCount;
+        $checkerNames = array_map(function ($fixer) {
+            return is_string($fixer) ? $fixer : get_class($fixer);
+        }, $checkers);
+
+        $this->checkersTotal += count($checkers);
 
         $this->symfonyStyle->section(sprintf(
             '%d checkers from %s:',
-            count($checkerNames),
+            count($checkers),
             $type
         ));
 
