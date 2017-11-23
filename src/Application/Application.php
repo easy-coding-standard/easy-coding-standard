@@ -77,37 +77,32 @@ final class Application
 
     public function run(): void
     {
-        // 1. clear cache
+        // 1. find files in sources
+        $files = $this->sourceFinder->find($this->configuration->getSources());
+
+        // 2. clear cache
         if ($this->configuration->shouldClearCache()) {
             $this->changedFilesDetector->clearCache();
+        } else {
+            $files = $this->filterOnlyChangedFiles($files);
         }
 
-        // 2. find files in sources
-        $files = $this->sourceFinder->find($this->configuration->getSources());
-        $changedFiles = $this->filterOnlyChangedFiles($files);
-
         // no files found
-        if (! count($changedFiles)) {
+        if (! count($files)) {
             return;
         }
 
         if ($this->configuration->showProgressBar()) {
-            $this->startProgressBar($changedFiles);
+            $this->easyCodingStandardStyle->startProgressBar(count($files));
         }
 
         // 3. process found files by each processors
-        $this->processFoundFiles($changedFiles);
+        $this->processFoundFiles($files);
 
         // 4. process files with DualRun
-        $this->processFoundFilesSecondRun($changedFiles);
-    }
-
-    /**
-     * @param SplFileInfo[] $files
-     */
-    private function startProgressBar(array $files): void
-    {
-        $this->easyCodingStandardStyle->startProgressBar(count($files) * 2);
+        if ($this->isDualRunEnabled()) {
+            $this->processFoundFilesSecondRun($files);
+        }
     }
 
     /**
@@ -166,5 +161,10 @@ final class Application
         }
 
         return $changedFiles;
+    }
+
+    private function isDualRunEnabled(): bool
+    {
+        return (bool) ($this->sniffFileProcessor->getDualRunSniffs() || $this->fixerFileProcessor->getDualRunFixers());
     }
 }

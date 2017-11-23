@@ -162,6 +162,16 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->processFile($file);
     }
 
+    /**
+     * @return DualRunInterface[]
+     */
+    public function getDualRunFixers(): array
+    {
+        return array_filter($this->fixers, function (FixerInterface $fixer) {
+            return $fixer instanceof DualRunInterface;
+        });
+    }
+
     private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, int $line): void
     {
         $filePath = str_replace('//', '/', $file->getPathname());
@@ -209,15 +219,10 @@ final class FixerFileProcessor implements FileProcessorInterface
             return;
         }
 
-        $this->fixers = array_filter($this->fixers, function (FixerInterface $fixer) {
-            if (! $fixer instanceof DualRunInterface) {
-                return false;
-            }
-
+        $this->fixers = $this->getDualRunFixers();
+        foreach ($this->fixers as $fixer) {
             $fixer->increaseRun();
-
-            return $fixer;
-        });
+        }
 
         $this->isSecondRunPrepared = true;
     }

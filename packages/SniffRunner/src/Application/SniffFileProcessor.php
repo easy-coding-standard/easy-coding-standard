@@ -106,6 +106,16 @@ final class SniffFileProcessor implements FileProcessorInterface
         return $this->sniffs;
     }
 
+    /**
+     * @return DualRunInterface[]
+     */
+    public function getDualRunSniffs(): array
+    {
+        return array_filter($this->sniffs, function (Sniff $sniff) {
+            return $sniff instanceof DualRunInterface;
+        });
+    }
+
     public function processFile(SplFileInfo $fileInfo, bool $dryRun = false): void
     {
         // @todo cacheable
@@ -190,14 +200,10 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
 
         $this->tokenListeners = [];
-        $oldSniffs = $this->sniffs;
+        $dualRunSniffs = $this->getDualRunSniffs();
         $this->sniffs = [];
 
-        foreach ($oldSniffs as $sniff) {
-            if (! $sniff instanceof DualRunInterface) {
-                continue;
-            }
-
+        foreach ($this->getDualRunSniffs() as $sniff) {
             $sniff->increaseRun();
             $this->addSniff($sniff);
         }
