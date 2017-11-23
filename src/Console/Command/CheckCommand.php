@@ -206,6 +206,10 @@ final class CheckCommand extends Command
     {
         foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
             foreach ($skippedFiles as $skippedFile) {
+                if (! $this->isSkippedFileInSource($skippedFile)) {
+                    continue;
+                }
+
                 $this->symfonyStyle->error(sprintf(
                     'Skipped checker "%s" and file path "%s" were not found. '
                         . 'You can remove them from "parameters: > skip:" section in your config.',
@@ -256,5 +260,16 @@ final class CheckCommand extends Command
         }
 
         return $metricsForTable;
+    }
+
+    private function isSkippedFileInSource(string $skippedFile): bool
+    {
+        foreach ($this->configuration->getSources() as $source) {
+            if (fnmatch(sprintf('*%s', $source), $skippedFile)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
