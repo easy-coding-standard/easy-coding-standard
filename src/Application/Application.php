@@ -166,6 +166,6 @@ final class Application
 
     private function isDualRunEnabled(): bool
     {
-        return $this->sniffFileProcessor->getDualRunSniffs() || $this->fixerFileProcessor->getDualRunFixers();
+        return $this->sniffFileProcessor->getDualRunCheckers() || $this->fixerFileProcessor->getDualRunCheckers();
     }
 }

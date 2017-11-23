@@ -14,4 +14,9 @@ interface FileProcessorInterface
      * @return mixed[]
      */
     public function getCheckers(): array;
+
+    /**
+     * @return mixed[]
+     */
+    public function getDualRunCheckers(): array;
 }

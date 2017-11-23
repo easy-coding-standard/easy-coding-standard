@@ -163,9 +163,9 @@ final class FixerFileProcessor implements FileProcessorInterface
     }
 
     /**
-     * @return DualRunInterface[]
+     * @return DualRunInterface[]|FixerInterface[]
      */
-    public function getDualRunFixers(): array
+    public function getDualRunCheckers(): array
     {
         return array_filter($this->fixers, function (FixerInterface $fixer) {
             return $fixer instanceof DualRunInterface;
@@ -219,7 +219,7 @@ final class FixerFileProcessor implements FileProcessorInterface
             return;
         }
 
-        $this->fixers = $this->getDualRunFixers();
+        $this->fixers = $this->getDualRunCheckers();
         foreach ($this->fixers as $fixer) {
             $fixer->increaseRun();
         }
