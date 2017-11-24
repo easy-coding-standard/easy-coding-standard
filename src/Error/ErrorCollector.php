@@ -40,7 +40,7 @@ final class ErrorCollector
 
     public function addErrorMessage(
         string $filePath,
-        int $line,
+        ?int $line,
         string $message,
         string $sourceClass,
         bool $isFixable
