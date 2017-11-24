@@ -184,6 +184,7 @@ final class CheckersExtension extends Extension
 
     /**
      * @param mixed[] $checkers
+     * @return mixed[]
      */
     private function removeExcludedCheckers(array $checkers, ParameterBagInterface $parameterBag): array
     {
