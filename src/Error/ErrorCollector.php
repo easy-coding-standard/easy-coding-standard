@@ -27,6 +27,11 @@ final class ErrorCollector
      */
     private $changedFilesDetector;
 
+    /**
+     * @var string[]
+     */
+    private $changedFilesDiffs = [];
+
     public function __construct(ErrorSorter $errorSorter, ChangedFilesDetector $changedFilesDetector)
     {
         $this->errorSorter = $errorSorter;
@@ -103,5 +108,10 @@ final class ErrorCollector
     private function getFixableErrors(): array
     {
         return $this->errorSorter->sortByFileAndLine($this->fixableErrors);
+    }
+
+    public function addFixerDiffForFile(string $filePath, string $diff): void
+    {
+        $this->changedFilesDiffs[$filePath] = $diff;
     }
 }

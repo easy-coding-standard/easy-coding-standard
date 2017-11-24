@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
+use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -11,7 +12,6 @@ use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
-use Symplify\EasyCodingStandard\FixerRunner\ChangedLinesDetector;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
@@ -41,11 +41,6 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $configuration;
 
     /**
-     * @var ChangedLinesDetector
-     */
-    private $changedLinesDetector;
-
-    /**
      * @var CheckerMetricRecorder
      */
     private $checkerMetricRecorder;
@@ -70,22 +65,27 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $cachedFileLoader;
 
+    /**
+     * @var DifferInterface
+     */
+    private $differ;
+
     public function __construct(
         ErrorCollector $errorCollector,
-        Skipper $skipper,
         Configuration $configuration,
-        ChangedLinesDetector $changedLinesDetector,
         CheckerMetricRecorder $checkerMetricRecorder,
         FileToTokensParser $fileToTokensParser,
-        CachedFileLoader $cachedFileLoader
+        CachedFileLoader $cachedFileLoader,
+        Skipper $skipper,
+        DifferInterface $differ
     ) {
         $this->errorCollector = $errorCollector;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
-        $this->changedLinesDetector = $changedLinesDetector;
         $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->fileToTokensParser = $fileToTokensParser;
         $this->cachedFileLoader = $cachedFileLoader;
+        $this->differ = $differ;
     }
 
     public function addFixer(FixerInterface $fixer): void
@@ -112,7 +112,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());
 
         $appliedFixers = [];
-        $latestContent = $oldContent;
 
         foreach ($this->getCheckers() as $name => $fixer) {
             if ($this->shouldSkip($fileInfo, $fixer, $tokens)) {
@@ -140,12 +139,7 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            $changedLines = $this->changedLinesDetector->detectInBeforeAfter($latestContent, $tokens->generateCode());
-            $latestContent = $tokens->generateCode();
-
-            foreach ($changedLines as $changedLine) {
-                $this->addErrorToErrorMessageCollector($fileInfo, $fixer, $changedLine);
-            }
+            $this->addErrorToErrorMessageCollector($fileInfo, $fixer);
 
             $tokens->clearEmptyTokens();
             $tokens->clearChanged();
@@ -158,7 +152,11 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         if ($this->configuration->isFixer() && $oldContent !== $tokens->getCodeHash()) {
+            $diff = $this->differ->diff($oldContent, $tokens->getCodeHash());
+            $this->errorCollector->addFixerDiffForFile($fileInfo->getRealPath(), $diff);
+
             file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());
+
         }
 
         Tokens::clearCache();
@@ -180,7 +178,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         });
     }
 
-    private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, int $line): void
+    private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, ?int $line = null): void
     {
         $filePath = str_replace('//', '/', $file->getPathname());
 
