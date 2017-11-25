@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
+use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
@@ -27,11 +28,6 @@ final class File extends BaseFile
     private $errorCollector;
 
     /**
-     * @var bool
-     */
-    private $isFixer;
-
-    /**
      * @var CurrentSniffProvider
      */
     private $currentSniffProvider;
@@ -40,6 +36,10 @@ final class File extends BaseFile
      * @var Skipper
      */
     private $skipper;
+    /**
+     * @var AppliedCheckersCollector
+     */
+    private $appliedCheckersCollector;
 
     /**
      * @param array[] $tokens
@@ -49,9 +49,9 @@ final class File extends BaseFile
         array $tokens,
         Fixer $fixer,
         ErrorCollector $errorCollector,
-        bool $isFixer,
         CurrentSniffProvider $currentSniffProvider,
-        Skipper $skipper
+        Skipper $skipper,
+        AppliedCheckersCollector $appliedCheckersCollector
     ) {
         $this->path = $path;
         $this->tokens = $tokens;
@@ -59,11 +59,11 @@ final class File extends BaseFile
         $this->errorCollector = $errorCollector;
 
         $this->numTokens = count($this->tokens);
-        $this->isFixer = $isFixer;
 
         $this->eolChar = PHP_EOL;
         $this->currentSniffProvider = $currentSniffProvider;
         $this->skipper = $skipper;
+        $this->appliedCheckersCollector = $appliedCheckersCollector;
     }
 
     public function parse(): void
@@ -107,11 +107,12 @@ final class File extends BaseFile
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
     {
+        $this->appliedCheckersCollector->addFileAndChecker($this->getFilename(), $this->resolveFullyQualifiedCode($code));
+
         if ($this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path)) {
             return false;
         }
 
-        //return $this->addError($error, $stackPtr, $code, $data, $severity, true) && $this->isFixer;
         return true;
     }
 

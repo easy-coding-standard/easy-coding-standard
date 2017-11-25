@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use SplFileInfo;
+use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
@@ -40,22 +41,28 @@ final class FileFactory
      * @var File[]
      */
     private $filesByHash = [];
+    /**
+     * @var AppliedCheckersCollector
+     */
+    private $appliedCheckersCollector;
 
     public function __construct(
         Fixer $fixer,
         ErrorCollector $errorCollector,
         FileToTokensParser $fileToTokensParser,
         CurrentSniffProvider $currentSniffProvider,
-        Skipper $skipper
+        Skipper $skipper,
+        AppliedCheckersCollector $appliedCheckersCollector
     ) {
         $this->fixer = $fixer;
         $this->errorCollector = $errorCollector;
         $this->fileToTokensParser = $fileToTokensParser;
         $this->currentSniffProvider = $currentSniffProvider;
         $this->skipper = $skipper;
+        $this->appliedCheckersCollector = $appliedCheckersCollector;
     }
 
-    public function createFromFileInfo(SplFileInfo $fileInfo, bool $isFixer): File
+    public function createFromFileInfo(SplFileInfo $fileInfo): File
     {
         $fileHash = md5_file($fileInfo->getPathname());
 
@@ -70,9 +77,9 @@ final class FileFactory
             $this->fileToTokensParser->parseFromFilePath($filePathName),
             $this->fixer,
             $this->errorCollector,
-            $isFixer,
             $this->currentSniffProvider,
-            $this->skipper
+            $this->skipper,
+            $this->appliedCheckersCollector
         );
 
         return $this->filesByHash[$fileHash] = $file;
