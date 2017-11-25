@@ -44,7 +44,7 @@ final class ErrorAndDiffCollector
 
     public function getErrorCount(): int
     {
-        return count(Arrays::flatten($this->errors))
+        return count(Arrays::flatten($this->errors));
     }
 
     /**
