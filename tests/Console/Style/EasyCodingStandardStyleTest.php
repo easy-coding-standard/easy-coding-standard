@@ -22,16 +22,16 @@ final class EasyCodingStandardStyleTest extends AbstractContainerAwareTestCase
     public function testBuildFileTableRowsFromErrors(): void
     {
         $errors = [];
-        $errors[] = Error::createFromLineMessageSourceClass(5, 'message', BracesFixer::class, true);
-        $errors[] = Error::createFromLineMessageSourceClass(100, 'message', BracesFixer::class, false);
+        $errors[] = Error::createFromLineMessageSourceClass(5, 'message', BracesFixer::class);
+        $errors[] = Error::createFromLineMessageSourceClass(100, 'message', BracesFixer::class);
 
         $errorRows = $this->easyCodingStandardStyle->buildFileTableRowsFromErrors($errors);
         $this->assertCount(2, $errorRows);
 
         $fixableErrorRow = $errorRows[0];
         $this->assertSame([
-            'line' => '<fg=black;bg=green>5</>',
-            'message' => '<fg=black;bg=green>message' . PHP_EOL . '(PhpCsFixer\Fixer\Basic\BracesFixer)</>',
+            'line' => '5',
+            'message' => 'message' . PHP_EOL . '(PhpCsFixer\Fixer\Basic\BracesFixer)',
         ], $fixableErrorRow);
 
         $unfixableErrorRow = $errorRows[1];
