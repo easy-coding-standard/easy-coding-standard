@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
@@ -30,36 +30,19 @@ final class FixerFileProcessorTest extends TestCase
 
         $this->errorAndDiffCollector = $container->get(ErrorAndDiffCollector::class);
         $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
-
-        /** @var ChangedFilesDetector $changedFilesDetector */
-        $changedFilesDetector = $container->get(ChangedFilesDetector::class);
-        $changedFilesDetector->clearCache();
     }
 
     public function test(): void
     {
         $this->runFileProcessor();
 
-        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(0, $this->errorAndDiffCollector->getErrorCount());
         $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
-        $this->assertSame(0, $this->errorAndDiffCollector->getUnfixableErrorCount());
-
-        $errorMessages = $this->errorAndDiffCollector->getErrors();
-        $this->assertCount(1, $errorMessages);
-
-        /** @var Error $error */
-        $error = array_pop($errorMessages)[0];
-        $this->assertInstanceOf(Error::class, $error);
-
-        $this->assertSame(
-            'PHPUnit methods like `assertSame` should be used instead of `assertEquals`.',
-            $error->getMessage()
-        );
     }
 
     private function runFileProcessor(): void
     {
-        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
+        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc', '', '');
 
         $this->fixerFileProcessor->processFile($fileInfo);
     }

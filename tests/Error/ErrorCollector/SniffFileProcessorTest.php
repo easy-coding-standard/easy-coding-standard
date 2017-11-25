@@ -4,11 +4,10 @@ namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\SplFileInfo;
-use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
-use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class SniffFileProcessorTest extends TestCase
@@ -40,29 +39,19 @@ final class SniffFileProcessorTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(0, $this->errorAndDiffCollector->getErrorCount());
         $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
 
-        $errorMessages = $this->errorAndDiffCollector->getErrors();
-        $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
+        $fileDiffs = $this->errorAndDiffCollector->getFileDiffs();
 
-        /** @var Error $error */
-        $error = array_pop($errorMessages)[0];
-        $this->validateError($error);
+        $fileDiff = array_pop($fileDiffs)[0];
+
+        $this->assertInstanceOf(FileDiff::class, $fileDiff);
     }
 
     private function runFileProcessor(): void
     {
         $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc', '', '');
         $this->sniffFileProcessor->processFile($fileInfo);
-    }
-
-    private function validateError(Error $error): void
-    {
-        $this->assertInstanceOf(Error::class, $error);
-
-        $this->assertSame(5, $error->getLine());
-        $this->assertSame('Abstract class should have prefix "Abstract".', $error->getMessage());
-        $this->assertSame(AbstractClassNameSniff::class, $error->getSourceClass());
     }
 }
