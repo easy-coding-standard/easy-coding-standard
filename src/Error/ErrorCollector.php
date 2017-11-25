@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
+use PhpParser\Node\Expr\ArrayDimFetch;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 
 final class ErrorCollector
@@ -28,7 +29,7 @@ final class ErrorCollector
     private $changedFilesDetector;
 
     /**
-     * @var string[]
+     * @var mixed[]
      */
     private $changedFilesDiffs = [];
 
@@ -63,7 +64,7 @@ final class ErrorCollector
 
     public function getFixableErrorCount(): int
     {
-        return count(Arrays::flatten($this->fixableErrors));
+        return count(Arrays::flatten($this->fixableErrors)) + count(Arrays::flatten($this->getChangedFilesDiffs()));
     }
 
     public function getUnfixableErrorCount(): int
@@ -75,6 +76,7 @@ final class ErrorCollector
     {
         $this->fixableErrors = [];
         $this->unfixableErrors = [];
+        $this->changedFilesDiffs = [];
     }
 
     /**
@@ -115,6 +117,18 @@ final class ErrorCollector
      */
     public function addFixerDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
     {
-        $this->changedFilesDiffs[$filePath] = [$diff, $appliedCheckers];
+        // @todo use object
+        $this->changedFilesDiffs[$filePath][] = [
+            'diff' => $diff,
+            'appliedCheckers' => $appliedCheckers
+        ];
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function getChangedFilesDiffs(): array
+    {
+        return $this->changedFilesDiffs;
     }
 }

@@ -137,16 +137,15 @@ final class SniffFileProcessor implements FileProcessorInterface
         $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
 
         // 1. puts tokens into fixer
+        $this->fixer->beginChangeSet();
         $this->fixer->startFile($file);
-
-        $oldFileContent = $fileInfo->getContents();
 
         // 2. run all Sniff fixers
         $this->processTokens($file, $fileInfo);
 
         // 3. add diff
-        if ($oldFileContent !== $this->fixer->getContents()) {
-            $diff = $this->differ->diff($oldFileContent, $this->fixer->getContents());
+        if ($fileInfo->getContents() !== $this->fixer->getContents()) {
+            $diff = $this->differ->diff($fileInfo->getContents(), $this->fixer->getContents());
             $this->errorCollector->addFixerDiffForFile($fileInfo->getRelativePath(), $diff, []);
         }
 
@@ -154,6 +153,9 @@ final class SniffFileProcessor implements FileProcessorInterface
         if ($dryRun === false) {
             file_put_contents($file->getFilename(), $this->fixer->getContents());
         }
+
+        $file->cleanUp();
+        $this->fixer->endChangeSet();
     }
 
     public function processFileSecondRun(SplFileInfo $fileInfo, bool $dryRun = false): void

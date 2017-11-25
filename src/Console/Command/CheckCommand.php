@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
+use PhpCsFixer\Differ\DiffConsoleFormatter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -127,6 +128,27 @@ final class CheckCommand extends Command
 
         $this->configuration->resolveFromInput($input);
         $this->application->run();
+
+
+        $changedFilesDiffs = $this->errorCollector->getChangedFilesDiffs();
+
+        foreach ($changedFilesDiffs as $file => $results) {
+            $this->symfonyStyle->newLine(2);
+            $this->symfonyStyle->title($file);
+
+            foreach ($results as $result) {
+                $diffFormatter = new DiffConsoleFormatter(true, sprintf(
+                    '<comment>      ---------- begin diff ----------</comment>%s%%s%s<comment>      ----------- end diff -----------</comment>',
+                    PHP_EOL,
+                    PHP_EOL
+                ));
+
+                $output = PHP_EOL . $diffFormatter->format($result['diff']) . PHP_EOL;
+
+                $this->symfonyStyle->writeln($output);
+            }
+        }
+
 
         if ($this->errorCollector->getErrorCount() === 0) {
             $this->symfonyStyle->newLine();
