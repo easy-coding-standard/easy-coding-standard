@@ -34,33 +34,17 @@ final class ErrorCollector
         $this->changedFilesDetector->invalidateFile($filePath);
     }
 
-    public function getErrorCount(): int
-    {
-        return $this->getFixableErrorCount() + $this->getUnfixableErrorCount();
-    }
-
-    public function getFixableErrorCount(): int
-    {
-        return count(Arrays::flatten($this->getFileDiffs()));
-    }
-
-    public function getUnfixableErrorCount(): int
-    {
-        return count(Arrays::flatten($this->errors));
-    }
-
-    public function resetCounters(): void
-    {
-        $this->errors = [];
-        $this->fileDiffs = [];
-    }
-
     /**
      * @return Error[][]
      */
-    public function getAllErrors(): array
+    public function getErrors(): array
     {
         return $this->errors;
+    }
+
+    public function getErrorCount(): int
+    {
+        return count(Arrays::flatten($this->errors))
     }
 
     /**
@@ -73,11 +57,22 @@ final class ErrorCollector
         $this->fileDiffs[$filePath][] = FileDiff::createFromDiffAndAppliedCheckers($diff, $appliedCheckers);
     }
 
+    public function getFileDiffsCount(): int
+    {
+        return count(Arrays::flatten($this->getFileDiffs()));
+    }
+
     /**
      * @return FileDiff[][]
      */
     public function getFileDiffs(): array
     {
         return $this->fileDiffs;
+    }
+
+    public function resetCounters(): void
+    {
+        $this->errors = [];
+        $this->fileDiffs = [];
     }
 }

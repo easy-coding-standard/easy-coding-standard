@@ -155,8 +155,8 @@ final class CheckCommand extends Command
         if ($this->errorCollector->getUnfixableErrorCount() === 0) {
             $this->symfonyStyle->success(sprintf(
                 '%d %s successfully fixed and no other found!',
-                $this->errorCollector->getFixableErrorCount(),
-                $this->errorCollector->getFixableErrorCount() === 1 ? 'error' : 'errors'
+                $this->errorCollector->getFileDiffsCount(),
+                $this->errorCollector->getFileDiffsCount() === 1 ? 'error' : 'errors'
             ));
 
             return 0;
@@ -164,7 +164,7 @@ final class CheckCommand extends Command
 
         $this->printErrorMessageFromErrorCounts(
             $this->errorCollector->getUnfixableErrorCount(),
-            $this->errorCollector->getFixableErrorCount()
+            $this->errorCollector->getFileDiffsCount()
         );
 
         return 1;
@@ -173,12 +173,12 @@ final class CheckCommand extends Command
     private function printNoFixerStatus(): int
     {
         if ($this->configuration->showErrorTable()) {
-            $this->easyCodingStandardStyle->printErrors($this->errorCollector->getAllErrors());
+            $this->easyCodingStandardStyle->printErrors($this->errorCollector->getErrors());
         }
 
         $this->printErrorMessageFromErrorCounts(
             $this->errorCollector->getErrorCount(),
-            $this->errorCollector->getFixableErrorCount()
+            $this->errorCollector->getFileDiffsCount()
         );
 
         return 1;

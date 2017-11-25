@@ -41,10 +41,10 @@ final class SniffFileProcessorTest extends TestCase
         $this->runFileProcessor();
 
         $this->assertSame(1, $this->errorCollector->getErrorCount());
-        $this->assertSame(1, $this->errorCollector->getFixableErrorCount());
+        $this->assertSame(1, $this->errorCollector->getFileDiffsCount());
         $this->assertSame(0, $this->errorCollector->getUnfixableErrorCount());
 
-        $errorMessages = $this->errorCollector->getAllErrors();
+        $errorMessages = $this->errorCollector->getErrors();
         $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
 
         /** @var Error $error */
