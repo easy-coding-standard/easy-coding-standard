@@ -25,17 +25,14 @@ final class FileProcessorTest extends TestCase
         $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
     }
 
-    public function testGetFixers(): void
+    public function testGetSortedCheckers(): void
     {
+        $checkers = $this->fixerFileProcessor->getCheckers();
+
         $this->assertCount(3, $this->fixerFileProcessor->getCheckers());
-    }
 
-    public function testSortFixers(): void
-    {
-        $sortedFixers = $this->fixerFileProcessor->getCheckers();
-
-        $this->assertInstanceOf(EncodingFixer::class, $sortedFixers[0]);
-        $this->assertInstanceOf(FullOpeningTagFixer::class, $sortedFixers[1]);
-        $this->assertInstanceOf(NoTrailingCommaInSinglelineArrayFixer::class, $sortedFixers[2]);
+        $this->assertInstanceOf(EncodingFixer::class, $checkers[0]);
+        $this->assertInstanceOf(FullOpeningTagFixer::class, $checkers[1]);
+        $this->assertInstanceOf(NoTrailingCommaInSinglelineArrayFixer::class, $checkers[2]);
     }
 }

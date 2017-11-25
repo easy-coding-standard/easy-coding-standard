@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
@@ -42,7 +42,6 @@ final class SniffFileProcessorTest extends TestCase
 
         $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
         $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
-        $this->assertSame(0, $this->errorAndDiffCollector->getUnfixableErrorCount());
 
         $errorMessages = $this->errorAndDiffCollector->getErrors();
         $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
@@ -54,7 +53,7 @@ final class SniffFileProcessorTest extends TestCase
 
     private function runFileProcessor(): void
     {
-        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
+        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc', '', '');
         $this->sniffFileProcessor->processFile($fileInfo);
     }
 
@@ -65,6 +64,5 @@ final class SniffFileProcessorTest extends TestCase
         $this->assertSame(5, $error->getLine());
         $this->assertSame('Abstract class should have prefix "Abstract".', $error->getMessage());
         $this->assertSame(AbstractClassNameSniff::class, $error->getSourceClass());
-        $this->assertTrue($error->isFixable());
     }
 }
