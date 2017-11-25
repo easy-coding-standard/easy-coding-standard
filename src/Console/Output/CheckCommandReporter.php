@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
+use Symplify\EasyCodingStandard\Skipper;
 
 final class CheckCommandReporter
 {

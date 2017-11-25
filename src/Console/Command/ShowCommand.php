@@ -53,7 +53,7 @@ final class ShowCommand extends Command
     protected function configure(): void
     {
         $this->setName(self::NAME);
-        $this->setDescription('Show loaded checkers and their configuration.');
+        $this->setDescription('Show loaded checkers');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
