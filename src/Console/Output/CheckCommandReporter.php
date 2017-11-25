@@ -43,6 +43,10 @@ final class CheckCommandReporter
 
     public function reportPerformance(): void
     {
+        if (! $this->configuration->showPerformance()) {
+            return;
+        }
+
         $this->symfonyStyle->newLine();
 
         $this->symfonyStyle->title('Performance Statistics');

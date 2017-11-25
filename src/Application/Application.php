@@ -88,7 +88,7 @@ final class Application
 
         // 3. start progress bar
         if ($this->configuration->showProgressBar()) {
-            $this->easyCodingStandardStyle->startProgressBar(count($files));
+            $this->easyCodingStandardStyle->startProgressBar(count($files) * ($this->isDualRunEnabled() ? 2 : 1));
         }
 
         // 4. process found files by each processors
@@ -113,7 +113,6 @@ final class Application
                 foreach ($this->fileProcessors as $fileProcessor) {
                     $fileProcessor->processFile($fileInfo);
                 }
-
                 // @todo add diff here? + save just once :)
 
             } catch (ParseError $parseError) {
