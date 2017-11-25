@@ -174,4 +174,15 @@ final class Application
 
         return false;
     }
+
+    public function getCheckerCount(): int
+    {
+        $checkerCount = 0;
+
+        foreach ($this->fileProcessors as $fileProcessor) {
+            $checkerCount += count($fileProcessor->getCheckers());
+        }
+
+        return $checkerCount;
+    }
 }

@@ -16,9 +16,7 @@ use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Error\FileDiff;
-use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class CheckCommand extends Command
 {
@@ -58,16 +56,6 @@ final class CheckCommand extends Command
     private $symfonyStyle;
 
     /**
-     * @var FixerFileProcessor
-     */
-    private $fixerFileProcessor;
-
-    /**
-     * @var SniffFileProcessor
-     */
-    private $sniffFileProcessor;
-
-    /**
      * @var CheckCommandReporter
      */
     private $checkCommandReporter;
@@ -79,8 +67,6 @@ final class CheckCommand extends Command
         Configuration $configuration,
         ErrorCollector $errorCollector,
         SymfonyStyle $symfonyStyle,
-        FixerFileProcessor $fixerFileProcessor,
-        SniffFileProcessor $sniffFileProcessor,
         CheckCommandReporter $checkCommandReporter
     ) {
         parent::__construct();
@@ -91,8 +77,6 @@ final class CheckCommand extends Command
         $this->configuration = $configuration;
         $this->errorCollector = $errorCollector;
         $this->symfonyStyle = $symfonyStyle;
-        $this->fixerFileProcessor = $fixerFileProcessor;
-        $this->sniffFileProcessor = $sniffFileProcessor;
         $this->checkCommandReporter = $checkCommandReporter;
     }
 
@@ -246,8 +230,7 @@ final class CheckCommand extends Command
 
     private function ensureSomeCheckersAreRegistered(): void
     {
-        $totalCheckersLoaded = count($this->sniffFileProcessor->getCheckers())
-            + count($this->fixerFileProcessor->getCheckers());
+        $totalCheckersLoaded = $this->ecsApplication->getCheckerCount();
 
         if ($totalCheckersLoaded === 0) {
             throw new NoCheckersLoadedException(
