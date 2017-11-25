@@ -107,8 +107,12 @@ final class File extends BaseFile
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
     {
-        return true;
+        if ($this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path)) {
+            return false;
+        }
+
         //return $this->addError($error, $stackPtr, $code, $data, $severity, true) && $this->isFixer;
+        return true;
     }
 
     /**
@@ -116,8 +120,7 @@ final class File extends BaseFile
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
-        $fullyQualifiedCode = $this->currentSniffProvider->getSniffClass() . '.' . $code;
-        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $this->path)) {
+        if ($this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path)) {
             return false;
         }
 

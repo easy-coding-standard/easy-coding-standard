@@ -16,10 +16,18 @@ final class FileDiff
     /**
      * @param string[] $appliedCheckers
      */
-    public function __construct(string $diff, array $appliedCheckers)
+    private function __construct(string $diff, array $appliedCheckers)
     {
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
+    }
+
+    /**
+     * @param string[] $appliedCheckers
+     */
+    public static function createFromDiffAndAppliedCheckers(string $diff, array $appliedCheckers): self
+    {
+        return new self($diff, $appliedCheckers);
     }
 
     public function getDiff(): string

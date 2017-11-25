@@ -68,7 +68,9 @@ final class ErrorCollector
      */
     public function addDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
     {
-        $this->fileDiffs[$filePath][] = new FileDiff($diff, $appliedCheckers);
+        $this->changedFilesDetector->invalidateFile($filePath);
+
+        $this->fileDiffs[$filePath][] = FileDiff::createFromDiffAndAppliedCheckers($diff, $appliedCheckers);
     }
 
     /**

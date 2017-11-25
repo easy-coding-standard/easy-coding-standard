@@ -153,9 +153,6 @@ final class SniffFileProcessor implements FileProcessorInterface
         if ($dryRun === false) {
             // file_put_contents($file->getFilename(), $this->fixer->getContents());
         }
-
-        $file->cleanUp();
-        $this->fixer->endChangeSet();
     }
 
     public function processFileSecondRun(SplFileInfo $fileInfo, bool $dryRun = false): void
