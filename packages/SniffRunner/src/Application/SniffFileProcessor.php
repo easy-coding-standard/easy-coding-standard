@@ -4,10 +4,12 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-use SplFileInfo;
+use PhpCsFixer\Differ\DifferInterface;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
+use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
@@ -66,13 +68,25 @@ final class SniffFileProcessor implements FileProcessorInterface
      */
     private $isSecondRunPrepared = false;
 
+    /**
+     * @var ErrorCollector
+     */
+    private $errorCollector;
+
+    /**
+     * @var DifferInterface
+     */
+    private $differ;
+
     public function __construct(
         Fixer $fixer,
         FileFactory $fileFactory,
         Configuration $configuration,
         Skipper $skipper,
         CheckerMetricRecorder $checkerMetricRecorder,
-        CurrentSniffProvider $currentSniffProvider
+        CurrentSniffProvider $currentSniffProvider,
+        ErrorCollector $errorCollector,
+        DifferInterface $differ
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
@@ -82,6 +96,8 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->currentSniffProvider = $currentSniffProvider;
 
         $this->addCompatibilityLayer();
+        $this->errorCollector = $errorCollector;
+        $this->differ = $differ;
     }
 
     public function addSniff(Sniff $sniff): void
@@ -120,24 +136,30 @@ final class SniffFileProcessor implements FileProcessorInterface
     {
         $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
 
-        if ($this->isFixer() === false) {
-            $this->processFileWithoutFixer($file, $fileInfo);
-        } else {
-            $this->processFileWithFixer($file, $dryRun, $fileInfo);
+        // 1. puts tokens into fixer
+        $this->fixer->startFile($file);
+
+        $oldFileContent = $fileInfo->getContents();
+
+        // 2. run all Sniff fixers
+        $this->processTokens($file, $fileInfo);
+
+        // 3. add diff
+        if ($oldFileContent !== $this->fixer->getContents()) {
+            $diff = $this->differ->diff($oldFileContent, $this->fixer->getContents());
+            $this->errorCollector->addFixerDiffForFile($fileInfo->getRelativePath(), $diff, []);
+        }
+
+        // 4. save file content (faster without changes check)
+        if ($dryRun === false) {
+            file_put_contents($file->getFilename(), $this->fixer->getContents());
         }
     }
 
     public function processFileSecondRun(SplFileInfo $fileInfo, bool $dryRun = false): void
     {
         $this->prepareSecondRun();
-
-        $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
-
-        if ($this->isFixer() === false) {
-            $this->processFileWithoutFixer($file, $fileInfo);
-        } else {
-            $this->processFileWithFixer($file, $dryRun, $fileInfo);
-        }
+        $this->processFile($fileInfo, $dryRun);
     }
 
     public function setIsFixer(bool $isFixer): void
@@ -145,7 +167,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->isFixer = $isFixer;
     }
 
-    private function processFileWithoutFixer(File $file, SplFileInfo $fileInfo): void
+    private function processTokens(File $file, SplFileInfo $fileInfo): void
     {
         foreach ($file->getTokens() as $position => $token) {
             if (! array_key_exists($token['code'], $this->tokenListeners)) {
@@ -162,20 +184,6 @@ final class SniffFileProcessor implements FileProcessorInterface
                 $sniff->process($file, $position);
                 $this->checkerMetricRecorder->endWithChecker($sniff);
             }
-        }
-    }
-
-    private function processFileWithFixer(File $file, bool $dryRun, SplFileInfo $fileInfo): void
-    {
-        // 1. puts tokens into fixer
-        $this->fixer->startFile($file);
-
-        // 2. run all Sniff fixers
-        $this->processFileWithoutFixer($file, $fileInfo);
-
-        // 3. save file content (faster without changes check)
-        if ($dryRun === false) {
-            file_put_contents($file->getFilename(), $this->fixer->getContents());
         }
     }
 

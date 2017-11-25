@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
