@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Finder;
 
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 
 final class SourceFinder
@@ -30,7 +31,7 @@ final class SourceFinder
 
     /**
      * @param string[] $source
-     * @return SplFileInfo[]
+     * @return SymfonySplFileInfo[]
      */
     public function find(array $source): array
     {
@@ -60,8 +61,10 @@ final class SourceFinder
      */
     private function processFile(array $files, string $file): array
     {
+        $fileInfo = new SplFileInfo($file);
+
         return array_merge($files, [
-            $file => new SplFileInfo($file),
+            $file => new SymfonySplFileInfo($file, '', $fileInfo->getFilename()),
         ]);
     }
 
