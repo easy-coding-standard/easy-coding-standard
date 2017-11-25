@@ -35,11 +35,11 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
     {
         return [
             'filePath' => [
-                Error::createFromLineMessageSourceClassAndFixable(5, 'error message', 'SomeClass', false),
+                Error::createFromLineMessageSourceClass(5, 'error message', 'SomeClass', false),
             ],
             'anotherFilePath' => [
-                Error::createFromLineMessageSourceClassAndFixable(15, 'error message', 'SomeClass', false),
-                Error::createFromLineMessageSourceClassAndFixable(5, 'error message', 'SomeClass', false),
+                Error::createFromLineMessageSourceClass(15, 'error message', 'SomeClass', false),
+                Error::createFromLineMessageSourceClass(5, 'error message', 'SomeClass', false),
             ],
         ];
     }

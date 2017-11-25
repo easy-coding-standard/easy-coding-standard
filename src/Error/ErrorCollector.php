@@ -41,12 +41,11 @@ final class ErrorCollector
 
     public function addErrorMessage(
         string $filePath,
-        ?int $line,
+        int $line,
         string $message,
-        string $sourceClass,
-        bool $isFixable
+        string $sourceClass
     ): void {
-        $error = Error::createFromLineMessageSourceClassAndFixable($line, $message, $sourceClass, $isFixable);
+        $error = Error::createFromLineMessageSourceClass($line, $message, $sourceClass);
 
         if ($isFixable) {
             $this->fixableErrors[$filePath][] = $error;

@@ -9,7 +9,7 @@ final class ErrorTest extends TestCase
 {
     public function test(): void
     {
-        $error = Error::createFromLineMessageSourceClassAndFixable(1, 'message', 'class', true);
+        $error = Error::createFromLineMessageSourceClass(1, 'message', 'class', true);
         $this->assertSame(1, $error->getLine());
         $this->assertSame('message', $error->getMessage());
         $this->assertSame('class', $error->getSourceClass());

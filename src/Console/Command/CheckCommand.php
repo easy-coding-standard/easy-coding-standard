@@ -149,7 +149,6 @@ final class CheckCommand extends Command
             }
         }
 
-
         if ($this->errorCollector->getErrorCount() === 0) {
             $this->symfonyStyle->newLine();
             $this->symfonyStyle->success('No errors found. Great job - your code is shiny in style!');

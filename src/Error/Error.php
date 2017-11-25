@@ -19,26 +19,16 @@ final class Error
      */
     private $sourceClass;
 
-    /**
-     * @var bool
-     */
-    private $isFixable;
-
-    private function __construct(int $line, string $message, string $sourceClass, bool $isFixable)
+    private function __construct(int $line, string $message, string $sourceClass)
     {
         $this->line = $line;
         $this->message = $message;
         $this->sourceClass = $sourceClass;
-        $this->isFixable = $isFixable;
     }
 
-    public static function createFromLineMessageSourceClassAndFixable(
-        int $line,
-        string $message,
-        string $sourceClass,
-        bool $isFixable
-    ): self {
-        return new self($line, $message, $sourceClass, $isFixable);
+    public static function createFromLineMessageSourceClass(int $line, string $message, string $sourceClass): self
+    {
+        return new self($line, $message, $sourceClass);
     }
 
     public function getLine(): int
@@ -54,10 +44,5 @@ final class Error
     public function getSourceClass(): string
     {
         return $this->sourceClass;
-    }
-
-    public function isFixable(): bool
-    {
-        return $this->isFixable;
     }
 }
