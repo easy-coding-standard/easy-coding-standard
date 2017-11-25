@@ -11,12 +11,7 @@ final class ErrorCollector
     /**
      * @var Error[][]
      */
-    private $fixableErrors = [];
-
-    /**
-     * @var Error[][]
-     */
-    private $unfixableErrors = [];
+    private $errors = [];
 
     /**
      * @var ErrorSorter
@@ -31,7 +26,7 @@ final class ErrorCollector
     /**
      * @var mixed[]
      */
-    private $changedFilesDiffs = [];
+    private $fileDiffs = [];
 
     public function __construct(ErrorSorter $errorSorter, ChangedFilesDetector $changedFilesDetector)
     {
@@ -39,19 +34,9 @@ final class ErrorCollector
         $this->changedFilesDetector = $changedFilesDetector;
     }
 
-    public function addErrorMessage(
-        string $filePath,
-        int $line,
-        string $message,
-        string $sourceClass
-    ): void {
-        $error = Error::createFromLineMessageSourceClass($line, $message, $sourceClass);
-
-        if ($isFixable) {
-            $this->fixableErrors[$filePath][] = $error;
-        } else {
-            $this->unfixableErrors[$filePath][] = $error;
-        }
+    public function addErrorMessage(string $filePath, int $line, string $message, string $sourceClass): void
+    {
+        $this->errors[$filePath][] = Error::createFromLineMessageSourceClass($line, $message, $sourceClass);
 
         $this->changedFilesDetector->invalidateFile($filePath);
     }
@@ -63,19 +48,18 @@ final class ErrorCollector
 
     public function getFixableErrorCount(): int
     {
-        return count(Arrays::flatten($this->fixableErrors)) + count(Arrays::flatten($this->getChangedFilesDiffs()));
+        return count(Arrays::flatten($this->getFileDiffs()));
     }
 
     public function getUnfixableErrorCount(): int
     {
-        return count(Arrays::flatten($this->unfixableErrors));
+        return count(Arrays::flatten($this->errors));
     }
 
     public function resetCounters(): void
     {
-        $this->fixableErrors = [];
-        $this->unfixableErrors = [];
-        $this->changedFilesDiffs = [];
+        $this->errors = [];
+        $this->fileDiffs = [];
     }
 
     /**
@@ -83,41 +67,16 @@ final class ErrorCollector
      */
     public function getAllErrors(): array
     {
-        $unfixableErrors = $this->getUnfixableErrors();
-        $fixableErrors = $this->getFixableErrors();
-
-        $allErrors = $unfixableErrors;
-
-        foreach ($fixableErrors as $file => $fixableError) {
-            $allErrors[$file] = array_merge($unfixableErrors[$file] ?? [], $fixableError);
-        }
-
-        return $allErrors;
-    }
-
-    /**
-     * @return Error[][]
-     */
-    public function getUnfixableErrors(): array
-    {
-        return $this->errorSorter->sortByFileAndLine($this->unfixableErrors);
-    }
-
-    /**
-     * @return Error[][]
-     */
-    private function getFixableErrors(): array
-    {
-        return $this->errorSorter->sortByFileAndLine($this->fixableErrors);
+        return $this->errorSorter->sortByFileAndLine($this->errors);
     }
 
     /**
      * @param string[] $appliedCheckers
      */
-    public function addFixerDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
+    public function addDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
     {
-        // @todo use object
-        $this->changedFilesDiffs[$filePath][] = [
+        // @todo use value object
+        $this->fileDiffs[$filePath][] = [
             'diff' => $diff,
             'appliedCheckers' => $appliedCheckers
         ];
@@ -126,8 +85,8 @@ final class ErrorCollector
     /**
      * @return mixed[]
      */
-    public function getChangedFilesDiffs(): array
+    public function getFileDiffs(): array
     {
-        return $this->changedFilesDiffs;
+        return $this->fileDiffs;
     }
 }

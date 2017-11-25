@@ -148,9 +148,9 @@ final class FixerFileProcessor implements FileProcessorInterface
             return;
         }
 
-        if ($oldContent !== $tokens->getCodeHash()) {
+        if ($oldContent !== $tokens->generateCode()) {
             $diff = $this->differ->diff($oldContent, $tokens->generateCode());
-            $this->errorCollector->addFixerDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
+            $this->errorCollector->addDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
         }
 
         if ($this->configuration->isFixer()) {

@@ -34,7 +34,7 @@ final class CheckCommand extends Command
     /**
      * @var Application
      */
-    private $application;
+    private $ecsApplication;
 
     /**
      * @var Skipper
@@ -84,7 +84,7 @@ final class CheckCommand extends Command
     ) {
         parent::__construct();
 
-        $this->application = $application;
+        $this->ecsApplication = $application;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
@@ -127,14 +127,13 @@ final class CheckCommand extends Command
         $this->ensureSomeCheckersAreRegistered();
 
         $this->configuration->resolveFromInput($input);
-        $this->application->run();
+        $this->ecsApplication->run();
 
-
-        $changedFilesDiffs = $this->errorCollector->getChangedFilesDiffs();
+        $changedFilesDiffs = $this->errorCollector->getFileDiffs();
 
         foreach ($changedFilesDiffs as $file => $results) {
             $this->symfonyStyle->newLine(2);
-            $this->symfonyStyle->title($file);
+            $this->symfonyStyle->writeln($file);
 
             foreach ($results as $result) {
                 $diffFormatter = new DiffConsoleFormatter(true, sprintf(

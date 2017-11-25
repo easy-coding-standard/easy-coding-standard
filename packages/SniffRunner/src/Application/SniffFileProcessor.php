@@ -146,7 +146,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         // 3. add diff
         if ($fileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($fileInfo->getContents(), $this->fixer->getContents());
-            $this->errorCollector->addFixerDiffForFile($fileInfo->getRelativePath(), $diff, []);
+            $this->errorCollector->addDiffForFile($fileInfo->getRelativePath(), $diff, []);
         }
 
         // 4. save file content (faster without changes check)
