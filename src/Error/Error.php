@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Error;
 final class Error
 {
     /**
-     * @var int|null
+     * @var int
      */
     private $line;
 
@@ -24,7 +24,7 @@ final class Error
      */
     private $isFixable;
 
-    private function __construct(?int $line, string $message, string $sourceClass, bool $isFixable)
+    private function __construct(int $line, string $message, string $sourceClass, bool $isFixable)
     {
         $this->line = $line;
         $this->message = $message;
@@ -33,7 +33,7 @@ final class Error
     }
 
     public static function createFromLineMessageSourceClassAndFixable(
-        ?int $line,
+        int $line,
         string $message,
         string $sourceClass,
         bool $isFixable
