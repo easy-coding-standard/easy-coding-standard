@@ -18,7 +18,7 @@ final class ErrorCollector
     private $changedFilesDetector;
 
     /**
-     * @var mixed[]
+     * @var FileDiff[][]
      */
     private $fileDiffs = [];
 
@@ -68,15 +68,11 @@ final class ErrorCollector
      */
     public function addDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
     {
-        // @todo use value object
-        $this->fileDiffs[$filePath][] = [
-            'diff' => $diff,
-            'appliedCheckers' => $appliedCheckers
-        ];
+        $this->fileDiffs[$filePath][] = new FileDiff($diff, $appliedCheckers);
     }
 
     /**
-     * @return mixed[]
+     * @return FileDiff[][]
      */
     public function getFileDiffs(): array
     {

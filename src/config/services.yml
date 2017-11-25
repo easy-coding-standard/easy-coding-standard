@@ -8,7 +8,7 @@ services:
 
     Symplify\EasyCodingStandard\:
         resource: '../../src'
-        exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection,Configuration/Loader/NeonLoader.php}'
+        exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection,Configuration/Loader/NeonLoader.php,Error/FileDiff.php}'
 
     # 3rd party services
     Nette\DI\Config\Loader: ~

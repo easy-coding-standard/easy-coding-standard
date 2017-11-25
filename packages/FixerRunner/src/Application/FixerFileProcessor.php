@@ -140,7 +140,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
             $tokens->clearEmptyTokens();
             $tokens->clearChanged();
-            $appliedFixers[] = $fixer->getName();
+            $appliedFixers[] = get_class($fixer);
         }
 
         if (! $appliedFixers) {
@@ -148,10 +148,8 @@ final class FixerFileProcessor implements FileProcessorInterface
             return;
         }
 
-        if ($oldContent !== $tokens->generateCode()) {
-            $diff = $this->differ->diff($oldContent, $tokens->generateCode());
-            $this->errorCollector->addDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
-        }
+        $diff = $this->differ->diff($oldContent, $tokens->generateCode());
+        $this->errorCollector->addDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
 
         if ($this->configuration->isFixer()) {
             file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());

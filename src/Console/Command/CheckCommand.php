@@ -14,6 +14,7 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
@@ -129,26 +130,25 @@ final class CheckCommand extends Command
         $this->configuration->resolveFromInput($input);
         $this->ecsApplication->run();
 
-        $changedFilesDiffs = $this->errorCollector->getFileDiffs();
-
-        foreach ($changedFilesDiffs as $file => $results) {
+        foreach ($this->errorCollector->getFileDiffs() as $file => $fileDiffs) {
             $this->symfonyStyle->newLine(2);
             $this->symfonyStyle->writeln($file);
 
-            foreach ($results as $result) {
+            /** @var FileDiff[] $fileDiffs */
+            foreach ($fileDiffs as $fileDiff) {
                 $diffFormatter = new DiffConsoleFormatter(true, sprintf(
                     '<comment>      ---------- begin diff ----------</comment>%s%%s%s<comment>      ----------- end diff -----------</comment>',
                     PHP_EOL,
                     PHP_EOL
                 ));
 
-                $output = PHP_EOL . $diffFormatter->format($result['diff']) . PHP_EOL;
+                $output = PHP_EOL . $diffFormatter->format($fileDiff->getDiff()) . PHP_EOL;
 
                 $this->symfonyStyle->writeln($output);
 
                 $this->symfonyStyle->writeln('Applied checkers:');
                 $this->symfonyStyle->newLine();
-                $this->symfonyStyle->listing($result['appliedCheckers']);
+                $this->symfonyStyle->listing($fileDiff->getAppliedCheckers());
             }
         }
 
