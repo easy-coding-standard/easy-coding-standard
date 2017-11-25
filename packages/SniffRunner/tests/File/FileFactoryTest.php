@@ -24,7 +24,7 @@ final class FileFactoryTest extends AbstractContainerAwareTestCase
     public function test(): void
     {
         $fileInfo = new SplFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
-        $file = $this->fileFactory->createFromFileInfo($fileInfo, false);
+        $file = $this->fileFactory->createFromFileInfo($fileInfo);
         $this->assertInstanceOf(File::class, $file);
         $this->assertInstanceOf(BaseFile::class, $file);
         $this->assertInstanceOf(Fixer::class, $file->fixer);

@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
@@ -41,7 +41,7 @@ final class FileProcessorTest extends TestCase
 
     public function test(): void
     {
-        $fileInfo = new SplFileInfo($this->getFileLocation());
+        $fileInfo = new SplFileInfo($this->getFileLocation(), '', '');
         $initialFileHash = md5_file($this->getFileLocation());
 
         $this->sniffFileProcessor->processFile($fileInfo);

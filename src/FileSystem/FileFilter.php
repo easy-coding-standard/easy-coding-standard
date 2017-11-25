@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\FileSystem;
 
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Skipper;
 
