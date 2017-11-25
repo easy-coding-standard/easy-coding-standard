@@ -6,10 +6,6 @@ services:
         autowire: true
         public: true # for tests
 
-    Symplify\EasyCodingStandard\:
-        resource: '../../src'
-        exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection,Configuration/Loader/NeonLoader.php,Error/FileDiff.php}'
-
     Symplify\EasyCodingStandard\FixerRunner\Application\SniffFileProcessor: ~
     Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor: ~
 
@@ -18,6 +14,10 @@ services:
             # exact in that order
             - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\SniffFileProcessor']]
             - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
+
+    Symplify\EasyCodingStandard\:
+        resource: '../../src'
+        exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection,Configuration/Loader/NeonLoader.php,Error/FileDiff.php}'
 
     # 3rd party services
     Nette\DI\Config\Loader: ~
