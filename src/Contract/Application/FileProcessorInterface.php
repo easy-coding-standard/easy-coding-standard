@@ -6,9 +6,9 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface FileProcessorInterface
 {
-    public function processFile(SplFileInfo $file): void;
+    public function processFile(SplFileInfo $file): string;
 
-    public function processFileSecondRun(SplFileInfo $file): void;
+    public function processFileSecondRun(SplFileInfo $file): string;
 
     /**
      * @return mixed[]

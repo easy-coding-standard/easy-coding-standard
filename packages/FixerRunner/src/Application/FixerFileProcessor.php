@@ -104,7 +104,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $this->fixers;
     }
 
-    public function processFile(SplFileInfo $fileInfo): void
+    public function processFile(SplFileInfo $fileInfo): string
     {
         $oldContent = $this->cachedFileLoader->getFileContent($fileInfo);
 
@@ -145,7 +145,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         if (! $appliedFixers) {
             $this->fileToTokensParser->clearCache();
-            return;
+            return $oldContent;
         }
 
         $diff = $this->differ->diff($oldContent, $tokens->generateCode());
@@ -156,12 +156,15 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         Tokens::clearCache();
+
+        return $tokens->generateCode();
     }
 
-    public function processFileSecondRun(SplFileInfo $file): void
+    public function processFileSecondRun(SplFileInfo $file): string
     {
         $this->prepareSecondRun();
-        $this->processFile($file);
+
+        return $this->processFile($file);
     }
 
     /**

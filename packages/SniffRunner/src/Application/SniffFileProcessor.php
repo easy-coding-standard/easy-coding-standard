@@ -135,7 +135,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         });
     }
 
-    public function processFile(SplFileInfo $fileInfo): void
+    public function processFile(SplFileInfo $fileInfo): string
     {
         $file = $this->fileFactory->createFromFileInfo($fileInfo);
 
@@ -160,9 +160,11 @@ final class SniffFileProcessor implements FileProcessorInterface
         if ($this->configuration->isFixer()) {
             file_put_contents($file->getFilename(), $this->fixer->getContents());
         }
+
+        return $this->fixer->getContents();
     }
 
-    public function processFileSecondRun(SplFileInfo $fileInfo): void
+    public function processFileSecondRun(SplFileInfo $fileInfo): string
     {
         $this->prepareSecondRun();
         $this->processFile($fileInfo);
