@@ -30,7 +30,8 @@ final class FinderSanitizerTest extends TestCase
 
     public function testSymfonyFinder(): void
     {
-        $finder = SymfonyFinder::create()->files()
+        $finder = SymfonyFinder::create()
+            ->files()
             ->in(__DIR__ . '/FinderSanitizerSource');
 
         $this->assertCount(2, iterator_to_array($finder->getIterator()));
