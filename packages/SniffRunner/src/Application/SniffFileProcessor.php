@@ -132,7 +132,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         });
     }
 
-    public function processFile(SplFileInfo $fileInfo, bool $dryRun = false): void
+    public function processFile(SplFileInfo $fileInfo): void
     {
         $file = $this->fileFactory->createFromFileInfo($fileInfo, $this->isFixer());
 
@@ -150,15 +150,15 @@ final class SniffFileProcessor implements FileProcessorInterface
         }
 
         // 4. save file content (faster without changes check)
-        if ($dryRun === false) {
-            // file_put_contents($file->getFilename(), $this->fixer->getContents());
+        if ($this->isFixer()) {
+            file_put_contents($file->getFilename(), $this->fixer->getContents());
         }
     }
 
-    public function processFileSecondRun(SplFileInfo $fileInfo, bool $dryRun = false): void
+    public function processFileSecondRun(SplFileInfo $fileInfo): void
     {
         $this->prepareSecondRun();
-        $this->processFile($fileInfo, $dryRun);
+        $this->processFile($fileInfo);
     }
 
     public function setIsFixer(bool $isFixer): void

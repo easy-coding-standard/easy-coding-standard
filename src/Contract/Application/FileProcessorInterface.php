@@ -2,13 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 
 interface FileProcessorInterface
 {
-    public function processFile(\Symfony\Component\Finder\SplFileInfo $file): void;
+    public function processFile(SplFileInfo $file): void;
 
-    public function processFileSecondRun(\Symfony\Component\Finder\SplFileInfo $file): void;
+    public function processFileSecondRun(SplFileInfo $file): void;
 
     /**
      * @return mixed[]

@@ -7,11 +7,10 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class Application
 {
@@ -36,16 +35,6 @@ final class Application
     private $skipper;
 
     /**
-     * @var SniffFileProcessor
-     */
-    private $sniffFileProcessor;
-
-    /**
-     * @var FixerFileProcessor
-     */
-    private $fixerFileProcessor;
-
-    /**
      * @var ErrorCollector
      */
     private $errorCollector;
@@ -55,13 +44,16 @@ final class Application
      */
     private $configuration;
 
+    /**
+     * @var FileProcessorInterface[]
+     */
+    private $fileProcessors = [];
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
         Skipper $skipper,
-        SniffFileProcessor $sniffFileProcessor,
-        FixerFileProcessor $fixerFileProcessor,
         ErrorCollector $errorCollector,
         Configuration $configuration
     ) {
@@ -69,10 +61,13 @@ final class Application
         $this->sourceFinder = $sourceFinder;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->skipper = $skipper;
-        $this->sniffFileProcessor = $sniffFileProcessor;
-        $this->fixerFileProcessor = $fixerFileProcessor;
         $this->errorCollector = $errorCollector;
         $this->configuration = $configuration;
+    }
+
+    public function addFileProcessor(FileProcessorInterface $fileProcessor): void
+    {
+        $this->fileProcessors[] = $fileProcessor;
     }
 
     public function run(): void
@@ -116,11 +111,12 @@ final class Application
 
             try {
                 // @todo pass file content?
-
-                $this->sniffFileProcessor->processFile($fileInfo);
-                $this->fixerFileProcessor->processFile($fileInfo);
+                foreach ($this->fileProcessors as $fileProcessor) {
+                    $fileProcessor->processFile($fileInfo);
+                }
 
                 // @todo add diff here? + save just once :)
+
             } catch (ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFile($relativePath);
                 $this->errorCollector->addErrorMessage(
@@ -141,8 +137,9 @@ final class Application
         foreach ($fileInfos as $relativePath => $fileInfo) {
             $this->easyCodingStandardStyle->advanceProgressBar();
 
-            $this->sniffFileProcessor->processFileSecondRun($fileInfo);
-            $this->fixerFileProcessor->processFileSecondRun($fileInfo);
+            foreach ($this->fileProcessors as $fileProcessor) {
+                $fileProcessor->processFileSecondRun($fileInfo);
+            }
         }
     }
 
@@ -169,6 +166,12 @@ final class Application
 
     private function isDualRunEnabled(): bool
     {
-        return $this->sniffFileProcessor->getDualRunCheckers() || $this->fixerFileProcessor->getDualRunCheckers();
+        foreach ($this->fileProcessors as $fileProcessor) {
+            if ($fileProcessor->getDualRunCheckers()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
