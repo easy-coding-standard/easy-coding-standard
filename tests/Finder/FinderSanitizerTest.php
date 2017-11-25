@@ -44,7 +44,8 @@ final class FinderSanitizerTest extends TestCase
 
     public function testNetteFinder(): void
     {
-        $finder = NetteFinder::find('*')->in(__DIR__ . '/FinderSanitizerSource');
+        $finder = NetteFinder::findFiles('*')
+            ->from(__DIR__ . '/FinderSanitizerSource');
 
         $this->assertCount(2, iterator_to_array($finder->getIterator()));
         $files = $this->finderSanitizer->sanitize($finder);
@@ -61,7 +62,7 @@ final class FinderSanitizerTest extends TestCase
         $this->assertInstanceOf(SymfonySplFileInfo::class, $file);
 
         /** @var SymfonySplFileInfo $file */
-        $this->assertSame('', $file->getRelativePath());
-        $this->assertSame('FileWithClass.php', $file->getRelativePathname());
+        $this->assertSame('NestedDirectory', $file->getRelativePath());
+        $this->assertSame('NestedDirectory/FileWithClass.php', $file->getRelativePathname());
     }
 }
