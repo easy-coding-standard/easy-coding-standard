@@ -173,9 +173,7 @@ final class PhpAndPhptFilesProvider implements CustomSourceProviderInterface
 
 *Don't forget to autoload it with composer.*
 
-**Use any Finder you like**
-
-You can use [Nette\Finder](https://doc.nette.org/en/finder) or [Symfony\Finder](https://symfony.com/doc/current/components/finder.html).
+**Use any Finder you like**: [Nette\Finder](https://doc.nette.org/en/finder) or [Symfony\Finder](https://symfony.com/doc/current/components/finder.html).
 
 
 ### FAQ 

@@ -1,6 +1,5 @@
-<?php
+<?php declare(strict_types=1);
 
-class FileWithClass
+final class FileWithClass
 {
-
 }

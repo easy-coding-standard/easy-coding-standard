@@ -6,6 +6,7 @@ use Nette\Utils\Finder as NetteFinder;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
+use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
 use Symplify\EasyCodingStandard\Finder\FinderSanitizer;
 
@@ -35,9 +36,10 @@ final class FinderSanitizerTest extends TestCase
             ->in(__DIR__ . '/FinderSanitizerSource');
 
         $this->assertCount(2, iterator_to_array($finder->getIterator()));
-
         $files = $this->finderSanitizer->sanitize($finder);
         $this->assertCount(1, $files);
+
+        $this->validateFile(array_pop($files));
     }
 
     public function testNetteFinder(): void
@@ -45,8 +47,21 @@ final class FinderSanitizerTest extends TestCase
         $finder = NetteFinder::find('*')->in(__DIR__ . '/FinderSanitizerSource');
 
         $this->assertCount(2, iterator_to_array($finder->getIterator()));
-
         $files = $this->finderSanitizer->sanitize($finder);
         $this->assertCount(1, $files);
+
+        $this->validateFile(array_pop($files));
+    }
+
+    /**
+     * @param mixed $file
+     */
+    private function validateFile($file): void
+    {
+        $this->assertInstanceOf(SymfonySplFileInfo::class, $file);
+
+        /** @var SymfonySplFileInfo $file */
+        $this->assertSame('', $file->getRelativePath());
+        $this->assertSame('FileWithClass.php', $file->getRelativePathname());
     }
 }
