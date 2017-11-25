@@ -14,7 +14,7 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Error\FileDiff;
 
 final class CheckCommand extends Command
@@ -40,7 +40,7 @@ final class CheckCommand extends Command
     private $configuration;
 
     /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
@@ -58,7 +58,7 @@ final class CheckCommand extends Command
         Application $application,
         EasyCodingStandardStyle $easyCodingStandardStyle,
         Configuration $configuration,
-        ErrorCollector $errorCollector,
+        ErrorAndDiffCollector $errorCollector,
         SymfonyStyle $symfonyStyle,
         CheckCommandReporter $checkCommandReporter
     ) {

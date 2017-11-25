@@ -8,13 +8,13 @@ use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class SniffFileProcessorTest extends TestCase
 {
     /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
@@ -28,7 +28,7 @@ final class SniffFileProcessorTest extends TestCase
         $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/SniffRunnerSource/easy-coding-standard.neon'
         );
-        $this->errorCollector = $container->get(ErrorCollector::class);
+        $this->errorCollector = $container->get(ErrorAndDiffCollector::class);
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
 
         /** @var ChangedFilesDetector $changedFilesDetector */

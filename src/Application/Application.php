@@ -8,9 +8,9 @@ use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\EasyCodingStandard\Skipper;
 
 final class Application
 {
@@ -30,12 +30,7 @@ final class Application
     private $changedFilesDetector;
 
     /**
-     * @var Skipper
-     */
-    private $skipper;
-
-    /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
@@ -48,21 +43,25 @@ final class Application
      * @var FileProcessorInterface[]
      */
     private $fileProcessors = [];
+    /**
+     * @var FileFilter
+     */
+    private $fileFilter;
 
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
-        Skipper $skipper,
-        ErrorCollector $errorCollector,
-        Configuration $configuration
+        ErrorAndDiffCollector $errorCollector,
+        Configuration $configuration,
+        FileFilter $fileFilter
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->skipper = $skipper;
         $this->errorCollector = $errorCollector;
         $this->configuration = $configuration;
+        $this->fileFilter = $fileFilter;
     }
 
     public function addFileProcessor(FileProcessorInterface $fileProcessor): void
@@ -79,7 +78,7 @@ final class Application
         if ($this->configuration->shouldClearCache()) {
             $this->changedFilesDetector->clearCache();
         } else {
-            $files = $this->filterOnlyChangedFiles($files);
+            $files = $this->fileFilter->filterOnlyChangedFiles($files);
         }
 
         // no files found
@@ -141,27 +140,6 @@ final class Application
                 $fileProcessor->processFileSecondRun($fileInfo);
             }
         }
-    }
-
-    /**
-     * @param SplFileInfo[] $fileInfos
-     * @return SplFileInfo[]
-     */
-    private function filterOnlyChangedFiles(array $fileInfos): array
-    {
-        $changedFiles = [];
-
-        foreach ($fileInfos as $relativePath => $fileInfo) {
-            if ($this->changedFilesDetector->hasFileChanged($relativePath)) {
-                $changedFiles[] = $fileInfo;
-
-                $this->changedFilesDetector->addFile($relativePath);
-            } else {
-                $this->skipper->removeFileFromUnused($relativePath);
-            }
-        }
-
-        return $changedFiles;
     }
 
     private function isDualRunEnabled(): bool

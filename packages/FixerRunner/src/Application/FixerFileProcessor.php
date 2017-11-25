@@ -9,7 +9,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
@@ -25,7 +25,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $fixers = [];
 
     /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
@@ -70,7 +70,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $differ;
 
     public function __construct(
-        ErrorCollector $errorCollector,
+        ErrorAndDiffCollector $errorCollector,
         Configuration $configuration,
         CheckerMetricRecorder $checkerMetricRecorder,
         FileToTokensParser $fileToTokensParser,

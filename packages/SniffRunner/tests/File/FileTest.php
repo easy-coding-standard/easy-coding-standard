@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use SplFileInfo;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
@@ -17,13 +17,13 @@ final class FileTest extends AbstractContainerAwareTestCase
     private $file;
 
     /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
     protected function setUp(): void
     {
-        $this->errorCollector = $this->container->get(ErrorCollector::class);
+        $this->errorCollector = $this->container->get(ErrorAndDiffCollector::class);
 
         /** @var FileFactory $fileFactory */
         $fileFactory = $this->container->get(FileFactory::class);

@@ -7,13 +7,13 @@ use SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\Error;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 
 final class FixerFileProcessorTest extends TestCase
 {
     /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
@@ -28,7 +28,7 @@ final class FixerFileProcessorTest extends TestCase
             __DIR__ . '/FixerRunnerSource/phpunit-fixer-config.neon'
         );
 
-        $this->errorCollector = $container->get(ErrorCollector::class);
+        $this->errorCollector = $container->get(ErrorAndDiffCollector::class);
         $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
 
         /** @var ChangedFilesDetector $changedFilesDetector */

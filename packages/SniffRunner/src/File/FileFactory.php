@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -18,7 +18,7 @@ final class FileFactory
     private $fixer;
 
     /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
@@ -48,7 +48,7 @@ final class FileFactory
 
     public function __construct(
         Fixer $fixer,
-        ErrorCollector $errorCollector,
+        ErrorAndDiffCollector $errorCollector,
         FileToTokensParser $fileToTokensParser,
         CurrentSniffProvider $currentSniffProvider,
         Skipper $skipper,

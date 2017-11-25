@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Error;
 use Nette\Utils\Arrays;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 
-final class ErrorCollector
+final class ErrorAndDiffCollector
 {
     /**
      * @var Error[][]
@@ -29,9 +29,9 @@ final class ErrorCollector
 
     public function addErrorMessage(string $filePath, int $line, string $message, string $sourceClass): void
     {
-        $this->errors[$filePath][] = Error::createFromLineMessageSourceClass($line, $message, $sourceClass);
-
         $this->changedFilesDetector->invalidateFile($filePath);
+
+        $this->errors[$filePath][] = Error::createFromLineMessageSourceClass($line, $message, $sourceClass);
     }
 
     /**

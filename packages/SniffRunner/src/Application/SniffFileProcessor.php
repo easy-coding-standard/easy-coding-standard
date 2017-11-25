@@ -10,7 +10,7 @@ use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
-use Symplify\EasyCodingStandard\Error\ErrorCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
@@ -65,7 +65,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     private $isSecondRunPrepared = false;
 
     /**
-     * @var ErrorCollector
+     * @var ErrorAndDiffCollector
      */
     private $errorCollector;
 
@@ -85,7 +85,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         Skipper $skipper,
         CheckerMetricRecorder $checkerMetricRecorder,
         CurrentSniffProvider $currentSniffProvider,
-        ErrorCollector $errorCollector,
+        ErrorAndDiffCollector $errorCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector
     ) {
