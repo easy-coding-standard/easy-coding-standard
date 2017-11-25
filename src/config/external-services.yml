@@ -1,0 +1,22 @@
+services:
+    _defaults:
+        autowire: true
+        public: true # for tests
+
+    # 3rd party services
+    Nette\DI\Config\Loader: ~
+    Symfony\Component\Console\Terminal: ~
+
+    # Console
+    Symfony\Component\Console\Input\ArgvInput: ~
+    Symfony\Component\Console\Output\ConsoleOutput: ~
+
+    Symfony\Component\Console\Style\SymfonyStyle: ~
+
+    # alias required for SymfonyStyle
+    Symfony\Component\Console\Input\InputInterface:
+        alias: Symfony\Component\Console\Input\ArgvInput
+    Symfony\Component\Console\Output\OutputInterface:
+        alias: Symfony\Component\Console\Output\ConsoleOutput
+
+    Symplify\PackageBuilder\Parameter\ParameterProvider: ~
