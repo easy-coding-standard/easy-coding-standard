@@ -16,7 +16,6 @@ use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Error\FileDiff;
-use Symplify\EasyCodingStandard\Skipper;
 
 final class CheckCommand extends Command
 {
@@ -34,11 +33,6 @@ final class CheckCommand extends Command
      * @var Application
      */
     private $ecsApplication;
-
-    /**
-     * @var Skipper
-     */
-    private $skipper;
 
     /**
      * @var Configuration
@@ -63,7 +57,6 @@ final class CheckCommand extends Command
     public function __construct(
         Application $application,
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        Skipper $skipper,
         Configuration $configuration,
         ErrorCollector $errorCollector,
         SymfonyStyle $symfonyStyle,
@@ -73,7 +66,6 @@ final class CheckCommand extends Command
 
         $this->ecsApplication = $application;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
-        $this->skipper = $skipper;
         $this->configuration = $configuration;
         $this->errorCollector = $errorCollector;
         $this->symfonyStyle = $symfonyStyle;
@@ -139,7 +131,7 @@ final class CheckCommand extends Command
         if ($this->errorCollector->getErrorCount() === 0) {
             $this->symfonyStyle->newLine();
             $this->symfonyStyle->success('No errors found. Great job - your code is shiny in style!');
-            $this->reportUnusedSkipped();
+            $this->checkCommandReporter->reportUnusedSkipped();
             $this->reportPerformance();
 
             return 0;
@@ -210,28 +202,9 @@ final class CheckCommand extends Command
         ));
     }
 
-    private function reportUnusedSkipped(): void
-    {
-        foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
-            foreach ($skippedFiles as $skippedFile) {
-                if (! $this->isSkippedFileInSource($skippedFile)) {
-                    continue;
-                }
-
-                $this->symfonyStyle->error(sprintf(
-                    'Skipped checker "%s" and file path "%s" were not found. '
-                        . 'You can remove them from "parameters: > skip:" section in your config.',
-                    $skippedClass,
-                    $skippedFile
-                ));
-            }
-        }
-    }
-
     private function ensureSomeCheckersAreRegistered(): void
     {
         $totalCheckersLoaded = $this->ecsApplication->getCheckerCount();
-
         if ($totalCheckersLoaded === 0) {
             throw new NoCheckersLoadedException(
                 'No checkers were found. Registers them in your config in "checkers:" '
@@ -247,16 +220,5 @@ final class CheckCommand extends Command
         }
 
         $this->checkCommandReporter->reportPerformance();
-    }
-
-    private function isSkippedFileInSource(string $skippedFile): bool
-    {
-        foreach ($this->configuration->getSources() as $source) {
-            if (fnmatch(sprintf('*%s', $source), $skippedFile)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
