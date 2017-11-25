@@ -167,7 +167,8 @@ final class SniffFileProcessor implements FileProcessorInterface
     public function processFileSecondRun(SplFileInfo $fileInfo): string
     {
         $this->prepareSecondRun();
-        $this->processFile($fileInfo);
+
+        return $this->processFile($fileInfo);
     }
 
     private function processTokens(File $file, SplFileInfo $fileInfo): void
