@@ -12,11 +12,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
+use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorCollector;
 use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
@@ -68,9 +68,9 @@ final class CheckCommand extends Command
     private $sniffFileProcessor;
 
     /**
-     * @var CheckerMetricRecorder
+     * @var CheckCommandReporter
      */
-    private $checkerMetricRecorder;
+    private $checkCommandReporter;
 
     public function __construct(
         Application $application,
@@ -81,7 +81,7 @@ final class CheckCommand extends Command
         SymfonyStyle $symfonyStyle,
         FixerFileProcessor $fixerFileProcessor,
         SniffFileProcessor $sniffFileProcessor,
-        CheckerMetricRecorder $checkerMetricRecorder
+        CheckCommandReporter $checkCommandReporter
     ) {
         parent::__construct();
 
@@ -93,7 +93,7 @@ final class CheckCommand extends Command
         $this->symfonyStyle = $symfonyStyle;
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->sniffFileProcessor = $sniffFileProcessor;
-        $this->checkerMetricRecorder = $checkerMetricRecorder;
+        $this->checkCommandReporter = $checkCommandReporter;
     }
 
     protected function configure(): void
@@ -263,27 +263,7 @@ final class CheckCommand extends Command
             return;
         }
 
-        $this->symfonyStyle->newLine();
-
-        $this->symfonyStyle->title('Performance Statistics');
-
-        $metrics = $this->checkerMetricRecorder->getMetrics();
-        $metricsForTable = $this->prepareForTable($metrics);
-        $this->symfonyStyle->table(['Checker', 'Total duration'], $metricsForTable);
-    }
-
-    /**
-     * @param mixed[] $metrics
-     * @return mixed[]
-     */
-    private function prepareForTable(array $metrics): array
-    {
-        $metricsForTable = [];
-        foreach ($metrics as $checkerClass => $duration) {
-            $metricsForTable[] = [$checkerClass, $duration . ' ms'];
-        }
-
-        return $metricsForTable;
+        $this->checkCommandReporter->reportPerformance();
     }
 
     private function isSkippedFileInSource(string $skippedFile): bool
