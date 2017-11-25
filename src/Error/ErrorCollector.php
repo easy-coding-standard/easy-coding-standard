@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 
 final class ErrorCollector
@@ -12,11 +11,6 @@ final class ErrorCollector
      * @var Error[][]
      */
     private $errors = [];
-
-    /**
-     * @var ErrorSorter
-     */
-    private $errorSorter;
 
     /**
      * @var ChangedFilesDetector
@@ -28,9 +22,8 @@ final class ErrorCollector
      */
     private $fileDiffs = [];
 
-    public function __construct(ErrorSorter $errorSorter, ChangedFilesDetector $changedFilesDetector)
+    public function __construct(ChangedFilesDetector $changedFilesDetector)
     {
-        $this->errorSorter = $errorSorter;
         $this->changedFilesDetector = $changedFilesDetector;
     }
 
@@ -67,7 +60,7 @@ final class ErrorCollector
      */
     public function getAllErrors(): array
     {
-        return $this->errorSorter->sortByFileAndLine($this->errors);
+        return $this->errors;
     }
 
     /**

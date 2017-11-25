@@ -110,18 +110,9 @@ final class EasyCodingStandardStyle
     private function buildRow(Error $error, string $message): array
     {
         return [
-            'line' => $this->wrapMessageToStyle((string) $error->getLine(), $error->isFixable()),
-            'message' => $this->wrapMessageToStyle($message, $error->isFixable()),
+            'line' => (string) $error->getLine(),
+            'message' => $message,
         ];
-    }
-
-    private function wrapMessageToStyle(string $message, bool $isFixable): string
-    {
-        if ($isFixable) {
-            return sprintf('<fg=black;bg=green>%s</>', $message);
-        }
-
-        return $message;
     }
 
     private function wrapMessageSoItFitsTheColumnWidth(string $message): string

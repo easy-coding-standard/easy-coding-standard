@@ -145,6 +145,10 @@ final class CheckCommand extends Command
                 $output = PHP_EOL . $diffFormatter->format($result['diff']) . PHP_EOL;
 
                 $this->symfonyStyle->writeln($output);
+
+                $this->symfonyStyle->writeln('Applied checkers:');
+                $this->symfonyStyle->newLine();
+                $this->symfonyStyle->listing($result['appliedCheckers']);
             }
         }
 

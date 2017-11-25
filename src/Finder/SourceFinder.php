@@ -49,6 +49,8 @@ final class SourceFinder
             }
         }
 
+        ksort($files);
+
         return $files;
     }
 

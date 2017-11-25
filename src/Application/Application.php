@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -115,16 +115,19 @@ final class Application
             $this->easyCodingStandardStyle->advanceProgressBar();
 
             try {
+                // @todo pass file content?
+
                 $this->sniffFileProcessor->processFile($fileInfo);
                 $this->fixerFileProcessor->processFile($fileInfo);
+
+                // @todo add diff here? + save just once :)
             } catch (ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFile($relativePath);
                 $this->errorCollector->addErrorMessage(
                     $relativePath,
                     $parseError->getLine(),
                     $parseError->getMessage(),
-                    ParseError::class,
-                    false
+                    ParseError::class
                 );
             }
         }
