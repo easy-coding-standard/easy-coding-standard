@@ -110,8 +110,11 @@ final class ErrorCollector
         return $this->errorSorter->sortByFileAndLine($this->fixableErrors);
     }
 
-    public function addFixerDiffForFile(string $filePath, string $diff): void
+    /**
+     * @param string[] $appliedCheckers
+     */
+    public function addFixerDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
     {
-        $this->changedFilesDiffs[$filePath] = $diff;
+        $this->changedFilesDiffs[$filePath] = [$diff, $appliedCheckers];
     }
 }

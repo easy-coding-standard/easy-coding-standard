@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
-use PhpCsFixer\Fixer\DefinedFixerInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
@@ -139,8 +138,6 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            $this->addErrorToErrorMessageCollector($fileInfo, $fixer);
-
             $tokens->clearEmptyTokens();
             $tokens->clearChanged();
             $appliedFixers[] = $fixer->getName();
@@ -151,12 +148,13 @@ final class FixerFileProcessor implements FileProcessorInterface
             return;
         }
 
-        if ($this->configuration->isFixer() && $oldContent !== $tokens->getCodeHash()) {
+        if ($oldContent !== $tokens->getCodeHash()) {
             $diff = $this->differ->diff($oldContent, $tokens->getCodeHash());
-            $this->errorCollector->addFixerDiffForFile($fileInfo->getRealPath(), $diff);
+            $this->errorCollector->addFixerDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
+        }
 
+        if ($this->configuration->isFixer()) {
             file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());
-
         }
 
         Tokens::clearCache();
@@ -176,29 +174,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         return array_filter($this->fixers, function (FixerInterface $fixer) {
             return $fixer instanceof DualRunInterface;
         });
-    }
-
-    private function addErrorToErrorMessageCollector(SplFileInfo $file, FixerInterface $fixer, ?int $line = null): void
-    {
-        $filePath = str_replace('//', '/', $file->getPathname());
-
-        $this->errorCollector->addErrorMessage(
-            $filePath,
-            $line,
-            $this->prepareErrorMessageFromFixer($fixer),
-            get_class($fixer),
-            true
-        );
-    }
-
-    private function prepareErrorMessageFromFixer(FixerInterface $fixer): string
-    {
-        if ($fixer instanceof DefinedFixerInterface) {
-            return $fixer->getDefinition()
-                ->getSummary();
-        }
-
-        return $fixer->getName();
     }
 
     private function shouldSkip(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): bool
