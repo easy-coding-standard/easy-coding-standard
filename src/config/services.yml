@@ -7,15 +7,12 @@ services:
         autowire: true
         public: true # for tests
 
-    Symplify\EasyCodingStandard\FixerRunner\Application\SniffFileProcessor: ~
-    Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor: ~
+    Symplify\EasyCodingStandard\:
+        resource: '../../src'
+        exclude: '../../src/{Contract,Exception,Error/Error.php,Application,DependencyInjection,Configuration/Loader/NeonLoader.php,Error/FileDiff.php}'
 
     Symplify\EasyCodingStandard\Application\Application:
         calls:
             # exact in that order
-            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\SniffFileProcessor']]
+            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
             - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
-
-    Symplify\EasyCodingStandard\:
-        resource: '../../src'
-        exclude: '../../src/{Contract,Exception,Error/Error.php,Application/Command,DependencyInjection,Configuration/Loader/NeonLoader.php,Error/FileDiff.php}'
