@@ -2,8 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Application;
 
-use Symfony\Component\Finder\SplFileInfo;
-
 final class AppliedCheckersCollector
 {
     /**

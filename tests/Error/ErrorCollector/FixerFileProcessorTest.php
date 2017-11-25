@@ -15,7 +15,7 @@ final class FixerFileProcessorTest extends TestCase
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     /**
      * @var FixerFileProcessor
@@ -28,7 +28,7 @@ final class FixerFileProcessorTest extends TestCase
             __DIR__ . '/FixerRunnerSource/phpunit-fixer-config.neon'
         );
 
-        $this->errorCollector = $container->get(ErrorAndDiffCollector::class);
+        $this->errorAndDiffCollector = $container->get(ErrorAndDiffCollector::class);
         $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
 
         /** @var ChangedFilesDetector $changedFilesDetector */
@@ -40,11 +40,11 @@ final class FixerFileProcessorTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(1, $this->errorCollector->getErrorCount());
-        $this->assertSame(1, $this->errorCollector->getFileDiffsCount());
-        $this->assertSame(0, $this->errorCollector->getUnfixableErrorCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
+        $this->assertSame(0, $this->errorAndDiffCollector->getUnfixableErrorCount());
 
-        $errorMessages = $this->errorCollector->getErrors();
+        $errorMessages = $this->errorAndDiffCollector->getErrors();
         $this->assertCount(1, $errorMessages);
 
         /** @var Error $error */

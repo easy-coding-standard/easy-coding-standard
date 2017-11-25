@@ -16,7 +16,7 @@ final class SniffFileProcessorTest extends TestCase
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     /**
      * @var SniffFileProcessor
@@ -28,7 +28,7 @@ final class SniffFileProcessorTest extends TestCase
         $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/SniffRunnerSource/easy-coding-standard.neon'
         );
-        $this->errorCollector = $container->get(ErrorAndDiffCollector::class);
+        $this->errorAndDiffCollector = $container->get(ErrorAndDiffCollector::class);
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
 
         /** @var ChangedFilesDetector $changedFilesDetector */
@@ -40,11 +40,11 @@ final class SniffFileProcessorTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(1, $this->errorCollector->getErrorCount());
-        $this->assertSame(1, $this->errorCollector->getFileDiffsCount());
-        $this->assertSame(0, $this->errorCollector->getUnfixableErrorCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
+        $this->assertSame(0, $this->errorAndDiffCollector->getUnfixableErrorCount());
 
-        $errorMessages = $this->errorCollector->getErrors();
+        $errorMessages = $this->errorAndDiffCollector->getErrors();
         $this->assertStringEndsWith('NotPsr2Class.php.inc', key($errorMessages));
 
         /** @var Error $error */

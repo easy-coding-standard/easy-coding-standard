@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use PhpCsFixer\Differ\DiffConsoleFormatter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,7 +41,7 @@ final class CheckCommand extends Command
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     /**
      * @var SymfonyStyle
@@ -58,7 +57,7 @@ final class CheckCommand extends Command
         Application $application,
         EasyCodingStandardStyle $easyCodingStandardStyle,
         Configuration $configuration,
-        ErrorAndDiffCollector $errorCollector,
+        ErrorAndDiffCollector $errorAndDiffCollector,
         SymfonyStyle $symfonyStyle,
         CheckCommandReporter $checkCommandReporter
     ) {
@@ -67,7 +66,7 @@ final class CheckCommand extends Command
         $this->ecsApplication = $application;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->configuration = $configuration;
-        $this->errorCollector = $errorCollector;
+        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->symfonyStyle = $symfonyStyle;
         $this->checkCommandReporter = $checkCommandReporter;
     }
@@ -108,7 +107,9 @@ final class CheckCommand extends Command
 
         $this->reportFileDiffs();
 
-        if ($this->errorCollector->getErrorCount() === 0 && $this->errorCollector->getFileDiffsCount() === 0) {
+        if ($this->errorAndDiffCollector->getErrorCount() === 0
+            && $this->errorAndDiffCollector->getFileDiffsCount() === 0
+        ) {
             $this->symfonyStyle->newLine();
             $this->symfonyStyle->success('No errors found. Great job - your code is shiny in style!');
             $this->checkCommandReporter->reportUnusedSkipped();
@@ -129,22 +130,22 @@ final class CheckCommand extends Command
     private function printAfterFixerStatus(): int
     {
         if ($this->configuration->showErrorTable()) {
-            $this->easyCodingStandardStyle->printErrors($this->errorCollector->getErrors());
+            $this->easyCodingStandardStyle->printErrors($this->errorAndDiffCollector->getErrors());
         }
 
-        if ($this->errorCollector->getErrorCount() === 0) {
+        if ($this->errorAndDiffCollector->getErrorCount() === 0) {
             $this->symfonyStyle->success(sprintf(
                 '%d %s successfully fixed and no other found!',
-                $this->errorCollector->getFileDiffsCount(),
-                $this->errorCollector->getFileDiffsCount() === 1 ? 'error' : 'errors'
+                $this->errorAndDiffCollector->getFileDiffsCount(),
+                $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? 'error' : 'errors'
             ));
 
             return 0;
         }
 
         $this->printErrorMessageFromErrorCounts(
-            $this->errorCollector->getFileDiffsCount(),
-            $this->errorCollector->getFileDiffsCount()
+            $this->errorAndDiffCollector->getErrorCount(),
+            $this->errorAndDiffCollector->getFileDiffsCount()
         );
 
         return 1;
@@ -153,12 +154,12 @@ final class CheckCommand extends Command
     private function printNoFixerStatus(): int
     {
         if ($this->configuration->showErrorTable()) {
-            $this->easyCodingStandardStyle->printErrors($this->errorCollector->getErrors());
+            $this->easyCodingStandardStyle->printErrors($this->errorAndDiffCollector->getErrors());
         }
 
         $this->printErrorMessageFromErrorCounts(
-            $this->errorCollector->getErrorCount(),
-            $this->errorCollector->getFileDiffsCount()
+            $this->errorAndDiffCollector->getErrorCount(),
+            $this->errorAndDiffCollector->getFileDiffsCount()
         );
 
         return 1;
@@ -177,7 +178,7 @@ final class CheckCommand extends Command
             return;
         }
 
-        $this->symfonyStyle->warning(sprintf(
+        $this->symfonyStyle->success(sprintf(
             ' %s file(s) %s fixable! Just add "--fix" to console command and rerun to apply.',
             $fileDiffsCount,
             ($fileDiffsCount === 1) ? 'is' : 'are'
@@ -197,25 +198,18 @@ final class CheckCommand extends Command
 
     private function reportFileDiffs(): void
     {
-        foreach ($this->errorCollector->getFileDiffs() as $file => $fileDiffs) {
+        foreach ($this->errorAndDiffCollector->getFileDiffs() as $file => $fileDiffs) {
             $this->symfonyStyle->newLine(2);
             $this->symfonyStyle->writeln($file);
 
             /** @var FileDiff[] $fileDiffs */
             foreach ($fileDiffs as $fileDiff) {
-                $diffFormatter = new DiffConsoleFormatter(true, sprintf(
-                    '<comment>      ---------- begin diff ----------</comment>%s%%s%s<comment>      ----------- end diff -----------</comment>',
-                    PHP_EOL,
-                    PHP_EOL
-                ));
-
                 $this->symfonyStyle->newLine();
-                $this->symfonyStyle->writeln($diffFormatter->format($fileDiff->getDiff()));
+                $this->symfonyStyle->writeln($fileDiff->getDiffConsoleFormatted());
                 $this->symfonyStyle->newLine();
 
                 $this->symfonyStyle->writeln('Applied checkers:');
                 $this->symfonyStyle->newLine();
-
                 $this->symfonyStyle->listing($fileDiff->getAppliedCheckers());
             }
         }

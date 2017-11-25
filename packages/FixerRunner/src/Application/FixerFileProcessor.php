@@ -27,7 +27,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     /**
      * @var Skipper
@@ -70,7 +70,7 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $differ;
 
     public function __construct(
-        ErrorAndDiffCollector $errorCollector,
+        ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
         CheckerMetricRecorder $checkerMetricRecorder,
         FileToTokensParser $fileToTokensParser,
@@ -78,7 +78,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         Skipper $skipper,
         DifferInterface $differ
     ) {
-        $this->errorCollector = $errorCollector;
+        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
         $this->checkerMetricRecorder = $checkerMetricRecorder;
@@ -149,7 +149,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         $diff = $this->differ->diff($oldContent, $tokens->generateCode());
-        $this->errorCollector->addDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
+        $this->errorAndDiffCollector->addDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
 
         if ($this->configuration->isFixer()) {
             file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());

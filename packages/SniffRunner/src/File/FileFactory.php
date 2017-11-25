@@ -20,7 +20,7 @@ final class FileFactory
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     /**
      * @var FileToTokensParser
@@ -41,6 +41,7 @@ final class FileFactory
      * @var File[]
      */
     private $filesByHash = [];
+
     /**
      * @var AppliedCheckersCollector
      */
@@ -48,14 +49,14 @@ final class FileFactory
 
     public function __construct(
         Fixer $fixer,
-        ErrorAndDiffCollector $errorCollector,
+        ErrorAndDiffCollector $errorAndDiffCollector,
         FileToTokensParser $fileToTokensParser,
         CurrentSniffProvider $currentSniffProvider,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector
     ) {
         $this->fixer = $fixer;
-        $this->errorCollector = $errorCollector;
+        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->fileToTokensParser = $fileToTokensParser;
         $this->currentSniffProvider = $currentSniffProvider;
         $this->skipper = $skipper;
@@ -76,7 +77,7 @@ final class FileFactory
             $filePathName,
             $this->fileToTokensParser->parseFromFilePath($filePathName),
             $this->fixer,
-            $this->errorCollector,
+            $this->errorAndDiffCollector,
             $this->currentSniffProvider,
             $this->skipper,
             $this->appliedCheckersCollector

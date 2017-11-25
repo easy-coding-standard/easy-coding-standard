@@ -25,7 +25,7 @@ final class File extends BaseFile
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     /**
      * @var CurrentSniffProvider
@@ -36,6 +36,7 @@ final class File extends BaseFile
      * @var Skipper
      */
     private $skipper;
+
     /**
      * @var AppliedCheckersCollector
      */
@@ -48,7 +49,7 @@ final class File extends BaseFile
         string $path,
         array $tokens,
         Fixer $fixer,
-        ErrorAndDiffCollector $errorCollector,
+        ErrorAndDiffCollector $errorAndDiffCollector,
         CurrentSniffProvider $currentSniffProvider,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector
@@ -56,7 +57,7 @@ final class File extends BaseFile
         $this->path = $path;
         $this->tokens = $tokens;
         $this->fixer = $fixer;
-        $this->errorCollector = $errorCollector;
+        $this->errorAndDiffCollector = $errorAndDiffCollector;
 
         $this->numTokens = count($this->tokens);
 
@@ -155,7 +156,7 @@ final class File extends BaseFile
             return $isFixable;
         }
 
-        $this->errorCollector->addErrorMessage(
+        $this->errorAndDiffCollector->addErrorMessage(
             $this->path,
             $line,
             $message,

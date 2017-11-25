@@ -32,7 +32,7 @@ final class Application
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     /**
      * @var Configuration
@@ -43,6 +43,7 @@ final class Application
      * @var FileProcessorInterface[]
      */
     private $fileProcessors = [];
+
     /**
      * @var FileFilter
      */
@@ -52,14 +53,14 @@ final class Application
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
-        ErrorAndDiffCollector $errorCollector,
+        ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
         FileFilter $fileFilter
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->errorCollector = $errorCollector;
+        $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->configuration = $configuration;
         $this->fileFilter = $fileFilter;
     }
@@ -100,6 +101,17 @@ final class Application
         }
     }
 
+    public function getCheckerCount(): int
+    {
+        $checkerCount = 0;
+
+        foreach ($this->fileProcessors as $fileProcessor) {
+            $checkerCount += count($fileProcessor->getCheckers());
+        }
+
+        return $checkerCount;
+    }
+
     /**
      * @param SplFileInfo[] $fileInfos
      */
@@ -113,11 +125,11 @@ final class Application
                 foreach ($this->fileProcessors as $fileProcessor) {
                     $fileProcessor->processFile($fileInfo);
                 }
-                // @todo add diff here? + save just once :)
 
+                // @todo add diff here? + save just once :)
             } catch (ParseError $parseError) {
                 $this->changedFilesDetector->invalidateFile($relativePath);
-                $this->errorCollector->addErrorMessage(
+                $this->errorAndDiffCollector->addErrorMessage(
                     $relativePath,
                     $parseError->getLine(),
                     $parseError->getMessage(),
@@ -150,16 +162,5 @@ final class Application
         }
 
         return false;
-    }
-
-    public function getCheckerCount(): int
-    {
-        $checkerCount = 0;
-
-        foreach ($this->fileProcessors as $fileProcessor) {
-            $checkerCount += count($fileProcessor->getCheckers());
-        }
-
-        return $checkerCount;
     }
 }

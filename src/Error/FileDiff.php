@@ -2,16 +2,24 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
+use PhpCsFixer\Differ\DiffConsoleFormatter;
+
 final class FileDiff
 {
     /**
      * @var string
      */
     private $diff;
+
     /**
      * @var string[]
      */
     private $appliedCheckers = [];
+
+    /**
+     * @var DiffConsoleFormatter
+     */
+    private $diffConsoleFormatter;
 
     /**
      * @param string[] $appliedCheckers
@@ -20,6 +28,14 @@ final class FileDiff
     {
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
+
+        $this->diffConsoleFormatter = new DiffConsoleFormatter(true, sprintf(
+            '<comment>      ---------- begin diff ----------</comment>' .
+            '%s%%s%s' .
+            '<comment>      ----------- end diff -----------</comment>',
+            PHP_EOL,
+            PHP_EOL
+        ));
     }
 
     /**
@@ -33,6 +49,11 @@ final class FileDiff
     public function getDiff(): string
     {
         return $this->diff;
+    }
+
+    public function getDiffConsoleFormatted(): string
+    {
+        return $this->diffConsoleFormatter->format($this->diff);
     }
 
     /**

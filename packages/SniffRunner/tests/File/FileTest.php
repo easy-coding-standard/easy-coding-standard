@@ -19,11 +19,11 @@ final class FileTest extends AbstractContainerAwareTestCase
     /**
      * @var ErrorAndDiffCollector
      */
-    private $errorCollector;
+    private $errorAndDiffCollector;
 
     protected function setUp(): void
     {
-        $this->errorCollector = $this->container->get(ErrorAndDiffCollector::class);
+        $this->errorAndDiffCollector = $this->container->get(ErrorAndDiffCollector::class);
 
         /** @var FileFactory $fileFactory */
         $fileFactory = $this->container->get(FileFactory::class);
@@ -33,15 +33,15 @@ final class FileTest extends AbstractContainerAwareTestCase
 
     public function testErrorDataCollector(): void
     {
-        $this->assertSame(0, $this->errorCollector->getErrorCount());
+        $this->assertSame(0, $this->errorAndDiffCollector->getErrorCount());
 
         $this->file->addError('Some Error', 0, 'code');
-        $this->assertSame(1, $this->errorCollector->getErrorCount());
-        $this->assertSame(0, $this->errorCollector->getFileDiffsCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(0, $this->errorAndDiffCollector->getFileDiffsCount());
 
         $this->file->addFixableError('Some Other Error', 0, 'code');
-        $this->assertSame(2, $this->errorCollector->getErrorCount());
-        $this->assertSame(1, $this->errorCollector->getFileDiffsCount());
+        $this->assertSame(2, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
     }
 
     public function testNotImplementedGetErrorCount(): void
