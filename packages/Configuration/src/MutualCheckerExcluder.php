@@ -139,8 +139,8 @@ final class MutualCheckerExcluder
     ];
 
     /**
-     * @param mixed[] $checkers
-     * @return mixed[]
+     * @param string[] $checkers
+     * @return string[]
      */
     public function processCheckers(array $checkers): array
     {
@@ -159,7 +159,7 @@ final class MutualCheckerExcluder
     }
 
     /**
-     * @param mixed[] $checkers
+     * @param string[] $checkers
      * @param string[] $matchingCheckerGroup
      */
     private function isMatch(array $checkers, array $matchingCheckerGroup): bool
