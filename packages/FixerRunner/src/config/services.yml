@@ -9,9 +9,9 @@ services:
     Symfony\Component\Stopwatch\Stopwatch: ~
 
     # differ
-    PhpCsFixer\Differ\SebastianBergmannDiffer: ~
+    Symplify\EasyCodingStandard\FixerRunner\Differ\LineLimitSebastianBergmannDiffer: ~
     PhpCsFixer\Differ\DifferInterface:
-        alias: PhpCsFixer\Differ\SebastianBergmannDiffer
+        alias: Symplify\EasyCodingStandard\FixerRunner\Differ\LineLimitSebastianBergmannDiffer
 
     Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor:
         public: true # for tests
