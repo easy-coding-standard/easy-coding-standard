@@ -41,9 +41,9 @@ final class AppliedCheckersCollector
         }
 
         throw new MissingCheckersForChangedFileException(sprintf(
-           'File "%s" was changed, but no responsible checkers were added to "%s".',
-           $filePath,
-           self::class
+            'File "%s" was changed, but no responsible checkers were added to "%s".',
+            $filePath,
+            self::class
         ));
     }
 }
