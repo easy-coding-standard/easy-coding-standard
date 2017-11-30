@@ -33,10 +33,9 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
      */
     private $wrapperLineCount;
 
-
-    public function __construct()
+    public function __construct(Differ $differ)
     {
-        $this->differ = new Differ();
+        $this->differ = $differ;
         $this->wrapperLineCount = 2;
     }
 
@@ -54,28 +53,12 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
                 $result .= '+' . $diffItem[0];
             } elseif ($diffItem[1] === self::REMOVED_LINE) {
                 $result .= '-' . $diffItem[0];
-            } elseif ($this->getDistanceToNearestNeighbour($diffItem['line'], $this->changedLines) <= $this->wrapperLineCount) {
+            } elseif ($this->isWrapperLine($diffItem)) {
                 $result .= $diffItem[0];
             }
         }
 
         return $result;
-    }
-
-    /**
-     * @param mixed[] $arrayTokens
-     * @return int[]
-     */
-    private function getChangedIndexes(array $diffItems): array
-    {
-        $changedIndexes = [];
-        foreach ($diffItems as $index => $diffItem) {
-            if ($diffItem[1] !== 0) {
-                $changedIndexes[] = $index;
-            }
-        }
-
-        return $changedIndexes;
     }
 
     /**
@@ -104,6 +87,14 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
         }
 
         return $arrayDiff;
+    }
+
+    /**
+     * @param mixed[] $diffItem
+     */
+    private function isWrapperLine(array $diffItem): bool
+    {
+        return $this->getDistanceToNearestNeighbour($diffItem['line'], $this->changedLines) <= $this->wrapperLineCount;
     }
 
     /**

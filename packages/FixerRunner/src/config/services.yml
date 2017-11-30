@@ -9,6 +9,7 @@ services:
     Symfony\Component\Stopwatch\Stopwatch: ~
 
     # differ
+    SebastianBergmann\Diff\Differ: ~
     Symplify\EasyCodingStandard\FixerRunner\Differ\LineLimitSebastianBergmannDiffer: ~
     PhpCsFixer\Differ\DifferInterface:
         alias: Symplify\EasyCodingStandard\FixerRunner\Differ\LineLimitSebastianBergmannDiffer
