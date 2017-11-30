@@ -105,10 +105,10 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
      */
     private function getDistanceToNearestNeighbour(int $search, array $changedLines): int
     {
-        $closest = null;
+        $closest = -INF;
 
         foreach ($changedLines as $changedLine) {
-            if ($closest === null || abs($search - $closest) > abs($changedLine - $search)) {
+            if (abs($search - $closest) > abs($changedLine - $search)) {
                 $closest = $changedLine;
             }
         }
