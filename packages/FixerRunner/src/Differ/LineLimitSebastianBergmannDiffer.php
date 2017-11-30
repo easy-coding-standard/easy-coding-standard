@@ -45,6 +45,8 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
      */
     public function diff($old, $new): string
     {
+        $this->changedLines = [];
+
         $arrayDiff = $this->differ->diffToArray($old, $new);
         $arrayDiff = $this->addLineNumbers($arrayDiff);
 
