@@ -139,8 +139,8 @@ final class MutualCheckerExcluder
     ];
 
     /**
-     * @param string[] $checkers
-     * @return string[]
+     * @param mixed[] $checkers
+     * @return mixed[]
      */
     public function processCheckers(array $checkers): array
     {

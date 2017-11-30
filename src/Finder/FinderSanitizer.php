@@ -69,7 +69,7 @@ final class FinderSanitizer
     /**
      * Used logic from @see \Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator::current()
      *
-     * @param SplFileInfo[] $fileInfos
+     * @param SplFileInfo[]|SymfonySplFileInfo[] $fileInfos
      * @param SymfonyFinder|NetteFinder $finder
      * @return SymfonySplFileInfo[]
      */
