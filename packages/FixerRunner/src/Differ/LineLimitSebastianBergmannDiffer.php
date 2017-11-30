@@ -40,7 +40,8 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $old
+     * @param string $new
      */
     public function diff($old, $new): string
     {

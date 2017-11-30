@@ -96,11 +96,11 @@ final class SniffFileProcessor implements FileProcessorInterface
         $this->skipper = $skipper;
         $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->currentSniffProvider = $currentSniffProvider;
-
-        $this->addCompatibilityLayer();
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->differ = $differ;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
+
+        $this->addCompatibilityLayer();
     }
 
     public function addSniff(Sniff $sniff): void
