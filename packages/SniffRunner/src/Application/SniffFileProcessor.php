@@ -152,7 +152,7 @@ final class SniffFileProcessor implements FileProcessorInterface
             $this->errorAndDiffCollector->addDiffForFile(
                 $fileInfo->getRelativePath(),
                 $diff,
-                $this->appliedCheckersCollector->getAppliedCheckersPerFile($fileInfo->getRelativePath())
+                $this->appliedCheckersCollector->getAppliedCheckersPerFile($fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename())
             );
         }
 

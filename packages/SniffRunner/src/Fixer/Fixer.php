@@ -14,7 +14,7 @@ final class Fixer
     public $loops;
 
     /**
-     * @var array<int, string>|string[]
+     * @var int[]|string[]
      */
     private $tokens = [];
 
