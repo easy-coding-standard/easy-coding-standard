@@ -198,9 +198,10 @@ final class CheckCommand extends Command
 
     private function reportFileDiffs(): void
     {
+        $i = 1;
         foreach ($this->errorAndDiffCollector->getFileDiffs() as $file => $fileDiffs) {
             $this->symfonyStyle->newLine(2);
-            $this->symfonyStyle->writeln($file);
+            $this->symfonyStyle->writeln(sprintf('<options=bold>%d %s</>', $i, $file));
 
             /** @var FileDiff[] $fileDiffs */
             foreach ($fileDiffs as $fileDiff) {
@@ -212,6 +213,8 @@ final class CheckCommand extends Command
                 $this->symfonyStyle->newLine();
                 $this->symfonyStyle->listing($fileDiff->getAppliedCheckers());
             }
+
+            ++$i;
         }
     }
 }
