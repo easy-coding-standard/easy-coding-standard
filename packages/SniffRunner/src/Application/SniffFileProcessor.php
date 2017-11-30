@@ -149,10 +149,12 @@ final class SniffFileProcessor implements FileProcessorInterface
         if ($fileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($fileInfo->getContents(), $this->fixer->getContents());
 
+            $relativeFilePath = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
+
             $this->errorAndDiffCollector->addDiffForFile(
                 $fileInfo->getRelativePath(),
                 $diff,
-                $this->appliedCheckersCollector->getAppliedCheckersPerFile($fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename())
+                $this->appliedCheckersCollector->getAppliedCheckersPerFile($relativeFilePath)
             );
         }
 
