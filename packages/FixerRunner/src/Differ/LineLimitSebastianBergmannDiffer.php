@@ -72,18 +72,18 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
     {
         $line = 0;
         foreach ($arrayDiff as $i => $item) {
-            if ($item[1] === self::REMOVED_LINE) { // removed
+            if (Strings::contains($item[0], PHP_EOL)) {
+                ++$line;
+            }
+
+            if ($item[1] === self::REMOVED_LINE) {
                 --$line;
                 $this->changedLines[] = $line;
             }
 
-            if ($item[1] === self::ADDED_LINE) { // added
+            if ($item[1] === self::ADDED_LINE) {
                 ++$line;
                 $this->changedLines[] = $line;
-            }
-
-            if (Strings::contains($item[0], PHP_EOL)) {
-                ++$line;
             }
 
             $arrayDiff[$i]['line'] = $line;
