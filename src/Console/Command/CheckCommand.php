@@ -154,7 +154,11 @@ final class CheckCommand extends Command
     private function printNoFixerStatus(): int
     {
         if ($this->configuration->showErrorTable()) {
-            $this->easyCodingStandardStyle->printErrors($this->errorAndDiffCollector->getErrors());
+            $errors = $this->errorAndDiffCollector->getErrors();
+            if (count($errors)) {
+                $this->symfonyStyle->newLine();
+                $this->easyCodingStandardStyle->printErrors($errors);
+            }
         }
 
         $this->printErrorMessageFromErrorCounts(
@@ -198,6 +202,10 @@ final class CheckCommand extends Command
 
     private function reportFileDiffs(): void
     {
+        if (count($this->errorAndDiffCollector->getFileDiffs())) {
+            $this->symfonyStyle->newLine();
+        }
+
         $i = 1;
         foreach ($this->errorAndDiffCollector->getFileDiffs() as $file => $fileDiffs) {
             $this->symfonyStyle->newLine(2);
