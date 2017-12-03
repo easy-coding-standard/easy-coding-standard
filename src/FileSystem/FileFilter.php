@@ -32,8 +32,8 @@ final class FileFilter
     {
         $changedFiles = [];
 
-        foreach ($fileInfos as $fileInfo) {
-            if ($this->changedFilesDetector->hasFileChanged($fileInfo->getRealPath())) {
+        foreach ($fileInfos as $relativePath => $fileInfo) {
+            if ($this->changedFilesDetector->hasFileChanged($relativePath)) {
                 $changedFiles[] = $fileInfo;
             } else {
                 $this->skipper->removeFileFromUnused($fileInfo->getRealPath());
