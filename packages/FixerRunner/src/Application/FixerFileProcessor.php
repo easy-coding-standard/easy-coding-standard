@@ -149,7 +149,10 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         $diff = $this->differ->diff($oldContent, $tokens->generateCode());
-        $this->errorAndDiffCollector->addDiffForFile($fileInfo->getRealPath(), $diff, $appliedFixers);
+
+        $relativeFilePath = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
+
+        $this->errorAndDiffCollector->addDiffForFile($relativeFilePath, $diff, $appliedFixers);
 
         if ($this->configuration->isFixer()) {
             file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());
