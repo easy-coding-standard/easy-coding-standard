@@ -51,7 +51,7 @@ final class File extends BaseFile
      */
     private $reportWarningsSniffs = [
         CommentedOutCodeSniff::class,
-        AssignmentInConditionSniff::class
+        AssignmentInConditionSniff::class,
     ];
 
     /**
