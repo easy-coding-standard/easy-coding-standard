@@ -22,8 +22,8 @@ checkers:
     # __dir__
     - PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer
 
-    # if ($this = 5) { ... }
-    - SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff
+    # if ($value = $this->someMethod()) { ... }
+    - PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff
 
     # if (...) { return 1; } else { return 2; }
     - PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer

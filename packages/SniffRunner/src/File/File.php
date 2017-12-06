@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -50,6 +51,7 @@ final class File extends BaseFile
      */
     private $reportWarningsSniffs = [
         CommentedOutCodeSniff::class,
+        AssignmentInConditionSniff::class
     ];
 
     /**
