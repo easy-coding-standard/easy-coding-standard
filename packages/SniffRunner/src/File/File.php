@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
@@ -48,7 +49,7 @@ final class File extends BaseFile
      * @var string[]
      */
     private $reportWarningsSniffs = [
-        'PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff',
+        CommentedOutCodeSniff::class,
     ];
 
     /**
@@ -148,7 +149,7 @@ final class File extends BaseFile
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
-        if (! in_array($this->currentSniffProvider->getSniffClass(), $this->reportWarningsSniffs, true)) {
+        if (! $this->isSniffClassWarningAllowed($this->currentSniffProvider->getSniffClass())) {
             return false;
         }
 
@@ -199,5 +200,16 @@ final class File extends BaseFile
         }
 
         return $this->currentSniffProvider->getSniffClass() . '.' . $sniffClassOrCode;
+    }
+
+    private function isSniffClassWarningAllowed(string $sniffClass): bool
+    {
+        foreach ($this->reportWarningsSniffs as $reportWarningsSniff) {
+            if (is_a($sniffClass, $reportWarningsSniff, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
