@@ -15,13 +15,30 @@ final class FileToTokensParser
     private $legacyConfig;
 
     /**
+     * @var PHP[]
+     */
+    private $tokenizerPerFile = [];
+
+    /**
      * @return mixed[]
      */
     public function parseFromFilePath(string $filePath): array
     {
+        $phpTokenizer = $this->createTokenizerFromFilePath($filePath);
+
+        return $phpTokenizer->getTokens();
+    }
+
+    public function createTokenizerFromFilePath(string $filePath): PHP
+    {
+        $md5File = md5_file($filePath);
+        if (isset($this->tokenizerPerFile[$md5File])) {
+            return $this->tokenizerPerFile[$md5File];
+        }
+
         $fileContent = FileSystem::read($filePath);
 
-        return (new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL))->getTokens();
+        return $this->tokenizerPerFile[$md5File] = (new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL));
     }
 
     /**

@@ -83,6 +83,9 @@ final class FileFactory
             $this->appliedCheckersCollector
         );
 
+        // BC layer
+        $file->tokenizer = $this->fileToTokensParser->createTokenizerFromFilePath($filePathName);
+
         return $this->filesByHash[$fileHash] = $file;
     }
 }
