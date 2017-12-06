@@ -43,6 +43,15 @@ final class File extends BaseFile
     private $appliedCheckersCollector;
 
     /**
+     * Explicit list for now.
+     *
+     * @var string[]
+     */
+    private $reportWarningsSniffs = [
+        'PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff',
+    ];
+
+    /**
      * @param array[] $tokens
      */
     public function __construct(
@@ -130,6 +139,20 @@ final class File extends BaseFile
         }
 
         return parent::addError($error, $stackPtr, $code, $data, $severity, $fixable);
+    }
+
+    /**
+     * Allow only specific classes
+     *
+     * {@inheritdoc}
+     */
+    public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
+    {
+        if (! in_array($this->currentSniffProvider->getSniffClass(), $this->reportWarningsSniffs, true)) {
+            return false;
+        }
+
+        return $this->addError($warning, $stackPtr, $code, $data, $severity, $fixable);
     }
 
     /**
