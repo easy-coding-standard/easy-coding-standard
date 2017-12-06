@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Application\FileProcessorSource;
-
-class SomeFile implements SomeInterface
-{
-    public function hi()
-    {
-
-    }
-}
+$array = array(
+    'someValue'
+);
