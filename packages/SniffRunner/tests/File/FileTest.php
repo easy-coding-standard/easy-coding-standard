@@ -40,7 +40,7 @@ final class FileTest extends AbstractContainerAwareTestCase
         $this->assertSame(0, $this->errorAndDiffCollector->getFileDiffsCount());
 
         $this->file->addFixableError('Some Other Error', 0, 'code');
-        $this->assertSame(2, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
         $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
     }
 
