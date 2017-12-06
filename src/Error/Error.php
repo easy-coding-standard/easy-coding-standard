@@ -37,7 +37,7 @@ final class Error
         string $message,
         string $sourceClass,
         bool $isFixable
-    ): Error {
+    ): self {
         return new self($line, $message, $sourceClass, $isFixable);
     }
 
