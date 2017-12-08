@@ -5,6 +5,3 @@ checkers:
     # is_null($value);   =>   $value === null;
     PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer:
         use_yoda_style: false
-
-    # $this->assertEquals()    =>    $this->assertSame()
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer

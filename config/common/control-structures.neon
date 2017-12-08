@@ -1,4 +1,8 @@
 checkers:
+    # "$var" => "${var}"
+    - PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer
+    - PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer
+
     # PSR-4
     - PhpCsFixer\Fixer\Basic\Psr4Fixer
 

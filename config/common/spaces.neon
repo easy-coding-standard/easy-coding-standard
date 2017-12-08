@@ -1,5 +1,9 @@
 checkers:
+    # $builder->addThis()\n    ->addThat();
+    - PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer
+
     # 1 empty line between methods
+    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
     - PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer
 
     # "string" . "another string"
