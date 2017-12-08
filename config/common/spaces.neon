@@ -2,9 +2,9 @@ checkers:
     # $builder->addThis()\n    ->addThat();
     - PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer
 
-    # 1 empty line between methods
+    # 1 empty line between constants, properties and methods
     PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
-    - PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer
+        elements: ['const', 'property', 'method']
 
     # "string" . "another string"
     PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
