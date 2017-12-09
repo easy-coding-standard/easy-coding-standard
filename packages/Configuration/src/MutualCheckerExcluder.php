@@ -97,6 +97,9 @@ final class MutualCheckerExcluder
         ], [
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff',
             'PhpCsFixer\Fixer\ControlStructure\IncludeFixer',
+        ], [
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff',
+            'SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff',
         ],
         // PSR2
         [
