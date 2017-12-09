@@ -49,12 +49,5 @@
             "Symplify\\EasyCodingStandard\\SniffRunner\\Tests\\": "packages/SniffRunner/tests",
             "Symplify\\EasyCodingStandard\\Tests\\": "tests"
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0-dev"
-        }
     }
 }
