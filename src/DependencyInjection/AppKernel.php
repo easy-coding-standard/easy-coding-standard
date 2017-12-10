@@ -10,7 +10,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompil
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 use Symplify\PackageBuilder\Neon\NeonLoaderAwareKernelTrait;
-use Symplify\Statie\Exception\Configuration\DeprecatedConfigSuffixException;
 
 final class AppKernel extends AbstractCliKernel
 {
