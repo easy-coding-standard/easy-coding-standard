@@ -126,12 +126,15 @@ final class AppKernel extends AbstractCliKernel
         $match = Strings::match($fileContent, self::SPACES_CONFIG_PATTERN);
         if ($match) {
             throw new DeprecatedConfigException(sprintf(
-                'Config file "%s" contains old file "%s".%sJust rename it to %s"%s".',
+                'Config file "%s" contains old file "%s".%s' .
+                    'Just rename it to %s"%s" or if you have%s"%s", just remove it.',
                 $configFile,
                 $match['oldConfigName'],
                 PHP_EOL . PHP_EOL,
                 PHP_EOL,
-                'vendor/symplify/easy-coding-standard/config/common/spaces.neon'
+                'vendor/symplify/easy-coding-standard/config/common/spaces.neon',
+                PHP_EOL,
+                'vendor/symplify/easy-coding-standard/config/common.neon'
             ));
         }
     }
