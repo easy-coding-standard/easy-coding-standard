@@ -4,6 +4,6 @@ namespace Symplify\EasyCodingStandard\Exception\Configuration;
 
 use Exception;
 
-final class DeprecatedConfigNameException extends Exception
+final class DeprecatedConfigException extends Exception
 {
 }

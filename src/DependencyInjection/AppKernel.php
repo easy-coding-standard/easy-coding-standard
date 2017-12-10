@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Nette\Utils\Strings;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
@@ -89,6 +90,9 @@ final class AppKernel extends AbstractCliKernel
         $this->informAboutDeprecatedSpacesConfig($configFile, $fileContent);
     }
 
+    /**
+     * @deprecated
+     */
     private function informAboutDeprecatedCheckersSuffixConfig(string $configFile, string $fileContent): void
     {
         $matches = Strings::matchAll($fileContent, self::RENAMED_CONFIG_PATTERN);
@@ -104,6 +108,9 @@ final class AppKernel extends AbstractCliKernel
         }
     }
 
+    /**
+     * @deprecated
+     */
     private function informAboutDeprecatedPhp54Config(string $configFile, string $fileContent): void
     {
         $match = Strings::match($fileContent, self::PHP54_CONFIG_PATTERN);
@@ -121,6 +128,9 @@ final class AppKernel extends AbstractCliKernel
         }
     }
 
+    /**
+     * @deprecated
+     */
     private function informAboutDeprecatedSpacesConfig(string $configFile, string $fileContent): void
     {
         $match = Strings::match($fileContent, self::SPACES_CONFIG_PATTERN);
