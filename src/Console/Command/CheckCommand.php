@@ -209,7 +209,7 @@ final class CheckCommand extends Command
         $i = 1;
         foreach ($this->errorAndDiffCollector->getFileDiffs() as $file => $fileDiffs) {
             $this->symfonyStyle->newLine(2);
-            $this->symfonyStyle->writeln(sprintf('<options=bold>%d %s</>', $i, $file));
+            $this->symfonyStyle->writeln(sprintf('<options=bold>%d) %s</>', $i, $file));
 
             /** @var FileDiff[] $fileDiffs */
             foreach ($fileDiffs as $fileDiff) {

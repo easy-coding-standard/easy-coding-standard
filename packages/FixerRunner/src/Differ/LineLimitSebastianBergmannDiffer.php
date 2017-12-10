@@ -36,7 +36,7 @@ final class LineLimitSebastianBergmannDiffer implements DifferInterface
     public function __construct(Differ $differ)
     {
         $this->differ = $differ;
-        $this->wrapperLineCount = 2;
+        $this->wrapperLineCount = 3;
     }
 
     /**
