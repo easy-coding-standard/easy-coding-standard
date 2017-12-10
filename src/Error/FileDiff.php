@@ -61,6 +61,9 @@ final class FileDiff
      */
     public function getAppliedCheckers(): array
     {
+        $this->appliedCheckers = array_unique($this->appliedCheckers);
+        sort($this->appliedCheckers);
+
         return $this->appliedCheckers;
     }
 }
