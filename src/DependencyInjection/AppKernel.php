@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
+use Nette\Utils\Strings;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
@@ -9,10 +10,16 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompil
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 use Symplify\PackageBuilder\Neon\NeonLoaderAwareKernelTrait;
+use Symplify\Statie\Exception\Configuration\DeprecatedConfigSuffixException;
 
 final class AppKernel extends AbstractCliKernel
 {
     use NeonLoaderAwareKernelTrait;
+
+    /**
+     * @var string
+     */
+    private const RENAMED_CONFIG_PATTERN = '#- (?<oldConfigName>(?<configNameWithoutSuffix>[a-z/-]+)-checkers.neon)#';
 
     /**
      * @var null|string
@@ -29,6 +36,7 @@ final class AppKernel extends AbstractCliKernel
     {
         $loader->load(__DIR__ . '/../config/services.yml');
         if ($this->configFile) {
+            $this->informAboutDeprecatedCheckersSuffix($this->configFile);
             $loader->load($this->configFile, ['parameters', 'checkers', 'includes', 'services']);
         }
     }
@@ -52,5 +60,26 @@ final class AppKernel extends AbstractCliKernel
     {
         $containerBuilder->addCompilerPass(new CollectorCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
+    }
+
+    /**
+     * Make upgrade more pleasant
+     */
+    private function informAboutDeprecatedCheckersSuffix(string $configFile): void
+    {
+        $fileContent = file_get_contents($configFile);
+        $matches = Strings::matchAll($fileContent, self::RENAMED_CONFIG_PATTERN);
+
+        foreach ($matches as $match) {
+            /* DeprecatedConfigNameException*/
+            throw new DeprecatedConfigNameException(sprintf(
+                'Config file "%s" contains old file name%s"%s" with removed "-checkers" suffix. Use %s"%s" instead.',
+                $configFile,
+                PHP_EOL,
+                $match['oldConfigName'],
+                PHP_EOL,
+                $match['configNameWithoutSuffix'] . '.neon'
+            ));
+        }
     }
 }
