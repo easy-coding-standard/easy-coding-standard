@@ -22,9 +22,15 @@ final class ErrorAndDiffCollector
      */
     private $fileDiffs = [];
 
-    public function __construct(ChangedFilesDetector $changedFilesDetector)
+    /**
+     * @var ErrorSorter
+     */
+    private $errorSorter;
+
+    public function __construct(ChangedFilesDetector $changedFilesDetector, ErrorSorter $errorSorter)
     {
         $this->changedFilesDetector = $changedFilesDetector;
+        $this->errorSorter = $errorSorter;
     }
 
     public function addErrorMessage(string $filePath, int $line, string $message, string $sourceClass): void
@@ -39,7 +45,7 @@ final class ErrorAndDiffCollector
      */
     public function getErrors(): array
     {
-        return $this->errors;
+        return $this->errorSorter->sortByFileAndLine($this->errors);
     }
 
     public function getErrorCount(): int
