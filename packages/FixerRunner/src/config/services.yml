@@ -9,16 +9,9 @@ services:
     Symfony\Component\Stopwatch\Stopwatch: ~
 
     # differ
-    SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder:
-        arguments:
-            $addLineNumbers: true
-    SebastianBergmann\Diff\Differ:
-        arguments:
-            - '@SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder'
-
-    Symplify\EasyCodingStandard\FixerRunner\Differ\LineLimitSebastianBergmannDiffer: ~
+    PhpCsFixer\Differ\UnifiedDiffer: ~
     PhpCsFixer\Differ\DifferInterface:
-        alias: Symplify\EasyCodingStandard\FixerRunner\Differ\LineLimitSebastianBergmannDiffer
+        alias: PhpCsFixer\Differ\UnifiedDiffer
 
     Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor:
         public: true # for tests

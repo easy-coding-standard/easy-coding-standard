@@ -30,9 +30,9 @@ final class FileDiff
         $this->appliedCheckers = $appliedCheckers;
 
         $this->diffConsoleFormatter = new DiffConsoleFormatter(true, sprintf(
-            '<comment>---------- begin diff ----------</comment>' .
+            '<comment>    ---------- begin diff ----------</comment>' .
             '%s%%s%s' .
-            '<comment>----------- end diff -----------</comment>',
+            '<comment>    ----------- end diff -----------</comment>',
             PHP_EOL,
             PHP_EOL
         ));
