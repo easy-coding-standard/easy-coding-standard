@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
+use Symplify\EasyCodingStandard\Exception\Configuration\DeprecatedConfigException;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 use Symplify\PackageBuilder\Neon\NeonLoaderAwareKernelTrait;
 
@@ -16,9 +17,22 @@ final class AppKernel extends AbstractCliKernel
     use NeonLoaderAwareKernelTrait;
 
     /**
+     * @deprecated
      * @var string
      */
     private const RENAMED_CONFIG_PATTERN = '#- (?<oldConfigName>(?<configNameWithoutSuffix>[a-z/-]+)-checkers.neon)#';
+
+    /**
+     * @deprecated
+     * @var string
+     */
+    private const PHP54_CONFIG_PATTERN = '#- (?<oldConfigName>[a-z/-]+php54.neon)#';
+
+    /**
+     * @deprecated
+     * @var string
+     */
+    private const SPACES_CONFIG_PATTERN = '#- (?<oldConfigName>[a-z/-]+config/spaces.neon)#';
 
     /**
      * @var null|string
@@ -35,7 +49,7 @@ final class AppKernel extends AbstractCliKernel
     {
         $loader->load(__DIR__ . '/../config/services.yml');
         if ($this->configFile) {
-            $this->informAboutDeprecatedCheckersSuffix($this->configFile);
+            $this->informAboutDeprecatedConfigs($this->configFile);
             $loader->load($this->configFile, ['parameters', 'checkers', 'includes', 'services']);
         }
     }
@@ -63,21 +77,61 @@ final class AppKernel extends AbstractCliKernel
 
     /**
      * Make upgrade more pleasant
+     *
+     * @deprecated
      */
-    private function informAboutDeprecatedCheckersSuffix(string $configFile): void
+    private function informAboutDeprecatedConfigs(string $configFile): void
     {
         $fileContent = file_get_contents($configFile);
-        $matches = Strings::matchAll($fileContent, self::RENAMED_CONFIG_PATTERN);
 
+        $this->informAboutDeprecatedCheckersSuffixConfig($configFile, $fileContent);
+        $this->informAboutDeprecatedPhp54Config($configFile, $fileContent);
+        $this->informAboutDeprecatedSpacesConfig($configFile, $fileContent);
+    }
+
+    private function informAboutDeprecatedCheckersSuffixConfig(string $configFile, string $fileContent): void
+    {
+        $matches = Strings::matchAll($fileContent, self::RENAMED_CONFIG_PATTERN);
         foreach ($matches as $match) {
-            /* DeprecatedConfigNameException*/
-            throw new DeprecatedConfigNameException(sprintf(
+            throw new DeprecatedConfigException(sprintf(
                 'Config file "%s" contains old file name%s"%s" with removed "-checkers" suffix. Use %s"%s" instead.',
                 $configFile,
                 PHP_EOL,
                 $match['oldConfigName'],
                 PHP_EOL,
                 $match['configNameWithoutSuffix'] . '.neon'
+            ));
+        }
+    }
+
+    private function informAboutDeprecatedPhp54Config(string $configFile, string $fileContent): void
+    {
+        $match = Strings::match($fileContent, self::PHP54_CONFIG_PATTERN);
+        if ($match) {
+            throw new DeprecatedConfigException(sprintf(
+                'Config file "%s" contains old file "%s".%sRemove it and use %s"%s" directly or import %s"%s" config.',
+                $configFile,
+                $match['oldConfigName'],
+                PHP_EOL . PHP_EOL,
+                PHP_EOL,
+                ArraySyntaxFixer::class,
+                PHP_EOL,
+                'vendor/symplify/easy-coding-standard/config/common/array.neon'
+            ));
+        }
+    }
+
+    private function informAboutDeprecatedSpacesConfig(string $configFile, string $fileContent): void
+    {
+        $match = Strings::match($fileContent, self::SPACES_CONFIG_PATTERN);
+        if ($match) {
+            throw new DeprecatedConfigException(sprintf(
+                'Config file "%s" contains old file "%s".%sJust rename it to %s"%s".',
+                $configFile,
+                $match['oldConfigName'],
+                PHP_EOL . PHP_EOL,
+                PHP_EOL,
+                'vendor/symplify/easy-coding-standard/config/common/spaces.neon'
             ));
         }
     }
