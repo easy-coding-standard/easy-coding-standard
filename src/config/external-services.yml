@@ -9,14 +9,13 @@ services:
 
     # Console
     Symfony\Component\Console\Input\ArgvInput: ~
-    Symfony\Component\Console\Output\ConsoleOutput: ~
-
-    Symfony\Component\Console\Style\SymfonyStyle: ~
-
-    # alias required for SymfonyStyle
     Symfony\Component\Console\Input\InputInterface:
         alias: Symfony\Component\Console\Input\ArgvInput
+
+    Symfony\Component\Console\Output\ConsoleOutput: ~
     Symfony\Component\Console\Output\OutputInterface:
         alias: Symfony\Component\Console\Output\ConsoleOutput
+
+    Symfony\Component\Console\Style\SymfonyStyle: ~
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
