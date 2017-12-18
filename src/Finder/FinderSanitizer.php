@@ -93,7 +93,6 @@ final class FinderSanitizer
 
     /**
      * @param object $object
-     * @return mixed
      */
     private function getPrivateProperty($object, string $property)
     {
