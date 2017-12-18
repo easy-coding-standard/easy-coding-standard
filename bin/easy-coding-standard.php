@@ -12,23 +12,7 @@ use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 gc_disable();
 
-$possibleAutoloadPaths = [
-    // composer create-project
-    __DIR__ . '/../../..',
-    // composer require
-    __DIR__ . '/../vendor',
-    // mono-repository
-    __DIR__ . '/../../../vendor',
-];
-
-foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
-    if (is_file($possibleAutoloadPath . '/autoload.php')) {
-        require_once $possibleAutoloadPath . '/autoload.php';
-        require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
-
-        break;
-    }
-}
+require_once __DIR__ . '/easy-coding-standard-bootstrap.php';
 
 try {
     // 1. Detect configuration from --level
