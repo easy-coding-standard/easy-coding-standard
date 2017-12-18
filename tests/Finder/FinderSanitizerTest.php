@@ -54,6 +54,9 @@ final class FinderSanitizerTest extends TestCase
         $this->validateFile(array_pop($files));
     }
 
+    /**
+     * @param object $file
+     */
     private function validateFile($file): void
     {
         $this->assertInstanceOf(SymfonySplFileInfo::class, $file);

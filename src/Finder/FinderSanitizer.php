@@ -46,6 +46,9 @@ final class FinderSanitizer
         return array_filter($splFiles, 'filesize');
     }
 
+    /**
+     * @param object $finder
+     */
     private function ensureIsFinder($finder): void
     {
         if ($finder instanceof NetteFinder || $finder instanceof SymfonyFinder) {
