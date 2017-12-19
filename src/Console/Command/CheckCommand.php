@@ -19,11 +19,6 @@ use Symplify\EasyCodingStandard\Error\FileDiff;
 final class CheckCommand extends Command
 {
     /**
-     * @var string
-     */
-    private const NAME = 'check';
-
-    /**
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
@@ -73,7 +68,7 @@ final class CheckCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName(self::NAME);
+        $this->setName('check');
         $this->setDescription('Check coding standard in one or more directories.');
         $this->addArgument('source', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'The path(s) to be checked.');
         $this->addOption('fix', null, null, 'Fix found violations.');

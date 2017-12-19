@@ -94,7 +94,7 @@ final class Configuration
     private function setSources(array $sources): void
     {
         $this->ensureSourcesExists($sources);
-        $this->sources = $sources;
+        $this->sources = $this->normalizeSources($sources);
     }
 
     /**
@@ -112,5 +112,18 @@ final class Configuration
                 $source
             ));
         }
+    }
+
+    /**
+     * @param string[] $sources
+     * @return string[]
+     */
+    private function normalizeSources(array $sources): array
+    {
+        foreach ($sources as $key => $value) {
+            $sources[$key] = rtrim($value, DIRECTORY_SEPARATOR);
+        }
+
+        return $sources;
     }
 }
