@@ -2,6 +2,9 @@ checkers:
     # PHP 5.5
     - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
 
+    # Strict
+    - Symplify\CodingStandard\Fixer\Strict\InArrayStrictFixer
+
     # Imports
     - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
 
