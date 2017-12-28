@@ -89,7 +89,7 @@ final class Application
 
         // 3. start progress bar
         if ($this->configuration->showProgressBar()) {
-            $this->easyCodingStandardStyle->startProgressBar(count($files) * ($this->isDualRunEnabled() ? 2 : 1));
+            $this->easyCodingStandardStyle->progressStart(count($files) * ($this->isDualRunEnabled() ? 2 : 1));
         }
 
         // 4. process found files by each processors
@@ -118,7 +118,9 @@ final class Application
     private function processFoundFiles(array $fileInfos): void
     {
         foreach ($fileInfos as $relativePath => $fileInfo) {
-            $this->easyCodingStandardStyle->advanceProgressBar();
+            if ($this->configuration->showProgressBar()) {
+                $this->easyCodingStandardStyle->progressAdvance();
+            }
 
             try {
                 // @todo pass file content?
@@ -145,7 +147,9 @@ final class Application
     private function processFoundFilesSecondRun(array $fileInfos): void
     {
         foreach ($fileInfos as $relativePath => $fileInfo) {
-            $this->easyCodingStandardStyle->advanceProgressBar();
+            if ($this->configuration->showProgressBar()) {
+                $this->easyCodingStandardStyle->progressAdvance();
+            }
 
             foreach ($this->fileProcessors as $fileProcessor) {
                 $fileProcessor->processFileSecondRun($fileInfo);
