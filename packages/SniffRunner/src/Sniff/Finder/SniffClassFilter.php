@@ -44,7 +44,7 @@ final class SniffClassFilter
             return true;
         }
 
-        if (in_array('PHP', $vars['supportedTokenizers'])) {
+        if (in_array('PHP', $vars['supportedTokenizers'], true)) {
             return true;
         }
 
