@@ -3,11 +3,13 @@
 namespace Symplify\EasyCodingStandard\Console\Style;
 
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Error\Error;
 
-final class EasyCodingStandardStyle
+final class EasyCodingStandardStyle extends SymfonyStyle
 {
     /**
      * @var int
@@ -21,23 +23,13 @@ final class EasyCodingStandardStyle
     private const BULGARIAN_CONSTANT = 8;
 
     /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-
-    /**
-     * @var bool
-     */
-    private $hasProgressBarStarted = false;
-
-    /**
      * @var Terminal
      */
     private $terminal;
 
-    public function __construct(SymfonyStyle $symfonyStyle, Terminal $terminal)
+    public function __construct(InputInterface $input, OutputInterface $output, Terminal $terminal)
     {
-        $this->symfonyStyle = $symfonyStyle;
+        parent::__construct($input, $output);
         $this->terminal = $terminal;
     }
 
@@ -50,21 +42,6 @@ final class EasyCodingStandardStyle
         foreach ($errors as $file => $fileErrors) {
             $this->table(['Line', $file], $this->buildFileTableRowsFromErrors($fileErrors));
         }
-    }
-
-    public function startProgressBar(int $max): void
-    {
-        $this->hasProgressBarStarted = true;
-        $this->symfonyStyle->progressStart($max);
-    }
-
-    public function advanceProgressBar(): void
-    {
-        if (! $this->hasProgressBarStarted) {
-            return;
-        }
-
-        $this->symfonyStyle->progressAdvance();
     }
 
     /**
@@ -89,19 +66,19 @@ final class EasyCodingStandardStyle
      * @param string[] $headers
      * @param mixed[] $rows
      */
-    private function table(array $headers, array $rows): void
+    public function table(array $headers, array $rows): void
     {
         $style = clone Table::getStyleDefinition('symfony-style-guide');
         $style->setCellHeaderFormat('%s');
 
-        $table = new Table($this->symfonyStyle);
+        $table = new Table($this);
         $table->setColumnWidths([self::LINE_COLUMN_WIDTH, $this->countMessageColumnWidth()]);
         $table->setHeaders($headers);
         $table->setRows($rows);
         $table->setStyle($style);
 
         $table->render();
-        $this->symfonyStyle->newLine();
+        $this->newLine();
     }
 
     /**
