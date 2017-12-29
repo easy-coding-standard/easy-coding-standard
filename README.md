@@ -4,12 +4,9 @@
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 [![Subscribe](https://img.shields.io/badge/subscribe-to--releases-green.svg?style=flat-square)](https://libraries.io/packagist/symplify%2Feasy-coding-standard)
 
-
 **Used by [Nette](https://github.com/nette/coding-standard) and [Sylius](https://github.com/SyliusLabs/CodingStandard).**
 
-
 ![ECS-Run](docs/run-and-fix-smaller.gif)
-
 
 ## Features
 
@@ -17,7 +14,6 @@
 - **2nd run under few seconds** with caching
 - [Skipping files](#ignore-what-you-cant-fix) for specific checkers
 - [Prepared checker sets](#use-prepared-checker-sets) - PSR2, Symfony, Common, Symplify and more...
-
 
 ## Install
 
@@ -49,15 +45,13 @@ vendor/bin/ecs check src
 vendor/bin/ecs check src --fix
 ```
 
-
 *Tip: Do you want [autocomplete too](https://plugins.jetbrains.com/plugin/7060-neon-support)?*
-
 
 ## More Features
 
 ### Use Prepared Checker Sets
 
-There are prepared sets in [`/config` directory](/config) that you can use: 
+There are prepared sets in [`/config` directory](config) that you can use:
 
 - [clean-code.neon](config/clean-code.neon)
 - [common.neon](config/common.neon)
@@ -86,7 +80,6 @@ includes:
     - vendor/symplify/easy-coding-standard/config/psr2.neon
 ```
 
-
 ### Exclude Checkers
 
 What if you add `symfony.neon` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
@@ -100,10 +93,9 @@ parameters:
         - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
 ```
 
-
 ### Ignore What You Can't Fix
 
-Sometimes, checker finds an error in code that inherits from code you can't change. 
+Sometimes, checker finds an error in code that inherits from code you can't change.
 
 No worries! Just **skip checker for this file**:
 
@@ -113,11 +105,11 @@ parameters:
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
             # relative path to file (you can copy this from error report)
             - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
-            
+
             # or multiple files by path to match against "fnmatch()"
             - *packages/CodingStandard/src/Sniffs/*/*Sniff.php
 ```
- 
+
 You can also skip specific codes that you know from PHP_CodeSniffer:
 
 ```yaml
@@ -125,12 +117,11 @@ parameters:
     skip_codes:
         # code to skip for all files
         - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment
-        
+
         # code to skip for specific files/patterns
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification:
             -  *src/Form/Type/*Type.php
 ```
-
 
 ### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
 
@@ -175,8 +166,7 @@ final class PhpAndPhptFilesProvider implements CustomSourceProviderInterface
 
 **Use any Finder you like**: [Nette\Finder](https://doc.nette.org/en/finder) or [Symfony\Finder](https://symfony.com/doc/current/components/finder.html).
 
-
-### FAQ 
+### FAQ
 
 **How to show all loaded checkers?**
 
@@ -204,7 +194,6 @@ parameters:
 ```bash
 vendor/bin/ecs check src --show-performance --clear-cache
 ```
-
 
 ## Contributing
 
