@@ -62,8 +62,9 @@ final class ShowCommand extends Command
         $this->displayCheckerList($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
 
         $this->symfonyStyle->success(sprintf(
-            'Loaded %d checkers in total',
-            $this->checkersTotal
+            'Loaded %d checker%s in total',
+            $this->checkersTotal,
+            $this->checkersTotal === 1 ? '' : 's'
         ));
 
         $this->symfonyStyle->newLine();
@@ -87,8 +88,9 @@ final class ShowCommand extends Command
         $this->checkersTotal += count($checkers);
 
         $this->symfonyStyle->section(sprintf(
-            '%d checkers from %s:',
+            '%d checker%s from %s:',
             count($checkers),
+            count($checkers) === 1 ? '' : 's',
             $type
         ));
 

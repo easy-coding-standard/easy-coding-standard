@@ -122,9 +122,9 @@ final class CheckCommand extends Command
 
         if ($this->errorAndDiffCollector->getErrorCount() === 0) {
             $this->easyCodingStandardStyle->success(sprintf(
-                '%d %s successfully fixed and no other found!',
+                '%d error%s successfully fixed and no other found!',
                 $this->errorAndDiffCollector->getFileDiffsCount(),
-                $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? 'error' : 'errors'
+                $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? '' : 's'
             ));
 
             return 0;
@@ -160,8 +160,9 @@ final class CheckCommand extends Command
     {
         if ($errorCount) {
             $this->easyCodingStandardStyle->error(sprintf(
-                $errorCount === 1 ? 'Found %d error.' : 'Found %d errors.',
-                $errorCount
+                'Found %d error%s.',
+                $errorCount,
+                $errorCount === 1 ? '' : 's'
             ));
         }
 
@@ -170,9 +171,10 @@ final class CheckCommand extends Command
         }
 
         $this->easyCodingStandardStyle->success(sprintf(
-            ' %s file(s) %s fixable! Just add "--fix" to console command and rerun to apply.',
+            '%d file%s %s fixable! Just add "--fix" to console command and rerun to apply.',
             $fileDiffsCount,
-            ($fileDiffsCount === 1) ? 'is' : 'are'
+            $fileDiffsCount === 1 ? '' : 's',
+            $fileDiffsCount === 1 ? 'is' : 'are'
         ));
     }
 
