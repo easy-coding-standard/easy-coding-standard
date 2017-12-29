@@ -13,7 +13,7 @@ final class ErrorSorter
         ksort($errorMessages);
 
         foreach ($errorMessages as $file => $errorMessagesForFile) {
-            usort($errorMessagesForFile, function (Error $first, Error $second) {
+            usort($errorMessagesForFile, function (Error $first, Error $second): bool {
                 return $first->getLine() > $second->getLine();
             });
 

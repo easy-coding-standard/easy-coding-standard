@@ -79,7 +79,7 @@ final class ShowCommand extends Command
             return;
         }
 
-        $checkerNames = array_map(function ($fixer) {
+        $checkerNames = array_map(function ($fixer): string {
             return is_string($fixer) ? $fixer : get_class($fixer);
         }, $checkers);
 

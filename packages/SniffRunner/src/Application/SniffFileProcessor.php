@@ -130,7 +130,7 @@ final class SniffFileProcessor implements FileProcessorInterface
      */
     public function getDualRunCheckers(): array
     {
-        return array_filter($this->sniffs, function (Sniff $sniff) {
+        return array_filter($this->sniffs, function (Sniff $sniff): bool {
             return $sniff instanceof DualRunInterface;
         });
     }
