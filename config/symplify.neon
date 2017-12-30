@@ -17,7 +17,9 @@ checkers:
     # Spaces
     - Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer
     - Symplify\CodingStandard\Fixer\ClassNotation\LastPropertyAndFirstMethodSeparationFixer
-    - Symplify\CodingStandard\Fixer\MethodNotation\MethodArgumentsLineLengthBreakFixer
+
+    # LineLength
+    - Symplify\CodingStandard\Fixer\LineLength\BreakMethodArgumentsFixer
 
     # Comments
     - Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer
