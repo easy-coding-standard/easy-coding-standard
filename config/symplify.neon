@@ -18,6 +18,9 @@ checkers:
     - Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer
     - Symplify\CodingStandard\Fixer\ClassNotation\LastPropertyAndFirstMethodSeparationFixer
 
+    # LineLength
+    - Symplify\CodingStandard\Fixer\LineLength\BreakMethodArgumentsFixer
+
     # Comments
     - Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer
     - Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff
