@@ -85,7 +85,7 @@ final class FinderSanitizer
         foreach ($fileInfos as $key => $fileInfo) {
             $relativePathname = $this->resolveRelativePath($paths, $fileInfo);
             $fileInfos[$key] = new SymfonySplFileInfo(
-                $fileInfo->getFilename(),
+                $fileInfo->getPathname(),
                 dirname($relativePathname),
                 $relativePathname
             );
