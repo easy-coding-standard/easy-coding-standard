@@ -149,6 +149,10 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         $diff = $this->differ->diff($oldContent, $tokens->generateCode());
+        // some fixer with feature overlap can null each other
+        if ($diff === '') {
+            return $oldContent;
+        }
 
         $relativeFilePath = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
 
