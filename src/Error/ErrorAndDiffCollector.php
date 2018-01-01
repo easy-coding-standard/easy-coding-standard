@@ -75,10 +75,4 @@ final class ErrorAndDiffCollector
     {
         return $this->fileDiffs;
     }
-
-    public function resetCounters(): void
-    {
-        $this->errors = [];
-        $this->fileDiffs = [];
-    }
 }
