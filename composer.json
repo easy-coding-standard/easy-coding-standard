@@ -48,5 +48,6 @@
             "Symplify\\EasyCodingStandard\\SniffRunner\\Tests\\": "packages/SniffRunner/tests",
             "Symplify\\EasyCodingStandard\\Tests\\": "tests"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
