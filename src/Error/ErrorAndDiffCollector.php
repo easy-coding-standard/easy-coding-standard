@@ -75,4 +75,13 @@ final class ErrorAndDiffCollector
     {
         return $this->fileDiffs;
     }
+
+    /**
+     * Used by external sniff/fixer testing classes
+     */
+    public function resetCounters(): void
+    {
+        $this->errors = [];
+        $this->fileDiffs = [];
+    }
 }
