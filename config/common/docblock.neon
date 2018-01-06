@@ -25,3 +25,6 @@ checkers:
 
     # SomeClass { ... /** @return SomeClass */ ... }
     - PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer
+    
+    # remove variable name from @var and @type annotations
+    - PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer
