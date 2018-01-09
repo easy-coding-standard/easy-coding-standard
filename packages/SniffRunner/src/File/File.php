@@ -125,11 +125,7 @@ final class File extends BaseFile
             $this->resolveFullyQualifiedCode($code)
         );
 
-        if ($this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path)) {
-            return false;
-        }
-
-        return true;
+        return ! $this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path);
     }
 
     /**
