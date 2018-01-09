@@ -46,7 +46,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
 
     /**
      * @param Error[] $errors
-     * @return string[]
+     * @return string[][]
      */
     public function buildFileTableRowsFromErrors(array $errors): array
     {
