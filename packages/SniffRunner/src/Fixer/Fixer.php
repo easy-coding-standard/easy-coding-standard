@@ -24,11 +24,7 @@ final class Fixer
 
         $this->tokens = [];
         foreach ($tokens as $index => $token) {
-            if (isset($token['orig_content']) === true) {
-                $this->tokens[$index] = $token['orig_content'];
-            } else {
-                $this->tokens[$index] = $token['content'];
-            }
+            $this->tokens[$index] = $token['orig_content'] ?? $token['content'];
         }
     }
 
