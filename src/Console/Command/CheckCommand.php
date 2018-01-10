@@ -13,7 +13,6 @@ use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedExceptio
 use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\Error\FileDiff;
 
 final class CheckCommand extends Command
 {

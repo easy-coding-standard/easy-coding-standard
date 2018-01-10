@@ -76,7 +76,7 @@ final class CheckCommandReporter
     }
 
     /**
-     * @param FileDiff[] $fileDiffs
+     * @param FileDiff[] $fileDiffPerFile
      */
     public function reportFileDiffs(array $fileDiffPerFile): void
     {
