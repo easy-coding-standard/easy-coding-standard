@@ -3,7 +3,7 @@
 use Symplify\EasyCodingStandard\Exception\DeprecatedException;
 
 throw new DeprecatedException(sprintf(
-    'File %s is deprecated, use %s instead',
+    'File "%s" is deprecated, use "%s" instead',
     __FILE__ ,
     __DIR__ . '/ecs'
 ));
