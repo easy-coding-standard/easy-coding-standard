@@ -8,11 +8,6 @@ use Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class WhitespacesFixerConfigFactory
 {
     /**
-     * @var ParameterProvider
-     */
-    private $parameterProvider;
-
-    /**
      * @var string
      */
     private const FOUR_SPACES = '    ';
@@ -22,6 +17,10 @@ final class WhitespacesFixerConfigFactory
      */
     private const ONE_TAB = '	';
 
+    /**
+     * @var ParameterProvider
+     */
+    private $parameterProvider;
 
     public function __construct(ParameterProvider $parameterProvider)
     {
