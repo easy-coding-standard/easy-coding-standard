@@ -26,21 +26,6 @@ final class CheckersExtension extends Extension
     /**
      * @var string
      */
-    private const SERVICE_NAME_WHITESPACE_CONFIG = 'fixerWhitespaceConfig';
-
-    /**
-     * @var string
-     */
-    private const FOUR_SPACES = '    ';
-
-    /**
-     * @var string
-     */
-    private const ONE_TAB = '	';
-
-    /**
-     * @var string
-     */
     private const NAME = 'checkers';
 
     /**
@@ -86,8 +71,6 @@ final class CheckersExtension extends Extension
         if (! $parameterBag->has(self::NAME)) {
             return;
         }
-
-        $this->registerWhitespacesFixerConfigDefinition($containerBuilder);
 
         $checkersConfiguration = $parameterBag->has(self::NAME) ? (array) $parameterBag->get(self::NAME) : [];
         $checkers = $this->checkerConfigurationNormalizer->normalize($checkersConfiguration);
@@ -151,35 +134,7 @@ final class CheckersExtension extends Extension
             return;
         }
 
-        $definition->addMethodCall(
-            'setWhitespacesConfig',
-            [new Reference(self::SERVICE_NAME_WHITESPACE_CONFIG)]
-        );
-    }
-
-    private function registerWhitespacesFixerConfigDefinition(ContainerBuilder $containerBuilder): void
-    {
-        $indentation = $this->resolveIndentationValueFromParameter($containerBuilder);
-
-        $whitespacesFixerConfigDefinition = new Definition(
-            WhitespacesFixerConfig::class,
-            [$indentation, PHP_EOL]
-        );
-        $containerBuilder->setDefinition(self::SERVICE_NAME_WHITESPACE_CONFIG, $whitespacesFixerConfigDefinition);
-    }
-
-    private function resolveIndentationValueFromParameter(ContainerBuilder $containerBuilder): string
-    {
-        if (! $containerBuilder->hasParameter('indentation')) {
-            return self::FOUR_SPACES;
-        }
-
-        $indentation = $containerBuilder->getParameter('indentation');
-        if ($indentation === 'tab') {
-            return self::ONE_TAB;
-        }
-
-        return self::FOUR_SPACES;
+        $definition->addMethodCall('setWhitespacesConfig', [new Reference(WhitespacesFixerConfig::class)]);
     }
 
     /**
