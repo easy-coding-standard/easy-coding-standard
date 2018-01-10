@@ -58,12 +58,15 @@ final class CheckCommand extends Command
         $this->checkCommandReporter = $checkCommandReporter;
     }
 
-
     protected function configure(): void
     {
         $this->setName('check');
         $this->setDescription('Check coding standard in one or more directories.');
-        $this->addArgument(Option::SOURCE, InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'The path(s) to be checked.');
+        $this->addArgument(
+            Option::SOURCE,
+            InputArgument::REQUIRED | InputArgument::IS_ARRAY,
+            'The path(s) to be checked.'
+        );
         $this->addOption(Option::FIX, null, null, 'Fix found violations.');
         $this->addOption(Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
         $this->addOption(
