@@ -2,17 +2,18 @@
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 
 final class CheckCommandReporter
 {
     /**
-     * @var SymfonyStyle
+     * @var EasyCodingStandardStyle
      */
-    private $symfonyStyle;
+    private $easyCodingStandardStyle;
 
     /**
      * @var CheckerMetricRecorder
@@ -30,12 +31,12 @@ final class CheckCommandReporter
     private $configuration;
 
     public function __construct(
-        SymfonyStyle $symfonyStyle,
+        EasyCodingStandardStyle $easyCodingStandardStyle,
         CheckerMetricRecorder $checkerMetricRecorder,
         Skipper $skipper,
         Configuration $configuration
     ) {
-        $this->symfonyStyle = $symfonyStyle;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
@@ -47,13 +48,13 @@ final class CheckCommandReporter
             return;
         }
 
-        $this->symfonyStyle->newLine();
+        $this->easyCodingStandardStyle->newLine();
 
-        $this->symfonyStyle->title('Performance Statistics');
+        $this->easyCodingStandardStyle->title('Performance Statistics');
 
         $metrics = $this->checkerMetricRecorder->getMetrics();
         $metricsForTable = $this->prepareMetricsForTable($metrics);
-        $this->symfonyStyle->table(['Checker', 'Total duration'], $metricsForTable);
+        $this->easyCodingStandardStyle->table(['Checker', 'Total duration'], $metricsForTable);
     }
 
     public function reportUnusedSkipped(): void
@@ -64,12 +65,41 @@ final class CheckCommandReporter
                     continue;
                 }
 
-                $this->symfonyStyle->error(sprintf(
+                $this->easyCodingStandardStyle->error(sprintf(
                     'Skipped checker "%s" and file path "%s" were not found. '
                     . 'You can remove them from "parameters: > skip:" section in your config.',
                     $skippedClass,
                     $skippedFile
                 ));
+            }
+        }
+    }
+
+    /**
+     * @param FileDiff[] $fileDiffs
+     */
+    public function reportFileDiffs(array $fileDiffPerFile): void
+    {
+        if (! count($fileDiffPerFile)) {
+            return;
+        }
+
+        $this->easyCodingStandardStyle->newLine();
+
+        $i = 0;
+        foreach ($fileDiffPerFile as $file => $fileDiffs) {
+            $this->easyCodingStandardStyle->newLine(2);
+            $this->easyCodingStandardStyle->writeln(sprintf('<options=bold>%d) %s</>', ++$i, $file));
+
+            /** @var FileDiff[] $fileDiffs */
+            foreach ($fileDiffs as $fileDiff) {
+                $this->easyCodingStandardStyle->newLine();
+                $this->easyCodingStandardStyle->writeln($fileDiff->getDiffConsoleFormatted());
+                $this->easyCodingStandardStyle->newLine();
+
+                $this->easyCodingStandardStyle->writeln('Applied checkers:');
+                $this->easyCodingStandardStyle->newLine();
+                $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
             }
         }
     }

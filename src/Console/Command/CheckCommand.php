@@ -92,7 +92,7 @@ final class CheckCommand extends Command
         $this->configuration->resolveFromInput($input);
         $this->ecsApplication->run();
 
-        $this->reportFileDiffs();
+        $this->checkCommandReporter->reportFileDiffs($this->errorAndDiffCollector->getFileDiffs());
 
         if ($this->errorAndDiffCollector->getErrorCount() === 0
             && $this->errorAndDiffCollector->getFileDiffsCount() === 0
@@ -186,32 +186,6 @@ final class CheckCommand extends Command
                 'No checkers were found. Registers them in your config in "checkers:" '
                 . 'section, load them via "--config <file>.neon" or "--level <level> option.'
             );
-        }
-    }
-
-    private function reportFileDiffs(): void
-    {
-        if (count($this->errorAndDiffCollector->getFileDiffs())) {
-            $this->easyCodingStandardStyle->newLine();
-        }
-
-        $i = 1;
-        foreach ($this->errorAndDiffCollector->getFileDiffs() as $file => $fileDiffs) {
-            $this->easyCodingStandardStyle->newLine(2);
-            $this->easyCodingStandardStyle->writeln(sprintf('<options=bold>%d) %s</>', $i, $file));
-
-            /** @var FileDiff[] $fileDiffs */
-            foreach ($fileDiffs as $fileDiff) {
-                $this->easyCodingStandardStyle->newLine();
-                $this->easyCodingStandardStyle->writeln($fileDiff->getDiffConsoleFormatted());
-                $this->easyCodingStandardStyle->newLine();
-
-                $this->easyCodingStandardStyle->writeln('Applied checkers:');
-                $this->easyCodingStandardStyle->newLine();
-                $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
-            }
-
-            ++$i;
         }
     }
 }
