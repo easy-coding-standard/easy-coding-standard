@@ -58,9 +58,7 @@ final class CheckCommand extends Command
         $this->checkCommandReporter = $checkCommandReporter;
     }
 
-    /**
-     *
-     */
+
     protected function configure(): void
     {
         $this->setName('check');

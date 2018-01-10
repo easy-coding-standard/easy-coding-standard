@@ -18,6 +18,7 @@ final class Option
      * @var string
      */
     public const CLEAR_CACHE = 'clear-cache';
+
     /**
      * @var string
      */
