@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
+use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -57,27 +58,30 @@ final class CheckCommand extends Command
         $this->checkCommandReporter = $checkCommandReporter;
     }
 
+    /**
+     *
+     */
     protected function configure(): void
     {
         $this->setName('check');
         $this->setDescription('Check coding standard in one or more directories.');
-        $this->addArgument('source', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'The path(s) to be checked.');
-        $this->addOption('fix', null, null, 'Fix found violations.');
-        $this->addOption('clear-cache', null, null, 'Clear cache for already checked files.');
+        $this->addArgument(Option::SOURCE, InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'The path(s) to be checked.');
+        $this->addOption(Option::FIX, null, null, 'Fix found violations.');
+        $this->addOption(Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
         $this->addOption(
-            'show-performance',
+            Option::SHOW_PERFORMANCE,
             null,
             InputOption::VALUE_NONE,
             'Show performance of every checker.'
         );
         $this->addOption(
-            'no-progress-bar',
+            Option::NO_PROGRESS_BAR,
             null,
             InputOption::VALUE_NONE,
             'Hide progress bar. Useful e.g. for nicer CI output.'
         );
         $this->addOption(
-            'no-error-table',
+            Option::NO_ERROR_TABLE,
             null,
             InputOption::VALUE_NONE,
             'Hide error table. Useful e.g. for fast check of error count.'
