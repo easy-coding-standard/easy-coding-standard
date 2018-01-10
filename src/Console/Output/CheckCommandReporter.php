@@ -76,7 +76,7 @@ final class CheckCommandReporter
     }
 
     /**
-     * @param FileDiff[] $fileDiffPerFile
+     * @param FileDiff[][] $fileDiffPerFile
      */
     public function reportFileDiffs(array $fileDiffPerFile): void
     {
@@ -91,7 +91,6 @@ final class CheckCommandReporter
             $this->easyCodingStandardStyle->newLine(2);
             $this->easyCodingStandardStyle->writeln(sprintf('<options=bold>%d) %s</>', ++$i, $file));
 
-            /** @var FileDiff[] $fileDiffs */
             foreach ($fileDiffs as $fileDiff) {
                 $this->easyCodingStandardStyle->newLine();
                 $this->easyCodingStandardStyle->writeln($fileDiff->getDiffConsoleFormatted());
