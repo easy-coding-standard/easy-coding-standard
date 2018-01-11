@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Configuration\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\Exception\Guard\DuplicatedCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Guard\DuplicatedCheckersToIncludesGuard;
 
@@ -15,7 +16,9 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->duplicatedCheckersToIncludesGuard = new DuplicatedCheckersToIncludesGuard();
+        $this->duplicatedCheckersToIncludesGuard = new DuplicatedCheckersToIncludesGuard(
+            new CheckerConfigurationNormalizer()
+        );
     }
 
     /**
@@ -37,7 +40,6 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
        ];
     }
 
-
     /**
      * @dataProvider provideValidConfigFiles()
      */
@@ -55,7 +57,8 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     public function provideValidConfigFiles(): array
     {
         return [
-            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.1.neon']
+            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.1.neon'],
+            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.2.neon'],
         ];
     }
 }
