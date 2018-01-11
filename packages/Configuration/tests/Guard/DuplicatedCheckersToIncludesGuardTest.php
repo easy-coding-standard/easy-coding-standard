@@ -21,7 +21,7 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     /**
      * @dataProvider provideConflictingConfigFiles()
      */
-    public function test(string $configFile): void
+    public function testConflicting(string $configFile): void
     {
         $this->expectException(DuplicatedCheckersLoadedException::class);
         $this->duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
@@ -33,7 +33,29 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     public function provideConflictingConfigFiles(): array
     {
        return [
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config1.neon']
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.neon']
        ];
+    }
+
+
+    /**
+     * @dataProvider provideValidConfigFiles()
+     */
+    public function testValid(string $configFile): void
+    {
+        $this->duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
+
+        // just check it passes without exception
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function provideValidConfigFiles(): array
+    {
+        return [
+            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.1.neon']
+        ];
     }
 }

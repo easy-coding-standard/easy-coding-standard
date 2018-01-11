@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Configuration\Guard;
 use Nette\DI\Config\Helpers;
 use Nette\DI\Config\Loader;
 use Nette\Neon\Neon;
+use Symplify\EasyCodingStandard\Configuration\Exception\Guard\DuplicatedCheckersLoadedException;
 use Symplify\PackageBuilder\Neon\Loader\NeonLoader;
 
 /**
@@ -22,10 +23,19 @@ final class DuplicatedCheckersToIncludesGuard
             return;
         }
 
-        // @todo compare
-        dump($mainCheckers);
-        dump($includedCheckers);
-        die;
+        $duplicatedCheckers = array_intersect($mainCheckers, $includedCheckers);
+        if (! $duplicatedCheckers) {
+            return;
+        }
+
+        dump($duplicatedCheckers);
+
+        throw new DuplicatedCheckersLoadedException(sprintf(
+            'Duplicated checkers found in "%s" config: "%s". '
+                . 'These checkers are alread loaded in included configs with the same configuration.',
+            $configFile,
+            implode('", "', $duplicatedCheckers)
+        ));
     }
 
     /**
