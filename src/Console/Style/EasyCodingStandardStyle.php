@@ -86,7 +86,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      */
     public function listing(array $elements): void
     {
-        $elements = array_map(function ($element) {
+        $elements = array_map(function ($element) : string {
             return sprintf(' - %s', $element);
         }, $elements);
         $this->writeln($elements);

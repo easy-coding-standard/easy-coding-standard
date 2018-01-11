@@ -46,6 +46,9 @@ final class AppKernel extends AbstractCliKernel
         parent::__construct();
     }
 
+    /**
+     * @param  \Symplify\PackageBuilder\Neon\Loader\NeonLoader $loader
+     */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../config/services.yml');

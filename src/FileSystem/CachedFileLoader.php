@@ -19,6 +19,6 @@ final class CachedFileLoader
             return $this->fileContentByHash[$fileHash];
         }
 
-        return $this->fileContentByHash[$fileHash] = file_get_contents($fileInfo->getRealPath());
+        return $this->fileContentByHash[$fileHash] = (string) file_get_contents($fileInfo->getRealPath());
     }
 }
