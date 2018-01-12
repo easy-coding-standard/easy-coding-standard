@@ -9,6 +9,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
 use Symplify\PackageBuilder\Configuration\LevelConfigShortcutFinder;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\Guard\DuplicatedCheckersToIncludesGuard;
 
 // performance boost
@@ -32,7 +33,10 @@ try {
     // 3. Build DI container
     $containerFactory = new ContainerFactory();
     if ($configFile) {
-        (new DuplicatedCheckersToIncludesGuard())->processConfigFile($configFile);
+        $duplicatedCheckersToIncludesGuard = new DuplicatedCheckersToIncludesGuard(
+            new CheckerConfigurationNormalizer()
+        );
+        $duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
         $container = $containerFactory->createWithConfig($configFile);
     } else {
         $container = $containerFactory->create();
