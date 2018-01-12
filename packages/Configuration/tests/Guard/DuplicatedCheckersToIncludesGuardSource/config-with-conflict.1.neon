@@ -1,5 +1,5 @@
 includes:
-    - included-set.neon
+    - included-set.1.neon
 
 checkers:
     - SomeChecker

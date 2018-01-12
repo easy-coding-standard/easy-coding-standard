@@ -1,0 +1,6 @@
+includes:
+    - included-set.3.neon
+
+checkers:
+    SomeValue: []
+    Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer: []

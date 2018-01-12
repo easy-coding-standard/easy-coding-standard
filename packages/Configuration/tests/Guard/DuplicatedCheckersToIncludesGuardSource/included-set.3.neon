@@ -1,0 +1,4 @@
+checkers:
+    PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer: []
+    Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer: []
+    Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer: []

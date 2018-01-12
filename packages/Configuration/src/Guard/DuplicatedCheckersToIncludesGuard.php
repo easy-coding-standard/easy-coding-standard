@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration\Guard;
+
 use Nette\DI\Config\Helpers;
 use Nette\DI\Config\Loader;
 use Nette\Neon\Neon;
-use Nette\Utils\Arrays;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\Exception\Guard\DuplicatedCheckersLoadedException;
-use Symplify\PackageBuilder\Neon\Loader\NeonLoader;
+use Symplify\EasyCodingStandard\Configuration\Option;
 
 /**
  * Make sure their are no duplicates in "checkers" vs "includes"
@@ -27,10 +27,8 @@ final class DuplicatedCheckersToIncludesGuard
     public function processConfigFile(string $configFile): void
     {
         $decodedFile = Neon::decode(file_get_contents($configFile));
-
-        $mainCheckers = $decodedFile['checkers'] ?? [];
+        $mainCheckers = $decodedFile[Option::CHECKERS] ?? [];
         $includedCheckers = $this->resolveIncludedCheckers($configFile);
-
         if (! $mainCheckers || ! $includedCheckers) {
             return;
         }
@@ -38,20 +36,14 @@ final class DuplicatedCheckersToIncludesGuard
         $mainCheckers = $this->checkerConfigurationNormalizer->normalize($mainCheckers);
         $includedCheckers = $this->checkerConfigurationNormalizer->normalize($includedCheckers);
 
-        // normalize both and make deep diff (Nette\Arrays?)
-        $duplicatedCheckers = array_uintersect($mainCheckers, $includedCheckers, function ($firstArray, $secondArray): int {
-            if ($firstArray === $secondArray) {
-                return 0;
-            }
-
-            return array_intersect($firstArray, $secondArray) ? 1 : -1;
-        });
-
+        $duplicatedCheckers = $this->arrayIntersectNested($mainCheckers, $includedCheckers);
         if (! $duplicatedCheckers) {
             return;
         }
 
         $duplicateCheckersNames = array_keys($duplicatedCheckers);
+
+        dump($duplicateCheckersNames);
 
         throw new DuplicatedCheckersLoadedException(sprintf(
             'Duplicated checkers found in "%s" config: "%s". '
@@ -59,19 +51,6 @@ final class DuplicatedCheckersToIncludesGuard
             $configFile,
             implode('", "', $duplicateCheckersNames)
         ));
-    }
-
-    private function array_intersect_assoc_recursive(&$arr1, &$arr2) {
-        if (!is_array($arr1) || !is_array($arr2)) {
-            return (string) $arr1 == (string) $arr2;
-        }
-        $commonkeys = array_intersect(array_keys($arr1), array_keys($arr2));
-        $ret = array();
-        foreach ($commonkeys as $key) {
-            $result = $this->array_intersect_assoc_recursive($arr1[$key], $arr2[$key]);;
-            $ret[$key] = &$result;
-        }
-        return $ret;
     }
 
     /**
@@ -91,5 +70,22 @@ final class DuplicatedCheckersToIncludesGuard
         }
 
         return $includedCheckers['checkers'] ?? [];
+    }
+
+    /**
+     * @param mixed[] $firstArray
+     * @param mixed[] $secondArray
+     * @return mixed[]
+     */
+    private function arrayIntersectNested(array $firstArray, array $secondArray): array
+    {
+        dump($firstArray, $secondArray);
+
+        return array_uintersect($firstArray, $secondArray, function (array $firstArray, array $secondArray): int {
+
+            dump($firstArray, $secondArray);
+
+            return $firstArray === $secondArray ? 0 : -1;
+        });
     }
 }

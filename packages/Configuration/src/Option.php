@@ -7,6 +7,11 @@ final class Option
     /**
      * @var string
      */
+    public const CHECKERS = 'checkers';
+
+    /**
+     * @var string
+     */
     public const SOURCE = 'source';
 
     /**
