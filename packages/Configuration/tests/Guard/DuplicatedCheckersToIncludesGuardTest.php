@@ -25,17 +25,15 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
      * @dataProvider provideConflictingConfigFiles()
      * @param string[] $conflictingCheckers
      */
-    public function testConflicting(string $configFile, array $conflictingCheckers = []): void
+    public function testConflicting(string $configFile, array $conflictingCheckers): void
     {
         $this->expectException(DuplicatedCheckersLoadedException::class);
 
-        if ($conflictingCheckers) {
-            $this->expectExceptionMessage(sprintf(
-                'Duplicated checkers found in "%s" config: "%s"',
-                $configFile,
-                implode('", "', $conflictingCheckers)
-            ));
-        }
+        $this->expectExceptionMessage(sprintf(
+            'Duplicated checkers found in "%s" config: "%s"',
+            $configFile,
+            implode('", "', $conflictingCheckers)
+        ));
 
         $this->duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
     }
@@ -46,33 +44,37 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     public function provideConflictingConfigFiles(): array
     {
        return [
-//           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.neon'],
-//           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.2.neon'],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.neon', [
+               'SomeChecker'
+           ]],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.2.neon', [
+               'Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer'
+           ]],
            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.3.neon' , [
                'Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer'
            ]],
        ];
     }
 
-//    /**
-//     * @dataProvider provideValidConfigFiles()
-//     */
-//    public function testValid(string $configFile): void
-//    {
-//        $this->duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
-//
-//        // just check it passes without exception
-//        $this->assertTrue(true);
-//    }
-//
-//    /**
-//     * @return string[]
-//     */
-//    public function provideValidConfigFiles(): array
-//    {
-//        return [
-//            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.1.neon'],
-//            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.2.neon'],
-//        ];
-//    }
+    /**
+     * @dataProvider provideValidConfigFiles()
+     */
+    public function testValid(string $configFile): void
+    {
+        $this->duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
+
+        // just check it passes without exception
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function provideValidConfigFiles(): array
+    {
+        return [
+            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.1.neon'],
+            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.2.neon'],
+        ];
+    }
 }

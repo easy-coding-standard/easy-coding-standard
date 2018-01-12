@@ -36,14 +36,11 @@ final class DuplicatedCheckersToIncludesGuard
         $mainCheckers = $this->checkerConfigurationNormalizer->normalize($mainCheckers);
         $includedCheckers = $this->checkerConfigurationNormalizer->normalize($includedCheckers);
 
-        $duplicatedCheckers = $this->arrayIntersectNested($mainCheckers, $includedCheckers);
-        if (! $duplicatedCheckers) {
+        $duplicateCheckersNames = $this->checkerArrayIntersect($mainCheckers, $includedCheckers);
+
+        if (! $duplicateCheckersNames) {
             return;
         }
-
-        $duplicateCheckersNames = array_keys($duplicatedCheckers);
-
-        dump($duplicateCheckersNames);
 
         throw new DuplicatedCheckersLoadedException(sprintf(
             'Duplicated checkers found in "%s" config: "%s". '
@@ -62,7 +59,8 @@ final class DuplicatedCheckersToIncludesGuard
         $neonLoader->load($configFile);
         $allFiles = $neonLoader->getDependencies();
 
-        unset($allFiles[0]); // removes main file
+        // remove main file
+        unset($allFiles[0]);
 
         $includedCheckers = [];
         foreach ($allFiles as $includedFile) {
@@ -73,19 +71,41 @@ final class DuplicatedCheckersToIncludesGuard
     }
 
     /**
-     * @param mixed[] $firstArray
-     * @param mixed[] $secondArray
+     * @param mixed[] $mainCheckers
+     * @param mixed[] $includedCheckers
      * @return mixed[]
      */
-    private function arrayIntersectNested(array $firstArray, array $secondArray): array
+    private function checkerArrayIntersect(array$mainCheckers, array$includedCheckers): array
     {
-        dump($firstArray, $secondArray);
+        $sharedCheckerNames = $this->checkerNameIntersect($mainCheckers, $includedCheckers);
 
-        return array_uintersect($firstArray, $secondArray, function (array $firstArray, array $secondArray): int {
+        $duplicateCheckersNames = [];
 
-            dump($firstArray, $secondArray);
+        foreach ($sharedCheckerNames as $sharedCheckerName) {
+            $mainChecker = $mainCheckers[$sharedCheckerName];
+            $includedChecker = $includedCheckers[$sharedCheckerName];
 
-            return $firstArray === $secondArray ? 0 : -1;
-        });
+            // is their configuration different?
+            if ($mainChecker !== $includedChecker) {
+                continue;
+            }
+
+            $duplicateCheckersNames[] = $sharedCheckerName;
+        }
+
+        return $duplicateCheckersNames;
+    }
+
+    /**
+     * @param mixed[] $mainCheckers
+     * @param mixed[] $includedCheckers
+     * @return string[]
+     */
+    private function checkerNameIntersect(array $mainCheckers, array $includedCheckers): array
+    {
+        $mainCheckerNames = array_keys($mainCheckers);
+        $includedCheckerNames = array_keys($includedCheckers);
+
+        return array_intersect($mainCheckerNames, $includedCheckerNames);
     }
 }
