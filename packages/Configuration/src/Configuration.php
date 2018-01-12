@@ -39,12 +39,12 @@ final class Configuration
 
     public function resolveFromInput(InputInterface $input): void
     {
-        $this->setSources($input->getArgument('source'));
-        $this->isFixer = (bool) $input->getOption('fix');
-        $this->shouldClearCache = (bool) $input->getOption('clear-cache');
-        $this->showPerformance = (bool) $input->getOption('show-performance');
-        $this->showProgressBar = ! (bool) $input->getOption('no-progress-bar');
-        $this->showErrorTable = ! (bool) $input->getOption('no-error-table');
+        $this->setSources($input->getArgument(Option::SOURCE));
+        $this->isFixer = (bool) $input->getOption(Option::FIX);
+        $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
+        $this->showPerformance = (bool) $input->getOption(Option::SHOW_PERFORMANCE);
+        $this->showProgressBar = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
+        $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
     }
 
     /**

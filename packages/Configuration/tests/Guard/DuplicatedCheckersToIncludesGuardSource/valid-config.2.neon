@@ -1,0 +1,6 @@
+includes:
+    - included-set.1.neon
+
+checkers:
+    SomeChecker:
+        with: config

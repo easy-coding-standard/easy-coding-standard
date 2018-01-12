@@ -96,9 +96,7 @@ final class Application
         $this->processFoundFiles($files);
 
         // 5. process files with DualRun
-        if ($this->isDualRunEnabled()) {
-            $this->processFoundFilesSecondRun($files);
-        }
+        $this->processFoundFilesSecondRun($files);
     }
 
     public function getCheckerCount(): int
@@ -146,6 +144,10 @@ final class Application
      */
     private function processFoundFilesSecondRun(array $fileInfos): void
     {
+        if (! $this->isDualRunEnabled()) {
+            return;
+        }
+
         foreach ($fileInfos as $relativePath => $fileInfo) {
             if ($this->configuration->showProgressBar()) {
                 $this->easyCodingStandardStyle->progressAdvance();
