@@ -3,4 +3,4 @@ includes:
 
 checkers:
     SomeValue: []
-    Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer: []
+    SomeOtherChecker: []

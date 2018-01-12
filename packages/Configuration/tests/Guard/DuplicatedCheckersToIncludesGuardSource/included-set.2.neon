@@ -1,2 +1,2 @@
 checkers:
-    - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
+    - SomeOtherChecker

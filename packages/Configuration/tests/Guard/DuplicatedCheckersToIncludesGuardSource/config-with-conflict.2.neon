@@ -2,4 +2,4 @@ includes:
     - included-set.2.neon
 
 checkers:
-    - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
+    - SomeOtherChecker

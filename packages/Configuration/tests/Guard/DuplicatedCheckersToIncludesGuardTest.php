@@ -43,15 +43,15 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
      */
     public function provideConflictingConfigFiles(): array
     {
-       return [
+        return [
            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.neon', [
-               'SomeChecker'
+               'SomeChecker',
            ]],
            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.2.neon', [
-               'Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer'
+               'SomeOtherChecker',
            ]],
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.3.neon' , [
-               'Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer'
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.3.neon', [
+               'SomeOtherChecker',
            ]],
        ];
     }

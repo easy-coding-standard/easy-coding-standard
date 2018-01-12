@@ -75,7 +75,7 @@ final class DuplicatedCheckersToIncludesGuard
      * @param mixed[] $includedCheckers
      * @return mixed[]
      */
-    private function checkerArrayIntersect(array$mainCheckers, array$includedCheckers): array
+    private function checkerArrayIntersect(array $mainCheckers, array $includedCheckers): array
     {
         $sharedCheckerNames = $this->checkerNameIntersect($mainCheckers, $includedCheckers);
 
