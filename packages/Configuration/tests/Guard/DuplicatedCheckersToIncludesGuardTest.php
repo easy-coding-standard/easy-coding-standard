@@ -52,13 +52,11 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
 
     /**
      * @dataProvider provideValidConfigFiles()
+     * @doesNotPerformAssertions
      */
     public function testValid(string $configFile): void
     {
         $this->duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
-
-        // just check it passes without exception
-        $this->assertTrue(true);
     }
 
     /**

@@ -18,6 +18,9 @@ final class ConflictingCheckerGuardTest extends TestCase
         $this->conflictingCheckerGuard = new ConflictingCheckerGuard();
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testFriendlyCheckers(): void
     {
         $checkers = [
@@ -26,7 +29,6 @@ final class ConflictingCheckerGuardTest extends TestCase
         ];
 
         $this->conflictingCheckerGuard->processCheckers($checkers);
-        $this->assertTrue(true);
     }
 
     public function testConflictingCheckers(): void

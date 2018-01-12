@@ -17,9 +17,11 @@ final class ApplicationTest extends AbstractContainerAwareTestCase
         $this->application = $this->container->get(Application::class);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testRun(): void
     {
         $this->application->run();
-        $this->assertTrue(true);
     }
 }
