@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Configuration\Tests;
+namespace Symplify\EasyCodingStandard\Configuration\Tests\Guard;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
@@ -39,20 +39,14 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     }
 
     /**
-     * @return string[]
+     * @return string[][]|string[][][]
      */
     public function provideConflictingConfigFiles(): array
     {
         return [
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.neon', [
-               'SomeChecker',
-           ]],
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.2.neon', [
-               'SomeOtherChecker',
-           ]],
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.3.neon', [
-               'SomeOtherChecker',
-           ]],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.neon', ['SomeChecker']],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.2.neon', ['SomeOtherChecker']],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.3.neon', ['SomeOtherChecker']],
        ];
     }
 
@@ -68,7 +62,7 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     }
 
     /**
-     * @return string[]
+     * @return string[][]
      */
     public function provideValidConfigFiles(): array
     {
