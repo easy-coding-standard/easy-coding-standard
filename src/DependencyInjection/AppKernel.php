@@ -11,6 +11,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompil
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\EasyCodingStandard\Exception\Configuration\DeprecatedConfigException;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
+use Symplify\PackageBuilder\Neon\Loader\NeonLoader;
 use Symplify\PackageBuilder\Neon\NeonLoaderAwareKernelTrait;
 
 final class AppKernel extends AbstractCliKernel
@@ -47,7 +48,7 @@ final class AppKernel extends AbstractCliKernel
     }
 
     /**
-     * @param  \Symplify\PackageBuilder\Neon\Loader\NeonLoader $loader
+     * @param NeonLoader $loader
      */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
