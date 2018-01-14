@@ -11,6 +11,7 @@ use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\EasyCodingStandard\Skipper;
 
 final class Application
 {
@@ -49,13 +50,19 @@ final class Application
      */
     private $fileFilter;
 
+    /**
+     * @var Skipper
+     */
+    private $skipper;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
         ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
-        FileFilter $fileFilter
+        FileFilter $fileFilter,
+        Skipper $skipper
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -63,6 +70,7 @@ final class Application
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->configuration = $configuration;
         $this->fileFilter = $fileFilter;
+        $this->skipper = $skipper;
     }
 
     public function addFileProcessor(FileProcessorInterface $fileProcessor): void
@@ -123,6 +131,10 @@ final class Application
             try {
                 // @todo pass file content?
                 foreach ($this->fileProcessors as $fileProcessor) {
+                    if ($this->skipper->shouldSkipFile($fileInfo)) {
+                        continue;
+                    }
+
                     $fileProcessor->processFile($fileInfo);
                 }
 

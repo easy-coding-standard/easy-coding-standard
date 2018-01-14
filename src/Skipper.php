@@ -5,6 +5,8 @@ namespace Symplify\EasyCodingStandard;
 use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
@@ -25,6 +27,11 @@ final class Skipper
      */
     private $unusedSkipped = [];
 
+    /**
+     * @var string[]
+     */
+    private $excludedFiles = [];
+
     public function __construct(ParameterProvider $parameterProvider, CheckerTypeValidator $checkerTypeValidator)
     {
         $skipped = $parameterProvider->provide()['skip'] ?? [];
@@ -33,6 +40,7 @@ final class Skipper
         $this->unusedSkipped = $skipped;
 
         $this->skippedCodes = $parameterProvider->provide()['skip_codes'] ?? [];
+        $this->excludedFiles = $parameterProvider->provide()['exclude_files'] ?? [];
     }
 
     public function shouldSkipCodeAndFile(string $code, string $absoluteFilePath): bool
@@ -127,5 +135,16 @@ final class Skipper
         if ($this->unusedSkipped[$skippedChecker] === []) {
             unset($this->unusedSkipped[$skippedChecker]);
         }
+    }
+
+    public function shouldSkipFile(SplFileInfo $fileInfo): bool
+    {
+        foreach ($this->excludedFiles as $excludedFile) {
+            if (Strings::endsWith($fileInfo->getRealPath(), $excludedFile)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
