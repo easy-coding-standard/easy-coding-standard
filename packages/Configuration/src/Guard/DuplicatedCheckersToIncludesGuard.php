@@ -44,7 +44,7 @@ final class DuplicatedCheckersToIncludesGuard
 
         throw new DuplicatedCheckersLoadedException(sprintf(
             'Duplicated checkers found in "%s" config: "%s". '
-                . 'These checkers are alread loaded in included configs with the same configuration.',
+                . 'These checkers are already loaded in included configs with the same configuration.',
             $configFile,
             implode('", "', $duplicateCheckersNames)
         ));
