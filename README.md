@@ -123,6 +123,16 @@ parameters:
             -  *src/Form/Type/*Type.php
 ```
 
+Or just 2 files?
+
+```yml
+parameters:
+    exclude_files:
+        # generated files
+        - lib/PhpParser/Parser/Php5.php
+        - lib/PhpParser/Parser/Php7.php
+```
+
 ### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
 
 Normally you want to exclude these files, because they're not common code - they're just test files or dummy fixtures. In case you want to check them as well, **you can**.
