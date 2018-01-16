@@ -163,6 +163,7 @@ final class CheckersExtension extends Extension
             return $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION);
         }
 
+        // typo proof
         if ($parameterBag->has('excluded_checkers')) {
             return $parameterBag->get('excluded_checkers');
         }
