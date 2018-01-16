@@ -39,7 +39,7 @@ final class Skipper
         $this->unusedSkipped = $skipped;
 
         $this->skippedCodes = $parameterProvider->provide()['skip_codes'] ?? [];
-        $this->excludedFiles = $parameterProvider->provide()['exclude_files'] ?? [];
+        $this->excludedFiles = $this->resolveExcludedFiles($parameterProvider);
     }
 
     public function shouldSkipCodeAndFile(string $code, string $absoluteFilePath): bool
@@ -98,7 +98,7 @@ final class Skipper
     public function shouldSkipFile(SplFileInfo $fileInfo): bool
     {
         foreach ($this->excludedFiles as $excludedFile) {
-            if (Strings::endsWith($fileInfo->getRealPath(), $excludedFile)) {
+            if ($this->fileMatchesPattern($fileInfo->getRealPath(), $excludedFile)) {
                 return true;
             }
         }
@@ -145,5 +145,22 @@ final class Skipper
         if ($this->unusedSkipped[$skippedChecker] === []) {
             unset($this->unusedSkipped[$skippedChecker]);
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    private function resolveExcludedFiles(ParameterProvider $parameterProvider): array
+    {
+        if ($parameterProvider->provideParameter('exclude_files')) {
+            return $parameterProvider->provideParameter('exclude_files');
+        }
+
+        // typo proof
+        if ($parameterProvider->provideParameter('excluded_files')) {
+            return $parameterProvider->provideParameter('excluded_files');
+        }
+
+        return [];
     }
 }

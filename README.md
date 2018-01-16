@@ -131,6 +131,8 @@ parameters:
         # generated files
         - lib/PhpParser/Parser/Php5.php
         - lib/PhpParser/Parser/Php7.php
+        # or with fnmatch() pattern
+        - */lib/PhpParser/Parser/Php*.php
 ```
 
 ### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
