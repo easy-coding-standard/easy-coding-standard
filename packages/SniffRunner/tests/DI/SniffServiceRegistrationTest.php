@@ -26,9 +26,6 @@ final class SniffServiceRegistrationTest extends TestCase
     {
         $this->assertSame(15, $this->lineLengthSniff->lineLimit);
 
-        $this->assertSame(
-            ['@author'],
-            $this->lineLengthSniff->absoluteLineLimit
-        );
+        $this->assertSame(['@author'], $this->lineLengthSniff->absoluteLineLimit);
     }
 }
