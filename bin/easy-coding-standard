@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+require_once __DIR__ . '/easy-coding-standard-bootstrap.php';
+
 use Symplify\EasyCodingStandard\Exception\DeprecatedException;
 
 throw new DeprecatedException(sprintf(
