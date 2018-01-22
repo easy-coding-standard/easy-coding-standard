@@ -100,6 +100,9 @@ final class MutualCheckerExcluder
         ], [
             'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff',
             'SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff',
+        ], [
+            'PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer',
+            'PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\DoubleQuoteUsageSniff',
         ],
         // PSR2
         [
