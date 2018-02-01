@@ -33,7 +33,6 @@ checkers:
         - throw
         - use
     - PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer
-    - PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer
     - PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer
     - PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer
     - PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer
