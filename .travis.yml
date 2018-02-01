@@ -8,6 +8,7 @@ install:
   - composer install --prefer-source
 
 script:
+  - bin/ecs
   - vendor/bin/phpunit
 
 notifications:
