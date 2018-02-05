@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Application;
 
+use ParseError;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;

@@ -54,10 +54,8 @@ final class Application implements FileProcessorCollectorInterface
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
-        ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
         FileFilter $fileFilter,
-        Skipper $skipper,
         SingleFileProcessor $singleFileProcessor
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
