@@ -9,10 +9,17 @@ services:
 
     Symplify\EasyCodingStandard\:
         resource: '../../src'
-        exclude: '../../src/{Application/Application.php,Contract,Configuration/Loader/NeonLoader.php,DependencyInjection,Exception,Error/Error.php,Error/FileDiff.php}'
+        exclude: '../../src/{Contract,Configuration/Loader/NeonLoader.php,DependencyInjection,Exception,Error/Error.php,Error/FileDiff.php}'
 
-    Symplify\EasyCodingStandard\Application\Application:
-        calls:
-            # exact in that order, so Fixer can cleanup after Sniffer
-            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
-            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
+    _instanceof:
+        Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
+            calls:
+                # exact in that order, so Fixer can cleanup after Sniffer
+                - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
+                - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
+
+#    Symplify\EasyCodingStandard\Application\Application:
+#        calls:
+#            # exact in that order, so Fixer can cleanup after Sniffer
+#            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
+#            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
