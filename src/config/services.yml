@@ -14,12 +14,6 @@ services:
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
             calls:
-                # exact in that order, so Fixer can cleanup after Sniffer
+                # orders matters, so Fixer can cleanup after Sniffer
                 - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
                 - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
-
-#    Symplify\EasyCodingStandard\Application\Application:
-#        calls:
-#            # exact in that order, so Fixer can cleanup after Sniffer
-#            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
-#            - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
