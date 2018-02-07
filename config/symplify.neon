@@ -13,7 +13,6 @@ checkers:
 
     # Spaces
     - Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer
-    - Symplify\CodingStandard\Fixer\ClassNotation\LastPropertyAndFirstMethodSeparationFixer
 
     # LineLength
     - Symplify\CodingStandard\Fixer\LineLength\BreakMethodArgumentsFixer
