@@ -107,10 +107,7 @@ final class Configuration
                 continue;
             }
 
-            throw new SourceNotFoundException(sprintf(
-                'Source "%s" does not exist.',
-                $source
-            ));
+            throw new SourceNotFoundException(sprintf('Source "%s" does not exist.', $source));
         }
     }
 
