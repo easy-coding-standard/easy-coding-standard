@@ -32,6 +32,7 @@ checkers:
     - Symplify\CodingStandard\Fixer\Naming\ExceptionNameFixer
     - Symplify\CodingStandard\Fixer\Naming\MagicMethodsNamingFixer
     - Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer
+    - Symplify\CodingStandard\Fixer\Naming\ClassNameSuffixByParentFixer
 
     # Architecture
     - Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer
