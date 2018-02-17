@@ -11,7 +11,9 @@ final class Application extends SymfonyApplication
 {
     public function __construct()
     {
-        parent::__construct('EasyCodingStandard', PrettyVersions::getVersion('symplify/easy-coding-standard')->getPrettyVersion());
+        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
+
+        parent::__construct('EasyCodingStandard', $version->getPrettyVersion());
     }
 
     protected function getDefaultInputDefinition(): InputDefinition
