@@ -116,6 +116,7 @@ final class Application implements FileProcessorCollectorInterface
     {
         foreach ($fileInfos as $relativePath => $fileInfo) {
             $this->singleFileProcessor->processFileInfo($fileInfo, $relativePath);
+            $this->changedFilesDetector->addFile($relativePath);
         }
     }
 

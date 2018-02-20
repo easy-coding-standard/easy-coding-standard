@@ -36,7 +36,7 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
     public function testAddFile(): void
     {
         $this->assertFileHasChanged($this->phpFile);
-        $this->assertFileHasNotChanged($this->phpFile);
+        $this->assertFileHasChanged($this->phpFile);
     }
 
     public function testHasFileChanged(): void
@@ -56,7 +56,6 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
         );
 
         $this->assertFileHasChanged($this->phpFile);
-        $this->assertFileHasNotChanged($this->phpFile);
     }
 
     private function getCacheDirectory(): string

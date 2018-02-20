@@ -56,8 +56,6 @@ final class ChangedFilesDetector
         $oldFileHash = $this->cache->load($filePath);
 
         if ($newFileHash !== $oldFileHash) {
-            $this->addFile($filePath);
-
             return true;
         }
 
