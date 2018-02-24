@@ -17,6 +17,7 @@ checkers:
     # LineLength
     - Symplify\CodingStandard\Fixer\LineLength\BreakMethodArgumentsFixer
     - Symplify\CodingStandard\Fixer\LineLength\BreakMethodCallsFixer
+    - Symplify\CodingStandard\Fixer\LineLength\BreakArrayListFixer
 
     # Comments
     - Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer
