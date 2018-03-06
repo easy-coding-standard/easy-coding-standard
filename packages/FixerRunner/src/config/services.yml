@@ -10,8 +10,6 @@ services:
 
     # differ
     PhpCsFixer\Differ\UnifiedDiffer: ~
-    PhpCsFixer\Differ\DifferInterface:
-        alias: PhpCsFixer\Differ\UnifiedDiffer
 
     Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor:
         public: true # for tests
