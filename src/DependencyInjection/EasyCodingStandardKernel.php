@@ -10,11 +10,12 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\EasyCodingStandard\Exception\Configuration\DeprecatedConfigException;
+use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 use Symplify\PackageBuilder\Neon\Loader\NeonLoader;
 use Symplify\PackageBuilder\Neon\NeonLoaderAwareKernelTrait;
 
-final class AppKernel extends AbstractCliKernel
+final class EasyCodingStandardKernel extends AbstractCliKernel
 {
     use NeonLoaderAwareKernelTrait;
 
@@ -78,6 +79,7 @@ final class AppKernel extends AbstractCliKernel
     {
         $containerBuilder->addCompilerPass(new CollectorCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
+        $containerBuilder->addCompilerPass(new AutowireSinglyImplementedCompilerPass());
     }
 
     /**

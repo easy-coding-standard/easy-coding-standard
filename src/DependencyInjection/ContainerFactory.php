@@ -13,7 +13,7 @@ final class ContainerFactory
      */
     public function create(): ContainerInterface
     {
-        $appKernel = new AppKernel();
+        $appKernel = new EasyCodingStandardKernel();
         $appKernel->boot();
 
         return $appKernel->getContainer();
@@ -24,7 +24,7 @@ final class ContainerFactory
      */
     public function createWithConfig(string $config): ContainerInterface
     {
-        $appKernel = new AppKernel($config);
+        $appKernel = new EasyCodingStandardKernel($config);
         $appKernel->boot();
 
         return $appKernel->getContainer();
