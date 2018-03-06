@@ -14,7 +14,7 @@ use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 use Symplify\PackageBuilder\Neon\Loader\NeonLoader;
 use Symplify\PackageBuilder\Neon\NeonLoaderAwareKernelTrait;
 
-final class AppKernel extends AbstractCliKernel
+final class EasyCodingStandardKernel extends AbstractCliKernel
 {
     use NeonLoaderAwareKernelTrait;
 
