@@ -13,7 +13,7 @@ final class IndentationTest extends TestCase
     public function testSpaces(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/IndentationSource/config-with-spaces-indentation.neon'
+            __DIR__ . '/IndentationSource/config-with-spaces-indentation.yml'
         );
 
         /** @var IndentationTypeFixer $indentationFixer */
@@ -26,7 +26,7 @@ final class IndentationTest extends TestCase
     public function testTabs(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/IndentationSource/config-with-tabs-indentation.neon'
+            __DIR__ . '/IndentationSource/config-with-tabs-indentation.yml'
         );
 
         /** @var IndentationTypeFixer $indentationFixer */

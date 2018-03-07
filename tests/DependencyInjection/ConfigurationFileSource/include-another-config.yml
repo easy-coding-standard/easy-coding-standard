@@ -1,5 +1,5 @@
-includes:
-    - simple-config.neon
+imports:
+    - { resource: 'simple-config.neon' }
 
 checkers:
     - PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer

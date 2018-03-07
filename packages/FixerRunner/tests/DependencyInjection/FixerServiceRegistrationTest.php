@@ -15,7 +15,7 @@ final class FixerServiceRegistrationTest extends TestCase
     public function test(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.neon'
+            __DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.yml'
         );
 
         $arraySyntaxFixer = $container->get(ArraySyntaxFixer::class);
@@ -40,7 +40,7 @@ final class FixerServiceRegistrationTest extends TestCase
         ));
 
         (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/FixerServiceRegistrationSource/non-configurable-fixer.neon'
+            __DIR__ . '/FixerServiceRegistrationSource/non-configurable-fixer.yml'
         );
     }
 }
