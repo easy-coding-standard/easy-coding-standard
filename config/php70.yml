@@ -9,24 +9,24 @@ checkers:
         rand: random_int
 
     # ?? operator
-    - PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer
+    PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer: ~
 
     # strict types
-    - PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer
-    - Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer
-    - PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer
+    PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: ~
+    Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer: ~
 
     # typehints
-    - PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
         enableEachParameterAndReturnInspection: true
         enableVoidTypeHint: false
         enableNullableTypeHints: false
 
     # throwable
-    - SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff
+    SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: ~
 
 parameters:
     # disable any annotation removal
     skip_codes:
-        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~

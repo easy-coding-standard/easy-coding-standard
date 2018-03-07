@@ -1,0 +1,25 @@
+checkers:
+    # use short array []
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short
+
+    # detect dead code
+    SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff:
+
+    # drop dead use namespaces
+    PhpCsFixer\Fixer\Import\NoUnusedImportsFixer:
+
+    # and sort them A → Z
+    PhpCsFixer\Fixer\Import\OrderedImportsFixer:
+
+    # $value;;
+    PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer:
+
+    # final class { ... protected ... }
+    PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer:
+
+    # continue (2);
+    PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer:
+
+    # { echo 'hi'; }
+    PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer:

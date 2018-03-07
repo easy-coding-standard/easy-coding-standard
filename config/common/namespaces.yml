@@ -1,0 +1,9 @@
+checkers:
+    # drop dead use namespaces
+    PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
+
+    # and sort them A → Z
+    PhpCsFixer\Fixer\Import\OrderedImportsFixer: ~
+
+    # <?php\nnamespace SomeNamespace;
+    PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer: ~
