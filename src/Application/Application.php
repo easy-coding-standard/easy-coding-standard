@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Application;
 
 use Symfony\Component\Finder\SplFileInfo;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -49,19 +48,13 @@ final class Application implements FileProcessorCollectorInterface
      */
     private $singleFileProcessor;
 
-    /**
-     * @var CacheFactory
-     */
-    private $cacheFactory;
-
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
         Configuration $configuration,
         FileFilter $fileFilter,
-        SingleFileProcessor $singleFileProcessor,
-        CacheFactory $cacheFactory
+        SingleFileProcessor $singleFileProcessor
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -69,7 +62,6 @@ final class Application implements FileProcessorCollectorInterface
         $this->configuration = $configuration;
         $this->fileFilter = $fileFilter;
         $this->singleFileProcessor = $singleFileProcessor;
-        $this->cacheFactory = $cacheFactory;
     }
 
     public function addFileProcessor(FileProcessorInterface $fileProcessor): void
@@ -79,15 +71,10 @@ final class Application implements FileProcessorCollectorInterface
 
     public function run(): void
     {
-        // 1. set cache
-        $this->changedFilesDetector->setCache(
-            $this->cacheFactory->create($this->configuration->getCacheDirectory())
-        );
-
-        // 2. find files in sources
+        // 1. find files in sources
         $files = $this->sourceFinder->find($this->configuration->getSources());
 
-        // 3. clear cache
+        // 2. clear cache
         if ($this->configuration->shouldClearCache()) {
             $this->changedFilesDetector->clearCache();
         } else {
@@ -99,15 +86,15 @@ final class Application implements FileProcessorCollectorInterface
             return;
         }
 
-        // 4. start progress bar
+        // 3. start progress bar
         if ($this->configuration->showProgressBar()) {
             $this->easyCodingStandardStyle->progressStart(count($files) * ($this->isDualRunEnabled() ? 2 : 1));
         }
 
-        // 5. process found files by each processors
+        // 4. process found files by each processors
         $this->processFoundFiles($files);
 
-        // 6. process files with DualRun
+        // 5. process files with DualRun
         $this->processFoundFilesSecondRun($files);
     }
 
