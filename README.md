@@ -45,7 +45,7 @@ vendor/bin/ecs check src
 vendor/bin/ecs check src --fix
 ```
 
-*Tip: Do you want [autocomplete too](https://plugins.jetbrains.com/plugin/7060-neon-support)?*
+*Tip: Do you want [autocomplete too](https://github.com/Haehnchen/idea-php-symfony2-plugin/issues/1153)?*
 
 ## More Features
 
