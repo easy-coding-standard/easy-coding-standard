@@ -1,8 +1,2 @@
-includes:
-    - common/array.neon
-    - common/control-structures.neon
-    - common/docblock.neon
-    - common/namespaces.neon
-    - common/spaces.neon
-    - common/strict.neon
-    - common/phpunit.neon
+imports:
+    - { resource: 'common/*.yml' }

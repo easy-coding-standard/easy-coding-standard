@@ -25,7 +25,7 @@ composer require --dev symplify/easy-coding-standard
 
 ### 1. Create Configuration and Setup Checkers
 
-Create an `easy-coding-standard.neon` in your root directory and add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use.
+Create an `easy-coding-standard.yml` in your root directory and add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use.
 
 Let's start with the most common one - `array()` => `[]`:
 
@@ -53,16 +53,16 @@ vendor/bin/ecs check src --fix
 
 There are prepared sets in [`/config` directory](config) that you can use:
 
-- [clean-code.neon](config/clean-code.neon)
-- [common.neon](config/common.neon)
-- [php71.neon](config/php71.neon)
-- [psr2.neon](config/psr2.neon)
+- [clean-code.yml](config/clean-code.yml)
+- [common.yml](config/common.yml)
+- [php71.yml](config/php71.yml)
+- [psr2.yml](config/psr2.yml)
 - ...
 
 You pick config in CLI with `--config`:
 
 ```bash
-vendor/bin/ecs check src --config vendor/symplify/easy-coding-standard/config/clean-code.neon
+vendor/bin/ecs check src --config vendor/symplify/easy-coding-standard/config/clean-code.yml
 ```
 
 **Too long? Try `--level` shortcut**:
@@ -74,19 +74,19 @@ vendor/bin/ecs check src --level clean-code
 or include more of them in config:
 
 ```yaml
-# easy-coding-standard.neon
+# easy-coding-standard.yml
 includes:
-    - vendor/symplify/easy-coding-standard/config/clean-code.neon
-    - vendor/symplify/easy-coding-standard/config/psr2.neon
+    - vendor/symplify/easy-coding-standard/config/clean-code.yml
+    - vendor/symplify/easy-coding-standard/config/psr2.yml
 ```
 
 ### Exclude Checkers
 
-What if you add `symfony.neon` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
+What if you add `symfony.yml` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
 
 ```yaml
 includes:
-    - vendor/symplify/easy-coding-standard/config/symfony.neon
+    - vendor/symplify/easy-coding-standard/config/symfony.yml
 
 parameters:
     exclude_checkers:
@@ -143,7 +143,7 @@ Let's say you want to include `*.phpt` files.
 
 - Create a class in `src/Finder/PhpAndPhptFilesProvider.php`
 - Implement `Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface`
-- Register it as services to `easy-coding-standard.neon` like any other Symfony service:
+- Register it as services to `easy-coding-standard.yml` like any other Symfony service:
 
     ```yaml
     services:

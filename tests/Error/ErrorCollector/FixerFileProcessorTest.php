@@ -23,7 +23,7 @@ final class FixerFileProcessorTest extends TestCase
     protected function setUp(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/FixerRunnerSource/phpunit-fixer-config.neon'
+            __DIR__ . '/FixerRunnerSource/phpunit-fixer-config.yml'
         );
 
         $this->errorAndDiffCollector = $container->get(ErrorAndDiffCollector::class);

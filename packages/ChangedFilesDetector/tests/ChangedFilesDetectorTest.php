@@ -24,7 +24,7 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 
         $this->changedFilesDetector = $this->container->get(ChangedFilesDetector::class);
         $this->changedFilesDetector->changeConfigurationFile(
-            __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.neon'
+            __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.yml'
         );
     }
 
@@ -52,7 +52,7 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
         $this->assertFileHasNotChanged($this->phpFile);
 
         $this->changedFilesDetector->changeConfigurationFile(
-            __DIR__ . '/ChangedFilesDetectorSource/another-configuration.neon'
+            __DIR__ . '/ChangedFilesDetectorSource/another-configuration.yml'
         );
 
         $this->assertFileHasChanged($this->phpFile);

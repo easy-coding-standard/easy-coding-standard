@@ -44,9 +44,9 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     public function provideConflictingConfigFiles(): array
     {
         return [
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.neon', ['SomeChecker']],
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.2.neon', ['SomeOtherChecker']],
-           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.3.neon', ['SomeOtherChecker']],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.1.yml', ['SomeChecker']],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.2.yml', ['SomeOtherChecker']],
+           [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/config-with-conflict.3.yml', ['SomeOtherChecker']],
        ];
     }
 
@@ -65,8 +65,8 @@ final class DuplicatedCheckersToIncludesGuardTest extends TestCase
     public function provideValidConfigFiles(): array
     {
         return [
-            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.1.neon'],
-            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.2.neon'],
+            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.1.yml'],
+            [__DIR__ . '/DuplicatedCheckersToIncludesGuardSource/valid-config.2.yml'],
         ];
     }
 }

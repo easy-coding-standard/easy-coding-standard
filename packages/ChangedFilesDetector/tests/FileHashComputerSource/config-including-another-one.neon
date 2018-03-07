@@ -1,2 +1,2 @@
-includes:
-    - another-one.neon
+imports:
+    - { resource: 'another-one.yml' }

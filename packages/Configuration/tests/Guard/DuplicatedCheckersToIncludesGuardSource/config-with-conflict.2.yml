@@ -1,0 +1,5 @@
+imports:
+    - { resource: 'included-set.2.yml' }
+
+checkers:
+    - SomeOtherChecker

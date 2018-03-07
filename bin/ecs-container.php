@@ -15,7 +15,7 @@ $configFile = (new LevelConfigShortcutFinder())->resolveLevel(new ArgvInput(), _
 // 2. Detect configuration
 if ($configFile === null) {
     ConfigFilePathHelper::detectFromInput('ecs', new ArgvInput());
-    $configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.neon');
+    $configFile = ConfigFilePathHelper::provide('ecs', 'easy-coding-standard.yml');
 } else {
     ConfigFilePathHelper::set('ecs', $configFile);
 }

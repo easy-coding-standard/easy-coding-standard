@@ -16,7 +16,7 @@ final class SniffServiceRegistrationTest extends TestCase
     protected function setUp(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.neon'
+            __DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.yml'
         );
 
         $this->lineLengthSniff = $container->get(LineLengthSniff::class);

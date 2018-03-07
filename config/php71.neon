@@ -1,5 +1,5 @@
-includes:
-    - php70.neon
+imports:
+    - { resource: 'php70.yml' }
 
 checkers:
     # All elements should have visibility

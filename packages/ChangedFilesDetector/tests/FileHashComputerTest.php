@@ -12,7 +12,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
     /**
      * @var string
      */
-    private $includedConfigFile = __DIR__ . '/FileHashComputerSource/another-one.neon';
+    private $includedConfigFile = __DIR__ . '/FileHashComputerSource/another-one.yml';
 
     /**
      * @var FileHashComputer
@@ -32,7 +32,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
         ]));
 
         $fileOneHash = $this->fileHashComputer->compute(
-            __DIR__ . '/FileHashComputerSource/config-including-another-one.neon'
+            __DIR__ . '/FileHashComputerSource/config-including-another-one.yml'
         );
 
         // B. create on another one with no fixer
@@ -41,7 +41,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
         ]));
 
         $fileTwoHash = $this->fileHashComputer->compute(
-            __DIR__ . '/FileHashComputerSource/config-including-another-one.neon'
+            __DIR__ . '/FileHashComputerSource/config-including-another-one.yml'
         );
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);

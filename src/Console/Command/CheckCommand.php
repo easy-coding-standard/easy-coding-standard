@@ -188,7 +188,7 @@ final class CheckCommand extends Command
         if ($totalCheckersLoaded === 0) {
             throw new NoCheckersLoadedException(
                 'No checkers were found. Registers them in your config in "checkers:" '
-                . 'section, load them via "--config <file>.neon" or "--level <level> option.'
+                . 'section, load them via "--config <file>.yml" or "--level <level> option.'
             );
         }
     }
