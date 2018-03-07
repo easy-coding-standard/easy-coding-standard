@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
-use Nette\Neon\Neon;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
+use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
@@ -27,7 +27,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
     public function testInvalidateCacheOnConfigurationChange(): void
     {
         // A. create on another one with fixer
-        file_put_contents($this->includedConfigFile, Neon::encode([
+        file_put_contents($this->includedConfigFile, Yaml::dump([
             'checkers' => [DeclareStrictTypesFixer::class],
         ]));
 
@@ -36,7 +36,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
         );
 
         // B. create on another one with no fixer
-        file_put_contents($this->includedConfigFile, Neon::encode([
+        file_put_contents($this->includedConfigFile, Yaml::dump([
             'checkers' => [],
         ]));
 
