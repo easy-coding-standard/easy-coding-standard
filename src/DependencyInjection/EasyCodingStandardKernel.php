@@ -28,9 +28,6 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         $loader->load(__DIR__ . '/../config/services.yml');
 
         if ($this->configFile) {
-
-            dump($this->configFile);
-
             $loader->load($this->configFile);
         }
     }
