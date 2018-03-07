@@ -2,9 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Configuration\Guard;
 
-use Nette\DI\Config\Helpers;
-use Nette\DI\Config\Loader;
-use Nette\Neon\Neon;
+use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\Exception\Guard\DuplicatedCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Option;
@@ -14,6 +12,11 @@ use Symplify\EasyCodingStandard\Configuration\Option;
  */
 final class DuplicatedCheckersToIncludesGuard
 {
+    /**
+     * @var string
+     */
+    private const IMPORTS_KEY = 'imports';
+
     /**
      * @var CheckerConfigurationNormalizer
      */
@@ -26,9 +29,10 @@ final class DuplicatedCheckersToIncludesGuard
 
     public function processConfigFile(string $configFile): void
     {
-        $decodedFile = Neon::decode(file_get_contents($configFile));
+        $decodedFile = Yaml::parse(file_get_contents($configFile));
         $mainCheckers = $decodedFile[Option::CHECKERS] ?? [];
-        $includedCheckers = $this->resolveIncludedCheckers($configFile);
+
+        $includedCheckers = $this->resolveIncludedCheckers($configFile, $decodedFile);
         if (! $mainCheckers || ! $includedCheckers) {
             return;
         }
@@ -51,23 +55,24 @@ final class DuplicatedCheckersToIncludesGuard
     }
 
     /**
+     * @param mixed[] $decodedFile
      * @return mixed[]
      */
-    private function resolveIncludedCheckers(string $configFile): array
+    private function resolveIncludedCheckers(string $configFile, array $decodedFile): array
     {
-        $neonLoader = new Loader();
-        $neonLoader->load($configFile);
-        $allFiles = $neonLoader->getDependencies();
-
-        // remove main file
-        unset($allFiles[0]);
-
-        $includedCheckers = [];
-        foreach ($allFiles as $includedFile) {
-            $includedCheckers = Helpers::merge($includedCheckers, $neonLoader->load($includedFile));
+        if (! isset($decodedFile[self::IMPORTS_KEY])) {
+            return [];
         }
 
-        return $includedCheckers['checkers'] ?? [];
+        $includedCheckers = [];
+        foreach ($decodedFile[self::IMPORTS_KEY] as $includedFile) {
+            // @todo validate 'resource'
+            $includedFile = dirname($configFile) . DIRECTORY_SEPARATOR . $includedFile['resource'];
+            // @todo validate file exists
+            $includedCheckers = array_merge($includedCheckers, (array) Yaml::parse(file_get_contents($includedFile)));
+        }
+
+        return $includedCheckers[Option::CHECKERS] ?? [];
     }
 
     /**
