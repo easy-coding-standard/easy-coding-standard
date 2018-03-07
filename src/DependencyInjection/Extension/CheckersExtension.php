@@ -117,6 +117,14 @@ final class CheckersExtension extends Extension
         }
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
+            // clean merge null values leftover, e.g. when parent checkers has `~`, but later has `[]`
+            $configuration = array_filter($configuration);
+
+            // skip empty configs
+            if (! $configuration) {
+                return;
+            }
+
             $this->checkersExtensionGuardian->ensureFixerIsConfigurable($checkerClass, $configuration);
             $checkerDefinition->addMethodCall('configure', [$configuration]);
         }
