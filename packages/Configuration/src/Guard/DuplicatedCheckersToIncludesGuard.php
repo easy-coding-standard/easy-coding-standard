@@ -31,7 +31,6 @@ final class DuplicatedCheckersToIncludesGuard
     {
         $decodedFile = Yaml::parse(file_get_contents($configFile));
         $mainCheckers = $decodedFile[Option::CHECKERS] ?? [];
-
         $includedCheckers = $this->resolveIncludedCheckers($configFile, $decodedFile);
         if (! $mainCheckers || ! $includedCheckers) {
             return;
