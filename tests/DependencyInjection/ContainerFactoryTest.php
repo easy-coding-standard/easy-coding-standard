@@ -30,7 +30,7 @@ final class ContainerFactoryTest extends TestCase
     public function testCreateFromConfig(): void
     {
         $container = $this->containerFactory->createWithConfig(
-            __DIR__ . '/ContainerFactorySource/normal-config.neon'
+            __DIR__ . '/ContainerFactorySource/normal-config.yml'
         );
         $this->assertInstanceOf(ContainerInterface::class, $container);
 
