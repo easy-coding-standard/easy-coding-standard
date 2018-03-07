@@ -24,11 +24,6 @@ final class CheckersExtension extends Extension
     private const EXCLUDE_CHECKERS_OPTION = 'exclude_checkers';
 
     /**
-     * @var string
-     */
-    private const NAME = 'checkers';
-
-    /**
      * @var CheckerConfigurationNormalizer
      */
     private $checkerConfigurationNormalizer;
@@ -118,10 +113,8 @@ final class CheckersExtension extends Extension
 
         if (is_a($checkerClass, FixerInterface::class, true)) {
             // clean merge null values leftover, e.g. when parent checkers has `~`, but later has `[]`
-            $configuration = array_filter($configuration);
-
             // skip empty configs
-            if (! $configuration) {
+            if (empty($configuration)) {
                 return;
             }
 

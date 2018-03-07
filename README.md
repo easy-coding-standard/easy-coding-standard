@@ -116,11 +116,12 @@ You can also skip specific codes that you know from PHP_CodeSniffer:
 parameters:
     skip_codes:
         # code to skip for all files
-        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment:
+            - '*src*'
 
         # code to skip for specific files/patterns
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification:
-            -  *src/Form/Type/*Type.php
+            -  '*src/Form/Type/*Type.php'
 ```
 
 Or just 2 files?
