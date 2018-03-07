@@ -9,13 +9,9 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompil
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
-use Symplify\PackageBuilder\Neon\Loader\NeonLoader;
-use Symplify\PackageBuilder\Neon\NeonLoaderAwareKernelTrait;
 
 final class EasyCodingStandardKernel extends AbstractCliKernel
 {
-    use NeonLoaderAwareKernelTrait;
-
     /**
      * @var null|string
      */
@@ -27,14 +23,11 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         parent::__construct();
     }
 
-    /**
-     * @param NeonLoader $loader
-     */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../config/services.yml');
         if ($this->configFile) {
-            $loader->load($this->configFile, ['parameters', 'checkers', 'includes', 'services']);
+            $loader->load($this->configFile);
         }
     }
 
