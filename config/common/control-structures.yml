@@ -1,17 +1,17 @@
 checkers:
     # "$var" => "${var}"
-    - PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer
-    - PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer
+    PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer: ~
 
     # PSR-4
-    - PhpCsFixer\Fixer\Basic\Psr4Fixer
+    PhpCsFixer\Fixer\Basic\Psr4Fixer: ~
 
     # private $one, $two;
     PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
         elements: ['property', 'const']
 
     # new SomeClass;
-    - PhpCsFixer\Fixer\Operator\NewWithBracesFixer
+    PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
 
     PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
         singleLine: true
@@ -21,19 +21,19 @@ checkers:
         style: pre
 
     # class SomeClass { ... return SomeClass; }
-    - PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer
+    PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer: ~
 
     # __dir__
-    - PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer
+    PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer: ~
 
     # if ($value = $this->someMethod()) { ... }
-    - PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff: ~
 
     # if (...) { return 1; } else { return 2; }
-    - PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer
+    PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer: ~
 
     # "value"
-    - PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer
+    PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer: ~
 
     # if ("result" === $value)
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
@@ -42,4 +42,4 @@ checkers:
         less_and_greater: false
 
     # private $property; public $anotherProperty;
-    - PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer
+    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~

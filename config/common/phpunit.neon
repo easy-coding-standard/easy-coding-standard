@@ -1,6 +1,0 @@
-checkers:
-    # $this->assertEquals()    =>    $this->assertSame()
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer
-
-    # test<>()
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer
