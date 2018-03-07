@@ -1,0 +1,2 @@
+checkers:
+    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
