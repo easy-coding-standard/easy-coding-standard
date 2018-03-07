@@ -74,7 +74,7 @@ final class CheckersExtension extends Extension
             return;
         }
 
-        $checkersConfiguration = array_merge_recursive(...$configs);
+        $checkersConfiguration = array_replace_recursive(...$configs);
         $checkers = $this->checkerConfigurationNormalizer->normalize($checkersConfiguration);
 
         $this->checkerTypeValidator->validate(array_keys($checkers), 'parameters > checkers');
