@@ -87,6 +87,12 @@ final class CheckCommand extends Command
             InputOption::VALUE_NONE,
             'Hide error table. Useful e.g. for fast check of error count.'
         );
+        $this->addOption(
+            Option::CACHE_DIR,
+            null,
+            InputOption::VALUE_REQUIRED,
+            'Use different cache directory.'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

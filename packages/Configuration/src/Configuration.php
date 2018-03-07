@@ -37,6 +37,11 @@ final class Configuration
      */
     private $showErrorTable = true;
 
+    /**
+     * @var string
+     */
+    private $cacheDirectory;
+
     public function resolveFromInput(InputInterface $input): void
     {
         $this->setSources($input->getArgument(Option::SOURCE));
@@ -45,6 +50,7 @@ final class Configuration
         $this->showPerformance = (bool) $input->getOption(Option::SHOW_PERFORMANCE);
         $this->showProgressBar = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
+        $this->cacheDirectory = $input->getOption(Option::CACHE_DIR);
     }
 
     /**
@@ -86,6 +92,11 @@ final class Configuration
     public function showErrorTable(): bool
     {
         return $this->showErrorTable;
+    }
+
+    public function getCacheDirectory(): string
+    {
+        return $this->cacheDirectory ?? sys_get_temp_dir() . DIRECTORY_SEPARATOR . '_changed_files_detector';
     }
 
     /**
