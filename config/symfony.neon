@@ -1,5 +1,5 @@
-includes:
-    - php_cs_fixer/psr2.neon
+imports:
+    - { resource: 'php_cs_fixer/psr2.yml' }
 
 checkers:
     - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer

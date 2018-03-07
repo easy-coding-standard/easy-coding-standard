@@ -1,0 +1,6 @@
+imports:
+    - { resource: 'included-set.1.yml' }
+
+checkers:
+    SomeChecker:
+        with: config

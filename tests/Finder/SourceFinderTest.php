@@ -22,7 +22,7 @@ final class SourceFinderTest extends AbstractContainerAwareTestCase
     public function testSourceProviders(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/SourceFinderSource/config-with-source-provider.neon'
+            __DIR__ . '/SourceFinderSource/config-with-source-provider.yml'
         );
 
         $sourceFinder = $container->get(SourceFinder::class);

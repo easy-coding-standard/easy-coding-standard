@@ -1,5 +1,0 @@
-includes:
-    - included-set.2.neon
-
-checkers:
-    - SomeOtherChecker

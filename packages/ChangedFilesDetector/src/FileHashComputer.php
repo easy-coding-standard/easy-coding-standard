@@ -19,7 +19,7 @@ final class FileHashComputer
 
     public function compute(string $filePath): string
     {
-        if (Strings::endsWith($filePath, '.neon')) {
+        if (Strings::endsWith($filePath, '.yml')) {
             $loadedFileStructure = $this->loader->load($filePath);
 
             return md5(serialize($loadedFileStructure));
