@@ -2,25 +2,15 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
-use Nette\DI\Config\Loader;
 use Nette\Utils\Strings;
+use Symfony\Component\Yaml\Yaml;
 
 final class FileHashComputer
 {
-    /**
-     * @var Loader
-     */
-    private $loader;
-
-    public function __construct(Loader $loader)
-    {
-        $this->loader = $loader;
-    }
-
     public function compute(string $filePath): string
     {
         if (Strings::endsWith($filePath, '.yml')) {
-            $loadedFileStructure = $this->loader->load($filePath);
+            $loadedFileStructure = Yaml::parse(file_get_contents($filePath));
 
             return md5(serialize($loadedFileStructure));
         }

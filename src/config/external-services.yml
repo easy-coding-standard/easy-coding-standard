@@ -4,7 +4,6 @@ services:
         public: true # for tests
 
     # 3rd party services
-    Nette\DI\Config\Loader: ~
     Symfony\Component\Console\Terminal: ~
 
     # Console
