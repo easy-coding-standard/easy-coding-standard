@@ -48,7 +48,7 @@ final class ContainerFactoryTest extends TestCase
         ));
 
         $this->containerFactory->createWithConfig(
-            __DIR__ . '/ContainerFactorySource/config-with-typo-in-configuration.neon'
+            __DIR__ . '/ContainerFactorySource/config-with-typo-in-configuration.yml'
         );
     }
 }

@@ -26,7 +26,11 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../config/services.yml');
+
         if ($this->configFile) {
+
+            dump($this->configFile);
+
             $loader->load($this->configFile);
         }
     }
