@@ -67,17 +67,19 @@ final class CheckersExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
-        $parameterBag = $containerBuilder->getParameterBag();
-        if (! $parameterBag->has(self::NAME)) {
+        // remove empty sections
+        $configs = array_filter($configs);
+
+        if (! count($configs)) {
             return;
         }
 
-        $checkersConfiguration = $parameterBag->has(self::NAME) ? (array) $parameterBag->get(self::NAME) : [];
+        $checkersConfiguration = array_merge_recursive(...$configs);
         $checkers = $this->checkerConfigurationNormalizer->normalize($checkersConfiguration);
 
         $this->checkerTypeValidator->validate(array_keys($checkers), 'parameters > checkers');
 
-        $checkers = $this->removeExcludedCheckers($checkers, $parameterBag);
+        $checkers = $this->removeExcludedCheckers($checkers, $containerBuilder->getParameterBag());
 
         $checkers = $this->mutualCheckerExcluder->processCheckers($checkers);
 
