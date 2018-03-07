@@ -70,9 +70,6 @@ final class CheckersExtension extends Extension
         // remove empty sections
         $configs = array_filter($configs);
 
-        dump($configs);
-        die;
-
         if (! count($configs)) {
             return;
         }
