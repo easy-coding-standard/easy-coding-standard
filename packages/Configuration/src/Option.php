@@ -38,4 +38,9 @@ final class Option
      * @var string
      */
     public const NO_ERROR_TABLE = 'no-error-table';
+
+    /**
+     * @var string
+     */
+    public const CACHE_DIR = 'cache-dir';
 }

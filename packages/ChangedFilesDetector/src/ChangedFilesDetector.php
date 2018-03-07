@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Nette\Caching\Cache;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
 
 final class ChangedFilesDetector
@@ -14,7 +13,7 @@ final class ChangedFilesDetector
     private const CONFIGURATION_HASH_KEY = 'configuration_hash';
 
     /**
-     * @var Cache
+     * @var Cache|null
      */
     private $cache;
 
@@ -23,10 +22,17 @@ final class ChangedFilesDetector
      */
     private $fileHashComputer;
 
-    public function __construct(CacheFactory $cacheFactory, FileHashComputer $fileHashComputer)
+    public function __construct(FileHashComputer $fileHashComputer)
     {
-        $this->cache = $cacheFactory->create();
         $this->fileHashComputer = $fileHashComputer;
+    }
+
+    public function setCache(?Cache $cache): void
+    {
+        $this->cache = $cache;
+        if ($this->cache === null) {
+            return;
+        }
 
         $configurationFile = ConfigFilePathHelper::provide('ecs');
         if ($configurationFile !== null && is_file($configurationFile)) {
@@ -41,17 +47,27 @@ final class ChangedFilesDetector
 
     public function addFile(string $filePath): void
     {
+        if ($this->cache === null) {
+            return;
+        }
+
         $hash = $this->fileHashComputer->compute($filePath);
         $this->cache->save($filePath, $hash);
     }
 
     public function invalidateFile(string $filePath): void
     {
-        $this->cache->remove($filePath);
+        if ($this->cache !== null) {
+            $this->cache->remove($filePath);
+        }
     }
 
     public function hasFileChanged(string $filePath): bool
     {
+        if ($this->cache === null) {
+            return true;
+        }
+
         $newFileHash = $this->fileHashComputer->compute($filePath);
         $oldFileHash = $this->cache->load($filePath);
 
@@ -64,17 +80,27 @@ final class ChangedFilesDetector
 
     public function clearCache(): void
     {
-        $this->cache->clean([Cache::ALL => true]);
+        if ($this->cache !== null) {
+            $this->cache->clean([Cache::ALL => true]);
+        }
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void
     {
+        if ($this->cache === null) {
+            return;
+        }
+
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash);
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
     {
+        if ($this->cache === null) {
+            return;
+        }
+
         $oldConfigurationHash = $this->cache->load(self::CONFIGURATION_HASH_KEY);
         if ($configurationHash !== $oldConfigurationHash) {
             $this->clearCache();

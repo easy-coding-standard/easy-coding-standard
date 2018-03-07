@@ -2,7 +2,9 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
+use Nette\Caching\Cache;
 use Nette\Utils\FileSystem;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
@@ -20,17 +22,17 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        FileSystem::createDir($this->getCacheDirectory());
+        /** @var Cache $cache */
+        $cache = $this->container->get(CacheFactory::class)->create($this->getCacheDirectory());
+        FileSystem::createDir($this->getCacheDirectory() . '_tests');
 
         $this->changedFilesDetector = $this->container->get(ChangedFilesDetector::class);
-        $this->changedFilesDetector->changeConfigurationFile(
-            __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.neon'
-        );
+        $this->changedFilesDetector->setCache($cache);
     }
 
     protected function tearDown(): void
     {
-        FileSystem::delete($this->getCacheDirectory());
+        FileSystem::delete($this->getCacheDirectory() . '_tests');
     }
 
     public function testAddFile(): void
