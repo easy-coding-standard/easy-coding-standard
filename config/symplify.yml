@@ -1,45 +1,45 @@
 checkers:
     # PHP 5.5
-    - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
+    Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer: ~
 
     # Imports
-    - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
+    Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer: ~
 
     # Control Structures
-    - Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff
-    - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
-    - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
-    - Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer
+    Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff: ~
+    Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer: ~
+    Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer: ~
+    Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
 
     # Spaces
-    - Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer
+    Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
 
     # LineLength
-    - Symplify\CodingStandard\Fixer\LineLength\BreakMethodArgumentsFixer
-    - Symplify\CodingStandard\Fixer\LineLength\BreakMethodCallsFixer
-    - Symplify\CodingStandard\Fixer\LineLength\BreakArrayListFixer
+    Symplify\CodingStandard\Fixer\LineLength\BreakMethodArgumentsFixer: ~
+    Symplify\CodingStandard\Fixer\LineLength\BreakMethodCallsFixer: ~
+    Symplify\CodingStandard\Fixer\LineLength\BreakArrayListFixer: ~
 
     # Comments
-    - Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer
-    - Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff
-    - Symplify\CodingStandard\Fixer\Commenting\AnnotateMagicContainerGetterFixer
-    - Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer
-    - Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer
+    Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer: ~
+    Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff: ~
+    Symplify\CodingStandard\Fixer\Commenting\AnnotateMagicContainerGetterFixer: ~
+    Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer: ~
+    Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer: ~
 
     # Naming
-    - Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff
-    - Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff
-    - Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff
-    - Symplify\CodingStandard\Fixer\Naming\ExceptionNameFixer
-    - Symplify\CodingStandard\Fixer\Naming\MagicMethodsNamingFixer
-    - Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer
-    - Symplify\CodingStandard\Fixer\Naming\ClassNameSuffixByParentFixer
+    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
+    Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff: ~
+    Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff: ~
+    Symplify\CodingStandard\Fixer\Naming\ExceptionNameFixer: ~
+    Symplify\CodingStandard\Fixer\Naming\MagicMethodsNamingFixer: ~
+    Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer: ~
+    Symplify\CodingStandard\Fixer\Naming\ClassNameSuffixByParentFixer: ~
 
     # Architecture
-    - Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer
-    - Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff
-    - Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff
+    Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer: ~
+    Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff: ~
+    Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff: ~
 
     # Debug
-    - Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff
-    - Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff
+    Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~
+    Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~
