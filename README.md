@@ -199,7 +199,7 @@ vendor/bin/ecs check src --clear-cache
 
 ```yaml
 parameters:
-    cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . /_changed_files_detector
+    cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . '/_easy_coding_standard'
 ```
 
 **Can I use tabs?**
