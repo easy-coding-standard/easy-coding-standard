@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symplify\EasyCodingStandard\Configuration\ArrayMerger;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
 use Symplify\EasyCodingStandard\Configuration\ConflictingCheckerGuard;
 use Symplify\EasyCodingStandard\Configuration\MutualCheckerExcluder;
@@ -69,7 +70,7 @@ final class CheckersExtension extends Extension
             return;
         }
 
-        $checkersConfiguration = array_replace_recursive(...$configs);
+        $checkersConfiguration = ArrayMerger::mergeRecursively($configs);
         $checkers = $this->checkerConfigurationNormalizer->normalize($checkersConfiguration);
 
         $this->checkerTypeValidator->validate(array_keys($checkers), 'parameters > checkers');
