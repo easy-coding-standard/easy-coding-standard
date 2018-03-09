@@ -24,8 +24,14 @@ final class ArrayMergerTest extends TestCase
     public function provideArrays(): array
     {
         return [
-            [[['key' => 'value'], ['key2' => 'value2']], ['key' => 'value', 'key2' => 'value2']],
-            [[['value'], ['value2']], ['value', 'value2']],
+            [[['key' => 'value'], ['key2' => 'value2']], [
+                'key2' => 'value2',
+                'key' => 'value',
+            ]],
+            # not valid with only array_merge_recursive()
+            [[['value' => null], ['value' => null]], ['value' => null]],
+            # not valid with only array_replace_recursive()
+            [[['value'], ['value2']], ['value2', 'value']],
         ];
     }
 }
