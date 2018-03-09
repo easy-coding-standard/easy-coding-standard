@@ -4,4 +4,4 @@ imports:
     - { resource: 'external-services.yml' }
 
 parameters:
-    cache_directory: abc
+    cache_directory: '%kernel.cache_dir%'
