@@ -75,9 +75,9 @@ or include more of them in config:
 
 ```yaml
 # easy-coding-standard.yml
-includes:
-    - vendor/symplify/easy-coding-standard/config/clean-code.yml
-    - vendor/symplify/easy-coding-standard/config/psr2.yml
+imports:
+    - { resource: 'vendor/symplify/easy-coding-standard/config/clean-code.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/psr2.yml' }
 ```
 
 ### Exclude Checkers
@@ -85,12 +85,12 @@ includes:
 What if you add `symfony.yml` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
 
 ```yaml
-includes:
-    - vendor/symplify/easy-coding-standard/config/symfony.yml
+imports:
+    - { resource: 'vendor/symplify/easy-coding-standard/config/symfony.yml' }
 
 parameters:
     exclude_checkers:
-        - PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer
+        - 'PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer'
 ```
 
 ### Ignore What You Can't Fix
@@ -104,10 +104,10 @@ parameters:
     skip:
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
             # relative path to file (you can copy this from error report)
-            - packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php
+            - 'packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php'
 
             # or multiple files by path to match against "fnmatch()"
-            - *packages/CodingStandard/src/Sniffs/*/*Sniff.php
+            - '*packages/CodingStandard/src/Sniffs/*/*Sniff.php'
 ```
 
 You can also skip specific codes that you know from PHP_CodeSniffer:
@@ -130,10 +130,10 @@ Or just 2 files?
 parameters:
     exclude_files:
         # generated files
-        - lib/PhpParser/Parser/Php5.php
-        - lib/PhpParser/Parser/Php7.php
+        - 'lib/PhpParser/Parser/Php5.php'
+        - 'lib/PhpParser/Parser/Php7.php'
         # or with fnmatch() pattern
-        - */lib/PhpParser/Parser/Php*.php
+        - '*/lib/PhpParser/Parser/Php*.php'
 ```
 
 ### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
