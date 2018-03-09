@@ -4,4 +4,4 @@ imports:
     - { resource: 'external-services.yml' }
 
 parameters:
-    cache_directory: '%kernel.cache_dir%'
+    cache_directory: '%kernel.cache_dir%/_changed_files_detector'
