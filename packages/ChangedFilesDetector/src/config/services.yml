@@ -2,6 +2,8 @@ services:
     _defaults:
         autowire: true
         public: true # for tests
+        bind:
+            $cacheDirectory: '%cache_directory%'
 
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '..'
