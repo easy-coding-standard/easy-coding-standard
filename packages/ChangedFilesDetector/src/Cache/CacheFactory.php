@@ -14,9 +14,15 @@ final class CacheFactory
      */
     private $parameterProvider;
 
-    public function __construct(ParameterProvider $parameterProvider)
+    /**
+     * @var string
+     */
+    private $cacheDirectory;
+
+    public function __construct(ParameterProvider $parameterProvider, string $cacheDirectory)
     {
         $this->parameterProvider = $parameterProvider;
+        $this->cacheDirectory = $cacheDirectory;
     }
 
     public function create(): Cache
