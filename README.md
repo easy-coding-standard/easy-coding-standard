@@ -195,6 +195,13 @@ vendor/bin/ecs show --config ...
 vendor/bin/ecs check src --clear-cache
 ```
 
+**How about changing cache directory?**
+
+```yaml
+parameters:
+    cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . /_changed_files_detector
+```
+
 **Can I use tabs?**
 
 ```yaml
