@@ -1,0 +1,7 @@
+imports:
+    - { resource: '../../packages/**/src/config/services.yml' }
+    - { resource: 'services.yml' }
+    - { resource: 'external-services.yml' }
+
+parameters:
+    cache_directory: abc
