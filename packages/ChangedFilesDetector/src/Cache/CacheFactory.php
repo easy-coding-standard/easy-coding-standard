@@ -30,7 +30,7 @@ final class CacheFactory
     {
         if (defined('PHPUNIT_RUN')) { // defined in phpunit.xml
             // use different directory for tests, to avoid clearing local cache
-            return rtrim($this->cacheDirectory, '/') . '_tests';
+            return rtrim($this->cacheDirectory, DIRECTORY_SEPARATOR) . '_tests';
         }
 
         return $this->cacheDirectory;
