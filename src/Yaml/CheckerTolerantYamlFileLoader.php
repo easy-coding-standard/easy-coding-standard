@@ -25,6 +25,10 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         parent::__construct($containerBuilder, $fileLocator);
     }
 
+    /**
+     * @param string $file
+     * @return array|mixed|mixed[]
+     */
     protected function loadFile($file)
     {
         $decodedYaml = Yaml::parseFile($file);
