@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
-use Symplify\EasyCodingStandard\DependencyInjection\Extension\CheckersExtensionGuardian;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -22,14 +21,15 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
     private $yamlFileLoader;
 
     /**
-     * @var CheckersExtensionGuardian
+     * @var CheckerConfigurationGuardian
      */
-    private $checkersExtensionGuardian;
+    private $checkerConfigurationGuardian;
+
 
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->yamlFileLoader = new YamlFileLoader($containerBuilder, $fileLocator);
-        $this->checkersExtensionGuardian = new CheckersExtensionGuardian();
+        $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
@@ -96,7 +96,7 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
             }
 
             if (Strings::endsWith($checker, 'Fixer')) {
-                $this->checkersExtensionGuardian->ensureFixerIsConfigurable($checker, $serviceDefinition);
+                $this->checkerConfigurationGuardian->ensureFixerIsConfigurable($checker, $serviceDefinition);
                 // move parameters to "configure()" call
                 $yaml['services'][$checker]['calls'] = [
                     ['configure', [$serviceDefinition]],
@@ -106,7 +106,7 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
             if (Strings::endsWith($checker, 'Sniff')) {
                 // move parameters to property setters
                 foreach ($serviceDefinition as $key => $value) {
-                    $this->checkersExtensionGuardian->ensurePropertyExists($checker, $key);
+                    $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
                     $yaml['services'][$checker]['properties'][$key] = $this->escapeValue($value);
                 }
             }
