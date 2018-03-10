@@ -23,11 +23,19 @@ final class CheckerTypeValidatorTest extends TestCase
         $this->checkerTypeValidator = new CheckerTypeValidator();
     }
 
-    public function test(): void
+    /**
+     * @doesNotPerformAssertions
+     */
+    public function testValidType(): void
     {
         $location = 'location';
         $this->checkerTypeValidator->validate([ArraySyntaxFixer::class], $location);
         $this->checkerTypeValidator->validate([ArrayDeclarationSniff::class], $location);
+    }
+
+    public function testInvalidType(): void
+    {
+        $location = 'location';
 
         $this->expectException(CheckerIsNotSupportedException::class);
         $this->expectExceptionMessage(sprintf(

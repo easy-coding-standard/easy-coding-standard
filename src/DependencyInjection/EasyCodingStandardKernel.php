@@ -2,13 +2,9 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
-use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
@@ -90,15 +86,10 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
     /**
      * @param ContainerInterface|ContainerBuilder $container
      */
-    protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
+    protected function getContainerLoader(ContainerInterface $container): LoaderInterface
     {
         $fileLocator = new FileLocator($this);
-        $loaderResolver = new LoaderResolver([
-            new CheckerTolerantYamlFileLoader($container, $fileLocator),
-            new GlobFileLoader($container, $fileLocator),
-            new DirectoryLoader($container, $fileLocator),
-        ]);
 
-        return new DelegatingLoader($loaderResolver);
+        return new CheckerTolerantYamlFileLoader($container, $fileLocator);
     }
 }
