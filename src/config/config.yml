@@ -1,0 +1,6 @@
+imports:
+    - { resource: '../../packages/**/src/config/services.yml' }
+    - { resource: 'services.yml' }
+
+parameters:
+    cache_directory: '%kernel.cache_dir%/_changed_files_detector'

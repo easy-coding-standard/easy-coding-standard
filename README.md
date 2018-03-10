@@ -88,6 +88,13 @@ To be sure your code base it checked completely, just clear the cache:
 vendor/bin/ecs check src --clear-cache
 ```
 
+**How about changing cache directory?**
+
+```yaml
+parameters:
+    cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . '/_easy_coding_standard/_changed_files_detector_tests'
+```
+
 Cache stores all files without errors that haven't changed. It's handled by [`ChangedFilesDetector`](/packages/ChangedFilesDetector/src/ChangedFilesDetector.php)
 
 

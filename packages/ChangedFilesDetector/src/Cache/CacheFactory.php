@@ -8,6 +8,16 @@ use Nette\Utils\FileSystem;
 
 final class CacheFactory
 {
+    /**
+     * @var string
+     */
+    private $cacheDirectory;
+
+    public function __construct(string $cacheDirectory)
+    {
+        $this->cacheDirectory = $cacheDirectory;
+    }
+
     public function create(): Cache
     {
         $cacheDirectory = $this->getCacheDirectory();
@@ -20,9 +30,9 @@ final class CacheFactory
     {
         if (defined('PHPUNIT_RUN')) { // defined in phpunit.xml
             // use different directory for tests, to avoid clearing local cache
-            return sys_get_temp_dir() . '/_changed_files_detector_tests';
+            return rtrim($this->cacheDirectory, DIRECTORY_SEPARATOR) . '_tests';
         }
 
-        return sys_get_temp_dir() . '/_changed_files_detector';
+        return $this->cacheDirectory;
     }
 }
