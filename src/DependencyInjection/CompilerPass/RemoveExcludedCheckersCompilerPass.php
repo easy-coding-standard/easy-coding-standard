@@ -5,23 +5,13 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symplify\EasyCodingStandard\Configuration\Option;
 
 final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
 {
-    /**
-     * @todo move to options
-     * @var string
-     */
-    private const EXCLUDE_CHECKERS_OPTION = 'exclude_checkers';
-
-    /**
-     * @var string[]
-     */
-    private $excludedCheckers = [];
-
     public function process(ContainerBuilder $containerBuilder): void
     {
-        $excludedCheckers = $this->resolveExcludedCheckersOption($containerBuilder->getParameterBag());
+        $excludedCheckers = $this->getExcludedCheckersFromParameterBag($containerBuilder->getParameterBag());
 
         foreach ($containerBuilder->getDefinitions() as $id => $definition) {
             if (! in_array($definition->getClass(), $excludedCheckers, true)) {
@@ -35,10 +25,10 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
     /**
      * @return string[]
      */
-    private function resolveExcludedCheckersOption(ParameterBagInterface $parameterBag): array
+    private function getExcludedCheckersFromParameterBag(ParameterBagInterface $parameterBag): array
     {
-        if ($parameterBag->has(self::EXCLUDE_CHECKERS_OPTION)) {
-            return $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION);
+        if ($parameterBag->has(Option::EXCLUDE_CHECKERS)) {
+            return $parameterBag->get(Option::EXCLUDE_CHECKERS);
         }
 
         // typo proof
