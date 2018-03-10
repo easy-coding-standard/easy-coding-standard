@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
-use Nette\Utils\ObjectMixin;
+use Nette\Utils\ObjectHelpers;
 use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
@@ -31,7 +31,7 @@ final class CheckersExtensionGuardian
             return;
         }
 
-        $suggested = ObjectMixin::getSuggestion(array_keys(get_class_vars($sniffClass)), $property);
+        $suggested = ObjectHelpers::getSuggestion(array_keys(get_class_vars($sniffClass)), $property);
 
         throw new InvalidSniffPropertyException(sprintf(
             'Property "%s" was not found on "%s" sniff class in configuration. %s',

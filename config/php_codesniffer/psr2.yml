@@ -1,4 +1,4 @@
-checkers:
+services:
     PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\NamespaceDeclarationSniff:
     PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\UseDeclarationSniff:
     PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff:

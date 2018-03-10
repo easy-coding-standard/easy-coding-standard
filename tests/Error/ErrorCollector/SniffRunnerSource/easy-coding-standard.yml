@@ -1,2 +1,2 @@
-checkers:
+services:
     Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~

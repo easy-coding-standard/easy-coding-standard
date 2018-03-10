@@ -2,5 +2,5 @@ parameters:
     excluded_checkers:
         - 'PhpCsFixer\Fixer\Import\NoUnusedImportsFixer'
 
-checkers:
+services:
     PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
