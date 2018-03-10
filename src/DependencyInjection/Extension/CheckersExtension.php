@@ -50,7 +50,7 @@ final class CheckersExtension extends Extension
         $checkersConfiguration = ArrayMerger::mergeRecursively($configs);
         $checkers = $this->checkerConfigurationNormalizer->normalize($checkersConfiguration);
 
-        $this->checkerTypeValidator->validate(array_keys($checkers), 'parameters > checkers');
+        $this->checkerTypeValidator->validate(array_keys($checkers), 'checkers');
 
         $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
@@ -91,6 +91,7 @@ final class CheckersExtension extends Extension
 
             $this->checkersExtensionGuardian->ensureFixerIsConfigurable($checkerClass, $configuration);
             $checkerDefinition->addMethodCall('configure', [$configuration]);
+            return;
         }
 
         if (is_a($checkerClass, Sniff::class, true)) {
