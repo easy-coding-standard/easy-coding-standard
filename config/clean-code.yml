@@ -1,4 +1,4 @@
-checkers:
+services:
     # use short array []
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short

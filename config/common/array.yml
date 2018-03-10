@@ -1,4 +1,4 @@
-checkers:
+services:
     # [ 1 , 2];
     PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer: ~
 

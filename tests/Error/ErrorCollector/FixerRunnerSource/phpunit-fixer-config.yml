@@ -1,2 +1,2 @@
-checkers:
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer
+services:
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer: ~
