@@ -21,10 +21,9 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
      */
     private $configFile;
 
-    public function __construct(?string $configFile = null)
+    public function addConfigFile(string $configFile): void
     {
         $this->configFile = $configFile;
-        parent::__construct();
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
