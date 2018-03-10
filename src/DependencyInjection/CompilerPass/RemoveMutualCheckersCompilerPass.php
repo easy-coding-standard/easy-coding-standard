@@ -149,8 +149,22 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $containerBuilder): void
     {
-        $checkers = $containerBuilder->getServiceIds();
-        $checkers = array_flip($checkers);
+        $checkersToRemove = $this->resolveCheckersToRemove($containerBuilder->getServiceIds());
+
+        foreach ($containerBuilder->getDefinitions() as $id => $definition) {
+            if (in_array($definition->getClass(), $checkersToRemove, true)) {
+                $containerBuilder->removeDefinition($id);
+            }
+        }
+    }
+
+    /**
+     * @param string[] $checkers
+     * @return string[]
+     */
+    private function resolveCheckersToRemove(array $checkers): array
+    {
+        $checkers = (array) array_flip($checkers);
 
         $checkersToRemove = [];
         foreach (self::$duplicatedCheckerGroups as $matchingCheckerGroup) {
@@ -164,11 +178,7 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
             }
         }
 
-        foreach ($containerBuilder->getDefinitions() as $id => $definition) {
-            if (in_array($definition->getClass(), $checkersToRemove, true)) {
-                $containerBuilder->removeDefinition($id);
-            }
-        }
+        return $checkersToRemove;
     }
 
     /**
