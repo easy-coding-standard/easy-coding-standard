@@ -4,12 +4,9 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
-use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\ArrayMerger;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
@@ -93,7 +90,6 @@ final class CheckersExtension extends Extension
             $checkerDefinition = new Definition($checkerClass);
             $checkerDefinition->setPublic(true);
             $this->setupCheckerConfiguration($checkerDefinition, $configuration);
-            $this->setupCheckerWithIndentation($checkerDefinition);
             $containerBuilder->setDefinition($checkerClass, $checkerDefinition);
         }
     }
@@ -129,16 +125,6 @@ final class CheckersExtension extends Extension
                 $checkerDefinition->setProperty($property, $value);
             }
         }
-    }
-
-    private function setupCheckerWithIndentation(Definition $definition): void
-    {
-        $checkerClass = $definition->getClass();
-        if (! is_a($checkerClass, WhitespacesAwareFixerInterface::class, true)) {
-            return;
-        }
-
-        $definition->addMethodCall('setWhitespacesConfig', [new Reference(WhitespacesFixerConfig::class)]);
     }
 
     /**
