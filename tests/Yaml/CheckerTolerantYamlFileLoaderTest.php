@@ -10,7 +10,9 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
 {
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(__DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml');
+        $container = (new ContainerFactory())->createWithConfig(
+            __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml'
+        );
 
         /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
