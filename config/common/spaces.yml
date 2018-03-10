@@ -1,4 +1,4 @@
-checkers:
+services:
     # $builder->addThis()\n    ->addThat();
     PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer: ~
 
@@ -36,9 +36,6 @@ checkers:
 
     # /**    @var   Type   $variable */
     PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer: ~
-
-    # !$value;   =>   ! $value;
-    PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer: ~
 
     #      namespace ...;
     PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer: ~

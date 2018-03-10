@@ -1,4 +1,4 @@
-checkers:
+services:
     # "$var" => "${var}"
     PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer: ~
     PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer: ~

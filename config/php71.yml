@@ -1,7 +1,7 @@
 imports:
     - { resource: 'php70.yml' }
 
-checkers:
+services:
     # All elements should have visibility
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
         elements: [const, property, method]

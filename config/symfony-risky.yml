@@ -1,15 +1,15 @@
-checkers:
+services:
     # PHP-CS-Fixer only
-    - PhpCsFixer\Fixer\LanguageConstruct\DirConstantFixer
-    - PhpCsFixer\Fixer\Alias\EregToPregFixer
-    - PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer
-    - PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer
-    - PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer
-    - PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer
-    - PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer
-    - PhpCsFixer\Fixer\PhpUnit\PhpUnitDedicateAssertFixer
-    - PhpCsFixer\Fixer\Basic\Psr4Fixer
-    - PhpCsFixer\Fixer\LanguageConstruct\SilencedDeprecationErrorFixer
+    PhpCsFixer\Fixer\LanguageConstruct\DirConstantFixer: ~
+    PhpCsFixer\Fixer\Alias\EregToPregFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer: ~
+    PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer: ~
+    PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer: ~
+    PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer: ~
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer: ~
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitDedicateAssertFixer: ~
+    PhpCsFixer\Fixer\Basic\Psr4Fixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\SilencedDeprecationErrorFixer: ~
     # php-cs-fixer 2.7+
-    - PhpCsFixer\Fixer\Naming\NoHomoglyphNamesFixer
+    PhpCsFixer\Fixer\Naming\NoHomoglyphNamesFixer: ~

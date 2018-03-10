@@ -1,4 +1,4 @@
-checkers:
+services:
     # drop dead use namespaces
     PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
 

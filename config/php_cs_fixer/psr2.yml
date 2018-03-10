@@ -1,4 +1,4 @@
-checkers:
+services:
     # PHP-CS-Fixer
     PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer: ~
     PhpCsFixer\Fixer\Basic\BracesFixer: ~

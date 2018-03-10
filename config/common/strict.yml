@@ -1,4 +1,4 @@
-checkers:
+services:
     # $value == 5;   =>   $value === 5;
     PhpCsFixer\Fixer\Strict\StrictComparisonFixer: ~
 
