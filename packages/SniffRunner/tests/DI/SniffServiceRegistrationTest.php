@@ -5,27 +5,23 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\DI;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
+use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class SniffServiceRegistrationTest extends TestCase
 {
-    /**
-     * @var LineLengthSniff
-     */
-    private $lineLengthSniff;
-
-    protected function setUp(): void
+    public function test(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.yml'
         );
 
-        $this->lineLengthSniff = $container->get(LineLengthSniff::class);
-    }
+        /** @var SniffFileProcessor $sniffFileProcessor */
+        $sniffFileProcessor = $container->get(SniffFileProcessor::class);
 
-    public function test(): void
-    {
-        $this->assertSame(15, $this->lineLengthSniff->lineLimit);
+        /** @var LineLengthSniff $lineLengthSniff */
+        $lineLengthSniff = $sniffFileProcessor->getCheckers()[0];
 
-        $this->assertSame(['@author'], $this->lineLengthSniff->absoluteLineLimit);
+        $this->assertSame(15, $lineLengthSniff->lineLimit);
+        $this->assertSame(['@author'], $lineLengthSniff->absoluteLineLimit);
     }
 }
