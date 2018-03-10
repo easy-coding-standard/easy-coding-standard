@@ -4,79 +4,36 @@ namespace Symplify\EasyCodingStandard\Yaml;
 
 use Nette\Utils\Strings;
 use Symfony\Component\Config\FileLocatorInterface;
-use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
  */
-final class CheckerTolerantYamlFileLoader extends FileLoader
+final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 {
-    /**
-     * @var YamlFileLoader
-     */
-    private $yamlFileLoader;
-
     /**
      * @var CheckerConfigurationGuardian
      */
     private $checkerConfigurationGuardian;
 
-
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
-        $this->yamlFileLoader = new YamlFileLoader($containerBuilder, $fileLocator);
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
 
-    /**
-     * @param mixed $resource
-     * @param string|null $type
-     */
-    public function load($resource, $type = null): void
+    protected function loadFile($file)
     {
-        $decodedYaml = Yaml::parseFile($resource);
+        $decodedYaml = Yaml::parseFile($file);
 
         if (isset($decodedYaml['services'])) {
-            $decodedYaml = $this->moveArgumentsToPropertiesOrMethodCalls($decodedYaml);
-
-            // encode to temp file, have to be stored in same directory as original due to relative paths in "imports"
-            $tempFile = $resource . '-tuned.yml';
-            file_put_contents($tempFile, Yaml::dump($decodedYaml));
-
-            $resource = $tempFile;
+            return $this->moveArgumentsToPropertiesOrMethodCalls($decodedYaml);
         }
 
-        $this->yamlFileLoader->load($resource, $type);
-
-        // cleanup temp file
-        if (isset($tempFile)) {
-            unlink($tempFile);
-        }
-    }
-
-    /**
-     * @param mixed $resource
-     * @param string|null $type
-     */
-    public function supports($resource, $type = null): bool
-    {
-        return $this->yamlFileLoader->supports($resource, $type);
-    }
-
-    public function getResolver(): LoaderResolverInterface
-    {
-        return $this->yamlFileLoader->getResolver();
-    }
-
-    public function setResolver(LoaderResolverInterface $loaderResolver): void
-    {
-        $this->yamlFileLoader->setResolver($loaderResolver);
+        return $decodedYaml;
     }
 
     /**
