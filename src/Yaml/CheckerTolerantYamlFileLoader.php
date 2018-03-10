@@ -29,6 +29,7 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
     public function load($resource, $type = null): void
     {
         // @todo magic happens here
+
         $this->yamlFileLoader->load($resource, $type);
     }
 
