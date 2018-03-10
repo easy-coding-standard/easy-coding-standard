@@ -56,14 +56,19 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         ];
     }
 
+    /**
+     * Order matters!
+     */
     protected function build(ContainerBuilder $containerBuilder): void
     {
-        // order matters!
+        // cleanup
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
-        $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
-
         $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());
 
+        // exceptions
+        $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
+
+        // method calls
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
         $containerBuilder->addCompilerPass(new CollectorCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
