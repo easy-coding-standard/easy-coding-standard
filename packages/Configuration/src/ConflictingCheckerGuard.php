@@ -35,7 +35,11 @@ final class ConflictingCheckerGuard
      */
     public function processCheckers(array $checkers): void
     {
-        $checkers = (array) array_flip($checkers);
+        if (! count($checkers)) {
+            return;
+        }
+
+        $checkers = $this->makeCheckersAsKeys($checkers);
 
         foreach (self::$conflictingCheckerGroups as $viceVersaMatchingCheckerGroup) {
             if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
@@ -56,8 +60,17 @@ final class ConflictingCheckerGuard
      */
     private function isMatch(array $checkers, array $matchingCheckerGroup): bool
     {
-        $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
+        $matchingCheckerGroupKeys = $this->makeCheckersAsKeys($matchingCheckerGroup);
 
         return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
+    }
+
+    /**
+     * @param string[] $checkers
+     * @return string[]
+     */
+    private function makeCheckersAsKeys(array $checkers): array
+    {
+        return isset($checkers[0]) ? (array) array_flip($checkers) : $checkers;
     }
 }
