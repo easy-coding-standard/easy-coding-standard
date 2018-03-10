@@ -3,10 +3,13 @@
 namespace Symplify\EasyCodingStandard\Tests\Indentation;
 
 use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
+use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 
 final class IndentationTest extends TestCase
 {
@@ -15,12 +18,11 @@ final class IndentationTest extends TestCase
         $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/IndentationSource/config-with-spaces-indentation.yml'
         );
+        $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer($container);
 
-        /** @var IndentationTypeFixer $indentationFixer */
-        $indentationFixer = $container->get(IndentationTypeFixer::class);
-
+        $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
         $spacesConfig = new WhitespacesFixerConfig('    ', PHP_EOL);
-        $this->assertEquals($spacesConfig, Assert::getObjectAttribute($indentationFixer, 'whitespacesConfig'));
+        $this->assertEquals($spacesConfig, Assert::getObjectAttribute($indentationTypeFixer, 'whitespacesConfig'));
     }
 
     public function testTabs(): void
@@ -28,11 +30,20 @@ final class IndentationTest extends TestCase
         $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/IndentationSource/config-with-tabs-indentation.yml'
         );
+        $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer($container);
 
-        /** @var IndentationTypeFixer $indentationFixer */
-        $indentationFixer = $container->get(IndentationTypeFixer::class);
-
+        $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
         $tabsConfig = new WhitespacesFixerConfig('	', PHP_EOL);
-        $this->assertEquals($tabsConfig, Assert::getObjectAttribute($indentationFixer, 'whitespacesConfig'));
+        $this->assertEquals($tabsConfig, Assert::getObjectAttribute($indentationTypeFixer, 'whitespacesConfig'));
+    }
+
+    private function getIndentationTypeFixerFromContainer(ContainerInterface $container): IndentationTypeFixer
+    {
+        /** @var FixerFileProcessor $fixerFileProcessor */
+        $fixerFileProcessor = $container->get(FixerFileProcessor::class);
+        $checkers = $fixerFileProcessor->getCheckers();
+        $this->assertCount(1, $checkers);
+
+        return array_pop($checkers);
     }
 }
