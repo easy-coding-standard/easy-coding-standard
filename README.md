@@ -30,7 +30,7 @@ Create an `easy-coding-standard.yml` in your root directory and add [Sniffs](htt
 Let's start with the most common one - `array()` => `[]`:
 
 ```yaml
-checkers:
+services:
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
 ```
