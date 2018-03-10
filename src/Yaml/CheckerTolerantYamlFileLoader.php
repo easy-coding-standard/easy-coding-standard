@@ -6,13 +6,9 @@ use Nette\Utils\Strings;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Dumper\Dumper;
 use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Yaml;
-use Symplify\Statie\Configuration\Parser\YamlParser;
-
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -95,7 +91,7 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
             if (Strings::endsWith($checker, 'Fixer')) {
                 // move parameters to "configure()" call
                 $yaml['services'][$checker]['calls'] = [
-                    ['configure', [$serviceDefinition]]
+                    ['configure', [$serviceDefinition]],
                 ];
             }
 
