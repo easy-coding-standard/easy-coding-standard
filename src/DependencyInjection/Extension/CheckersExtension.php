@@ -6,7 +6,6 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\ArrayMerger;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
@@ -16,11 +15,6 @@ use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
 final class CheckersExtension extends Extension
 {
-    /**
-     * @var string
-     */
-    private const EXCLUDE_CHECKERS_OPTION = 'exclude_checkers';
-
     /**
      * @var CheckerConfigurationNormalizer
      */
@@ -71,8 +65,6 @@ final class CheckersExtension extends Extension
         $checkers = $this->checkerConfigurationNormalizer->normalize($checkersConfiguration);
 
         $this->checkerTypeValidator->validate(array_keys($checkers), 'parameters > checkers');
-
-        $checkers = $this->removeExcludedCheckers($checkers, $containerBuilder->getParameterBag());
 
         $checkers = $this->mutualCheckerExcluder->processCheckers($checkers);
 
@@ -125,39 +117,5 @@ final class CheckersExtension extends Extension
                 $checkerDefinition->setProperty($property, $value);
             }
         }
-    }
-
-    /**
-     * @param mixed[] $checkers
-     * @return mixed[]
-     */
-    private function removeExcludedCheckers(array $checkers, ParameterBagInterface $parameterBag): array
-    {
-        $excludedCheckers = $this->resolveExcludedCheckersOption($parameterBag);
-
-        $this->checkerTypeValidator->validate($excludedCheckers, 'parameters > exclude_checkers');
-
-        foreach ($excludedCheckers as $excludedChecker) {
-            unset($checkers[$excludedChecker]);
-        }
-
-        return $checkers;
-    }
-
-    /**
-     * @return string[]
-     */
-    private function resolveExcludedCheckersOption(ParameterBagInterface $parameterBag): array
-    {
-        if ($parameterBag->has(self::EXCLUDE_CHECKERS_OPTION)) {
-            return $parameterBag->get(self::EXCLUDE_CHECKERS_OPTION);
-        }
-
-        // typo proof
-        if ($parameterBag->has('excluded_checkers')) {
-            return $parameterBag->get('excluded_checkers');
-        }
-
-        return [];
     }
 }
