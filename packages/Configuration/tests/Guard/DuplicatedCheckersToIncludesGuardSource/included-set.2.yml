@@ -1,2 +1,2 @@
 checkers:
-    - SomeOtherChecker
+    SomeOtherChecker: ~

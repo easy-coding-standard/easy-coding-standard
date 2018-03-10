@@ -37,6 +37,11 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         return sys_get_temp_dir() . '/_easy_coding_standard';
     }
 
+    public function getLogDir(): string
+    {
+        return sys_get_temp_dir() . '/_easy_coding_standard_logs';
+    }
+
     /**
      * @return BundleInterface[]
      */
