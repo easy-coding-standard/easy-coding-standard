@@ -1,0 +1,3 @@
+checkers:
+    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowTabIndentSniff: ~
