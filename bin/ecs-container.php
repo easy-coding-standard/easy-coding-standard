@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 
 use Symfony\Component\Console\Input\ArgvInput;
-use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
-use Symplify\EasyCodingStandard\Configuration\Guard\DuplicatedCheckersToIncludesGuard;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
 use Symplify\PackageBuilder\Configuration\LevelConfigShortcutFinder;
@@ -23,10 +21,6 @@ if ($configFile === null) {
 // 3. Build DI container
 $containerFactory = new ContainerFactory();
 if ($configFile) {
-    $duplicatedCheckersToIncludesGuard = new DuplicatedCheckersToIncludesGuard(
-        new CheckerConfigurationNormalizer()
-    );
-    $duplicatedCheckersToIncludesGuard->processConfigFile($configFile);
     return $containerFactory->createWithConfig($configFile);
 }
 
