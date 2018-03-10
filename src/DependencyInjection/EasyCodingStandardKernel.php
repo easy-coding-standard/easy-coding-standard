@@ -57,9 +57,7 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
      */
     public function registerBundles(): array
     {
-        return [
-            new CheckersBundle(),
-        ];
+        return [];
     }
 
     public function bootWithConfig(string $config): void
