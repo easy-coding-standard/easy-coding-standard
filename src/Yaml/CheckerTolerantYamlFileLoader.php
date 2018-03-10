@@ -98,7 +98,7 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
             if (Strings::endsWith($checker, 'Sniff')) {
                 // move parameters to property setters
                 foreach ($serviceDefinition as $key => $value) {
-                    $yaml['services'][$checker]['properties'][$key] = $value;
+                    $yaml['services'][$checker]['properties'][$key] = $this->escapeValue($value);
                 }
             }
 
@@ -109,5 +109,18 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
         }
 
         return $yaml;
+    }
+
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
+    private function escapeValue($value)
+    {
+        if (is_numeric($value)) {
+            return $value;
+        }
+
+        return Strings::replace($value, '#@#', '@@');
     }
 }
