@@ -1,20 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\DependencyInjection\Extension;
+namespace Symplify\EasyCodingStandard\Yaml;
 
 use Nette\Utils\ObjectHelpers;
-use PhpCsFixer\Fixer\ConfigurationDefinitionFixerInterface;
+use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
 
-final class CheckersExtensionGuardian
+final class CheckerConfigurationGuardian
 {
     /**
      * @param mixed[] $configuration
      */
     public function ensureFixerIsConfigurable(string $fixerClass, array $configuration): void
     {
-        if (is_a($fixerClass, ConfigurationDefinitionFixerInterface::class, true)) {
+        if (is_a($fixerClass, ConfigurableFixerInterface::class, true)) {
             return;
         }
 
