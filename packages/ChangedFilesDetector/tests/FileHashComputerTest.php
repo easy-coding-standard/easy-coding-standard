@@ -28,7 +28,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
     {
         // A. create on another one with fixer
         file_put_contents($this->includedConfigFile, Yaml::dump([
-            'checkers' => [DeclareStrictTypesFixer::class],
+            'services' => [DeclareStrictTypesFixer::class => []],
         ]));
 
         $fileOneHash = $this->fileHashComputer->compute(
@@ -37,7 +37,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
 
         // B. create on another one with no fixer
         file_put_contents($this->includedConfigFile, Yaml::dump([
-            'checkers' => [],
+            'services' => [],
         ]));
 
         $fileTwoHash = $this->fileHashComputer->compute(
