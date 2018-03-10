@@ -1,0 +1,3 @@
+checkers:
+    SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff: ~
+    PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: ~
