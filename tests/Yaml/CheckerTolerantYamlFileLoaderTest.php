@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 
+/**
+ * @todo Backbone of everything!
+ */
 final class CheckerTolerantYamlFileLoaderTest extends TestCase
 {
     public function test(): void
