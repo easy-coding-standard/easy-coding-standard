@@ -93,7 +93,7 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
 
         return new DelegatingLoader(new LoaderResolver([
             new GlobFileLoader($container, $fileLocator),
-            new CheckerTolerantYamlFileLoader($container, $fileLocator)
+            new CheckerTolerantYamlFileLoader($container, $fileLocator),
         ]));
     }
 }
