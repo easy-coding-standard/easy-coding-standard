@@ -35,6 +35,8 @@ final class ConflictingCheckerGuard
      */
     public function processCheckers(array $checkers): void
     {
+        $checkers = (array) array_flip($checkers);
+
         foreach (self::$conflictingCheckerGroups as $viceVersaMatchingCheckerGroup) {
             if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
                 continue;

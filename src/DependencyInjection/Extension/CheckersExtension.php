@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symplify\EasyCodingStandard\Configuration\ArrayMerger;
 use Symplify\EasyCodingStandard\Configuration\CheckerConfigurationNormalizer;
-use Symplify\EasyCodingStandard\Configuration\ConflictingCheckerGuard;
 use Symplify\EasyCodingStandard\Configuration\MutualCheckerExcluder;
 use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 
@@ -35,18 +34,12 @@ final class CheckersExtension extends Extension
      */
     private $mutualCheckerExcluder;
 
-    /**
-     * @var ConflictingCheckerGuard
-     */
-    private $conflictingCheckerGuard;
-
     public function __construct()
     {
         $this->checkerConfigurationNormalizer = new CheckerConfigurationNormalizer();
         $this->checkerTypeValidator = new CheckerTypeValidator();
         $this->checkersExtensionGuardian = new CheckersExtensionGuardian();
         $this->mutualCheckerExcluder = new MutualCheckerExcluder();
-        $this->conflictingCheckerGuard = new ConflictingCheckerGuard();
     }
 
     /**
@@ -67,9 +60,6 @@ final class CheckersExtension extends Extension
         $this->checkerTypeValidator->validate(array_keys($checkers), 'parameters > checkers');
 
         $checkers = $this->mutualCheckerExcluder->processCheckers($checkers);
-
-        $this->conflictingCheckerGuard->processCheckers($checkers);
-
         $this->registerCheckersAsServices($containerBuilder, $checkers);
     }
 
