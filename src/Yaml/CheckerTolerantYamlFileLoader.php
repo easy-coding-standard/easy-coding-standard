@@ -6,7 +6,6 @@ use Nette\Utils\Strings;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -31,7 +30,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     protected function loadFile($file)
     {
-        $decodedYaml = Yaml::parseFile($file);
+        $decodedYaml = parent::loadFile($file);
 
         if (isset($decodedYaml['services'])) {
             return $this->moveArgumentsToPropertiesOrMethodCalls($decodedYaml);
