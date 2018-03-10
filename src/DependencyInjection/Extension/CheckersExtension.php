@@ -62,7 +62,6 @@ final class CheckersExtension extends Extension
     {
         foreach ($checkers as $checkerClass => $configuration) {
             $checkerDefinition = new Definition($checkerClass);
-            $checkerDefinition->setPublic(true);
             $this->setupCheckerConfiguration($checkerDefinition, $configuration);
             $containerBuilder->setDefinition($checkerClass, $checkerDefinition);
         }
