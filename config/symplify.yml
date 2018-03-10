@@ -1,4 +1,4 @@
-checkers:
+services:
     # PHP 5.5
     Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer: ~
 

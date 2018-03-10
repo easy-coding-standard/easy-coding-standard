@@ -38,8 +38,8 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
         if (isset($decodedYaml['services'])) {
             $decodedYaml = $this->moveArgumentsToPropertiesOrMethodCalls($decodedYaml);
 
-            // encode to temp file
-            $tempFile = __DIR__ . '/temp-file.yml';
+            // encode to temp file, have to be stored in same directory as original due to relative paths in "imports"
+            $tempFile = $resource . '-tuned.yml';
             file_put_contents($tempFile, Yaml::dump($decodedYaml));
 
             $resource = $tempFile;

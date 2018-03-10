@@ -1,7 +1,7 @@
 imports:
     - { resource: 'php_cs_fixer/psr2.yml' }
 
-checkers:
+services:
     PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
     PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
         spacing: none

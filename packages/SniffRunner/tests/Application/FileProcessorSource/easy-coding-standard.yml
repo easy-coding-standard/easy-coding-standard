@@ -1,2 +1,2 @@
-checkers:
+services:
     PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff: ~
