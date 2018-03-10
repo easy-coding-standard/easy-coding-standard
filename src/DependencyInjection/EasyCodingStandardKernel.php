@@ -2,15 +2,22 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
+use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
+use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
+use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 
@@ -78,5 +85,20 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         $containerBuilder->addCompilerPass(new CollectorCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
         $containerBuilder->addCompilerPass(new AutowireSinglyImplementedCompilerPass());
+    }
+
+    /**
+     * @param ContainerInterface|ContainerBuilder $container
+     */
+    protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
+    {
+        $fileLocator = new FileLocator($this);
+        $loaderResolver = new LoaderResolver([
+            new CheckerTolerantYamlFileLoader($container, $fileLocator),
+            new GlobFileLoader($container, $fileLocator),
+            new DirectoryLoader($container, $fileLocator),
+        ]);
+
+        return new DelegatingLoader($loaderResolver);
     }
 }
