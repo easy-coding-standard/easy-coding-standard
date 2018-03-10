@@ -10,6 +10,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingChec
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 
@@ -60,6 +61,8 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         // order matters!
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
         $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
+
+        $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());
 
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
         $containerBuilder->addCompilerPass(new CollectorCompilerPass());
