@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Yaml;
 
-use Nette\Utils\ObjectHelpers;
 use Nette\Utils\Strings;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
@@ -10,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\FileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
-use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
+use Symplify\EasyCodingStandard\DependencyInjection\Extension\CheckersExtensionGuardian;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -22,9 +21,15 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
      */
     private $yamlFileLoader;
 
+    /**
+     * @var CheckersExtensionGuardian
+     */
+    private $checkersExtensionGuardian;
+
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->yamlFileLoader = new YamlFileLoader($containerBuilder, $fileLocator);
+        $this->checkersExtensionGuardian = new CheckersExtensionGuardian();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
@@ -91,6 +96,7 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
             }
 
             if (Strings::endsWith($checker, 'Fixer')) {
+                $this->checkersExtensionGuardian->ensureFixerIsConfigurable($checker, $serviceDefinition);
                 // move parameters to "configure()" call
                 $yaml['services'][$checker]['calls'] = [
                     ['configure', [$serviceDefinition]],
@@ -100,7 +106,7 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
             if (Strings::endsWith($checker, 'Sniff')) {
                 // move parameters to property setters
                 foreach ($serviceDefinition as $key => $value) {
-                    $this->ensurePropertyExists($checker, $key);
+                    $this->checkersExtensionGuardian->ensurePropertyExists($checker, $key);
                     $yaml['services'][$checker]['properties'][$key] = $this->escapeValue($value);
                 }
             }
@@ -125,21 +131,5 @@ final class CheckerTolerantYamlFileLoader extends FileLoader
         }
 
         return Strings::replace($value, '#@#', '@@');
-    }
-
-    private function ensurePropertyExists(string $class, string $property): void
-    {
-        if (property_exists($class, $property)) {
-            return;
-        }
-
-        $suggested = ObjectHelpers::getSuggestion(array_keys(get_class_vars($class)), $property);
-
-        throw new InvalidSniffPropertyException(sprintf(
-            'Property "%s" was not found on "%s" sniff class in configuration. %s',
-            $property,
-            $class,
-            $suggested ? sprintf('Did you mean "%s"?', $suggested) : ''
-        ));
     }
 }
