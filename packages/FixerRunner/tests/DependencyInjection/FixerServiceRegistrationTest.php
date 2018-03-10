@@ -9,6 +9,7 @@ use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 
 final class FixerServiceRegistrationTest extends TestCase
 {
@@ -18,13 +19,21 @@ final class FixerServiceRegistrationTest extends TestCase
             __DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.yml'
         );
 
-        $arraySyntaxFixer = $container->get(ArraySyntaxFixer::class);
+        /** @var FixerFileProcessor $fixerFileProcessor */
+        $fixerFileProcessor = $container->get(FixerFileProcessor::class);
+
+        $checkers = $fixerFileProcessor->getCheckers();
+        $this->assertCount(2, $checkers);
+
+        /** @var ArraySyntaxFixer $arraySyntaxFixer */
+        $arraySyntaxFixer = $checkers[0];
         $this->assertSame(
             ['syntax' => 'short'],
             Assert::getObjectAttribute($arraySyntaxFixer, 'configuration')
         );
 
-        $visibilityRequiredFixer = $container->get(VisibilityRequiredFixer::class);
+        /** @var VisibilityRequiredFixer $visibilityRequiredFixer */
+        $visibilityRequiredFixer = $checkers[1];
         $this->assertSame(
             ['elements' => ['property']],
             Assert::getObjectAttribute($visibilityRequiredFixer, 'configuration')
