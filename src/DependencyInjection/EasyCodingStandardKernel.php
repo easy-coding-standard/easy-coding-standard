@@ -62,7 +62,7 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         ];
     }
 
-    public function bootWithConfig($config): void
+    public function bootWithConfig(string $config): void
     {
         $this->configFile = $config;
         $this->boot();
