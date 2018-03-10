@@ -34,19 +34,10 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $containerBuilder): void
     {
-        $this->processCheckers($containerBuilder->getServiceIds());
-    }
-
-    /**
-     * @param mixed[] $checkers
-     */
-    private function processCheckers(array $checkers): void
-    {
+        $checkers = $containerBuilder->getServiceIds();
         if (! count($checkers)) {
             return;
         }
-
-        $checkers = $this->makeCheckersAsKeys($checkers);
 
         foreach (self::$conflictingCheckerGroups as $viceVersaMatchingCheckerGroup) {
             if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
@@ -67,17 +58,9 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
      */
     private function isMatch(array $checkers, array $matchingCheckerGroup): bool
     {
-        $matchingCheckerGroupKeys = $this->makeCheckersAsKeys($matchingCheckerGroup);
+        $checkers = (array) array_flip($checkers);
+        $matchingCheckerGroup = (array) array_flip($matchingCheckerGroup);
 
-        return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
-    }
-
-    /**
-     * @param string[] $checkers
-     * @return string[]
-     */
-    private function makeCheckersAsKeys(array $checkers): array
-    {
-        return isset($checkers[0]) ? (array) array_flip($checkers) : $checkers;
+        return count(array_intersect_key($matchingCheckerGroup, $checkers)) === count($matchingCheckerGroup);
     }
 }
