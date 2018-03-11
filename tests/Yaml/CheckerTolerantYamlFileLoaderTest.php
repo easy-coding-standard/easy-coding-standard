@@ -6,8 +6,7 @@ use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
-use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symfony\Component\DependencyInjection\Definition;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 
 final class CheckerTolerantYamlFileLoaderTest extends TestCase
@@ -21,38 +20,21 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
         $this->assertTrue($containerBuilder->has(ArraySyntaxFixer::class));
 
         $arraySyntaxFixerDefinition = $containerBuilder->getDefinition(ArraySyntaxFixer::class);
-        $methodCalls = $arraySyntaxFixerDefinition->getMethodCalls();
-
-        $this->assertCount(1, $methodCalls);
-        $this->assertContains('configure', $methodCalls[0]);
-        $this->assertSame(['configure', [['syntax' => 'short']]], $methodCalls[0]);
+        $this->checkHasMethodCall($arraySyntaxFixerDefinition, ['configure', [['syntax' => 'short']]]);
     }
 
-    public function testConfig(): void
+    public function testBareImport(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml'
-        );
-
-        /** @var FixerFileProcessor $fixerFileProcessor */
-        $fixerFileProcessor = $container->get(FixerFileProcessor::class);
-        $this->assertCount(1, $fixerFileProcessor->getCheckers());
-    }
-
-    public function testConfigWithImports(): void
-    {
-        $container = (new ContainerFactory())->createWithConfig(
+        $containerBuilder = $this->createAndLoadContainerBuilderFromConfig(
             __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-imports.yml'
         );
 
-        /** @var FixerFileProcessor $fixerFileProcessor */
-        $fixerFileProcessor = $container->get(FixerFileProcessor::class);
-        $this->assertCount(1, $fixerFileProcessor->getCheckers());
+        $this->assertTrue($containerBuilder->has(ArraySyntaxFixer::class));
+
+        $arraySyntaxFixerDefinition = $containerBuilder->getDefinition(ArraySyntaxFixer::class);
+        $this->checkHasMethodCall($arraySyntaxFixerDefinition, ['configure', [['syntax' => 'short']]]);
     }
 
-    /**
-     * @return ContainerBuilder
-     */
     private function createAndLoadContainerBuilderFromConfig(string $config): ContainerBuilder
     {
         $containerBuilder = new ContainerBuilder();
@@ -61,5 +43,18 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
         $yamlFileLoader->load($config);
 
         return $containerBuilder;
+    }
+
+    /**
+     * @param mixed[] $methodCall
+     */
+    private function checkHasMethodCall(Definition $definition, array $methodCall): void
+    {
+        $methodCalls = $definition->getMethodCalls();
+
+        $this->assertCount(1, $methodCalls);
+        $this->assertContains(key($methodCall), $methodCalls[0]);
+
+        $this->assertSame($methodCall, $methodCalls[0]);
     }
 }
