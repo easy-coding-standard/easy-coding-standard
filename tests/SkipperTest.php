@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class SkipperTest extends TestCase
@@ -19,10 +18,7 @@ final class SkipperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->skipper = new Skipper(
-            $this->createParameterProvider(),
-            new CheckerTypeValidator()
-        );
+        $this->skipper = new Skipper($this->createParameterProvider());
     }
 
     public function testNotSkipped(): void
@@ -37,8 +33,8 @@ final class SkipperTest extends TestCase
             __DIR__ . '/someOtherFile'
         ));
 
-        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someForeignCode', __DIR__ . 'someFile'));
-        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someOtherCode', __DIR__ . 'someFile'));
+        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someSniff.someForeignCode', __DIR__ . 'someFile'));
+        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someFixer.someOtherCode', __DIR__ . 'someFile'));
     }
 
     public function testSkipped(): void
@@ -58,8 +54,11 @@ final class SkipperTest extends TestCase
             __DIR__ . '/someDirectory/anotherFile.php'
         ));
 
-        $this->assertTrue($this->skipper->shouldSkipCodeAndFile('someCode', __DIR__ . '/someFile'));
-        $this->assertTrue($this->skipper->shouldSkipCodeAndFile('someOtherCode', __DIR__ . '/someDirectory/someFile'));
+        $this->assertTrue($this->skipper->shouldSkipCodeAndFile('someSniff.someCode', __DIR__ . '/someFile'));
+        $this->assertTrue($this->skipper->shouldSkipCodeAndFile(
+            'someSniff.someOtherCode',
+            __DIR__ . '/someDirectory/someFile'
+        ));
     }
 
     public function testRemoveFileFromUnused(): void
@@ -81,11 +80,8 @@ final class SkipperTest extends TestCase
                 'someFile',
                 '*/someDirectory/*',
             ],
-        ]);
-
-        $container->setParameter('skip_codes', [
-            'someCode',
-            'someOtherCode' => [
+            'someSniff.someCode' => null,
+            'someSniff.someOtherCode' => [
                 '*/someDirectory/*',
             ],
         ]);
