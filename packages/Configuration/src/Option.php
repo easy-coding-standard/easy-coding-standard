@@ -43,4 +43,14 @@ final class Option
      * @var string
      */
     public const EXCLUDE_CHECKERS = 'exclude_checkers';
+
+    /**
+     * @var string
+     */
+    public const EXCLUDE_FILES = 'exclude_files';
+
+    /**
+     * @var string
+     */
+    public const SKIP = 'skip';
 }
