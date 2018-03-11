@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Yaml;
 
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
@@ -12,16 +13,24 @@ use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 final class CheckerTolerantYamlFileLoaderTest extends TestCase
 {
     /**
-     * @dataProvider provideConfigToConfiguredMethodAndParameterDefinition()
+     * @dataProvider provideConfigToConfiguredMethodAndPropertyDefinition()
      * @param mixed[] $expectedMethodCall
+     * @param mixed[] $expectedProperties
      */
-    public function testBare(string $config, string $checker, array $expectedMethodCall): void
+    public function test(string $config, string $checker, array $expectedMethodCall, array $expectedProperties): void
     {
         $containerBuilder = $this->createAndLoadContainerBuilderFromConfig($config);
         $this->assertTrue($containerBuilder->has($checker));
 
         $checkerDefinition = $containerBuilder->getDefinition($checker);
-        $this->checkHasMethodCall($checkerDefinition, $expectedMethodCall);
+
+        if (count($expectedMethodCall)) {
+            $this->checkDefinitionForMethodCall($checkerDefinition, $expectedMethodCall);
+        }
+
+        if (count($expectedProperties)) {
+            $this->assertSame($expectedProperties, $checkerDefinition->getProperties());
+        }
     }
 
     private function createAndLoadContainerBuilderFromConfig(string $config): ContainerBuilder
@@ -37,7 +46,7 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
     /**
      * @param mixed[] $methodCall
      */
-    private function checkHasMethodCall(Definition $definition, array $methodCall): void
+    private function checkDefinitionForMethodCall(Definition $definition, array $methodCall): void
     {
         $methodCalls = $definition->getMethodCalls();
 
@@ -50,7 +59,7 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
     /**
      * @return mixed[][]
      */
-    public function provideConfigToConfiguredMethodAndParameterDefinition(): array
+    public function provideConfigToConfiguredMethodAndPropertyDefinition(): array
     {
         return [
             [
@@ -59,12 +68,22 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
                 # checkers
                 ArraySyntaxFixer::class,
                 # expected method call
-                ['configure', [['syntax' => 'short']]]
+                ['configure', [['syntax' => 'short']]],
+                # expected set properties
+                []
             ],
             [
                 __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-imports.yml',
                 ArraySyntaxFixer::class,
-                ['configure', [['syntax' => 'short']]]
+                ['configure', [['syntax' => 'short']]],
+                []
+            ],
+            # "@" escaping
+            [
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-at.yml',
+                LineLengthSniff::class,
+                [],
+                ['absoluteLineLimit' => '@author']
             ]
         ];
     }
