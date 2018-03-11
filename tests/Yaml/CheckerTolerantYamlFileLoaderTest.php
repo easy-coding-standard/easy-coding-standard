@@ -33,6 +33,38 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
         }
     }
 
+    /**
+     * @return mixed[][]
+     */
+    public function provideConfigToConfiguredMethodAndPropertyDefinition(): array
+    {
+        return [
+            [
+                # config
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml',
+                # checkers
+                ArraySyntaxFixer::class,
+                # expected method call
+                ['configure', [['syntax' => 'short']]],
+                # expected set properties
+                [],
+            ],
+            [
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-imports.yml',
+                ArraySyntaxFixer::class,
+                ['configure', [['syntax' => 'short']]],
+                [],
+            ],
+            # "@" escaping
+            [
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-at.yml',
+                LineLengthSniff::class,
+                [],
+                ['absoluteLineLimit' => '@author'],
+            ],
+        ];
+    }
+
     private function createAndLoadContainerBuilderFromConfig(string $config): ContainerBuilder
     {
         $containerBuilder = new ContainerBuilder();
@@ -54,37 +86,5 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
         $this->assertContains(key($methodCall), $methodCalls[0]);
 
         $this->assertSame($methodCall, $methodCalls[0]);
-    }
-
-    /**
-     * @return mixed[][]
-     */
-    public function provideConfigToConfiguredMethodAndPropertyDefinition(): array
-    {
-        return [
-            [
-                # config
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml',
-                # checkers
-                ArraySyntaxFixer::class,
-                # expected method call
-                ['configure', [['syntax' => 'short']]],
-                # expected set properties
-                []
-            ],
-            [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-imports.yml',
-                ArraySyntaxFixer::class,
-                ['configure', [['syntax' => 'short']]],
-                []
-            ],
-            # "@" escaping
-            [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-at.yml',
-                LineLengthSniff::class,
-                [],
-                ['absoluteLineLimit' => '@author']
-            ]
-        ];
     }
 }
