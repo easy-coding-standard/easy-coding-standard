@@ -17,7 +17,7 @@ final class Skipper
     private $skipped = [];
 
     /**
-     * @var string[]
+     * @var string[]|null[]
      */
     private $skippedCodes = [];
 
