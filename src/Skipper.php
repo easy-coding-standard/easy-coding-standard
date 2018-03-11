@@ -6,7 +6,7 @@ use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Finder\SplFileInfo;
-use Symplify\EasyCodingStandard\Validator\CheckerTypeValidator;
+use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class Skipper
@@ -31,25 +31,29 @@ final class Skipper
      */
     private $excludedFiles = [];
 
-    public function __construct(ParameterProvider $parameterProvider, CheckerTypeValidator $checkerTypeValidator)
+    public function __construct(ParameterProvider $parameterProvider)
     {
-        $skipped = $parameterProvider->provide()['skip'] ?? [];
-        $checkerTypeValidator->validate(array_keys($skipped), 'parameters > skip');
-        $this->skipped = $skipped;
-        $this->unusedSkipped = $skipped;
+        $skipped = $parameterProvider->provide()[Option::SKIP] ?? [];
+        $this->filterToSkippedAndSkippedCodes($skipped);
 
-        $this->skippedCodes = $parameterProvider->provide()['skip_codes'] ?? [];
+        $this->unusedSkipped = $this->skipped;
+
         $this->excludedFiles = $this->resolveExcludedFiles($parameterProvider);
     }
 
     public function shouldSkipCodeAndFile(string $code, string $absoluteFilePath): bool
     {
         foreach ($this->skippedCodes as $index => $value) {
-            if ($value === $code) {
+            if ($index !== $code) {
+                continue;
+            }
+
+            // skip all
+            if ($value === null) {
                 return true;
             }
 
-            if ($index === $code && $this->doesFileMatchSkippedFiles($code, $absoluteFilePath, (array) $value)) {
+            if ($this->doesFileMatchSkippedFiles($code, $absoluteFilePath, (array) $value)) {
                 return true;
             }
         }
@@ -152,8 +156,8 @@ final class Skipper
      */
     private function resolveExcludedFiles(ParameterProvider $parameterProvider): array
     {
-        if ($parameterProvider->provideParameter('exclude_files')) {
-            return $parameterProvider->provideParameter('exclude_files');
+        if ($parameterProvider->provideParameter(Option::EXCLUDE_FILES)) {
+            return $parameterProvider->provideParameter(Option::EXCLUDE_FILES);
         }
 
         // typo proof
@@ -162,5 +166,19 @@ final class Skipper
         }
 
         return [];
+    }
+
+    /**
+     * @param mixed[] $skipped
+     */
+    private function filterToSkippedAndSkippedCodes(array $skipped): void
+    {
+        foreach ($skipped as $key => $settings) {
+            if (Strings::contains($key, '.')) {
+                $this->skippedCodes[$key] = $settings;
+            } else {
+                $this->skipped[$key] = $settings;
+            }
+        }
     }
 }

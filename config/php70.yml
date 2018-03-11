@@ -28,5 +28,5 @@ services:
 
 parameters:
     # disable any annotation removal
-    skip_codes:
-        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~
+    skip:
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~
