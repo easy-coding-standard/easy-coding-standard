@@ -11,28 +11,17 @@ use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 
 final class CheckerTolerantYamlFileLoaderTest extends TestCase
 {
-    public function testBare(): void
+    /**
+     * @dataProvider provideConfigToConfiguredMethodAndParameterDefinition()
+     * @param mixed[] $expectedMethodCall
+     */
+    public function testBare(string $config, string $checker, array $expectedMethodCall): void
     {
-        $containerBuilder = $this->createAndLoadContainerBuilderFromConfig(
-            __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml'
-        );
+        $containerBuilder = $this->createAndLoadContainerBuilderFromConfig($config);
+        $this->assertTrue($containerBuilder->has($checker));
 
-        $this->assertTrue($containerBuilder->has(ArraySyntaxFixer::class));
-
-        $arraySyntaxFixerDefinition = $containerBuilder->getDefinition(ArraySyntaxFixer::class);
-        $this->checkHasMethodCall($arraySyntaxFixerDefinition, ['configure', [['syntax' => 'short']]]);
-    }
-
-    public function testBareImport(): void
-    {
-        $containerBuilder = $this->createAndLoadContainerBuilderFromConfig(
-            __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-imports.yml'
-        );
-
-        $this->assertTrue($containerBuilder->has(ArraySyntaxFixer::class));
-
-        $arraySyntaxFixerDefinition = $containerBuilder->getDefinition(ArraySyntaxFixer::class);
-        $this->checkHasMethodCall($arraySyntaxFixerDefinition, ['configure', [['syntax' => 'short']]]);
+        $checkerDefinition = $containerBuilder->getDefinition($checker);
+        $this->checkHasMethodCall($checkerDefinition, $expectedMethodCall);
     }
 
     private function createAndLoadContainerBuilderFromConfig(string $config): ContainerBuilder
@@ -56,5 +45,27 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
         $this->assertContains(key($methodCall), $methodCalls[0]);
 
         $this->assertSame($methodCall, $methodCalls[0]);
+    }
+
+    /**
+     * @return mixed[][]
+     */
+    public function provideConfigToConfiguredMethodAndParameterDefinition(): array
+    {
+        return [
+            [
+                # config
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml',
+                # checkers
+                ArraySyntaxFixer::class,
+                # expected method call
+                ['configure', [['syntax' => 'short']]]
+            ],
+            [
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-imports.yml',
+                ArraySyntaxFixer::class,
+                ['configure', [['syntax' => 'short']]]
+            ]
+        ];
     }
 }
