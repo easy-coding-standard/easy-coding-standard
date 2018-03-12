@@ -187,7 +187,7 @@ final class CheckCommand extends Command
         $totalCheckersLoaded = $this->ecsApplication->getCheckerCount();
         if ($totalCheckersLoaded === 0) {
             throw new NoCheckersLoadedException(
-                'No checkers were found. Registers them in your config in "checkers:" '
+                'No checkers were found. Registers them in your config in "services:" '
                 . 'section, load them via "--config <file>.yml" or "--level <level> option.'
             );
         }
