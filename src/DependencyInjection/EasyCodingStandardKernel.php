@@ -87,7 +87,7 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
     /**
      * @param ContainerInterface|ContainerBuilder $container
      */
-    protected function getContainerLoader(ContainerInterface $container): LoaderInterface
+    protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
     {
         $fileLocator = new FileLocator($this);
 
