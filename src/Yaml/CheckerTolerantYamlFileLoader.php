@@ -67,11 +67,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     private function moveArgumentsToPropertiesOrMethodCalls(array $yaml): array
     {
         foreach ($yaml[self::SERVICES_KEY] as $checker => $serviceDefinition) {
-            if (empty($serviceDefinition)) {
-                continue;
-            }
-
-            if (! $this->isCheckersClass($checker)) {
+            if (! $this->isCheckersClass($checker) || empty($serviceDefinition)) {
                 continue;
             }
 
@@ -109,10 +105,16 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     private function processFixer(array $yaml, string $checker, array $serviceDefinition): array
     {
         $this->checkerConfigurationGuardian->ensureFixerIsConfigurable($checker, $serviceDefinition);
-        // move parameters to "configure()" call
-        $yaml[self::SERVICES_KEY][$checker][self::CALLS_KEY] = [
-            ['configure', [$serviceDefinition]],
-        ];
+
+        foreach ($serviceDefinition as $key => $value) {
+            if ($this->isReservedKey($key)) {
+                continue;
+            }
+
+            $yaml[self::SERVICES_KEY][$checker][self::CALLS_KEY] = [
+                ['configure', [$serviceDefinition]],
+            ];
+        }
 
         return $yaml;
     }

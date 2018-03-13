@@ -69,6 +69,12 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
                 [],
                 ['absoluteLineLimit' => 150],
             ],
+            [
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-classic.yml',
+                ArraySyntaxFixer::class,
+                ['configure', [['syntax' => 'short']]],
+                [],
+            ],
         ];
     }
 
