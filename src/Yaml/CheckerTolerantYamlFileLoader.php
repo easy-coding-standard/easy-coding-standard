@@ -3,9 +3,9 @@
 namespace Symplify\EasyCodingStandard\Yaml;
 
 use Nette\Utils\Strings;
+use ReflectionClass;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
@@ -27,10 +27,16 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      * @var string
      */
     private const PROPERTIES_KEY = 'properties';
+
     /**
      * @var CheckerConfigurationGuardian
      */
     private $checkerConfigurationGuardian;
+
+    /**
+     * @var string[]
+     */
+    private $serviceKeywords = [];
 
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
@@ -75,11 +81,14 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 
             if (Strings::endsWith($checker, 'Sniff')) {
                 $yaml = $this->processSniff($yaml, $checker, $serviceDefinition);
-
             }
 
             // cleanup parameters
             foreach ($serviceDefinition as $key => $value) {
+                if ($this->isReservedKey($key)) {
+                    continue;
+                }
+
                 unset($yaml[self::SERVICES_KEY][$checker][$key]);
             }
         }
@@ -113,10 +122,14 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      * @param mixed[] $serviceDefinition
      * @return mixed[]
      */
-    private function processSniff(array $yaml, string $checker,  array $serviceDefinition): array
+    private function processSniff(array $yaml, string $checker, array $serviceDefinition): array
     {
         // move parameters to property setters
         foreach ($serviceDefinition as $key => $value) {
+            if ($this->isReservedKey($key)) {
+                continue;
+            }
+
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
             $yaml[self::SERVICES_KEY][$checker][self::PROPERTIES_KEY][$key] = $this->escapeValue($value);
         }
@@ -135,5 +148,24 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         }
 
         return Strings::replace($value, '#@#', '@@');
+    }
+
+    private function isReservedKey(string $key): bool
+    {
+        return in_array($key, $this->getServiceKeywords(), true);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getServiceKeywords(): array
+    {
+        if ($this->serviceKeywords) {
+            return $this->serviceKeywords;
+        }
+
+        $reflectionClass = new ReflectionClass(YamlFileLoader::class);
+
+        return $this->serviceKeywords = $reflectionClass->getStaticProperties()['serviceKeywords'];
     }
 }
