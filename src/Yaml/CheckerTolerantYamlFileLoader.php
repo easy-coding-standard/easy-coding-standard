@@ -152,8 +152,15 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         return Strings::replace($value, '#@#', '@@');
     }
 
-    private function isReservedKey(string $key): bool
+    /**
+     * @param string|int $key
+     */
+    private function isReservedKey($key): bool
     {
+        if (is_int($key)) {
+            return false;
+        }
+
         return in_array($key, $this->getServiceKeywords(), true);
     }
 
