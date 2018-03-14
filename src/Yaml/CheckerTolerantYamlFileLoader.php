@@ -153,7 +153,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     }
 
     /**
-     * @param string|int $key
+     * @param string|int|bool $key
      */
     private function isReservedKey($key): bool
     {
