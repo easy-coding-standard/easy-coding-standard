@@ -16,7 +16,7 @@
         "symfony/yaml": "^4.0",
         "nette/caching": "^2.4",
         "nette/utils": "^2.4",
-        "nette/robot-loader": "^2.4|^3.0.1",
+        "nette/robot-loader": "^3.0",
         "symplify/coding-standard": "^4.0",
         "symplify/package-builder": "^4.0",
         "symplify/token-runner": "^4.0",
@@ -26,7 +26,7 @@
         "jean85/pretty-package-versions": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4"
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "psr-4": {
