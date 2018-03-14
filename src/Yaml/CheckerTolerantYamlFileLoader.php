@@ -157,7 +157,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private function isReservedKey($key): bool
     {
-        if (is_int($key)) {
+        if (! is_string($key)) {
             return false;
         }
 
