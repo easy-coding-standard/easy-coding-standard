@@ -6,7 +6,6 @@ services:
     Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer: ~
 
     # Control Structures
-    Symplify\CodingStandard\Sniffs\Property\DynamicPropertySniff: ~
     Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer: ~
     Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer: ~
     Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
