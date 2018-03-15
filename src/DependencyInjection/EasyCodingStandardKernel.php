@@ -19,6 +19,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
+use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 
 final class EasyCodingStandardKernel extends AbstractCliKernel
@@ -80,6 +81,9 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
 
         // autowire
         $containerBuilder->addCompilerPass(new AutowireCheckersCompilerPass());
+
+        // tests
+        $containerBuilder->addCompilerPass(new PublicForTestsCompilerPass());
 
         // method calls
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
