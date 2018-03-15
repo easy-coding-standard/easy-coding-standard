@@ -145,7 +145,15 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private function escapeValue($value)
     {
-        if (! is_string($value)) {
+        if (is_bool($value) || is_numeric($value)) {
+            return $value;
+        }
+
+        if (is_array($value)) {
+            foreach ($value as $key => $nestedValue) {
+                $value[$key] = $this->escapeValue($nestedValue);
+            }
+
             return $value;
         }
 
