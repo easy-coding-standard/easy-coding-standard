@@ -145,7 +145,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private function escapeValue($value)
     {
-        if (is_numeric($value)) {
+        if (! is_string($value)) {
             return $value;
         }
 

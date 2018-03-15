@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Tests\Yaml;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\TestCase;
+use SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -74,6 +75,12 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
                 ArraySyntaxFixer::class,
                 ['configure', [['syntax' => 'short']]],
                 [],
+            ],
+            [
+                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-bool.yml',
+                TypeHintDeclarationSniff::class,
+                [],
+                ['enableObjectTypeHint' => false],
             ],
         ];
     }
