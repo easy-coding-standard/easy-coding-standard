@@ -12,7 +12,6 @@ services:
     PhpCsFixer\Differ\UnifiedDiffer: ~
 
     Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor:
-        public: true # for tests
 
     PhpCsFixer\WhitespacesFixerConfig:
         factory: ['@Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory', 'create']
