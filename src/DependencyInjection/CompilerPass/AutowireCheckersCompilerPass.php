@@ -6,23 +6,28 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 
 final class AutowireCheckersCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $containerBuilder): void
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
-            $definitionClass = $definition->getClass();
-            if (! is_a($definitionClass, FixerInterface::class, true)) {
+            if (! $this->isCheckerDefinition($definition)) {
                 continue;
             }
 
-            if (! is_a($definitionClass, Sniff::class, true)) {
-                continue;
-            }
-
-            dump(':::');
+            $definition->setAutowired(true);
         }
-        die;
+    }
+
+    private function isCheckerDefinition(Definition $definition): bool
+    {
+        $definitionClass = $definition->getClass();
+        if (is_a($definitionClass, FixerInterface::class, true)) {
+            return true;
+        }
+
+        return is_a($definitionClass, Sniff::class, true);
     }
 }
