@@ -16,3 +16,7 @@ services:
     Symfony\Component\Console\Style\SymfonyStyle: ~
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
+
+    # for autowired checkers
+    Symplify\TokenRunner\DocBlock\DescriptionAnalyzer:
+    Symplify\TokenRunner\DocBlock\ParamAndReturnTagAnalyzer: ~
