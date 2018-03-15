@@ -28,11 +28,17 @@ final class CacheFactory
 
     private function getCacheDirectory(): string
     {
-        if (defined('PHPUNIT_RUN')) { // defined in phpunit.xml
+        if ($this->isPHPUnit()) {
             // use different directory for tests, to avoid clearing local cache
             return rtrim($this->cacheDirectory, DIRECTORY_SEPARATOR) . '_tests';
         }
 
         return $this->cacheDirectory;
+    }
+
+    private function isPHPUnit(): bool
+    {
+        // defined by PHPUnit
+        return defined('PHPUNIT_COMPOSER_INSTALL') || defined('__PHPUNIT_PHAR__');
     }
 }
