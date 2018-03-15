@@ -11,6 +11,7 @@ services:
     Symfony\Component\Console\Output\ConsoleOutput: ~
     Symfony\Component\Console\Output\OutputInterface:
         alias: Symfony\Component\Console\Output\ConsoleOutput
+        public: true
 
     Symfony\Component\Console\Style\SymfonyStyle: ~
 
