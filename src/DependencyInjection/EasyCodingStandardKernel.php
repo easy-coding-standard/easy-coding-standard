@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Config\FileLocator;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
@@ -76,6 +77,9 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
 
         // exceptions
         $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
+
+        // autowire
+        $containerBuilder->addCompilerPass(new AutowireCheckersCompilerPass());
 
         // method calls
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
