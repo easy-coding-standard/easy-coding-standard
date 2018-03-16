@@ -38,6 +38,7 @@ services:
     Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer: ~
     Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff: ~
     Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff: ~
+    Symplify\CodingStandard\Sniffs\CleanCode\ForbiddenReferenceSniff: ~
 
     # Debug
     Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~
