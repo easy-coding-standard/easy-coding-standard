@@ -39,7 +39,7 @@ final class Application extends SymfonyApplication
             null,
             InputOption::VALUE_REQUIRED,
             'Path to config file.',
-            getcwd() . '/easy-coding-standard.yml'
+            'easy-coding-standard.(yml|yaml)'
         ));
 
         $inputDefinition->addOption(new InputOption(
