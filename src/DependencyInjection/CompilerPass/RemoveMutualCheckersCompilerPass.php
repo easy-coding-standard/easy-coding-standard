@@ -98,6 +98,9 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
             'PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff',
         ], [
+            'PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer',
+            'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff',
+        ], [
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff',
             'PhpCsFixer\Fixer\ControlStructure\IncludeFixer',
         ], [
@@ -144,6 +147,23 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
         ], [
             'PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff',
+        ],
+        // Aliased deprecated fixers
+        [
+            'PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer',
+            'PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer',
+        ],
+        [
+            'PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer',
+            'PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer',
+        ],
+        [
+            'PhpCsFixer\Fixer\Operator\IncrementStyleFixer',
+            'PhpCsFixer\Fixer\Operator\PreIncrementFixer',
+        ],
+        [
+            'PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer',
+            'PhpCsFixer\Fixer\Comment\HashToSlashCommentFixer',
         ],
     ];
 

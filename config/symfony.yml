@@ -15,17 +15,21 @@ services:
     PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: ~
     PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer: ~
     PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer: ~
-    PhpCsFixer\Fixer\Comment\HashToSlashCommentFixer: ~
+    PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer:
+        comment_types:
+            - hash
     PhpCsFixer\Fixer\ControlStructure\IncludeFixer: ~
     PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer: ~
-    PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer: ~
+    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
+        elements:
+            - method
     PhpCsFixer\Fixer\Casing\NativeFunctionCasingFixer: ~
     PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
     PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer: ~
     PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer: ~
     PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: ~
     PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer: ~
-    PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer:
+    PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer:
         - curly_brace_block
         - extra
         - parenthesis_brace_block
@@ -59,7 +63,8 @@ services:
     PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer: ~
-    PhpCsFixer\Fixer\Operator\PreIncrementFixer: ~
+    PhpCsFixer\Fixer\Operator\IncrementStyleFixer:
+        style: pre
     PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer: ~
     PhpCsFixer\Fixer\CastNotation\ShortScalarCastFixer: ~
