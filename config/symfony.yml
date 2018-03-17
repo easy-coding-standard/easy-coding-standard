@@ -30,12 +30,13 @@ services:
     PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: ~
     PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer: ~
     PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer:
-        - curly_brace_block
-        - extra
-        - parenthesis_brace_block
-        - square_brace_block
-        - throw
-        - use
+        tokens:
+            - curly_brace_block
+            - extra
+            - parenthesis_brace_block
+            - square_brace_block
+            - throw
+            - use
     PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer: ~
     PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer: ~
     PhpCsFixer\Fixer\CastNotation\NoShortBoolCastFixer: ~
