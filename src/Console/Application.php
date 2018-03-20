@@ -36,7 +36,7 @@ final class Application extends SymfonyApplication
     {
         $inputDefinition->addOption(new InputOption(
             'config',
-            null,
+            'c',
             InputOption::VALUE_REQUIRED,
             'Path to config file.',
             'easy-coding-standard.(yml|yaml)'
