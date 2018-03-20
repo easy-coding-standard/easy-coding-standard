@@ -29,28 +29,30 @@ abstract class AbstractContainerAwareCheckerTestCase extends TestCase
 
     abstract protected function provideConfig(): string;
 
-    private function doTest($expected, $input = null, SplFileInfo $file = null): void
-    {
-        $fixer = $this->createFixer();
-        $this->assertTrue($fixer->isCandidate($input));
-
-        $tokens = Tokens::fromCode($input);
-        $fixResult = $fixer->fix(new SplFileInfo(__FILE__), $tokens);
-
-        $this->assertSame($expected, $fixResult);
-    }
-
     /**
      * File should contain 0 errors
      */
     protected function doTestCorrectFile(string $correctFile): void
     {
-        $this->doTest(file_get_contents($correctFile), null, null);
+        $processedFileContent = $this->processFileWithFixerAndGetContent($correctFile, $this->createFixer());
+
+        $this->assertSame(file_get_contents($correctFile), $processedFileContent);
     }
 
     protected function doTestWrongToFixedFile(string $wrongFile, string $fixedFile): void
     {
-        $this->doTest(file_get_contents($fixedFile), file_get_contents($wrongFile), null);
+        $processedFileContent = $this->processFileWithFixerAndGetContent($wrongFile, $this->createFixer());
+
+        $this->assertSame(file_get_contents($fixedFile), $processedFileContent);
+    }
+
+    private function processFileWithFixerAndGetContent(string $file, FixerInterface $fixer): string
+    {
+        $correctFileContent = file_get_contents($file);
+        $tokens = Tokens::fromCode($correctFileContent);
+
+        $fixer->fix(new SplFileInfo(__FILE__), $tokens);
+
+        return $tokens->generateCode();
     }
 }
-
