@@ -20,3 +20,12 @@ services:
     # for autowired checkers
     Symplify\TokenRunner\DocBlock\DescriptionAnalyzer:
     Symplify\TokenRunner\DocBlock\ParamAndReturnTagAnalyzer: ~
+    Symplify\TokenRunner\Analyzer\FixerAnalyzer\DocBlockFinder: ~
+
+    Symplify\TokenRunner\Wrapper\FixerWrapper\DocBlockWrapperFactory: ~
+    Symplify\TokenRunner\Wrapper\FixerWrapper\ClassWrapperFactory: ~
+    Symplify\TokenRunner\Wrapper\FixerWrapper\PropertyWrapperFactory: ~
+    Symplify\TokenRunner\Wrapper\FixerWrapper\MethodWrapperFactory: ~
+
+    Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
+    phpDocumentor\Reflection\FqsenResolver: ~
