@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Testing;
 
-use PhpCsFixer\Fixer\FixerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
