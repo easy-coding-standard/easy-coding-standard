@@ -13,7 +13,7 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
      */
     private $errorSorter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->errorSorter = $this->container->get(ErrorSorter::class);
     }
