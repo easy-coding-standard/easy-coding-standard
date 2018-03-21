@@ -14,3 +14,5 @@ services:
 
     # [1,2]
     PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer: ~
+
+    PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer: ~

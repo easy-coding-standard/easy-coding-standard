@@ -21,7 +21,6 @@ services:
     # Comments
     Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer: ~
     Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff: ~
-    Symplify\CodingStandard\Fixer\Commenting\AnnotateMagicContainerGetterFixer: ~
     Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer: ~
     Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer: ~
 
