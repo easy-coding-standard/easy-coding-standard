@@ -45,7 +45,9 @@ vendor/bin/ecs check src
 vendor/bin/ecs check src --fix
 ```
 
-*Tip: Do you want [autocomplete too](https://github.com/Haehnchen/idea-php-symfony2-plugin/issues/1153)?*
+*Tip: Do you want [autocomplete too](https://github.com/Haehnchen/idea-php-symfony2-plugin/issues/1153)? Just use Symfony Plugin*
+
+![ECS-Run](docs/yaml-autocomplete.gif)
 
 ## More Features
 
