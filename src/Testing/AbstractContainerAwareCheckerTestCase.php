@@ -3,11 +3,11 @@
 namespace Symplify\EasyCodingStandard\Testing;
 
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\Tokenizer\Tokens;
 use PHPUnit\Framework\TestCase;
-use SplFileInfo;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\PackageBuilder\FileSystem\FileGuard;
 
 abstract class AbstractContainerAwareCheckerTestCase extends TestCase
@@ -17,15 +17,20 @@ abstract class AbstractContainerAwareCheckerTestCase extends TestCase
      */
     protected $container;
 
+    /**
+     * @var FixerFileProcessor
+     */
+    private $fixerFileProcessor;
+
     protected function setUp(): void
     {
         FileGuard::ensureFileExists($this->provideConfig(), get_called_class());
         $this->container = (new ContainerFactory())->createWithConfig($this->provideConfig());
 
+        $this->fixerFileProcessor = $this->container->get(FixerFileProcessor::class);
+
         parent::setUp();
     }
-
-    abstract protected function createFixer(): FixerInterface;
 
     abstract protected function provideConfig(): string;
 
@@ -34,25 +39,17 @@ abstract class AbstractContainerAwareCheckerTestCase extends TestCase
      */
     protected function doTestCorrectFile(string $correctFile): void
     {
-        $processedFileContent = $this->processFileWithFixerAndGetContent($correctFile, $this->createFixer());
+        $symfonyFileInfo = new SymfonySplFileInfo($correctFile, '', '');
+        $processedFileContent = $this->fixerFileProcessor->processFile($symfonyFileInfo);
 
         $this->assertSame(file_get_contents($correctFile), $processedFileContent);
     }
 
     protected function doTestWrongToFixedFile(string $wrongFile, string $fixedFile): void
     {
-        $processedFileContent = $this->processFileWithFixerAndGetContent($wrongFile, $this->createFixer());
+        $symfonyFileInfo = new SymfonySplFileInfo($wrongFile, '', '');
+        $processedFileContent = $this->fixerFileProcessor->processFile($symfonyFileInfo);
 
         $this->assertSame(file_get_contents($fixedFile), $processedFileContent);
-    }
-
-    private function processFileWithFixerAndGetContent(string $file, FixerInterface $fixer): string
-    {
-        $correctFileContent = file_get_contents($file);
-        $tokens = Tokens::fromCode($correctFileContent);
-
-        $fixer->fix(new SplFileInfo(__FILE__), $tokens);
-
-        return $tokens->generateCode();
     }
 }
