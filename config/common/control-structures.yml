@@ -16,9 +16,8 @@ services:
     PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
         singleLine: true
 
-    # $value++;
-    PhpCsFixer\Fixer\Operator\IncrementStyleFixer:
-        style: pre
+    # $value++;   =>   ++$value;
+    PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer: ~
 
     # class SomeClass { ... return SomeClass; }
     PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer: ~

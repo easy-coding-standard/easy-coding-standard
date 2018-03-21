@@ -64,8 +64,6 @@ services:
     PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer: ~
-    PhpCsFixer\Fixer\Operator\IncrementStyleFixer:
-        style: pre
     PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer: ~
     PhpCsFixer\Fixer\CastNotation\ShortScalarCastFixer: ~
@@ -93,3 +91,6 @@ services:
     PhpCsFixer\Fixer\ClassNotation\NoUnneededFinalMethodFixer: ~
     PhpCsFixer\Fixer\Semicolon\SemicolonAfterInstructionFixer: ~
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: ~
+
+    # new since 2.11
+    PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer: ~
