@@ -98,10 +98,6 @@ class Foo extends ExtendedClass implements
         // method body
     }
 
-    public function lottaArguments($arg1,
-                                   $arg2, $arg3) {
-    }
-
     public final function finalMethod()
     {
     }
@@ -124,12 +120,6 @@ declare( ticks = 1 )
 }
 
 function fooBarBaz($arg1,& $arg2 ,$arg3=[]){
-    // function body
-}
-
-function lottaArguments($arg1,& $arg2 ,
-                        $arg3=[]) :?string
-{
     // function body
 }
 
