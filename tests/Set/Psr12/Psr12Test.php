@@ -2,9 +2,9 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Set\Psr12;
 
-use Symplify\EasyCodingStandard\Testing\AbstractContainerAwareCheckerTestCase;
+use Symplify\EasyCodingStandard\Testing\AbstractCheckerTestCase;
 
-final class Psr12Test extends AbstractContainerAwareCheckerTestCase
+final class Psr12Test extends AbstractCheckerTestCase
 {
     public function test(): void
     {
