@@ -81,9 +81,10 @@ abstract class AbstractCheckerTestCase extends TestCase
         }
 
         if ($this->sniffFileProcessor->getCheckers()) {
-            $this->sniffFileProcessor->processFile($symfonyFileInfo);
-            $processedFileContent = $this->sniffFileProcessor->processFileSecondRun($symfonyFileInfo);
-            $this->assertGreaterThanOrEqual(1, $this->errorAndDiffCollector->getErrorCount());
+            $processedFileContent = $this->sniffFileProcessor->processFile($symfonyFileInfo);
+            if ($this->sniffFileProcessor->getDualRunCheckers()) {
+                $processedFileContent = $this->sniffFileProcessor->processFileSecondRun($symfonyFileInfo);
+            }
         }
 
         $this->assertStringEqualsFile($fixedFile, $processedFileContent);
