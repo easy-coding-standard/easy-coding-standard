@@ -19,6 +19,6 @@ try {
     $output = $container->get(OutputInterface::class);
     exit($application->run($input, $output));
 } catch (Throwable $throwable) {
-    (SymfonyStyleFactory::create())->error($throwable->getMessage());
+    (SymfonyStyleFactory::create())->error($throwable);
     exit(1);
 }
