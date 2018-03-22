@@ -6,12 +6,14 @@ services:
     Symfony\Component\Console\Terminal: ~
 
     # Console
-    Symfony\Component\Console\Input\ArgvInput: ~
+    Symfony\Component\Console\Input\ArgvInput:
+        public: true
 
-    Symfony\Component\Console\Output\ConsoleOutput: ~
+    Symfony\Component\Console\Output\ConsoleOutput:
+        public: true
+
     Symfony\Component\Console\Output\OutputInterface:
         alias: Symfony\Component\Console\Output\ConsoleOutput
-        public: true
 
     Symfony\Component\Console\Style\SymfonyStyle: ~
 
