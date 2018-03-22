@@ -61,7 +61,7 @@ final class CheckCommandReporter
     {
         foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
             foreach ($skippedFiles as $skippedFile) {
-                if (! $this->isSkippedFileInSource($skippedFile)) {
+                if (! $this->isFileInSource($skippedFile)) {
                     continue;
                 }
 
@@ -117,10 +117,10 @@ final class CheckCommandReporter
         return $metricsForTable;
     }
 
-    private function isSkippedFileInSource(string $skippedFile): bool
+    private function isFileInSource(string $file): bool
     {
         foreach ($this->configuration->getSources() as $source) {
-            if (fnmatch(sprintf('*%s', $source), $skippedFile)) {
+            if (fnmatch('**' . $source . '**', $file)) {
                 return true;
             }
         }
