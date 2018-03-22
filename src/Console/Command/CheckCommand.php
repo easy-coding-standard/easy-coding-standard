@@ -178,7 +178,7 @@ final class CheckCommand extends Command
 
         $this->easyCodingStandardStyle->success(sprintf(
             '%s%d file%s %s fixable! Just add "--fix" to console command and rerun to apply.',
-            $errorCount ? 'Good news is that ': '',
+            $errorCount ? 'Good news is that ' : '',
             $fileDiffsCount,
             $fileDiffsCount === 1 ? '' : 's',
             $fileDiffsCount === 1 ? 'is' : 'are'
