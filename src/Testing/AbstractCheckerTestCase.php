@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Testing;
 
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
@@ -47,6 +48,8 @@ abstract class AbstractCheckerTestCase extends TestCase
      */
     protected function doTestCorrectFile(string $correctFile): void
     {
+        $this->ensureSomeCheckersAreRegistered();
+
         $symfonyFileInfo = SymfonyFileInfoFactory::createFromFilePath($correctFile);
 
         if ($this->fixerFileProcessor->getCheckers()) {
@@ -68,6 +71,8 @@ abstract class AbstractCheckerTestCase extends TestCase
      */
     protected function doTestWrongToFixedFile(string $wrongFile, string $fixedFile): void
     {
+        $this->ensureSomeCheckersAreRegistered();
+
         $symfonyFileInfo = SymfonyFileInfoFactory::createFromFilePath($wrongFile);
 
         if ($this->fixerFileProcessor->getCheckers()) {
@@ -77,7 +82,7 @@ abstract class AbstractCheckerTestCase extends TestCase
 
         if ($this->sniffFileProcessor->getCheckers()) {
             $this->sniffFileProcessor->processFile($symfonyFileInfo);
-            $this->sniffFileProcessor->processFileSecondRun($symfonyFileInfo);
+            $processedFileContent = $this->sniffFileProcessor->processFileSecondRun($symfonyFileInfo);
             $this->assertGreaterThanOrEqual(1, $this->errorAndDiffCollector->getErrorCount());
         }
 
@@ -89,10 +94,25 @@ abstract class AbstractCheckerTestCase extends TestCase
      */
     protected function doTestWrongFile(string $wrongFile): void
     {
+        $this->ensureSomeCheckersAreRegistered();
+
         $symfonyFileInfo = SymfonyFileInfoFactory::createFromFilePath($wrongFile);
 
         $this->sniffFileProcessor->processFile($symfonyFileInfo);
         $this->sniffFileProcessor->processFileSecondRun($symfonyFileInfo);
         $this->assertGreaterThanOrEqual(1, $this->errorAndDiffCollector->getErrorCount());
+    }
+
+    private function ensureSomeCheckersAreRegistered(): void
+    {
+        $totalCheckersLoaded = count($this->sniffFileProcessor->getCheckers())
+            + count($this->fixerFileProcessor->getCheckers());
+
+        if ($totalCheckersLoaded === 0) {
+            throw new NoCheckersLoadedException(
+                'No checkers were found. Registers them in your config in "services:" '
+                . 'section, load them via "--config <file>.yml" or "--level <level> option.'
+            );
+        }
     }
 }
