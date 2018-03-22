@@ -100,7 +100,10 @@ abstract class AbstractCheckerTestCase extends TestCase
         $symfonyFileInfo = SymfonyFileInfoFactory::createFromFilePath($wrongFile);
 
         $this->sniffFileProcessor->processFile($symfonyFileInfo);
-        $this->sniffFileProcessor->processFileSecondRun($symfonyFileInfo);
+        if ($this->sniffFileProcessor->getDualRunCheckers()) {
+            $this->sniffFileProcessor->processFileSecondRun($symfonyFileInfo);
+        }
+
         $this->assertGreaterThanOrEqual(1, $this->errorAndDiffCollector->getErrorCount());
     }
 
