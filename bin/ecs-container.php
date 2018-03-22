@@ -8,7 +8,7 @@ use Symplify\PackageBuilder\Configuration\LevelFileFinder;
 require_once __DIR__ . '/easy-coding-standard-bootstrap.php';
 
 // 1. Detect configuration from --level
-$configFile = (new LevelFileFinder())->resolveLevel(new ArgvInput(), __DIR__ . '/../config/');
+$configFile = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
 
 // 2. Detect configuration
 if ($configFile === null) {
