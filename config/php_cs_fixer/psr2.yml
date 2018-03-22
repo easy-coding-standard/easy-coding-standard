@@ -1,5 +1,10 @@
+# updated to PHP CS Fixer v2.11.0
+
 services:
-    # PHP-CS-Fixer
+    # PSR1
+    PhpCsFixer\Fixer\Basic\EncodingFixer: ~
+    PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer: ~
+
     PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer: ~
     PhpCsFixer\Fixer\Basic\BracesFixer: ~
     PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer: ~
@@ -20,11 +25,9 @@ services:
     PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer: ~
     PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
         elements:
-            - property
+            - 'property'
     PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer: ~
     PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer: ~
     PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer: ~
     PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer: ~
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer: ~
-    PhpCsFixer\Fixer\Basic\EncodingFixer: ~
-    PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer: ~
