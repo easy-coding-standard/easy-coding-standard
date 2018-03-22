@@ -1,5 +1,5 @@
 imports:
-    - { resources: 'psr2.yml' }
+    - { resource: 'psr2.yml' }
 
 services:
     PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer: ~
@@ -12,13 +12,13 @@ services:
             - 'function'
             - 'const'
     PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer:
-        spaces: 'none'
+        space: 'none'
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
     PhpCsFixer\Fixer\Basic\BracesFixer:
         'allow_single_line_closure': false
-        'position_after_functions_and_oop_constructs': 'line_next'
-        'position_after_control_structures': 'line_same'
-        'position_after_anonymous_constructs': 'line_same'
+        'position_after_functions_and_oop_constructs': 'next'
+        'position_after_control_structures': 'same'
+        'position_after_anonymous_constructs': 'same'
 
     PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
     PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer:
