@@ -3,12 +3,12 @@
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
-use Symplify\PackageBuilder\Configuration\LevelConfigShortcutFinder;
+use Symplify\PackageBuilder\Configuration\LevelFileFinder;
 
 require_once __DIR__ . '/easy-coding-standard-bootstrap.php';
 
 // 1. Detect configuration from --level
-$configFile = (new LevelConfigShortcutFinder())->resolveLevel(new ArgvInput(), __DIR__ . '/../config/');
+$configFile = (new LevelFileFinder())->resolveLevel(new ArgvInput(), __DIR__ . '/../config/');
 
 // 2. Detect configuration
 if ($configFile === null) {
