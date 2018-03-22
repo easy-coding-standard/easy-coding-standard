@@ -165,8 +165,9 @@ final class CheckCommand extends Command
     {
         if ($errorCount) {
             $this->easyCodingStandardStyle->error(sprintf(
-                'Found %d error%s.',
+                'Found %d error%s that need%s to be fixed manually.',
                 $errorCount,
+                $errorCount === 1 ? '' : 's',
                 $errorCount === 1 ? '' : 's'
             ));
         }
@@ -176,7 +177,8 @@ final class CheckCommand extends Command
         }
 
         $this->easyCodingStandardStyle->success(sprintf(
-            '%d file%s %s fixable! Just add "--fix" to console command and rerun to apply.',
+            '%s%d file%s %s fixable! Just add "--fix" to console command and rerun to apply.',
+            $errorCount ? 'Good news is that ': '',
             $fileDiffsCount,
             $fileDiffsCount === 1 ? '' : 's',
             $fileDiffsCount === 1 ? 'is' : 'are'
