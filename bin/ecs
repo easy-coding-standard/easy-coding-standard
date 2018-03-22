@@ -14,13 +14,8 @@ try {
     /** @var Container $container */
     $container = require __DIR__ . '/ecs-container.php';
 
-    /** @var Application $application */
     $application = $container->get(Application::class);
-
-    /** @var InputInterface $input */
     $input = $container->get(InputInterface::class);
-
-    /** @var OutputInterface $output */
     $output = $container->get(OutputInterface::class);
     exit($application->run($input, $output));
 } catch (Throwable $throwable) {
