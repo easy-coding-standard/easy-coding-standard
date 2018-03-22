@@ -7,10 +7,10 @@ use Symplify\PackageBuilder\Configuration\LevelFileFinder;
 
 require_once __DIR__ . '/easy-coding-standard-bootstrap.php';
 
-// 1. Detect configuration from --level
+// 1. Detect configuration from level option
 $configFile = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
 
-// 2. Detect configuration
+// 2. Detect configuration from config option
 if ($configFile === null) {
     ConfigFileFinder::detectFromInput('ecs', new ArgvInput());
     $configFile = ConfigFileFinder::provide('ecs', ['easy-coding-standard.yml', 'easy-coding-standard.yaml']);
