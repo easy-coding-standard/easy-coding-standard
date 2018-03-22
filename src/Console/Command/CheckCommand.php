@@ -113,6 +113,7 @@ final class CheckCommand extends Command
 
         $exitCode = $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
 
+        $this->checkCommandReporter->reportUnusedSkipped();
         $this->checkCommandReporter->reportPerformance();
 
         return $exitCode;
