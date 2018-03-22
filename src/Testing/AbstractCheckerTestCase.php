@@ -10,7 +10,7 @@ use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\FileSystem\FileGuard;
 use Symplify\Statie\Tests\SymfonyFileInfoFactory;
 
-abstract class AbstractContainerAwareCheckerTestCase extends TestCase
+abstract class AbstractCheckerTestCase extends TestCase
 {
     /**
      * @var FixerFileProcessor
