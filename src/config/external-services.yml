@@ -26,6 +26,7 @@ services:
     Symplify\TokenRunner\Wrapper\FixerWrapper\ClassWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\PropertyWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\MethodWrapperFactory: ~
+    Symplify\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory: ~
 
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
     phpDocumentor\Reflection\FqsenResolver: ~
