@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Nette\Caching\Cache;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
-use Symplify\PackageBuilder\Configuration\ConfigFilePathHelper;
+use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 
 final class ChangedFilesDetector
 {
@@ -28,7 +28,7 @@ final class ChangedFilesDetector
         $this->cache = $cacheFactory->create();
         $this->fileHashComputer = $fileHashComputer;
 
-        $configurationFile = ConfigFilePathHelper::provide('ecs');
+        $configurationFile = ConfigFileFinder::provide('ecs');
         if ($configurationFile !== null && is_file($configurationFile)) {
             $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
         }
