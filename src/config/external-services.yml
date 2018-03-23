@@ -27,6 +27,9 @@ services:
     Symplify\TokenRunner\Wrapper\FixerWrapper\MethodWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\SnifferWrapper\ClassWrapperFactory: ~
+    Symplify\TokenRunner\Transformer\FixerTransformer\UseImportsTransformer: ~
+
+    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
 
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
     phpDocumentor\Reflection\FqsenResolver: ~
