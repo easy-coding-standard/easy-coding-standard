@@ -7,6 +7,8 @@ use Symfony\Component\DependencyInjection\Container;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
+require_once __DIR__ . '/ecs-autoload.php';
+
 // performance boost
 gc_disable();
 
