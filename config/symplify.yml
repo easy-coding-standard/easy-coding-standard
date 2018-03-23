@@ -34,6 +34,7 @@ services:
     Symplify\CodingStandard\Fixer\Naming\ClassNameSuffixByParentFixer: ~
 
     # Architecture
+    Symplify\CodingStandard\Sniffs\CleanCode\ForbiddenStaticFunctionSniff: ~
     Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer: ~
     Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff: ~
     Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff: ~
