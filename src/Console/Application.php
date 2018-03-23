@@ -31,7 +31,7 @@ final class Application extends SymfonyApplication
 
     public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
-        return parent::run($this->input, $this->output);
+        return parent::run($input ?: $this->input, $output ?: $this->output);
     }
 
     protected function getDefaultInputDefinition(): InputDefinition
