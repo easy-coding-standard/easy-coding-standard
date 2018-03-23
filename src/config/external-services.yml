@@ -30,6 +30,7 @@ services:
     Symplify\TokenRunner\Transformer\FixerTransformer\UseImportsTransformer: ~
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
+    Symplify\TokenRunner\Analyzer\FixerAnalyzer\ClassNameFinder: ~
 
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
     phpDocumentor\Reflection\FqsenResolver: ~
