@@ -1,8 +1,6 @@
 #!/usr/bin/env php
 <?php declare(strict_types=1);
 
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\DependencyInjection\Container;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\PackageBuilder\Console\ExceptionRenderer;
@@ -17,9 +15,7 @@ try {
     $container = require __DIR__ . '/ecs-container.php';
 
     $application = $container->get(Application::class);
-    $input = $container->get(ArgvInput::class);
-    $output = $container->get(ConsoleOutput::class);
-    exit($application->run($input, $output));
+    exit($application->run());
 } catch (Throwable $throwable) {
     (new ExceptionRenderer())->render($throwable);
     exit(1);
