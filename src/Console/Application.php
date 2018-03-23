@@ -44,7 +44,7 @@ final class Application extends SymfonyApplication
 
         $inputDefinition->addOption(new InputOption(
             'level',
-            null,
+            'l',
             InputOption::VALUE_REQUIRED,
             'Finds config by shortcut name.'
         ));
