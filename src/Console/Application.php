@@ -29,7 +29,7 @@ final class Application extends SymfonyApplication
         parent::__construct('EasyCodingStandard', $this->getPrettyVersion());
     }
 
-    public function run(InputInterface $input = null, OutputInterface $output = null): int
+    public function run(?InputInterface $input = null, ?OutputInterface $output = null): int
     {
         return parent::run($input ?: $this->input, $output ?: $this->output);
     }
