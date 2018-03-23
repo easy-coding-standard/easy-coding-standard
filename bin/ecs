@@ -5,7 +5,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\DependencyInjection\Container;
 use Symplify\EasyCodingStandard\Console\Application;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use Symplify\PackageBuilder\Console\ExceptionRenderer;
 
 require_once __DIR__ . '/ecs-autoload.php';
 
@@ -21,6 +21,6 @@ try {
     $output = $container->get(ConsoleOutput::class);
     exit($application->run($input, $output));
 } catch (Throwable $throwable) {
-    (SymfonyStyleFactory::create())->error($throwable);
+    (new ExceptionRenderer())->render($throwable);
     exit(1);
 }
