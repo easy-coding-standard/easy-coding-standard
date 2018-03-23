@@ -28,7 +28,7 @@ final class Application extends SymfonyApplication
     private function removeUnusedOptions(InputDefinition $inputDefinition): void
     {
         $options = $inputDefinition->getOptions();
-        unset($options['quiet'], $options['version'], $options['no-interaction']);
+        unset($options['no-interaction']);
         $inputDefinition->setOptions($options);
     }
 
