@@ -19,17 +19,9 @@ final class Application extends SymfonyApplication
     protected function getDefaultInputDefinition(): InputDefinition
     {
         $inputDefinition = parent::getDefaultInputDefinition();
-        $this->removeUnusedOptions($inputDefinition);
         $this->addExtraOptions($inputDefinition);
 
         return $inputDefinition;
-    }
-
-    private function removeUnusedOptions(InputDefinition $inputDefinition): void
-    {
-        $options = $inputDefinition->getOptions();
-        unset($options['no-interaction']);
-        $inputDefinition->setOptions($options);
     }
 
     private function addExtraOptions(InputDefinition $inputDefinition): void
