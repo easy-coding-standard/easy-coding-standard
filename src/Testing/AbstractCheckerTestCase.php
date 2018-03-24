@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\FileSystem\FileGuard;
-use Symplify\Statie\Tests\SymfonyFileInfoFactory;
+use Symplify\PackageBuilder\Finder\SymfonyFileInfoFactory;
 
 abstract class AbstractCheckerTestCase extends TestCase
 {
