@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Cache;
 
 use Nette\Caching\Cache;
 use Nette\Caching\Storages\FileStorage;
+use Nette\Caching\Storages\SQLiteJournal;
 use Nette\Utils\FileSystem;
 
 final class CacheFactory
@@ -23,7 +24,8 @@ final class CacheFactory
         $cacheDirectory = $this->getCacheDirectory();
         FileSystem::createDir($cacheDirectory);
 
-        return new Cache(new FileStorage($cacheDirectory));
+        $journal = new SQLiteJournal($cacheDirectory . '/journal.sqlite');
+        return new Cache(new FileStorage($cacheDirectory, $journal));
     }
 
     private function getCacheDirectory(): string
