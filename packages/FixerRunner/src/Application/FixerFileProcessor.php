@@ -144,7 +144,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         if (! $appliedFixers) {
-            $this->fileToTokensParser->clearCache();
             return $oldContent;
         }
 
