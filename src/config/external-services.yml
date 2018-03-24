@@ -2,17 +2,12 @@ services:
     _defaults:
         autowire: true
 
-    # 3rd party services
-    Symfony\Component\Console\Terminal: ~
-
     # Console
+    Symfony\Component\Console\Terminal: ~
     Symfony\Component\Console\Input\ArgvInput: ~
     Symfony\Component\Console\Output\ConsoleOutput: ~
-
     Symfony\Component\Console\Output\OutputInterface:
         alias: Symfony\Component\Console\Output\ConsoleOutput
-
-    Symfony\Component\Console\Style\SymfonyStyle: ~
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
 
@@ -35,13 +30,16 @@ services:
 
     Symplify\TokenRunner\Analyzer\SnifferAnalyzer\Naming: ~
     Symplify\TokenRunner\Naming\Name\NameFactory: ~
-    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     Symplify\TokenRunner\Analyzer\FixerAnalyzer\ClassNameFinder: ~
-    PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
     Symplify\TokenRunner\Naming\Name\NameAnalyzer: ~
     Symplify\CodingStandard\Fixer\TokenBuilder: ~
 
     Symplify\BetterReflectionDocBlock\DocBlockSerializerFactory: ~
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
-    phpDocumentor\Reflection\FqsenResolver: ~
     Symplify\TokenRunner\Analyzer\FixerAnalyzer\IndentDetector: ~
+
+    Symplify\TokenRunner\Guard\TokenTypeGuard: ~
+
+    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
+    PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
+    phpDocumentor\Reflection\FqsenResolver: ~
