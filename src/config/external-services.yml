@@ -44,3 +44,4 @@ services:
     Symplify\BetterReflectionDocBlock\DocBlockSerializerFactory: ~
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
     phpDocumentor\Reflection\FqsenResolver: ~
+    Symplify\TokenRunner\Analyzer\FixerAnalyzer\IndentDetector: ~
