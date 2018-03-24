@@ -11,9 +11,18 @@ use Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 
 final class CustomSourceProviderDefinitionCompilerPass implements CompilerPassInterface
 {
+    /**
+     * @var DefinitionFinder
+     */
+    private $definitionFinder;
+
+    public function __construct()
+    {
+        $this->definitionFinder = new DefinitionFinder();
+    }
     public function process(ContainerBuilder $containerBuilder): void
     {
-        $customSourceProviderDefinition = DefinitionFinder::getByTypeIfExists(
+        $customSourceProviderDefinition = $this->definitionFinder->getByTypeIfExists(
             $containerBuilder,
             CustomSourceProviderInterface::class
         );
@@ -22,7 +31,7 @@ final class CustomSourceProviderDefinitionCompilerPass implements CompilerPassIn
             return;
         }
 
-        $sourceFinderDefinition = DefinitionFinder::getByType($containerBuilder, SourceFinder::class);
+        $sourceFinderDefinition = $this->definitionFinder->getByType($containerBuilder, SourceFinder::class);
         $sourceFinderDefinition->addMethodCall(
             'setCustomSourceProvider',
             [new Reference($customSourceProviderDefinition->getClass())]

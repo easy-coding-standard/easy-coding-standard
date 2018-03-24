@@ -14,6 +14,16 @@ use Symplify\PackageBuilder\DependencyInjection\DefinitionCollector;
 
 final class CollectorCompilerPass implements CompilerPassInterface
 {
+    /**
+     * @var DefinitionCollector
+     */
+    private $definitionCollector;
+
+    public function __construct()
+    {
+        $this->definitionCollector = new DefinitionCollector();
+    }
+
     public function process(ContainerBuilder $containerBuilder): void
     {
         $this->collectCommandsToConsoleApplication($containerBuilder);
@@ -24,7 +34,7 @@ final class CollectorCompilerPass implements CompilerPassInterface
 
     private function collectCommandsToConsoleApplication(ContainerBuilder $containerBuilder): void
     {
-        DefinitionCollector::loadCollectorWithType(
+        $this->definitionCollector->loadCollectorWithType(
             $containerBuilder,
             Application::class,
             Command::class,
@@ -34,7 +44,7 @@ final class CollectorCompilerPass implements CompilerPassInterface
 
     private function collectFixersToFixerFileProcessor(ContainerBuilder $containerBuilder): void
     {
-        DefinitionCollector::loadCollectorWithType(
+        $this->definitionCollector->loadCollectorWithType(
             $containerBuilder,
             FixerFileProcessor::class,
             FixerInterface::class,
@@ -44,7 +54,7 @@ final class CollectorCompilerPass implements CompilerPassInterface
 
     private function collectSniffsToSniffFileProcessor(ContainerBuilder $containerBuilder): void
     {
-        DefinitionCollector::loadCollectorWithType(
+        $this->definitionCollector->loadCollectorWithType(
             $containerBuilder,
             SniffFileProcessor::class,
             Sniff::class,
