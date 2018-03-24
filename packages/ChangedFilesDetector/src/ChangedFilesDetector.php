@@ -3,11 +3,15 @@
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Nette\Caching\Cache;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 
 final class ChangedFilesDetector
 {
+    /**
+     * @var string
+     */
+    public const CHANGED_FILES_CACHE_TAG = 'changed_files';
+
     /**
      * @var string
      */
@@ -23,9 +27,9 @@ final class ChangedFilesDetector
      */
     private $fileHashComputer;
 
-    public function __construct(CacheFactory $cacheFactory, FileHashComputer $fileHashComputer)
+    public function __construct(Cache $cache, FileHashComputer $fileHashComputer)
     {
-        $this->cache = $cacheFactory->create();
+        $this->cache = $cache;
         $this->fileHashComputer = $fileHashComputer;
 
         $configurationFile = ConfigFileFinder::provide('ecs');
@@ -42,7 +46,9 @@ final class ChangedFilesDetector
     public function addFile(string $filePath): void
     {
         $hash = $this->fileHashComputer->compute($filePath);
-        $this->cache->save($filePath, $hash);
+        $this->cache->save($filePath, $hash, [
+            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG
+        ]);
     }
 
     public function invalidateFile(string $filePath): void
@@ -64,13 +70,16 @@ final class ChangedFilesDetector
 
     public function clearCache(): void
     {
-        $this->cache->clean([Cache::ALL => true]);
+        // clear cache only for changed files group
+        $this->cache->clean([Cache::TAGS => self::CHANGED_FILES_CACHE_TAG]);
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void
     {
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
-        $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash);
+        $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash, [
+            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG
+        ]);
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
