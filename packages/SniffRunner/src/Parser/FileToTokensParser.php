@@ -2,10 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Parser;
 
-use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Tokenizers\PHP;
+use SplFileInfo;
 use stdClass;
+use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 
 final class FileToTokensParser
 {
@@ -15,9 +16,14 @@ final class FileToTokensParser
     private $legacyConfig;
 
     /**
-     * @var PHP[]
+     * @var CachedFileLoader
      */
-    private $tokenizerPerFile = [];
+    private $cachedFileLoader;
+
+    public function __construct(CachedFileLoader $cachedFileLoader)
+    {
+        $this->cachedFileLoader = $cachedFileLoader;
+    }
 
     /**
      * @return mixed[]
@@ -31,14 +37,9 @@ final class FileToTokensParser
 
     public function createTokenizerFromFilePath(string $filePath): PHP
     {
-        $md5File = md5_file($filePath);
-        if (isset($this->tokenizerPerFile[$md5File])) {
-            return $this->tokenizerPerFile[$md5File];
-        }
+        $fileContent = $this->cachedFileLoader->getFileContent(new SplFileInfo($filePath));
 
-        $fileContent = FileSystem::read($filePath);
-
-        return $this->tokenizerPerFile[$md5File] = (new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL));
+        return (new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL));
     }
 
     /**
