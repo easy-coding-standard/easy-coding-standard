@@ -20,6 +20,7 @@ final class CustomSourceProviderDefinitionCompilerPass implements CompilerPassIn
     {
         $this->definitionFinder = new DefinitionFinder();
     }
+
     public function process(ContainerBuilder $containerBuilder): void
     {
         $customSourceProviderDefinition = $this->definitionFinder->getByTypeIfExists(
