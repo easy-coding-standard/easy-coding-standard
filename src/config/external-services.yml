@@ -39,6 +39,7 @@ services:
     Symplify\TokenRunner\Analyzer\FixerAnalyzer\ClassNameFinder: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
     Symplify\TokenRunner\Naming\Name\NameAnalyzer: ~
+    Symplify\CodingStandard\Fixer\TokenBuilder: ~
 
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
     phpDocumentor\Reflection\FqsenResolver: ~
