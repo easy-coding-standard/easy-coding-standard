@@ -3,29 +3,23 @@
 namespace Symplify\EasyCodingStandard\FixerRunner\Parser;
 
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
+use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 
 final class FileToTokensParser
 {
     /**
-     * @var Tokens[]
+     * @var CachedFileLoader
      */
-    private $tokensByFileHash = [];
+    private $cachedFileLoader;
+
+    public function __construct(CachedFileLoader $cachedFileLoader)
+    {
+        $this->cachedFileLoader = $cachedFileLoader;
+    }
 
     public function parseFromFilePath(string $filePath): Tokens
     {
-        $fileHash = md5_file($filePath);
-
-        if (isset($this->tokensByFileHash[$fileHash])) {
-            return $this->tokensByFileHash[$fileHash];
-        }
-
-        $content = file_get_contents($filePath);
-
-        return $this->tokensByFileHash[$fileHash] = Tokens::fromCode($content);
-    }
-
-    public function clearCache(): void
-    {
-        Tokens::clearCache();
+        return Tokens::fromCode($this->cachedFileLoader->getFileContent(new SplFileInfo($filePath)));
     }
 }
