@@ -24,6 +24,7 @@ services:
     Symplify\TokenRunner\Wrapper\FixerWrapper\DocBlockWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\ClassWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\PropertyWrapperFactory: ~
+    Symplify\TokenRunner\Wrapper\FixerWrapper\PropertyAccessWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\MethodWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\ArrayWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\ArgumentWrapperFactory: ~
