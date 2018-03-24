@@ -2,23 +2,39 @@
 
 namespace Symplify\EasyCodingStandard\FileSystem;
 
+use Nette\Caching\Cache;
 use SplFileInfo;
 
 final class CachedFileLoader
 {
     /**
-     * @var string[]
+     * @var Cache
      */
-    private $fileContentByHash = [];
+    private $cache;
+
+    public function __construct(Cache $cache)
+    {
+        $this->cache = $cache;
+    }
 
     public function getFileContent(SplFileInfo $fileInfo): string
     {
-        $fileHash = md5_file($fileInfo->getRealPath());
+        $cacheKey = 'file_content_' . md5_file($fileInfo->getRealPath());
 
-        if (isset($this->fileContentByHash[$fileHash])) {
-            return $this->fileContentByHash[$fileHash];
+        $cachedFileContent = $this->cache->load($cacheKey);
+        if ($cachedFileContent) {
+            return $cachedFileContent;
         }
 
-        return $this->fileContentByHash[$fileHash] = (string) file_get_contents($fileInfo->getRealPath());
+        $currentFileContent = $this->loadCurrentFileContent($fileInfo);
+
+        $this->cache->save($cacheKey, $cachedFileContent);
+
+        return $currentFileContent;
+    }
+
+    private function loadCurrentFileContent(SplFileInfo $fileInfo): string
+    {
+        return (string) file_get_contents($fileInfo->getRealPath());
     }
 }
