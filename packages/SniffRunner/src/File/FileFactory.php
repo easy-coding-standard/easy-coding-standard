@@ -38,11 +38,6 @@ final class FileFactory
     private $skipper;
 
     /**
-     * @var File[]
-     */
-    private $filesByHash = [];
-
-    /**
      * @var AppliedCheckersCollector
      */
     private $appliedCheckersCollector;
@@ -65,17 +60,13 @@ final class FileFactory
 
     public function createFromFileInfo(SplFileInfo $fileInfo): File
     {
-        $fileHash = md5_file($fileInfo->getPathname());
-
-        if (isset($this->filesByHash[$fileHash])) {
-            return $this->filesByHash[$fileHash];
-        }
-
         $filePathName = $fileInfo->getPathname();
+
+        $fileTokens = $this->fileToTokensParser->parseFromFilePath($filePathName);
 
         $file = new File(
             $filePathName,
-            $this->fileToTokensParser->parseFromFilePath($filePathName),
+            $fileTokens,
             $this->fixer,
             $this->errorAndDiffCollector,
             $this->currentSniffProvider,
@@ -86,6 +77,6 @@ final class FileFactory
         // BC layer
         $file->tokenizer = $this->fileToTokensParser->createTokenizerFromFilePath($filePathName);
 
-        return $this->filesByHash[$fileHash] = $file;
+        return $file;
     }
 }
