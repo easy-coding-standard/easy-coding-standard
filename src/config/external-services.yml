@@ -20,7 +20,9 @@ services:
     Symplify\TokenRunner\DocBlock\DescriptionAnalyzer:
     Symplify\TokenRunner\DocBlock\ParamAndReturnTagAnalyzer: ~
     Symplify\TokenRunner\Analyzer\FixerAnalyzer\DocBlockFinder: ~
+    Symplify\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper: ~
 
+    # conditional PSR-4 from vendor? or import?
     Symplify\TokenRunner\Wrapper\FixerWrapper\DocBlockWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\ClassWrapperFactory: ~
     Symplify\TokenRunner\Wrapper\FixerWrapper\PropertyWrapperFactory: ~
@@ -34,6 +36,7 @@ services:
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     Symplify\TokenRunner\Analyzer\FixerAnalyzer\ClassNameFinder: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
+    Symplify\TokenRunner\Naming\Name\NameAnalyzer: ~
 
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
     phpDocumentor\Reflection\FqsenResolver: ~
