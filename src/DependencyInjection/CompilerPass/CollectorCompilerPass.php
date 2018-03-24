@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\DependencyInjection\DefinitionCollector;
+use Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 
 final class CollectorCompilerPass implements CompilerPassInterface
 {
@@ -21,7 +22,7 @@ final class CollectorCompilerPass implements CompilerPassInterface
 
     public function __construct()
     {
-        $this->definitionCollector = new DefinitionCollector();
+        $this->definitionCollector = new DefinitionCollector(new DefinitionFinder());
     }
 
     public function process(ContainerBuilder $containerBuilder): void
