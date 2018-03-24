@@ -6,4 +6,7 @@ services:
 
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '..'
-        exclude: '../{Cache/CacheFactory}'
+#        exclude: '../{Cache/CacheFactory}'
+
+    Nette\Caching\Cache:
+        factory: ['@Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory', 'create']
