@@ -33,6 +33,8 @@ services:
     Symplify\TokenRunner\Wrapper\SnifferWrapper\ClassWrapperFactory: ~
     Symplify\TokenRunner\Transformer\FixerTransformer\UseImportsTransformer: ~
 
+    Symplify\TokenRunner\Analyzer\SnifferAnalyzer\Naming: ~
+    Symplify\TokenRunner\Naming\Name\NameFactory: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     Symplify\TokenRunner\Analyzer\FixerAnalyzer\ClassNameFinder: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
