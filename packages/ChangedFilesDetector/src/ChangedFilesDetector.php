@@ -47,7 +47,7 @@ final class ChangedFilesDetector
     {
         $hash = $this->fileHashComputer->compute($filePath);
         $this->cache->save($filePath, $hash, [
-            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG
+            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG,
         ]);
     }
 
@@ -78,7 +78,7 @@ final class ChangedFilesDetector
     {
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash, [
-            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG
+            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG,
         ]);
     }
 

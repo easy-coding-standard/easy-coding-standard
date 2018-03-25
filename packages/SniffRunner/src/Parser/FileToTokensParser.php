@@ -39,7 +39,7 @@ final class FileToTokensParser
     {
         $fileContent = $this->cachedFileLoader->getFileContent(new SplFileInfo($filePath));
 
-        return (new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL));
+        return new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL);
     }
 
     /**
