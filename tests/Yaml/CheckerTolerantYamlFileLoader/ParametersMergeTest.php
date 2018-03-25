@@ -29,13 +29,6 @@ final class ParametersMergeTest extends TestCase
     public function provideConfigToParametersDefinition(): array
     {
         return [
-            'parent configuration' => [
-                __DIR__ . '/ParametersSource/config-skip.yml',
-                [
-                    'firstCode' => null,
-                    'secondCode' => null,
-                ],
-            ],
             'configuration importing the parent with already defined skip parameters' => [
                 __DIR__ . '/ParametersSource/config-skip-with-import.yml',
                 [
