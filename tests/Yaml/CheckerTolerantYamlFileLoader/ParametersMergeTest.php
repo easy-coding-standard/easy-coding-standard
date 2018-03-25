@@ -13,13 +13,13 @@ final class ParametersMergeTest extends TestCase
      * @dataProvider provideConfigToParametersDefinition()
      * @param mixed[] $expectedSkip
      */
-    public function testSkipParameters(string $configFile, array $expectedSkip): void
+    public function testSkipParameters(string $configFile, array $expectedSkip, string $message): void
     {
         $containerBuilder = $this->createAndLoadContainerBuilderFromConfig($configFile);
 
         $skip = $containerBuilder->getParameterBag()->get('skip');
 
-        $this->assertSame($expectedSkip, $skip);
+        $this->assertSame($expectedSkip, $skip, $message);
     }
 
     /**
@@ -28,20 +28,22 @@ final class ParametersMergeTest extends TestCase
     public function provideConfigToParametersDefinition(): array
     {
         return [
-            'configuration importing the parent with already defined skip parameters' => [
+            [
                 __DIR__ . '/ParametersSource/config-skip-with-import.yml',
                 [
                     'firstCode' => null,
                     'secondCode' => false,
                     'thirdCode' => null,
                 ],
+                'configuration importing the parent with already defined skip parameters',
             ],
-            'configuration importing empty import' => [
+            [
                 __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
                 [
                     'firstCode' => null,
                     'secondCode' => null,
                 ],
+                'configuration importing empty import',
             ],
         ];
     }
