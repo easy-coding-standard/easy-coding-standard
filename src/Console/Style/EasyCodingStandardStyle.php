@@ -38,10 +38,25 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      */
     public function printErrors(array $errors): void
     {
-        /** @var Error[] $errors */
+        /** @var Error[][] $errors */
         foreach ($errors as $file => $fileErrors) {
-            $this->table(['Line', $file], $this->buildFileTableRowsFromErrors($fileErrors));
+            $headers = ['Line', $file];
+            $rows = $this->buildFileTableRowsFromErrors($fileErrors);
+            $this->tableWithColumnWidths($headers, $rows, [
+                self::LINE_COLUMN_WIDTH, $this->countMessageColumnWidth(self::LINE_COLUMN_WIDTH)
+            ]);
         }
+    }
+
+    public function printMetrics(array $metrics): void
+    {
+        $rows = [];
+        foreach ($metrics as $checkerClass => $duration) {
+            $rows[] = [$checkerClass, $duration . ' ms'];
+        }
+
+        $headers = ['Checker', 'Total duration'];
+        $this->tableWithColumnWidths($headers, $rows, [$this->countMessageColumnWidth(15), 15]);
     }
 
     /**
@@ -66,17 +81,16 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      * @param string[] $headers
      * @param mixed[] $rows
      */
-    public function table(array $headers, array $rows): void
+    private function tableWithColumnWidths(array $headers, array $rows, array $columnWidths): void
     {
         $style = clone Table::getStyleDefinition('symfony-style-guide');
-        $style->setCellHeaderFormat('%s');
 
         $table = new Table($this);
-        $table->setColumnWidths([self::LINE_COLUMN_WIDTH, $this->countMessageColumnWidth()]);
         $table->setHeaders($headers);
         $table->setRows($rows);
         $table->setStyle($style);
 
+        $table->setColumnWidths($columnWidths);
         $table->render();
         $this->newLine();
     }
@@ -106,12 +120,12 @@ final class EasyCodingStandardStyle extends SymfonyStyle
 
     private function wrapMessageSoItFitsTheColumnWidth(string $message): string
     {
-        return wordwrap($message, $this->countMessageColumnWidth(), PHP_EOL);
+        return wordwrap($message, $this->countMessageColumnWidth(self::LINE_COLUMN_WIDTH), PHP_EOL);
     }
 
-    private function countMessageColumnWidth(): int
+    private function countMessageColumnWidth(int $otherColumnWidth): int
     {
-        return $this->terminal->getWidth() - self::LINE_COLUMN_WIDTH - self::BULGARIAN_CONSTANT;
+        return $this->terminal->getWidth() - $otherColumnWidth - self::BULGARIAN_CONSTANT;
     }
 
     /**
@@ -121,4 +135,6 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     {
         return str_replace("\r", '', $message);
     }
+
+
 }
