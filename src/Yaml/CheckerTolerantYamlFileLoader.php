@@ -8,7 +8,6 @@ use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -46,7 +45,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     private $serviceKeywords = [];
 
     /**
-     * @var ParameterBagInterface
+     * @var ParameterBag
      */
     private $mergeAwareParameterBag;
 
