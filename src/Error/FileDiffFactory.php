@@ -7,7 +7,7 @@ final class FileDiffFactory
     /**
      * @param string[] $appliedCheckers
      */
-    public static function createFromDiffAndAppliedCheckers(string $diff, array $appliedCheckers): FileDiff
+    public function createFromDiffAndAppliedCheckers(string $diff, array $appliedCheckers): FileDiff
     {
         return new FileDiff($diff, $appliedCheckers);
     }
