@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Tests\Error;
 
 use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorFactory;
 
 final class ErrorTest extends TestCase

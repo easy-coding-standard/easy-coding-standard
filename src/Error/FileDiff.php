@@ -38,11 +38,6 @@ final class FileDiff
         ));
     }
 
-    public function getDiff(): string
-    {
-        return $this->diff;
-    }
-
     public function getDiffConsoleFormatted(): string
     {
         return $this->diffConsoleFormatter->format($this->diff);
