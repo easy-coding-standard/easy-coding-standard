@@ -19,16 +19,11 @@ final class Error
      */
     private $sourceClass;
 
-    private function __construct(int $line, string $message, string $sourceClass)
+    public function __construct(int $line, string $message, string $sourceClass)
     {
         $this->line = $line;
         $this->message = $message;
         $this->sourceClass = $sourceClass;
-    }
-
-    public static function createFromLineMessageSourceClass(int $line, string $message, string $sourceClass): self
-    {
-        return new self($line, $message, $sourceClass);
     }
 
     public function getLine(): int
