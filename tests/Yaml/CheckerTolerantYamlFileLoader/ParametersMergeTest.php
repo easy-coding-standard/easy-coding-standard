@@ -32,23 +32,23 @@ final class ParametersMergeTest extends TestCase
             'parent configuration' => [
                 __DIR__ . '/ParametersSource/config-skip.yml',
                 [
-                    'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.FirstCode' => null,
-                    'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode' => null,
+                    'firstCode' => null,
+                    'secondCode' => null,
                 ],
             ],
             'configuration importing the parent with already defined skip parameters' => [
                 __DIR__ . '/ParametersSource/config-skip-with-import.yml',
                 [
-                    'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.FirstCode' => null,
-                    'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode' => false,
-                    'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.ThirdCode' => null,
+                    'firstCode' => null,
+                    'secondCode' => false,
+                    'thirdCode' => null,
                 ],
             ],
             'configuration importing empty parent' => [
                 __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
                 [
-                    'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.FirstCode' => null,
-                    'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode' => false,
+                    'firstCode' => null,
+                    'secondCode' => false,
                 ],
             ],
         ];

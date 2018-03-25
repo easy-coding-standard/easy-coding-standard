@@ -3,5 +3,5 @@ imports:
 
 parameters:
     skip:
-        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.FirstCode: ~
-        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode: false
+        firstCode: ~
+        secondCode: false
