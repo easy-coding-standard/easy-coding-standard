@@ -11,19 +11,17 @@ use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 final class ParametersMergeTest extends TestCase
 {
     /**
-     * @dataProvider provideConfigToParametersDefinition()
-     * @param mixed[] $expectedSkip
+     * @dataProvider provideConfigToSkipParameter()
+     * @param mixed[] $expectedSkipParameter
      */
-    public function testSkipParameters(string $configFile, array $expectedSkip, string $message): void
+    public function testSkipParameters(string $configFile, array $expectedSkipParameter, string $message): void
     {
         $containerBuilder = $this->createAndLoadContainerBuilderFromConfig($configFile);
 
-        $skip = $containerBuilder->getParameterBag()->get('skip');
-
-        $this->assertSame($expectedSkip, $skip, $message);
+        $this->assertSame($expectedSkipParameter, $containerBuilder->getParameterBag()->get('skip'), $message);
     }
 
-    public function provideConfigToParametersDefinition(): Iterator
+    public function provideConfigToSkipParameter(): Iterator
     {
         yield [
             __DIR__ . '/ParametersSource/config-skip-with-import.yml',
