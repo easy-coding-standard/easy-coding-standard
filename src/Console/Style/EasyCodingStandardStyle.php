@@ -27,10 +27,23 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      */
     private $terminal;
 
+    /**
+     * @var Table
+     */
+    private $genericTable;
+
     public function __construct(InputInterface $input, OutputInterface $output, Terminal $terminal)
     {
         parent::__construct($input, $output);
         $this->terminal = $terminal;
+
+        $table = new Table($this);
+        $style = Table::getStyleDefinition('symfony-style-guide');
+        /** make headlines green manually as in parent @see SymfonyStyle::table() */
+        $style->setCellHeaderFormat('<info>%s</info>');
+        $table->setStyle($style);
+
+        $this->genericTable = $table;
     }
 
     /**
@@ -48,6 +61,9 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         }
     }
 
+    /**
+     * @param mixed[][] $metrics
+     */
     public function printMetrics(array $metrics): void
     {
         $rows = [];
@@ -92,18 +108,16 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     /**
      * @param string[] $headers
      * @param mixed[] $rows
+     * @param int[] $columnWidths
      */
     private function tableWithColumnWidths(array $headers, array $rows, array $columnWidths): void
     {
-        $style = clone Table::getStyleDefinition('symfony-style-guide');
+        $this->genericTable->setHeaders($headers);
+        $this->genericTable->setRows($rows);
 
-        $table = new Table($this);
-        $table->setHeaders($headers);
-        $table->setRows($rows);
-        $table->setStyle($style);
+        $this->genericTable->setColumnWidths($columnWidths);
+        $this->genericTable->render();
 
-        $table->setColumnWidths($columnWidths);
-        $table->render();
         $this->newLine();
     }
 
