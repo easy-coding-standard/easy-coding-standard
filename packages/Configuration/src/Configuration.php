@@ -41,8 +41,8 @@ final class Configuration
     {
         $this->setSources($input->getArgument(Option::SOURCE));
         $this->isFixer = (bool) $input->getOption(Option::FIX);
-        $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showPerformance = (bool) $input->getOption(Option::SHOW_PERFORMANCE);
+        $this->shouldClearCache = $this->showPerformance ? true : (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
     }

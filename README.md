@@ -213,7 +213,7 @@ parameters:
 **How do I find the slowest checkers?**
 
 ```bash
-vendor/bin/ecs check src --show-performance --clear-cache
+vendor/bin/ecs check src --show-performance
 ```
 
 ## Contributing
