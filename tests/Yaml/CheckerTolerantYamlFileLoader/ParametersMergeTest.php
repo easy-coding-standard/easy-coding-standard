@@ -11,8 +11,7 @@ final class ParametersMergeTest extends TestCase
 {
     /**
      * @dataProvider provideConfigToParametersDefinition()
-     * @param mixed[] $expectedMethodCall
-     * @param mixed[] $expectedProperties
+     * @param mixed[] $expectedSkip
      */
     public function testSkipParameters(string $configFile, array $expectedSkip): void
     {
