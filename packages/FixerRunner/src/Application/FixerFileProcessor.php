@@ -49,11 +49,6 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $areFixersSorted = false;
 
     /**
-     * @var bool
-     */
-    private $isSecondRunPrepared = false;
-
-    /**
      * @var FileToTokensParser
      */
     private $fileToTokensParser;
