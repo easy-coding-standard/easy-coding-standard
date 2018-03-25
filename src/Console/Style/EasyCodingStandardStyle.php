@@ -43,7 +43,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
             $headers = ['Line', $file];
             $rows = $this->buildFileTableRowsFromErrors($fileErrors);
             $this->tableWithColumnWidths($headers, $rows, [
-                self::LINE_COLUMN_WIDTH, $this->countMessageColumnWidth(self::LINE_COLUMN_WIDTH)
+                self::LINE_COLUMN_WIDTH, $this->countMessageColumnWidth(self::LINE_COLUMN_WIDTH),
             ]);
         }
     }
@@ -78,6 +78,18 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     }
 
     /**
+     * @param string[] $elements
+     */
+    public function listing(array $elements): void
+    {
+        $elements = array_map(function ($element): string {
+            return sprintf(' - %s', $element);
+        }, $elements);
+        $this->writeln($elements);
+        $this->newLine();
+    }
+
+    /**
      * @param string[] $headers
      * @param mixed[] $rows
      */
@@ -92,18 +104,6 @@ final class EasyCodingStandardStyle extends SymfonyStyle
 
         $table->setColumnWidths($columnWidths);
         $table->render();
-        $this->newLine();
-    }
-
-    /**
-     * @param string[] $elements
-     */
-    public function listing(array $elements): void
-    {
-        $elements = array_map(function ($element): string {
-            return sprintf(' - %s', $element);
-        }, $elements);
-        $this->writeln($elements);
         $this->newLine();
     }
 
@@ -135,6 +135,4 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     {
         return str_replace("\r", '', $message);
     }
-
-
 }

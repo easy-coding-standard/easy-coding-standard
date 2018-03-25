@@ -26,10 +26,12 @@ final class ErrorAndDiffCollector
      * @var ErrorSorter
      */
     private $errorSorter;
+
     /**
      * @var FileDiffFactory
      */
     private $fileDiffFactory;
+
     /**
      * @var ErrorFactory
      */
@@ -51,7 +53,11 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFile($filePath);
 
-        $this->errors[$filePath][] = $this->errorFactory->createFromLineMessageSourceClass($line, $message, $sourceClass);
+        $this->errors[$filePath][] = $this->errorFactory->createFromLineMessageSourceClass(
+            $line,
+            $message,
+            $sourceClass
+        );
     }
 
     /**
@@ -74,7 +80,10 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFile($filePath);
 
-        $this->fileDiffs[$filePath][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($diff, $appliedCheckers);
+        $this->fileDiffs[$filePath][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
+            $diff,
+            $appliedCheckers
+        );
     }
 
     public function getFileDiffsCount(): int
