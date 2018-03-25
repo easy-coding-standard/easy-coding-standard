@@ -3,5 +3,5 @@ imports:
 
 parameters:
     skip:
-        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode: false # overwrite value from config-skip.yml
-        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.ThirdCode: ~
+        secondCode: false # overwrite value from config-skip.yml
+        thirdCode: ~
