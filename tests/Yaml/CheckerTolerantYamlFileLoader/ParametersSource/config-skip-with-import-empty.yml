@@ -1,7 +1,2 @@
 imports:
-    - { resource: 'config-empty.yml' }
-
-parameters:
-    skip:
-        firstCode: ~
-        secondCode: false
+    - { resource: 'config-skip.yml' }

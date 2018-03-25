@@ -44,11 +44,11 @@ final class ParametersMergeTest extends TestCase
                     'thirdCode' => null,
                 ],
             ],
-            'configuration importing empty parent' => [
+            'configuration importing empty import' => [
                 __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
                 [
                     'firstCode' => null,
-                    'secondCode' => false,
+                    'secondCode' => null,
                 ],
             ],
         ];
