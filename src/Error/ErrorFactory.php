@@ -8,5 +8,4 @@ final class ErrorFactory
     {
         return new Error($line, $message, $sourceClass);
     }
-
 }

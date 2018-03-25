@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Style;
 
 use PhpCsFixer\Fixer\Basic\BracesFixer;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorFactory;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
