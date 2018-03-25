@@ -147,6 +147,7 @@ final class FixerFileProcessor implements FileProcessorInterface
             return $oldContent;
         }
 
+        // file has changed
         $relativeFilePath = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
 
         $this->errorAndDiffCollector->addDiffForFile($relativeFilePath, $diff, $appliedFixers);
