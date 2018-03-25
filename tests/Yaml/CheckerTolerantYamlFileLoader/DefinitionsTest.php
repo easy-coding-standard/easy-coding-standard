@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Yaml;
+namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 
-final class CheckerTolerantYamlFileLoaderTest extends TestCase
+final class DefinitionsTest extends TestCase
 {
     /**
      * @dataProvider provideConfigToConfiguredMethodAndPropertyDefinition()
@@ -42,7 +42,7 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
         return [
             [
                 # config
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config.yml',
+                __DIR__ . '/DefinitionsSource/config.yml',
                 # checkers
                 ArraySyntaxFixer::class,
                 # expected method call
@@ -51,33 +51,33 @@ final class CheckerTolerantYamlFileLoaderTest extends TestCase
                 [],
             ],
             [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-imports.yml',
+                __DIR__ . '/DefinitionsSource/config-with-imports.yml',
                 ArraySyntaxFixer::class,
                 ['configure', [['syntax' => 'short']]],
                 [],
             ],
             # "@" escaping
             [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-at.yml',
+                __DIR__ . '/DefinitionsSource/config-with-at.yml',
                 LineLengthSniff::class,
                 [],
                 ['absoluteLineLimit' => '@author'],
             ],
             # keep original keywords
             [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-classic.yml',
+                __DIR__ . '/DefinitionsSource/config-classic.yml',
                 LineLengthSniff::class,
                 [],
                 ['absoluteLineLimit' => 150],
             ],
             [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-classic.yml',
+                __DIR__ . '/DefinitionsSource/config-classic.yml',
                 ArraySyntaxFixer::class,
                 ['configure', [['syntax' => 'short']]],
                 [],
             ],
             [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-with-bool.yml',
+                __DIR__ . '/DefinitionsSource/config-with-bool.yml',
                 TypeHintDeclarationSniff::class,
                 [],
                 ['enableObjectTypeHint' => false],
