@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Error;
 
 use Symplify\EasyCodingStandard\Error\Error;
+use Symplify\EasyCodingStandard\Error\ErrorFactory;
 use Symplify\EasyCodingStandard\Error\ErrorSorter;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
@@ -13,9 +14,15 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
      */
     private $errorSorter;
 
+    /**
+     * @var ErrorFactory
+     */
+    private $errorFactory;
+
     protected function setUp(): void
     {
         $this->errorSorter = $this->container->get(ErrorSorter::class);
+        $this->errorFactory = $this->container->get(ErrorFactory::class);
     }
 
     public function test(): void
@@ -35,11 +42,11 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
     {
         return [
             'filePath' => [
-                Error::createFromLineMessageSourceClass(5, 'error message', 'SomeClass'),
+                $this->errorFactory->createFromLineMessageSourceClass(5, 'error message', 'SomeClass'),
             ],
             'anotherFilePath' => [
-                Error::createFromLineMessageSourceClass(15, 'error message', 'SomeClass'),
-                Error::createFromLineMessageSourceClass(5, 'error message', 'SomeClass'),
+                $this->errorFactory->createFromLineMessageSourceClass(15, 'error message', 'SomeClass'),
+                $this->errorFactory->createFromLineMessageSourceClass(5, 'error message', 'SomeClass'),
             ],
         ];
     }
