@@ -49,12 +49,9 @@ final class CheckCommandReporter
         }
 
         $this->easyCodingStandardStyle->newLine();
-
         $this->easyCodingStandardStyle->title('Performance Statistics');
 
-        $metrics = $this->checkerMetricRecorder->getMetrics();
-        $metricsForTable = $this->prepareMetricsForTable($metrics);
-        $this->easyCodingStandardStyle->table(['Checker', 'Total duration'], $metricsForTable);
+        $this->easyCodingStandardStyle->printMetrics($this->checkerMetricRecorder->getMetrics());
     }
 
     public function reportUnusedSkipped(): void
@@ -101,20 +98,6 @@ final class CheckCommandReporter
                 $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
             }
         }
-    }
-
-    /**
-     * @param mixed[] $metrics
-     * @return mixed[]
-     */
-    private function prepareMetricsForTable(array $metrics): array
-    {
-        $metricsForTable = [];
-        foreach ($metrics as $checkerClass => $duration) {
-            $metricsForTable[] = [$checkerClass, $duration . ' ms'];
-        }
-
-        return $metricsForTable;
     }
 
     private function isFileInSource(string $file): bool
