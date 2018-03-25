@@ -62,7 +62,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     }
 
     /**
-     * @param mixed[][] $metrics
+     * @param mixed[] $metrics
      */
     public function printMetrics(array $metrics): void
     {
