@@ -26,18 +26,32 @@ final class ErrorAndDiffCollector
      * @var ErrorSorter
      */
     private $errorSorter;
+    /**
+     * @var FileDiffFactory
+     */
+    private $fileDiffFactory;
+    /**
+     * @var ErrorFactory
+     */
+    private $errorFactory;
 
-    public function __construct(ChangedFilesDetector $changedFilesDetector, ErrorSorter $errorSorter)
-    {
+    public function __construct(
+        ChangedFilesDetector $changedFilesDetector,
+        ErrorSorter $errorSorter,
+        FileDiffFactory $fileDiffFactory,
+        ErrorFactory $errorFactory
+    ) {
         $this->changedFilesDetector = $changedFilesDetector;
         $this->errorSorter = $errorSorter;
+        $this->fileDiffFactory = $fileDiffFactory;
+        $this->errorFactory = $errorFactory;
     }
 
     public function addErrorMessage(string $filePath, int $line, string $message, string $sourceClass): void
     {
         $this->changedFilesDetector->invalidateFile($filePath);
 
-        $this->errors[$filePath][] = Error::createFromLineMessageSourceClass($line, $message, $sourceClass);
+        $this->errors[$filePath][] = $this->errorFactory->createFromLineMessageSourceClass($line, $message, $sourceClass);
     }
 
     /**
@@ -60,7 +74,7 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFile($filePath);
 
-        $this->fileDiffs[$filePath][] = FileDiff::createFromDiffAndAppliedCheckers($diff, $appliedCheckers);
+        $this->fileDiffs[$filePath][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($diff, $appliedCheckers);
     }
 
     public function getFileDiffsCount(): int
