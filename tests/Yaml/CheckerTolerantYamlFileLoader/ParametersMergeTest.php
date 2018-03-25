@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
 
+use Iterator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,29 +23,25 @@ final class ParametersMergeTest extends TestCase
         $this->assertSame($expectedSkip, $skip, $message);
     }
 
-    /**
-     * @return mixed[][]
-     */
-    public function provideConfigToParametersDefinition(): array
+    public function provideConfigToParametersDefinition(): Iterator
     {
-        return [
+        yield [
+            __DIR__ . '/ParametersSource/config-skip-with-import.yml',
             [
-                __DIR__ . '/ParametersSource/config-skip-with-import.yml',
-                [
-                    'firstCode' => null,
-                    'secondCode' => false,
-                    'thirdCode' => null,
-                ],
-                'configuration importing the parent with already defined skip parameters',
+                'firstCode' => null,
+                'secondCode' => false,
+                'thirdCode' => null,
             ],
+            'configuration importing the parent with already defined skip parameters',
+        ];
+
+        yield [
+            __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
             [
-                __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
-                [
-                    'firstCode' => null,
-                    'secondCode' => null,
-                ],
-                'configuration importing empty import',
+                'firstCode' => null,
+                'secondCode' => null,
             ],
+            'configuration importing empty import',
         ];
     }
 
