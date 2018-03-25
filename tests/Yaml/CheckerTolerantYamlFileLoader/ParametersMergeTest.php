@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Yaml;
+namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\FileLocator;
@@ -30,14 +30,14 @@ final class ParametersMergeTest extends TestCase
     {
         return [
             'parent configuration' => [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-skip.yml',
+                __DIR__ . '/ParametersSource/config-skip.yml',
                 [
                     'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.FirstCode' => null,
                     'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode' => null,
                 ],
             ],
             'configuration importing the parent with already defined skip parameters' => [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-skip-with-import.yml',
+                __DIR__ . '/ParametersSource/config-skip-with-import.yml',
                 [
                     'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.FirstCode' => null,
                     'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode' => false,
@@ -45,7 +45,7 @@ final class ParametersMergeTest extends TestCase
                 ],
             ],
             'configuration importing empty parent' => [
-                __DIR__ . '/CheckerTolerantYamlFileLoaderSource/config-skip-with-import-empty.yml',
+                __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
                 [
                     'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.FirstCode' => null,
                     'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\EmptyStatementSniff.SecondCode' => false,
