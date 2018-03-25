@@ -7,6 +7,8 @@ use ReflectionClass;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -29,6 +31,11 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     private const PROPERTIES_KEY = 'properties';
 
     /**
+     * @var string
+     */
+    private const PARAMETERS_KEY = 'parameters';
+
+    /**
      * @var CheckerConfigurationGuardian
      */
     private $checkerConfigurationGuardian;
@@ -38,11 +45,66 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private $serviceKeywords = [];
 
+    /**
+     * @var ParameterBagInterface
+     */
+    private $mergeAwareParameterBag;
+
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
+        $this->mergeAwareParameterBag = new ParameterBag();
 
         parent::__construct($containerBuilder, $fileLocator);
+    }
+
+    /**
+     * This method override is needed, so imported parameter values are not overrided by child ones
+     *
+     * @see https://github.com/Symplify/Symplify/pull/697
+     *
+     * @param mixed $resource
+     * @param string|null $type
+     */
+    public function load($resource, $type = null): void
+    {
+        parent::load($resource, $type);
+
+        // load overriden parematers from parent method parameters born by correct merge
+        $this->container->getParameterBag()->add($this->mergeAwareParameterBag->all());
+    }
+
+    /**
+     * Merges configurations. Left has higher priority than right one.
+     *
+     * @autor David Grudl (https://davidgrudl.com)
+     * @source https://github.com/nette/di/blob/8eb90721a131262f17663e50aee0032a62d0ef08/src/DI/Config/Helpers.php#L31
+     *
+     * @param mixed $left
+     * @param mixed $right
+     * @return mixed[]|string
+     */
+    public function merge($left, $right)
+    {
+        if (is_array($left) && is_array($right)) {
+            foreach ($left as $key => $val) {
+                if (is_int($key)) {
+                    $right[] = $val;
+                } else {
+                    if (isset($right[$key])) {
+                        $val = $this->merge($val, $right[$key]);
+                    }
+
+                    $right[$key] = $val;
+                }
+            }
+
+            return $right;
+        } elseif ($left === null && is_array($right)) {
+            return $right;
+        }
+
+        return $left;
     }
 
     /**
@@ -52,6 +114,10 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     protected function loadFile($file)
     {
         $decodedYaml = parent::loadFile($file);
+
+        if (isset($decodedYaml[self::PARAMETERS_KEY])) {
+            $this->loadParameters((array) $decodedYaml[self::PARAMETERS_KEY], $file);
+        }
 
         if (isset($decodedYaml[self::SERVICES_KEY])) {
             return $this->moveArgumentsToPropertiesOrMethodCalls($decodedYaml);
@@ -184,5 +250,25 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         $reflectionClass = new ReflectionClass(YamlFileLoader::class);
 
         return $this->serviceKeywords = $reflectionClass->getStaticProperties()['serviceKeywords'];
+    }
+
+    /**
+     * Used from @see YamlFileLoader::load()
+     * @param mixed[] $parameters
+     */
+    private function loadParameters(array $parameters, string $file): void
+    {
+        foreach ($parameters as $key => $value) {
+            if (! $this->mergeAwareParameterBag->has($key)) {
+                $this->mergeAwareParameterBag->set($key, $value);
+                continue;
+            }
+
+            // already has such parameters => merge it nicely
+            $oldValue = $this->mergeAwareParameterBag->get($key);
+
+            $newValue = $this->merge($oldValue, $value);
+            $this->mergeAwareParameterBag->set($key, $newValue);
+        }
     }
 }
