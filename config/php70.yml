@@ -25,3 +25,8 @@ services:
 
     # throwable
     SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: ~
+
+parameters:
+    skip:
+        # disable random annotation removal of this Sniff
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~
