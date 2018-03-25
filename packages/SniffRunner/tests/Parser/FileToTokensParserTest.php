@@ -2,14 +2,24 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Parser;
 
-use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
+use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
-final class FileToTokensParserTest extends TestCase
+final class FileToTokensParserTest extends AbstractContainerAwareTestCase
 {
+    /**
+     * @var FileToTokensParser
+     */
+    private $fileToTokensParser;
+
+    protected function setUp(): void
+    {
+        $this->fileToTokensParser = $this->container->get(FileToTokensParser::class);
+    }
+
     public function test(): void
     {
-        $tokens = (new FileToTokensParser())->parseFromFilePath(
+        $tokens = $this->fileToTokensParser->parseFromFilePath(
             __DIR__ . '/FileToTokensParserSource/SimplePhpFile.php'
         );
 
