@@ -6,17 +6,10 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface FileProcessorInterface
 {
-    public function processFile(SplFileInfo $file): string;
-
-    public function processFileSecondRun(SplFileInfo $file): string;
+    public function processFile(SplFileInfo $fileInfo): string;
 
     /**
      * @return mixed[]
      */
     public function getCheckers(): array;
-
-    /**
-     * @return mixed[]
-     */
-    public function getDualRunCheckers(): array;
 }

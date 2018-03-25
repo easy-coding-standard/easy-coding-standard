@@ -8,6 +8,7 @@ use PhpCsFixer\Differ\DifferInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -17,7 +18,7 @@ use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 
-final class SniffFileProcessor implements FileProcessorInterface
+final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFileProcessorInterface
 {
     /**
      * @var Fixer

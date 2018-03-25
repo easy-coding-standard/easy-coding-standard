@@ -6,6 +6,7 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
@@ -134,7 +135,9 @@ final class Application implements FileProcessorCollectorInterface
             }
 
             foreach ($this->fileProcessors as $fileProcessor) {
-                $fileProcessor->processFileSecondRun($fileInfo);
+                if ($fileProcessor instanceof DualRunAwareFileProcessorInterface) {
+                    $fileProcessor->processFileSecondRun($fileInfo);
+                }
             }
         }
     }
@@ -142,6 +145,10 @@ final class Application implements FileProcessorCollectorInterface
     private function isDualRunEnabled(): bool
     {
         foreach ($this->fileProcessors as $fileProcessor) {
+            if (! $fileProcessor instanceof DualRunAwareFileProcessorInterface) {
+                continue;
+            }
+
             if ($fileProcessor->getDualRunCheckers()) {
                 return true;
             }
