@@ -3,7 +3,7 @@
 
 use Symfony\Component\DependencyInjection\Container;
 use Symplify\EasyCodingStandard\Console\Application;
-use Symplify\PackageBuilder\Console\ExceptionRenderer;
+use Symplify\PackageBuilder\Console\ThrowableRenderer;
 
 require_once __DIR__ . '/ecs-autoload.php';
 
@@ -17,6 +17,6 @@ try {
     $application = $container->get(Application::class);
     exit($application->run());
 } catch (Throwable $throwable) {
-    (new ExceptionRenderer())->render($throwable);
+    (new ThrowableRenderer())->render($throwable);
     exit(1);
 }
