@@ -9,6 +9,7 @@ use SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 
 final class DefinitionsTest extends TestCase
@@ -40,48 +41,73 @@ final class DefinitionsTest extends TestCase
     public function provideConfigToConfiguredMethodAndPropertyDefinition(): array
     {
         return [
+//            [
+//                # config
+//                __DIR__ . '/DefinitionsSource/config.yml',
+//                # checkers
+//                ArraySyntaxFixer::class,
+//                # expected method call
+//                ['configure', [['syntax' => 'short']]],
+//                # expected set properties
+//                [],
+//            ],
+//            [
+//                __DIR__ . '/DefinitionsSource/config-with-imports.yml',
+//                ArraySyntaxFixer::class,
+//                ['configure', [['syntax' => 'short']]],
+//                [],
+//            ],
+//            # "@" escaping
+//            [
+//                __DIR__ . '/DefinitionsSource/config-with-at.yml',
+//                LineLengthSniff::class,
+//                [],
+//                ['absoluteLineLimit' => '@author'],
+//            ],
+//            # keep original keywords
+//            [
+//                __DIR__ . '/DefinitionsSource/config-classic.yml',
+//                LineLengthSniff::class,
+//                [],
+//                ['absoluteLineLimit' => 150],
+//            ],
+//            [
+//                __DIR__ . '/DefinitionsSource/config-classic.yml',
+//                ArraySyntaxFixer::class,
+//                ['configure', [['syntax' => 'short']]],
+//                [],
+//            ],
+//            [
+//                __DIR__ . '/DefinitionsSource/config-with-bool.yml',
+//                TypeHintDeclarationSniff::class,
+//                [],
+//                ['enableObjectTypeHint' => false],
+//            ],
+//            [
+//                __DIR__ . '/DefinitionsSource/checkers.yml',
+//                TypeHintDeclarationSniff::class,
+//                [],
+//                [
+//                    'enableVoidTypeHint'=> true,
+//                    'enableNullableTypeHints'=> true,
+//                    'enableObjectTypeHint' => false
+//                ],
+//            ],
             [
-                # config
-                __DIR__ . '/DefinitionsSource/config.yml',
-                # checkers
-                ArraySyntaxFixer::class,
-                # expected method call
-                ['configure', [['syntax' => 'short']]],
-                # expected set properties
+                __DIR__ . '/DefinitionsSource/checkers.yml',
+                NoClassInstantiationSniff::class,
                 [],
-            ],
-            [
-                __DIR__ . '/DefinitionsSource/config-with-imports.yml',
-                ArraySyntaxFixer::class,
-                ['configure', [['syntax' => 'short']]],
-                [],
-            ],
-            # "@" escaping
-            [
-                __DIR__ . '/DefinitionsSource/config-with-at.yml',
-                LineLengthSniff::class,
-                [],
-                ['absoluteLineLimit' => '@author'],
-            ],
-            # keep original keywords
-            [
-                __DIR__ . '/DefinitionsSource/config-classic.yml',
-                LineLengthSniff::class,
-                [],
-                ['absoluteLineLimit' => 150],
-            ],
-            [
-                __DIR__ . '/DefinitionsSource/config-classic.yml',
-                ArraySyntaxFixer::class,
-                ['configure', [['syntax' => 'short']]],
-                [],
-            ],
-            [
-                __DIR__ . '/DefinitionsSource/config-with-bool.yml',
-                TypeHintDeclarationSniff::class,
-                [],
-                ['enableObjectTypeHint' => false],
-            ],
+                [
+                    'extraAllowedClasses' => [
+                        'Symplify\EasyCodingStandard\Error\Error',
+                        'Symplify\PackageBuilder\Reflection\*',
+                        'phpDocumentor\Reflection\Fqsen',
+                        'Symfony\Component\DependencyInjection\ContainerBuilder',
+                        'Symplify\EasyCodingStandard\Yaml\*',
+                        'Symfony\Component\DependencyInjection\ParameterBag\ParameterBag',
+                    ]
+                ]
+            ]
         ];
     }
 
