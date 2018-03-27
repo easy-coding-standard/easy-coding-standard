@@ -55,17 +55,17 @@ final class CheckerServiceParametersShifter
      */
     public function processServices(array $services): array
     {
-        foreach ($services as $checker => $serviceDefinition) {
-            if (! $this->isCheckersClass($checker) || empty($serviceDefinition)) {
+        foreach ($services as $serviceName => $serviceDefinition) {
+            if (! $this->isCheckerClass($serviceName) || empty($serviceDefinition)) {
                 continue;
             }
 
-            if (Strings::endsWith($checker, 'Fixer')) {
-                $services = $this->processFixer($services, $checker, $serviceDefinition);
+            if (Strings::endsWith($serviceName, 'Fixer')) {
+                $services = $this->processFixer($services, $serviceName, $serviceDefinition);
             }
 
-            if (Strings::endsWith($checker, 'Sniff')) {
-                $services = $this->processSniff($services, $checker, $serviceDefinition);
+            if (Strings::endsWith($serviceName, 'Sniff')) {
+                $services = $this->processSniff($services, $serviceName, $serviceDefinition);
             }
 
             // cleanup parameters
@@ -74,14 +74,14 @@ final class CheckerServiceParametersShifter
                     continue;
                 }
 
-                unset($services[$checker][$key]);
+                unset($services[$serviceName][$key]);
             }
         }
 
         return $services;
     }
 
-    private function isCheckersClass(string $checker): bool
+    private function isCheckerClass(string $checker): bool
     {
         return Strings::endsWith($checker, 'Fixer') || Strings::endsWith($checker, 'Sniff');
     }
