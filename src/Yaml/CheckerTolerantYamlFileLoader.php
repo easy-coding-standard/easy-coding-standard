@@ -150,5 +150,4 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
             $this->import($import['resource'], isset($import['type']) ? $import['type'] : null, isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file);
         }
     }
-
 }
