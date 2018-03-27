@@ -125,6 +125,10 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
             return $decodedYaml;
         }
 
+        $decodedYaml[self::SERVICES_KEY] = $this->checkerServiceParametersShifter->processServices(
+            $decodedYaml[self::SERVICES_KEY]
+        );
+
         return $decodedYaml;
     }
 
