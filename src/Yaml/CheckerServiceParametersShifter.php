@@ -44,10 +44,13 @@ final class CheckerServiceParametersShifter
     public function __construct()
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
+
+        $this->serviceKeywords = (new ReflectionClass(YamlFileLoader::class))
+            ->getStaticProperties()['serviceKeywords'];
     }
 
     /**
-     * @param mixed[] $yaml
+     * @param mixed[] $services
      * @return mixed[]
      */
     public function processServices(array $services): array
@@ -84,7 +87,7 @@ final class CheckerServiceParametersShifter
     }
 
     /**
-     * @param mixed[] $yaml
+     * @param mixed[] $services
      * @param mixed[] $serviceDefinition
      * @return mixed[]
      */
@@ -106,7 +109,7 @@ final class CheckerServiceParametersShifter
     }
 
     /**
-     * @param mixed[] $yaml
+     * @param mixed[] $services
      * @param mixed[] $serviceDefinition
      * @return mixed[]
      */
@@ -155,20 +158,6 @@ final class CheckerServiceParametersShifter
             return false;
         }
 
-        return in_array($key, $this->getServiceKeywords(), true);
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getServiceKeywords(): array
-    {
-        if ($this->serviceKeywords) {
-            return $this->serviceKeywords;
-        }
-
-        $reflectionClass = new ReflectionClass(YamlFileLoader::class);
-
-        return $this->serviceKeywords = $reflectionClass->getStaticProperties()['serviceKeywords'];
+        return in_array($key, $this->serviceKeywords, true);
     }
 }
