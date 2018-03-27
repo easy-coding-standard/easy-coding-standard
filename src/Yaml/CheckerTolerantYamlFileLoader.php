@@ -22,11 +22,6 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     private const PARAMETERS_KEY = 'parameters';
 
     /**
-     * @var CheckerConfigurationGuardian
-     */
-    private $checkerConfigurationGuardian;
-
-    /**
      * @var CheckerServiceParametersShifter
      */
     private $checkerServiceParametersShifter;
@@ -38,7 +33,6 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
-        $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
         $this->checkerServiceParametersShifter = new CheckerServiceParametersShifter();
         $this->parametersMerger = new ParametersMerger();
 
@@ -104,27 +98,34 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         return $decodedYaml;
     }
 
-    private function parseImportParameters(array $content, $file)
+    /**
+     * @param mixed[] $content
+     */
+    private function parseImportParameters(array $content, string $file)
     {
-        if (! isset($content['imports'])) {
+        if (! isset($content['imports']) || ! is_array($content['imports'])) {
             return;
-        }
-
-        if (! is_array($content['imports'])) {
-            throw new \InvalidArgumentException(sprintf('The "imports" key should contain an array in %s. Check your YAML syntax.', $file));
         }
 
         $defaultDirectory = dirname($file);
         foreach ($content['imports'] as $import) {
-            if (!is_array($import)) {
-                $import = array('resource' => $import);
+            if (! is_array($import)) {
+                $import = ['resource' => $import];
             }
-            if (!isset($import['resource'])) {
-                throw new \InvalidArgumentException(sprintf('An import should provide a resource in %s. Check your YAML syntax.', $file));
+            if (! isset($import['resource'])) {
+                throw new \InvalidArgumentException(
+                    sprintf('An import should provide a resource in %s. Check your YAML syntax.', $file)
+                );
             }
 
             $this->setCurrentDir($defaultDirectory);
-            $this->import($import['resource'], isset($import['type']) ? $import['type'] : null, isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file);
+
+            $this->import(
+                $import['resource'],
+                isset($import['type']) ? $import['type'] : null,
+                isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file
+            );
+
         }
     }
 }
