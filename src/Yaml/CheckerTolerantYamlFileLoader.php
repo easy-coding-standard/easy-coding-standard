@@ -31,10 +31,16 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private $checkerServiceParametersShifter;
 
+    /**
+     * @var ParametersMerger
+     */
+    private $parametersMerger;
+
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
         $this->checkerServiceParametersShifter = new CheckerServiceParametersShifter();
+        $this->parametersMerger = new ParametersMerger();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
@@ -49,7 +55,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     public function load($resource, $type = null): void
     {
-        // parent cannot by overriden fully, because it has many private methods and properties
+        // parent cannot by overridden fully, because it has many private methods and properties
         parent::load($resource, $type);
 
         // 1. possibly reload parameters here again with importing as well
@@ -67,7 +73,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 
         // parameters
         if (isset($content[self::PARAMETERS_KEY]) && is_array($content[self::PARAMETERS_KEY])) {
-            $mergedParameters = $this->merge(
+            $mergedParameters = $this->parametersMerger->merge(
                 $content[self::PARAMETERS_KEY],
                 $this->container->getParameterBag()->all()
             );
@@ -77,37 +83,6 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 
         // @todo there needs to be way to load imports before parameter loading
         // so we can override imported values with main config - simple :)
-    }
-
-    /**
-     * Merges configurations. Left has higher priority than right one.
-     *
-     * @autor David Grudl (https://davidgrudl.com)
-     * @source https://github.com/nette/di/blob/8eb90721a131262f17663e50aee0032a62d0ef08/src/DI/Config/Helpers.php#L31
-     *
-     * @param mixed $left
-     * @param mixed $right
-     * @return mixed[]|string
-     */
-    public function merge($left, $right)
-    {
-        if (is_array($left) && is_array($right)) {
-            foreach ($left as $key => $val) {
-                if (is_int($key)) {
-                    $right[] = $val;
-                } else {
-                    if (isset($right[$key])) {
-                        $val = $this->merge($val, $right[$key]);
-                    }
-                    $right[$key] = $val;
-                }
-            }
-            return $right;
-        } elseif ($left === null && is_array($right)) {
-            return $right;
-        }
-
-        return $left;
     }
 
     /**
