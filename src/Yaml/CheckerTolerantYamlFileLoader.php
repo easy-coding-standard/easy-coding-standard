@@ -34,7 +34,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
-        $this->checkerServiceParameterShifter = new CheckerServiceParameterShifter();
+        $this->checkerServiceParametersShifter = new CheckerServiceParametersShifter();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
