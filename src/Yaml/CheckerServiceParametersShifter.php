@@ -37,17 +37,19 @@ final class CheckerServiceParametersShifter
      */
     public function processYaml(array $yaml): array
     {
-        foreach ($yaml[self::SERVICES_KEY] as $checker => $serviceDefinition) {
+        $services = $yaml[self::SERVICES_KEY];
+
+        foreach ($services as $checker => $serviceDefinition) {
             if (! $this->isCheckersClass($checker) || empty($serviceDefinition)) {
                 continue;
             }
 
             if (Strings::endsWith($checker, 'Fixer')) {
-                $yaml = $this->processFixer($yaml, $checker, $serviceDefinition);
+                $services = $this->processFixer($services, $checker, $serviceDefinition);
             }
 
             if (Strings::endsWith($checker, 'Sniff')) {
-                $yaml = $this->processSniff($yaml, $checker, $serviceDefinition);
+                $services = $this->processSniff($services, $checker, $serviceDefinition);
             }
 
             // cleanup parameters
@@ -56,9 +58,11 @@ final class CheckerServiceParametersShifter
                     continue;
                 }
 
-                unset($yaml[self::SERVICES_KEY][$checker][$key]);
+                unset($services[$checker][$key]);
             }
         }
+
+        $yaml[self::SERVICES_KEY] = $services;
 
         return $yaml;
     }
@@ -73,7 +77,7 @@ final class CheckerServiceParametersShifter
      * @param mixed[] $serviceDefinition
      * @return mixed[]
      */
-    private function processFixer(array $yaml, string $checker, array $serviceDefinition): array
+    private function processFixer(array $services, string $checker, array $serviceDefinition): array
     {
         $this->checkerConfigurationGuardian->ensureFixerIsConfigurable($checker, $serviceDefinition);
 
@@ -82,20 +86,20 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            $yaml[self::SERVICES_KEY][$checker]['calls'] = [
+            $services[$checker]['calls'] = [
                 ['configure', [$serviceDefinition]],
             ];
         }
 
-        return $yaml;
+        return $services;
     }
 
     /**
-     * @param mixed[] $yaml
+     * @param mixed[] $services
      * @param mixed[] $serviceDefinition
      * @return mixed[]
      */
-    private function processSniff(array $yaml, string $checker, array $serviceDefinition): array
+    private function processSniff(array $services, string $checker, array $serviceDefinition): array
     {
         // move parameters to property setters
         foreach ($serviceDefinition as $key => $value) {
@@ -104,10 +108,10 @@ final class CheckerServiceParametersShifter
             }
 
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
-            $yaml[self::SERVICES_KEY][$checker]['properties'][$key] = $this->escapeValue($value);
+            $services[$checker]['properties'][$key] = $this->escapeValue($value);
         }
 
-        return $yaml;
+        return $services;
     }
 
     /**
