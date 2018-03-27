@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use function realpath;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 
 final class ParametersMergeTest extends TestCase
@@ -78,7 +79,10 @@ final class ParametersMergeTest extends TestCase
     {
         $containerBuilder = new ContainerBuilder();
 
-        $yamlFileLoader = new CheckerTolerantYamlFileLoader($containerBuilder, new FileLocator(dirname($config)));
+        // @todo move to factory
+        $fileLocator = new \Symfony\Component\HttpKernel\Config\FileLocator(new EasyCodingStandardKernel());
+
+        $yamlFileLoader = new CheckerTolerantYamlFileLoader($containerBuilder, $fileLocator);
         $yamlFileLoader->load($config);
 
         return $containerBuilder;
