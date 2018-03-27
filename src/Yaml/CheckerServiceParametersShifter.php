@@ -35,10 +35,8 @@ final class CheckerServiceParametersShifter
      * @param mixed[] $yaml
      * @return mixed[]
      */
-    public function processYaml(array $yaml): array
+    public function processServices(array $services): array
     {
-        $services = $yaml[self::SERVICES_KEY];
-
         foreach ($services as $checker => $serviceDefinition) {
             if (! $this->isCheckersClass($checker) || empty($serviceDefinition)) {
                 continue;
@@ -62,9 +60,7 @@ final class CheckerServiceParametersShifter
             }
         }
 
-        $yaml[self::SERVICES_KEY] = $services;
-
-        return $yaml;
+        return $services;
     }
 
     private function isCheckersClass(string $checker): bool
