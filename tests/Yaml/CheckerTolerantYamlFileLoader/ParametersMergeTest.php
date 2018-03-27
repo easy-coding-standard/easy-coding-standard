@@ -30,7 +30,7 @@ final class ParametersMergeTest extends TestCase
                     'firstCode' => null,
                     'secondCode' => false,
                     'thirdCode' => null,
-                ]
+                ],
             ],
             'configuration importing the parent with already defined skip parameters',
         ];
@@ -41,7 +41,7 @@ final class ParametersMergeTest extends TestCase
                 'skip' => [
                     'firstCode' => null,
                     'secondCode' => null,
-                ]
+                ],
             ],
             'configuration importing empty import',
         ];
@@ -55,13 +55,16 @@ final class ParametersMergeTest extends TestCase
         ];
     }
 
+    /**
+     * Covers bit complicated issue https://github.com/Symplify/Symplify/issues/736
+     */
     public function testMainConfigValueOverride(): void
     {
         $containerBuilder = new ContainerBuilder();
 
         $yamlFileLoader = new CheckerTolerantYamlFileLoader($containerBuilder, new FileLocator(__DIR__));
-        // mimics local "src/config/config.yml"
-        $yamlFileLoader->load(__DIR__ . '/ParametersSource/root-config.yml');
+        // local "src/config/config.yml"
+        $yamlFileLoader->load(__DIR__ . '/../../../src/config/config.yml');
         // mimics user's "easy-config-standard.yml" with own values
         $yamlFileLoader->load(__DIR__ . '/ParametersSource/root-config-override.yml');
 
