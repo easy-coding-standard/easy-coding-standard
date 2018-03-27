@@ -4,12 +4,9 @@ namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -17,7 +14,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourcePro
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
-use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
@@ -97,11 +93,6 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
      */
     protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
     {
-        $fileLocator = new FileLocator($this);
-
-        return new DelegatingLoader(new LoaderResolver([
-            new GlobFileLoader($container, $fileLocator),
-            new CheckerTolerantYamlFileLoader($container, $fileLocator),
-        ]));
+        return (new DelegatingLoaderFactory())->createFromKernelAndContainerBuilder($this, $container);
     }
 }
