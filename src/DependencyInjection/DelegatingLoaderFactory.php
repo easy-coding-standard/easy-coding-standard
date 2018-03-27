@@ -31,11 +31,11 @@ final class DelegatingLoaderFactory
 
     private function createFromContainerBuilderAndFileLocator(
         ContainerBuilder $containerBuilder,
-        SimpleFileLocator $fileLocator
+        SimpleFileLocator $simpleFileLocator
     ): DelegatingLoader {
         $loaderResolver = new LoaderResolver([
-            new GlobFileLoader($containerBuilder, $fileLocator),
-            new CheckerTolerantYamlFileLoader($containerBuilder, $fileLocator),
+            new GlobFileLoader($containerBuilder, $simpleFileLocator),
+            new CheckerTolerantYamlFileLoader($containerBuilder, $simpleFileLocator),
         ]);
 
         return new DelegatingLoader($loaderResolver);
