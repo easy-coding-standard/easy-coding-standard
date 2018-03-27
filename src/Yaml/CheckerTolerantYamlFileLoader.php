@@ -44,15 +44,9 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private $serviceKeywords = [];
 
-    /**
-     * @var ParameterBag
-     */
-    private $mergeAwareParameterBag;
-
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
-        $this->mergeAwareParameterBag = new ParameterBag();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
@@ -84,22 +78,17 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         $this->parseImportParameters($content, $path);
 
         // parameters
-        if (isset($content[self::PARAMETERS_KEY])) {
-            if (!is_array($content[self::PARAMETERS_KEY])) {
-                throw new \InvalidArgumentException(sprintf('The "parameters" key should contain an array in %s. Check your YAML syntax.', $path));
-            }
+        if (isset($content[self::PARAMETERS_KEY]) && is_array($content[self::PARAMETERS_KEY])) {
+            $mergedParameters = $this->merge(
+                $content[self::PARAMETERS_KEY],
+                $this->container->getParameterBag()->all()
+            );
 
-            $mergedParameters = $this->merge($content[self::PARAMETERS_KEY], $this->mergeAwareParameterBag->all());
-
-            $this->mergeAwareParameterBag->add($mergedParameters);
+            $this->container->getParameterBag()->add($mergedParameters);
         }
-
-        // load overriden parameters from parent method parameters born by correct merge
 
         // @todo there needs to be way to load imports before parameter loading
         // so we can override imported values with main config - simple :)
-
-        $this->container->getParameterBag()->add($this->mergeAwareParameterBag->all());
     }
 
     /**
