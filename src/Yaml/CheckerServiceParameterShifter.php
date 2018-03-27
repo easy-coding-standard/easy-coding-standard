@@ -32,16 +32,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 final class CheckerServiceParameterShifter
 {
     /**
-     * @var string
-     */
-    private const CALLS_KEY = 'calls';
-
-    /**
-     * @var string
-     */
-    private const PROPERTIES_KEY = 'properties';
-
-    /**
      * @var CheckerConfigurationGuardian
      */
     private $checkerConfigurationGuardian;
@@ -107,7 +97,7 @@ final class CheckerServiceParameterShifter
                 continue;
             }
 
-            $services[$checker][self::CALLS_KEY] = [
+            $services[$checker]['calls'] = [
                 ['configure', [$serviceDefinition]],
             ];
         }
@@ -129,7 +119,7 @@ final class CheckerServiceParameterShifter
             }
 
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
-            $services[$checker][self::PROPERTIES_KEY][$key] = $this->escapeValue($value);
+            $services[$checker]['properties'][$key] = $this->escapeValue($value);
         }
 
         return $yaml;
