@@ -27,9 +27,9 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     private $checkerConfigurationGuardian;
 
     /**
-     * @var CheckerServiceParameterShifter
+     * @var CheckerServiceParametersShifter
      */
-    private $checkerServiceParameterShifter;
+    private $checkerServiceParametersShifter;
 
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
@@ -118,10 +118,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     {
         $decodedYaml = parent::loadFile($file);
 
-        if (isset($decodedYaml[self::SERVICES_KEY])) {
-            $decodedYaml[self::SERVICES_KEY] = $this->checkerServiceParameterShifter->moveArgumentsToPropertiesOrMethodCalls($decodedYaml[self::SERVICES_KEY]);
-            );
-
+        if (! isset($decodedYaml[self::SERVICES_KEY])) {
             return $decodedYaml;
         }
 

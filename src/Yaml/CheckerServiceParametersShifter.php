@@ -6,29 +6,44 @@ use Nette\Utils\Strings;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
+/**
+ * Before:
+ *
+ * services:
+ *      # fixer
+ *      ArrayFixer:
+ *          syntax: short
+ *      # sniff
+ *      ArraySniff:
+ *          syntax: short
+ *
+ * After:
+ *
+ * services:
+ *      # fixer
+ *      ArrayFixer:
+ *          calls:
+ *              - ['configure', [['syntax' => 'short']]
+ *      # sniff
+ *      ArraySniff:
+ *          parameters:
+ *              $syntax: 'short'
+ */
 final class CheckerServiceParametersShifter
 {
     /**
-     * @var string
+     * @var CheckerConfigurationGuardian
      */
-    private const SERVICES_KEY = 'services';
+    private $checkerConfigurationGuardian;
 
     /**
      * @var string[]
      */
     private $serviceKeywords = [];
 
-    /**
-     * @var CheckerConfigurationGuardian
-     */
-    private $checkerConfigurationGuardian;
-
     public function __construct()
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
-
-        $this->serviceKeywords = (new ReflectionClass(YamlFileLoader::class))
-            ->getStaticProperties()['serviceKeywords'];
     }
 
     /**
@@ -91,7 +106,7 @@ final class CheckerServiceParametersShifter
     }
 
     /**
-     * @param mixed[] $services
+     * @param mixed[] $yaml
      * @param mixed[] $serviceDefinition
      * @return mixed[]
      */
@@ -140,6 +155,20 @@ final class CheckerServiceParametersShifter
             return false;
         }
 
-        return in_array($key, $this->serviceKeywords, true);
+        return in_array($key, $this->getServiceKeywords(), true);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getServiceKeywords(): array
+    {
+        if ($this->serviceKeywords) {
+            return $this->serviceKeywords;
+        }
+
+        $reflectionClass = new ReflectionClass(YamlFileLoader::class);
+
+        return $this->serviceKeywords = $reflectionClass->getStaticProperties()['serviceKeywords'];
     }
 }
