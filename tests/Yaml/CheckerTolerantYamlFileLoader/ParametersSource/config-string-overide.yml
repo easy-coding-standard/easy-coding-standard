@@ -1,0 +1,5 @@
+imports:
+    - { resource: 'config-string.yml' }
+
+parameters:
+    key: new_value

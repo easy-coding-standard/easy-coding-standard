@@ -45,6 +45,30 @@ final class ParametersMergeTest extends TestCase
             ],
             'configuration importing empty import',
         ];
+
+        yield [
+            __DIR__ . '/ParametersSource/config-string-overide.yml',
+            [
+                'key' => 'new_value',
+            ],
+            'override string key',
+        ];
+    }
+
+    public function testMainConfigValueOverride(): void
+    {
+        $containerBuilder = new ContainerBuilder();
+
+        $yamlFileLoader = new CheckerTolerantYamlFileLoader($containerBuilder, new FileLocator(__DIR__));
+        // mimics: src/config/config.yml
+        $yamlFileLoader->load(__DIR__ . '/ParametersSource/root-config.yml');
+        $yamlFileLoader->load(__DIR__ . '/ParametersSource/root-config-override.yml');
+
+        $expectedParameters = [
+            'cache_directory' => 'new_value',
+        ];
+
+        $this->assertSame($expectedParameters, $containerBuilder->getParameterBag()->all());
     }
 
     private function createAndLoadContainerBuilderFromConfig(string $config): ContainerBuilder
