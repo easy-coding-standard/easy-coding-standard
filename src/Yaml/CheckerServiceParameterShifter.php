@@ -34,11 +34,6 @@ final class CheckerServiceParameterShifter
     /**
      * @var string
      */
-    private const SERVICES_KEY = 'services';
-
-    /**
-     * @var string
-     */
     private const CALLS_KEY = 'calls';
 
     /**
@@ -65,19 +60,19 @@ final class CheckerServiceParameterShifter
      * @param mixed[] $yaml
      * @return mixed[]
      */
-    public function moveArgumentsToPropertiesOrMethodCalls(array $yaml): array
+    public function moveArgumentsToPropertiesOrMethodCalls(array $services): array
     {
-        foreach ($yaml[self::SERVICES_KEY] as $checker => $serviceDefinition) {
+        foreach ($services as $checker => $serviceDefinition) {
             if (! $this->isCheckersClass($checker) || empty($serviceDefinition)) {
                 continue;
             }
 
             if (Strings::endsWith($checker, 'Fixer')) {
-                $yaml = $this->processFixer($yaml, $checker, $serviceDefinition);
+                $services = $this->processFixer($services, $checker, $serviceDefinition);
             }
 
             if (Strings::endsWith($checker, 'Sniff')) {
-                $yaml = $this->processSniff($yaml, $checker, $serviceDefinition);
+                $services = $this->processSniff($services, $checker, $serviceDefinition);
             }
 
             // cleanup parameters
@@ -86,11 +81,11 @@ final class CheckerServiceParameterShifter
                     continue;
                 }
 
-                unset($yaml[self::SERVICES_KEY][$checker][$key]);
+                unset($services[$checker][$key]);
             }
         }
 
-        return $yaml;
+        return $services;
     }
 
     private function isCheckersClass(string $checker): bool
@@ -103,7 +98,7 @@ final class CheckerServiceParameterShifter
      * @param mixed[] $serviceDefinition
      * @return mixed[]
      */
-    private function processFixer(array $yaml, string $checker, array $serviceDefinition): array
+    private function processFixer(array $services, string $checker, array $serviceDefinition): array
     {
         $this->checkerConfigurationGuardian->ensureFixerIsConfigurable($checker, $serviceDefinition);
 
@@ -112,12 +107,12 @@ final class CheckerServiceParameterShifter
                 continue;
             }
 
-            $yaml[self::SERVICES_KEY][$checker][self::CALLS_KEY] = [
+            $services[$checker][self::CALLS_KEY] = [
                 ['configure', [$serviceDefinition]],
             ];
         }
 
-        return $yaml;
+        return $services;
     }
 
     /**
@@ -134,7 +129,7 @@ final class CheckerServiceParameterShifter
             }
 
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
-            $yaml[self::SERVICES_KEY][$checker][self::PROPERTIES_KEY][$key] = $this->escapeValue($value);
+            $services[$checker][self::PROPERTIES_KEY][$key] = $this->escapeValue($value);
         }
 
         return $yaml;
