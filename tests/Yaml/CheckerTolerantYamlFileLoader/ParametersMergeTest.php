@@ -60,15 +60,14 @@ final class ParametersMergeTest extends TestCase
         $containerBuilder = new ContainerBuilder();
 
         $yamlFileLoader = new CheckerTolerantYamlFileLoader($containerBuilder, new FileLocator(__DIR__));
-        // mimics: src/config/config.yml
+        // mimics local "src/config/config.yml"
         $yamlFileLoader->load(__DIR__ . '/ParametersSource/root-config.yml');
+        // mimics user's "easy-config-standard.yml" with own values
         $yamlFileLoader->load(__DIR__ . '/ParametersSource/root-config-override.yml');
 
-        $expectedParameters = [
+        $this->assertSame([
             'cache_directory' => 'new_value',
-        ];
-
-        $this->assertSame($expectedParameters, $containerBuilder->getParameterBag()->all());
+        ], $containerBuilder->getParameterBag()->all());
     }
 
     private function createAndLoadContainerBuilderFromConfig(string $config): ContainerBuilder
