@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
 
 use Iterator;
 use PHPUnit\Framework\TestCase;
-use function realpath;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardKernel;
@@ -34,7 +33,7 @@ final class ParametersMergeTest extends TestCase
                     'thirdCode' => null,
                 ],
             ],
-            'configuration importing the parent with already defined skip parameters',
+            'import parent with already defined parameters with same keys',
         ];
 
         yield [
@@ -45,7 +44,7 @@ final class ParametersMergeTest extends TestCase
                     'secondCode' => null,
                 ],
             ],
-            'configuration importing empty import',
+            'import empty config',
         ];
 
         yield [
