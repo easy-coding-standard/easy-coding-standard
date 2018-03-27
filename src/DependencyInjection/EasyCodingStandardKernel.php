@@ -93,6 +93,6 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
      */
     protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
     {
-        return (new DelegatingLoaderFactory())->createFromKernelAndContainerBuilder($this, $container);
+        return (new DelegatingLoaderFactory())->createFromContainerBuilderAndKernel($container, $this);
     }
 }

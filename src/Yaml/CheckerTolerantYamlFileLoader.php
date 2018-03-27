@@ -100,25 +100,26 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 
             $this->setCurrentDir($defaultDirectory);
 
-
             $this->loadParametersFromResource($import['resource'], isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false);
         }
     }
 
     private function loadParametersFromFile($content, $path): void
     {
-// imports
+        // imports
         $this->parseImportParameters($content, $path);
 
         // parameters
-        if (isset($content[self::PARAMETERS_KEY]) && is_array($content[self::PARAMETERS_KEY])) {
-            $mergedParameters = $this->parametersMerger->merge(
-                $content[self::PARAMETERS_KEY],
-                $this->container->getParameterBag()->all()
-            );
-
-            $this->container->getParameterBag()->add($mergedParameters);
+        if (! isset($content[self::PARAMETERS_KEY]) || ! is_array($content[self::PARAMETERS_KEY])) {
+            return;
         }
+
+        $mergedParameters = $this->parametersMerger->merge(
+            $content[self::PARAMETERS_KEY],
+            $this->container->getParameterBag()->all()
+        );
+
+        $this->container->getParameterBag()->add($mergedParameters);
     }
 
     private function loadParametersFromResource($resource, $ignoreErrors = false): void
