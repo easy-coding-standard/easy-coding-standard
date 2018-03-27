@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
 
 use Iterator;
 use PHPUnit\Framework\TestCase;
+use function realpath;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;

@@ -67,9 +67,38 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     public function load($resource, $type = null): void
     {
+        // parent cannot by overriden fully, because it has many private methods and properties
         parent::load($resource, $type);
 
+        // 1. possibly reload parameters here again with importing as well
+        $path = $this->locator->locate($resource);
+        $content = $this->loadFile($path);
+        $this->container->fileExists($path);
+
+        // empty file
+        if ($content === null) {
+            return;
+        }
+
+        // imports
+        $this->parseImportParameters($content, $path);
+
+        // parameters
+        if (isset($content[self::PARAMETERS_KEY])) {
+            if (!is_array($content[self::PARAMETERS_KEY])) {
+                throw new \InvalidArgumentException(sprintf('The "parameters" key should contain an array in %s. Check your YAML syntax.', $path));
+            }
+
+            $mergedParameters = $this->merge($content[self::PARAMETERS_KEY], $this->mergeAwareParameterBag->all());
+
+            $this->mergeAwareParameterBag->add($mergedParameters);
+        }
+
         // load overriden parameters from parent method parameters born by correct merge
+
+        // @todo there needs to be way to load imports before parameter loading
+        // so we can override imported values with main config - simple :)
+
         $this->container->getParameterBag()->add($this->mergeAwareParameterBag->all());
     }
 
@@ -111,10 +140,6 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     protected function loadFile($file)
     {
         $decodedYaml = parent::loadFile($file);
-
-        if (isset($decodedYaml[self::PARAMETERS_KEY])) {
-            $this->loadParameters((array) $decodedYaml[self::PARAMETERS_KEY], $file);
-        }
 
         if (isset($decodedYaml[self::SERVICES_KEY])) {
             return $this->moveArgumentsToPropertiesOrMethodCalls($decodedYaml);
@@ -249,26 +274,28 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         return $this->serviceKeywords = $reflectionClass->getStaticProperties()['serviceKeywords'];
     }
 
-    /**
-     * Used from @see YamlFileLoader::load()
-     * @param mixed[] $parameters
-     */
-    private function loadParameters(array $parameters, string $file): void
+    private function parseImportParameters(array $content, $file)
     {
-        if ($this->isRootConfig($file)) {
-            $newParameters = (array) $this->merge($parameters, $this->mergeAwareParameterBag->all());
-
-        } else {
-            // order matters, if imported, then main goes first, imported second - although import should override the other one
-            // for the first case, merge args have to be switched
-            $newParameters = (array) $this->merge($this->mergeAwareParameterBag->all(), $parameters);
+        if (! isset($content['imports'])) {
+            return;
         }
 
-        $this->mergeAwareParameterBag->add($newParameters);
+        if (! is_array($content['imports'])) {
+            throw new \InvalidArgumentException(sprintf('The "imports" key should contain an array in %s. Check your YAML syntax.', $file));
+        }
+
+        $defaultDirectory = dirname($file);
+        foreach ($content['imports'] as $import) {
+            if (!is_array($import)) {
+                $import = array('resource' => $import);
+            }
+            if (!isset($import['resource'])) {
+                throw new \InvalidArgumentException(sprintf('An import should provide a resource in %s. Check your YAML syntax.', $file));
+            }
+
+            $this->setCurrentDir($defaultDirectory);
+            $this->import($import['resource'], isset($import['type']) ? $import['type'] : null, isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file);
+        }
     }
 
-    private function isRootConfig(string $file): bool
-    {
-        return $file === __DIR__ . '/../config/config.yml';
-    }
 }
