@@ -19,6 +19,6 @@ final class CurrentWorkingDirectoryTest extends TestCase
 
         $delegatingLoader->load(__DIR__ . '/CurrentWorkingDirectorySource/config-with-import-param.yml');
 
-        $this->assertArrayHasKey('parameters', $containerBuilder->getParameterBag()->all());
+        $this->assertArrayHasKey('skip', $containerBuilder->getParameterBag()->all());
     }
 }

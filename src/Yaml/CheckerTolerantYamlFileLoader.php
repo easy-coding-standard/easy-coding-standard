@@ -5,7 +5,9 @@ namespace Symplify\EasyCodingStandard\Yaml;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symplify\EasyCodingStandard\Exception\Yaml\InvalidParametersValueException;
+use Symplify\PackageBuilder\Composer\VendorDirProvider;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
 /**
@@ -67,6 +69,8 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         if ($content === null) {
             return;
         }
+
+        $content = $this->completeParametersToImportPaths($content);
 
         // imports
         // $this->parseImports($content, $path);
@@ -150,5 +154,28 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
             'The "parameters" key should contain an array in "%s". Check your YAML syntax.',
             $path
         ));
+    }
+
+    /**
+     * @param mixed[] $content
+     * @return mixed[]
+     */
+    private function completeParametersToImportPaths(array $content): array
+    {
+        if (! isset ($content['imports'])) {
+            return $content;
+        }
+
+        $dummyParameterBag = new ParameterBag([
+            'currentWorkingDirectory' => getcwd(),
+            'vendorDirectory' => VendorDirProvider::provide()
+        ]);
+
+        foreach ($content['imports'] as $key => $import) {
+            $import['resource'] = $dummyParameterBag->resolveValue($import['resource']);
+            $content['imports'][$key] = $import;
+        }
+
+        return $content;
     }
 }
