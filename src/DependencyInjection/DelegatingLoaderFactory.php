@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator as SimpleFileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,11 +15,21 @@ final class DelegatingLoaderFactory
 {
     public function createFromKernelAndContainerBuilder(KernelInterface $kernel, ContainerBuilder $containerBuilder): DelegatingLoader
     {
-        $fileLocator = new FileLocator($kernel);
+        return $this->createFromFileLocator($containerBuilder, new FileLocator($kernel));
+    }
 
-        return new DelegatingLoader(new LoaderResolver([
+    public function createContainerBuilderAndConfig(ContainerBuilder $containerBuilder, string $config): DelegatingLoader
+    {
+        return $this->createFromFileLocator($containerBuilder, new SimpleFileLocator(dirname($config)));
+    }
+
+    private function createFromFileLocator(ContainerBuilder $containerBuilder, SimpleFileLocator $fileLocator): DelegatingLoader
+    {
+        $loaderResolver = new LoaderResolver([
             new GlobFileLoader($containerBuilder, $fileLocator),
             new CheckerTolerantYamlFileLoader($containerBuilder, $fileLocator),
-        ]));
+        ]);
+
+        return new DelegatingLoader($loaderResolver);
     }
 }
