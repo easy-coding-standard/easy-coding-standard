@@ -69,7 +69,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     {
         parent::load($resource, $type);
 
-        // load overriden parematers from parent method parameters born by correct merge
+        // load overriden parameters from parent method parameters born by correct merge
         $this->container->getParameterBag()->add($this->mergeAwareParameterBag->all());
     }
 
@@ -93,11 +93,9 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
                     if (isset($right[$key])) {
                         $val = $this->merge($val, $right[$key]);
                     }
-
                     $right[$key] = $val;
                 }
             }
-
             return $right;
         } elseif ($left === null && is_array($right)) {
             return $right;
@@ -157,7 +155,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         return $yaml;
     }
 
-    private function isCheckersClass($checker): bool
+    private function isCheckersClass(string $checker): bool
     {
         return Strings::endsWith($checker, 'Fixer') || Strings::endsWith($checker, 'Sniff');
     }
@@ -257,17 +255,20 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private function loadParameters(array $parameters, string $file): void
     {
-        foreach ($parameters as $key => $value) {
-            if (! $this->mergeAwareParameterBag->has($key)) {
-                $this->mergeAwareParameterBag->set($key, $value);
-                continue;
-            }
+        if ($this->isRootConfig($file)) {
+            $newParameters = (array) $this->merge($parameters, $this->mergeAwareParameterBag->all());
 
-            // already has such parameters => merge it nicely
-            $oldValue = $this->mergeAwareParameterBag->get($key);
-
-            $newValue = $this->merge($oldValue, $value);
-            $this->mergeAwareParameterBag->set($key, $newValue);
+        } else {
+            // order matters, if imported, then main goes first, imported second - although import should override the other one
+            // for the first case, merge args have to be switched
+            $newParameters = (array) $this->merge($this->mergeAwareParameterBag->all(), $parameters);
         }
+
+        $this->mergeAwareParameterBag->add($newParameters);
+    }
+
+    private function isRootConfig(string $file): bool
+    {
+        return $file === __DIR__ . '/../config/config.yml';
     }
 }
