@@ -6,14 +6,12 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\TestCase;
 use SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardKernel;
-use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
+use Symplify\EasyCodingStandard\Error\Error;
 
 final class DefinitionsTest extends TestCase
 {
@@ -91,9 +89,9 @@ final class DefinitionsTest extends TestCase
                 TypeHintDeclarationSniff::class,
                 [],
                 [
-                    'enableVoidTypeHint'=> true,
-                    'enableNullableTypeHints'=> true,
-                    'enableObjectTypeHint' => false
+                    'enableVoidTypeHint' => true,
+                    'enableNullableTypeHints' => true,
+                    'enableObjectTypeHint' => false,
                 ],
             ],
             [
@@ -102,15 +100,15 @@ final class DefinitionsTest extends TestCase
                 [],
                 [
                     'extraAllowedClasses' => [
-                        'Symplify\EasyCodingStandard\Error\Error',
+                        Error::class,
                         'Symplify\PackageBuilder\Reflection\*',
                         'phpDocumentor\Reflection\Fqsen',
-                        'Symfony\Component\DependencyInjection\ContainerBuilder',
+                        ContainerBuilder::class,
                         'Symplify\EasyCodingStandard\Yaml\*',
-                        'Symfony\Component\DependencyInjection\ParameterBag\ParameterBag',
-                    ]
-                ]
-            ]
+                        ParameterBag::class,
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -118,7 +116,10 @@ final class DefinitionsTest extends TestCase
     {
         $containerBuilder = new ContainerBuilder();
 
-        $delegatingLoader = (new DelegatingLoaderFactory())->createContainerBuilderAndConfig($containerBuilder, $config);
+        $delegatingLoader = (new DelegatingLoaderFactory())->createContainerBuilderAndConfig(
+            $containerBuilder,
+            $config
+        );
         $delegatingLoader->load($config);
 
         return $containerBuilder;

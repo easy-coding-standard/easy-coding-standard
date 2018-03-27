@@ -80,7 +80,10 @@ final class ParametersMergeTest extends TestCase
     {
         $containerBuilder = new ContainerBuilder();
 
-        $delegatingLoader = (new DelegatingLoaderFactory())->createContainerBuilderAndConfig($containerBuilder, $config);
+        $delegatingLoader = (new DelegatingLoaderFactory())->createContainerBuilderAndConfig(
+            $containerBuilder,
+            $config
+        );
         $delegatingLoader->load($config);
 
         return $containerBuilder;

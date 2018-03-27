@@ -2,13 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\Yaml;
 
-use function get_parent_class;
-use InvalidArgumentException;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symplify\EasyCodingStandard\Exception\Yaml\InvalidParametersValueException;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
-use Symplify\PackageBuilder\Reflection\PrivatesSetter;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -40,17 +38,11 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
      */
     private $privatesCaller;
 
-    /**
-     * @var PrivatesSetter
-     */
-    private $privatesSetter;
-
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->checkerServiceParametersShifter = new CheckerServiceParametersShifter();
         $this->parametersMerger = new ParametersMerger();
         $this->privatesCaller = new PrivatesCaller();
-        $this->privatesSetter = new PrivatesSetter();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
@@ -82,17 +74,21 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 
         // parameters
         if (isset($content[self::PARAMETERS_KEY])) {
-            if (! is_array($content[self::PARAMETERS_KEY])) {
-                throw new InvalidArgumentException(sprintf('The "parameters" key should contain an array in %s. Check your YAML syntax.', $path));
-            }
+            $this->ensureParametersIsArray($content, $path);
 
             foreach ($content[self::PARAMETERS_KEY] as $key => $value) {
                 // $this->resolveServices($value, $path, true),
-                $resolvedValue = $this->privatesCaller->callPrivateMethod($this, 'resolveServices', $value, $path, true);
+                $resolvedValue = $this->privatesCaller->callPrivateMethod(
+                    $this,
+                    'resolveServices',
+                    $value,
+                    $path,
+                    true
+                );
 
                 // only this section is different
                 if ($this->container->hasParameter($key)) {
-                    $newValue = (new ParametersMerger())->merge(
+                    $newValue = $this->parametersMerger->merge(
                         $resolvedValue,
                         $this->container->getParameter($key)
                     );
@@ -116,7 +112,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
             // $this->parseDefinitions($content, $path);
             $this->privatesCaller->callPrivateMethod($this, 'parseDefinitions', $content, $path);
         } finally {
-            $this->instanceof = array();
+            $this->instanceof = [];
         }
     }
 
@@ -139,5 +135,20 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         );
 
         return $decodedYaml;
+    }
+
+    /**
+     * @param mixed[] $content
+     */
+    private function ensureParametersIsArray(array $content, string $path): void
+    {
+        if (is_array($content[self::PARAMETERS_KEY])) {
+            return;
+        }
+
+        throw new InvalidParametersValueException(sprintf(
+            'The "parameters" key should contain an array in "%s". Check your YAML syntax.',
+            $path
+        ));
     }
 }
