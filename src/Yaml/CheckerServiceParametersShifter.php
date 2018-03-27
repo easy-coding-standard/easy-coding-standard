@@ -14,18 +14,21 @@ final class CheckerServiceParametersShifter
     private const SERVICES_KEY = 'services';
 
     /**
-     * @var CheckerConfigurationGuardian
-     */
-    private $checkerConfigurationGuardian;
-
-    /**
      * @var string[]
      */
     private $serviceKeywords = [];
 
+    /**
+     * @var CheckerConfigurationGuardian
+     */
+    private $checkerConfigurationGuardian;
+
     public function __construct()
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
+
+        $this->serviceKeywords = (new ReflectionClass(YamlFileLoader::class))
+            ->getStaticProperties()['serviceKeywords'];
     }
 
     /**
@@ -137,20 +140,6 @@ final class CheckerServiceParametersShifter
             return false;
         }
 
-        return in_array($key, $this->getServiceKeywords(), true);
-    }
-
-    /**
-     * @return string[]
-     */
-    private function getServiceKeywords(): array
-    {
-        if ($this->serviceKeywords) {
-            return $this->serviceKeywords;
-        }
-
-        $reflectionClass = new ReflectionClass(YamlFileLoader::class);
-
-        return $this->serviceKeywords = $reflectionClass->getStaticProperties()['serviceKeywords'];
+        return in_array($key, $this->serviceKeywords, true);
     }
 }
