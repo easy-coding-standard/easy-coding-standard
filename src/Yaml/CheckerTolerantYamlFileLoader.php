@@ -101,21 +101,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
             $this->setCurrentDir($defaultDirectory);
 
 
-            dump($this->locator);
-            dump($import['resource']);
-
-//            die;
-
             $this->loadParametersFromResource($import['resource'], isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false);
-
-//            $this->load($import['resource'], $import['type'] ?? null);
-
-//            $this->import(
-//                $import['resource'],
-//                isset($import['type']) ? $import['type'] : null,
-//                isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file
-//            );
-
         }
     }
 
