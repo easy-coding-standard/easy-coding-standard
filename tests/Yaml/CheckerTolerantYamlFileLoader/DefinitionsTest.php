@@ -7,9 +7,12 @@ use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\TestCase;
 use SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff;
+use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
+use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 
 final class DefinitionsTest extends TestCase
@@ -115,8 +118,8 @@ final class DefinitionsTest extends TestCase
     {
         $containerBuilder = new ContainerBuilder();
 
-        $yamlFileLoader = new CheckerTolerantYamlFileLoader($containerBuilder, new FileLocator(dirname($config)));
-        $yamlFileLoader->load($config);
+        $delegatingLoader = (new DelegatingLoaderFactory())->createContainerBuilderAndConfig($containerBuilder, $config);
+        $delegatingLoader->load($config);
 
         return $containerBuilder;
     }

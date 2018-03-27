@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Yaml;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Throwable;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
@@ -52,28 +53,7 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         // parent cannot by overridden fully, because it has many private methods and properties
         parent::load($resource, $type);
 
-        // 1. possibly reload parameters here again with importing as well
-        $path = $this->locator->locate($resource);
-        $content = $this->loadFile($path);
-        $this->container->fileExists($path);
-
-        // empty file
-        if ($content === null) {
-            return;
-        }
-
-        // imports
-        $this->parseImportParameters($content, $path);
-
-        // parameters
-        if (isset($content[self::PARAMETERS_KEY]) && is_array($content[self::PARAMETERS_KEY])) {
-            $mergedParameters = $this->parametersMerger->merge(
-                $content[self::PARAMETERS_KEY],
-                $this->container->getParameterBag()->all()
-            );
-
-            $this->container->getParameterBag()->add($mergedParameters);
-        }
+        $this->loadParametersFromResource($resource);
 
         // @todo there needs to be way to load imports before parameter loading
         // so we can override imported values with main config - simple :)
@@ -120,12 +100,65 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
 
             $this->setCurrentDir($defaultDirectory);
 
-            $this->import(
-                $import['resource'],
-                isset($import['type']) ? $import['type'] : null,
-                isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file
-            );
+
+            dump($this->locator);
+            dump($import['resource']);
+
+//            die;
+
+            $this->loadParametersFromResource($import['resource'], isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false);
+
+//            $this->load($import['resource'], $import['type'] ?? null);
+
+//            $this->import(
+//                $import['resource'],
+//                isset($import['type']) ? $import['type'] : null,
+//                isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file
+//            );
 
         }
+    }
+
+    private function loadParametersFromFile($content, $path): void
+    {
+// imports
+        $this->parseImportParameters($content, $path);
+
+        // parameters
+        if (isset($content[self::PARAMETERS_KEY]) && is_array($content[self::PARAMETERS_KEY])) {
+            $mergedParameters = $this->parametersMerger->merge(
+                $content[self::PARAMETERS_KEY],
+                $this->container->getParameterBag()->all()
+            );
+
+            $this->container->getParameterBag()->add($mergedParameters);
+        }
+    }
+
+    private function loadParametersFromResource($resource, $ignoreErrors = false): void
+    {
+        // 1. possibly reload parameters here again with importing as well
+
+//        dump($this->locator);
+//        die;
+
+        try {
+            $path = $this->locator->locate($resource);
+            $content = $this->loadFile($path);
+        } catch (Throwable $throwable) {
+            if (! $ignoreErrors) {
+                throw $throwable;
+            }
+            return;
+        }
+
+        $this->container->fileExists($path);
+
+        // empty file
+        if ($content === null) {
+            return;
+        }
+
+        $this->loadParametersFromFile($content, $path);
     }
 }
