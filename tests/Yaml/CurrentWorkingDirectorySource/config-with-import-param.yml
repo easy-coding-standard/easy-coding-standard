@@ -1,0 +1,2 @@
+imports:
+    - { resource: '%kernel.root_dir%/easy-coding-standard.yml' }
