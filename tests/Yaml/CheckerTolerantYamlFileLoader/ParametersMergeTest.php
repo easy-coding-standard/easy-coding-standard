@@ -11,24 +11,26 @@ use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 final class ParametersMergeTest extends TestCase
 {
     /**
-     * @dataProvider provideConfigToSkipParameter()
-     * @param mixed[] $expectedSkipParameter
+     * @dataProvider provideConfigToParameters()
+     * @param mixed[] $expectedParameters
      */
-    public function testSkipParameters(string $configFile, array $expectedSkipParameter, string $message): void
+    public function test(string $configFile, array $expectedParameters, string $message): void
     {
         $containerBuilder = $this->createAndLoadContainerBuilderFromConfig($configFile);
 
-        $this->assertSame($expectedSkipParameter, $containerBuilder->getParameterBag()->get('skip'), $message);
+        $this->assertSame($expectedParameters, $containerBuilder->getParameterBag()->all(), $message);
     }
 
-    public function provideConfigToSkipParameter(): Iterator
+    public function provideConfigToParameters(): Iterator
     {
         yield [
             __DIR__ . '/ParametersSource/config-skip-with-import.yml',
             [
-                'firstCode' => null,
-                'secondCode' => false,
-                'thirdCode' => null,
+                'skip' => [
+                    'firstCode' => null,
+                    'secondCode' => false,
+                    'thirdCode' => null,
+                ]
             ],
             'configuration importing the parent with already defined skip parameters',
         ];
@@ -36,8 +38,10 @@ final class ParametersMergeTest extends TestCase
         yield [
             __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
             [
-                'firstCode' => null,
-                'secondCode' => null,
+                'skip' => [
+                    'firstCode' => null,
+                    'secondCode' => null,
+                ]
             ],
             'configuration importing empty import',
         ];
