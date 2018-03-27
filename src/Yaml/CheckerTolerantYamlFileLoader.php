@@ -119,7 +119,9 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         $decodedYaml = parent::loadFile($file);
 
         if (isset($decodedYaml[self::SERVICES_KEY])) {
-            return $this->checkerServiceParameterShifter->moveArgumentsToPropertiesOrMethodCalls($decodedYaml);
+            $decodedYaml[self::SERVICES_KEY] = $this->checkerServiceParameterShifter->moveArgumentsToPropertiesOrMethodCalls($decodedYaml[self::SERVICES_KEY]);
+
+            return $decodedYaml;
         }
 
         return $decodedYaml;
