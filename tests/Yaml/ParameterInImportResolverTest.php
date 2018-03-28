@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Tests\Yaml;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Yaml\ParameterInImportResolver;
 
 /**
@@ -16,9 +15,9 @@ final class ParameterInImportResolverTest extends TestCase
     public function test(): void
     {
         $containerBuilder = new ContainerBuilder();
-        $delegatingLoader = (new DelegatingLoaderFactory())->createFromContainerBuilderAndKernel(
+        $delegatingLoader = (new DelegatingLoaderFactory())->createFromContainerBuilderAndDirectory(
             $containerBuilder,
-            new EasyCodingStandardKernel()
+            __DIR__ . '/CheckerTolerantYamlFileLoader'
         );
 
         $delegatingLoader->load($this->provideConfig());
@@ -26,15 +25,12 @@ final class ParameterInImportResolverTest extends TestCase
         $this->assertTrue($containerBuilder->getParameter('it_works'));
     }
 
-    /**
-     * @return string
-     */
     private function provideConfig(): string
     {
         if (defined('SYMPLIFY_MONOREPO')) {
             return __DIR__ . '/ParameterInImportResolverSource/config-with-import-param-monorepo.yml';
-        } else {
-            return __DIR__ . '/ParameterInImportResolverSource/config-with-import-param-split.yml';
         }
+
+        return __DIR__ . '/ParameterInImportResolverSource/config-with-import-param-split.yml';
     }
 }

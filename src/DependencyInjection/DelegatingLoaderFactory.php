@@ -13,6 +13,13 @@ use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
 
 final class DelegatingLoaderFactory
 {
+    public function createFromContainerBuilderAndDirectory(
+        ContainerBuilder $containerBuilder,
+        string $directory
+    ): DelegatingLoader {
+        return $this->createFromContainerBuilderAndFileLocator($containerBuilder, new SimpleFileLocator($directory));
+    }
+
     public function createFromContainerBuilderAndKernel(
         ContainerBuilder $containerBuilder,
         KernelInterface $kernel
