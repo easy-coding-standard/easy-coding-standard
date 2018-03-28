@@ -18,6 +18,10 @@ services:
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
     Symplify\PackageBuilder\FileSystem\FileGuard: ~
 
+    Symplify\TokenRunner\Configuration\Configuration:
+        arguments:
+            $maxLineLength: '%max_line_length%'
+
     Symplify\CodingStandard\Fixer\TokenBuilder: ~
 
     Symplify\BetterReflectionDocBlock\DocBlockSerializerFactory: ~
