@@ -1,2 +1,2 @@
 imports:
-    - { resource: '%current_working_directory%/easy-coding-standard.yml' }
+    - { resource: '%current_working_dir%/easy-coding-standard.yml' }
