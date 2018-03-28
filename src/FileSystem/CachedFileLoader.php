@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Nette\Caching\Cache;
 use SplFileInfo;
+use Symplify\PackageBuilder\FileSystem\FileGuard;
 
 final class CachedFileLoader
 {
@@ -12,7 +13,7 @@ final class CachedFileLoader
      */
     private $cache;
 
-    public function __construct(Cache $cache)
+    public function __construct(Cache $cache, FileGuard $fileGuard)
     {
         $this->cache = $cache;
     }
