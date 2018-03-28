@@ -36,10 +36,7 @@ final class FixerTest extends AbstractContainerAwareTestCase
         $this->assertSame('', $this->fixer->getContents());
         $this->fixer->startFile($this->file);
 
-        $this->assertStringEqualsFile(
-            __DIR__ . '/FixerSource/SomeFile.php',
-            $this->fixer->getContents()
-        );
+        $this->assertStringEqualsFile(__DIR__ . '/FixerSource/SomeFile.php', $this->fixer->getContents());
     }
 
     public function testTokenContent(): void
@@ -53,10 +50,7 @@ final class FixerTest extends AbstractContainerAwareTestCase
         $token = $this->fixer->getTokenContent(13);
         $this->assertSame('_', $token);
 
-        $this->assertStringNotEqualsFile(
-            __DIR__ . '/FixerSource/SomeFile.php',
-            $this->fixer->getContents()
-        );
+        $this->assertStringNotEqualsFile(__DIR__ . '/FixerSource/SomeFile.php', $this->fixer->getContents());
     }
 
     public function testAddContent(): void
