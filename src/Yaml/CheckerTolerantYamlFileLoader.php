@@ -25,6 +25,11 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     private const PARAMETERS_KEY = 'parameters';
 
     /**
+     * @var string
+     */
+    private const IMPORTS_KEY = 'imports';
+
+    /**
      * @var CheckerServiceParametersShifter
      */
     private $checkerServiceParametersShifter;
@@ -74,8 +79,6 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
         if ($content === null) {
             return;
         }
-
-        $content = $this->parameterInImportResolver->process($content);
 
         // imports
         // $this->parseImports($content, $path);
@@ -135,13 +138,16 @@ final class CheckerTolerantYamlFileLoader extends YamlFileLoader
     {
         $decodedYaml = parent::loadFile($file);
 
-        if (! isset($decodedYaml[self::SERVICES_KEY])) {
-            return $decodedYaml;
+        if (isset($decodedYaml[self::SERVICES_KEY])) {
+            $decodedYaml[self::SERVICES_KEY] = $this->checkerServiceParametersShifter->processServices(
+                $decodedYaml[self::SERVICES_KEY]
+            );
+
         }
 
-        $decodedYaml[self::SERVICES_KEY] = $this->checkerServiceParametersShifter->processServices(
-            $decodedYaml[self::SERVICES_KEY]
-        );
+        if (isset($decodedYaml[self::IMPORTS_KEY])) {
+            $decodedYaml = $this->parameterInImportResolver->process($decodedYaml);
+        }
 
         return $decodedYaml;
     }
