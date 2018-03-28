@@ -11,7 +11,7 @@ final class FileHashComputer
 {
     public function compute(string $filePath): string
     {
-        if (! Strings::endsWith($filePath, '.yml') && ! Strings::endsWith($filePath, '.yaml')) {
+        if (! Strings::match($filePath, '#\.(yml|yaml)$#')) {
             return md5_file($filePath);
         }
 
