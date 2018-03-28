@@ -5,8 +5,9 @@ namespace Symplify\EasyCodingStandard\Yaml;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symplify\EasyCodingStandard\Exception\Yaml\InvalidParametersValueException;
+use Symplify\PackageBuilder\Exception\Yaml\InvalidParametersValueException;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use Symplify\PackageBuilder\Yaml\ParameterInImportResolver;
 
 /**
  * The need: https://github.com/symfony/symfony/pull/21313#issuecomment-372037445

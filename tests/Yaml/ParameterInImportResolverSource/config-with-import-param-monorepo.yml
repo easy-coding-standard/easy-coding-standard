@@ -1,2 +1,0 @@
-imports:
-    - { resource: '%current_working_dir%/packages/EasyCodingStandard/tests/Yaml/ParameterInImportResolverSource/imported-config.yml' }
