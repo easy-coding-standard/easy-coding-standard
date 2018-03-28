@@ -16,6 +16,7 @@ services:
         alias: Symfony\Component\Console\Output\ConsoleOutput
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
+    Symplify\PackageBuilder\FileSystem\FileGuard: ~
 
     Symplify\CodingStandard\Fixer\TokenBuilder: ~
 
