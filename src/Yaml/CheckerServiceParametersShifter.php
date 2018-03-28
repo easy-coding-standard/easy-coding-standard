@@ -55,7 +55,7 @@ final class CheckerServiceParametersShifter
     }
 
     /**
-     * @param mixed[] $services
+     * @param mixed[] $configuration
      * @return mixed[]
      */
     public function process(array $configuration): array
