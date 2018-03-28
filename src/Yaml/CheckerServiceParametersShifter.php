@@ -32,6 +32,11 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 final class CheckerServiceParametersShifter
 {
     /**
+     * @var string
+     */
+    private const SERVICES_KEY = 'services';
+
+    /**
      * @var CheckerConfigurationGuardian
      */
     private $checkerConfigurationGuardian;
@@ -53,8 +58,14 @@ final class CheckerServiceParametersShifter
      * @param mixed[] $services
      * @return mixed[]
      */
-    public function processServices(array $services): array
+    public function process(array $configuration): array
     {
+        if (! isset($configuration[self::SERVICES_KEY])) {
+            return $configuration;
+        }
+
+        $services = $configuration[self::SERVICES_KEY];
+
         foreach ($services as $serviceName => $serviceDefinition) {
             if (! $this->isCheckerClass($serviceName) || empty($serviceDefinition)) {
                 continue;
@@ -78,7 +89,9 @@ final class CheckerServiceParametersShifter
             }
         }
 
-        return $services;
+        $configuration[self::SERVICES_KEY] = $services;
+
+        return $configuration;
     }
 
     private function isCheckerClass(string $checker): bool
