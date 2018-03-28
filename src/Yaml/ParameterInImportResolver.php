@@ -29,8 +29,8 @@ final class ParameterInImportResolver
     public function __construct()
     {
         $this->decoratingParameterBag = new ParameterBag([
-            'current_working_directory' => getcwd(),
-            'vendor_directory' => VendorDirProvider::provide(),
+            'current_working_dir' => getcwd(),
+            'vendor_dir' => VendorDirProvider::provide(),
             # aliases for simple use
             'cwd' => getcwd(),
             'vendor' => VendorDirProvider::provide(),
