@@ -120,10 +120,7 @@ final class File extends BaseFile
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
     {
-        $this->appliedCheckersCollector->addFileAndChecker(
-            $this->path,
-            $this->resolveFullyQualifiedCode($code)
-        );
+        $this->appliedCheckersCollector->addFileAndChecker($this->path, $this->resolveFullyQualifiedCode($code));
 
         return ! $this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path);
     }

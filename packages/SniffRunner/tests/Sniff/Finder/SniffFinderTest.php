@@ -12,9 +12,6 @@ final class SniffFinderTest extends AbstractContainerAwareTestCase
     {
         /** @var SniffFinder $sniffFinder */
         $sniffFinder = $this->container->get(SniffFinder::class);
-        $this->assertGreaterThan(
-            250,
-            $sniffFinder->findAllSniffClassesInDirectory(VendorDirProvider::provide())
-        );
+        $this->assertGreaterThan(250, $sniffFinder->findAllSniffClassesInDirectory(VendorDirProvider::provide()));
     }
 }

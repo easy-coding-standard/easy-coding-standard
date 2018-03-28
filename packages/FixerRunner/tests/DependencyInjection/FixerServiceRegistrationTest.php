@@ -27,10 +27,7 @@ final class FixerServiceRegistrationTest extends TestCase
 
         /** @var ArraySyntaxFixer $arraySyntaxFixer */
         $arraySyntaxFixer = $checkers[0];
-        $this->assertSame(
-            ['syntax' => 'short'],
-            Assert::getObjectAttribute($arraySyntaxFixer, 'configuration')
-        );
+        $this->assertSame(['syntax' => 'short'], Assert::getObjectAttribute($arraySyntaxFixer, 'configuration'));
 
         /** @var VisibilityRequiredFixer $visibilityRequiredFixer */
         $visibilityRequiredFixer = $checkers[1];
