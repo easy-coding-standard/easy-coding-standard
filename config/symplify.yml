@@ -17,6 +17,7 @@ services:
     Symplify\CodingStandard\Fixer\LineLength\BreakMethodArgumentsFixer: ~
     Symplify\CodingStandard\Fixer\LineLength\BreakMethodCallsFixer: ~
     Symplify\CodingStandard\Fixer\LineLength\BreakArrayListFixer: ~
+    Symplify\CodingStandard\Fixer\LineLength\BreakNewInstanceArgumentsFixer: ~
 
     # Comments
     Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer: ~
