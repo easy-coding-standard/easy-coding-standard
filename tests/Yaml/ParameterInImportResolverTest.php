@@ -21,8 +21,20 @@ final class ParameterInImportResolverTest extends TestCase
             new EasyCodingStandardKernel()
         );
 
-        $delegatingLoader->load(__DIR__ . '/ParameterInImportResolverSource/config-with-import-param.yml');
+        $delegatingLoader->load($this->provideConfig());
 
-        $this->assertArrayHasKey('skip', $containerBuilder->getParameterBag()->all());
+        $this->assertTrue($containerBuilder->getParameter('it_works'));
+    }
+
+    /**
+     * @return string
+     */
+    private function provideConfig(): string
+    {
+        if (defined('SYMPLIFY_MONOREPO')) {
+            return __DIR__ . '/ParameterInImportResolverSource/config-with-import-param-monorepo.yml';
+        } else {
+            return __DIR__ . '/ParameterInImportResolverSource/config-with-import-param-split.yml';
+        }
     }
 }
