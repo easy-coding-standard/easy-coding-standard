@@ -11,7 +11,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireChecker
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
@@ -82,7 +81,6 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         $containerBuilder->addCompilerPass(new PublicForTestsCompilerPass());
 
         // method calls
-        $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
         $containerBuilder->addCompilerPass(new CollectorCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
         $containerBuilder->addCompilerPass(new AutowireSinglyImplementedCompilerPass());
