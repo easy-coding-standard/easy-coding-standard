@@ -82,6 +82,18 @@ imports:
     - { resource: 'vendor/symplify/easy-coding-standard/config/psr2.yml' }
 ```
 
+In case of [custom coding standard and include](https://github.com/lmc-eu/php-coding-standard/pull/6/files#diff-a8b950982764fcffe4b7b3acd261cf91) e.g. `psr2.yml` form this package, you might want to use `%vendor_dir%` or `%current_working_dir%` for:
+
+```yaml
+# lmc-coding-standard.yml
+imports:
+    - { resource: '%vendor_dir%/symplify/easy-coding-standard/config/psr2.yml' }
+    # or
+    - { resource: '%current_working_dir%/vendor/symplify/easy-coding-standard/config/psr2.yml' }
+```
+
+That would load file always from vendor dir, no matter where you are.
+
 ### Exclude Checkers
 
 What if you add `symfony.yml` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
