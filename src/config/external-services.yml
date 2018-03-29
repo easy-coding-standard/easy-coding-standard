@@ -17,13 +17,9 @@ services:
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
     Symplify\PackageBuilder\FileSystem\FileGuard: ~
-
-    Symplify\CodingStandard\Fixer\TokenBuilder: ~
-
     Symplify\BetterReflectionDocBlock\DocBlockSerializerFactory: ~
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
-
     phpDocumentor\Reflection\FqsenResolver: ~
