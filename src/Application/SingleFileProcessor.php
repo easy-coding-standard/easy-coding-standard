@@ -72,6 +72,10 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
         try {
             $this->changedFilesDetector->addFile($relativePath);
             foreach ($this->fileProcessors as $fileProcessor) {
+                if (! $fileProcessor->getCheckers()) {
+                    continue;
+                }
+
                 if ($this->skipper->shouldSkipFile($fileInfo)) {
                     continue;
                 }
