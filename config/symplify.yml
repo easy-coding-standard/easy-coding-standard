@@ -14,7 +14,6 @@ services:
     Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
 
     # LineLength
-    Symplify\CodingStandard\Fixer\LineLength\BreakMethodCallsFixer: ~
     Symplify\CodingStandard\Fixer\LineLength\BreakArrayListFixer: ~
     Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: ~
 
