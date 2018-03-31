@@ -17,14 +17,6 @@ final class AppliedCheckersCollector
     }
 
     /**
-     * @return string[][]
-     */
-    public function getAppliedCheckersByFile(): array
-    {
-        return $this->appliedCheckersByFile;
-    }
-
-    /**
      * @return string[]
      */
     public function getAppliedCheckersPerFile(string $filePath): array
