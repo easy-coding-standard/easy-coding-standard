@@ -9,8 +9,8 @@ services:
     PhpCsFixer\Fixer\Import\OrderedImportsFixer:
         importsOrder:
             - 'class'
-            - 'function'
             - 'const'
+            - 'function'
     PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer:
         space: 'none'
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
@@ -34,6 +34,13 @@ services:
     PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
     PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: ~
+
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: 'one'
+
+    PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer: ~
+    PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer:
+    PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer:
 
 parameters:
     exclude_checkers:
