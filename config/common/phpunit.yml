@@ -4,3 +4,6 @@ services:
 
     # test<>()
     PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer: ~
+
+    # public setUp()   =>   protected setUp()
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer: ~
