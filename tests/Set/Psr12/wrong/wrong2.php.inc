@@ -1,4 +1,6 @@
-<?php declare( strict_types = 1 );
+<?php
+
+declare(strict_types=1);
 
 /** Control Structures */
 if( $simple  ==  true )$doSomething=true;
@@ -67,12 +69,6 @@ do
 while( $simple );
 do{
 }while($simple);
-
-for( $i=1 ;$i<2 ;$i++ ){
-}
-for($i=1;$i<2;$i++)
-{
-}
 
 foreach( $simple as $key=>$value ){
 }
@@ -170,11 +166,6 @@ use( $var1, $var2 ){
 function () use ($a,$b) {
 }*/
 
-function ($a,
-          $b, $c,
-          $d){
-};
-
 /** @todo Align multiline "use" statements
  * @see 7
 function ($a,
@@ -188,16 +179,6 @@ $f, $g) {
 function ($a
 $b, $c) {
 }*/
-
-$foo->bar(
-    $arg1,
-    function ($a,
-              $b, $c,
-              $d) use ($e){
-        // Body
-    },
-    $arg3
-);
 
 /** Anonymous Classes */
 new class(
