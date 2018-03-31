@@ -5,11 +5,15 @@ namespace Vendor\Package;
 
 use Vendor\Package\SomeNamespace\ClassD as D;
 use Vendor\Package\{ClassA as A, ClassB, ClassC as C};
-use function Vendor\Package\{functionA, functionB, functionC};
 use const Vendor\Package\{ConstantA, ConstantB, ConstantC};
+use function Vendor\Package\{functionA, functionB, functionC};
 
 class Foo extends Bar implements FooInterface
 {
+    public $a;
+    public $b;
+    public $c;
+
     public function sampleFunction(int $a, int $b = null): array
     {
         if ($someLine === 'Longer Than 120 characters' && $respected->getVersion() === 'PSR12' && $respected->lineLengthRecommendeations() === false) {
