@@ -1,4 +1,7 @@
 services:
+    # get_class()   =>   __CLASS__
+    PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer: ~
+
     # "$var" => "${var}"
     PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer: ~
     PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer: ~
