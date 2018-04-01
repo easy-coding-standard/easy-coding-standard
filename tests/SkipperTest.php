@@ -71,7 +71,7 @@ final class SkipperTest extends TestCase
     }
 
     /**
-     * @return string[]
+     * @return mixed[]
      */
     private function createSkipParameter(): array
     {
