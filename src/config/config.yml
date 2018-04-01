@@ -6,3 +6,4 @@ imports:
 parameters:
     cache_directory: '%kernel.cache_dir%/_changed_files_detector'
     skip: []
+    exclude_files: []

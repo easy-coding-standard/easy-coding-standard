@@ -3,6 +3,7 @@ services:
         autowire: true
         bind:
             $skip: "%skip%"
+            $excludeFiles: "%exclude_files%"
 
     Symplify\EasyCodingStandard\:
         resource: '../../src'
