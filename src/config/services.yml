@@ -1,6 +1,8 @@
 services:
     _defaults:
         autowire: true
+        bind:
+            $skip: "%skip%"
 
     Symplify\EasyCodingStandard\:
         resource: '../../src'
