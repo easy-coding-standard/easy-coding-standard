@@ -31,10 +31,12 @@ final class Skipper
      */
     private $excludedFiles = [];
 
-    public function __construct(ParameterProvider $parameterProvider)
+    /**
+     * @param mixed[] $skip
+     */
+    public function __construct(array $skip, ParameterProvider $parameterProvider)
     {
-        $skipped = $parameterProvider->provide()[Option::SKIP] ?? [];
-        $this->filterToSkippedAndSkippedCodes($skipped);
+        $this->filterToSkippedAndSkippedCodes($skip);
 
         $this->unusedSkipped = $this->skipped;
 
