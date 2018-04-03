@@ -16,7 +16,7 @@ final class SkipperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->skipper = new Skipper($this->createSkipParameter(), []);
+        $this->skipper = new Skipper($this->createSkipParameter(), [], []);
     }
 
     public function testNotSkipped(): void
