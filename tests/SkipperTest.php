@@ -59,17 +59,6 @@ final class SkipperTest extends TestCase
         ));
     }
 
-    public function testRemoveFileFromUnused(): void
-    {
-        $this->skipper->removeFileFromUnused('someFile');
-
-        $this->assertSame([
-            DeclareStrictTypesFixer::class => [
-                1 => '*/someDirectory/*',
-            ],
-        ], $this->skipper->getUnusedSkipped());
-    }
-
     /**
      * @return mixed[]
      */
