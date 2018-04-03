@@ -4,6 +4,7 @@ services:
         bind:
             $skip: "%skip%"
             $excludeFiles: "%exclude_files%"
+            $rootSkip: "%root_skip%"
 
     Symplify\EasyCodingStandard\:
         resource: '../../src'

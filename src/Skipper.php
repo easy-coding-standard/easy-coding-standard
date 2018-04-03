@@ -32,11 +32,12 @@ final class Skipper
     /**
      * @param mixed[] $skip
      * @param mixed[] $excludeFiles
+     * @param mixed[] $rootSkip
      */
-    public function __construct(array $skip, array $excludeFiles)
+    public function __construct(array $skip, array $excludeFiles, array $rootSkip)
     {
+        $this->unusedSkipped = $rootSkip;
         $this->filterToSkippedAndSkippedCodes($skip);
-        $this->unusedSkipped = $this->skipped;
         $this->excludedFiles = $excludeFiles;
     }
 
@@ -81,6 +82,10 @@ final class Skipper
     public function removeFileFromUnused(string $relativePath): void
     {
         foreach ($this->unusedSkipped as $skippedChecker => $skippedFiles) {
+            if (! is_array($skippedFiles)) {
+                continue;
+            }
+
             foreach ($skippedFiles as $key => $skippedFile) {
                 if ($this->fileMatchesPattern($relativePath, $skippedFile)) {
                     unset($this->unusedSkipped[$skippedChecker][$key]);

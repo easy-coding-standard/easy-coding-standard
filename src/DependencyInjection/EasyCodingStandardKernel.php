@@ -7,6 +7,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -68,6 +69,13 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
      */
     protected function build(ContainerBuilder $containerBuilder): void
     {
+        if ($this->configFile) {
+            // get root skip parameters, for unused skipper
+            $parsedRootConfig = Yaml::parseFile($this->configFile);
+            $rootSkip = $parsedRootConfig['parameters']['skip'] ?? [];
+            $containerBuilder->setParameter('root_skip', $rootSkip);
+        }
+
         // cleanup
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
         $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());
