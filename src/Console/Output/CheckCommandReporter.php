@@ -57,6 +57,16 @@ final class CheckCommandReporter
     public function reportUnusedSkipped(): void
     {
         foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
+            if (! is_array($skippedFiles)) {
+                $this->easyCodingStandardStyle->error(sprintf(
+                    'Skipped checker "%s" were not found. '
+                    . 'You can remove them from "parameters: > skip:" section in your config.',
+                    $skippedClass
+                ));
+
+                continue;
+            }
+
             foreach ($skippedFiles as $skippedFile) {
                 if (! $this->isFileInSource($skippedFile)) {
                     continue;
