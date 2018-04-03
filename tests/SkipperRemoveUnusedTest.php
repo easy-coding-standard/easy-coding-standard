@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\Tests;
 
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PHPUnit\Framework\TestCase;
-use Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer;
 use Symplify\EasyCodingStandard\Skipper;
 
 final class SkipperRemoveUnusedTest extends TestCase
@@ -33,7 +32,7 @@ final class SkipperRemoveUnusedTest extends TestCase
         ], $this->skipper->getUnusedSkipped());
     }
 
-    public function testRemoveFile()
+    public function testRemoveFile(): void
     {
         $this->skipper->removeFileFromUnused('someFile');
 
