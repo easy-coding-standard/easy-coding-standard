@@ -15,7 +15,11 @@ final class SkipperRemoveUnusedTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->skipper = new Skipper($this->createSkipParameter(), []);
+        $rootSkip = $this->createSkipParameter();
+        $skip = array_merge([
+            'ExtraParentConfigSniff' => null,
+        ], $rootSkip);
+        $this->skipper = new Skipper($skip, [], $rootSkip);
     }
 
     public function testKeepAll(): void
