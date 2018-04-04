@@ -27,6 +27,7 @@ final class SniffFileProcessorTest extends TestCase
         $container = (new ContainerFactory())->createWithConfig(
             __DIR__ . '/SniffRunnerSource/easy-coding-standard.yml'
         );
+
         $this->errorAndDiffCollector = $container->get(ErrorAndDiffCollector::class);
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
 
@@ -39,7 +40,7 @@ final class SniffFileProcessorTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(0, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
         $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
 
         $fileDiffs = $this->errorAndDiffCollector->getFileDiffs();
