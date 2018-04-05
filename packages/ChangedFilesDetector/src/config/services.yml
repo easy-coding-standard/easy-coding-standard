@@ -8,4 +8,7 @@ services:
     Symfony\Component\Cache\Simple\FilesystemCache:
         $directory: '%cache_directory%'
 
-    Symfony\Component\Cache\Adapter\SimpleCacheAdapter: ~
+    Symfony\Component\Cache\Adapter\SimpleCacheAdapter:
+    Symfony\Component\Cache\Adapter\TagAwareAdapter:
+        $itemsPool: '@Symfony\Component\Cache\Adapter\SimpleCacheAdapter'
+        $tagsPool: '@Symfony\Component\Cache\Adapter\SimpleCacheAdapter'
