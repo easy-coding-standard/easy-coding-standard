@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Nette\Caching\Cache;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
+use Symplify\PackageBuilder\FileSystem\FileGuard;
 
 final class ChangedFilesDetector
 {
@@ -27,10 +28,16 @@ final class ChangedFilesDetector
      */
     private $fileHashComputer;
 
-    public function __construct(Cache $cache, FileHashComputer $fileHashComputer)
+    /**
+     * @var FileGuard
+     */
+    private $fileGuard;
+
+    public function __construct(Cache $cache, FileHashComputer $fileHashComputer, FileGuard $fileGuard)
     {
         $this->cache = $cache;
         $this->fileHashComputer = $fileHashComputer;
+        $this->fileGuard = $fileGuard;
 
         $configurationFile = ConfigFileFinder::provide('ecs');
         if ($configurationFile !== null && is_file($configurationFile)) {
@@ -45,6 +52,8 @@ final class ChangedFilesDetector
 
     public function addFile(string $filePath): void
     {
+        $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
+
         $hash = $this->fileHashComputer->compute($filePath);
         $this->cache->save($filePath, $hash, [
             Cache::TAGS => self::CHANGED_FILES_CACHE_TAG,
@@ -53,11 +62,15 @@ final class ChangedFilesDetector
 
     public function invalidateFile(string $filePath): void
     {
+        $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
+
         $this->cache->remove($filePath);
     }
 
     public function hasFileChanged(string $filePath): bool
     {
+        $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
+
         $newFileHash = $this->fileHashComputer->compute($filePath);
         $oldFileHash = $this->cache->load($filePath);
 
