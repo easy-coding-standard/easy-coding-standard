@@ -1,11 +1,11 @@
 services:
     _defaults:
         autowire: true
-        bind:
-            $cacheDirectory: '%cache_directory%'
 
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '..'
 
-    Symfony\Component\Cache\Simple\FilesystemCache: ~
+    Symfony\Component\Cache\Simple\FilesystemCache:
+        $directory: '%cache_directory%'
+
     Symfony\Component\Cache\Adapter\SimpleCacheAdapter: ~
