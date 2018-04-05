@@ -16,12 +16,12 @@ final class CachedFileLoader
     /**
      * @var CacheInterface
      */
-    private $symfonyCache;
+    private $cache;
 
-    public function __construct(FileGuard $fileGuard, CacheInterface $symfonyCache)
+    public function __construct(FileGuard $fileGuard, CacheInterface $cache)
     {
         $this->fileGuard = $fileGuard;
-        $this->symfonyCache = $symfonyCache;
+        $this->cache = $cache;
     }
 
     public function getFileContent(SplFileInfo $fileInfo): string
@@ -30,14 +30,14 @@ final class CachedFileLoader
 
         $cacheKey = 'file_content_' . md5_file($fileInfo->getRealPath());
 
-        $cachedFileContent = $this->symfonyCache->get($cacheKey);
+        $cachedFileContent = $this->cache->get($cacheKey);
         if ($cachedFileContent) {
             return $cachedFileContent;
         }
 
         $currentFileContent = $this->loadCurrentFileContent($fileInfo);
 
-        $this->symfonyCache->set($cacheKey, $cachedFileContent);
+        $this->cache->set($cacheKey, $cachedFileContent);
 
         return $currentFileContent;
     }
