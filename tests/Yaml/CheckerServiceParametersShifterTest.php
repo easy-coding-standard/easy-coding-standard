@@ -21,52 +21,36 @@ final class CheckerServiceParametersShifterTest extends TestCase
 
     /**
      * @dataProvider provideConfigToShiftedConfig()
-     * @param mixed[] $config
-     * @param mixed[] $expectedShiftedConfig
+     * @param mixed $sniffParameterValue
+     * @param mixed $expectedShiftedValue
      */
-    public function test(array $config, array $expectedShiftedConfig): void
+    public function testSniff($sniffParameterValue, $expectedShiftedValue): void
     {
-        $this->assertSame($expectedShiftedConfig, $this->checkerServiceParametersShifter->process($config));
+        $config = [
+            'services' => [
+                LineLengthSniff::class => [
+                    'absoluteLineLimit' => $sniffParameterValue,
+                ],
+            ],
+        ];
+
+        $expectedShifterConfig = [
+            'services' => [
+                LineLengthSniff::class => [
+                    'properties' => [
+                        'absoluteLineLimit' => $expectedShiftedValue,
+                    ]
+                ],
+            ],
+        ];
+
+        $this->assertSame($expectedShifterConfig, $this->checkerServiceParametersShifter->process($config));
     }
 
     public function provideConfigToShiftedConfig(): Iterator
     {
-        yield [
-            [
-                'services' => [
-                    LineLengthSniff::class => [
-                        'absoluteLineLimit' => 'value',
-                    ],
-                ],
-            ],
-            [
-                'services' => [
-                    LineLengthSniff::class => [
-                        'properties' => [
-                            'absoluteLineLimit' => 'value',
-                        ],
-                    ],
-                ],
-            ],
-        ];
-
-        yield [
-            [
-                'services' => [
-                    LineLengthSniff::class => [
-                        'absoluteLineLimit' => null,
-                    ],
-                ],
-            ],
-            [
-                'services' => [
-                    LineLengthSniff::class => [
-                        'properties' => [
-                            'absoluteLineLimit' => null,
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        yield ['value', 'value'];
+        yield [null, ''];
+        yield ['@annotation', '@@annotation'];
     }
 }
