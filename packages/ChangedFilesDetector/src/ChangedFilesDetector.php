@@ -31,16 +31,16 @@ final class ChangedFilesDetector
     /**
      * @var CacheInterface
      */
-    private $symfonyCache;
+    private $cache;
 
     public function __construct(
         FileHashComputer $fileHashComputer,
         FileGuard $fileGuard,
-        CacheInterface $symfonyCache
+        CacheInterface $cache
     ) {
         $this->fileHashComputer = $fileHashComputer;
         $this->fileGuard = $fileGuard;
-        $this->symfonyCache = $symfonyCache;
+        $this->cache = $cache;
 
         $configurationFile = ConfigFileFinder::provide('ecs');
         if ($configurationFile !== null && is_file($configurationFile)) {
@@ -58,14 +58,14 @@ final class ChangedFilesDetector
         $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
 
         $hash = $this->fileHashComputer->compute($filePath);
-        $this->symfonyCache->set($this->filePathToKey($filePath), $hash);
+        $this->cache->set($this->filePathToKey($filePath), $hash);
     }
 
     public function invalidateFile(string $filePath): void
     {
         $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
 
-        $this->symfonyCache->delete($this->filePathToKey($filePath));
+        $this->cache->delete($this->filePathToKey($filePath));
     }
 
     public function hasFileChanged(string $filePath): bool
@@ -73,7 +73,7 @@ final class ChangedFilesDetector
         $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
 
         $newFileHash = $this->fileHashComputer->compute($filePath);
-        $oldFileHash = $this->symfonyCache->get($this->filePathToKey($filePath));
+        $oldFileHash = $this->cache->get($this->filePathToKey($filePath));
 
         if ($newFileHash !== $oldFileHash) {
             return true;
@@ -85,19 +85,19 @@ final class ChangedFilesDetector
     public function clearCache(): void
     {
         // clear cache only for changed files group
-        $this->symfonyCache->clear();
+        $this->cache->clear();
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void
     {
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
 
-        $this->symfonyCache->set(self::CONFIGURATION_HASH_KEY, $configurationHash);
+        $this->cache->set(self::CONFIGURATION_HASH_KEY, $configurationHash);
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
     {
-        $oldConfigurationHash = $this->symfonyCache->get(self::CONFIGURATION_HASH_KEY);
+        $oldConfigurationHash = $this->cache->get(self::CONFIGURATION_HASH_KEY);
         if ($configurationHash !== $oldConfigurationHash) {
             $this->clearCache();
         }
