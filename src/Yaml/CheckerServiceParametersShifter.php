@@ -147,7 +147,7 @@ final class CheckerServiceParametersShifter
      */
     private function escapeValue($value)
     {
-        if (is_bool($value) || is_numeric($value)) {
+        if (! is_array($value) && ! is_string($value)) {
             return $value;
         }
 

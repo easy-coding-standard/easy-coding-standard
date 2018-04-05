@@ -39,7 +39,7 @@ final class CheckerServiceParametersShifterTest extends TestCase
                 LineLengthSniff::class => [
                     'properties' => [
                         'absoluteLineLimit' => $expectedShiftedValue,
-                    ]
+                    ],
                 ],
             ],
         ];
