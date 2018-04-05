@@ -2,26 +2,26 @@
 
 namespace Symplify\EasyCodingStandard\FileSystem;
 
-use Nette\Caching\Cache;
+use Psr\SimpleCache\CacheInterface;
 use SplFileInfo;
 use Symplify\PackageBuilder\FileSystem\FileGuard;
 
 final class CachedFileLoader
 {
     /**
-     * @var Cache
-     */
-    private $cache;
-
-    /**
      * @var FileGuard
      */
     private $fileGuard;
 
-    public function __construct(Cache $cache, FileGuard $fileGuard)
+    /**
+     * @var CacheInterface
+     */
+    private $symfonyCache;
+
+    public function __construct(FileGuard $fileGuard, CacheInterface $symfonyCache)
     {
-        $this->cache = $cache;
         $this->fileGuard = $fileGuard;
+        $this->symfonyCache = $symfonyCache;
     }
 
     public function getFileContent(SplFileInfo $fileInfo): string
@@ -30,14 +30,14 @@ final class CachedFileLoader
 
         $cacheKey = 'file_content_' . md5_file($fileInfo->getRealPath());
 
-        $cachedFileContent = $this->cache->load($cacheKey);
+        $cachedFileContent = $this->symfonyCache->get($cacheKey);
         if ($cachedFileContent) {
             return $cachedFileContent;
         }
 
         $currentFileContent = $this->loadCurrentFileContent($fileInfo);
 
-        $this->cache->save($cacheKey, $cachedFileContent);
+        $this->symfonyCache->set($cacheKey, $cachedFileContent);
 
         return $currentFileContent;
     }
