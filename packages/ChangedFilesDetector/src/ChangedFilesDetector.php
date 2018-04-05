@@ -58,8 +58,7 @@ final class ChangedFilesDetector
         $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
 
         $item = $this->tagAwareAdapter->getItem($this->filePathToKey($filePath));
-        $fileHash = $this->fileHashComputer->compute($filePath);
-        $item->set($fileHash);
+        $item->set($this->fileHashComputer->compute($filePath));
         $item->tag(self::CHANGED_FILES_CACHE_TAG);
         $this->tagAwareAdapter->save($item);
     }
