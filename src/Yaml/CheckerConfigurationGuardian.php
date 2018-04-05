@@ -31,6 +31,13 @@ final class CheckerConfigurationGuardian
             return;
         }
 
+        if (! class_exists($sniffClass)) {
+            throw new InvalidSniffPropertyException(sprintf(
+                'Checker class "%s" in configuration was not found',
+                $sniffClass
+            ));
+        }
+
         $suggested = ObjectHelpers::getSuggestion(array_keys(get_class_vars($sniffClass)), $property);
 
         throw new InvalidSniffPropertyException(sprintf(
