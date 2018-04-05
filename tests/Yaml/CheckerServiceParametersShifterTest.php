@@ -50,7 +50,7 @@ final class CheckerServiceParametersShifterTest extends TestCase
     public function provideConfigToShiftedConfig(): Iterator
     {
         yield ['value', 'value'];
-        yield [null, ''];
+        yield [null, null];
         yield ['@annotation', '@@annotation'];
     }
 }
