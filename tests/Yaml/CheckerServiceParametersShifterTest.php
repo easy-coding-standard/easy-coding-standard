@@ -52,5 +52,6 @@ final class CheckerServiceParametersShifterTest extends TestCase
         yield ['value', 'value'];
         yield [null, null];
         yield ['@annotation', '@@annotation'];
+        yield [['@nestedAnnotation'], ['@@nestedAnnotation']];
     }
 }
