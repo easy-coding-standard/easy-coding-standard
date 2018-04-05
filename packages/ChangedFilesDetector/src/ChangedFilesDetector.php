@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
-use Nette\Caching\Cache;
+use Psr\SimpleCache\CacheInterface;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\FileSystem\FileGuard;
 
@@ -19,11 +19,6 @@ final class ChangedFilesDetector
     private const CONFIGURATION_HASH_KEY = 'configuration_hash';
 
     /**
-     * @var Cache
-     */
-    private $cache;
-
-    /**
      * @var FileHashComputer
      */
     private $fileHashComputer;
@@ -33,11 +28,19 @@ final class ChangedFilesDetector
      */
     private $fileGuard;
 
-    public function __construct(Cache $cache, FileHashComputer $fileHashComputer, FileGuard $fileGuard)
-    {
-        $this->cache = $cache;
+    /**
+     * @var CacheInterface
+     */
+    private $symfonyCache;
+
+    public function __construct(
+        FileHashComputer $fileHashComputer,
+        FileGuard $fileGuard,
+        CacheInterface $symfonyCache
+    ) {
         $this->fileHashComputer = $fileHashComputer;
         $this->fileGuard = $fileGuard;
+        $this->symfonyCache = $symfonyCache;
 
         $configurationFile = ConfigFileFinder::provide('ecs');
         if ($configurationFile !== null && is_file($configurationFile)) {
@@ -55,16 +58,14 @@ final class ChangedFilesDetector
         $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
 
         $hash = $this->fileHashComputer->compute($filePath);
-        $this->cache->save($filePath, $hash, [
-            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG,
-        ]);
+        $this->symfonyCache->set($this->filePathToKey($filePath), $hash);
     }
 
     public function invalidateFile(string $filePath): void
     {
         $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
 
-        $this->cache->remove($filePath);
+        $this->symfonyCache->delete($this->filePathToKey($filePath));
     }
 
     public function hasFileChanged(string $filePath): bool
@@ -72,7 +73,7 @@ final class ChangedFilesDetector
         $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
 
         $newFileHash = $this->fileHashComputer->compute($filePath);
-        $oldFileHash = $this->cache->load($filePath);
+        $oldFileHash = $this->symfonyCache->get($this->filePathToKey($filePath));
 
         if ($newFileHash !== $oldFileHash) {
             return true;
@@ -84,22 +85,26 @@ final class ChangedFilesDetector
     public function clearCache(): void
     {
         // clear cache only for changed files group
-        $this->cache->clean([Cache::TAGS => self::CHANGED_FILES_CACHE_TAG]);
+        $this->symfonyCache->clear();
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void
     {
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
-        $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash, [
-            Cache::TAGS => self::CHANGED_FILES_CACHE_TAG,
-        ]);
+
+        $this->symfonyCache->set(self::CONFIGURATION_HASH_KEY, $configurationHash);
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
     {
-        $oldConfigurationHash = $this->cache->load(self::CONFIGURATION_HASH_KEY);
+        $oldConfigurationHash = $this->symfonyCache->get(self::CONFIGURATION_HASH_KEY);
         if ($configurationHash !== $oldConfigurationHash) {
             $this->clearCache();
         }
+    }
+
+    private function filePathToKey(string $filePath): string
+    {
+        return sha1($filePath);
     }
 }

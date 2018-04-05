@@ -9,3 +9,6 @@ services:
 
     Nette\Caching\Cache:
         factory: ['@Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\CacheFactory', 'create']
+
+    Symfony\Component\Cache\Simple\FilesystemCache: ~
+    Symfony\Component\Cache\Adapter\SimpleCacheAdapter: ~
