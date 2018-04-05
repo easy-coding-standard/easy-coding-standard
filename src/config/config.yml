@@ -4,7 +4,9 @@ imports:
     - { resource: 'external-services.yml' }
 
 parameters:
-    cache_directory: '%kernel.cache_dir%/_changed_files_detector'
+    cache_directory: '%kernel.cache_dir%/_changed_files_detector%env(TEST_SUFFIX)%'
     skip: []
     exclude_files: []
     root_skip: []
+    # for tests
+    env(TEST_SUFFIX): ''
