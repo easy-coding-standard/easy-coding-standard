@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 
 final class ErrorAndDiffCollector
@@ -51,7 +52,7 @@ final class ErrorAndDiffCollector
 
     public function addErrorMessage(string $filePath, int $line, string $message, string $sourceClass): void
     {
-        $this->changedFilesDetector->invalidateFile($filePath);
+        $this->changedFilesDetector->invalidateFile($this->getFileRealPath($filePath));
 
         $this->errors[$filePath][] = $this->errorFactory->createFromLineMessageSourceClass(
             $line,
@@ -78,7 +79,7 @@ final class ErrorAndDiffCollector
      */
     public function addDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
     {
-        $this->changedFilesDetector->invalidateFile($filePath);
+        $this->changedFilesDetector->invalidateFile($this->getFileRealPath($filePath));
 
         $this->fileDiffs[$filePath][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
             $diff,
@@ -106,5 +107,10 @@ final class ErrorAndDiffCollector
     {
         $this->errors = [];
         $this->fileDiffs = [];
+    }
+
+    private function getFileRealPath(string $filePath): string
+    {
+        return (new SplFileInfo($filePath))->getRealPath();
     }
 }
