@@ -83,7 +83,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     {
         $rows = [];
         foreach ($errors as $error) {
-            $message = $error->getMessage() . PHP_EOL . '(' . $error->getSourceClass() . ')';
+            $message = sprintf('%s%s(%s)', $error->getMessage(), PHP_EOL, $error->getSourceClass());
             $message = $this->clearCrLfFromMessage($message);
             $message = $this->wrapMessageSoItFitsTheColumnWidth($message);
 
