@@ -7,7 +7,6 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
 final class SniffFileProcessorTest extends TestCase
@@ -40,14 +39,8 @@ final class SniffFileProcessorTest extends TestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
-        $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
-
-        $fileDiffs = $this->errorAndDiffCollector->getFileDiffs();
-
-        $fileDiff = array_pop($fileDiffs)[0];
-
-        $this->assertInstanceOf(FileDiff::class, $fileDiff);
+        $this->assertSame(2, $this->errorAndDiffCollector->getErrorCount());
+        $this->assertSame(0, $this->errorAndDiffCollector->getFileDiffsCount());
     }
 
     private function runFileProcessor(): void
