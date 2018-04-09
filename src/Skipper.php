@@ -50,6 +50,7 @@ final class Skipper
 
             // skip all
             if ($value === null) {
+                unset($this->unusedSkipped[$index]);
                 return true;
             }
 
