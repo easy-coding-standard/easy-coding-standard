@@ -83,7 +83,7 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
                 $fileProcessor->processFile($fileInfo);
             }
         } catch (ParseError $parseError) {
-            $this->changedFilesDetector->invalidateFile($relativePath);
+            $this->changedFilesDetector->invalidateFile($fileInfo->getRealPath());
             $this->errorAndDiffCollector->addErrorMessage(
                 $relativePath,
                 $parseError->getLine(),
