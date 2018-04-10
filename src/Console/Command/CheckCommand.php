@@ -176,7 +176,7 @@ final class CheckCommand extends Command
             return;
         }
 
-        $this->easyCodingStandardStyle->warning(sprintf(
+        $this->easyCodingStandardStyle->fixableError(sprintf(
             '%s%d file%s %s fixable! Just add "--fix" to console command and rerun to apply.',
             $errorCount ? 'Good news is that ' : '',
             $fileDiffsCount,

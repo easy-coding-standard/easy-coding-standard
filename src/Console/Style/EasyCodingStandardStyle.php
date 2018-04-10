@@ -105,6 +105,11 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         $this->newLine();
     }
 
+    public function fixableError(string $message): void
+    {
+        $this->block($message, 'WARNING', 'fg=black;bg=yellow', ' ', true);
+    }
+
     /**
      * @param string[] $headers
      * @param mixed[] $rows
