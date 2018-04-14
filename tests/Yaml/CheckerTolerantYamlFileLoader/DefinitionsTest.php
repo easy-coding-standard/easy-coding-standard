@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
 
+use Iterator;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\TestCase;
@@ -36,77 +37,72 @@ final class DefinitionsTest extends TestCase
         }
     }
 
-    /**
-     * @return mixed[][]
-     */
-    public function provideConfigToConfiguredMethodAndPropertyDefinition(): array
+    public function provideConfigToConfiguredMethodAndPropertyDefinition(): Iterator
     {
-        return [
+        yield [
+            # config
+            __DIR__ . '/DefinitionsSource/config.yml',
+            # checkers
+            ArraySyntaxFixer::class,
+            # expected method call
+            ['configure', [['syntax' => 'short']]],
+            # expected set properties
+            [],
+        ];
+        yield [
+            __DIR__ . '/DefinitionsSource/config-with-imports.yml',
+            ArraySyntaxFixer::class,
+            ['configure', [['syntax' => 'short']]],
+            [],
+        ];
+        # "@" escaping
+        yield [
+            __DIR__ . '/DefinitionsSource/config-with-at.yml',
+            LineLengthSniff::class,
+            [],
+            ['absoluteLineLimit' => '@author'],
+        ];
+        # keep original keywords
+        yield [
+            __DIR__ . '/DefinitionsSource/config-classic.yml',
+            LineLengthSniff::class,
+            [],
+            ['absoluteLineLimit' => 150],
+        ];
+        yield [
+            __DIR__ . '/DefinitionsSource/config-classic.yml',
+            ArraySyntaxFixer::class,
+            ['configure', [['syntax' => 'short']]],
+            [],
+        ];
+        yield [
+            __DIR__ . '/DefinitionsSource/config-with-bool.yml',
+            TypeHintDeclarationSniff::class,
+            [],
+            ['enableObjectTypeHint' => false],
+        ];
+        yield [
+            __DIR__ . '/DefinitionsSource/checkers.yml',
+            TypeHintDeclarationSniff::class,
+            [],
             [
-                # config
-                __DIR__ . '/DefinitionsSource/config.yml',
-                # checkers
-                ArraySyntaxFixer::class,
-                # expected method call
-                ['configure', [['syntax' => 'short']]],
-                # expected set properties
-                [],
+                'enableVoidTypeHint' => true,
+                'enableNullableTypeHints' => true,
+                'enableObjectTypeHint' => false,
             ],
+        ];
+        yield [
+            __DIR__ . '/DefinitionsSource/checkers.yml',
+            NoClassInstantiationSniff::class,
+            [],
             [
-                __DIR__ . '/DefinitionsSource/config-with-imports.yml',
-                ArraySyntaxFixer::class,
-                ['configure', [['syntax' => 'short']]],
-                [],
-            ],
-            # "@" escaping
-            [
-                __DIR__ . '/DefinitionsSource/config-with-at.yml',
-                LineLengthSniff::class,
-                [],
-                ['absoluteLineLimit' => '@author'],
-            ],
-            # keep original keywords
-            [
-                __DIR__ . '/DefinitionsSource/config-classic.yml',
-                LineLengthSniff::class,
-                [],
-                ['absoluteLineLimit' => 150],
-            ],
-            [
-                __DIR__ . '/DefinitionsSource/config-classic.yml',
-                ArraySyntaxFixer::class,
-                ['configure', [['syntax' => 'short']]],
-                [],
-            ],
-            [
-                __DIR__ . '/DefinitionsSource/config-with-bool.yml',
-                TypeHintDeclarationSniff::class,
-                [],
-                ['enableObjectTypeHint' => false],
-            ],
-            [
-                __DIR__ . '/DefinitionsSource/checkers.yml',
-                TypeHintDeclarationSniff::class,
-                [],
-                [
-                    'enableVoidTypeHint' => true,
-                    'enableNullableTypeHints' => true,
-                    'enableObjectTypeHint' => false,
-                ],
-            ],
-            [
-                __DIR__ . '/DefinitionsSource/checkers.yml',
-                NoClassInstantiationSniff::class,
-                [],
-                [
-                    'extraAllowedClasses' => [
-                        Error::class,
-                        'Symplify\PackageBuilder\Reflection\*',
-                        'phpDocumentor\Reflection\Fqsen',
-                        ContainerBuilder::class,
-                        'Symplify\EasyCodingStandard\Yaml\*',
-                        ParameterBag::class,
-                    ],
+                'extraAllowedClasses' => [
+                    Error::class,
+                    'Symplify\PackageBuilder\Reflection\*',
+                    'phpDocumentor\Reflection\Fqsen',
+                    ContainerBuilder::class,
+                    'Symplify\EasyCodingStandard\Yaml\*',
+                    ParameterBag::class,
                 ],
             ],
         ];
