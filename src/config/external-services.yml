@@ -1,8 +1,8 @@
 imports:
     # A. in monorepo
-    - { resource: '../../../TokenRunner/src/config/services.yml', ignore_errors: true }
+    - { resource: '../../../TokenRunner/src/config/config.yml', ignore_errors: true }
     # B. as dependency
-    - { resource: '%vendor%/symplify/token-runner/src/config/services.yml', ignore_errors: true }
+    - { resource: '%vendor%/symplify/token-runner/src/config/config.yml', ignore_errors: true }
 
 services:
     _defaults:
