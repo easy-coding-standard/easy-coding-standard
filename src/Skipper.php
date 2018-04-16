@@ -101,7 +101,7 @@ final class Skipper
      */
     public function getUnusedSkipped(): array
     {
-        // global code skips always remove: ref https://github.com/Symplify/Symplify/issues/778
+        // always remove global code skips: ref https://github.com/Symplify/Symplify/issues/778
         foreach ($this->skippedCodes as $index => $value) {
             // skip all
             if ($value === null) {
