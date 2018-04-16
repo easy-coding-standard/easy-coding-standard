@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
+use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
@@ -122,7 +123,9 @@ final class File extends BaseFile
     {
         $this->appliedCheckersCollector->addFileAndChecker($this->path, $this->resolveFullyQualifiedCode($code));
 
-        return ! $this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path);
+        $absolutePath = (new SplFileInfo($this->path))->getRealPath();
+
+        return ! $this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $absolutePath);
     }
 
     /**
@@ -130,7 +133,9 @@ final class File extends BaseFile
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
-        if ($this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $this->path)) {
+        $absolutePath = (new SplFileInfo($this->path))->getRealPath();
+
+        if ($this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $absolutePath)) {
             return false;
         }
 
