@@ -4,3 +4,6 @@
 .travis.yml export-ignore
 phpunit.xml export-ignore
 README.md export-ignore
+/packages/ChangedFilesDetector/tests export-ignore
+/packages/FixerRunner/tests export-ignore
+/packages/SniffRunner/tests export-ignore
