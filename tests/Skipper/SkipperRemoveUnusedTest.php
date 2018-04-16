@@ -29,7 +29,6 @@ final class SkipperRemoveUnusedTest extends TestCase
                 0 => 'someFile',
                 1 => '*/someDirectory/*',
             ],
-            'someSniff.someCode' => null,
             'someSniff.someOtherCode' => [
                 '*/someDirectory/*',
             ],
@@ -44,7 +43,6 @@ final class SkipperRemoveUnusedTest extends TestCase
             DeclareStrictTypesFixer::class => [
                 1 => '*/someDirectory/*',
             ],
-            'someSniff.someCode' => null,
             'someSniff.someOtherCode' => [
                 '*/someDirectory/*',
             ],
