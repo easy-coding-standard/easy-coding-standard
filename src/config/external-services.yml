@@ -17,7 +17,6 @@ services:
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
     Symplify\PackageBuilder\FileSystem\FileGuard: ~
-    Symplify\BetterReflectionDocBlock\DocBlockSerializerFactory: ~
     Symplify\BetterReflectionDocBlock\CleanDocBlockFactory: ~
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
