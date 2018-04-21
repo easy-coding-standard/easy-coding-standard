@@ -99,7 +99,6 @@ final class DefinitionsTest extends TestCase
                 'extraAllowedClasses' => [
                     Error::class,
                     'Symplify\PackageBuilder\Reflection\*',
-                    'phpDocumentor\Reflection\Fqsen',
                     ContainerBuilder::class,
                     'Symplify\EasyCodingStandard\Yaml\*',
                     ParameterBag::class,

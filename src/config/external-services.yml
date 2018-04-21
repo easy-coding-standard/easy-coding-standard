@@ -20,4 +20,3 @@ services:
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
-    phpDocumentor\Reflection\FqsenResolver: ~
