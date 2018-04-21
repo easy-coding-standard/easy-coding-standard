@@ -7,7 +7,6 @@ services:
         extraAllowedClasses:
             - 'Symplify\EasyCodingStandard\Error\Error'
             - 'Symplify\PackageBuilder\Reflection\*'
-            - 'phpDocumentor\Reflection\Fqsen'
             - 'Symfony\Component\DependencyInjection\ContainerBuilder'
             - 'Symplify\EasyCodingStandard\Yaml\*'
             - 'Symfony\Component\DependencyInjection\ParameterBag\ParameterBag'
