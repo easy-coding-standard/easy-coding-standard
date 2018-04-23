@@ -50,10 +50,7 @@ final class File extends BaseFile
      *
      * @var string[]
      */
-    private $reportWarningsSniffs = [
-        CommentedOutCodeSniff::class,
-        AssignmentInConditionSniff::class,
-    ];
+    private $reportWarningsSniffs = [CommentedOutCodeSniff::class, AssignmentInConditionSniff::class];
 
     /**
      * @param array[] $tokens

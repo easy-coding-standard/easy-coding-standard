@@ -113,9 +113,7 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            $services[$checker]['calls'] = [
-                ['configure', [$serviceDefinition]],
-            ];
+            $services[$checker]['calls'] = [['configure', [$serviceDefinition]]];
         }
 
         return $services;

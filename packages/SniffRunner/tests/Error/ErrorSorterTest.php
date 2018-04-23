@@ -41,9 +41,7 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
     private function getUnsortedMessages(): array
     {
         return [
-            'filePath' => [
-                $this->errorFactory->createFromLineMessageSourceClass(5, 'error message', 'SomeClass'),
-            ],
+            'filePath' => [$this->errorFactory->createFromLineMessageSourceClass(5, 'error message', 'SomeClass')],
             'anotherFilePath' => [
                 $this->errorFactory->createFromLineMessageSourceClass(15, 'error message', 'SomeClass'),
                 $this->errorFactory->createFromLineMessageSourceClass(5, 'error message', 'SomeClass'),
