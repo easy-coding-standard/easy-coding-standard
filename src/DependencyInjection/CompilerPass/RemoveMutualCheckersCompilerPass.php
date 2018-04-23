@@ -157,10 +157,7 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
             'PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer',
             'PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer',
         ],
-        [
-            'PhpCsFixer\Fixer\Operator\IncrementStyleFixer',
-            'PhpCsFixer\Fixer\Operator\PreIncrementFixer',
-        ],
+        ['PhpCsFixer\Fixer\Operator\IncrementStyleFixer', 'PhpCsFixer\Fixer\Operator\PreIncrementFixer', ],
         [
             'PhpCsFixer\Fixer\Comment\SingleLineCommentStyleFixer',
             'PhpCsFixer\Fixer\Comment\HashToSlashCommentFixer',
