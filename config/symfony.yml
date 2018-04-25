@@ -28,6 +28,7 @@ services:
     PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer: ~
     PhpCsFixer\Fixer\Comment\NoEmptyCommentFixer: ~
     PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer: ~
     PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer: ~
     PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer:
         tokens:
