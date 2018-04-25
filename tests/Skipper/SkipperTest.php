@@ -65,9 +65,9 @@ final class SkipperTest extends TestCase
     private function createSkipParameter(): array
     {
         return [
-            DeclareStrictTypesFixer::class => ['someFile', '*/someDirectory/*', ],
+            DeclareStrictTypesFixer::class => ['someFile', '*/someDirectory/*'],
             'someSniff.someCode' => null,
-            'someSniff.someOtherCode' => ['*/someDirectory/*', ],
+            'someSniff.someOtherCode' => ['*/someDirectory/*'],
         ];
     }
 }
