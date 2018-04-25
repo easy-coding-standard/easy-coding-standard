@@ -8,6 +8,9 @@ services:
     # [ 1,\n2 ];
     PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer: ~
 
+    # [1, ]   =>   [1]
+    PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer: ~
+
     # array(    );
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
