@@ -28,12 +28,12 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
     private function getExcludedCheckersFromParameterBag(ParameterBagInterface $parameterBag): array
     {
         if ($parameterBag->has(Option::EXCLUDE_CHECKERS)) {
-            return $parameterBag->get(Option::EXCLUDE_CHECKERS);
+            return (array) $parameterBag->get(Option::EXCLUDE_CHECKERS);
         }
 
         // typo proof
         if ($parameterBag->has('excluded_checkers')) {
-            return $parameterBag->get('excluded_checkers');
+            return (array) $parameterBag->get('excluded_checkers');
         }
 
         return [];
