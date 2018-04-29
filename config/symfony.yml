@@ -2,15 +2,24 @@ imports:
     - { resource: 'php_cs_fixer/psr2.yml' }
 
 services:
+    PhpCsFixer\Fixer\Basic\BracesFixer:
+        allow_single_line_closure: true
     PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
     PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
         spacing: none
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
-    PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer:
+        tags:
+            - method
+            - param
+            - property
+            - return
+            - throws
+            - type
+            - var
+    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer: ~
+    PhpCsFixer\Fixer\Operator\IncrementStyleFixer: ~
     PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
-    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
-        align_double_arrow: false
-        align_equals: false
     PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer: ~
     PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: ~
     PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer: ~
@@ -58,6 +67,7 @@ services:
     PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocNoPackageFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocNoUselessInheritdocFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocSummaryFixer: ~
@@ -80,6 +90,7 @@ services:
     PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer: ~
     PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer:
         use: echo
+    PhpCsFixer\Fixer\Import\NoLeadingImportSlashFixer: ~
     PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
     PhpCsFixer\Fixer\PhpUnit\PhpUnitFqcnAnnotationFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocNoAliasTagFixer: ~
