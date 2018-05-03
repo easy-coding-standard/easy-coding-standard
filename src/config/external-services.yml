@@ -17,6 +17,7 @@ services:
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
     Symplify\PackageBuilder\FileSystem\FileGuard: ~
+    Symplify\PackageBuilder\Php\TypeAnalyzer: ~
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
