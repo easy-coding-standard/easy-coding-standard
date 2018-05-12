@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Yaml;
 
 use Nette\Utils\Strings;
+use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
@@ -111,6 +112,13 @@ final class CheckerServiceParametersShifter
         foreach ($serviceDefinition as $key => $value) {
             if ($this->isReservedKey($key)) {
                 continue;
+            }
+
+            // fixes comment extra bottom space
+            if ($checker === HeaderCommentFixer::class) {
+                if (isset($serviceDefinition['header'])) {
+                    $serviceDefinition['header'] = trim($serviceDefinition['header']);
+                }
             }
 
             $services[$checker]['calls'] = [['configure', [$serviceDefinition]]];
