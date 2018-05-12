@@ -4,9 +4,9 @@ namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator as SimpleFileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\GlobFileLoader;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
@@ -34,7 +34,7 @@ final class DelegatingLoaderFactory
         SimpleFileLocator $simpleFileLocator
     ): DelegatingLoader {
         $loaderResolver = new LoaderResolver([
-            new GlobFileLoader($containerBuilder, $simpleFileLocator),
+            new GlobFileLoader($simpleFileLocator),
             new CheckerTolerantYamlFileLoader($containerBuilder, $simpleFileLocator),
         ]);
 
