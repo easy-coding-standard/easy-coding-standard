@@ -1,11 +1,14 @@
 language: php
 
-php:
-  - 7.1
-  - 7.2
+matrix:
+  include:
+    - php: 7.1
+    - php: 7.1
+      env: COMPOSER_FLAGS="--prefer-lowest"
+    - php: 7.2
 
 install:
-  - composer install --prefer-source
+  - composer update --prefer-source $COMPOSER_FLAGS
 
 script:
   - bin/ecs
