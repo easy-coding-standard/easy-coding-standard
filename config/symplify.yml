@@ -37,6 +37,7 @@ services:
     Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff: ~
     Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff: ~
     Symplify\CodingStandard\Sniffs\CleanCode\ForbiddenReferenceSniff: ~
+    Symplify\CodingStandard\Sniffs\CleanCode\CognitiveComplexitySniff: ~
 
     # Debug
     Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~
