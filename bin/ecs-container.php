@@ -12,7 +12,7 @@ $configFile = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput
 if ($configFile === null) {
     ConfigFileFinder::detectFromInput('ecs', new ArgvInput());
     // 3. Fallback to root file
-    $configFile = ConfigFileFinder::provide('ecs', ['easy-coding-standard.yml', 'easy-coding-standard.yaml']);
+    $configFile = ConfigFileFinder::provide('ecs', ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']);
 } else {
     ConfigFileFinder::set('ecs', $configFile);
 }
