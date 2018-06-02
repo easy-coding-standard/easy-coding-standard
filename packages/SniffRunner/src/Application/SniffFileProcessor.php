@@ -150,10 +150,10 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         if ($fileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($fileInfo->getContents(), $this->fixer->getContents());
 
-            $this->errorAndDiffCollector->addDiffForFile(
-                $fileInfo->getRelativePathname(),
+            $this->errorAndDiffCollector->addDiffForFileInfo(
+                $fileInfo,
                 $diff,
-                $this->appliedCheckersCollector->getAppliedCheckersPerFile($fileInfo->getRelativePathname())
+                $this->appliedCheckersCollector->getAppliedCheckersPerFileInfo($fileInfo)
             );
         }
 
