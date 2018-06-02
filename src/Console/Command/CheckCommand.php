@@ -14,6 +14,7 @@ use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
 final class CheckCommand extends Command
 {
@@ -60,7 +61,7 @@ final class CheckCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('check');
+        $this->setName(CommandNaming::classToName(self::class));
         $this->setDescription('Check coding standard in one or more directories.');
         $this->addArgument(
             Option::SOURCE,
