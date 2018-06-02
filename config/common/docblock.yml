@@ -5,7 +5,10 @@ services:
     # remove empty spaces in phpdoc
     PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer:
 
-    # remove empty lines in phpdoc (be carefull, can be buggy)
+    # trim 2+ empty lines in PhpDoc to 1
+    PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer: ~
+
+    # remove empty lines in phpdoc (be careful, can be buggy)
     PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: ~
 
     # remove empty phpdocs
