@@ -23,3 +23,6 @@ services:
 
     # { echo 'hi'; }
     PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer:
+
+    # $var = 5; return $var;    →    return $var;
+    PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer:
