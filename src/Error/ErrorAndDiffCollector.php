@@ -3,7 +3,8 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
+use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 
 final class ErrorAndDiffCollector
@@ -38,21 +39,29 @@ final class ErrorAndDiffCollector
      */
     private $errorFactory;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         ChangedFilesDetector $changedFilesDetector,
         ErrorSorter $errorSorter,
         FileDiffFactory $fileDiffFactory,
-        ErrorFactory $errorFactory
+        ErrorFactory $errorFactory,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->changedFilesDetector = $changedFilesDetector;
         $this->errorSorter = $errorSorter;
         $this->fileDiffFactory = $fileDiffFactory;
         $this->errorFactory = $errorFactory;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function addErrorMessage(string $filePath, int $line, string $message, string $sourceClass): void
     {
-        $this->changedFilesDetector->invalidateFile($this->getFileRealPath($filePath));
+        $fileInfo = $this->currentFileProvider->getFileInfo();
+        $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
         $this->errors[$filePath][] = $this->errorFactory->createFromLineMessageSourceClass(
             $line,
@@ -77,11 +86,11 @@ final class ErrorAndDiffCollector
     /**
      * @param string[] $appliedCheckers
      */
-    public function addDiffForFile(string $filePath, string $diff, array $appliedCheckers): void
+    public function addDiffForFileInfo(SplFileInfo $fileInfo, string $diff, array $appliedCheckers): void
     {
-        $this->changedFilesDetector->invalidateFile($this->getFileRealPath($filePath));
+        $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $this->fileDiffs[$filePath][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
+        $this->fileDiffs[$fileInfo->getRealPath()][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
             $diff,
             $appliedCheckers
         );
@@ -107,10 +116,5 @@ final class ErrorAndDiffCollector
     {
         $this->errors = [];
         $this->fileDiffs = [];
-    }
-
-    private function getFileRealPath(string $filePath): string
-    {
-        return (new SplFileInfo($filePath))->getRealPath();
     }
 }
