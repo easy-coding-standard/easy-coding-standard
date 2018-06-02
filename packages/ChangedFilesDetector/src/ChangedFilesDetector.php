@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\FileSystem\FileGuard;
 
@@ -63,11 +64,9 @@ final class ChangedFilesDetector
         $this->tagAwareAdapter->save($item);
     }
 
-    public function invalidateFile(string $filePath): void
+    public function invalidateFileInfo(SplFileInfo $fileInfo): void
     {
-        $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
-
-        $this->tagAwareAdapter->deleteItem($this->filePathToKey($filePath));
+        $this->tagAwareAdapter->deleteItem($this->filePathToKey($fileInfo->getRealPath()));
     }
 
     public function hasFileChanged(string $filePath): bool

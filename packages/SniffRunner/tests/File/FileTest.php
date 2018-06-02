@@ -2,7 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
+use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
@@ -21,14 +22,27 @@ final class FileTest extends AbstractContainerAwareTestCase
      */
     private $errorAndDiffCollector;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     protected function setUp(): void
     {
         $this->errorAndDiffCollector = $this->container->get(ErrorAndDiffCollector::class);
+        $this->currentFileProvider = $this->container->get(CurrentFileProvider::class);
 
         /** @var FileFactory $fileFactory */
         $fileFactory = $this->container->get(FileFactory::class);
-        $fileInfo = new SplFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
+        $fileInfo = new SplFileInfo(
+            __DIR__ . '/FileFactorySource/SomeFile.php',
+            'FileFactorySource',
+            'FileFactorySource/SomeFile.php'
+        );
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
+
+        // simulates Application cycle
+        $this->currentFileProvider->setFileInfo($fileInfo);
     }
 
     public function testErrorDataCollector(): void

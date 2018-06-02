@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use SplFileInfo;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
+use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
@@ -42,13 +43,19 @@ final class FileFactory
      */
     private $appliedCheckersCollector;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         Fixer $fixer,
         ErrorAndDiffCollector $errorAndDiffCollector,
         FileToTokensParser $fileToTokensParser,
         CurrentSniffProvider $currentSniffProvider,
         Skipper $skipper,
-        AppliedCheckersCollector $appliedCheckersCollector
+        AppliedCheckersCollector $appliedCheckersCollector,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -56,6 +63,7 @@ final class FileFactory
         $this->currentSniffProvider = $currentSniffProvider;
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function createFromFileInfo(SplFileInfo $fileInfo): File
@@ -71,7 +79,8 @@ final class FileFactory
             $this->errorAndDiffCollector,
             $this->currentSniffProvider,
             $this->skipper,
-            $this->appliedCheckersCollector
+            $this->appliedCheckersCollector,
+            $this->currentFileProvider
         );
 
         // BC layer
