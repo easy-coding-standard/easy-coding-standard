@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -23,7 +23,11 @@ final class FileFactoryTest extends AbstractContainerAwareTestCase
 
     public function test(): void
     {
-        $fileInfo = new SplFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
+        $fileInfo = new SplFileInfo(
+            __DIR__ . '/FileFactorySource/SomeFile.php',
+            'FileFactorySource',
+            'FileFactorySource/SomeFile.php'
+        );
         $file = $this->fileFactory->createFromFileInfo($fileInfo);
         $this->assertInstanceOf(File::class, $file);
         $this->assertInstanceOf(BaseFile::class, $file);

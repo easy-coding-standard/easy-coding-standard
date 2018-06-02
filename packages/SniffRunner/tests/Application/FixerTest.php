@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
@@ -25,7 +25,7 @@ final class FixerTest extends AbstractContainerAwareTestCase
         /** @var FileFactory $fileFactory */
         $fileFactory = $this->container->get(FileFactory::class);
 
-        $fileInfo = new SplFileInfo(__DIR__ . '/FixerSource/SomeFile.php');
+        $fileInfo = new SplFileInfo(__DIR__ . '/FixerSource/SomeFile.php', 'FixerSource', 'FixerSource/SomeFile.php');
 
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
         $this->fixer = $this->container->get(Fixer::class);

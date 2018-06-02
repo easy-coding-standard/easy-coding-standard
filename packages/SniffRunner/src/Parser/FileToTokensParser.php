@@ -4,8 +4,8 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Parser;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Tokenizers\PHP;
-use SplFileInfo;
 use stdClass;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 
 final class FileToTokensParser
@@ -28,16 +28,16 @@ final class FileToTokensParser
     /**
      * @return mixed[]
      */
-    public function parseFromFilePath(string $filePath): array
+    public function parseFromFileInfo(SplFileInfo $filePath): array
     {
-        $phpTokenizer = $this->createTokenizerFromFilePath($filePath);
+        $phpTokenizer = $this->createTokenizerFromFileInfo($filePath);
 
         return $phpTokenizer->getTokens();
     }
 
-    public function createTokenizerFromFilePath(string $filePath): PHP
+    public function createTokenizerFromFileInfo(SplFileInfo $filePath): PHP
     {
-        $fileContent = $this->cachedFileLoader->getFileContent(new SplFileInfo($filePath));
+        $fileContent = $this->cachedFileLoader->getFileContent($filePath);
 
         return new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL);
     }
