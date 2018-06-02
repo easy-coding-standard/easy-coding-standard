@@ -64,7 +64,7 @@ final class SourceFinder
         $fileInfo = new SplFileInfo($file);
 
         return array_merge($files, [
-            $file => new SymfonySplFileInfo($file, '', $fileInfo->getFilename()),
+            $file => new SymfonySplFileInfo($file, dirname($fileInfo->getFilename()), $fileInfo->getFilename()),
         ]);
     }
 
