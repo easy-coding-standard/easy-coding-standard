@@ -49,13 +49,19 @@ final class Application implements FileProcessorCollectorInterface
      */
     private $singleFileProcessor;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
         Configuration $configuration,
         FileFilter $fileFilter,
-        SingleFileProcessor $singleFileProcessor
+        SingleFileProcessor $singleFileProcessor,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -63,6 +69,7 @@ final class Application implements FileProcessorCollectorInterface
         $this->configuration = $configuration;
         $this->fileFilter = $fileFilter;
         $this->singleFileProcessor = $singleFileProcessor;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function addFileProcessor(FileProcessorInterface $fileProcessor): void
@@ -116,6 +123,7 @@ final class Application implements FileProcessorCollectorInterface
     private function processFoundFiles(array $fileInfos): void
     {
         foreach ($fileInfos as $relativePath => $fileInfo) {
+            $this->currentFileProvider->setFileInfo($fileInfo);
             $this->singleFileProcessor->processFileInfo($fileInfo, $relativePath);
         }
     }

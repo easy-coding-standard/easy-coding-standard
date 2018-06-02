@@ -2,39 +2,51 @@
 
 namespace Symplify\EasyCodingStandard\Application;
 
+use SplObjectStorage;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
 
 final class AppliedCheckersCollector
 {
     /**
-     * @var string[][]
+     * @var  string[][]|SplObjectStorage
      */
     private $appliedCheckersByFile = [];
 
-    public function addFileAndChecker(string $filePath, string $checker): void
+    public function __construct()
     {
-        $this->appliedCheckersByFile[$filePath][] = $checker;
+        $this->appliedCheckersByFile = new SplObjectStorage();
+    }
+
+    public function addFileInfoAndChecker(SplFileInfo $fileInfo, string $checker): void
+    {
+        $appliedCheckersByFile = [$checker];
+        if ($this->appliedCheckersByFile->contains($fileInfo)) {
+            $appliedCheckersByFile = array_merge($this->appliedCheckersByFile[$fileInfo], $checker);
+        }
+
+        $this->appliedCheckersByFile->attach($fileInfo, $appliedCheckersByFile);
     }
 
     /**
      * @return string[]
      */
-    public function getAppliedCheckersPerFile(string $filePath): array
+    public function getAppliedCheckersPerFileInfo(SplFileInfo $fileInfo): array
     {
-        $this->ensureFileHasAppliedCheckers($filePath);
+        $this->ensureFileHasAppliedCheckers($fileInfo);
 
-        return $this->appliedCheckersByFile[$filePath];
+        return $this->appliedCheckersByFile[$fileInfo];
     }
 
-    private function ensureFileHasAppliedCheckers(string $filePath): void
+    private function ensureFileHasAppliedCheckers(SplFileInfo $fileInfo): void
     {
-        if (isset($this->appliedCheckersByFile[$filePath])) {
+        if (isset($this->appliedCheckersByFile[$fileInfo])) {
             return;
         }
 
         throw new MissingCheckersForChangedFileException(sprintf(
             'File "%s" was changed, but no responsible checkers were added to "%s".',
-            $filePath,
+            $fileInfo->getRelativePathname(),
             self::class
         ));
     }
