@@ -20,7 +20,11 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileInfo = new SplFileInfo(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php', 'ChangedFilesDetectorSource', 'ChangedFilesDetectorSource/OneClass.php');
+        $this->fileInfo = new SplFileInfo(
+            __DIR__ . '/ChangedFilesDetectorSource/OneClass.php',
+            'ChangedFilesDetectorSource',
+            'ChangedFilesDetectorSource/OneClass.php'
+        );
 
         $this->changedFilesDetector = $this->container->get(ChangedFilesDetector::class);
         $this->changedFilesDetector->changeConfigurationFile(
