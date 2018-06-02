@@ -3,8 +3,7 @@
     colors="true"
     verbose="true"
 >
-    <!-- tests directories to run -->
-    <testsuite>
+    <testsuite name="all">
         <directory>tests</directory>
         <directory>packages/*/tests</directory>
     </testsuite>
