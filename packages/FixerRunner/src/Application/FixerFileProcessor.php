@@ -148,9 +148,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         // file has changed
-        $relativeFilePath = $fileInfo->getPath() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
-
-        $this->errorAndDiffCollector->addDiffForFile($relativeFilePath, $diff, $appliedFixers);
+        $this->errorAndDiffCollector->addDiffForFile($fileInfo->getRelativePathname(), $diff, $appliedFixers);
 
         if ($this->configuration->isFixer()) {
             file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());
