@@ -11,14 +11,10 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
 final class ShowCommand extends Command
 {
-    /**
-     * @var string
-     */
-    private const NAME = 'show';
-
     /**
      * @var SniffFileProcessor
      */
@@ -53,7 +49,7 @@ final class ShowCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName(self::NAME);
+        $this->setName(CommandNaming::classToName(self::class));
         $this->setDescription('Show loaded checkers');
     }
 
