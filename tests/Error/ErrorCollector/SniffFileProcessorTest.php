@@ -45,7 +45,12 @@ final class SniffFileProcessorTest extends TestCase
 
     private function runFileProcessor(): void
     {
-        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc', '', '');
+        $fileInfo = new SplFileInfo(
+            __DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc',
+            'ErrorCollectorSource',
+            'ErrorCollectorSource/NotPsr2Class.php.inc'
+        );
+
         $this->sniffFileProcessor->processFile($fileInfo);
     }
 }
