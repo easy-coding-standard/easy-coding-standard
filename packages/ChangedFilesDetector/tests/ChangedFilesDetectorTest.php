@@ -33,14 +33,14 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 
     public function testHasFileChanged(): void
     {
-        $this->changedFilesDetector->addFile($this->phpFile);
+        $this->changedFilesDetector->addFileInfo($this->phpFile);
 
         $this->assertFileHasNotChanged($this->phpFile);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void
     {
-        $this->changedFilesDetector->addFile($this->phpFile);
+        $this->changedFilesDetector->addFileInfo($this->phpFile);
         $this->assertFileHasNotChanged($this->phpFile);
 
         $this->changedFilesDetector->changeConfigurationFile(
@@ -52,7 +52,7 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 
     private function assertFileHasChanged(string $file): void
     {
-        $this->assertTrue($this->changedFilesDetector->hasFileChanged($file), sprintf(
+        $this->assertTrue($this->changedFilesDetector->hasFileInfoChanged($file), sprintf(
             'Failed asserting that file "%s" has changed.',
             $file
         ));
@@ -60,7 +60,7 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 
     private function assertFileHasNotChanged(string $file): void
     {
-        $this->assertFalse($this->changedFilesDetector->hasFileChanged($file), sprintf(
+        $this->assertFalse($this->changedFilesDetector->hasFileInfoChanged($file), sprintf(
             'Failed asserting that file "%s" has not changed.',
             $file
         ));

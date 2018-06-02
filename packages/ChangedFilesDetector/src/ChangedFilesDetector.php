@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
-use Symplify\PackageBuilder\FileSystem\FileGuard;
 
 final class ChangedFilesDetector
 {
@@ -25,22 +24,13 @@ final class ChangedFilesDetector
     private $fileHashComputer;
 
     /**
-     * @var FileGuard
-     */
-    private $fileGuard;
-
-    /**
      * @var TagAwareAdapterInterface
      */
     private $tagAwareAdapter;
 
-    public function __construct(
-        FileHashComputer $fileHashComputer,
-        FileGuard $fileGuard,
-        TagAwareAdapterInterface $tagAwareAdapter
-    ) {
+    public function __construct(FileHashComputer $fileHashComputer, TagAwareAdapterInterface $tagAwareAdapter)
+    {
         $this->fileHashComputer = $fileHashComputer;
-        $this->fileGuard = $fileGuard;
         $this->tagAwareAdapter = $tagAwareAdapter;
 
         $configurationFile = ConfigFileFinder::provide('ecs');
@@ -54,28 +44,24 @@ final class ChangedFilesDetector
         $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
     }
 
-    public function addFile(string $filePath): void
+    public function addFileInfo(SplFileInfo $fileInfo): void
     {
-        $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
-
-        $item = $this->tagAwareAdapter->getItem($this->filePathToKey($filePath));
-        $item->set($this->fileHashComputer->compute($filePath));
+        $item = $this->tagAwareAdapter->getItem($this->fileInfoToKey($fileInfo));
+        $item->set($this->fileHashComputer->compute($fileInfo->getRealPath()));
         $item->tag(self::CHANGED_FILES_CACHE_TAG);
         $this->tagAwareAdapter->save($item);
     }
 
     public function invalidateFileInfo(SplFileInfo $fileInfo): void
     {
-        $this->tagAwareAdapter->deleteItem($this->filePathToKey($fileInfo->getRealPath()));
+        $this->tagAwareAdapter->deleteItem($this->fileInfoToKey($fileInfo));
     }
 
-    public function hasFileChanged(string $filePath): bool
+    public function hasFileInfoChanged(SplFileInfo $fileInfo): bool
     {
-        $this->fileGuard->ensureIsAbsolutePath($filePath, __METHOD__);
+        $newFileHash = $this->fileHashComputer->compute($fileInfo->getRealPath());
 
-        $newFileHash = $this->fileHashComputer->compute($filePath);
-
-        $cacheItem = $this->tagAwareAdapter->getItem($this->filePathToKey($filePath));
+        $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($fileInfo));
         $oldFileHash = $cacheItem->get();
 
         if ($newFileHash !== $oldFileHash) {
@@ -109,8 +95,8 @@ final class ChangedFilesDetector
         }
     }
 
-    private function filePathToKey(string $filePath): string
+    private function fileInfoToKey(SplFileInfo $fileInfo): string
     {
-        return sha1($filePath);
+        return sha1($fileInfo->getRealPath());
     }
 }
