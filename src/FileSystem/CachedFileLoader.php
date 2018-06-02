@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Psr\SimpleCache\CacheInterface;
-use SplFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\PackageBuilder\FileSystem\FileGuard;
 
 final class CachedFileLoader
@@ -35,15 +35,10 @@ final class CachedFileLoader
             return $cachedFileContent;
         }
 
-        $currentFileContent = $this->loadCurrentFileContent($fileInfo);
+        $currentFileContent = $fileInfo->getContents();
 
         $this->cache->set($cacheKey, $cachedFileContent);
 
         return $currentFileContent;
-    }
-
-    private function loadCurrentFileContent(SplFileInfo $fileInfo): string
-    {
-        return (string) file_get_contents($fileInfo->getRealPath());
     }
 }
