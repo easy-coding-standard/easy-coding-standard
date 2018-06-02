@@ -11,7 +11,7 @@ final class AppliedCheckersCollector
     /**
      * @var  string[][]|SplObjectStorage
      */
-    private $appliedCheckersByFile = [];
+    private $appliedCheckersByFile;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ final class AppliedCheckersCollector
     {
         $appliedCheckersByFile = [$checker];
         if ($this->appliedCheckersByFile->contains($fileInfo)) {
-            $appliedCheckersByFile = array_merge($this->appliedCheckersByFile[$fileInfo], $checker);
+            $appliedCheckersByFile = array_merge($this->appliedCheckersByFile[$fileInfo], [$checker]);
         }
 
         $this->appliedCheckersByFile->attach($fileInfo, $appliedCheckersByFile);
