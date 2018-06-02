@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\SplFileInfo;
-use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 
@@ -20,11 +19,6 @@ final class FileProcessorTest extends TestCase
      */
     private $initialFileContent;
 
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
     protected function setUp(): void
     {
         $container = (new ContainerFactory())->createWithConfig(
@@ -32,7 +26,6 @@ final class FileProcessorTest extends TestCase
         );
 
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
-        $this->currentFileProvider = $container->get(CurrentFileProvider::class);
     }
 
     public function test(): void
@@ -42,9 +35,6 @@ final class FileProcessorTest extends TestCase
             'FileProcessorSource',
             'FileProcessorSource/SomeFile.php.inc'
         );
-
-        // part of Application
-        $this->currentFileProvider->setFileInfo($fileInfo);
 
         $fixedContent = $this->sniffFileProcessor->processFile($fileInfo);
         $this->assertNotSame($this->initialFileContent, $fixedContent);

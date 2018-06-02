@@ -6,6 +6,7 @@ use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symfony\Component\Finder\SplFileInfo;
+use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -63,6 +64,11 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $differ;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
@@ -70,7 +76,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         FileToTokensParser $fileToTokensParser,
         CachedFileLoader $cachedFileLoader,
         Skipper $skipper,
-        DifferInterface $differ
+        DifferInterface $differ,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->skipper = $skipper;
@@ -79,6 +86,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->fileToTokensParser = $fileToTokensParser;
         $this->cachedFileLoader = $cachedFileLoader;
         $this->differ = $differ;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function addFixer(FixerInterface $fixer): void
@@ -100,6 +108,8 @@ final class FixerFileProcessor implements FileProcessorInterface
 
     public function processFile(SplFileInfo $fileInfo): string
     {
+        $this->currentFileProvider->setFileInfo($fileInfo);
+
         $oldContent = $this->cachedFileLoader->getFileContent($fileInfo);
 
         $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());

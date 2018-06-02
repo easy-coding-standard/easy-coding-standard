@@ -7,6 +7,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
+use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
@@ -80,6 +81,11 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
      */
     private $appliedCheckersCollector;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         Fixer $fixer,
         FileFactory $fileFactory,
@@ -89,7 +95,8 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         CurrentSniffProvider $currentSniffProvider,
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
-        AppliedCheckersCollector $appliedCheckersCollector
+        AppliedCheckersCollector $appliedCheckersCollector,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
@@ -100,6 +107,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->differ = $differ;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
+        $this->currentFileProvider = $currentFileProvider;
 
         $this->addCompatibilityLayer();
     }
@@ -138,6 +146,8 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
 
     public function processFile(SplFileInfo $fileInfo): string
     {
+        $this->currentFileProvider->setFileInfo($fileInfo);
+
         $file = $this->fileFactory->createFromFileInfo($fileInfo);
 
         // 1. puts tokens into fixer
