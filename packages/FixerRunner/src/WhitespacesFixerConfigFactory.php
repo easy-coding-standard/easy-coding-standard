@@ -29,7 +29,9 @@ final class WhitespacesFixerConfigFactory
 
     public function create(): WhitespacesFixerConfig
     {
-        return new WhitespacesFixerConfig($this->resolveIndentation(), PHP_EOL);
+        $lineEnding = $this->parameterProvider->provideParameter('line_ending');
+
+        return new WhitespacesFixerConfig($this->resolveIndentation(), $lineEnding);
     }
 
     private function resolveIndentation(): string
