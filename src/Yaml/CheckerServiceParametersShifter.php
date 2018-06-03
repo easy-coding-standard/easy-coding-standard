@@ -65,32 +65,7 @@ final class CheckerServiceParametersShifter
             return $configuration;
         }
 
-        $services = $configuration[self::SERVICES_KEY];
-
-        foreach ($services as $serviceName => $serviceDefinition) {
-            if (! $this->isCheckerClass($serviceName) || empty($serviceDefinition)) {
-                continue;
-            }
-
-            if (Strings::endsWith($serviceName, 'Fixer')) {
-                $services = $this->processFixer($services, $serviceName, $serviceDefinition);
-            }
-
-            if (Strings::endsWith($serviceName, 'Sniff')) {
-                $services = $this->processSniff($services, $serviceName, $serviceDefinition);
-            }
-
-            // cleanup parameters
-            foreach ($serviceDefinition as $key => $value) {
-                if ($this->isReservedKey($key)) {
-                    continue;
-                }
-
-                unset($services[$serviceName][$key]);
-            }
-        }
-
-        $configuration[self::SERVICES_KEY] = $services;
+        $configuration[self::SERVICES_KEY] = $this->processServices($configuration[self::SERVICES_KEY]);
 
         return $configuration;
     }
@@ -178,5 +153,37 @@ final class CheckerServiceParametersShifter
         }
 
         return in_array($key, $this->serviceKeywords, true);
+    }
+
+    /**
+     * @param mixed[] $services
+     * @return mixed[]
+     */
+    private function processServices(array $services): array
+    {
+        foreach ($services as $serviceName => $serviceDefinition) {
+            if (! $this->isCheckerClass($serviceName) || empty($serviceDefinition)) {
+                continue;
+            }
+
+            if (Strings::endsWith($serviceName, 'Fixer')) {
+                $services = $this->processFixer($services, $serviceName, $serviceDefinition);
+            }
+
+            if (Strings::endsWith($serviceName, 'Sniff')) {
+                $services = $this->processSniff($services, $serviceName, $serviceDefinition);
+            }
+
+            // cleanup parameters
+            foreach ($serviceDefinition as $key => $value) {
+                if ($this->isReservedKey($key)) {
+                    continue;
+                }
+
+                unset($services[$serviceName][$key]);
+            }
+        }
+
+        return $services;
     }
 }
