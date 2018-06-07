@@ -54,6 +54,7 @@ final class FileToTokensParser
         $config = new stdClass();
         $config->tabWidth = 4;
         $config->annotations = false;
+        $config->encoding = 'UTF-8';
 
         return $this->legacyConfig = $config;
     }
