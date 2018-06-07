@@ -2,6 +2,11 @@ imports:
     - { resource: 'php_cs_fixer/psr2.yml' }
 
 services:
+    PHP_CodeSniffer\Standards\PSR12\Sniffs\Classes\ClassInstantiationSniff: ~
+    PHP_CodeSniffer\Standards\PSR12\Sniffs\Keywords\ShortFormTypeKeywordsSniff: ~
+    PHP_CodeSniffer\Standards\PSR12\Sniffs\Namespaces\CompoundNamespaceDepthSniff: ~
+    PHP_CodeSniffer\Standards\PSR12\Sniffs\Operators\OperatorSpacingSniff: ~
+
     PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer: ~
     PhpCsFixer\Fixer\CastNotation\ShortScalarCastFixer: ~
     PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
