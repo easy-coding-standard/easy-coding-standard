@@ -175,13 +175,25 @@ final class CheckerServiceParametersShifter
             }
 
             // cleanup parameters
-            foreach ($serviceDefinition as $key => $value) {
-                if ($this->isReservedKey($key)) {
-                    continue;
-                }
+            $services = $this->cleanupParameters($services, $serviceDefinition, $serviceName);
+        }
 
-                unset($services[$serviceName][$key]);
+        return $services;
+    }
+
+    /**
+     * @param mixed[] $services
+     * @param mixed[] $serviceDefinition
+     * @return mixed[]
+     */
+    private function cleanupParameters(array $services, array $serviceDefinition, string $serviceName): array
+    {
+        foreach ($serviceDefinition as $key => $value) {
+            if ($this->isReservedKey($key)) {
+                continue;
             }
+
+            unset($services[$serviceName][$key]);
         }
 
         return $services;
