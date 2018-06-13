@@ -178,11 +178,10 @@ final class CheckCommand extends Command
         }
 
         $this->easyCodingStandardStyle->fixableError(sprintf(
-            '%s%d file%s %s fixable! Just add "--fix" to console command and rerun to apply.',
+            '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
             $errorCount ? 'Good news is that ' : '',
             $fileDiffsCount,
-            $fileDiffsCount === 1 ? '' : 's',
-            $fileDiffsCount === 1 ? 'is' : 'are'
+            $fileDiffsCount === 1 ? 'file is' : 'files are'
         ));
     }
 
