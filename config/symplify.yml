@@ -29,7 +29,7 @@ services:
     Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff: ~
     Symplify\CodingStandard\Fixer\Naming\MagicMethodsNamingFixer: ~
     Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer: ~
-    Symplify\CodingStandard\Fixer\Naming\ClassNameSuffixByParentFixer: ~
+    Symplify\CodingStandard\Sniffs\Naming\ClassNameSuffixByParentSniff: ~
 
     # Architecture
     Symplify\CodingStandard\Sniffs\CleanCode\ForbiddenStaticFunctionSniff: ~
