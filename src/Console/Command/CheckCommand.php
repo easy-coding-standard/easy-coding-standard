@@ -71,12 +71,6 @@ final class CheckCommand extends Command
         $this->addOption(Option::FIX, null, null, 'Fix found violations.');
         $this->addOption(Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
         $this->addOption(
-            Option::SHOW_PERFORMANCE,
-            null,
-            InputOption::VALUE_NONE,
-            'Show performance of every checker.'
-        );
-        $this->addOption(
             Option::NO_PROGRESS_BAR,
             null,
             InputOption::VALUE_NONE,
@@ -105,7 +99,6 @@ final class CheckCommand extends Command
             $this->easyCodingStandardStyle->newLine();
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
             $this->checkCommandReporter->reportUnusedSkipped();
-            $this->checkCommandReporter->reportPerformance();
 
             return 0;
         }
@@ -115,7 +108,6 @@ final class CheckCommand extends Command
         $exitCode = $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
 
         $this->checkCommandReporter->reportUnusedSkipped();
-        $this->checkCommandReporter->reportPerformance();
 
         return $exitCode;
     }

@@ -36,8 +36,7 @@
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\": "packages/ChangedFilesDetector/src",
             "Symplify\\EasyCodingStandard\\Configuration\\": "packages/Configuration/src",
             "Symplify\\EasyCodingStandard\\FixerRunner\\": "packages/FixerRunner/src",
-            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/SniffRunner/src",
-            "Symplify\\EasyCodingStandard\\Performance\\": "packages/Performance/src"
+            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/SniffRunner/src"
         }
     },
     "autoload-dev": {

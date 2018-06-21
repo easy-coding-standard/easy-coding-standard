@@ -6,8 +6,6 @@ services:
         resource: '..'
         exclude: '../{Exception}'
 
-    Symfony\Component\Stopwatch\Stopwatch: ~
-
     # differ
     PhpCsFixer\Differ\UnifiedDiffer: ~
 

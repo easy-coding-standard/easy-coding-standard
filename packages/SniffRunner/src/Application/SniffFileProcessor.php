@@ -13,7 +13,6 @@ use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorIn
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
@@ -52,11 +51,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $tokenListeners = [];
 
     /**
-     * @var CheckerMetricRecorder
-     */
-    private $checkerMetricRecorder;
-
-    /**
      * @var CurrentSniffProvider
      */
     private $currentSniffProvider;
@@ -91,7 +85,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         FileFactory $fileFactory,
         Configuration $configuration,
         Skipper $skipper,
-        CheckerMetricRecorder $checkerMetricRecorder,
         CurrentSniffProvider $currentSniffProvider,
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
@@ -102,7 +95,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         $this->fileFactory = $fileFactory;
         $this->configuration = $configuration;
         $this->skipper = $skipper;
-        $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->currentSniffProvider = $currentSniffProvider;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->differ = $differ;
@@ -194,10 +186,8 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
                     continue;
                 }
 
-                $this->checkerMetricRecorder->startWithChecker($sniff);
                 $this->currentSniffProvider->setSniff($sniff);
                 $sniff->process($file, $position);
-                $this->checkerMetricRecorder->endWithChecker($sniff);
             }
         }
     }

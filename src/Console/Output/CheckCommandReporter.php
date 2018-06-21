@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\FileDiff;
-use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 
 final class CheckCommandReporter
@@ -14,11 +13,6 @@ final class CheckCommandReporter
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-
-    /**
-     * @var CheckerMetricRecorder
-     */
-    private $checkerMetricRecorder;
 
     /**
      * @var Skipper
@@ -32,26 +26,12 @@ final class CheckCommandReporter
 
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        CheckerMetricRecorder $checkerMetricRecorder,
         Skipper $skipper,
         Configuration $configuration
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
-        $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
-    }
-
-    public function reportPerformance(): void
-    {
-        if (! $this->configuration->showPerformance()) {
-            return;
-        }
-
-        $this->easyCodingStandardStyle->newLine();
-        $this->easyCodingStandardStyle->title('Performance Statistics');
-
-        $this->easyCodingStandardStyle->printMetrics($this->checkerMetricRecorder->getMetrics());
     }
 
     public function reportUnusedSkipped(): void

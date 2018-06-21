@@ -223,12 +223,6 @@ parameters:
     line_ending: '\r\n' # PHP_EOL by default
 ```
 
-**How do I find the slowest checkers?**
-
-```bash
-vendor/bin/ecs check src --show-performance
-```
-
 ## Contributing
 
 Send [issue](https://github.com/Symplify/Symplify/issues) or [pull-request](https://github.com/Symplify/Symplify/pulls) to main repository.
