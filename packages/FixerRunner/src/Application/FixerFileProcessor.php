@@ -13,7 +13,6 @@ use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
-use Symplify\EasyCodingStandard\Performance\CheckerMetricRecorder;
 use Symplify\EasyCodingStandard\Skipper;
 use Throwable;
 
@@ -38,11 +37,6 @@ final class FixerFileProcessor implements FileProcessorInterface
      * @var Configuration
      */
     private $configuration;
-
-    /**
-     * @var CheckerMetricRecorder
-     */
-    private $checkerMetricRecorder;
 
     /**
      * @var bool
@@ -72,7 +66,6 @@ final class FixerFileProcessor implements FileProcessorInterface
     public function __construct(
         ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
-        CheckerMetricRecorder $checkerMetricRecorder,
         FileToTokensParser $fileToTokensParser,
         CachedFileLoader $cachedFileLoader,
         Skipper $skipper,
@@ -82,7 +75,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->skipper = $skipper;
         $this->configuration = $configuration;
-        $this->checkerMetricRecorder = $checkerMetricRecorder;
         $this->fileToTokensParser = $fileToTokensParser;
         $this->cachedFileLoader = $cachedFileLoader;
         $this->differ = $differ;
@@ -121,8 +113,6 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            $this->checkerMetricRecorder->startWithChecker($fixer);
-
             try {
                 $fixer->fix($fileInfo, $tokens);
             } catch (Throwable $throwable) {
@@ -135,8 +125,6 @@ final class FixerFileProcessor implements FileProcessorInterface
                     $throwable->getLine()
                 ));
             }
-
-            $this->checkerMetricRecorder->endWithChecker($fixer);
 
             if (! $tokens->isChanged()) {
                 continue;

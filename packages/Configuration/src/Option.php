@@ -27,11 +27,6 @@ final class Option
     /**
      * @var string
      */
-    public const SHOW_PERFORMANCE = 'show-performance';
-
-    /**
-     * @var string
-     */
     public const NO_PROGRESS_BAR = 'no-progress-bar';
 
     /**

@@ -25,11 +25,6 @@ final class Configuration
     /**
      * @var bool
      */
-    private $showPerformance = false;
-
-    /**
-     * @var bool
-     */
     private $showProgressBar = true;
 
     /**
@@ -41,8 +36,7 @@ final class Configuration
     {
         $this->setSources($input->getArgument(Option::SOURCE));
         $this->isFixer = (bool) $input->getOption(Option::FIX);
-        $this->showPerformance = (bool) $input->getOption(Option::SHOW_PERFORMANCE);
-        $this->shouldClearCache = $this->showPerformance ? true : (bool) $input->getOption(Option::CLEAR_CACHE);
+        $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
     }
@@ -71,11 +65,6 @@ final class Configuration
     public function shouldClearCache(): bool
     {
         return $this->shouldClearCache;
-    }
-
-    public function showPerformance(): bool
-    {
-        return $this->showPerformance;
     }
 
     public function showProgressBar(): bool

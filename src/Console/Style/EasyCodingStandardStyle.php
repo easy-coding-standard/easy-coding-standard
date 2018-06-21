@@ -62,20 +62,6 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     }
 
     /**
-     * @param mixed[] $metrics
-     */
-    public function printMetrics(array $metrics): void
-    {
-        $rows = [];
-        foreach ($metrics as $checkerClass => $duration) {
-            $rows[] = [$checkerClass, $duration . ' ms'];
-        }
-
-        $headers = ['Checker', 'Total duration'];
-        $this->tableWithColumnWidths($headers, $rows, [$this->countMessageColumnWidth(15), 15]);
-    }
-
-    /**
      * @param Error[] $errors
      * @return string[][]
      */
