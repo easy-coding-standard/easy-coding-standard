@@ -9,20 +9,17 @@ use ReflectionClass;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
-use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
 
 final class FinderSanitizer
 {
     /**
-     * @param NetteFinder|SymfonyFinder $finder
+     * @param NetteFinder|SymfonyFinder|SplFileInfo[] $finder
      * @return SymfonySplFileInfo[]
      */
     public function sanitize($finder): array
     {
-        $this->ensureIsFinder($finder);
-
-        $fileInfos = $this->turnFinderToFileInfos($finder);
+        $fileInfos = $this->turnToFileInfos($finder);
 
         $fileInfos = $this->filterOutEmptyFiles($fileInfos);
 
@@ -30,40 +27,16 @@ final class FinderSanitizer
     }
 
     /**
+     * @param SplFileInfo[] $fileInfos
      * @return SplFileInfo[]
      */
-    private function turnFinderToFileInfos(IteratorAggregate $finder): array
+    private function filterOutEmptyFiles(array $fileInfos): array
     {
-        return iterator_to_array($finder);
-    }
+        return array_filter($fileInfos, function (SplFileInfo $fileInfo) {
+            $this->ensureFileInfoExists($fileInfo);
 
-    /**
-     * @param SplFileInfo[] $splFiles
-     * @return SplFileInfo[]
-     */
-    private function filterOutEmptyFiles(array $splFiles): array
-    {
-        return array_filter($splFiles, 'filesize');
-    }
-
-    /**
-     * @param object $finder
-     */
-    private function ensureIsFinder($finder): void
-    {
-        if ($finder instanceof NetteFinder || $finder instanceof SymfonyFinder) {
-            return;
-        }
-
-        $sourceType = is_object($finder) ? get_class($finder) : (is_array($finder) ? gettype($finder) : $finder);
-
-        throw new InvalidSourceTypeException(sprintf(
-            '%s is not valid source type, probably in your %s class in "find()" method. Return "%s" or "%s".',
-            $sourceType,
-            CustomSourceProviderInterface::class,
-            NetteFinder::class,
-            SymfonyFinder::class
-        ));
+            return filesize($fileInfo->getRealPath());
+        });
     }
 
     /**
@@ -75,7 +48,7 @@ final class FinderSanitizer
      */
     private function turnInfoSymfonyFileInfos(array $fileInfos, $finder): array
     {
-        if ($finder instanceof SymfonyFinder) {
+        if ($finder instanceof SymfonyFinder || ! $finder instanceof NetteFinder) {
             return $fileInfos;
         }
 
@@ -120,5 +93,27 @@ final class FinderSanitizer
 
         // dump fallback
         return $fileInfo->getFilename();
+    }
+
+    /**
+     * @param SplFileInfo[]|NetteFinder|SymfonyFinder $iterableFileInfos
+     * @return SplFileInfo[]
+     */
+    private function turnToFileInfos(iterable $iterableFileInfos): array
+    {
+        if ($iterableFileInfos instanceof IteratorAggregate) {
+            return iterator_to_array($iterableFileInfos);
+        }
+
+        return $iterableFileInfos;
+    }
+
+    private function ensureFileInfoExists(SplFileInfo $fileInfo): void
+    {
+        if (file_exists($fileInfo->getPath()) && $fileInfo->getRealPath()) {
+            return;
+        }
+
+        throw new InvalidSourceTypeException(sprintf('%s file does not exist', $fileInfo->getPath()));
     }
 }
