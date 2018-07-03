@@ -191,7 +191,7 @@ final class File extends BaseFile
         }
 
         $this->errorAndDiffCollector->addErrorMessage(
-            $this->path,
+            $this->currentFileProvider->getFileInfo(),
             $line,
             $message,
             $this->resolveFullyQualifiedCode($sniffClassOrCode)
