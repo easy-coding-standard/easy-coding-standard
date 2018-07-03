@@ -63,7 +63,7 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
         $this->fileProcessors[] = $fileProcessor;
     }
 
-    public function processFileInfo(SplFileInfo $fileInfo, string $relativePath): void
+    public function processFileInfo(SplFileInfo $fileInfo): void
     {
         if ($this->configuration->showProgressBar()) {
             $this->easyCodingStandardStyle->progressAdvance();
@@ -85,7 +85,7 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
         } catch (ParseError $parseError) {
             $this->changedFilesDetector->invalidateFileInfo($fileInfo);
             $this->errorAndDiffCollector->addErrorMessage(
-                $relativePath,
+                $fileInfo->getRelativePath(),
                 $parseError->getLine(),
                 $parseError->getMessage(),
                 ParseError::class
