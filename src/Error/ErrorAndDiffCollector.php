@@ -54,7 +54,7 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $this->errors[$fileInfo->getRelativePath()][] = $this->errorFactory->createFromLineMessageSourceClass(
+        $this->errors[$fileInfo->getRelativePathname()][] = $this->errorFactory->createFromLineMessageSourceClass(
             $line,
             $message,
             $sourceClass
