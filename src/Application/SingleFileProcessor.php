@@ -85,7 +85,7 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
         } catch (ParseError $parseError) {
             $this->changedFilesDetector->invalidateFileInfo($fileInfo);
             $this->errorAndDiffCollector->addErrorMessage(
-                $fileInfo->getRelativePath(),
+                $fileInfo,
                 $parseError->getLine(),
                 $parseError->getMessage(),
                 ParseError::class

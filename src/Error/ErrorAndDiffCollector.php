@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
 use Symfony\Component\Finder\SplFileInfo;
-use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 
 final class ErrorAndDiffCollector
@@ -39,31 +38,23 @@ final class ErrorAndDiffCollector
      */
     private $errorFactory;
 
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
     public function __construct(
         ChangedFilesDetector $changedFilesDetector,
         ErrorSorter $errorSorter,
         FileDiffFactory $fileDiffFactory,
-        ErrorFactory $errorFactory,
-        CurrentFileProvider $currentFileProvider
+        ErrorFactory $errorFactory
     ) {
         $this->changedFilesDetector = $changedFilesDetector;
         $this->errorSorter = $errorSorter;
         $this->fileDiffFactory = $fileDiffFactory;
         $this->errorFactory = $errorFactory;
-        $this->currentFileProvider = $currentFileProvider;
     }
 
-    public function addErrorMessage(string $filePath, int $line, string $message, string $sourceClass): void
+    public function addErrorMessage(SplFileInfo $fileInfo, int $line, string $message, string $sourceClass): void
     {
-        $fileInfo = $this->currentFileProvider->getFileInfo();
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $this->errors[$filePath][] = $this->errorFactory->createFromLineMessageSourceClass(
+        $this->errors[$fileInfo->getRelativePath()][] = $this->errorFactory->createFromLineMessageSourceClass(
             $line,
             $message,
             $sourceClass
