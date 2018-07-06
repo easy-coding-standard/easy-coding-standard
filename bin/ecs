@@ -5,14 +5,14 @@ use Symfony\Component\DependencyInjection\Container;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\PackageBuilder\Console\ThrowableRenderer;
 
-require_once __DIR__ . '/ecs-autoload.php';
+require_once __DIR__ . '/autoload.php';
 
 // performance boost
 gc_disable();
 
 try {
     /** @var Container $container */
-    $container = require __DIR__ . '/ecs-container.php';
+    $container = require __DIR__ . '/container.php';
 
     $application = $container->get(Application::class);
     exit($application->run());

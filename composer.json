@@ -3,8 +3,7 @@
     "description": "Use Coding Standard with 0-knowledge of PHP-CS-Fixer and PHP_CodeSniffer.",
     "license": "MIT",
     "bin": [
-        "bin/ecs",
-        "bin/ecs-container.php"
+        "bin/ecs"
     ],
     "require": {
         "php": "^7.1",
