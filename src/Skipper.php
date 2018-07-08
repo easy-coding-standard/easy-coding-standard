@@ -146,15 +146,15 @@ final class Skipper
      * Supports both relative and absolute $file path.
      * They differ for PHP-CS-Fixer and PHP_CodeSniffer.
      */
-    private function fileMatchesPattern(string $file, string $ignoredPath): bool
+    private function fileMatchesPattern(string $absoluteFilePath, string $ignoredPath): bool
     {
-        $file = str_replace('\\', '/', $file);
+        $absoluteFilePath = str_replace('\\', '/', $absoluteFilePath);
 
-        if (Strings::endsWith($file, $ignoredPath)) {
+        if (Strings::endsWith($absoluteFilePath, $ignoredPath)) {
             return true;
         }
 
-        return fnmatch($ignoredPath, $file) || fnmatch($ignoredPath, '*/' . $file);
+        return fnmatch($ignoredPath, $absoluteFilePath) || fnmatch('*/' . $ignoredPath, $absoluteFilePath);
     }
 
     private function removeEmptyUnusedSkipped(string $skippedChecker): void

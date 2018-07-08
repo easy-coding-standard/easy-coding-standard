@@ -57,6 +57,11 @@ final class SkipperTest extends TestCase
             'someSniff.someOtherCode',
             __DIR__ . '/someDirectory/someFile'
         ));
+
+        $this->assertTrue($this->skipper->shouldSkipCodeAndFile(
+            'someSniff.someAnotherCode',
+            __DIR__ . '/someDirectory/someFile'
+        ));
     }
 
     /**
@@ -68,6 +73,7 @@ final class SkipperTest extends TestCase
             DeclareStrictTypesFixer::class => ['someFile', '*/someDirectory/*'],
             'someSniff.someCode' => null,
             'someSniff.someOtherCode' => ['*/someDirectory/*'],
+            'someSniff.someAnotherCode' => ['someDirectory/*'],
         ];
     }
 }
