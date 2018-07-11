@@ -1,1 +1,2 @@
-- configuration-1
+parameters:
+    one: configuration-1
