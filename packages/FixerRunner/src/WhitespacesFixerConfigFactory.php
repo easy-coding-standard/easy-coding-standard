@@ -31,6 +31,10 @@ final class WhitespacesFixerConfigFactory
     {
         $lineEnding = $this->parameterProvider->provideParameter('line_ending');
 
+        if ($lineEnding === '\n') {
+            $lineEnding = "\n";
+        }
+
         return new WhitespacesFixerConfig($this->resolveIndentation(), $lineEnding);
     }
 
