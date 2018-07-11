@@ -8,7 +8,7 @@ parameters:
     indentation: 'spaces'
     line_ending: !php/const PHP_EOL
 
-    cache_directory: '%kernel.cache_dir%/_changed_files_detector%env(TEST_SUFFIX)%'
+    cache_directory: '%sys_get_temp_dir%/_changed_files_detector%env(TEST_SUFFIX)%'
     skip: []
     exclude_files: []
     root_skip: []

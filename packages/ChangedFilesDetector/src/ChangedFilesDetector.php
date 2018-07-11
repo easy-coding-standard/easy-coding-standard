@@ -89,6 +89,7 @@ final class ChangedFilesDetector
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
     {
         $cacheItem = $this->tagAwareAdapter->getItem(self::CONFIGURATION_HASH_KEY);
+
         $oldConfigurationHash = $cacheItem->get();
         if ($configurationHash !== $oldConfigurationHash) {
             $this->clearCache();
