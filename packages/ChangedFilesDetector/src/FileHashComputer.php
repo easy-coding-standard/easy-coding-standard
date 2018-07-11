@@ -20,6 +20,15 @@ final class FileHashComputer
         $yamlFileLoader = new CheckerTolerantYamlFileLoader($containerBuilder, new FileLocator(dirname($filePath)));
         $yamlFileLoader->load($filePath);
 
-        return md5(serialize($containerBuilder));
+        return $this->arrayToHash($containerBuilder->getDefinitions()) .
+            $this->arrayToHash($containerBuilder->getParameterBag()->all());
+    }
+
+    /**
+     * @param mixed[] $array
+     */
+    private function arrayToHash(array $array): string
+    {
+        return md5(serialize($array));
     }
 }
