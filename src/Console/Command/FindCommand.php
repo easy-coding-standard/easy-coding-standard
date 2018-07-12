@@ -13,8 +13,13 @@ use Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder;
 use Symplify\PackageBuilder\Composer\VendorDirProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
-final class ShowAllCheckersCommand extends Command
+final class FindCommand extends Command
 {
+    /**
+     * @var string
+     */
+    private const ARGUMENT_NAME = 'name';
+
     /**
      * @var EasyCodingStandardStyle
      */
@@ -30,8 +35,11 @@ final class ShowAllCheckersCommand extends Command
      */
     private $fixerFinder;
 
-    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle, SniffFinder $sniffFinder, FixerFinder $fixerFinder)
-    {
+    public function __construct(
+        EasyCodingStandardStyle $easyCodingStandardStyle,
+        SniffFinder $sniffFinder,
+        FixerFinder $fixerFinder
+    ) {
         parent::__construct();
 
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
@@ -43,7 +51,12 @@ final class ShowAllCheckersCommand extends Command
     {
         $this->setName(CommandNaming::classToName(self::class));
         $this->setDescription('Show all available checkers');
-        $this->addOption('name', null, InputOption::VALUE_REQUIRED, 'Filter by name to get only specific checkers, e.g. "array"');
+        $this->addArgument(
+            self::ARGUMENT_NAME,
+            InputOption::VALUE_REQUIRED,
+            'Filter checkers by name, e.g. "array" or "Symplify"',
+            ''
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -52,12 +65,19 @@ final class ShowAllCheckersCommand extends Command
         $checkers = $this->sniffFinder->findAllSniffClassesInDirectory(VendorDirProvider::provide())
             + $this->fixerFinder->findAllFixerClassesInDirectory(VendorDirProvider::provide());
 
-        if ($input->getOption('name')) {
-            $checkers = $this->filterCheckersByName($checkers, $input->getOption('name'));
+        $name = $input->getArgument(self::ARGUMENT_NAME);
+
+        if ($name) {
+            $checkers = $this->filterCheckersByName($checkers, $name);
         }
 
         if (! count($checkers)) {
-            $this->easyCodingStandardStyle->warning('No checkers found');
+            $message = 'No checkers found';
+            if ($name) {
+                $message .= sprintf(' for "%s" name', $name);
+            }
+
+            $this->easyCodingStandardStyle->note($message);
             return 0;
         }
 
