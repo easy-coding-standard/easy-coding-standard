@@ -8,8 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\FixerRunner\Finder\FixerFinder;
-use Symplify\EasyCodingStandard\SniffRunner\Sniff\Finder\SniffFinder;
+use Symplify\EasyCodingStandard\Finder\CheckerClassFinder;
 use Symplify\PackageBuilder\Composer\VendorDirProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
@@ -26,25 +25,18 @@ final class FindCommand extends Command
     private $easyCodingStandardStyle;
 
     /**
-     * @var SniffFinder
+     * @var CheckerClassFinder
      */
-    private $sniffFinder;
-
-    /**
-     * @var FixerFinder
-     */
-    private $fixerFinder;
+    private $checkerClassFinder;
 
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        SniffFinder $sniffFinder,
-        FixerFinder $fixerFinder
+        CheckerClassFinder $checkerClassFinder
     ) {
         parent::__construct();
 
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
-        $this->sniffFinder = $sniffFinder;
-        $this->fixerFinder = $fixerFinder;
+        $this->checkerClassFinder = $checkerClassFinder;
     }
 
     protected function configure(): void
@@ -61,9 +53,11 @@ final class FindCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // @todo include /src and /packages directories as well, allow many directories
-        $checkers = $this->sniffFinder->findAllSniffClassesInDirectory(VendorDirProvider::provide())
-            + $this->fixerFinder->findAllFixerClassesInDirectory(VendorDirProvider::provide());
+        $checkers = $this->checkerClassFinder->findAllSniffClassesInDirectory([
+            getcwd() . '/src',
+            getcwd() . '/packages',
+            VendorDirProvider::provide(),
+        ]);
 
         $name = $input->getArgument(self::ARGUMENT_NAME);
 
