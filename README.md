@@ -202,6 +202,16 @@ vendor/bin/ecs show
 vendor/bin/ecs show --config ...
 ```
 
+**How to find checkers by group or type?**
+
+```bash
+vendor/bin/ecs find
+
+vendor/bin/ecs find symplify # for Symplify rules
+
+vendor/bin/ecs find array # for array-related rules
+```
+
 **How to clear cache?**
 
 ```bash
