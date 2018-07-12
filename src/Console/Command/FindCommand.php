@@ -46,8 +46,7 @@ final class FindCommand extends Command
         $this->addArgument(
             self::ARGUMENT_NAME,
             InputOption::VALUE_REQUIRED,
-            'Filter checkers by name, e.g. "array" or "Symplify"',
-            ''
+            'Filter checkers by name, e.g. "array" or "Symplify"'
         );
     }
 
