@@ -13,7 +13,7 @@ final class CheckerClassFinder
      * @param string[] $directories
      * @return string[]
      */
-    public function findAllSniffClassesInDirectory(array $directories): array
+    public function findInDirectories(array $directories): array
     {
         $robotLoader = $this->createRobotLoaderForDirectories($directories);
         $checkerClasses = array_keys($robotLoader->getIndexedClasses());
