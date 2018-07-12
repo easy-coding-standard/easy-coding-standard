@@ -53,7 +53,7 @@ final class FindCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $checkers = $this->checkerClassFinder->findAllSniffClassesInDirectory([
+        $checkers = $this->checkerClassFinder->findInDirectories([
             getcwd() . '/src',
             getcwd() . '/packages',
             VendorDirProvider::provide(),
