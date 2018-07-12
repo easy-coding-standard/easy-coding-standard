@@ -78,11 +78,7 @@ final class FindCommand extends Command
         sort($checkers);
         $this->easyCodingStandardStyle->listing($checkers);
 
-        $this->easyCodingStandardStyle->success(sprintf(
-            'Loaded %d checker%s in total',
-            count($checkers),
-            count($checkers) === 1 ? '' : 's'
-        ));
+        $this->easyCodingStandardStyle->success(sprintf('Found %d checkers', count($checkers)));
 
         return 0;
     }
