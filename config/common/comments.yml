@@ -1,0 +1,3 @@
+services:
+    # remove empty inline comments
+    SlevomatCodingStandard\Sniffs\Commenting\EmptyCommentSniff:
