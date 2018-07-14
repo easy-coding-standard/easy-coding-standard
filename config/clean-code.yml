@@ -26,3 +26,6 @@ services:
 
     # $var = 5; return $var;    →    return $var;
     PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer:
+
+    # $var = $foo : $foo ? $bar → $var = $foo ?: $bar
+    SlevomatCodingStandard\Sniffs\ControlStructures\RequireShortTernaryOperatorSniff:
