@@ -31,6 +31,3 @@ services:
 
     # remove variable name from @var and @type annotations
     PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer: ~
-
-    # remove useless comments such as "Class constructor."
-    SlevomatCodingStandard\Sniffs\Commenting\ForbiddenCommentsSniff: ~
