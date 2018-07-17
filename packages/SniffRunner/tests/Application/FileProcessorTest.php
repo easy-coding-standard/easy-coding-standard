@@ -38,6 +38,7 @@ final class FileProcessorTest extends TestCase
 
         $fixedContent = $this->sniffFileProcessor->processFile($fileInfo);
         $this->assertNotSame($this->initialFileContent, $fixedContent);
+        $this->assertStringEqualsFile(__DIR__ . '/FileProcessorSource/SomeFile-fixed.php.inc', $fixedContent);
     }
 
     public function testGetSniffs(): void

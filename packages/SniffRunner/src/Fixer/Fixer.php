@@ -18,6 +18,23 @@ final class Fixer
      */
     private $tokens = [];
 
+    /**
+     * Is there an open changeset.
+     *
+     * @var bool
+     */
+    private $inChangeset = false;
+
+    /**
+     * @var string[]
+     */
+    private $changeset = [];
+
+    /**
+     * @var string[]
+     */
+    private $fixedTokens = [];
+
     public function startFile(File $file): void
     {
         $tokens = $file->getTokens();
@@ -35,11 +52,26 @@ final class Fixer
 
     public function getTokenContent(int $stackPtr): string
     {
+        if ($this->inChangeset === true && isset($this->changeset[$stackPtr])) {
+            return $this->changeset[$stackPtr];
+        }
+
         return (string) $this->tokens[$stackPtr];
     }
 
     public function replaceToken(int $stackPtr, string $content): bool
     {
+        if ($this->inChangeset === true) {
+            $this->changeset[$stackPtr] = $content;
+
+            return true;
+        }
+
+        if (isset($this->fixedTokens[$stackPtr])) {
+            return false;
+        }
+
+        $this->fixedTokens[$stackPtr] = (string) $this->tokens[$stackPtr] ?? $content;
         $this->tokens[$stackPtr] = $content;
 
         return true;
@@ -86,16 +118,25 @@ final class Fixer
     }
 
     /**
-     * For BC.
+     * Start recording actions for a changeset.
      */
     public function beginChangeSet(): void
     {
+        $this->changeset = [];
+        $this->inChangeset = true;
     }
 
     /**
-     * For BC.
+     * Stop recording actions for a changeset, and apply logged changes.
      */
     public function endChangeSet(): void
     {
+        $this->inChangeset = false;
+
+        foreach ($this->changeset as $stackPtr => $content) {
+            $this->replaceToken($stackPtr, $content);
+        }
+
+        $this->changeset = [];
     }
 }
