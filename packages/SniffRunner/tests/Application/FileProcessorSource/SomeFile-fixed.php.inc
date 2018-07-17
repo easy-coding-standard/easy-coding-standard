@@ -1,16 +1,17 @@
 <?php declare(strict_types=1);
 
 namespace Foo;
+use Foo\Baz;
 
 final class SomeFile
 {
     /**
-     * @var \Foo\Baz
+     * @var Baz
      */
     private $foo;
 
     /**
-     * @var \Foo\Baz
+     * @var Baz
      */
     private $bar;
 }

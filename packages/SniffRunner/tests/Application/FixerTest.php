@@ -28,7 +28,7 @@ final class FixerTest extends AbstractContainerAwareTestCase
         $fileInfo = new SplFileInfo(__DIR__ . '/FixerSource/SomeFile.php', 'FixerSource', 'FixerSource/SomeFile.php');
 
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
-        $this->fixer = $this->container->get(Fixer::class);
+        $this->fixer = clone $this->container->get(Fixer::class);
     }
 
     public function testStartFile(): void
@@ -56,6 +56,7 @@ final class FixerTest extends AbstractContainerAwareTestCase
     public function testAddContent(): void
     {
         $this->fixer->startFile($this->file);
+        $this->fixer->beginChangeSet();
 
         $this->fixer->addContentBefore(13, 'A');
         $token = $this->fixer->getTokenContent(13);
@@ -66,9 +67,30 @@ final class FixerTest extends AbstractContainerAwareTestCase
         $this->assertSame('A\\B', $token);
     }
 
+    public function testChangesets(): void
+    {
+        $this->fixer->startFile($this->file);
+        $this->fixer->beginChangeSet();
+
+        $this->fixer->addContentBefore(13, 'A');
+        $this->assertSame('A\\', $this->fixer->getTokenContent(13));
+
+        // during the changeset, you are free to modify current token as you wish...
+        $this->fixer->addContent(13, 'B');
+        $this->assertSame('A\\B', $this->fixer->getTokenContent(13));
+
+        $this->fixer->endChangeSet();
+        $this->assertSame('A\\B', $this->fixer->getTokenContent(13));
+
+        // ...that stops being the case after changeset is committed
+        $this->fixer->addContent(13, 'C');
+        $this->assertSame('A\\B', $this->fixer->getTokenContent(13));
+    }
+
     public function testAddNewline(): void
     {
         $this->fixer->startFile($this->file);
+        $this->fixer->beginChangeSet();
 
         $token = $this->fixer->getTokenContent(13);
         $this->assertSame('\\', $token);
@@ -85,6 +107,7 @@ final class FixerTest extends AbstractContainerAwareTestCase
     public function testSubstrToken(): void
     {
         $this->fixer->startFile($this->file);
+        $this->fixer->beginChangeSet();
 
         $token = $this->fixer->getTokenContent(14);
         $this->assertSame('EasyCodingStandard', $token);
