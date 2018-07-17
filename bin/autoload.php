@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
 $possibleAutoloadPaths = [
-    // composer create-project
-    __DIR__ . '/../../..',
-    // composer require
+    // after split package
     __DIR__ . '/../vendor',
-    // mono-repository
+    // dependency
+    __DIR__ . '/../../..',
+    // monorepo
     __DIR__ . '/../../../vendor',
 ];
 
