@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\DetectParametersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
@@ -82,7 +81,6 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
 
         // autowire
-        $containerBuilder->addCompilerPass(new AutowireCheckersCompilerPass());
         $containerBuilder->addCompilerPass(new AutowireDefaultCompilerPass());
 
         // tests
