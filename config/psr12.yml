@@ -21,9 +21,6 @@ services:
         'position_after_anonymous_constructs': 'same'
 
     PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
-    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer:
-        order:
-            - 'use_trait'
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
         elements:
             - 'const'
