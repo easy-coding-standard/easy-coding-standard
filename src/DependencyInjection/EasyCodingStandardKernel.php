@@ -17,6 +17,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
+use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireDefaultCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
@@ -82,6 +83,7 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
 
         // autowire
         $containerBuilder->addCompilerPass(new AutowireCheckersCompilerPass());
+        $containerBuilder->addCompilerPass(new AutowireDefaultCompilerPass());
 
         // tests
         $containerBuilder->addCompilerPass(new PublicForTestsCompilerPass());
