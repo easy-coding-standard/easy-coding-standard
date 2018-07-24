@@ -66,17 +66,16 @@ class Foo extends Bar implements FooInterface
 
 class Foo extends SomeRediculouslySuperfluouslyLongClassNameThatShouldNeverExistInTheRealWorldMeantToTestOverflow implements SomeInterface, SomeOtherInterface, YetAnotherInterface
 {
+    public function someBody()
+    {
+    }
     use SomeTrait, SomeOtherTrait;
+    public const SomeConst = 1;
     use A, B, C {
         B::smallTalk insteadof A;
         A::bigTalk insteadof C;
         C::mediumTalk as FooBar;
     }
-
-    public function someBody()
-    {
-    }
-    public const SomeConst = 1;
 
     protected $doo = 4;
     private $derp;
