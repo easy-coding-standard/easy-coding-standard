@@ -1,9 +1,6 @@
 services:
     _defaults:
         autowire: true
-        bind:
-            $cacheDirectory: '%cache_directory%'
-
 
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '..'
