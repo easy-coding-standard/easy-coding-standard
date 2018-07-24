@@ -4,7 +4,7 @@
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard)
 [![Subscribe](https://img.shields.io/badge/subscribe-to--releases-green.svg?style=flat-square)](https://libraries.io/packagist/symplify%2Feasy-coding-standard)
 
-**Used by [Shopsys](https://github.com/shopsys/coding-standards), [Nette](https://github.com/nette/coding-standard), [Sylius](https://github.com/SyliusLabs/CodingStandard), [php-ai](https://github.com/php-ai/php-ml/), [LMC](https://github.com/lmc-eu/php-coding-standard) and [Sunfox](https://github.com/sunfoxcz/coding-standard).**
+**Used by [Shopsys](https://github.com/shopsys/coding-standards), [Nette](https://github.com/nette/coding-standard), [Sylius](https://github.com/SyliusLabs/CodingStandard), [php-ai/php-ml](https://github.com/php-ai/php-ml/), [LMC](https://github.com/lmc-eu/php-coding-standard) and [Sunfox](https://github.com/sunfoxcz/coding-standard).**
 
 ![ECS-Run](docs/run-and-fix.gif)
 
