@@ -59,6 +59,3 @@ services:
     PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer: ~
 
     PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff: ~
-
-    # order of properties
-    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer:
