@@ -34,6 +34,9 @@ final class CheckerTolerantYamlFileLoader extends AbstractParameterMergingYamlFi
     protected function loadFile($file)
     {
         $configuration = parent::loadFile($file);
+        if ($configuration === null) {
+            return [];
+        }
 
         $configuration = $this->checkerServiceParametersShifter->process($configuration);
 
