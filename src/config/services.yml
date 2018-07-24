@@ -3,8 +3,7 @@ services:
         resource: '../../src'
         exclude: '../../src/{Contract,DependencyInjection,Exception,Error/Error.php,Error/FileDiff.php,Yaml}'
 
-    Symplify\EasyCodingStandard\Console\Application:
-        public: true
+    Symplify\EasyCodingStandard\Console\Application: ~
 
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
