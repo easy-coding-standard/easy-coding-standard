@@ -18,6 +18,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualChe
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireDefaultCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
+use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicDefaultCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 
@@ -80,8 +81,9 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         // exceptions
         $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
 
-        // autowire
+        // autowire + public
         $containerBuilder->addCompilerPass(new AutowireDefaultCompilerPass());
+        $containerBuilder->addCompilerPass(new PublicDefaultCompilerPass());
 
         // tests
         $containerBuilder->addCompilerPass(new PublicForTestsCompilerPass());
