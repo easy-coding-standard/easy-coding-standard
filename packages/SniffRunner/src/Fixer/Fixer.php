@@ -39,7 +39,7 @@ final class Fixer
     {
         $tokens = $file->getTokens();
 
-        $this->tokens = [];
+        $this->fixedTokens = $this->tokens = [];
         foreach ($tokens as $index => $token) {
             $this->tokens[$index] = $token['orig_content'] ?? $token['content'];
         }
