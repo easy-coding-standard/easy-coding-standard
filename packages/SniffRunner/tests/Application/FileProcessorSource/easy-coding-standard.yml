@@ -1,3 +1,2 @@
 services:
-    SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff:
-        searchAnnotations: true
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff: ~

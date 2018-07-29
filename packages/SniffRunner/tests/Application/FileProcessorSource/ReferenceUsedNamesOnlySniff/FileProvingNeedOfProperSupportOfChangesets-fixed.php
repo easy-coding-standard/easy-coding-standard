@@ -3,7 +3,7 @@
 namespace Foo;
 use Foo\Baz;
 
-final class SomeFile
+final class FileProvingNeedOfProperSupportOfChangesets
 {
     /**
      * @var Baz

@@ -1,16 +1,5 @@
 <?php declare(strict_types=1);
 
-namespace Foo;
-
-final class SomeFile
-{
-    /**
-     * @var \Foo\Baz
-     */
-    private $foo;
-
-    /**
-     * @var \Foo\Baz
-     */
-    private $bar;
-}
+$array = array(
+    'someValue'
+);
