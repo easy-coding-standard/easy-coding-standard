@@ -28,7 +28,7 @@ final class FixerTest extends AbstractContainerAwareTestCase
         $fileInfo = new SplFileInfo(__DIR__ . '/FixerSource/SomeFile.php', 'FixerSource', 'FixerSource/SomeFile.php');
 
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
-        $this->fixer = clone $this->container->get(Fixer::class);
+        $this->fixer = $this->container->get(Fixer::class);
     }
 
     public function testStartFile(): void
