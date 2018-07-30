@@ -46,6 +46,24 @@ final class FileProcessorTest extends TestCase
         $this->assertCount(1, $sniffs);
     }
 
+    public function testFileProvingNeedOfProperSupportOfChangesets(): void
+    {
+        $container = (new ContainerFactory())->createWithConfig(
+            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.yml'
+        );
+
+        $fileInfo = new SplFileInfo(
+            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php',
+            'FileProcessorSource/ReferenceUsedNamesOnlySniff',
+            'FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php'
+        );
+
+        $this->assertStringEqualsFile(
+            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets-fixed.php',
+            $container->get(SniffFileProcessor::class)->processFile($fileInfo)
+        );
+    }
+
     private function getFileLocation(): string
     {
         return __DIR__ . '/FileProcessorSource/SomeFile.php.inc';
