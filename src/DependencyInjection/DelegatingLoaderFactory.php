@@ -9,7 +9,7 @@ use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
+use Symplify\EasyCodingStandard\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
 
 final class DelegatingLoaderFactory
 {

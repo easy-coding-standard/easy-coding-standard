@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 use Nette\Utils\Strings;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\EasyCodingStandard\Yaml\CheckerTolerantYamlFileLoader;
+use Symplify\EasyCodingStandard\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
 
 final class FileHashComputer
 {
