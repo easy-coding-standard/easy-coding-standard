@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
+namespace Symplify\EasyCodingStandard\Tests\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
 
 use Iterator;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;

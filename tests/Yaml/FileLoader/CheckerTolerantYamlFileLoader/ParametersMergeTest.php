@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Yaml\CheckerTolerantYamlFileLoader;
+namespace Symplify\EasyCodingStandard\Tests\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
 
 use Iterator;
 use PHPUnit\Framework\TestCase;
@@ -67,7 +67,7 @@ final class ParametersMergeTest extends TestCase
         );
 
         // local "src/config/config.yml"
-        $delegatingLoader->load(__DIR__ . '/../../../src/config/config.yml');
+        $delegatingLoader->load(__DIR__ . '/../../../../src/config/config.yml');
         // mimics user's "easy-config-standard.yml" with own values
         $delegatingLoader->load(__DIR__ . '/ParametersSource/root-config-override.yml');
 

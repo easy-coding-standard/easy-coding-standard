@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Yaml;
+namespace Symplify\EasyCodingStandard\Yaml\FileLoader;
 
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\PackageBuilder\Yaml\AbstractParameterMergingYamlFileLoader;
+use Symplify\EasyCodingStandard\Yaml\CheckerServiceParametersShifter;
+use Symplify\PackageBuilder\Yaml\FileLoader\AbstractParameterMergingYamlFileLoader;
 use Symplify\PackageBuilder\Yaml\ParameterInImportResolver;
 
 final class CheckerTolerantYamlFileLoader extends AbstractParameterMergingYamlFileLoader
