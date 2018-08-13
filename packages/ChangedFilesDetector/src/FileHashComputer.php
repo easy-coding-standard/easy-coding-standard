@@ -16,7 +16,7 @@ final class FileHashComputer
             $md5File = md5_file($filePath);
             if ($md5File === false) {
                 throw new FileHashFailedException(sprintf(
-                    'Hashing of %s file for cache failed. Check the content, existance or access right to the file.',
+                    'Hashing of "%s" file for cache failed. Check the content, existance or access right to the file.',
                     $filePath
                 ));
             }
