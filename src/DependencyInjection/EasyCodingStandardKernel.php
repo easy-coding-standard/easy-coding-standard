@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\DetectParametersCompilerPass;
+use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
@@ -16,9 +17,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireDefaultCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicDefaultCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 
@@ -78,12 +77,11 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
         $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());
 
+        // autowire
+        $containerBuilder->addCompilerPass(new AutowireCheckersCompilerPass());
+
         // exceptions
         $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
-
-        // autowire + public
-        $containerBuilder->addCompilerPass(new AutowireDefaultCompilerPass());
-        $containerBuilder->addCompilerPass(new PublicDefaultCompilerPass());
 
         // tests
         $containerBuilder->addCompilerPass(new PublicForTestsCompilerPass());
