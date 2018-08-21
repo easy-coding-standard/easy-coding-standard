@@ -1,3 +1,6 @@
 # ecs.yml
+#imports:
+#    - { resource: '%cwd%/packages/EasyCodingStandard/config/psr2.yml' }
+
 services:
     PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SemicolonSpacingSniff: ~
