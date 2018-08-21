@@ -9,6 +9,7 @@ final class Issue1024Test extends AbstractCheckerTestCase
     public function test(): void
     {
         $this->doTestWrongToFixedFile(__DIR__ . '/wrong/wrong1024.php.inc', __DIR__ . '/fixed/fixed1024.php.inc');
+        $this->doTestWrongToFixedFile(__DIR__ . '/wrong/wrong1024_2.php.inc', __DIR__ . '/fixed/fixed1024_2.php.inc');
     }
 
     protected function provideConfig(): string
