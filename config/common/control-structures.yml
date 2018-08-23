@@ -1,4 +1,7 @@
 services:
+    # __CONSTRUCT()   =>   __construct()
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer: ~
+
     # get_class()   =>   __CLASS__
     PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer: ~
 
