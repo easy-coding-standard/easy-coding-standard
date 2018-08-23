@@ -27,7 +27,6 @@ services:
     Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
     Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff: ~
     Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff: ~
-    Symplify\CodingStandard\Fixer\Naming\MagicMethodsNamingFixer: ~
     Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer: ~
     Symplify\CodingStandard\Sniffs\Naming\ClassNameSuffixByParentSniff: ~
 
