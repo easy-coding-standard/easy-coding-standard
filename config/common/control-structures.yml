@@ -2,6 +2,9 @@ services:
     # __CONSTRUCT()   =>   __construct()
     PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer: ~
 
+    # __CLASS__   =>   self::class
+    SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff: ~
+
     # get_class()   =>   __CLASS__
     PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer: ~
 
