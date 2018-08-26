@@ -10,7 +10,7 @@ use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 final class SourceFinder
 {
     /**
-     * @var null|CustomSourceProviderInterface
+     * @var CustomSourceProviderInterface|null
      */
     private $customSourceProvider;
 
