@@ -1,4 +1,7 @@
 services:
+    # remove unused aliases
+    SlevomatCodingStandard\Sniffs\Namespaces\UselessAliasSniff: ~
+
     # drop dead use namespaces
     PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
 

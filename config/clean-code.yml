@@ -1,4 +1,13 @@
 services:
+    SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: ~
+    SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff: ~
+
+    # echo "hi";;   →   echo "hi";
+    SlevomatCodingStandard\Sniffs\PHP\UselessSemicolonSniff: ~
+
+    # ((new Class))->call()   →     (new Class)->call()
+    SlevomatCodingStandard\Sniffs\PHP\UselessParenthesesSniff: ~
+
     # use short array []
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short

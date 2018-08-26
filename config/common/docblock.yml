@@ -1,4 +1,7 @@
 services:
+    # null|Type   →   Type|null
+    SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff: ~
+
     # no useless doc blocks
     Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer: ~
 
