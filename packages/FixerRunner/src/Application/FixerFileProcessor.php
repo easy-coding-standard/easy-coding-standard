@@ -108,7 +108,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $appliedFixers = [];
 
-        foreach ($this->getCheckers() as $name => $fixer) {
+        foreach ($this->getCheckers() as $fixer) {
             if ($this->shouldSkip($fileInfo, $fixer, $tokens)) {
                 continue;
             }

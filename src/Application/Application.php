@@ -129,7 +129,7 @@ final class Application implements FileProcessorCollectorInterface
             return;
         }
 
-        foreach ($fileInfos as $relativePath => $fileInfo) {
+        foreach ($fileInfos as $fileInfo) {
             if ($this->configuration->showProgressBar()) {
                 $this->easyCodingStandardStyle->progressAdvance();
             }
