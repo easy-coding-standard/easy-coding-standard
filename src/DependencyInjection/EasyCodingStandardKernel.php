@@ -24,7 +24,7 @@ use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 final class EasyCodingStandardKernel extends AbstractCliKernel
 {
     /**
-     * @var null|string
+     * @var string|null
      */
     private $configFile;
 
