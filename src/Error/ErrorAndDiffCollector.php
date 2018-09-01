@@ -82,7 +82,7 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $this->fileDiffs[$fileInfo->getRealPath()][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
+        $this->fileDiffs[$fileInfo->getPathname()][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
             $diff,
             $appliedCheckers
         );
