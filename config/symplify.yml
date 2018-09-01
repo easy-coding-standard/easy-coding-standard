@@ -10,6 +10,7 @@ services:
     Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer: ~
     Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
     Symplify\CodingStandard\Sniffs\ControlStructure\SprintfOverContactSniff: ~
+    Symplify\CodingStandard\Sniffs\ControlStructure\ForbiddenDoubleAssignSniff: ~
 
     # Spaces
     Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
