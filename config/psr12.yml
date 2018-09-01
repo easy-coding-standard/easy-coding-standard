@@ -15,10 +15,10 @@ services:
         space: 'none'
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
     PhpCsFixer\Fixer\Basic\BracesFixer:
-        'allow_single_line_closure': false
-        'position_after_functions_and_oop_constructs': 'next'
-        'position_after_control_structures': 'same'
-        'position_after_anonymous_constructs': 'same'
+        allow_single_line_closure: false
+        position_after_functions_and_oop_constructs: 'next'
+        position_after_control_structures: 'same'
+        position_after_anonymous_constructs: 'same'
 
     PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
