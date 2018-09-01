@@ -2,12 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Parser;
 
+use Nette\Utils\FileSystem;
 use PhpCsFixer\Tokenizer\Tokens;
 
 final class FileToTokensParser
 {
     public function parseFromFilePath(string $filePath): Tokens
     {
-        return Tokens::fromCode(file_get_contents($filePath));
+        return Tokens::fromCode(FileSystem::read($filePath));
     }
 }
