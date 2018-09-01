@@ -15,4 +15,4 @@ script:
   - vendor/bin/phpunit
 
 notifications:
-  email: never
+  email: false
