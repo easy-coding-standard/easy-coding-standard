@@ -2,7 +2,7 @@ services:
     SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: ~
     SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff: ~
 
-    # detect unused variables passed to closures via use
+    # function ($var) use ($unused) { return $var; }    →   function ($var) { return $var; }
     SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff: ~
 
     # echo "hi";;   →   echo "hi";
