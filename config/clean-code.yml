@@ -2,6 +2,9 @@ services:
     SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: ~
     SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff: ~
 
+    # detect unused variables passed to closures via use
+    SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff: ~
+
     # echo "hi";;   →   echo "hi";
     SlevomatCodingStandard\Sniffs\PHP\UselessSemicolonSniff: ~
 
@@ -38,3 +41,6 @@ services:
 
     # $var = $foo : $foo ? $bar → $var = $foo ?: $bar
     SlevomatCodingStandard\Sniffs\ControlStructures\RequireShortTernaryOperatorSniff:
+
+    # $var = $var + foo → $var += $foo
+    SlevomatCodingStandard\Sniffs\Operators\RequireCombinedAssignmentOperatorSniff:
