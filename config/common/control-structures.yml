@@ -51,3 +51,10 @@ services:
 
     # private $property; public $anotherProperty;
     PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
+
+    SlevomatCodingStandard\Sniffs\Classes\TraitUseDeclarationSniff:
+    SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff:
+        linesCountAfterLastUse: 1
+        linesCountAfterLastUseWhenLastInClass: 0
+        linesCountBeforeFirstUse: 0
+        linesCountBetweenUses: 0
