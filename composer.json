@@ -16,9 +16,9 @@
         "symfony/dependency-injection": "^3.4|^4.0",
         "symfony/finder": "^3.4|^4.0",
         "symfony/yaml": "^3.4|^4.0",
-        "symplify/coding-standard": "^4.7",
-        "symplify/package-builder": "^4.7",
-        "symplify/token-runner": "^4.7",
+        "symplify/coding-standard": "^4.8",
+        "symplify/package-builder": "^4.8",
+        "symplify/token-runner": "^4.8",
         "slevomat/coding-standard": "^4.7",
         "friendsofphp/php-cs-fixer": "^2.13",
         "squizlabs/php_codesniffer": "^3.3",
@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^7.3",
-        "symplify/easy-coding-standard-tester": "^4.7"
+        "symplify/easy-coding-standard-tester": "^4.8"
     },
     "autoload": {
         "psr-4": {
@@ -48,7 +48,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.7-dev"
+            "dev-master": "4.8-dev"
         }
     },
     "minimum-stability": "dev",
