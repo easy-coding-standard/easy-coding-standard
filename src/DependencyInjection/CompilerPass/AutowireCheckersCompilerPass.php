@@ -25,10 +25,14 @@ final class AutowireCheckersCompilerPass implements CompilerPassInterface
 
     private function isCheckerDefinition(Definition $definition): bool
     {
-        $definitionClass = $definition->getClass();
-        if (is_a($definitionClass, FixerInterface::class, true)) {
+        if ($definition->getClass() === null) {
+            return false;
+        }
+
+        if (is_a($definition->getClass(), FixerInterface::class, true)) {
             return true;
         }
-        return is_a($definitionClass, Sniff::class, true);
+
+        return is_a($definition->getClass(), Sniff::class, true);
     }
 }

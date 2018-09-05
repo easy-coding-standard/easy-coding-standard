@@ -13,9 +13,11 @@ final class ConfigurationFileTest extends TestCase
     {
         $container = (new ContainerFactory())->createWithConfig(__DIR__ . '/ConfigurationFileSource/empty-config.yml');
 
+        /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getCheckers());
 
+        /** @var SniffFileProcessor $sniffFileProcessor */
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
         $this->assertCount(0, $sniffFileProcessor->getCheckers());
     }
@@ -26,9 +28,11 @@ final class ConfigurationFileTest extends TestCase
             __DIR__ . '/ConfigurationFileSource/include-another-config.yml'
         );
 
+        /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
         $this->assertCount(1, $fixerFileProcessor->getCheckers());
 
+        /** @var SniffFileProcessor $sniffFileProcessor */
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
         $this->assertCount(1, $sniffFileProcessor->getCheckers());
     }
