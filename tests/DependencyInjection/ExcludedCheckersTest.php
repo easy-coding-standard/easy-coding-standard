@@ -12,6 +12,7 @@ final class ExcludedCheckersTest extends TestCase
     {
         $container = (new ContainerFactory())->createWithConfig(__DIR__ . '/ExcludedCheckersSource/config.yml');
 
+        /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getCheckers());
     }

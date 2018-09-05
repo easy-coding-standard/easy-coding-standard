@@ -58,8 +58,8 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
      */
     private function isMatch(array $checkers, array $matchingCheckerGroup): bool
     {
-        $checkers = (array) array_flip($checkers);
-        $matchingCheckerGroup = (array) array_flip($matchingCheckerGroup);
+        $checkers = array_flip($checkers);
+        $matchingCheckerGroup = array_flip($matchingCheckerGroup);
 
         return count(array_intersect_key($matchingCheckerGroup, $checkers)) === count($matchingCheckerGroup);
     }
