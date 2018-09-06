@@ -1,44 +1,6 @@
-services:
-    # PHP 5.5
-    Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer: ~
-
-    # Imports
-    Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer: ~
-
-    # Control Structures
-    Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer: ~
-    Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer: ~
-    Symplify\CodingStandard\Fixer\ControlStructure\RequireFollowedByAbsolutePathFixer: ~
-    Symplify\CodingStandard\Sniffs\ControlStructure\SprintfOverContactSniff: ~
-    Symplify\CodingStandard\Sniffs\ControlStructure\ForbiddenDoubleAssignSniff: ~
-
-    # Spaces
-    Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
-
-    # LineLength
-    Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: ~
-
-    # Comments
-    Symplify\CodingStandard\Fixer\Commenting\BlockPropertyCommentFixer: ~
-    Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff: ~
-    Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer: ~
-    Symplify\CodingStandard\Fixer\Commenting\RemoveSuperfluousDocBlockWhitespaceFixer: ~
-
-    # Naming
-    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
-    Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff: ~
-    Symplify\CodingStandard\Sniffs\Naming\TraitNameSniff: ~
-    Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer: ~
-    Symplify\CodingStandard\Sniffs\Naming\ClassNameSuffixByParentSniff: ~
-
-    # Architecture
-    Symplify\CodingStandard\Sniffs\CleanCode\ForbiddenStaticFunctionSniff: ~
-    Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer: ~
-    Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff: ~
-    Symplify\CodingStandard\Sniffs\Architecture\ExplicitExceptionSniff: ~
-    Symplify\CodingStandard\Sniffs\CleanCode\ForbiddenReferenceSniff: ~
-    Symplify\CodingStandard\Sniffs\CleanCode\CognitiveComplexitySniff: ~
-
-    # Debug
-    Symplify\CodingStandard\Sniffs\Debug\DebugFunctionCallSniff: ~
-    Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: ~
+# see https://github.com/symplify/codingstandard for details
+imports:
+    # monorepo
+    - { resource: '../../CodingStandard/config/symplify.yml', ignore_errors: true }
+    # installed as dependency
+    - { resource: '%vendor_dir%/vendor/symplify/coding-standard/config/symplify.yml', ignore_errors: true }
