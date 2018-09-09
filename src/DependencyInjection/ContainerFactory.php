@@ -8,10 +8,10 @@ final class ContainerFactory
 {
     public function create(): ContainerInterface
     {
-        $appKernel = new EasyCodingStandardKernel();
-        $appKernel->boot();
+        $kernel = new EasyCodingStandardKernel();
+        $kernel->boot();
 
-        return $appKernel->getContainer();
+        return $kernel->getContainer();
     }
 
     /**
