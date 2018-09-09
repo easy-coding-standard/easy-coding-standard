@@ -11,7 +11,9 @@ final class ConfigurationFileTest extends TestCase
 {
     public function testEmptyConfig(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(__DIR__ . '/ConfigurationFileSource/empty-config.yml');
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/ConfigurationFileSource/empty-config.yml']
+        );
 
         /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
@@ -24,8 +26,8 @@ final class ConfigurationFileTest extends TestCase
 
     public function testIncludeConfig(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/ConfigurationFileSource/include-another-config.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/ConfigurationFileSource/include-another-config.yml']
         );
 
         /** @var FixerFileProcessor $fixerFileProcessor */

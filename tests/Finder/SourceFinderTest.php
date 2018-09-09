@@ -32,8 +32,8 @@ final class SourceFinderTest extends AbstractContainerAwareTestCase
 
     public function testSourceProviders(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/SourceFinderSource/config-with-source-provider.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/SourceFinderSource/config-with-source-provider.yml']
         );
 
         $sourceFinder = $container->get(SourceFinder::class);
@@ -44,8 +44,8 @@ final class SourceFinderTest extends AbstractContainerAwareTestCase
 
     public function testAppendFileAndSanitize(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/SourceFinderSource/config-with-append-file-provider.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/SourceFinderSource/config-with-append-file-provider.yml']
         );
 
         /** @var SourceFinder $sourceFinder */

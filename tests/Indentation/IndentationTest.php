@@ -15,8 +15,8 @@ final class IndentationTest extends TestCase
 {
     public function testSpaces(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/IndentationSource/config-with-spaces-indentation.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/IndentationSource/config-with-spaces-indentation.yml']
         );
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer($container);
 
@@ -27,8 +27,8 @@ final class IndentationTest extends TestCase
 
     public function testTabs(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/IndentationSource/config-with-tabs-indentation.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/IndentationSource/config-with-tabs-indentation.yml']
         );
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer($container);
 

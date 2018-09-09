@@ -11,7 +11,9 @@ final class MutualExcludedCheckersTest extends TestCase
 {
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(__DIR__ . '/MutualExcludedCheckersSource/config.yml');
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/MutualExcludedCheckersSource/config.yml']
+        );
 
         /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);

@@ -11,8 +11,8 @@ final class SniffServiceRegistrationTest extends TestCase
 {
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.yml']
         );
 
         /** @var SniffFileProcessor $sniffFileProcessor */
