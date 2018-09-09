@@ -15,8 +15,8 @@ final class FixerServiceRegistrationTest extends TestCase
 {
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.yml']
         );
 
         /** @var FixerFileProcessor $fixerFileProcessor */
@@ -45,8 +45,8 @@ final class FixerServiceRegistrationTest extends TestCase
             StrictParamFixer::class
         ));
 
-        (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/FixerServiceRegistrationSource/non-configurable-fixer.yml'
+        (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/FixerServiceRegistrationSource/non-configurable-fixer.yml']
         );
     }
 }

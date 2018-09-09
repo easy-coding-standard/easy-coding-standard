@@ -12,6 +12,6 @@ final class ConflictingCheckersTest extends TestCase
     {
         $this->expectException(ConflictingCheckersLoadedException::class);
 
-        (new ContainerFactory())->createWithConfig(__DIR__ . '/ConflictingCheckersSource/config.yml');
+        (new ContainerFactory())->createWithConfigs([__DIR__ . '/ConflictingCheckersSource/config.yml']);
     }
 }

@@ -21,8 +21,8 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/FileProcessorSource/easy-coding-standard.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/FileProcessorSource/easy-coding-standard.yml']
         );
 
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
@@ -48,8 +48,8 @@ final class FileProcessorTest extends TestCase
 
     public function testFileProvingNeedOfProperSupportOfChangesets(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.yml']
         );
 
         $fileInfo = new SplFileInfo(

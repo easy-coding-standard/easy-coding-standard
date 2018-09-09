@@ -23,8 +23,8 @@ final class SniffFileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory())->createWithConfig(
-            __DIR__ . '/SniffRunnerSource/easy-coding-standard.yml'
+        $container = (new ContainerFactory())->createWithConfigs(
+            [__DIR__ . '/SniffRunnerSource/easy-coding-standard.yml']
         );
 
         $this->errorAndDiffCollector = $container->get(ErrorAndDiffCollector::class);
