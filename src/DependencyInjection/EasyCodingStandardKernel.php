@@ -2,11 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
+use Nette\Utils\Strings;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\DetectParametersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireCheckersCompilerPass;
@@ -19,21 +21,33 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualChe
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
-use Symplify\PackageBuilder\HttpKernel\AbstractCliKernel;
 
-final class EasyCodingStandardKernel extends AbstractCliKernel
+final class EasyCodingStandardKernel extends Kernel
 {
     /**
-     * @var string|null
+     * @var string[]
      */
-    private $configFile;
+    private $extraConfigFiles = [];
+
+    /**
+     * @param string[] $configFiles
+     */
+    public function __construct(array $configFiles = [])
+    {
+        $this->extraConfigFiles = $configFiles;
+
+        $configFilesHash = md5(serialize($configFiles));
+
+        // debug: require to invalidate container on service files change
+        parent::__construct('ecs_' . $configFilesHash, false);
+    }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../config/config.yml');
 
-        if ($this->configFile) {
-            $loader->load($this->configFile);
+        foreach ($this->extraConfigFiles as $configFile) {
+            $loader->load($configFile);
         }
     }
 
@@ -55,22 +69,22 @@ final class EasyCodingStandardKernel extends AbstractCliKernel
         return [];
     }
 
-    public function bootWithConfig(string $config): void
-    {
-        $this->configFile = $config;
-        $this->boot();
-    }
-
     /**
      * Order matters!
      */
     protected function build(ContainerBuilder $containerBuilder): void
     {
-        if ($this->configFile) {
+        foreach ($this->extraConfigFiles as $extraConfigFile) {
+            // not a root config
+            if (! Strings::match($extraConfigFile, '#(ecs|easy-coding-standard)\.y(a)?ml$#')) {
+                continue;
+            }
+
             // get root skip parameters, for unused skipper
-            $parsedRootConfig = Yaml::parseFile($this->configFile);
-            $rootSkip = $parsedRootConfig['parameters']['skip'] ?? [];
-            $containerBuilder->setParameter('root_skip', $rootSkip);
+            $parsedRootConfig = Yaml::parseFile($extraConfigFile);
+            if (isset($parsedRootConfig['parameters']['skip'])) {
+                $containerBuilder->setParameter('root_skip', $parsedRootConfig['parameters']['skip']);
+            }
         }
 
         // cleanup

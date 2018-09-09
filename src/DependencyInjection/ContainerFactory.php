@@ -14,10 +14,13 @@ final class ContainerFactory
         return $appKernel->getContainer();
     }
 
-    public function createWithConfig(string $config): ContainerInterface
+    /**
+     * @param string[] $configs
+     */
+    public function createWithConfigs(array $configs): ContainerInterface
     {
-        $kernel = new EasyCodingStandardKernel();
-        $kernel->bootWithConfig($config);
+        $kernel = new EasyCodingStandardKernel($configs);
+        $kernel->boot();
 
         return $kernel->getContainer();
     }

@@ -5,25 +5,24 @@ use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\Configuration\LevelFileFinder;
 
-// 1. Detect configuration from level option
-$configFile = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
+// Detect configuration from level option
+$configFiles = [];
+$configFiles[] = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
 
-// 2. Fallback to config option
-if ($configFile === null) {
-    ConfigFileFinder::detectFromInput('ecs', new ArgvInput());
-    // 3. Fallback to root file
-    $configFile = ConfigFileFinder::provide(
-        'ecs',
-        ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
-    );
-} else {
-    ConfigFileFinder::set('ecs', $configFile);
-}
+// Fallback to config option
+ConfigFileFinder::detectFromInput('ecs', new ArgvInput());
+$configFiles[] = ConfigFileFinder::provide(
+    'ecs',
+    ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
+);
 
-// 4. Build DI container
+// remove empty values
+$configFiles = array_filter($configFiles);
+
+// Build DI container
 $containerFactory = new ContainerFactory();
-if ($configFile) {
-    return $containerFactory->createWithConfig($configFile);
+if ($configFiles) {
+    return $containerFactory->createWithConfigs($configFiles);
 }
 
 return $containerFactory->create();
