@@ -39,7 +39,7 @@ final class EasyCodingStandardKernel extends Kernel
         $configFilesHash = md5(serialize($configFiles));
 
         // debug: require to invalidate container on service files change
-        parent::__construct('ecs_' . $configFilesHash, false);
+        parent::__construct('ecs_' . $configFilesHash, true);
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
