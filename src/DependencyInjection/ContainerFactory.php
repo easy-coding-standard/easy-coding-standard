@@ -11,6 +11,9 @@ final class ContainerFactory
         $kernel = new EasyCodingStandardKernel();
         $kernel->boot();
 
+        // this is require to keep CLI verbosity independent on AppKernel dev/prod mode
+        putenv('SHELL_VERBOSITY=0');
+
         return $kernel->getContainer();
     }
 
@@ -21,6 +24,9 @@ final class ContainerFactory
     {
         $kernel = new EasyCodingStandardKernel($configs);
         $kernel->boot();
+
+        // this is require to keep CLI verbosity independent on AppKernel dev/prod mode
+        putenv('SHELL_VERBOSITY=0');
 
         return $kernel->getContainer();
     }
