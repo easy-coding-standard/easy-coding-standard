@@ -15,6 +15,11 @@
 - [Skipping files](#ignore-what-you-cant-fix) for specific checkers
 - [Prepared checker sets](#use-prepared-checker-sets) - PSR2, Symfony, Common, Symplify and more...
 
+Are you already using another tool?
+
+- [How to Migrate From PHP_CodeSniffer to EasyCodingStandard in 7 Steps](https://www.tomasvotruba.cz/blog/2018/06/04/how-to-migrate-from-php-code-sniffer-to-easy-coding-standard/#comment-4086561141)
+- [How to Migrate From PHP CS Fixer to EasyCodingStandard in 6 Steps](https://www.tomasvotruba.cz/blog/2018/06/07/how-to-migrate-from-php-cs-fixer-to-easy-coding-standard/)
+
 ## Install
 
 ```bash
