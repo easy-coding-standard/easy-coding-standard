@@ -240,7 +240,7 @@ parameters:
     line_ending: "\n"
 ```
 
-## Integration
+## Your IDE Integration
 
 ### PHPStorm
 
@@ -252,17 +252,15 @@ Go to `Preferences` > `Tools` > `External Tools` and click `+` to add a new tool
 
 - Name: `ecs` (Can be any value)
 - Description: `easyCodingStandard` (Can be any value)
-- Program: `$ProjectFileDir$/vendor/bin/ecs` (Locally or Globally installed ecs executable)
+- Program: `$ProjectFileDir$/vendor/bin/ecs` (Path to `ecs` executable; On Windows path separators must be a `\`)
 - Parameters: `check $FilePathRelativeToProjectRoot$` (append `--fix` to auto-fix)
 - Working directory: `$ProjectFileDir$`
 
-> On Windows path separators must be `\` in Program field.
+Press `Cmd/Ctrl` + `Shift` + `A` (Find Action), search for `ecs`, and then hit Enter. It will run `ecs` for the current file.
 
-Press `Cmd/Ctrl` + `Shift` + `A` (Find Action), search for `ecs`, and then hit Enter.
+To run `ecs` on a directory, right click on a folder in the project browser go to external tools and select `ecs`.
 
-It will run `ecs` for the current file. To run `ecs` on a directory, right click on a folder in the project browser go to external tools and select `ecs`.
-
-You can add a keyboard shortcut in [Preferences > Keymap](https://www.jetbrains.com/help/webstorm/configuring-keyboard-and-mouse-shortcuts.html) to run `ecs` configuration.
+You can also create a keyboard shortcut in [Preferences > Keymap](https://www.jetbrains.com/help/webstorm/configuring-keyboard-and-mouse-shortcuts.html) to run `ecs`.
 
 ## Contributing
 
