@@ -123,7 +123,7 @@ final class FixerFileProcessor implements FileProcessorInterface
                     $throwable->getMessage(),
                     $throwable->getFile(),
                     $throwable->getLine()
-                ));
+                ), $throwable->getCode(), $throwable);
             }
 
             if (! $tokens->isChanged()) {
