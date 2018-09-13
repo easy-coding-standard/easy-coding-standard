@@ -14,6 +14,13 @@ final class Fixer
     public $loops;
 
     /**
+     * For back compatibility with PHP_CodeSniffer.
+     *
+     * @var bool
+     */
+    public $enabled = true;
+
+    /**
      * @var int[]|string[]
      */
     private $tokens = [];
