@@ -7,7 +7,6 @@ use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\DetectParametersCompilerPass;
@@ -21,9 +20,12 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualChe
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
+use Symplify\PackageBuilder\HttpKernel\SimpleKernelTrait;
 
 final class EasyCodingStandardKernel extends Kernel
 {
+    use SimpleKernelTrait;
+
     /**
      * @var string[]
      */
@@ -49,24 +51,6 @@ final class EasyCodingStandardKernel extends Kernel
         foreach ($this->extraConfigFiles as $configFile) {
             $loader->load($configFile);
         }
-    }
-
-    public function getCacheDir(): string
-    {
-        return sys_get_temp_dir() . '/_easy_coding_standard';
-    }
-
-    public function getLogDir(): string
-    {
-        return sys_get_temp_dir() . '/_easy_coding_standard_logs';
-    }
-
-    /**
-     * @return BundleInterface[]
-     */
-    public function registerBundles(): array
-    {
-        return [];
     }
 
     /**
