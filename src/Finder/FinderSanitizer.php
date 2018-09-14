@@ -10,6 +10,7 @@ use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
+use function Safe\sprintf;
 
 final class FinderSanitizer
 {
@@ -87,7 +88,7 @@ final class FinderSanitizer
     {
         foreach ($paths as $path) {
             if (Strings::startsWith($fileInfo->getRealPath(), $path)) {
-                return substr($fileInfo->getRealPath(), strlen($path) + 1);
+                return Strings::substring($fileInfo->getRealPath(), strlen($path) + 1);
             }
         }
 

@@ -2,10 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\Yaml;
 
+use Nette\Utils\Json;
 use Nette\Utils\ObjectHelpers;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
+use function Safe\sprintf;
 
 final class CheckerConfigurationGuardian
 {
@@ -21,7 +23,7 @@ final class CheckerConfigurationGuardian
         throw new FixerIsNotConfigurableException(sprintf(
             'Fixer "%s" is not configurable with configuration: %s.',
             $fixerClass,
-            json_encode($configuration)
+            Json::encode($configuration)
         ));
     }
 

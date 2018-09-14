@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
+use Nette\Utils\FileSystem;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
@@ -27,7 +28,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
     public function testInvalidateCacheOnConfigurationChange(): void
     {
         // A. create on another one with fixer
-        file_put_contents($this->includedConfigFile, Yaml::dump([
+        FileSystem::write($this->includedConfigFile, Yaml::dump([
             'services' => [DeclareStrictTypesFixer::class => []],
         ]));
 
@@ -36,7 +37,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
         );
 
         // B. create on another one with no fixer
-        file_put_contents($this->includedConfigFile, Yaml::dump([
+        FileSystem::write($this->includedConfigFile, Yaml::dump([
             'services' => [],
         ]));
 
@@ -46,7 +47,7 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);
 
-        unlink($this->includedConfigFile);
+        FileSystem::delete($this->includedConfigFile);
     }
 
     public function testPhpFileHash(): void

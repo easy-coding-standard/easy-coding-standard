@@ -15,6 +15,7 @@ use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
+use function Safe\sprintf;
 
 final class CheckCommand extends Command
 {
@@ -119,11 +120,13 @@ final class CheckCommand extends Command
         }
 
         if ($this->errorAndDiffCollector->getErrorCount() === 0) {
-            $this->easyCodingStandardStyle->success(sprintf(
-                '%d error%s successfully fixed and no other found!',
-                $this->errorAndDiffCollector->getFileDiffsCount(),
-                $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? '' : 's'
-            ));
+            $this->easyCodingStandardStyle->success(
+                sprintf(
+                    '%d error%s successfully fixed and no other found!',
+                    $this->errorAndDiffCollector->getFileDiffsCount(),
+                    $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? '' : 's'
+                )
+            );
 
             return 0;
         }
@@ -157,24 +160,28 @@ final class CheckCommand extends Command
     private function printErrorMessageFromErrorCounts(int $errorCount, int $fileDiffsCount): void
     {
         if ($errorCount) {
-            $this->easyCodingStandardStyle->error(sprintf(
-                'Found %d error%s that need%s to be fixed manually.',
-                $errorCount,
-                $errorCount === 1 ? '' : 's',
-                $errorCount === 1 ? '' : 's'
-            ));
+            $this->easyCodingStandardStyle->error(
+                sprintf(
+                    'Found %d error%s that need%s to be fixed manually.',
+                    $errorCount,
+                    $errorCount === 1 ? '' : 's',
+                    $errorCount === 1 ? '' : 's'
+                )
+            );
         }
 
         if (! $fileDiffsCount || $this->configuration->isFixer()) {
             return;
         }
 
-        $this->easyCodingStandardStyle->fixableError(sprintf(
-            '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
-            $errorCount ? 'Good news is that ' : '',
-            $fileDiffsCount,
-            $fileDiffsCount === 1 ? 'file is' : 'files are'
-        ));
+        $this->easyCodingStandardStyle->fixableError(
+            sprintf(
+                '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
+                $errorCount ? 'Good news is that ' : '',
+                $fileDiffsCount,
+                $fileDiffsCount === 1 ? 'file is' : 'files are'
+            )
+        );
     }
 
     private function ensureSomeCheckersAreRegistered(): void

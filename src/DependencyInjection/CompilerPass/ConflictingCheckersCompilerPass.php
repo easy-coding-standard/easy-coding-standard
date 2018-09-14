@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
+use function Safe\sprintf;
 
 final class ConflictingCheckersCompilerPass implements CompilerPassInterface
 {

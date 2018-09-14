@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
+use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
@@ -17,6 +18,7 @@ use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
+use function Safe\define;
 
 final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFileProcessorInterface
 {
@@ -161,7 +163,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
 
         // 4. save file content (faster without changes check)
         if ($this->configuration->isFixer()) {
-            file_put_contents($file->getFilename(), $this->fixer->getContents());
+            FileSystem::write($file->getFilename(), $this->fixer->getContents());
         }
 
         return $this->fixer->getContents();

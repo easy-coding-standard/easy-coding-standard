@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Configuration;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
+use function Safe\sprintf;
 
 final class Configuration
 {

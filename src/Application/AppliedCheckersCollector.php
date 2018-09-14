@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Application;
 use SplObjectStorage;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
+use function Safe\sprintf;
 
 final class AppliedCheckersCollector
 {

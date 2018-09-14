@@ -3,8 +3,10 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
+use Nette\Utils\Strings;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use function Safe\getcwd;
 
 final class ErrorAndDiffCollector
 {
@@ -54,7 +56,7 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $relativePathnameToRoot = substr($fileInfo->getRealPath(), strlen(getcwd()) + 1);
+        $relativePathnameToRoot = Strings::substring($fileInfo->getRealPath(), strlen(getcwd()) + 1);
         $this->errors[$relativePathnameToRoot][] = $this->errorFactory->createFromLineMessageSourceClass(
             $line,
             $message,

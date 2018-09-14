@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use function Safe\sprintf;
 
 final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 {
@@ -59,17 +60,17 @@ final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 
     private function assertFileHasChanged(SplFileInfo $fileInfo): void
     {
-        $this->assertTrue($this->changedFilesDetector->hasFileInfoChanged($fileInfo), sprintf(
-            'Failed asserting that file "%s" has changed.',
-            $fileInfo
-        ));
+        $this->assertTrue(
+            $this->changedFilesDetector->hasFileInfoChanged($fileInfo),
+            sprintf('Failed asserting that file "%s" has changed.', $fileInfo->getPathname())
+        );
     }
 
     private function assertFileHasNotChanged(SplFileInfo $fileInfo): void
     {
-        $this->assertFalse($this->changedFilesDetector->hasFileInfoChanged($fileInfo), sprintf(
-            'Failed asserting that file "%s" has not changed.',
-            $fileInfo
-        ));
+        $this->assertFalse(
+            $this->changedFilesDetector->hasFileInfoChanged($fileInfo),
+            sprintf('Failed asserting that file "%s" has not changed.', $fileInfo->getPathname())
+        );
     }
 }

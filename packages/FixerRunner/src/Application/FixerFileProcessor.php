@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
+use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -15,6 +16,8 @@ use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedExc
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Skipper;
 use Throwable;
+use function Safe\sprintf;
+use function Safe\usort;
 
 final class FixerFileProcessor implements FileProcessorInterface
 {
@@ -118,7 +121,7 @@ final class FixerFileProcessor implements FileProcessorInterface
             } catch (Throwable $throwable) {
                 throw new FixerFailedException(sprintf(
                     'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
-                    $fileInfo,
+                    $fileInfo->getPathname(),
                     get_class($fixer),
                     $throwable->getMessage(),
                     $throwable->getFile(),
@@ -149,7 +152,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->errorAndDiffCollector->addDiffForFileInfo($fileInfo, $diff, $appliedFixers);
 
         if ($this->configuration->isFixer()) {
-            file_put_contents($fileInfo->getRealPath(), $tokens->generateCode());
+            FileSystem::write($fileInfo->getRealPath(), $tokens->generateCode());
         }
 
         Tokens::clearCache();

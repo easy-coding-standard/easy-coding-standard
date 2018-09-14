@@ -6,6 +6,7 @@ use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
+use function Safe\ksort;
 
 final class SourceFinder
 {
