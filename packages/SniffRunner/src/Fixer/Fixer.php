@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Fixer;
 
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
+use function Safe\substr;
 
 final class Fixer
 {

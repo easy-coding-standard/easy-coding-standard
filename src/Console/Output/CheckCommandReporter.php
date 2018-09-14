@@ -6,6 +6,7 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\EasyCodingStandard\Skipper;
+use function Safe\sprintf;
 
 final class CheckCommandReporter
 {
@@ -38,11 +39,8 @@ final class CheckCommandReporter
     {
         foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
             if (! is_array($skippedFiles)) {
-                $this->easyCodingStandardStyle->error(sprintf(
-                    'Skipped checker "%s" were not found. '
-                    . 'You can remove them from "parameters: > skip:" section in your config.',
-                    $skippedClass
-                ));
+                $this->easyCodingStandardStyle->error(sprintf('Skipped checker "%s" were not found. '
+                . 'You can remove them from "parameters: > skip:" section in your config.', $skippedClass));
 
                 continue;
             }
@@ -52,12 +50,8 @@ final class CheckCommandReporter
                     continue;
                 }
 
-                $this->easyCodingStandardStyle->error(sprintf(
-                    'Skipped checker "%s" and file path "%s" were not found. '
-                    . 'You can remove them from "parameters: > skip:" section in your config.',
-                    $skippedClass,
-                    $skippedFile
-                ));
+                $this->easyCodingStandardStyle->error(sprintf('Skipped checker "%s" and file path "%s" were not found. '
+                . 'You can remove them from "parameters: > skip:" section in your config.', $skippedClass, $skippedFile));
             }
         }
     }

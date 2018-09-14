@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\Simple;
 
 use Nette\Utils\Strings;
 use Symfony\Component\Cache\Simple\FilesystemCache;
+use function Safe\getcwd;
 
 final class FilesystemCacheFactory
 {

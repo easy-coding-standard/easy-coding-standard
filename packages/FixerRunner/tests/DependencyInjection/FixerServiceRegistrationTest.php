@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use function Safe\sprintf;
 
 final class FixerServiceRegistrationTest extends TestCase
 {
@@ -40,10 +41,9 @@ final class FixerServiceRegistrationTest extends TestCase
     public function testConfigureUnconfigurableFixer(): void
     {
         $this->expectException(FixerIsNotConfigurableException::class);
-        $this->expectExceptionMessage(sprintf(
-            'Fixer "%s" is not configurable with configuration: {"be_strict":"yea"}.',
-            StrictParamFixer::class
-        ));
+        $this->expectExceptionMessage(
+            sprintf('Fixer "%s" is not configurable with configuration: {"be_strict":"yea"}.', StrictParamFixer::class)
+        );
 
         (new ContainerFactory())->createWithConfigs(
             [__DIR__ . '/FixerServiceRegistrationSource/non-configurable-fixer.yml']

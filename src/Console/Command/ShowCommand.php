@@ -12,6 +12,8 @@ use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
+use function Safe\sort;
+use function Safe\sprintf;
 
 final class ShowCommand extends Command
 {
@@ -58,11 +60,9 @@ final class ShowCommand extends Command
         $this->displayCheckerList($this->sniffFileProcessor->getCheckers(), 'PHP_CodeSniffer');
         $this->displayCheckerList($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
 
-        $this->easyCodingStandardStyle->success(sprintf(
-            'Loaded %d checker%s in total',
-            $this->checkersTotal,
-            $this->checkersTotal === 1 ? '' : 's'
-        ));
+        $this->easyCodingStandardStyle->success(
+            sprintf('Loaded %d checker%s in total', $this->checkersTotal, $this->checkersTotal === 1 ? '' : 's')
+        );
 
         return 0;
     }
@@ -82,12 +82,9 @@ final class ShowCommand extends Command
 
         $this->checkersTotal += count($checkers);
 
-        $this->easyCodingStandardStyle->section(sprintf(
-            '%d checker%s from %s:',
-            count($checkers),
-            count($checkers) === 1 ? '' : 's',
-            $type
-        ));
+        $this->easyCodingStandardStyle->section(
+            sprintf('%d checker%s from %s:', count($checkers), count($checkers) === 1 ? '' : 's', $type)
+        );
 
         sort($checkerNames);
         $this->easyCodingStandardStyle->listing($checkerNames);

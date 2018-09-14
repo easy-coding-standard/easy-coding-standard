@@ -7,6 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\Exception\FileHashFailedException;
 use Symplify\EasyCodingStandard\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
+use function Safe\sprintf;
 
 final class FileHashComputer
 {
