@@ -1,0 +1,7 @@
+services:
+    - PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff.SpaceBeforeBrace
+    - PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff.Indent
+    - PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff.IncorrectExact
+        ignoreIndentationTokens:
+            - T_COMMENT
+            - T_DOC_COMMENT_OPEN_TAG
