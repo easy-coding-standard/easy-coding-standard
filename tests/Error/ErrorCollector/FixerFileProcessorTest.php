@@ -3,10 +3,10 @@
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FixerFileProcessorTest extends TestCase
 {
@@ -40,7 +40,7 @@ final class FixerFileProcessorTest extends TestCase
 
     private function runFileProcessor(): void
     {
-        $fileInfo = new SplFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc', '', '');
+        $fileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
 
         $this->fixerFileProcessor->processFile($fileInfo);
     }

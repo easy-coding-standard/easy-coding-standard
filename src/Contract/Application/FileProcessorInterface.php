@@ -2,11 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
-use Symfony\Component\Finder\SplFileInfo;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 interface FileProcessorInterface
 {
-    public function processFile(SplFileInfo $fileInfo): string;
+    public function processFile(SmartFileInfo $smartFileInfo): string;
 
     /**
      * @return mixed[]

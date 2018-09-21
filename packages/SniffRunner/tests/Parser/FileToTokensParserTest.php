@@ -2,9 +2,9 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Parser;
 
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FileToTokensParserTest extends AbstractContainerAwareTestCase
 {
@@ -21,11 +21,7 @@ final class FileToTokensParserTest extends AbstractContainerAwareTestCase
     public function test(): void
     {
         $tokens = $this->fileToTokensParser->parseFromFileInfo(
-            new SplFileInfo(
-                __DIR__ . '/FileToTokensParserSource/SimplePhpFile.php',
-                'FileToTokensParserSource',
-                'FileToTokensParserSource/SimplePhpFile.php'
-            )
+            new SmartFileInfo(__DIR__ . '/FileToTokensParserSource/SimplePhpFile.php')
         );
 
         $this->assertCount(15, $tokens);

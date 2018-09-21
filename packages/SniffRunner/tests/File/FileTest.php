@@ -2,13 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FileTest extends AbstractContainerAwareTestCase
 {
@@ -34,11 +34,7 @@ final class FileTest extends AbstractContainerAwareTestCase
 
         /** @var FileFactory $fileFactory */
         $fileFactory = $this->container->get(FileFactory::class);
-        $fileInfo = new SplFileInfo(
-            __DIR__ . '/FileFactorySource/SomeFile.php',
-            'FileFactorySource',
-            'FileFactorySource/SomeFile.php'
-        );
+        $fileInfo = new SmartFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
 
         // simulates Application cycle

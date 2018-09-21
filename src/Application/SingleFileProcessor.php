@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -11,6 +10,7 @@ use Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInter
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class SingleFileProcessor implements FileProcessorCollectorInterface
 {
@@ -63,29 +63,29 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
         $this->fileProcessors[] = $fileProcessor;
     }
 
-    public function processFileInfo(SplFileInfo $fileInfo): void
+    public function processFileInfo(SmartFileInfo $smartFileInfo): void
     {
         if ($this->configuration->showProgressBar()) {
             $this->easyCodingStandardStyle->progressAdvance();
         }
 
         try {
-            $this->changedFilesDetector->addFileInfo($fileInfo);
+            $this->changedFilesDetector->addFileInfo($smartFileInfo);
             foreach ($this->fileProcessors as $fileProcessor) {
                 if (! $fileProcessor->getCheckers()) {
                     continue;
                 }
 
-                if ($this->skipper->shouldSkipFile($fileInfo)) {
+                if ($this->skipper->shouldSkipFile($smartFileInfo)) {
                     continue;
                 }
 
-                $fileProcessor->processFile($fileInfo);
+                $fileProcessor->processFile($smartFileInfo);
             }
         } catch (ParseError $parseError) {
-            $this->changedFilesDetector->invalidateFileInfo($fileInfo);
+            $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
             $this->errorAndDiffCollector->addErrorMessage(
-                $fileInfo,
+                $smartFileInfo,
                 $parseError->getLine(),
                 $parseError->getMessage(),
                 ParseError::class

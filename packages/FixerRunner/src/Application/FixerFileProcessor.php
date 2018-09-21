@@ -15,6 +15,7 @@ use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Skipper;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use Throwable;
 use function Safe\sprintf;
 use function Safe\usort;
@@ -101,27 +102,27 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $this->fixers;
     }
 
-    public function processFile(SplFileInfo $fileInfo): string
+    public function processFile(SmartFileInfo $smartFileInfo): string
     {
-        $this->currentFileProvider->setFileInfo($fileInfo);
+        $this->currentFileProvider->setFileInfo($smartFileInfo);
 
-        $oldContent = $this->cachedFileLoader->getFileContent($fileInfo);
+        $oldContent = $this->cachedFileLoader->getFileContent($smartFileInfo);
 
-        $tokens = $this->fileToTokensParser->parseFromFilePath($fileInfo->getRealPath());
+        $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
 
         $appliedFixers = [];
 
         foreach ($this->getCheckers() as $fixer) {
-            if ($this->shouldSkip($fileInfo, $fixer, $tokens)) {
+            if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
                 continue;
             }
 
             try {
-                $fixer->fix($fileInfo, $tokens);
+                $fixer->fix($smartFileInfo, $tokens);
             } catch (Throwable $throwable) {
                 throw new FixerFailedException(sprintf(
                     'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
-                    $fileInfo->getPathname(),
+                    $smartFileInfo->getRelativeFilePath(),
                     get_class($fixer),
                     $throwable->getMessage(),
                     $throwable->getFile(),
@@ -149,10 +150,10 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         // file has changed
-        $this->errorAndDiffCollector->addDiffForFileInfo($fileInfo, $diff, $appliedFixers);
+        $this->errorAndDiffCollector->addDiffForFileInfo($smartFileInfo, $diff, $appliedFixers);
 
         if ($this->configuration->isFixer()) {
-            FileSystem::write($fileInfo->getRealPath(), $tokens->generateCode());
+            FileSystem::write($smartFileInfo->getRealPath(), $tokens->generateCode());
         }
 
         Tokens::clearCache();

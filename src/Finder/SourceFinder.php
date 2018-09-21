@@ -2,10 +2,9 @@
 
 namespace Symplify\EasyCodingStandard\Finder;
 
-use SplFileInfo;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use function Safe\ksort;
 
 final class SourceFinder
@@ -32,14 +31,14 @@ final class SourceFinder
 
     /**
      * @param string[] $source
-     * @return SymfonySplFileInfo[]
+     * @return SmartFileInfo[]
      */
     public function find(array $source): array
     {
         if ($this->customSourceProvider) {
-            $finder = $this->customSourceProvider->find($source);
+            $files = $this->customSourceProvider->find($source);
 
-            return $this->finderSanitizer->sanitize($finder);
+            return $this->finderSanitizer->sanitize($files);
         }
 
         $files = [];
@@ -57,21 +56,17 @@ final class SourceFinder
     }
 
     /**
-     * @param SplFileInfo[] $files
-     * @return SplFileInfo[]
+     * @param SmartFileInfo[] $files
+     * @return SmartFileInfo[]
      */
     private function processFile(array $files, string $file): array
     {
-        $fileInfo = new SplFileInfo($file);
-
-        return array_merge($files, [
-            $file => new SymfonySplFileInfo($file, dirname($fileInfo->getFilename()), $fileInfo->getFilename()),
-        ]);
+        return array_merge($files, [new SmartFileInfo($file)]);
     }
 
     /**
-     * @param SplFileInfo[] $files
-     * @return SplFileInfo[]
+     * @param SmartFileInfo[] $files
+     * @return SmartFileInfo[]
      */
     private function processDirectory(array $files, string $directory): array
     {

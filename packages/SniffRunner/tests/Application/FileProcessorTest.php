@@ -3,9 +3,9 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FileProcessorTest extends TestCase
 {
@@ -30,11 +30,7 @@ final class FileProcessorTest extends TestCase
 
     public function test(): void
     {
-        $fileInfo = new SplFileInfo(
-            $this->getFileLocation(),
-            'FileProcessorSource',
-            'FileProcessorSource/SomeFile.php.inc'
-        );
+        $fileInfo = new SmartFileInfo(__DIR__ . '/FileProcessorSource/SomeFile.php.inc');
 
         $fixedContent = $this->sniffFileProcessor->processFile($fileInfo);
         $this->assertNotSame($this->initialFileContent, $fixedContent);
@@ -52,20 +48,13 @@ final class FileProcessorTest extends TestCase
             [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.yml']
         );
 
-        $fileInfo = new SplFileInfo(
-            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php.inc',
-            'FileProcessorSource/ReferenceUsedNamesOnlySniff',
-            'FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php.inc'
+        $fileInfo = new SmartFileInfo(
+            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php.inc'
         );
 
         $this->assertStringEqualsFile(
             __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets-fixed.php.inc',
             $container->get(SniffFileProcessor::class)->processFile($fileInfo)
         );
-    }
-
-    private function getFileLocation(): string
-    {
-        return __DIR__ . '/FileProcessorSource/SomeFile.php.inc';
     }
 }
