@@ -3,22 +3,11 @@
 namespace Symplify\EasyCodingStandard\Tests\Finder;
 
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
-use Symplify\EasyCodingStandard\Finder\FinderSanitizer;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 
 final class SourceFinderTest extends AbstractContainerAwareTestCase
 {
-    /**
-     * @var FinderSanitizer
-     */
-    private $finderSanitizer;
-
-    protected function setUp(): void
-    {
-        $this->finderSanitizer = $this->container->get(FinderSanitizer::class);
-    }
-
     public function test(): void
     {
         /** @var SourceFinder $sourceFinder */
@@ -51,8 +40,6 @@ final class SourceFinderTest extends AbstractContainerAwareTestCase
         /** @var SourceFinder $sourceFinder */
         $sourceFinder = $container->get(SourceFinder::class);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source/tests']);
-
-        $foundFiles = $this->finderSanitizer->sanitize($foundFiles);
 
         $this->assertCount(3, $foundFiles);
     }

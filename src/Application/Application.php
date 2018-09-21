@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Application;
 
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -11,6 +10,7 @@ use Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInter
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class Application implements FileProcessorCollectorInterface
 {
@@ -111,7 +111,7 @@ final class Application implements FileProcessorCollectorInterface
     }
 
     /**
-     * @param SplFileInfo[] $fileInfos
+     * @param SmartFileInfo[] $fileInfos
      */
     private function processFoundFiles(array $fileInfos): void
     {
@@ -121,7 +121,7 @@ final class Application implements FileProcessorCollectorInterface
     }
 
     /**
-     * @param SplFileInfo[] $fileInfos
+     * @param SmartFileInfo[] $fileInfos
      */
     private function processFoundFilesSecondRun(array $fileInfos): void
     {

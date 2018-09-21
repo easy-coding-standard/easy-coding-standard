@@ -18,6 +18,7 @@ use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use function Safe\define;
 
 final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFileProcessorInterface
@@ -138,26 +139,26 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         });
     }
 
-    public function processFile(SplFileInfo $fileInfo): string
+    public function processFile(SmartFileInfo $smartFileInfo): string
     {
-        $this->currentFileProvider->setFileInfo($fileInfo);
+        $this->currentFileProvider->setFileInfo($smartFileInfo);
 
-        $file = $this->fileFactory->createFromFileInfo($fileInfo);
+        $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
         // 1. puts tokens into fixer
         $this->fixer->startFile($file);
 
         // 2. run all Sniff fixers
-        $this->processTokens($file, $fileInfo);
+        $this->processTokens($file, $smartFileInfo);
 
         // 3. add diff
-        if ($fileInfo->getContents() !== $this->fixer->getContents()) {
-            $diff = $this->differ->diff($fileInfo->getContents(), $this->fixer->getContents());
+        if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
+            $diff = $this->differ->diff($smartFileInfo->getContents(), $this->fixer->getContents());
 
             $this->errorAndDiffCollector->addDiffForFileInfo(
-                $fileInfo,
+                $smartFileInfo,
                 $diff,
-                $this->appliedCheckersCollector->getAppliedCheckersPerFileInfo($fileInfo)
+                $this->appliedCheckersCollector->getAppliedCheckersPerFileInfo($smartFileInfo)
             );
         }
 
@@ -169,11 +170,11 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         return $this->fixer->getContents();
     }
 
-    public function processFileSecondRun(SplFileInfo $fileInfo): string
+    public function processFileSecondRun(SmartFileInfo $smartFileInfo): string
     {
         $this->prepareSecondRun();
 
-        return $this->processFile($fileInfo);
+        return $this->processFile($smartFileInfo);
     }
 
     private function processTokens(File $file, SplFileInfo $fileInfo): void

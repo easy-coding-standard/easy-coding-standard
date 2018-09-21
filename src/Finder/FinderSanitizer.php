@@ -2,122 +2,39 @@
 
 namespace Symplify\EasyCodingStandard\Finder;
 
-use IteratorAggregate;
 use Nette\Utils\Finder as NetteFinder;
-use Nette\Utils\Strings;
-use ReflectionClass;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
-use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
-use function Safe\sprintf;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FinderSanitizer
 {
     /**
-     * @param NetteFinder|SymfonyFinder|SplFileInfo[] $finder
-     * @return SymfonySplFileInfo[]
+     * @param NetteFinder|SymfonyFinder|SplFileInfo[]|SymfonySplFileInfo[]|string[] $files
+     * @return SmartFileInfo[]
      */
-    public function sanitize($finder): array
+    public function sanitize(iterable $files): array
     {
-        $fileInfos = $this->turnToFileInfos($finder);
-
-        $fileInfos = $this->filterOutEmptyFiles($fileInfos);
-
-        return $this->turnInfoSymfonyFileInfos($fileInfos, $finder);
-    }
-
-    /**
-     * @param SplFileInfo[] $fileInfos
-     * @return SplFileInfo[]
-     */
-    private function filterOutEmptyFiles(array $fileInfos): array
-    {
-        return array_filter($fileInfos, function (SplFileInfo $fileInfo) {
-            $this->ensureFileInfoExists($fileInfo);
-            if ($fileInfo->getRealPath() === false) {
-                return false;
+        $smartFileInfos = [];
+        foreach ($files as $file) {
+            $fileInfo = is_string($file) ? new SplFileInfo($file) : $file;
+            if (! $this->isFileInfoValid($fileInfo)) {
+                continue;
             }
 
-            return filesize($fileInfo->getRealPath());
-        });
-    }
-
-    /**
-     * Used logic from @see \Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator::current()
-     *
-     * @param SplFileInfo[]|SymfonySplFileInfo[] $fileInfos
-     * @param SymfonyFinder|NetteFinder $finder
-     * @return SymfonySplFileInfo[]
-     */
-    private function turnInfoSymfonyFileInfos(array $fileInfos, $finder): array
-    {
-        if ($finder instanceof SymfonyFinder || ! $finder instanceof NetteFinder) {
-            return $fileInfos;
+            $smartFileInfos[] = new SmartFileInfo($fileInfo->getRealPath());
         }
 
-        /** @var NetteFinder $finder */
-        $paths = $this->getPrivateProperty($finder, 'paths');
-
-        foreach ($fileInfos as $key => $fileInfo) {
-            $relativePathname = $this->resolveRelativePath($paths, $fileInfo);
-            $fileInfos[$key] = new SymfonySplFileInfo(
-                $fileInfo->getPathname(),
-                dirname($relativePathname),
-                $relativePathname
-            );
-        }
-
-        return $fileInfos;
+        return $smartFileInfos;
     }
 
-    /**
-     * @param object $object
-     * @return mixed
-     */
-    private function getPrivateProperty($object, string $property)
+    private function isFileInfoValid(SplFileInfo $fileInfo): bool
     {
-        $reflectionClass = new ReflectionClass($object);
-        $propertyReflection = $reflectionClass->getProperty($property);
-        $propertyReflection->setAccessible(true);
-
-        return $propertyReflection->getValue($object);
-    }
-
-    /**
-     * @param string[] $paths
-     */
-    private function resolveRelativePath(array $paths, SplFileInfo $fileInfo): string
-    {
-        foreach ($paths as $path) {
-            if (Strings::startsWith($fileInfo->getRealPath(), $path)) {
-                return Strings::substring($fileInfo->getRealPath(), strlen($path) + 1);
-            }
+        if ($fileInfo->getRealPath() === false) {
+            return false;
         }
 
-        // dump fallback
-        return $fileInfo->getFilename();
-    }
-
-    /**
-     * @param SplFileInfo[]|NetteFinder|SymfonyFinder $iterableFileInfos
-     * @return SplFileInfo[]
-     */
-    private function turnToFileInfos(iterable $iterableFileInfos): array
-    {
-        if ($iterableFileInfos instanceof IteratorAggregate) {
-            return iterator_to_array($iterableFileInfos);
-        }
-
-        return $iterableFileInfos;
-    }
-
-    private function ensureFileInfoExists(SplFileInfo $fileInfo): void
-    {
-        if (file_exists($fileInfo->getPath()) && $fileInfo->getRealPath()) {
-            return;
-        }
-
-        throw new InvalidSourceTypeException(sprintf('%s file does not exist', $fileInfo->getPath()));
+        return (bool) filesize($fileInfo->getRealPath());
     }
 }

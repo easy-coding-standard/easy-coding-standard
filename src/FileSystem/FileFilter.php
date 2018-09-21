@@ -2,9 +2,9 @@
 
 namespace Symplify\EasyCodingStandard\FileSystem;
 
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Skipper;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FileFilter
 {
@@ -25,16 +25,16 @@ final class FileFilter
     }
 
     /**
-     * @param SplFileInfo[] $fileInfos
-     * @return SplFileInfo[]
+     * @param SmartFileInfo[] $fileInfos
+     * @return SmartFileInfo[]
      */
     public function filterOnlyChangedFiles(array $fileInfos): array
     {
         $changedFiles = [];
 
-        foreach ($fileInfos as $relativePath => $fileInfo) {
+        foreach ($fileInfos as $fileInfo) {
             if ($this->changedFilesDetector->hasFileInfoChanged($fileInfo)) {
-                $changedFiles[$relativePath] = $fileInfo;
+                $changedFiles[] = $fileInfo;
             } else {
                 $this->skipper->removeFileFromUnused($fileInfo->getRealPath());
             }

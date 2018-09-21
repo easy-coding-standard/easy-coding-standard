@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
-use Symfony\Component\Finder\SplFileInfo;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 interface DualRunAwareFileProcessorInterface extends FileProcessorInterface
 {
@@ -11,5 +11,5 @@ interface DualRunAwareFileProcessorInterface extends FileProcessorInterface
      */
     public function getDualRunCheckers(): array;
 
-    public function processFileSecondRun(SplFileInfo $fileInfo): string;
+    public function processFileSecondRun(SmartFileInfo $smartFileInfo): string;
 }

@@ -7,8 +7,8 @@ use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
-use Symplify\EasyCodingStandard\Exception\Finder\InvalidSourceTypeException;
 use Symplify\EasyCodingStandard\Finder\FinderSanitizer;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FinderSanitizerTest extends TestCase
 {
@@ -24,9 +24,8 @@ final class FinderSanitizerTest extends TestCase
 
     public function testValidTypes(): void
     {
-        $this->expectException(InvalidSourceTypeException::class);
-        $files = [new SplFileInfo(__DIR__ . '/FinderSanitizerSource/FileWithClass.php')];
-        $this->finderSanitizer->sanitize($files);
+        $files = [new SplFileInfo(__DIR__ . '/FinderSanitizerSource/MissingFile.php')];
+        $this->assertCount(0, $this->finderSanitizer->sanitize($files));
     }
 
     public function testSymfonyFinder(): void
@@ -54,15 +53,11 @@ final class FinderSanitizerTest extends TestCase
         $this->validateFile(array_pop($files));
     }
 
-    /**
-     * @param object $file
-     */
-    private function validateFile($file): void
+    private function validateFile(SmartFileInfo $smartFileInfo): void
     {
-        $this->assertInstanceOf(SymfonySplFileInfo::class, $file);
+        $this->assertInstanceOf(SymfonySplFileInfo::class, $smartFileInfo);
 
-        /** @var SymfonySplFileInfo $file */
-        $this->assertSame('NestedDirectory', $file->getRelativePath());
-        $this->assertSame('NestedDirectory/FileWithClass.php', $file->getRelativePathname());
+        $this->assertStringEndsWith('NestedDirectory', $smartFileInfo->getRelativeDirectoryPath());
+        $this->assertStringEndsWith('NestedDirectory/FileWithClass.php', $smartFileInfo->getRelativeFilePath());
     }
 }

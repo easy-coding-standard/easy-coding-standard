@@ -3,39 +3,30 @@
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Psr\SimpleCache\CacheInterface;
-use Symfony\Component\Finder\SplFileInfo;
-use Symplify\PackageBuilder\FileSystem\FileGuard;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class CachedFileLoader
 {
-    /**
-     * @var FileGuard
-     */
-    private $fileGuard;
-
     /**
      * @var CacheInterface
      */
     private $cache;
 
-    public function __construct(FileGuard $fileGuard, CacheInterface $cache)
+    public function __construct(CacheInterface $cache)
     {
-        $this->fileGuard = $fileGuard;
         $this->cache = $cache;
     }
 
-    public function getFileContent(SplFileInfo $fileInfo): string
+    public function getFileContent(SmartFileInfo $smartFileInfo): string
     {
-        $this->fileGuard->ensureFileExists($fileInfo->getPathname(), __METHOD__);
-
-        $cacheKey = 'file_content_' . md5_file($fileInfo->getRealPath());
+        $cacheKey = 'file_content_' . md5_file($smartFileInfo->getRealPath());
 
         $cachedFileContent = $this->cache->get($cacheKey);
         if ($cachedFileContent) {
             return $cachedFileContent;
         }
 
-        $currentFileContent = $fileInfo->getContents();
+        $currentFileContent = $smartFileInfo->getContents();
 
         $this->cache->set($cacheKey, $cachedFileContent);
 

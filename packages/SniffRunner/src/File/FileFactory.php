@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -10,6 +9,7 @@ use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FileFactory
 {
@@ -66,12 +66,12 @@ final class FileFactory
         $this->currentFileProvider = $currentFileProvider;
     }
 
-    public function createFromFileInfo(SplFileInfo $fileInfo): File
+    public function createFromFileInfo(SmartFileInfo $smartFileInfo): File
     {
-        $fileTokens = $this->fileToTokensParser->parseFromFileInfo($fileInfo);
+        $fileTokens = $this->fileToTokensParser->parseFromFileInfo($smartFileInfo);
 
         $file = new File(
-            $fileInfo->getPathname(),
+            $smartFileInfo->getRelativeFilePath(),
             $fileTokens,
             $this->fixer,
             $this->errorAndDiffCollector,
@@ -82,7 +82,7 @@ final class FileFactory
         );
 
         // BC layer
-        $file->tokenizer = $this->fileToTokensParser->createTokenizerFromFileInfo($fileInfo);
+        $file->tokenizer = $this->fileToTokensParser->createTokenizerFromFileInfo($smartFileInfo);
 
         return $file;
     }

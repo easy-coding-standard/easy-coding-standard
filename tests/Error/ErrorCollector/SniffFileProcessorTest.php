@@ -3,11 +3,11 @@
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class SniffFileProcessorTest extends TestCase
 {
@@ -45,11 +45,7 @@ final class SniffFileProcessorTest extends TestCase
 
     private function runFileProcessor(): void
     {
-        $fileInfo = new SplFileInfo(
-            __DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc',
-            'ErrorCollectorSource',
-            'ErrorCollectorSource/NotPsr2Class.php.inc'
-        );
+        $fileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
 
         $this->sniffFileProcessor->processFile($fileInfo);
     }

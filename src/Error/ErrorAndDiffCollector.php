@@ -6,6 +6,7 @@ use Nette\Utils\Arrays;
 use Nette\Utils\Strings;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use function Safe\getcwd;
 
 final class ErrorAndDiffCollector
@@ -80,11 +81,11 @@ final class ErrorAndDiffCollector
     /**
      * @param string[] $appliedCheckers
      */
-    public function addDiffForFileInfo(SplFileInfo $fileInfo, string $diff, array $appliedCheckers): void
+    public function addDiffForFileInfo(SmartFileInfo $smartFileInfo, string $diff, array $appliedCheckers): void
     {
-        $this->changedFilesDetector->invalidateFileInfo($fileInfo);
+        $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
 
-        $this->fileDiffs[$fileInfo->getPathname()][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
+        $this->fileDiffs[$smartFileInfo->getRelativeFilePath()][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
             $diff,
             $appliedCheckers
         );
