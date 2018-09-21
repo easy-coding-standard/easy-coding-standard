@@ -35,6 +35,9 @@ final class FinderSanitizer
     {
         return array_filter($fileInfos, function (SplFileInfo $fileInfo) {
             $this->ensureFileInfoExists($fileInfo);
+            if ($fileInfo->getRealPath() === false) {
+                return false;
+            }
 
             return filesize($fileInfo->getRealPath());
         });
