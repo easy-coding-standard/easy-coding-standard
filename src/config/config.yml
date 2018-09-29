@@ -14,3 +14,13 @@ parameters:
     root_skip: []
     # for tests
     env(TEST_SUFFIX): ''
+
+    collectors:
+        -
+            main_type: 'Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor'
+            collected_type: 'PHP_CodeSniffer\Sniffs\Sniff'
+            add_method: 'addSniff'
+        -
+            main_type: 'Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor'
+            collected_type: 'PhpCsFixer\Fixer\FixerInterface'
+            add_method: 'addFixer'
