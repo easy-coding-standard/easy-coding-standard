@@ -26,3 +26,31 @@ services:
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
 
     Symplify\PackageBuilder\FileSystem\FinderSanitizer: ~
+
+    Symplify\PackageBuilder\EventSubscriber\ParameterTypoProofreaderEventSubscriber: ~
+    Symplify\PackageBuilder\Parameter\ParameterTypoProofreader:
+        $correctToTypos:
+            # param => [typos]
+            skip:
+                - '#skip.{1}#'
+                - 'exclude'
+                - 'ignore'
+            line_length:
+                - 'line_lenght'
+                - 'lineLength'
+                - 'lineLenght'
+                - 'line_size'
+                - 'lineSize'
+            exclude_checkers:
+                - 'exclude_checker'
+                - 'excluded_checker'
+                - 'skip_checker'
+                - 'skip_checkers'
+            exclude_files:
+                - 'exclude_file'
+                - 'excluded_file'
+                - 'exclude_dir'
+                - 'excluded_dir'
+                - 'excluded_dirs'
+                - 'skip_dirs'
+                - 'skip_files'

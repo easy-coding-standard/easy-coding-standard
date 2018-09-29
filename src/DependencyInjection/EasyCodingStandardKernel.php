@@ -19,6 +19,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
+use Symplify\PackageBuilder\DependencyInjection\CompilerPass\EventDispatcherCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\SimpleKernelTrait;
 
@@ -91,6 +92,7 @@ final class EasyCodingStandardKernel extends Kernel
         // method calls
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
         $containerBuilder->addCompilerPass(new CollectorCompilerPass());
+        $containerBuilder->addCompilerPass(new EventDispatcherCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
         $containerBuilder->addCompilerPass(new AutowireSinglyImplementedCompilerPass());
     }
