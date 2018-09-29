@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\DetectParametersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\AutowireCheckersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CollectorCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
@@ -19,7 +18,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\EventDispatcherCompilerPass;
+use Symplify\PackageBuilder\DependencyInjection\CompilerPass\ConfigurableCollectorCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\SimpleKernelTrait;
 
@@ -91,8 +90,7 @@ final class EasyCodingStandardKernel extends Kernel
 
         // method calls
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
-        $containerBuilder->addCompilerPass(new CollectorCompilerPass());
-        $containerBuilder->addCompilerPass(new EventDispatcherCompilerPass());
+        $containerBuilder->addCompilerPass(new ConfigurableCollectorCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
         $containerBuilder->addCompilerPass(new AutowireSinglyImplementedCompilerPass());
     }
