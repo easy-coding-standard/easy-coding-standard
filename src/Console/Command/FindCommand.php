@@ -61,6 +61,7 @@ final class FindCommand extends Command
             VendorDirProvider::provide(),
         ]);
 
+        /** @var string $name */
         $name = $input->getArgument(self::ARGUMENT_NAME);
 
         if ($name) {
