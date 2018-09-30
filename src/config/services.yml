@@ -8,6 +8,7 @@ services:
         exclude: '../../src/{Contract,DependencyInjection,Exception,Error/Error.php,Error/FileDiff.php,Yaml}'
 
     Symplify\EasyCodingStandard\Console\Application: ~
+    Symfony\Component\EventDispatcher\EventDispatcher: ~
 
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
