@@ -42,4 +42,3 @@ services:
 parameters:
     exclude_checkers:
         - 'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer'
-        - 'PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer'
