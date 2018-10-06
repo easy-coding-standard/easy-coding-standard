@@ -83,6 +83,9 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
      */
     private $currentFileProvider;
 
+    /**
+     * @param Sniff[] $sniffs
+     */
     public function __construct(
         Fixer $fixer,
         FileFactory $fileFactory,
@@ -92,7 +95,8 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
-        CurrentFileProvider $currentFileProvider
+        CurrentFileProvider $currentFileProvider,
+        array $sniffs = []
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
@@ -105,6 +109,10 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         $this->currentFileProvider = $currentFileProvider;
 
         $this->addCompatibilityLayer();
+
+        foreach ($sniffs as $sniff) {
+            $this->addSniff($sniff);
+        }
     }
 
     public function addSniff(Sniff $sniff): void

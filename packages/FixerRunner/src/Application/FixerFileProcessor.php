@@ -67,6 +67,9 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private $currentFileProvider;
 
+    /**
+     * @param FixerInterface[] $fixers
+     */
     public function __construct(
         ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
@@ -74,7 +77,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         CachedFileLoader $cachedFileLoader,
         Skipper $skipper,
         DifferInterface $differ,
-        CurrentFileProvider $currentFileProvider
+        CurrentFileProvider $currentFileProvider,
+        array $fixers = []
     ) {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->skipper = $skipper;
@@ -83,11 +87,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->cachedFileLoader = $cachedFileLoader;
         $this->differ = $differ;
         $this->currentFileProvider = $currentFileProvider;
-    }
-
-    public function addFixer(FixerInterface $fixer): void
-    {
-        $this->fixers[] = $fixer;
+        $this->fixers = $fixers;
     }
 
     /**
