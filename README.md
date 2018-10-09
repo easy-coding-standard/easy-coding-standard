@@ -129,13 +129,16 @@ parameters:
             - '*packages/CodingStandard/src/Sniffs/*/*Sniff.php'
 ```
 
-You can also skip specific codes that you know from PHP_CodeSniffer:
+You can also skip specific codes or messages that you know from PHP_CodeSniffer:
 
 ```yaml
 parameters:
     skip:
         # code to skip for all files
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~
+
+        # same syntax is used for skipping specific sniff messages
+        'Cognitive complexity for method "addAction" is 13 but has to be less than or equal to 8.': ~
 
         # code to skip for specific files/patterns
         SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification:

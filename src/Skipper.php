@@ -20,6 +20,11 @@ final class Skipper
     private $skippedCodes = [];
 
     /**
+     * @var string[]|null[]
+     */
+    private $skippedMessages = [];
+
+    /**
      * @var string[][]
      */
     private $unusedSkipped = [];
@@ -37,29 +42,18 @@ final class Skipper
     public function __construct(array $skip, array $excludeFiles, array $rootSkip)
     {
         $this->unusedSkipped = $rootSkip;
-        $this->filterToSkippedAndSkippedCodes($skip);
+        $this->categorizeSkipSettings($skip);
         $this->excludedFiles = $excludeFiles;
     }
 
-    public function shouldSkipCodeAndFile(string $code, string $absoluteFilePath): bool
+    public function shouldSkipCodeAndFile(string $code, string $filePath): bool
     {
-        foreach ($this->skippedCodes as $index => $value) {
-            if ($index !== $code) {
-                continue;
-            }
+        return $this->shouldSkipMatchingRuleAndFile($this->skippedCodes, $code, $code, $filePath);
+    }
 
-            // skip all
-            if ($value === null) {
-                unset($this->unusedSkipped[$index]);
-                return true;
-            }
-
-            if ($this->doesFileMatchSkippedFiles($code, $absoluteFilePath, (array) $value)) {
-                return true;
-            }
-        }
-
-        return false;
+    public function shouldSkipMessageAndFile(string $message, string $codeOrChecker, string $filePath): bool
+    {
+        return $this->shouldSkipMatchingRuleAndFile($this->skippedMessages, $message, $codeOrChecker, $filePath);
     }
 
     /**
@@ -167,14 +161,34 @@ final class Skipper
     /**
      * @param mixed[] $skipped
      */
-    private function filterToSkippedAndSkippedCodes(array $skipped): void
+    private function categorizeSkipSettings(array $skipped): void
     {
         foreach ($skipped as $key => $settings) {
-            if (Strings::contains($key, '.')) {
+            if (class_exists($key)) {
+                $this->skipped[$key] = $settings;
+            } elseif (class_exists((string) Strings::before($key, '.'))) {
                 $this->skippedCodes[$key] = $settings;
             } else {
-                $this->skipped[$key] = $settings;
+                $this->skippedMessages[$key] = $settings;
             }
         }
+    }
+
+    /**
+     * @param string[]|null[] $rules
+     */
+    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, string $class, string $filePath): bool
+    {
+        if (! array_key_exists($key, $rules)) {
+            return false;
+        }
+
+        if ($rules[$key] === null) {
+            unset($this->unusedSkipped[$key]);
+
+            return true;
+        }
+
+        return $this->doesFileMatchSkippedFiles($class, $filePath, (array) $rules[$key]);
     }
 }
