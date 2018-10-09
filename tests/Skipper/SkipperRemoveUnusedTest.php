@@ -29,7 +29,7 @@ final class SkipperRemoveUnusedTest extends TestCase
                 0 => 'someFile',
                 1 => '*/someDirectory/*',
             ],
-            'someSniff.someOtherCode' => ['*/someDirectory/*'],
+            DeclareStrictTypesFixer::class . '.someOtherCode' => ['*/someDirectory/*'],
         ], $this->skipper->getUnusedSkipped());
     }
 
@@ -41,7 +41,7 @@ final class SkipperRemoveUnusedTest extends TestCase
             DeclareStrictTypesFixer::class => [
                 1 => '*/someDirectory/*',
             ],
-            'someSniff.someOtherCode' => ['*/someDirectory/*'],
+            DeclareStrictTypesFixer::class . '.someOtherCode' => ['*/someDirectory/*'],
         ], $this->skipper->getUnusedSkipped());
     }
 
@@ -52,8 +52,8 @@ final class SkipperRemoveUnusedTest extends TestCase
     {
         return [
             DeclareStrictTypesFixer::class => ['someFile', '*/someDirectory/*'],
-            'someSniff.someCode' => null,
-            'someSniff.someOtherCode' => ['*/someDirectory/*'],
+            DeclareStrictTypesFixer::class . '.someCode' => null,
+            DeclareStrictTypesFixer::class . '.someOtherCode' => ['*/someDirectory/*'],
         ];
     }
 }

@@ -126,14 +126,12 @@ final class File extends BaseFile
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
     {
-        $fileInfo = $this->currentFileProvider->getFileInfo();
-
-        $this->appliedCheckersCollector->addFileInfoAndChecker($fileInfo, $this->resolveFullyQualifiedCode($code));
-
-        return ! $this->skipper->shouldSkipCodeAndFile(
-            $this->resolveFullyQualifiedCode($code),
-            $fileInfo->getRealPath()
+        $this->appliedCheckersCollector->addFileInfoAndChecker(
+            $this->currentFileProvider->getFileInfo(),
+            $this->resolveFullyQualifiedCode($code)
         );
+
+        return ! $this->shouldSkipError($error, $code, $data);
     }
 
     /**
@@ -141,9 +139,7 @@ final class File extends BaseFile
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
-        $fileInfo = $this->currentFileProvider->getFileInfo();
-
-        if ($this->skipper->shouldSkipCodeAndFile($this->resolveFullyQualifiedCode($code), $fileInfo->getRealPath())) {
+        if ($this->shouldSkipError($error, $code, $data)) {
             return false;
         }
 
@@ -219,5 +215,20 @@ final class File extends BaseFile
         }
 
         return false;
+    }
+
+    /**
+     * @param string[] $data
+     */
+    private function shouldSkipError(string $error, string $code, array $data): bool
+    {
+        $realPath = $this->currentFileProvider->getFileInfo()->getRealPath();
+        $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
+
+        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $realPath)) {
+            return true;
+        }
+
+        return $this->skipper->shouldSkipMessageAndFile(vsprintf($error, $data), $fullyQualifiedCode, $realPath);
     }
 }
