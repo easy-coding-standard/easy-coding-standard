@@ -172,8 +172,8 @@ final class FixerFileProcessor implements FileProcessorInterface
 
     private function sortFixers(): void
     {
-        usort($this->fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer): bool {
-            return $firstFixer->getPriority() < $secondFixer->getPriority();
+        usort($this->fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer): int {
+            return $secondFixer->getPriority() <=> $firstFixer->getPriority();
         });
 
         $this->areFixersSorted = true;
