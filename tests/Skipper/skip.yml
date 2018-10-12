@@ -1,0 +1,7 @@
+parameters:
+    skip:
+        'Cognitive complexity for method "foo" is 2 but has to be less than or equal to 1.': ~
+
+services:
+    Symplify\CodingStandard\Sniffs\CleanCode\CognitiveComplexitySniff:
+        maxCognitiveComplexity: 1
