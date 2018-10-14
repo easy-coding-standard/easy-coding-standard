@@ -78,7 +78,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         Skipper $skipper,
         DifferInterface $differ,
         CurrentFileProvider $currentFileProvider,
-        array $fixers = []
+        array $fixers
     ) {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->skipper = $skipper;
