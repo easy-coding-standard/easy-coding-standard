@@ -43,11 +43,6 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $configuration;
 
     /**
-     * @var bool
-     */
-    private $areFixersSorted = false;
-
-    /**
      * @var FileToTokensParser
      */
     private $fileToTokensParser;
@@ -87,7 +82,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->cachedFileLoader = $cachedFileLoader;
         $this->differ = $differ;
         $this->currentFileProvider = $currentFileProvider;
-        $this->fixers = $fixers;
+        $this->fixers = $this->sortFixers($fixers);
     }
 
     /**
@@ -95,10 +90,6 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     public function getCheckers(): array
     {
-        if (! $this->areFixersSorted) {
-            $this->sortFixers();
-        }
-
         return $this->fixers;
     }
 
@@ -170,12 +161,16 @@ final class FixerFileProcessor implements FileProcessorInterface
         return ! $fixer->supports($file) || ! $fixer->isCandidate($tokens);
     }
 
-    private function sortFixers(): void
+    /**
+     * @param FixerInterface[] $fixers
+     * @return FixerInterface[]
+     */
+    private function sortFixers(array $fixers): array
     {
-        usort($this->fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer): int {
+        usort($fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer): int {
             return $secondFixer->getPriority() <=> $firstFixer->getPriority();
         });
 
-        $this->areFixersSorted = true;
+        return $fixers;
     }
 }
