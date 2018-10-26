@@ -19,6 +19,12 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
             'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff',
             'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer',
         ], [
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff',
+        ], [
+            'PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff',
+        ], [
             'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer',
             'PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer',
         ], [
