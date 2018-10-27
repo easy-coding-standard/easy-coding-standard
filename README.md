@@ -3,9 +3,24 @@
 [![Build Status](https://img.shields.io/travis/Symplify/EasyCodingStandard/master.svg?style=flat-square)](https://travis-ci.org/Symplify/EasyCodingStandard)
 [![Downloads total](https://img.shields.io/packagist/dt/symplify/easy-coding-standard.svg?style=flat-square)](https://packagist.org/packages/symplify/easy-coding-standard/stats)
 
-**Used by [Shopsys](https://github.com/shopsys/coding-standards), [Nette](https://github.com/nette/coding-standard), [Sylius](https://github.com/SyliusLabs/CodingStandard), [php-ai/php-ml](https://github.com/php-ai/php-ml/), [LMC](https://github.com/lmc-eu/php-coding-standard) and [Sunfox](https://github.com/sunfoxcz/coding-standard).**
-
 ![ECS-Run](docs/run-and-fix.gif)
+
+**Used by:**
+
+<p align="center">
+    <a href="https://github.com/lmc-eu/php-coding-standard"><img src="/docs/logos/lmc.png"></a>
+    <img src="/docs/logos/space.png">
+    <a href="https://github.com/nette/coding-standard"><img src="/docs/logos/nette.png"></a>
+    <img src="/docs/logos/space.png">
+    <a href="https://github.com/php-ai/php-ml/"><img src="/docs/logos/phpai.png"></a>
+    <br>
+    <br>
+    <a href="https://github.com/shopsys/coding-standards"><img src="/docs/logos/shopsys.png"></a>
+    <img src="/docs/logos/space.png">
+    <a href="https://github.com/sunfoxcz/coding-standard"><img src="/docs/logos/sunfox.jpg"></a>
+    <img src="/docs/logos/space.png">
+    <a href="https://github.com/SyliusLabs/CodingStandard"><img src="/docs/logos/sylius.png"></a>
+</p>
 
 ## Features
 
