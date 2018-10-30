@@ -10,14 +10,14 @@ use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 final class FileProcessorTest extends TestCase
 {
     /**
-     * @var SniffFileProcessor
-     */
-    private $sniffFileProcessor;
-
-    /**
      * @var string
      */
     private $initialFileContent;
+
+    /**
+     * @var SniffFileProcessor
+     */
+    private $sniffFileProcessor;
 
     protected function setUp(): void
     {

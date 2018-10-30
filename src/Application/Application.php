@@ -15,6 +15,11 @@ use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 final class Application implements FileProcessorCollectorInterface
 {
     /**
+     * @var FileProcessorInterface[]
+     */
+    private $fileProcessors = [];
+
+    /**
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
@@ -33,11 +38,6 @@ final class Application implements FileProcessorCollectorInterface
      * @var Configuration
      */
     private $configuration;
-
-    /**
-     * @var FileProcessorInterface[]
-     */
-    private $fileProcessors = [];
 
     /**
      * @var FileFilter
