@@ -27,6 +27,13 @@ final class File extends BaseFile
     public $fixer;
 
     /**
+     * Explicit list for now.
+     *
+     * @var string[]
+     */
+    private $reportWarningsSniffs = [CommentedOutCodeSniff::class, AssignmentInConditionSniff::class];
+
+    /**
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
@@ -45,13 +52,6 @@ final class File extends BaseFile
      * @var AppliedCheckersCollector
      */
     private $appliedCheckersCollector;
-
-    /**
-     * Explicit list for now.
-     *
-     * @var string[]
-     */
-    private $reportWarningsSniffs = [CommentedOutCodeSniff::class, AssignmentInConditionSniff::class];
 
     /**
      * @var CurrentFileProvider

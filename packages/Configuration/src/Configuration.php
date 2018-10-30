@@ -14,11 +14,6 @@ final class Configuration
     private $isFixer = false;
 
     /**
-     * @var string[]
-     */
-    private $sources = [];
-
-    /**
      * @var bool
      */
     private $shouldClearCache = false;
@@ -32,6 +27,11 @@ final class Configuration
      * @var bool
      */
     private $showErrorTable = true;
+
+    /**
+     * @var string[]
+     */
+    private $sources = [];
 
     public function resolveFromInput(InputInterface $input): void
     {

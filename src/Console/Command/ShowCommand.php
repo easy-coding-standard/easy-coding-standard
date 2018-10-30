@@ -18,6 +18,11 @@ use function Safe\sprintf;
 final class ShowCommand extends Command
 {
     /**
+     * @var int
+     */
+    private $checkersTotal = 0;
+
+    /**
      * @var SniffFileProcessor
      */
     private $sniffFileProcessor;
@@ -31,11 +36,6 @@ final class ShowCommand extends Command
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-
-    /**
-     * @var int
-     */
-    private $checkersTotal = 0;
 
     public function __construct(
         SniffFileProcessor $sniffFileProcessor,

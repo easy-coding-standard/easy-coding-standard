@@ -15,6 +15,11 @@ use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 final class SingleFileProcessor implements FileProcessorCollectorInterface
 {
     /**
+     * @var FileProcessorInterface[]
+     */
+    private $fileProcessors = [];
+
+    /**
      * @var Configuration
      */
     private $configuration;
@@ -38,11 +43,6 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
-
-    /**
-     * @var FileProcessorInterface[]
-     */
-    private $fileProcessors = [];
 
     public function __construct(
         Configuration $configuration,

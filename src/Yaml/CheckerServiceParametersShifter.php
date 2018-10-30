@@ -38,14 +38,14 @@ final class CheckerServiceParametersShifter
     private const SERVICES_KEY = 'services';
 
     /**
-     * @var CheckerConfigurationGuardian
-     */
-    private $checkerConfigurationGuardian;
-
-    /**
      * @var string[]
      */
     private $serviceKeywords = [];
+
+    /**
+     * @var CheckerConfigurationGuardian
+     */
+    private $checkerConfigurationGuardian;
 
     public function __construct()
     {

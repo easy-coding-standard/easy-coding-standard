@@ -22,16 +22,16 @@ final class Fixer
     public $enabled = true;
 
     /**
-     * @var int[]|string[]
-     */
-    private $tokens = [];
-
-    /**
      * Is there an open changeset.
      *
      * @var bool
      */
     private $inChangeset = false;
+
+    /**
+     * @var int[]|string[]
+     */
+    private $tokens = [];
 
     /**
      * @var string[]

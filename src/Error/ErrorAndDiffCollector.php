@@ -17,14 +17,14 @@ final class ErrorAndDiffCollector
     private $errors = [];
 
     /**
-     * @var ChangedFilesDetector
-     */
-    private $changedFilesDetector;
-
-    /**
      * @var FileDiff[][]
      */
     private $fileDiffs = [];
+
+    /**
+     * @var ChangedFilesDetector
+     */
+    private $changedFilesDetector;
 
     /**
      * @var ErrorSorter

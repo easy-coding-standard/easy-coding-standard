@@ -24,6 +24,21 @@ use function Safe\define;
 final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFileProcessorInterface
 {
     /**
+     * @var bool
+     */
+    private $isSecondRunPrepared = false;
+
+    /**
+     * @var Sniff[]|DualRunInterface[]
+     */
+    private $sniffs = [];
+
+    /**
+     * @var Sniff[][]
+     */
+    private $tokenListeners = [];
+
+    /**
      * @var Fixer
      */
     private $fixer;
@@ -32,11 +47,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
      * @var FileFactory
      */
     private $fileFactory;
-
-    /**
-     * @var Sniff[]|DualRunInterface[]
-     */
-    private $sniffs = [];
 
     /**
      * @var Configuration
@@ -49,19 +59,9 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $skipper;
 
     /**
-     * @var Sniff[][]
-     */
-    private $tokenListeners = [];
-
-    /**
      * @var CurrentSniffProvider
      */
     private $currentSniffProvider;
-
-    /**
-     * @var bool
-     */
-    private $isSecondRunPrepared = false;
 
     /**
      * @var ErrorAndDiffCollector
