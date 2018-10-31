@@ -185,6 +185,14 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         return $this->processFile($smartFileInfo);
     }
 
+    private function addCompatibilityLayer(): void
+    {
+        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
+            define('PHP_CODESNIFFER_VERBOSITY', 0);
+            new Tokens();
+        }
+    }
+
     private function processTokens(File $file, SplFileInfo $fileInfo): void
     {
         foreach ($file->getTokens() as $position => $token) {
@@ -200,14 +208,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
                 $this->currentSniffProvider->setSniff($sniff);
                 $sniff->process($file, $position);
             }
-        }
-    }
-
-    private function addCompatibilityLayer(): void
-    {
-        if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
-            define('PHP_CODESNIFFER_VERBOSITY', 0);
-            new Tokens();
         }
     }
 

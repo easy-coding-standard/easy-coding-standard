@@ -110,6 +110,21 @@ final class Application implements FileProcessorCollectorInterface
         return $checkerCount;
     }
 
+    private function isDualRunEnabled(): bool
+    {
+        foreach ($this->fileProcessors as $fileProcessor) {
+            if (! $fileProcessor instanceof DualRunAwareFileProcessorInterface) {
+                continue;
+            }
+
+            if ($fileProcessor->getDualRunCheckers()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * @param SmartFileInfo[] $fileInfos
      */
@@ -140,20 +155,5 @@ final class Application implements FileProcessorCollectorInterface
                 }
             }
         }
-    }
-
-    private function isDualRunEnabled(): bool
-    {
-        foreach ($this->fileProcessors as $fileProcessor) {
-            if (! $fileProcessor instanceof DualRunAwareFileProcessorInterface) {
-                continue;
-            }
-
-            if ($fileProcessor->getDualRunCheckers()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

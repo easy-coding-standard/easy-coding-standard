@@ -152,15 +152,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $tokens->generateCode();
     }
 
-    private function shouldSkip(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): bool
-    {
-        if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
-            return true;
-        }
-
-        return ! $fixer->supports($file) || ! $fixer->isCandidate($tokens);
-    }
-
     /**
      * @param FixerInterface[] $fixers
      * @return FixerInterface[]
@@ -172,5 +163,14 @@ final class FixerFileProcessor implements FileProcessorInterface
         });
 
         return $fixers;
+    }
+
+    private function shouldSkip(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): bool
+    {
+        if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
+            return true;
+        }
+
+        return ! $fixer->supports($file) || ! $fixer->isCandidate($tokens);
     }
 }

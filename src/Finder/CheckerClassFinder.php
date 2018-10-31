@@ -43,14 +43,6 @@ final class CheckerClassFinder
         return $robot;
     }
 
-    private function createRobotLoaderCacheDirectory(): string
-    {
-        $tempDir = sys_get_temp_dir() . '/_checker_finder_robot_loader';
-        FileSystem::createDir($tempDir);
-
-        return $tempDir;
-    }
-
     /**
      * @param string[] $checkerClasses
      * @return string[]
@@ -75,6 +67,14 @@ final class CheckerClassFinder
         }
 
         return $finalCheckerClasses;
+    }
+
+    private function createRobotLoaderCacheDirectory(): string
+    {
+        $tempDir = sys_get_temp_dir() . '/_checker_finder_robot_loader';
+        FileSystem::createDir($tempDir);
+
+        return $tempDir;
     }
 
     private function isAbstractClass(string $class): bool

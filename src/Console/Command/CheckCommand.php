@@ -113,6 +113,17 @@ final class CheckCommand extends Command
         return $exitCode;
     }
 
+    private function ensureSomeCheckersAreRegistered(): void
+    {
+        $totalCheckersLoaded = $this->ecsApplication->getCheckerCount();
+        if ($totalCheckersLoaded === 0) {
+            throw new NoCheckersLoadedException(
+                'No checkers were found. Registers them in your config in "services:" '
+                . 'section, load them via "--config <file>.yml" or "--level <level> option.'
+            );
+        }
+    }
+
     private function printAfterFixerStatus(): int
     {
         if ($this->configuration->showErrorTable()) {
@@ -182,16 +193,5 @@ final class CheckCommand extends Command
                 $fileDiffsCount === 1 ? 'file is' : 'files are'
             )
         );
-    }
-
-    private function ensureSomeCheckersAreRegistered(): void
-    {
-        $totalCheckersLoaded = $this->ecsApplication->getCheckerCount();
-        if ($totalCheckersLoaded === 0) {
-            throw new NoCheckersLoadedException(
-                'No checkers were found. Registers them in your config in "services:" '
-                . 'section, load them via "--config <file>.yml" or "--level <level> option.'
-            );
-        }
     }
 }
