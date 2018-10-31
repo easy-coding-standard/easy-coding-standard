@@ -113,22 +113,6 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         $this->newLine();
     }
 
-    /**
-     * @return string[]
-     */
-    private function buildRow(Error $error, string $message): array
-    {
-        return [
-            'line' => (string) $error->getLine(),
-            'message' => $message,
-        ];
-    }
-
-    private function wrapMessageSoItFitsTheColumnWidth(string $message): string
-    {
-        return wordwrap($message, $this->countMessageColumnWidth(self::LINE_COLUMN_WIDTH), PHP_EOL);
-    }
-
     private function countMessageColumnWidth(int $otherColumnWidth): int
     {
         return $this->terminal->getWidth() - $otherColumnWidth - self::BULGARIAN_CONSTANT;
@@ -140,5 +124,21 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     private function clearCrLfFromMessage(string $message): string
     {
         return str_replace("\r", '', $message);
+    }
+
+    private function wrapMessageSoItFitsTheColumnWidth(string $message): string
+    {
+        return wordwrap($message, $this->countMessageColumnWidth(self::LINE_COLUMN_WIDTH), PHP_EOL);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function buildRow(Error $error, string $message): array
+    {
+        return [
+            'line' => (string) $error->getLine(),
+            'message' => $message,
+        ];
     }
 }

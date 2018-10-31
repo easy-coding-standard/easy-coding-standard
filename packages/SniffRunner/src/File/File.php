@@ -206,17 +206,6 @@ final class File extends BaseFile
         return $this->currentSniffProvider->getSniffClass() . '.' . $sniffClassOrCode;
     }
 
-    private function isSniffClassWarningAllowed(string $sniffClass): bool
-    {
-        foreach ($this->reportWarningsSniffs as $reportWarningsSniff) {
-            if (is_a($sniffClass, $reportWarningsSniff, true)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     /**
      * @param string[] $data
      */
@@ -230,5 +219,16 @@ final class File extends BaseFile
         }
 
         return $this->skipper->shouldSkipMessageAndFile(vsprintf($error, $data), $fullyQualifiedCode, $realPath);
+    }
+
+    private function isSniffClassWarningAllowed(string $sniffClass): bool
+    {
+        foreach ($this->reportWarningsSniffs as $reportWarningsSniff) {
+            if (is_a($sniffClass, $reportWarningsSniff, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

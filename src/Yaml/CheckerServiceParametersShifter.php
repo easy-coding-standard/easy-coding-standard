@@ -70,6 +70,32 @@ final class CheckerServiceParametersShifter
         return $configuration;
     }
 
+    /**
+     * @param mixed[] $services
+     * @return mixed[]
+     */
+    private function processServices(array $services): array
+    {
+        foreach ($services as $serviceName => $serviceDefinition) {
+            if (! $this->isCheckerClass($serviceName) || empty($serviceDefinition)) {
+                continue;
+            }
+
+            if (Strings::endsWith($serviceName, 'Fixer')) {
+                $services = $this->processFixer($services, $serviceName, $serviceDefinition);
+            }
+
+            if (Strings::endsWith($serviceName, 'Sniff')) {
+                $services = $this->processSniff($services, $serviceName, $serviceDefinition);
+            }
+
+            // cleanup parameters
+            $services = $this->cleanupParameters($services, $serviceDefinition, $serviceName);
+        }
+
+        return $services;
+    }
+
     private function isCheckerClass(string $checker): bool
     {
         return Strings::endsWith($checker, 'Fixer') || Strings::endsWith($checker, 'Sniff');
@@ -123,6 +149,36 @@ final class CheckerServiceParametersShifter
     }
 
     /**
+     * @param mixed[] $services
+     * @param mixed[] $serviceDefinition
+     * @return mixed[]
+     */
+    private function cleanupParameters(array $services, array $serviceDefinition, string $serviceName): array
+    {
+        foreach (array_keys($serviceDefinition) as $key) {
+            if ($this->isReservedKey($key)) {
+                continue;
+            }
+
+            unset($services[$serviceName][$key]);
+        }
+
+        return $services;
+    }
+
+    /**
+     * @param string|int|bool $key
+     */
+    private function isReservedKey($key): bool
+    {
+        if (! is_string($key)) {
+            return false;
+        }
+
+        return in_array($key, $this->serviceKeywords, true);
+    }
+
+    /**
      * @param mixed $value
      * @return mixed
      */
@@ -141,61 +197,5 @@ final class CheckerServiceParametersShifter
         }
 
         return Strings::replace($value, '#@#', '@@');
-    }
-
-    /**
-     * @param string|int|bool $key
-     */
-    private function isReservedKey($key): bool
-    {
-        if (! is_string($key)) {
-            return false;
-        }
-
-        return in_array($key, $this->serviceKeywords, true);
-    }
-
-    /**
-     * @param mixed[] $services
-     * @return mixed[]
-     */
-    private function processServices(array $services): array
-    {
-        foreach ($services as $serviceName => $serviceDefinition) {
-            if (! $this->isCheckerClass($serviceName) || empty($serviceDefinition)) {
-                continue;
-            }
-
-            if (Strings::endsWith($serviceName, 'Fixer')) {
-                $services = $this->processFixer($services, $serviceName, $serviceDefinition);
-            }
-
-            if (Strings::endsWith($serviceName, 'Sniff')) {
-                $services = $this->processSniff($services, $serviceName, $serviceDefinition);
-            }
-
-            // cleanup parameters
-            $services = $this->cleanupParameters($services, $serviceDefinition, $serviceName);
-        }
-
-        return $services;
-    }
-
-    /**
-     * @param mixed[] $services
-     * @param mixed[] $serviceDefinition
-     * @return mixed[]
-     */
-    private function cleanupParameters(array $services, array $serviceDefinition, string $serviceName): array
-    {
-        foreach (array_keys($serviceDefinition) as $key) {
-            if ($this->isReservedKey($key)) {
-                continue;
-            }
-
-            unset($services[$serviceName][$key]);
-        }
-
-        return $services;
     }
 }

@@ -42,6 +42,13 @@ final class Application extends SymfonyApplication
         return $inputDefinition;
     }
 
+    private function getPrettyVersion(): string
+    {
+        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
+
+        return $version->getPrettyVersion();
+    }
+
     private function addExtraOptions(InputDefinition $inputDefinition): void
     {
         $inputDefinition->addOption(new InputOption(
@@ -58,12 +65,5 @@ final class Application extends SymfonyApplication
             InputOption::VALUE_REQUIRED,
             'Finds config by shortcut name.'
         ));
-    }
-
-    private function getPrettyVersion(): string
-    {
-        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
-
-        return $version->getPrettyVersion();
     }
 }

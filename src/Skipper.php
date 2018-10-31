@@ -118,6 +118,40 @@ final class Skipper
     }
 
     /**
+     * @param mixed[] $skipped
+     */
+    private function categorizeSkipSettings(array $skipped): void
+    {
+        foreach ($skipped as $key => $settings) {
+            if (class_exists($key)) {
+                $this->skipped[$key] = $settings;
+            } elseif (class_exists((string) Strings::before($key, '.'))) {
+                $this->skippedCodes[$key] = $settings;
+            } else {
+                $this->skippedMessages[$key] = $settings;
+            }
+        }
+    }
+
+    /**
+     * @param string[]|null[] $rules
+     */
+    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, string $class, string $filePath): bool
+    {
+        if (! array_key_exists($key, $rules)) {
+            return false;
+        }
+
+        if ($rules[$key] === null) {
+            unset($this->unusedSkipped[$key]);
+
+            return true;
+        }
+
+        return $this->doesFileMatchSkippedFiles($class, $filePath, (array) $rules[$key]);
+    }
+
+    /**
      * @param string[] $skippedFiles
      */
     private function doesFileMatchSkippedFiles(
@@ -156,39 +190,5 @@ final class Skipper
         if ($this->unusedSkipped[$skippedChecker] === []) {
             unset($this->unusedSkipped[$skippedChecker]);
         }
-    }
-
-    /**
-     * @param mixed[] $skipped
-     */
-    private function categorizeSkipSettings(array $skipped): void
-    {
-        foreach ($skipped as $key => $settings) {
-            if (class_exists($key)) {
-                $this->skipped[$key] = $settings;
-            } elseif (class_exists((string) Strings::before($key, '.'))) {
-                $this->skippedCodes[$key] = $settings;
-            } else {
-                $this->skippedMessages[$key] = $settings;
-            }
-        }
-    }
-
-    /**
-     * @param string[]|null[] $rules
-     */
-    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, string $class, string $filePath): bool
-    {
-        if (! array_key_exists($key, $rules)) {
-            return false;
-        }
-
-        if ($rules[$key] === null) {
-            unset($this->unusedSkipped[$key]);
-
-            return true;
-        }
-
-        return $this->doesFileMatchSkippedFiles($class, $filePath, (array) $rules[$key]);
     }
 }

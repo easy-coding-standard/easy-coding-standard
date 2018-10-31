@@ -86,6 +86,11 @@ final class ChangedFilesDetector
         $this->tagAwareAdapter->save($cacheItem);
     }
 
+    private function fileInfoToKey(SplFileInfo $fileInfo): string
+    {
+        return sha1($fileInfo->getRealPath());
+    }
+
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
     {
         $cacheItem = $this->tagAwareAdapter->getItem(self::CONFIGURATION_HASH_KEY);
@@ -94,10 +99,5 @@ final class ChangedFilesDetector
         if ($configurationHash !== $oldConfigurationHash) {
             $this->clearCache();
         }
-    }
-
-    private function fileInfoToKey(SplFileInfo $fileInfo): string
-    {
-        return sha1($fileInfo->getRealPath());
     }
 }
