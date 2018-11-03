@@ -11,12 +11,8 @@ services:
 
     # Console
     Symfony\Component\Console\Terminal: ~
-    Symfony\Component\Console\Input\ArgvInput: ~
-    Symfony\Component\Console\Input\InputInterface:
-        alias: Symfony\Component\Console\Input\ArgvInput
-    Symfony\Component\Console\Output\ConsoleOutput: ~
-    Symfony\Component\Console\Output\OutputInterface:
-        alias: Symfony\Component\Console\Output\ConsoleOutput
+    Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle:
+        factory: ['@Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory', 'create']
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
     Symplify\PackageBuilder\FileSystem\FileGuard: ~

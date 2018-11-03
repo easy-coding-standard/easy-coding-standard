@@ -88,7 +88,7 @@ final class Application implements FileProcessorCollectorInterface
         }
 
         // 3. start progress bar
-        if ($this->configuration->showProgressBar()) {
+        if ($this->configuration->showProgressBar() && ! $this->easyCodingStandardStyle->isVerbose()) {
             $this->easyCodingStandardStyle->progressStart(count($files) * ($this->isDualRunEnabled() ? 2 : 1));
         }
 
@@ -132,6 +132,11 @@ final class Application implements FileProcessorCollectorInterface
     {
         foreach ($fileInfos as $fileInfo) {
             $this->singleFileProcessor->processFileInfo($fileInfo);
+            if ($this->easyCodingStandardStyle->isVerbose()) {
+                $this->easyCodingStandardStyle->writeln($fileInfo->getRealPath());
+            } elseif ($this->configuration->showProgressBar()) {
+                $this->easyCodingStandardStyle->progressAdvance();
+            }
         }
     }
 
