@@ -72,7 +72,8 @@ final class SourceFinder
     {
         $finder = Finder::create()->files()
             ->name('*.php')
-            ->in($directory);
+            ->in($directory)
+            ->sortByName();
 
         $newFiles = $this->finderSanitizer->sanitize($finder);
 

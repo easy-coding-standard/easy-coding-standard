@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Console\Style;
 
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Console\Application;
@@ -34,6 +35,11 @@ final class EasyCodingStandardStyleFactory
 
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
         $this->privatesCaller->callPrivateMethod(new Application(), 'configureIO', $input, $output);
+
+        // --debug is called
+        if ($input->hasParameterOption('--debug')) {
+            $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        }
 
         return new EasyCodingStandardStyle($input, $output, $this->terminal);
     }

@@ -44,5 +44,12 @@ final class Application extends SymfonyApplication
             InputOption::VALUE_REQUIRED,
             'Finds config by shortcut name.'
         ));
+
+        $inputDefinition->addOption(new InputOption(
+            'debug',
+            null,
+            InputOption::VALUE_NONE,
+            'Run in debug mode (alias for "-vvv")'
+        ));
     }
 }
