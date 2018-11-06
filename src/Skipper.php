@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard;
 use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symfony\Component\Finder\SplFileInfo;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class Skipper
 {
@@ -39,27 +39,27 @@ final class Skipper
         $this->excludedFiles = $excludeFiles;
     }
 
-    public function shouldSkipCodeAndFile(string $code, string $filePath): bool
+    public function shouldSkipCodeAndFile(string $code, SmartFileInfo $fileInfo): bool
     {
-        return $this->shouldSkipMatchingRuleAndFile($this->skippedCodes, $code, $filePath);
+        return $this->shouldSkipMatchingRuleAndFile($this->skippedCodes, $code, $fileInfo);
     }
 
-    public function shouldSkipMessageAndFile(string $message, string $filePath): bool
+    public function shouldSkipMessageAndFile(string $message, SmartFileInfo $smartFileInfo): bool
     {
-        return $this->shouldSkipMatchingRuleAndFile($this->skippedMessages, $message, $filePath);
+        return $this->shouldSkipMatchingRuleAndFile($this->skippedMessages, $message, $smartFileInfo);
     }
 
     /**
      * @param FixerInterface|Sniff|string $checker
      */
-    public function shouldSkipCheckerAndFile($checker, string $absoluteFilePath): bool
+    public function shouldSkipCheckerAndFile($checker, SmartFileInfo $smartFileInfo): bool
     {
         foreach ($this->skipped as $skippedClass => $skippedFiles) {
             if (! is_a($checker, $skippedClass, true)) {
                 continue;
             }
 
-            if ($this->doesFileMatchSkippedFiles($absoluteFilePath, $skippedFiles)) {
+            if ($this->doesFileMatchSkippedFiles($smartFileInfo, $skippedFiles)) {
                 return true;
             }
         }
@@ -67,10 +67,10 @@ final class Skipper
         return false;
     }
 
-    public function shouldSkipFile(SplFileInfo $fileInfo): bool
+    public function shouldSkipFileInfo(SmartFileInfo $fileInfosmartFileInfo): bool
     {
         foreach ($this->excludedFiles as $excludedFile) {
-            if ($this->fileMatchesPattern($fileInfo->getRealPath(), $excludedFile)) {
+            if ($this->fileMatchesPattern($fileInfosmartFileInfo, $excludedFile)) {
                 return true;
             }
         }
@@ -97,7 +97,7 @@ final class Skipper
     /**
      * @param string[]|null[] $rules
      */
-    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, string $filePath): bool
+    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, SmartFileInfo $fileInfo): bool
     {
         if (! array_key_exists($key, $rules)) {
             return false;
@@ -107,16 +107,16 @@ final class Skipper
             return true;
         }
 
-        return $this->doesFileMatchSkippedFiles($filePath, (array) $rules[$key]);
+        return $this->doesFileMatchSkippedFiles($fileInfo, (array) $rules[$key]);
     }
 
     /**
      * @param string[] $skippedFiles
      */
-    private function doesFileMatchSkippedFiles(string $absoluteFilePath, array $skippedFiles): bool
+    private function doesFileMatchSkippedFiles(SmartFileInfo $fileInfo, array $skippedFiles): bool
     {
         foreach ($skippedFiles as $skippedFile) {
-            if ($this->fileMatchesPattern($absoluteFilePath, $skippedFile)) {
+            if ($this->fileMatchesPattern($fileInfo, $skippedFile)) {
                 return true;
             }
         }
@@ -128,14 +128,16 @@ final class Skipper
      * Supports both relative and absolute $file path.
      * They differ for PHP-CS-Fixer and PHP_CodeSniffer.
      */
-    private function fileMatchesPattern(string $absoluteFilePath, string $ignoredPath): bool
+    private function fileMatchesPattern(SmartFileInfo $smartFileInfo, string $ignoredPath): bool
     {
-        $absoluteFilePath = str_replace('\\', '/', $absoluteFilePath);
-
-        if (Strings::endsWith($absoluteFilePath, $ignoredPath)) {
+        if (Strings::endsWith($smartFileInfo->getNormalizedRealPath(), $ignoredPath)) {
             return true;
         }
 
-        return fnmatch($ignoredPath, $absoluteFilePath) || fnmatch('*/' . $ignoredPath, $absoluteFilePath);
+        if (fnmatch($ignoredPath, $smartFileInfo->getNormalizedRealPath())) {
+            return true;
+        }
+
+        return fnmatch('*/' . $ignoredPath, $smartFileInfo->getNormalizedRealPath());
     }
 }

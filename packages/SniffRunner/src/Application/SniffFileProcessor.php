@@ -201,7 +201,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
             }
 
             foreach ($this->tokenListeners[$token['code']] as $sniff) {
-                if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileInfo->getRealPath())) {
+                if ($this->skipper->shouldSkipCheckerAndFile($sniff, $fileInfo)) {
                     continue;
                 }
 

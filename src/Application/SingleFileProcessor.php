@@ -56,7 +56,7 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
                     continue;
                 }
 
-                if ($this->skipper->shouldSkipFile($smartFileInfo)) {
+                if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
                     continue;
                 }
 
