@@ -6,7 +6,6 @@ use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
@@ -193,7 +192,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         }
     }
 
-    private function processTokens(File $file, SplFileInfo $fileInfo): void
+    private function processTokens(File $file, SmartFileInfo $fileInfo): void
     {
         foreach ($file->getTokens() as $position => $token) {
             if (! array_key_exists($token['code'], $this->tokenListeners)) {
