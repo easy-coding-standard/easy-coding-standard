@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Skipper;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class FileFilter
@@ -13,15 +12,9 @@ final class FileFilter
      */
     private $changedFilesDetector;
 
-    /**
-     * @var Skipper
-     */
-    private $skipper;
-
-    public function __construct(ChangedFilesDetector $changedFilesDetector, Skipper $skipper)
+    public function __construct(ChangedFilesDetector $changedFilesDetector)
     {
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->skipper = $skipper;
     }
 
     /**
@@ -30,16 +23,8 @@ final class FileFilter
      */
     public function filterOnlyChangedFiles(array $fileInfos): array
     {
-        $changedFiles = [];
-
-        foreach ($fileInfos as $fileInfo) {
-            if ($this->changedFilesDetector->hasFileInfoChanged($fileInfo)) {
-                $changedFiles[] = $fileInfo;
-            } else {
-                $this->skipper->removeFileFromUnused($fileInfo->getRealPath());
-            }
-        }
-
-        return $changedFiles;
+        return array_filter($fileInfos, function (SmartFileInfo $smartFileInfo) {
+            return $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo);
+        });
     }
 }

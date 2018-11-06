@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Config\Loader\DelegatingLoader;
@@ -10,7 +9,6 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\DetectParametersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
@@ -61,19 +59,6 @@ final class EasyCodingStandardKernel extends Kernel
      */
     protected function build(ContainerBuilder $containerBuilder): void
     {
-        foreach ($this->extraConfigFiles as $extraConfigFile) {
-            // not a root config
-            if (! Strings::match($extraConfigFile, '#(ecs|easy-coding-standard)\.y(a)?ml$#')) {
-                continue;
-            }
-
-            // get root skip parameters, for unused skipper
-            $parsedRootConfig = Yaml::parseFile($extraConfigFile);
-            if (isset($parsedRootConfig['parameters']['skip'])) {
-                $containerBuilder->setParameter('root_skip', $parsedRootConfig['parameters']['skip']);
-            }
-        }
-
         // cleanup
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
         $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());

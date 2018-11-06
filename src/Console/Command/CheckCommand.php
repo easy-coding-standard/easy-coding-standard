@@ -99,18 +99,13 @@ final class CheckCommand extends Command
         ) {
             $this->easyCodingStandardStyle->newLine();
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
-            $this->checkCommandReporter->reportUnusedSkipped();
 
             return 0;
         }
 
         $this->easyCodingStandardStyle->newLine();
 
-        $exitCode = $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
-
-        $this->checkCommandReporter->reportUnusedSkipped();
-
-        return $exitCode;
+        return $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
     }
 
     private function ensureSomeCheckersAreRegistered(): void

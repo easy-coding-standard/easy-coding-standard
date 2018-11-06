@@ -2,10 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\FileDiff;
-use Symplify\EasyCodingStandard\Skipper;
 use function Safe\sprintf;
 
 final class CheckCommandReporter
@@ -15,45 +13,9 @@ final class CheckCommandReporter
      */
     private $easyCodingStandardStyle;
 
-    /**
-     * @var Skipper
-     */
-    private $skipper;
-
-    /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    public function __construct(
-        EasyCodingStandardStyle $easyCodingStandardStyle,
-        Skipper $skipper,
-        Configuration $configuration
-    ) {
-        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
-        $this->skipper = $skipper;
-        $this->configuration = $configuration;
-    }
-
-    public function reportUnusedSkipped(): void
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle)
     {
-        foreach ($this->skipper->getUnusedSkipped() as $skippedClass => $skippedFiles) {
-            if (! is_array($skippedFiles)) {
-                $this->easyCodingStandardStyle->error(sprintf('Skipped checker "%s" were not found. '
-                . 'You can remove them from "parameters: > skip:" section in your config.', $skippedClass));
-
-                continue;
-            }
-
-            foreach ($skippedFiles as $skippedFile) {
-                if (! $this->isFileInSource($skippedFile)) {
-                    continue;
-                }
-
-                $this->easyCodingStandardStyle->error(sprintf('Skipped checker "%s" and file path "%s" were not found. '
-                . 'You can remove them from "parameters: > skip:" section in your config.', $skippedClass, $skippedFile));
-            }
-        }
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
     /**
@@ -82,16 +44,5 @@ final class CheckCommandReporter
                 $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
             }
         }
-    }
-
-    private function isFileInSource(string $file): bool
-    {
-        foreach ($this->configuration->getSources() as $source) {
-            if (fnmatch('**' . $source . '**', $file)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

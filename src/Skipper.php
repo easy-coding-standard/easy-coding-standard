@@ -15,19 +15,14 @@ final class Skipper
     private $skipped = [];
 
     /**
-     * @var string[]|null[]
+     * @var string[]
      */
     private $skippedCodes = [];
 
     /**
-     * @var string[]|null[]
+     * @var string[]
      */
     private $skippedMessages = [];
-
-    /**
-     * @var string[][]
-     */
-    private $unusedSkipped = [];
 
     /**
      * @var string[]
@@ -37,23 +32,21 @@ final class Skipper
     /**
      * @param mixed[] $skip
      * @param mixed[] $excludeFiles
-     * @param mixed[] $rootSkip
      */
-    public function __construct(array $skip, array $excludeFiles, array $rootSkip)
+    public function __construct(array $skip, array $excludeFiles)
     {
-        $this->unusedSkipped = $rootSkip;
         $this->categorizeSkipSettings($skip);
         $this->excludedFiles = $excludeFiles;
     }
 
     public function shouldSkipCodeAndFile(string $code, string $filePath): bool
     {
-        return $this->shouldSkipMatchingRuleAndFile($this->skippedCodes, $code, $code, $filePath);
+        return $this->shouldSkipMatchingRuleAndFile($this->skippedCodes, $code, $filePath);
     }
 
-    public function shouldSkipMessageAndFile(string $message, string $codeOrChecker, string $filePath): bool
+    public function shouldSkipMessageAndFile(string $message, string $filePath): bool
     {
-        return $this->shouldSkipMatchingRuleAndFile($this->skippedMessages, $message, $codeOrChecker, $filePath);
+        return $this->shouldSkipMatchingRuleAndFile($this->skippedMessages, $message, $filePath);
     }
 
     /**
@@ -66,44 +59,12 @@ final class Skipper
                 continue;
             }
 
-            if ($this->doesFileMatchSkippedFiles($skippedClass, $absoluteFilePath, $skippedFiles)) {
+            if ($this->doesFileMatchSkippedFiles($absoluteFilePath, $skippedFiles)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    public function removeFileFromUnused(string $relativePath): void
-    {
-        foreach ($this->unusedSkipped as $skippedChecker => $skippedFiles) {
-            if (! is_array($skippedFiles)) {
-                continue;
-            }
-
-            foreach ($skippedFiles as $key => $skippedFile) {
-                if ($this->fileMatchesPattern($relativePath, $skippedFile)) {
-                    unset($this->unusedSkipped[$skippedChecker][$key]);
-                    $this->removeEmptyUnusedSkipped($skippedChecker);
-                }
-            }
-        }
-    }
-
-    /**
-     * @return mixed[][]
-     */
-    public function getUnusedSkipped(): array
-    {
-        // always remove global code skips: ref https://github.com/Symplify/Symplify/issues/778
-        foreach ($this->skippedCodes as $index => $value) {
-            // skip all
-            if ($value === null) {
-                unset($this->unusedSkipped[$index]);
-            }
-        }
-
-        return $this->unusedSkipped;
     }
 
     public function shouldSkipFile(SplFileInfo $fileInfo): bool
@@ -136,33 +97,26 @@ final class Skipper
     /**
      * @param string[]|null[] $rules
      */
-    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, string $class, string $filePath): bool
+    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, string $filePath): bool
     {
         if (! array_key_exists($key, $rules)) {
             return false;
         }
 
         if ($rules[$key] === null) {
-            unset($this->unusedSkipped[$key]);
-
             return true;
         }
 
-        return $this->doesFileMatchSkippedFiles($class, $filePath, (array) $rules[$key]);
+        return $this->doesFileMatchSkippedFiles($filePath, (array) $rules[$key]);
     }
 
     /**
      * @param string[] $skippedFiles
      */
-    private function doesFileMatchSkippedFiles(
-        string $skippedClass,
-        string $absoluteFilePath,
-        array $skippedFiles
-    ): bool {
-        foreach ($skippedFiles as $key => $skippedFile) {
+    private function doesFileMatchSkippedFiles(string $absoluteFilePath, array $skippedFiles): bool
+    {
+        foreach ($skippedFiles as $skippedFile) {
             if ($this->fileMatchesPattern($absoluteFilePath, $skippedFile)) {
-                unset($this->unusedSkipped[$skippedClass][$key]);
-
                 return true;
             }
         }
@@ -183,12 +137,5 @@ final class Skipper
         }
 
         return fnmatch($ignoredPath, $absoluteFilePath) || fnmatch('*/' . $ignoredPath, $absoluteFilePath);
-    }
-
-    private function removeEmptyUnusedSkipped(string $skippedChecker): void
-    {
-        if ($this->unusedSkipped[$skippedChecker] === []) {
-            unset($this->unusedSkipped[$skippedChecker]);
-        }
     }
 }
