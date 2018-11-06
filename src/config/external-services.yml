@@ -11,8 +11,6 @@ services:
 
     # Console
     Symfony\Component\Console\Terminal: ~
-    Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle:
-        factory: ['@Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory', 'create']
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
     Symplify\PackageBuilder\FileSystem\FileGuard: ~
