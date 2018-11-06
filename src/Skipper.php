@@ -39,9 +39,9 @@ final class Skipper
         $this->excludedFiles = $excludeFiles;
     }
 
-    public function shouldSkipCodeAndFile(string $code, SmartFileInfo $fileInfo): bool
+    public function shouldSkipCodeAndFile(string $code, SmartFileInfo $smartFileInfo): bool
     {
-        return $this->shouldSkipMatchingRuleAndFile($this->skippedCodes, $code, $fileInfo);
+        return $this->shouldSkipMatchingRuleAndFile($this->skippedCodes, $code, $smartFileInfo);
     }
 
     public function shouldSkipMessageAndFile(string $message, SmartFileInfo $smartFileInfo): bool
@@ -67,10 +67,10 @@ final class Skipper
         return false;
     }
 
-    public function shouldSkipFileInfo(SmartFileInfo $fileInfosmartFileInfo): bool
+    public function shouldSkipFileInfo(SmartFileInfo $smartFileInfo): bool
     {
         foreach ($this->excludedFiles as $excludedFile) {
-            if ($this->fileMatchesPattern($fileInfosmartFileInfo, $excludedFile)) {
+            if ($this->fileMatchesPattern($smartFileInfo, $excludedFile)) {
                 return true;
             }
         }
@@ -97,7 +97,7 @@ final class Skipper
     /**
      * @param string[]|null[] $rules
      */
-    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, SmartFileInfo $fileInfo): bool
+    private function shouldSkipMatchingRuleAndFile(array $rules, string $key, SmartFileInfo $smartFileInfo): bool
     {
         if (! array_key_exists($key, $rules)) {
             return false;
@@ -108,16 +108,16 @@ final class Skipper
             return true;
         }
 
-        return $this->doesFileMatchSkippedFiles($fileInfo, (array) $rules[$key]);
+        return $this->doesFileMatchSkippedFiles($smartFileInfo, (array) $rules[$key]);
     }
 
     /**
      * @param string[] $skippedFiles
      */
-    private function doesFileMatchSkippedFiles(SmartFileInfo $fileInfo, array $skippedFiles): bool
+    private function doesFileMatchSkippedFiles(SmartFileInfo $smartFileInfo, array $skippedFiles): bool
     {
         foreach ($skippedFiles as $skippedFile) {
-            if ($this->fileMatchesPattern($fileInfo, $skippedFile)) {
+            if ($this->fileMatchesPattern($smartFileInfo, $skippedFile)) {
                 return true;
             }
         }
