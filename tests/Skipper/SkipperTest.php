@@ -20,7 +20,7 @@ final class SkipperTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->skipper = new Skipper($this->createSkipParameter(), [], []);
+        $this->skipper = new Skipper($this->createSkipParameter(), []);
     }
 
     public function testNotSkipped(): void
@@ -92,13 +92,11 @@ final class SkipperTest extends TestCase
 
         $this->assertTrue($this->skipper->shouldSkipMessageAndFile(
             'some fishy code at line 5!',
-            DeclareStrictTypesFixer::class . '.someCode',
             __DIR__ . '/someFile'
         ));
 
         $this->assertTrue($this->skipper->shouldSkipMessageAndFile(
             'some another fishy code at line 5!',
-            DeclareStrictTypesFixer::class . '.someCode',
             __DIR__ . '/someDirectory/someFile.php'
         ));
     }

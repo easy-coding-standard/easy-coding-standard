@@ -218,7 +218,7 @@ final class File extends BaseFile
             return true;
         }
 
-        return $this->skipper->shouldSkipMessageAndFile(vsprintf($error, $data), $fullyQualifiedCode, $realPath);
+        return $this->skipper->shouldSkipMessageAndFile(vsprintf($error, $data), $realPath);
     }
 
     private function isSniffClassWarningAllowed(string $sniffClass): bool

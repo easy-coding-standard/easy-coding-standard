@@ -11,6 +11,5 @@ parameters:
     cache_directory: '%sys_get_temp_dir%/_changed_files_detector%env(TEST_SUFFIX)%'
     skip: []
     exclude_files: []
-    root_skip: []
     # for tests
     env(TEST_SUFFIX): ''
