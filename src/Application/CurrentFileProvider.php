@@ -2,22 +2,22 @@
 
 namespace Symplify\EasyCodingStandard\Application;
 
-use Symfony\Component\Finder\SplFileInfo;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class CurrentFileProvider
 {
     /**
-     * @var SplFileInfo
+     * @var SmartFileInfo
      */
-    private $fileInfo;
+    private $smartFileInfo;
 
-    public function setFileInfo(SplFileInfo $fileInfo): void
+    public function setFileInfo(SmartFileInfo $smartFileInfo): void
     {
-        $this->fileInfo = $fileInfo;
+        $this->smartFileInfo = $smartFileInfo;
     }
 
-    public function getFileInfo(): SplFileInfo
+    public function getFileInfo(): SmartFileInfo
     {
-        return $this->fileInfo;
+        return $this->smartFileInfo;
     }
 }

@@ -6,7 +6,6 @@ use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
@@ -165,12 +164,12 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $fixers;
     }
 
-    private function shouldSkip(SplFileInfo $file, FixerInterface $fixer, Tokens $tokens): bool
+    private function shouldSkip(SmartFileInfo $smartFileInfo, FixerInterface $fixer, Tokens $tokens): bool
     {
-        if ($this->skipper->shouldSkipCheckerAndFile($fixer, $file->getRealPath())) {
+        if ($this->skipper->shouldSkipCheckerAndFile($fixer, $smartFileInfo)) {
             return true;
         }
 
-        return ! $fixer->supports($file) || ! $fixer->isCandidate($tokens);
+        return ! $fixer->supports($smartFileInfo) || ! $fixer->isCandidate($tokens);
     }
 }

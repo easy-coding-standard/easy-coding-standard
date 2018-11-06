@@ -27,16 +27,24 @@ final class SkipperTest extends TestCase
     {
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
             FinalInterfaceFixer::class,
-            __DIR__ . '/someFile'
+            new SmartFileInfo(__DIR__ . '/Source/someFile')
         ));
 
         $this->assertFalse($this->skipper->shouldSkipCheckerAndFile(
             FinalInterfaceFixer::class,
-            __DIR__ . '/someOtherFile'
+            new SmartFileInfo(__DIR__ . '/Source/someOtherFile')
         ));
 
-        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someSniff.someForeignCode', __DIR__ . 'someFile'));
-        $this->assertFalse($this->skipper->shouldSkipCodeAndFile('someFixer.someOtherCode', __DIR__ . 'someFile'));
+        $this->assertFalse(
+            $this->skipper->shouldSkipCodeAndFile('someSniff.someForeignCode', new SmartFileInfo(
+                __DIR__ . '/Source/someFile'
+            ))
+        );
+        $this->assertFalse(
+            $this->skipper->shouldSkipCodeAndFile('someFixer.someOtherCode', new SmartFileInfo(
+                __DIR__ . '/Source/someFile'
+            ))
+        );
     }
 
     public function testSkipMessage(): void
@@ -64,40 +72,43 @@ final class SkipperTest extends TestCase
     {
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
             DeclareStrictTypesFixer::class,
-            __DIR__ . '/someFile'
+            new SmartFileInfo(__DIR__ . '/Source/someFile')
         ));
 
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
             DeclareStrictTypesFixer::class,
-            __DIR__ . '/someDirectory/anotherFile.php'
+            new SmartFileInfo(__DIR__ . '/Source/someDirectory/anotherFile.php')
         ));
 
         $this->assertTrue($this->skipper->shouldSkipCheckerAndFile(
             DeclareStrictTypesFixer::class,
-            __DIR__ . '/someDirectory/anotherFile.php'
+            new SmartFileInfo(__DIR__ . '/Source/someDirectory/anotherFile.php')
         ));
 
         $this->assertTrue(
-            $this->skipper->shouldSkipCodeAndFile(DeclareStrictTypesFixer::class . '.someCode', __DIR__ . '/someFile')
+            $this->skipper->shouldSkipCodeAndFile(
+                DeclareStrictTypesFixer::class . '.someCode',
+                new SmartFileInfo(__DIR__ . '/Source/someFile')
+            )
         );
         $this->assertTrue($this->skipper->shouldSkipCodeAndFile(
             DeclareStrictTypesFixer::class . '.someOtherCode',
-            __DIR__ . '/someDirectory/someFile'
+            new SmartFileInfo(__DIR__ . '/Source/someDirectory/someFile')
         ));
 
         $this->assertTrue($this->skipper->shouldSkipCodeAndFile(
             DeclareStrictTypesFixer::class . '.someAnotherCode',
-            __DIR__ . '/someDirectory/someFile'
+            new SmartFileInfo(__DIR__ . '/Source/someDirectory/someFile')
         ));
 
         $this->assertTrue($this->skipper->shouldSkipMessageAndFile(
             'some fishy code at line 5!',
-            __DIR__ . '/someFile'
+            new SmartFileInfo(__DIR__ . '/Source/someFile')
         ));
 
         $this->assertTrue($this->skipper->shouldSkipMessageAndFile(
             'some another fishy code at line 5!',
-            __DIR__ . '/someDirectory/someFile.php'
+            new SmartFileInfo(__DIR__ . '/Source/someDirectory/someFile.php')
         ));
     }
 
@@ -107,7 +118,7 @@ final class SkipperTest extends TestCase
     private function createSkipParameter(): array
     {
         return [
-            DeclareStrictTypesFixer::class => ['someFile', '*/someDirectory/*'],
+            DeclareStrictTypesFixer::class => ['Source/someFile', '*/someDirectory/*'],
             DeclareStrictTypesFixer::class . '.someCode' => null,
             DeclareStrictTypesFixer::class . '.someOtherCode' => ['*/someDirectory/*'],
             DeclareStrictTypesFixer::class . '.someAnotherCode' => ['someDirectory/*'],

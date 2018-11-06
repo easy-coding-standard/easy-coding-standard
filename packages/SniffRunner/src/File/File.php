@@ -211,14 +211,14 @@ final class File extends BaseFile
      */
     private function shouldSkipError(string $error, string $code, array $data): bool
     {
-        $realPath = $this->currentFileProvider->getFileInfo()->getRealPath();
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
 
-        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $realPath)) {
+        $fileInfo = $this->currentFileProvider->getFileInfo();
+        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $fileInfo)) {
             return true;
         }
 
-        return $this->skipper->shouldSkipMessageAndFile(vsprintf($error, $data), $realPath);
+        return $this->skipper->shouldSkipMessageAndFile(vsprintf($error, $data), $fileInfo);
     }
 
     private function isSniffClassWarningAllowed(string $sniffClass): bool
