@@ -6,9 +6,6 @@ services:
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '..'
 
-    Symfony\Component\Cache\Simple\FilesystemCache:
-        factory: ['@Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\Simple\FilesystemCacheFactory', 'create']
-
     Symfony\Component\Cache\Adapter\SimpleCacheAdapter:
     Symfony\Component\Cache\Adapter\TagAwareAdapter:
         $itemsPool: '@Symfony\Component\Cache\Adapter\SimpleCacheAdapter'

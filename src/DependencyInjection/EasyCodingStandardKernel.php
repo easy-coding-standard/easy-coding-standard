@@ -16,6 +16,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
+use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoReturnFactoryCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
@@ -59,6 +60,9 @@ final class EasyCodingStandardKernel extends Kernel
      */
     protected function build(ContainerBuilder $containerBuilder): void
     {
+        // needs to be first, since it's adding new service definitions
+        $containerBuilder->addCompilerPass(new AutoReturnFactoryCompilerPass());
+
         // cleanup
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
         $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());
