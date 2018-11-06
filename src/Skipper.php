@@ -103,6 +103,7 @@ final class Skipper
             return false;
         }
 
+        // skip regardless the path
         if ($rules[$key] === null) {
             return true;
         }
@@ -130,14 +131,6 @@ final class Skipper
      */
     private function fileMatchesPattern(SmartFileInfo $smartFileInfo, string $ignoredPath): bool
     {
-        if (Strings::endsWith($smartFileInfo->getNormalizedRealPath(), $ignoredPath)) {
-            return true;
-        }
-
-        if (fnmatch($ignoredPath, $smartFileInfo->getNormalizedRealPath())) {
-            return true;
-        }
-
-        return fnmatch('*/' . $ignoredPath, $smartFileInfo->getNormalizedRealPath());
+        return $smartFileInfo->endsWith($ignoredPath) || $smartFileInfo->fnmatches($ignoredPath);
     }
 }
