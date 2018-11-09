@@ -70,6 +70,8 @@ final class FixerTest extends AbstractContainerAwareTestCase
         $this->fixer->startFile($this->file);
         $this->fixer->beginChangeSet();
 
+        $this->assertSame('\\', $this->fixer->getTokenContent(13));
+
         $this->fixer->addContentBefore(13, 'A');
         $this->assertSame('A\\', $this->fixer->getTokenContent(13));
 
@@ -77,12 +79,17 @@ final class FixerTest extends AbstractContainerAwareTestCase
         $this->fixer->addContent(13, 'B');
         $this->assertSame('A\\B', $this->fixer->getTokenContent(13));
 
+        // you can also rollback the changes...
+        $this->fixer->rollbackChangeset();
+        $this->assertSame('\\', $this->fixer->getTokenContent(13));
+
+        $this->fixer->addContent(13, 'B');
         $this->fixer->endChangeSet();
-        $this->assertSame('A\\B', $this->fixer->getTokenContent(13));
+        $this->assertSame('\\B', $this->fixer->getTokenContent(13));
 
         // ...that stops being the case after changeset is committed
         $this->fixer->addContent(13, 'C');
-        $this->assertSame('A\\B', $this->fixer->getTokenContent(13));
+        $this->assertSame('\\B', $this->fixer->getTokenContent(13));
     }
 
     public function testAddNewline(): void
