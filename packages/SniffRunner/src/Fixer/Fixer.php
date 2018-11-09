@@ -148,4 +148,13 @@ final class Fixer
 
         $this->changeset = [];
     }
+
+    /**
+     * Stop recording actions for a changeset, and discard logged changes.
+     */
+    public function rollbackChangeset(): void
+    {
+        $this->inChangeset = false;
+        $this->changeset = [];
+    }
 }
