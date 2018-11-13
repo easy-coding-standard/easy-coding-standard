@@ -15,6 +15,7 @@ use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
+use Symplify\PackageBuilder\Console\ShellCode;
 use function Safe\sprintf;
 
 final class CheckCommand extends Command
@@ -142,7 +143,7 @@ final class CheckCommand extends Command
             $this->errorAndDiffCollector->getFileDiffsCount()
         );
 
-        return 1;
+        return ShellCode::ERROR;
     }
 
     private function printNoFixerStatus(): int
@@ -160,7 +161,7 @@ final class CheckCommand extends Command
             $this->errorAndDiffCollector->getFileDiffsCount()
         );
 
-        return 1;
+        return ShellCode::ERROR;
     }
 
     private function printErrorMessageFromErrorCounts(int $errorCount, int $fileDiffsCount): void
