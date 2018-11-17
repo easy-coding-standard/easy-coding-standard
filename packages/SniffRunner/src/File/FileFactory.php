@@ -3,10 +3,10 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
+use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
@@ -29,11 +29,6 @@ final class FileFactory
     private $fileToTokensParser;
 
     /**
-     * @var CurrentSniffProvider
-     */
-    private $currentSniffProvider;
-
-    /**
      * @var Skipper
      */
     private $skipper;
@@ -48,11 +43,16 @@ final class FileFactory
      */
     private $currentFileProvider;
 
+    /**
+     * @var CurrentCheckerProvider
+     */
+    private $currentCheckerProvider;
+
     public function __construct(
         Fixer $fixer,
         ErrorAndDiffCollector $errorAndDiffCollector,
         FileToTokensParser $fileToTokensParser,
-        CurrentSniffProvider $currentSniffProvider,
+        CurrentCheckerProvider $currentCheckerProvider,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector,
         CurrentFileProvider $currentFileProvider
@@ -60,10 +60,10 @@ final class FileFactory
         $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->fileToTokensParser = $fileToTokensParser;
-        $this->currentSniffProvider = $currentSniffProvider;
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->currentFileProvider = $currentFileProvider;
+        $this->currentCheckerProvider = $currentCheckerProvider;
     }
 
     public function createFromFileInfo(SmartFileInfo $smartFileInfo): File
@@ -75,7 +75,7 @@ final class FileFactory
             $fileTokens,
             $this->fixer,
             $this->errorAndDiffCollector,
-            $this->currentSniffProvider,
+            $this->currentCheckerProvider,
             $this->skipper,
             $this->appliedCheckersCollector,
             $this->currentFileProvider

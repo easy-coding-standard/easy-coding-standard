@@ -6,10 +6,10 @@ use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
+use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\Application\CurrentSniffProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use function Safe\sprintf;
@@ -39,11 +39,6 @@ final class File extends BaseFile
     private $errorAndDiffCollector;
 
     /**
-     * @var CurrentSniffProvider
-     */
-    private $currentSniffProvider;
-
-    /**
      * @var Skipper
      */
     private $skipper;
@@ -59,6 +54,11 @@ final class File extends BaseFile
     private $currentFileProvider;
 
     /**
+     * @var CurrentCheckerProvider
+     */
+    private $currentCheckerProvider;
+
+    /**
      * @param array[] $tokens
      */
     public function __construct(
@@ -66,7 +66,7 @@ final class File extends BaseFile
         array $tokens,
         Fixer $fixer,
         ErrorAndDiffCollector $errorAndDiffCollector,
-        CurrentSniffProvider $currentSniffProvider,
+        CurrentCheckerProvider $currentCheckerProvider,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector,
         CurrentFileProvider $currentFileProvider
@@ -79,10 +79,10 @@ final class File extends BaseFile
         $this->numTokens = count($this->tokens);
 
         $this->eolChar = PHP_EOL;
-        $this->currentSniffProvider = $currentSniffProvider;
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->currentFileProvider = $currentFileProvider;
+        $this->currentCheckerProvider = $currentCheckerProvider;
     }
 
     public function parse(): void
@@ -153,7 +153,7 @@ final class File extends BaseFile
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
-        if (! $this->isSniffClassWarningAllowed($this->currentSniffProvider->getSniffClass())) {
+        if (! $this->isSniffClassWarningAllowed($this->currentCheckerProvider->getChecker())) {
             return false;
         }
 
@@ -203,7 +203,7 @@ final class File extends BaseFile
             return $sniffClassOrCode;
         }
 
-        return $this->currentSniffProvider->getSniffClass() . '.' . $sniffClassOrCode;
+        return $this->currentCheckerProvider->getChecker() . '.' . $sniffClassOrCode;
     }
 
     /**

@@ -6,6 +6,7 @@ use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
+use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
@@ -62,6 +63,11 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $currentFileProvider;
 
     /**
+     * @var CurrentCheckerProvider
+     */
+    private $currentCheckerProvider;
+
+    /**
      * @param FixerInterface[] $fixers
      */
     public function __construct(
@@ -72,6 +78,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         Skipper $skipper,
         DifferInterface $differ,
         CurrentFileProvider $currentFileProvider,
+        CurrentCheckerProvider $currentCheckerProvider,
         array $fixers
     ) {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -82,6 +89,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->differ = $differ;
         $this->currentFileProvider = $currentFileProvider;
         $this->fixers = $this->sortFixers($fixers);
+        $this->currentCheckerProvider = $currentCheckerProvider;
     }
 
     /**
@@ -106,6 +114,8 @@ final class FixerFileProcessor implements FileProcessorInterface
             if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
                 continue;
             }
+
+            $this->currentCheckerProvider->setChecker($fixer);
 
             try {
                 $fixer->fix($smartFileInfo, $tokens);

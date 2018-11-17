@@ -7,6 +7,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
+use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
@@ -58,11 +59,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $skipper;
 
     /**
-     * @var CurrentSniffProvider
-     */
-    private $currentSniffProvider;
-
-    /**
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
@@ -83,6 +79,11 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $currentFileProvider;
 
     /**
+     * @var CurrentCheckerProvider
+     */
+    private $currentCheckerProvider;
+
+    /**
      * @param Sniff[] $sniffs
      */
     public function __construct(
@@ -90,22 +91,22 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         FileFactory $fileFactory,
         Configuration $configuration,
         Skipper $skipper,
-        CurrentSniffProvider $currentSniffProvider,
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
         CurrentFileProvider $currentFileProvider,
+        CurrentCheckerProvider $currentCheckerProvider,
         array $sniffs
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
         $this->configuration = $configuration;
         $this->skipper = $skipper;
-        $this->currentSniffProvider = $currentSniffProvider;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->differ = $differ;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->currentFileProvider = $currentFileProvider;
+        $this->currentCheckerProvider = $currentCheckerProvider;
 
         $this->addCompatibilityLayer();
 
@@ -204,7 +205,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
                     continue;
                 }
 
-                $this->currentSniffProvider->setSniff($sniff);
+                $this->currentCheckerProvider->setChecker($sniff);
                 $sniff->process($file, $position);
             }
         }
