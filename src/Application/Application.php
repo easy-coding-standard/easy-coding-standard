@@ -131,10 +131,13 @@ final class Application implements FileProcessorCollectorInterface
     private function processFoundFiles(array $fileInfos): void
     {
         foreach ($fileInfos as $fileInfo) {
-            $this->singleFileProcessor->processFileInfo($fileInfo);
             if ($this->easyCodingStandardStyle->isVerbose()) {
                 $this->easyCodingStandardStyle->writeln($fileInfo->getRealPath());
-            } elseif ($this->configuration->showProgressBar()) {
+            }
+
+            $this->singleFileProcessor->processFileInfo($fileInfo);
+
+            if ($this->easyCodingStandardStyle->isVerbose() === false) {
                 $this->easyCodingStandardStyle->progressAdvance();
             }
         }
