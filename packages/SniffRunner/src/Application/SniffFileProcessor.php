@@ -10,6 +10,7 @@ use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
@@ -84,6 +85,11 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $currentCheckerProvider;
 
     /**
+     * @var EasyCodingStandardStyle
+     */
+    private $easyCodingStandardStyle;
+
+    /**
      * @param Sniff[] $sniffs
      */
     public function __construct(
@@ -96,6 +102,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         AppliedCheckersCollector $appliedCheckersCollector,
         CurrentFileProvider $currentFileProvider,
         CurrentCheckerProvider $currentCheckerProvider,
+        EasyCodingStandardStyle $easyCodingStandardStyle,
         array $sniffs
     ) {
         $this->fixer = $fixer;
@@ -113,6 +120,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
         }
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
     public function addSniff(Sniff $sniff): void
@@ -206,6 +214,10 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
                 }
 
                 $this->currentCheckerProvider->setChecker($sniff);
+                if ($this->easyCodingStandardStyle->isDebug()) {
+                    $this->easyCodingStandardStyle->writeln(get_class($sniff));
+                }
+
                 $sniff->process($file, $position);
             }
         }
