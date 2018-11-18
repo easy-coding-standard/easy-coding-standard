@@ -6,9 +6,9 @@ use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
@@ -63,9 +63,9 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $currentFileProvider;
 
     /**
-     * @var CurrentCheckerProvider
+     * @var EasyCodingStandardStyle
      */
-    private $currentCheckerProvider;
+    private $easyCodingStandardStyle;
 
     /**
      * @param FixerInterface[] $fixers
@@ -78,7 +78,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         Skipper $skipper,
         DifferInterface $differ,
         CurrentFileProvider $currentFileProvider,
-        CurrentCheckerProvider $currentCheckerProvider,
+        EasyCodingStandardStyle $easyCodingStandardStyle,
         array $fixers
     ) {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -89,7 +89,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->differ = $differ;
         $this->currentFileProvider = $currentFileProvider;
         $this->fixers = $this->sortFixers($fixers);
-        $this->currentCheckerProvider = $currentCheckerProvider;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
     /**
@@ -115,7 +115,10 @@ final class FixerFileProcessor implements FileProcessorInterface
                 continue;
             }
 
-            $this->currentCheckerProvider->setChecker($fixer);
+            // show current fixer in --debug / -vvv
+            if ($this->easyCodingStandardStyle->isDebug()) {
+                $this->easyCodingStandardStyle->writeln(get_class($fixer));
+            }
 
             try {
                 $fixer->fix($smartFileInfo, $tokens);
