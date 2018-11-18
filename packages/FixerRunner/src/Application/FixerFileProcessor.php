@@ -6,7 +6,6 @@ use Nette\Utils\FileSystem;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
@@ -22,6 +21,11 @@ use function Safe\usort;
 
 final class FixerFileProcessor implements FileProcessorInterface
 {
+    /**
+     * @var string[]
+     */
+    private $appliedFixers = [];
+
     /**
      * @var FixerInterface[]
      */
@@ -58,11 +62,6 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $differ;
 
     /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
@@ -77,7 +76,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         CachedFileLoader $cachedFileLoader,
         Skipper $skipper,
         DifferInterface $differ,
-        CurrentFileProvider $currentFileProvider,
         EasyCodingStandardStyle $easyCodingStandardStyle,
         array $fixers
     ) {
@@ -87,7 +85,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->fileToTokensParser = $fileToTokensParser;
         $this->cachedFileLoader = $cachedFileLoader;
         $this->differ = $differ;
-        $this->currentFileProvider = $currentFileProvider;
         $this->fixers = $this->sortFixers($fixers);
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
@@ -102,47 +99,16 @@ final class FixerFileProcessor implements FileProcessorInterface
 
     public function processFile(SmartFileInfo $smartFileInfo): string
     {
-        $this->currentFileProvider->setFileInfo($smartFileInfo);
-
         $oldContent = $this->cachedFileLoader->getFileContent($smartFileInfo);
 
         $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
 
-        $appliedFixers = [];
-
+        $this->appliedFixers = [];
         foreach ($this->getCheckers() as $fixer) {
-            if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
-                continue;
-            }
-
-            // show current fixer in --debug / -vvv
-            if ($this->easyCodingStandardStyle->isDebug()) {
-                $this->easyCodingStandardStyle->writeln(get_class($fixer));
-            }
-
-            try {
-                $fixer->fix($smartFileInfo, $tokens);
-            } catch (Throwable $throwable) {
-                throw new FixerFailedException(sprintf(
-                    'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
-                    $smartFileInfo->getRelativeFilePath(),
-                    get_class($fixer),
-                    $throwable->getMessage(),
-                    $throwable->getFile(),
-                    $throwable->getLine()
-                ), $throwable->getCode(), $throwable);
-            }
-
-            if (! $tokens->isChanged()) {
-                continue;
-            }
-
-            $tokens->clearEmptyTokens();
-            $tokens->clearChanged();
-            $appliedFixers[] = get_class($fixer);
+            $this->processTokensByFixer($smartFileInfo, $tokens, $fixer);
         }
 
-        if (! $appliedFixers) {
+        if ($this->appliedFixers === []) {
             return $oldContent;
         }
 
@@ -153,7 +119,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         // file has changed
-        $this->errorAndDiffCollector->addDiffForFileInfo($smartFileInfo, $diff, $appliedFixers);
+        $this->errorAndDiffCollector->addDiffForFileInfo($smartFileInfo, $diff, $this->appliedFixers);
 
         if ($this->configuration->isFixer()) {
             FileSystem::write($smartFileInfo->getRealPath(), $tokens->generateCode());
@@ -175,6 +141,40 @@ final class FixerFileProcessor implements FileProcessorInterface
         });
 
         return $fixers;
+    }
+
+    private function processTokensByFixer(SmartFileInfo $smartFileInfo, Tokens $tokens, FixerInterface $fixer): void
+    {
+        if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
+            return;
+        }
+
+        // show current fixer in --debug / -vvv
+        if ($this->easyCodingStandardStyle->isDebug()) {
+            $this->easyCodingStandardStyle->writeln(get_class($fixer));
+        }
+
+        try {
+            $fixer->fix($smartFileInfo, $tokens);
+        } catch (Throwable $throwable) {
+            throw new FixerFailedException(sprintf(
+                'Fixing of "%s" file by "%s" failed: %s in file %s on line %d',
+                $smartFileInfo->getRelativeFilePath(),
+                get_class($fixer),
+                $throwable->getMessage(),
+                $throwable->getFile(),
+                $throwable->getLine()
+            ), $throwable->getCode(), $throwable);
+        }
+
+        if (! $tokens->isChanged()) {
+            return;
+        }
+
+        $tokens->clearEmptyTokens();
+        $tokens->clearChanged();
+
+        $this->appliedFixers[] = get_class($fixer);
     }
 
     private function shouldSkip(SmartFileInfo $smartFileInfo, FixerInterface $fixer, Tokens $tokens): bool
