@@ -8,7 +8,6 @@ use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
-use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
@@ -75,11 +74,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $appliedCheckersCollector;
 
     /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
      * @var CurrentCheckerProvider
      */
     private $currentCheckerProvider;
@@ -100,7 +94,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
-        CurrentFileProvider $currentFileProvider,
         CurrentCheckerProvider $currentCheckerProvider,
         EasyCodingStandardStyle $easyCodingStandardStyle,
         array $sniffs
@@ -112,7 +105,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->differ = $differ;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
-        $this->currentFileProvider = $currentFileProvider;
         $this->currentCheckerProvider = $currentCheckerProvider;
 
         $this->addCompatibilityLayer();
@@ -157,8 +149,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
 
     public function processFile(SmartFileInfo $smartFileInfo): string
     {
-        $this->currentFileProvider->setFileInfo($smartFileInfo);
-
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
         // 1. puts tokens into fixer

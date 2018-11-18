@@ -32,14 +32,21 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
      */
     private $errorAndDiffCollector;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         Skipper $skipper,
         ChangedFilesDetector $changedFilesDetector,
-        ErrorAndDiffCollector $errorAndDiffCollector
+        ErrorAndDiffCollector $errorAndDiffCollector,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->skipper = $skipper;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function addFileProcessor(FileProcessorInterface $fileProcessor): void
@@ -59,6 +66,8 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
                 if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
                     continue;
                 }
+
+                $this->currentFileProvider->setFileInfo($smartFileInfo);
 
                 $fileProcessor->processFile($smartFileInfo);
             }
