@@ -8,7 +8,7 @@ use PhpCsFixer\Fixer\FixerInterface;
 final class CurrentCheckerProvider
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $checker;
 
@@ -20,7 +20,7 @@ final class CurrentCheckerProvider
         $this->checker = is_object($checker) ? get_class($checker) : $checker;
     }
 
-    public function getChecker(): string
+    public function getChecker(): ?string
     {
         return $this->checker;
     }

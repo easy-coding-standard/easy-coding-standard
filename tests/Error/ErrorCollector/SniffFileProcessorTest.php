@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
 use PHPUnit\Framework\TestCase;
+use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -21,6 +22,11 @@ final class SniffFileProcessorTest extends TestCase
      */
     private $sniffFileProcessor;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     protected function setUp(): void
     {
         $container = (new ContainerFactory())->createWithConfigs(
@@ -29,6 +35,7 @@ final class SniffFileProcessorTest extends TestCase
 
         $this->errorAndDiffCollector = $container->get(ErrorAndDiffCollector::class);
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
+        $this->currentFileProvider = $container->get(CurrentFileProvider::class);
 
         /** @var ChangedFilesDetector $changedFilesDetector */
         $changedFilesDetector = $container->get(ChangedFilesDetector::class);
@@ -37,16 +44,11 @@ final class SniffFileProcessorTest extends TestCase
 
     public function test(): void
     {
-        $this->runFileProcessor();
+        $smartFileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
+        $this->currentFileProvider->setFileInfo($smartFileInfo);
+        $this->sniffFileProcessor->processFile($smartFileInfo);
 
         $this->assertSame(2, $this->errorAndDiffCollector->getErrorCount());
         $this->assertSame(0, $this->errorAndDiffCollector->getFileDiffsCount());
-    }
-
-    private function runFileProcessor(): void
-    {
-        $fileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
-
-        $this->sniffFileProcessor->processFile($fileInfo);
     }
 }

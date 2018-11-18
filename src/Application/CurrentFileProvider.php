@@ -7,7 +7,7 @@ use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 final class CurrentFileProvider
 {
     /**
-     * @var SmartFileInfo
+     * @var SmartFileInfo|null
      */
     private $smartFileInfo;
 
@@ -16,7 +16,7 @@ final class CurrentFileProvider
         $this->smartFileInfo = $smartFileInfo;
     }
 
-    public function getFileInfo(): SmartFileInfo
+    public function getFileInfo(): ?SmartFileInfo
     {
         return $this->smartFileInfo;
     }
