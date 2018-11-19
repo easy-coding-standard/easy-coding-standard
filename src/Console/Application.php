@@ -73,7 +73,7 @@ final class Application extends SymfonyApplication
             return $input->getParameterOption('--config');
         }
 
-        return $this->getDefaultConfigPath();
+        return ConfigFileFinder::provide('ecs');
     }
 
     private function addExtraOptions(InputDefinition $inputDefinition): void
@@ -99,10 +99,5 @@ final class Application extends SymfonyApplication
             InputOption::VALUE_NONE,
             'Run in debug mode (alias for "-vvv")'
         ));
-    }
-
-    private function getDefaultConfigPath(): string
-    {
-        return ConfigFileFinder::provide('ecs');
     }
 }
