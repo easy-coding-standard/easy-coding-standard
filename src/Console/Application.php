@@ -5,13 +5,47 @@ namespace Symplify\EasyCodingStandard\Console;
 use Jean85\PrettyVersions;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Console\Command\FindCommand;
+use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
+use Symplify\PackageBuilder\Console\Command\CommandNaming;
+use function Safe\realpath;
 
 final class Application extends SymfonyApplication
 {
     public function __construct()
     {
         parent::__construct('EasyCodingStandard', $this->getPrettyVersion());
+    }
+
+    public function doRun(InputInterface $input, OutputInterface $output): int
+    {
+        $shouldFollowByNewline = false;
+
+        // skip in this case, since generate content must be clear from meta-info
+        if ($input->getFirstArgument() === CommandNaming::classToName(FindCommand::class)) {
+            return parent::doRun($input, $output);
+        }
+
+        if ($this->isVersionPrintedElsewhere($input) === false) {
+            // always print name version to more debug info
+            $output->writeln($this->getLongVersion());
+            $shouldFollowByNewline = true;
+        }
+
+        $configPath = $this->getConfigPath($input);
+        if ($configPath !== null && file_exists($configPath)) {
+            $output->writeln('Config file: ' . realpath($configPath));
+            $shouldFollowByNewline = true;
+        }
+
+        if ($shouldFollowByNewline) {
+            $output->write(PHP_EOL);
+        }
+
+        return parent::doRun($input, $output);
     }
 
     protected function getDefaultInputDefinition(): InputDefinition
@@ -26,6 +60,20 @@ final class Application extends SymfonyApplication
     {
         $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
         return $version->getPrettyVersion();
+    }
+
+    private function isVersionPrintedElsewhere(InputInterface $input): bool
+    {
+        return $input->hasParameterOption('--version') !== false || $input->getFirstArgument() === null;
+    }
+
+    private function getConfigPath(InputInterface $input): ?string
+    {
+        if ($input->getParameterOption('--config')) {
+            return $input->getParameterOption('--config');
+        }
+
+        return $this->getDefaultConfigPath();
     }
 
     private function addExtraOptions(InputDefinition $inputDefinition): void
@@ -51,5 +99,10 @@ final class Application extends SymfonyApplication
             InputOption::VALUE_NONE,
             'Run in debug mode (alias for "-vvv")'
         ));
+    }
+
+    private function getDefaultConfigPath(): string
+    {
+        return ConfigFileFinder::provide('ecs');
     }
 }
