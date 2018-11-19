@@ -101,7 +101,7 @@ final class CheckCommand extends Command
             $this->easyCodingStandardStyle->newLine();
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
 
-            return 0;
+            return ShellCode::SUCCESS;
         }
 
         $this->easyCodingStandardStyle->newLine();
@@ -135,7 +135,7 @@ final class CheckCommand extends Command
                 )
             );
 
-            return 0;
+            return ShellCode::SUCCESS;
         }
 
         $this->printErrorMessageFromErrorCounts(
