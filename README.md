@@ -218,50 +218,40 @@ You can also return array of files or `SplFileInfo`s.
 
 ### FAQ
 
-**How to show all loaded checkers?**
+#### How can I see all loaded checkers?
 
 ```bash
 vendor/bin/ecs show
-
 vendor/bin/ecs show --config ...
 ```
 
-**How to find checkers by group or type?**
+#### How do I find checkers by group or type?
 
 ```bash
 vendor/bin/ecs find
-
 vendor/bin/ecs find symplify # for Symplify rules
-
 vendor/bin/ecs find array # for array-related rules
 ```
 
-**How to clear cache?**
+#### How do I clear cache?
 
 ```bash
 vendor/bin/ecs check src --clear-cache
 ```
 
-**How about changing cache directory?**
+#### How can I change the cache directory?
 
 ```yaml
 parameters:
     cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . '/_easy_coding_standard/_changed_files_detector_tests'
 ```
 
-**Can I use tabs or "\r\n" line endings?**
+#### Can I use tabs or "\r\n" line endings?
 
 ```yaml
 parameters:
     indentation: "tab" # "spaces" by default
-    line_ending: "\r\n" # PHP_EOL by default
-```
-
-To use "\n" on the other hand:
-
-```yaml
-parameters:
-    line_ending: "\n"
+    line_ending: "\r\n" # PHP_EOL by default; you can also use "\n"
 ```
 
 ## Your IDE Integration
