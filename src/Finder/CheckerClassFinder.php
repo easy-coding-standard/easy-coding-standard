@@ -36,7 +36,7 @@ final class CheckerClassFinder
             $robot->addDirectory($directory);
         }
 
-        $robot->ignoreDirs += ['tests', 'Tests'];
+        $robot->ignoreDirs = array_merge($robot->ignoreDirs, ['tests', 'Tests']);
         $robot->acceptFiles = ['*Sniff.php', '*Fixer.php'];
         $robot->rebuild();
 
