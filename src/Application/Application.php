@@ -70,7 +70,7 @@ final class Application implements FileProcessorCollectorInterface
         $this->fileProcessors[] = $fileProcessor;
     }
 
-    public function run(): void
+    public function run(): int
     {
         // 1. find files in sources
         $files = $this->sourceFinder->find($this->configuration->getSources());
@@ -84,7 +84,7 @@ final class Application implements FileProcessorCollectorInterface
 
         // no files found
         if (! count($files)) {
-            return;
+            return 0;
         }
 
         // 3. start progress bar
@@ -97,6 +97,8 @@ final class Application implements FileProcessorCollectorInterface
 
         // 5. process files with DualRun
         $this->processFoundFilesSecondRun($files);
+
+        return count($files);
     }
 
     public function getCheckerCount(): int
