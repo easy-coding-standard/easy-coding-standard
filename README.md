@@ -246,11 +246,11 @@ parameters:
     cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . '/_easy_coding_standard/_changed_files_detector_tests'
 ```
 
-#### Can I use tabs or "\r\n" line endings?
+#### Can I use tabs, 2 spaces or "\r\n" line endings?
 
 ```yaml
 parameters:
-    indentation: "tab" # "spaces" by default
+    indentation: "tab" # "spaces" by default, you can also use "  " (2 spaces), "    " (4 spaces) or "	" (tab)
     line_ending: "\r\n" # PHP_EOL by default; you can also use "\n"
 ```
 
