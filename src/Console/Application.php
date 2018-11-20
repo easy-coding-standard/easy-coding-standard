@@ -33,7 +33,7 @@ final class Application extends SymfonyApplication
         }
 
         $configPath = $this->getConfigPath($input);
-        if ($configPath !== null && file_exists($configPath)) {
+        if ($configPath !== null && file_exists($configPath) && $this->isVersionPrintedElsewhere($input) === false) {
             $output->writeln('Config file: ' . realpath($configPath));
         }
 
