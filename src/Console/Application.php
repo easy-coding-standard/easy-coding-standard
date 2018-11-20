@@ -22,8 +22,6 @@ final class Application extends SymfonyApplication
 
     public function doRun(InputInterface $input, OutputInterface $output): int
     {
-        $shouldFollowByNewline = false;
-
         // skip in this case, since generate content must be clear from meta-info
         if ($input->getFirstArgument() === CommandNaming::classToName(FindCommand::class)) {
             return parent::doRun($input, $output);
@@ -32,17 +30,11 @@ final class Application extends SymfonyApplication
         if ($this->isVersionPrintedElsewhere($input) === false) {
             // always print name version to more debug info
             $output->writeln($this->getLongVersion());
-            $shouldFollowByNewline = true;
         }
 
         $configPath = $this->getConfigPath($input);
         if ($configPath !== null && file_exists($configPath)) {
             $output->writeln('Config file: ' . realpath($configPath));
-            $shouldFollowByNewline = true;
-        }
-
-        if ($shouldFollowByNewline) {
-            $output->write(PHP_EOL);
         }
 
         return parent::doRun($input, $output);

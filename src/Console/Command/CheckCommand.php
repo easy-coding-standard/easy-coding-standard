@@ -91,14 +91,16 @@ final class CheckCommand extends Command
         $this->ensureSomeCheckersAreRegistered();
 
         $this->configuration->resolveFromInput($input);
-        $this->ecsApplication->run();
+        $processedFilesCount = $this->ecsApplication->run();
 
         $this->checkCommandReporter->reportFileDiffs($this->errorAndDiffCollector->getFileDiffs());
 
         if ($this->errorAndDiffCollector->getErrorCount() === 0
             && $this->errorAndDiffCollector->getFileDiffsCount() === 0
         ) {
-            $this->easyCodingStandardStyle->newLine();
+            if ($processedFilesCount) {
+                $this->easyCodingStandardStyle->newLine();
+            }
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
 
             return ShellCode::SUCCESS;
