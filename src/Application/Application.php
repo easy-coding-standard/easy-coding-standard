@@ -155,14 +155,18 @@ final class Application implements FileProcessorCollectorInterface
         }
 
         foreach ($fileInfos as $fileInfo) {
-            if ($this->configuration->showProgressBar()) {
-                $this->easyCodingStandardStyle->progressAdvance();
+            if ($this->easyCodingStandardStyle->isVerbose()) {
+                $this->easyCodingStandardStyle->writeln($fileInfo->getRealPath());
             }
 
             foreach ($this->fileProcessors as $fileProcessor) {
                 if ($fileProcessor instanceof DualRunAwareFileProcessorInterface) {
                     $fileProcessor->processFileSecondRun($fileInfo);
                 }
+            }
+
+            if ($this->easyCodingStandardStyle->isVerbose() === false && $this->configuration->showProgressBar()) {
+                $this->easyCodingStandardStyle->progressAdvance();
             }
         }
     }
