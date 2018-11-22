@@ -3,8 +3,8 @@
 namespace Symplify\EasyCodingStandard\Application;
 
 use SplObjectStorage;
-use Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use function Safe\sprintf;
 
 final class AppliedCheckersCollector
@@ -19,35 +19,35 @@ final class AppliedCheckersCollector
         $this->appliedCheckersByFile = new SplObjectStorage();
     }
 
-    public function addFileInfoAndChecker(SplFileInfo $fileInfo, string $checker): void
+    public function addFileInfoAndChecker(SmartFileInfo $smartFileInfo, string $checker): void
     {
         $appliedCheckersByFile = [$checker];
-        if ($this->appliedCheckersByFile->contains($fileInfo)) {
-            $appliedCheckersByFile = array_merge($this->appliedCheckersByFile[$fileInfo], [$checker]);
+        if ($this->appliedCheckersByFile->contains($smartFileInfo)) {
+            $appliedCheckersByFile = array_merge($this->appliedCheckersByFile[$smartFileInfo], [$checker]);
         }
 
-        $this->appliedCheckersByFile->attach($fileInfo, $appliedCheckersByFile);
+        $this->appliedCheckersByFile->attach($smartFileInfo, $appliedCheckersByFile);
     }
 
     /**
      * @return string[]
      */
-    public function getAppliedCheckersPerFileInfo(SplFileInfo $fileInfo): array
+    public function getAppliedCheckersPerFileInfo(SmartFileInfo $smartFileInfo): array
     {
-        $this->ensureFileHasAppliedCheckers($fileInfo);
+        $this->ensureFileHasAppliedCheckers($smartFileInfo);
 
-        return $this->appliedCheckersByFile[$fileInfo];
+        return $this->appliedCheckersByFile[$smartFileInfo];
     }
 
-    private function ensureFileHasAppliedCheckers(SplFileInfo $fileInfo): void
+    private function ensureFileHasAppliedCheckers(SmartFileInfo $smartFileInfo): void
     {
-        if (isset($this->appliedCheckersByFile[$fileInfo])) {
+        if (isset($this->appliedCheckersByFile[$smartFileInfo])) {
             return;
         }
 
         throw new MissingCheckersForChangedFileException(sprintf(
             'File "%s" was changed, but no responsible checkers were added to "%s".',
-            $fileInfo->getRelativePathname(),
+            $smartFileInfo->getRelativePathname(),
             self::class
         ));
     }
