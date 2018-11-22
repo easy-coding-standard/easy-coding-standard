@@ -139,7 +139,7 @@ final class Application implements FileProcessorCollectorInterface
 
             $this->singleFileProcessor->processFileInfo($fileInfo);
 
-            if ($this->easyCodingStandardStyle->isVerbose() === false) {
+            if ($this->easyCodingStandardStyle->isVerbose() === false && $this->configuration->showProgressBar()) {
                 $this->easyCodingStandardStyle->progressAdvance();
             }
         }
