@@ -96,7 +96,9 @@ final class Application implements FileProcessorCollectorInterface
         $this->processFoundFiles($files);
 
         // 5. process files with DualRun
-        $this->processFoundFilesSecondRun($files);
+        if ($this->isDualRunEnabled()) {
+            $this->processFoundFilesSecondRun($files);
+        }
 
         return count($files);
     }
@@ -133,15 +135,9 @@ final class Application implements FileProcessorCollectorInterface
     private function processFoundFiles(array $fileInfos): void
     {
         foreach ($fileInfos as $fileInfo) {
-            if ($this->easyCodingStandardStyle->isVerbose()) {
-                $this->easyCodingStandardStyle->writeln($fileInfo->getRealPath());
-            }
-
-            $this->singleFileProcessor->processFileInfo($fileInfo);
-
-            if ($this->easyCodingStandardStyle->isVerbose() === false && $this->configuration->showProgressBar()) {
-                $this->easyCodingStandardStyle->progressAdvance();
-            }
+            $this->processFileInfoWithCallable($fileInfo, function (SmartFileInfo $smartFileInfo): void {
+                $this->singleFileProcessor->processFileInfo($smartFileInfo);
+            });
         }
     }
 
@@ -150,24 +146,27 @@ final class Application implements FileProcessorCollectorInterface
      */
     private function processFoundFilesSecondRun(array $fileInfos): void
     {
-        if (! $this->isDualRunEnabled()) {
-            return;
+        foreach ($fileInfos as $fileInfo) {
+            $this->processFileInfoWithCallable($fileInfo, function (SmartFileInfo $smartFileInfo): void {
+                foreach ($this->fileProcessors as $fileProcessor) {
+                    if ($fileProcessor instanceof DualRunAwareFileProcessorInterface) {
+                        $fileProcessor->processFileSecondRun($smartFileInfo);
+                    }
+                }
+            });
+        }
+    }
+
+    private function processFileInfoWithCallable(SmartFileInfo $smartFileInfo, callable $callable): void
+    {
+        if ($this->easyCodingStandardStyle->isVerbose()) {
+            $this->easyCodingStandardStyle->writeln($smartFileInfo->getRealPath());
         }
 
-        foreach ($fileInfos as $fileInfo) {
-            if ($this->easyCodingStandardStyle->isVerbose()) {
-                $this->easyCodingStandardStyle->writeln($fileInfo->getRealPath());
-            }
+        $callable($smartFileInfo);
 
-            foreach ($this->fileProcessors as $fileProcessor) {
-                if ($fileProcessor instanceof DualRunAwareFileProcessorInterface) {
-                    $fileProcessor->processFileSecondRun($fileInfo);
-                }
-            }
-
-            if ($this->easyCodingStandardStyle->isVerbose() === false && $this->configuration->showProgressBar()) {
-                $this->easyCodingStandardStyle->progressAdvance();
-            }
+        if ($this->easyCodingStandardStyle->isVerbose() === false && $this->configuration->showProgressBar()) {
+            $this->easyCodingStandardStyle->progressAdvance();
         }
     }
 }
