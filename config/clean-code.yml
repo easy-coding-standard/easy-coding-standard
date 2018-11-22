@@ -1,4 +1,7 @@
 services:
+    # fix all @param, @var, @return tag mallforms
+    Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer: ~
+
     SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: ~
     SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff: ~
 
