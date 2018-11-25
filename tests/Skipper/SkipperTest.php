@@ -62,7 +62,9 @@ final class SkipperTest extends AbstractConfigContainerAwareTestCase
      */
     public function testMessageAndFile(string $message, string $filePath, bool $expected): void
     {
-        $this->assertSame($expected, $this->skipper->shouldSkipMessageAndFile($message, new SmartFileInfo($filePath)));
+        $smartFileInfo = new SmartFileInfo($filePath);
+
+        $this->assertSame($expected, $this->skipper->shouldSkipMessageAndFile($message, $smartFileInfo));
     }
 
     public function provideMessageAndFile(): Iterator

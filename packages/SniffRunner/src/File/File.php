@@ -179,9 +179,7 @@ final class File extends BaseFile
             return false;
         }
 
-        if (count($data)) {
-            $message = vsprintf($message, $data);
-        }
+        $message = count($data) ? vsprintf($message, $data) : $message;
 
         if ($isFixable === true) {
             return $isFixable;
@@ -218,7 +216,9 @@ final class File extends BaseFile
             return true;
         }
 
-        return $this->skipper->shouldSkipMessageAndFile(vsprintf($error, $data), $fileInfo);
+        $message = count($data) ? vsprintf($error, $data) : $error;
+
+        return $this->skipper->shouldSkipMessageAndFile($message, $fileInfo);
     }
 
     private function isSniffClassWarningAllowed(string $sniffClass): bool
