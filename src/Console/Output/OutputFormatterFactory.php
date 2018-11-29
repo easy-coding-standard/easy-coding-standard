@@ -9,6 +9,6 @@ final class OutputFormatterFactory
 {
     public function create(ContainerInterface $container): OutputFormatterInterface
     {
-        return $container->get(TableOutputFormatter::class);
+        return $container->get(JsonOutputFormatter::class);
     }
 }
