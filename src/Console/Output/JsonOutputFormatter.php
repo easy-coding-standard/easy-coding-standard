@@ -2,13 +2,13 @@
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
+use Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\PackageBuilder\Console\ShellCode;
-use function Safe\sprintf;
 
 final class JsonOutputFormatter implements OutputFormatterInterface
 {
@@ -39,8 +39,27 @@ final class JsonOutputFormatter implements OutputFormatterInterface
 
     public function report(int $processedFilesCount): int
     {
-        die(var_dump('json'));
+        $errorsArray = [
+            'totals' => [
+                'errors' => $this->errorAndDiffCollector->getErrorCount(),
+            ],
+            'errors' => $this->errorAndDiffCollector->getErrors(),
+        ];
 
-        return 1;
+        /** @var Error[] $errors */
+        foreach ($this->errorAndDiffCollector->getErrors() as $file => $errors) {
+            foreach ($errors as $error) {
+                $errorsArray['errors'][$file] = [
+                    'line' => $error->getLine(),
+                    'message' => $error->getMessage(),
+                    'sourceClass' => $error->getSourceClass(),
+                ];
+            }
+        }
+
+        $this->easyCodingStandardStyle->writeln('');
+        $this->easyCodingStandardStyle->writeln(Json::encode($errorsArray, Json::PRETTY));
+
+        return $errorsArray['totals']['errors'] === 0 ? ShellCode::SUCCESS : ShellCode::ERROR;
     }
 }
