@@ -11,7 +11,7 @@ use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Option;
-use Symplify\EasyCodingStandard\Console\Output\CheckCommandReporter;
+use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
 final class CheckCommand extends Command
@@ -27,20 +27,20 @@ final class CheckCommand extends Command
     private $configuration;
 
     /**
-     * @var CheckCommandReporter
+     * @var OutputFormatterInterface
      */
-    private $checkCommandReporter;
+    private $outputFormatter;
 
     public function __construct(
         Application $application,
         Configuration $configuration,
-        CheckCommandReporter $checkCommandReporter
+        OutputFormatterInterface $outputFormatter
     ) {
         parent::__construct();
 
         $this->ecsApplication = $application;
         $this->configuration = $configuration;
-        $this->checkCommandReporter = $checkCommandReporter;
+        $this->outputFormatter = $outputFormatter;
     }
 
     protected function configure(): void
@@ -75,7 +75,7 @@ final class CheckCommand extends Command
         $this->configuration->resolveFromInput($input);
         $processedFilesCount = $this->ecsApplication->run();
 
-        return $this->checkCommandReporter->report($processedFilesCount);
+        return $this->outputFormatter->report($processedFilesCount);
     }
 
     private function ensureSomeCheckersAreRegistered(): void
