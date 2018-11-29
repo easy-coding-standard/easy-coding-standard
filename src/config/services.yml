@@ -10,6 +10,9 @@ services:
     Symplify\EasyCodingStandard\Console\Application: ~
     Symfony\Component\EventDispatcher\EventDispatcher: ~
 
+    Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface:
+        factory: 'Symplify\EasyCodingStandard\Console\Output\OutputFormatterFactory:create'
+
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
             calls:
