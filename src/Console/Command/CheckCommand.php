@@ -66,6 +66,13 @@ final class CheckCommand extends Command
             InputOption::VALUE_NONE,
             'Hide error table. Useful e.g. for fast check of error count.'
         );
+        $this->addOption(
+            Option::OUTPUT_FORMAT_OPTION,
+            null,
+            InputOption::VALUE_OPTIONAL,
+            sprintf('Select output format: %s.', implode(', ', Option::OUTPUT_FORMATS)),
+            Option::TABLE_OUTPUT_FORMAT
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

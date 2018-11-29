@@ -29,6 +29,11 @@ final class Configuration
     private $showErrorTable = true;
 
     /**
+     * @var string
+     */
+    private $outputFormat = Option::TABLE_OUTPUT_FORMAT;
+
+    /**
      * @var string[]
      */
     private $sources = [];
@@ -42,6 +47,7 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
+        $this->outputFormat = $this->selectOutputFormat($input);
     }
 
     /**
@@ -80,6 +86,11 @@ final class Configuration
         return $this->showErrorTable;
     }
 
+    public function getOutputFormat(): string
+    {
+        return $this->outputFormat;
+    }
+
     /**
      * @param string[] $sources
      */
@@ -87,6 +98,16 @@ final class Configuration
     {
         $this->ensureSourcesExists($sources);
         $this->sources = $this->normalizeSources($sources);
+    }
+
+    private function selectOutputFormat(InputInterface $input): string
+    {
+        $selectedFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
+        $defaultFormat = $this->outputFormat;
+
+        return in_array($selectedFormat, Option::OUTPUT_FORMATS, true)
+            ? $selectedFormat
+            : $defaultFormat;
     }
 
     /**

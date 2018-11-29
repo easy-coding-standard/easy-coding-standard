@@ -37,6 +37,26 @@ final class Option
     /**
      * @var string
      */
+    public const OUTPUT_FORMAT_OPTION = 'output-format';
+
+    /**
+     * @var string[]
+     */
+    public const OUTPUT_FORMATS = [self::TABLE_OUTPUT_FORMAT, self::JSON_OUTPUT_FORMAT];
+
+    /**
+     * @var string
+     */
+    public const TABLE_OUTPUT_FORMAT = 'table';
+
+    /**
+     * @var string
+     */
+    public const JSON_OUTPUT_FORMAT = 'json';
+
+    /**
+     * @var string
+     */
     public const EXCLUDE_CHECKERS = 'exclude_checkers';
 
     /**
