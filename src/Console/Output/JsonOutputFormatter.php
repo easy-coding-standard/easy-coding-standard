@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Nette\Utils\Json;
-use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
@@ -20,22 +19,15 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     private $easyCodingStandardStyle;
 
     /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
 
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        Configuration $configuration,
         ErrorAndDiffCollector $errorAndDiffCollector
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
-        $this->configuration = $configuration;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
     }
 
