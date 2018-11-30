@@ -1,0 +1,31 @@
+{
+    "totals": {
+        "errors": 1,
+        "diffs": 2
+    },
+    "files": {
+        "packages/EasyCodingStandard/tests/Console/Output/wrong/wrong.php.inc": {
+            "errors": [
+                {
+                    "line": 3,
+                    "message": "Unused variable $b.",
+                    "sourceClass": "SlevomatCodingStandard\\Sniffs\\Variables\\UnusedVariableSniff.UnusedVariable"
+                }
+            ],
+            "diffs": [
+                {
+                    "diff": "--- Original\n+++ New\n@@ -1,5 +1,5 @@\n <?php\n \n-$b = 1\n+$b = 1;\n \n-?>\n+\n",
+                    "appliedCheckers": [
+                        "PHP_CodeSniffer\\Standards\\PSR2\\Sniffs\\Files\\ClosingTagSniff.NotAllowed"
+                    ]
+                },
+                {
+                    "diff": "--- Original\n+++ New\n@@ -1,5 +1,5 @@\n <?php\n \n-$b = 1\n+$b = 1;\n \n ?>\n",
+                    "appliedCheckers": [
+                        "PhpCsFixer\\Fixer\\Semicolon\\SemicolonAfterInstructionFixer"
+                    ]
+                }
+            ]
+        }
+    }
+}
