@@ -72,7 +72,7 @@ final class Application extends SymfonyApplication
         return ConfigFileFinder::provide('ecs');
     }
 
-    private function configExists(string $configPath): bool
+    private function configExists(?string $configPath): bool
     {
         return $configPath !== null && file_exists($configPath);
     }
