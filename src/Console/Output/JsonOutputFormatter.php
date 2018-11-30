@@ -8,6 +8,7 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\PackageBuilder\Console\ShellCode;
 
 final class JsonOutputFormatter implements OutputFormatterInterface
@@ -42,17 +43,28 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         $errorsArray = [
             'totals' => [
                 'errors' => $this->errorAndDiffCollector->getErrorCount(),
+                'diffs' => $this->errorAndDiffCollector->getFileDiffsCount(),
             ],
-            'errors' => $this->errorAndDiffCollector->getErrors(),
+            'files' => [],
         ];
 
         /** @var Error[] $errors */
         foreach ($this->errorAndDiffCollector->getErrors() as $file => $errors) {
             foreach ($errors as $error) {
-                $errorsArray['errors'][$file] = [
+                $errorsArray['files'][$file]['errors'][] = [
                     'line' => $error->getLine(),
                     'message' => $error->getMessage(),
                     'sourceClass' => $error->getSourceClass(),
+                ];
+            }
+        }
+
+        /** @var FileDiff[] $diffs */
+        foreach ($this->errorAndDiffCollector->getFileDiffs() as $file => $diffs) {
+            foreach ($diffs as $diff) {
+                $errorsArray['files'][$file]['diffs'][] = [
+                    'diff' => $diff->getDiff(),
+                    'appliedCheckers' => $diff->getAppliedCheckers(),
                 ];
             }
         }
