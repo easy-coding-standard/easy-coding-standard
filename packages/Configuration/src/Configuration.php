@@ -45,7 +45,7 @@ final class Configuration
         $this->setSources($sources);
         $this->isFixer = (bool) $input->getOption(Option::FIX);
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
-        $this->showProgressBar = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
+        $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
         $this->outputFormat = $this->selectOutputFormat($input);
     }
@@ -98,6 +98,14 @@ final class Configuration
     {
         $this->ensureSourcesExists($sources);
         $this->sources = $this->normalizeSources($sources);
+    }
+
+    private function canShowProgressBar(InputInterface $input): bool
+    {
+        $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT_OPTION) !== Option::JSON_OUTPUT_FORMAT;
+        $progressBarEnabled = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
+
+        return $notJsonOutput && $progressBarEnabled;
     }
 
     private function selectOutputFormat(InputInterface $input): string
