@@ -94,7 +94,7 @@ final class CheckCommand extends Command
         $this->configuration->resolveFromInput($input);
         $processedFilesCount = $this->ecsApplication->run();
 
-        return $this->outputFormatter->report($processedFilesCount);
+        return $this->outputFormatter->report($processedFilesCount, $output);
     }
 
     private function ensureSomeCheckersAreRegistered(): void
