@@ -7,10 +7,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Option;
+use Symplify\EasyCodingStandard\Console\Output\OutputFormatterFactory;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
@@ -31,16 +33,21 @@ final class CheckCommand extends Command
      */
     private $outputFormatter;
 
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
     public function __construct(
         Application $application,
         Configuration $configuration,
-        OutputFormatterInterface $outputFormatter
+        ContainerInterface $container
     ) {
         parent::__construct();
 
         $this->ecsApplication = $application;
         $this->configuration = $configuration;
-        $this->outputFormatter = $outputFormatter;
+        $this->container = $container;
     }
 
     protected function configure(): void
@@ -75,6 +82,11 @@ final class CheckCommand extends Command
         );
     }
 
+    protected function initialize(InputInterface $input, OutputInterface $output): void
+    {
+        $this->setOutputFormatter($this->container, $input);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->ensureSomeCheckersAreRegistered();
@@ -83,6 +95,11 @@ final class CheckCommand extends Command
         $processedFilesCount = $this->ecsApplication->run();
 
         return $this->outputFormatter->report($processedFilesCount);
+    }
+
+    private function setOutputFormatter(ContainerInterface $container, InputInterface $input): void
+    {
+        $this->outputFormatter = OutputFormatterFactory::create($container, $input);
     }
 
     private function ensureSomeCheckersAreRegistered(): void
