@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Command\FindCommand;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
@@ -27,13 +28,12 @@ final class Application extends SymfonyApplication
             return parent::doRun($input, $output);
         }
 
-        if ($this->isVersionPrintedElsewhere($input) === false) {
-            // always print name version to more debug info
+        if ($this->shouldPrintMetaInformation($input)) {
             $output->writeln($this->getLongVersion());
         }
 
         $configPath = $this->getConfigPath($input);
-        if ($configPath !== null && file_exists($configPath) && $this->isVersionPrintedElsewhere($input) === false) {
+        if ($this->configExists($configPath) && $this->shouldPrintMetaInformation($input)) {
             $output->writeln('Config file: ' . realpath($configPath));
         }
 
@@ -54,9 +54,13 @@ final class Application extends SymfonyApplication
         return $version->getPrettyVersion();
     }
 
-    private function isVersionPrintedElsewhere(InputInterface $input): bool
+    private function shouldPrintMetaInformation(InputInterface $input): bool
     {
-        return $input->hasParameterOption('--version') !== false || $input->getFirstArgument() === null;
+        $hasNoArguments = $input->getFirstArgument() === null;
+        $hasVersionOption = $input->hasParameterOption('--version');
+        $hasJsonOutput = $input->getParameterOption('--output-format') === Option::JSON_OUTPUT_FORMAT;
+
+        return ($hasVersionOption || $hasNoArguments || $hasJsonOutput) === false;
     }
 
     private function getConfigPath(InputInterface $input): ?string
@@ -66,6 +70,11 @@ final class Application extends SymfonyApplication
         }
 
         return ConfigFileFinder::provide('ecs');
+    }
+
+    private function configExists(string $configPath): bool
+    {
+        return $configPath !== null && file_exists($configPath);
     }
 
     private function addExtraOptions(InputDefinition $inputDefinition): void
