@@ -7,12 +7,11 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Application\Application;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Option;
-use Symplify\EasyCodingStandard\Console\Output\OutputFormatterFactory;
+use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
@@ -34,20 +33,20 @@ final class CheckCommand extends Command
     private $outputFormatter;
 
     /**
-     * @var ContainerInterface
+     * @var OutputFormatterCollector
      */
-    private $container;
+    private $outputFormatterCollector;
 
     public function __construct(
         Application $application,
         Configuration $configuration,
-        ContainerInterface $container
+        OutputFormatterCollector $outputFormatterCollector
     ) {
         parent::__construct();
 
         $this->ecsApplication = $application;
         $this->configuration = $configuration;
-        $this->container = $container;
+        $this->outputFormatterCollector = $outputFormatterCollector;
     }
 
     protected function configure(): void
@@ -84,7 +83,8 @@ final class CheckCommand extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
-        $this->setOutputFormatter($this->container, $input);
+        $outputFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
+        $this->outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -97,17 +97,12 @@ final class CheckCommand extends Command
         return $this->outputFormatter->report($processedFilesCount);
     }
 
-    private function setOutputFormatter(ContainerInterface $container, InputInterface $input): void
-    {
-        $this->outputFormatter = OutputFormatterFactory::create($container, $input);
-    }
-
     private function ensureSomeCheckersAreRegistered(): void
     {
         $totalCheckersLoaded = $this->ecsApplication->getCheckerCount();
         if ($totalCheckersLoaded === 0) {
             throw new NoCheckersLoadedException(
-                'No checkers were found. Registers them in your config in "services:" '
+                'No checkers were found. Register them in your config in "services:" '
                 . 'section, load them via "--config <file>.yml" or "--level <level> option.'
             );
         }

@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\Error;
@@ -73,5 +74,10 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         $this->easyCodingStandardStyle->writeln(Json::encode($errorsArray, Json::PRETTY));
 
         return $errorsArray['totals']['errors'] === 0 ? ShellCode::SUCCESS : ShellCode::ERROR;
+    }
+
+    public function getName(): string
+    {
+        return Option::JSON_OUTPUT_FORMAT;
     }
 }
