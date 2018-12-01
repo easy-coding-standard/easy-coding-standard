@@ -3,8 +3,8 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Nette\Utils\Json;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -28,13 +28,22 @@ final class JsonOutputFormatter implements OutputFormatterInterface
      */
     private $configuration;
 
-    public function __construct(ErrorAndDiffCollector $errorAndDiffCollector, Configuration $configuration)
-    {
+    /**
+     * @var EasyCodingStandardStyle
+     */
+    private $easyCodingStandardStyle;
+
+    public function __construct(
+        ErrorAndDiffCollector $errorAndDiffCollector,
+        Configuration $configuration,
+        EasyCodingStandardStyle $easyCodingStandardStyle
+    ) {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->configuration = $configuration;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
-    public function report(int $processedFilesCount, OutputInterface $output): int
+    public function report(int $processedFilesCount): int
     {
         $errorsArray = [
             'meta' => [
@@ -69,7 +78,9 @@ final class JsonOutputFormatter implements OutputFormatterInterface
             }
         }
 
-        $output->writeln(Json::encode($errorsArray, Json::PRETTY));
+        $json = Json::encode($errorsArray, Json::PRETTY);
+
+        $this->easyCodingStandardStyle->writeln($json);
 
         return $errorsArray['totals']['errors'] === 0 ? ShellCode::SUCCESS : ShellCode::ERROR;
     }
