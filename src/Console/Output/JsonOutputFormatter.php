@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 use Nette\Utils\Json;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\Error;
@@ -15,6 +14,11 @@ use Symplify\PackageBuilder\Console\ShellCode;
 
 final class JsonOutputFormatter implements OutputFormatterInterface
 {
+    /**
+     * @var string
+     */
+    public const NAME = 'json';
+
     /**
      * @var Application
      */
@@ -73,6 +77,6 @@ final class JsonOutputFormatter implements OutputFormatterInterface
 
     public function getName(): string
     {
-        return Option::JSON_OUTPUT_FORMAT;
+        return self::NAME;
     }
 }

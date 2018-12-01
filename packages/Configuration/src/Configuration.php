@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Configuration;
 
 use Symfony\Component\Console\Input\InputInterface;
+use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use function Safe\sprintf;
 
@@ -31,7 +32,7 @@ final class Configuration
     /**
      * @var string
      */
-    private $outputFormat = Option::TABLE_OUTPUT_FORMAT;
+    private $outputFormat;
 
     /**
      * @var string[]
@@ -47,7 +48,7 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
-        $this->outputFormat = $this->selectOutputFormat($input);
+        $this->outputFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
     }
 
     /**
@@ -102,20 +103,10 @@ final class Configuration
 
     private function canShowProgressBar(InputInterface $input): bool
     {
-        $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT_OPTION) !== Option::JSON_OUTPUT_FORMAT;
+        $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT_OPTION) !== JsonOutputFormatter::NAME;
         $progressBarEnabled = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
 
         return $notJsonOutput && $progressBarEnabled;
-    }
-
-    private function selectOutputFormat(InputInterface $input): string
-    {
-        $selectedFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
-        $defaultFormat = $this->outputFormat;
-
-        return in_array($selectedFormat, Option::OUTPUT_FORMATS, true)
-            ? $selectedFormat
-            : $defaultFormat;
     }
 
     /**

@@ -8,8 +8,8 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Command\FindCommand;
+use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use function Safe\realpath;
@@ -67,7 +67,7 @@ final class Application extends SymfonyApplication
     {
         $hasNoArguments = $input->getFirstArgument() === null;
         $hasVersionOption = $input->hasParameterOption('--version');
-        $hasJsonOutput = $input->getParameterOption('--output-format') === Option::JSON_OUTPUT_FORMAT;
+        $hasJsonOutput = $input->getParameterOption('--output-format') === JsonOutputFormatter::NAME;
 
         return ($hasVersionOption || $hasNoArguments || $hasJsonOutput) === false;
     }

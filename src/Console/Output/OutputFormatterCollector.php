@@ -28,8 +28,9 @@ final class OutputFormatterCollector
         if (! isset($this->outputFormatters[$name])) {
             throw new NoOutputFormatterException(
                 sprintf(
-                    'Output formatter not found. Currently available: %s.',
-                    implode(', ', array_keys($this->outputFormatters))
+                    'Output formatter "%s" not found. Use one of: "%s".',
+                    $name,
+                    implode('", "', array_keys($this->outputFormatters))
                 )
             );
         }
