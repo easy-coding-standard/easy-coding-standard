@@ -8,6 +8,7 @@ use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Tests\AbstractConfigContainerAwareTestCase;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
 {
@@ -25,6 +26,7 @@ final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
     {
         $this->application->setAutoExit(false);
         $applicationTester = new ApplicationTester($this->application);
+
         $source = 'wrong/wrong.php.inc';
         $config = 'config/config.yml';
 
@@ -39,25 +41,25 @@ final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
         ]);
         $output = Json::decode($applicationTester->getDisplay(), true);
 
-        static::assertSame(1, $exitCode);
+        $this->assertSame(1, $exitCode);
 
-        static::assertArrayHasKey('meta', $output);
-        static::assertArrayHasKey('version', $output['meta']);
-        static::assertArrayHasKey('config', $output['meta']);
-        static::assertContains($config, $output['meta']['config']);
+        $this->assertArrayHasKey('meta', $output);
+        $this->assertArrayHasKey('version', $output['meta']);
+        $this->assertArrayHasKey('config', $output['meta']);
+        $this->assertContains($config, $output['meta']['config']);
 
-        static::assertArrayHasKey('totals', $output);
-        static::assertArrayHasKey('errors', $output['totals']);
-        static::assertArrayHasKey('diffs', $output['totals']);
+        $this->assertArrayHasKey('totals', $output);
+        $this->assertArrayHasKey('errors', $output['totals']);
+        $this->assertArrayHasKey('diffs', $output['totals']);
 
-        static::assertArrayHasKey('files', $output);
-        static::assertArrayHasKey($sourceLocation, $output['files']);
+        $this->assertArrayHasKey('files', $output);
+        $this->assertArrayHasKey($sourceLocation, $output['files']);
 
-        static::assertArrayHasKey('line', $output['files'][$sourceLocation]['errors'][0]);
-        static::assertArrayHasKey('message', $output['files'][$sourceLocation]['errors'][0]);
-        static::assertArrayHasKey('sourceClass', $output['files'][$sourceLocation]['errors'][0]);
-        static::assertArrayHasKey('diff', $output['files'][$sourceLocation]['diffs'][0]);
-        static::assertArrayHasKey('appliedCheckers', $output['files'][$sourceLocation]['diffs'][0]);
+        $this->assertArrayHasKey('line', $output['files'][$sourceLocation]['errors'][0]);
+        $this->assertArrayHasKey('message', $output['files'][$sourceLocation]['errors'][0]);
+        $this->assertArrayHasKey('sourceClass', $output['files'][$sourceLocation]['errors'][0]);
+        $this->assertArrayHasKey('diff', $output['files'][$sourceLocation]['diffs'][0]);
+        $this->assertArrayHasKey('appliedCheckers', $output['files'][$sourceLocation]['diffs'][0]);
     }
 
     protected function provideConfig(): string

@@ -48,7 +48,7 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
-        $this->outputFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
+        $this->outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT_OPTION);
     }
 
     /**
