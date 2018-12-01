@@ -40,18 +40,27 @@ final class Application extends SymfonyApplication
         return parent::doRun($input, $output);
     }
 
+    public function getConfigPath(InputInterface $input): ?string
+    {
+        if ($input->getParameterOption('--config')) {
+            return $input->getParameterOption('--config');
+        }
+
+        return ConfigFileFinder::provide('ecs');
+    }
+
+    public function getPrettyVersion(): string
+    {
+        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
+        return $version->getPrettyVersion();
+    }
+
     protected function getDefaultInputDefinition(): InputDefinition
     {
         $inputDefinition = parent::getDefaultInputDefinition();
         $this->addExtraOptions($inputDefinition);
 
         return $inputDefinition;
-    }
-
-    private function getPrettyVersion(): string
-    {
-        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
-        return $version->getPrettyVersion();
     }
 
     private function shouldPrintMetaInformation(InputInterface $input): bool
@@ -61,15 +70,6 @@ final class Application extends SymfonyApplication
         $hasJsonOutput = $input->getParameterOption('--output-format') === Option::JSON_OUTPUT_FORMAT;
 
         return ($hasVersionOption || $hasNoArguments || $hasJsonOutput) === false;
-    }
-
-    private function getConfigPath(InputInterface $input): ?string
-    {
-        if ($input->getParameterOption('--config')) {
-            return $input->getParameterOption('--config');
-        }
-
-        return ConfigFileFinder::provide('ecs');
     }
 
     private function configExists(?string $configPath): bool

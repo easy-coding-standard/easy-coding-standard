@@ -6,6 +6,7 @@ use Nette\Utils\Json;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Option;
+use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -15,18 +16,28 @@ use Symplify\PackageBuilder\Console\ShellCode;
 final class JsonOutputFormatter implements OutputFormatterInterface
 {
     /**
+     * @var Application
+     */
+    private $application;
+
+    /**
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
 
-    public function __construct(ErrorAndDiffCollector $errorAndDiffCollector)
+    public function __construct(Application $application, ErrorAndDiffCollector $errorAndDiffCollector)
     {
+        $this->application = $application;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
     }
 
     public function report(InputInterface $input, OutputInterface $output): int
     {
         $errorsArray = [
+            'meta' => [
+                'version' => $this->application->getPrettyVersion(),
+                'config' => $this->application->getConfigPath($input),
+            ],
             'totals' => [
                 'errors' => $this->errorAndDiffCollector->getErrorCount(),
                 'diffs' => $this->errorAndDiffCollector->getFileDiffsCount(),
