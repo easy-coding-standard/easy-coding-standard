@@ -45,9 +45,6 @@ final class TableOutputFormatter implements OutputFormatterInterface
         if ($this->errorAndDiffCollector->getErrorCount() === 0
             && $this->errorAndDiffCollector->getFileDiffsCount() === 0
         ) {
-            if ($processedFilesCount) {
-                $this->easyCodingStandardStyle->newLine();
-            }
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
 
             return ShellCode::SUCCESS;
@@ -76,7 +73,7 @@ final class TableOutputFormatter implements OutputFormatterInterface
 
         $i = 0;
         foreach ($fileDiffPerFile as $file => $fileDiffs) {
-            $this->easyCodingStandardStyle->newLine(2);
+            $this->easyCodingStandardStyle->newLine();
             $this->easyCodingStandardStyle->writeln(sprintf('<options=bold>%d) %s</>', ++$i, $file));
 
             foreach ($fileDiffs as $fileDiff) {
