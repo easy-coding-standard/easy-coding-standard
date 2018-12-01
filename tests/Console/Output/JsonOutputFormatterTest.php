@@ -6,6 +6,7 @@ use Nette\Utils\Json;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Application;
+use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Tests\AbstractConfigContainerAwareTestCase;
 
 final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
@@ -34,7 +35,7 @@ final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
             'command' => 'check',
             'source' => [__DIR__ . '/' . $source],
             '--config' => __DIR__ . '/' . $config,
-            '--' . Option::OUTPUT_FORMAT_OPTION => Option::JSON_OUTPUT_FORMAT,
+            '--' . Option::OUTPUT_FORMAT_OPTION => JsonOutputFormatter::NAME,
         ]);
         $output = Json::decode($applicationTester->getDisplay(), true);
 

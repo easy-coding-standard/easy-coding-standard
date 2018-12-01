@@ -100,10 +100,6 @@ final class Application implements FileProcessorCollectorInterface
             $this->processFoundFilesSecondRun($files);
         }
 
-        if ($this->configuration->showProgressBar() && count($files)) {
-            $this->easyCodingStandardStyle->progressFinish();
-        }
-
         return count($files);
     }
 

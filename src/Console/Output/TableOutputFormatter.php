@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -15,6 +14,11 @@ use function Safe\sprintf;
 
 final class TableOutputFormatter implements OutputFormatterInterface
 {
+    /**
+     * @var string
+     */
+    public const NAME = 'table';
+
     /**
      * @var EasyCodingStandardStyle
      */
@@ -59,7 +63,7 @@ final class TableOutputFormatter implements OutputFormatterInterface
 
     public function getName(): string
     {
-        return Option::TABLE_OUTPUT_FORMAT;
+        return self::NAME;
     }
 
     /**

@@ -12,9 +12,9 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
+use Symplify\EasyCodingStandard\Console\Output\TableOutputFormatter;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-use function Safe\sprintf;
 
 final class CheckCommand extends Command
 {
@@ -76,9 +76,9 @@ final class CheckCommand extends Command
         $this->addOption(
             Option::OUTPUT_FORMAT_OPTION,
             null,
-            InputOption::VALUE_OPTIONAL,
-            sprintf('Select output format: %s.', implode(', ', Option::OUTPUT_FORMATS)),
-            Option::TABLE_OUTPUT_FORMAT
+            InputOption::VALUE_REQUIRED,
+            'Select output format',
+            TableOutputFormatter::NAME
         );
     }
 
