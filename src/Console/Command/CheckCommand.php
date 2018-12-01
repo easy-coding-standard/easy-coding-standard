@@ -13,7 +13,6 @@ use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedExceptio
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Output\TableOutputFormatter;
-use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
 final class CheckCommand extends Command
@@ -27,11 +26,6 @@ final class CheckCommand extends Command
      * @var Configuration
      */
     private $configuration;
-
-    /**
-     * @var OutputFormatterInterface
-     */
-    private $outputFormatter;
 
     /**
      * @var OutputFormatterCollector
@@ -82,21 +76,18 @@ final class CheckCommand extends Command
         );
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output): void
-    {
-        $outputFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
-        $this->outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $outputFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
+        $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
+
         $this->ensureSomeCheckersAreRegistered();
 
         $this->configuration->resolveFromInput($input);
 
         $processedFilesCount = $this->ecsApplication->run();
 
-        return $this->outputFormatter->report($processedFilesCount, $output);
+        return $outputFormatter->report($processedFilesCount);
     }
 
     private function ensureSomeCheckersAreRegistered(): void
