@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Nette\Utils\Json;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
@@ -23,7 +24,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         $this->errorAndDiffCollector = $errorAndDiffCollector;
     }
 
-    public function report(int $processedFilesCount, OutputInterface $output): int
+    public function report(InputInterface $input, OutputInterface $output): int
     {
         $errorsArray = [
             'totals' => [
