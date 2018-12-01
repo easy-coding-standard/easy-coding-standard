@@ -4,6 +4,6 @@ namespace Symplify\EasyCodingStandard\Configuration\Exception;
 
 use Exception;
 
-final class NoOutputFormatterException extends Exception
+final class OutputFormatterNotFoundException extends Exception
 {
 }
