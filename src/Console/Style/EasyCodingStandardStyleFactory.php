@@ -2,11 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\Console\Style;
 
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
-use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
 final class EasyCodingStandardStyleFactory
