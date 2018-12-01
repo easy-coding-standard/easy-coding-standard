@@ -2,14 +2,19 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Console\Output;
 
-use Nette\Utils\Json;
-use Symfony\Component\Console\Tester\ApplicationTester;
+use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Tests\AbstractConfigContainerAwareTestCase;
-use function Safe\substr;
+use Symplify\PackageBuilder\Console\ShellCode;
 
+/**
+ * @covers \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter
+ */
 final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
 {
     /**
@@ -17,53 +22,51 @@ final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
      */
     private $application;
 
+    /**
+     * @var BufferedOutput
+     */
+    private $bufferedOutput;
+
     protected function setUp(): void
     {
+        $easyCodingStandardStyle = $this->createEasyCodingStandardStyleWithBufferOutput();
+        $this->container->set(EasyCodingStandardStyle::class, $easyCodingStandardStyle);
+
         $this->application = $this->container->get(Application::class);
+        $this->application->setAutoExit(false);
     }
 
     public function testCanPrintReport(): void
     {
-        $this->application->setAutoExit(false);
-        $applicationTester = new ApplicationTester($this->application);
+        $stringInput = [
+            'check',
+            __DIR__ . '/wrong/wrong.php.inc',
+            '--config',
+            __DIR__ . '/config/config.yml',
+            '--' . Option::OUTPUT_FORMAT_OPTION,
+            JsonOutputFormatter::NAME,
+        ];
 
-        $source = 'wrong/wrong.php.inc';
-        $config = 'config/config.yml';
+        $input = new StringInput(implode(' ', $stringInput));
+        $exitCode = $this->application->run($input);
+        $this->assertSame(ShellCode::ERROR, $exitCode);
 
-        $currentDir = substr(__DIR__, strlen($_SERVER['PWD'] . '/'));
-        $sourceLocation = ($currentDir ? ($currentDir . '/') : '') . $source;
-
-        $exitCode = $applicationTester->run([
-            'command' => 'check',
-            'source' => [__DIR__ . '/' . $source],
-            '--config' => __DIR__ . '/' . $config,
-            '--' . Option::OUTPUT_FORMAT_OPTION => JsonOutputFormatter::NAME,
-        ]);
-        $output = Json::decode($applicationTester->getDisplay(), true);
-
-        $this->assertSame(1, $exitCode);
-
-        $this->assertArrayHasKey('meta', $output);
-        $this->assertArrayHasKey('version', $output['meta']);
-        $this->assertArrayHasKey('config', $output['meta']);
-        $this->assertContains($config, $output['meta']['config']);
-
-        $this->assertArrayHasKey('totals', $output);
-        $this->assertArrayHasKey('errors', $output['totals']);
-        $this->assertArrayHasKey('diffs', $output['totals']);
-
-        $this->assertArrayHasKey('files', $output);
-        $this->assertArrayHasKey($sourceLocation, $output['files']);
-
-        $this->assertArrayHasKey('line', $output['files'][$sourceLocation]['errors'][0]);
-        $this->assertArrayHasKey('message', $output['files'][$sourceLocation]['errors'][0]);
-        $this->assertArrayHasKey('sourceClass', $output['files'][$sourceLocation]['errors'][0]);
-        $this->assertArrayHasKey('diff', $output['files'][$sourceLocation]['diffs'][0]);
-        $this->assertArrayHasKey('appliedCheckers', $output['files'][$sourceLocation]['diffs'][0]);
+        $output = trim($this->bufferedOutput->fetch());
+        $this->assertStringMatchesFormatFile(__DIR__ . '/Source/expected_json_output.json', $output);
     }
 
     protected function provideConfig(): string
     {
         return __DIR__ . '/config/config.yml';
+    }
+
+    /**
+     * To catch printed content
+     */
+    private function createEasyCodingStandardStyleWithBufferOutput(): EasyCodingStandardStyle
+    {
+        $this->bufferedOutput = new BufferedOutput();
+
+        return new EasyCodingStandardStyle(new StringInput(''), $this->bufferedOutput, new Terminal());
     }
 }
