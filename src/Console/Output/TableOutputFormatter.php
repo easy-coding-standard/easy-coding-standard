@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -44,13 +43,17 @@ final class TableOutputFormatter implements OutputFormatterInterface
         $this->errorAndDiffCollector = $errorAndDiffCollector;
     }
 
-    public function report(InputInterface $input, OutputInterface $output): int
+    public function report(int $processedFilesCount, OutputInterface $output): int
     {
         $this->reportFileDiffs($this->errorAndDiffCollector->getFileDiffs());
 
         if ($this->errorAndDiffCollector->getErrorCount() === 0
             && $this->errorAndDiffCollector->getFileDiffsCount() === 0
         ) {
+            if ($processedFilesCount) {
+                $this->easyCodingStandardStyle->newLine();
+            }
+
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
 
             return ShellCode::SUCCESS;

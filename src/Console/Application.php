@@ -2,27 +2,34 @@
 
 namespace Symplify\EasyCodingStandard\Console;
 
-use Jean85\PrettyVersions;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Command\FindCommand;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
-use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use function Safe\realpath;
 
 final class Application extends SymfonyApplication
 {
-    public function __construct()
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    public function __construct(Configuration $configuration)
     {
-        parent::__construct('EasyCodingStandard', $this->getPrettyVersion());
+        parent::__construct('EasyCodingStandard', $configuration->getPrettyVersion());
+        $this->configuration = $configuration;
     }
 
     public function doRun(InputInterface $input, OutputInterface $output): int
     {
+        $this->configuration->setConfigFilePathFromInput($input);
+
         // skip in this case, since generate content must be clear from meta-info
         if ($input->getFirstArgument() === CommandNaming::classToName(FindCommand::class)) {
             return parent::doRun($input, $output);
@@ -32,27 +39,12 @@ final class Application extends SymfonyApplication
             $output->writeln($this->getLongVersion());
         }
 
-        $configPath = $this->getConfigPath($input);
+        $configPath = $this->configuration->getConfigFilePath();
         if ($this->configExists($configPath) && $this->shouldPrintMetaInformation($input)) {
             $output->writeln('Config file: ' . realpath($configPath));
         }
 
         return parent::doRun($input, $output);
-    }
-
-    public function getConfigPath(InputInterface $input): ?string
-    {
-        if ($input->getParameterOption('--config')) {
-            return $input->getParameterOption('--config');
-        }
-
-        return ConfigFileFinder::provide('ecs');
-    }
-
-    public function getPrettyVersion(): string
-    {
-        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
-        return $version->getPrettyVersion();
     }
 
     protected function getDefaultInputDefinition(): InputDefinition

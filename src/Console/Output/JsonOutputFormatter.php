@@ -3,9 +3,8 @@
 namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Nette\Utils\Json;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Console\Application;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -20,27 +19,27 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     public const NAME = 'json';
 
     /**
-     * @var Application
-     */
-    private $application;
-
-    /**
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
 
-    public function __construct(Application $application, ErrorAndDiffCollector $errorAndDiffCollector)
+    /**
+     * @var Configuration
+     */
+    private $configuration;
+
+    public function __construct(ErrorAndDiffCollector $errorAndDiffCollector, Configuration $configuration)
     {
-        $this->application = $application;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
+        $this->configuration = $configuration;
     }
 
-    public function report(InputInterface $input, OutputInterface $output): int
+    public function report(int $processedFilesCount, OutputInterface $output): int
     {
         $errorsArray = [
             'meta' => [
-                'version' => $this->application->getPrettyVersion(),
-                'config' => $this->application->getConfigPath($input),
+                'version' => $this->configuration->getPrettyVersion(),
+                'config' => $this->configuration->getConfigFilePath(),
             ],
             'totals' => [
                 'errors' => $this->errorAndDiffCollector->getErrorCount(),

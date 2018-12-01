@@ -2,9 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
+use Jean85\PrettyVersions;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
+use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use function Safe\sprintf;
 
 final class Configuration
@@ -35,10 +37,18 @@ final class Configuration
     private $outputFormat;
 
     /**
+     * @var string|null
+     */
+    private $configFilePath;
+
+    /**
      * @var string[]
      */
     private $sources = [];
 
+    /**
+     * Needs to run in the start of the life cycle, since the rest of workflow uses it.
+     */
     public function resolveFromInput(InputInterface $input): void
     {
         /** @var string[] $sources */
@@ -90,6 +100,28 @@ final class Configuration
     public function getOutputFormat(): string
     {
         return $this->outputFormat;
+    }
+
+    public function setConfigFilePathFromInput(InputInterface $input): void
+    {
+        if ($input->getParameterOption('--config')) {
+            $this->configFilePath = $input->getParameterOption('--config');
+            return;
+        }
+
+        $this->configFilePath = ConfigFileFinder::provide('ecs');
+    }
+
+    public function getConfigFilePath(): ?string
+    {
+        return $this->configFilePath;
+    }
+
+    public function getPrettyVersion(): string
+    {
+        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
+
+        return $version->getPrettyVersion();
     }
 
     /**

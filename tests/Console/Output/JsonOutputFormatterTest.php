@@ -8,7 +8,7 @@ use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Tests\AbstractConfigContainerAwareTestCase;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use function Safe\substr;
 
 final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
 {
