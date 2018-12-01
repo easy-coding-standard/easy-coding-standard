@@ -1,6 +1,6 @@
 {
     "meta": {
-        "version": "dev-%s",
+        "version": "%s",
         "config": "%stests/Console/Output/config/config.yml"
     },
     "totals": {
@@ -8,7 +8,7 @@
         "diffs": 2
     },
     "files": {
-        "%stests/Console/Output/wrong/wrong.php.inc": {
+        "%s/Console/Output/wrong/wrong.php.inc": {
             "errors": [
                 {
                     "line": 3,
