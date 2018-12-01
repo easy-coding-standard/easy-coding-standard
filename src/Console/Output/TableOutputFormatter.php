@@ -77,9 +77,11 @@ final class TableOutputFormatter implements OutputFormatterInterface
             return;
         }
 
+        $this->easyCodingStandardStyle->newLine();
+
         $i = 0;
         foreach ($fileDiffPerFile as $file => $fileDiffs) {
-            $this->easyCodingStandardStyle->newLine();
+            $this->easyCodingStandardStyle->newLine(2);
             $this->easyCodingStandardStyle->writeln(sprintf('<options=bold>%d) %s</>', ++$i, $file));
 
             foreach ($fileDiffs as $fileDiff) {
