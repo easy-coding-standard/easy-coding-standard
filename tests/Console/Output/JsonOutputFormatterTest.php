@@ -27,7 +27,7 @@ final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
         $source = 'wrong/wrong.php.inc';
         $config = 'config/config.yml';
 
-        $currentDir = \substr(__DIR__, \strlen($_SERVER['PWD'] . '/'));
+        $currentDir = substr(__DIR__, strlen($_SERVER['PWD'] . '/'));
         $sourceLocation = ($currentDir ? ($currentDir . '/') : '') . $source;
 
         $exitCode = $applicationTester->run([
