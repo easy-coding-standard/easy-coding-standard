@@ -29,7 +29,7 @@ final class OutputFormatterCollectorTest extends AbstractContainerAwareTestCase
     }
 
     /**
-     * @expectedException \Symplify\EasyCodingStandard\Configuration\Exception\NoOutputFormatterException
+     * @expectedException \Symplify\EasyCodingStandard\Configuration\Exception\OutputFormatterNotFoundException
      */
     public function testThrowOnWrongName(): void
     {

@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use Symplify\EasyCodingStandard\Configuration\Exception\NoOutputFormatterException;
+use Symplify\EasyCodingStandard\Configuration\Exception\OutputFormatterNotFoundException;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use function Safe\sprintf;
 
@@ -25,16 +25,14 @@ final class OutputFormatterCollector
 
     public function getByName(string $name): OutputFormatterInterface
     {
-        if (! isset($this->outputFormatters[$name])) {
-            throw new NoOutputFormatterException(
-                sprintf(
-                    'Output formatter "%s" not found. Use one of: "%s".',
-                    $name,
-                    implode('", "', array_keys($this->outputFormatters))
-                )
-            );
+        if (isset($this->outputFormatters[$name])) {
+            return $this->outputFormatters[$name];
         }
 
-        return $this->outputFormatters[$name];
+        throw new OutputFormatterNotFoundException(sprintf(
+            'Output formatter "%s" not found. Use one of: "%s".',
+            $name,
+            implode('", "', array_keys($this->outputFormatters))
+        ));
     }
 }
