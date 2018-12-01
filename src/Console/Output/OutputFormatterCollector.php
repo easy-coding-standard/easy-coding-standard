@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Symplify\EasyCodingStandard\Configuration\Exception\NoOutputFormatterException;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
+use function Safe\sprintf;
 
 final class OutputFormatterCollector
 {

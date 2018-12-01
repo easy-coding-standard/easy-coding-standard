@@ -11,6 +11,7 @@ use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\PackageBuilder\Console\ShellCode;
+use function Safe\sprintf;
 
 final class TableOutputFormatter implements OutputFormatterInterface
 {
