@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php declare(strict_types=1);
 
+use Composer\XdebugHandler\XdebugHandler;
 use Symfony\Component\DependencyInjection\Container;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\PackageBuilder\Console\ThrowableRenderer;
@@ -9,6 +10,10 @@ require_once __DIR__ . '/autoload.php';
 
 // performance boost
 gc_disable();
+
+$xdebug = new XdebugHandler('ecs');
+$xdebug->check();
+unset($xdebug);
 
 try {
     /** @var Container $container */
