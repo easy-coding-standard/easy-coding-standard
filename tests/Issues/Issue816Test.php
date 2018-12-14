@@ -11,11 +11,12 @@ final class Issue816Test extends AbstractCheckerTestCase
         // each file has different line ending
         $this->assertFileNotEquals(__DIR__ . '/wrong/wrong816.php.inc', __DIR__ . '/wrong/wrong816.2.php.inc');
 
-        // from "\r\n" to "\r\n"
-        $this->doTestWrongToFixedFile(__DIR__ . '/wrong/wrong816.php.inc', __DIR__ . '/fixed/fixed816.php.inc');
-
-        // from "\n" to "\r\n"
-        $this->doTestWrongToFixedFile(__DIR__ . '/wrong/wrong816.2.php.inc', __DIR__ . '/fixed/fixed816.php.inc');
+        $this->doTestFiles([
+            // from "\r\n" to "\r\n"
+            [__DIR__ . '/wrong/wrong816.php.inc', __DIR__ . '/fixed/fixed816.php.inc'],
+            // from "\n" to "\r\n"
+            [__DIR__ . '/wrong/wrong816.2.php.inc', __DIR__ . '/fixed/fixed816.php.inc'],
+        ]);
     }
 
     protected function provideConfig(): string
