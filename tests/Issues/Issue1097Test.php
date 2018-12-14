@@ -8,7 +8,7 @@ final class Issue1097Test extends AbstractCheckerTestCase
 {
     public function test(): void
     {
-        $this->doTestWrongToFixedFile(__DIR__ . '/wrong/wrong1097.php.inc', __DIR__ . '/fixed/fixed1097.php.inc');
+        $this->doTestFiles([[__DIR__ . '/wrong/wrong1097.php.inc', __DIR__ . '/fixed/fixed1097.php.inc']]);
     }
 
     protected function provideConfig(): string

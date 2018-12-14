@@ -9,7 +9,7 @@ final class Issue923Test extends AbstractCheckerTestCase
     public function test(): void
     {
         // from "\r\n" to "\n"
-        $this->doTestWrongToFixedFile(__DIR__ . '/wrong/wrong923.php.inc', __DIR__ . '/fixed/fixed923.php.inc');
+        $this->doTestFiles([[__DIR__ . '/wrong/wrong923.php.inc', __DIR__ . '/fixed/fixed923.php.inc']]);
     }
 
     protected function provideConfig(): string
