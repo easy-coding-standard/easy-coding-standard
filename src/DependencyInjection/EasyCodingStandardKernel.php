@@ -21,7 +21,6 @@ use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireArrayParame
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\ConfigurableCollectorCompilerPass;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\PublicForTestsCompilerPass;
 use Symplify\PackageBuilder\HttpKernel\SimpleKernelTrait;
 
 final class EasyCodingStandardKernel extends Kernel
@@ -76,9 +75,6 @@ final class EasyCodingStandardKernel extends Kernel
 
         // exceptions
         $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
-
-        // tests
-        $containerBuilder->addCompilerPass(new PublicForTestsCompilerPass());
 
         // parameters
         $containerBuilder->addCompilerPass(new DetectParametersCompilerPass());
