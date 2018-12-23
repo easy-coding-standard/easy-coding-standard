@@ -6,7 +6,7 @@ services:
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
         resource: '..'
 
-    Symfony\Component\Cache\Adapter\SimpleCacheAdapter:
+    Symfony\Component\Cache\Adapter\SimpleCacheAdapter: ~
     Symfony\Component\Cache\Adapter\TagAwareAdapter:
         $itemsPool: '@Symfony\Component\Cache\Adapter\SimpleCacheAdapter'
         $tagsPool: '@Symfony\Component\Cache\Adapter\SimpleCacheAdapter'
