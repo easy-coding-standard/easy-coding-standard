@@ -122,8 +122,8 @@ imports:
     - { resource: 'vendor/symplify/easy-coding-standard/config/symfony.yml' }
 
 parameters:
-    exclude_checkers:
-        - 'PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer'
+    skip:
+        PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
 ```
 
 ### Ignore What You Can't Fix
