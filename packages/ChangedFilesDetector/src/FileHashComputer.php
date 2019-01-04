@@ -5,24 +5,15 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 use Nette\Utils\Strings;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symplify\EasyCodingStandard\ChangedFilesDetector\Exception\FileHashFailedException;
 use Symplify\EasyCodingStandard\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
-use function Safe\sprintf;
+use function Safe\md5_file;
 
 final class FileHashComputer
 {
     public function compute(string $filePath): string
     {
         if (! Strings::match($filePath, '#\.(yml|yaml)$#')) {
-            $md5File = md5_file($filePath);
-            if ($md5File === false) {
-                throw new FileHashFailedException(sprintf(
-                    'Hashing of "%s" file for cache failed. Check the content, existance or access right to the file.',
-                    $filePath
-                ));
-            }
-
-            return $md5File;
+            return md5_file($filePath);
         }
 
         $containerBuilder = new ContainerBuilder();
