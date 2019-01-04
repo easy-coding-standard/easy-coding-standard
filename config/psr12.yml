@@ -40,5 +40,5 @@ services:
     PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer:
 
 parameters:
-    exclude_checkers:
-        - 'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer'
+    skip:
+        PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer: ~

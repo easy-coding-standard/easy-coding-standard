@@ -1,6 +1,6 @@
 parameters:
-    excluded_checkers:
-        - 'PhpCsFixer\Fixer\Import\NoUnusedImportsFixer'
+    skip:
+        PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
 
 services:
     PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~

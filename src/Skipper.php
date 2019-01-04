@@ -59,6 +59,11 @@ final class Skipper
                 continue;
             }
 
+            // skip everywhere
+            if (! is_array($skippedFiles)) {
+                return true;
+            }
+
             if ($this->doesFileMatchSkippedFiles($smartFileInfo, $skippedFiles)) {
                 return true;
             }
