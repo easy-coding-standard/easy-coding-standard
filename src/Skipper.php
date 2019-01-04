@@ -136,6 +136,25 @@ final class Skipper
      */
     private function fileMatchesPattern(SmartFileInfo $smartFileInfo, string $ignoredPath): bool
     {
+        $ignoredPath = $this->normalizeForFnmatch($ignoredPath);
+
         return $smartFileInfo->endsWith($ignoredPath) || $smartFileInfo->fnmatches($ignoredPath);
+    }
+
+    /**
+     * "value*" → "*value*"
+     * "*value" → "*value*"
+     */
+    private function normalizeForFnmatch(string $path): string
+    {
+        // ends with *
+        if (Strings::match($path, '#^[^*](.*?)\*$#')) {
+            return '*' . $path;
+        }
+        // starts with *
+        if (Strings::match($path, '#^\*(.*?)[^*]$#')) {
+            return $path . '*';
+        }
+        return $path;
     }
 }
