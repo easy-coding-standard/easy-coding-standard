@@ -66,8 +66,8 @@ final class ParametersMergeTest extends TestCase
             __DIR__ . '/someFile.yml'
         );
 
-        // local "src/config/config.yml"
-        $delegatingLoader->load(__DIR__ . '/../../../../src/config/config.yml');
+        // local "config/config.yml"
+        $delegatingLoader->load(__DIR__ . '/../../../../config/config.yml');
         // mimics user's "easy-config-standard.yml" with own values
         $delegatingLoader->load(__DIR__ . '/ParametersSource/root-config-override.yml');
 

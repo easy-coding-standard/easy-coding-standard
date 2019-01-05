@@ -2,10 +2,11 @@ services:
     _defaults:
         public: true
         autowire: true
+        autoconfigure: true
 
     Symplify\EasyCodingStandard\FixerRunner\:
-        resource: '..'
-        exclude: '../{Exception}'
+        resource: '../src'
+        exclude: '../src/{Exception}'
 
     # differ
     PhpCsFixer\Differ\UnifiedDiffer: ~
