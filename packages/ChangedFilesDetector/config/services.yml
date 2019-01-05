@@ -2,9 +2,10 @@ services:
     _defaults:
         public: true
         autowire: true
+        autoconfigure: true
 
     Symplify\EasyCodingStandard\ChangedFilesDetector\:
-        resource: '..'
+        resource: '../src'
 
     Symfony\Component\Cache\Adapter\SimpleCacheAdapter: ~
     Symfony\Component\Cache\Adapter\TagAwareAdapter:

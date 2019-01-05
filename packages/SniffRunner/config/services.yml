@@ -2,7 +2,8 @@ services:
     _defaults:
         public: true
         autowire: true
+        autoconfigure: true
 
     Symplify\EasyCodingStandard\SniffRunner\:
-        resource: '..'
-        exclude: '../{Exception,File/File.php,Event}'
+        resource: '../src'
+        exclude: '../src/{Exception,File/File.php,Event}'

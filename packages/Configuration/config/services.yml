@@ -2,7 +2,8 @@ services:
     _defaults:
         public: true
         autowire: true
+        autoconfigure: true
 
     Symplify\EasyCodingStandard\Configuration\:
-        resource: '..'
-        exclude: '../{Exception}'
+        resource: '../src'
+        exclude: '../src/{Exception}'
