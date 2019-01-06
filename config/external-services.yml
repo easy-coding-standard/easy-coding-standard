@@ -19,6 +19,7 @@ services:
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
+    PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer: ~
 
     Symplify\PackageBuilder\FileSystem\FinderSanitizer: ~
 
