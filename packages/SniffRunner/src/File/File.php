@@ -101,7 +101,7 @@ final class File extends BaseFile
         ));
     }
 
-    public function getErrorCount(): void
+    public function getErrorCount(): int
     {
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',
@@ -110,7 +110,10 @@ final class File extends BaseFile
         ));
     }
 
-    public function getErrors(): void
+    /**
+     * @return mixed[]
+     */
+    public function getErrors(): array
     {
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',
