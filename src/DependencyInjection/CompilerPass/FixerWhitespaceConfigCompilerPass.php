@@ -13,6 +13,10 @@ final class FixerWhitespaceConfigCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $containerBuilder): void
     {
         foreach ($containerBuilder->getDefinitions() as $definition) {
+            if ($definition->getClass() === null) {
+                continue;
+            }
+
             if (! is_a($definition->getClass(), WhitespacesAwareFixerInterface::class, true)) {
                 continue;
             }
