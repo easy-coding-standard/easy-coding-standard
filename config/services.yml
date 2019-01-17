@@ -8,7 +8,6 @@ services:
         exclude: '../src/{Contract,DependencyInjection,Exception,Error/Error.php,Error/FileDiff.php,Yaml}'
 
     Symplify\EasyCodingStandard\Console\Application: ~
-    Symfony\Component\EventDispatcher\EventDispatcher: ~
 
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
@@ -16,3 +15,52 @@ services:
                 # orders matters, so Fixer can cleanup after Sniffer
                 - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
                 - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
+
+    # Console
+    Symfony\Component\Console\Terminal: ~
+
+    Symplify\PackageBuilder\Parameter\ParameterProvider: ~
+    Symplify\PackageBuilder\FileSystem\FileGuard: ~
+    Symplify\PackageBuilder\Php\TypeAnalyzer: ~
+
+    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
+    PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
+    PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer: ~
+
+    Symplify\PackageBuilder\FileSystem\FinderSanitizer: ~
+
+    Symfony\Component\EventDispatcher\EventDispatcher: ~
+    Symplify\PackageBuilder\EventSubscriber\ParameterTypoProofreaderEventSubscriber: ~
+
+    # parameter corrections
+    Symplify\PackageBuilder\Parameter\ParameterTypoProofreader:
+        $correctToTypos:
+            # param => [typos]
+            skip:
+                - '#skip.{1}#'
+                - 'exclude'
+                - 'ignore'
+            line_length:
+                - 'line_lenght'
+                - 'lineLength'
+                - 'lineLenght'
+                - 'line_size'
+                - 'lineSize'
+            exclude_checkers:
+                - 'exclude_checker'
+                - 'excluded_checker'
+                - 'excluded_checkers'
+                - 'skip_checker'
+                - 'skip_checkers'
+            exclude_files:
+                - 'exclude_file'
+                - 'excluded_file'
+                - 'exclude_dir'
+                - 'excluded_dir'
+                - 'excluded_dirs'
+                - 'exclude_path'
+                - 'exclude_paths'
+                - 'excluded_path'
+                - 'excluded_paths'
+                - 'skip_dirs'
+                - 'skip_files'
