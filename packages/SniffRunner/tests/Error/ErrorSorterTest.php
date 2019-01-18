@@ -43,17 +43,13 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
     {
         $fileInfo = new SmartFileInfo(__DIR__ . '/ErrorSorterSource/SomeFile.php');
 
-
         $firstError = $this->errorFactory->create(5, 'error message', 'SomeClass', $fileInfo);
         $secondError = $this->errorFactory->create(15, 'error message', 'SomeClass', $fileInfo);
         $thirdError = $this->errorFactory->create(5, 'error message', 'SomeClass', $fileInfo);
 
         return [
             'filePath' => [$firstError],
-            'anotherFilePath' => [
-                $secondError,
-                $thirdError,
-            ],
+            'anotherFilePath' => [$secondError, $thirdError],
         ];
     }
 }
