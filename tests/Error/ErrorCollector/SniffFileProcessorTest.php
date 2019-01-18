@@ -37,7 +37,6 @@ final class SniffFileProcessorTest extends TestCase
         $this->sniffFileProcessor = $container->get(SniffFileProcessor::class);
         $this->currentFileProvider = $container->get(CurrentFileProvider::class);
 
-        /** @var ChangedFilesDetector $changedFilesDetector */
         $changedFilesDetector = $container->get(ChangedFilesDetector::class);
         $changedFilesDetector->clearCache();
     }

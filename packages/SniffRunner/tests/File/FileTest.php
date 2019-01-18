@@ -32,7 +32,6 @@ final class FileTest extends AbstractContainerAwareTestCase
         $this->errorAndDiffCollector = $this->container->get(ErrorAndDiffCollector::class);
         $this->currentFileProvider = $this->container->get(CurrentFileProvider::class);
 
-        /** @var FileFactory $fileFactory */
         $fileFactory = $this->container->get(FileFactory::class);
         $fileInfo = new SmartFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
         $this->file = $fileFactory->createFromFileInfo($fileInfo);

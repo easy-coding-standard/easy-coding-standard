@@ -39,7 +39,6 @@ final class IndentationTest extends TestCase
 
     private function getIndentationTypeFixerFromContainer(ContainerInterface $container): IndentationTypeFixer
     {
-        /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
         $checkers = $fixerFileProcessor->getCheckers();
         $this->assertCount(1, $checkers);

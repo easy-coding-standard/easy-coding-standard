@@ -15,11 +15,9 @@ final class MutualExcludedCheckersTest extends TestCase
             [__DIR__ . '/MutualExcludedCheckersSource/config.yml']
         );
 
-        /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
         $this->assertCount(1, $fixerFileProcessor->getCheckers());
 
-        /** @var SniffFileProcessor $sniffFileProcessor */
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
         $this->assertCount(0, $sniffFileProcessor->getCheckers());
     }
