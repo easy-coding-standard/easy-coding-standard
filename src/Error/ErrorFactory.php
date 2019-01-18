@@ -2,10 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+
 final class ErrorFactory
 {
-    public function createFromLineMessageSourceClass(int $line, string $message, string $sourceClass): Error
+    public function create(int $line, string $message, string $sourceClass, SmartFileInfo $smartFileInfo): Error
     {
-        return new Error($line, $message, $sourceClass);
+        return new Error($line, $message, $sourceClass, $smartFileInfo);
     }
 }

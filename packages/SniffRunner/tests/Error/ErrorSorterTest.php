@@ -6,6 +6,7 @@ use Symplify\EasyCodingStandard\Error\Error;
 use Symplify\EasyCodingStandard\Error\ErrorFactory;
 use Symplify\EasyCodingStandard\Error\ErrorSorter;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class ErrorSorterTest extends AbstractContainerAwareTestCase
 {
@@ -40,11 +41,18 @@ final class ErrorSorterTest extends AbstractContainerAwareTestCase
      */
     private function getUnsortedMessages(): array
     {
+        $fileInfo = new SmartFileInfo(__DIR__ . '/ErrorSorterSource/SomeFile.php');
+
+
+        $firstError = $this->errorFactory->create(5, 'error message', 'SomeClass', $fileInfo);
+        $secondError = $this->errorFactory->create(15, 'error message', 'SomeClass', $fileInfo);
+        $thirdError = $this->errorFactory->create(5, 'error message', 'SomeClass', $fileInfo);
+
         return [
-            'filePath' => [$this->errorFactory->createFromLineMessageSourceClass(5, 'error message', 'SomeClass')],
+            'filePath' => [$firstError],
             'anotherFilePath' => [
-                $this->errorFactory->createFromLineMessageSourceClass(15, 'error message', 'SomeClass'),
-                $this->errorFactory->createFromLineMessageSourceClass(5, 'error message', 'SomeClass'),
+                $secondError,
+                $thirdError,
             ],
         ];
     }

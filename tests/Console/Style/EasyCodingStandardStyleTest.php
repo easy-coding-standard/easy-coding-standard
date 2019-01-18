@@ -6,6 +6,7 @@ use PhpCsFixer\Fixer\Basic\BracesFixer;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorFactory;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class EasyCodingStandardStyleTest extends AbstractContainerAwareTestCase
 {
@@ -28,8 +29,11 @@ final class EasyCodingStandardStyleTest extends AbstractContainerAwareTestCase
     public function testBuildFileTableRowsFromErrors(): void
     {
         $errors = [];
-        $errors[] = $this->errorFactory->createFromLineMessageSourceClass(5, 'message', BracesFixer::class);
-        $errors[] = $this->errorFactory->createFromLineMessageSourceClass(100, 'message', BracesFixer::class);
+
+        $fileInfo = new SmartFileInfo(__DIR__ . '/EasyCodingStandardStyleSource/SomeFile.php');
+
+        $errors[] = $this->errorFactory->create(5, 'message', BracesFixer::class, $fileInfo);
+        $errors[] = $this->errorFactory->create(100, 'message', BracesFixer::class, $fileInfo);
 
         $errorRows = $this->easyCodingStandardStyle->buildFileTableRowsFromErrors($errors);
         $this->assertCount(2, $errorRows);
