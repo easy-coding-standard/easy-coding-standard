@@ -60,11 +60,9 @@ final class FileProcessorTest extends TestCase
             __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php.inc'
         );
 
-        /** @var CurrentFileProvider $currentFileProvider */
         $currentFileProvider = $container->get(CurrentFileProvider::class);
         $currentFileProvider->setFileInfo($smartFileInfo);
 
-        /** @var SniffFileProcessor $sniffFileProcessor */
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
         $this->assertStringEqualsFile(
             __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets-fixed.php.inc',

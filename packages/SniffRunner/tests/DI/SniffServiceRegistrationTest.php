@@ -15,7 +15,6 @@ final class SniffServiceRegistrationTest extends TestCase
             [__DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.yml']
         );
 
-        /** @var SniffFileProcessor $sniffFileProcessor */
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
 
         /** @var LineLengthSniff $lineLengthSniff */

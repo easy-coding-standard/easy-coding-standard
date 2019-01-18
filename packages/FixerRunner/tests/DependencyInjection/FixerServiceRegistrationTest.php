@@ -20,7 +20,6 @@ final class FixerServiceRegistrationTest extends TestCase
             [__DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.yml']
         );
 
-        /** @var FixerFileProcessor $fixerFileProcessor */
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
 
         $checkers = $fixerFileProcessor->getCheckers();

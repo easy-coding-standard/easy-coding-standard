@@ -22,7 +22,6 @@ final class FixerTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        /** @var FileFactory $fileFactory */
         $fileFactory = $this->container->get(FileFactory::class);
 
         $this->file = $fileFactory->createFromFileInfo(new SmartFileInfo(__DIR__ . '/FixerSource/SomeFile.php'));
