@@ -2,6 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+
 final class Error
 {
     /**
@@ -19,11 +21,17 @@ final class Error
      */
     private $sourceClass;
 
-    public function __construct(int $line, string $message, string $sourceClass)
+    /**
+     * @var SmartFileInfo
+     */
+    private $fileInfo;
+
+    public function __construct(int $line, string $message, string $sourceClass, SmartFileInfo $fileInfo)
     {
         $this->line = $line;
         $this->message = $message;
         $this->sourceClass = $sourceClass;
+        $this->fileInfo = $fileInfo;
     }
 
     public function getLine(): int
@@ -39,5 +47,10 @@ final class Error
     public function getSourceClass(): string
     {
         return $this->sourceClass;
+    }
+
+    public function getFileInfo(): SmartFileInfo
+    {
+        return $this->fileInfo;
     }
 }
