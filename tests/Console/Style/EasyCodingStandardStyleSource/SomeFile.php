@@ -4,5 +4,4 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Style\EasyCodingStandardStyl
 
 final class SomeFile
 {
-
 }
