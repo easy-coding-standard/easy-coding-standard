@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use Symfony\Component\Cache\CacheItem;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
@@ -46,6 +47,7 @@ final class ChangedFilesDetector
 
     public function addFileInfo(SmartFileInfo $smartFileInfo): void
     {
+        /** @var CacheItem $item */
         $item = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
         $item->set($this->fileHashComputer->compute($smartFileInfo->getRealPath()));
         $item->tag(self::CHANGED_FILES_CACHE_TAG);

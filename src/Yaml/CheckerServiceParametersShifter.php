@@ -51,8 +51,11 @@ final class CheckerServiceParametersShifter
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
 
-        $this->serviceKeywords = (new ReflectionClass(YamlFileLoader::class))
+        /** @var string[] $serviceKeywordsProperty */
+        $serviceKeywordsProperty = (new ReflectionClass(YamlFileLoader::class))
             ->getStaticProperties()['serviceKeywords'];
+
+        $this->serviceKeywords = $serviceKeywordsProperty;
     }
 
     /**

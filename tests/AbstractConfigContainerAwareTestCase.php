@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 
 abstract class AbstractConfigContainerAwareTestCase extends TestCase
