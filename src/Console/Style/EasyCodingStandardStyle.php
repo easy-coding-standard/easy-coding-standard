@@ -56,18 +56,6 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         }
     }
 
-    /**
-     * @param string[] $elements
-     */
-    public function listing(array $elements): void
-    {
-        $elements = array_map(function ($element): string {
-            return sprintf(' - %s', $element);
-        }, $elements);
-        $this->writeln($elements);
-        $this->newLine();
-    }
-
     public function fixableError(string $message): void
     {
         $this->block($message, 'WARNING', 'fg=black;bg=yellow', ' ', true);
