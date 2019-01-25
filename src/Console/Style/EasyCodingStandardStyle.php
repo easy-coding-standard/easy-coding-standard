@@ -67,6 +67,19 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         $this->writeln(' ' . $separator);
     }
 
+    private function createMessageFromFileError(Error $fileError): string
+    {
+        $message = sprintf('%s%s (%s)', $fileError->getMessage(), PHP_EOL, $fileError->getSourceClass());
+        $message = $this->clearCrLfFromMessage($message);
+
+        return $this->wrapMessageSoItFitsTheColumnWidth($message);
+    }
+
+    private function getTerminalWidth(): int
+    {
+        return $this->terminal->getWidth() - self::BULGARIAN_CONSTANT;
+    }
+
     /**
      * This prevents message override in Windows system.
      */
@@ -78,18 +91,5 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     private function wrapMessageSoItFitsTheColumnWidth(string $message): string
     {
         return wordwrap($message, $this->getTerminalWidth(), PHP_EOL);
-    }
-
-    private function getTerminalWidth(): int
-    {
-        return $this->terminal->getWidth() - self::BULGARIAN_CONSTANT;
-    }
-
-    private function createMessageFromFileError(Error $fileError): string
-    {
-        $message = sprintf('%s%s (%s)', $fileError->getMessage(), PHP_EOL, $fileError->getSourceClass());
-        $message = $this->clearCrLfFromMessage($message);
-
-        return $this->wrapMessageSoItFitsTheColumnWidth($message);
     }
 }
