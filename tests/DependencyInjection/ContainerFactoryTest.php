@@ -44,7 +44,7 @@ final class ContainerFactoryTest extends TestCase
         $this->expectException(InvalidSniffPropertyException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Property "line_limit" was not found on "%s" sniff class in configuration. Did you mean "lineLimit"?',
+                'Property "lineLimid" was not found on "%s" sniff class in configuration. Did you mean "lineLimit"?',
                 LineLengthSniff::class
             )
         );
