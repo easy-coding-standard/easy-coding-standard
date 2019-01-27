@@ -6,6 +6,7 @@ use Nette\Utils\Strings;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symplify\EasyCodingStandard\Utils\StringConverter;
 
 /**
  * Before:
@@ -47,9 +48,15 @@ final class CheckerServiceParametersShifter
      */
     private $checkerConfigurationGuardian;
 
+    /**
+     * @var StringConverter
+     */
+    private $stringConverter;
+
     public function __construct()
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
+        $this->stringConverter = new StringConverter();
 
         /** @var string[] $serviceKeywordsProperty */
         $serviceKeywordsProperty = (new ReflectionClass(YamlFileLoader::class))
@@ -118,12 +125,8 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            // fixes comment extra bottom space
-            if ($checker === HeaderCommentFixer::class) {
-                if (isset($serviceDefinition['header'])) {
-                    $serviceDefinition['header'] = trim($serviceDefinition['header']);
-                }
-            }
+            $serviceDefinition = $this->correctHeader($checker, $serviceDefinition);
+            $serviceDefinition = $this->stringConverter->camelCaseToUnderscoreInArrayKeys($serviceDefinition);
 
             $services[$checker]['calls'] = [['configure', [$serviceDefinition]]];
         }
@@ -144,7 +147,11 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
+            // normalize_key to camelCase
+            $key = $this->stringConverter->underscoreToCamelCase($key);
+
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
+
             $services[$checker]['properties'][$key] = $this->escapeValue($value);
         }
 
@@ -200,5 +207,23 @@ final class CheckerServiceParametersShifter
         }
 
         return Strings::replace($value, '#@#', '@@');
+    }
+
+    /**
+     * @param mixed[] $serviceDefinition
+     * @return mixed[]
+     */
+    private function correctHeader(string $checker, array $serviceDefinition): array
+    {
+        // fixes comment extra bottom space
+        if ($checker !== HeaderCommentFixer::class) {
+            return $serviceDefinition;
+        }
+
+        if (isset($serviceDefinition['header'])) {
+            $serviceDefinition['header'] = trim($serviceDefinition['header']);
+        }
+
+        return $serviceDefinition;
     }
 }
