@@ -147,9 +147,7 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            // normalize_key to camelCase
             $key = $this->stringConverter->underscoreToCamelCase($key);
-
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
 
             $services[$checker]['properties'][$key] = $this->escapeValue($value);
