@@ -2,13 +2,10 @@
 
 namespace Symplify\EasyCodingStandard\Tests\DependencyInjection;
 
-use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
-use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use function Safe\sprintf;
 
 final class ContainerFactoryTest extends TestCase
 {
@@ -37,20 +34,5 @@ final class ContainerFactoryTest extends TestCase
 
         $sniffFileProcessor = $container->get(SniffFileProcessor::class);
         $this->assertCount(1, $sniffFileProcessor->getCheckers());
-    }
-
-    public function testCreateFromConfigWithMissingProperty(): void
-    {
-        $this->expectException(InvalidSniffPropertyException::class);
-        $this->expectExceptionMessage(
-            sprintf(
-                'Property "lineLimid" was not found on "%s" sniff class in configuration. Did you mean "lineLimit"?',
-                LineLengthSniff::class
-            )
-        );
-
-        $this->containerFactory->createWithConfigs(
-            [__DIR__ . '/ContainerFactorySource/config-with-typo-in-configuration.yml']
-        );
     }
 }
