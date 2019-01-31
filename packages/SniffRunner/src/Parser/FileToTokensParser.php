@@ -4,6 +4,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Parser;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Tokenizers\PHP;
+use PHP_CodeSniffer\Util\Common;
 use stdClass;
 use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
@@ -39,7 +40,14 @@ final class FileToTokensParser
     {
         $fileContent = $this->cachedFileLoader->getFileContent($smartFileInfo);
 
-        return new PHP($fileContent, $this->getLegacyConfig(), PHP_EOL);
+        return new PHP($fileContent, $this->getLegacyConfig(), Common::detectLineEndings($fileContent));
+    }
+
+    public function detectLineEndingsFromFileInfo(SmartFileInfo $smartFileInfo): string
+    {
+        $fileContent = $this->cachedFileLoader->getFileContent($smartFileInfo);
+
+        return Common::detectLineEndings($fileContent);
     }
 
     /**

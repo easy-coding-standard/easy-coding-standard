@@ -81,6 +81,8 @@ final class FileFactory
             $this->currentFileProvider
         );
 
+        $file->eolChar = $this->fileToTokensParser->detectLineEndingsFromFileInfo($smartFileInfo);
+
         // BC layer
         $file->tokenizer = $this->fileToTokensParser->createTokenizerFromFileInfo($smartFileInfo);
 
