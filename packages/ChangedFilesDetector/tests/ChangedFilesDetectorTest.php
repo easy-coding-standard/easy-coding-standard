@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
-use function Safe\sprintf;
 
 final class ChangedFilesDetectorTest extends AbstractContainerAwareTestCase
 {

@@ -7,8 +7,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Error\Error;
-use function Safe\getcwd;
-use function Safe\sprintf;
 
 final class EasyCodingStandardStyle extends SymfonyStyle
 {

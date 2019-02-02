@@ -7,7 +7,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
-use function Safe\sprintf;
 
 final class Configuration
 {

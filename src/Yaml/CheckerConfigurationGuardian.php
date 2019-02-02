@@ -7,7 +7,6 @@ use Nette\Utils\ObjectHelpers;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
-use function Safe\sprintf;
 
 final class CheckerConfigurationGuardian
 {

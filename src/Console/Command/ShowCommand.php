@@ -13,8 +13,6 @@ use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
-use function Safe\sort;
-use function Safe\sprintf;
 
 final class ShowCommand extends Command
 {

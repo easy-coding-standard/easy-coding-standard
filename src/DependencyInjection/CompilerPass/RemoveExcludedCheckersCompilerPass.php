@@ -6,7 +6,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symplify\EasyCodingStandard\Configuration\Option;
-use function Safe\sprintf;
 
 final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
 {
