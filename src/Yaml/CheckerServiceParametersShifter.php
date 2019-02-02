@@ -6,7 +6,7 @@ use Nette\Utils\Strings;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symplify\EasyCodingStandard\Utils\StringConverter;
+use Symplify\PackageBuilder\Strings\StringFormatConverter;
 
 /**
  * Before:
@@ -49,14 +49,14 @@ final class CheckerServiceParametersShifter
     private $checkerConfigurationGuardian;
 
     /**
-     * @var StringConverter
+     * @var StringFormatConverter
      */
-    private $stringConverter;
+    private $stringFormatConverter;
 
     public function __construct()
     {
         $this->checkerConfigurationGuardian = new CheckerConfigurationGuardian();
-        $this->stringConverter = new StringConverter();
+        $this->stringFormatConverter = new StringFormatConverter();
 
         /** @var string[] $serviceKeywordsProperty */
         $serviceKeywordsProperty = (new ReflectionClass(YamlFileLoader::class))
@@ -126,7 +126,7 @@ final class CheckerServiceParametersShifter
             }
 
             $serviceDefinition = $this->correctHeader($checker, $serviceDefinition);
-            $serviceDefinition = $this->stringConverter->camelCaseToUnderscoreInArrayKeys($serviceDefinition);
+            $serviceDefinition = $this->stringFormatConverter->camelCaseToUnderscoreInArrayKeys($serviceDefinition);
 
             $services[$checker]['calls'] = [['configure', [$serviceDefinition]]];
         }
@@ -147,7 +147,7 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            $key = $this->stringConverter->underscoreToCamelCase($key);
+            $key = $this->stringFormatConverter->underscoreToCamelCase($key);
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
 
             $services[$checker]['properties'][$key] = $this->escapeValue($value);
