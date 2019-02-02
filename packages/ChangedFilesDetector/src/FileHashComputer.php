@@ -5,15 +5,20 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 use Nette\Utils\Strings;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
 use Symplify\EasyCodingStandard\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
-use function Safe\md5_file;
 
 final class FileHashComputer
 {
     public function compute(string $filePath): string
     {
         if (! Strings::match($filePath, '#\.(yml|yaml)$#')) {
-            return md5_file($filePath);
+            $fileHash = md5_file($filePath);
+            if ($fileHash === false) {
+                throw new FileNotFoundException(sprintf('File "%s" was not found', $fileHash));
+            }
+
+            return $fileHash;
         }
 
         $containerBuilder = new ContainerBuilder();

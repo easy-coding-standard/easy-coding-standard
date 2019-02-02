@@ -20,7 +20,6 @@ use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
-use function Safe\define;
 
 final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFileProcessorInterface
 {

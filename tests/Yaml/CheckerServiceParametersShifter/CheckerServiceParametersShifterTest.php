@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\InvalidSniffPropertyException;
 use Symplify\EasyCodingStandard\Yaml\CheckerServiceParametersShifter;
-use function Safe\sprintf;
 
 final class CheckerServiceParametersShifterTest extends TestCase
 {
