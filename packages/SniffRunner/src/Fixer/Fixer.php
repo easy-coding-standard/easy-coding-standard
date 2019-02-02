@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Fixer;
 
+use Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
-use function Safe\substr;
 
 final class Fixer
 {
@@ -118,9 +118,9 @@ final class Fixer
         $current = $this->getTokenContent($stackPtr);
 
         if ($length !== null) {
-            $newContent = substr($current, $start, $length);
+            $newContent = Strings::substring($current, $start, $length);
         } else {
-            $newContent = substr($current, $start);
+            $newContent = Strings::substring($current, $start);
         }
 
         return $this->replaceToken($stackPtr, $newContent);
