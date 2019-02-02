@@ -2,9 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use function Safe\ksort;
-use function Safe\usort;
-
 final class ErrorSorter
 {
     /**

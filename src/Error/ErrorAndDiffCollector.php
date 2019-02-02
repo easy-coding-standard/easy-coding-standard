@@ -6,7 +6,6 @@ use Nette\Utils\Arrays;
 use Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
-use function Safe\getcwd;
 
 final class ErrorAndDiffCollector
 {

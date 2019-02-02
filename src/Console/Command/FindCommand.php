@@ -12,9 +12,6 @@ use Symplify\EasyCodingStandard\Finder\CheckerClassFinder;
 use Symplify\PackageBuilder\Composer\VendorDirProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
-use function Safe\getcwd;
-use function Safe\sort;
-use function Safe\sprintf;
 
 final class FindCommand extends Command
 {

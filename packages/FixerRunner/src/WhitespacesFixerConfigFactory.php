@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\FixerRunner;
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use function Safe\sprintf;
 
 final class WhitespacesFixerConfigFactory
 {

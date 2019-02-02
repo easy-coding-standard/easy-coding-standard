@@ -12,7 +12,6 @@ use Symplify\EasyCodingStandard\Console\Command\FindCommand;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
-use function Safe\realpath;
 
 final class Application extends SymfonyApplication
 {

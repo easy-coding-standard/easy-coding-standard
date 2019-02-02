@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\Finder;
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
-use function Safe\ksort;
 
 final class SourceFinder
 {

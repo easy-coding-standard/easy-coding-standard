@@ -7,7 +7,6 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
 use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
-use function Safe\md5_file;
 
 final class FileHashComputerTest extends AbstractContainerAwareTestCase
 {

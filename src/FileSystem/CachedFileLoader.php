@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Psr\SimpleCache\CacheInterface;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
-use function Safe\md5_file;
 
 final class CachedFileLoader
 {

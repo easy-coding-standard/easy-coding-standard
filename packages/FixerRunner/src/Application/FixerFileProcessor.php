@@ -16,8 +16,6 @@ use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use Throwable;
-use function Safe\sprintf;
-use function Safe\usort;
 
 final class FixerFileProcessor implements FileProcessorInterface
 {
