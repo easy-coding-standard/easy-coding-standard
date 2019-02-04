@@ -19,9 +19,10 @@ abstract class AbstractContainerAwareTestCase extends TestCase
     private static $cachedContainer;
 
     /**
-     * @param mixed[] $data
+     * @param mixed[]    $data
+     * @param int|string $dataName
      */
-    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
     {
         if (self::$cachedContainer === null) {
             self::$cachedContainer = (new ContainerFactory())->create();
