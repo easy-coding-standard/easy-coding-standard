@@ -4,7 +4,6 @@
 use Composer\XdebugHandler\XdebugHandler;
 use Symfony\Component\DependencyInjection\Container;
 use Symplify\EasyCodingStandard\Console\Application;
-use Symplify\PackageBuilder\Console\ThrowableRenderer;
 
 require_once __DIR__ . '/autoload.php';
 
@@ -15,13 +14,8 @@ $xdebug = new XdebugHandler('ecs', '--ansi');
 $xdebug->check();
 unset($xdebug);
 
-try {
-    /** @var Container $container */
-    $container = require __DIR__ . '/container.php';
+/** @var Container $container */
+$container = require __DIR__ . '/container.php';
 
-    $application = $container->get(Application::class);
-    exit($application->run());
-} catch (Throwable $throwable) {
-    (new ThrowableRenderer())->render($throwable);
-    exit($throwable->getCode());
-}
+$application = $container->get(Application::class);
+exit($application->run());
