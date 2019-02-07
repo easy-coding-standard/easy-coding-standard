@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 
 final class ContainerFactory
 {
