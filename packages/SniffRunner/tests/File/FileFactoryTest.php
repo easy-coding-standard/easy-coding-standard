@@ -3,13 +3,14 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class FileFactoryTest extends AbstractContainerAwareTestCase
+final class FileFactoryTest extends AbstractKernelTestCase
 {
     /**
      * @var FileFactory
@@ -18,7 +19,9 @@ final class FileFactoryTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileFactory = $this->container->get(FileFactory::class);
+        $this->bootKernel(EasyCodingStandardKernel::class);
+
+        $this->fileFactory = self::$container->get(FileFactory::class);
     }
 
     public function test(): void

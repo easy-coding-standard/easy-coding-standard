@@ -8,6 +8,7 @@ use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\DetectParametersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -16,43 +17,54 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
+use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoReturnFactoryCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\ConfigurableCollectorCompilerPass;
-use Symplify\PackageBuilder\HttpKernel\SimpleKernelTrait;
 
-final class EasyCodingStandardKernel extends Kernel
+final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareKernelInterface
 {
-    use SimpleKernelTrait;
-
     /**
      * @var string[]
      */
-    private $extraConfigFiles = [];
-
-    /**
-     * @param string[] $configFiles
-     */
-    public function __construct(array $configFiles = [])
-    {
-        $this->extraConfigFiles = $configFiles;
-
-        $configFilesHash = md5(serialize($configFiles));
-
-        // debug: require to invalidate container on service files change
-        parent::__construct('ecs_' . $configFilesHash, true);
-    }
+    private $configs = [];
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/../../config/config.yml');
 
-        foreach ($this->extraConfigFiles as $configFile) {
-            $loader->load($configFile);
+        foreach ($this->configs as $config) {
+            $loader->load($config);
         }
+    }
+
+    public function getCacheDir(): string
+    {
+        return sys_get_temp_dir() . '/easy_coding_standard';
+    }
+
+    public function getLogDir(): string
+    {
+        return sys_get_temp_dir() . '/easy_coding_standard_logs';
+    }
+
+    /**
+     * @return BundleInterface[]
+     */
+    public function registerBundles(): iterable
+    {
+        return [];
+    }
+
+    /**
+     * @param string[] $configs
+     */
+    public function setConfigs(array $configs): void
+    {
+        $this->configs = $configs;
     }
 
     /**

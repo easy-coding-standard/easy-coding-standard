@@ -2,23 +2,24 @@
 
 namespace Symplify\EasyCodingStandard\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class MutualExcludedCheckersTest extends TestCase
+final class MutualExcludedCheckersTest extends AbstractKernelTestCase
 {
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfigs(
+        $this->bootKernelWithConfigs(
+            EasyCodingStandardKernel::class,
             [__DIR__ . '/MutualExcludedCheckersSource/config.yml']
         );
 
-        $fixerFileProcessor = $container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
         $this->assertCount(1, $fixerFileProcessor->getCheckers());
 
-        $sniffFileProcessor = $container->get(SniffFileProcessor::class);
+        $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
         $this->assertCount(0, $sniffFileProcessor->getCheckers());
     }
 }

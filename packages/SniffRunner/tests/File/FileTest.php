@@ -4,13 +4,14 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class FileTest extends AbstractContainerAwareTestCase
+final class FileTest extends AbstractKernelTestCase
 {
     /**
      * @var File
@@ -29,10 +30,12 @@ final class FileTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->errorAndDiffCollector = $this->container->get(ErrorAndDiffCollector::class);
-        $this->currentFileProvider = $this->container->get(CurrentFileProvider::class);
+        $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $fileFactory = $this->container->get(FileFactory::class);
+        $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
+        $this->currentFileProvider = self::$container->get(CurrentFileProvider::class);
+
+        $fileFactory = self::$container->get(FileFactory::class);
         $fileInfo = new SmartFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
 

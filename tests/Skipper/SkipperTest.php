@@ -5,11 +5,12 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper;
 use Iterator;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\Tests\AbstractConfigContainerAwareTestCase;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class SkipperTest extends AbstractConfigContainerAwareTestCase
+final class SkipperTest extends AbstractKernelTestCase
 {
     /**
      * @var Skipper
@@ -18,7 +19,9 @@ final class SkipperTest extends AbstractConfigContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->skipper = $this->container->get(Skipper::class);
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config.yml']);
+
+        $this->skipper = self::$container->get(Skipper::class);
     }
 
     /**
@@ -82,10 +85,5 @@ final class SkipperTest extends AbstractConfigContainerAwareTestCase
             __DIR__ . '/Source/skip.php.inc',
             false,
         ];
-    }
-
-    protected function provideConfig(): string
-    {
-        return __DIR__ . '/config.yml';
     }
 }

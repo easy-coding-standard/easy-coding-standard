@@ -2,17 +2,20 @@
 
 namespace Symplify\EasyCodingStandard\Tests\DependencyInjection;
 
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class ExcludedCheckersTest extends TestCase
+final class ExcludedCheckersTest extends AbstractKernelTestCase
 {
+    protected function setUp(): void
+    {
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/ExcludedCheckersSource/config.yml']);
+    }
+
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfigs([__DIR__ . '/ExcludedCheckersSource/config.yml']);
-
-        $fixerFileProcessor = $container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getCheckers());
     }
 }

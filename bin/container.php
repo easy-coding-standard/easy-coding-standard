@@ -1,28 +1,49 @@
 <?php declare(strict_types=1);
 
 use Symfony\Component\Console\Input\ArgvInput;
-use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\Configuration\LevelFileFinder;
 
 // Detect configuration from level option
-$configFiles = [];
-$configFiles[] = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
+$configs = [];
+$configs[] = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
 
 // Fallback to config option
 ConfigFileFinder::detectFromInput('ecs', new ArgvInput());
-$configFiles[] = ConfigFileFinder::provide(
+$configs[] = ConfigFileFinder::provide(
     'ecs',
     ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
 );
 
 // remove empty values
-$configFiles = array_filter($configFiles);
+$configs = array_filter($configs);
 
-// Build DI container
-$containerFactory = new ContainerFactory();
-if ($configFiles) {
-    return $containerFactory->createWithConfigs($configFiles);
+function isDebug(): bool
+{
+    $argvInput = new ArgvInput();
+    return (bool) $argvInput->hasParameterOption(['--debug', '-v', '-vv', '-vvv']);
 }
 
-return $containerFactory->create();
+/**
+ * @param string[] $configs
+ */
+function computeConfigHash(array $configs): string
+{
+    $hash = '';
+    foreach ($configs as $config) {
+        $hash .= md5_file($config);
+    }
+
+    return $hash;
+}
+
+// Build DI container
+$easyCodingStandardKernel = new EasyCodingStandardKernel('prod' . computeConfigHash($configs), isDebug());
+if ($configs !== []) {
+    $easyCodingStandardKernel->setConfigs($configs);
+}
+
+$easyCodingStandardKernel->boot();
+
+return $easyCodingStandardKernel->getContainer();
