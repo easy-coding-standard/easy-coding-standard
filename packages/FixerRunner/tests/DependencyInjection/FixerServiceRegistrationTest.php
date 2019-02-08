@@ -5,13 +5,13 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Tests\DependencyInjection;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
 use Symplify\EasyCodingStandard\Exception\DependencyInjection\Extension\FixerIsNotConfigurableException;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class FixerServiceRegistrationTest extends TestCase
+final class FixerServiceRegistrationTest extends AbstractKernelTestCase
 {
     /**
      * @var PrivatesAccessor
@@ -25,11 +25,12 @@ final class FixerServiceRegistrationTest extends TestCase
 
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfigs(
+        $this->bootKernelWithConfigs(
+            EasyCodingStandardKernel::class,
             [__DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.yml']
         );
 
-        $fixerFileProcessor = $container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
 
         $checkers = $fixerFileProcessor->getCheckers();
         $this->assertCount(2, $checkers);
@@ -56,7 +57,8 @@ final class FixerServiceRegistrationTest extends TestCase
             sprintf('Fixer "%s" is not configurable with configuration: {"be_strict":"yea"}.', StrictParamFixer::class)
         );
 
-        (new ContainerFactory())->createWithConfigs(
+        $this->bootKernelWithConfigs(
+            EasyCodingStandardKernel::class,
             [__DIR__ . '/FixerServiceRegistrationSource/non-configurable-fixer.yml']
         );
     }

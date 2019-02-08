@@ -3,20 +3,21 @@
 namespace Symplify\EasyCodingStandard\Tests\Finder;
 
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\EasyCodingStandard\Tests\AbstractConfigContainerAwareTestCase;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class AppendFileProviderTest extends AbstractConfigContainerAwareTestCase
+final class AppendFileProviderTest extends AbstractKernelTestCase
 {
     public function test(): void
     {
-        $sourceFinder = $this->container->get(SourceFinder::class);
+        $this->bootKernelWithConfigs(
+            EasyCodingStandardKernel::class,
+            [__DIR__ . '/SourceFinderSource/config-with-append-file-provider.yml']
+        );
+
+        $sourceFinder = self::$container->get(SourceFinder::class);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source/tests']);
 
         $this->assertCount(3, $foundFiles);
-    }
-
-    protected function provideConfig(): string
-    {
-        return __DIR__ . '/SourceFinderSource/config-with-append-file-provider.yml';
     }
 }

@@ -3,19 +3,20 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\DI;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class SniffServiceRegistrationTest extends TestCase
+final class SniffServiceRegistrationTest extends AbstractKernelTestCase
 {
     public function test(): void
     {
-        $container = (new ContainerFactory())->createWithConfigs(
+        static::bootKernelWithConfigs(
+            EasyCodingStandardKernel::class,
             [__DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.yml']
         );
 
-        $sniffFileProcessor = $container->get(SniffFileProcessor::class);
+        $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
 
         /** @var LineLengthSniff $lineLengthSniff */
         $lineLengthSniff = $sniffFileProcessor->getCheckers()[0];

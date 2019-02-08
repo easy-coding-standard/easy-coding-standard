@@ -2,13 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class FixerTest extends AbstractContainerAwareTestCase
+final class FixerTest extends AbstractKernelTestCase
 {
     /**
      * @var Fixer
@@ -22,10 +23,12 @@ final class FixerTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $fileFactory = $this->container->get(FileFactory::class);
+        $this->bootKernel(EasyCodingStandardKernel::class);
+
+        $fileFactory = self::$container->get(FileFactory::class);
 
         $this->file = $fileFactory->createFromFileInfo(new SmartFileInfo(__DIR__ . '/FixerSource/SomeFile.php'));
-        $this->fixer = $this->container->get(Fixer::class);
+        $this->fixer = self::$container->get(Fixer::class);
     }
 
     public function testStartFile(): void

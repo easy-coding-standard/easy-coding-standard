@@ -9,13 +9,14 @@ use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Application;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Tests\AbstractConfigContainerAwareTestCase;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
 /**
  * @covers \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter
  */
-final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
+final class JsonOutputFormatterTest extends AbstractKernelTestCase
 {
     /**
      * @var Application
@@ -29,10 +30,12 @@ final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $easyCodingStandardStyle = $this->createEasyCodingStandardStyleWithBufferOutput();
-        $this->container->set(EasyCodingStandardStyle::class, $easyCodingStandardStyle);
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/config.yml']);
 
-        $this->application = $this->container->get(Application::class);
+        $easyCodingStandardStyle = $this->createEasyCodingStandardStyleWithBufferOutput();
+        self::$container->set(EasyCodingStandardStyle::class, $easyCodingStandardStyle);
+
+        $this->application = self::$container->get(Application::class);
         $this->application->setAutoExit(false);
     }
 
@@ -53,11 +56,6 @@ final class JsonOutputFormatterTest extends AbstractConfigContainerAwareTestCase
 
         $output = trim($this->bufferedOutput->fetch());
         $this->assertStringMatchesFormatFile(__DIR__ . '/Source/expected_json_output.json', $output);
-    }
-
-    protected function provideConfig(): string
-    {
-        return __DIR__ . '/config/config.yml';
     }
 
     /**

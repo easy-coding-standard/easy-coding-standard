@@ -49,64 +49,64 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
         [
             'PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\LowercaseClassKeywordsSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\UseDeclarationSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer',
             'SlevomatCodingStandard\Sniffs\Namespaces\DisallowGroupUseSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer',
             'SlevomatCodingStandard\Sniffs\Namespaces\MultipleUsesPerLineSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Phpdoc\PhpdocScalarFixer',
             'SlevomatCodingStandard\Sniffs\TypeHints\LongTypeHintsSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Import\OrderedImportsFixer',
             'SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Import\NoUnusedImportsFixer',
             'SlevomatCodingStandard\Sniffs\Namespaces\UnusedUses',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer',
             'SlevomatCodingStandard\Sniffs\Arrays\TrailingArrayCommaSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer',
             'SlevomatCodingStandard\Sniffs\ControlStructures\LanguageConstructWithParenthesesSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Basic\Psr4Fixer',
             'SlevomatCodingStandard\Sniffs\Files\TypeNameMatchesFileNameSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer',
             'SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer',
             'SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationArgumentSpacingSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer',
             'SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff',
-        ], [
+        ],                                               [
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff',
             'PhpCsFixer\Fixer\ControlStructure\IncludeFixer',
-        ], [
+        ],                                               [
             'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff',
             'SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings\DoubleQuoteUsageSniff',
         ],
@@ -114,37 +114,37 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
         [
             'PhpCsFixer\Fixer\Basic\BracesFixer',
             'PHP_CodeSniffer\Standards\PEAR\Sniffs\WhiteSpace\ScopeClosingBraceSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\NamespaceDeclarationSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\DisallowMultipleStatementsSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Whitespace\LineEndingFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Basic\BracesFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\Basic\BracesFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\ClosingTagSniff',
-        ], [
+        ],                                               [
             'PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer',
             'PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff',
         ],

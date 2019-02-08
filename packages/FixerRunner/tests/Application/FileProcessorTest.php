@@ -5,11 +5,13 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Application;
 use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
 use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
-use PHPUnit\Framework\TestCase;
-use Symplify\EasyCodingStandard\DependencyInjection\ContainerFactory;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class FileProcessorTest extends TestCase
+final class FileProcessorTest extends AbstractKernelTestCase
 {
     /**
      * @var FixerFileProcessor
@@ -18,11 +20,15 @@ final class FileProcessorTest extends TestCase
 
     protected function setUp(): void
     {
-        $container = (new ContainerFactory())->createWithConfigs(
+        static::bootKernelWithConfigs(
+            EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.yml']
         );
 
-        $this->fixerFileProcessor = $container->get(FixerFileProcessor::class);
+        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
+        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+
+        $this->fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
     }
 
     public function testGetSortedCheckers(): void

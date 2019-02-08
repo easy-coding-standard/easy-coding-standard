@@ -2,11 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Parser;
 
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class FileToTokensParserTest extends AbstractContainerAwareTestCase
+final class FileToTokensParserTest extends AbstractKernelTestCase
 {
     /**
      * @var FileToTokensParser
@@ -15,7 +16,9 @@ final class FileToTokensParserTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileToTokensParser = $this->container->get(FileToTokensParser::class);
+        static::bootKernel(EasyCodingStandardKernel::class);
+
+        $this->fileToTokensParser = static::$container->get(FileToTokensParser::class);
     }
 
     public function test(): void

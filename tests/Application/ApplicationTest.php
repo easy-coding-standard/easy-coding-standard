@@ -3,9 +3,10 @@
 namespace Symplify\EasyCodingStandard\Tests\Application;
 
 use Symplify\EasyCodingStandard\Application\Application;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class ApplicationTest extends AbstractContainerAwareTestCase
+final class ApplicationTest extends AbstractKernelTestCase
 {
     /**
      * @var Application
@@ -14,7 +15,9 @@ final class ApplicationTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->application = $this->container->get(Application::class);
+        $this->bootKernel(EasyCodingStandardKernel::class);
+
+        $this->application = self::$container->get(Application::class);
     }
 
     /**

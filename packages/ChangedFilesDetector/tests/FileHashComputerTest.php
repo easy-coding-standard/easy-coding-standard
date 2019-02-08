@@ -6,9 +6,10 @@ use Nette\Utils\FileSystem;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
-use Symplify\EasyCodingStandard\Tests\AbstractContainerAwareTestCase;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class FileHashComputerTest extends AbstractContainerAwareTestCase
+final class FileHashComputerTest extends AbstractKernelTestCase
 {
     /**
      * @var string
@@ -22,7 +23,9 @@ final class FileHashComputerTest extends AbstractContainerAwareTestCase
 
     protected function setUp(): void
     {
-        $this->fileHashComputer = $this->container->get(FileHashComputer::class);
+        $this->bootKernel(EasyCodingStandardKernel::class);
+
+        $this->fileHashComputer = self::$container->get(FileHashComputer::class);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void
