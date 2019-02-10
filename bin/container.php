@@ -19,12 +19,6 @@ $configs[] = ConfigFileFinder::provide(
 // remove empty values
 $configs = array_filter($configs);
 
-function isDebug(): bool
-{
-    $argvInput = new ArgvInput();
-    return (bool) $argvInput->hasParameterOption(['--debug', '-v', '-vv', '-vvv']);
-}
-
 /**
  * @param string[] $configs
  */
@@ -38,12 +32,11 @@ function computeConfigHash(array $configs): string
     return $hash;
 }
 
-// Build DI container
-$easyCodingStandardKernel = new EasyCodingStandardKernel('prod' . computeConfigHash($configs), isDebug());
+$isDebug = (bool) (new ArgvInput())->hasParameterOption(['--debug', '-v', '-vv', '-vvv']);
+$easyCodingStandardKernel = new EasyCodingStandardKernel('prod' . computeConfigHash($configs), $isDebug);
 if ($configs !== []) {
     $easyCodingStandardKernel->setConfigs($configs);
 }
-
 $easyCodingStandardKernel->boot();
 
 return $easyCodingStandardKernel->getContainer();
