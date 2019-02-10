@@ -4,6 +4,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\PackageBuilder\Configuration\LevelFileFinder;
+use Symplify\PackageBuilder\Console\Input\InputDetector;
 
 // Detect configuration from level option
 $configs = [];
@@ -32,11 +33,13 @@ function computeConfigHash(array $configs): string
     return $hash;
 }
 
-$isDebug = (bool) (new ArgvInput())->hasParameterOption(['--debug', '-v', '-vv', '-vvv']);
-$easyCodingStandardKernel = new EasyCodingStandardKernel('prod' . computeConfigHash($configs), $isDebug);
+$environment = 'prod' . computeConfigHash($configs);
+$easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
+
 if ($configs !== []) {
     $easyCodingStandardKernel->setConfigs($configs);
 }
+
 $easyCodingStandardKernel->boot();
 
 return $easyCodingStandardKernel->getContainer();
