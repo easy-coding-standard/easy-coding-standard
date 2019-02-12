@@ -33,7 +33,7 @@ function computeConfigHash(array $configs): string
     return $hash;
 }
 
-$environment = 'prod' . computeConfigHash($configs);
+$environment = 'prod' . computeConfigHash($configs) . random_int(1, 100000);
 $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
 
 if ($configs !== []) {
