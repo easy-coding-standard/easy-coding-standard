@@ -187,6 +187,24 @@ final class CheckerServiceParametersShifter
     }
 
     /**
+     * @param mixed[] $serviceDefinition
+     * @return mixed[]
+     */
+    private function correctHeader(string $checker, array $serviceDefinition): array
+    {
+        // fixes comment extra bottom space
+        if ($checker !== HeaderCommentFixer::class) {
+            return $serviceDefinition;
+        }
+
+        if (isset($serviceDefinition['header'])) {
+            $serviceDefinition['header'] = trim($serviceDefinition['header']);
+        }
+
+        return $serviceDefinition;
+    }
+
+    /**
      * @param mixed $value
      * @return mixed
      */
@@ -205,23 +223,5 @@ final class CheckerServiceParametersShifter
         }
 
         return Strings::replace($value, '#@#', '@@');
-    }
-
-    /**
-     * @param mixed[] $serviceDefinition
-     * @return mixed[]
-     */
-    private function correctHeader(string $checker, array $serviceDefinition): array
-    {
-        // fixes comment extra bottom space
-        if ($checker !== HeaderCommentFixer::class) {
-            return $serviceDefinition;
-        }
-
-        if (isset($serviceDefinition['header'])) {
-            $serviceDefinition['header'] = trim($serviceDefinition['header']);
-        }
-
-        return $serviceDefinition;
     }
 }
