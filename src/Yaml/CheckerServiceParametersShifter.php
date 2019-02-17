@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Yaml;
 
+use Illuminate\Support\Str;
 use Nette\Utils\Strings;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use ReflectionClass;
@@ -147,7 +148,7 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            $key = $this->stringFormatConverter->underscoreToCamelCase($key);
+            $key = Str::camel($key);
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
 
             $services[$checker]['properties'][$key] = $this->escapeValue($value);
