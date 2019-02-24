@@ -7,8 +7,6 @@ services:
         resource: '../src'
         exclude: '../src/{Contract,DependencyInjection,HttpKernel,Exception,Error/Error.php,Error/FileDiff.php,Yaml}'
 
-    Symplify\EasyCodingStandard\Console\Application: ~
-
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
             calls:
@@ -22,12 +20,11 @@ services:
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
     Symplify\PackageBuilder\FileSystem\FileGuard: ~
     Symplify\PackageBuilder\Php\TypeAnalyzer: ~
+    Symplify\PackageBuilder\FileSystem\FinderSanitizer: ~
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
     PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer: ~
-
-    Symplify\PackageBuilder\FileSystem\FinderSanitizer: ~
 
     Symfony\Component\EventDispatcher\EventDispatcher: ~
     Symplify\PackageBuilder\EventSubscriber\ParameterTypoProofreaderEventSubscriber: ~
