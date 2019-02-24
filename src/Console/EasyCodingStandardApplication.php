@@ -2,7 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Console;
 
-use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -13,7 +14,7 @@ use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
 
-final class Application extends SymfonyApplication
+final class EasyCodingStandardApplication extends Application
 {
     use HelpfulApplicationTrait;
 
@@ -22,10 +23,14 @@ final class Application extends SymfonyApplication
      */
     private $configuration;
 
-    public function __construct(Configuration $configuration)
+    /**
+     * @param Command[] $commands
+     */
+    public function __construct(Configuration $configuration, array $commands)
     {
         parent::__construct('EasyCodingStandard', $configuration->getPrettyVersion());
         $this->configuration = $configuration;
+        $this->addCommands($commands);
     }
 
     public function doRun(InputInterface $input, OutputInterface $output): int
@@ -63,7 +68,7 @@ final class Application extends SymfonyApplication
         $hasVersionOption = $input->hasParameterOption('--version');
         $hasJsonOutput = $input->getParameterOption('--output-format') === JsonOutputFormatter::NAME;
 
-        return ($hasVersionOption || $hasNoArguments || $hasJsonOutput) === false;
+        return ! ($hasVersionOption || $hasNoArguments || $hasJsonOutput);
     }
 
     private function configExists(?string $configPath): bool
