@@ -24,11 +24,6 @@ final class FileFactory
     private $errorAndDiffCollector;
 
     /**
-     * @var FileToTokensParser
-     */
-    private $fileToTokensParser;
-
-    /**
      * @var Skipper
      */
     private $skipper;
@@ -51,7 +46,6 @@ final class FileFactory
     public function __construct(
         Fixer $fixer,
         ErrorAndDiffCollector $errorAndDiffCollector,
-        FileToTokensParser $fileToTokensParser,
         CurrentCheckerProvider $currentCheckerProvider,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector,
@@ -59,7 +53,6 @@ final class FileFactory
     ) {
         $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
-        $this->fileToTokensParser = $fileToTokensParser;
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->currentFileProvider = $currentFileProvider;
@@ -68,20 +61,15 @@ final class FileFactory
 
     public function createFromFileInfo(SmartFileInfo $smartFileInfo): File
     {
-//        $fileTokens = $this->fileToTokensParser->parseFromFileInfo($smartFileInfo);
-        $content = $smartFileInfo->getContents();
-
         return new File(
             $smartFileInfo->getRelativeFilePath(),
-            $content,
-            //            $fileTokens,
+            $smartFileInfo->getContents(),
             $this->fixer,
             $this->errorAndDiffCollector,
             $this->currentCheckerProvider,
             $this->skipper,
             $this->appliedCheckersCollector,
-            $this->currentFileProvider,
-            $this->fileToTokensParser
+            $this->currentFileProvider
         );
     }
 }
