@@ -54,28 +54,6 @@ final class FileProcessorTest extends AbstractKernelTestCase
         $this->assertCount(1, $sniffs);
     }
 
-    public function testFileProvingNeedOfProperSupportOfChangesets(): void
-    {
-        static::bootKernelWithConfigs(
-            EasyCodingStandardKernel::class,
-            [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.yml']
-        );
-        $this->makeConsoleOutputQuite();
-
-        $smartFileInfo = new SmartFileInfo(
-            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php.inc'
-        );
-
-        $currentFileProvider = self::$container->get(CurrentFileProvider::class);
-        $currentFileProvider->setFileInfo($smartFileInfo);
-
-        $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
-        $this->assertStringEqualsFile(
-            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets-fixed.php.inc',
-            $sniffFileProcessor->processFile($smartFileInfo)
-        );
-    }
-
     private function makeConsoleOutputQuite(): void
     {
         $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);

@@ -3,10 +3,10 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
+use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
