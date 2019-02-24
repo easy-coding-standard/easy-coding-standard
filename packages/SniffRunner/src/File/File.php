@@ -7,13 +7,13 @@ use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
+use PHP_CodeSniffer\Util\Common;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
-use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 
 final class File extends BaseFile
 {
@@ -67,15 +67,14 @@ final class File extends BaseFile
         CurrentCheckerProvider $currentCheckerProvider,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector,
-        CurrentFileProvider $currentFileProvider,
-        FileToTokensParser $fileToTokensParser
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->path = $path;
         $this->content = $content;
         $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
 
-        $this->eolChar = PHP_EOL;
+        $this->eolChar = Common::detectLineEndings($content);
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->currentFileProvider = $currentFileProvider;
@@ -88,6 +87,9 @@ final class File extends BaseFile
 
         // parent required
         $this->config = new Config([], false);
+        $this->config->tabWidth = 4;
+        $this->config->annotations = false;
+        $this->config->encoding = 'UTF-8';
     }
 
     public function process(): void
