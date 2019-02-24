@@ -2,12 +2,12 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
+use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 

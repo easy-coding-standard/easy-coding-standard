@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
 use Nette\Utils\FileSystem;
+use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
@@ -18,7 +19,6 @@ use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFileProcessorInterface

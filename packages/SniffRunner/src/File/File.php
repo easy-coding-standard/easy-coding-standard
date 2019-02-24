@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
 use PHP_CodeSniffer\Files\File as BaseFile;
+use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
@@ -11,7 +12,6 @@ use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
-use Symplify\EasyCodingStandard\SniffRunner\Fixer\Fixer;
 
 final class File extends BaseFile
 {
