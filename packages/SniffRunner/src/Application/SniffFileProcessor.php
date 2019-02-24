@@ -162,6 +162,8 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
         // 1. puts tokens into fixer
+        $file->parse();
+
         $this->fixer->startFile($file);
 
         // 2. run all Sniff fixers
@@ -170,7 +172,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         // 3. add diff
         if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($smartFileInfo->getContents(), $this->fixer->getContents());
-
             $this->errorAndDiffCollector->addDiffForFileInfo(
                 $smartFileInfo,
                 $diff,
