@@ -33,9 +33,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.yml']
         );
-
-        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+        $this->makeConsoleOutputQuite();
 
         $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
         $this->currentFileProvider = self::$container->get(CurrentFileProvider::class);
@@ -62,9 +60,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.yml']
         );
-
-        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+        $this->makeConsoleOutputQuite();
 
         $smartFileInfo = new SmartFileInfo(
             __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php.inc'
@@ -78,5 +74,11 @@ final class FileProcessorTest extends AbstractKernelTestCase
             __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets-fixed.php.inc',
             $sniffFileProcessor->processFile($smartFileInfo)
         );
+    }
+
+    private function makeConsoleOutputQuite(): void
+    {
+        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
+        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
     }
 }
