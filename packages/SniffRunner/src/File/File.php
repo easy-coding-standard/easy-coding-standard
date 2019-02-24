@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\File;
 
+use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
@@ -12,6 +13,7 @@ use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
+use Symplify\EasyCodingStandard\SniffRunner\Parser\FileToTokensParser;
 
 final class File extends BaseFile
 {
@@ -57,39 +59,35 @@ final class File extends BaseFile
      */
     private $currentCheckerProvider;
 
-    /**
-     * @param array[] $tokens
-     */
     public function __construct(
         string $path,
-        array $tokens,
+        string $content,
         Fixer $fixer,
         ErrorAndDiffCollector $errorAndDiffCollector,
         CurrentCheckerProvider $currentCheckerProvider,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector,
-        CurrentFileProvider $currentFileProvider
+        CurrentFileProvider $currentFileProvider,
+        FileToTokensParser $fileToTokensParser
     ) {
         $this->path = $path;
-        $this->tokens = $tokens;
+        $this->content = $content;
         $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
-
-        $this->numTokens = count($this->tokens);
 
         $this->eolChar = PHP_EOL;
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         $this->currentFileProvider = $currentFileProvider;
         $this->currentCheckerProvider = $currentCheckerProvider;
-    }
 
-    public function parse(): void
-    {
-        throw new NotImplementedException(sprintf(
-            'Method %s not needed to be public. File is already parsed on __construct.',
-            __METHOD__
-        ));
+        // compat
+        if (! defined('PHP_CODESNIFFER_CBF')) {
+            define('PHP_CODESNIFFER_CBF', false);
+        }
+
+        // parent required
+        $this->config = new Config([], false);
     }
 
     public function process(): void

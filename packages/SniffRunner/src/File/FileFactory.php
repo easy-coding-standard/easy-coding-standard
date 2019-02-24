@@ -68,24 +68,20 @@ final class FileFactory
 
     public function createFromFileInfo(SmartFileInfo $smartFileInfo): File
     {
-        $fileTokens = $this->fileToTokensParser->parseFromFileInfo($smartFileInfo);
+//        $fileTokens = $this->fileToTokensParser->parseFromFileInfo($smartFileInfo);
+        $content = $smartFileInfo->getContents();
 
-        $file = new File(
+        return new File(
             $smartFileInfo->getRelativeFilePath(),
-            $fileTokens,
+            $content,
+            //            $fileTokens,
             $this->fixer,
             $this->errorAndDiffCollector,
             $this->currentCheckerProvider,
             $this->skipper,
             $this->appliedCheckersCollector,
-            $this->currentFileProvider
+            $this->currentFileProvider,
+            $this->fileToTokensParser
         );
-
-        $file->eolChar = $this->fileToTokensParser->detectLineEndingsFromFileInfo($smartFileInfo);
-
-        // BC layer
-        $file->tokenizer = $this->fileToTokensParser->createTokenizerFromFileInfo($smartFileInfo);
-
-        return $file;
     }
 }

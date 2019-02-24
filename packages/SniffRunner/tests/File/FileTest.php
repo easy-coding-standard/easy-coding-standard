@@ -38,6 +38,7 @@ final class FileTest extends AbstractKernelTestCase
         $fileFactory = self::$container->get(FileFactory::class);
         $fileInfo = new SmartFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
+        $this->file->parse();
 
         // simulates Application cycle
         $this->currentFileProvider->setFileInfo($fileInfo);
@@ -72,7 +73,6 @@ final class FileTest extends AbstractKernelTestCase
 
     public function testNotImplementedParse(): void
     {
-        $this->expectException(NotImplementedException::class);
         $this->file->parse();
     }
 }
