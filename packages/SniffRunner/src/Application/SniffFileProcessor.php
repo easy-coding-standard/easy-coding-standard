@@ -8,7 +8,6 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
-use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
@@ -65,11 +64,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $appliedCheckersCollector;
 
     /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
      * @param Sniff[] $sniffs
      */
     public function __construct(
@@ -79,7 +73,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
-        CurrentFileProvider $currentFileProvider,
         array $sniffs
     ) {
         $this->fixer = $fixer;
@@ -94,7 +87,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
         }
-        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function addSniff(Sniff $sniff): void
@@ -131,9 +123,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
 
     public function processFile(SmartFileInfo $smartFileInfo): string
     {
-        // required for dual run
-        $this->currentFileProvider->setFileInfo($smartFileInfo);
-
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
         // mimic original behvaior, @see https://github.com/squizlabs/PHP_CodeSniffer/blob/e4da24f399d71d1077f93114a72e305286020415/src/Files/File.php#L310
