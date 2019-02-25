@@ -10,11 +10,11 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionS
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Common;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
-use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
+use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
 final class File extends BaseFile
 {
@@ -61,14 +61,14 @@ final class File extends BaseFile
     private $appliedCheckersCollector;
 
     /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
+
+    /**
+     * @var SmartFileInfo
+     */
+    private $fileInfo;
 
     public function __construct(
         string $path,
@@ -77,7 +77,6 @@ final class File extends BaseFile
         ErrorAndDiffCollector $errorAndDiffCollector,
         Skipper $skipper,
         AppliedCheckersCollector $appliedCheckersCollector,
-        CurrentFileProvider $currentFileProvider,
         EasyCodingStandardStyle $easyCodingStandardStyle
     ) {
         $this->path = $path;
@@ -88,7 +87,6 @@ final class File extends BaseFile
         $this->eolChar = Common::detectLineEndings($content);
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
-        $this->currentFileProvider = $currentFileProvider;
 
         // compat
         if (! defined('PHP_CODESNIFFER_CBF')) {
@@ -117,7 +115,7 @@ final class File extends BaseFile
             }
 
             foreach ($this->tokenListeners[$token['code']] as $sniff) {
-                if ($this->skipper->shouldSkipCheckerAndFile($sniff, $this->currentFileProvider->getFileInfo())) {
+                if ($this->skipper->shouldSkipCheckerAndFile($sniff, $this->fileInfo)) {
                     continue;
                 }
 
@@ -163,7 +161,7 @@ final class File extends BaseFile
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0): bool
     {
         $this->appliedCheckersCollector->addFileInfoAndChecker(
-            $this->currentFileProvider->getFileInfo(),
+            $this->fileInfo,
             $this->resolveFullyQualifiedCode($code)
         );
 
@@ -199,9 +197,10 @@ final class File extends BaseFile
     /**
      * @param Sniff[][] $tokenListeners
      */
-    public function processWithTokenListeners(array $tokenListeners): void
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, SmartFileInfo $fileInfo): void
     {
         $this->tokenListeners = $tokenListeners;
+        $this->fileInfo = $fileInfo;
         $this->process();
     }
 
@@ -231,7 +230,7 @@ final class File extends BaseFile
         }
 
         $this->errorAndDiffCollector->addErrorMessage(
-            $this->currentFileProvider->getFileInfo(),
+            $this->fileInfo,
             $line,
             $message,
             $this->resolveFullyQualifiedCode($sniffClassOrCode)
@@ -256,14 +255,13 @@ final class File extends BaseFile
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
 
-        $fileInfo = $this->currentFileProvider->getFileInfo();
-        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $fileInfo)) {
+        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $this->fileInfo)) {
             return true;
         }
 
         $message = count($data) ? vsprintf($error, $data) : $error;
 
-        return $this->skipper->shouldSkipMessageAndFile($message, $fileInfo);
+        return $this->skipper->shouldSkipMessageAndFile($message, $this->fileInfo);
     }
 
     private function isSniffClassWarningAllowed(string $sniffClass): bool
