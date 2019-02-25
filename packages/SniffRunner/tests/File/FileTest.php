@@ -64,15 +64,4 @@ final class FileTest extends AbstractKernelTestCase
         $this->expectException(NotImplementedException::class);
         $this->file->getErrors();
     }
-
-    public function testNotImplementedProcess(): void
-    {
-        $this->expectException(NotImplementedException::class);
-        $this->file->process();
-    }
-
-    public function testNotImplementedParse(): void
-    {
-        $this->file->parse();
-    }
 }
