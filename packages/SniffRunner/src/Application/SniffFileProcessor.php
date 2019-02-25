@@ -137,7 +137,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
         // mimic original behvaior, @see https://github.com/squizlabs/PHP_CodeSniffer/blob/e4da24f399d71d1077f93114a72e305286020415/src/Files/File.php#L310
-        $file->processWithTokenListeners($this->tokenListeners);
+        $file->processWithTokenListenersAndFileInfo($this->tokenListeners, $smartFileInfo);
 
         // 3. add diff
         if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
