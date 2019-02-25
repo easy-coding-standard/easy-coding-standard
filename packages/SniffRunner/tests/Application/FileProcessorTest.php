@@ -27,7 +27,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.yml']
         );
-        $this->makeConsoleOutputQuite();
+        $this->makeConsoleOutputQuiet();
 
         $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
     }
@@ -46,7 +46,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
         $this->assertCount(1, $sniffs);
     }
 
-    private function makeConsoleOutputQuite(): void
+    private function makeConsoleOutputQuiet(): void
     {
         $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
         $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);

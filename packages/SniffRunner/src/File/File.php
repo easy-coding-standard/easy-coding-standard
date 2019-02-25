@@ -229,6 +229,11 @@ final class File extends BaseFile
             return $isFixable;
         }
 
+        // do not add non-fixable errors twice
+        if ($this->fixer->loops > 0) {
+            return false;
+        }
+
         $this->errorAndDiffCollector->addErrorMessage(
             $this->fileInfo,
             $line,
