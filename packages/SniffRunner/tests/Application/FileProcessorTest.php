@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
@@ -22,11 +21,6 @@ final class FileProcessorTest extends AbstractKernelTestCase
      */
     private $sniffFileProcessor;
 
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
     protected function setUp(): void
     {
         static::bootKernelWithConfigs(
@@ -36,13 +30,11 @@ final class FileProcessorTest extends AbstractKernelTestCase
         $this->makeConsoleOutputQuite();
 
         $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
-        $this->currentFileProvider = self::$container->get(CurrentFileProvider::class);
     }
 
     public function test(): void
     {
         $smartFileInfo = new SmartFileInfo(__DIR__ . '/FileProcessorSource/SomeFile.php.inc');
-        $this->currentFileProvider->setFileInfo($smartFileInfo);
 
         $fixedContent = $this->sniffFileProcessor->processFile($smartFileInfo);
         $this->assertNotSame($this->initialFileContent, $fixedContent);
