@@ -59,11 +59,6 @@ final class ErrorAndDiffCollector
 
         $error = $this->errorFactory->create($line, $message, $sourceClass, $fileInfo);
 
-        // is error already added?
-        if ($this->isErrorAlreadyAdded($relativePathnameToRoot, $error)) {
-            return;
-        }
-
         $this->errors[$relativePathnameToRoot][] = $error;
     }
 
@@ -113,24 +108,5 @@ final class ErrorAndDiffCollector
     {
         $this->errors = [];
         $this->fileDiffs = [];
-    }
-
-    private function isErrorAlreadyAdded(string $relativePathnameToRoot, Error $error): bool
-    {
-        if (! isset($this->errors[$relativePathnameToRoot])) {
-            return false;
-        }
-
-        foreach ($this->errors[$relativePathnameToRoot] as $addedError) {
-            if ($addedError->getLine() !== $error->getLine()) {
-                continue;
-            }
-
-            if ($addedError->getMessage() === $error->getMessage()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
