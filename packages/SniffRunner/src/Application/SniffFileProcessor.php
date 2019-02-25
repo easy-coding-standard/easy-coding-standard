@@ -13,6 +13,7 @@ use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorIn
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
@@ -125,10 +126,12 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     {
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
-        // mimic original behvaior, @see https://github.com/squizlabs/PHP_CodeSniffer/blob/e4da24f399d71d1077f93114a72e305286020415/src/Files/File.php#L310
-        $file->processWithTokenListenersAndFileInfo($this->tokenListeners, $smartFileInfo);
+        // mimic original behavior
+        /** mimics @see \PHP_CodeSniffer\Files\File::process() */
+        /** mimics @see \PHP_CodeSniffer\Fixer::fixFile() */
+        $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners);
 
-        // 3. add diff
+        // add diff
         if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($smartFileInfo->getContents(), $this->fixer->getContents());
             $this->errorAndDiffCollector->addDiffForFileInfo(
@@ -159,6 +162,27 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
             define('PHP_CODESNIFFER_VERBOSITY', 0);
             new Tokens();
         }
+    }
+
+    /**
+     * @param Sniff[][] $tokenListeners
+     */
+    private function fixFile(File $file, Fixer $fixer, SmartFileInfo $smartFileInfo, array $tokenListeners): void
+    {
+        $previousContent = $smartFileInfo->getContents();
+        $this->fixer->loops = 0;
+
+        do {
+            // Only needed once file content has changed.
+            $content = $previousContent;
+
+            $file->setContent($content);
+            $file->processWithTokenListenersAndFileInfo($tokenListeners, $smartFileInfo);
+
+            // fixed content
+            $previousContent = $fixer->getContents();
+            ++$this->fixer->loops;
+        } while ($previousContent !== $content);
     }
 
     private function prepareSecondRun(): void
