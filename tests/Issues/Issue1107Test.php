@@ -8,8 +8,6 @@ final class Issue1107Test extends AbstractCheckerTestCase
 {
     public function test(): void
     {
-        $this->markTestSkipped('Run after compat fix with PHP_CodeSniffer');
-
         $this->doTestWrongToFixedFile(__DIR__ . '/wrong/wrong1107.php.inc', __DIR__ . '/fixed/fixed1107.php.inc');
     }
 
