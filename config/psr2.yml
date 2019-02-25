@@ -1,3 +1,3 @@
 imports:
-    - { resource: 'php_codesniffer/psr2.yml' }
-    - { resource: 'php_cs_fixer/psr2.yml' }
+    - { resource: 'php_codesniffer/php-codesniffer-psr2.yml' }
+    - { resource: 'php_cs_fixer/php-cs-fixer-psr2.yml' }

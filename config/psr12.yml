@@ -1,5 +1,5 @@
 imports:
-    - { resource: 'php_cs_fixer/psr2.yml' }
+    - { resource: 'php_cs_fixer/php-cs-fixer-psr2.yml' }
 
 services:
     PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer: ~
