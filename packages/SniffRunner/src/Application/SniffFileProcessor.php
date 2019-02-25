@@ -8,16 +8,12 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
-use Symplify\EasyCodingStandard\Application\CurrentCheckerProvider;
 use Symplify\EasyCodingStandard\Application\CurrentFileProvider;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\Skipper;
-use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
@@ -54,11 +50,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $configuration;
 
     /**
-     * @var Skipper
-     */
-    private $skipper;
-
-    /**
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
@@ -74,16 +65,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     private $appliedCheckersCollector;
 
     /**
-     * @var CurrentCheckerProvider
-     */
-    private $currentCheckerProvider;
-
-    /**
-     * @var EasyCodingStandardStyle
-     */
-    private $easyCodingStandardStyle;
-
-    /**
      * @var CurrentFileProvider
      */
     private $currentFileProvider;
@@ -95,30 +76,24 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         Fixer $fixer,
         FileFactory $fileFactory,
         Configuration $configuration,
-        Skipper $skipper,
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
-        CurrentCheckerProvider $currentCheckerProvider,
-        EasyCodingStandardStyle $easyCodingStandardStyle,
         CurrentFileProvider $currentFileProvider,
         array $sniffs
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
         $this->configuration = $configuration;
-        $this->skipper = $skipper;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->differ = $differ;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
-        $this->currentCheckerProvider = $currentCheckerProvider;
 
         $this->addCompatibilityLayer();
 
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
         }
-        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->currentFileProvider = $currentFileProvider;
     }
 
@@ -161,13 +136,8 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
 
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
-        // 1. puts tokens into fixer
-        $file->parse();
-
-        $this->fixer->startFile($file);
-
-        // 2. run all Sniff fixers
-        $this->processTokens($file, $smartFileInfo);
+        // mimic original behvaior, @see https://github.com/squizlabs/PHP_CodeSniffer/blob/e4da24f399d71d1077f93114a72e305286020415/src/Files/File.php#L310
+        $file->processWithTokenListeners($this->tokenListeners);
 
         // 3. add diff
         if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
@@ -199,28 +169,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
             define('PHP_CODESNIFFER_VERBOSITY', 0);
             new Tokens();
-        }
-    }
-
-    private function processTokens(File $file, SmartFileInfo $smartFileInfo): void
-    {
-        foreach ($file->getTokens() as $position => $token) {
-            if (! array_key_exists($token['code'], $this->tokenListeners)) {
-                continue;
-            }
-
-            foreach ($this->tokenListeners[$token['code']] as $sniff) {
-                if ($this->skipper->shouldSkipCheckerAndFile($sniff, $smartFileInfo)) {
-                    continue;
-                }
-
-                $this->currentCheckerProvider->setChecker($sniff);
-                if ($this->easyCodingStandardStyle->isDebug()) {
-                    $this->easyCodingStandardStyle->writeln(get_class($sniff));
-                }
-
-                $sniff->process($file, $position);
-            }
         }
     }
 
