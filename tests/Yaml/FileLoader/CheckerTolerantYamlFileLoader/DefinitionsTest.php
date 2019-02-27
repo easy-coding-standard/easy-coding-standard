@@ -86,8 +86,6 @@ final class DefinitionsTest extends TestCase
             TypeHintDeclarationSniff::class,
             [],
             [
-                'enableVoidTypeHint' => true,
-                'enableNullableTypeHints' => true,
                 'enableObjectTypeHint' => false,
             ],
         ];
