@@ -29,9 +29,14 @@ final class File extends BaseFile
     public $fixer;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $activeSniffClass;
+
+    /**
+     * @var string|null
+     */
+    private $previousActiveSniffClass;
 
     /**
      * Explicit list for now.
@@ -119,11 +124,7 @@ final class File extends BaseFile
                     continue;
                 }
 
-                $this->activeSniffClass = get_class($sniff);
-
-                if ($this->easyCodingStandardStyle->isDebug()) {
-                    $this->easyCodingStandardStyle->writeln($this->activeSniffClass);
-                }
+                $this->reportActiveSniffClass($sniff);
 
                 $sniff->process($this, $stackPtr);
             }
@@ -242,6 +243,23 @@ final class File extends BaseFile
         );
 
         return true;
+    }
+
+    private function reportActiveSniffClass(Sniff $sniff): void
+    {
+        // used in other places later
+        $this->activeSniffClass = get_class($sniff);
+
+        if (! $this->easyCodingStandardStyle->isDebug()) {
+            return;
+        }
+
+        if ($this->previousActiveSniffClass === $this->activeSniffClass) {
+            return;
+        }
+
+        $this->easyCodingStandardStyle->writeln($this->activeSniffClass);
+        $this->previousActiveSniffClass = $this->activeSniffClass;
     }
 
     private function resolveFullyQualifiedCode(string $sniffClassOrCode): string
