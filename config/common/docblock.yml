@@ -2,9 +2,6 @@ services:
     # null|Type   →   Type|null
     SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff: ~
 
-    # no useless doc blocks
-    Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer: ~
-
     # remove empty spaces in phpdoc
     PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer:
 
