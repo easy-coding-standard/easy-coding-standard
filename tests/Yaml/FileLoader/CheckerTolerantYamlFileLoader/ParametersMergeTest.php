@@ -23,7 +23,7 @@ final class ParametersMergeTest extends TestCase
     public function provideConfigToParameters(): Iterator
     {
         yield [
-            __DIR__ . '/ParametersSource/config-skip-with-import.yml',
+            __DIR__ . '/ParametersSource/config-skip-with-import.yaml',
             [
                 'skip' => [
                     'firstCode' => null,
@@ -35,7 +35,7 @@ final class ParametersMergeTest extends TestCase
         ];
 
         yield [
-            __DIR__ . '/ParametersSource/config-skip-with-import-empty.yml',
+            __DIR__ . '/ParametersSource/config-skip-with-import-empty.yaml',
             [
                 'skip' => [
                     'firstCode' => null,
@@ -46,7 +46,7 @@ final class ParametersMergeTest extends TestCase
         ];
 
         yield [
-            __DIR__ . '/ParametersSource/config-string-overide.yml',
+            __DIR__ . '/ParametersSource/config-string-override.yaml',
             [
                 'key' => 'new_value',
             ],
@@ -63,13 +63,13 @@ final class ParametersMergeTest extends TestCase
 
         $delegatingLoader = (new DelegatingLoaderFactory())->createContainerBuilderAndConfig(
             $containerBuilder,
-            __DIR__ . '/someFile.yml'
+            __DIR__ . '/someFile.yaml'
         );
 
-        // local "config/config.yml"
-        $delegatingLoader->load(__DIR__ . '/../../../../config/config.yml');
-        // mimics user's "easy-config-standard.yml" with own values
-        $delegatingLoader->load(__DIR__ . '/ParametersSource/root-config-override.yml');
+        // local "config/config.yaml"
+        $delegatingLoader->load(__DIR__ . '/../../../../config/config.yaml');
+        // mimics user's "easy-config-standard.yaml" with own values
+        $delegatingLoader->load(__DIR__ . '/ParametersSource/root-config-override.yaml');
 
         $parameters = $containerBuilder->getParameterBag()->all();
         $this->assertArrayHasKey('cache_directory', $parameters);
