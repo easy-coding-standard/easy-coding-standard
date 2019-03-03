@@ -76,7 +76,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
         $files = $this->sourceFinder->find($this->configuration->getSources());
 
         // 2. clear cache
-        if ($this->configuration->shouldClearCache()) {
+        if ($this->configuration->shouldClearCache() || $this->isDualRunEnabled()) {
             $this->changedFilesDetector->clearCache();
         } else {
             $files = $this->fileFilter->filterOnlyChangedFiles($files);
