@@ -1,0 +1,33 @@
+# updated to PHP CS Fixer v2.11.0
+
+services:
+    # PSR1
+    PhpCsFixer\Fixer\Basic\EncodingFixer: ~
+    PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer: ~
+
+    PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer: ~
+    PhpCsFixer\Fixer\Basic\BracesFixer: ~
+    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer: ~
+    PhpCsFixer\Fixer\ControlStructure\ElseifFixer: ~
+    PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer: ~
+    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: ~
+    PhpCsFixer\Fixer\Whitespace\LineEndingFixer: ~
+    PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer: ~
+    PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer: ~
+    PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer:
+        ensure_fully_multiline: true
+    PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer: ~
+    PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer: ~
+    PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer: ~
+    PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer: ~
+    PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: ~
+    PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer: ~
+    PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer: ~
+    PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
+        elements:
+            - 'property'
+    PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer: ~
+    PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer: ~
+    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer: ~
+    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer: ~
+    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer: ~
