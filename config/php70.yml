@@ -20,8 +20,6 @@ services:
     PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
         enableEachParameterAndReturnInspection: true
-        enableVoidTypeHint: false
-        enableNullableTypeHints: false
 
     # throwable
     SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: ~

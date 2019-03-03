@@ -1,5 +1,3 @@
 services:
     SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-        enableVoidTypeHint: true
-        enableNullableTypeHints: true
         enableObjectTypeHint: false
