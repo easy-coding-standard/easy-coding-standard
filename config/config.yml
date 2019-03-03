@@ -2,9 +2,9 @@ imports:
     - { resource: '../packages/**/config/services.yml' }
     - { resource: 'services.yml' }
     # A. in monorepo
-    - { resource: '../../TokenRunner/config/config.yml', ignore_errors: true }
+    - { resource: '../../CodingStandard/packages/TokenRunner/config/config.yml', ignore_errors: true }
     # B. as dependency
-    - { resource: '%vendor%/symplify/token-runner/config/config.yml', ignore_errors: true }
+    - { resource: '%vendor%/symplify/coding-standard/packages/TokenRunner/config/config.yml', ignore_errors: true }
 
 parameters:
     # defaults for "PhpCsFixer\WhitespacesFixerConfig"
