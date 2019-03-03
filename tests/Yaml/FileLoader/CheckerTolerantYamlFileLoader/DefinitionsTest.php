@@ -41,7 +41,7 @@ final class DefinitionsTest extends TestCase
     {
         yield [
             # config
-            __DIR__ . '/DefinitionsSource/config.yml',
+            __DIR__ . '/DefinitionsSource/config.yaml',
             # checkers
             ArraySyntaxFixer::class,
             # expected method call
@@ -50,39 +50,39 @@ final class DefinitionsTest extends TestCase
             [],
         ];
         yield [
-            __DIR__ . '/DefinitionsSource/config-with-imports.yml',
+            __DIR__ . '/DefinitionsSource/config-with-imports.yaml',
             ArraySyntaxFixer::class,
             ['configure', [['syntax' => 'short']]],
             [],
         ];
         # "@" escaping
         yield [
-            __DIR__ . '/DefinitionsSource/config-with-at.yml',
+            __DIR__ . '/DefinitionsSource/config-with-at.yaml',
             LineLengthSniff::class,
             [],
             ['absoluteLineLimit' => '@author'],
         ];
         # keep original keywords
         yield [
-            __DIR__ . '/DefinitionsSource/config-classic.yml',
+            __DIR__ . '/DefinitionsSource/config-classic.yaml',
             LineLengthSniff::class,
             [],
             ['absoluteLineLimit' => 150],
         ];
         yield [
-            __DIR__ . '/DefinitionsSource/config-classic.yml',
+            __DIR__ . '/DefinitionsSource/config-classic.yaml',
             ArraySyntaxFixer::class,
             ['configure', [['syntax' => 'short']]],
             [],
         ];
         yield [
-            __DIR__ . '/DefinitionsSource/config-with-bool.yml',
+            __DIR__ . '/DefinitionsSource/config-with-bool.yaml',
             TypeHintDeclarationSniff::class,
             [],
             ['enableObjectTypeHint' => false],
         ];
         yield [
-            __DIR__ . '/DefinitionsSource/checkers.yml',
+            __DIR__ . '/DefinitionsSource/checkers.yaml',
             TypeHintDeclarationSniff::class,
             [],
             [
@@ -90,7 +90,7 @@ final class DefinitionsTest extends TestCase
             ],
         ];
         yield [
-            __DIR__ . '/DefinitionsSource/checkers.yml',
+            __DIR__ . '/DefinitionsSource/checkers.yaml',
             NoClassInstantiationSniff::class,
             [],
             [

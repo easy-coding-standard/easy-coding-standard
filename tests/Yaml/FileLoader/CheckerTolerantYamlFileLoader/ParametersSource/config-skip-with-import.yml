@@ -1,7 +1,0 @@
-imports:
-    - { resource: 'config-skip.yml' }
-
-parameters:
-    skip:
-        secondCode: false # overwrite value from config-skip.yml
-        thirdCode: ~

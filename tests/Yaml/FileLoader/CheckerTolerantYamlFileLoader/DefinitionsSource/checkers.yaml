@@ -1,6 +1,6 @@
 imports:
-    - { resource: 'checkers-parent.yml' }
-    - { resource: 'checkers-parent-2.yml' }
+    - { resource: 'checkers-parent.yaml' }
+    - { resource: 'checkers-parent-2.yaml' }
 
 services:
     Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff:
