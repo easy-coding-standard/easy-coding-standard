@@ -31,11 +31,6 @@ final class Configuration
     private $showErrorTable = true;
 
     /**
-     * @var string
-     */
-    private $outputFormat;
-
-    /**
      * @var string|null
      */
     private $configFilePath;
@@ -57,7 +52,6 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
-        $this->outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT_OPTION);
     }
 
     /**
@@ -94,11 +88,6 @@ final class Configuration
     public function showErrorTable(): bool
     {
         return $this->showErrorTable;
-    }
-
-    public function getOutputFormat(): string
-    {
-        return $this->outputFormat;
     }
 
     public function setConfigFilePathFromInput(InputInterface $input): void
