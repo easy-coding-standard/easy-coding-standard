@@ -1,0 +1,32 @@
+services:
+    # array(    );
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short
+
+    # new methods
+    PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
+        mt_rand: random_int
+        rand: random_int
+
+    # ?? operator
+    PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer: ~
+
+    # strict types
+    PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: ~
+    Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer: ~
+
+    # typehints
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
+    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
+        enableEachParameterAndReturnInspection: true
+        enableVoidTypeHint: false
+        enableNullableTypeHints: false
+
+    # throwable
+    SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: ~
+
+parameters:
+    skip:
+        # disable random annotation removal of this Sniff
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~
