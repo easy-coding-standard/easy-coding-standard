@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Configuration\Option;
-use Symplify\EasyCodingStandard\Console\EasyCodingStandardApplication;
+use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
@@ -19,9 +19,9 @@ use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 final class JsonOutputFormatterTest extends AbstractKernelTestCase
 {
     /**
-     * @var EasyCodingStandardApplication
+     * @var EasyCodingStandardConsoleApplication
      */
-    private $easyCodingStandardApplication;
+    private $easyCodingStandardConsoleApplication;
 
     /**
      * @var BufferedOutput
@@ -35,8 +35,10 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
         $easyCodingStandardStyle = $this->createEasyCodingStandardStyleWithBufferOutput();
         self::$container->set(EasyCodingStandardStyle::class, $easyCodingStandardStyle);
 
-        $this->easyCodingStandardApplication = self::$container->get(EasyCodingStandardApplication::class);
-        $this->easyCodingStandardApplication->setAutoExit(false);
+        $this->easyCodingStandardConsoleApplication = self::$container->get(
+            EasyCodingStandardConsoleApplication::class
+        );
+        $this->easyCodingStandardConsoleApplication->setAutoExit(false);
     }
 
     public function testCanPrintReport(): void
@@ -51,7 +53,7 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
         ];
 
         $input = new StringInput(implode(' ', $stringInput));
-        $exitCode = $this->easyCodingStandardApplication->run($input);
+        $exitCode = $this->easyCodingStandardConsoleApplication->run($input);
         $this->assertSame(ShellCode::ERROR, $exitCode);
 
         $output = trim($this->bufferedOutput->fetch());

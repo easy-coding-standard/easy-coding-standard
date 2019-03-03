@@ -14,7 +14,7 @@ use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
 
-final class EasyCodingStandardApplication extends Application
+final class EasyCodingStandardConsoleApplication extends Application
 {
     use HelpfulApplicationTrait;
 

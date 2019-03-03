@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Application\Application;
+use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Option;
@@ -18,9 +18,9 @@ use Symplify\PackageBuilder\Console\Command\CommandNaming;
 final class CheckCommand extends Command
 {
     /**
-     * @var Application
+     * @var EasyCodingStandardApplication
      */
-    private $ecsApplication;
+    private $easyCodingStandardApplication;
 
     /**
      * @var Configuration
@@ -33,13 +33,13 @@ final class CheckCommand extends Command
     private $outputFormatterCollector;
 
     public function __construct(
-        Application $application,
+        EasyCodingStandardApplication $easyCodingStandardApplication,
         Configuration $configuration,
         OutputFormatterCollector $outputFormatterCollector
     ) {
         parent::__construct();
 
-        $this->ecsApplication = $application;
+        $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;
     }
@@ -85,14 +85,14 @@ final class CheckCommand extends Command
 
         $this->configuration->resolveFromInput($input);
 
-        $processedFilesCount = $this->ecsApplication->run();
+        $processedFilesCount = $this->easyCodingStandardApplication->run();
 
         return $outputFormatter->report($processedFilesCount);
     }
 
     private function ensureSomeCheckersAreRegistered(): void
     {
-        $totalCheckersLoaded = $this->ecsApplication->getCheckerCount();
+        $totalCheckersLoaded = $this->easyCodingStandardApplication->getCheckerCount();
         if ($totalCheckersLoaded === 0) {
             throw new NoCheckersLoadedException(
                 'No checkers were found. Register them in your config in "services:" '
