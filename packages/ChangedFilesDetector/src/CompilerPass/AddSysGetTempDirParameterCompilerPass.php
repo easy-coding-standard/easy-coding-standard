@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-final class DetectParametersCompilerPass implements CompilerPassInterface
+final class AddSysGetTempDirParameterCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $containerBuilder): void
     {

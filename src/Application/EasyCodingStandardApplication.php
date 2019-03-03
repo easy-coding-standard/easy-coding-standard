@@ -12,7 +12,7 @@ use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
-final class Application implements FileProcessorCollectorInterface
+final class EasyCodingStandardApplication implements FileProcessorCollectorInterface
 {
     /**
      * @var FileProcessorInterface[]
