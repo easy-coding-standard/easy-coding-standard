@@ -33,7 +33,7 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
                 'Parameter "%s" is deprecated. Use "skip > CheckerClass: ~" instead.',
                 Option::EXCLUDE_CHECKERS
             );
-            @trigger_error($message, E_USER_DEPRECATED);
+            trigger_error($message, E_USER_DEPRECATED);
 
             $excludedCheckers = array_merge($excludedCheckers, (array) $parameterBag->get(Option::EXCLUDE_CHECKERS));
         }
