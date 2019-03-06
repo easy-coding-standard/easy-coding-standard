@@ -5,7 +5,6 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symplify\EasyCodingStandard\Configuration\Option;
 
 final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
 {
@@ -28,15 +27,6 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
     private function getExcludedCheckersFromParameterBag(ParameterBagInterface $parameterBag): array
     {
         $excludedCheckers = [];
-        if ($parameterBag->has(Option::EXCLUDE_CHECKERS)) {
-            $message = sprintf(
-                'Parameter "%s" is deprecated. Use "skip > CheckerClass: ~" instead.',
-                Option::EXCLUDE_CHECKERS
-            );
-            trigger_error($message, E_USER_DEPRECATED);
-
-            $excludedCheckers = array_merge($excludedCheckers, (array) $parameterBag->get(Option::EXCLUDE_CHECKERS));
-        }
 
         // parts of "skip" parameter
         if ($parameterBag->has('skip')) {
