@@ -40,6 +40,9 @@ final class ChangedFilesDetector
         }
     }
 
+    /**
+     * For tests
+     */
     public function changeConfigurationFile(string $configurationFile): void
     {
         $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
