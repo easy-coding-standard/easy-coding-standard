@@ -7,6 +7,8 @@ use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
+use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
+use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Common;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
@@ -43,7 +45,12 @@ final class File extends BaseFile
      *
      * @var string[]
      */
-    private $reportWarningsSniffs = [CommentedOutCodeSniff::class, AssignmentInConditionSniff::class];
+    private $reportWarningsSniffs = [
+        CommentedOutCodeSniff::class,
+        AssignmentInConditionSniff::class,
+        PropertyDeclarationSniff::class,
+        MethodDeclarationSniff::class,
+    ];
 
     /**
      * @var Sniff[][]
