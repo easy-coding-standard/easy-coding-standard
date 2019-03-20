@@ -5,13 +5,13 @@ services:
     SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: ~
     SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff: ~
 
-    # function ($var) use ($unused) { return $var; }    →   function ($var) { return $var; }
+    # function ($var) use ($unused) { return $var; }    →    function ($var) { return $var; }
     SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff: ~
 
-    # echo "hi";;   →   echo "hi";
+    # echo "hi";;    →    echo "hi";
     SlevomatCodingStandard\Sniffs\PHP\UselessSemicolonSniff: ~
 
-    # ((new Class))->call()   →     (new Class)->call()
+    # ((new Class))->call()    →    (new Class)->call()
     SlevomatCodingStandard\Sniffs\PHP\UselessParenthesesSniff: ~
 
     # use short array []
@@ -19,31 +19,34 @@ services:
         syntax: short
 
     # detect dead code
-    SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff:
+    SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff: ~
 
     # drop dead use namespaces
-    PhpCsFixer\Fixer\Import\NoUnusedImportsFixer:
+    PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
 
     # and sort them A → Z
-    PhpCsFixer\Fixer\Import\OrderedImportsFixer:
+    PhpCsFixer\Fixer\Import\OrderedImportsFixer: ~
 
     # $value;;
-    PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer:
+    PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer: ~
 
     # final class { ... protected ... }
-    PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer:
+    PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer: ~
 
     # continue (2);
-    PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer:
+    PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer: ~
 
     # { echo 'hi'; }
-    PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer:
+    PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer: ~
 
     # $var = 5; return $var;    →    return $var;
-    PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer:
+    PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer: ~
+    
+    # isset($var)    →    \isset($var)
+    PhPCSFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer: ~
 
-    # $var = $foo : $foo ? $bar → $var = $foo ?: $bar
-    SlevomatCodingStandard\Sniffs\ControlStructures\RequireShortTernaryOperatorSniff:
+    # $var = $foo : $foo ? $bar    →    $var = $foo ?: $bar
+    SlevomatCodingStandard\Sniffs\ControlStructures\RequireShortTernaryOperatorSniff: ~
 
-    # $var = $var + foo → $var += $foo
-    SlevomatCodingStandard\Sniffs\Operators\RequireCombinedAssignmentOperatorSniff:
+    # $var = $var + foo    →    $var += $foo
+    SlevomatCodingStandard\Sniffs\Operators\RequireCombinedAssignmentOperatorSniff: ~
