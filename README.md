@@ -78,6 +78,7 @@ There are prepared sets in [`/config` directory](config) that you can use:
 - [common.yml](config/common.yml)
 - [php71.yml](config/php71.yml)
 - [psr2.yml](config/psr2.yml)
+- [drupal.yml](config/drupal.yml)
 - ...
 
 You pick config in CLI with `--config`:
