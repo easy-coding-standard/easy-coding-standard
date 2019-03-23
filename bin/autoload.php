@@ -14,6 +14,8 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
         require_once $possibleAutoloadPath . '/autoload.php';
         require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
 
+        PHP_CodeSniffer\Autoload::addSearchPath($possibleAutoloadPath . '/drupal/coder/coder_sniffer');
+
         break;
     }
 }
