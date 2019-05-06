@@ -285,7 +285,6 @@ You can also create a keyboard shortcut in [Preferences > Keymap](https://www.je
 | ---- | --------- | ----------- |
 | [GrumPHP](https://github.com/phpro/grumphp) | [nlubisch/grumphp-easycodingstandard](https://github.com/nlubisch/grumphp-easycodingstandard) | Provides a new task for GrumPHP which runs ECS |
 
-
 ## Contributing
 
 Send [issue](https://github.com/Symplify/Symplify/issues) or [pull-request](https://github.com/Symplify/Symplify/pulls) to main repository.

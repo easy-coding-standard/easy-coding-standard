@@ -47,7 +47,9 @@ final class FixerServiceRegistrationTest extends AbstractKernelTestCase
         $this->assertInstanceOf(VisibilityRequiredFixer::class, $visibilityRequiredFixer);
 
         $configuration = $this->privatesAccessor->getPrivateProperty($visibilityRequiredFixer, 'configuration');
-        $this->assertSame(['elements' => ['property']], $configuration);
+        $this->assertSame([
+            'elements' => ['property'],
+        ], $configuration);
     }
 
     public function testConfigureUnconfigurableFixer(): void
