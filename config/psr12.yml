@@ -1,2 +1,0 @@
-imports:
-    - { resource: 'set/psr12.yaml' }

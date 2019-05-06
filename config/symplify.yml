@@ -1,3 +1,0 @@
-# see https://github.com/symplify/codingstandard for details
-imports:
-    - { resource: 'set/symplify.yaml' }

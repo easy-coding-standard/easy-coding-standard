@@ -17,6 +17,6 @@ final class Psr12Test extends AbstractCheckerTestCase
 
     protected function provideConfig(): string
     {
-        return __DIR__ . '/../../../config/psr12.yml';
+        return __DIR__ . '/../../../config/set/psr12.yaml';
     }
 }

@@ -1,2 +1,0 @@
-imports:
-    - { resource: 'set/clean-code.yaml' }

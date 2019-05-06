@@ -1,2 +1,0 @@
-imports:
-    - { resource: '../set/common/strict.yaml' }
