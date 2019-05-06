@@ -32,7 +32,9 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     {
         // A. create on another one with fixer
         FileSystem::write($this->includedConfigFile, Yaml::dump([
-            'services' => [DeclareStrictTypesFixer::class => []],
+            'services' => [
+                DeclareStrictTypesFixer::class => [],
+            ],
         ]));
 
         $fileOneHash = $this->fileHashComputer->compute(
