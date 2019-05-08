@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\Skipper;
+namespace Symplify\EasyCodingStandard\Tests\Skipper\Skip;
 
 use Iterator;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
@@ -10,7 +10,7 @@ use Symplify\EasyCodingStandard\Skipper;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
-final class SkipperTest extends AbstractKernelTestCase
+final class SkipperSkipTest extends AbstractKernelTestCase
 {
     /**
      * @var Skipper
@@ -19,7 +19,7 @@ final class SkipperTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config.yml']);
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config.yaml']);
 
         $this->skipper = self::$container->get(Skipper::class);
     }
