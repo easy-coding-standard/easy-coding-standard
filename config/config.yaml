@@ -12,7 +12,11 @@ parameters:
     line_ending: !php/const PHP_EOL
 
     cache_directory: '%sys_get_temp_dir%/_changed_files_detector%env(TEST_SUFFIX)%'
+
+    # checkers
     skip: []
+    only: []
+
     exclude_files: []
     # for tests
     env(TEST_SUFFIX): ''

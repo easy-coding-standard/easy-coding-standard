@@ -126,6 +126,20 @@ parameters:
         PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
 ```
 
+### Include Checkers Only  for Some Paths
+
+This feature is the exact opposite of *skip*. Do you want to run your rule only on new code? Limit it with `only` parameter:
+
+```yaml
+services:
+    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
+
+parameters:
+    only:
+        Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff:
+            - 'src/NewCode/*'
+```
+
 ### Ignore What You Can't Fix
 
 Sometimes, checker finds an error in code that inherits from code you can't change.
