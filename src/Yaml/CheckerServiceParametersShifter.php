@@ -147,7 +147,7 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            $key = $this->stringFormatConverter->underscoreToCamelCase($key);
+            $key = $this->stringFormatConverter->underscoreAndHyphenToCamelCase($key);
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
 
             $services[$checker]['properties'][$key] = $this->escapeValue($value);
