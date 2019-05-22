@@ -224,5 +224,4 @@ final class CheckerServiceParametersShifter
 
         return Strings::replace($value, '#@#', '@@');
     }
-
 }
