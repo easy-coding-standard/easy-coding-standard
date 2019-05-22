@@ -147,7 +147,7 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            $key = $this->camel($key);
+            $key = $this->stringFormatConverter->underscoreToCamelCase($key);
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
 
             $services[$checker]['properties'][$key] = $this->escapeValue($value);
@@ -225,19 +225,4 @@ final class CheckerServiceParametersShifter
         return Strings::replace($value, '#@#', '@@');
     }
 
-    /**
-     * Convert a value to camel case.
-     * copy from Illuminate\Support\Str
-     *
-     * @param  string  $value
-     * @return string
-     */
-    private function camel($value)
-    {
-        $value = ucwords(str_replace(['-', '_'], ' ', $value));
-
-        $studly = str_replace(' ', '', $value);
-
-        return lcfirst($studly);
-    }
 }
