@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\Yaml;
 
-use Illuminate\Support\Str;
 use Nette\Utils\Strings;
 use PhpCsFixer\Fixer\Comment\HeaderCommentFixer;
 use ReflectionClass;
@@ -148,7 +147,7 @@ final class CheckerServiceParametersShifter
                 continue;
             }
 
-            $key = Str::camel($key);
+            $key = $this->camel($key);
             $this->checkerConfigurationGuardian->ensurePropertyExists($checker, $key);
 
             $services[$checker]['properties'][$key] = $this->escapeValue($value);
@@ -224,5 +223,21 @@ final class CheckerServiceParametersShifter
         }
 
         return Strings::replace($value, '#@#', '@@');
+    }
+
+    /**
+     * Convert a value to camel case.
+     * copy from Illuminate\Support\Str
+     *
+     * @param  string  $value
+     * @return string
+     */
+    private function camel($value)
+    {
+        $value = ucwords(str_replace(['-', '_'], ' ', $value));
+
+        $studly = str_replace(' ', '', $value);
+
+        return lcfirst($studly);
     }
 }
