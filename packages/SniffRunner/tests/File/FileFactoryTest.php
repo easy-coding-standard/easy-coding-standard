@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
 
-use PHP_CodeSniffer\Files\File as BaseFile;
+use PHP_CodeSniffer\Files\File as PhpCodeSnifferFile;
 use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
@@ -20,7 +20,6 @@ final class FileFactoryTest extends AbstractKernelTestCase
     protected function setUp(): void
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
-
         $this->fileFactory = self::$container->get(FileFactory::class);
     }
 
@@ -29,7 +28,7 @@ final class FileFactoryTest extends AbstractKernelTestCase
         $fileInfo = new SmartFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
         $file = $this->fileFactory->createFromFileInfo($fileInfo);
         $this->assertInstanceOf(File::class, $file);
-        $this->assertInstanceOf(BaseFile::class, $file);
+        $this->assertInstanceOf(PhpCodeSnifferFile::class, $file);
         $this->assertInstanceOf(Fixer::class, $file->fixer);
     }
 }
