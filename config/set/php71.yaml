@@ -16,7 +16,3 @@ services:
 
     # Void Typehints
     PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer: ~
-
-    # All Typehints
-    SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-        enableObjectTypeHint: false
