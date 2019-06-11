@@ -72,18 +72,18 @@ vendor/bin/ecs check src --fix
 
 ### Use Prepared Checker Sets
 
-There are prepared sets in [`/config` directory](config) that you can use:
+There are prepared sets in [`/config/set` directory](config/set) that you can use:
 
-- [clean-code.yml](config/clean-code.yml)
-- [common.yml](config/common.yml)
-- [php71.yml](config/php71.yml)
-- [psr2.yml](config/psr2.yml)
+- [clean-code.yml](config/set/clean-code.yaml)
+- [common.yml](config/set/common.yaml)
+- [php71.yml](config/set/php71.yaml)
+- [psr2.yml](config/set/psr2.yaml)
 - ...
 
 You pick config in CLI with `--config`:
 
 ```bash
-vendor/bin/ecs check src --config vendor/symplify/easy-coding-standard/config/clean-code.yml
+vendor/bin/ecs check src --config vendor/symplify/easy-coding-standard/config/set/clean-code.yaml
 ```
 
 **Too long? Try `--level` shortcut**:
@@ -97,18 +97,18 @@ or include more of them in config:
 ```yaml
 # easy-coding-standard.yml
 imports:
-    - { resource: 'vendor/symplify/easy-coding-standard/config/clean-code.yml' }
-    - { resource: 'vendor/symplify/easy-coding-standard/config/psr2.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/clean-code.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }
 ```
 
-In case of [custom coding standard and include](https://github.com/lmc-eu/php-coding-standard/pull/6/files#diff-a8b950982764fcffe4b7b3acd261cf91) e.g. `psr2.yml` form this package, you might want to use `%vendor_dir%` or `%current_working_dir%` for:
+In case of [custom coding standard and include](https://github.com/lmc-eu/php-coding-standard/pull/6/files#diff-a8b950982764fcffe4b7b3acd261cf91) e.g. `psr2.yaml` form this package, you might want to use `%vendor_dir%` or `%current_working_dir%` for:
 
 ```yaml
 # lmc-coding-standard.yml
 imports:
-    - { resource: '%vendor_dir%/symplify/easy-coding-standard/config/psr2.yml' }
+    - { resource: '%vendor_dir%/symplify/easy-coding-standard/config/set/psr2.yaml' }
     # or
-    - { resource: '%current_working_dir%/vendor/symplify/easy-coding-standard/config/psr2.yml' }
+    - { resource: '%current_working_dir%/vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }
 ```
 
 That would load file always from vendor dir, no matter where you are.
@@ -119,7 +119,7 @@ What if you add `symfony.yml` set, but don't like `PhpCsFixer\Fixer\PhpTag\Blank
 
 ```yaml
 imports:
-    - { resource: 'vendor/symplify/easy-coding-standard/config/symfony.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/symfony.yaml' }
 
 parameters:
     skip:
