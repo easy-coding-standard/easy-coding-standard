@@ -22,7 +22,6 @@ use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersC
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoReturnFactoryCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireSinglyImplementedCompilerPass;
 
 final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareKernelInterface
 {
@@ -95,7 +94,6 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
         // method calls
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
         $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
-        $containerBuilder->addCompilerPass(new AutowireSinglyImplementedCompilerPass());
     }
 
     /**

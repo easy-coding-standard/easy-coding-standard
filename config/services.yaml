@@ -29,6 +29,10 @@ services:
     Symfony\Component\EventDispatcher\EventDispatcher: ~
     Symplify\PackageBuilder\EventSubscriber\ParameterTypoProofreaderEventSubscriber: ~
 
+    Symfony\Component\Cache\Simple\FilesystemCache: ~
+    Psr\SimpleCache\CacheInterface: '@Symfony\Component\Cache\Simple\FilesystemCache'
+    Symfony\Component\Cache\Adapter\TagAwareAdapterInterface: '@Symfony\Component\Cache\Adapter\TagAwareAdapter'
+
     # parameter corrections
     Symplify\PackageBuilder\Parameter\ParameterTypoProofreader:
         $correctToTypos:
