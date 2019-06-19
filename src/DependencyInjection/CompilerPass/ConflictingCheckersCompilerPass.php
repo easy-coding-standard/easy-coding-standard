@@ -52,7 +52,7 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
 
             throw new ConflictingCheckersLoadedException(sprintf(
                 'Checkers "%s" mutually exclude each other. Use only one or exclude '
-                . 'the unwanted one in "parameters > exclude_checkers" in your config.',
+                . 'the unwanted one in "parameters > skip" in your config.',
                 implode('" and "', $viceVersaMatchingCheckerGroup)
             ));
         }
