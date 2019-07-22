@@ -32,8 +32,8 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      */
     public function printErrors(array $errors): void
     {
-        /** @var Error[][] $errors */
         foreach ($errors as $fileErrors) {
+            /** @var Error $fileError */
             foreach ($fileErrors as $fileError) {
                 $this->separator();
 
