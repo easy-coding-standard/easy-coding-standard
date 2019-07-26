@@ -9,6 +9,7 @@ use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Configuration\Contract\ResettableInterface;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
@@ -98,12 +99,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         }
     }
 
-    public function setSingleSniff(Sniff $sniff): void
-    {
-        $this->tokenListeners = [];
-        $this->addSniff($sniff);
-    }
-
     /**
      * @return Sniff[]|DualRunInterface[]
      */
@@ -153,7 +148,26 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     {
         $this->prepareSecondRun();
 
-        return $this->processFile($smartFileInfo);
+        $content = $this->processFile($smartFileInfo);
+
+        foreach ($this->sniffs as $sniff) {
+            if ($sniff instanceof ResettableInterface) {
+                // clear old cache, whatever
+                $sniff->reset();
+            }
+        }
+
+        return $content;
+    }
+
+    /**
+     * For tests
+     */
+    public function reset(): void
+    {
+        if (defined('PHPUNIT_COMPOSER_INSTALL') || defined('__PHPUNIT_PHAR__')) {
+            $this->isSecondRunPrepared = false;
+        }
     }
 
     private function addCompatibilityLayer(): void
