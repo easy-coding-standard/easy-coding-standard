@@ -55,7 +55,7 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $relativePathnameToRoot = Strings::substring($fileInfo->getRealPath(), strlen(getcwd()) + 1);
+        $relativePathnameToRoot = $fileInfo->getRelativeFilePathFromDirectory(getcwd());
 
         $error = $this->errorFactory->create($line, $message, $sourceClass, $fileInfo);
 
