@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
-use Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 
