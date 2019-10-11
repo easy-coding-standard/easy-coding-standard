@@ -2,7 +2,6 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Cache\Simple;
 
-use Nette\Utils\Strings;
 use Symfony\Component\Cache\Simple\FilesystemCache;
 
 final class FilesystemCacheFactory
@@ -12,13 +11,19 @@ final class FilesystemCacheFactory
      */
     private $cacheDirectory;
 
-    public function __construct(string $cacheDirectory)
+    /**
+     * @var string
+     */
+    private $cacheNamespace;
+
+    public function __construct(string $cacheDirectory, string $cacheNamespace)
     {
         $this->cacheDirectory = $cacheDirectory;
+        $this->cacheNamespace = $cacheNamespace;
     }
 
     public function create(): FilesystemCache
     {
-        return new FilesystemCache(Strings::webalize(getcwd()), 0, $this->cacheDirectory);
+        return new FilesystemCache($this->cacheNamespace, 0, $this->cacheDirectory);
     }
 }

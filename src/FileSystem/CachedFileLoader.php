@@ -19,7 +19,7 @@ final class CachedFileLoader
 
     public function getFileContent(SmartFileInfo $smartFileInfo): string
     {
-        $cacheKey = 'file_content_' . md5_file($smartFileInfo->getRealPath());
+        $cacheKey = 'file_content_' . md5_file($smartFileInfo->getRelativeFilePathFromDirectory(getcwd()));
 
         $cachedFileContent = $this->cache->get($cacheKey);
         if ($cachedFileContent) {

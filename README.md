@@ -260,6 +260,13 @@ parameters:
     cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . '/_easy_coding_standard/_changed_files_detector_tests'
 ```
 
+#### How can I change the cache namespace?
+
+```yaml
+parameters:
+    cache_namespace: my_project_namespace # defaults to Strings::webalize(getcwd())'
+```
+
 #### Can I use tabs, 2 spaces or "\r\n" line endings?
 
 ```yaml

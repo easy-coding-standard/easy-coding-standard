@@ -52,7 +52,7 @@ final class ChangedFilesDetector
     {
         /** @var CacheItem $item */
         $item = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
-        $item->set($this->fileHashComputer->compute($smartFileInfo->getRealPath()));
+        $item->set($this->fileHashComputer->compute($smartFileInfo->getRelativeFilePathFromDirectory(getcwd())));
         $item->tag(self::CHANGED_FILES_CACHE_TAG);
         $this->tagAwareAdapter->save($item);
     }
@@ -64,7 +64,7 @@ final class ChangedFilesDetector
 
     public function hasFileInfoChanged(SmartFileInfo $smartFileInfo): bool
     {
-        $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
+        $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRelativeFilePathFromDirectory(getcwd()));
 
         $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
         $oldFileHash = $cacheItem->get();
@@ -93,7 +93,7 @@ final class ChangedFilesDetector
 
     private function fileInfoToKey(SmartFileInfo $smartFileInfo): string
     {
-        return sha1($smartFileInfo->getRealPath());
+        return sha1($smartFileInfo->getRelativeFilePathFromDirectory(getcwd()));
     }
 
     private function invalidateCacheIfConfigurationChanged(string $configurationHash): void
