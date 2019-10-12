@@ -266,6 +266,13 @@ parameters:
 parameters:
     cache_namespace: my_project_namespace # defaults to Strings::webalize(getcwd())'
 ```
+This comes in handy when you want to apply ecs caching mechanism on your gitlab pipelines for example, where `getcwd()` may not always produce same cache key.
+
+Example  `getcwd()` on gitlab CI:
+
+- /builds/0956d275/0/sites/my_project
+- /builds/0956d275/1/sites/my_project
+- /builds/0956d275/2/sites/my_project
 
 #### Can I use tabs, 2 spaces or "\r\n" line endings?
 
