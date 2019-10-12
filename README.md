@@ -266,7 +266,7 @@ parameters:
 parameters:
     cache_namespace: my_project_namespace # defaults to Strings::webalize(getcwd())'
 ```
-This comes in handy when you want to apply ecs caching mechanism on your gitlab pipelines for example, where `getcwd()` may not always produce same cache key.
+This comes in handy when you want to apply ecs caching mechanism on your gitlab pipelines for example, where `getcwd()` may not always produce same cache key, thus introducing side effect, where cache may not be detected correctly.
 
 Example  `getcwd()` on gitlab CI:
 
