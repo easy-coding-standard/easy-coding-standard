@@ -12,7 +12,7 @@
         "nette/robot-loader": "^3.1",
         "symfony/cache": "^3.4|^4.3",
         "symfony/console": "^3.4|^4.3",
-        "symfony/config": "^3.4|^4.3",
+        "symfony/config": "^3.4.32|^4.3",
         "symfony/http-kernel": "^3.4|^4.3",
         "symfony/dependency-injection": "^3.4.10|^4.2",
         "symfony/finder": "^3.4|^4.3",
