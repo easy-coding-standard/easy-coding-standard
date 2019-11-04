@@ -28,11 +28,11 @@ final class DefinitionsTest extends TestCase
 
         $checkerDefinition = $containerBuilder->getDefinition($checker);
 
-        if (count($expectedMethodCall)) {
+        if (count($expectedMethodCall) > 0) {
             $this->checkDefinitionForMethodCall($checkerDefinition, $expectedMethodCall);
         }
 
-        if (count($expectedProperties)) {
+        if (count($expectedProperties) > 0) {
             $this->assertSame($expectedProperties, $checkerDefinition->getProperties());
         }
     }

@@ -52,7 +52,7 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
         try {
             $this->changedFilesDetector->addFileInfo($smartFileInfo);
             foreach ($this->fileProcessors as $fileProcessor) {
-                if (! $fileProcessor->getCheckers()) {
+                if ($fileProcessor->getCheckers() === []) {
                     continue;
                 }
 

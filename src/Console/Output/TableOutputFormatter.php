@@ -48,7 +48,7 @@ final class TableOutputFormatter implements OutputFormatterInterface
         if ($this->errorAndDiffCollector->getErrorCount() === 0
             && $this->errorAndDiffCollector->getFileDiffsCount() === 0
         ) {
-            if ($processedFilesCount) {
+            if ($processedFilesCount !== 0) {
                 $this->easyCodingStandardStyle->newLine();
             }
 
@@ -72,7 +72,7 @@ final class TableOutputFormatter implements OutputFormatterInterface
      */
     private function reportFileDiffs(array $fileDiffPerFile): void
     {
-        if (! count($fileDiffPerFile)) {
+        if (count($fileDiffPerFile) === 0) {
             return;
         }
 
@@ -125,7 +125,7 @@ final class TableOutputFormatter implements OutputFormatterInterface
     {
         if ($this->configuration->showErrorTable()) {
             $errors = $this->errorAndDiffCollector->getErrors();
-            if (count($errors)) {
+            if (count($errors) > 0) {
                 $this->easyCodingStandardStyle->newLine();
                 $this->easyCodingStandardStyle->printErrors($errors);
             }
@@ -141,7 +141,7 @@ final class TableOutputFormatter implements OutputFormatterInterface
 
     private function printErrorMessageFromErrorCounts(int $errorCount, int $fileDiffsCount): void
     {
-        if ($errorCount) {
+        if ($errorCount !== 0) {
             $this->easyCodingStandardStyle->error(
                 sprintf(
                     'Found %d error%s that need%s to be fixed manually.',
@@ -159,7 +159,7 @@ final class TableOutputFormatter implements OutputFormatterInterface
         $this->easyCodingStandardStyle->fixableError(
             sprintf(
                 '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
-                $errorCount ? 'Good news is that ' : '',
+                $errorCount !== 0 ? 'Good news is that ' : '',
                 $fileDiffsCount,
                 $fileDiffsCount === 1 ? 'file is' : 'files are'
             )

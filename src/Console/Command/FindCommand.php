@@ -62,13 +62,13 @@ final class FindCommand extends Command
         /** @var string $name */
         $name = $input->getArgument(self::ARGUMENT_NAME);
 
-        if ($name) {
+        if ($name !== '') {
             $checkers = $this->filterCheckersByName($checkers, $name);
         }
 
-        if (! count($checkers)) {
+        if (count($checkers) === 0) {
             $message = 'No checkers found';
-            if ($name) {
+            if ($name !== '') {
                 $message .= sprintf(' for "%s" name', $name);
             }
 
@@ -93,7 +93,7 @@ final class FindCommand extends Command
     {
         $filteredCheckers = [];
         foreach ($checkers as $checker) {
-            if (Strings::match($checker, sprintf('#%s#i', preg_quote($name)))) {
+            if (Strings::match($checker, sprintf('#%s#i', preg_quote($name, '#')))) {
                 $filteredCheckers[] = $checker;
             }
         }

@@ -68,12 +68,7 @@ final class ChangedFilesDetector
 
         $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
         $oldFileHash = $cacheItem->get();
-
-        if ($newFileHash !== $oldFileHash) {
-            return true;
-        }
-
-        return false;
+        return $newFileHash !== $oldFileHash;
     }
 
     public function clearCache(): void

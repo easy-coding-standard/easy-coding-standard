@@ -35,7 +35,7 @@ final class SourceFinder
      */
     public function find(array $source): array
     {
-        if ($this->customSourceProvider) {
+        if ($this->customSourceProvider !== null) {
             $files = $this->customSourceProvider->find($source);
 
             return $this->finderSanitizer->sanitize($files);

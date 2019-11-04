@@ -83,7 +83,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
         }
 
         // no files found
-        if (! count($files)) {
+        if (count($files) === 0) {
             return 0;
         }
 
@@ -121,7 +121,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
                 continue;
             }
 
-            if ($fileProcessor->getDualRunCheckers()) {
+            if ($fileProcessor->getDualRunCheckers() !== []) {
                 return true;
             }
         }
@@ -165,7 +165,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
 
         $callable($smartFileInfo);
 
-        if ($this->easyCodingStandardStyle->isVerbose() === false && $this->configuration->showProgressBar()) {
+        if (! $this->easyCodingStandardStyle->isVerbose() && $this->configuration->showProgressBar()) {
             $this->easyCodingStandardStyle->progressAdvance();
         }
     }

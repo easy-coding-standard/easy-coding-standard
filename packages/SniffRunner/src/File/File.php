@@ -122,7 +122,7 @@ final class File extends BaseFile
         $this->fixer->startFile($this);
 
         foreach ($this->tokens as $stackPtr => $token) {
-            if (isset($this->tokenListeners[$token['code']]) === false) {
+            if (! isset($this->tokenListeners[$token['code']])) {
                 continue;
             }
 
@@ -231,7 +231,7 @@ final class File extends BaseFile
             return false;
         }
 
-        $message = count($data) ? vsprintf($message, $data) : $message;
+        $message = count($data) > 0 ? vsprintf($message, $data) : $message;
 
         if ($isFixable === true) {
             return $isFixable;
@@ -289,7 +289,7 @@ final class File extends BaseFile
             return true;
         }
 
-        $message = count($data) ? vsprintf($error, $data) : $error;
+        $message = count($data) > 0 ? vsprintf($error, $data) : $error;
 
         return $this->skipper->shouldSkipMessageAndFile($message, $this->fileInfo);
     }

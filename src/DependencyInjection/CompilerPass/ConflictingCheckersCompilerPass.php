@@ -41,7 +41,7 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $containerBuilder): void
     {
         $checkers = $containerBuilder->getServiceIds();
-        if (! count($checkers)) {
+        if (count($checkers) === 0) {
             return;
         }
 

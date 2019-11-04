@@ -71,7 +71,7 @@ final class ShowCommand extends Command
      */
     private function displayCheckerList(array $checkers, string $type): void
     {
-        if (! count($checkers)) {
+        if (count($checkers) === 0) {
             return;
         }
 
