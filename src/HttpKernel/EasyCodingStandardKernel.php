@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\AddGetCwdWebalizedParameterCompilerPass;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\AddSysGetTempDirParameterCompilerPass;
+use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
@@ -82,6 +83,7 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
         $containerBuilder->addCompilerPass(new AutowireInterfacesCompilerPass([
             FixerInterface::class,
             Sniff::class,
+            OutputFormatterInterface::class,
         ]));
         $containerBuilder->addCompilerPass(new AutowireArrayParameterCompilerPass());
 
