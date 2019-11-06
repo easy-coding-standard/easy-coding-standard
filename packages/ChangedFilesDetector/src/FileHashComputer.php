@@ -14,7 +14,7 @@ final class FileHashComputer
     {
         if (! Strings::match($filePath, '#\.(yml|yaml)$#')) {
             $fileHash = md5_file($filePath);
-            if ($fileHash === false) {
+            if (! $fileHash) {
                 throw new FileNotFoundException(sprintf('File "%s" was not found', $fileHash));
             }
 

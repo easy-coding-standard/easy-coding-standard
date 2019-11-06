@@ -11,8 +11,8 @@ use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Configuration\Option;
-use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
+use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
 final class CheckCommand extends Command
