@@ -9,12 +9,12 @@ use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Error\FileDiff;
 use Symplify\PackageBuilder\Console\ShellCode;
 
-final class TableOutputFormatter implements OutputFormatterInterface
+final class ConsoleOutputFormatter implements OutputFormatterInterface
 {
     /**
      * @var string
      */
-    public const NAME = 'table';
+    public const NAME = 'console';
 
     /**
      * @var EasyCodingStandardStyle

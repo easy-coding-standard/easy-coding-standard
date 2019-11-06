@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Command\FindCommand;
+use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
@@ -66,9 +67,9 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         $hasNoArguments = $input->getFirstArgument() === null;
         $hasVersionOption = $input->hasParameterOption('--version');
-        $hasJsonOutput = $input->getParameterOption('--output-format') === JsonOutputFormatter::NAME;
+        $isConsoleOutput = $input->getParameterOption('--output-format') === ConsoleOutputFormatter::NAME;
 
-        return ! ($hasVersionOption || $hasNoArguments || $hasJsonOutput);
+        return !$hasVersionOption && !$hasNoArguments && $isConsoleOutput;
     }
 
     private function configExists(?string $configPath): bool
