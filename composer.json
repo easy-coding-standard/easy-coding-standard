@@ -19,7 +19,7 @@
         "symfony/yaml": "^3.4|^4.3|^5.0",
         "symplify/coding-standard": "^6.2",
         "symplify/package-builder": "^6.2",
-        "symplify/smart-file-info": "^6.2",
+        "symplify/smart-file-system": "^6.2",
         "slevomat/coding-standard": "^5.0",
         "friendsofphp/php-cs-fixer": "^2.16",
         "squizlabs/php_codesniffer": "^3.5",
