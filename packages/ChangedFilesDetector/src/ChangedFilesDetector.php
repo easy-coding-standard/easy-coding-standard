@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Cache\CacheItem;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ChangedFilesDetector
 {

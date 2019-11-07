@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Psr\SimpleCache\CacheInterface;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class CachedFileLoader
 {

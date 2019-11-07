@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FileFilter
 {

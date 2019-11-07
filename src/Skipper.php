@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard;
 use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Skipper
 {

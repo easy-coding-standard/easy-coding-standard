@@ -7,8 +7,8 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SkipperSkipTest extends AbstractKernelTestCase
 {

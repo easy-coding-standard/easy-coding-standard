@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 interface DualRunAwareFileProcessorInterface extends FileProcessorInterface
 {

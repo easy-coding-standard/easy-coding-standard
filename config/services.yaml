@@ -18,9 +18,9 @@ services:
     Symfony\Component\Console\Terminal: ~
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
-    Symplify\PackageBuilder\FileSystem\FileGuard: ~
+    Symplify\PackageBuilder\FileSystem\FileSystemGuard: ~
     Symplify\PackageBuilder\Php\TypeAnalyzer: ~
-    Symplify\PackageBuilder\FileSystem\FinderSanitizer: ~
+    Symplify\SmartFileSystem\Finder\FinderSanitizer: ~
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
     PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~

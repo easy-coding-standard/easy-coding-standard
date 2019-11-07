@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ErrorAndDiffCollector
 {

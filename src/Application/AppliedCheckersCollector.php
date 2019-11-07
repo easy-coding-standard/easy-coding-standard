@@ -4,7 +4,7 @@ namespace Symplify\EasyCodingStandard\Application;
 
 use SplObjectStorage;
 use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AppliedCheckersCollector
 {

@@ -10,7 +10,7 @@ use Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInter
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class EasyCodingStandardApplication implements FileProcessorCollectorInterface
 {

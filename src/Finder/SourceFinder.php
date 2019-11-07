@@ -4,8 +4,8 @@ namespace Symplify\EasyCodingStandard\Finder;
 
 use Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
-use Symplify\PackageBuilder\FileSystem\FinderSanitizer;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SourceFinder
 {

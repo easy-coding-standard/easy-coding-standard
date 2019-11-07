@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Error
 {

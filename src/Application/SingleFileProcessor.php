@@ -8,7 +8,7 @@ use Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInter
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SingleFileProcessor implements FileProcessorCollectorInterface
 {

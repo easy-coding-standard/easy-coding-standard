@@ -14,7 +14,7 @@ use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Skipper;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 
 final class FixerFileProcessor implements FileProcessorInterface

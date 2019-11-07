@@ -6,8 +6,8 @@ use PHP_CodeSniffer\Fixer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
-use Symplify\PackageBuilder\FileSystem\SmartFileInfo;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FixerTest extends AbstractKernelTestCase
 {
