@@ -18,8 +18,8 @@ services:
     Symfony\Component\Console\Terminal: ~
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: ~
-    Symplify\PackageBuilder\FileSystem\FileSystemGuard: ~
     Symplify\PackageBuilder\Php\TypeAnalyzer: ~
+    Symplify\SmartFileSystem\FileSystemGuard: ~
     Symplify\SmartFileSystem\Finder\FinderSanitizer: ~
 
     PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
