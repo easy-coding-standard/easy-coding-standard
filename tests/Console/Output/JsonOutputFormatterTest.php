@@ -43,11 +43,12 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
     public function testCanPrintReport(): void
     {
+        $escaped_path = addslashes(__DIR__);
         $stringInput = [
             'check',
-            __DIR__ . '/wrong/wrong.php.inc',
+            $escaped_path . '/wrong/wrong.php.inc',
             '--config',
-            __DIR__ . '/config/config.yml',
+            $escaped_path . '/config/config.yml',
             '--' . Option::OUTPUT_FORMAT_OPTION,
             JsonOutputFormatter::NAME,
         ];
