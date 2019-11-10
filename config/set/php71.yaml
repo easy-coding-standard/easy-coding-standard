@@ -1,6 +1,3 @@
-imports:
-    - { resource: 'php70.yaml' }
-
 services:
     # All elements should have visibility
     PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:

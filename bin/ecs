@@ -3,7 +3,7 @@
 
 use Composer\XdebugHandler\XdebugHandler;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\DependencyInjection\Container;
+use Symplify\EasyCodingStandard\Bootstrap\ConfigResolver;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
@@ -53,6 +53,11 @@ $configs[] = ConfigFileFinder::provide(
 // remove empty values
 $configs = array_filter($configs);
 
+// resolve: parameters > sets
+$configResolver = new ConfigResolver();
+$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs);
+$configs = array_merge($configs, $parameterSetsConfigs);
+
 /**
  * @param string[] $configs
  */
@@ -66,7 +71,7 @@ function computeConfigHash(array $configs): string
     return $hash;
 }
 
-$environment = 'prod' . computeConfigHash($configs) . random_int(1, 100000);
+$environment = 'prod' . md5(computeConfigHash($configs) . random_int(1, 100000));
 $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
 if ($configs !== []) {
     $easyCodingStandardKernel->setConfigs($configs);

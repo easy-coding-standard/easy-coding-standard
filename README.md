@@ -12,12 +12,7 @@
     <img src="/docs/logos/space.png">
     <a href="https://github.com/nette/coding-standard"><img src="/docs/logos/nette.png"></a>
     <img src="/docs/logos/space.png">
-    <a href="https://github.com/php-ai/php-ml/"><img src="/docs/logos/phpai.png"></a>
-    <br>
-    <br>
     <a href="https://github.com/shopsys/coding-standards"><img src="/docs/logos/shopsys.png"></a>
-    <img src="/docs/logos/space.png">
-    <a href="https://github.com/sunfoxcz/coding-standard"><img src="/docs/logos/sunfox.jpg"></a>
     <img src="/docs/logos/space.png">
     <a href="https://github.com/SyliusLabs/CodingStandard"><img src="/docs/logos/sylius.png"></a>
 </p>
@@ -27,7 +22,7 @@
 - Use [PHP_CodeSniffer || PHP-CS-Fixer](https://www.tomasvotruba.cz/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
 - **2nd run under few seconds** with caching
 - [Skipping files](#ignore-what-you-cant-fix) for specific checkers
-- [Prepared checker sets](#use-prepared-checker-sets) - PSR2, Symfony, Common, Symplify and more...
+- [Prepared checker sets](#use-prepared-checker-sets) - PSR12, Symfony, Common, Symplify and more...
 
 Are you already using another tool?
 
@@ -37,18 +32,19 @@ Are you already using another tool?
 ## Install
 
 ```bash
-composer require --dev symplify/easy-coding-standard
+composer require symplify/easy-coding-standard --dev
 ```
 
 ## Usage
 
 ### 1. Create Configuration and Setup Checkers
 
-Create an `easy-coding-standard.yaml` in your root directory and add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use.
+Create an `ecs.yaml` in your root directory and add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use.
 
 Let's start with the most common one - `array()` => `[]`:
 
 ```yaml
+# ecs.yaml
 services:
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
         syntax: short
@@ -77,7 +73,7 @@ There are prepared sets in [`/config/set` directory](config/set) that you can us
 - [clean-code.yaml](config/set/clean-code.yaml)
 - [common.yaml](config/set/common.yaml)
 - [php71.yaml](config/set/php71.yaml)
-- [psr2.yaml](config/set/psr2.yaml)
+- [psr12.yaml](config/set/psr12.yaml)
 - ...
 
 You pick config in CLI with `--config`:
@@ -95,33 +91,35 @@ vendor/bin/ecs check src --level clean-code
 or include more of them in config:
 
 ```yaml
-# easy-coding-standard.yaml
-imports:
-    - { resource: 'vendor/symplify/easy-coding-standard/config/set/clean-code.yaml' }
-    - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }
+# ecs.yaml
+parameters:
+    sets:
+        - 'clean-code'
+        - 'psr12'
 ```
 
-In case of [custom coding standard and include](https://github.com/lmc-eu/php-coding-standard/pull/6/files#diff-a8b950982764fcffe4b7b3acd261cf91) e.g. `psr2.yaml` form this package, you might want to use `%vendor_dir%` or `%current_working_dir%` for:
+In case of [custom coding standard and include](https://github.com/lmc-eu/php-coding-standard/pull/6/files#diff-a8b950982764fcffe4b7b3acd261cf91), you can use `%vendor_dir%` or `%current_working_dir%` for:
 
 ```yaml
 # lmc-coding-standard.yaml
 imports:
-    - { resource: '%vendor_dir%/symplify/easy-coding-standard/config/set/psr2.yaml' }
+    - { resource: '%vendor_dir%/your-vendor/coding-standard/config/set/your-vendor.yaml' }
     # or
-    - { resource: '%current_working_dir%/vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }
+    - { resource: '%current_working_dir%/vendor/your-vendodr/coding-standard/config/set/your-vendor.yaml' }
 ```
 
 That would load file always from vendor dir, no matter where you are.
 
 ### Exclude Checkers
 
-What if you add `symfony.yaml` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
+What if you add `symfony` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
 
 ```yaml
-imports:
-    - { resource: 'vendor/symplify/easy-coding-standard/config/set/symfony.yaml' }
-
+# ecs.yaml
 parameters:
+    sets:
+        - 'symfony'
+
     skip:
         PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
 ```
@@ -193,7 +191,7 @@ Let's say you want to include `*.phpt` files.
 
 - Create a class in `src/Finder/PhpAndPhptFilesProvider.php`
 - Implement `Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface`
-- Register it as services to `easy-coding-standard.yaml` like any other Symfony service:
+- Register it as services to `ecs.yaml` like any other Symfony service:
 
     ```yaml
     services:
