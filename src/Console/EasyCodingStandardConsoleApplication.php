@@ -38,7 +38,7 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
-        if (! $isXdebugAllowed) {
+        if (! $isXdebugAllowed && ! defined('PHPUNIT_COMPOSER_INSTALL')) {
             $xdebug = new XdebugHandler('ecs', '--ansi');
             $xdebug->check();
             unset($xdebug);
