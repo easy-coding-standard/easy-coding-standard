@@ -2,6 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Console;
 
+use Composer\XdebugHandler\XdebugHandler;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -35,6 +36,14 @@ final class EasyCodingStandardConsoleApplication extends Application
 
     public function doRun(InputInterface $input, OutputInterface $output): int
     {
+        // @fixes https://github.com/rectorphp/rector/issues/2205
+        $isXdebugAllowed = $input->hasParameterOption('--xdebug');
+        if (! $isXdebugAllowed) {
+            $xdebug = new XdebugHandler('ecs', '--ansi');
+            $xdebug->check();
+            unset($xdebug);
+        }
+
         $this->configuration->setConfigFilePathFromInput($input);
 
         // skip in this case, since generate content must be clear from meta-info
@@ -84,6 +93,13 @@ final class EasyCodingStandardConsoleApplication extends Application
             InputOption::VALUE_REQUIRED,
             'Path to config file.',
             '(ecs|easy-coding-standard).(yml|yaml)'
+        ));
+
+        $inputDefinition->addOption(new InputOption(
+            'xdebug',
+            null,
+            InputOption::VALUE_NONE,
+            'Allow running xdebug'
         ));
 
         $inputDefinition->addOption(new InputOption(

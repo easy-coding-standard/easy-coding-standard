@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php declare(strict_types=1);
 
-use Composer\XdebugHandler\XdebugHandler;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Bootstrap\ConfigResolver;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
@@ -31,11 +30,6 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
         break;
     }
 }
-
-// performance boost
-$xdebug = new XdebugHandler('ecs', '--ansi');
-$xdebug->check();
-unset($xdebug);
 
 # 2. create container
 
