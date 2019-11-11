@@ -9,7 +9,7 @@ imports:
 parameters:
     # defaults for "PhpCsFixer\WhitespacesFixerConfig"
     indentation: 'spaces'
-    line_ending: \n
+    line_ending: !php/const PHP_EOL
 
     cache_directory: '%sys_get_temp_dir%/_changed_files_detector%env(TEST_SUFFIX)%'
     cache_namespace: '%getcwd_webalized%'
