@@ -8,6 +8,7 @@ use PhpCsFixer\WhitespacesFixerConfig;
 use Psr\Container\ContainerInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\PackageBuilder\Configuration\EolConfiguration;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 
@@ -33,7 +34,7 @@ final class IndentationTest extends AbstractKernelTestCase
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer(self::$container);
 
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
-        $spacesConfig = new WhitespacesFixerConfig('    ', PHP_EOL);
+        $spacesConfig = new WhitespacesFixerConfig('    ', EolConfiguration::getEolChar());
 
         $fixerWhitespaceConfig = $this->privatesAccessor->getPrivateProperty(
             $indentationTypeFixer,
@@ -52,7 +53,7 @@ final class IndentationTest extends AbstractKernelTestCase
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer(self::$container);
 
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
-        $tabsConfig = new WhitespacesFixerConfig('	', PHP_EOL);
+        $tabsConfig = new WhitespacesFixerConfig('	', EolConfiguration::getEolChar());
 
         $fixerWhitespaceConfig = $this->privatesAccessor->getPrivateProperty(
             $indentationTypeFixer,
