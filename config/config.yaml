@@ -18,6 +18,9 @@ parameters:
     skip: []
     only: []
 
+    file_extensions:
+        - 'php'
+
     exclude_files: []
     # for tests
     env(TEST_SUFFIX): ''

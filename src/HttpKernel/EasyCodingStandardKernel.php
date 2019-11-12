@@ -14,7 +14,6 @@ use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\AddGetCwdWebal
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\AddSysGetTempDirParameterCompilerPass;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
-use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\CustomSourceProviderDefinitionCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
@@ -97,7 +96,6 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
 
         // method calls
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
-        $containerBuilder->addCompilerPass(new CustomSourceProviderDefinitionCompilerPass());
     }
 
     /**

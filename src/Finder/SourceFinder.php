@@ -3,30 +3,28 @@
 namespace Symplify\EasyCodingStandard\Finder;
 
 use Symfony\Component\Finder\Finder;
-use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SourceFinder
 {
     /**
-     * @var CustomSourceProviderInterface|null
+     * @var string[]
      */
-    private $customSourceProvider;
+    private $fileExtensions = [];
 
     /**
      * @var FinderSanitizer
      */
     private $finderSanitizer;
 
-    public function __construct(FinderSanitizer $finderSanitizer)
+    /**
+     * @param string[] $fileExtensions
+     */
+    public function __construct(FinderSanitizer $finderSanitizer, array $fileExtensions)
     {
         $this->finderSanitizer = $finderSanitizer;
-    }
-
-    public function setCustomSourceProvider(CustomSourceProviderInterface $customSourceProvider): void
-    {
-        $this->customSourceProvider = $customSourceProvider;
+        $this->fileExtensions = $fileExtensions;
     }
 
     /**
@@ -35,12 +33,6 @@ final class SourceFinder
      */
     public function find(array $source): array
     {
-        if ($this->customSourceProvider !== null) {
-            $files = $this->customSourceProvider->find($source);
-
-            return $this->finderSanitizer->sanitize($files);
-        }
-
         $files = [];
         foreach ($source as $singleSource) {
             if (is_file($singleSource)) {
@@ -70,8 +62,10 @@ final class SourceFinder
      */
     private function processDirectory(array $files, string $directory): array
     {
+        $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
+
         $finder = Finder::create()->files()
-            ->name('*.php')
+            ->name($normalizedFileExtensions)
             ->in($directory)
             ->exclude('vendor')
             ->sortByName();
@@ -79,5 +73,20 @@ final class SourceFinder
         $newFiles = $this->finderSanitizer->sanitize($finder);
 
         return array_merge($files, $newFiles);
+    }
+
+    /**
+     * @param string[] $fileExtensions
+     * @return string[]
+     */
+    private function normalizeFileExtensions(array $fileExtensions)
+    {
+        $normalizedFileExtensions = [];
+
+        foreach ($fileExtensions as $fileExtension) {
+            $normalizedFileExtensions[] = '*.' . $fileExtension;
+        }
+
+        return $normalizedFileExtensions;
     }
 }

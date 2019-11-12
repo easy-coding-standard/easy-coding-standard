@@ -183,50 +183,15 @@ parameters:
         - '*/lib/PhpParser/Parser/Php*.php'
 ```
 
-### Do you need to Include tests, `*.php`, `*.inc` or `*.phpt` files?
+### Do you need to Include other than `*.php` files?
 
-Normally you want to exclude these files, because they're not common code - they're just test files or dummy fixtures. In case you want to check them as well, **you can**.
-
-Let's say you want to include `*.phpt` files.
-
-- Create a class in `src/Finder/PhpAndPhptFilesProvider.php`
-- Implement `Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface`
-- Register it as services to `ecs.yaml` like any other Symfony service:
-
-    ```yaml
-    services:
-        App\Finder\PhpAndPhptFilesProvider: ~
-    ```
-
-The `PhpAndPhptFilesProvider` might look like this:
-
-```php
-namespace App\Finder;
-
-use IteratorAggregate;
-use Nette\Utils\Finder;
-use SplFileInfo;
-use Symplify\EasyCodingStandard\Contract\Finder\CustomSourceProviderInterface;
-
-final class PhpAndPhptFilesProvider implements CustomSourceProviderInterface
-{
-    /**
-     * @param string[] $source
-     * @return mixed[]
-     */
-    public function find(array $source)
-    {
-        # $source is "source" argument passed in CLI
-        # inc CLI: "vendor/bin/ecs check /src" => here: ['/src']
-        return Finder::find('*.php', '*.phpt')->in($source);
-    }
-}
+```yaml
+# ecs.yaml
+parameters:
+    file_extensions:
+        - 'php'
+        - 'phpt'
 ```
-
-*Don't forget to autoload it with composer.*
-
-**Use any Finder you like**: [Nette\Finder](https://doc.nette.org/en/finder) or [Symfony\Finder](https://symfony.com/doc/current/components/finder.html).
-You can also return array of files or `SplFileInfo`s.
 
 ### FAQ
 
