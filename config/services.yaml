@@ -5,7 +5,14 @@ services:
 
     Symplify\EasyCodingStandard\:
         resource: '../src'
-        exclude: '../src/{Contract,DependencyInjection,HttpKernel,Exception,Error/Error.php,Error/FileDiff.php,Yaml}'
+        exclude:
+            - '../src/Contract'
+            - '../src/DependencyInjection'
+            - '../src/HttpKernel'
+            - '../src/Exception'
+            - '../src/Error/Error.php'
+            - '../src/Error/FileDiff.php'
+            - '../src/Yaml'
 
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
