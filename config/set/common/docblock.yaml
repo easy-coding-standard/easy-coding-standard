@@ -31,3 +31,7 @@ services:
 
     # remove variable name from @var and @type annotations
     PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer: ~
+
+    # remove inheritdoc
+    PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer:
+        remove_inheritdoc: true

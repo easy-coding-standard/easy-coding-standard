@@ -176,9 +176,6 @@ final class File extends BaseFile
         return ! $this->shouldSkipError($error, $code, $data);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = false): bool
     {
         if ($this->shouldSkipError($error, $code, $data)) {
