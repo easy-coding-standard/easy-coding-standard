@@ -1,12 +1,3 @@
 imports:
     - { resource: 'checkers-parent.yaml' }
     - { resource: 'checkers-parent-2.yaml' }
-
-services:
-    Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff:
-        extraAllowedClasses:
-            - 'Symplify\EasyCodingStandard\Error\Error'
-            - 'Symplify\PackageBuilder\Reflection\*'
-            - 'Symfony\Component\DependencyInjection\ContainerBuilder'
-            - 'Symplify\EasyCodingStandard\Yaml\*'
-            - 'Symfony\Component\DependencyInjection\ParameterBag\ParameterBag'
