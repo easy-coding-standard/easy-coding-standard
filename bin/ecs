@@ -2,12 +2,13 @@
 <?php declare(strict_types=1);
 
 use Symfony\Component\Console\Input\ArgvInput;
-use Symplify\EasyCodingStandard\Bootstrap\ConfigResolver;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
-use Symplify\PackageBuilder\Configuration\SetFileFinder;
+use Symplify\EasyCodingStandard\Set\Set;
+use Symplify\SetConfigResolver\ConfigResolver;
 use Symplify\PackageBuilder\Console\Input\InputDetector;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 
 // performance boost
 gc_disable();
@@ -32,25 +33,30 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
 }
 
 # 2. create container
-
-// Detect configuration from set option
 $configs = [];
-$configs[] = (new SetFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
 
-// Fallback to config option
-ConfigFileFinder::detectFromInput('ecs', new ArgvInput());
-$configs[] = ConfigFileFinder::provide(
-    'ecs',
+// 1. --config CLI option or default
+$configResolver = new ConfigResolver();
+
+$input = new ArgvInput();
+$inputConfig = $configResolver->resolveFromInputWithFallback($input,
     ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
 );
+if ($inputConfig) {
+    $configs[] = $inputConfig;
+}
 
-// remove empty values
-$configs = array_filter($configs);
+// 2. --set CLI option
+$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, __DIR__ . '/../config');
+if ($setInputConfig) {
+    $configs[] = $setInputConfig;
+}
 
-// resolve: parameters > sets
-$configResolver = new ConfigResolver();
-$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs);
-$configs = array_merge($configs, $parameterSetsConfigs);
+// 3. "parameters > set" in provided yaml files
+$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, Set::SET_DIRECTORY);
+if ($parameterSetsConfigs !== []) {
+    $configs = array_merge($configs, $parameterSetsConfigs);
+}
 
 /**
  * @param string[] $configs
@@ -73,6 +79,16 @@ if ($configs !== []) {
 
 $easyCodingStandardKernel->boot();
 $container = $easyCodingStandardKernel->getContainer();
+
+// for cache invalidation on config change
+/** @var ChangedFilesDetector $changedFilesDetector */
+$changedFilesDetector = $container->get(ChangedFilesDetector::class);
+$changedFilesDetector->setUsedConfigs($configs);
+
+/** @var Configuration $configuration */
+$configuration = $container->get(Configuration::class);
+
+$configuration->setFirstResolverConfig($configResolver->getFirstResolvedConfig());
 
 # 3. run
 $application = $container->get(EasyCodingStandardConsoleApplication::class);

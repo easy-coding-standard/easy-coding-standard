@@ -4,7 +4,6 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\Cache\CacheItem;
-use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ChangedFilesDetector
@@ -33,11 +32,6 @@ final class ChangedFilesDetector
     {
         $this->fileHashComputer = $fileHashComputer;
         $this->tagAwareAdapter = $tagAwareAdapter;
-
-        $configurationFile = ConfigFileFinder::provide('ecs');
-        if ($configurationFile !== null && is_file($configurationFile)) {
-            $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
-        }
     }
 
     /**
@@ -75,6 +69,21 @@ final class ChangedFilesDetector
     {
         // clear cache only for changed files group
         $this->tagAwareAdapter->invalidateTags([self::CHANGED_FILES_CACHE_TAG]);
+    }
+
+    /**
+     * For cache invalidation
+     * @param string[] $configs
+     */
+    public function setUsedConfigs(array $configs): void
+    {
+        if (count($configs) === 0) {
+            return;
+        }
+
+        // the first config is core to all → if it was changed, just invalidate it
+        $firstConfig = $configs[0];
+        $this->storeConfigurationDataHash($this->fileHashComputer->compute($firstConfig));
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void

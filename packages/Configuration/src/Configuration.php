@@ -6,7 +6,6 @@ use Jean85\PrettyVersions;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
-use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
 
 final class Configuration
 {
@@ -33,7 +32,7 @@ final class Configuration
     /**
      * @var string|null
      */
-    private $configFilePath;
+    private $firstResolvedConfig;
 
     /**
      * @var string[]
@@ -90,19 +89,14 @@ final class Configuration
         return $this->showErrorTable;
     }
 
-    public function setConfigFilePathFromInput(InputInterface $input): void
+    public function setFirstResolverConfig(?string $firstResolverConfig): void
     {
-        if ($input->getParameterOption('--config')) {
-            $this->configFilePath = $input->getParameterOption('--config');
-            return;
-        }
-
-        $this->configFilePath = ConfigFileFinder::provide('ecs');
+        $this->firstResolvedConfig = $firstResolverConfig;
     }
 
     public function getConfigFilePath(): ?string
     {
-        return $this->configFilePath;
+        return $this->firstResolvedConfig;
     }
 
     public function getPrettyVersion(): string

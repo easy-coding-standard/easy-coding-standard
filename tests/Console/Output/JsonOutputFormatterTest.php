@@ -5,6 +5,7 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Output;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Terminal;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
@@ -30,10 +31,16 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/config.yml']);
+        $config = __DIR__ . '/config/config.yml';
+
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [$config]);
 
         $easyCodingStandardStyle = $this->createEasyCodingStandardStyleWithBufferOutput();
         self::$container->set(EasyCodingStandardStyle::class, $easyCodingStandardStyle);
+
+        // simulate config autowiring
+        $configuration = self::$container->get(Configuration::class);
+        $configuration->setFirstResolverConfig($config);
 
         $this->easyCodingStandardConsoleApplication = self::$container->get(
             EasyCodingStandardConsoleApplication::class

@@ -44,13 +44,7 @@ final class EasyCodingStandardConsoleApplication extends Application
             unset($xdebug);
         }
 
-        // deprecated
-        if ($input->hasParameterOption('--level')) {
-            trigger_error('Option "--level" is deprecated. Use "--set" instead', E_USER_DEPRECATED);
-            sleep(3);
-        }
-
-        $this->configuration->setConfigFilePathFromInput($input);
+//        $this->configuration->setConfigFilePathFromInput($input);
 
         // skip in this case, since generate content must be clear from meta-info
         if ($input->getFirstArgument() === CommandNaming::classToName(FindCommand::class)) {
