@@ -12,7 +12,7 @@ services:
     PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer: ~
     PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: ~
     PhpCsFixer\Fixer\Whitespace\LineEndingFixer: ~
-    PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer: ~
+    PhpCsFixer\Fixer\Casing\ConstantCaseFixer: ~
     PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer: ~
     PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer:
         ensure_fully_multiline: true

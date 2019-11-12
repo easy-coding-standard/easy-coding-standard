@@ -124,6 +124,9 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
             'PhpCsFixer\Fixer\Whitespace\LineEndingFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff',
         ],                                               [
+            'PhpCsFixer\Fixer\Casing\ConstantCaseFixer',
+            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff',
+        ],                                               [
             'PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff',
         ],                                               [
