@@ -11,7 +11,7 @@ interface CustomSourceProviderInterface
     /**
      * @param string[] $source
      *
-     * @return NetteFinder|SymfonyFinder|SplFileInfo[]|string[]|iterable Removed from typehint for BC
+     * @return NetteFinder|SymfonyFinder|SplFileInfo[]|string[]|iterable
      */
     public function find(array $source);
 }
