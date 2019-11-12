@@ -6,7 +6,7 @@ use Symplify\EasyCodingStandard\Bootstrap\ConfigResolver;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Configuration\ConfigFileFinder;
-use Symplify\PackageBuilder\Configuration\LevelFileFinder;
+use Symplify\PackageBuilder\Configuration\SetFileFinder;
 use Symplify\PackageBuilder\Console\Input\InputDetector;
 
 // performance boost
@@ -33,9 +33,9 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
 
 # 2. create container
 
-// Detect configuration from level option
+// Detect configuration from set option
 $configs = [];
-$configs[] = (new LevelFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
+$configs[] = (new SetFileFinder())->detectFromInputAndDirectory(new ArgvInput(), __DIR__ . '/../config/');
 
 // Fallback to config option
 ConfigFileFinder::detectFromInput('ecs', new ArgvInput());

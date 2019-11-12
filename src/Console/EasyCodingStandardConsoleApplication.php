@@ -44,6 +44,12 @@ final class EasyCodingStandardConsoleApplication extends Application
             unset($xdebug);
         }
 
+        // deprecated
+        if ($input->hasParameterOption('--level')) {
+            trigger_error('Option "--level" is deprecated. Use "--set" instead', E_USER_DEPRECATED);
+            sleep(3);
+        }
+
         $this->configuration->setConfigFilePathFromInput($input);
 
         // skip in this case, since generate content must be clear from meta-info
@@ -102,12 +108,7 @@ final class EasyCodingStandardConsoleApplication extends Application
             'Allow running xdebug'
         ));
 
-        $inputDefinition->addOption(new InputOption(
-            'level',
-            'l',
-            InputOption::VALUE_REQUIRED,
-            'Finds config by shortcut name.'
-        ));
+        $inputDefinition->addOption(new InputOption('set', 's', InputOption::VALUE_REQUIRED, 'Load provided set'));
 
         $inputDefinition->addOption(new InputOption(
             'debug',

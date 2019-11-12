@@ -82,10 +82,10 @@ You pick config in CLI with `--config`:
 vendor/bin/ecs check src --config vendor/symplify/easy-coding-standard/config/set/clean-code.yaml
 ```
 
-**Too long? Try `--level` shortcut**:
+**Too long? Try `--set` shortcut**:
 
 ```bash
-vendor/bin/ecs check src --level clean-code
+vendor/bin/ecs check src --set clean-code
 ```
 
 or include more of them in config:
