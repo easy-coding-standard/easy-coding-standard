@@ -36,9 +36,10 @@ final class SourceFinder
         $files = [];
         foreach ($source as $singleSource) {
             if (is_file($singleSource)) {
-                $files = $this->processFile($files, $singleSource);
+                $files[] = new SmartFileInfo($singleSource);
             } else {
-                $files = $this->processDirectory($files, $singleSource);
+                $filesInDirectory = $this->processDirectory($singleSource);
+                $files = array_merge($files, $filesInDirectory);
             }
         }
 
@@ -48,19 +49,9 @@ final class SourceFinder
     }
 
     /**
-     * @param SmartFileInfo[] $files
      * @return SmartFileInfo[]
      */
-    private function processFile(array $files, string $file): array
-    {
-        return array_merge($files, [new SmartFileInfo($file)]);
-    }
-
-    /**
-     * @param SmartFileInfo[] $files
-     * @return SmartFileInfo[]
-     */
-    private function processDirectory(array $files, string $directory): array
+    private function processDirectory(string $directory): array
     {
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
 
@@ -70,9 +61,7 @@ final class SourceFinder
             ->exclude('vendor')
             ->sortByName();
 
-        $newFiles = $this->finderSanitizer->sanitize($finder);
-
-        return array_merge($files, $newFiles);
+        return $this->finderSanitizer->sanitize($finder);
     }
 
     /**
