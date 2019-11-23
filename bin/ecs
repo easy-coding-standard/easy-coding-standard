@@ -47,7 +47,7 @@ if ($inputConfig) {
 }
 
 // 2. --set CLI option
-$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, __DIR__ . '/../config');
+$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, __DIR__ . '/../config/set');
 if ($setInputConfig) {
     $configs[] = $setInputConfig;
 }
