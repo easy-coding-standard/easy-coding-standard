@@ -94,7 +94,7 @@ final class Configuration
         $this->firstResolvedConfig = $firstResolverConfig;
     }
 
-    public function getConfigFilePath(): ?string
+    public function getFirstResolverConfig(): ?string
     {
         return $this->firstResolvedConfig;
     }

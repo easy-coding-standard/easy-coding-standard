@@ -44,8 +44,6 @@ final class EasyCodingStandardConsoleApplication extends Application
             unset($xdebug);
         }
 
-//        $this->configuration->setConfigFilePathFromInput($input);
-
         // skip in this case, since generate content must be clear from meta-info
         if ($input->getFirstArgument() === CommandNaming::classToName(FindCommand::class)) {
             return parent::doRun($input, $output);
@@ -55,7 +53,7 @@ final class EasyCodingStandardConsoleApplication extends Application
             $output->writeln($this->getLongVersion());
         }
 
-        $configPath = $this->configuration->getConfigFilePath();
+        $configPath = $this->configuration->getFirstResolverConfig();
         if ($this->configExists($configPath) && $this->shouldPrintMetaInformation($input)) {
             $output->writeln('Config file: ' . realpath($configPath));
         }
