@@ -6,7 +6,7 @@ use Iterator;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PHPUnit\Framework\TestCase;
-use SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
@@ -74,13 +74,13 @@ final class DefinitionsTest extends TestCase
         ];
         yield [
             __DIR__ . '/DefinitionsSource/config-with-bool.yaml',
-            TypeHintDeclarationSniff::class,
+            ParameterTypeHintSniff::class,
             [],
             ['enableObjectTypeHint' => false],
         ];
         yield [
             __DIR__ . '/DefinitionsSource/checkers.yaml',
-            TypeHintDeclarationSniff::class,
+            ParameterTypeHintSniff::class,
             [],
             [
                 'enableObjectTypeHint' => false,

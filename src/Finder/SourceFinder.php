@@ -68,7 +68,7 @@ final class SourceFinder
      * @param string[] $fileExtensions
      * @return string[]
      */
-    private function normalizeFileExtensions(array $fileExtensions)
+    private function normalizeFileExtensions(array $fileExtensions): array
     {
         $normalizedFileExtensions = [];
 
