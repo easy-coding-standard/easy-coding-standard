@@ -101,8 +101,8 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
             'PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer',
             'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff',
         ],                                               [
-            'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff',
             'PhpCsFixer\Fixer\ControlStructure\IncludeFixer',
+            'PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff',
         ],                                               [
             'PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff',
             'SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff',

@@ -17,7 +17,7 @@ final class MutualExcludedCheckersTest extends AbstractKernelTestCase
         );
 
         $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
-        $this->assertCount(1, $fixerFileProcessor->getCheckers());
+        $this->assertCount(2, $fixerFileProcessor->getCheckers());
 
         $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
         $this->assertCount(0, $sniffFileProcessor->getCheckers());
