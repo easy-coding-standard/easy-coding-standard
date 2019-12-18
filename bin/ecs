@@ -36,6 +36,7 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     }
 }
 
+# 2. create container
 $configs = [];
 
 // 1. --config CLI option or default
@@ -46,6 +47,10 @@ $inputConfig = $configResolver->resolveFromInputWithFallback($input,
     ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
 );
 
+if ($inputConfig) {
+    $configs[] = $inputConfig;
+}
+
 // 2. --set CLI option
 $setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, __DIR__ . '/../config/set');
 if ($setInputConfig) {
@@ -53,14 +58,10 @@ if ($setInputConfig) {
 }
 
 // 3. "parameters > set" in provided yaml files
-$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles(array_merge($configs, [$inputConfig]), Set::SET_DIRECTORY);
+$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, Set::SET_DIRECTORY);
+
 if ($parameterSetsConfigs !== []) {
     $configs = array_merge($configs, $parameterSetsConfigs);
-}
-
-// allow local config to override sets → make it last
-if ($inputConfig) {
-    $configs[] = $inputConfig;
 }
 
 /**
@@ -77,9 +78,21 @@ function computeConfigHash(array $configs): string
 }
 
 $environment = 'prod' . md5(computeConfigHash($configs) . random_int(1, 100000));
+
+// shift input config as last, so the parameters override previous rules loaded from sets
+$mainConfigShiftedAsLast = [];
+foreach ($configs as $config) {
+    if ($config !== $inputConfig) {
+        $mainConfigShiftedAsLast[] = $config;
+    }
+}
+
+$mainConfigShiftedAsLast[] = $inputConfig;
+
+
 $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
 if ($configs !== []) {
-    $easyCodingStandardKernel->setConfigs($configs);
+    $easyCodingStandardKernel->setConfigs($mainConfigShiftedAsLast);
 }
 
 $easyCodingStandardKernel->boot();
@@ -92,7 +105,6 @@ $changedFilesDetector->setUsedConfigs($configs);
 
 /** @var Configuration $configuration */
 $configuration = $container->get(Configuration::class);
-
 $configuration->setFirstResolverConfig($configResolver->getFirstResolvedConfig());
 
 # 3. run
