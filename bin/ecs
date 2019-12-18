@@ -36,30 +36,28 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
     }
 }
 
-# 2. create container
 $configs = [];
-
-// 1. --config CLI option or default
 $configResolver = new ConfigResolver();
 
-$input = new ArgvInput();
-$inputConfig = $configResolver->resolveFromInputWithFallback($input,
-    ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
-);
-if ($inputConfig) {
-    $configs[] = $inputConfig;
+// 1. "parameters > set" in provided yaml files
+$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, Set::SET_DIRECTORY);
+if ($parameterSetsConfigs !== []) {
+    $configs = array_merge($configs, $parameterSetsConfigs);
 }
 
 // 2. --set CLI option
+$input = new ArgvInput();
 $setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, __DIR__ . '/../config/set');
 if ($setInputConfig) {
     $configs[] = $setInputConfig;
 }
 
-// 3. "parameters > set" in provided yaml files
-$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, Set::SET_DIRECTORY);
-if ($parameterSetsConfigs !== []) {
-    $configs = array_merge($configs, $parameterSetsConfigs);
+// 3. --config CLI option or default - it overrided sets
+$inputConfig = $configResolver->resolveFromInputWithFallback($input,
+    ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
+);
+if ($inputConfig) {
+    $configs[] = $inputConfig;
 }
 
 /**
