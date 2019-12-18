@@ -27,9 +27,6 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
             'PhpCsFixer\Fixer\Casing\ConstantCaseFixer',
             'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff',
         ], [
-            'PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer',
-            'PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer',
-        ], [
             'Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff',
             'PhpCsFixer\Fixer\Operator\NewWithBracesFixer',
         ], [
