@@ -5,7 +5,7 @@ matrix:
         - php: 7.2
           env: COMPOSER_FLAGS="--prefer-lowest"
         - php: 7.3
-        - php: 7.4snapshot
+        - php: 7.4
 
 install:
     - composer update --prefer-source $COMPOSER_FLAGS
