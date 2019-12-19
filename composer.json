@@ -22,6 +22,7 @@
         "symplify/set-config-resolver": "^7.2",
         "symplify/smart-file-system": "^7.2",
         "symplify/autowire-array-parameter": "^7.2",
+        "symplify/auto-bind-parameter": "^7.2",
         "slevomat/coding-standard": "^6.0",
         "friendsofphp/php-cs-fixer": "^2.16",
         "squizlabs/php_codesniffer": "^3.5",
