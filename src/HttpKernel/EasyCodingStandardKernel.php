@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\AddGetCwdWebalizedParameterCompilerPass;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\CompilerPass\AddSysGetTempDirParameterCompilerPass;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
@@ -21,7 +22,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoBindParametersCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoReturnFactoryCompilerPass;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 
 final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareKernelInterface
