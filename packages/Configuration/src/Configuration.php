@@ -79,12 +79,12 @@ final class Configuration
         return $this->shouldClearCache;
     }
 
-    public function showProgressBar(): bool
+    public function shouldShowProgressBar(): bool
     {
         return $this->showProgressBar;
     }
 
-    public function showErrorTable(): bool
+    public function shouldShowErrorTable(): bool
     {
         return $this->showErrorTable;
     }

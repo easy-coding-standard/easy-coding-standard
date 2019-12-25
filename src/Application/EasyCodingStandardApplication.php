@@ -88,7 +88,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
         }
 
         // 3. start progress bar
-        if ($this->configuration->showProgressBar() && ! $this->easyCodingStandardStyle->isVerbose()) {
+        if ($this->configuration->shouldShowProgressBar() && ! $this->easyCodingStandardStyle->isVerbose()) {
             $this->easyCodingStandardStyle->progressStart(count($files) * ($this->isDualRunEnabled() ? 2 : 1));
         }
 
@@ -165,7 +165,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
 
         $callable($smartFileInfo);
 
-        if (! $this->easyCodingStandardStyle->isVerbose() && $this->configuration->showProgressBar()) {
+        if (! $this->easyCodingStandardStyle->isVerbose() && $this->configuration->shouldShowProgressBar()) {
             $this->easyCodingStandardStyle->progressAdvance();
         }
     }

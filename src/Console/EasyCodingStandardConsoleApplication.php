@@ -54,7 +54,7 @@ final class EasyCodingStandardConsoleApplication extends Application
         }
 
         $configPath = $this->configuration->getFirstResolverConfig();
-        if ($this->configExists($configPath) && $this->shouldPrintMetaInformation($input)) {
+        if ($this->doesConfigExist($configPath) && $this->shouldPrintMetaInformation($input)) {
             $output->writeln('Config file: ' . realpath($configPath));
         }
 
@@ -78,7 +78,7 @@ final class EasyCodingStandardConsoleApplication extends Application
         return ! $hasVersionOption && ! $hasNoArguments && $isConsoleOutput;
     }
 
-    private function configExists(?string $configPath): bool
+    private function doesConfigExist(?string $configPath): bool
     {
         return $configPath !== null && file_exists($configPath);
     }

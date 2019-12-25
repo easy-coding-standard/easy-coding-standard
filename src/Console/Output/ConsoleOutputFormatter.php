@@ -97,7 +97,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
 
     private function printAfterFixerStatus(): int
     {
-        if ($this->configuration->showErrorTable()) {
+        if ($this->configuration->shouldShowErrorTable()) {
             $this->easyCodingStandardStyle->printErrors($this->errorAndDiffCollector->getErrors());
         }
 
@@ -123,7 +123,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
 
     private function printNoFixerStatus(): int
     {
-        if ($this->configuration->showErrorTable()) {
+        if ($this->configuration->shouldShowErrorTable()) {
             $errors = $this->errorAndDiffCollector->getErrors();
             if (count($errors) > 0) {
                 $this->easyCodingStandardStyle->newLine();
