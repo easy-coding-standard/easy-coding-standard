@@ -67,7 +67,12 @@ final class EasyCodingStandardStyle extends SymfonyStyle
 
     private function createMessageFromFileError(Error $fileError): string
     {
-        $message = sprintf('%s%s (%s)', $fileError->getMessage(), PHP_EOL, $fileError->getSourceClass());
+        $message = sprintf(
+            '%s%s Reported by: "%s"',
+            $fileError->getMessage(),
+            PHP_EOL . PHP_EOL,
+            $fileError->getSourceClass()
+        );
         $message = $this->clearCrLfFromMessage($message);
 
         return $this->wrapMessageSoItFitsTheColumnWidth($message);

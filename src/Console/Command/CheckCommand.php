@@ -99,11 +99,13 @@ final class CheckCommand extends Command
     private function ensureSomeCheckersAreRegistered(): void
     {
         $totalCheckersLoaded = $this->easyCodingStandardApplication->getCheckerCount();
-        if ($totalCheckersLoaded === 0) {
-            throw new NoCheckersLoadedException(
-                'No checkers were found. Register them in your config in "services:" '
-                . 'section, load them via "--config <file>.yml" or "--set <set>" option.'
-            );
+        if ($totalCheckersLoaded !== 0) {
+            return;
         }
+
+        throw new NoCheckersLoadedException(
+            'No checkers were found. Register them in your config in "services:" '
+            . 'section, load them via "--config <file>.yml" or "--set <set>" option.'
+        );
     }
 }
