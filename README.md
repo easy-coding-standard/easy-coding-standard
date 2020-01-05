@@ -274,7 +274,7 @@ You can also create a keyboard shortcut in [Preferences > Keymap](https://www.je
 ## Tool Integration
 | Tool | Extension | Description |
 | ---- | --------- | ----------- |
-| [GrumPHP](https://github.com/phpro/grumphp) | [nlubisch/grumphp-easycodingstandard](https://github.com/nlubisch/grumphp-easycodingstandard) | Provides a new task for GrumPHP which runs ECS |
+| [GrumPHP](https://github.com/phpro/grumphp) | [ECS Task](https://github.com/phpro/grumphp/blob/master/doc/tasks/ecs.md) | Provides a new task for GrumPHP which runs ECS |
 
 ## Contributing
 
