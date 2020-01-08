@@ -232,7 +232,7 @@ final class File extends BaseFile
 
         $message = count($data) > 0 ? vsprintf($message, $data) : $message;
 
-        if ($isFixable === true) {
+        if ($isFixable) {
             return $isFixable;
         }
 
