@@ -6,5 +6,5 @@ services:
     Symplify\EasyCodingStandard\SniffRunner\:
         resource: '../src'
         exclude:
-            - '../src/Exception'
-            - '../src/File/File.php'
+            - '../src/Exception/*'
+            - '../src/ValueObject/*'

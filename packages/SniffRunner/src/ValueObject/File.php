@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\SniffRunner\File;
+namespace Symplify\EasyCodingStandard\SniffRunner\ValueObject;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File as BaseFile;

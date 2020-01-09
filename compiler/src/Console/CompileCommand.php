@@ -12,6 +12,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symplify\EasyCodingStandard\Compiler\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\Compiler\Process\CompileProcessFactory;
 
 /**
@@ -35,7 +36,7 @@ final class CompileCommand extends Command
     private $originalComposerJsonFileContent;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $symplifyVersionToRequire;
 
@@ -77,6 +78,12 @@ final class CompileCommand extends Command
             $this->buildDir
         );
 
+        // remove bugging packages
+        $dirsToRemove = [__DIR__ . '/../../../vendor/symfony/polyfill-php70'];
+        foreach ($dirsToRemove as $dirToRemove) {
+            NetteFileSystem::delete($dirToRemove);
+        }
+
         // parallel prevention is just for single less-buggy process
         $this->compileProcessFactory->create(['php', 'box.phar', 'compile', '--no-parallel'], $this->dataDir);
 
@@ -98,6 +105,11 @@ final class CompileCommand extends Command
         // simplify autoload (remove not packed build directory]
         $json['autoload']['psr-4']['Symplify\\EasyCodingStandard\\'] = 'src';
 
+        // remove dev content
+        unset($json['minimum-stability']);
+        unset($json['prefer-stable']);
+        unset($json['extra']);
+
         // use stable version for symplify packages
         foreach (array_keys($json['require']) as $package) {
             /** @var string $package */
@@ -107,6 +119,15 @@ final class CompileCommand extends Command
 
             $symplifyVersionToRequire = $this->getSymplifyStableVersionToRequire();
             $json['require'][$package] = $symplifyVersionToRequire;
+        }
+
+        // cleanup
+        $filesToRemove = [
+            __DIR__ . '/../../../vendor/friendsofphp/php-cs-fixer/src/Test/AbstractIntegrationTestCase.php',
+        ];
+
+        foreach ($filesToRemove as $fileToRemove) {
+            NetteFileSystem::delete($fileToRemove);
         }
 
         $encodedJson = Json::encode($json, Json::PRETTY);
@@ -126,14 +147,20 @@ final class CompileCommand extends Command
 
     private function getSymplifyStableVersionToRequire(): string
     {
-        if ($this->symplifyVersionToRequire) {
+        if ($this->symplifyVersionToRequire !== null) {
             return $this->symplifyVersionToRequire;
         }
 
-        $symplifyPackageContent = NetteFileSystem::read('https://repo.packagist.org/p/symplify/symplify.json');
-        $symplifyPackageJson = Json::decode($symplifyPackageContent, Json::FORCE_ARRAY);
+        $symplifyPackageContent = file_get_contents('https://repo.packagist.org/p/symplify/symplify.json');
+        if ($symplifyPackageContent === null) {
+            throw new ShouldNotHappenException();
+        }
 
-        $lastStableVersion = array_key_last($symplifyPackageJson['packages']['symplify/symplify']);
+        $symplifyPackageJson = Json::decode($symplifyPackageContent, Json::FORCE_ARRAY);
+        $symplifyPackageVersions = $symplifyPackageJson['packages']['symplify/symplify'];
+        end($symplifyPackageVersions);
+
+        $lastStableVersion = key($symplifyPackageVersions);
         $lastStableVersion = new Version($lastStableVersion);
 
         $this->symplifyVersionToRequire = '^' . $lastStableVersion->getMajor()->getValue() . '.' . $lastStableVersion->getMinor()->getValue();

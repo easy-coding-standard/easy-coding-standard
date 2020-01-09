@@ -6,7 +6,7 @@ services:
     Symplify\EasyCodingStandard\FixerRunner\:
         resource: '../src'
         exclude:
-            - '../src/Exception'
+            - '../src/Exception/*'
 
     # differ
     PhpCsFixer\Differ\UnifiedDiffer: ~

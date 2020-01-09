@@ -6,7 +6,6 @@ namespace Symplify\EasyCodingStandard\Compiler\Process;
 
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Compiler\Contract\Process\ProcessInterface;
 
 final class CompileProcessFactory
 {
@@ -23,7 +22,7 @@ final class CompileProcessFactory
     /**
      * @param string[] $command
      */
-    public function create(array $command, string $cwd): ProcessInterface
+    public function create(array $command, string $cwd): SymfonyProcess
     {
         return new SymfonyProcess($command, $cwd, $this->output);
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Error;
 
+use Symplify\EasyCodingStandard\ValueObject\Error\Error;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ErrorFactory

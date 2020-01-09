@@ -4,7 +4,7 @@
 
 ```bash
 composer install
-php bin/compile
+bin/compile
 ```
 
 The compiled PHAR will be in `tmp/ecs.phar`. Test it:

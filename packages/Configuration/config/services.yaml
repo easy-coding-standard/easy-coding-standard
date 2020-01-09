@@ -6,4 +6,4 @@ services:
     Symplify\EasyCodingStandard\Configuration\:
         resource: '../src'
         exclude:
-            - '../src/Exception'
+            - '../src/Exception/*'

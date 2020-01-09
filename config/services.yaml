@@ -9,13 +9,12 @@ services:
     Symplify\EasyCodingStandard\:
         resource: '../src'
         exclude:
-            - '../src/Contract'
-            - '../src/DependencyInjection'
-            - '../src/HttpKernel'
-            - '../src/Exception'
-            - '../src/Error/Error.php'
-            - '../src/Error/FileDiff.php'
-            - '../src/Yaml'
+            - '../src/Contract/*'
+            - '../src/DependencyInjection/*'
+            - '../src/HttpKernel/*'
+            - '../src/Exception/*'
+            - '../src/ValueObject/*'
+            - '../src/Yaml/*'
 
     _instanceof:
         Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:

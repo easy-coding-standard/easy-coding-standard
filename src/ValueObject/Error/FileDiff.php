@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Error;
+namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use PhpCsFixer\Differ\DiffConsoleFormatter;
 

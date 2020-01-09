@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\SniffRunner\Tests\File;
+namespace Symplify\EasyCodingStandard\SniffRunner\Tests\ValueObject;
 
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
-use Symplify\EasyCodingStandard\SniffRunner\File\File;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
+use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -31,7 +31,7 @@ final class FileTest extends AbstractKernelTestCase
         $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
 
         $fileFactory = self::$container->get(FileFactory::class);
-        $fileInfo = new SmartFileInfo(__DIR__ . '/FileFactorySource/SomeFile.php');
+        $fileInfo = new SmartFileInfo(__DIR__ . '/FileSource/SomeFile.php');
 
         $this->file = $fileFactory->createFromFileInfo($fileInfo);
         $this->file->processWithTokenListenersAndFileInfo([], $fileInfo);

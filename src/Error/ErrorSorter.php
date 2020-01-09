@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Error;
 
+use Symplify\EasyCodingStandard\ValueObject\Error\Error;
+
 final class ErrorSorter
 {
     /**
