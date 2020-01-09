@@ -96,7 +96,7 @@ final class CheckCommand extends Command
         $this->ensureSomeCheckersAreRegistered();
 
         // CLI paths override parameter paths
-        if ($this->configuration->getSources() !== []) {
+        if ($this->configuration->getSources() === []) {
             $this->configuration->setSources($this->paths);
         }
         $this->configuration->resolveFromInput($input);
