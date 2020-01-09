@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types = 1);
+
+use Symplify\EasyCodingStandard\Compiler\Console\CompileCommand;
+use Symplify\EasyCodingStandard\Compiler\Process\CompileProcessFactory;
+use Symfony\Component\Console\Application;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$compileCommand = new CompileCommand(
+	new CompileProcessFactory(),
+    __DIR__ . '/../build',
+	__DIR__ . '/..'
+);
+
+/** @var Application $application */
+$application = new Application();
+$application->add($compileCommand);
+$application->setDefaultCommand($compileCommand->getName(), true);
+$application->run();
