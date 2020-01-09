@@ -64,7 +64,7 @@ vendor/bin/ecs check src --fix
 
 ![ECS-Run](docs/yaml-autocomplete.gif)
 
-## More Features
+## Features
 
 ### Use Prepared Checker Sets
 
@@ -109,6 +109,28 @@ imports:
 ```
 
 That would load file always from vendor dir, no matter where you are.
+
+### Set Paths
+
+You have 2 options to set paths you want to analyse.
+
+1. In CLI:
+
+```bash
+vendor/bin/ecs check src
+```
+
+2. In `paths` parameter in `rector.yaml`:
+
+```yaml
+# ecs.yaml
+parameters:
+    paths:
+        - 'src'
+        - 'tests'
+```
+
+The CLI has higher priority than parameter, so if you use CLI argument, the `sets` parameter will be ignored.
 
 ### Exclude Checkers
 

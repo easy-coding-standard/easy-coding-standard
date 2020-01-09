@@ -20,6 +20,11 @@ use Symplify\PackageBuilder\Console\Command\CommandNaming;
 final class CheckCommand extends Command
 {
     /**
+     * @var string[]
+     */
+    private $paths = [];
+
+    /**
      * @var EasyCodingStandardApplication
      */
     private $easyCodingStandardApplication;
@@ -34,16 +39,21 @@ final class CheckCommand extends Command
      */
     private $outputFormatterCollector;
 
+    /**
+     * @param string[] $paths
+     */
     public function __construct(
         EasyCodingStandardApplication $easyCodingStandardApplication,
         Configuration $configuration,
-        OutputFormatterCollector $outputFormatterCollector
+        OutputFormatterCollector $outputFormatterCollector,
+        array $paths
     ) {
         parent::__construct();
 
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;
+        $this->paths = $paths;
     }
 
     protected function configure(): void
@@ -52,7 +62,7 @@ final class CheckCommand extends Command
         $this->setDescription('Check coding standard in one or more directories.');
         $this->addArgument(
             Option::SOURCE,
-            InputArgument::REQUIRED | InputArgument::IS_ARRAY,
+            InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
             'The path(s) to be checked.'
         );
         $this->addOption(Option::FIX, null, null, 'Fix found violations.');
@@ -80,17 +90,15 @@ final class CheckCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $outputFormat = $input->getOption(Option::OUTPUT_FORMAT_OPTION);
-
-        // Backwards compatibility with older version
-        if ($outputFormat === 'table') {
-            $outputFormat = ConsoleOutputFormatter::NAME;
-        }
-
+        $outputFormat = $this->resolveOutputFormat($input);
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
 
         $this->ensureSomeCheckersAreRegistered();
 
+        // CLI paths override parameter paths
+        if ($this->configuration->getSources() !== []) {
+            $this->configuration->setSources($this->paths);
+        }
         $this->configuration->resolveFromInput($input);
 
         $processedFilesCount = $this->easyCodingStandardApplication->run();
@@ -109,5 +117,17 @@ final class CheckCommand extends Command
             'No checkers were found. Register them in your config in "services:" '
             . 'section, load them via "--config <file>.yml" or "--set <set>" option.'
         );
+    }
+
+    private function resolveOutputFormat(InputInterface $input): string
+    {
+        $outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT_OPTION);
+
+        // Backwards compatibility with older version
+        if ($outputFormat === 'table') {
+            return ConsoleOutputFormatter::NAME;
+        }
+
+        return $outputFormat;
     }
 }

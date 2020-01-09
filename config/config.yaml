@@ -17,6 +17,7 @@ parameters:
     # checkers
     skip: []
     only: []
+    paths: []
 
     file_extensions:
         - 'php'
