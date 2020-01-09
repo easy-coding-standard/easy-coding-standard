@@ -36,10 +36,13 @@
         "phpunit/phpunit": "^8.5",
         "symplify/easy-coding-standard-tester": "^7.3"
     },
+    "replace": {
+        "symplify/easy-coding-standard": "7.2",
+        "symplify/easy-coding-standard-tester": "7.2"
+    },
     "autoload": {
         "psr-4": {
             "Symplify\\EasyCodingStandard\\": "src",
-            "Symplify\\EasyCodingStandard\\Compiler\\": "compiler/src",
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\": "packages/ChangedFilesDetector/src",
             "Symplify\\EasyCodingStandard\\Configuration\\": "packages/Configuration/src",
             "Symplify\\EasyCodingStandard\\FixerRunner\\": "packages/FixerRunner/src",

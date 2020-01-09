@@ -15,5 +15,5 @@ return [
             return str_replace('__DIR__ . \'/..', '\'phar://ecs.phar', $content);
         },
     ],
-    'whitelist' => ['Symplify\*'],
+    'whitelist' => ['Symplify\*', 'PHP_CodeSniffer\*', 'PhpCsFixer\*'],
 ];

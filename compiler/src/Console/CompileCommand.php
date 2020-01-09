@@ -6,6 +6,8 @@ namespace Symplify\EasyCodingStandard\Compiler\Console;
 
 use Nette\Utils\FileSystem as NetteFileSystem;
 use Nette\Utils\Json;
+use Nette\Utils\Strings;
+use PharIo\Version\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,11 +22,6 @@ final class CompileCommand extends Command
     /**
      * @var string
      */
-    public const NAME = 'ecs:compile';
-
-    /**
-     * @var string
-     */
     private $dataDir;
 
     /**
@@ -36,6 +33,11 @@ final class CompileCommand extends Command
      * @var string
      */
     private $originalComposerJsonFileContent;
+
+    /**
+     * @var string
+     */
+    private $symplifyVersionToRequire;
 
     /**
      * @var Filesystem
@@ -58,7 +60,7 @@ final class CompileCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName(self::NAME);
+        $this->setName('ecs:compile');
         $this->setDescription('Compile prefixed ecs.phar');
     }
 
@@ -96,6 +98,17 @@ final class CompileCommand extends Command
         // simplify autoload (remove not packed build directory]
         $json['autoload']['psr-4']['Symplify\\EasyCodingStandard\\'] = 'src';
 
+        // use stable version for symplify packages
+        foreach (array_keys($json['require']) as $package) {
+            /** @var string $package */
+            if (! Strings::startsWith($package, 'symplify/')) {
+                continue;
+            }
+
+            $symplifyVersionToRequire = $this->getSymplifyStableVersionToRequire();
+            $json['require'][$package] = $symplifyVersionToRequire;
+        }
+
         $encodedJson = Json::encode($json, Json::PRETTY);
 
         $this->filesystem->dumpFile($composerJsonFile, $encodedJson);
@@ -109,5 +122,22 @@ final class CompileCommand extends Command
         $this->filesystem->dumpFile($composerJsonFile, $this->originalComposerJsonFileContent);
 
         // re-run @todo composer update on root
+    }
+
+    private function getSymplifyStableVersionToRequire(): string
+    {
+        if ($this->symplifyVersionToRequire) {
+            return $this->symplifyVersionToRequire;
+        }
+
+        $symplifyPackageContent = NetteFileSystem::read('https://repo.packagist.org/p/symplify/symplify.json');
+        $symplifyPackageJson = Json::decode($symplifyPackageContent, Json::FORCE_ARRAY);
+
+        $lastStableVersion = array_key_last($symplifyPackageJson['packages']['symplify/symplify']);
+        $lastStableVersion = new Version($lastStableVersion);
+
+        $this->symplifyVersionToRequire = '^' . $lastStableVersion->getMajor()->getValue() . '.' . $lastStableVersion->getMinor()->getValue();
+
+        return $this->symplifyVersionToRequire;
     }
 }

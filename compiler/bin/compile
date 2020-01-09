@@ -7,12 +7,13 @@ use Symplify\EasyCodingStandard\Compiler\Console\CompileCommand;
 use Symplify\EasyCodingStandard\Compiler\Process\CompileProcessFactory;
 use Symfony\Component\Console\Application;
 
+// use monorepo autoload.php
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $compileCommand = new CompileCommand(
 	new CompileProcessFactory(),
     __DIR__ . '/../build',
-	__DIR__ . '/..'
+	__DIR__ . '/../..'
 );
 
 /** @var Application $application */
