@@ -48,7 +48,10 @@ final class Configuration
     {
         /** @var string[] $sources */
         $sources = $input->getArgument(Option::SOURCE);
-        $this->setSources($sources);
+        if ($sources !== []) {
+            $this->setSources($sources);
+        }
+
         $this->isFixer = (bool) $input->getOption(Option::FIX);
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
@@ -111,7 +114,7 @@ final class Configuration
     /**
      * @param string[] $sources
      */
-    private function setSources(array $sources): void
+    public function setSources(array $sources): void
     {
         $this->ensureSourcesExists($sources);
         $this->sources = $this->normalizeSources($sources);
