@@ -4,17 +4,12 @@
 declare(strict_types = 1);
 
 use Symplify\EasyCodingStandard\Compiler\Console\CompileCommand;
-use Symplify\EasyCodingStandard\Compiler\Process\CompileProcessFactory;
 use Symfony\Component\Console\Application;
 
 // use EasyCodingStandard package autoload.php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$compileCommand = new CompileCommand(
-	new CompileProcessFactory(),
-    __DIR__ . '/../build',
-	__DIR__ . '/../..'
-);
+$compileCommand = new CompileCommand(__DIR__ . '/../build',__DIR__ . '/../..');
 
 /** @var Application $application */
 $application = new Application();
