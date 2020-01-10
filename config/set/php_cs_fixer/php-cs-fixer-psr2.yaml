@@ -1,4 +1,4 @@
-# updated to PHP CS Fixer v2.11.0
+# updated to PHP CS Fixer v2.11.0 from https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/RuleSet.php
 
 services:
     # PSR1

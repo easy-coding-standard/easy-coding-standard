@@ -23,8 +23,6 @@ $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
 
-
-
 # 2. create container
 $configs = [];
 
@@ -35,7 +33,6 @@ $input = new ArgvInput();
 $inputConfig = $configResolver->resolveFromInputWithFallback($input,
     ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
 );
-
 if ($inputConfig) {
     $configs[] = $inputConfig;
 }
@@ -48,7 +45,6 @@ if ($setInputConfig) {
 
 // 3. "parameters > set" in provided yaml files
 $parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, Set::SET_DIRECTORY);
-
 if ($parameterSetsConfigs !== []) {
     $configs = array_merge($configs, $parameterSetsConfigs);
 }
@@ -76,8 +72,9 @@ foreach ($configs as $config) {
     }
 }
 
-$mainConfigShiftedAsLast[] = $inputConfig;
-
+if ($inputConfig !== null) {
+    $mainConfigShiftedAsLast[] = $inputConfig;
+}
 
 $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
 if ($configs !== []) {

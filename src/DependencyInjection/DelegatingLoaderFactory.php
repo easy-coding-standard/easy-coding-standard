@@ -19,7 +19,9 @@ final class DelegatingLoaderFactory
         ContainerBuilder $containerBuilder,
         KernelInterface $kernel
     ): DelegatingLoader {
-        return $this->createFromContainerBuilderAndFileLocator($containerBuilder, new FileLocator($kernel));
+        $kernelFileLocator = new FileLocator($kernel);
+
+        return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $kernelFileLocator);
     }
 
     /**
@@ -29,7 +31,8 @@ final class DelegatingLoaderFactory
         ContainerBuilder $containerBuilder,
         string $config
     ): DelegatingLoader {
-        $fileLocator = new SimpleFileLocator(dirname($config));
+        $directory = dirname($config);
+        $fileLocator = new SimpleFileLocator($directory);
 
         return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $fileLocator);
     }

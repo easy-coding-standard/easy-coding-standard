@@ -105,6 +105,8 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
      */
     protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
     {
-        return (new DelegatingLoaderFactory())->createFromContainerBuilderAndKernel($container, $this);
+        $delegatingLoaderFactory = new DelegatingLoaderFactory();
+
+        return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);
     }
 }

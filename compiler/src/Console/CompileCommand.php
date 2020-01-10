@@ -7,12 +7,11 @@ namespace Symplify\EasyCodingStandard\Compiler\Console;
 use Nette\Utils\FileSystem as NetteFileSystem;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
-use PharIo\Version\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symplify\EasyCodingStandard\Compiler\Exception\ShouldNotHappenException;
+use Symplify\EasyCodingStandard\Compiler\Packagist\SymplifyStableVersionProvider;
 use Symplify\EasyCodingStandard\Compiler\Process\CompileProcessFactory;
 
 /**
@@ -36,11 +35,6 @@ final class CompileCommand extends Command
     private $originalComposerJsonFileContent;
 
     /**
-     * @var string|null
-     */
-    private $symplifyVersionToRequire;
-
-    /**
      * @var Filesystem
      */
     private $filesystem;
@@ -50,6 +44,11 @@ final class CompileCommand extends Command
      */
     private $compileProcessFactory;
 
+    /**
+     * @var SymplifyStableVersionProvider
+     */
+    private $symplifyStableVersionProvider;
+
     public function __construct(CompileProcessFactory $compileProcessFactory, string $dataDir, string $buildDir)
     {
         parent::__construct();
@@ -57,6 +56,7 @@ final class CompileCommand extends Command
         $this->compileProcessFactory = $compileProcessFactory;
         $this->dataDir = $dataDir;
         $this->buildDir = $buildDir;
+        $this->symplifyStableVersionProvider = new SymplifyStableVersionProvider();
     }
 
     protected function configure(): void
@@ -77,12 +77,6 @@ final class CompileCommand extends Command
             ['composer', 'update', '--no-dev', '--prefer-dist', '--no-interaction', '--classmap-authoritative'],
             $this->buildDir
         );
-
-        // remove bugging packages
-        $dirsToRemove = [__DIR__ . '/../../../vendor/symfony/polyfill-php70'];
-        foreach ($dirsToRemove as $dirToRemove) {
-            NetteFileSystem::delete($dirToRemove);
-        }
 
         // parallel prevention is just for single less-buggy process
         $this->compileProcessFactory->create(['php', 'box.phar', 'compile', '--no-parallel'], $this->dataDir);
@@ -120,32 +114,9 @@ final class CompileCommand extends Command
         // re-run @todo composer update on root
     }
 
-    private function getSymplifyStableVersionToRequire(): string
-    {
-        if ($this->symplifyVersionToRequire !== null) {
-            return $this->symplifyVersionToRequire;
-        }
-
-        $symplifyPackageContent = file_get_contents('https://repo.packagist.org/p/symplify/symplify.json');
-        if ($symplifyPackageContent === null) {
-            throw new ShouldNotHappenException();
-        }
-
-        $symplifyPackageJson = Json::decode($symplifyPackageContent, Json::FORCE_ARRAY);
-        $symplifyPackageVersions = $symplifyPackageJson['packages']['symplify/symplify'];
-        end($symplifyPackageVersions);
-
-        $lastStableVersion = key($symplifyPackageVersions);
-        $lastStableVersion = new Version($lastStableVersion);
-
-        $this->symplifyVersionToRequire = '^' . $lastStableVersion->getMajor()->getValue() . '.' . $lastStableVersion->getMinor()->getValue();
-
-        return $this->symplifyVersionToRequire;
-    }
-
     private function replaceDevSymplifyVersionWithLastStableVersion(array $json): array
     {
-        $symplifyVersionToRequire = $this->getSymplifyStableVersionToRequire();
+        $symplifyVersionToRequire = $this->symplifyStableVersionProvider->provide();
 
         foreach (array_keys($json['require']) as $package) {
             /** @var string $package */
