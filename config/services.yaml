@@ -16,13 +16,6 @@ services:
             - '../src/ValueObject/*'
             - '../src/Yaml/*'
 
-    _instanceof:
-        Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface:
-            calls:
-                # orders matters, so Fixer can cleanup after Sniffer
-                - ['addFileProcessor', ['@Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor']]
-                - ['addFileProcessor', ['@Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor']]
-
     # Console
     Symfony\Component\Console\Terminal: ~
 

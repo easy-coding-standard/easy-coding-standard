@@ -8,19 +8,12 @@ use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\FileSystem\FileFilter;
 use Symplify\EasyCodingStandard\Finder\SourceFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class EasyCodingStandardApplication implements FileProcessorCollectorInterface
+final class EasyCodingStandardApplication
 {
-    /**
-     * @var FileProcessorInterface[]
-     */
-    private $fileProcessors = [];
-
     /**
      * @var EasyCodingStandardStyle
      */
@@ -51,13 +44,19 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
      */
     private $singleFileProcessor;
 
+    /**
+     * @var FileProcessorCollector
+     */
+    private $fileProcessorCollector;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
         Configuration $configuration,
         FileFilter $fileFilter,
-        SingleFileProcessor $singleFileProcessor
+        SingleFileProcessor $singleFileProcessor,
+        FileProcessorCollector $fileProcessorCollector
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -65,11 +64,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
         $this->configuration = $configuration;
         $this->fileFilter = $fileFilter;
         $this->singleFileProcessor = $singleFileProcessor;
-    }
-
-    public function addFileProcessor(FileProcessorInterface $fileProcessor): void
-    {
-        $this->fileProcessors[] = $fileProcessor;
+        $this->fileProcessorCollector = $fileProcessorCollector;
     }
 
     public function run(): int
@@ -109,7 +104,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
     {
         $checkerCount = 0;
 
-        foreach ($this->fileProcessors as $fileProcessor) {
+        foreach ($this->fileProcessorCollector->getFileProcessors() as $fileProcessor) {
             $checkerCount += count($fileProcessor->getCheckers());
         }
 
@@ -118,7 +113,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
 
     private function isDualRunEnabled(): bool
     {
-        foreach ($this->fileProcessors as $fileProcessor) {
+        foreach ($this->fileProcessorCollector->getFileProcessors() as $fileProcessor) {
             if (! $fileProcessor instanceof DualRunAwareFileProcessorInterface) {
                 continue;
             }
@@ -150,7 +145,7 @@ final class EasyCodingStandardApplication implements FileProcessorCollectorInter
     {
         foreach ($fileInfos as $fileInfo) {
             $this->processFileInfoWithCallable($fileInfo, function (SmartFileInfo $smartFileInfo): void {
-                foreach ($this->fileProcessors as $fileProcessor) {
+                foreach ($this->fileProcessorCollector->getFileProcessors() as $fileProcessor) {
                     if ($fileProcessor instanceof DualRunAwareFileProcessorInterface) {
                         $fileProcessor->processFileSecondRun($smartFileInfo);
                     }

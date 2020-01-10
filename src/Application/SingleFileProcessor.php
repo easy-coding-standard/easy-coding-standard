@@ -6,19 +6,12 @@ namespace Symplify\EasyCodingStandard\Application;
 
 use ParseError;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorCollectorInterface;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SingleFileProcessor implements FileProcessorCollectorInterface
+final class SingleFileProcessor
 {
-    /**
-     * @var FileProcessorInterface[]
-     */
-    private $fileProcessors = [];
-
     /**
      * @var Skipper
      */
@@ -34,26 +27,28 @@ final class SingleFileProcessor implements FileProcessorCollectorInterface
      */
     private $errorAndDiffCollector;
 
+    /**
+     * @var FileProcessorCollector
+     */
+    private $fileProcessorCollector;
+
     public function __construct(
         Skipper $skipper,
         ChangedFilesDetector $changedFilesDetector,
-        ErrorAndDiffCollector $errorAndDiffCollector
+        ErrorAndDiffCollector $errorAndDiffCollector,
+        FileProcessorCollector $fileProcessorCollector
     ) {
         $this->skipper = $skipper;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
-    }
-
-    public function addFileProcessor(FileProcessorInterface $fileProcessor): void
-    {
-        $this->fileProcessors[] = $fileProcessor;
+        $this->fileProcessorCollector = $fileProcessorCollector;
     }
 
     public function processFileInfo(SmartFileInfo $smartFileInfo): void
     {
         try {
             $this->changedFilesDetector->addFileInfo($smartFileInfo);
-            foreach ($this->fileProcessors as $fileProcessor) {
+            foreach ($this->fileProcessorCollector->getFileProcessors() as $fileProcessor) {
                 if ($fileProcessor->getCheckers() === []) {
                     continue;
                 }
