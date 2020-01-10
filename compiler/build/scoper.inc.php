@@ -15,5 +15,8 @@ return [
             return str_replace('__DIR__ . \'/..', '\'phar://ecs.phar', $content);
         },
     ],
-    'whitelist' => ['Symplify\*', 'PHP_CodeSniffer\*', 'PhpCsFixer\*'],
+    'whitelist' => [
+        // needed for autoload, that is not prefixed, since it's in bin/* file
+        'Symplify\*',
+    ],
 ];

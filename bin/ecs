@@ -38,7 +38,7 @@ if ($inputConfig) {
 }
 
 // 2. --set CLI option
-$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, __DIR__ . '/../config/set');
+$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, Set::SET_DIRECTORY);
 if ($setInputConfig) {
     $configs[] = $setInputConfig;
 }
@@ -178,7 +178,7 @@ final class AutoloadIncluder
             return;
         }
 
-        require_once $phpCodeSnifferAutoload;
+        $this->loadIfNotLoadedYet($phpCodeSnifferAutoload, __METHOD__ . '()" on line ' . __LINE__);
 
         // initalize PHPCS tokens
         new Tokens();

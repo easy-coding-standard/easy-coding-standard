@@ -11,7 +11,7 @@
     <a href="https://github.com/lmc-eu/php-coding-standard"><img src="/docs/logos/lmc.png"></a>
     <img src="/docs/logos/space.png">
     <a href="https://github.com/nette/coding-standard"><img src="/docs/logos/nette.png"></a>
-    <img src="/docs/logos/space.png">
+    <br>
     <a href="https://github.com/shopsys/coding-standards"><img src="/docs/logos/shopsys.png"></a>
     <img src="/docs/logos/space.png">
     <a href="https://github.com/SyliusLabs/CodingStandard"><img src="/docs/logos/sylius.png"></a>
@@ -23,6 +23,7 @@
 - **2nd run under few seconds** with caching
 - [Skipping files](#ignore-what-you-cant-fix) for specific checkers
 - [Prepared checker sets](#use-prepared-checker-sets) - PSR12, Symfony, Common, Symplify and more...
+- Use [Prefixed version](https://github.com/Symplify/EasyCodingStandardPrefixed) to prevent conflicts on install
 
 Are you already using another tool?
 
