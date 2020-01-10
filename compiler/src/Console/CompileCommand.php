@@ -99,36 +99,11 @@ final class CompileCommand extends Command
 
         $json = Json::decode($fileContent, Json::FORCE_ARRAY);
 
-        // remove dev dependencies (they create conflicts)
-        unset($json['require-dev'], $json['autoload-dev']);
+        $json = $this->replaceDevSymplifyVersionWithLastStableVersion($json);
+        $json = $this->fixPhpCodeSnifferAutoloading($json);
 
-        // simplify autoload (remove not packed build directory]
-        $json['autoload']['psr-4']['Symplify\\EasyCodingStandard\\'] = 'src';
-
-        // remove dev content
-        unset($json['minimum-stability']);
-        unset($json['prefer-stable']);
-        unset($json['extra']);
-
-        // use stable version for symplify packages
-        foreach (array_keys($json['require']) as $package) {
-            /** @var string $package */
-            if (! Strings::startsWith($package, 'symplify/')) {
-                continue;
-            }
-
-            $symplifyVersionToRequire = $this->getSymplifyStableVersionToRequire();
-            $json['require'][$package] = $symplifyVersionToRequire;
-        }
-
-        // cleanup
-        $filesToRemove = [
-            __DIR__ . '/../../../vendor/friendsofphp/php-cs-fixer/src/Test/AbstractIntegrationTestCase.php',
-        ];
-
-        foreach ($filesToRemove as $fileToRemove) {
-            NetteFileSystem::delete($fileToRemove);
-        }
+        $json = $this->removeDevContent($json);
+        $this->cleanupPhpCsFixerBreakingFiles();
 
         $encodedJson = Json::encode($json, Json::PRETTY);
 
@@ -166,5 +141,53 @@ final class CompileCommand extends Command
         $this->symplifyVersionToRequire = '^' . $lastStableVersion->getMajor()->getValue() . '.' . $lastStableVersion->getMinor()->getValue();
 
         return $this->symplifyVersionToRequire;
+    }
+
+    private function replaceDevSymplifyVersionWithLastStableVersion(array $json): array
+    {
+        $symplifyVersionToRequire = $this->getSymplifyStableVersionToRequire();
+
+        foreach (array_keys($json['require']) as $package) {
+            /** @var string $package */
+            if (! Strings::startsWith($package, 'symplify/')) {
+                continue;
+            }
+
+            $json['require'][$package] = $symplifyVersionToRequire;
+        }
+        return $json;
+    }
+
+    private function cleanupPhpCsFixerBreakingFiles(): void
+    {
+        // cleanup
+        $filesToRemove = [
+            __DIR__ . '/../../../vendor/friendsofphp/php-cs-fixer/src/Test/AbstractIntegrationTestCase.php',
+        ];
+
+        foreach ($filesToRemove as $fileToRemove) {
+            NetteFileSystem::delete($fileToRemove);
+        }
+    }
+
+    private function removeDevContent(array $json): array
+    {
+        $keysToRemove = ['require-dev', 'autoload-dev', 'minimum-stability', 'prefer-stable', 'extra'];
+
+        foreach ($keysToRemove as $keyToRemove) {
+            unset($json[$keyToRemove]);
+        }
+
+        return $json;
+    }
+
+    /**
+     * Their autoloader is broken inside the phar :/
+     */
+    private function fixPhpCodeSnifferAutoloading(array $json): array
+    {
+        $json['autoload']['classmap'][] = 'vendor/squizlabs/php_codesniffer/src';
+
+        return $json;
     }
 }

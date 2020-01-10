@@ -21,6 +21,9 @@ $autoloadIncluder = new AutoloadIncluder();
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
+$autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
+
+
 
 # 2. create container
 $configs = [];
@@ -156,6 +159,19 @@ final class AutoloadIncluder
         }
     }
 
+    private function isInPhar(): bool
+    {
+        if (!extension_loaded('phar')) {
+            return false;
+        }
+
+        if (Phar::running(false) === '') {
+            return false;
+        }
+
+        return true;
+    }
+
     private function loadIfNotLoadedYet(string $file, string $location): void
     {
         if (in_array($file, $this->alreadyLoadedAutoloadFiles, true)) {
@@ -172,20 +188,38 @@ final class AutoloadIncluder
 
         $this->alreadyLoadedAutoloadFiles[] = realpath($file);
         require_once $file;
-
-        $phpCodeSnifferAutoload = dirname($file) . '/squizlabs/php_codesniffer/autoload.php';
-        if (!file_exists($phpCodeSnifferAutoload)) {
-            return;
-        }
-
-        $this->loadIfNotLoadedYet($phpCodeSnifferAutoload, __METHOD__ . '()" on line ' . __LINE__);
-
-        // initalize PHPCS tokens
-        new Tokens();
     }
 
     private function isDebugOption(): bool
     {
         return in_array('--debug', $_SERVER['argv'], true);
+    }
+
+    public function includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens()
+    {
+        // file is autoloaded with classmap in PHAR
+        // without phar, we still need to autoload it
+        if (! $this->isInPhar()) {
+            # 1. autoload
+            $possibleAutoloadPaths = [
+                // after split package
+                __DIR__ . '/../vendor',
+                // dependency
+                __DIR__ . '/../../..',
+                // monorepo
+                __DIR__ . '/../../../vendor',
+            ];
+
+            foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
+                if (!is_file($possibleAutoloadPath . '/autoload.php')) {
+                    continue;
+                }
+
+                require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
+            }
+        }
+
+        // initalize PHPCS tokens
+        new Tokens();
     }
 }
