@@ -1,0 +1,56 @@
+services:
+    # __CONSTRUCT()   =>   __construct()
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer: ~
+
+    # __CLASS__   =>   self::class
+    SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff: ~
+
+    # get_class()   =>   __CLASS__
+    PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer: ~
+
+    # "$var" => "${var}"
+    PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer: ~
+
+    # PSR-4
+    PhpCsFixer\Fixer\Basic\Psr4Fixer: ~
+
+    # private $one, $two;
+    PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
+        elements: ['property', 'const']
+
+    # new SomeClass;
+    PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
+
+    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
+        singleLine: true
+
+    # $value++;   =>   ++$value;
+    PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer: ~
+
+    # class SomeClass { ... return SomeClass; }
+    PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer: ~
+
+    # __dir__
+    PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer: ~
+
+    # if ($value = $this->someMethod()) { ... }
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff: ~
+
+    # if (...) { return 1; } else { return 2; }
+    PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer: ~
+
+    # "value"
+    PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer: ~
+
+    # if ("result" === $value)
+    PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
+        equal: false
+        identical: false
+        less_and_greater: false
+
+    # private $property; public $anotherProperty;
+    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: ~
+
+    # use SomeTrait, AnotherTrait;   →   use SomeTrait;\nuse AnotherTrait;
+    SlevomatCodingStandard\Sniffs\Classes\TraitUseDeclarationSniff: ~
