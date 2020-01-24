@@ -8,7 +8,6 @@ use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Yaml\CheckerServiceParametersShifter;
 use Symplify\PackageBuilder\Yaml\FileLoader\AbstractParameterMergingYamlFileLoader;
-use Symplify\PackageBuilder\Yaml\ParameterInImportResolver;
 
 final class CheckerTolerantYamlFileLoader extends AbstractParameterMergingYamlFileLoader
 {
@@ -17,15 +16,9 @@ final class CheckerTolerantYamlFileLoader extends AbstractParameterMergingYamlFi
      */
     private $checkerServiceParametersShifter;
 
-    /**
-     * @var ParameterInImportResolver
-     */
-    private $parameterInImportResolver;
-
     public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
         $this->checkerServiceParametersShifter = new CheckerServiceParametersShifter();
-        $this->parameterInImportResolver = new ParameterInImportResolver();
 
         parent::__construct($containerBuilder, $fileLocator);
     }
@@ -42,8 +35,6 @@ final class CheckerTolerantYamlFileLoader extends AbstractParameterMergingYamlFi
             return [];
         }
 
-        $configuration = $this->checkerServiceParametersShifter->process($configuration);
-
-        return $this->parameterInImportResolver->process($configuration);
+        return $this->checkerServiceParametersShifter->process($configuration);
     }
 }

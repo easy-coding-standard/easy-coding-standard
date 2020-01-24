@@ -99,18 +99,6 @@ parameters:
         - 'psr12'
 ```
 
-In case of [custom coding standard and include](https://github.com/lmc-eu/php-coding-standard/pull/6/files#diff-a8b950982764fcffe4b7b3acd261cf91), you can use `%vendor_dir%` or `%current_working_dir%` for:
-
-```yaml
-# lmc-coding-standard.yaml
-imports:
-    - { resource: '%vendor_dir%/your-vendor/coding-standard/config/set/your-vendor.yaml' }
-    # or
-    - { resource: '%current_working_dir%/vendor/your-vendodr/coding-standard/config/set/your-vendor.yaml' }
-```
-
-That would load file always from vendor dir, no matter where you are.
-
 ### Set Paths
 
 You have 2 options to set paths you want to analyse.
