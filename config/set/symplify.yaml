@@ -1,6 +1,6 @@
 # see https://github.com/symplify/coding-standard for details
 imports:
     # monorepo
-    - { resource: '../../../coding-standard/config/symplify.yaml', ignore_errors: true }
+    - { resource: '../../../coding-standard/config/symplify.yaml', ignore_errors: not_found }
     # installed as dependency
-    - { resource: '%vendor_dir%/symplify/coding-standard/config/symplify.yaml', ignore_errors: true }
+    - { resource: '%vendor_dir%/symplify/coding-standard/config/symplify.yaml', ignore_errors: not_found }
