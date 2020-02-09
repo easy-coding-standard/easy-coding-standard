@@ -1,0 +1,67 @@
+services:
+    # $builder->addThis()\n    ->addThat();
+    PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer: ~
+
+    # 1 empty line between constants, properties and methods
+    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
+        elements: ['const', 'property', 'method']
+
+    # "string" . "another string"
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: one
+
+    # if (! $statement) {...
+    PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer: ~
+
+    # ...
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff:
+        ignoreBlankLines: false
+
+   # $value = (  type ) ...;
+    PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: ~
+
+    # $value   +  =   5;
+    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
+        align_double_arrow: false
+        align_equals: false
+
+    # someMethod(  string   $value)
+    PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer: ~
+
+    # class someClass {\n\n
+    PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
+
+    # $value = 5   ;
+    PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer: ~
+
+    # /**    @var   Type   $variable */
+    PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer: ~
+
+    #      namespace ...;
+    PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer: ~
+
+    # $value[ 'key' ];
+    PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer: ~
+
+    # \n    \n
+    PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer: ~
+
+    # someMethod()    :    Type
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
+
+    # $var = 5;     $hello = 'hi';
+    PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer: ~
+
+    # '$value   ?    'yes'    :    'no';
+    PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer: ~
+
+    # someFunction($value,$anotherValue)
+    PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer: ~
+
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff: ~
+
+    SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff:
+        linesCountAfterLastUse: 1
+        linesCountAfterLastUseWhenLastInClass: 0
+        linesCountBeforeFirstUse: 0
+        linesCountBetweenUses: 0
