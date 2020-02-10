@@ -11,7 +11,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class AppliedCheckersCollector
 {
     /**
-     * @var  string[][]|SplObjectStorage
+     * @var string[][]|SplObjectStorage
      */
     private $appliedCheckersByFile;
 
