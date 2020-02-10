@@ -1,0 +1,10 @@
+services:
+    # $value == 5;   =>   $value === 5;
+    PhpCsFixer\Fixer\Strict\StrictComparisonFixer: ~
+
+    # is_null($value);   =>   $value === null;
+    PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer:
+        use_yoda_style: false
+
+    # in_array('key', $value)   =>   in_array('key', $value, true)
+    PhpCsFixer\Fixer\Strict\StrictParamFixer: ~
