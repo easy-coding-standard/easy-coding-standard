@@ -1,5 +1,4 @@
 {
-    "name": "symplify/easy-coding-standard-compiler",
     "description": "PHAR Compiler for ECS",
     "license": "MIT",
     "require": {
