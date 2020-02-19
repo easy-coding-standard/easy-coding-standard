@@ -16,7 +16,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     /**
      * @var string
      */
-    private $includedConfigFile = __DIR__ . '/FileHashComputerSource/another-one.yml';
+    private const INCLUDED_CONFIG_FILE = __DIR__ . '/FileHashComputerSource/another-one.yml';
 
     /**
      * @var FileHashComputer
@@ -33,7 +33,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     public function testInvalidateCacheOnConfigurationChange(): void
     {
         // A. create on another one with fixer
-        FileSystem::write($this->includedConfigFile, Yaml::dump([
+        FileSystem::write(self::INCLUDED_CONFIG_FILE, Yaml::dump([
             'services' => [
                 DeclareStrictTypesFixer::class => [],
             ],
@@ -44,7 +44,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
         );
 
         // B. create on another one with no fixer
-        FileSystem::write($this->includedConfigFile, Yaml::dump([
+        FileSystem::write(self::INCLUDED_CONFIG_FILE, Yaml::dump([
             'services' => [],
         ]));
 
@@ -54,7 +54,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);
 
-        FileSystem::delete($this->includedConfigFile);
+        FileSystem::delete(self::INCLUDED_CONFIG_FILE);
     }
 
     public function testPhpFileHash(): void
