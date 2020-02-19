@@ -1,0 +1,6 @@
+services:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff:
+        lineLimit: 15
+        absoluteLineLimit:
+            - '@author' # just test array of annotations
+
