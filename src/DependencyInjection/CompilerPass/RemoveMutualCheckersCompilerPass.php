@@ -15,7 +15,7 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
      *
      * @var string[][]
      */
-    private static $duplicatedCheckerGroups = [
+    private const DUPLICATED_CHECKER_GROUPS = [
         [
             'SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff',
             'Symplify\CodingStandard\Sniffs\Namespaces\ClassNamesWithoutPreSlashSniff',
@@ -189,7 +189,7 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
         $checkers = (array) array_flip($checkers);
 
         $checkersToRemove = [];
-        foreach (self::$duplicatedCheckerGroups as $matchingCheckerGroup) {
+        foreach (self::DUPLICATED_CHECKER_GROUPS as $matchingCheckerGroup) {
             if (! $this->isMatch($checkers, $matchingCheckerGroup)) {
                 continue;
             }
