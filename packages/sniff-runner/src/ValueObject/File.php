@@ -8,11 +8,11 @@ use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File as BaseFile;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
-use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff;
 use PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff;
-use PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP\CommentedOutCodeSniff;
 use PHP_CodeSniffer\Util\Common;
+use SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff;
+use Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
@@ -22,6 +22,18 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class File extends BaseFile
 {
+    /**
+     * Explicit list for now.
+     *
+     * @var string[]
+     */
+    private const REPORT_WARNINGS_SNIFFS = [
+        CommentedOutCodeSniff::class,
+        AssignmentInConditionSniff::class,
+        PropertyDeclarationSniff::class,
+        MethodDeclarationSniff::class,
+    ];
+
     /**
      * @var string
      */
@@ -41,18 +53,6 @@ final class File extends BaseFile
      * @var string|null
      */
     private $previousActiveSniffClass;
-
-    /**
-     * Explicit list for now.
-     *
-     * @var string[]
-     */
-    private $reportWarningsSniffs = [
-        CommentedOutCodeSniff::class,
-        AssignmentInConditionSniff::class,
-        PropertyDeclarationSniff::class,
-        MethodDeclarationSniff::class,
-    ];
 
     /**
      * @var Sniff[][]
@@ -295,7 +295,7 @@ final class File extends BaseFile
 
     private function isSniffClassWarningAllowed(string $sniffClass): bool
     {
-        foreach ($this->reportWarningsSniffs as $reportWarningsSniff) {
+        foreach (self::REPORT_WARNINGS_SNIFFS as $reportWarningsSniff) {
             if (is_a($sniffClass, $reportWarningsSniff, true)) {
                 return true;
             }
