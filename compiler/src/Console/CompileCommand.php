@@ -20,6 +20,11 @@ use Symplify\EasyCodingStandard\Compiler\Process\SymfonyProcess;
 final class CompileCommand extends Command
 {
     /**
+     * @var string[]
+     */
+    private const KEYS_TO_REMOVE = ['require-dev', 'autoload-dev', 'minimum-stability', 'prefer-stable', 'extra'];
+
+    /**
      * @var string
      */
     private $dataDir;
@@ -139,12 +144,9 @@ final class CompileCommand extends Command
 
     private function removeDevContent(array $json): array
     {
-        $keysToRemove = ['require-dev', 'autoload-dev', 'minimum-stability', 'prefer-stable', 'extra'];
-
-        foreach ($keysToRemove as $keyToRemove) {
+        foreach (self::KEYS_TO_REMOVE as $keyToRemove) {
             unset($json[$keyToRemove]);
         }
-
         return $json;
     }
 

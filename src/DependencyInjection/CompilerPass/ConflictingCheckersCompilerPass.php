@@ -15,7 +15,7 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
      *
      * @var string[][]
      */
-    private static $conflictingCheckerGroups = [
+    private const CONFLICTING_CHECKER_GROUPS = [
         [
             'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff',
             'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer',
@@ -47,7 +47,7 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
             return;
         }
 
-        foreach (self::$conflictingCheckerGroups as $viceVersaMatchingCheckerGroup) {
+        foreach (self::CONFLICTING_CHECKER_GROUPS as $viceVersaMatchingCheckerGroup) {
             if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
                 continue;
             }
