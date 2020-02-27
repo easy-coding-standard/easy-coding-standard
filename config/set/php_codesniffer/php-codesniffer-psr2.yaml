@@ -1,0 +1,54 @@
+services:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\NamespaceDeclarationSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Namespaces\UseDeclarationSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\ClassDeclarationSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\EndFileNewlineSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\ClosingTagSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\ControlStructureSpacingSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\SwitchDeclarationSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\ControlStructures\ElseIfDeclarationSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\FunctionCallSignatureSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff:
+    PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\FunctionClosingBraceSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\ByteOrderMarkSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes\ValidClassNameSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineEndingsSniff:
+        eolChar: \n
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff:
+        ignoreBlankLines: true
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\DisallowMultipleStatementsSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\ScopeIndentSniff:
+        ignoreIndentationTokens:
+            - T_COMMENT
+            - T_DOC_COMMENT_OPEN_TAG
+    PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowTabIndentSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseKeywordSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\MethodScopeSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeKeywordSpacingSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\LowercaseFunctionKeywordsSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationArgumentSpacingSniff:
+        equalsSpacing: 1
+    PHP_CodeSniffer\Standards\PEAR\Sniffs\Functions\ValidDefaultValueSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\MultiLineFunctionDeclarationSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\FunctionCallArgumentSpacingSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ControlSignatureSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ControlStructureSpacingSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ForEachLoopDeclarationSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ForLoopDeclarationSniff:
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\LowercaseDeclarationSniff:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures\InlineControlStructureSniff:
+
+parameters:
+    skip:
+        # Only some rules from ControlStructureSpacingSniff are part of PSR-2, skip the rest:
+        PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ControlStructureSpacingSniff.SpacingAfterOpenBrace: ~
+        PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ControlStructureSpacingSniff.SpaceBeforeCloseBrace: ~
+        PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ControlStructureSpacingSniff.LineAfterClose: ~
+        PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ControlStructureSpacingSniff.NoLineAfterClose: ~
+        # PSR-2 does not enforce line alignment (https://www.php-fig.org/psr/psr-2/#7-conclusion)
+        PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\FunctionCallSignatureSniff.OpeningIndent: ~
