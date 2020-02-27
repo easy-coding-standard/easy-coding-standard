@@ -28,6 +28,7 @@ $configs = [];
 
 // 1. --config CLI option or default
 $configResolver = new ConfigResolver();
+$setDirectory = __DIR__ . '/../config/set';
 
 $input = new ArgvInput();
 $inputConfig = $configResolver->resolveFromInputWithFallback($input,
@@ -38,13 +39,13 @@ if ($inputConfig) {
 }
 
 // 2. --set CLI option
-$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, Set::SET_DIRECTORY);
+$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, $setDirectory);
 if ($setInputConfig) {
     $configs[] = $setInputConfig;
 }
 
 // 3. "parameters > set" in provided yaml files
-$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, Set::SET_DIRECTORY);
+$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, $setDirectory);
 if ($parameterSetsConfigs !== []) {
     $configs = array_merge($configs, $parameterSetsConfigs);
 }
