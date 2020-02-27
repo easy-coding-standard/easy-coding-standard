@@ -9,11 +9,6 @@ final class Option
     /**
      * @var string
      */
-    public const CHECKERS = 'checkers';
-
-    /**
-     * @var string
-     */
     public const SOURCE = 'source';
 
     /**
@@ -40,16 +35,6 @@ final class Option
      * @var string
      */
     public const OUTPUT_FORMAT_OPTION = 'output-format';
-
-    /**
-     * @var string
-     */
-    public const EXCLUDE_CHECKERS = 'exclude_checkers';
-
-    /**
-     * @var string
-     */
-    public const EXCLUDE_FILES = 'exclude_files';
 
     /**
      * @var string
