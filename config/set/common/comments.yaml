@@ -1,0 +1,6 @@
+services:
+    # check for forgotten "git merge" conflicts
+    PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff: ~
+
+    # remove empty inline comments
+    SlevomatCodingStandard\Sniffs\Commenting\EmptyCommentSniff:
