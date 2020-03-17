@@ -1,0 +1,5 @@
+services:
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short
+    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
+        elements: ["property"]

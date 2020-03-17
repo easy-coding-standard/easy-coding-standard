@@ -1,0 +1,44 @@
+imports:
+    - { resource: 'php_cs_fixer/php-cs-fixer-psr2.yaml' }
+
+services:
+    PhpCsFixer\Fixer\CastNotation\LowercaseCastFixer: ~
+    PhpCsFixer\Fixer\CastNotation\ShortScalarCastFixer: ~
+    PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
+    PhpCsFixer\Fixer\Import\NoLeadingImportSlashFixer: ~
+    PhpCsFixer\Fixer\Import\OrderedImportsFixer:
+        importsOrder:
+            - 'class'
+            - 'const'
+            - 'function'
+    PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer:
+        space: 'none'
+    PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~
+    PhpCsFixer\Fixer\Basic\BracesFixer:
+        allow_single_line_closure: false
+        position_after_functions_and_oop_constructs: 'next'
+        position_after_control_structures: 'same'
+        position_after_anonymous_constructs: 'same'
+
+    PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
+    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
+        elements:
+            - 'const'
+            - 'method'
+            - 'property'
+    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer: ~
+    PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer: ~
+    PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer: ~
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
+    PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: ~
+
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: 'one'
+
+    PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer: ~
+    PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer:
+    PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer:
+
+parameters:
+    skip:
+        PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer: ~
