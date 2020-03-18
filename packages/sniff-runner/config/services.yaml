@@ -8,3 +8,6 @@ services:
         exclude:
             - '../src/Exception/*'
             - '../src/ValueObject/*'
+
+    PHP_CodeSniffer\Fixer: null
+
