@@ -1,0 +1,3 @@
+<?php
+
+opendir($sServerDir) ;
