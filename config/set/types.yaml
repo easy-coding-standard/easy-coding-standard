@@ -1,0 +1,4 @@
+services:
+    SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff: ~
+    SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff: ~
+    SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff: ~
