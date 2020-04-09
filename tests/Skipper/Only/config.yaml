@@ -1,0 +1,7 @@
+services:
+    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
+
+parameters:
+    only:
+        Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff:
+            - 'SomeFileToOnlyInclude.php'
