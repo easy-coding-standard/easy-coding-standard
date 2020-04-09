@@ -95,7 +95,7 @@ final class CompileCommand extends Command
         $json = Json::decode($fileContent, Json::FORCE_ARRAY);
 
         $json = $this->replaceDevSymplifyVersionWithLastStableVersion($json);
-        $json = $this->replaceConflictWithReplace($json);
+        $json = $this->addReplaceForPhp70Polyfill($json);
         $json = $this->fixPhpCodeSnifferAutoloading($json);
 
         $json = $this->removeDevContent($json);
@@ -131,10 +131,9 @@ final class CompileCommand extends Command
         return $json;
     }
 
-    private function replaceConflictWithReplace(array $json): array
+    private function addReplaceForPhp70Polyfill(array $json): array
     {
-        $json['replace'] = $json['conflict'];
-        unset($json['conflict']);
+        $json['replace']['symfony/polyfill-php70'] = '*';
     }
 
     private function cleanupPhpCsFixerBreakingFiles(): void
