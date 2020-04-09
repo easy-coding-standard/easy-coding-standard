@@ -134,6 +134,8 @@ final class CompileCommand extends Command
     private function addReplaceForPhp70Polyfill(array $json): array
     {
         $json['replace']['symfony/polyfill-php70'] = '*';
+
+        return $json;
     }
 
     private function cleanupPhpCsFixerBreakingFiles(): void
