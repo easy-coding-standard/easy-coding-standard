@@ -51,7 +51,7 @@
             "Symplify\\EasyCodingStandard\\Tests\\": "tests"
         }
     },
-    "replace": {
+    "conflict": {
         "symfony/polyfill-php70": "*"
     },
     "extra": {
