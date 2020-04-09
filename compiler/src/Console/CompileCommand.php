@@ -95,6 +95,7 @@ final class CompileCommand extends Command
         $json = Json::decode($fileContent, Json::FORCE_ARRAY);
 
         $json = $this->replaceDevSymplifyVersionWithLastStableVersion($json);
+        $json = $this->replaceConflictWithReplace($json);
         $json = $this->fixPhpCodeSnifferAutoloading($json);
 
         $json = $this->removeDevContent($json);
@@ -128,6 +129,12 @@ final class CompileCommand extends Command
             $json['require'][$package] = $symplifyVersionToRequire;
         }
         return $json;
+    }
+
+    private function replaceConflictWithReplace(array $json): array
+    {
+        $json['replace'] = $json['conflict'];
+        unset($json['conflict']);
     }
 
     private function cleanupPhpCsFixerBreakingFiles(): void
