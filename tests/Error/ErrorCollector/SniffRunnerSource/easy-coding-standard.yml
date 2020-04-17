@@ -1,0 +1,3 @@
+services:
+    Symplify\CodingStandard\Sniffs\CleanCode\ForbiddenReferenceSniff: ~
+    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
