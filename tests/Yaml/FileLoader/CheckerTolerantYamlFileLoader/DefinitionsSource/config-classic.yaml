@@ -1,0 +1,8 @@
+services:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff:
+        properties:
+            absoluteLineLimit: 150
+
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        calls:
+            - ['configure', [syntax: 'short']]
