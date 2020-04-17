@@ -1,0 +1,9 @@
+services:
+    SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff: ~
+    SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff: ~
+    SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff: ~
+    SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: ~
+
+parameters:
+    skip:
+        SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff.UnusedParameter: ~
