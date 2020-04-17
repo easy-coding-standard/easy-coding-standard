@@ -1,0 +1,17 @@
+services:
+    # PHP-CS-Fixer only
+    PhpCsFixer\Fixer\LanguageConstruct\DirConstantFixer: ~
+    PhpCsFixer\Fixer\Alias\EregToPregFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer: ~
+    PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer: ~
+    PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer: ~
+    PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer:
+        use_escape_sequences_in_strings: false
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer: ~
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitDedicateAssertFixer: ~
+    PhpCsFixer\Fixer\Basic\Psr4Fixer: ~
+    PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer: ~
+    PhpCsFixer\Fixer\LanguageConstruct\SilencedDeprecationErrorFixer: ~
+    # php-cs-fixer 2.7+
+    PhpCsFixer\Fixer\Naming\NoHomoglyphNamesFixer: ~

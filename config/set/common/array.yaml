@@ -1,0 +1,21 @@
+services:
+    # [ 1 , 2];
+    PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer: ~
+
+    # [    1, 2   ];
+    PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer: ~
+
+    # [ 1,\n2 ];
+    PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer: ~
+
+    # [1, ]   =>   [1]
+    PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer: ~
+
+    # array(    );
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short
+
+    # [1,2]
+    PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer: ~
+
+    PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer: ~
