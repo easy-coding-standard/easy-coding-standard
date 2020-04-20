@@ -2,3 +2,8 @@ services:
     SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff: ~
     SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff: ~
     SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff: ~
+
+parameters:
+    skip:
+        # broken - enforces PHP 7.4 on lower PHP
+        SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff.MissingNativeTypeHint: null
