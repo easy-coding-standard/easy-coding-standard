@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
@@ -19,11 +20,6 @@ use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
 final class CheckCommand extends Command
 {
-    /**
-     * @var string[]
-     */
-    private $paths = [];
-
     /**
      * @var EasyCodingStandardApplication
      */
@@ -40,20 +36,22 @@ final class CheckCommand extends Command
     private $outputFormatterCollector;
 
     /**
-     * @param string[] $paths
+     * @var SymfonyStyle
      */
+    private $symfonyStyle;
+
     public function __construct(
         EasyCodingStandardApplication $easyCodingStandardApplication,
         Configuration $configuration,
         OutputFormatterCollector $outputFormatterCollector,
-        array $paths
+        SymfonyStyle $symfonyStyle
     ) {
-        parent::__construct();
-
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;
-        $this->paths = $paths;
+        $this->symfonyStyle = $symfonyStyle;
+
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -65,6 +63,7 @@ final class CheckCommand extends Command
             InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
             'The path(s) to be checked.'
         );
+
         $this->addOption(Option::FIX, null, null, 'Fix found violations.');
         $this->addOption(Option::CLEAR_CACHE, null, null, 'Clear cache for already checked files.');
         $this->addOption(
@@ -97,9 +96,11 @@ final class CheckCommand extends Command
 
         // CLI paths override parameter paths
         if ($this->configuration->getSources() === []) {
-            $this->configuration->setSources($this->paths);
+            $this->configuration->setSources($this->configuration->getPaths());
         }
+
         $this->configuration->resolveFromInput($input);
+        $this->ensureDeprecatedPsr2IsNotUsed();
 
         $processedFilesCount = $this->easyCodingStandardApplication->run();
 
@@ -129,5 +130,20 @@ final class CheckCommand extends Command
         }
 
         return $outputFormat;
+    }
+
+    private function ensureDeprecatedPsr2IsNotUsed(): void
+    {
+        if (! in_array('psr2', $this->configuration->getSets(), true)) {
+            return;
+        }
+
+        $message = sprintf(
+            'Set "psr2" is deprecated since 2019-08 (see %s) and will be removed. Use "psr12" instead',
+            'https://www.php-fig.org/psr/psr-2/'
+        );
+        $this->symfonyStyle->warning($message);
+
+        sleep(3);
     }
 }
