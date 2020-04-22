@@ -77,7 +77,7 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
-        array $sniffs
+        array $sniffs = []
     ) {
         $this->fixer = $fixer;
         $this->fileFactory = $fileFactory;
