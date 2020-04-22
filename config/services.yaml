@@ -17,19 +17,23 @@ services:
             - '../src/Yaml/*'
 
     # Console
-    Symfony\Component\Console\Terminal: ~
+    Symfony\Component\Console\Terminal: null
 
-    Symplify\PackageBuilder\Parameter\ParameterProvider: ~
-    Symplify\PackageBuilder\Php\TypeAnalyzer: ~
-    Symplify\SmartFileSystem\FileSystemGuard: ~
-    Symplify\SmartFileSystem\Finder\FinderSanitizer: ~
+    Symplify\PackageBuilder\Parameter\ParameterProvider: null
+    Symplify\PackageBuilder\Php\TypeAnalyzer: null
+    Symplify\SmartFileSystem\FileSystemGuard: null
+    Symplify\SmartFileSystem\Finder\FinderSanitizer: null
 
-    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: ~
-    PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: ~
-    PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer: ~
+    Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory: null
+    Symfony\Component\Console\Style\SymfonyStyle:
+        factory: ['@Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory', 'create']
 
-    Symfony\Component\EventDispatcher\EventDispatcher: ~
-    Symplify\PackageBuilder\EventSubscriber\ParameterTypoProofreaderEventSubscriber: ~
+    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: null
+    PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: null
+    PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer: null
+
+    Symfony\Component\EventDispatcher\EventDispatcher: null
+    Symplify\PackageBuilder\EventSubscriber\ParameterTypoProofreaderEventSubscriber: null
 
     # parameter corrections
     Symplify\PackageBuilder\Parameter\ParameterTypoProofreader:
