@@ -108,7 +108,7 @@ You have 2 options to set paths you want to analyse.
 vendor/bin/ecs check src
 ```
 
-2. In `paths` parameter in `rector.yaml`:
+2. In `paths` parameter in `ecs.yaml`:
 
 ```yaml
 # ecs.yaml
