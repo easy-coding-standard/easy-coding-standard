@@ -42,6 +42,26 @@ final class Configuration
     private $sources = [];
 
     /**
+     * @var string[]
+     */
+    private $paths = [];
+
+    /**
+     * @var string[]
+     */
+    private $sets = [];
+
+    /**
+     * @param string[] $paths
+     * @param string[] $sets
+     */
+    public function __construct(array $paths, array $sets)
+    {
+        $this->paths = $paths;
+        $this->sets = $sets;
+    }
+
+    /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      */
     public function resolveFromInput(InputInterface $input): void
@@ -56,6 +76,12 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
+
+        // CLI overrides config
+        if ($input->getOption('set')) {
+            $set = (string) $input->getOption('set');
+            $this->sets = [$set];
+        }
     }
 
     /**
@@ -118,6 +144,22 @@ final class Configuration
     {
         $this->ensureSourcesExists($sources);
         $this->sources = $this->normalizeSources($sources);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getPaths(): array
+    {
+        return $this->paths;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSets(): array
+    {
+        return $this->sets;
     }
 
     private function canShowProgressBar(InputInterface $input): bool
