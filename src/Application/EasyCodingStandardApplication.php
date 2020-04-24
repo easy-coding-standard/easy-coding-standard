@@ -157,7 +157,7 @@ final class EasyCodingStandardApplication
     private function processFileInfoWithCallable(SmartFileInfo $smartFileInfo, callable $callable): void
     {
         if ($this->easyCodingStandardStyle->isVerbose()) {
-            $this->easyCodingStandardStyle->writeln($smartFileInfo->getRealPath());
+            $this->easyCodingStandardStyle->writeln(' [file] ' . $smartFileInfo->getRelativeFilePathFromCwd());
         }
 
         $callable($smartFileInfo);
