@@ -1,0 +1,23 @@
+services:
+    Symplify\CodingStandard\Sniffs\CleanCode\CognitiveComplexitySniff:
+        maxCognitiveComplexity: 1
+
+parameters:
+    skip:
+        # class
+        PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer:
+            - 'Source/someFile'
+            - '*/someDirectory/*'
+
+        # code
+        PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer.someCode: ~
+        PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer.someOtherCode:
+            - '*/someDirectory/*'
+        PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer.someAnotherCode:
+            - 'someDirectory/*'
+
+        # messages
+        'some fishy code at line 5!': ~
+        'some another fishy code at line 5!':
+            - 'someDirectory/*'
+        'Cognitive complexity for method "foo" is 2 but has to be less than or equal to 1.': ~
