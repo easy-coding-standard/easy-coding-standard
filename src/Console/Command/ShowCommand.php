@@ -10,7 +10,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
@@ -69,7 +68,7 @@ final class ShowCommand extends Command
     }
 
     /**
-     * @param FixerInterface[]|Sniff[]|string[]|DualRunInterface[] $checkers
+     * @param FixerInterface[]|Sniff[]|string[] $checkers
      */
     private function displayCheckerList(array $checkers, string $type): void
     {
