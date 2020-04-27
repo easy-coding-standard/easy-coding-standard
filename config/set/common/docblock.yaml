@@ -1,4 +1,7 @@
 services:
+    # block for properties
+    PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer: null
+
     # null|Type   →   Type|null
     SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff: ~
 
