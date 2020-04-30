@@ -1,0 +1,3 @@
+services:
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+    Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff: ~
