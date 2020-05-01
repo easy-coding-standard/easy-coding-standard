@@ -93,14 +93,10 @@ final class ComposerJsonManipulator
      */
     private function replacePHPStanWithPHPStanSrc(array $json): array
     {
-        // already replaced
-        if (! isset($json['require']['phpstan/phpstan'])) {
-            return $json;
-        }
-
-        $phpstanVersion = $json['require']['phpstan/phpstan'];
-        $json['require']['phpstan/phpstan-src'] = $phpstanVersion;
-        unset($json['require']['phpstan/phpstan']);
+        // its actually part of coding standard, so we have to require it here
+        // @todo automate version resolving from
+        $phpStanVersion = $this->resolveCodingStandardPHPStanVersion();
+        $json['require']['phpstan/phpstan-src'] = '^' . $phpStanVersion;
 
         $json['repositories'][] = [
             'type' => 'vcs',
@@ -140,5 +136,16 @@ final class ComposerJsonManipulator
             unset($json[$keyToRemove]);
         }
         return $json;
+    }
+
+    private function resolveCodingStandardPHPStanVersion(): string
+    {
+        $codingStandardFileContent = NetteFileSystem::read(
+            __DIR__ . '/../../../../../packages/coding-standard/composer.json'
+        );
+
+        $json = Json::decode($codingStandardFileContent);
+
+        return (string) $json['require']['phpstan/phpstan'];
     }
 }
