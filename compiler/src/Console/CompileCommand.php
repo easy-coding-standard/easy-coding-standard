@@ -69,7 +69,7 @@ final class CompileCommand extends Command
 
         $this->symfonyStyle->note(sprintf('Reading "%s" file', $composerJsonFileInfo));
         $this->composerJsonManipulator->fixComposerJson($composerJsonFile);
-//        $this->cleanupPhpCsFixerBreakingFiles();
+        $this->cleanupPhpCsFixerBreakingFiles();
 
         // parallel prevention is just for single less-buggy process
         new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel'], $this->dataDir, $output);
