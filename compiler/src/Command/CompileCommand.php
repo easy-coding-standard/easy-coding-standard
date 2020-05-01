@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Compiler\Console;
+namespace Symplify\EasyCodingStandard\Compiler\Command;
 
 use Nette\Utils\FileSystem as NetteFileSystem;
 use Symfony\Component\Console\Command\Command;
@@ -11,7 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Compiler\Composer\ComposerJsonManipulator;
 use Symplify\EasyCodingStandard\Compiler\Process\SymfonyProcess;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
@@ -39,16 +38,19 @@ final class CompileCommand extends Command
      */
     private $symfonyStyle;
 
-    public function __construct(string $dataDir, string $buildDir)
-    {
+    public function __construct(
+        string $dataDir,
+        string $buildDir,
+        SymfonyStyle $symfonyStyle,
+        ComposerJsonManipulator $composerJsonManipulator
+    ) {
         parent::__construct();
 
         $this->dataDir = $dataDir;
         $this->buildDir = $buildDir;
 
-        $this->composerJsonManipulator = new ComposerJsonManipulator();
-        $symfonyStyleFactory = new SymfonyStyleFactory();
-        $this->symfonyStyle = $symfonyStyleFactory->create();
+        $this->symfonyStyle = $symfonyStyle;
+        $this->composerJsonManipulator = $composerJsonManipulator;
     }
 
     protected function configure(): void
@@ -61,6 +63,8 @@ final class CompileCommand extends Command
     {
         $composerJsonFile = $this->buildDir . '/composer.json';
 
+        // 1.
+        $this->symfonyStyle->section('Loading and updating ' . $composerJsonFile);
         $composerJsonFileInfo = new SmartFileInfo($composerJsonFile);
 
         // remove phpstan.phar, so we can require phpstan/phpstan-src and pack it into phar
@@ -68,20 +72,32 @@ final class CompileCommand extends Command
         $this->composerJsonManipulator->fixComposerJson($composerJsonFile);
         $this->cleanupPhpCsFixerBreakingFiles();
 
+        // 2.
         $this->symfonyStyle->section('Running "composer update" for new config');
         // @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/52
         new SymfonyProcess(
-            ['composer', 'update', '--no-dev', '--prefer-dist', '--no-interaction', '--classmap-authoritative'],
+            [
+                'composer',
+                'update',
+                '--no-dev',
+                '--prefer-dist',
+                '--no-interaction',
+                '--classmap-authoritative',
+                '--ansi',
+            ],
             $this->buildDir,
             $output
         );
 
+        // 3.
         // parallel prevention is just for single less-buggy process
         $this->symfonyStyle->section('Packing and prefixing ecs.phar with Box and PHP Scoper');
-        new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel'], $this->dataDir, $output);
+        new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel', '--ansi'], $this->dataDir, $output);
 
+        // 4.
         $this->symfonyStyle->note('Restoring original composer.json content');
         $this->composerJsonManipulator->restore();
+        $this->symfonyStyle->note('You still need to run "composer update" to install those dependencies');
 
         $this->symfonyStyle->success('ecs.phar was generated');
 
