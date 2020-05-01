@@ -7,12 +7,9 @@ namespace Symplify\EasyCodingStandard\Compiler\Composer;
 use Nette\Utils\FileSystem as NetteFileSystem;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
-use SebastianBergmann\Diff\Differ;
 use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Compiler\Differ\ConsoleDiffer;
-use Symplify\EasyCodingStandard\Compiler\Differ\ConsoleDifferFormatter;
 use Symplify\EasyCodingStandard\Compiler\Packagist\SymplifyStableVersionProvider;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 final class ComposerJsonManipulator
 {
@@ -41,14 +38,14 @@ final class ComposerJsonManipulator
      */
     private $consoleDiffer;
 
-    public function __construct()
-    {
-        $this->symplifyStableVersionProvider = new SymplifyStableVersionProvider();
-        $this->filesystem = new Filesystem();
-
-        $symfonyStyle = (new SymfonyStyleFactory())->create();
-        $differ = new Differ();
-        $this->consoleDiffer = new ConsoleDiffer($symfonyStyle, $differ, new ConsoleDifferFormatter());
+    public function __construct(
+        SymplifyStableVersionProvider $symplifyStableVersionProvider,
+        Filesystem $filesystem,
+        ConsoleDiffer $consoleDiffer
+    ) {
+        $this->symplifyStableVersionProvider = $symplifyStableVersionProvider;
+        $this->filesystem = $filesystem;
+        $this->consoleDiffer = $consoleDiffer;
     }
 
     public function fixComposerJson(string $composerJsonFilePath): void
