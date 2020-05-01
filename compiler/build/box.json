@@ -9,9 +9,9 @@
     "directories": [
         "config",
         "src",
-        "packages",
-        "vendor"
+        "packages"
     ],
+    "force-autodiscovery": true,
     "output": "tmp/ecs.phar",
     "php-scoper": "compiler/build/scoper.inc.php"
 }

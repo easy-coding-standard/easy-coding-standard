@@ -13,11 +13,6 @@ use Symplify\EasyCodingStandard\Compiler\Packagist\SymplifyStableVersionProvider
 final class ComposerJsonManipulator
 {
     /**
-     * @var string[]
-     */
-    private const KEYS_TO_REMOVE = ['require-dev', 'autoload-dev', 'extra'];
-
-    /**
      * @var string
      */
     private $originalComposerJsonFileContent;
@@ -130,9 +125,7 @@ final class ComposerJsonManipulator
 
     private function removeDevContent(array $json): array
     {
-        foreach (self::KEYS_TO_REMOVE as $keyToRemove) {
-            unset($json[$keyToRemove]);
-        }
+        unset($json['extra']);
         return $json;
     }
 
