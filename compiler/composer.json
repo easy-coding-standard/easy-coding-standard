@@ -4,6 +4,7 @@
     "require": {
         "php": "^7.2",
         "nette/utils": "^3.0",
+        "sebastian/diff": "^3.0|^4.0",
         "phar-io/version": "^2.0.1",
         "symfony/console": "^4.4|^5.0",
         "symfony/filesystem": "^4.4|^5.0",
