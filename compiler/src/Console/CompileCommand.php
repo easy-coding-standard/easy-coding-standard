@@ -64,14 +64,20 @@ final class CompileCommand extends Command
         $composerJsonFileInfo = new SmartFileInfo($composerJsonFile);
 
         // remove phpstan.phar, so we can require phpstan/phpstan-src and pack it into phar
-        $this->symfonyStyle->note(sprintf('Removing phpstan/phpstan from "%s"', $this->buildDir));
-        new SymfonyProcess(['composer', 'remove', 'phpstan/phpstan'], $this->buildDir, $output);
-
         $this->symfonyStyle->note(sprintf('Reading "%s" file', $composerJsonFileInfo));
         $this->composerJsonManipulator->fixComposerJson($composerJsonFile);
         $this->cleanupPhpCsFixerBreakingFiles();
 
+        $this->symfonyStyle->section('Running "composer update" for new config');
+        // @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/52
+        new SymfonyProcess(
+            ['composer', 'update', '--no-dev', '--prefer-dist', '--no-interaction', '--classmap-authoritative'],
+            $this->buildDir,
+            $output
+        );
+
         // parallel prevention is just for single less-buggy process
+        $this->symfonyStyle->section('Packing and prefixing ecs.phar with Box and PHP Scoper');
         new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel'], $this->dataDir, $output);
 
         $this->symfonyStyle->note('Restoring original composer.json content');
