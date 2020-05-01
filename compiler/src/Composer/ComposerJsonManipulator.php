@@ -144,7 +144,7 @@ final class ComposerJsonManipulator
             __DIR__ . '/../../../../../packages/coding-standard/composer.json'
         );
 
-        $json = Json::decode($codingStandardFileContent);
+        $json = Json::decode($codingStandardFileContent, Json::FORCE_ARRAY);
 
         return (string) $json['require']['phpstan/phpstan'];
     }
