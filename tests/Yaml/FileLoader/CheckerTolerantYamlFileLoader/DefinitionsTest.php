@@ -111,7 +111,11 @@ final class DefinitionsTest extends TestCase
         $methodCalls = $definition->getMethodCalls();
 
         $this->assertCount(1, $methodCalls);
-        $this->assertArrayHasKey(key($methodCall), $methodCalls[0]);
+
+        /** @var string $definitionMethodCallKey */
+        $definitionMethodCallKey = key($methodCall);
+
+        $this->assertArrayHasKey($definitionMethodCallKey, $methodCalls[0]);
 
         $this->assertSame($methodCall, $methodCalls[0]);
     }
