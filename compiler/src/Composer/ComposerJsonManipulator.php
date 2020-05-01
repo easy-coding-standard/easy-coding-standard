@@ -94,9 +94,7 @@ final class ComposerJsonManipulator
     private function replacePHPStanWithPHPStanSrc(array $json): array
     {
         // its actually part of coding standard, so we have to require it here
-        // @todo automate version resolving from
-        $phpStanVersion = $this->resolveCodingStandardPHPStanVersion();
-        $json['require']['phpstan/phpstan-src'] = '^' . $phpStanVersion;
+        $json['require']['phpstan/phpstan-src'] = $this->resolveCodingStandardPHPStanVersion();
 
         $json['repositories'][] = [
             'type' => 'vcs',
