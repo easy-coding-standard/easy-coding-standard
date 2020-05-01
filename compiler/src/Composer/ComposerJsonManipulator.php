@@ -7,8 +7,12 @@ namespace Symplify\EasyCodingStandard\Compiler\Composer;
 use Nette\Utils\FileSystem as NetteFileSystem;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
+use SebastianBergmann\Diff\Differ;
 use Symfony\Component\Filesystem\Filesystem;
+use Symplify\EasyCodingStandard\Compiler\Differ\ConsoleDiffer;
+use Symplify\EasyCodingStandard\Compiler\Differ\ConsoleDifferFormatter;
 use Symplify\EasyCodingStandard\Compiler\Packagist\SymplifyStableVersionProvider;
+use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 
 final class ComposerJsonManipulator
 {
@@ -32,10 +36,19 @@ final class ComposerJsonManipulator
      */
     private $symplifyStableVersionProvider;
 
+    /**
+     * @var ConsoleDiffer
+     */
+    private $consoleDiffer;
+
     public function __construct()
     {
         $this->symplifyStableVersionProvider = new SymplifyStableVersionProvider();
         $this->filesystem = new Filesystem();
+
+        $symfonyStyle = (new SymfonyStyleFactory())->create();
+        $differ = new Differ();
+        $this->consoleDiffer = new ConsoleDiffer($symfonyStyle, $differ, new ConsoleDifferFormatter());
     }
 
     public function fixComposerJson(string $composerJsonFilePath): void
@@ -55,6 +68,9 @@ final class ComposerJsonManipulator
 
         // see https://github.com/phpstan/phpstan-src/blob/769669d4ec2a4839cb1aa25a3a29f05aa86b83ed/composer.json#L19
         $encodedJson = Json::encode($json, Json::PRETTY);
+
+        // show diff
+        $this->consoleDiffer->diff($this->originalComposerJsonFileContent, $encodedJson);
 
         $this->filesystem->dumpFile($composerJsonFilePath, $encodedJson);
     }
@@ -125,7 +141,7 @@ final class ComposerJsonManipulator
 
     private function removeDevContent(array $json): array
     {
-        unset($json['extra']);
+        unset($json['extra'], $json['require-dev'], $json['autoload-dev']);
         return $json;
     }
 
