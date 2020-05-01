@@ -1,0 +1,10 @@
+/tests export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
+phpunit.xml export-ignore
+/packages/changed-files-detector/tests export-ignore
+/packages/fixer-runner/tests export-ignore
+/packages/sniff-runner/tests export-ignore
+*.md export-ignore
+docs/ export-ignore
+compiler/ export-ignore
