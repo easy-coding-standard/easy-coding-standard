@@ -10,6 +10,7 @@ use Nette\Utils\Strings;
 use Symfony\Component\Filesystem\Filesystem;
 use Symplify\EasyCodingStandard\Compiler\Differ\ConsoleDiffer;
 use Symplify\EasyCodingStandard\Compiler\Packagist\SymplifyStableVersionProvider;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ComposerJsonManipulator
 {
@@ -48,11 +49,11 @@ final class ComposerJsonManipulator
         $this->consoleDiffer = $consoleDiffer;
     }
 
-    public function fixComposerJson(string $composerJsonFilePath): void
+    public function fixComposerJson(SmartFileInfo $composerJsonFileInfo): void
     {
-        $this->composerJsonFilePath = $composerJsonFilePath;
+        $this->composerJsonFilePath = $composerJsonFileInfo->getRealPath();
 
-        $fileContent = NetteFileSystem::read($composerJsonFilePath);
+        $fileContent = $composerJsonFileInfo->getContents();
         $this->originalComposerJsonFileContent = $fileContent;
 
         $json = Json::decode($fileContent, Json::FORCE_ARRAY);
@@ -69,7 +70,7 @@ final class ComposerJsonManipulator
         // show diff
         $this->consoleDiffer->diff($this->originalComposerJsonFileContent, $encodedJson);
 
-        $this->filesystem->dumpFile($composerJsonFilePath, $encodedJson);
+        $this->filesystem->dumpFile($fileContent, $encodedJson);
     }
 
     /**
