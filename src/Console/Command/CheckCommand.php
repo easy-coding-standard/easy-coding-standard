@@ -107,6 +107,18 @@ final class CheckCommand extends Command
         return $outputFormatter->report($processedFilesCount);
     }
 
+    private function resolveOutputFormat(InputInterface $input): string
+    {
+        $outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT_OPTION);
+
+        // Backwards compatibility with older version
+        if ($outputFormat === 'table') {
+            return ConsoleOutputFormatter::NAME;
+        }
+
+        return $outputFormat;
+    }
+
     private function ensureSomeCheckersAreRegistered(): void
     {
         $totalCheckersLoaded = $this->easyCodingStandardApplication->getCheckerCount();
@@ -118,18 +130,6 @@ final class CheckCommand extends Command
             'No checkers were found. Register them in your config in "services:" '
             . 'section, load them via "--config <file>.yml" or "--set <set>" option.'
         );
-    }
-
-    private function resolveOutputFormat(InputInterface $input): string
-    {
-        $outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT_OPTION);
-
-        // Backwards compatibility with older version
-        if ($outputFormat === 'table') {
-            return ConsoleOutputFormatter::NAME;
-        }
-
-        return $outputFormat;
     }
 
     private function ensureDeprecatedPsr2IsNotUsed(): void
