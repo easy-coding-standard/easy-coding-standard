@@ -11,7 +11,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Compiler\Composer\ComposerJsonManipulator;
 use Symplify\EasyCodingStandard\Compiler\Process\SymfonyProcess;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * Inspired by @see https://github.com/phpstan/phpstan-src/blob/f939d23155627b5c2ec6eef36d976dddea22c0c5/compiler/src/Console/CompileCommand.php
@@ -61,18 +60,15 @@ final class CompileCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $composerJsonFileInfo = new SmartFileInfo($this->buildDir . '/composer.json');
+        /** @var string $composerJsonFilePath */
+        $composerJsonFilePath = realpath($this->buildDir . '/composer.json');
 
-        // 1.
-        $this->symfonyStyle->section(
-            sprintf('1. Loading and updating "%s"', $composerJsonFileInfo->getRelativeFilePathFromCwd())
-        );
+        $this->symfonyStyle->title(sprintf('1. Loading and updating "%s"', realpath($composerJsonFilePath)));
 
-        $this->composerJsonManipulator->fixComposerJson($composerJsonFileInfo);
+        $this->composerJsonManipulator->fixComposerJson($composerJsonFilePath);
         $this->cleanupPhpCsFixerBreakingFiles();
 
-        // 2.
-        $this->symfonyStyle->section('2. Running "composer update" for new config');
+        $this->symfonyStyle->title('2. Running "composer update" for new config');
         // @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/52
         new SymfonyProcess(
             [
@@ -88,13 +84,11 @@ final class CompileCommand extends Command
             $output
         );
 
-        // 3.
+        $this->symfonyStyle->title('3. Packing and prefixing ecs.phar with Box and PHP Scoper');
         // parallel prevention is just for single less-buggy process
-        $this->symfonyStyle->section('3. Packing and prefixing ecs.phar with Box and PHP Scoper');
         new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel', '--ansi'], $this->dataDir, $output);
 
-        // 4.
-        $this->symfonyStyle->section('4. Restoring original composer.json content');
+        $this->symfonyStyle->title('4. Restoring original composer.json content');
         $this->composerJsonManipulator->restore();
         $this->symfonyStyle->note('You still need to run "composer update" to install those dependencies');
 
