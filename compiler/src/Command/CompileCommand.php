@@ -61,15 +61,14 @@ final class CompileCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $composerJsonFile = realpath($this->buildDir . '/composer.json');
-        $composerJsonFileInfo = new SmartFileInfo($composerJsonFile);
+        $composerJsonFileInfo = new SmartFileInfo($this->buildDir . '/composer.json');
 
         // 1.
         $this->symfonyStyle->section(
             sprintf('1. Loading and updating "%s"', $composerJsonFileInfo->getRelativeFilePathFromCwd())
         );
 
-        $this->composerJsonManipulator->fixComposerJson($composerJsonFile);
+        $this->composerJsonManipulator->fixComposerJson($composerJsonFileInfo);
         $this->cleanupPhpCsFixerBreakingFiles();
 
         // 2.
