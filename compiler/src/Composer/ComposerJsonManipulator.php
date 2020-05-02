@@ -67,7 +67,7 @@ final class ComposerJsonManipulator
         // show diff
         $this->consoleDiffer->diff($this->originalComposerJsonFileContent, $encodedJson);
 
-        $this->filesystem->dumpFile($fileContent, $encodedJson);
+        $this->filesystem->dumpFile($composerJsonFilePath, $encodedJson);
     }
 
     /**
