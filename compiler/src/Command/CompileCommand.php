@@ -61,19 +61,19 @@ final class CompileCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $composerJsonFile = $this->buildDir . '/composer.json';
-
-        // 1.
-        $this->symfonyStyle->section('Loading and updating ' . $composerJsonFile);
+        $composerJsonFile = realpath($this->buildDir . '/composer.json');
         $composerJsonFileInfo = new SmartFileInfo($composerJsonFile);
 
-        // remove phpstan.phar, so we can require phpstan/phpstan-src and pack it into phar
-        $this->symfonyStyle->note(sprintf('Reading "%s" file', $composerJsonFileInfo));
+        // 1.
+        $this->symfonyStyle->section(
+            sprintf('1. Loading and updating "%s"', $composerJsonFileInfo->getRelativeFilePathFromCwd())
+        );
+
         $this->composerJsonManipulator->fixComposerJson($composerJsonFile);
         $this->cleanupPhpCsFixerBreakingFiles();
 
         // 2.
-        $this->symfonyStyle->section('Running "composer update" for new config');
+        $this->symfonyStyle->section('2. Running "composer update" for new config');
         // @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/52
         new SymfonyProcess(
             [
@@ -91,11 +91,11 @@ final class CompileCommand extends Command
 
         // 3.
         // parallel prevention is just for single less-buggy process
-        $this->symfonyStyle->section('Packing and prefixing ecs.phar with Box and PHP Scoper');
+        $this->symfonyStyle->section('3. Packing and prefixing ecs.phar with Box and PHP Scoper');
         new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel', '--ansi'], $this->dataDir, $output);
 
         // 4.
-        $this->symfonyStyle->note('Restoring original composer.json content');
+        $this->symfonyStyle->section('4. Restoring original composer.json content');
         $this->composerJsonManipulator->restore();
         $this->symfonyStyle->note('You still need to run "composer update" to install those dependencies');
 
