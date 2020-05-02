@@ -50,6 +50,8 @@ final class ComposerJsonManipulator
 
     public function fixComposerJson(string $composerJsonFilePath): void
     {
+        $this->composerJsonFilePath = $composerJsonFilePath;
+
         $fileContent = NetteFileSystem::read($composerJsonFilePath);
         $this->originalComposerJsonFileContent = $fileContent;
 

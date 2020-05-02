@@ -88,7 +88,7 @@ final class CompileCommand extends Command
         // parallel prevention is just for single less-buggy process
         new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel', '--ansi'], $this->dataDir, $output);
 
-        $this->symfonyStyle->title('4. Restoring original composer.json content');
+        $this->symfonyStyle->title('4. Restoring original "composer.json" content');
         $this->composerJsonManipulator->restore();
         $this->symfonyStyle->note('You still need to run "composer update" to install those dependencies');
 
