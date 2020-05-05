@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symplify\AutoBindParameter\DependencyInjection\CompilerPass\AutoBindParameterCompilerPass;
+use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
 
 final class EasyCodingStandardCompilerKernel extends Kernel
 {
@@ -34,7 +35,7 @@ final class EasyCodingStandardCompilerKernel extends Kernel
      */
     public function registerBundles(): array
     {
-        return [];
+        return [new ConsoleColorDiffBundle()];
     }
 
     protected function build(ContainerBuilder $containerBuilder): void
