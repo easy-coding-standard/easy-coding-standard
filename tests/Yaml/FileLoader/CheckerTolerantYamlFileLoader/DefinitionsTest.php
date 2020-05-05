@@ -59,7 +59,7 @@ final class DefinitionsTest extends TestCase
             __DIR__ . '/DefinitionsSource/config-with-at.yaml',
             LineLengthSniff::class,
             [],
-            ['absoluteLineLimit' => '@author'],
+            ['absoluteLineLimit' => '@author, @var'],
         ];
         # keep original keywords
         yield [
