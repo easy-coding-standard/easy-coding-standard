@@ -8,7 +8,7 @@ use Nette\Utils\FileSystem as NetteFileSystem;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
 use Symfony\Component\Filesystem\Filesystem;
-use Symplify\EasyCodingStandard\Compiler\Differ\ConsoleDiffer;
+use Symplify\ConsoleColorDiff\Console\Output\ConsoleDiffer;
 use Symplify\EasyCodingStandard\Compiler\Packagist\SymplifyStableVersionProvider;
 
 final class ComposerJsonManipulator

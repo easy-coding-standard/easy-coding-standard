@@ -18,6 +18,4 @@ services:
     Symfony\Component\Console\Style\SymfonyStyle:
         factory: ['@Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory', 'create']
 
-    SebastianBergmann\Diff\Differ: null
-
     Symfony\Component\Filesystem\Filesystem: null
