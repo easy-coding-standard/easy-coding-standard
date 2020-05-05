@@ -1,0 +1,3 @@
+imports:
+    - { resource: 'php_codesniffer/php-codesniffer-psr2.yaml' }
+    - { resource: 'php_cs_fixer/php-cs-fixer-psr2.yaml' }
