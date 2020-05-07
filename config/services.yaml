@@ -22,14 +22,9 @@ services:
     Symfony\Component\Console\Terminal: null
 
     Symplify\PackageBuilder\Parameter\ParameterProvider: null
-    Symplify\PackageBuilder\Php\TypeAnalyzer: null
     Symplify\SmartFileSystem\FileSystemGuard: null
     Symplify\SmartFileSystem\Finder\FinderSanitizer: null
 
     Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory: null
     Symfony\Component\Console\Style\SymfonyStyle:
         factory: ['@Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory', 'create']
-
-    PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer: null
-    PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer: null
-    PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer: null
