@@ -35,6 +35,8 @@ Are you already using another tool?
 composer require symplify/easy-coding-standard --dev
 ```
 
+or download `ecs.phar` from https://github.com/symplify/easy-coding-standard-prefixed/blob/master/ecs.phar
+
 ## Usage
 
 ### 1. Create Configuration and Setup Checkers
