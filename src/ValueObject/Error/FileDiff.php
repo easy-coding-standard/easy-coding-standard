@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use PhpCsFixer\Differ\DiffConsoleFormatter;
-
 final class FileDiff
 {
     /**
@@ -19,24 +17,18 @@ final class FileDiff
     private $appliedCheckers = [];
 
     /**
-     * @var DiffConsoleFormatter
+     * @var string
      */
-    private $diffConsoleFormatter;
+    private $consoleFormattedDiff;
 
     /**
      * @param string[] $appliedCheckers
      */
-    public function __construct(string $diff, array $appliedCheckers)
+    public function __construct(string $diff, string $consoleFormattedDiff, array $appliedCheckers)
     {
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
-
-        $this->diffConsoleFormatter = new DiffConsoleFormatter(true, sprintf(
-            '<comment>    ---------- begin diff ----------</comment>%s%%s%s' .
-            '<comment>    ----------- end diff -----------</comment>',
-            PHP_EOL,
-            PHP_EOL
-        ));
+        $this->consoleFormattedDiff = $consoleFormattedDiff;
     }
 
     public function getDiff(): string
@@ -46,7 +38,7 @@ final class FileDiff
 
     public function getDiffConsoleFormatted(): string
     {
-        return $this->diffConsoleFormatter->format($this->diff);
+        return $this->consoleFormattedDiff;
     }
 
     /**
