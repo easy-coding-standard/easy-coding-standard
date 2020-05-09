@@ -35,6 +35,10 @@ Are you already using another tool?
 composer require symplify/easy-coding-standard --dev
 ```
 
+### Prefixed Version
+
+Head over to the ["Easy Coding Standard Prefixed" repository](https://github.com/symplify/easy-coding-standard-prefixed) for more information.
+
 ## Usage
 
 ### 1. Create Configuration and Setup Checkers
