@@ -31,8 +31,6 @@ Are you already using another tool?
 
 ## Install
 
-### Regular Version
-
 ```bash
 composer require symplify/easy-coding-standard --dev
 ```
