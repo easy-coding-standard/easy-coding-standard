@@ -1,4 +1,7 @@
 services:
+    # block for properties
+    PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer: null
+
     # null|Type   →   Type|null
     SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff: ~
 
@@ -10,9 +13,6 @@ services:
 
     # remove empty lines in phpdoc (be careful, can be buggy)
     PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: ~
-
-    # remove empty phpdocs
-    Symplify\CodingStandard\Fixer\Commenting\RemoveEmptyDocBlockFixer: ~
 
     # no empty doc blocks
     PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: ~
