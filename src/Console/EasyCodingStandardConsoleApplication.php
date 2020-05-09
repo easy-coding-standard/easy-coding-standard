@@ -16,6 +16,7 @@ use Symplify\EasyCodingStandard\Console\Command\FindCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class EasyCodingStandardConsoleApplication extends Application
 {
@@ -57,7 +58,8 @@ final class EasyCodingStandardConsoleApplication extends Application
 
         $configPath = $this->configuration->getFirstResolverConfig();
         if ($this->doesConfigExist($configPath) && $this->shouldPrintMetaInformation($input)) {
-            $output->writeln('Config file: ' . realpath($configPath));
+            $configFileInfo = new SmartFileInfo($configPath);
+            $output->writeln('Config file: ' . $configFileInfo->getRelativeFilePathFromCwd());
         }
 
         return parent::doRun($input, $output);

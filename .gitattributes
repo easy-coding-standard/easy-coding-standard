@@ -7,3 +7,4 @@ phpunit.xml export-ignore
 /packages/sniff-runner/tests export-ignore
 *.md export-ignore
 docs/ export-ignore
+compiler/ export-ignore
