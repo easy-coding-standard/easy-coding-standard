@@ -31,11 +31,15 @@ Are you already using another tool?
 
 ## Install
 
+### Regular Version
+
 ```bash
 composer require symplify/easy-coding-standard --dev
 ```
 
-or download `ecs.phar` from https://github.com/symplify/easy-coding-standard-prefixed/blob/master/ecs.phar
+### Prefixed Version
+
+Head over to the ["Easy Coding Standard Prefixed" repository](https://github.com/symplify/easy-coding-standard-prefixed) for more information.
 
 ## Usage
 
