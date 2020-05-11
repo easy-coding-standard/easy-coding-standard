@@ -9,6 +9,8 @@ use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Set\Set;
+use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\SetConfigResolver\ConfigResolver;
 use Symplify\PackageBuilder\Console\Input\InputDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
@@ -82,8 +84,14 @@ if ($configs !== []) {
     $easyCodingStandardKernel->setConfigs($mainConfigShiftedAsLast);
 }
 
-$easyCodingStandardKernel->boot();
-$container = $easyCodingStandardKernel->getContainer();
+try {
+    $easyCodingStandardKernel->boot();
+    $container = $easyCodingStandardKernel->getContainer();
+} catch (Throwable $throwable) {
+    $symfonyStyle = (new SymfonyStyleFactory())->create();
+    $symfonyStyle->error($throwable->getMessage());
+    exit(ShellCode::ERROR);
+}
 
 // for cache invalidation on config change
 /** @var ChangedFilesDetector $changedFilesDetector */
