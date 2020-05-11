@@ -1,0 +1,7 @@
+imports:
+    - { resource: 'config-skip.yaml' }
+
+parameters:
+    skip:
+        secondCode: false # overwrite value from config-skip.yaml
+        thirdCode: ~

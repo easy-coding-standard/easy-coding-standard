@@ -1,0 +1,17 @@
+{
+    "alias": "ecs.phar",
+    "banner": false,
+    "base-path": "../..",
+    "check-requirements": false,
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ],
+    "directories": [
+        "config",
+        "src",
+        "packages",
+        "vendor"
+    ],
+    "output": "tmp/ecs.phar",
+    "php-scoper": "compiler/build/scoper.inc.php"
+}
