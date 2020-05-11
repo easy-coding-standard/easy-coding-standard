@@ -1,7 +1,7 @@
 services:
-    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
+    Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: null
 
 parameters:
     only:
-        Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff:
+        Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer:
             - 'SomeFileToOnlyInclude.php'
