@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Skipper\Skip;
 
 use Iterator;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
-use Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer;
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
@@ -40,8 +40,8 @@ final class SkipperSkipTest extends AbstractKernelTestCase
         yield [DeclareStrictTypesFixer::class, __DIR__ . '/Source/someDirectory/anotherFile.php', true];
         yield [DeclareStrictTypesFixer::class, __DIR__ . '/Source/someDirectory/anotherFile.php', true];
 
-        yield [FinalInterfaceFixer::class, __DIR__ . '/Source/someFile', false];
-        yield [FinalInterfaceFixer::class, __DIR__ . '/Source/someOtherFile', false];
+        yield [LineLengthFixer::class, __DIR__ . '/Source/someFile', false];
+        yield [LineLengthFixer::class, __DIR__ . '/Source/someOtherFile', false];
     }
 
     /**

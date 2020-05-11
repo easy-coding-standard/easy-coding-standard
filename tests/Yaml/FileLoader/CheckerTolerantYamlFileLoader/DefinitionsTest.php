@@ -30,10 +30,6 @@ final class DefinitionsTest extends TestCase
         if (count($expectedMethodCall) > 0) {
             $this->checkDefinitionForMethodCall($checkerDefinition, $expectedMethodCall);
         }
-
-        if (count($expectedProperties) > 0) {
-            $this->assertSame($expectedProperties, $checkerDefinition->getProperties());
-        }
     }
 
     public function provideConfigToConfiguredMethodAndPropertyDefinition(): Iterator
