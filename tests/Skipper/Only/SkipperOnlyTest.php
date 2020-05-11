@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Tests\Skipper\Only;
 
 use Iterator;
-use Symplify\CodingStandard\Fixer\Solid\FinalInterfaceFixer;
-use Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Skipper;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
@@ -36,11 +36,11 @@ final class SkipperOnlyTest extends AbstractKernelTestCase
 
     public function provideCheckerAndFile(): Iterator
     {
-        yield [AbstractClassNameSniff::class, __DIR__ . '/Source/SomeFileToOnlyInclude.php', false];
-        yield [AbstractClassNameSniff::class, __DIR__ . '/Source/SomeFile.php', true];
+        yield [LineLengthFixer::class, __DIR__ . '/Source/SomeFileToOnlyInclude.php', false];
+        yield [LineLengthFixer::class, __DIR__ . '/Source/SomeFile.php', true];
 
         // no restrictions
-        yield [FinalInterfaceFixer::class, __DIR__ . '/Source/SomeFileToOnlyInclude.php', false];
-        yield [FinalInterfaceFixer::class, __DIR__ . '/Source/SomeFile.php', false];
+        yield [ArraySyntaxFixer::class, __DIR__ . '/Source/SomeFileToOnlyInclude.php', false];
+        yield [ArraySyntaxFixer::class, __DIR__ . '/Source/SomeFile.php', false];
     }
 }
