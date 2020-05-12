@@ -11,9 +11,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symplify\CodingStandard\SymplifyCodingStandardBundle;
+use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use Symplify\EasyCodingStandard\EasyCodingStandardBundle;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
+use Symplify\ParameterNameGuard\ParameterNameGuardBundle;
 
 final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareKernelInterface
 {
@@ -44,7 +46,12 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
      */
     public function registerBundles(): iterable
     {
-        return [new EasyCodingStandardBundle(), new SymplifyCodingStandardBundle()];
+        return [
+            new EasyCodingStandardBundle(),
+            new SymplifyCodingStandardBundle(),
+            new ConsoleColorDiffBundle(),
+            new ParameterNameGuardBundle(),
+        ];
     }
 
     /**
