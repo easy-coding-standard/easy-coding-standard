@@ -2,5 +2,7 @@
 imports:
     # A. monorepo
     - { resource: '../../../coding-standard/config/symplify.yaml', ignore_errors: not_found }
-    # B. installed as dependency or in PHAR
+    # B. installed as dependency
     - { resource: '../../vendor/symplify/coding-standard/config/symplify.yaml', ignore_errors: not_found }
+    # B. installed in PHAR
+    - { resource: 'phar://vendor/symplify/coding-standard/config/symplify.yaml', ignore_errors: not_found }
