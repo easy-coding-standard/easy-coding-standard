@@ -264,7 +264,7 @@ final class File extends BaseFile
             return;
         }
 
-        $this->easyCodingStandardStyle->writeln($this->activeSniffClass);
+        $this->easyCodingStandardStyle->writeln('     [sniff] ' . $this->activeSniffClass);
         $this->previousActiveSniffClass = $this->activeSniffClass;
     }
 
