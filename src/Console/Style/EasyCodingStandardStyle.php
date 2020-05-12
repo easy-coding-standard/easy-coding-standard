@@ -56,11 +56,6 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         }
     }
 
-    public function fixableError(string $message): void
-    {
-        $this->block($message, 'WARNING', 'fg=black;bg=yellow', ' ', true);
-    }
-
     private function separator(): void
     {
         $separator = str_repeat('-', $this->getTerminalWidth());
