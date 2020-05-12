@@ -158,7 +158,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
             return;
         }
 
-        $this->easyCodingStandardStyle->fixableError(
+        $this->easyCodingStandardStyle->warning(
             sprintf(
                 '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
                 $errorCount !== 0 ? 'Good news is that ' : '',

@@ -30,10 +30,6 @@ final class DefinitionsTest extends TestCase
         if (count($expectedMethodCall) > 0) {
             $this->checkDefinitionForMethodCall($checkerDefinition, $expectedMethodCall);
         }
-
-        if (count($expectedProperties) > 0) {
-            $this->assertSame($expectedProperties, $checkerDefinition->getProperties());
-        }
     }
 
     public function provideConfigToConfiguredMethodAndPropertyDefinition(): Iterator
@@ -59,7 +55,7 @@ final class DefinitionsTest extends TestCase
             __DIR__ . '/DefinitionsSource/config-with-at.yaml',
             LineLengthSniff::class,
             [],
-            ['absoluteLineLimit' => '@author'],
+            ['absoluteLineLimit' => '@author, @var'],
         ];
         # keep original keywords
         yield [
@@ -111,7 +107,11 @@ final class DefinitionsTest extends TestCase
         $methodCalls = $definition->getMethodCalls();
 
         $this->assertCount(1, $methodCalls);
-        $this->assertArrayHasKey(key($methodCall), $methodCalls[0]);
+
+        /** @var string $definitionMethodCallKey */
+        $definitionMethodCallKey = key($methodCall);
+
+        $this->assertArrayHasKey($definitionMethodCallKey, $methodCalls[0]);
 
         $this->assertSame($methodCall, $methodCalls[0]);
     }
