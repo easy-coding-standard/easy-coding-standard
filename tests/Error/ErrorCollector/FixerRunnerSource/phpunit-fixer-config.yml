@@ -1,2 +1,2 @@
 services:
-    PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer: ~
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer: null
