@@ -4,30 +4,19 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Application;
 
-use SplObjectStorage;
 use Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AppliedCheckersCollector
 {
     /**
-     * @var string[][]|SplObjectStorage
+     * @var string[][]
      */
-    private $appliedCheckersByFile;
-
-    public function __construct()
-    {
-        $this->appliedCheckersByFile = new SplObjectStorage();
-    }
+    private $appliedCheckersByFile = [];
 
     public function addFileInfoAndChecker(SmartFileInfo $smartFileInfo, string $checker): void
     {
-        $appliedCheckersByFile = [$checker];
-        if ($this->appliedCheckersByFile->contains($smartFileInfo)) {
-            $appliedCheckersByFile = array_merge($this->appliedCheckersByFile[$smartFileInfo], [$checker]);
-        }
-
-        $this->appliedCheckersByFile->attach($smartFileInfo, $appliedCheckersByFile);
+        $this->appliedCheckersByFile[$smartFileInfo->getRealPath()][] = $checker;
     }
 
     /**
@@ -37,12 +26,12 @@ final class AppliedCheckersCollector
     {
         $this->ensureFileHasAppliedCheckers($smartFileInfo);
 
-        return $this->appliedCheckersByFile[$smartFileInfo];
+        return $this->appliedCheckersByFile[$smartFileInfo->getRealPath()];
     }
 
     private function ensureFileHasAppliedCheckers(SmartFileInfo $smartFileInfo): void
     {
-        if (isset($this->appliedCheckersByFile[$smartFileInfo])) {
+        if (isset($this->appliedCheckersByFile[$smartFileInfo->getRealPath()])) {
             return;
         }
 
