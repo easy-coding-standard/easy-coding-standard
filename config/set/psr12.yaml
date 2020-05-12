@@ -9,8 +9,8 @@ services:
     PhpCsFixer\Fixer\Import\OrderedImportsFixer:
         importsOrder:
             - 'class'
-            - 'const'
             - 'function'
+            - 'const'
     PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer:
         space: 'none'
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: ~

@@ -11,24 +11,16 @@ use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Configuration\Contract\ResettableInterface;
-use Symplify\EasyCodingStandard\Contract\Application\DualRunAwareFileProcessorInterface;
-use Symplify\EasyCodingStandard\Contract\Application\DualRunInterface;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFileProcessorInterface
+final class SniffFileProcessor implements FileProcessorInterface
 {
     /**
-     * @var bool
-     */
-    private $isSecondRunPrepared = false;
-
-    /**
-     * @var Sniff[]|DualRunInterface[]
+     * @var Sniff[]
      */
     private $sniffs = [];
 
@@ -102,21 +94,11 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
     }
 
     /**
-     * @return Sniff[]|DualRunInterface[]
+     * @return Sniff[]
      */
     public function getCheckers(): array
     {
         return $this->sniffs;
-    }
-
-    /**
-     * @return DualRunInterface[]|Sniff[]
-     */
-    public function getDualRunCheckers(): array
-    {
-        return array_filter($this->sniffs, function (Sniff $sniff): bool {
-            return $sniff instanceof DualRunInterface;
-        });
     }
 
     public function processFile(SmartFileInfo $smartFileInfo): string
@@ -146,32 +128,6 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
         return $this->fixer->getContents();
     }
 
-    public function processFileSecondRun(SmartFileInfo $smartFileInfo): string
-    {
-        $this->prepareSecondRun();
-
-        $content = $this->processFile($smartFileInfo);
-
-        foreach ($this->sniffs as $sniff) {
-            if ($sniff instanceof ResettableInterface) {
-                // clear old cache, whatever
-                $sniff->reset();
-            }
-        }
-
-        return $content;
-    }
-
-    /**
-     * For tests
-     */
-    public function reset(): void
-    {
-        if (defined('PHPUNIT_COMPOSER_INSTALL') || defined('__PHPUNIT_PHAR__')) {
-            $this->isSecondRunPrepared = false;
-        }
-    }
-
     private function addCompatibilityLayer(): void
     {
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
@@ -199,23 +155,5 @@ final class SniffFileProcessor implements FileProcessorInterface, DualRunAwareFi
             $previousContent = $fixer->getContents();
             ++$this->fixer->loops;
         } while ($previousContent !== $content);
-    }
-
-    private function prepareSecondRun(): void
-    {
-        if ($this->isSecondRunPrepared) {
-            return;
-        }
-
-        $this->tokenListeners = [];
-        $dualRunSniffs = $this->getDualRunCheckers();
-        $this->sniffs = [];
-
-        foreach ($dualRunSniffs as $sniff) {
-            $sniff->increaseRun();
-            $this->addSniff($sniff);
-        }
-
-        $this->isSecondRunPrepared = true;
     }
 }
