@@ -9,7 +9,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
@@ -35,21 +34,14 @@ final class CheckCommand extends Command
      */
     private $outputFormatterCollector;
 
-    /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-
     public function __construct(
         EasyCodingStandardApplication $easyCodingStandardApplication,
         Configuration $configuration,
-        OutputFormatterCollector $outputFormatterCollector,
-        SymfonyStyle $symfonyStyle
+        OutputFormatterCollector $outputFormatterCollector
     ) {
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;
-        $this->symfonyStyle = $symfonyStyle;
 
         parent::__construct();
     }
@@ -100,7 +92,6 @@ final class CheckCommand extends Command
         }
 
         $this->configuration->resolveFromInput($input);
-        $this->ensureDeprecatedPsr2IsNotUsed();
 
         $processedFilesCount = $this->easyCodingStandardApplication->run();
 
@@ -130,20 +121,5 @@ final class CheckCommand extends Command
             'No checkers were found. Register them in your config in "services:" '
             . 'section, load them via "--config <file>.yml" or "--set <set>" option.'
         );
-    }
-
-    private function ensureDeprecatedPsr2IsNotUsed(): void
-    {
-        if (! in_array('psr2', $this->configuration->getSets(), true)) {
-            return;
-        }
-
-        $message = sprintf(
-            'Set "psr2" is deprecated since 2019-08 (see %s) and will be removed. Use "psr12" instead',
-            'https://www.php-fig.org/psr/psr-2/'
-        );
-        $this->symfonyStyle->warning($message);
-
-        sleep(3);
     }
 }
