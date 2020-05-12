@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Finder\CheckerClassFinder;
-use Symplify\PackageBuilder\Composer\VendorDirProvider;
+use Symplify\PackageBuilder\Composer\StaticVendorDirProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
 
@@ -58,7 +58,7 @@ final class FindCommand extends Command
         $checkers = $this->checkerClassFinder->findInDirectories([
             getcwd() . '/src',
             getcwd() . '/packages',
-            VendorDirProvider::provide(),
+            StaticVendorDirProvider::provide(),
         ]);
 
         /** @var string $name */

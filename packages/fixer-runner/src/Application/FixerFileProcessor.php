@@ -151,7 +151,7 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         // show current fixer in --debug / -vvv
         if ($this->easyCodingStandardStyle->isDebug()) {
-            $this->easyCodingStandardStyle->writeln(get_class($fixer));
+            $this->easyCodingStandardStyle->writeln('     [fixer] ' . get_class($fixer));
         }
 
         try {
