@@ -9,7 +9,7 @@ services:
             - '../src/Exception/*'
 
     # differ
-    PhpCsFixer\Differ\UnifiedDiffer: ~
+    PhpCsFixer\Differ\UnifiedDiffer: null
     PhpCsFixer\Differ\DifferInterface: '@PhpCsFixer\Differ\UnifiedDiffer'
 
     Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor:
