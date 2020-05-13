@@ -1,4 +1,10 @@
 services:
+    # const VALUE, VALUE_2...   =>    const VALUE, const VALUE_2
+    SlevomatCodingStandard\Sniffs\Classes\DisallowMultiConstantDefinitionSniff: null
+
+    # public $value, $value2;   =>    public $value; public $value2;
+    SlevomatCodingStandard\Sniffs\Classes\DisallowMultiPropertyDefinitionSniff: null
+
     # __CONSTRUCT()   =>   __construct()
     PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer: ~
 
@@ -54,3 +60,7 @@ services:
 
     # use SomeTrait, AnotherTrait;   →   use SomeTrait;\nuse AnotherTrait;
     SlevomatCodingStandard\Sniffs\Classes\TraitUseDeclarationSniff: ~
+
+parameters:
+    skip:
+        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff.FoundInWhileCondition: null

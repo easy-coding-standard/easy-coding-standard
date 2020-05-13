@@ -226,7 +226,8 @@ final class File extends BaseFile
         $severity,
         $isFixable = false
     ): bool {
-        if (! $isError) { // skip warnings
+        // skip warnings
+        if (! $isError) {
             return false;
         }
 
