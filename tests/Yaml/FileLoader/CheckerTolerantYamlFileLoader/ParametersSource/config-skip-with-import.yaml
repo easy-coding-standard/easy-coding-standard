@@ -4,4 +4,4 @@ imports:
 parameters:
     skip:
         secondCode: false # overwrite value from config-skip.yaml
-        thirdCode: ~
+        thirdCode: null

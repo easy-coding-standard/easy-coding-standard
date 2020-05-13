@@ -3,7 +3,7 @@ services:
     SlevomatCodingStandard\Sniffs\Commenting\DisallowCommentAfterCodeSniff: null
 
     # check for forgotten "git merge" conflicts
-    PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\VersionControl\GitMergeConflictSniff: null
 
     # remove empty inline comments
     SlevomatCodingStandard\Sniffs\Commenting\EmptyCommentSniff:

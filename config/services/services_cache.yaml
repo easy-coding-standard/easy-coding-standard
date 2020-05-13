@@ -3,7 +3,7 @@ services:
         autowire: true
         public: true
 
-    Symfony\Component\Cache\Psr16Cache: ~
+    Symfony\Component\Cache\Psr16Cache: null
     Psr\SimpleCache\CacheInterface: '@Symfony\Component\Cache\Psr16Cache'
 
     Symfony\Component\Cache\Adapter\FilesystemAdapter:
