@@ -1,4 +1,7 @@
 services:
+    # no direct __invoke()
+    SlevomatCodingStandard\Sniffs\PHP\DisallowDirectMagicInvokeCallSniff: null
+
     # fix all @param, @var, @return tag mallforms
     Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer: ~
 
