@@ -2,32 +2,32 @@
 
 services:
     # PSR1
-    PhpCsFixer\Fixer\Basic\EncodingFixer: ~
-    PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer: ~
+    PhpCsFixer\Fixer\Basic\EncodingFixer: null
+    PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer: null
 
-    PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer: ~
-    PhpCsFixer\Fixer\Basic\BracesFixer: ~
-    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer: ~
-    PhpCsFixer\Fixer\ControlStructure\ElseifFixer: ~
-    PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer: ~
-    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: ~
-    PhpCsFixer\Fixer\Whitespace\LineEndingFixer: ~
-    PhpCsFixer\Fixer\Casing\ConstantCaseFixer: ~
-    PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer: ~
+    PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer: null
+    PhpCsFixer\Fixer\Basic\BracesFixer: null
+    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer: null
+    PhpCsFixer\Fixer\ControlStructure\ElseifFixer: null
+    PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer: null
+    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: null
+    PhpCsFixer\Fixer\Whitespace\LineEndingFixer: null
+    PhpCsFixer\Fixer\Casing\ConstantCaseFixer: null
+    PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer: null
     PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer:
         ensure_fully_multiline: true
-    PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer: ~
-    PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer: ~
-    PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer: ~
-    PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer: ~
-    PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: ~
-    PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer: ~
-    PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer: ~
+    PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer: null
+    PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer: null
+    PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer: null
+    PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer: null
+    PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: null
+    PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer: null
+    PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer: null
     PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
         elements:
             - 'property'
-    PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer: ~
-    PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer: ~
-    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer: ~
-    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer: ~
-    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer: ~
+    PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer: null
+    PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer: null
+    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer: null
+    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer: null
+    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer: null

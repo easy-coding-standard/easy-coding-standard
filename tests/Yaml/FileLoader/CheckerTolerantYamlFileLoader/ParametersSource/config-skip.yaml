@@ -1,4 +1,4 @@
 parameters:
     skip:
-        firstCode: ~
-        secondCode: ~
+        firstCode: null
+        secondCode: null
