@@ -9,15 +9,15 @@ services:
         rand: random_int
 
     # ?? operator
-    PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer: ~
+    PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer: null
 
     # strict types
-    PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: ~
-    Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: ~
-    PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer: ~
+    PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: null
+    Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: null
+    PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer: null
 
     # typehints
-    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: ~
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: null
 
     # throwable
-    SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: ~
+    SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: null
