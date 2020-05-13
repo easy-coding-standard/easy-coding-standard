@@ -26,6 +26,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     public function __construct(InputInterface $input, OutputInterface $output, Terminal $terminal)
     {
         parent::__construct($input, $output);
+
         $this->terminal = $terminal;
     }
 
