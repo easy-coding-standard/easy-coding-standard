@@ -1,4 +1,10 @@
 services:
+    # make extra space, to see parent::call()
+    SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff: null
+
+    # remove extra spaces
+    SlevomatCodingStandard\Sniffs\Whitespaces\DuplicateSpacesSniff: null
+
     # $builder->addThis()\n    ->addThat();
     PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer: ~
 
