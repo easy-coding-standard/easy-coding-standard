@@ -8,8 +8,8 @@ services:
         syntax: short
 
     # Nullable Typehints
-    SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff: ~
-    PhpCsFixer\Fixer\Whitespace\CompactNullableTypehintFixer: ~
+    SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff: null
+    PhpCsFixer\Fixer\Whitespace\CompactNullableTypehintFixer: null
 
     # Void Typehints
-    PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer: ~
+    PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer: null
