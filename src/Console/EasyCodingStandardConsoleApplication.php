@@ -33,6 +33,7 @@ final class EasyCodingStandardConsoleApplication extends Application
     public function __construct(Configuration $configuration, array $commands)
     {
         parent::__construct('EasyCodingStandard', $configuration->getPrettyVersion());
+
         $this->configuration = $configuration;
         $this->addCommands($commands);
     }
