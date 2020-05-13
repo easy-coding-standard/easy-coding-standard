@@ -9,14 +9,14 @@ parameters:
             - '*/someDirectory/*'
 
         # code
-        PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer.someCode: ~
+        PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer.someCode: null
         PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer.someOtherCode:
             - '*/someDirectory/*'
         PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer.someAnotherCode:
             - 'someDirectory/*'
 
         # messages
-        'some fishy code at line 5!': ~
+        'some fishy code at line 5!': null
         'some another fishy code at line 5!':
             - 'someDirectory/*'
-        'Cognitive complexity for method "foo" is 2 but has to be less than or equal to 1.': ~
+        'Cognitive complexity for method "foo" is 2 but has to be less than or equal to 1.': null
