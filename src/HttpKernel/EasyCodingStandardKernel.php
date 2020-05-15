@@ -10,10 +10,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use Symplify\CodingStandard\SymplifyCodingStandardBundle;
+use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
 use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
+use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
-use Symplify\EasyCodingStandard\EasyCodingStandardBundle;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\ParameterNameGuard\ParameterNameGuardBundle;
 
