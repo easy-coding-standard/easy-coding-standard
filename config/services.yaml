@@ -11,7 +11,6 @@ services:
     Symplify\EasyCodingStandard\:
         resource: '../src'
         exclude:
-            - '../src/Contract/*'
             - '../src/DependencyInjection/*'
             - '../src/HttpKernel/*'
             - '../src/Exception/*'
