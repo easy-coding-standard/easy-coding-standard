@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard;
+namespace Symplify\EasyCodingStandard\Bundle;
 
 use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
