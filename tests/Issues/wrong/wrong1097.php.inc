@@ -18,6 +18,9 @@ use OtherVendor\OtherPackage\BazClass;
       }
   }
 
+  /**
+   * Keep doc
+   */
   final public static function bar()
   {
       // method body

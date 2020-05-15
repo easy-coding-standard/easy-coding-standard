@@ -27,3 +27,9 @@ services:
     Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory: null
     Symfony\Component\Console\Style\SymfonyStyle:
         factory: ['@Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory', 'create']
+
+    Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle:
+        factory: ['@Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory', 'create']
+
+    PhpCsFixer\WhitespacesFixerConfig:
+        factory: ['@Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory', 'create']
