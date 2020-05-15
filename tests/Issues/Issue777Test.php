@@ -6,6 +6,9 @@ namespace Symplify\EasyCodingStandard\Tests\Issues;
 
 use Symplify\EasyCodingStandardTester\Testing\AbstractCheckerTestCase;
 
+/**
+ * @see https://github.com/symplify/symplify/issues/777
+ */
 final class Issue777Test extends AbstractCheckerTestCase
 {
     public function test(): void
