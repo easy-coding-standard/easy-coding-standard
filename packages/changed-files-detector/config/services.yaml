@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+
+    Symplify\EasyCodingStandard\ChangedFilesDetector\:
+        resource: '../src'
+
+    Symfony\Component\Cache\Adapter\Psr16Adapter: null
+    Symfony\Component\Cache\Adapter\TagAwareAdapter:
+        $itemsPool: '@Symfony\Component\Cache\Adapter\Psr16Adapter'
+        $tagsPool: '@Symfony\Component\Cache\Adapter\Psr16Adapter'
