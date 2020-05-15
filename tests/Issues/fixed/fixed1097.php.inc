@@ -18,8 +18,11 @@ class Foo extends Bar implements FooInterface
         }
     }
 
+    /**
+     * Keep doc
+     */
     final public static function bar()
     {
-        // method body
+      // method body
     }
 }
