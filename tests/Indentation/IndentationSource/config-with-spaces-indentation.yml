@@ -2,4 +2,4 @@ parameters:
     indentation: "spaces"
 
 services:
-    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: ~
+    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: null
