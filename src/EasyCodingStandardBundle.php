@@ -18,7 +18,6 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespace
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\Extension\EasyCodingStandardExtension;
-use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutoReturnFactoryCompilerPass;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 
 final class EasyCodingStandardBundle extends Bundle
@@ -30,9 +29,6 @@ final class EasyCodingStandardBundle extends Bundle
     {
         $containerBuilder->setParameter('sys_get_temp_dir', sys_get_temp_dir());
         $containerBuilder->setParameter('getcwd_webalized', Strings::webalize(getcwd()));
-
-        // needs to be first, since it's adding new service definitions
-        $containerBuilder->addCompilerPass(new AutoReturnFactoryCompilerPass());
 
         // cleanup
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
