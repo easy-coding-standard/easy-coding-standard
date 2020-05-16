@@ -1,0 +1,33 @@
+# updated to PHP CS Fixer v2.11.0 from https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/RuleSet.php
+
+services:
+    # PSR1
+    PhpCsFixer\Fixer\Basic\EncodingFixer: null
+    PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer: null
+
+    PhpCsFixer\Fixer\NamespaceNotation\BlankLineAfterNamespaceFixer: null
+    PhpCsFixer\Fixer\Basic\BracesFixer: null
+    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer: null
+    PhpCsFixer\Fixer\ControlStructure\ElseifFixer: null
+    PhpCsFixer\Fixer\FunctionNotation\FunctionDeclarationFixer: null
+    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: null
+    PhpCsFixer\Fixer\Whitespace\LineEndingFixer: null
+    PhpCsFixer\Fixer\Casing\ConstantCaseFixer: null
+    PhpCsFixer\Fixer\Casing\LowercaseKeywordsFixer: null
+    PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer:
+        ensure_fully_multiline: true
+    PhpCsFixer\Fixer\ControlStructure\NoBreakCommentFixer: null
+    PhpCsFixer\Fixer\PhpTag\NoClosingTagFixer: null
+    PhpCsFixer\Fixer\FunctionNotation\NoSpacesAfterFunctionNameFixer: null
+    PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer: null
+    PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer: null
+    PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer: null
+    PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer: null
+    PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
+        elements:
+            - 'property'
+    PhpCsFixer\Fixer\Import\SingleImportPerStatementFixer: null
+    PhpCsFixer\Fixer\Import\SingleLineAfterImportsFixer: null
+    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSemicolonToColonFixer: null
+    PhpCsFixer\Fixer\ControlStructure\SwitchCaseSpaceFixer: null
+    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer: null
