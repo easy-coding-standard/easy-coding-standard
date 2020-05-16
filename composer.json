@@ -23,18 +23,18 @@
         "symfony/dependency-injection": "^4.4|^5.0",
         "symfony/finder": "^4.4|^5.0",
         "symfony/yaml": "^4.4|^5.0",
-        "symplify/coding-standard": "^8.0",
-        "symplify/package-builder": "^8.0",
-        "symplify/set-config-resolver": "^8.0",
-        "symplify/smart-file-system": "^8.0",
-        "symplify/autowire-array-parameter": "^8.0",
-        "symplify/parameter-name-guard": "^8.0",
-        "symplify/auto-bind-parameter": "^8.0",
-        "symplify/console-color-diff": "^8.0"
+        "symplify/coding-standard": "^8.1",
+        "symplify/package-builder": "^8.1",
+        "symplify/set-config-resolver": "^8.1",
+        "symplify/smart-file-system": "^8.1",
+        "symplify/autowire-array-parameter": "^8.1",
+        "symplify/parameter-name-guard": "^8.1",
+        "symplify/auto-bind-parameter": "^8.1",
+        "symplify/console-color-diff": "^8.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5|^9.0",
-        "symplify/easy-coding-standard-tester": "^8.0"
+        "symplify/easy-coding-standard-tester": "^8.1"
     },
     "autoload": {
         "psr-4": {
@@ -55,7 +55,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "8.0-dev"
+            "dev-master": "8.1-dev"
         }
     },
     "minimum-stability": "dev",
