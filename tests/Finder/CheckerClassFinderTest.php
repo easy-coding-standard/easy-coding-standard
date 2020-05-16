@@ -13,7 +13,13 @@ final class CheckerClassFinderTest extends TestCase
     public function test(): void
     {
         $checkerClassFinder = new CheckerClassFinder();
-        $checkerClasses = $checkerClassFinder->findInDirectories([StaticVendorDirProvider::provide()]);
+
+        $vendorDir = StaticVendorDirProvider::provide();
+        $directories = [];
+        $directories[] = $vendorDir . '/squizlabs';
+        $directories[] = $vendorDir . '/friendsofphp';
+
+        $checkerClasses = $checkerClassFinder->findInDirectories($directories);
 
         $this->assertGreaterThan(250, $checkerClasses);
     }
