@@ -15,7 +15,7 @@ use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use Symplify\ParameterNameGuard\ParameterNameGuardBundle;
+use Symplify\ParameterNameGuard\Bundle\ParameterNameGuardBundle;
 
 final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareKernelInterface
 {
