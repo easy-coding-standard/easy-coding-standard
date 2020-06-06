@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        public: true
+
+    Symfony\Component\Cache\Psr16Cache: null
+    Psr\SimpleCache\CacheInterface: '@Symfony\Component\Cache\Psr16Cache'
+
+    Symfony\Component\Cache\Adapter\FilesystemAdapter:
+        arguments:
+            $namespace: '%cache_namespace%'
+            $defaultLifetime: 0
+            $directory: '%cache_directory%'
+
+    Psr\Cache\CacheItemPoolInterface: '@Symfony\Component\Cache\Adapter\FilesystemAdapter'
+
+    Symfony\Component\Cache\Adapter\TagAwareAdapterInterface: '@Symfony\Component\Cache\Adapter\TagAwareAdapter'
