@@ -14,6 +14,6 @@ final class EasyCodingStandardCompilerApplication extends Application
         parent::__construct('ecs.phar Compiler', 'v1.0');
 
         $this->add($compileCommand);
-        $this->setDefaultCommand('ecs:compile', true);
+        $this->setDefaultCommand(CompileCommand::NAME, true);
     }
 }
