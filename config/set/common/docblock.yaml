@@ -1,0 +1,37 @@
+services:
+    # block for properties
+    PhpCsFixer\Fixer\Phpdoc\PhpdocLineSpanFixer: null
+
+    # null|Type   →   Type|null
+    SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff: null
+
+    # remove empty spaces in phpdoc
+    PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer:
+
+    # trim 2+ empty lines in PhpDoc to 1
+    PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer: null
+
+    # remove empty lines in phpdoc (be careful, can be buggy)
+    PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer: null
+
+    # no empty doc blocks
+    PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer: null
+
+    # @return null | @return void
+    PhpCsFixer\Fixer\Phpdoc\PhpdocNoEmptyReturnFixer: null
+
+    # /** docblock */\n\t$code;
+    PhpCsFixer\Fixer\Phpdoc\PhpdocIndentFixer: null
+
+    # /** boolean */
+    PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer: null
+
+    # SomeClass { ... /** @return SomeClass */ ... }
+    PhpCsFixer\Fixer\Phpdoc\PhpdocReturnSelfReferenceFixer: null
+
+    # remove variable name from @var and @type annotations
+    PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer: null
+
+    # remove inheritdoc
+    PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer:
+        remove_inheritdoc: true
