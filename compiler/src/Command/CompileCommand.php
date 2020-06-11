@@ -20,6 +20,11 @@ final class CompileCommand extends Command
     /**
      * @var string
      */
+    public const NAME = 'ecs:compile';
+
+    /**
+     * @var string
+     */
     private $dataDir;
 
     /**
@@ -54,7 +59,7 @@ final class CompileCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('ecs:compile');
+        $this->setName(self::NAME);
         $this->setDescription('Compile prefixed ecs.phar');
     }
 
