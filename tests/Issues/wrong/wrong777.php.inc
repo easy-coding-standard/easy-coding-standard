@@ -1,3 +1,0 @@
-<html>
-    <?php something ?>
-</html>
