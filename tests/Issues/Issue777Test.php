@@ -4,16 +4,26 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Issues;
 
+use Iterator;
 use Symplify\EasyCodingStandardTester\Testing\AbstractCheckerTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @see https://github.com/symplify/symplify/issues/777
  */
 final class Issue777Test extends AbstractCheckerTestCase
 {
-    public function test(): void
+    /**
+     * @dataProvider provideData()
+     */
+    public function test(SmartFileInfo $fileInfo): void
     {
-        $this->doTestFiles([[__DIR__ . '/wrong/wrong777.php.inc', __DIR__ . '/fixed/fixed777.php.inc']]);
+        $this->doTestFileInfo($fileInfo);
+    }
+
+    public function provideData(): Iterator
+    {
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/fixture777.php.inc')];
     }
 
     protected function provideConfig(): string
