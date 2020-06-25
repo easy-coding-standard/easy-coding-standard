@@ -4,17 +4,24 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Set\Psr12;
 
+use Iterator;
 use Symplify\EasyCodingStandardTester\Testing\AbstractCheckerTestCase;
+use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Psr12Test extends AbstractCheckerTestCase
 {
-    public function test(): void
+    /**
+     * @dataProvider provideData()
+     */
+    public function test(SmartFileInfo $fileInfo): void
     {
-        $this->doTestFiles([
-            [__DIR__ . '/wrong/wrong.php.inc', __DIR__ . '/fixed/fixed.php.inc'],
-            [__DIR__ . '/wrong/wrong2.php.inc', __DIR__ . '/fixed/fixed2.php.inc'],
-            // yield [__DIR__ . '/wrong/wrong3.php.inc', __DIR__ . '/fixed/fixed3.php.inc']; - not covered yet
-        ]);
+        $this->doTestFileInfo($fileInfo);
+    }
+
+    public function provideData(): Iterator
+    {
+        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture');
     }
 
     protected function provideConfig(): string

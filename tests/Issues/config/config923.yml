@@ -1,6 +1,0 @@
-parameters:
-    indentation: 'spaces'
-    line_ending: '\n'
-
-services:
-    PhpCsFixer\Fixer\Whitespace\LineEndingFixer: ~
