@@ -1,5 +1,0 @@
-parameters:
-    line_ending: "\r\n"
-
-services:
-    PhpCsFixer\Fixer\Whitespace\LineEndingFixer: ~
