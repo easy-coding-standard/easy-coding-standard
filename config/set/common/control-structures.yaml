@@ -1,0 +1,66 @@
+services:
+    # const VALUE, VALUE_2...   =>    const VALUE, const VALUE_2
+    SlevomatCodingStandard\Sniffs\Classes\DisallowMultiConstantDefinitionSniff: null
+
+    # public $value, $value2;   =>    public $value; public $value2;
+    SlevomatCodingStandard\Sniffs\Classes\DisallowMultiPropertyDefinitionSniff: null
+
+    # __CONSTRUCT()   =>   __construct()
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer: null
+
+    # __CLASS__   =>   self::class
+    SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff: null
+
+    # get_class()   =>   __CLASS__
+    PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer: null
+
+    # "$var" => "${var}"
+    PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer: null
+    PhpCsFixer\Fixer\LanguageConstruct\ExplicitIndirectVariableFixer: null
+
+    # PSR-4
+    PhpCsFixer\Fixer\Basic\Psr4Fixer: null
+
+    # private $one, $two;
+    PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
+        elements: ['property', 'const']
+
+    # new SomeClass;
+    PhpCsFixer\Fixer\Operator\NewWithBracesFixer: null
+
+    PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
+        singleLine: true
+
+    # $value++;   =>   ++$value;
+    PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer: null
+
+    # class SomeClass { ... return SomeClass; }
+    PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer: null
+
+    # __dir__
+    PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer: null
+
+    # if ($value = $this->someMethod()) { ... }
+    PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff: null
+
+    # if (...) { return 1; } else { return 2; }
+    PhpCsFixer\Fixer\ControlStructure\NoUselessElseFixer: null
+
+    # "value"
+    PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer: null
+
+    # if ("result" === $value)
+    PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
+        equal: false
+        identical: false
+        less_and_greater: false
+
+    # private $property; public $anotherProperty;
+    PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: null
+
+    # use SomeTrait, AnotherTrait;   →   use SomeTrait;\nuse AnotherTrait;
+    SlevomatCodingStandard\Sniffs\Classes\TraitUseDeclarationSniff: null
+
+parameters:
+    skip:
+        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff.FoundInWhileCondition: null
