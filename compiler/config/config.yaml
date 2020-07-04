@@ -1,0 +1,21 @@
+parameters:
+    dataDir: '%kernel.project_dir%/build'
+    buildDir: '%kernel.project_dir%/..'
+
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    Symplify\EasyCodingStandard\Compiler\:
+        resource: '../src'
+        exclude:
+            - '../src/HttpKernel/*'
+            - '../src/Process/*'
+
+    Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory: null
+    Symfony\Component\Console\Style\SymfonyStyle:
+        factory: ['@Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory', 'create']
+
+    Symfony\Component\Filesystem\Filesystem: null

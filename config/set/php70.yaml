@@ -1,0 +1,23 @@
+services:
+    # array(    );
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short
+
+    # new methods
+    PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
+        mt_rand: random_int
+        rand: random_int
+
+    # ?? operator
+    PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer: null
+
+    # strict types
+    PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: null
+    Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer: null
+    PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer: null
+
+    # typehints
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: null
+
+    # throwable
+    SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff: null
