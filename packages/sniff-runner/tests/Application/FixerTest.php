@@ -65,6 +65,7 @@ final class FixerTest extends AbstractKernelTestCase
         $this->fixer->beginChangeSet();
 
         $this->fixer->addContentBefore(13, 'A');
+
         $token = $this->fixer->getTokenContent(13);
         $this->assertSame('A\\', $token);
 

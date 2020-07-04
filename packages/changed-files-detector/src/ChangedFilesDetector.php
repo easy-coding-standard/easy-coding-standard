@@ -50,6 +50,7 @@ final class ChangedFilesDetector
         $item = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
         $item->set($this->fileHashComputer->compute($smartFileInfo->getRealPath()));
         $item->tag(self::CHANGED_FILES_CACHE_TAG);
+
         $this->tagAwareAdapter->save($item);
     }
 
@@ -94,6 +95,7 @@ final class ChangedFilesDetector
 
         $cacheItem = $this->tagAwareAdapter->getItem(self::CONFIGURATION_HASH_KEY);
         $cacheItem->set($configurationHash);
+
         $this->tagAwareAdapter->save($cacheItem);
     }
 
