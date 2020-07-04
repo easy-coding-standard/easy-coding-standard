@@ -18,9 +18,8 @@ final class DefinitionsTest extends TestCase
     /**
      * @dataProvider provideConfigToConfiguredMethodAndPropertyDefinition()
      * @param mixed[] $expectedMethodCall
-     * @param mixed[] $expectedProperties
      */
-    public function test(string $config, string $checker, array $expectedMethodCall, array $expectedProperties): void
+    public function test(string $config, string $checker, array $expectedMethodCall): void
     {
         $containerBuilder = $this->createAndLoadContainerBuilderFromConfig($config);
         $this->assertTrue($containerBuilder->has($checker));
