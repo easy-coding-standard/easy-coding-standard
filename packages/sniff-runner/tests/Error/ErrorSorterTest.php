@@ -36,7 +36,8 @@ final class ErrorSorterTest extends AbstractKernelTestCase
         /** @var Error[][] $sortedMessages */
         $sortedMessages = $this->errorSorter->sortByFileAndLine($this->getUnsortedMessages());
 
-        $this->assertSame(['anotherFilePath', 'filePath'], array_keys($sortedMessages));
+        $messageKeys = array_keys($sortedMessages);
+        $this->assertSame(['anotherFilePath', 'filePath'], $messageKeys);
         $this->assertSame(5, $sortedMessages['anotherFilePath'][0]->getLine());
         $this->assertSame(15, $sortedMessages['anotherFilePath'][1]->getLine());
     }
