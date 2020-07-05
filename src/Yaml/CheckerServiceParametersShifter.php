@@ -89,7 +89,7 @@ final class CheckerServiceParametersShifter
     private function processServices(array $services): array
     {
         foreach ($services as $serviceName => $serviceDefinition) {
-            if (! $this->isCheckerClass($serviceName) || empty($serviceDefinition)) {
+            if (! $this->isCheckerClass($serviceName) || $serviceDefinition === null || $serviceDefinition === []) {
                 continue;
             }
 
