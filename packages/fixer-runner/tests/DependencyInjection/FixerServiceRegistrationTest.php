@@ -57,9 +57,11 @@ final class FixerServiceRegistrationTest extends AbstractKernelTestCase
     public function testConfigureUnconfigurableFixer(): void
     {
         $this->expectException(FixerIsNotConfigurableException::class);
-        $this->expectExceptionMessage(
-            sprintf('Fixer "%s" is not configurable with configuration: {"be_strict":"yea"}.', StrictParamFixer::class)
+        $expectedErrorMessage = sprintf(
+            'Fixer "%s" is not configurable with configuration: {"be_strict":"yea"}.',
+            StrictParamFixer::class
         );
+        $this->expectExceptionMessage($expectedErrorMessage);
 
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
