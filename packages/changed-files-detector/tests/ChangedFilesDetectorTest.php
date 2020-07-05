@@ -60,17 +60,19 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
 
     private function assertFileHasChanged(SmartFileInfo $smartFileInfo): void
     {
-        $this->assertTrue(
-            $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo),
-            sprintf('Failed asserting that file "%s" has changed.', $smartFileInfo->getRelativeFilePath())
+        $failedAssertMessage = sprintf(
+            'Failed asserting that file "%s" has changed.',
+            $smartFileInfo->getRelativeFilePath()
         );
+        $this->assertTrue($this->changedFilesDetector->hasFileInfoChanged($smartFileInfo), $failedAssertMessage);
     }
 
     private function assertFileHasNotChanged(SmartFileInfo $smartFileInfo): void
     {
-        $this->assertFalse(
-            $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo),
-            sprintf('Failed asserting that file "%s" has not changed.', $smartFileInfo->getRelativeFilePath())
+        $failedAssertMessage = sprintf(
+            'Failed asserting that file "%s" has not changed.',
+            $smartFileInfo->getRelativeFilePath()
         );
+        $this->assertFalse($this->changedFilesDetector->hasFileInfoChanged($smartFileInfo), $failedAssertMessage);
     }
 }
