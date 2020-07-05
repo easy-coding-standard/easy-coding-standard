@@ -82,7 +82,8 @@ final class FindCommand extends Command
         sort($checkers);
         $this->easyCodingStandardStyle->listing($checkers);
 
-        $this->easyCodingStandardStyle->success(sprintf('Found %d checkers', count($checkers)));
+        $successMessage = sprintf('Found %d checkers', count($checkers));
+        $this->easyCodingStandardStyle->success($successMessage);
 
         return ShellCode::SUCCESS;
     }
