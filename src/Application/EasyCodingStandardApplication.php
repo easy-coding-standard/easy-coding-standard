@@ -79,19 +79,20 @@ final class EasyCodingStandardApplication
         }
 
         // no files found
-        if (count($files) === 0) {
+        $filesCount = count($files);
+        if ($filesCount === 0) {
             return 0;
         }
 
         // 3. start progress bar
         if ($this->configuration->shouldShowProgressBar() && ! $this->easyCodingStandardStyle->isVerbose()) {
-            $this->easyCodingStandardStyle->progressStart(count($files));
+            $this->easyCodingStandardStyle->progressStart($filesCount);
         }
 
         // 4. process found files by each processors
         $this->processFoundFiles($files);
 
-        return count($files);
+        return $filesCount;
     }
 
     public function getCheckerCount(): int

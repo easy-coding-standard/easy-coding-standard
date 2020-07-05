@@ -83,7 +83,8 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         $i = 0;
         foreach ($fileDiffPerFile as $file => $fileDiffs) {
             $this->easyCodingStandardStyle->newLine(2);
-            $this->easyCodingStandardStyle->writeln(sprintf('<options=bold>%d) %s</>', ++$i, $file));
+            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', ++$i, $file);
+            $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
 
             foreach ($fileDiffs as $fileDiff) {
                 $this->easyCodingStandardStyle->newLine();
@@ -104,13 +105,12 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         }
 
         if ($this->errorAndDiffCollector->getErrorCount() === 0) {
-            $this->easyCodingStandardStyle->success(
-                sprintf(
-                    '%d error%s successfully fixed and no other found!',
-                    $this->errorAndDiffCollector->getFileDiffsCount(),
-                    $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? '' : 's'
-                )
+            $successMessage = sprintf(
+                '%d error%s successfully fixed and no other found!',
+                $this->errorAndDiffCollector->getFileDiffsCount(),
+                $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? '' : 's'
             );
+            $this->easyCodingStandardStyle->success($successMessage);
 
             return ShellCode::SUCCESS;
         }
@@ -144,27 +144,25 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
     private function printErrorMessageFromErrorCounts(int $errorCount, int $fileDiffsCount): void
     {
         if ($errorCount !== 0) {
-            $this->easyCodingStandardStyle->error(
-                sprintf(
-                    'Found %d error%s that need%s to be fixed manually.',
-                    $errorCount,
-                    $errorCount === 1 ? '' : 's',
-                    $errorCount === 1 ? '' : 's'
-                )
+            $errorMessage = sprintf(
+                'Found %d error%s that need%s to be fixed manually.',
+                $errorCount,
+                $errorCount === 1 ? '' : 's',
+                $errorCount === 1 ? '' : 's'
             );
+            $this->easyCodingStandardStyle->error($errorMessage);
         }
 
         if (! $fileDiffsCount || $this->configuration->isFixer()) {
             return;
         }
 
-        $this->easyCodingStandardStyle->warning(
-            sprintf(
-                '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
-                $errorCount !== 0 ? 'Good news is that ' : '',
-                $fileDiffsCount,
-                $fileDiffsCount === 1 ? 'file is' : 'files are'
-            )
+        $fixableMessage = sprintf(
+            '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
+            $errorCount !== 0 ? 'Good news is that ' : '',
+            $fileDiffsCount,
+            $fileDiffsCount === 1 ? 'file is' : 'files are'
         );
+        $this->easyCodingStandardStyle->warning($fixableMessage);
     }
 }

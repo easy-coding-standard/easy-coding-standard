@@ -61,11 +61,15 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     {
         $fileOne = __DIR__ . '/FileHashComputerSource/SomeScannedClass.php';
         $fileOneHash = $this->fileHashComputer->compute($fileOne);
-        $this->assertSame(md5_file($fileOne), $fileOneHash);
+
+        $expectedFileOneHasn = md5_file($fileOne);
+        $this->assertSame($expectedFileOneHasn, $fileOneHash);
 
         $fileTwo = __DIR__ . '/FileHashComputerSource/ChangedScannedClass.php';
         $fileTwoHash = $this->fileHashComputer->compute($fileTwo);
-        $this->assertSame(md5_file($fileTwo), $fileTwoHash);
+
+        $expectedFileTwoHash = md5_file($fileTwo);
+        $this->assertSame($expectedFileTwoHash, $fileTwoHash);
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);
     }
