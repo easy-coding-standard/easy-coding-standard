@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+
+    Symplify\EasyCodingStandard\SniffRunner\:
+        resource: '../src'
+        exclude:
+            - '../src/Exception/*'
+            - '../src/ValueObject/*'
+
+    PHP_CodeSniffer\Fixer: null
