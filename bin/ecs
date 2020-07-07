@@ -1,0 +1,231 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use PHP_CodeSniffer\Util\Tokens;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
+use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\Set\Set;
+use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use Symplify\SetConfigResolver\ConfigResolver;
+use Symplify\PackageBuilder\Console\Input\InputDetector;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
+
+// performance boost
+gc_disable();
+
+# 1. autoload
+$autoloadIncluder = new AutoloadIncluder();
+$autoloadIncluder->includeCwdVendorAutoloadIfExists();
+$autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
+$autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
+$autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
+
+# 2. create container
+$configs = [];
+
+// 1. --config CLI option or default
+$configResolver = new ConfigResolver();
+$setDirectory = __DIR__ . '/../config/set';
+
+$input = new ArgvInput();
+$inputConfig = $configResolver->resolveFromInputWithFallback($input,
+    ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
+);
+if ($inputConfig) {
+    $configs[] = $inputConfig;
+}
+
+// 2. --set CLI option
+$setInputConfig = $configResolver->resolveSetFromInputAndDirectory($input, $setDirectory);
+if ($setInputConfig) {
+    $configs[] = $setInputConfig;
+}
+
+// 3. "parameters > set" in provided yaml files
+$parameterSetsConfigs = $configResolver->resolveFromParameterSetsFromConfigFiles($configs, $setDirectory);
+if ($parameterSetsConfigs !== []) {
+    $configs = array_merge($configs, $parameterSetsConfigs);
+}
+
+/**
+ * @param string[] $configs
+ */
+function computeConfigHash(array $configs): string
+{
+    $hash = '';
+    foreach ($configs as $config) {
+        $hash .= md5_file($config);
+    }
+
+    return $hash;
+}
+
+$environment = 'prod' . md5(computeConfigHash($configs) . random_int(1, 100000));
+
+// shift input config as last, so the parameters override previous rules loaded from sets
+$mainConfigShiftedAsLast = [];
+foreach ($configs as $config) {
+    if ($config !== $inputConfig) {
+        $mainConfigShiftedAsLast[] = $config;
+    }
+}
+
+if ($inputConfig !== null) {
+    $mainConfigShiftedAsLast[] = $inputConfig;
+}
+
+$easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
+if ($configs !== []) {
+    $easyCodingStandardKernel->setConfigs($mainConfigShiftedAsLast);
+}
+
+try {
+    $easyCodingStandardKernel->boot();
+    $container = $easyCodingStandardKernel->getContainer();
+} catch (Throwable $throwable) {
+    $symfonyStyle = (new SymfonyStyleFactory())->create();
+    $symfonyStyle->error($throwable->getMessage());
+    exit(ShellCode::ERROR);
+}
+
+// for cache invalidation on config change
+/** @var ChangedFilesDetector $changedFilesDetector */
+$changedFilesDetector = $container->get(ChangedFilesDetector::class);
+$changedFilesDetector->setUsedConfigs($configs);
+
+/** @var Configuration $configuration */
+$configuration = $container->get(Configuration::class);
+$configuration->setFirstResolverConfig($configResolver->getFirstResolvedConfig());
+
+# 3. run
+$application = $container->get(EasyCodingStandardConsoleApplication::class);
+exit($application->run());
+
+
+/**
+ * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
+ */
+final class AutoloadIncluder
+{
+    /**
+     * @var string[]
+     */
+    private $alreadyLoadedAutoloadFiles = [];
+
+    public function includeCwdVendorAutoloadIfExists(): void
+    {
+        $cwdVendorAutoload = getcwd() . '/vendor/autoload.php';
+        if (!is_file($cwdVendorAutoload)) {
+            return;
+        }
+        $this->loadIfNotLoadedYet($cwdVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
+    }
+
+    public function includeDependencyOrRepositoryVendorAutoloadIfExists(): void
+    {
+        // ECS' vendor is already loaded
+        if (class_exists('\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel')) {
+            return;
+        }
+
+        $devOrPharVendorAutoload = __DIR__ . '/../vendor/autoload.php';
+        if (! is_file($devOrPharVendorAutoload)) {
+            return;
+        }
+
+        $this->loadIfNotLoadedYet($devOrPharVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
+    }
+    /**
+     * Inspired by https://github.com/phpstan/phpstan-src/blob/e2308ecaf49a9960510c47f5a992ce7b27f6dba2/bin/phpstan#L19
+     */
+    public function autoloadProjectAutoloaderFile(string $file): void
+    {
+        $path = dirname(__DIR__) . $file;
+        if (!extension_loaded('phar')) {
+            if (is_file($path)) {
+                $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
+            }
+        } else {
+            $pharPath = Phar::running(false);
+            if ($pharPath === '') {
+                if (is_file($path)) {
+                    $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
+                }
+            } else {
+                $path = dirname($pharPath) . $file;
+                if (is_file($path)) {
+                    $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
+                }
+            }
+        }
+    }
+
+    private function isInPhar(): bool
+    {
+        if (!extension_loaded('phar')) {
+            return false;
+        }
+
+        if (Phar::running(false) === '') {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function loadIfNotLoadedYet(string $file, string $location): void
+    {
+        if (in_array($file, $this->alreadyLoadedAutoloadFiles, true)) {
+            return;
+        }
+
+        if ($this->isDebugOption()) {
+            echo sprintf(sprintf(
+                'File "%s" is about to be loaded in "%s"' . PHP_EOL,
+                $file,
+                $location
+            ));
+        }
+
+        $this->alreadyLoadedAutoloadFiles[] = realpath($file);
+        require_once $file;
+    }
+
+    private function isDebugOption(): bool
+    {
+        return in_array('--debug', $_SERVER['argv'], true);
+    }
+
+    public function includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens()
+    {
+        // file is autoloaded with classmap in PHAR
+        // without phar, we still need to autoload it
+        if (! $this->isInPhar()) {
+            # 1. autoload
+            $possibleAutoloadPaths = [
+                // after split package
+                __DIR__ . '/../vendor',
+                // dependency
+                __DIR__ . '/../../..',
+                // monorepo
+                __DIR__ . '/../../../vendor',
+            ];
+
+            foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
+                if (!is_file($possibleAutoloadPath . '/autoload.php')) {
+                    continue;
+                }
+
+                require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
+            }
+        }
+
+        // initalize PHPCS tokens
+        new Tokens();
+    }
+}

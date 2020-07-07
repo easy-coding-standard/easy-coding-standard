@@ -1,0 +1,73 @@
+services:
+    # make extra space, to see parent::call()
+    SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff: null
+
+    # remove extra spaces
+    SlevomatCodingStandard\Sniffs\Whitespaces\DuplicateSpacesSniff: null
+
+    # $builder->addThis()\n    ->addThat();
+    PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer: null
+
+    # 1 empty line between constants, properties and methods
+    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
+        elements: ['const', 'property', 'method']
+
+    # "string" . "another string"
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: one
+
+    # if (! $statement) {...
+    PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer: null
+
+    # ...
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff:
+        ignoreBlankLines: false
+
+   # $value = (  type ) ...;
+    PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: null
+
+    # $value   +  =   5;
+    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
+        align_double_arrow: false
+        align_equals: false
+
+    # someMethod(  string   $value)
+    PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer: null
+
+    # class someClass {\n\n
+    PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: null
+
+    # $value = 5   ;
+    PhpCsFixer\Fixer\Semicolon\NoSinglelineWhitespaceBeforeSemicolonsFixer: null
+
+    # /**    @var   Type   $variable */
+    PhpCsFixer\Fixer\Phpdoc\PhpdocSingleLineVarSpacingFixer: null
+
+    #      namespace ...;
+    PhpCsFixer\Fixer\NamespaceNotation\NoLeadingNamespaceWhitespaceFixer: null
+
+    # $value[ 'key' ];
+    PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer: null
+
+    # \n    \n
+    PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer: null
+
+    # someMethod()    :    Type
+    PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer: null
+
+    # $var = 5;     $hello = 'hi';
+    PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer: null
+
+    # '$value   ?    'yes'    :    'no';
+    PhpCsFixer\Fixer\Operator\TernaryOperatorSpacesFixer: null
+
+    # someFunction($value,$anotherValue)
+    PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer: null
+
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff: null
+
+    SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff:
+        linesCountAfterLastUse: 1
+        linesCountAfterLastUseWhenLastInClass: 0
+        linesCountBeforeFirstUse: 0
+        linesCountBetweenUses: 0
