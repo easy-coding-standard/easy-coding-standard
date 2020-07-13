@@ -37,6 +37,9 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
         ], [
             'SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff',
             'PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer',
+        ], [
+            'PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff',
+            'PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer',
         ],
     ];
 
