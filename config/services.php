@@ -17,8 +17,6 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services/services_cache.php');
 
-    $containerConfigurator->import(__DIR__ . '/parameters/parameter_name_guard.php');
-
     $services = $containerConfigurator->services();
 
     $services->defaults()
