@@ -24,6 +24,8 @@ services:
     Symplify\SmartFileSystem\FileSystemGuard: null
     Symplify\SmartFileSystem\Finder\FinderSanitizer: null
 
+    Symplify\SmartFileSystem\SmartFileSystem: null
+
     Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory: null
     Symfony\Component\Console\Style\SymfonyStyle:
         factory: ['@Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory', 'create']
