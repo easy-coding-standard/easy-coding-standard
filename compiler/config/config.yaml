@@ -18,4 +18,5 @@ services:
     Symfony\Component\Console\Style\SymfonyStyle:
         factory: ['@Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory', 'create']
 
+    Symplify\SmartFileSystem\SmartFileSystem: null
     Symfony\Component\Filesystem\Filesystem: null
