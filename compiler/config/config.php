@@ -22,7 +22,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autoconfigure();
 
     $services->load('Symplify\EasyCodingStandard\Compiler\\', __DIR__ . '/../src')
-        ->exclude([__DIR__ . '/../src/HttpKernel/*', __DIR__ . '/../src/Process/*']);
+        ->exclude([
+            __DIR__ . '/../src/HttpKernel/*',
+            __DIR__ . '/../src/Process/*',
+        ]);
 
     $services->set(SymfonyStyleFactory::class);
 
