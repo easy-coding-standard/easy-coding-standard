@@ -29,7 +29,8 @@ services:
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: null
 
     PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer:
-        singleLine: true
+        calls:
+            - ['configure', [{'singleLine': true}]]
 
     # $value++;   =>   ++$value;
     PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer: null
@@ -51,9 +52,8 @@ services:
 
     # if ("result" === $value)
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer:
-        equal: false
-        identical: false
-        less_and_greater: false
+        calls:
+            - ['configure', [{'equal': false, 'identical': false, 'less_and_greater': false}]]
 
     # private $property; public $anotherProperty;
     PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer: null

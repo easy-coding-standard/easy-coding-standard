@@ -34,4 +34,5 @@ services:
 
     # remove inheritdoc
     PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer:
-        remove_inheritdoc: true
+        calls:
+            - ['configure', [{'remove_inheritdoc': true}]]

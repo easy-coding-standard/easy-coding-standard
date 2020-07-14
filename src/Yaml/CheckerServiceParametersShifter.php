@@ -27,7 +27,7 @@ use Symplify\PackageBuilder\Strings\StringFormatConverter;
  *      # fixer
  *      ArrayFixer:
  *          calls:
- *              - ['configure', [['syntax' => 'short']]
+ *              - ['configure', [{'syntax' => 'short'}]
  *      # sniff
  *      ArraySniff:
  *          parameters:
