@@ -10,26 +10,30 @@ services:
 
     # 1 empty line between constants, properties and methods
     PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer:
-        elements: ['const', 'property', 'method']
+        calls:
+            - ['configure', [{'elements': ['const', 'property', 'method']}]]
 
     # "string" . "another string"
     PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
-        spacing: one
+        calls:
+            - ['configure', [{'spacing': 'one'}]]
 
     # if (! $statement) {...
     PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer: null
 
     # ...
     PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff:
-        ignoreBlankLines: false
+        # see https://symfony.com/doc/current/service_container/injection_types.html#property-injection
+        properties:
+            ignoreBlankLines: false
 
    # $value = (  type ) ...;
     PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: null
 
     # $value   +  =   5;
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
-        align_double_arrow: false
-        align_equals: false
+        calls:
+            - ['configure', [{'align_double_arrow': false, 'align_equals': false}]]
 
     # someMethod(  string   $value)
     PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer: null
@@ -67,7 +71,8 @@ services:
     PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff: null
 
     SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff:
-        linesCountAfterLastUse: 1
-        linesCountAfterLastUseWhenLastInClass: 0
-        linesCountBeforeFirstUse: 0
-        linesCountBetweenUses: 0
+        properties:
+            linesCountAfterLastUse: 1
+            linesCountAfterLastUseWhenLastInClass: 0
+            linesCountBeforeFirstUse: 0
+            linesCountBetweenUses: 0
