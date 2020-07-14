@@ -69,7 +69,7 @@ final class ParametersMergeTest extends TestCase
         );
 
         // local "config/config.yaml"
-        $delegatingLoader->load(__DIR__ . '/../../../../config/config.yaml');
+        $delegatingLoader->load(__DIR__ . '/../../../../config/config.php');
         // mimics user's "easy-config-standard.yaml" with own values
         $delegatingLoader->load(__DIR__ . '/ParametersSource/root-config-override.yaml');
 
