@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Bundle;
 
-use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -27,9 +26,6 @@ final class EasyCodingStandardBundle extends Bundle
      */
     public function build(ContainerBuilder $containerBuilder): void
     {
-        $containerBuilder->setParameter('sys_get_temp_dir', sys_get_temp_dir());
-        $containerBuilder->setParameter('getcwd_webalized', Strings::webalize(getcwd()));
-
         // cleanup
         $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
         $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());
