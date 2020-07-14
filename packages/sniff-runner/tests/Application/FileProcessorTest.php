@@ -27,7 +27,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
     {
         static::bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/FileProcessorSource/easy-coding-standard.yaml']
+            [__DIR__ . '/FileProcessorSource/easy-coding-standard.php']
         );
         $this->makeConsoleOutputQuiet();
 
