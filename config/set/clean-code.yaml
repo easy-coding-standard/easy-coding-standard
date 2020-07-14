@@ -19,7 +19,8 @@ services:
 
     # use short array []
     PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
-        syntax: short
+        calls:
+            - ['configure', [{'syntax': 'short'}]]
 
     # detect dead code
     SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff:

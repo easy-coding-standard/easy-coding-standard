@@ -23,7 +23,8 @@ services:
 
     # private $one, $two;
     PhpCsFixer\Fixer\ClassNotation\SingleClassElementPerStatementFixer:
-        elements: ['property', 'const']
+        calls:
+            - ['configure', [{'elements': ['const', 'property']}]]
 
     # new SomeClass;
     PhpCsFixer\Fixer\Operator\NewWithBracesFixer: null
