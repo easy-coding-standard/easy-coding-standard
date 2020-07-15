@@ -24,7 +24,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::SKIP, []);
 
-    $parameters->set('only', []);
+    $parameters->set(Option::ONLY, []);
 
     $parameters->set('paths', []);
 
