@@ -29,7 +29,7 @@ final class Skipper
     /**
      * @var string[]
      */
-    private $excludedFiles = [];
+    private $excludedPaths = [];
 
     /**
      * @var mixed[]
@@ -40,12 +40,13 @@ final class Skipper
      * @param mixed[] $skip
      * @param mixed[] $only
      * @param mixed[] $excludeFiles
+     * @param mixed[] $excludePaths
      */
-    public function __construct(array $skip, array $only, array $excludeFiles)
+    public function __construct(array $skip, array $only, array $excludeFiles, array $excludePaths)
     {
         $this->categorizeSkipSettings($skip);
-        $this->excludedFiles = $excludeFiles;
         $this->only = $only;
+        $this->excludedPaths = array_merge($excludePaths, $excludeFiles);
     }
 
     public function shouldSkipCodeAndFile(string $code, SmartFileInfo $smartFileInfo): bool
@@ -73,8 +74,8 @@ final class Skipper
 
     public function shouldSkipFileInfo(SmartFileInfo $smartFileInfo): bool
     {
-        foreach ($this->excludedFiles as $excludedFile) {
-            if ($this->doesFileMatchPattern($smartFileInfo, $excludedFile)) {
+        foreach ($this->excludedPaths as $excludedPath) {
+            if ($this->doesFileMatchPattern($smartFileInfo, $excludedPath)) {
                 return true;
             }
         }
