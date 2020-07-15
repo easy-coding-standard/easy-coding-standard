@@ -1,12 +1,3 @@
-services:
-    # remove unused aliases
-    SlevomatCodingStandard\Sniffs\Namespaces\UselessAliasSniff: null
+imports:
+    - { resource: namespaces.php }
 
-    # drop dead use namespaces
-    PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: null
-
-    # and sort them A → Z
-    PhpCsFixer\Fixer\Import\OrderedImportsFixer: null
-
-    # <?php\nnamespace SomeNamespace;
-    PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer: null
