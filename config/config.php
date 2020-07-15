@@ -24,15 +24,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::SKIP, []);
 
-    $parameters->set('only', []);
+    $parameters->set(Option::ONLY, []);
 
-    $parameters->set('paths', []);
+    $parameters->set(Option::PATHS, []);
 
-    $parameters->set('sets', []);
+    $parameters->set(Option::SETS, []);
 
     $parameters->set('file_extensions', ['php']);
 
-    $parameters->set('exclude_files', []);
+    $parameters->set(Option::EXCLUDE_PATHS, []);
+
+    $parameters->set(Option::EXCLUDE_FILES, []);
 
     $parameters->set('env(TEST_SUFFIX)', '');
 };
