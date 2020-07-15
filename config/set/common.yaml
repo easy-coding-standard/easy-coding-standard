@@ -1,2 +1,2 @@
 imports:
-    - { resource: 'common/*.yaml' }
+    - { resource: 'common.php' }
