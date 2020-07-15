@@ -34,7 +34,7 @@ $setDirectory = __DIR__ . '/../config/set';
 
 $input = new ArgvInput();
 $inputConfig = $configResolver->resolveFromInputWithFallback($input,
-    ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml']
+    ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml', 'ecs.php']
 );
 if ($inputConfig) {
     $configs[] = $inputConfig;
