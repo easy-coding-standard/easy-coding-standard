@@ -40,4 +40,25 @@ final class Option
      * @var string
      */
     public const SKIP = 'skip';
+
+    /**
+     * @var string
+     */
+    public const EXCLUDE_PATHS = 'exclude_paths';
+
+    /**
+     * @var string
+     * @deprecated Use self::EXCLUDE_PATHS
+     */
+    public const EXCLUDE_FILES = 'exclude_files';
+
+    /**
+     * @var string
+     */
+    public const SETS = 'sets';
+
+    /**
+     * @var string
+     */
+    public const PATHS = 'paths';
 }
