@@ -1,11 +1,3 @@
-services:
-    # $value == 5;   =>   $value === 5;
-    PhpCsFixer\Fixer\Strict\StrictComparisonFixer: null
+imports:
+    - { resource: strict.php }
 
-    # is_null($value);   =>   $value === null;
-    PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer:
-        calls:
-            - ['configure', [{'use_yoda_style': false}]]
-
-    # in_array('key', $value)   =>   in_array('key', $value, true)
-    PhpCsFixer\Fixer\Strict\StrictParamFixer: null
