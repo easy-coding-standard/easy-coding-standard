@@ -189,7 +189,7 @@ Or just 2 files?
 
 ```yaml
 parameters:
-    exclude_files:
+    exclude_paths:
         # generated files
         - 'lib/PhpParser/Parser/Php5.php'
         - 'lib/PhpParser/Parser/Php7.php'
