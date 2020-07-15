@@ -1,9 +1,3 @@
-services:
-    # $this->assertEquals()    =>    $this->assertSame()
-    PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer: null
+imports:
+    - { resource: phpunit.php }
 
-    # test<>()
-    PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer: null
-
-    # public setUp()   =>   protected setUp()
-    PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer: null
