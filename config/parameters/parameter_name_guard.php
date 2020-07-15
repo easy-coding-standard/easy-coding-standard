@@ -2,6 +2,8 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Symplify\EasyCodingStandard\Configuration\Option;
+
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
@@ -12,8 +14,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'line_length' => [
             'line_lenght', 'lineLength', 'lineLenght', 'line_size', 'lineSize',
         ],
-        'exclude_files' => [
-            'exclude_file', 'excluded_file', 'exclude_dir', 'excluded_dir', 'excluded_dirs', 'exclude_path', 'exclude_paths', 'excluded_path', 'excluded_paths', 'skip_dirs', 'skip_files',
+        Option::EXCLUDE_PATHS => [
+            'exclude_file', 'excluded_file', 'exclude_dir', 'excluded_dir', 'excluded_dirs', 'exclude_path', 'excluded_path', 'excluded_paths', 'skip_dirs', 'skip_files',
         ],
     ]);
 };
