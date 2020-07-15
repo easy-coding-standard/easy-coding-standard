@@ -1,9 +1,3 @@
-services:
-    SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff: null
-    SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff: null
-    SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff: null
-    SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: null
+imports:
+    - { resource: dead-code.php }
 
-parameters:
-    skip:
-        SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff.UnusedParameter: null
