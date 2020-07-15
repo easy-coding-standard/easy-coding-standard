@@ -32,7 +32,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set('file_extensions', ['php']);
 
-    $parameters->set('exclude_files', []);
+    $parameters->set(Option::EXCLUDE_PATHS, []);
+
+    $parameters->set(Option::EXCLUDE_FILES, []);
 
     $parameters->set('env(TEST_SUFFIX)', '');
 };
