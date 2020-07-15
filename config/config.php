@@ -3,6 +3,7 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Nette\Utils\Strings;
+use Symplify\EasyCodingStandard\Configuration\Option;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
@@ -21,7 +22,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set('cache_namespace', Strings::webalize(getcwd()));
 
-    $parameters->set('skip', []);
+    $parameters->set(Option::SKIP, []);
 
     $parameters->set('only', []);
 
