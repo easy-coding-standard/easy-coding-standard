@@ -61,4 +61,9 @@ final class Option
      * @var string
      */
     public const PATHS = 'paths';
+
+    /**
+     * @var string
+     */
+    public const ONLY = 'only';
 }
