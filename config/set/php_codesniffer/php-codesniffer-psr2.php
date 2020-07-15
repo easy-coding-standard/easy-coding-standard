@@ -28,6 +28,7 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ControlSignatureSni
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ForEachLoopDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\ForLoopDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\ControlStructures\LowercaseDeclarationSniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationArgumentSpacingSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\LowercaseFunctionKeywordsSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\MultiLineFunctionDeclarationSniff;
@@ -94,7 +95,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(LowercaseFunctionKeywordsSniff::class);
 
-    $services->set(\PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\FunctionDeclarationArgumentSpacingSniff::class)
+    $services->set(FunctionDeclarationArgumentSpacingSniff::class)
         ->property('equalsSpacing', 1);
 
     $services->set(ValidDefaultValueSniff::class);
