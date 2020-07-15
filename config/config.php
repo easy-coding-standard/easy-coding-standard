@@ -26,9 +26,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::ONLY, []);
 
-    $parameters->set('paths', []);
+    $parameters->set(Option::PATHS, []);
 
-    $parameters->set('sets', []);
+    $parameters->set(Option::SETS, []);
 
     $parameters->set('file_extensions', ['php']);
 
