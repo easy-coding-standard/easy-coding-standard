@@ -1,15 +1,3 @@
-services:
-    # All elements should have visibility
-    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
-        elements: [const, property, method]
+imports:
+    - { resource: php71.php }
 
-    # Turn list() into []
-    PhpCsFixer\Fixer\ListNotation\ListSyntaxFixer:
-        syntax: short
-
-    # Nullable Typehints
-    SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff: null
-    PhpCsFixer\Fixer\Whitespace\CompactNullableTypehintFixer: null
-
-    # Void Typehints
-    PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer: null
