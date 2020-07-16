@@ -117,7 +117,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(LowercaseCastFixer::class);
 
     $services->set(ClassAttributesSeparationFixer::class)
-        ->call('configure', [['elements' => 'method']]);
+        ->call('configure', [['elements' => ['method']]]);
 
     $services->set(NativeFunctionCasingFixer::class);
 
