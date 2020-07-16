@@ -55,7 +55,7 @@ final class FileHashComputer
         ]);
 
         $loader = $loaderResolver->resolve($filePath);
-        if ($loader === false) {
+        if (! $loader) {
             throw new ShouldNotHappenException();
         }
 
