@@ -178,6 +178,11 @@ final class Skipper
     private function doesFileMatchSkippedFiles(SmartFileInfo $smartFileInfo, array $skippedFiles): bool
     {
         foreach ($skippedFiles as $skippedFile) {
+            // in ecs.php, the path can be absolute
+            if ($smartFileInfo->getRealPath() === $skippedFile) {
+                return true;
+            }
+
             if ($this->doesFileMatchPattern($smartFileInfo, $skippedFile)) {
                 return true;
             }
