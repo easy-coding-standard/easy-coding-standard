@@ -110,7 +110,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(FunctionTypehintSpaceFixer::class);
 
     $services->set(SingleLineCommentStyleFixer::class)
-        ->call('configure', [['comment_types' => 'hash']]);
+        ->call('configure', [['comment_types' => ['hash']]]);
 
     $services->set(IncludeFixer::class);
 
