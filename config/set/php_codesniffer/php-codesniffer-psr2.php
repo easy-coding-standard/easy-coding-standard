@@ -1,7 +1,5 @@
 <?php declare(strict_types=1);
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
-
 use PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures\InlineControlStructureSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\ByteOrderMarkSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Formatting\DisallowMultipleStatementsSniff;
@@ -35,6 +33,7 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions\MultiLineFunctionDeclaratio
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\MethodScopeSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeKeywordSpacingSniff;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Configuration\Option;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
