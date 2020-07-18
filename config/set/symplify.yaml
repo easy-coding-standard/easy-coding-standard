@@ -1,8 +1,2 @@
-# see https://github.com/symplify/coding-standard for details
 imports:
-    # A. monorepo
-    - { resource: '../../../coding-standard/config/symplify.php', ignore_errors: not_found }
-    # B. installed as dependency
-    - { resource: '../../vendor/symplify/coding-standard/config/symplify.php', ignore_errors: not_found }
-    # B. installed in PHAR
-    - { resource: 'phar://vendor/symplify/coding-standard/config/symplify.php', ignore_errors: not_found }
+    - { resource: 'symplify.php' }
