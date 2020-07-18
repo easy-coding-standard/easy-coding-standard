@@ -1,7 +1,5 @@
 <?php declare(strict_types=1);
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
-
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ClassNotation\ProtectedToPrivateFixer;
 use PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer;
@@ -19,6 +17,7 @@ use SlevomatCodingStandard\Sniffs\PHP\UselessParenthesesSniff;
 use SlevomatCodingStandard\Sniffs\PHP\UselessSemicolonSniff;
 use SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff;
 use SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
