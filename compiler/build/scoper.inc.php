@@ -10,7 +10,7 @@ return [
             if ($filePath !== 'bin/ecs') {
                 return $content;
             }
-            return str_replace('__DIR__ . \'/..', '\'phar://ecs.phar', $content);
+            return str_replace("__DIR__ . '/..", "'phar://ecs.phar", $content);
         },
     ],
     'whitelist' => [
