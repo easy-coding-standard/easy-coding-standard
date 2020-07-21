@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff;
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff;
 use PhpCsFixer\Fixer\CastNotation\CastSpacesFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
 use PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer;
@@ -40,7 +43,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(NotOperatorWithSuccessorSpaceFixer::class);
 
-    $services->set('PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff')
+    $services->set(SuperfluousWhitespaceSniff::class)
         ->property('ignoreBlankLines', false);
 
     $services->set(CastSpacesFixer::class);
