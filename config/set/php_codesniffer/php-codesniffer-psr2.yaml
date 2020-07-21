@@ -1,0 +1,3 @@
+imports:
+    - { resource: php-codesniffer-psr2.php }
+
