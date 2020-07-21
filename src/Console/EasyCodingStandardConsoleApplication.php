@@ -12,11 +12,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Command\FindCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class EasyCodingStandardConsoleApplication extends Application
 {
@@ -57,10 +57,9 @@ final class EasyCodingStandardConsoleApplication extends Application
             $output->writeln($this->getLongVersion());
         }
 
-        $configPath = $this->configuration->getFirstResolverConfig();
-        if ($this->doesConfigExist($configPath) && $this->shouldPrintMetaInformation($input)) {
-            $configFileInfo = new SmartFileInfo($configPath);
-            $output->writeln('Config file: ' . $configFileInfo->getRelativeFilePathFromCwd());
+        $firstResolvedConfigFileInfo = $this->configuration->getFirstResolvedConfigFileInfo();
+        if ($firstResolvedConfigFileInfo !== null && $this->shouldPrintMetaInformation($input)) {
+            $output->writeln('Config file: ' . $firstResolvedConfigFileInfo->getRelativeFilePathFromCwd());
         }
 
         return parent::doRun($input, $output);
@@ -78,14 +77,9 @@ final class EasyCodingStandardConsoleApplication extends Application
     {
         $hasNoArguments = $input->getFirstArgument() === null;
         $hasVersionOption = $input->hasParameterOption('--version');
-        $isConsoleOutput = $input->getParameterOption('--output-format') === ConsoleOutputFormatter::NAME;
+        $isConsoleOutput = $input->getParameterOption('--' . Option::OUTPUT_FORMAT) === ConsoleOutputFormatter::NAME;
 
         return ! $hasVersionOption && ! $hasNoArguments && $isConsoleOutput;
-    }
-
-    private function doesConfigExist(?string $configPath): bool
-    {
-        return $configPath !== null && file_exists($configPath);
     }
 
     private function addExtraOptions(InputDefinition $inputDefinition): void
