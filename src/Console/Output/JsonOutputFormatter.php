@@ -50,7 +50,6 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         $errorsArray = [
             'meta' => [
                 'version' => $this->configuration->getPrettyVersion(),
-                'config' => $this->configuration->getFirstResolverConfig(),
             ],
             'totals' => [
                 'errors' => $this->errorAndDiffCollector->getErrorCount(),
@@ -58,6 +57,11 @@ final class JsonOutputFormatter implements OutputFormatterInterface
             ],
             'files' => [],
         ];
+
+        $firstResolvedConfigFileInfo = $this->configuration->getFirstResolvedConfigFileInfo();
+        if ($firstResolvedConfigFileInfo !== null) {
+            $errorsArray['meta']['config'] = $firstResolvedConfigFileInfo->getRealPath();
+        }
 
         /** @var Error[] $errors */
         foreach ($this->errorAndDiffCollector->getErrors() as $file => $errors) {
