@@ -10,7 +10,7 @@ final class SetList
      * @var string
      * @api
      */
-    public const PSR_12 = 'psr-12';
+    public const PSR_12 = 'psr12';
 
     /**
      * @var string
