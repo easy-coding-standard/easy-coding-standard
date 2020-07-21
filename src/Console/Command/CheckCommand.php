@@ -71,7 +71,7 @@ final class CheckCommand extends Command
             'Hide error table. Useful e.g. for fast check of error count.'
         );
         $this->addOption(
-            Option::OUTPUT_FORMAT_OPTION,
+            Option::OUTPUT_FORMAT,
             null,
             InputOption::VALUE_REQUIRED,
             'Select output format',
@@ -100,7 +100,7 @@ final class CheckCommand extends Command
 
     private function resolveOutputFormat(InputInterface $input): string
     {
-        $outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT_OPTION);
+        $outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT);
 
         // Backwards compatibility with older version
         if ($outputFormat === 'table') {

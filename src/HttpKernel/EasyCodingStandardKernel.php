@@ -16,6 +16,7 @@ use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\ParameterNameGuard\Bundle\ParameterNameGuardBundle;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareKernelInterface
 {
@@ -55,11 +56,17 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
     }
 
     /**
-     * @param string[] $configs
+     * @param string[]|SmartFileInfo[] $configs
      */
     public function setConfigs(array $configs): void
     {
-        $this->configs = $configs;
+        foreach ($configs as $config) {
+            if ($config instanceof SmartFileInfo) {
+                $this->configs[] = $config->getRealPath();
+            } else {
+                $this->configs[] = $config;
+            }
+        }
     }
 
     /**
