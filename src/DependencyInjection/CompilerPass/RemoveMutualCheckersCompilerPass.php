@@ -69,7 +69,8 @@ use SlevomatCodingStandard\Sniffs\Files\TypeNameMatchesFileNameSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\DisallowGroupUseSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\MultipleUsesPerLineSniff;
-use SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
+use SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\LongTypeHintsSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff;
@@ -86,10 +87,6 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
      */
     private const DUPLICATED_CHECKER_GROUPS = [
         [
-            ReferenceUsedNamesOnlySniff::class,
-            'Symplify\CodingStandard\Sniffs\Namespaces\ClassNamesWithoutPreSlashSniff',
-        ],
-        [
             IndentationTypeFixer::class,
             DisallowTabIndentSniff::class,
         ],
@@ -99,19 +96,11 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
         ],
         [
             StrictComparisonFixer::class,
-            'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEqualOperatorsSniff',
+            DisallowEqualOperatorsSniff::class,
         ],
         [
             VisibilityRequiredFixer::class,
             ClassConstantVisibilitySniff::class,
-        ],
-        [
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff',
-            'Symplify\CodingStandard\Sniffs\Commenting\MethodCommentSniff',
-        ],
-        [
-            'SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff',
-            'Symplify\CodingStandard\Sniffs\Commenting\MethodReturnTypeSniff',
         ],
         [
             ArraySyntaxFixer::class,
@@ -143,7 +132,7 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
             AlphabeticallySortedUsesSniff::class,
         ], [
             NoUnusedImportsFixer::class,
-            'SlevomatCodingStandard\Sniffs\Namespaces\UnusedUses',
+            UnusedUsesSniff::class,
         ], [
             TrailingCommaInMultilineArrayFixer::class,
             TrailingArrayCommaSniff::class,

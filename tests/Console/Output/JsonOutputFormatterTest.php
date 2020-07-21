@@ -15,6 +15,7 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @covers \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter
@@ -42,7 +43,8 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
         // simulate config autowiring
         $configuration = self::$container->get(Configuration::class);
-        $configuration->setFirstResolverConfig($config);
+        $configFileInfo = new SmartFileInfo($config);
+        $configuration->setFirstResolvedConfigFileInfo($configFileInfo);
 
         $this->easyCodingStandardConsoleApplication = self::$container->get(
             EasyCodingStandardConsoleApplication::class
@@ -58,7 +60,7 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
             $escapedPath . '/wrong/wrong.php.inc',
             '--config',
             $escapedPath . '/config/config.yml',
-            '--' . Option::OUTPUT_FORMAT_OPTION,
+            '--' . Option::OUTPUT_FORMAT,
             JsonOutputFormatter::NAME,
         ];
 
