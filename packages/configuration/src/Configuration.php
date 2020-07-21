@@ -8,6 +8,7 @@ use Jean85\PrettyVersions;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Configuration
 {
@@ -32,9 +33,9 @@ final class Configuration
     private $showErrorTable = true;
 
     /**
-     * @var string|null
+     * @var SmartFileInfo|null
      */
-    private $firstResolvedConfig;
+    private $firstResolvedConfigFileInfo;
 
     /**
      * @var string[]
@@ -120,14 +121,14 @@ final class Configuration
         return $this->showErrorTable;
     }
 
-    public function setFirstResolverConfig(?string $firstResolverConfig): void
+    public function setFirstResolvedConfigFileInfo(?SmartFileInfo $firstResolverConfigFileInfo): void
     {
-        $this->firstResolvedConfig = $firstResolverConfig;
+        $this->firstResolvedConfigFileInfo = $firstResolverConfigFileInfo;
     }
 
-    public function getFirstResolverConfig(): ?string
+    public function getFirstResolvedConfigFileInfo(): ?SmartFileInfo
     {
-        return $this->firstResolvedConfig;
+        return $this->firstResolvedConfigFileInfo;
     }
 
     public function getPrettyVersion(): string
@@ -164,7 +165,7 @@ final class Configuration
 
     private function canShowProgressBar(InputInterface $input): bool
     {
-        $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT_OPTION) !== JsonOutputFormatter::NAME;
+        $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT) !== JsonOutputFormatter::NAME;
         $progressBarEnabled = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
 
         return $notJsonOutput && $progressBarEnabled;

@@ -76,17 +76,17 @@ final class ChangedFilesDetector
 
     /**
      * For cache invalidation
-     * @param string[] $configs
+     * @param SmartFileInfo[] $configFileInfos
      */
-    public function setUsedConfigs(array $configs): void
+    public function setUsedConfigs(array $configFileInfos): void
     {
-        if (count($configs) === 0) {
+        if (count($configFileInfos) === 0) {
             return;
         }
 
         // the first config is core to all → if it was changed, just invalidate it
-        $firstConfig = $configs[0];
-        $this->storeConfigurationDataHash($this->fileHashComputer->compute($firstConfig));
+        $firstConfigFileInfo = $configFileInfos[0];
+        $this->storeConfigurationDataHash($this->fileHashComputer->compute($firstConfigFileInfo->getRealPath()));
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void
