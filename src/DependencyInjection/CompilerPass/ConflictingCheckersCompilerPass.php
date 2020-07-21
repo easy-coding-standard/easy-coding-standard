@@ -4,6 +4,18 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
+use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff;
+use PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff;
+use PhpCsFixer\Fixer\Casing\ConstantCaseFixer;
+use PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer;
+use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
+use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
+use PhpCsFixer\Fixer\Operator\NewWithBracesFixer;
+use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
+use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
+use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
@@ -17,29 +29,29 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
      */
     private const CONFLICTING_CHECKER_GROUPS = [
         [
-            'SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff',
-            'PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer',
+            DisallowYodaComparisonSniff::class,
+            YodaStyleFixer::class,
         ], [
-            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff',
-            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff',
+            LowerCaseConstantSniff::class,
+            UpperCaseConstantSniff::class,
         ], [
-            'PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer',
-            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff',
+            LowercaseConstantsFixer::class,
+            UpperCaseConstantSniff::class,
         ], [
-            'PhpCsFixer\Fixer\Casing\ConstantCaseFixer',
-            'PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff',
+            ConstantCaseFixer::class,
+            UpperCaseConstantSniff::class,
         ], [
             'Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff',
-            'PhpCsFixer\Fixer\Operator\NewWithBracesFixer',
+            NewWithBracesFixer::class,
         ], [
-            'SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff',
-            'PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer',
+            DeclareStrictTypesSniff::class,
+            DeclareEqualNormalizeFixer::class,
         ], [
-            'SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff',
-            'PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer',
+            DeclareStrictTypesSniff::class,
+            BlankLineAfterOpeningTagFixer::class,
         ], [
-            'PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff',
-            'PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer',
+            FileHeaderSniff::class,
+            NoBlankLinesAfterPhpdocFixer::class,
         ],
     ];
 
