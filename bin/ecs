@@ -254,7 +254,7 @@ function computeConfigHash(array $configFileInfos): string
 {
     $hash = '';
     foreach ($configFileInfos as $config) {
-        $hash .= md5_file($config->getRealPath());
+        $hash .= md5($config->getContents());
     }
 
     return $hash;
