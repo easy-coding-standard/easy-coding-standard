@@ -92,7 +92,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NewWithBracesFixer::class);
 
     $services->set(PhpdocAlignFixer::class)
-        ->call('configure', [['tags' => ['method', 'param', 'property', 'return', 'throws', 'type', 'var']]]);
+        ->call('configure', [[
+            'tags' => ['method', 'param', 'property', 'return', 'throws', 'type', 'var'],
+        ]]);
 
     $services->set(BinaryOperatorSpacesFixer::class);
 
@@ -109,14 +111,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(FunctionTypehintSpaceFixer::class);
 
     $services->set(SingleLineCommentStyleFixer::class)
-        ->call('configure', [['comment_types' => ['hash']]]);
+        ->call('configure', [[
+            'comment_types' => ['hash'],
+        ]]);
 
     $services->set(IncludeFixer::class);
 
     $services->set(LowercaseCastFixer::class);
 
     $services->set(ClassAttributesSeparationFixer::class)
-        ->call('configure', [['elements' => ['method']]]);
+        ->call('configure', [[
+            'elements' => ['method'],
+        ]]);
 
     $services->set(NativeFunctionCasingFixer::class);
 
@@ -133,7 +139,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NoEmptyStatementFixer::class);
 
     $services->set(NoExtraBlankLinesFixer::class)
-        ->call('configure', [['tokens' => ['curly_brace_block', 'extra', 'parenthesis_brace_block', 'square_brace_block', 'throw', 'use']]]);
+        ->call('configure', [[
+            'tokens' => ['curly_brace_block', 'extra', 'parenthesis_brace_block', 'square_brace_block', 'throw', 'use'],
+        ]]);
 
     $services->set(NoMultilineWhitespaceAroundDoubleArrowFixer::class);
 

@@ -11,7 +11,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(VisibilityRequiredFixer::class)
-        ->call('configure', [['elements' => ['const', 'property', 'method']]]);
+        ->call('configure', [[
+            'elements' => ['const', 'property', 'method'],
+        ]]);
 
     $services->set(ListSyntaxFixer::class)
         ->call('configure', [['syntax' => 'short']]);

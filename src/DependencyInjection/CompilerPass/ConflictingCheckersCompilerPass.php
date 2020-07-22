@@ -31,28 +31,16 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
         [
             DisallowYodaComparisonSniff::class,
             YodaStyleFixer::class,
-        ], [
-            LowerCaseConstantSniff::class,
-            UpperCaseConstantSniff::class,
-        ], [
+        ], [LowerCaseConstantSniff::class, UpperCaseConstantSniff::class], [
             LowercaseConstantsFixer::class,
             UpperCaseConstantSniff::class,
-        ], [
-            ConstantCaseFixer::class,
-            UpperCaseConstantSniff::class,
-        ], [
+        ], [ConstantCaseFixer::class, UpperCaseConstantSniff::class], [
             'Symplify\CodingStandard\Sniffs\ControlStructures\NewClassSniff',
             NewWithBracesFixer::class,
-        ], [
-            DeclareStrictTypesSniff::class,
-            DeclareEqualNormalizeFixer::class,
-        ], [
+        ], [DeclareStrictTypesSniff::class, DeclareEqualNormalizeFixer::class], [
             DeclareStrictTypesSniff::class,
             BlankLineAfterOpeningTagFixer::class,
-        ], [
-            FileHeaderSniff::class,
-            NoBlankLinesAfterPhpdocFixer::class,
-        ],
+        ], [FileHeaderSniff::class, NoBlankLinesAfterPhpdocFixer::class],
     ];
 
     public function process(ContainerBuilder $containerBuilder): void
