@@ -43,7 +43,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(Psr4Fixer::class);
 
     $services->set(SingleClassElementPerStatementFixer::class)
-        ->call('configure', [['elements' => ['const', 'property']]]);
+        ->call('configure', [[
+            'elements' => ['const', 'property'],
+        ]]);
 
     $services->set(NewWithBracesFixer::class);
 
@@ -63,7 +65,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SingleQuoteFixer::class);
 
     $services->set(YodaStyleFixer::class)
-        ->call('configure', [['equal' => false, 'identical' => false, 'less_and_greater' => false]]);
+        ->call('configure', [[
+            'equal' => false,
+            'identical' => false,
+            'less_and_greater' => false,
+        ]]);
 
     $services->set(OrderedClassElementsFixer::class);
 

@@ -64,6 +64,7 @@ use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use SlevomatCodingStandard\Sniffs\Arrays\TrailingArrayCommaSniff;
 use SlevomatCodingStandard\Sniffs\Classes\ClassConstantVisibilitySniff;
 use SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff;
+use SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff as SlevomatAssignmentInConditionSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\LanguageConstructWithParenthesesSniff;
 use SlevomatCodingStandard\Sniffs\Files\TypeNameMatchesFileNameSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
@@ -86,145 +87,53 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
      * @var string[][]
      */
     private const DUPLICATED_CHECKER_GROUPS = [
-        [
-            IndentationTypeFixer::class,
-            DisallowTabIndentSniff::class,
-        ],
-        [
-            IndentationTypeFixer::class,
-            DisallowSpaceIndentSniff::class,
-        ],
-        [
-            StrictComparisonFixer::class,
-            DisallowEqualOperatorsSniff::class,
-        ],
-        [
-            VisibilityRequiredFixer::class,
-            ClassConstantVisibilitySniff::class,
-        ],
-        [
-            ArraySyntaxFixer::class,
-            DisallowShortArraySyntaxSniff::class,
-        ],
-        [
-            ArraySyntaxFixer::class,
-            DisallowLongArraySyntaxSniff::class,
-        ], [
-            LowercaseKeywordsFixer::class,
-            LowercaseClassKeywordsSniff::class,
-        ], [
-            LowercaseKeywordsFixer::class,
-            LowerCaseKeywordSniff::class,
-        ], [
-            SingleImportPerStatementFixer::class,
-            UseDeclarationSniff::class,
-        ], [
-            SingleImportPerStatementFixer::class,
-            DisallowGroupUseSniff::class,
-        ], [
-            SingleImportPerStatementFixer::class,
-            MultipleUsesPerLineSniff::class,
-        ], [
-            PhpdocScalarFixer::class,
-            LongTypeHintsSniff::class,
-        ], [
-            OrderedImportsFixer::class,
-            AlphabeticallySortedUsesSniff::class,
-        ], [
-            NoUnusedImportsFixer::class,
-            UnusedUsesSniff::class,
-        ], [
-            TrailingCommaInMultilineArrayFixer::class,
-            TrailingArrayCommaSniff::class,
-        ], [
-            NoUnneededControlParenthesesFixer::class,
-            LanguageConstructWithParenthesesSniff::class,
-        ], [
-            Psr4Fixer::class,
-            TypeNameMatchesFileNameSniff::class,
-        ], [
-            ReturnTypeDeclarationFixer::class,
-            ReturnTypeHintSpacingSniff::class,
-        ], [
-            FunctionTypehintSpaceFixer::class,
-            ParameterTypeHintSpacingSniff::class,
-        ], [
-            FunctionTypehintSpaceFixer::class,
-            FunctionDeclarationArgumentSpacingSniff::class,
-        ], [
-            GeneralPhpdocAnnotationRemoveFixer::class,
-            ForbiddenAnnotationsSniff::class,
-        ], [
-            NoExtraConsecutiveBlankLinesFixer::class,
-            SuperfluousWhitespaceSniff::class,
-        ], [
-            NoExtraBlankLinesFixer::class,
-            SuperfluousWhitespaceSniff::class,
-        ], [
-            IncludeFixer::class,
-            LanguageConstructSpacingSniff::class,
-        ], [
-            AssignmentInConditionSniff::class,
-            \SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff::class,
-        ], [
-            SingleQuoteFixer::class,
-            DoubleQuoteUsageSniff::class,
-        ],
+        [IndentationTypeFixer::class, DisallowTabIndentSniff::class],
+        [IndentationTypeFixer::class, DisallowSpaceIndentSniff::class],
+        [StrictComparisonFixer::class, DisallowEqualOperatorsSniff::class],
+        [VisibilityRequiredFixer::class, ClassConstantVisibilitySniff::class],
+        [ArraySyntaxFixer::class, DisallowShortArraySyntaxSniff::class],
+        [ArraySyntaxFixer::class, DisallowLongArraySyntaxSniff::class],
+        [LowercaseKeywordsFixer::class, LowercaseClassKeywordsSniff::class],
+        [LowercaseKeywordsFixer::class, LowerCaseKeywordSniff::class],
+        [SingleImportPerStatementFixer::class, UseDeclarationSniff::class],
+        [SingleImportPerStatementFixer::class, DisallowGroupUseSniff::class],
+        [SingleImportPerStatementFixer::class, MultipleUsesPerLineSniff::class],
+        [PhpdocScalarFixer::class, LongTypeHintsSniff::class],
+        [OrderedImportsFixer::class, AlphabeticallySortedUsesSniff::class],
+        [NoUnusedImportsFixer::class, UnusedUsesSniff::class],
+        [TrailingCommaInMultilineArrayFixer::class, TrailingArrayCommaSniff::class],
+        [NoUnneededControlParenthesesFixer::class, LanguageConstructWithParenthesesSniff::class],
+        [Psr4Fixer::class, TypeNameMatchesFileNameSniff::class],
+        [ReturnTypeDeclarationFixer::class, ReturnTypeHintSpacingSniff::class],
+        [FunctionTypehintSpaceFixer::class, ParameterTypeHintSpacingSniff::class],
+        [FunctionTypehintSpaceFixer::class, FunctionDeclarationArgumentSpacingSniff::class],
+        [GeneralPhpdocAnnotationRemoveFixer::class, ForbiddenAnnotationsSniff::class],
+        [NoExtraConsecutiveBlankLinesFixer::class, SuperfluousWhitespaceSniff::class],
+        [NoExtraBlankLinesFixer::class, SuperfluousWhitespaceSniff::class],
+        [IncludeFixer::class, LanguageConstructSpacingSniff::class],
+        [AssignmentInConditionSniff::class, SlevomatAssignmentInConditionSniff::class],
+        [SingleQuoteFixer::class, DoubleQuoteUsageSniff::class],
+
         // PSR2
-        [
-            BracesFixer::class,
-            ScopeClosingBraceSniff::class,
-        ], [
-            BlankLineAfterNamespaceFixer::class,
-            NamespaceDeclarationSniff::class,
-        ], [
-            SingleLineAfterImportsFixer::class,
-            DisallowMultipleStatementsSniff::class,
-        ], [
-            LineEndingFixer::class,
-            LineEndingsSniff::class,
-        ], [
-            ConstantCaseFixer::class,
-            LowerCaseConstantSniff::class,
-        ], [
-            LowercaseConstantsFixer::class,
-            LowerCaseConstantSniff::class,
-        ], [
-            LowercaseKeywordsFixer::class,
-            LowerCaseKeywordSniff::class,
-        ], [
-            SingleBlankLineAtEofFixer::class,
-            EndFileNewlineSniff::class,
-        ], [
-            BracesFixer::class,
-            ScopeIndentSniff::class,
-        ], [
-            BracesFixer::class,
-            \PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff::class,
-        ], [
-            ClassDefinitionFixer::class,
-            ClassDeclarationSniff::class,
-        ], [
-            NoClosingTagFixer::class,
-            ClosingTagSniff::class,
-        ], [
-            SingleClassElementPerStatementFixer::class,
-            PropertyDeclarationSniff::class,
-        ],
+        [BracesFixer::class, ScopeClosingBraceSniff::class],
+        [BlankLineAfterNamespaceFixer::class, NamespaceDeclarationSniff::class],
+        [SingleLineAfterImportsFixer::class, DisallowMultipleStatementsSniff::class],
+        [LineEndingFixer::class, LineEndingsSniff::class],
+        [ConstantCaseFixer::class, LowerCaseConstantSniff::class],
+        [LowercaseConstantsFixer::class, LowerCaseConstantSniff::class],
+        [LowercaseKeywordsFixer::class, LowerCaseKeywordSniff::class],
+        [SingleBlankLineAtEofFixer::class, EndFileNewlineSniff::class],
+        [BracesFixer::class, ScopeIndentSniff::class],
+        [BracesFixer::class, ScopeClosingBraceSniff::class],
+        [ClassDefinitionFixer::class, ClassDeclarationSniff::class],
+        [NoClosingTagFixer::class, ClosingTagSniff::class],
+        [SingleClassElementPerStatementFixer::class, PropertyDeclarationSniff::class],
+
         // Aliased deprecated fixers
-        [
-            NoExtraBlankLinesFixer::class,
-            NoExtraConsecutiveBlankLinesFixer::class,
-        ],
-        [
-            ClassAttributesSeparationFixer::class,
-            MethodSeparationFixer::class,
-        ],
+        [NoExtraBlankLinesFixer::class, NoExtraConsecutiveBlankLinesFixer::class],
+        [ClassAttributesSeparationFixer::class, MethodSeparationFixer::class],
         [IncrementStyleFixer::class, PreIncrementFixer::class],
-        [
-            SingleLineCommentStyleFixer::class,
-            HashToSlashCommentFixer::class,
-        ],
+        [SingleLineCommentStyleFixer::class, HashToSlashCommentFixer::class],
     ];
 
     public function process(ContainerBuilder $containerBuilder): void
