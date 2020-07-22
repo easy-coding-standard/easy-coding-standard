@@ -36,7 +36,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MethodChainingIndentationFixer::class);
 
     $services->set(ClassAttributesSeparationFixer::class)
-        ->call('configure', [['elements' => ['const', 'property', 'method']]]);
+        ->call('configure', [[
+            'elements' => ['const', 'property', 'method'],
+        ]]);
 
     $services->set(ConcatSpaceFixer::class)
         ->call('configure', [['spacing' => 'one']]);
@@ -49,7 +51,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CastSpacesFixer::class);
 
     $services->set(BinaryOperatorSpacesFixer::class)
-        ->call('configure', [['align_double_arrow' => false, 'align_equals' => false]]);
+        ->call('configure', [[
+            'align_double_arrow' => false,
+            'align_equals' => false,
+        ]]);
 
     $services->set(FunctionTypehintSpaceFixer::class);
 
