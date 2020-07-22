@@ -14,9 +14,7 @@ final class EasyCodingStandardExtension extends Extension
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
         // needed for parameter shifting of sniff/fixer params
-        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(
-            __DIR__ . '/../../../config'
-        ));
+        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../../config'));
 
         $phpFileLoader->load('config.php');
     }

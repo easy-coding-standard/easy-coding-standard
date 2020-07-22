@@ -17,7 +17,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [['syntax' => 'short']]);
 
     $services->set(RandomApiMigrationFixer::class)
-        ->call('configure', [['mt_rand' => 'random_int', 'rand' => 'random_int']]);
+        ->call('configure', [[
+            'mt_rand' => 'random_int',
+            'rand' => 'random_int',
+        ]]);
 
     $services->set(TernaryToNullCoalescingFixer::class);
 

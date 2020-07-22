@@ -37,7 +37,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NoLeadingImportSlashFixer::class);
 
     $services->set(OrderedImportsFixer::class)
-        ->call('configure', [['importsOrder' => ['class', 'function', 'const']]]);
+        ->call('configure', [[
+            'importsOrder' => ['class', 'function', 'const'],
+        ]]);
 
     $services->set(DeclareEqualNormalizeFixer::class)
         ->call('configure', [['space' => 'none']]);
@@ -45,12 +47,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NewWithBracesFixer::class);
 
     $services->set(BracesFixer::class)
-        ->call('configure', [['allow_single_line_closure' => false, 'position_after_functions_and_oop_constructs' => 'next', 'position_after_control_structures' => 'same', 'position_after_anonymous_constructs' => 'same']]);
+        ->call('configure', [[
+            'allow_single_line_closure' => false,
+            'position_after_functions_and_oop_constructs' => 'next',
+            'position_after_control_structures' => 'same',
+            'position_after_anonymous_constructs' => 'same',
+        ]]);
 
     $services->set(NoBlankLinesAfterClassOpeningFixer::class);
 
     $services->set(VisibilityRequiredFixer::class)
-        ->call('configure', [['elements' => ['const', 'method', 'property']]]);
+        ->call('configure', [[
+            'elements' => ['const', 'method', 'property'],
+        ]]);
 
     $services->set(BinaryOperatorSpacesFixer::class);
 
