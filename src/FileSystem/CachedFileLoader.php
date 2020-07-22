@@ -21,7 +21,8 @@ final class CachedFileLoader
 
     public function getFileContent(SmartFileInfo $smartFileInfo): string
     {
-        $cacheKey = 'file_content_' . md5_file($smartFileInfo->getRealPath());
+        // getRealPath() cannot be used in PHAR
+        $cacheKey = 'file_content_' . md5_file($smartFileInfo->getRealPath() ?: $smartFileInfo->getPathname());
 
         $cachedFileContent = $this->cache->get($cacheKey);
         if ($cachedFileContent) {
