@@ -20,7 +20,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->alias(CacheInterface::class, Psr16Cache::class);
 
     $services->set(FilesystemAdapter::class)
-        ->args(['$namespace' => '%cache_namespace%', '$defaultLifetime' => 0, '$directory' => '%cache_directory%']);
+        ->args([
+            '$namespace' => '%cache_namespace%',
+            '$defaultLifetime' => 0,
+            '$directory' => '%cache_directory%',
+        ]);
 
     $services->alias(CacheItemPoolInterface::class, FilesystemAdapter::class);
 
