@@ -106,7 +106,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
 
         if ($this->errorAndDiffCollector->getErrorCount() === 0) {
             $successMessage = sprintf(
-                '%d error%s successfully fixed and no other found!',
+                '%d error%s successfully fixed and no other errors found!',
                 $this->errorAndDiffCollector->getFileDiffsCount(),
                 $this->errorAndDiffCollector->getFileDiffsCount() === 1 ? '' : 's'
             );
