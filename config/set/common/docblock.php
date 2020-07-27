@@ -40,5 +40,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(PhpdocVarWithoutNameFixer::class);
 
     $services->set(NoSuperfluousPhpdocTagsFixer::class)
-        ->call('configure', [['remove_inheritdoc' => true]]);
+        ->call('configure', [
+            [
+                'remove_inheritdoc' => true,
+                'allow_mixed' => true,
+            ],
+        ]);
 };
