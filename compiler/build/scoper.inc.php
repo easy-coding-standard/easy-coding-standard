@@ -19,6 +19,6 @@ return [
         'PhpCsFixer\*',
         'PHP_CodeSniffer\*',
         'SlevomatCodingStandard\*',
-        'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator'
+        'Symfony\Component\DependencyInjection\Loader\Configurator\*'
     ],
 ];
