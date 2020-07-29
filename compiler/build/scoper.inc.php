@@ -15,6 +15,10 @@ return [
     ],
     'whitelist' => [
         // needed for autoload, that is not prefixed, since it's in bin/* file
-        'Symplify\*', 'PhpCsFixer\*', 'PHP_CodeSniffer\*', 'SlevomatCodingStandard\*'
+        'Symplify\*',
+        'PhpCsFixer\*',
+        'PHP_CodeSniffer\*',
+        'SlevomatCodingStandard\*',
+        'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator'
     ],
 ];
