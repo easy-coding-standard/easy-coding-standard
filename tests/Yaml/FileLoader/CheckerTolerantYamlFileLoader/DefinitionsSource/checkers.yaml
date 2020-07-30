@@ -1,0 +1,3 @@
+imports:
+    - { resource: 'checkers-parent.yaml' }
+    - { resource: 'checkers-parent-2.yaml' }
