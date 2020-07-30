@@ -3,10 +3,11 @@
 declare(strict_types=1);
 
 use Nette\Utils\Strings;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 $excludedClasses = [
     // part of public API in config
-    'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
+    ContainerConfigurator::class
 ];
 
 return [
@@ -37,6 +38,6 @@ return [
         'PhpCsFixer\*',
         'PHP_CodeSniffer\*',
         'SlevomatCodingStandard\*',
-        'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
+        ContainerConfigurator::class,
     ],
 ];
