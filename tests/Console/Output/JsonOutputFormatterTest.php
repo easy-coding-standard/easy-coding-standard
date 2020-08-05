@@ -34,7 +34,7 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $config = __DIR__ . '/config/config.yml';
+        $config = __DIR__ . '/config/config.yaml';
 
         $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [$config]);
 
@@ -59,17 +59,18 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
             'check',
             $escapedPath . '/wrong/wrong.php.inc',
             '--config',
-            $escapedPath . '/config/config.yml',
+            $escapedPath . '/config/config.yaml',
             '--' . Option::OUTPUT_FORMAT,
             JsonOutputFormatter::NAME,
         ];
 
         $input = new StringInput(implode(' ', $stringInput));
         $exitCode = $this->easyCodingStandardConsoleApplication->run($input);
-        $this->assertSame(ShellCode::ERROR, $exitCode);
 
-        $output = trim($this->bufferedOutput->fetch());
+        $output = $this->bufferedOutput->fetch();
         $this->assertStringMatchesFormatFile(__DIR__ . '/Source/expected_json_output.json', $output);
+
+        $this->assertSame(ShellCode::SUCCESS, $exitCode);
     }
 
     /**

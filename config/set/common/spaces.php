@@ -21,17 +21,10 @@ use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
 use PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
-use SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff;
-use SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff;
-use SlevomatCodingStandard\Sniffs\Whitespaces\DuplicateSpacesSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
-
-    $services->set(ParentCallSpacingSniff::class);
-
-    $services->set(DuplicateSpacesSniff::class);
 
     $services->set(MethodChainingIndentationFixer::class);
 
@@ -79,10 +72,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MethodArgumentSpaceFixer::class);
 
     $services->set(LanguageConstructSpacingSniff::class);
-
-    $services->set(TraitUseSpacingSniff::class)
-        ->property('linesCountAfterLastUse', 1)
-        ->property('linesCountAfterLastUseWhenLastInClass', 0)
-        ->property('linesCountBeforeFirstUse', 0)
-        ->property('linesCountBetweenUses', 0);
 };
