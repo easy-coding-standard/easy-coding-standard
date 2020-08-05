@@ -1,3 +1,0 @@
-services:
-    SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff:
-        searchAnnotations: true

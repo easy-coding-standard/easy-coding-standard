@@ -1,4 +1,5 @@
 services:
     PHP_CodeSniffer\Standards\PSR2\Sniffs\Files\ClosingTagSniff: ~
     PhpCsFixer\Fixer\Semicolon\SemicolonAfterInstructionFixer: ~
-    SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff: ~
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short
