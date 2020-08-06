@@ -36,6 +36,7 @@ final class EasyCodingStandardSetProvider implements SetProviderInterface
             SetList::COMMENTS => __DIR__ . '/../../config/set/common/comments.php',
             SetList::DOCBLOCK => __DIR__ . '/../../config/set/common/docblock.php',
             SetList::PHPUNIT => __DIR__ . '/../../config/set/common/phpunit.php',
+            SetList::STRICT => __DIR__ . '/../../config/set/common/strict.php',
         ];
 
         foreach ($setNameToFilePath as $setName => $setFilePath) {
