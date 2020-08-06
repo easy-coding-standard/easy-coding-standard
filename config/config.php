@@ -13,13 +13,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set('indentation', 'spaces');
+    $parameters->set(Option::INDENTATION, Option::INDENTATION_SPACES);
 
-    $parameters->set('line_ending', PHP_EOL);
+    $parameters->set(Option::LINE_ENDING, PHP_EOL);
 
-    $parameters->set('cache_directory', sys_get_temp_dir() . '/_changed_files_detector%env(TEST_SUFFIX)%');
+    $parameters->set(Option::CACHE_DIRECTORY, sys_get_temp_dir() . '/_changed_files_detector%env(TEST_SUFFIX)%');
 
-    $parameters->set('cache_namespace', Strings::webalize(getcwd()));
+    $parameters->set(Option::CACHE_NAMESPACE, Strings::webalize(getcwd()));
 
     $parameters->set(Option::SKIP, []);
 
@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::SETS, []);
 
-    $parameters->set('file_extensions', ['php']);
+    $parameters->set(Option::FILE_EXTENSIONS, ['php']);
 
     $parameters->set(Option::EXCLUDE_PATHS, []);
 
