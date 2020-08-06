@@ -43,15 +43,27 @@ Head over to the ["Easy Coding Standard Prefixed" repository](https://github.com
 
 ### 1. Create Configuration and Setup Checkers
 
-Create an `ecs.yaml` in your root directory and add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use.
+Create an `ecs.php` in your root directory and add [Sniffs](https://github.com/squizlabs/PHP_CodeSniffer) or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use.
 
-Let's start with the most common one - `array()` => `[]`:
+Let's start with some simple one... like `array()` => `[]`:
 
-```yaml
-# ecs.yaml
-services:
-    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
-        syntax: short
+```php
+<?php
+
+// ecs.php
+
+declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+    $services->set(ArraySyntaxFixer::class)
+        ->call('configure', [[
+            'syntax' => 'short',
+        ]]);
+};
 ```
 
 ### 2. Run in CLI
@@ -64,42 +76,50 @@ vendor/bin/ecs check src
 vendor/bin/ecs check src --fix
 ```
 
-*Tip: Do you want [autocomplete too](https://github.com/Haehnchen/idea-php-symfony2-plugin/issues/1153)? Just use Symfony Plugin*
-
-![ECS-Run](docs/yaml-autocomplete.gif)
-
 ## Features
 
 ### Use Prepared Checker Sets
 
 There are prepared sets in [`/config/set` directory](config/set) that you can use:
 
-- [clean-code.yaml](config/set/clean-code.yaml)
-- [common.yaml](config/set/common.yaml)
-- [php71.yaml](config/set/php71.yaml)
-- [psr12.yaml](config/set/psr12.yaml)
+- [psr12](config/set/psr12.php)
+- [common](config/set/common.php)
+- [clean-code](config/set/clean-code.php)
+- [php71](config/set/php71.php)
 - ...
 
-You pick config in CLI with `--config`:
-
-```bash
-vendor/bin/ecs check src --config vendor/symplify/easy-coding-standard/config/set/clean-code.yaml
-```
-
-**Too long? Try `--set` shortcut**:
+How to load one of them in CLI?
 
 ```bash
 vendor/bin/ecs check src --set clean-code
 ```
 
-or include more of them in config:
+How to load own config?
 
-```yaml
-# ecs.yaml
-parameters:
-    sets:
-        - 'clean-code'
-        - 'psr12'
+```bash
+vendor/bin/ecs check src --config another-config.php
+```
+
+You can use all options above. Still, the best practise is to use local `ecs.php` config, as your set will grow and compose of many rules eventually:
+
+```php
+<?php
+
+// ecs.php
+
+declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
+use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::SETS, [
+        SetList::CLEAN_CODE,
+        SetList::PSR_12,
+    ]);
+};
 ```
 
 ### Set Paths
@@ -112,44 +132,55 @@ You have 2 options to set paths you want to analyse.
 vendor/bin/ecs check src
 ```
 
-2. In `paths` parameter in `ecs.yaml`:
+2. In `paths` parameter in `ecs.php`:
 
-```yaml
-# ecs.yaml
-parameters:
-    paths:
-        - 'src'
-        - 'tests'
+```php
+<?php
+
+// ecs.php
+
+declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::PATHS, [
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ]);
+};
 ```
 
 The CLI has higher priority than parameter, so if you use CLI argument, the `sets` parameter will be ignored.
 
-### Exclude Checkers
+### Include Checkers Only for Some Paths
 
-What if you add `symfony` set, but don't like `PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer`?
+Do you want to run your rule only on new code? Limit it with `only` parameter:
 
-```yaml
-# ecs.yaml
-parameters:
-    sets:
-        - 'symfony'
+```php
+<?php
 
-    skip:
-        PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
-```
+// ecs.php
 
-### Include Checkers Only  for Some Paths
+declare(strict_types=1);
 
-This feature is the exact opposite of *skip*. Do you want to run your rule only on new code? Limit it with `only` parameter:
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
 
-```yaml
-services:
-    Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff: ~
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+    $services->set(ArraySyntaxFixer::class);
 
-parameters:
-    only:
-        Symplify\CodingStandard\Sniffs\Naming\AbstractClassNameSniff:
-            - 'src/NewCode/*'
+    $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::ONLY, [
+        ArraySyntaxFixer::class => [
+            __DIR__ . '/src/NewCode'
+        ]
+    ]);
+};
 ```
 
 ### Ignore What You Can't Fix
@@ -158,53 +189,83 @@ Sometimes, checker finds an error in code that inherits from code you can't chan
 
 No worries! Just **skip checker for this file**:
 
-```yaml
-parameters:
-    skip:
-        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff:
-            # relative path to file (you can copy this from error report)
-            - 'packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php'
+```php
+<?php
 
+// ecs.php
+
+declare(strict_types=1);
+
+use PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting\VariableCommentSniff;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
+
+    $parameters->set(Option::SKIP, [
+        ArraySyntaxFixer::class => [
+            # path to file (you can copy this from error report)
+            __DIR__ . '/packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php',
             # or multiple files by path to match against "fnmatch()"
-            - '*packages/CodingStandard/src/Sniffs/*/*Sniff.php'
+            __DIR__ . '/packages/*/src/Command'
+        ],
+
+        // skip rule compeltely
+        IsNullFixer::class => null,
+
+        // just single one part of the rule?
+        VariableCommentSniff::class . '.SomeSingleOption' => null,
+
+        // ignore specific error message
+        'Cognitive complexity for method "addAction" is 13 but has to be less than or equal to 8.' => null,
+    ]);
+};
 ```
 
-You can also skip specific codes or messages that you know from PHP_CodeSniffer:
+## How to Exclude File Paths?
 
-```yaml
-parameters:
-    skip:
-        # code to skip for all files
-        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.UselessDocComment: ~
+```php
+<?php
 
-        # same syntax is used for skipping specific sniff messages
-        'Cognitive complexity for method "addAction" is 13 but has to be less than or equal to 8.': ~
+// ecs.php
 
-        # code to skip for specific files/patterns
-        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification:
-            -  '*src/Form/Type/*Type.php'
-```
+declare(strict_types=1);
 
-Or just 2 files?
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
 
-```yaml
-parameters:
-    exclude_paths:
-        # generated files
-        - 'lib/PhpParser/Parser/Php5.php'
-        - 'lib/PhpParser/Parser/Php7.php'
-        # or with fnmatch() pattern
-        - '*/lib/PhpParser/Parser/Php*.php'
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+    $services->set(ArraySyntaxFixer::class);
+
+    $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::EXCLUDE_PATHS, [
+        __DIR__ . '/lib/PhpParser/Parser',
+        __DIR__ . '/packakges/*/src/Command',
+    ]);
+};
 ```
 
 ### Do you need to Include other than `*.php` files?
 
-```yaml
-# ecs.yaml
-parameters:
-    file_extensions:
-        - 'php'
-        - 'phpt'
+```php
+<?php
+
+// ecs.php
+
+declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::FILE_EXTENSIONS, ['php', 'phpt']);
+};
 ```
 
 ### FAQ
@@ -216,47 +277,63 @@ vendor/bin/ecs show
 vendor/bin/ecs show --config ...
 ```
 
-#### How do I find checkers by group or type?
-
-```bash
-vendor/bin/ecs find
-vendor/bin/ecs find symplify # for Symplify rules
-vendor/bin/ecs find array # for array-related rules
-```
-
 #### How do I clear cache?
 
 ```bash
 vendor/bin/ecs check src --clear-cache
 ```
 
-#### How can I change the cache directory?
+#### How can I configure Cache?
 
-```yaml
-parameters:
-    cache_directory: .ecs_cache # defaults to sys_get_temp_dir() . '/_changed_files_detector_tests'
+```php
+<?php
+
+// ecs.php
+
+declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
+
+    // default: sys_get_temp_dir() . '/_changed_files_detector_tests'
+    $parameters->set(Option::CACHE_DIRECTORY, ['.ecs_cache']);
+
+    // default: Strings::webalize(getcwd())'
+    $parameters->set(Option::CACHE_NAMESPACE, 'my_project_namespace');
+};
 ```
 
-#### How can I change the cache namespace?
-
-```yaml
-parameters:
-    cache_namespace: my_project_namespace # defaults to Strings::webalize(getcwd())'
-```
-This comes in handy when you want to apply ecs caching mechanism on your gitlab pipelines for example, where `getcwd()` may not always produce same cache key, thus introducing side effect, where cache may not be detected correctly.
-
-Example  `getcwd()` on gitlab CI:
+This comes in handy when you want to apply ECS caching mechanism on your Gitlab CI, where `getcwd()` may not always produce same cache key. E.g. `getcwd()` on Gitlab CI:
 
 - /builds/0956d275/0/sites/my_project
 - /builds/0956d275/1/sites/my_project
-- /builds/0956d275/2/sites/my_project
 
 #### Can I use tabs, 2 spaces or "\r\n" line endings?
 
-```yaml
-parameters:
-    indentation: "tab" # "spaces" by default, you can also use "  " (2 spaces), "    " (4 spaces) or "	" (tab)
-    line_ending: "\r\n" # PHP_EOL by default; you can also use "\n"
+I'm glad you ask. Yes you can:
+
+```php
+<?php
+
+// ecs.php
+
+declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Configuration\Option;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
+
+    // default: spaces
+    $parameters->set(Option::INDENTATION, 'tab');
+
+    // default: PHP_EOL; other option "\n"
+    $parameters->set(Option::LINE_ENDING, "\r\n");
+};
 ```
 
 ## Your IDE Integration
