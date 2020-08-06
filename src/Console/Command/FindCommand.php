@@ -15,6 +15,9 @@ use Symplify\PackageBuilder\Composer\StaticVendorDirProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
 
+/**
+ * @deprecated Use ecs.php config instead
+ */
 final class FindCommand extends Command
 {
     /**
@@ -55,6 +58,13 @@ final class FindCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $message = sprintf(
+            'The "find" command is deprecated and will be soon removed.%sSwitch to "ecs.php" and use PHP autocomplete there.',
+            PHP_EOL
+        );
+        $this->easyCodingStandardStyle->warning($message);
+        sleep(5);
+
         $checkers = $this->checkerClassFinder->findInDirectories([
             getcwd() . '/src',
             getcwd() . '/packages',
@@ -62,7 +72,7 @@ final class FindCommand extends Command
         ]);
 
         /** @var string $name */
-        $name = $input->getArgument(self::ARGUMENT_NAME);
+        $name = (string) $input->getArgument(self::ARGUMENT_NAME);
 
         if ($name !== '') {
             $checkers = $this->filterCheckersByName($checkers, $name);
