@@ -28,6 +28,9 @@ $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
 
+$symfonyStyleFactory = new SymfonyStyleFactory();
+$symfonyStyle = $symfonyStyleFactory->create();
+
 # 2. create container
 try {
     $configFileInfos = [];
@@ -58,6 +61,24 @@ try {
 
     $environment = 'prod' . md5(computeConfigHash($configFileInfos) . random_int(1, 100000));
     $configFileInfos = shiftInputConfigAsLast($configFileInfos, $inputConfigFileInfo);
+
+    // report YAML deprecated configs
+    foreach ($configFileInfos as $configFileInfo) {
+        if (! in_array($configFileInfo->getSuffix(), ['yml', 'yaml'], true)) {
+            continue;
+        }
+
+        $warning = sprintf(
+            'You are using YAML format in "%s" config.%sIt is deprecated and will be removed in next ECS 9. Switch to PHP format as soon as possible with "%s"',
+            $configFileInfo->getRelativeFilePathFromCwd(),
+            PHP_EOL,
+            'https://github.com/migrify/config-transformer'
+        );
+
+        $symfonyStyle->warning($warning);
+
+        sleep(3);
+    }
 
     $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
     if ($configFileInfos !== []) {
