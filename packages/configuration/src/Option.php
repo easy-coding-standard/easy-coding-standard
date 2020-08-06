@@ -66,4 +66,40 @@ final class Option
      * @var string
      */
     public const ONLY = 'only';
+
+    /**
+     * @var string
+     */
+    public const CACHE_DIRECTORY = 'cache_directory';
+
+    /**
+     * @var string
+     */
+    public const LINE_ENDING = 'line_ending';
+
+    /**
+     * @var string
+     */
+    public const INDENTATION = 'indentation';
+
+    /**
+     * @var string
+     */
+    public const CACHE_NAMESPACE = 'cache_namespace';
+
+    /**
+     * @var string
+     */
+    public const FILE_EXTENSIONS = 'file_extensions';
+
+    /**
+     * @var string
+     */
+    public const INDENTATION_SPACES = 'spaces';
+
+    /**
+     * @api
+     * @var string
+     */
+    public const INDENTATION_TABS = 'tabs';
 }
