@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer
 use PhpCsFixer\Fixer\ArrayNotation\NoMultilineWhitespaceAroundDoubleArrowFixer;
 use PhpCsFixer\Fixer\ArrayNotation\NormalizeIndexBraceFixer;
 use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;
@@ -248,4 +249,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(YodaStyleFixer::class);
 
     $services->set(StandardizeIncrementFixer::class);
+
+    $services->set(ArraySyntaxFixer::class)
+        ->call('configure', [['syntax' => 'short']]);
 };
