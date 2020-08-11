@@ -24,15 +24,15 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
-	
+
     $services->set(DirConstantFixer::class);
 
     $services->set(EregToPregFixer::class);
-	
+
     $services->set(ErrorSuppressionFixer::class);
-	
+
     $services->set(FopenFlagOrderFixer::class);
-	
+
     $services->set(FopenFlagsFixer::class)
         ->call('configure', [['b_mode' => false]]);
 
@@ -40,10 +40,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [[
             'functions' => ['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi'],
         ]]);
-		
 
     $services->set(ImplodeCallFixer::class);
-	
+
     $services->set(IsNullFixer::class);
 
     $services->set(ModernizeTypesCastingFixer::class);
@@ -61,22 +60,22 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'scope' => 'namespaced',
             'strict' => true,
         ]]);
-	
+
     $services->set(NoAliasFunctionsFixer::class);
 
     $services->set(NoHomoglyphNamesFixer::class);
 
     $services->set(NoUnneededFinalMethodFixer::class);
-	
+
     $services->set(NonPrintableCharacterFixer::class);
 
     $services->set(PhpUnitConstructFixer::class);
-	
+
     $services->set(PhpUnitMockShortWillReturnFixer::class);
 
     $services->set(Psr4Fixer::class);
 
     $services->set(SelfAccessorFixer::class);
-	
+
     $services->set(SetTypeToCastFixer::class);
 };
