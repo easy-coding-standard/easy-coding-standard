@@ -87,7 +87,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/php_cs_fixer/php-cs-fixer-psr2.php');
-	
+
     $services = $containerConfigurator->services();
 
     $services->set(ArraySyntaxFixer::class)
