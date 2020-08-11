@@ -40,6 +40,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(ClassDefinitionFixer::class);
 
+    $services->set(ConstantCaseFixer::class);
+
     $services->set(ElseifFixer::class);
 
     $services->set(FunctionDeclarationFixer::class);
@@ -48,12 +50,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(LineEndingFixer::class);
 
-    $services->set(ConstantCaseFixer::class);
-
     $services->set(LowercaseKeywordsFixer::class);
 
     $services->set(MethodArgumentSpaceFixer::class)
-        ->call('configure', [['ensure_fully_multiline' => true]]);
+        ->call('configure', [[
+            'ensure_fully_multiline' => true,
+        ]]);
 
     $services->set(NoBreakCommentFixer::class);
 
