@@ -86,7 +86,7 @@ use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();	
+    $services = $containerConfigurator->services();
 
     $services->set(ArraySyntaxFixer::class)
         ->call('configure', [[
@@ -262,8 +262,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(SpaceAfterSemicolonFixer::class)
         ->call('configure', [[
-		    'remove_in_empty_for_expressions' => true,
-		]]);
+            'remove_in_empty_for_expressions' => true,
+        ]]);
 
     $services->set(StandardizeIncrementFixer::class);
 
