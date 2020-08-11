@@ -55,7 +55,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MethodArgumentSpaceFixer::class)
         ->call('configure', [[
             'ensure_fully_multiline' => true,
-        ]]);	
+        ]]);
 
     $services->set(NoBreakCommentFixer::class);
 
@@ -74,7 +74,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SingleClassElementPerStatementFixer::class)
         ->call('configure', [[
             'elements' => ['property'],
-        ]]);	
+        ]]);
 
     $services->set(SingleImportPerStatementFixer::class);
 
