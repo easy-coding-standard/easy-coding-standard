@@ -8,7 +8,7 @@ use PhpCsFixer\Fixer\Basic\Psr4Fixer;
 use PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer;
 use PhpCsFixer\Fixer\ClassNotation\NoUnneededFinalMethodFixer;
 use PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer;
-use PhpCsFixer\Fixer\ConstantNotation\NativeConstantInvocationFixer.php;
+use PhpCsFixer\Fixer\ConstantNotation\NativeConstantInvocationFixer;
 use PhpCsFixer\Fixer\FunctionNotation\FopenFlagOrderFixer;
 use PhpCsFixer\Fixer\FunctionNotation\FopenFlagsFixer;
 use PhpCsFixer\Fixer\FunctionNotation\ImplodeCallFixer;
