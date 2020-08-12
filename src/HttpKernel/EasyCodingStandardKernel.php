@@ -15,7 +15,6 @@ use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-use Symplify\ParameterNameGuard\Bundle\ParameterNameGuardBundle;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareKernelInterface
@@ -47,12 +46,7 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
      */
     public function registerBundles(): iterable
     {
-        return [
-            new EasyCodingStandardBundle(),
-            new SymplifyCodingStandardBundle(),
-            new ConsoleColorDiffBundle(),
-            new ParameterNameGuardBundle(),
-        ];
+        return [new EasyCodingStandardBundle(), new SymplifyCodingStandardBundle(), new ConsoleColorDiffBundle()];
     }
 
     /**
