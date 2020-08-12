@@ -27,7 +27,6 @@
         "symplify/set-config-resolver": "^8.3",
         "symplify/smart-file-system": "^8.3",
         "symplify/autowire-array-parameter": "^8.3",
-        "symplify/parameter-name-guard": "^8.3",
         "symplify/auto-bind-parameter": "^8.3",
         "symplify/console-color-diff": "^8.3"
     },
