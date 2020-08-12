@@ -56,7 +56,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(NativeFunctionInvocationFixer::class)
         ->call('configure', [[
-            'functions' => [NativeFunctionInvocationFixer::SET_COMPILER_OPTIMIZED],
+            'include' => [NativeFunctionInvocationFixer::SET_COMPILER_OPTIMIZED],
             'scope' => 'namespaced',
             'strict' => true,
         ]]);
