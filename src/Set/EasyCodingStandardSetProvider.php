@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Set;
 
-use Rector\Core\Util\StaticRectorStrings;
+use Nette\Utils\Strings;
 use ReflectionClass;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 use Symplify\SetConfigResolver\Contract\SetProviderInterface;
@@ -29,7 +29,7 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider implements
                 continue;
             }
 
-            $setName = StaticRectorStrings::constantToDashes($name);
+            $setName = $this->constantToDashes($name);
             $this->sets[] = new Set($setName, new SmartFileInfo($setPath));
         }
     }
@@ -55,5 +55,11 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider implements
         sort($setNames);
 
         return $setNames;
+    }
+
+    public function constantToDashes(string $string): string
+    {
+        $string = strtolower($string);
+        return Strings::replace($string, '#_#', '-');
     }
 }
