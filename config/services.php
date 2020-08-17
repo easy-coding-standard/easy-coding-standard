@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -26,6 +28,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../src')
         ->exclude([
+            // onyl for "bin/ecs" file, where containre does not exist yet
+            __DIR__ . '/../src/Bootstrap/*',
             __DIR__ . '/../src/DependencyInjection/*',
             __DIR__ . '/../src/HttpKernel/*',
             __DIR__ . '/../src/Exception/*',
