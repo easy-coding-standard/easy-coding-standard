@@ -6,6 +6,11 @@ declare(strict_types=1);
 use Nette\Utils\ObjectHelpers;
 use PHP_CodeSniffer\Util\Tokens;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\EasyCodingStandard\Bootstrap\ConfigHasher;
+use Symplify\EasyCodingStandard\Bootstrap\ConfigShifter;
+use Symplify\EasyCodingStandard\Bootstrap\InvalidSetReporter;
+use Symplify\EasyCodingStandard\Bootstrap\YamlConfigReporter;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
@@ -59,48 +64,21 @@ try {
         $configFileInfos = array_merge($configFileInfos, $parameterSetsConfigs);
     }
 
-    $environment = 'prod' . md5(computeConfigHash($configFileInfos) . random_int(1, 100000));
-    $configFileInfos = shiftInputConfigAsLast($configFileInfos, $inputConfigFileInfo);
+    $configHasher = new ConfigHasher();
+    $environment = 'prod' . md5($configHasher->computeFileInfosHash($configFileInfos) . random_int(1, 100000));
+    $configFileInfosWithInputAsLast = (new ConfigShifter())->shiftInputConfigAsLast($configFileInfos, $inputConfigFileInfo);
 
-    // report YAML deprecated configs
-    foreach ($configFileInfos as $configFileInfo) {
-        if (! in_array($configFileInfo->getSuffix(), ['yml', 'yaml'], true)) {
-            continue;
-        }
-
-        $warning = sprintf(
-            'You are using YAML format in "%s" config.%sIt is deprecated and will be removed in next ECS 9. Switch to PHP format as soon as possible with "%s"',
-            $configFileInfo->getRelativeFilePathFromCwd(),
-            PHP_EOL,
-            'https://github.com/migrify/config-transformer'
-        );
-
-        $symfonyStyle->warning($warning);
-
-        sleep(3);
-    }
+    (new YamlConfigReporter())->reportYamlConfig($configFileInfos);
 
     $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
     if ($configFileInfos !== []) {
-        $easyCodingStandardKernel->setConfigs($configFileInfos);
+        $easyCodingStandardKernel->setConfigs($configFileInfosWithInputAsLast);
     }
 
     $easyCodingStandardKernel->boot();
     $container = $easyCodingStandardKernel->getContainer();
 } catch (SetNotFoundException $setNotFoundException) {
-    $symfonyStyle = (new SymfonyStyleFactory())->create();
-
-    $symfonyStyle->error($setNotFoundException->getMessage());
-
-    $suggestedSet = ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
-    if ($suggestedSet !== null) {
-        $symfonyStyle->warning($suggestedSet);
-    }
-
-    if ($setNotFoundException->getAvailableSetNames() !== []) {
-        $symfonyStyle->note('Pick one of:');
-        $symfonyStyle->listing($setNotFoundException->getAvailableSetNames());
-    }
+    (new InvalidSetReporter())->report($setNotFoundException);
     exit(ShellCode::ERROR);
 } catch (Throwable $throwable) {
     $symfonyStyle = (new SymfonyStyleFactory())->create();
@@ -243,40 +221,4 @@ final class AutoloadIncluder
         // initalize PHPCS tokens
         new Tokens();
     }
-}
-
-/**
- * Shift input config as last, so the parameters override previous rules loaded from sets
- *
- * @param SmartFileInfo[] $configFileInfos
- */
-function shiftInputConfigAsLast(array $configFileInfos, ?SmartFileInfo $inputConfigFileInfo): array
-{
-    if ($inputConfigFileInfo=== null) {
-        return $configFileInfos;
-    }
-
-    $mainConfigShiftedAsLast = [];
-    foreach ($configFileInfos as $configFileInfo) {
-        if ($configFileInfo !== $inputConfigFileInfo) {
-            $mainConfigShiftedAsLast[] = $configFileInfo;
-        }
-    }
-
-    $mainConfigShiftedAsLast[] = $inputConfigFileInfo;
-
-    return $mainConfigShiftedAsLast;
-}
-
-/**
- * @param SmartFileInfo[] $configFileInfos
- */
-function computeConfigHash(array $configFileInfos): string
-{
-    $hash = '';
-    foreach ($configFileInfos as $config) {
-        $hash .= md5($config->getContents());
-    }
-
-    return $hash;
 }

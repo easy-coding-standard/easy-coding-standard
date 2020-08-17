@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use PHP_CodeSniffer\Fixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
