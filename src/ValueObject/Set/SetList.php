@@ -4,107 +4,116 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ValueObject\Set;
 
+/**
+ * @todo refactor to rull paths
+ */
 final class SetList
 {
     /**
      * @var string
      * @api
      */
-    public const PSR_12 = 'psr12';
+    public const PSR_12 = __DIR__ . '/../../../config/set/psr12.php';
 
     /**
      * @var string
      * @api
      */
-    public const PHP_70 = 'php70';
+    public const PHP_70 = __DIR__ . '/../../../config/set/php70.php';
 
     /**
      * @var string
      * @api
      */
-    public const PHP_71 = 'php71';
+    public const PHP_71 = __DIR__ . '/../../../config/set/php71.php';
 
     /**
      * @var string
      * @api
      */
-    public const CLEAN_CODE = 'clean-code';
+    public const CLEAN_CODE = __DIR__ . '/../../../config/set/clean-code.php';
 
     /**
      * @var string
      * @api
      */
-    public const SYMPLIFY = 'symplify';
+    public const SYMPLIFY = __DIR__ . '/../../../config/set/symplify.php';
 
     /**
      * @var string
      * @api
      */
-    public const ARRAY = 'array';
+    public const ARRAY = __DIR__ . '/../../../config/set/array.php';
 
     /**
      * @var string
      * @api
      */
-    public const COMMON = 'common';
+    public const COMMON = __DIR__ . '/../../../config/set/common.php';
 
     /**
      * @var string
      * @api
      */
-    public const COMMENTS = 'comments';
+    public const COMMENTS = __DIR__ . '/../../../config/set/common/comments.php';
 
     /**
      * @var string
      * @api
      */
-    public const CONTROL_STRUCTURES = 'control-structures';
+    public const CONTROL_STRUCTURES = __DIR__ . '/../../../config/set/common/control-structures.php';
 
     /**
      * @var string
      * @api
      */
-    public const DOCBLOCK = 'docblock';
+    public const DOCBLOCK = __DIR__ . '/../../../config/set/common/docblock.php';
 
     /**
      * @var string
      * @api
      */
-    public const NAMESPACES = 'namespaces';
+    public const NAMESPACES = __DIR__ . '/../../../config/set/common/namespaces.php';
 
     /**
      * @var string
      * @api
      */
-    public const PHPUNIT = 'phpunit';
+    public const PHPUNIT = __DIR__ . '/../../../config/set/phpunit.php';
 
     /**
      * @var string
      * @api
      */
-    public const SPACES = 'spaces';
+    public const SPACES = __DIR__ . '/../../../config/set/common/spaces.php';
 
     /**
      * @var string
      * @api
      */
-    public const STRICT = 'strict';
+    public const STRICT = __DIR__ . '/../../../config/set/common/strict.php';
 
     /**
      * @var string
      * @api
      */
-    public const DEAD_CODE = 'dead-code';
+    public const DEAD_CODE = __DIR__ . '/../../../config/set/dead-code.php';
 
     /**
      * @var string
      * @api
      */
-    public const SYMFONY = 'symfony';
+    public const SYMFONY = __DIR__ . '/../../../config/set/symfony.php';
 
     /**
      * @var string
      * @api
      */
-    public const SYMFONY_RISKY = 'symfony-risky';
+    public const SYMFONY_RISKY = __DIR__ . '/../../../config/set/symfony-risky.php';
+
+    /**
+     * @var string
+     * @api
+     */
+    public const DOCTINE_ANNOTATIONS = __DIR__ . '/../../../config/set/doctrine-annotations.php';
 }
