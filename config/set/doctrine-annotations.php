@@ -12,6 +12,8 @@ use Symplify\CodingStandard\Fixer\Annotation\NewlineInNestedAnnotationFixer;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
+    $services->set(NewlineInNestedAnnotationFixer::class);
+
     $services->set(DoctrineAnnotationIndentationFixer::class)
         ->call('configure', [[
             'indent_mixed_lines' => true,
@@ -25,5 +27,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
 
     $services->set(DoctrineAnnotationArrayAssignmentFixer::class);
-    $services->set(NewlineInNestedAnnotationFixer::class);
 };
