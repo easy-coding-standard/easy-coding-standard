@@ -115,5 +115,5 @@ final class SetList
      * @var string
      * @api
      */
-    public const DOCTINE_ANNOTATIONS = __DIR__ . '/../../../config/set/doctrine-annotations.php';
+    public const DOCTRINE_ANNOTATIONS = __DIR__ . '/../../../config/set/doctrine-annotations.php';
 }
