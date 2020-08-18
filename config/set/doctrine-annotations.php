@@ -7,12 +7,12 @@ use PhpCsFixer\Fixer\DoctrineAnnotation\DoctrineAnnotationBracesFixer;
 use PhpCsFixer\Fixer\DoctrineAnnotation\DoctrineAnnotationIndentationFixer;
 use PhpCsFixer\Fixer\DoctrineAnnotation\DoctrineAnnotationSpacesFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\CodingStandard\Fixer\Annotation\NewlineInNestedAnnotationFixer;
+use Symplify\CodingStandard\Fixer\Annotation\DoctrineAnnotationNewlineInNestedAnnotationFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
-    $services->set(NewlineInNestedAnnotationFixer::class);
+    $services->set(DoctrineAnnotationNewlineInNestedAnnotationFixer::class);
 
     $services->set(DoctrineAnnotationIndentationFixer::class)
         ->call('configure', [[
