@@ -22,8 +22,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(DoctrineAnnotationBracesFixer::class);
     $services->set(DoctrineAnnotationSpacesFixer::class)
         ->call('configure', [[
-            'after_array_assignments_equals' => true,
-            'before_array_assignments_equals' => true,
+            'after_array_assignments_equals' => false,
+            'before_array_assignments_equals' => false,
         ]]);
 
     $services->set(DoctrineAnnotationArrayAssignmentFixer::class);
