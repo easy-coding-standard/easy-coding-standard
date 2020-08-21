@@ -299,7 +299,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
     // default: sys_get_temp_dir() . '/_changed_files_detector_tests'
-    $parameters->set(Option::CACHE_DIRECTORY, ['.ecs_cache']);
+    $parameters->set(Option::CACHE_DIRECTORY, '.ecs_cache');
 
     // default: Strings::webalize(getcwd())'
     $parameters->set(Option::CACHE_NAMESPACE, 'my_project_namespace');
