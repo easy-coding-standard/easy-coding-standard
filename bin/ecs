@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Bootstrap\ConfigHasher;
 use Symplify\EasyCodingStandard\Bootstrap\ConfigShifter;
-use Symplify\EasyCodingStandard\Bootstrap\InvalidSetReporter;
+use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
 use Symplify\EasyCodingStandard\Bootstrap\YamlConfigReporter;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
