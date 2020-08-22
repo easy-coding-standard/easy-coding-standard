@@ -38,7 +38,9 @@ final class FileProcessorTest extends AbstractKernelTestCase
     {
         $smartFileInfo = new SmartFileInfo(__DIR__ . '/FileProcessorSource/SomeFile.php.inc');
 
+        $this->initialFileContent = $smartFileInfo->getContents();
         $fixedContent = $this->sniffFileProcessor->processFile($smartFileInfo);
+
         $this->assertNotSame($this->initialFileContent, $fixedContent);
     }
 
