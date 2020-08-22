@@ -6,14 +6,14 @@ namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\ValueObject\Error\Error;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ErrorAndDiffCollector
 {
     /**
-     * @var Error[][]
+     * @var CodingStandardError[][]
      */
     private $errors = [];
 
@@ -66,7 +66,7 @@ final class ErrorAndDiffCollector
     }
 
     /**
-     * @return Error[][]
+     * @return CodingStandardError[][]
      */
     public function getErrors(): array
     {
