@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class Error
+final class CodingStandardError
 {
     /**
      * @var int
