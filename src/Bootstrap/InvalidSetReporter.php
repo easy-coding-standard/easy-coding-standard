@@ -23,17 +23,19 @@ final class InvalidSetReporter
 
     public function report(SetNotFoundException $setNotFoundException): void
     {
-        $this->symfonyStyle->error($setNotFoundException->getMessage());
+        $message = $setNotFoundException->getMessage();
 
         $suggestedSet = ObjectHelpers::getSuggestion(
             $setNotFoundException->getAvailableSetNames(),
             $setNotFoundException->getSetName()
         );
-        if ($suggestedSet !== null) {
-            $this->symfonyStyle->warning($suggestedSet);
-        }
 
-        if ($setNotFoundException->getAvailableSetNames() !== []) {
+        if ($suggestedSet !== null) {
+            $message .= sprintf('. Did you mean "%s"?', $suggestedSet);
+            $this->symfonyStyle->error($message);
+        } elseif ($setNotFoundException->getAvailableSetNames() !== []) {
+            $this->symfonyStyle->error($message);
+
             $this->symfonyStyle->note('Pick one of:');
             $this->symfonyStyle->listing($setNotFoundException->getAvailableSetNames());
         }
