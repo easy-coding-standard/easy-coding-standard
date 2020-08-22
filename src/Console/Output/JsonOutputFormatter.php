@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\ValueObject\Error\Error;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\ShellCode;
 
@@ -63,7 +63,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
             $errorsArray['meta']['config'] = $firstResolvedConfigFileInfo->getRealPath();
         }
 
-        /** @var Error[] $errors */
+        /** @var CodingStandardError[] $errors */
         foreach ($this->errorAndDiffCollector->getErrors() as $file => $errors) {
             foreach ($errors as $error) {
                 $errorsArray['files'][$file]['errors'][] = [
