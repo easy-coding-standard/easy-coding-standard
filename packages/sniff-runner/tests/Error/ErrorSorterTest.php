@@ -7,7 +7,7 @@ namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Error;
 use Symplify\EasyCodingStandard\Error\ErrorFactory;
 use Symplify\EasyCodingStandard\Error\ErrorSorter;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use Symplify\EasyCodingStandard\ValueObject\Error\Error;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -33,7 +33,7 @@ final class ErrorSorterTest extends AbstractKernelTestCase
 
     public function test(): void
     {
-        /** @var Error[][] $sortedMessages */
+        /** @var CodingStandardError[][] $sortedMessages */
         $sortedMessages = $this->errorSorter->sortByFileAndLine($this->getUnsortedMessages());
 
         $messageKeys = array_keys($sortedMessages);
@@ -43,7 +43,7 @@ final class ErrorSorterTest extends AbstractKernelTestCase
     }
 
     /**
-     * @return Error[][]
+     * @return CodingStandardError[][]
      */
     private function getUnsortedMessages(): array
     {

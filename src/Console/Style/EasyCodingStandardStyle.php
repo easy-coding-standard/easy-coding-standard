@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
-use Symplify\EasyCodingStandard\ValueObject\Error\Error;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 
 final class EasyCodingStandardStyle extends SymfonyStyle
 {
@@ -31,12 +31,12 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     }
 
     /**
-     * @param Error[][] $errors
+     * @param CodingStandardError[][] $errors
      */
     public function printErrors(array $errors): void
     {
         foreach ($errors as $fileErrors) {
-            /** @var Error $fileError */
+            /** @var CodingStandardError $fileError */
             foreach ($fileErrors as $fileError) {
                 $this->separator();
 
@@ -63,7 +63,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         $this->writeln(' ' . $separator);
     }
 
-    private function createMessageFromFileError(Error $fileError): string
+    private function createMessageFromFileError(CodingStandardError $fileError): string
     {
         $message = sprintf(
             '%s%s Reported by: "%s"',
