@@ -18,7 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // array spacing
     $services->set(NoWhitespaceBeforeCommaInArrayFixer::class);
     $services->set(ArrayOpenerNewlineFixer::class);
-    //$services->set(ArrayIndentationFixer::class);
+    $services->set(ArrayIndentationFixer::class);
     $services->set(TrimArraySpacesFixer::class);
     $services->set(WhitespaceAfterCommaInArrayFixer::class);
 
