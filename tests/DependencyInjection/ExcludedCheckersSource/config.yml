@@ -1,0 +1,6 @@
+parameters:
+    skip:
+        PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
+
+services:
+    PhpCsFixer\Fixer\Import\NoUnusedImportsFixer: ~
