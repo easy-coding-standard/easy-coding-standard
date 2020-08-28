@@ -1,3 +1,5 @@
 <?php
 
-$array = array();
+$b = 1
+
+?>

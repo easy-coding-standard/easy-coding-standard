@@ -61,6 +61,20 @@ use PhpCsFixer\Fixer\Whitespace\LineEndingFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraConsecutiveBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
+use SlevomatCodingStandard\Sniffs\Arrays\TrailingArrayCommaSniff;
+use SlevomatCodingStandard\Sniffs\Classes\ClassConstantVisibilitySniff;
+use SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff;
+use SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff as SlevomatAssignmentInConditionSniff;
+use SlevomatCodingStandard\Sniffs\ControlStructures\LanguageConstructWithParenthesesSniff;
+use SlevomatCodingStandard\Sniffs\Files\TypeNameMatchesFileNameSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\DisallowGroupUseSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\MultipleUsesPerLineSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
+use SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\LongTypeHintsSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -75,38 +89,29 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
     private const DUPLICATED_CHECKER_GROUPS = [
         [IndentationTypeFixer::class, DisallowTabIndentSniff::class],
         [IndentationTypeFixer::class, DisallowSpaceIndentSniff::class],
-        [StrictComparisonFixer::class, 'SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff'],
-        [VisibilityRequiredFixer::class, 'SlevomatCodingStandard\Sniffs\Classes\ClassConstantVisibilitySniff'],
+        [StrictComparisonFixer::class, DisallowEqualOperatorsSniff::class],
+        [VisibilityRequiredFixer::class, ClassConstantVisibilitySniff::class],
         [ArraySyntaxFixer::class, DisallowShortArraySyntaxSniff::class],
         [ArraySyntaxFixer::class, DisallowLongArraySyntaxSniff::class],
         [LowercaseKeywordsFixer::class, LowercaseClassKeywordsSniff::class],
         [LowercaseKeywordsFixer::class, LowerCaseKeywordSniff::class],
         [SingleImportPerStatementFixer::class, UseDeclarationSniff::class],
-        [SingleImportPerStatementFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\DisallowGroupUseSniff'],
-        [SingleImportPerStatementFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\MultipleUsesPerLineSniff'],
-        [PhpdocScalarFixer::class, 'SlevomatCodingStandard\Sniffs\TypeHints\LongTypeHintsSniff'],
-        [OrderedImportsFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff'],
-        [NoUnusedImportsFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff'],
-        [TrailingCommaInMultilineArrayFixer::class, 'SlevomatCodingStandard\Sniffs\Arrays\TrailingArrayCommaSniff'],
-        [
-            NoUnneededControlParenthesesFixer::class,
-            'SlevomatCodingStandard\Sniffs\ControlStructures\LanguageConstructWithParenthesesSniff',
-        ],
-        [Psr4Fixer::class, 'SlevomatCodingStandard\Sniffs\Files\TypeNameMatchesFileNameSniff'],
-        [ReturnTypeDeclarationFixer::class, 'SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff'],
-        [FunctionTypehintSpaceFixer::class, 'SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff'],
+        [SingleImportPerStatementFixer::class, DisallowGroupUseSniff::class],
+        [SingleImportPerStatementFixer::class, MultipleUsesPerLineSniff::class],
+        [PhpdocScalarFixer::class, LongTypeHintsSniff::class],
+        [OrderedImportsFixer::class, AlphabeticallySortedUsesSniff::class],
+        [NoUnusedImportsFixer::class, UnusedUsesSniff::class],
+        [TrailingCommaInMultilineArrayFixer::class, TrailingArrayCommaSniff::class],
+        [NoUnneededControlParenthesesFixer::class, LanguageConstructWithParenthesesSniff::class],
+        [Psr4Fixer::class, TypeNameMatchesFileNameSniff::class],
+        [ReturnTypeDeclarationFixer::class, ReturnTypeHintSpacingSniff::class],
+        [FunctionTypehintSpaceFixer::class, ParameterTypeHintSpacingSniff::class],
         [FunctionTypehintSpaceFixer::class, FunctionDeclarationArgumentSpacingSniff::class],
-        [
-            GeneralPhpdocAnnotationRemoveFixer::class,
-            'SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff',
-        ],
+        [GeneralPhpdocAnnotationRemoveFixer::class, ForbiddenAnnotationsSniff::class],
         [NoExtraConsecutiveBlankLinesFixer::class, SuperfluousWhitespaceSniff::class],
         [NoExtraBlankLinesFixer::class, SuperfluousWhitespaceSniff::class],
         [IncludeFixer::class, LanguageConstructSpacingSniff::class],
-        [
-            AssignmentInConditionSniff::class,
-            'SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff',
-        ],
+        [AssignmentInConditionSniff::class, SlevomatAssignmentInConditionSniff::class],
         [SingleQuoteFixer::class, DoubleQuoteUsageSniff::class],
 
         // PSR2
