@@ -69,8 +69,7 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
 
         $output = $this->bufferedOutput->fetch();
         $this->assertStringMatchesFormatFile(__DIR__ . '/Source/expected_json_output.json', $output);
-
-        $this->assertSame(ShellCode::SUCCESS, $exitCode);
+        $this->assertSame(ShellCode::ERROR, $exitCode);
     }
 
     /**
