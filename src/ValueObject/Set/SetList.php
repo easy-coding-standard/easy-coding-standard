@@ -43,7 +43,7 @@ final class SetList
      * @var string
      * @api
      */
-    public const ARRAY = __DIR__ . '/../../../config/set/array.php';
+    public const ARRAY = __DIR__ . '/../../../config/set/common/array.php';
 
     /**
      * @var string
@@ -79,7 +79,7 @@ final class SetList
      * @var string
      * @api
      */
-    public const PHPUNIT = __DIR__ . '/../../../config/set/phpunit.php';
+    public const PHPUNIT = __DIR__ . '/../../../config/set/common/phpunit.php';
 
     /**
      * @var string
