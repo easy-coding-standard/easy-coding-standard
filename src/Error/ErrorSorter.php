@@ -6,6 +6,9 @@ namespace Symplify\EasyCodingStandard\Error;
 
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 
+/**
+ * @see \Symplify\EasyCodingStandard\SniffRunner\Tests\Error\ErrorSorterTest
+ */
 final class ErrorSorter
 {
     /**

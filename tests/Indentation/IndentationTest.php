@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Indentation;
 
+use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\WhitespacesAwareFixerInterface;
 use PhpCsFixer\WhitespacesFixerConfig;
@@ -30,9 +31,10 @@ final class IndentationTest extends AbstractKernelTestCase
     {
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/IndentationSource/config-with-spaces-indentation.yml']
+            [__DIR__ . '/IndentationSource/config-with-spaces-indentation.php']
         );
 
+        /** @var IndentationTypeFixer $indentationTypeFixer */
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer(self::$container);
 
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
@@ -49,9 +51,10 @@ final class IndentationTest extends AbstractKernelTestCase
     {
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/IndentationSource/config-with-tabs-indentation.yml']
+            [__DIR__ . '/IndentationSource/config-with-tabs-indentation.php']
         );
 
+        /** @var IndentationTypeFixer $indentationTypeFixer */
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer(self::$container);
 
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
@@ -64,7 +67,7 @@ final class IndentationTest extends AbstractKernelTestCase
         $this->assertEquals($tabsConfig, $fixerWhitespaceConfig);
     }
 
-    private function getIndentationTypeFixerFromContainer(ContainerInterface $container): IndentationTypeFixer
+    private function getIndentationTypeFixerFromContainer(ContainerInterface $container): ?FixerInterface
     {
         $fixerFileProcessor = $container->get(FixerFileProcessor::class);
         $checkers = $fixerFileProcessor->getCheckers();
