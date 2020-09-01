@@ -19,6 +19,9 @@ use Symplify\EasyCodingStandard\Skipper;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 
+/**
+ * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\FixerFileProcessorTest
+ */
 final class FixerFileProcessor implements FileProcessorInterface
 {
     /**

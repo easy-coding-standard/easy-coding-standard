@@ -8,6 +8,9 @@ use Symfony\Component\Finder\Finder;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
+/**
+ * @see \Symplify\EasyCodingStandard\Tests\Finder\SourceFinderTest
+ */
 final class SourceFinder
 {
     /**

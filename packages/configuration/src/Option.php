@@ -101,5 +101,5 @@ final class Option
      * @api
      * @var string
      */
-    public const INDENTATION_TABS = 'tabs';
+    public const INDENTATION_TAB = 'tab';
 }
