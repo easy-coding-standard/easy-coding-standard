@@ -15,6 +15,9 @@ use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
 use Symplify\EasyCodingStandard\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
 use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
 
+/**
+ * @see \Symplify\EasyCodingStandard\ChangedFilesDetector\Tests\FileHashComputerTest
+ */
 final class FileHashComputer
 {
     public function compute(string $filePath): string

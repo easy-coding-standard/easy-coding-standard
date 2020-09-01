@@ -1,5 +1,0 @@
-parameters:
-    indentation: "tab" # spaces
-
-services:
-    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: ~

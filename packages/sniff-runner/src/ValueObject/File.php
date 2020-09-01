@@ -20,6 +20,9 @@ use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
+/**
+ * @see \Symplify\EasyCodingStandard\SniffRunner\Tests\ValueObject\FileTest
+ */
 final class File extends BaseFile
 {
     /**
