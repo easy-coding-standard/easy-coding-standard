@@ -13,6 +13,9 @@ use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\ShellCode;
 
+/**
+ * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
+ */
 final class JsonOutputFormatter implements OutputFormatterInterface
 {
     /**

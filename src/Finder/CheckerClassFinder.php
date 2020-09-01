@@ -9,11 +9,14 @@ use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use ReflectionClass;
 
+/**
+ * @see \Symplify\EasyCodingStandard\Tests\Finder\CheckerClassFinderTest
+ */
 final class CheckerClassFinder
 {
     /**
      * @param string[] $directories
-     * @return string[]
+     * @return class-string[]
      */
     public function findInDirectories(array $directories): array
     {
@@ -47,7 +50,7 @@ final class CheckerClassFinder
 
     /**
      * @param string[] $checkerClasses
-     * @return string[]
+     * @return array<int, class-string>
      */
     private function filterOutAbstractAndNonPhpClasses(array $checkerClasses): array
     {

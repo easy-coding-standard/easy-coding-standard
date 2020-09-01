@@ -25,7 +25,7 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
     }
 
     /**
-     * @return string[]
+     * @return array<int, class-string>
      */
     private function getExcludedCheckersFromParameterBag(ParameterBagInterface $parameterBag): array
     {

@@ -25,9 +25,9 @@ final class CheckerTolerantYamlFileLoader extends AbstractParameterMergingYamlFi
 
     /**
      * @param string $file
-     * @return mixed|mixed[]
+     * @return mixed[]
      */
-    protected function loadFile($file)
+    protected function loadFile($file): array
     {
         /** @var mixed[]|null $configuration */
         $configuration = parent::loadFile($file);
