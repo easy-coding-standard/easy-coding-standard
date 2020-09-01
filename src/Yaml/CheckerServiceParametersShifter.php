@@ -32,6 +32,7 @@ use Symplify\PackageBuilder\Strings\StringFormatConverter;
  *      ArraySniff:
  *          parameters:
  *              $syntax: 'short'
+ * @see \Symplify\EasyCodingStandard\Tests\Yaml\CheckerServiceParametersShifter\CheckerServiceParametersShifterTest
  */
 final class CheckerServiceParametersShifter
 {
@@ -206,6 +207,9 @@ final class CheckerServiceParametersShifter
         return $serviceDefinition;
     }
 
+    /**
+     * @return mixed|mixed[]|string
+     */
     private function escapeValue($value)
     {
         if (! is_array($value) && ! is_string($value)) {

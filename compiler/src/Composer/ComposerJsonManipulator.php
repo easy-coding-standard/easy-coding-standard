@@ -79,6 +79,9 @@ final class ComposerJsonManipulator
         $this->smartFileSystem->dumpFile($this->composerJsonFilePath, $this->originalComposerJsonFileContent);
     }
 
+    /**
+     * @return mixed[]
+     */
     private function replaceDevSymplifyVersionWithLastStableVersion(array $json): array
     {
         $symplifyVersionToRequire = $this->symplifyStableVersionProvider->provide();
@@ -97,6 +100,7 @@ final class ComposerJsonManipulator
 
     /**
      * Use phpstan/phpstan-src, because the phpstan.phar cannot be packed into ecs.phar
+     * @return mixed[]
      */
     private function replacePHPStanWithPHPStanSrc(array $json): array
     {
@@ -117,6 +121,7 @@ final class ComposerJsonManipulator
 
     /**
      * This prevent installing packages, that are not needed here.
+     * @return mixed[]
      */
     private function changeReplace(array $json): array
     {
@@ -127,6 +132,7 @@ final class ComposerJsonManipulator
 
     /**
      * Their autoloader is broken inside the phar :/
+     * @return mixed[]
      */
     private function fixPhpCodeSnifferAutoloading(array $json): array
     {
@@ -135,6 +141,9 @@ final class ComposerJsonManipulator
         return $json;
     }
 
+    /**
+     * @return mixed[]
+     */
     private function removeDevContent(array $json): array
     {
         unset($json['extra'], $json['require-dev'], $json['autoload-dev']);
