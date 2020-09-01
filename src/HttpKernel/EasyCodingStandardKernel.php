@@ -8,7 +8,6 @@ use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
 use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
@@ -42,7 +41,7 @@ final class EasyCodingStandardKernel extends Kernel implements ExtraConfigAwareK
     }
 
     /**
-     * @return BundleInterface[]
+     * @return SymplifyCodingStandardBundle[]|ConsoleColorDiffBundle[]|EasyCodingStandardBundle[]
      */
     public function registerBundles(): iterable
     {

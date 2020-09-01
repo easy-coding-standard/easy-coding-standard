@@ -12,6 +12,9 @@ use Symplify\EasyCodingStandard\Skipper;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
+/**
+ * @see \Symplify\EasyCodingStandard\SniffRunner\Tests\File\FileFactoryTest
+ */
 final class FileFactory
 {
     /**
