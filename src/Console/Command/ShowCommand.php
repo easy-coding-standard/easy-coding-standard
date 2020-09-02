@@ -9,11 +9,13 @@ use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class ShowCommand extends Command
 {
@@ -37,16 +39,23 @@ final class ShowCommand extends Command
      */
     private $easyCodingStandardStyle;
 
+    /**
+     * @var ParameterProvider
+     */
+    private $parameterProvider;
+
     public function __construct(
         SniffFileProcessor $sniffFileProcessor,
         FixerFileProcessor $fixerFileProcessor,
-        EasyCodingStandardStyle $easyCodingStandardStyle
+        EasyCodingStandardStyle $easyCodingStandardStyle,
+        ParameterProvider $parameterProvider
     ) {
         parent::__construct();
 
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
+        $this->parameterProvider = $parameterProvider;
     }
 
     protected function configure(): void
@@ -66,6 +75,8 @@ final class ShowCommand extends Command
             $this->checkersTotal === 1 ? '' : 's'
         );
         $this->easyCodingStandardStyle->success($successMessage);
+
+        $this->reportLoadedSets();
 
         return ShellCode::SUCCESS;
     }
@@ -90,5 +101,27 @@ final class ShowCommand extends Command
 
         sort($checkerNames);
         $this->easyCodingStandardStyle->listing($checkerNames);
+    }
+
+    private function reportLoadedSets(): void
+    {
+        $sets = (array) $this->parameterProvider->provideParameter(Option::SETS);
+        if ($sets === []) {
+            return;
+        }
+
+        $this->easyCodingStandardStyle->newLine(2);
+
+        $this->easyCodingStandardStyle->title('Loaded Sets');
+
+        sort($sets);
+
+        foreach ($sets as $set) {
+            $filename = realpath($set);
+            $this->easyCodingStandardStyle->writeln(' * ' . $filename);
+        }
+
+        $message = sprintf('%d loaded sets', count($sets));
+        $this->easyCodingStandardStyle->success($message);
     }
 }
