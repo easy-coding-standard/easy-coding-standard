@@ -1,0 +1,7 @@
+services:
+    PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer: ~
+    PHP_CodeSniffer\Standards\Generic\Sniffs\WhiteSpace\DisallowTabIndentSniff: ~
+
+    # See https://github.com/symplify/symplify/issues/1702
+    PhpCsFixer\Fixer\ControlStructure\IncludeFixer: ~
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\LanguageConstructSpacingSniff: ~

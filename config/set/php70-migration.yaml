@@ -1,0 +1,3 @@
+imports:
+    - { resource: php70-migration.php }
+
