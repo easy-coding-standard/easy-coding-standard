@@ -8,6 +8,7 @@ use Jean85\PrettyVersions;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Configuration
@@ -48,18 +49,11 @@ final class Configuration
     private $paths = [];
 
     /**
-     * @var string[]
-     */
-    private $sets = [];
-
-    /**
      * @param string[] $paths
-     * @param string[] $sets
      */
-    public function __construct(array $paths, array $sets)
+    public function __construct(array $paths)
     {
         $this->paths = $paths;
-        $this->sets = $sets;
     }
 
     /**
@@ -77,12 +71,6 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
-
-        // CLI overrides config
-        if ($input->getOption('set')) {
-            $set = (string) $input->getOption('set');
-            $this->sets = [$set];
-        }
     }
 
     /**
@@ -153,14 +141,6 @@ final class Configuration
     public function getPaths(): array
     {
         return $this->paths;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getSets(): array
-    {
-        return $this->sets;
     }
 
     private function canShowProgressBar(InputInterface $input): bool
