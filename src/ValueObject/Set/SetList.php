@@ -19,12 +19,6 @@ final class SetList
      * @var string
      * @api
      */
-    public const PSR_2 = __DIR__ . '/../../../config/set/psr2.php';
-
-    /**
-     * @var string
-     * @api
-     */
     public const PSR_12 = __DIR__ . '/../../../config/set/psr12.php';
 
     /**
