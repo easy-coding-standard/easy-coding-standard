@@ -11,7 +11,6 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\FileSystem\CachedFileLoader;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
 use Symplify\EasyCodingStandard\Skipper;
@@ -55,11 +54,6 @@ final class FixerFileProcessor implements FileProcessorInterface
     private $fileToTokensParser;
 
     /**
-     * @var CachedFileLoader
-     */
-    private $cachedFileLoader;
-
-    /**
      * @var DifferInterface
      */
     private $differ;
@@ -81,7 +75,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         ErrorAndDiffCollector $errorAndDiffCollector,
         Configuration $configuration,
         FileToTokensParser $fileToTokensParser,
-        CachedFileLoader $cachedFileLoader,
         Skipper $skipper,
         DifferInterface $differ,
         EasyCodingStandardStyle $easyCodingStandardStyle,
@@ -92,7 +85,6 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->skipper = $skipper;
         $this->configuration = $configuration;
         $this->fileToTokensParser = $fileToTokensParser;
-        $this->cachedFileLoader = $cachedFileLoader;
         $this->differ = $differ;
         $this->fixers = $this->sortFixers($fixers);
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
@@ -116,8 +108,7 @@ final class FixerFileProcessor implements FileProcessorInterface
             $this->processTokensByFixer($smartFileInfo, $tokens, $fixer);
         }
 
-        $oldContent = $this->cachedFileLoader->getFileContent($smartFileInfo);
-
+        $oldContent = $smartFileInfo->getContents();
         if ($this->appliedFixers === []) {
             return $oldContent;
         }
