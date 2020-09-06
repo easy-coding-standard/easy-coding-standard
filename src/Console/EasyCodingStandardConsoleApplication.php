@@ -13,9 +13,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Option;
-use Symplify\EasyCodingStandard\Console\Command\FindCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
-use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
 
 final class EasyCodingStandardConsoleApplication extends Application
@@ -49,10 +47,6 @@ final class EasyCodingStandardConsoleApplication extends Application
         }
 
         // skip in this case, since generate content must be clear from meta-info
-        if ($input->getFirstArgument() === CommandNaming::classToName(FindCommand::class)) {
-            return parent::doRun($input, $output);
-        }
-
         if ($this->shouldPrintMetaInformation($input)) {
             $output->writeln($this->getLongVersion());
         }
