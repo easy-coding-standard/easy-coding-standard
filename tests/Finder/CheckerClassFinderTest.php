@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Finder;
 
 use PHPUnit\Framework\TestCase;
 use Symplify\EasyCodingStandard\Finder\CheckerClassFinder;
-use Symplify\PackageBuilder\Composer\StaticVendorDirProvider;
+use Symplify\PackageBuilder\Composer\VendorDirProvider;
 
 final class CheckerClassFinderTest extends TestCase
 {
@@ -14,7 +14,10 @@ final class CheckerClassFinderTest extends TestCase
     {
         $checkerClassFinder = new CheckerClassFinder();
 
-        $vendorDir = StaticVendorDirProvider::provide();
+        $vendorDirProvider = new VendorDirProvider();
+
+        $vendorDir = $vendorDirProvider->provide();
+
         $directories = [];
         $directories[] = $vendorDir . '/squizlabs';
         $directories[] = $vendorDir . '/friendsofphp';
