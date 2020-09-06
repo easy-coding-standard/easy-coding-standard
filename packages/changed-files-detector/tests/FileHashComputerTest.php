@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
-use Nette\Utils\FileSystem;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class FileHashComputerTest extends AbstractKernelTestCase
 {
@@ -23,17 +23,23 @@ final class FileHashComputerTest extends AbstractKernelTestCase
      */
     private $fileHashComputer;
 
+    /**
+     * @var SmartFileSystem
+     */
+    private $smartFileSystem;
+
     protected function setUp(): void
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
         $this->fileHashComputer = self::$container->get(FileHashComputer::class);
+        $this->smartFileSystem = self::$container->get(SmartFileSystem::class);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void
     {
         // A. create on another one with fixer
-        FileSystem::write(self::INCLUDED_CONFIG_FILE, Yaml::dump([
+        $this->smartFileSystem->dumpFile(self::INCLUDED_CONFIG_FILE, Yaml::dump([
             'services' => [
                 DeclareStrictTypesFixer::class => [],
             ],
@@ -44,7 +50,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
         );
 
         // B. create on another one with no fixer
-        FileSystem::write(self::INCLUDED_CONFIG_FILE, Yaml::dump([
+        $this->smartFileSystem->dumpFile(self::INCLUDED_CONFIG_FILE, Yaml::dump([
             'services' => [],
         ]));
 
@@ -54,7 +60,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);
 
-        FileSystem::delete(self::INCLUDED_CONFIG_FILE);
+        $this->smartFileSystem->remove(self::INCLUDED_CONFIG_FILE);
     }
 
     public function testPhpFileHash(): void
