@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
+use Nette\Utils\Strings;
 use ReflectionProperty;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -90,10 +91,11 @@ final class MarkdownCodeFormatterCommand extends Command
         $content = file_get_contents($markdownFile);
         $tempContent = $content;
         // @see https://regex101.com/r/4YUIu1/1
-        preg_match_all('#\`\`\`php\s+([^\`\`\`]+)\s+\`\`\`#', $content, $matches);
+
+        $matches = Strings::match($content, '#\`\`\`php\s+([^\`\`\`]+)\s+\`\`\`#');
 
         if ($matches[1] === []) {
-            $this->easyCodingStandardStyle->success('No php code found in the markdown');
+            $this->easyCodingStandardStyle->success('No PHP code found in the Markdown');
             return ShellCode::SUCCESS;
         }
 
