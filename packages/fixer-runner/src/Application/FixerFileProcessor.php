@@ -109,14 +109,14 @@ final class FixerFileProcessor implements FileProcessorInterface
 
     public function processFile(SmartFileInfo $smartFileInfo): string
     {
-        $oldContent = $this->cachedFileLoader->getFileContent($smartFileInfo);
-
         $tokens = $this->fileToTokensParser->parseFromFilePath($smartFileInfo->getRealPath());
 
         $this->appliedFixers = [];
-        foreach ($this->getCheckers() as $fixer) {
+        foreach ($this->fixers as $fixer) {
             $this->processTokensByFixer($smartFileInfo, $tokens, $fixer);
         }
+
+        $oldContent = $this->cachedFileLoader->getFileContent($smartFileInfo);
 
         if ($this->appliedFixers === []) {
             return $oldContent;
@@ -131,13 +131,14 @@ final class FixerFileProcessor implements FileProcessorInterface
         // file has changed
         $this->errorAndDiffCollector->addDiffForFileInfo($smartFileInfo, $diff, $this->appliedFixers);
 
+        $tokenGeneratedCode = $tokens->generateCode();
         if ($this->configuration->isFixer()) {
-            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokens->generateCode());
+            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokenGeneratedCode);
         }
 
         Tokens::clearCache();
 
-        return $tokens->generateCode();
+        return $tokenGeneratedCode;
     }
 
     /**
@@ -193,6 +194,10 @@ final class FixerFileProcessor implements FileProcessorInterface
             return true;
         }
 
-        return ! $fixer->supports($smartFileInfo) || ! $fixer->isCandidate($tokens);
+        if (! $fixer->supports($smartFileInfo)) {
+            return true;
+        }
+
+        return ! $fixer->isCandidate($tokens);
     }
 }
