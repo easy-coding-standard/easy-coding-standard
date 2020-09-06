@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Application;
 
-use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
@@ -16,6 +15,7 @@ use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\SmartFileSystem\SmartFileInfo;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
@@ -63,6 +63,11 @@ final class SniffFileProcessor implements FileProcessorInterface
     private $appliedCheckersCollector;
 
     /**
+     * @var SmartFileSystem
+     */
+    private $smartFileSystem;
+
+    /**
      * @param Sniff[] $sniffs
      */
     public function __construct(
@@ -72,6 +77,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         ErrorAndDiffCollector $errorAndDiffCollector,
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
+        SmartFileSystem $smartFileSystem,
         array $sniffs = []
     ) {
         $this->fixer = $fixer;
@@ -86,6 +92,7 @@ final class SniffFileProcessor implements FileProcessorInterface
         foreach ($sniffs as $sniff) {
             $this->addSniff($sniff);
         }
+        $this->smartFileSystem = $smartFileSystem;
     }
 
     public function addSniff(Sniff $sniff): void
@@ -125,7 +132,7 @@ final class SniffFileProcessor implements FileProcessorInterface
 
         // 4. save file content (faster without changes check)
         if ($this->configuration->isFixer()) {
-            FileSystem::write($file->getFilename(), $this->fixer->getContents());
+            $this->smartFileSystem->dumpFile($file->getFilename(), $this->fixer->getContents());
         }
 
         return $this->fixer->getContents();

@@ -5,15 +5,25 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
 use Nette\Loaders\RobotLoader;
-use Nette\Utils\FileSystem;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use ReflectionClass;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Finder\CheckerClassFinderTest
  */
 final class CheckerClassFinder
 {
+    /**
+     * @var SmartFileSystem
+     */
+    private $smartFileSystem;
+
+    public function __construct(SmartFileSystem $smartFileSystem)
+    {
+        $this->smartFileSystem = $smartFileSystem;
+    }
+
     /**
      * @param string[] $directories
      * @return class-string[]
@@ -77,7 +87,8 @@ final class CheckerClassFinder
     private function createRobotLoaderCacheDirectory(): string
     {
         $tempDir = sys_get_temp_dir() . '/_checker_finder_robot_loader';
-        FileSystem::createDir($tempDir);
+
+        $this->smartFileSystem->mkdir($tempDir);
 
         return $tempDir;
     }
