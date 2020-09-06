@@ -21,6 +21,7 @@ final class FileToTokensParser
 
     public function parseFromFilePath(string $filePath): Tokens
     {
-        return Tokens::fromCode($this->smartFileSystem->readFile($filePath));
+        $fileContent = $this->smartFileSystem->readFile($filePath);
+        return Tokens::fromCode($fileContent);
     }
 }
