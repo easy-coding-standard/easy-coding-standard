@@ -45,7 +45,7 @@ final class MarkdownPHPCodeFormatterTest extends AbstractKernelTestCase
 
         $changedContent = $this->markdownPHPFormatter->format($inputAndExpectedFileInfos->getInputFileInfo());
         $expectedContent = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
-        $this->assertSame($expectedContent, $changedContent);
+        $this->assertSame($expectedContent, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
     }
 
     public function provideData(): Iterator
