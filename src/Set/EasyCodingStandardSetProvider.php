@@ -7,13 +7,18 @@ namespace Symplify\EasyCodingStandard\Set;
 use Nette\Utils\Strings;
 use ReflectionClass;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
-use Symplify\SetConfigResolver\Contract\SetProviderInterface;
 use Symplify\SetConfigResolver\Provider\AbstractSetProvider;
 use Symplify\SetConfigResolver\ValueObject\Set;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class EasyCodingStandardSetProvider extends AbstractSetProvider implements SetProviderInterface
+final class EasyCodingStandardSetProvider extends AbstractSetProvider
 {
+    /**
+     * @see https://regex101.com/r/mkleqU/1
+     * @var string
+     */
+    private const REMOVE_DASH_BEFORE_NUMBER_REGEX = '#([a-z])-(\d+)$$#';
+
     /**
      * @var Set[]
      */
@@ -30,6 +35,9 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider implements
             }
 
             $setName = $this->constantToDashes($name);
+
+            // back compatible names without "-"
+            $setName = Strings::replace($setName, self::REMOVE_DASH_BEFORE_NUMBER_REGEX, '$1$2');
             $this->sets[] = new Set($setName, new SmartFileInfo($setPath));
         }
     }
