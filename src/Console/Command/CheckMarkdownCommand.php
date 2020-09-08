@@ -24,6 +24,11 @@ final class CheckMarkdownCommand extends Command
     private const SOURCE = 'source';
 
     /**
+     * @var string
+     */
+    private const NO_STRICT_TYPES_DECLARATION = 'no-strict-types-declaration';
+
+    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
@@ -67,8 +72,9 @@ final class CheckMarkdownCommand extends Command
             throw new NoMarkdownFileException($message);
         }
 
+        $noStrictTypesDeclaration = (bool) $input->getOption(self::NO_STRICT_TYPES_DECLARATION);
         $markdownFileInfo = new SmartFileInfo($markdownFile);
-        $fixedContent = $this->markdownPHPCodeFormatter->format($markdownFileInfo);
+        $fixedContent = $this->markdownPHPCodeFormatter->format($markdownFileInfo, $noStrictTypesDeclaration);
 
         if ($markdownFileInfo->getContents() === $fixedContent) {
             $successMessage = 'PHP code in Markdown already follow coding standard';
