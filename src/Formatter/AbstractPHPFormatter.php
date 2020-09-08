@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Formatter;
 
 use Nette\Utils\Strings;
+use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
+use ReflectionProperty;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
@@ -52,7 +54,7 @@ abstract class AbstractPHPFormatter
         $this->configuration = $configuration;
     }
 
-    public function format(SmartFileInfo $fileInfo): string
+    public function format(SmartFileInfo $fileInfo, bool $noStrictTypesDeclaration): string
     {
         // enable fixing
         $this->configuration->resolveFromArray(['isFixer' => true]);
@@ -60,14 +62,17 @@ abstract class AbstractPHPFormatter
         return (string) Strings::replace(
             $fileInfo->getContents(),
             static::PHP_CODE_SNIPPET,
-            function ($match): string {
-                $fixedContent = rtrim($this->fixContent($match['content']), PHP_EOL) . PHP_EOL;
+            function ($match) use ($noStrictTypesDeclaration): string {
+                $fixedContent = rtrim(
+                    $this->fixContent($match['content'], $noStrictTypesDeclaration),
+                    PHP_EOL
+                ) . PHP_EOL;
                 return rtrim($match['opening'], PHP_EOL) . PHP_EOL . $fixedContent . $match['closing'];
             }
         );
     }
 
-    protected function fixContent(string $content): string
+    protected function fixContent(string $content, bool $noStrictTypesDeclaration): string
     {
         $key = md5($content);
 
@@ -86,6 +91,7 @@ abstract class AbstractPHPFormatter
 
         $fileInfo = new SmartFileInfo($file);
         try {
+            $this->skipStrictTypesDeclaration($noStrictTypesDeclaration);
             $this->fixerFileProcessor->processFile($fileInfo);
             $this->sniffFileProcessor->processFile($fileInfo);
 
@@ -96,10 +102,38 @@ abstract class AbstractPHPFormatter
             $this->smartFileSystem->remove($file);
         }
 
+        // handle already has declare(strict_types=1);
+        // before apply fix
+        if ($noStrictTypesDeclaration && strpos($fileContent, 'declare(strict_types=1);') === 6) {
+            $fileContent = substr($fileContent, 32);
+            $fileContent = '<?php' . PHP_EOL . $fileContent;
+        }
+
         if (! $hasPreviouslyOpeningPHPTag) {
             $fileContent = substr($fileContent, 6);
         }
 
         return $fileContent;
+    }
+
+    private function skipStrictTypesDeclaration(bool $noStrictTypesDeclaration): void
+    {
+        if (! $noStrictTypesDeclaration) {
+            return;
+        }
+
+        $checkers = $this->fixerFileProcessor->getCheckers();
+        $temps = [];
+        foreach ($checkers as $checker) {
+            if ($checker instanceof DeclareStrictTypesFixer) {
+                continue;
+            }
+
+            $temps[] = $checker;
+        }
+
+        $r = new ReflectionProperty($this->fixerFileProcessor, 'fixers');
+        $r->setAccessible(true);
+        $r->setValue($this->fixerFileProcessor, $temps);
     }
 }
