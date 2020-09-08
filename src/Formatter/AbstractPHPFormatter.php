@@ -61,8 +61,8 @@ abstract class AbstractPHPFormatter
             $fileInfo->getContents(),
             static::PHP_CODE_SNIPPET,
             function ($match): string {
-                $fixedContent = $this->fixContent($match['content']);
-                return $match['opening'] . $fixedContent . $match['closing'];
+                $fixedContent = rtrim($this->fixContent($match['content']), PHP_EOL) . PHP_EOL;
+                return rtrim($match['opening'], PHP_EOL) . PHP_EOL . $fixedContent . $match['closing'];
             }
         );
     }
@@ -74,8 +74,10 @@ abstract class AbstractPHPFormatter
         /** @var string $file */
         $file = sprintf('php-code-%s.php', $key);
 
+        $hasPreviouslyOpeningPHPTag = true;
         if (! Strings::startsWith($content, '<?php')) {
             $content = '<?php' . PHP_EOL . $content;
+            $hasPreviouslyOpeningPHPTag = false;
         }
 
         $fileContent = $content;
@@ -92,6 +94,10 @@ abstract class AbstractPHPFormatter
             // Skipped parsed error when processing php file
         } finally {
             $this->smartFileSystem->remove($file);
+        }
+
+        if (! $hasPreviouslyOpeningPHPTag) {
+            $fileContent = substr($fileContent, 6);
         }
 
         return $fileContent;
