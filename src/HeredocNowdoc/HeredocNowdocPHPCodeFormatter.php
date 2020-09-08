@@ -16,12 +16,4 @@ final class HeredocNowdocPHPCodeFormatter extends AbstractPHPFormatter
      * @var string
      */
     protected const PHP_CODE_SNIPPET = '#(?<opening><<<(\'?([A-Z]+)\'?|\"?([A-Z]+)\"?)\s+|(\'?([A-Z]+)\'?|\"?([A-Z]+)\"?)\s+)(?<content>[^\3|\4]+\n)(?<closing>(\s+)?\3|\4)#ms';
-
-    protected function fixContent(string $content): string
-    {
-        $fileContent = trim(parent::fixContent($content));
-        $fileContent = substr($fileContent, 6);
-
-        return $fileContent . PHP_EOL;
-    }
 }
