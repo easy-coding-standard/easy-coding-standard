@@ -33,6 +33,16 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
      */
     private $errorAndDiffCollector;
 
+    /**
+     * @var array
+     */
+    private static $customFileNames = [];
+
+    /**
+     * @var bool
+     */
+    private $disableHeaderFileDiff = false;
+
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         Configuration $configuration,
@@ -64,6 +74,16 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         return $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
     }
 
+    public function addCustomFileName(string $customFileName): void
+    {
+        self::$customFileNames = array_merge(self::$customFileNames, [$customFileName]);
+    }
+
+    public function disableHeaderFileDiff(): void
+    {
+        $this->disableHeaderFileDiff = true;
+    }
+
     public function getName(): string
     {
         return self::NAME;
@@ -83,10 +103,11 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         $i = 0;
         foreach ($fileDiffPerFile as $file => $fileDiffs) {
             $this->easyCodingStandardStyle->newLine(2);
-            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', ++$i, $file);
-            $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
+            $i = $this->handleBoldNumberedMessageInFile($i, $file);
 
             foreach ($fileDiffs as $fileDiff) {
+                $i = $this->handleBoldNumberedMessageInFileDiff($i);
+
                 $this->easyCodingStandardStyle->newLine();
                 $this->easyCodingStandardStyle->writeln($fileDiff->getDiffConsoleFormatted());
                 $this->easyCodingStandardStyle->newLine();
@@ -96,6 +117,26 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
                 $this->easyCodingStandardStyle->listing($fileDiff->getAppliedCheckers());
             }
         }
+    }
+
+    private function handleBoldNumberedMessageInFile($i, $file): int
+    {
+        if (self::$customFileNames === []) {
+            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', ++$i, $file);
+            $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
+        }
+
+        return $i;
+    }
+
+    private function handleBoldNumberedMessageInFileDiff($i): int
+    {
+        if (! $this->disableHeaderFileDiff && isset(self::$customFileNames[$i])) {
+            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', ++$i, self::$customFileNames[$i - 1]);
+            $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
+        }
+
+        return $i;
     }
 
     private function printAfterFixerStatus(): int
@@ -161,7 +202,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
             '%s%d %s fixable! Just add "--fix" to console command and rerun to apply.',
             $errorCount !== 0 ? 'Good news is that ' : '',
             $fileDiffsCount,
-            $fileDiffsCount === 1 ? 'file is' : 'files are'
+            $fileDiffsCount === 1 ? 'error is' : 'errors are'
         );
         $this->easyCodingStandardStyle->warning($fixableMessage);
     }
