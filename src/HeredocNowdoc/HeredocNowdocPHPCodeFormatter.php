@@ -12,8 +12,8 @@ use Symplify\EasyCodingStandard\Formatter\AbstractPHPFormatter;
 final class HeredocNowdocPHPCodeFormatter extends AbstractPHPFormatter
 {
     /**
-     * @see https://regex101.com/r/SZr0X5/4
+     * @see https://regex101.com/r/SZr0X5/12
      * @var string
      */
-    protected const PHP_CODE_SNIPPET = '#(?<opening><<<(\'?([A-Z]+)\'?|\"?([A-Z]+)\"?)\s+|(\'?([A-Z]+)\'?|\"?([A-Z]+)\"?)\s+)(?<content>[^\3|\4]+\n)(?<closing>(\s+)?\3|\4)#ms';
+    protected const PHP_CODE_SNIPPET = '#(?<opening><<<(\'?([A-Z]+)\'?|\"?([A-Z]+)\"?)\s+)(?<content>[^\3|\4]+)(?<closing>(\s+)?\3|\4)#msU';
 }
