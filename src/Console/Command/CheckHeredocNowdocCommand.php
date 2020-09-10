@@ -133,7 +133,7 @@ final class CheckHeredocNowdocCommand extends Command
             /** @var ConsoleOutputFormatter $outputFormatter */
             $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
             $outputFormatter->addCustomFileName($absoluteFilePath);
-            $countFixable++;
+            ++$countFixable;
         }
 
         if ($outputFormatter && $countFixable > 0) {
