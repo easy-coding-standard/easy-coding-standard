@@ -12,6 +12,16 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class Skipper
 {
     /**
+     * @var string
+     */
+    private const ONLY_ENDS_WITH_ASTERISK_PATTERN = '#^[^*](.*?)\*$#';
+
+    /**
+     * @var string
+     */
+    private const ONLY_STARTS_WITH_ASTERISK_PATTERN = '#^\*(.*?)[^*]$#';
+
+    /**
      * @var string[][]
      */
     private $skipped = [];
@@ -198,11 +208,11 @@ final class Skipper
     private function normalizeForFnmatch(string $path): string
     {
         // ends with *
-        if (Strings::match($path, '#^[^*](.*?)\*$#')) {
+        if (Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_PATTERN)) {
             return '*' . $path;
         }
         // starts with *
-        if (Strings::match($path, '#^\*(.*?)[^*]$#')) {
+        if (Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_PATTERN)) {
             return $path . '*';
         }
         return $path;
