@@ -20,6 +20,11 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider
     private const REMOVE_DASH_BEFORE_NUMBER_REGEX = '#([a-z])-(\d+)$$#';
 
     /**
+     * @var string
+     */
+    private const UNDERSCORE_PATTERN = '#_#';
+
+    /**
      * @var Set[]
      */
     private $sets = [];
@@ -68,6 +73,6 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider
     public function constantToDashes(string $string): string
     {
         $string = strtolower($string);
-        return Strings::replace($string, '#_#', '-');
+        return Strings::replace($string, self::UNDERSCORE_PATTERN, '-');
     }
 }
