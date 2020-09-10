@@ -20,9 +20,14 @@ use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFi
  */
 final class FileHashComputer
 {
+    /**
+     * @var string
+     */
+    private const YAML_SUFFIX_PATTERN = '#\.(yml|yaml)$#';
+
     public function compute(string $filePath): string
     {
-        if (! Strings::match($filePath, '#\.(yml|yaml)$#')) {
+        if (! Strings::match($filePath, self::YAML_SUFFIX_PATTERN)) {
             $fileHash = md5_file($filePath);
             if (! $fileHash) {
                 throw new FileNotFoundException(sprintf('File "%s" was not found', $fileHash));

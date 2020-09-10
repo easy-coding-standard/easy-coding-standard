@@ -42,6 +42,11 @@ final class CheckerServiceParametersShifter
     private const SERVICES_KEY = 'services';
 
     /**
+     * @var string
+     */
+    private const STARTS_WITH_AT_PATTERN = '#^@#';
+
+    /**
      * @var string[]
      */
     private $serviceKeywords = [];
@@ -224,6 +229,6 @@ final class CheckerServiceParametersShifter
             return $value;
         }
 
-        return Strings::replace($value, '#^@#', '@@');
+        return Strings::replace($value, self::STARTS_WITH_AT_PATTERN, '@@');
     }
 }
