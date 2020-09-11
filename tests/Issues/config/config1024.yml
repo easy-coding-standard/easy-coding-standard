@@ -1,6 +1,0 @@
-# ecs.yml
-parameters:
-    line_ending: "\r\n"
-
-services:
-    PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SemicolonSpacingSniff: ~

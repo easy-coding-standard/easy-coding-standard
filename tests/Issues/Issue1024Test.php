@@ -31,6 +31,6 @@ final class Issue1024Test extends AbstractCheckerTestCase
 
     protected function provideConfig(): string
     {
-        return __DIR__ . '/config/config1024.yml';
+        return __DIR__ . '/config/config1024.php';
     }
 }

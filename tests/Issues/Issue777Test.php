@@ -28,6 +28,6 @@ final class Issue777Test extends AbstractCheckerTestCase
 
     protected function provideConfig(): string
     {
-        return __DIR__ . '/config/config777.yml';
+        return __DIR__ . '/config/config777.php';
     }
 }
