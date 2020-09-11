@@ -83,7 +83,7 @@ final class EasyCodingStandardConsoleApplication extends Application
             'c',
             InputOption::VALUE_REQUIRED,
             'Path to config file.',
-            '(ecs|easy-coding-standard).(yml|yaml)'
+            '(ecs|easy-coding-standard).php'
         ));
 
         $inputDefinition->addOption(new InputOption(
