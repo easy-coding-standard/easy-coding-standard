@@ -108,7 +108,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // exlude paths with really nasty code
     $parameters->set(Option::EXCLUDE_PATHS, [
-        __DIR__ . '/packakges/*/src/Legacy',
+        __DIR__ . '/packages/*/src/Legacy',
     ]);
 
     // run single rule only on specific path
