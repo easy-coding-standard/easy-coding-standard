@@ -1,0 +1,6 @@
+services:
+    PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer:
+        - const
+        - property
+        - method
+    PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer: ~
