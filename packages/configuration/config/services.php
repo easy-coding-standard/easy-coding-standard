@@ -12,5 +12,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autowire();
 
     $services->load('Symplify\EasyCodingStandard\Configuration\\', __DIR__ . '/../src')
-        ->exclude([__DIR__ . '/../src/Exception/*']);
+        ->exclude([__DIR__ . '/../src/Exception']);
 };
