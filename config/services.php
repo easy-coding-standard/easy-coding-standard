@@ -29,12 +29,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../src')
         ->exclude([
             // onyl for "bin/ecs" file, where containre does not exist yet
-            __DIR__ . '/../src/Bootstrap/*',
-            __DIR__ . '/../src/DependencyInjection/*',
-            __DIR__ . '/../src/HttpKernel/*',
-            __DIR__ . '/../src/Exception/*',
-            __DIR__ . '/../src/ValueObject/*',
-            __DIR__ . '/../src/Yaml/*',
+            __DIR__ . '/../src/Bootstrap',
+            __DIR__ . '/../src/DependencyInjection',
+            __DIR__ . '/../src/HttpKernel',
+            __DIR__ . '/../src/Exception',
+            __DIR__ . '/../src/ValueObject',
+            __DIR__ . '/../src/Yaml',
         ]);
 
     $services->set(Terminal::class);
