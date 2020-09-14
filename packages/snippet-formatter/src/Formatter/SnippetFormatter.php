@@ -2,39 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Formatter;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Formatter;
 
 use Nette\Utils\Strings;
-use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Contract\RegexAwareFormatterInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
-use Symplify\EasyCodingStandard\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
+use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 
-abstract class AbstractPHPFormatter implements RegexAwareFormatterInterface
+/**
+ * @see \Symplify\EasyCodingStandard\SnippetFormatter\Tests\Markdown\MarkdownSnippetFormatterTest
+ * @see \Symplify\EasyCodingStandard\SnippetFormatter\Tests\HeredocNowdoc\HereNowDocSnippetFormatterTest
+ */
+final class SnippetFormatter
 {
     /**
      * @var SmartFileSystem
      */
-    protected $smartFileSystem;
+    private $smartFileSystem;
 
     /**
      * @var FixerFileProcessor
      */
-    protected $fixerFileProcessor;
+    private $fixerFileProcessor;
 
     /**
      * @var SniffFileProcessor
      */
-    protected $sniffFileProcessor;
-
-    /**
-     * @var Configuration
-     */
-    protected $configuration;
+    private $sniffFileProcessor;
 
     /**
      * @var CurrentParentFileInfoProvider
@@ -45,21 +42,19 @@ abstract class AbstractPHPFormatter implements RegexAwareFormatterInterface
         SmartFileSystem $smartFileSystem,
         FixerFileProcessor $fixerFileProcessor,
         SniffFileProcessor $sniffFileProcessor,
-        Configuration $configuration,
         CurrentParentFileInfoProvider $currentParentFileInfoProvider
     ) {
         $this->smartFileSystem = $smartFileSystem;
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->sniffFileProcessor = $sniffFileProcessor;
-        $this->configuration = $configuration;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
 
-    public function format(SmartFileInfo $fileInfo): string
+    public function format(SmartFileInfo $fileInfo, string $snippetRegex): string
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
 
-        return (string) Strings::replace($fileInfo->getContents(), $this->provideRegex(), function ($match): string {
+        return (string) Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match): string {
             return $this->fixContentAndPreserveFormatting($match);
         });
     }
@@ -79,8 +74,8 @@ abstract class AbstractPHPFormatter implements RegexAwareFormatterInterface
         $content = trim($content);
         $key = md5($content);
 
-        /** @var string $temporaryFile */
-        $temporaryFile = sys_get_temp_dir() . '/ecs_temp/' . sprintf('php-code-%s.php', $key);
+        /** @var string $temporaryFilePath */
+        $temporaryFilePath = sys_get_temp_dir() . '/ecs_temp/' . sprintf('php-code-%s.php', $key);
 
         $hasPreviouslyOpeningPHPTag = true;
         if (! Strings::startsWith($content, '<?php')) {
@@ -90,8 +85,8 @@ abstract class AbstractPHPFormatter implements RegexAwareFormatterInterface
 
         $fileContent = $content;
 
-        $this->smartFileSystem->dumpFile($temporaryFile, $fileContent);
-        $temporaryFileInfo = new SmartFileInfo($temporaryFile);
+        $this->smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
+        $temporaryFileInfo = new SmartFileInfo($temporaryFilePath);
 
         try {
             $this->fixerFileProcessor->processFile($temporaryFileInfo);
@@ -102,7 +97,7 @@ abstract class AbstractPHPFormatter implements RegexAwareFormatterInterface
             // Skipped parsed error when processing php temporaryFile
         } finally {
             // remove temporary temporaryFile
-            $this->smartFileSystem->remove($temporaryFile);
+            $this->smartFileSystem->remove($temporaryFilePath);
         }
 
         if (! $hasPreviouslyOpeningPHPTag) {
