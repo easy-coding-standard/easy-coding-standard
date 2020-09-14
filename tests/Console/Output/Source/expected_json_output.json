@@ -1,7 +1,7 @@
 {
     "meta": {
         "version": "%s",
-        "config": "%stests/Console/Output/config/config.yaml"
+        "config": "%stests/Console/Output/config/config.php"
     },
     "totals": {
         "errors": 1,
