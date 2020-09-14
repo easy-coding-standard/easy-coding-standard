@@ -58,11 +58,11 @@ final class ErrorAndDiffCollector
     {
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $relativePathnameToRoot = $fileInfo->getRelativeFilePathFromCwd();
+        $relativeFilePathFromCwd = $fileInfo->getRelativeFilePathFromCwd();
 
-        $error = $this->errorFactory->create($line, $message, $sourceClass, $fileInfo);
+        $codingStandardError = $this->errorFactory->create($line, $message, $sourceClass, $fileInfo);
 
-        $this->errors[$relativePathnameToRoot][] = $error;
+        $this->errors[$relativeFilePathFromCwd][] = $codingStandardError;
     }
 
     /**

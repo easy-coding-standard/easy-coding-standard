@@ -63,13 +63,13 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         $this->writeln(' ' . $separator);
     }
 
-    private function createMessageFromFileError(CodingStandardError $fileError): string
+    private function createMessageFromFileError(CodingStandardError $codingStandardError): string
     {
         $message = sprintf(
             '%s%s Reported by: "%s"',
-            $fileError->getMessage(),
+            $codingStandardError->getMessage(),
             PHP_EOL . PHP_EOL,
-            $fileError->getSourceClass()
+            $codingStandardError->getSourceClass()
         );
         $message = $this->clearCrLfFromMessage($message);
 

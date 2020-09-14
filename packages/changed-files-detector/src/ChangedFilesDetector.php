@@ -49,12 +49,12 @@ final class ChangedFilesDetector
 
     public function addFileInfo(SmartFileInfo $smartFileInfo): void
     {
-        /** @var CacheItem $item */
-        $item = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
-        $item->set($this->fileHashComputer->compute($smartFileInfo->getRealPath()));
-        $item->tag(self::CHANGED_FILES_CACHE_TAG);
+        /** @var CacheItem $cacheItem */
+        $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
+        $cacheItem->set($this->fileHashComputer->compute($smartFileInfo->getRealPath()));
+        $cacheItem->tag(self::CHANGED_FILES_CACHE_TAG);
 
-        $this->tagAwareAdapter->save($item);
+        $this->tagAwareAdapter->save($cacheItem);
     }
 
     public function invalidateFileInfo(SmartFileInfo $smartFileInfo): void
