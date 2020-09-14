@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types = 1);
+
+use Psr\Container\ContainerInterface;
+use Symplify\EasyCodingStandard\Compiler\Console\EasyCodingStandardCompilerApplication;
+use Symplify\EasyCodingStandard\Compiler\HttpKernel\EasyCodingStandardCompilerKernel;
+
+// use EasyCodingStandard package autoload.php
+require_once __DIR__ . '/../vendor/autoload.php';
+
+final class ContainerFactory
+{
+    public function create(): ContainerInterface
+    {
+        $environment = 'prod' . random_int(1, 10000000);
+        $kernel = new EasyCodingStandardCompilerKernel($environment, true);
+        $kernel->boot();
+
+        return $kernel->getContainer();
+    }
+}
+
+$container = (new ContainerFactory())->create();
+
+/** @var EasyCodingStandardCompilerApplication $application */
+$application = $container->get(EasyCodingStandardCompilerApplication::class);
+exit($application->run());
