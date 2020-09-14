@@ -5,23 +5,17 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Formatter;
 
 use Nette\Utils\Strings;
-use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
-use ReflectionProperty;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Contract\RegexAwareFormatterInterface;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
+use Symplify\EasyCodingStandard\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 
-abstract class AbstractPHPFormatter
+abstract class AbstractPHPFormatter implements RegexAwareFormatterInterface
 {
-    /**
-     * Regex to be overridden in derived classes
-     * @var string
-     */
-    protected const PHP_CODE_SNIPPET = '##';
-
     /**
      * @var SmartFileSystem
      */
@@ -42,42 +36,51 @@ abstract class AbstractPHPFormatter
      */
     protected $configuration;
 
+    /**
+     * @var CurrentParentFileInfoProvider
+     */
+    private $currentParentFileInfoProvider;
+
     public function __construct(
         SmartFileSystem $smartFileSystem,
         FixerFileProcessor $fixerFileProcessor,
         SniffFileProcessor $sniffFileProcessor,
-        Configuration $configuration
+        Configuration $configuration,
+        CurrentParentFileInfoProvider $currentParentFileInfoProvider
     ) {
         $this->smartFileSystem = $smartFileSystem;
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->sniffFileProcessor = $sniffFileProcessor;
         $this->configuration = $configuration;
+        $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
 
-    public function format(SmartFileInfo $fileInfo, bool $noStrictTypesDeclaration): string
+    public function format(SmartFileInfo $fileInfo): string
     {
-        // enable fixing
-        $this->configuration->resolveFromArray(['isFixer' => true]);
+        $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
 
-        return (string) Strings::replace(
-            $fileInfo->getContents(),
-            static::PHP_CODE_SNIPPET,
-            function ($match) use ($noStrictTypesDeclaration): string {
-                $fixedContent = $this->fixContent($match['content'], $noStrictTypesDeclaration);
-                return rtrim($match['opening'], PHP_EOL) . PHP_EOL
-                    . $fixedContent
-                    . ltrim($match['closing'], PHP_EOL);
-            }
-        );
+        return (string) Strings::replace($fileInfo->getContents(), $this->provideRegex(), function ($match): string {
+            return $this->fixContentAndPreserveFormatting($match);
+        });
     }
 
-    private function fixContent(string $content, bool $noStrictTypesDeclaration): string
+    /**
+     * @param string[] $match
+     */
+    private function fixContentAndPreserveFormatting(array $match): string
+    {
+        return rtrim($match['opening'], PHP_EOL) . PHP_EOL
+            . $this->fixContent($match['content'])
+            . ltrim($match['closing'], PHP_EOL);
+    }
+
+    private function fixContent(string $content): string
     {
         $content = trim($content);
         $key = md5($content);
 
-        /** @var string $file */
-        $file = sprintf('php-code-%s.php', $key);
+        /** @var string $temporaryFile */
+        $temporaryFile = sys_get_temp_dir() . '/ecs_temp/' . sprintf('php-code-%s.php', $key);
 
         $hasPreviouslyOpeningPHPTag = true;
         if (! Strings::startsWith($content, '<?php')) {
@@ -87,26 +90,19 @@ abstract class AbstractPHPFormatter
 
         $fileContent = $content;
 
-        $this->smartFileSystem->dumpFile($file, $fileContent);
+        $this->smartFileSystem->dumpFile($temporaryFile, $fileContent);
+        $temporaryFileInfo = new SmartFileInfo($temporaryFile);
 
-        $fileInfo = new SmartFileInfo($file);
         try {
-            $this->skipStrictTypesDeclaration($noStrictTypesDeclaration);
-            $this->fixerFileProcessor->processFile($fileInfo);
-            $this->sniffFileProcessor->processFile($fileInfo);
+            $this->fixerFileProcessor->processFile($temporaryFileInfo);
+            $this->sniffFileProcessor->processFile($temporaryFileInfo);
 
-            $fileContent = $fileInfo->getContents();
+            $fileContent = $temporaryFileInfo->getContents();
         } catch (Throwable $throwable) {
-            // Skipped parsed error when processing php file
+            // Skipped parsed error when processing php temporaryFile
         } finally {
-            $this->smartFileSystem->remove($file);
-        }
-
-        // handle already has declare(strict_types=1);
-        // before apply fix
-        if ($noStrictTypesDeclaration && strpos($fileContent, 'declare(strict_types=1);') === 6) {
-            $fileContent = substr($fileContent, 32);
-            $fileContent = '<?php' . PHP_EOL . $fileContent;
+            // remove temporary temporaryFile
+            $this->smartFileSystem->remove($temporaryFile);
         }
 
         if (! $hasPreviouslyOpeningPHPTag) {
@@ -114,26 +110,5 @@ abstract class AbstractPHPFormatter
         }
 
         return rtrim($fileContent, PHP_EOL) . PHP_EOL;
-    }
-
-    private function skipStrictTypesDeclaration(bool $noStrictTypesDeclaration): void
-    {
-        if (! $noStrictTypesDeclaration) {
-            return;
-        }
-
-        $checkers = $this->fixerFileProcessor->getCheckers();
-        $temps = [];
-        foreach ($checkers as $checker) {
-            if ($checker instanceof DeclareStrictTypesFixer) {
-                continue;
-            }
-
-            $temps[] = $checker;
-        }
-
-        $reflectionProperty = new ReflectionProperty($this->fixerFileProcessor, 'fixers');
-        $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($this->fixerFileProcessor, $temps);
     }
 }

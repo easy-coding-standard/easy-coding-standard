@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\Markdown;
 
 use Iterator;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\Markdown\MarkdownPHPCodeFormatter;
@@ -32,6 +33,11 @@ final class MarkdownPHPCodeFormatterTest extends AbstractKernelTestCase
         /** @var EasyCodingStandardStyle $easyCodingStandardStyle */
         $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
         $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+
+        // enable fixing
+        /** @var Configuration $configuration */
+        $configuration = self::$container->get(Configuration::class);
+        $configuration->enableFixing();
     }
 
     /**
@@ -43,7 +49,7 @@ final class MarkdownPHPCodeFormatterTest extends AbstractKernelTestCase
             $fixtureFileInfo
         );
 
-        $changedContent = $this->markdownPHPCodeFormatter->format($inputAndExpectedFileInfos->getInputFileInfo(), true);
+        $changedContent = $this->markdownPHPCodeFormatter->format($inputAndExpectedFileInfos->getInputFileInfo());
         $contents = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
         $this->assertSame($contents, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
     }
