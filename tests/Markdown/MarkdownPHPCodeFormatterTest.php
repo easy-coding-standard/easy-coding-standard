@@ -22,16 +22,16 @@ final class MarkdownPHPCodeFormatterTest extends AbstractKernelTestCase
     /**
      * @var MarkdownPHPCodeFormatter
      */
-    private $markdownPHPFormatter;
+    private $markdownPHPCodeFormatter;
 
     protected function setUp(): void
     {
         self::bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/array_fixer.php']);
-        $this->markdownPHPFormatter = self::$container->get(MarkdownPHPCodeFormatter::class);
+        $this->markdownPHPCodeFormatter = self::$container->get(MarkdownPHPCodeFormatter::class);
 
-        /** @var EasyCodingStandardStyle $easyCodingStandardSymfonyStyle */
-        $easyCodingStandardSymfonyStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardSymfonyStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+        /** @var EasyCodingStandardStyle $easyCodingStandardStyle */
+        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
+        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
     }
 
     /**
@@ -43,9 +43,9 @@ final class MarkdownPHPCodeFormatterTest extends AbstractKernelTestCase
             $fixtureFileInfo
         );
 
-        $changedContent = $this->markdownPHPFormatter->format($inputAndExpectedFileInfos->getInputFileInfo(), true);
-        $expectedContent = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
-        $this->assertSame($expectedContent, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
+        $changedContent = $this->markdownPHPCodeFormatter->format($inputAndExpectedFileInfos->getInputFileInfo(), true);
+        $contents = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
+        $this->assertSame($contents, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
     }
 
     public function provideData(): Iterator

@@ -108,15 +108,15 @@ final class FixerFileProcessor implements FileProcessorInterface
             $this->processTokensByFixer($smartFileInfo, $tokens, $fixer);
         }
 
-        $oldContent = $smartFileInfo->getContents();
+        $contents = $smartFileInfo->getContents();
         if ($this->appliedFixers === []) {
-            return $oldContent;
+            return $contents;
         }
 
-        $diff = $this->differ->diff($oldContent, $tokens->generateCode());
+        $diff = $this->differ->diff($contents, $tokens->generateCode());
         // some fixer with feature overlap can null each other
         if ($diff === '') {
-            return $oldContent;
+            return $contents;
         }
 
         // file has changed
