@@ -42,8 +42,8 @@ Head over to the ["Easy Coding Standard Prefixed" repository](https://github.com
 
 declare(strict_types=1);
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
@@ -57,10 +57,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // B. full sets
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SETS, [
-        SetList::CLEAN_CODE,
-        SetList::PSR_12,
-    ]);
+    $parameters->set(Option::SETS, [SetList::CLEAN_CODE, SetList::PSR_12]);
 };
 ```
 
@@ -82,6 +79,24 @@ How to load own config?
 vendor/bin/ecs check src --config another-config.php
 ```
 
+### Codings Standards in Markdown
+
+How to correct PHP snippets in Markdown files?
+
+```bash
+vendor/bin/ecs check-markdown README.md
+vendor/bin/ecs check-markdown README.md docs/rules.md
+
+# to fix them, add --fix
+vendor/bin/ecs check-markdown README.md docs/rules.md --fix
+```
+
+Do you have already paths defined in `ecs.php` config? Drop them from CLI and let ECS use those:
+
+```bash
+vendor/bin/ecs check-markdown --fix
+```
+
 ### Extended Configuration
 
 Configuration can be extended with many options. Here is list of them with example values and little description what are they for:
@@ -101,21 +116,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
     // alternative to CLI arguments, easier to maintain and extend
-    $parameters->set(Option::PATHS, [
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
-    ]);
+    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
 
     // exlude paths with really nasty code
-    $parameters->set(Option::EXCLUDE_PATHS, [
-        __DIR__ . '/packages/*/src/Legacy',
-    ]);
+    $parameters->set(Option::EXCLUDE_PATHS, [__DIR__ . '/packages/*/src/Legacy']);
 
     // run single rule only on specific path
     $parameters->set(Option::ONLY, [
-        ArraySyntaxFixer::class => [
-            __DIR__ . '/src/NewCode'
-        ]
+        ArraySyntaxFixer::class => [__DIR__ . '/src/NewCode'],
     ]);
 
     $parameters->set(Option::SKIP, [
@@ -124,7 +132,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php',
 
             # or multiple files by path to match against "fnmatch()"
-            __DIR__ . '/packages/*/src/Command'
+            __DIR__ . '/packages/*/src/Command',
         ],
 
         // skip rule compeltely
@@ -154,7 +162,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // [default: PHP_EOL]; other options: "\n"
     $parameters->set(Option::LINE_ENDING, "\r\n");
 };
-
 ```
 
 ### FAQ

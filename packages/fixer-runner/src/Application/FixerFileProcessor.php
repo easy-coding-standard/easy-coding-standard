@@ -6,10 +6,11 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Tokenizer\Tokens;
+use Symplify\EasyCodingStandard\Application\AbstractFileProcessor;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException;
 use Symplify\EasyCodingStandard\FixerRunner\Parser\FileToTokensParser;
@@ -21,7 +22,7 @@ use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\FixerFileProcessorTest
  */
-final class FixerFileProcessor implements FileProcessorInterface
+final class FixerFileProcessor extends AbstractFileProcessor
 {
     /**
      * @var string[]
@@ -105,6 +106,10 @@ final class FixerFileProcessor implements FileProcessorInterface
 
         $this->appliedFixers = [];
         foreach ($this->fixers as $fixer) {
+            if ($this->shouldSkipForMarkdownHeredocCheck($fixer)) {
+                continue;
+            }
+
             $this->processTokensByFixer($smartFileInfo, $tokens, $fixer);
         }
 
@@ -120,7 +125,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         // file has changed
-        $this->errorAndDiffCollector->addDiffForFileInfo($smartFileInfo, $diff, $this->appliedFixers);
+        $targetFileInfo = $this->resolveTargetFileInfo($smartFileInfo);
+        $this->errorAndDiffCollector->addDiffForFileInfo($targetFileInfo, $diff, $this->appliedFixers);
 
         $tokenGeneratedCode = $tokens->generateCode();
         if ($this->configuration->isFixer()) {
@@ -190,5 +196,17 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
 
         return ! $fixer->isCandidate($tokens);
+    }
+
+    /**
+     * Is markdown/herenow doc checker → skip useless rules
+     */
+    private function shouldSkipForMarkdownHeredocCheck(FixerInterface $fixer): bool
+    {
+        if ($this->currentParentFileInfoProvider->provide() === null) {
+            return false;
+        }
+
+        return $fixer instanceof SingleBlankLineAtEofFixer;
     }
 }

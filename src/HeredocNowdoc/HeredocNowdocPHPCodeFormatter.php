@@ -15,5 +15,10 @@ final class HeredocNowdocPHPCodeFormatter extends AbstractPHPFormatter
      * @see https://regex101.com/r/SZr0X5/12
      * @var string
      */
-    protected const PHP_CODE_SNIPPET = '#(?<opening><<<(\'?([A-Z]+)\'?|\"?([A-Z]+)\"?)\s+)(?<content>[^\3|\4]+)(?<closing>(\s+)?\3|\4)#msU';
+    private const PHP_CODE_SNIPPET = '#(?<opening><<<(\'?([A-Z]+)\'?|\"?([A-Z]+)\"?)\s+)(?<content>[^\3|\4]+)(?<closing>(\s+)?\3|\4)#msU';
+
+    public function provideRegex(): string
+    {
+        return self::PHP_CODE_SNIPPET;
+    }
 }

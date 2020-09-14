@@ -9,7 +9,7 @@ class Option
     /**
      * @var string
      */
-    public const SOURCE = 'source';
+    public const SOURCES = 'source';
 
     /**
      * @var string
