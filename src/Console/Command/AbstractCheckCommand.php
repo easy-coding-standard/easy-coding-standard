@@ -12,6 +12,7 @@ use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
+use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
 abstract class AbstractCheckCommand extends Command
@@ -20,6 +21,11 @@ abstract class AbstractCheckCommand extends Command
      * @var Configuration
      */
     protected $configuration;
+
+    /**
+     * @var EasyCodingStandardStyle
+     */
+    protected $easyCodingStandardStyle;
 
     /**
      * @var EasyCodingStandardApplication
@@ -37,10 +43,12 @@ abstract class AbstractCheckCommand extends Command
     public function autowireAbstractCheckCommand(
         Configuration $configuration,
         EasyCodingStandardApplication $easyCodingStandardApplication,
+        EasyCodingStandardStyle $easyCodingStandardStyle,
         OutputFormatterCollector $outputFormatterCollector
     ): void {
         $this->configuration = $configuration;
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
+        $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->outputFormatterCollector = $outputFormatterCollector;
     }
 

@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Tests\HeredocNowdoc;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Tests\Markdown;
 
 use Iterator;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\HeredocNowdoc\HeredocNowdocPHPCodeFormatter;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
+use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
+use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
@@ -18,17 +19,17 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * For testing approach @see https://github.com/symplify/easy-testing
  */
-final class HeredocNowdocPHPCodeFormatterTest extends AbstractKernelTestCase
+final class MarkdownSnippetFormatterTest extends AbstractKernelTestCase
 {
     /**
-     * @var HeredocNowdocPHPCodeFormatter
+     * @var SnippetFormatter
      */
-    private $heredocNowdocPHPCodeFormatter;
+    private $snippetFormatter;
 
     protected function setUp(): void
     {
         self::bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/array_fixer.php']);
-        $this->heredocNowdocPHPCodeFormatter = self::$container->get(HeredocNowdocPHPCodeFormatter::class);
+        $this->snippetFormatter = self::$container->get(SnippetFormatter::class);
 
         /** @var EasyCodingStandardStyle $easyCodingStandardStyle */
         $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
@@ -49,15 +50,17 @@ final class HeredocNowdocPHPCodeFormatterTest extends AbstractKernelTestCase
             $fixtureFileInfo
         );
 
-        $changedContent = $this->heredocNowdocPHPCodeFormatter->format(
-            $inputAndExpectedFileInfos->getInputFileInfo()
+        $changedContent = $this->snippetFormatter->format(
+            $inputAndExpectedFileInfos->getInputFileInfo(),
+            SnippetPattern::MARKDOWN_PHP_SNIPPET_PATTERN
         );
+
         $contents = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
         $this->assertSame($contents, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
     }
 
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.php.inc');
+        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.md');
     }
 }

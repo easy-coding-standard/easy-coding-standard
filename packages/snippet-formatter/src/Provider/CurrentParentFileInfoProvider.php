@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Symplify\EasyCodingStandard\Provider;
+namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
 
