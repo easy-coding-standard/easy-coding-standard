@@ -63,13 +63,13 @@ final class CheckHeredocNowdocCommand extends Command
     public function __construct(
         SmartFileSystem $smartFileSystem,
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        HeredocNowdocPHPCodeFormatter $heredocnowdocPHPCodeFormatter,
+        HeredocNowdocPHPCodeFormatter $heredocNowdocPHPCodeFormatter,
         OutputFormatterCollector $outputFormatterCollector,
         Configuration $configuration
     ) {
         $this->smartFileSystem = $smartFileSystem;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
-        $this->heredocnowdocPHPCodeFormatter = $heredocnowdocPHPCodeFormatter;
+        $this->heredocnowdocPHPCodeFormatter = $heredocNowdocPHPCodeFormatter;
         $this->outputFormatterCollector = $outputFormatterCollector;
         $this->configuration = $configuration;
 
