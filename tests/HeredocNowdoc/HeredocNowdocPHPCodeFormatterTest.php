@@ -22,16 +22,16 @@ final class HeredocNowdocPHPCodeFormatterTest extends AbstractKernelTestCase
     /**
      * @var HeredocNowdocPHPCodeFormatter
      */
-    private $heredocnowdocPHPFormatter;
+    private $heredocNowdocPHPCodeFormatter;
 
     protected function setUp(): void
     {
         self::bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/array_fixer.php']);
-        $this->heredocnowdocPHPFormatter = self::$container->get(HeredocNowdocPHPCodeFormatter::class);
+        $this->heredocNowdocPHPCodeFormatter = self::$container->get(HeredocNowdocPHPCodeFormatter::class);
 
-        /** @var EasyCodingStandardStyle $easyCodingStandardSymfonyStyle */
-        $easyCodingStandardSymfonyStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardSymfonyStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+        /** @var EasyCodingStandardStyle $easyCodingStandardStyle */
+        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
+        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
     }
 
     /**
@@ -43,12 +43,12 @@ final class HeredocNowdocPHPCodeFormatterTest extends AbstractKernelTestCase
             $fixtureFileInfo
         );
 
-        $changedContent = $this->heredocnowdocPHPFormatter->format(
+        $changedContent = $this->heredocNowdocPHPCodeFormatter->format(
             $inputAndExpectedFileInfos->getInputFileInfo(),
             true
         );
-        $expectedContent = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
-        $this->assertSame($expectedContent, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
+        $contents = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
+        $this->assertSame($contents, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
     }
 
     public function provideData(): Iterator
