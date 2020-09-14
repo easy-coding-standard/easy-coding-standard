@@ -38,13 +38,13 @@ final class IndentationTest extends AbstractKernelTestCase
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer(self::$container);
 
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
-        $spacesConfig = new WhitespacesFixerConfig('    ', StaticEolConfiguration::getEolChar());
+        $whitespacesFixerConfig = new WhitespacesFixerConfig('    ', StaticEolConfiguration::getEolChar());
 
         $fixerWhitespaceConfig = $this->privatesAccessor->getPrivateProperty(
             $indentationTypeFixer,
             'whitespacesConfig'
         );
-        $this->assertEquals($spacesConfig, $fixerWhitespaceConfig);
+        $this->assertEquals($whitespacesFixerConfig, $fixerWhitespaceConfig);
     }
 
     public function testTabs(): void
@@ -58,13 +58,13 @@ final class IndentationTest extends AbstractKernelTestCase
         $indentationTypeFixer = $this->getIndentationTypeFixerFromContainer(self::$container);
 
         $this->assertInstanceOf(WhitespacesAwareFixerInterface::class, $indentationTypeFixer);
-        $tabsConfig = new WhitespacesFixerConfig('	', StaticEolConfiguration::getEolChar());
+        $whitespacesFixerConfig = new WhitespacesFixerConfig('	', StaticEolConfiguration::getEolChar());
 
         $fixerWhitespaceConfig = $this->privatesAccessor->getPrivateProperty(
             $indentationTypeFixer,
             'whitespacesConfig'
         );
-        $this->assertEquals($tabsConfig, $fixerWhitespaceConfig);
+        $this->assertEquals($whitespacesFixerConfig, $fixerWhitespaceConfig);
     }
 
     private function getIndentationTypeFixerFromContainer(ContainerInterface $container): ?FixerInterface
