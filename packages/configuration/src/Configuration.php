@@ -6,11 +6,17 @@ namespace Symplify\EasyCodingStandard\Configuration;
 
 use Jean85\PrettyVersions;
 use Symfony\Component\Console\Input\InputInterface;
+use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
+/**
+ * @deprecated
+ * This noun name looks like value object, while it is actually a service.
+ * Should be rename to ConfigurationManager or something like this.
+ */
 final class Configuration
 {
     /**
@@ -49,6 +55,11 @@ final class Configuration
     private $paths = [];
 
     /**
+     * @var string
+     */
+    private $outputFormat = ConsoleOutputFormatter::NAME;
+
+    /**
      * @param string[] $paths
      */
     public function __construct(array $paths)
@@ -62,15 +73,20 @@ final class Configuration
     public function resolveFromInput(InputInterface $input): void
     {
         /** @var string[] $sources */
-        $sources = $input->getArgument(Option::SOURCE);
+        $sources = (array) $input->getArgument(Option::SOURCES);
         if ($sources !== []) {
             $this->setSources($sources);
+        } else {
+            // if not paths are provided from CLI, use the config ones
+            $this->setSources($this->getPaths());
         }
 
         $this->isFixer = (bool) $input->getOption(Option::FIX);
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
+
+        $this->setOutputFormat($input);
     }
 
     /**
@@ -143,6 +159,20 @@ final class Configuration
         return $this->paths;
     }
 
+    public function getOutputFormat(): string
+    {
+        return $this->outputFormat;
+    }
+
+    /**
+     * @api
+     * For tests
+     */
+    public function enableFixing(): void
+    {
+        $this->isFixer = true;
+    }
+
     private function canShowProgressBar(InputInterface $input): bool
     {
         $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT) !== JsonOutputFormatter::NAME;
@@ -176,5 +206,17 @@ final class Configuration
         }
 
         return $sources;
+    }
+
+    private function setOutputFormat(InputInterface $input): void
+    {
+        $outputFormat = (string) $input->getOption(Option::OUTPUT_FORMAT);
+
+        // Backwards compatibility with older version
+        if ($outputFormat === 'table') {
+            $this->outputFormat = ConsoleOutputFormatter::NAME;
+        }
+
+        $this->outputFormat = $outputFormat;
     }
 }

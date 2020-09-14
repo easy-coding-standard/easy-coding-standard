@@ -8,9 +8,9 @@ use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
+use Symplify\EasyCodingStandard\Application\AbstractFileProcessor;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
@@ -20,7 +20,7 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
  */
-final class SniffFileProcessor implements FileProcessorInterface
+final class SniffFileProcessor extends AbstractFileProcessor
 {
     /**
      * @var Sniff[]
@@ -123,8 +123,11 @@ final class SniffFileProcessor implements FileProcessorInterface
         // add diff
         if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($smartFileInfo->getContents(), $this->fixer->getContents());
+
+            $targetFileInfo = $this->resolveTargetFileInfo($smartFileInfo);
+
             $this->errorAndDiffCollector->addDiffForFileInfo(
-                $smartFileInfo,
+                $targetFileInfo,
                 $diff,
                 $this->appliedCheckersCollector->getAppliedCheckersPerFileInfo($smartFileInfo)
             );
