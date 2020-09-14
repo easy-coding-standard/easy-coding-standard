@@ -31,17 +31,17 @@ final class EasyCodingStandardStyleFactory
 
     public function create(): EasyCodingStandardStyle
     {
-        $input = new ArgvInput();
-        $output = new ConsoleOutput();
+        $argvInput = new ArgvInput();
+        $consoleOutput = new ConsoleOutput();
 
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        $this->privatesCaller->callPrivateMethod(new Application(), 'configureIO', $input, $output);
+        $this->privatesCaller->callPrivateMethod(new Application(), 'configureIO', $argvInput, $consoleOutput);
 
         // --debug is called
-        if ($input->hasParameterOption('--debug')) {
-            $output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+        if ($argvInput->hasParameterOption('--debug')) {
+            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
         }
 
-        return new EasyCodingStandardStyle($input, $output, $this->terminal);
+        return new EasyCodingStandardStyle($argvInput, $consoleOutput, $this->terminal);
     }
 }

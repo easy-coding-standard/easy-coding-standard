@@ -132,8 +132,8 @@ abstract class AbstractPHPFormatter
             $temps[] = $checker;
         }
 
-        $r = new ReflectionProperty($this->fixerFileProcessor, 'fixers');
-        $r->setAccessible(true);
-        $r->setValue($this->fixerFileProcessor, $temps);
+        $reflectionProperty = new ReflectionProperty($this->fixerFileProcessor, 'fixers');
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($this->fixerFileProcessor, $temps);
     }
 }

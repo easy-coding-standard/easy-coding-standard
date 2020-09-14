@@ -112,8 +112,8 @@ final class CheckCommand extends Command
 
     private function ensureSomeCheckersAreRegistered(): void
     {
-        $totalCheckersLoaded = $this->easyCodingStandardApplication->getCheckerCount();
-        if ($totalCheckersLoaded !== 0) {
+        $checkerCount = $this->easyCodingStandardApplication->getCheckerCount();
+        if ($checkerCount !== 0) {
             return;
         }
 
