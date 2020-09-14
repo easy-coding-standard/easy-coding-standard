@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\HeredocNowdoc;
 
 use Iterator;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\HeredocNowdoc\HeredocNowdocPHPCodeFormatter;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
@@ -32,6 +33,11 @@ final class HeredocNowdocPHPCodeFormatterTest extends AbstractKernelTestCase
         /** @var EasyCodingStandardStyle $easyCodingStandardStyle */
         $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
         $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+
+        // enable fixing
+        /** @var Configuration $configuration */
+        $configuration = self::$container->get(Configuration::class);
+        $configuration->enableFixing();
     }
 
     /**
@@ -44,8 +50,7 @@ final class HeredocNowdocPHPCodeFormatterTest extends AbstractKernelTestCase
         );
 
         $changedContent = $this->heredocNowdocPHPCodeFormatter->format(
-            $inputAndExpectedFileInfos->getInputFileInfo(),
-            true
+            $inputAndExpectedFileInfos->getInputFileInfo()
         );
         $contents = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
         $this->assertSame($contents, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());

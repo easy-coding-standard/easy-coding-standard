@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\Error;
 
 use Nette\Utils\Arrays;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -42,20 +43,32 @@ final class ErrorAndDiffCollector
      */
     private $errorFactory;
 
+    /**
+     * @var CurrentParentFileInfoProvider
+     */
+    private $currentParentFileInfoProvider;
+
     public function __construct(
         ChangedFilesDetector $changedFilesDetector,
         ErrorSorter $errorSorter,
         FileDiffFactory $fileDiffFactory,
-        ErrorFactory $errorFactory
+        ErrorFactory $errorFactory,
+        CurrentParentFileInfoProvider $currentParentFileInfoProvider
     ) {
         $this->changedFilesDetector = $changedFilesDetector;
         $this->errorSorter = $errorSorter;
         $this->fileDiffFactory = $fileDiffFactory;
         $this->errorFactory = $errorFactory;
+        $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
 
     public function addErrorMessage(SmartFileInfo $fileInfo, int $line, string $message, string $sourceClass): void
     {
+        if ($this->currentParentFileInfoProvider->provide() !== null) {
+            // skip sniff errors
+            return;
+        }
+
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
         $relativeFilePathFromCwd = $fileInfo->getRelativeFilePathFromCwd();
