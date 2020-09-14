@@ -41,7 +41,8 @@
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\": "packages/changed-files-detector/src",
             "Symplify\\EasyCodingStandard\\Configuration\\": "packages/configuration/src",
             "Symplify\\EasyCodingStandard\\FixerRunner\\": "packages/fixer-runner/src",
-            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/sniff-runner/src"
+            "Symplify\\EasyCodingStandard\\SniffRunner\\": "packages/sniff-runner/src",
+            "Symplify\\EasyCodingStandard\\SnippetFormatter\\": "packages/snippet-formatter/src"
         }
     },
     "autoload-dev": {
@@ -49,7 +50,8 @@
             "Symplify\\EasyCodingStandard\\ChangedFilesDetector\\Tests\\": "packages/changed-files-detector/tests",
             "Symplify\\EasyCodingStandard\\FixerRunner\\Tests\\": "packages/fixer-runner/tests",
             "Symplify\\EasyCodingStandard\\SniffRunner\\Tests\\": "packages/sniff-runner/tests",
-            "Symplify\\EasyCodingStandard\\Tests\\": "tests"
+            "Symplify\\EasyCodingStandard\\Tests\\": "tests",
+            "Symplify\\EasyCodingStandard\\SnippetFormatter\\Tests\\": "packages/snippet-formatter/tests"
         }
     },
     "extra": {
