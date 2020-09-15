@@ -179,7 +179,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
                 'Found %d error%s that need%s to be fixed manually.',
                 $errorCount,
                 $errorCount === 1 ? '' : 's',
-                $errorCount === 1 ? '' : 's'
+                $errorCount === 1 ? 's' : ''
             );
             $this->easyCodingStandardStyle->error($errorMessage);
         }
