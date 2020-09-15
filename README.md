@@ -81,6 +81,8 @@ vendor/bin/ecs check src --config another-config.php
 
 ### Codings Standards in Markdown
 
+![ECS-Run](docs/check_markdown.gif)
+
 How to correct PHP snippets in Markdown files?
 
 ```bash
