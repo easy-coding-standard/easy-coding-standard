@@ -22,7 +22,7 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider
     /**
      * @var string
      */
-    private const UNDERSCORE_PATTERN = '#_#';
+    private const UNDERSCORE_REGEX = '#_#';
 
     /**
      * @var Set[]
@@ -73,6 +73,6 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider
     public function constantToDashes(string $string): string
     {
         $string = strtolower($string);
-        return Strings::replace($string, self::UNDERSCORE_PATTERN, '-');
+        return Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }
 }
