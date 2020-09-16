@@ -24,7 +24,7 @@ final class CheckMarkdownCommand extends AbstractSnippetFormatterCommand
         return $this->doExecuteSnippetFormatterWithFileNamesAndSnippetPattern(
             $input,
             '*.md',
-            SnippetPattern::MARKDOWN_PHP_SNIPPET_PATTERN
+            SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX
         );
     }
 }
