@@ -44,7 +44,7 @@ final class CheckerServiceParametersShifter
     /**
      * @var string
      */
-    private const STARTS_WITH_AT_PATTERN = '#^@#';
+    private const STARTS_WITH_AT_REGEX = '#^@#';
 
     /**
      * @var string[]
@@ -229,6 +229,6 @@ final class CheckerServiceParametersShifter
             return $value;
         }
 
-        return Strings::replace($value, self::STARTS_WITH_AT_PATTERN, '@@');
+        return Strings::replace($value, self::STARTS_WITH_AT_REGEX, '@@');
     }
 }
