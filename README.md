@@ -6,11 +6,11 @@
 
 ## Features
 
-- Use [PHP_CodeSniffer || PHP-CS-Fixer](https://www.tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
+- Use [PHP_CodeSniffer || PHP-CS-Fixer](https://tomasvotruba.com/blog/2017/05/03/combine-power-of-php-code-sniffer-and-php-cs-fixer-in-3-lines/) - anything you like
 - **2nd run under few seconds** with un-changed file cache
-- [Skipping files](#ignore-what-you-cant-fix) for specific checkers
-- [Prepared sets](#use-prepared-checker-sets) - PSR12, Symfony, Common, Array, Symplify and more...
-- Use [Prefixed version](https://github.com/symplify/easy-coding-standard-prefixed) to prevent conflicts on install
+- Skipping files for specific checkers
+- Prepared sets - PSR12, Symfony, Common, Array, Symplify and more...
+- [Prefixed version](https://github.com/symplify/easy-coding-standard-prefixed) in case of conflicts on install
 
 Are you already using another tool?
 
