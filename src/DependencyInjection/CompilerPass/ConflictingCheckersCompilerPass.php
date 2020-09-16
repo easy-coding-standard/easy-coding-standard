@@ -11,8 +11,6 @@ use PhpCsFixer\Fixer\Casing\ConstantCaseFixer;
 use PhpCsFixer\Fixer\Casing\LowercaseConstantsFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
-use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
-use PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff;
@@ -36,7 +34,6 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
         [DeclareStrictTypesSniff::class, DeclareEqualNormalizeFixer::class],
         [DeclareStrictTypesSniff::class, BlankLineAfterOpeningTagFixer::class],
         [FileHeaderSniff::class, NoBlankLinesAfterPhpdocFixer::class],
-        [UnaryOperatorSpacesFixer::class, NotOperatorWithSuccessorSpaceFixer::class],
     ];
 
     public function process(ContainerBuilder $containerBuilder): void
