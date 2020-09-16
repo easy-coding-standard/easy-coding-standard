@@ -33,11 +33,6 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
      */
     private $errorAndDiffCollector;
 
-    /**
-     * @var array
-     */
-    private static $customFileNames = [];
-
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         Configuration $configuration,
@@ -69,11 +64,6 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         return $this->configuration->isFixer() ? $this->printAfterFixerStatus() : $this->printNoFixerStatus();
     }
 
-    public function addCustomFileName(string $customFileName): void
-    {
-        self::$customFileNames = array_merge(self::$customFileNames, [$customFileName]);
-    }
-
     public function getName(): string
     {
         return self::NAME;
@@ -88,16 +78,15 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
             return;
         }
 
-        $this->easyCodingStandardStyle->newLine();
+        $this->easyCodingStandardStyle->newLine(1);
 
-        $i = 0;
+        $i = 1;
         foreach ($fileDiffPerFile as $file => $fileDiffs) {
             $this->easyCodingStandardStyle->newLine(2);
-            $i = $this->handleBoldNumberedMessageInFile($i, $file);
+            $this->handleBoldNumberedMessageInFile($i, $file);
+            ++$i;
 
             foreach ($fileDiffs as $fileDiff) {
-                $i = $this->handleBoldNumberedMessageInFileDiff($i);
-
                 $this->easyCodingStandardStyle->newLine();
                 $this->easyCodingStandardStyle->writeln($fileDiff->getDiffConsoleFormatted());
                 $this->easyCodingStandardStyle->newLine();
@@ -109,24 +98,10 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         }
     }
 
-    private function handleBoldNumberedMessageInFile($i, $file): int
+    private function handleBoldNumberedMessageInFile(int $i, string $file): void
     {
-        if (self::$customFileNames === []) {
-            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', ++$i, $file);
-            $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
-        }
-
-        return $i;
-    }
-
-    private function handleBoldNumberedMessageInFileDiff($i): int
-    {
-        if (isset(self::$customFileNames[$i])) {
-            $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', ++$i, self::$customFileNames[$i - 1]);
-            $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
-        }
-
-        return $i;
+        $boldNumberedMessage = sprintf('<options=bold>%d) %s</>', $i, $file);
+        $this->easyCodingStandardStyle->writeln($boldNumberedMessage);
     }
 
     private function printAfterFixerStatus(): int
