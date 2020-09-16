@@ -79,27 +79,7 @@ How to load own config?
 vendor/bin/ecs check src --config another-config.php
 ```
 
-### Codings Standards in Markdown
-
-![ECS-Run](docs/check_markdown.gif)
-
-How to correct PHP snippets in Markdown files?
-
-```bash
-vendor/bin/ecs check-markdown README.md
-vendor/bin/ecs check-markdown README.md docs/rules.md
-
-# to fix them, add --fix
-vendor/bin/ecs check-markdown README.md docs/rules.md --fix
-```
-
-Do you have already paths defined in `ecs.php` config? Drop them from CLI and let ECS use those:
-
-```bash
-vendor/bin/ecs check-markdown --fix
-```
-
-### Extended Configuration
+## Configuration
 
 Configuration can be extended with many options. Here is list of them with example values and little description what are they for:
 
@@ -166,16 +146,36 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 };
 ```
 
-### FAQ
+## Codings Standards in Markdown
 
-#### How can I see all loaded checkers?
+![ECS-Run](docs/check_markdown.gif)
+
+How to correct PHP snippets in Markdown files?
+
+```bash
+vendor/bin/ecs check-markdown README.md
+vendor/bin/ecs check-markdown README.md docs/rules.md
+
+# to fix them, add --fix
+vendor/bin/ecs check-markdown README.md docs/rules.md --fix
+```
+
+Do you have already paths defined in `ecs.php` config? Drop them from CLI and let ECS use those:
+
+```bash
+vendor/bin/ecs check-markdown --fix
+```
+
+## FAQ
+
+### How can I see all loaded checkers?
 
 ```bash
 vendor/bin/ecs show
 vendor/bin/ecs show --config ...
 ```
 
-#### How do I clear cache?
+### How do I clear cache?
 
 ```bash
 vendor/bin/ecs check src --clear-cache
@@ -185,7 +185,7 @@ vendor/bin/ecs check src --clear-cache
 
 ### PHPStorm
 
-EasyCodingStandard can be used as an External Tool
+ECS can be used as an External Tool
 
 ![PHPStorm Configuration](docs/phpstorm-config.png)
 
