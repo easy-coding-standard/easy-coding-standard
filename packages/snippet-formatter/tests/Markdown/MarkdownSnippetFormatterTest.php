@@ -52,7 +52,7 @@ final class MarkdownSnippetFormatterTest extends AbstractKernelTestCase
 
         $changedContent = $this->snippetFormatter->format(
             $inputAndExpectedFileInfos->getInputFileInfo(),
-            SnippetPattern::MARKDOWN_PHP_SNIPPET_PATTERN
+            SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX
         );
 
         $contents = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();

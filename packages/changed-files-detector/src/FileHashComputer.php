@@ -23,11 +23,11 @@ final class FileHashComputer
     /**
      * @var string
      */
-    private const YAML_SUFFIX_PATTERN = '#\.(yml|yaml)$#';
+    private const YAML_SUFFIX_REGEX = '#\.(yml|yaml)$#';
 
     public function compute(string $filePath): string
     {
-        if (! Strings::match($filePath, self::YAML_SUFFIX_PATTERN)) {
+        if (! Strings::match($filePath, self::YAML_SUFFIX_REGEX)) {
             $fileHash = md5_file($filePath);
             if (! $fileHash) {
                 throw new FileNotFoundException(sprintf('File "%s" was not found', $fileHash));
