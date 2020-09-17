@@ -6,6 +6,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Compiler\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
 
@@ -30,4 +31,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->factory([ref(SymfonyStyleFactory::class), 'create']);
 
     $services->set(SmartFileSystem::class);
+
+    $services->set(ParameterProvider::class);
 };
