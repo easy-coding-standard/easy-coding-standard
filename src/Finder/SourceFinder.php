@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
 use Symfony\Component\Finder\Finder;
+use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -23,13 +25,10 @@ final class SourceFinder
      */
     private $finderSanitizer;
 
-    /**
-     * @param string[] $fileExtensions
-     */
-    public function __construct(FinderSanitizer $finderSanitizer, array $fileExtensions)
+    public function __construct(FinderSanitizer $finderSanitizer, ParameterProvider $parameterProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
-        $this->fileExtensions = $fileExtensions;
+        $this->fileExtensions = $parameterProvider->provideArrayParameter(Option::FILE_EXTENSIONS);
     }
 
     /**
