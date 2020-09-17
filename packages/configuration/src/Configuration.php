@@ -10,6 +10,7 @@ use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
@@ -59,12 +60,9 @@ final class Configuration
      */
     private $outputFormat = ConsoleOutputFormatter::NAME;
 
-    /**
-     * @param string[] $paths
-     */
-    public function __construct(array $paths)
+    public function __construct(ParameterProvider $parameterProvider)
     {
-        $this->paths = $paths;
+        $this->paths = $parameterProvider->provideArrayParameter(Option::PATHS);
     }
 
     /**
