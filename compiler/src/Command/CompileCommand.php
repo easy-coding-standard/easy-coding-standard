@@ -10,7 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Compiler\Composer\ComposerJsonManipulator;
 use Symplify\EasyCodingStandard\Compiler\Process\SymfonyProcess;
+use Symplify\EasyCodingStandard\Compiler\ValueObject\Option;
 use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
@@ -49,16 +51,15 @@ final class CompileCommand extends Command
     private $smartFileSystem;
 
     public function __construct(
-        string $dataDir,
-        string $buildDir,
+        ParameterProvider $parameterProvider,
         SymfonyStyle $symfonyStyle,
         ComposerJsonManipulator $composerJsonManipulator,
         SmartFileSystem $smartFileSystem
     ) {
         parent::__construct();
 
-        $this->dataDir = $dataDir;
-        $this->buildDir = $buildDir;
+        $this->dataDir = $parameterProvider->provideParameter(Option::DATA_DIR);
+        $this->buildDir = $parameterProvider->provideParameter(Option::BUILD_DIR);
 
         $this->symfonyStyle = $symfonyStyle;
         $this->composerJsonManipulator = $composerJsonManipulator;

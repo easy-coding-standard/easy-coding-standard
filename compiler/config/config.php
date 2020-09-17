@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Compiler\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
@@ -11,9 +12,8 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set('dataDir', '%kernel.project_dir%/build');
-
-    $parameters->set('buildDir', '%kernel.project_dir%/..');
+    $parameters->set(Option::DATA_DIR, '%kernel.project_dir%/build');
+    $parameters->set(Option::BUILD_DIR, '%kernel.project_dir%/..');
 
     $services = $containerConfigurator->services();
 
@@ -23,10 +23,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autoconfigure();
 
     $services->load('Symplify\EasyCodingStandard\Compiler\\', __DIR__ . '/../src')
-        ->exclude([__DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/Process']);
+        ->exclude([__DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/Process', __DIR__ . '/../src/ValueObject']);
 
     $services->set(SymfonyStyleFactory::class);
-
     $services->set(SymfonyStyle::class)
         ->factory([ref(SymfonyStyleFactory::class), 'create']);
 
