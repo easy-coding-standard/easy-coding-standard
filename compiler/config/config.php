@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symplify\EasyCodingStandard\Compiler\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\PackageBuilder\Process\ProcessRunner;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
 
@@ -24,7 +25,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autoconfigure();
 
     $services->load('Symplify\EasyCodingStandard\Compiler\\', __DIR__ . '/../src')
-        ->exclude([__DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/Process', __DIR__ . '/../src/ValueObject']);
+        ->exclude([__DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
 
     $services->set(SymfonyStyleFactory::class);
     $services->set(SymfonyStyle::class)
@@ -33,4 +34,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SmartFileSystem::class);
 
     $services->set(ParameterProvider::class);
+
+    $services->set(ProcessRunner::class);
 };
