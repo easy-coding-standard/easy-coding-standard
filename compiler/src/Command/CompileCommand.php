@@ -9,10 +9,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Compiler\Composer\ComposerJsonManipulator;
-use Symplify\EasyCodingStandard\Compiler\Process\SymfonyProcess;
 use Symplify\EasyCodingStandard\Compiler\ValueObject\Option;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\PackageBuilder\Process\ProcessRunner;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
@@ -50,11 +50,17 @@ final class CompileCommand extends Command
      */
     private $smartFileSystem;
 
+    /**
+     * @var ProcessRunner
+     */
+    private $processRunner;
+
     public function __construct(
         ParameterProvider $parameterProvider,
         SymfonyStyle $symfonyStyle,
         ComposerJsonManipulator $composerJsonManipulator,
-        SmartFileSystem $smartFileSystem
+        SmartFileSystem $smartFileSystem,
+        ProcessRunner $processRunner
     ) {
         parent::__construct();
 
@@ -64,6 +70,7 @@ final class CompileCommand extends Command
         $this->symfonyStyle = $symfonyStyle;
         $this->composerJsonManipulator = $composerJsonManipulator;
         $this->smartFileSystem = $smartFileSystem;
+        $this->processRunner = $processRunner;
     }
 
     protected function configure(): void
@@ -85,7 +92,7 @@ final class CompileCommand extends Command
 
         $this->symfonyStyle->title('2. Running "composer update" for new config');
         // @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/52
-        new SymfonyProcess([
+        $this->processRunner->createAndRun([
             'composer',
             'update',
             '--no-dev',
@@ -97,7 +104,11 @@ final class CompileCommand extends Command
 
         $this->symfonyStyle->title('3. Packing and prefixing ecs.phar with Box and PHP Scoper');
         // parallel prevention is just for single less-buggy process
-        new SymfonyProcess(['php', 'box.phar', 'compile', '--no-parallel', '--ansi'], $this->dataDir, $output);
+        $this->processRunner->createAndRun(
+            ['php', 'box.phar', 'compile', '--no-parallel', '--ansi'],
+            $this->dataDir,
+            $output
+        );
 
         $this->symfonyStyle->title('4. Restoring original "composer.json" content');
         $this->composerJsonManipulator->restore();
