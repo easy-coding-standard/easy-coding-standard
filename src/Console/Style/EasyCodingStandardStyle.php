@@ -9,6 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
+use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 
 final class EasyCodingStandardStyle extends SymfonyStyle
 {
@@ -55,6 +57,15 @@ final class EasyCodingStandardStyle extends SymfonyStyle
                 $this->newLine();
             }
         }
+    }
+
+    public function enableDebugProgressBar(): void
+    {
+        $privatesAccessor = new PrivatesAccessor();
+        $progressBar = $privatesAccessor->getPrivateProperty($this, 'progressBar');
+
+        $privatesCaller = new PrivatesCaller();
+        $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', 'debug');
     }
 
     private function separator(): void
