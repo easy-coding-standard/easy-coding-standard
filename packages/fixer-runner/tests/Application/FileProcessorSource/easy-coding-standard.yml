@@ -1,0 +1,5 @@
+services:
+    PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer: ~ # priority 0 - lower last
+    PHP_CodeSniffer\Standards\Squiz\Sniffs\Arrays\ArrayDeclarationSniff: ~
+    PhpCsFixer\Fixer\Basic\EncodingFixer: ~ # priority 100 - higher first
+    PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer: ~ # priority 98
