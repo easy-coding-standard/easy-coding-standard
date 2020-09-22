@@ -1,0 +1,2 @@
+services:
+    PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff: ~
