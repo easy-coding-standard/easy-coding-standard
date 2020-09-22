@@ -1,0 +1,3 @@
+imports:
+    - { resource: php-cs-fixer.php }
+
