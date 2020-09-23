@@ -6,8 +6,6 @@ namespace Symplify\EasyCodingStandard\Tests\Console\Output;
 
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
