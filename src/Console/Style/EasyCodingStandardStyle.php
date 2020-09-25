@@ -33,29 +33,25 @@ final class EasyCodingStandardStyle extends SymfonyStyle
     }
 
     /**
-     * @param CodingStandardError[][] $errors
+     * @param CodingStandardError[] $codingStandardErrors
      */
-    public function printErrors(array $errors): void
+    public function printErrors(array $codingStandardErrors): void
     {
-        foreach ($errors as $fileErrors) {
-            /** @var CodingStandardError $fileError */
-            foreach ($fileErrors as $fileError) {
-                $this->separator();
+        /** @var CodingStandardError $codingStandardError */
+        foreach ($codingStandardErrors as $codingStandardError) {
+            $this->separator();
 
-                $fileLineLink = $fileError->getFileInfo()->getRelativeFilePathFromDirectory(
-                    getcwd()
-                ) . ':' . $fileError->getLine();
-                $this->writeln(' ' . $fileLineLink);
+            $fileLineLink = $codingStandardError->getRelativeFilePathFromCwd() . ':' . $codingStandardError->getLine();
+            $this->writeln(' ' . $fileLineLink);
 
-                $this->separator();
+            $this->separator();
 
-                $message = $this->createMessageFromFileError($fileError);
-                $this->writeln(' ' . $message);
+            $message = $this->createMessageFromFileError($codingStandardError);
+            $this->writeln(' ' . $message);
 
-                $this->separator();
+            $this->separator();
 
-                $this->newLine();
-            }
+            $this->newLine();
         }
     }
 
@@ -80,7 +76,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
             '%s%s Reported by: "%s"',
             $codingStandardError->getMessage(),
             PHP_EOL . PHP_EOL,
-            $codingStandardError->getSourceClass()
+            $codingStandardError->getCheckerClass()
         );
         $message = $this->clearCrLfFromMessage($message);
 

@@ -25,7 +25,7 @@ use Throwable;
 final class FixerFileProcessor extends AbstractFileProcessor
 {
     /**
-     * @var string[]
+     * @var class-string[]
      */
     private $appliedFixers = [];
 
