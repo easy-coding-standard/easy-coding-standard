@@ -43,14 +43,13 @@ final class FixerFileProcessorTest extends AbstractKernelTestCase
     {
         $this->runFileProcessor();
 
-        $this->assertSame(0, $this->errorAndDiffCollector->getErrorCount());
-        $this->assertSame(1, $this->errorAndDiffCollector->getFileDiffsCount());
+        $this->assertCount(0, $this->errorAndDiffCollector->getErrors());
+        $this->assertCount(1, $this->errorAndDiffCollector->getFileDiffs());
     }
 
     private function runFileProcessor(): void
     {
         $fileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
-
         $this->fixerFileProcessor->processFile($fileInfo);
     }
 }

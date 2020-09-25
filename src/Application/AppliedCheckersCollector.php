@@ -10,7 +10,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class AppliedCheckersCollector
 {
     /**
-     * @var string[][]
+     * @var array<string, class-string[]>
      */
     private $appliedCheckersByFile = [];
 
@@ -20,7 +20,7 @@ final class AppliedCheckersCollector
     }
 
     /**
-     * @return string[]
+     * @return class-string[]
      */
     public function getAppliedCheckersPerFileInfo(SmartFileInfo $smartFileInfo): array
     {

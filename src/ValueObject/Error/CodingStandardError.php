@@ -21,18 +21,18 @@ final class CodingStandardError
     /**
      * @var string
      */
-    private $sourceClass;
+    private $checkerClass;
 
     /**
      * @var SmartFileInfo
      */
     private $fileInfo;
 
-    public function __construct(int $line, string $message, string $sourceClass, SmartFileInfo $fileInfo)
+    public function __construct(int $line, string $message, string $checkerClass, SmartFileInfo $fileInfo)
     {
         $this->line = $line;
         $this->message = $message;
-        $this->sourceClass = $sourceClass;
+        $this->checkerClass = $checkerClass;
         $this->fileInfo = $fileInfo;
     }
 
@@ -46,13 +46,18 @@ final class CodingStandardError
         return $this->message;
     }
 
-    public function getSourceClass(): string
+    public function getCheckerClass(): string
     {
-        return $this->sourceClass;
+        return $this->checkerClass;
     }
 
     public function getFileInfo(): SmartFileInfo
     {
         return $this->fileInfo;
+    }
+
+    public function getRelativeFilePathFromCwd(): string
+    {
+        return $this->fileInfo->getRelativeFilePathFromCwd();
     }
 }
