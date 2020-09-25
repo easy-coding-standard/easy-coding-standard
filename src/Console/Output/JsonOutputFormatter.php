@@ -8,9 +8,7 @@ use Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
-use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
-use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
+use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 use Symplify\PackageBuilder\Console\ShellCode;
 
 /**
@@ -24,11 +22,6 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     public const NAME = 'json';
 
     /**
-     * @var ErrorAndDiffCollector
-     */
-    private $errorAndDiffCollector;
-
-    /**
      * @var Configuration
      */
     private $configuration;
@@ -38,64 +31,67 @@ final class JsonOutputFormatter implements OutputFormatterInterface
      */
     private $easyCodingStandardStyle;
 
-    public function __construct(
-        ErrorAndDiffCollector $errorAndDiffCollector,
-        Configuration $configuration,
-        EasyCodingStandardStyle $easyCodingStandardStyle
-    ) {
-        $this->errorAndDiffCollector = $errorAndDiffCollector;
+    public function __construct(Configuration $configuration, EasyCodingStandardStyle $easyCodingStandardStyle)
+    {
         $this->configuration = $configuration;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
-    public function report(int $processedFilesCount): int
+    public function report(ErrorAndDiffResult $errorAndDiffResult, int $processedFilesCount): int
     {
-        $errorsArray = [
-            'meta' => [
-                'version' => $this->configuration->getPrettyVersion(),
-            ],
-            'totals' => [
-                'errors' => $this->errorAndDiffCollector->getErrorCount(),
-                'diffs' => $this->errorAndDiffCollector->getFileDiffsCount(),
-            ],
-            'files' => [],
-        ];
+        $json = $this->createJsonContent($errorAndDiffResult);
+        $this->easyCodingStandardStyle->writeln($json);
+
+        $errorCount = $errorAndDiffResult->getErrorCount();
+        return $errorCount === 0 ? ShellCode::SUCCESS : ShellCode::ERROR;
+    }
+
+    public function getName(): string
+    {
+        return self::NAME;
+    }
+
+    public function createJsonContent(ErrorAndDiffResult $errorAndDiffResult): string
+    {
+        $errorsArray = $this->createBaseErrorsArray($errorAndDiffResult);
 
         $firstResolvedConfigFileInfo = $this->configuration->getFirstResolvedConfigFileInfo();
         if ($firstResolvedConfigFileInfo !== null) {
             $errorsArray['meta']['config'] = $firstResolvedConfigFileInfo->getRealPath();
         }
 
-        /** @var CodingStandardError[] $errors */
-        foreach ($this->errorAndDiffCollector->getErrors() as $file => $errors) {
-            foreach ($errors as $error) {
-                $errorsArray['files'][$file]['errors'][] = [
-                    'line' => $error->getLine(),
-                    'message' => $error->getMessage(),
-                    'sourceClass' => $error->getSourceClass(),
-                ];
-            }
+        foreach ($errorAndDiffResult->getErrors() as $error) {
+            $errorsArray['files'][$error->getRelativeFilePathFromCwd()]['errors'][] = [
+                'line' => $error->getLine(),
+                'message' => $error->getMessage(),
+                'source_class' => $error->getCheckerClass(),
+            ];
         }
 
-        /** @var FileDiff[] $diffs */
-        foreach ($this->errorAndDiffCollector->getFileDiffs() as $file => $diffs) {
-            foreach ($diffs as $diff) {
-                $errorsArray['files'][$file]['diffs'][] = [
-                    'diff' => $diff->getDiff(),
-                    'appliedCheckers' => $diff->getAppliedCheckers(),
-                ];
-            }
+        foreach ($errorAndDiffResult->getFileDiffs() as $fileDiff) {
+            $errorsArray['files'][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = [
+                'diff' => $fileDiff->getDiff(),
+                'applied_checkers' => $fileDiff->getAppliedCheckers(),
+            ];
         }
 
-        $json = Json::encode($errorsArray, Json::PRETTY);
-
-        $this->easyCodingStandardStyle->writeln($json);
-
-        return $errorsArray['totals']['errors'] === 0 ? ShellCode::SUCCESS : ShellCode::ERROR;
+        return Json::encode($errorsArray, Json::PRETTY);
     }
 
-    public function getName(): string
+    /**
+     * @return mixed[]
+     */
+    private function createBaseErrorsArray(ErrorAndDiffResult $errorAndDiffResult): array
     {
-        return self::NAME;
+        return [
+            'meta' => [
+                'version' => $this->configuration->getPrettyVersion(),
+            ],
+            'totals' => [
+                'errors' => $errorAndDiffResult->getErrorCount(),
+                'diffs' => $errorAndDiffResult->getFileDiffsCount(),
+            ],
+            'files' => [],
+        ];
     }
 }
