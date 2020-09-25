@@ -1,0 +1,34 @@
+{
+    "meta": {
+        "version": "%s"
+    },
+    "totals": {
+        "errors": 1,
+        "diffs": 2
+    },
+    "files": {
+        "%s/Console/Output/Source/RandomFile.php": {
+            "errors": [
+                {
+                    "line": 100,
+                    "message": "Error message",
+                    "source_class": "PhpCsFixer\\Fixer\\ArrayNotation\\ArraySyntaxFixer"
+                }
+            ],
+            "diffs": [
+                {
+                    "diff": "some diff",
+                    "applied_checkers": [
+                        "Symplify\\CodingStandard\\Fixer\\LineLength\\LineLengthFixer"
+                    ]
+                },
+                {
+                    "diff": "some other diff",
+                    "applied_checkers": [
+                        "Symplify\\CodingStandard\\Fixer\\LineLength\\LineLengthFixer"
+                    ]
+                }
+            ]
+        }
+    }
+}
