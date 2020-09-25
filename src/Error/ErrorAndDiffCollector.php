@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use Nette\Utils\Arrays;
+use Nette\Utils\Strings;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
+use Symplify\EasyCodingStandard\Compiler\Exception\ShouldNotHappenException;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
@@ -14,12 +17,12 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ErrorAndDiffCollector
 {
     /**
-     * @var CodingStandardError[][]
+     * @var CodingStandardError[]
      */
-    private $errors = [];
+    private $codingStandardErrors = [];
 
     /**
-     * @var FileDiff[][]
+     * @var FileDiff[]
      */
     private $fileDiffs = [];
 
@@ -27,11 +30,6 @@ final class ErrorAndDiffCollector
      * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
-
-    /**
-     * @var ErrorSorter
-     */
-    private $errorSorter;
 
     /**
      * @var FileDiffFactory
@@ -50,18 +48,19 @@ final class ErrorAndDiffCollector
 
     public function __construct(
         ChangedFilesDetector $changedFilesDetector,
-        ErrorSorter $errorSorter,
         FileDiffFactory $fileDiffFactory,
         ErrorFactory $errorFactory,
         CurrentParentFileInfoProvider $currentParentFileInfoProvider
     ) {
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->errorSorter = $errorSorter;
         $this->fileDiffFactory = $fileDiffFactory;
         $this->errorFactory = $errorFactory;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
 
+    /**
+     * @param class-string $sourceClass
+     */
     public function addErrorMessage(SmartFileInfo $fileInfo, int $line, string $message, string $sourceClass): void
     {
         if ($this->currentParentFileInfoProvider->provide() !== null) {
@@ -69,48 +68,41 @@ final class ErrorAndDiffCollector
             return;
         }
 
+        $this->ensureIsFixerOrChecker($sourceClass);
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
 
-        $relativeFilePathFromCwd = $fileInfo->getRelativeFilePathFromCwd();
-
         $codingStandardError = $this->errorFactory->create($line, $message, $sourceClass, $fileInfo);
-
-        $this->errors[$relativeFilePathFromCwd][] = $codingStandardError;
+        $this->codingStandardErrors[] = $codingStandardError;
     }
 
     /**
-     * @return CodingStandardError[][]
+     * @return CodingStandardError[]
      */
     public function getErrors(): array
     {
-        return $this->errorSorter->sortByFileAndLine($this->errors);
-    }
-
-    public function getErrorCount(): int
-    {
-        return count(Arrays::flatten($this->errors));
+        return $this->codingStandardErrors;
     }
 
     /**
-     * @param string[] $appliedCheckers
+     * @param class-string[] $appliedCheckers
      */
     public function addDiffForFileInfo(SmartFileInfo $smartFileInfo, string $diff, array $appliedCheckers): void
     {
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
 
-        $this->fileDiffs[$smartFileInfo->getRelativeFilePath()][] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
+        foreach ($appliedCheckers as $appliedChecker) {
+            $this->ensureIsFixerOrChecker($appliedChecker);
+        }
+
+        $this->fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
+            $smartFileInfo,
             $diff,
             $appliedCheckers
         );
     }
 
-    public function getFileDiffsCount(): int
-    {
-        return count(Arrays::flatten($this->getFileDiffs()));
-    }
-
     /**
-     * @return FileDiff[][]
+     * @return FileDiff[]
      */
     public function getFileDiffs(): array
     {
@@ -122,7 +114,26 @@ final class ErrorAndDiffCollector
      */
     public function resetCounters(): void
     {
-        $this->errors = [];
+        $this->codingStandardErrors = [];
         $this->fileDiffs = [];
+    }
+
+    private function ensureIsFixerOrChecker(string $sourceClass): void
+    {
+        // remove dot suffix of "."
+        if (Strings::contains($sourceClass, '.')) {
+            $sourceClass = (string) Strings::before($sourceClass, '.', 1);
+        }
+
+        if (is_a($sourceClass, FixerInterface::class, true)) {
+            return;
+        }
+
+        if (is_a($sourceClass, Sniff::class, true)) {
+            return;
+        }
+
+        $message = sprintf('Source class "%s" must be "%s" or "%s"', $sourceClass, FixerInterface::class, Sniff::class);
+        throw new ShouldNotHappenException($message);
     }
 }
