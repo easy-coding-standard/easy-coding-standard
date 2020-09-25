@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\ValueObject;
 
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
+use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -39,11 +41,19 @@ final class FileTest extends AbstractKernelTestCase
 
     public function testErrorDataCollector(): void
     {
-        $this->assertSame(0, $this->errorAndDiffCollector->getErrorCount());
+        $this->file->addError('Some Error', 0, ArraySyntaxFixer::class);
 
-        $this->file->addError('Some Error', 0, 'code');
-        $this->assertSame(1, $this->errorAndDiffCollector->getErrorCount());
-        $this->assertSame(0, $this->errorAndDiffCollector->getFileDiffsCount());
+        $this->assertCount(0, $this->errorAndDiffCollector->getFileDiffs());
+
+        $errors = $this->errorAndDiffCollector->getErrors();
+        $this->assertCount(1, $errors);
+
+        $onlyError = $errors[0];
+        $this->assertInstanceOf(CodingStandardError::class, $onlyError);
+
+        $this->assertSame('Some Error', $onlyError->getMessage());
+        $this->assertSame(1, $onlyError->getLine());
+        $this->assertSame(ArraySyntaxFixer::class, $onlyError->getCheckerClass());
     }
 
     public function testNotImplementedGetErrorCount(): void

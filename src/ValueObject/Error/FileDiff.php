@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
+use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class FileDiff
 {
     /**
@@ -22,13 +24,23 @@ final class FileDiff
     private $consoleFormattedDiff;
 
     /**
+     * @var SmartFileInfo
+     */
+    private $smartFileInfo;
+
+    /**
      * @param string[] $appliedCheckers
      */
-    public function __construct(string $diff, string $consoleFormattedDiff, array $appliedCheckers)
-    {
+    public function __construct(
+        SmartFileInfo $smartFileInfo,
+        string $diff,
+        string $consoleFormattedDiff,
+        array $appliedCheckers
+    ) {
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
         $this->consoleFormattedDiff = $consoleFormattedDiff;
+        $this->smartFileInfo = $smartFileInfo;
     }
 
     public function getDiff(): string
@@ -50,5 +62,10 @@ final class FileDiff
         sort($this->appliedCheckers);
 
         return $this->appliedCheckers;
+    }
+
+    public function getRelativeFilePathFromCwd(): string
+    {
+        return $this->smartFileInfo->getRelativeFilePathFromCwd();
     }
 }

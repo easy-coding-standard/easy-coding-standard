@@ -13,6 +13,8 @@ use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedExceptio
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
 abstract class AbstractCheckCommand extends Command
@@ -38,18 +40,32 @@ abstract class AbstractCheckCommand extends Command
     private $outputFormatterCollector;
 
     /**
+     * @var ErrorAndDiffCollector
+     */
+    private $errorAndDiffCollector;
+
+    /**
+     * @var ErrorAndDiffResultFactory
+     */
+    private $errorAndDiffResultFactory;
+
+    /**
      * @required
      */
     public function autowireAbstractCheckCommand(
         Configuration $configuration,
         EasyCodingStandardApplication $easyCodingStandardApplication,
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        OutputFormatterCollector $outputFormatterCollector
+        OutputFormatterCollector $outputFormatterCollector,
+        ErrorAndDiffCollector $errorAndDiffCollector,
+        ErrorAndDiffResultFactory $errorAndDiffResultFactory
     ): void {
         $this->configuration = $configuration;
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->outputFormatterCollector = $outputFormatterCollector;
+        $this->errorAndDiffCollector = $errorAndDiffCollector;
+        $this->errorAndDiffResultFactory = $errorAndDiffResultFactory;
     }
 
     protected function configure(): void
@@ -93,7 +109,8 @@ abstract class AbstractCheckCommand extends Command
         $outputFormat = $this->configuration->getOutputFormat();
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
 
-        return $outputFormatter->report($processedFileCount);
+        $errorAndDiffResult = $this->errorAndDiffResultFactory->create($this->errorAndDiffCollector);
+        return $outputFormatter->report($errorAndDiffResult, $processedFileCount);
     }
 
     protected function ensureSomeCheckersAreRegistered(): void
