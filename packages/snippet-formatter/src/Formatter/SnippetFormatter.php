@@ -61,6 +61,11 @@ final class SnippetFormatter
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
 
         return (string) Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match): string {
+            if (Strings::contains($match['content'], '-----')) {
+                // do nothing
+                return $match['opening'] . $match['content'] . $match['closing'];
+            }
+
             return $this->fixContentAndPreserveFormatting($match);
         });
     }
