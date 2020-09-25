@@ -7,10 +7,10 @@ namespace Symplify\EasyCodingStandard\SnippetFormatter\ValueObject;
 final class SnippetPattern
 {
     /**
-     * @see https://regex101.com/r/4YUIu1/4
+     * @see https://regex101.com/r/4YUIu1/9
      * @var string
      */
-    public const MARKDOWN_PHP_SNIPPET_REGEX = '#(?<opening>\`\`\`php\s+)(?<content>[^\`\`\`|^\-\-\-\-\-]+\n)(?<closing>(\s+)?\`\`\`)#ms';
+    public const MARKDOWN_PHP_SNIPPET_REGEX = '#(?<opening>```php\s+)(?<content>[^```]+\n)(?<closing>(\s+)?```)#ms';
 
     /**
      * @see https://regex101.com/r/SZr0X5/12
