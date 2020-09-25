@@ -8,6 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
@@ -25,6 +26,11 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
      */
     private $sniffFileProcessor;
 
+    /**
+     * @var ErrorAndDiffResultFactory
+     */
+    private $errorAndDiffResultFactory;
+
     protected function setUp(): void
     {
         $this->bootKernelWithConfigs(
@@ -33,6 +39,7 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
         );
 
         $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
+        $this->errorAndDiffResultFactory = self::$container->get(ErrorAndDiffResultFactory::class);
         $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
 
         // silent output
@@ -48,7 +55,9 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
         $smartFileInfo = new SmartFileInfo(__DIR__ . '/ErrorCollectorSource/NotPsr2Class.php.inc');
         $this->sniffFileProcessor->processFile($smartFileInfo);
 
-        $this->assertSame(3, $this->errorAndDiffCollector->getErrorCount());
-        $this->assertSame(0, $this->errorAndDiffCollector->getFileDiffsCount());
+        $errorAndDiffResult = $this->errorAndDiffResultFactory->create($this->errorAndDiffCollector);
+
+        $this->assertSame(3, $errorAndDiffResult->getErrorCount());
+        $this->assertSame(0, $errorAndDiffResult->getFileDiffsCount());
     }
 }

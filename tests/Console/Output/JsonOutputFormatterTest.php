@@ -4,79 +4,52 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Console\Output;
 
-use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Terminal;
-use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-/**
- * @covers \Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter
- */
 final class JsonOutputFormatterTest extends AbstractKernelTestCase
 {
     /**
-     * @var EasyCodingStandardConsoleApplication
+     * @var JsonOutputFormatter
      */
-    private $easyCodingStandardConsoleApplication;
+    private $jsonOutputFormatter;
 
     /**
-     * @var BufferedOutput
+     * @var ErrorAndDiffCollector
      */
-    private $bufferedOutput;
+    private $errorAndDiffCollector;
+
+    /**
+     * @var ErrorAndDiffResultFactory
+     */
+    private $errorAndDiffResultFactory;
 
     protected function setUp(): void
     {
-        $config = __DIR__ . '/config/config.php';
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [$config]);
+        $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $easyCodingStandardStyle = $this->createEasyCodingStandardStyleWithBufferOutput();
-        self::$container->set(EasyCodingStandardStyle::class, $easyCodingStandardStyle);
-
-        // simulate config autowiring
-        $configuration = self::$container->get(Configuration::class);
-        $configFileInfo = new SmartFileInfo($config);
-        $configuration->setFirstResolvedConfigFileInfo($configFileInfo);
-
-        $this->easyCodingStandardConsoleApplication = self::$container->get(
-            EasyCodingStandardConsoleApplication::class
-        );
-        $this->easyCodingStandardConsoleApplication->setAutoExit(false);
+        $this->jsonOutputFormatter = self::$container->get(JsonOutputFormatter::class);
+        $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
+        $this->errorAndDiffResultFactory = self::$container->get(ErrorAndDiffResultFactory::class);
     }
 
-    public function testCanPrintReport(): void
+    public function test(): void
     {
-        $escapedPath = addslashes(__DIR__);
-        $stringInput = [
-            'check',
-            $escapedPath . '/wrong/wrong.php.inc',
-            '--config',
-            $escapedPath . '/config/config.php',
-            '--' . Option::OUTPUT_FORMAT,
-            JsonOutputFormatter::NAME,
-        ];
+        $randomFileInfo = new SmartFileInfo(__DIR__ . '/Source/RandomFile.php');
+        $this->errorAndDiffCollector->addErrorMessage($randomFileInfo, 100, 'Error message', ArraySyntaxFixer::class);
 
-        $input = new StringInput(implode(' ', $stringInput));
-        $exitCode = $this->easyCodingStandardConsoleApplication->run($input);
+        $this->errorAndDiffCollector->addDiffForFileInfo($randomFileInfo, 'some diff', [LineLengthFixer::class]);
+        $this->errorAndDiffCollector->addDiffForFileInfo($randomFileInfo, 'some other diff', [LineLengthFixer::class]);
 
-        $output = $this->bufferedOutput->fetch();
-        $this->assertStringMatchesFormatFile(__DIR__ . '/Source/expected_json_output.json', $output);
-        $this->assertSame(ShellCode::ERROR, $exitCode);
-    }
+        $errorAndDiffResult = $this->errorAndDiffResultFactory->create($this->errorAndDiffCollector);
 
-    /**
-     * To catch printed content
-     */
-    private function createEasyCodingStandardStyleWithBufferOutput(): EasyCodingStandardStyle
-    {
-        $this->bufferedOutput = new BufferedOutput();
-        return new EasyCodingStandardStyle(new StringInput(''), $this->bufferedOutput, new Terminal());
+        $jsonContent = $this->jsonOutputFormatter->createJsonContent($errorAndDiffResult);
+        $this->assertStringMatchesFormatFile(__DIR__ . '/Fixture/expected_json_output.json', $jsonContent . PHP_EOL);
     }
 }
