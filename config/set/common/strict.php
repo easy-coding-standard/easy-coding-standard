@@ -13,7 +13,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(StrictComparisonFixer::class);
 
     $services->set(IsNullFixer::class)
-        ->call('configure', [['use_yoda_style' => false]]);
+        ->call('configure', [[
+            'use_yoda_style' => false,
+        ]]);
 
     $services->set(StrictParamFixer::class);
 };

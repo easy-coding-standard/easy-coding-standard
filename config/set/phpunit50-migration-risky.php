@@ -10,7 +10,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(PhpUnitDedicateAssertFixer::class);
     $services->set(PhpUnitNamespacedFixer::class)
-        ->call('configure', [['target' => '4.8']]);
+        ->call('configure', [[
+            'target' => '4.8',
+        ]]);
     $services->set(PhpUnitNoExpectationAnnotationFixer::class)
-        ->call('configure', [['target' => '4.3']]);
+        ->call('configure', [[
+            'target' => '4.3',
+        ]]);
 };

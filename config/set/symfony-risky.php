@@ -30,7 +30,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ErrorSuppressionFixer::class);
     $services->set(FopenFlagOrderFixer::class);
     $services->set(FopenFlagsFixer::class)
-        ->call('configure', [['b_mode' => false]]);
+        ->call('configure', [[
+            'b_mode' => false,
+        ]]);
     $services->set(FunctionToConstantFixer::class)
         ->call('configure', [[
             'functions' => ['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi'],

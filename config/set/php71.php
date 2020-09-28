@@ -18,7 +18,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
 
     $services->set(ListSyntaxFixer::class)
-        ->call('configure', [['syntax' => 'short']]);
+        ->call('configure', [[
+            'syntax' => 'short',
+        ]]);
 
     $services->set(NullableTypeForNullDefaultValueSniff::class);
 
