@@ -22,5 +22,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::SKIP, [UnusedParameterSniff::class . '.UnusedParameter' => null]);
+    $parameters->set(Option::SKIP, [
+        UnusedParameterSniff::class . '.UnusedParameter' => null,
+    ]);
 };
