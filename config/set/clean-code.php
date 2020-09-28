@@ -40,7 +40,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UselessParenthesesSniff::class);
 
     $services->set(ArraySyntaxFixer::class)
-        ->call('configure', [['syntax' => 'short']]);
+        ->call('configure', [[
+            'syntax' => 'short',
+        ]]);
 
     $services->set(UnusedPrivateElementsSniff::class);
 
