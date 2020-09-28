@@ -16,7 +16,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(ArraySyntaxFixer::class)
-        ->call('configure', [['syntax' => 'short']]);
+        ->call('configure', [[
+            'syntax' => 'short',
+        ]]);
 
     $services->set(RandomApiMigrationFixer::class)
         ->call('configure', [[

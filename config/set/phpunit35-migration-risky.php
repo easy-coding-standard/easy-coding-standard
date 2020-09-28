@@ -8,7 +8,11 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(PhpUnitDedicateAssertFixer::class)
-        ->call('configure', [['target' => '3.5']]);
+        ->call('configure', [[
+            'target' => '3.5',
+        ]]);
     $services->set(PhpUnitNoExpectationAnnotationFixer::class)
-        ->call('configure', [['target' => '3.2']]);
+        ->call('configure', [[
+            'target' => '3.2',
+        ]]);
 };
