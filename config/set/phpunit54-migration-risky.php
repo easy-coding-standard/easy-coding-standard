@@ -12,11 +12,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(PhpUnitDedicateAssertFixer::class);
     $services->set(PhpUnitExpectationFixer::class)
-        ->call('configure', [['target' => '5.2']]);
+        ->call('configure', [[
+            'target' => '5.2',
+        ]]);
     $services->set(PhpUnitMockFixer::class)
-        ->call('configure', [['target' => '5.4']]);
+        ->call('configure', [[
+            'target' => '5.4',
+        ]]);
     $services->set(PhpUnitNamespacedFixer::class)
-        ->call('configure', [['target' => '4.8']]);
+        ->call('configure', [[
+            'target' => '4.8',
+        ]]);
     $services->set(PhpUnitNoExpectationAnnotationFixer::class)
-        ->call('configure', [['target' => '4.3']]);
+        ->call('configure', [[
+            'target' => '4.3',
+        ]]);
 };

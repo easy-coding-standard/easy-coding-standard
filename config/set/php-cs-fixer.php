@@ -144,20 +144,26 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(AlignMultilineCommentFixer::class);
     $services->set(ArrayIndentationFixer::class);
     $services->set(ArraySyntaxFixer::class)
-        ->call('configure', [['syntax' => 'short']]);
+        ->call('configure', [[
+            'syntax' => 'short',
+        ]]);
     $services->set(BinaryOperatorSpacesFixer::class);
     $services->set(BlankLineAfterNamespaceFixer::class);
     $services->set(BlankLineAfterOpeningTagFixer::class);
     $services->set(BlankLineBeforeStatementFixer::class);
     $services->set(BracesFixer::class)
-        ->call('configure', [['allow_single_line_closure' => true]]);
+        ->call('configure', [[
+            'allow_single_line_closure' => true,
+        ]]);
     $services->set(CastSpacesFixer::class);
     $services->set(ClassAttributesSeparationFixer::class)
         ->call('configure', [[
             'elements' => ['method'],
         ]]);
     $services->set(ClassDefinitionFixer::class)
-        ->call('configure', [['single_line' => true]]);
+        ->call('configure', [[
+            'single_line' => true,
+        ]]);
     $services->set(CombineConsecutiveIssetsFixer::class);
     $services->set(CombineConsecutiveUnsetsFixer::class);
     $services->set(CompactNullableTypehintFixer::class);
@@ -184,11 +190,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MagicConstantCasingFixer::class);
     $services->set(MagicMethodCasingFixer::class);
     $services->set(MethodArgumentSpaceFixer::class)
-        ->call('configure', [['on_multiline' => 'ensure_fully_multiline']]);
+        ->call('configure', [[
+            'on_multiline' => 'ensure_fully_multiline',
+        ]]);
     $services->set(MethodChainingIndentationFixer::class);
     $services->set(MultilineCommentOpeningClosingFixer::class);
     $services->set(MultilineWhitespaceBeforeSemicolonsFixer::class)
-        ->call('configure', [['strategy' => 'new_line_for_chained_calls']]);
+        ->call('configure', [[
+            'strategy' => 'new_line_for_chained_calls',
+        ]]);
     $services->set(NativeFunctionCasingFixer::class);
     $services->set(NativeFunctionTypeDeclarationCasingFixer::class);
     $services->set(NewWithBracesFixer::class);
@@ -238,7 +248,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NoTrailingWhitespaceInCommentFixer::class);
     $services->set(NoUnneededControlParenthesesFixer::class);
     $services->set(NoUnneededCurlyBracesFixer::class)
-        ->call('configure', [['namespaces' => true]]);
+        ->call('configure', [[
+            'namespaces' => true,
+        ]]);
     $services->set(NoUnsetCastFixer::class);
     $services->set(NoUnusedImportsFixer::class);
     $services->set(NoUselessElseFixer::class);
@@ -295,7 +307,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SingleQuoteFixer::class);
     $services->set(SingleTraitInsertPerStatementFixer::class);
     $services->set(SpaceAfterSemicolonFixer::class)
-        ->call('configure', [['remove_in_empty_for_expressions' => true]]);
+        ->call('configure', [[
+            'remove_in_empty_for_expressions' => true,
+        ]]);
     $services->set(StandardizeIncrementFixer::class);
     $services->set(StandardizeNotEqualsFixer::class);
     $services->set(SwitchCaseSemicolonToColonFixer::class);

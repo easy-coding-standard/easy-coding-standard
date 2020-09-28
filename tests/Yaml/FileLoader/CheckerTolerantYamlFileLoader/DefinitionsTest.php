@@ -39,14 +39,18 @@ final class DefinitionsTest extends TestCase
             # checkers
             ArraySyntaxFixer::class,
             # expected method call
-            ['configure', [['syntax' => 'short']]],
+            ['configure', [[
+                'syntax' => 'short',
+            ]]],
             # expected set properties
             [],
         ];
         yield [
             __DIR__ . '/DefinitionsSource/config-with-imports.yaml',
             ArraySyntaxFixer::class,
-            ['configure', [['syntax' => 'short']]],
+            ['configure', [[
+                'syntax' => 'short',
+            ]]],
             [],
         ];
         # "@" escaping
@@ -54,26 +58,34 @@ final class DefinitionsTest extends TestCase
             __DIR__ . '/DefinitionsSource/config-with-at.yaml',
             LineLengthSniff::class,
             [],
-            ['absoluteLineLimit' => '@author, @var'],
+            [
+                'absoluteLineLimit' => '@author, @var',
+            ],
         ];
         # keep original keywords
         yield [
             __DIR__ . '/DefinitionsSource/config-classic.yaml',
             LineLengthSniff::class,
             [],
-            ['absoluteLineLimit' => 150],
+            [
+                'absoluteLineLimit' => 150,
+            ],
         ];
         yield [
             __DIR__ . '/DefinitionsSource/config-classic.yaml',
             ArraySyntaxFixer::class,
-            ['configure', [['syntax' => 'short']]],
+            ['configure', [[
+                'syntax' => 'short',
+            ]]],
             [],
         ];
         yield [
             __DIR__ . '/DefinitionsSource/config-with-bool.yaml',
             ParameterTypeHintSniff::class,
             [],
-            ['enableObjectTypeHint' => false],
+            [
+                'enableObjectTypeHint' => false,
+            ],
         ];
         yield [
             __DIR__ . '/DefinitionsSource/checkers.yaml',
@@ -88,7 +100,9 @@ final class DefinitionsTest extends TestCase
             __DIR__ . '/DefinitionsSource/config-with-bool.yaml',
             ParameterTypeHintSniff::class,
             [],
-            ['enableObjectTypeHint' => false],
+            [
+                'enableObjectTypeHint' => false,
+            ],
         ];
         yield [
             __DIR__ . '/DefinitionsSource/checkers.yaml',
