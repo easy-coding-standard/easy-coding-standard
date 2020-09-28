@@ -52,7 +52,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NewWithBracesFixer::class);
 
     $services->set(ClassDefinitionFixer::class)
-        ->call('configure', [['singleLine' => true]]);
+        ->call('configure', [[
+            'singleLine' => true,
+        ]]);
 
     $services->set(StandardizeIncrementFixer::class);
 
@@ -79,5 +81,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::SKIP, [AssignmentInConditionSniff::class . '.FoundInWhileCondition' => null]);
+    $parameters->set(Option::SKIP, [
+        AssignmentInConditionSniff::class . '.FoundInWhileCondition' => null,
+    ]);
 };

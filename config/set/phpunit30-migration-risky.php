@@ -7,5 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(PhpUnitDedicateAssertFixer::class)
-        ->call('configure', [['target' => '3.0']]);
+        ->call('configure', [[
+            'target' => '3.0',
+        ]]);
 };

@@ -60,11 +60,11 @@ final class JsonOutputFormatter implements OutputFormatterInterface
             $errorsArray['meta']['config'] = $firstResolvedConfigFileInfo->getRealPath();
         }
 
-        foreach ($errorAndDiffResult->getErrors() as $error) {
-            $errorsArray['files'][$error->getRelativeFilePathFromCwd()]['errors'][] = [
-                'line' => $error->getLine(),
-                'message' => $error->getMessage(),
-                'source_class' => $error->getCheckerClass(),
+        foreach ($errorAndDiffResult->getErrors() as $codingStandardError) {
+            $errorsArray['files'][$codingStandardError->getRelativeFilePathFromCwd()]['errors'][] = [
+                'line' => $codingStandardError->getLine(),
+                'message' => $codingStandardError->getMessage(),
+                'source_class' => $codingStandardError->getCheckerClass(),
             ];
         }
 
