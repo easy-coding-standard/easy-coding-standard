@@ -73,7 +73,8 @@ final class ParametersMergeTest extends TestCase
         // mimics user's "easy-config-standard.yaml" with own values
         $delegatingLoader->load(__DIR__ . '/ParametersSource/root-config-override.yaml');
 
-        $parameters = $containerBuilder->getParameterBag()->all();
+        $parameters = $containerBuilder->getParameterBag()
+            ->all();
         $this->assertArrayHasKey('cache_directory', $parameters);
         $this->assertSame('new_value', $parameters['cache_directory']);
     }
