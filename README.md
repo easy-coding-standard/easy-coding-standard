@@ -116,13 +116,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             # or multiple files by path to match against "fnmatch()"
             __DIR__ . '/packages/*/src/Command',
         ],
-
         // skip rule compeltely
         ArraySyntaxFixer::class => null,
-
         // just single one part of the rule?
         ArraySyntaxFixer::class . '.SomeSingleOption' => null,
-
         // ignore specific error message
         'Cognitive complexity for method "addAction" is 13 but has to be less than or equal to 8.' => null,
     ]);
