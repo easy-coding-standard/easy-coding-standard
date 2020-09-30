@@ -59,7 +59,8 @@ final class SourceFinder
     {
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
 
-        $finder = Finder::create()->files()
+        $finder = Finder::create()
+            ->files()
             ->name($normalizedFileExtensions)
             ->in($directory)
             ->exclude('vendor')

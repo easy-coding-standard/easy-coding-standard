@@ -55,8 +55,8 @@ final class MarkdownSnippetFormatterTest extends AbstractKernelTestCase
             SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX
         );
 
-        $contents = $inputAndExpectedFileInfos->getExpectedFileInfo()->getContents();
-        $this->assertSame($contents, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
+        $expectedFileContent = $inputAndExpectedFileInfos->getExpectedFileContent();
+        $this->assertSame($expectedFileContent, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
     }
 
     public function provideData(): Iterator
