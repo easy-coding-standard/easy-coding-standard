@@ -38,9 +38,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
     {
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
 
-        if ($errorAndDiffResult->getErrorCount() === 0
-            && $errorAndDiffResult->getFileDiffsCount() === 0
-        ) {
+        if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
             if ($processedFilesCount !== 0) {
                 $this->easyCodingStandardStyle->newLine();
             }
