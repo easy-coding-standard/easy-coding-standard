@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,12 +13,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Console\HelpfulApplicationTrait;
+use Symplify\PackageBuilder\Console\AbstractSymplifyConsoleApplication;
 
-final class EasyCodingStandardConsoleApplication extends Application
+final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsoleApplication
 {
-    use HelpfulApplicationTrait;
-
     /**
      * @var Configuration
      */
