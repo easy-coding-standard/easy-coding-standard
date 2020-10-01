@@ -10,9 +10,9 @@
         "symfony/http-kernel": "^4.4|^5.1",
         "symfony/finder": "^4.4|^5.1",
         "symfony/process": "^4.4|^5.1",
-        "symplify/console-color-diff": "^8.3.22",
-        "symplify/package-builder": "^8.3.22",
-        "symplify/smart-file-system": "^8.3.22"
+        "symplify/console-color-diff": "^8.4",
+        "symplify/package-builder": "^8.4",
+        "symplify/smart-file-system": "^8.4"
     },
     "autoload": {
         "psr-4": {
