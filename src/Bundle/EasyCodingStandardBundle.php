@@ -9,7 +9,6 @@ use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass;
@@ -35,7 +34,6 @@ final class EasyCodingStandardBundle extends Bundle
             Sniff::class,
             OutputFormatterInterface::class,
         ]));
-        $containerBuilder->addCompilerPass(new AutowireArrayParameterCompilerPass());
 
         // exceptions
         $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
