@@ -8,7 +8,7 @@ use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
-use Symplify\EasyCodingStandard\Compiler\Exception\ShouldNotHappenException;
+use Symplify\EasyCodingStandard\Exception\NotSniffNorFixerException;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
@@ -134,6 +134,6 @@ final class ErrorAndDiffCollector
         }
 
         $message = sprintf('Source class "%s" must be "%s" or "%s"', $sourceClass, FixerInterface::class, Sniff::class);
-        throw new ShouldNotHappenException($message);
+        throw new NotSniffNorFixerException($message);
     }
 }
