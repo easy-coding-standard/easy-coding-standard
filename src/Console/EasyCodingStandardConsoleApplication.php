@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Console\AbstractSymplifyConsoleApplication;
+use Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication;
 
 final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsoleApplication
 {
