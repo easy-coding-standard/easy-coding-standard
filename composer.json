@@ -26,6 +26,7 @@
         "symplify/coding-standard": "^8.4",
         "symplify/package-builder": "^8.4",
         "symplify/set-config-resolver": "^8.4",
+        "symplify/symplify-kernel": "^8.4",
         "symplify/smart-file-system": "^8.4",
         "symplify/autowire-array-parameter": "^8.4",
         "symplify/console-color-diff": "^8.4"
