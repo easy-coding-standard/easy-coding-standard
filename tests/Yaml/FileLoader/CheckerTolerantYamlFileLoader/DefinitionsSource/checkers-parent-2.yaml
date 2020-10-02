@@ -1,0 +1,3 @@
+services:
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer: null
+    Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: null
