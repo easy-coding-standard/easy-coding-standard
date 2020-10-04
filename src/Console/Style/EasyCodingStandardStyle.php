@@ -41,8 +41,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         foreach ($codingStandardErrors as $codingStandardError) {
             $this->separator();
 
-            $fileLineLink = $codingStandardError->getRelativeFilePathFromCwd() . ':' . $codingStandardError->getLine();
-            $this->writeln(' ' . $fileLineLink);
+            $this->writeln(' ' . $codingStandardError->getFileWithLine());
 
             $this->separator();
 

@@ -51,9 +51,9 @@ final class CodingStandardError
         return $this->checkerClass;
     }
 
-    public function getFileInfo(): SmartFileInfo
+    public function getFileWithLine(): string
     {
-        return $this->fileInfo;
+        return $this->getRelativeFilePathFromCwd() . ':' . $this->line;
     }
 
     public function getRelativeFilePathFromCwd(): string
