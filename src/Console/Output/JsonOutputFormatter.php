@@ -63,6 +63,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         foreach ($errorAndDiffResult->getErrors() as $codingStandardError) {
             $errorsArray['files'][$codingStandardError->getRelativeFilePathFromCwd()]['errors'][] = [
                 'line' => $codingStandardError->getLine(),
+                'file_path' => $codingStandardError->getRelativeFilePathFromCwd(),
                 'message' => $codingStandardError->getMessage(),
                 'source_class' => $codingStandardError->getCheckerClass(),
             ];
