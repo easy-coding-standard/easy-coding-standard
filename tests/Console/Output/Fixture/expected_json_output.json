@@ -11,6 +11,7 @@
             "errors": [
                 {
                     "line": 100,
+                    "file_path": "%s/Console/Output/Source/RandomFile.php",
                     "message": "Error message",
                     "source_class": "PhpCsFixer\\Fixer\\ArrayNotation\\ArraySyntaxFixer"
                 }

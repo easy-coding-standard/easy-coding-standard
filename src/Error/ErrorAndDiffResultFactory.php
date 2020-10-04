@@ -10,6 +10,10 @@ final class ErrorAndDiffResultFactory
 {
     public function create(ErrorAndDiffCollector $errorAndDiffCollector): ErrorAndDiffResult
     {
-        return new ErrorAndDiffResult($errorAndDiffCollector->getErrors(), $errorAndDiffCollector->getFileDiffs());
+        return new ErrorAndDiffResult(
+            $errorAndDiffCollector->getErrors(),
+            $errorAndDiffCollector->getFileDiffs(),
+            $errorAndDiffCollector->getSystemErrors()
+        );
     }
 }
