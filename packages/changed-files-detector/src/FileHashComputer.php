@@ -22,6 +22,7 @@ final class FileHashComputer
 {
     /**
      * @var string
+     * @see https://regex101.com/r/pCAjLa/1
      */
     private const YAML_SUFFIX_REGEX = '#\.(yml|yaml)$#';
 
