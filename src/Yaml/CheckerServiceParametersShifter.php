@@ -43,6 +43,7 @@ final class CheckerServiceParametersShifter
 
     /**
      * @var string
+     * @see https://regex101.com/r/OpTRkj/1
      */
     private const STARTS_WITH_AT_REGEX = '#^@#';
 
