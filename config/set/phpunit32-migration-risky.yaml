@@ -1,0 +1,3 @@
+imports:
+    - { resource: phpunit32-migration-risky.php }
+
