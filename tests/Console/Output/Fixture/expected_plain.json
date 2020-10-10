@@ -1,0 +1,10 @@
+{
+    "meta": {
+        "version": "%s"
+    },
+    "totals": {
+        "errors": 0,
+        "diffs": 0
+    },
+    "files": []
+}
