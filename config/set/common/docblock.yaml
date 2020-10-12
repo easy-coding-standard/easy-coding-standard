@@ -1,0 +1,3 @@
+imports:
+    - { resource: docblock.php }
+
