@@ -1,0 +1,2 @@
+imports:
+    - { resource: 'another-one.yml' }
