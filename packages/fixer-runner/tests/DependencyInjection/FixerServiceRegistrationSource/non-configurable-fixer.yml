@@ -1,0 +1,3 @@
+services:
+    PhpCsFixer\Fixer\Strict\StrictParamFixer:
+         be_strict: yea
