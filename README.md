@@ -209,6 +209,6 @@ You can also create a keyboard shortcut in [Preferences > Keymap](https://www.je
 | ---- | --------- | ----------- |
 | [GrumPHP](https://github.com/phpro/grumphp) | [ECS Task](https://github.com/phpro/grumphp/blob/master/doc/tasks/ecs.md) | Provides a new task for GrumPHP which runs ECS |
 
-## Contributing
+## Contribute
 
-Send [issue](https://github.com/symplify/symplify/issues) or [pull-request](https://github.com/symplify/symplify/pulls) to main repository.
+The sources of this package are contained in the symplify monorepo. We welcome contributions for this package at [symplify/symplify](https://github.com/symplify/symplify).
