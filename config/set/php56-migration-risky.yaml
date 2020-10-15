@@ -1,0 +1,2 @@
+imports:
+    - { resource: 'php56-migration-risky.php' }
