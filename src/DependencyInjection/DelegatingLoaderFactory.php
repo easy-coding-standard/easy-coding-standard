@@ -42,11 +42,12 @@ final class DelegatingLoaderFactory
         ContainerBuilder $containerBuilder,
         SimpleFileLocator $simpleFileLocator
     ): DelegatingLoader {
-        $loaderResolver = new LoaderResolver([
+        $loaders = [
             new GlobFileLoader($simpleFileLocator),
             new ParameterMergingPhpFileLoader($containerBuilder, $simpleFileLocator),
             new CheckerTolerantYamlFileLoader($containerBuilder, $simpleFileLocator),
-        ]);
+        ];
+        $loaderResolver = new LoaderResolver($loaders);
 
         return new DelegatingLoader($loaderResolver);
     }
