@@ -57,11 +57,12 @@ final class FileHashComputer
     private function createLoader(string $filePath, ContainerBuilder $containerBuilder): LoaderInterface
     {
         $fileLocator = new FileLocator([dirname($filePath)]);
-        $loaderResolver = new LoaderResolver([
+        $loaders = [
             new GlobFileLoader($containerBuilder, $fileLocator),
             new ParameterMergingPhpFileLoader($containerBuilder, $fileLocator),
             new CheckerTolerantYamlFileLoader($containerBuilder, $fileLocator),
-        ]);
+        ];
+        $loaderResolver = new LoaderResolver($loaders);
 
         $loader = $loaderResolver->resolve($filePath);
         if (! $loader) {
