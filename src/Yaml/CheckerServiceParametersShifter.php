@@ -129,7 +129,8 @@ final class CheckerServiceParametersShifter
     {
         $this->checkerConfigurationGuardian->ensureFixerIsConfigurable($checker, $serviceDefinition);
 
-        foreach (array_keys($serviceDefinition) as $key) {
+        $serviceDefinitionKeys = array_keys($serviceDefinition);
+        foreach ($serviceDefinitionKeys as $key) {
             if ($this->isReservedKey($key)) {
                 continue;
             }
@@ -172,7 +173,8 @@ final class CheckerServiceParametersShifter
      */
     private function cleanupParameters(array $services, array $serviceDefinition, string $serviceName): array
     {
-        foreach (array_keys($serviceDefinition) as $key) {
+        $serviceDefinitionKeys = array_keys($serviceDefinition);
+        foreach ($serviceDefinitionKeys as $key) {
             if ($this->isReservedKey($key)) {
                 continue;
             }

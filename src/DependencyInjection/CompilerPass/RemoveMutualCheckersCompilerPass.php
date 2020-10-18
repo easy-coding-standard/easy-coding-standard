@@ -140,7 +140,8 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
     {
         $checkersToRemove = $this->resolveCheckersToRemove($containerBuilder->getServiceIds());
 
-        foreach ($containerBuilder->getDefinitions() as $id => $definition) {
+        $definitions = $containerBuilder->getDefinitions();
+        foreach ($definitions as $id => $definition) {
             if (in_array($definition->getClass(), $checkersToRemove, true)) {
                 $containerBuilder->removeDefinition($id);
             }

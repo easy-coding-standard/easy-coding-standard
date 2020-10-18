@@ -48,7 +48,8 @@ final class SingleFileProcessor
     {
         try {
             $this->changedFilesDetector->addFileInfo($smartFileInfo);
-            foreach ($this->fileProcessorCollector->getFileProcessors() as $fileProcessor) {
+            $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
+            foreach ($fileProcessors as $fileProcessor) {
                 if ($fileProcessor->getCheckers() === []) {
                     continue;
                 }

@@ -86,7 +86,8 @@ final class ComposerJsonManipulator
     {
         $symplifyVersionToRequire = $this->symplifyStableVersionProvider->provide();
 
-        foreach (array_keys($json['require']) as $package) {
+        $packages = array_keys($json['require']);
+        foreach ($packages as $package) {
             /** @var string $package */
             if (! Strings::startsWith($package, 'symplify/')) {
                 continue;
