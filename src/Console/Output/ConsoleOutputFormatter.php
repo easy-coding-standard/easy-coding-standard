@@ -125,7 +125,8 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
             }
         }
 
-        foreach ($errorAndDiffResult->getSystemErrors() as $systemError) {
+        $systemErrors = $errorAndDiffResult->getSystemErrors();
+        foreach ($systemErrors as $systemError) {
             $this->easyCodingStandardStyle->newLine();
             $this->easyCodingStandardStyle->writeln($systemError->getFileWithLine());
             $this->easyCodingStandardStyle->warning($systemError->getMessage());

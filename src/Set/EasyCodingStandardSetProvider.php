@@ -34,7 +34,8 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider
         $setListReflectionClass = new ReflectionClass(SetList::class);
 
         // new kind of paths sets
-        foreach ($setListReflectionClass->getConstants() as $name => $setPath) {
+        $constants = $setListReflectionClass->getConstants();
+        foreach ($constants as $name => $setPath) {
             if (! file_exists($setPath)) {
                 continue;
             }

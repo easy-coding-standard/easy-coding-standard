@@ -15,7 +15,8 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
     {
         $excludedCheckers = $this->getExcludedCheckersFromParameterBag($containerBuilder->getParameterBag());
 
-        foreach ($containerBuilder->getDefinitions() as $id => $definition) {
+        $definitions = $containerBuilder->getDefinitions();
+        foreach ($definitions as $id => $definition) {
             if (! in_array($definition->getClass(), $excludedCheckers, true)) {
                 continue;
             }
