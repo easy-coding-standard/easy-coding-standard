@@ -104,7 +104,8 @@ final class EasyCodingStandardApplication
     {
         $checkerCount = 0;
 
-        foreach ($this->fileProcessorCollector->getFileProcessors() as $fileProcessor) {
+        $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
+        foreach ($fileProcessors as $fileProcessor) {
             $checkerCount += count($fileProcessor->getCheckers());
         }
 
