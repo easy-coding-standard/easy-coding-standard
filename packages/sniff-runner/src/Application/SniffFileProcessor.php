@@ -98,7 +98,8 @@ final class SniffFileProcessor extends AbstractFileProcessor
     public function addSniff(Sniff $sniff): void
     {
         $this->sniffs[] = $sniff;
-        foreach ($sniff->register() as $token) {
+        $tokens = $sniff->register();
+        foreach ($tokens as $token) {
             $this->tokenListeners[$token][] = $sniff;
         }
     }

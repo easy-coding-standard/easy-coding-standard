@@ -60,7 +60,8 @@ final class JsonOutputFormatter implements OutputFormatterInterface
             $errorsArray['meta']['config'] = $firstResolvedConfigFileInfo->getRealPath();
         }
 
-        foreach ($errorAndDiffResult->getErrors() as $codingStandardError) {
+        $codingStandardErrors = $errorAndDiffResult->getErrors();
+        foreach ($codingStandardErrors as $codingStandardError) {
             $errorsArray['files'][$codingStandardError->getRelativeFilePathFromCwd()]['errors'][] = [
                 'line' => $codingStandardError->getLine(),
                 'file_path' => $codingStandardError->getRelativeFilePathFromCwd(),
@@ -69,7 +70,8 @@ final class JsonOutputFormatter implements OutputFormatterInterface
             ];
         }
 
-        foreach ($errorAndDiffResult->getFileDiffs() as $fileDiff) {
+        $fileDiffs = $errorAndDiffResult->getFileDiffs();
+        foreach ($fileDiffs as $fileDiff) {
             $errorsArray['files'][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = [
                 'diff' => $fileDiff->getDiff(),
                 'applied_checkers' => $fileDiff->getAppliedCheckers(),
