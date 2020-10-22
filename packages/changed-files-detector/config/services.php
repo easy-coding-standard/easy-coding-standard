@@ -11,8 +11,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->defaults()
-        ->public()
-        ->autowire();
+        ->autowire()
+        ->autoconfigure()
+        ->public();
 
     $services->load('Symplify\EasyCodingStandard\ChangedFilesDetector\\', __DIR__ . '/../src');
 

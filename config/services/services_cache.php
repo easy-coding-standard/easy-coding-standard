@@ -15,6 +15,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->defaults()
         ->autowire()
+        ->autoconfigure()
         ->public();
 
     $services->set(Psr16Cache::class);
