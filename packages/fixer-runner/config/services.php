@@ -11,8 +11,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->defaults()
-        ->public()
-        ->autowire();
+        ->autowire()
+        ->autoconfigure()
+        ->public();
 
     $services->load('Symplify\EasyCodingStandard\FixerRunner\\', __DIR__ . '/../src')
         ->exclude([__DIR__ . '/../src/Exception']);
