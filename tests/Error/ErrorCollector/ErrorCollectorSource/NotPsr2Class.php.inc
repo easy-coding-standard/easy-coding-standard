@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorDataCollectorSource;
 
-abstract class SomeClass
+abstract class SomeClassTest
 {
     public function test()
     {
