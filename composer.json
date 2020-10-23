@@ -23,17 +23,17 @@
         "symfony/dependency-injection": "^4.4|^5.1",
         "symfony/finder": "^4.4|^5.1",
         "symfony/yaml": "^4.4|^5.1",
-        "symplify/coding-standard": "^8.4",
-        "symplify/package-builder": "^8.4",
-        "symplify/set-config-resolver": "^8.4",
-        "symplify/symplify-kernel": "^8.4",
-        "symplify/smart-file-system": "^8.4",
-        "symplify/autowire-array-parameter": "^8.4",
-        "symplify/console-color-diff": "^8.4"
+        "symplify/coding-standard": "^8.3.42",
+        "symplify/package-builder": "^8.3.42",
+        "symplify/set-config-resolver": "^8.3.42",
+        "symplify/symplify-kernel": "^8.3.42",
+        "symplify/smart-file-system": "^8.3.42",
+        "symplify/autowire-array-parameter": "^8.3.42",
+        "symplify/console-color-diff": "^8.3.42"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5|^9.0",
-        "symplify/easy-coding-standard-tester": "^8.4"
+        "symplify/easy-coding-standard-tester": "^8.3.42"
     },
     "autoload": {
         "psr-4": {
