@@ -41,5 +41,6 @@ return [
         'PHP_CodeSniffer\*',
         'SlevomatCodingStandard\*',
         ContainerConfigurator::class,
+        'Composer\*',
     ],
 ];
