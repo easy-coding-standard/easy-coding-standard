@@ -21,6 +21,11 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class Configuration
 {
     /**
+     * @var string
+     */
+    private const UNKNOWN_VERSION = 'UNKNOWN_VERSION';
+
+    /**
      * @var bool
      */
     private $isFixer = false;
@@ -137,7 +142,12 @@ final class Configuration
     {
         $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
 
-        return $version->getPrettyVersion();
+        $prettyVersion = $version->getPrettyVersion();
+        if ($prettyVersion !== '') {
+            return $prettyVersion;
+        }
+
+        return self::UNKNOWN_VERSION;
     }
 
     /**
