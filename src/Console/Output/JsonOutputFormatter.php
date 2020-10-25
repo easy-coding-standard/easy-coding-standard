@@ -88,7 +88,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     {
         return [
             'meta' => [
-                'version' => $this->configuration->getPrettyVersion() ?: '%s',
+                'version' => $this->configuration->getPrettyVersion(),
             ],
             'totals' => [
                 'errors' => $errorAndDiffResult->getErrorCount(),
