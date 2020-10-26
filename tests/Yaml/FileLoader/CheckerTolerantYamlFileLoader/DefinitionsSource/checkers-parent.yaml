@@ -1,3 +1,0 @@
-services:
-    SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff:
-        enableObjectTypeHint: false

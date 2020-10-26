@@ -12,7 +12,7 @@ final class ExcludedCheckersTest extends AbstractKernelTestCase
 {
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/ExcludedCheckersSource/config.yml']);
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/ExcludedCheckersSource/config.php']);
     }
 
     public function test(): void

@@ -15,7 +15,7 @@ final class SniffServiceRegistrationTest extends AbstractKernelTestCase
     {
         static::bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.yml']
+            [__DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.php']
         );
 
         $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);

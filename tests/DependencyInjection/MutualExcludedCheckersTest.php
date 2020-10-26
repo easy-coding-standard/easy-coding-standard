@@ -15,7 +15,7 @@ final class MutualExcludedCheckersTest extends AbstractKernelTestCase
     {
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/MutualExcludedCheckersSource/config.yml']
+            [__DIR__ . '/MutualExcludedCheckersSource/config.php']
         );
 
         $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);

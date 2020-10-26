@@ -16,7 +16,7 @@ final class ConflictingCheckersTest extends AbstractKernelTestCase
 
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/ConflictingCheckersSource/config.yml']
+            [__DIR__ . '/ConflictingCheckersSource/config.php']
         );
     }
 }

@@ -1,2 +1,0 @@
-services:
-    Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff: null

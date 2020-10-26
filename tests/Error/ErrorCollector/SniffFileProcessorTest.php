@@ -35,7 +35,7 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
     {
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/SniffRunnerSource/easy-coding-standard.yml']
+            [__DIR__ . '/SniffRunnerSource/easy-coding-standard.php']
         );
 
         $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);

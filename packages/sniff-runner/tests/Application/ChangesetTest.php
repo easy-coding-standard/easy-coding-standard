@@ -22,7 +22,7 @@ final class ChangesetTest extends AbstractKernelTestCase
     {
         static::bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.yml']
+            [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.php']
         );
 
         $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);

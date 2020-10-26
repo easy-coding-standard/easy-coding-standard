@@ -1,7 +1,0 @@
-services:
-    Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: null
-
-parameters:
-    only:
-        Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer:
-            - 'SomeFileToOnlyInclude.php'
