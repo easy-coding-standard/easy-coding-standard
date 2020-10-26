@@ -69,7 +69,10 @@ final class EasyCodingStandardApplication
     public function run(): int
     {
         // 1. find files in sources
-        $files = $this->sourceFinder->find($this->configuration->getSources());
+        $files = $this->sourceFinder->find(
+            $this->configuration->getSources(),
+            $this->configuration->doesMatchGitDiff()
+        );
 
         // 2. clear cache
         if ($this->configuration->shouldClearCache()) {

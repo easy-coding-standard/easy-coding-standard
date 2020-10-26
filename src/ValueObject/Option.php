@@ -102,4 +102,9 @@ class Option
      * @var string
      */
     public const INDENTATION_TAB = 'tab';
+
+    /**
+     * @var string
+     */
+    public const MATCH_GIT_DIFF = 'match-git-diff';
 }

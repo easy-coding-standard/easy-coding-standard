@@ -65,6 +65,11 @@ final class Configuration
      */
     private $outputFormat = ConsoleOutputFormatter::NAME;
 
+    /**
+     * @var bool
+     */
+    private $doesMatchGitDiff = false;
+
     public function __construct(ParameterProvider $parameterProvider)
     {
         $this->paths = $parameterProvider->provideArrayParameter(Option::PATHS);
@@ -88,6 +93,7 @@ final class Configuration
         $this->shouldClearCache = (bool) $input->getOption(Option::CLEAR_CACHE);
         $this->showProgressBar = $this->canShowProgressBar($input);
         $this->showErrorTable = ! (bool) $input->getOption(Option::NO_ERROR_TABLE);
+        $this->doesMatchGitDiff = (bool) $input->getOption(Option::MATCH_GIT_DIFF);
 
         $this->setOutputFormat($input);
     }
@@ -179,6 +185,11 @@ final class Configuration
     public function enableFixing(): void
     {
         $this->isFixer = true;
+    }
+
+    public function doesMatchGitDiff(): bool
+    {
+        return $this->doesMatchGitDiff;
     }
 
     private function canShowProgressBar(InputInterface $input): bool

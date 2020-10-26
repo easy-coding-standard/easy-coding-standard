@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Finder;
 
 use Symfony\Component\Finder\Finder;
+use Symplify\EasyCodingStandard\Git\GitDiffProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
@@ -25,31 +26,42 @@ final class SourceFinder
      */
     private $finderSanitizer;
 
-    public function __construct(FinderSanitizer $finderSanitizer, ParameterProvider $parameterProvider)
-    {
+    /**
+     * @var GitDiffProvider
+     */
+    private $gitDiffProvider;
+
+    public function __construct(
+        FinderSanitizer $finderSanitizer,
+        ParameterProvider $parameterProvider,
+        GitDiffProvider $gitDiffProvider
+    ) {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileExtensions = $parameterProvider->provideArrayParameter(Option::FILE_EXTENSIONS);
+        $this->gitDiffProvider = $gitDiffProvider;
     }
 
     /**
      * @param string[] $source
      * @return SmartFileInfo[]
      */
-    public function find(array $source): array
+    public function find(array $source, bool $doesMatchGitDiff = false): array
     {
-        $files = [];
+        $fileInfos = [];
         foreach ($source as $singleSource) {
             if (is_file($singleSource)) {
-                $files[] = new SmartFileInfo($singleSource);
+                $fileInfos[] = new SmartFileInfo($singleSource);
             } else {
                 $filesInDirectory = $this->processDirectory($singleSource);
-                $files = array_merge($files, $filesInDirectory);
+                $fileInfos = array_merge($fileInfos, $filesInDirectory);
             }
         }
 
-        ksort($files);
+        $fileInfos = $this->filterOutGitDiffFiles($fileInfos, $doesMatchGitDiff);
 
-        return $files;
+        ksort($fileInfos);
+
+        return $fileInfos;
     }
 
     /**
@@ -82,5 +94,24 @@ final class SourceFinder
         }
 
         return $normalizedFileExtensions;
+    }
+
+    /**
+     * @param SmartFileInfo[] $fileInfos
+     * @return SmartFileInfo[]
+     */
+    private function filterOutGitDiffFiles(array $fileInfos, bool $doesMatchGitDiff): array
+    {
+        if (! $doesMatchGitDiff) {
+            return $fileInfos;
+        }
+
+        $gitDiffFiles = $this->gitDiffProvider->provide();
+
+        $fileInfos = array_filter($fileInfos, function ($splFile) use ($gitDiffFiles): bool {
+            return in_array($splFile->getRealPath(), $gitDiffFiles, true);
+        });
+
+        return array_values($fileInfos);
     }
 }

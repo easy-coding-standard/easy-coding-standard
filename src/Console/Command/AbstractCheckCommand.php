@@ -102,6 +102,13 @@ abstract class AbstractCheckCommand extends Command
             'Select output format',
             ConsoleOutputFormatter::NAME
         );
+
+        $this->addOption(
+            Option::MATCH_GIT_DIFF,
+            null,
+            InputOption::VALUE_NONE,
+            'Execute only on file(s) matching the git diff.'
+        );
     }
 
     protected function reportProcessedFiles(int $processedFileCount): int
