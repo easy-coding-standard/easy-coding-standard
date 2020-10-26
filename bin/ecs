@@ -39,9 +39,7 @@ try {
     $configResolver = new SetAwareConfigResolver(new EasyCodingStandardSetProvider());
 
     $input = new ArgvInput();
-    $inputConfigFileInfo = $configResolver->resolveFromInputWithFallback($input,
-        ['easy-coding-standard.yml', 'easy-coding-standard.yaml', 'ecs.yml', 'ecs.yaml', 'ecs.php']
-    );
+    $inputConfigFileInfo = $configResolver->resolveFromInputWithFallback($input, ['ecs.php']);
 
     if ($inputConfigFileInfo) {
         $configFileInfos[] = $inputConfigFileInfo;
@@ -62,8 +60,6 @@ try {
     $configHasher = new ConfigHasher();
     $environment = 'prod' . md5($configHasher->computeFileInfosHash($configFileInfos) . random_int(1, 100000));
     $configFileInfosWithInputAsLast = (new ConfigShifter())->shiftInputConfigAsLast($configFileInfos, $inputConfigFileInfo);
-
-    (new YamlConfigReporter())->reportYamlConfig($configFileInfos);
 
     $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, InputDetector::isDebug());
     if ($configFileInfos !== []) {

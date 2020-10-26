@@ -1,3 +1,0 @@
-imports:
-    - { resource: phpunit54-migration-risky.php }
-
