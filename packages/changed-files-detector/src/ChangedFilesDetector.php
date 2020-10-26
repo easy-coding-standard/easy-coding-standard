@@ -44,7 +44,7 @@ final class ChangedFilesDetector
      */
     public function changeConfigurationFile(string $configurationFile): void
     {
-        $this->storeConfigurationDataHash($this->fileHashComputer->compute($configurationFile));
+        $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($configurationFile));
     }
 
     public function addFileInfo(SmartFileInfo $smartFileInfo): void
@@ -89,7 +89,7 @@ final class ChangedFilesDetector
 
         // the first config is core to all → if it was changed, just invalidate it
         $firstConfigFileInfo = $configFileInfos[0];
-        $this->storeConfigurationDataHash($this->fileHashComputer->compute($firstConfigFileInfo->getRealPath()));
+        $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($firstConfigFileInfo->getRealPath()));
     }
 
     private function storeConfigurationDataHash(string $configurationHash): void

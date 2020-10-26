@@ -28,7 +28,7 @@ final class FixerFileProcessorTest extends AbstractKernelTestCase
     {
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/FixerRunnerSource/phpunit-fixer-config.yml']
+            [__DIR__ . '/FixerRunnerSource/phpunit-fixer-config.php']
         );
 
         $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);

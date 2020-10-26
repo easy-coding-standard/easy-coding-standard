@@ -1,2 +1,0 @@
-services:
-    PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer: null

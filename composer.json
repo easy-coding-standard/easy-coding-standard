@@ -33,7 +33,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5|^9.0",
-        "symplify/easy-coding-standard-tester": "^8.4"
+        "symplify/easy-coding-standard-tester": "^8.4",
+        "migrify/php-config-printer": "^0.3.50"
     },
     "autoload": {
         "psr-4": {

@@ -11,7 +11,6 @@ use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symplify\EasyCodingStandard\Yaml\FileLoader\CheckerTolerantYamlFileLoader;
 use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
 
 final class DelegatingLoaderFactory
@@ -45,7 +44,6 @@ final class DelegatingLoaderFactory
         $loaders = [
             new GlobFileLoader($simpleFileLocator),
             new ParameterMergingPhpFileLoader($containerBuilder, $simpleFileLocator),
-            new CheckerTolerantYamlFileLoader($containerBuilder, $simpleFileLocator),
         ];
         $loaderResolver = new LoaderResolver($loaders);
 

@@ -29,7 +29,7 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
 
         $this->changedFilesDetector = self::$container->get(ChangedFilesDetector::class);
         $this->changedFilesDetector->changeConfigurationFile(
-            __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.yml'
+            __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.php'
         );
     }
 
@@ -52,7 +52,7 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
         $this->assertFileHasNotChanged($this->smartFileInfo);
 
         $this->changedFilesDetector->changeConfigurationFile(
-            __DIR__ . '/ChangedFilesDetectorSource/another-configuration.yml'
+            __DIR__ . '/ChangedFilesDetectorSource/another-configuration.php'
         );
 
         $this->assertFileHasChanged($this->smartFileInfo);

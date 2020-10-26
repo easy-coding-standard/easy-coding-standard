@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
+use Migrify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -22,12 +23,18 @@ final class EasyCodingStandardKernel extends AbstractSymplifyKernel
      */
     public function registerBundles(): iterable
     {
-        return [
+        $bundles = [
             new EasyCodingStandardBundle(),
             new SymplifyCodingStandardBundle(),
             new ConsoleColorDiffBundle(),
             new SymplifyKernelBundle(),
         ];
+
+        if ($this->environment === 'test') {
+            $bundles[] = new PhpConfigPrinterBundle();
+        }
+
+        return $bundles;
     }
 
     /**

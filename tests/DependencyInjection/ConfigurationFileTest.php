@@ -15,7 +15,7 @@ final class ConfigurationFileTest extends AbstractKernelTestCase
     {
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/ConfigurationFileSource/empty-config.yml']
+            [__DIR__ . '/ConfigurationFileSource/empty-config.php']
         );
 
         $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
@@ -29,7 +29,7 @@ final class ConfigurationFileTest extends AbstractKernelTestCase
     {
         $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
-            [__DIR__ . '/ConfigurationFileSource/include-another-config.yml']
+            [__DIR__ . '/ConfigurationFileSource/include-another-config.php']
         );
 
         $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);

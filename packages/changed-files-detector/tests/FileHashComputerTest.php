@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
+use Migrify\PhpConfigPrinter\YamlToPhpConverter;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
-use Symfony\Component\Yaml\Yaml;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
@@ -16,7 +16,7 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     /**
      * @var string
      */
-    private const INCLUDED_CONFIG_FILE = __DIR__ . '/FileHashComputerSource/another-one.yml';
+    private const INCLUDED_CONFIG_FILE = __DIR__ . '/FileHashComputerSource/another-one.php';
 
     /**
      * @var FileHashComputer
@@ -28,34 +28,36 @@ final class FileHashComputerTest extends AbstractKernelTestCase
      */
     private $smartFileSystem;
 
+    /**
+     * @var YamlToPhpConverter
+     */
+    private $yamlToPhpConverter;
+
     protected function setUp(): void
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
         $this->fileHashComputer = self::$container->get(FileHashComputer::class);
         $this->smartFileSystem = self::$container->get(SmartFileSystem::class);
+        $this->yamlToPhpConverter = self::$container->get(YamlToPhpConverter::class);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void
     {
         // A. create on another one with fixer
-        $this->smartFileSystem->dumpFile(self::INCLUDED_CONFIG_FILE, Yaml::dump([
-            'services' => [
-                DeclareStrictTypesFixer::class => [],
-            ],
-        ]));
+        $this->dumpServicesToPhpConfigFile([
+            DeclareStrictTypesFixer::class => [],
+        ]);
 
-        $fileOneHash = $this->fileHashComputer->compute(
-            __DIR__ . '/FileHashComputerSource/config-including-another-one.yml'
+        $fileOneHash = $this->fileHashComputer->computeConfig(
+            __DIR__ . '/FileHashComputerSource/config-including-another-one.php'
         );
 
         // B. create on another one with no fixer
-        $this->smartFileSystem->dumpFile(self::INCLUDED_CONFIG_FILE, Yaml::dump([
-            'services' => [],
-        ]));
+        $this->dumpServicesToPhpConfigFile([]);
 
-        $fileTwoHash = $this->fileHashComputer->compute(
-            __DIR__ . '/FileHashComputerSource/config-including-another-one.yml'
+        $fileTwoHash = $this->fileHashComputer->computeConfig(
+            __DIR__ . '/FileHashComputerSource/config-including-another-one.php'
         );
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);
@@ -78,5 +80,17 @@ final class FileHashComputerTest extends AbstractKernelTestCase
         $this->assertSame($expectedFileTwoHash, $fileTwoHash);
 
         $this->assertNotSame($fileOneHash, $fileTwoHash);
+    }
+
+    /**
+     * @param mixed[] $services
+     */
+    private function dumpServicesToPhpConfigFile(array $services): void
+    {
+        $yamlFileContent = $this->yamlToPhpConverter->convertYamlArray([
+            'services' => $services,
+        ]);
+
+        $this->smartFileSystem->dumpFile(self::INCLUDED_CONFIG_FILE, $yamlFileContent);
     }
 }

@@ -36,7 +36,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/HttpKernel',
             __DIR__ . '/../src/Exception',
             __DIR__ . '/../src/ValueObject',
-            __DIR__ . '/../src/Yaml',
         ]);
 
     $services->set(Terminal::class);

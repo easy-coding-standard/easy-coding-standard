@@ -1,4 +1,0 @@
-services:
-    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
-        calls:
-            - ['configure', [{'syntax': 'short'}]]

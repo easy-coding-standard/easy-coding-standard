@@ -21,7 +21,7 @@ final class SkipperOnlyTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config.yaml']);
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config.php']);
 
         $this->skipper = self::$container->get(Skipper::class);
     }
