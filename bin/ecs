@@ -1,10 +1,8 @@
 #!/usr/bin/env php
 <?php
 
-use Nette\Utils\ObjectHelpers;
 use PHP_CodeSniffer\Util\Tokens;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Bootstrap\ConfigHasher;
 use Symplify\EasyCodingStandard\Bootstrap\ConfigShifter;
 use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
@@ -19,7 +17,6 @@ use Symplify\PackageBuilder\Console\Input\InputDetector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 // performance boost
 gc_disable();
