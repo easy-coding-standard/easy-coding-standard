@@ -1,2 +1,0 @@
-imports:
-    - { resource: php71-migration.php }

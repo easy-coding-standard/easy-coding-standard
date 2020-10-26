@@ -1,3 +1,0 @@
-imports:
-    - { resource: psr1.php }
-
