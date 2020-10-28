@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Compiler\Packagist;
 
 use Nette\Utils\Json;
-use PharIo\Version\Version;
+use Symplify\EasyCodingStandard\Compiler\ValueObjectFactory\VersionFactory;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class SymplifyStableVersionProvider
@@ -20,9 +20,15 @@ final class SymplifyStableVersionProvider
      */
     private $smartFileSystem;
 
-    public function __construct(SmartFileSystem $smartFileSystem)
+    /**
+     * @var VersionFactory
+     */
+    private $versionFactory;
+
+    public function __construct(SmartFileSystem $smartFileSystem, VersionFactory $versionFactory)
     {
         $this->smartFileSystem = $smartFileSystem;
+        $this->versionFactory = $versionFactory;
     }
 
     public function provide(): string
@@ -40,7 +46,7 @@ final class SymplifyStableVersionProvider
 
         $lastStableVersion = $this->getLastKey($symplifyPackageVersions);
 
-        $lastStableVersion = new Version($lastStableVersion);
+        $lastStableVersion = $this->versionFactory->create($lastStableVersion);
 
         $this->symplifyVersionToRequire = '^' . $lastStableVersion->getMajor()->getValue() . '.' . $lastStableVersion->getMinor()->getValue();
 

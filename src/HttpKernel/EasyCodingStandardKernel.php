@@ -13,6 +13,7 @@ use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
 use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
 use Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory;
+use Symplify\Skipper\Bundle\SkipperBundle;
 use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 
@@ -28,6 +29,7 @@ final class EasyCodingStandardKernel extends AbstractSymplifyKernel
             new SymplifyCodingStandardBundle(),
             new ConsoleColorDiffBundle(),
             new SymplifyKernelBundle(),
+            new SkipperBundle(),
         ];
 
         if ($this->environment === 'test') {
