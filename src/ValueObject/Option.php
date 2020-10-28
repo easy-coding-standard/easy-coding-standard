@@ -37,20 +37,16 @@ class Option
     public const OUTPUT_FORMAT = 'output-format';
 
     /**
+     * @api
      * @var string
      */
     public const SKIP = 'skip';
 
     /**
+     * @api
      * @var string
      */
     public const EXCLUDE_PATHS = 'exclude_paths';
-
-    /**
-     * @var string
-     * @deprecated Use self::EXCLUDE_PATHS
-     */
-    public const EXCLUDE_FILES = 'exclude_files';
 
     /**
      * @var string
@@ -63,6 +59,7 @@ class Option
     public const PATHS = 'paths';
 
     /**
+     * @api
      * @var string
      */
     public const ONLY = 'only';
