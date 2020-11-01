@@ -8,7 +8,7 @@ use Symplify\EasyCodingStandard\ValueObject\Option as NewOption;
 
 /**
  * @deprecated
- * Use \Symplify\EasyCodingStandard\ValueObject\Option insead
+ * Use \Symplify\EasyCodingStandard\ValueObject\Option instead
  */
 final class Option extends NewOption
 {
