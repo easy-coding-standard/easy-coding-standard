@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
+use Jean85\PrettyVersions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,7 +39,9 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
         NoCheckersLoaderReporter $noCheckersLoaderReporter,
         array $commands
     ) {
-        parent::__construct('EasyCodingStandard', $configuration->getPrettyVersion());
+        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
+
+        parent::__construct('EasyCodingStandard', $version->getPrettyVersion());
 
         $this->configuration = $configuration;
         $this->addCommands($commands);

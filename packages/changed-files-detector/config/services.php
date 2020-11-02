@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Symfony\Component\Cache\Adapter\Psr16Adapter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function Symplify\PackageBuilder\Functions\service_polyfill;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
@@ -21,7 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(TagAwareAdapter::class)
         ->args([
-            '$itemsPool' => service_polyfill(Psr16Adapter::class),
-            '$tagsPool' => service_polyfill(Psr16Adapter::class),
+            '$itemsPool' => ref(Psr16Adapter::class),
+            '$tagsPool' => ref(Psr16Adapter::class),
         ]);
 };

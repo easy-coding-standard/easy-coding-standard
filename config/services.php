@@ -16,7 +16,7 @@ use Symplify\SmartFileSystem\FileSystemGuard;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
 use Symplify\SmartFileSystem\SmartFileSystem;
-use function Symplify\PackageBuilder\Functions\service_polyfill;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services/services_cache.php');
@@ -48,13 +48,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(SymfonyStyleFactory::class);
     $services->set(SymfonyStyle::class)
-        ->factory([service_polyfill(SymfonyStyleFactory::class), 'create']);
+        ->factory([ref(SymfonyStyleFactory::class), 'create']);
 
     $services->set(EasyCodingStandardStyle::class)
-        ->factory([service_polyfill(EasyCodingStandardStyleFactory::class), 'create']);
+        ->factory([ref(EasyCodingStandardStyleFactory::class), 'create']);
 
     $services->set(WhitespacesFixerConfig::class)
-        ->factory([service_polyfill(WhitespacesFixerConfigFactory::class), 'create']);
+        ->factory([ref(WhitespacesFixerConfigFactory::class), 'create']);
 
     $services->set(NoCheckersLoaderReporter::class);
 };

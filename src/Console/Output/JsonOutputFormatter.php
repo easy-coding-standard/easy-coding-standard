@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
+use Jean85\PrettyVersions;
 use Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -86,9 +87,11 @@ final class JsonOutputFormatter implements OutputFormatterInterface
      */
     private function createBaseErrorsArray(ErrorAndDiffResult $errorAndDiffResult): array
     {
+        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
+
         return [
             'meta' => [
-                'version' => $this->configuration->getPrettyVersion(),
+                'version' => $version->getPrettyVersion() ?: 'Unknown',
             ],
             'totals' => [
                 'errors' => $errorAndDiffResult->getErrorCount(),

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Configuration;
 
-use Jean85\PrettyVersions;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
@@ -20,11 +19,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
  */
 final class Configuration
 {
-    /**
-     * @var string
-     */
-    private const UNKNOWN_VERSION = 'UNKNOWN_VERSION';
-
     /**
      * @var bool
      */
@@ -142,18 +136,6 @@ final class Configuration
     public function getFirstResolvedConfigFileInfo(): ?SmartFileInfo
     {
         return $this->firstResolvedConfigFileInfo;
-    }
-
-    public function getPrettyVersion(): string
-    {
-        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
-
-        $prettyVersion = $version->getPrettyVersion();
-        if ($prettyVersion !== '') {
-            return $prettyVersion;
-        }
-
-        return self::UNKNOWN_VERSION;
     }
 
     /**
