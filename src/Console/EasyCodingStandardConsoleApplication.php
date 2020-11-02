@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
-use Rector\Core\Configuration\Option as RectorOption;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication;
+use Throwable;
 
 final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsoleApplication
 {
@@ -24,14 +26,23 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     private $configuration;
 
     /**
+     * @var NoCheckersLoaderReporter
+     */
+    private $noCheckersLoaderReporter;
+
+    /**
      * @param Command[] $commands
      */
-    public function __construct(Configuration $configuration, array $commands)
-    {
+    public function __construct(
+        Configuration $configuration,
+        NoCheckersLoaderReporter $noCheckersLoaderReporter,
+        array $commands
+    ) {
         parent::__construct('EasyCodingStandard', $configuration->getPrettyVersion());
 
         $this->configuration = $configuration;
         $this->addCommands($commands);
+        $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
     }
 
     public function doRun(InputInterface $input, OutputInterface $output): int
@@ -57,6 +68,16 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
         return parent::doRun($input, $output);
     }
 
+    public function renderThrowable(Throwable $throwable, OutputInterface $output): void
+    {
+        if (is_a($throwable, NoCheckersLoadedException::class)) {
+            $this->noCheckersLoaderReporter->report();
+            return;
+        }
+
+        parent::renderThrowable($throwable, $output);
+    }
+
     protected function getDefaultInputDefinition(): InputDefinition
     {
         $inputDefinition = parent::getDefaultInputDefinition();
@@ -77,26 +98,22 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     private function addExtraOptions(InputDefinition $inputDefinition): void
     {
         $inputDefinition->addOption(new InputOption(
-            RectorOption::OPTION_CONFIG,
+            Option::CONFIG,
             'c',
             InputOption::VALUE_REQUIRED,
             'Path to config file.',
-            '(ecs|easy-coding-standard).php'
+            getcwd() . DIRECTORY_SEPARATOR . 'ecs.php'
         ));
 
         $inputDefinition->addOption(new InputOption(
-            RectorOption::XDEBUG,
+            Option::XDEBUG,
             null,
             InputOption::VALUE_NONE,
             'Allow running xdebug'
         ));
 
-        $inputDefinition->addOption(
-            new InputOption(RectorOption::OPTION_SET, 's', InputOption::VALUE_REQUIRED, 'Load provided set')
-        );
-
         $inputDefinition->addOption(new InputOption(
-            RectorOption::OPTION_DEBUG,
+            Option::DEBUG,
             null,
             InputOption::VALUE_NONE,
             'Run in debug mode (alias for "-vvv")'

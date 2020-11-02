@@ -11,7 +11,7 @@ interface FileProcessorInterface
     public function processFile(SmartFileInfo $smartFileInfo): string;
 
     /**
-     * @return mixed[]
+     * @return object[]
      */
     public function getCheckers(): array;
 }

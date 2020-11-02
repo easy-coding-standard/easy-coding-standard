@@ -43,19 +43,13 @@ final class EasyCodingStandardApplication
      */
     private $singleFileProcessor;
 
-    /**
-     * @var FileProcessorCollector
-     */
-    private $fileProcessorCollector;
-
     public function __construct(
         EasyCodingStandardStyle $easyCodingStandardStyle,
         SourceFinder $sourceFinder,
         ChangedFilesDetector $changedFilesDetector,
         Configuration $configuration,
         FileFilter $fileFilter,
-        SingleFileProcessor $singleFileProcessor,
-        FileProcessorCollector $fileProcessorCollector
+        SingleFileProcessor $singleFileProcessor
     ) {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;
@@ -63,7 +57,6 @@ final class EasyCodingStandardApplication
         $this->configuration = $configuration;
         $this->fileFilter = $fileFilter;
         $this->singleFileProcessor = $singleFileProcessor;
-        $this->fileProcessorCollector = $fileProcessorCollector;
     }
 
     public function run(): int
@@ -101,18 +94,6 @@ final class EasyCodingStandardApplication
         $this->processFoundFiles($files);
 
         return $filesCount;
-    }
-
-    public function getCheckerCount(): int
-    {
-        $checkerCount = 0;
-
-        $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
-        foreach ($fileProcessors as $fileProcessor) {
-            $checkerCount += count($fileProcessor->getCheckers());
-        }
-
-        return $checkerCount;
     }
 
     /**

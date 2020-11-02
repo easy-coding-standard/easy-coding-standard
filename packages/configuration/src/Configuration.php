@@ -80,10 +80,10 @@ final class Configuration
      */
     public function resolveFromInput(InputInterface $input): void
     {
-        /** @var string[] $sources */
-        $sources = (array) $input->getArgument(Option::SOURCES);
-        if ($sources !== []) {
-            $this->setSources($sources);
+        /** @var string[] $paths */
+        $paths = (array) $input->getArgument(Option::PATHS);
+        if ($paths !== []) {
+            $this->setSources($paths);
         } else {
             // if not paths are provided from CLI, use the config ones
             $this->setSources($this->getPaths());

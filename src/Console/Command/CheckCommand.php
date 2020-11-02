@@ -21,7 +21,6 @@ final class CheckCommand extends AbstractCheckCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->configuration->resolveFromInput($input);
-        $this->ensureSomeCheckersAreRegistered();
 
         // CLI paths override parameter paths
         if ($this->configuration->getSources() === []) {
@@ -29,6 +28,7 @@ final class CheckCommand extends AbstractCheckCommand
         }
 
         $processedFilesCount = $this->easyCodingStandardApplication->run();
+
         return $this->reportProcessedFiles($processedFilesCount);
     }
 }

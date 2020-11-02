@@ -6,17 +6,17 @@ use PhpCsFixer\WhitespacesFixerConfig;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Terminal;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\FileSystemGuard;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
 use Symplify\SmartFileSystem\SmartFileSystem;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+use function Symplify\PackageBuilder\Functions\service_polyfill;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services/services_cache.php');
@@ -40,8 +40,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(Terminal::class);
 
-    $services->set(ParameterProvider::class);
-
     $services->set(FileSystemGuard::class);
     $services->set(FinderSanitizer::class);
     $services->set(SmartFileSystem::class);
@@ -50,11 +48,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(SymfonyStyleFactory::class);
     $services->set(SymfonyStyle::class)
-        ->factory([ref(SymfonyStyleFactory::class), 'create']);
+        ->factory([service_polyfill(SymfonyStyleFactory::class), 'create']);
 
     $services->set(EasyCodingStandardStyle::class)
-        ->factory([ref(EasyCodingStandardStyleFactory::class), 'create']);
+        ->factory([service_polyfill(EasyCodingStandardStyleFactory::class), 'create']);
 
     $services->set(WhitespacesFixerConfig::class)
-        ->factory([ref(WhitespacesFixerConfigFactory::class), 'create']);
+        ->factory([service_polyfill(WhitespacesFixerConfigFactory::class), 'create']);
+
+    $services->set(NoCheckersLoaderReporter::class);
 };

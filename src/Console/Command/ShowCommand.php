@@ -16,6 +16,7 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ShowCommand extends Command
 {
@@ -110,14 +111,13 @@ final class ShowCommand extends Command
             return;
         }
 
-        $this->easyCodingStandardStyle->newLine(2);
-
         $this->easyCodingStandardStyle->title('Loaded Sets');
 
         sort($sets);
 
         foreach ($sets as $set) {
-            $filename = realpath($set);
+            $setFileInfo = new SmartFileInfo($set);
+            $filename = $setFileInfo->getRelativeFilePathFromCwd();
             $this->easyCodingStandardStyle->writeln(' * ' . $filename);
         }
 

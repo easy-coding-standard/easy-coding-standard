@@ -6,10 +6,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Compiler\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\PackageBuilder\Process\ProcessRunner;
 use Symplify\SmartFileSystem\SmartFileSystem;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\ref;
+use function Symplify\PackageBuilder\Functions\service_polyfill;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
@@ -29,11 +28,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(SymfonyStyleFactory::class);
     $services->set(SymfonyStyle::class)
-        ->factory([ref(SymfonyStyleFactory::class), 'create']);
+        ->factory([service_polyfill(SymfonyStyleFactory::class), 'create']);
 
     $services->set(SmartFileSystem::class);
-
-    $services->set(ParameterProvider::class);
 
     $services->set(ProcessRunner::class);
 };

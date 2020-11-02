@@ -6,15 +6,17 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
-use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
+use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
 abstract class AbstractCheckCommand extends Command
@@ -50,6 +52,11 @@ abstract class AbstractCheckCommand extends Command
     private $errorAndDiffResultFactory;
 
     /**
+     * @var LoadedCheckersGuard
+     */
+    private $loadedCheckersGuard;
+
+    /**
      * @required
      */
     public function autowireAbstractCheckCommand(
@@ -58,7 +65,8 @@ abstract class AbstractCheckCommand extends Command
         EasyCodingStandardStyle $easyCodingStandardStyle,
         OutputFormatterCollector $outputFormatterCollector,
         ErrorAndDiffCollector $errorAndDiffCollector,
-        ErrorAndDiffResultFactory $errorAndDiffResultFactory
+        ErrorAndDiffResultFactory $errorAndDiffResultFactory,
+        LoadedCheckersGuard $loadedCheckersGuard
     ): void {
         $this->configuration = $configuration;
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
@@ -66,12 +74,13 @@ abstract class AbstractCheckCommand extends Command
         $this->outputFormatterCollector = $outputFormatterCollector;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
         $this->errorAndDiffResultFactory = $errorAndDiffResultFactory;
+        $this->loadedCheckersGuard = $loadedCheckersGuard;
     }
 
     protected function configure(): void
     {
         $this->addArgument(
-            Option::SOURCES,
+            Option::PATHS,
             // optional is on purpose here, since path from ecs.php can se ubsed
             InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
             'The path(s) to be checked.'
@@ -111,6 +120,11 @@ abstract class AbstractCheckCommand extends Command
         );
     }
 
+    protected function initialize(InputInterface $input, OutputInterface $output): void
+    {
+        $this->loadedCheckersGuard->ensureSomeCheckersAreRegistered();
+    }
+
     protected function reportProcessedFiles(int $processedFileCount): int
     {
         $outputFormat = $this->configuration->getOutputFormat();
@@ -118,18 +132,5 @@ abstract class AbstractCheckCommand extends Command
 
         $errorAndDiffResult = $this->errorAndDiffResultFactory->create($this->errorAndDiffCollector);
         return $outputFormatter->report($errorAndDiffResult, $processedFileCount);
-    }
-
-    protected function ensureSomeCheckersAreRegistered(): void
-    {
-        $checkerCount = $this->easyCodingStandardApplication->getCheckerCount();
-        if ($checkerCount !== 0) {
-            return;
-        }
-
-        throw new NoCheckersLoadedException(
-            'No checkers were found. Register them in your config in "services:" '
-            . 'section, load them via "--config <file>.yml" or "--set <set>" option.'
-        );
     }
 }
