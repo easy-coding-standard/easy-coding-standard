@@ -100,7 +100,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // alternative to CLI arguments, easier to maintain and extend
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
 
-    // exlude paths with really nasty code
+    // exclude paths with really nasty code
     $parameters->set(Option::EXCLUDE_PATHS, [__DIR__ . '/packages/*/src/Legacy']);
 
     // run single rule only on specific path
@@ -116,7 +116,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             # or multiple files by path to match against "fnmatch()"
             __DIR__ . '/packages/*/src/Command',
         ],
-        // skip rule compeltely
+        // skip rule completely
         ArraySyntaxFixer::class => null,
         // just single one part of the rule?
         ArraySyntaxFixer::class . '.SomeSingleOption' => null,
@@ -128,7 +128,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::FILE_EXTENSIONS, ['php', 'phpt']);
 
     // configure cache paths & namespace - useful for Gitlab CI caching, where getcwd() produces always different path
-    // fdefault: sys_get_temp_dir() . '/_changed_files_detector_tests']
+    // [default: sys_get_temp_dir() . '/_changed_files_detector_tests']
     $parameters->set(Option::CACHE_DIRECTORY, '.ecs_cache');
 
     // [default: \Nette\Utils\Strings::webalize(getcwd())']
