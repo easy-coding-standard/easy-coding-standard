@@ -116,7 +116,7 @@ final class AutoloadIncluder
         if (! is_file($cwdVendorAutoload)) {
             return;
         }
-        $this->loadIfNotLoadedYet($cwdVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
+        $this->loadIfNotLoadedYet($cwdVendorAutoload);
     }
 
     public function includeDependencyOrRepositoryVendorAutoloadIfExists(): void
@@ -126,96 +126,57 @@ final class AutoloadIncluder
             return;
         }
 
-        $devOrPharVendorAutoload = __DIR__ . '/../vendor/autoload.php';
-        if (! is_file($devOrPharVendorAutoload)) {
+        $devVendorAutoload = __DIR__ . '/../vendor/autoload.php';
+        if (! is_file($devVendorAutoload)) {
             return;
         }
 
-        $this->loadIfNotLoadedYet($devOrPharVendorAutoload, __METHOD__ . '()" on line ' . __LINE__);
+        $this->loadIfNotLoadedYet($devVendorAutoload);
     }
 
-    /**
-     * Inspired by https://github.com/phpstan/phpstan-src/blob/e2308ecaf49a9960510c47f5a992ce7b27f6dba2/bin/phpstan#L19
-     */
     public function autoloadProjectAutoloaderFile(string $file): void
     {
         $path = dirname(__DIR__) . $file;
-        if (! extension_loaded('phar')) {
-            if (is_file($path)) {
-                $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
-            }
-        } else {
-            $pharPath = Phar::running(false);
-            if ($pharPath === '') {
-                if (is_file($path)) {
-                    $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
-                }
-            } else {
-                $path = dirname($pharPath) . $file;
-                if (is_file($path)) {
-                    $this->loadIfNotLoadedYet($path, __METHOD__ . '()" on line ' . __LINE__);
-                }
-            }
+        if (! is_file($path)) {
+            return;
         }
+        $this->loadIfNotLoadedYet($path);
     }
 
     public function includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens(): void
     {
         // file is autoloaded with classmap in PHAR
         // without phar, we still need to autoload it
-        if (! $this->isInPhar()) {
-            # 1. autoload
-            $possibleAutoloadPaths = [
-                // after split package
-                __DIR__ . '/../vendor',
-                // dependency
-                __DIR__ . '/../../..',
-                // monorepo
-                __DIR__ . '/../../../vendor',
-            ];
+        # 1. autoload
+        $possibleAutoloadPaths = [
+            // after split package
+            __DIR__ . '/../vendor',
+            // dependency
+            __DIR__ . '/../../..',
+            // monorepo
+            __DIR__ . '/../../../vendor',
+        ];
 
-            foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
-                if (! is_file($possibleAutoloadPath . '/autoload.php')) {
-                    continue;
-                }
-
-                require_once $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
+        foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
+            $possiblePhpCodeSnifferAutoloadPath = $possibleAutoloadPath . '/squizlabs/php_codesniffer/autoload.php';
+            if (! is_file($possiblePhpCodeSnifferAutoloadPath)) {
+                continue;
             }
+
+            require_once $possiblePhpCodeSnifferAutoloadPath;
         }
 
         // initalize PHPCS tokens
         new Tokens();
     }
 
-    private function isInPhar(): bool
-    {
-        if (! extension_loaded('phar')) {
-            return false;
-        }
-
-        if (Phar::running(false) === '') {
-            return false;
-        }
-
-        return true;
-    }
-
-    private function loadIfNotLoadedYet(string $file, string $location): void
+    private function loadIfNotLoadedYet(string $file): void
     {
         if (in_array($file, $this->alreadyLoadedAutoloadFiles, true)) {
             return;
         }
 
-        if ($this->isDebugOption()) {
-            echo sprintf(sprintf('File "%s" is about to be loaded in "%s"' . PHP_EOL, $file, $location));
-        }
-
         $this->alreadyLoadedAutoloadFiles[] = realpath($file);
         require_once $file;
-    }
-
-    private function isDebugOption(): bool
-    {
-        return in_array('--debug', $_SERVER['argv'], true);
     }
 }
