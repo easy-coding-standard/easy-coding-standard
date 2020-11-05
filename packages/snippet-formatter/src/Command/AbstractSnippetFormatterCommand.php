@@ -53,7 +53,6 @@ abstract class AbstractSnippetFormatterCommand extends AbstractCheckCommand
         $phpFileInfos = $this->smartFinder->find($sources, $fileNames);
 
         $fileCount = count($phpFileInfos);
-
         if ($fileCount === 0) {
             return $this->printNoFilesFoundWarningAndExitSuccess($sources, $fileNames);
         }
@@ -70,7 +69,6 @@ abstract class AbstractSnippetFormatterCommand extends AbstractCheckCommand
     private function processFileInfoWithPattern(SmartFileInfo $phpFileInfo, string $snippetPattern): void
     {
         $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern);
-
         if ($phpFileInfo->getContents() === $fixedContent) {
             // nothing has changed
             return;

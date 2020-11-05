@@ -121,6 +121,8 @@ final class SnippetFormatter
             $fileContent = substr($fileContent, 6);
         }
 
-        return rtrim($fileContent, PHP_EOL) . PHP_EOL;
+        $fileContent = rtrim($fileContent, PHP_EOL) . PHP_EOL;
+
+        return ltrim($fileContent, PHP_EOL);
     }
 }
