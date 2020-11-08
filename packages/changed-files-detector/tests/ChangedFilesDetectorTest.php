@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests;
 
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ChangedFilesDetectorTest extends AbstractKernelTestCase

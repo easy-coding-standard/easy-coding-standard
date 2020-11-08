@@ -13,7 +13,7 @@ use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**

@@ -41,10 +41,9 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     ) {
         $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
 
-        parent::__construct('EasyCodingStandard', $version->getPrettyVersion());
+        parent::__construct($commands, 'EasyCodingStandard', $version->getPrettyVersion());
 
         $this->configuration = $configuration;
-        $this->addCommands($commands);
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
     }
 

@@ -8,7 +8,7 @@ use Migrify\PhpConfigPrinter\YamlToPhpConverter;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class FileHashComputerTest extends AbstractKernelTestCase

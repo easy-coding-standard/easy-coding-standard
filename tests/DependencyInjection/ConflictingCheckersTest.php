@@ -6,7 +6,7 @@ namespace Symplify\EasyCodingStandard\Tests\DependencyInjection;
 
 use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class ConflictingCheckersTest extends AbstractKernelTestCase
 {

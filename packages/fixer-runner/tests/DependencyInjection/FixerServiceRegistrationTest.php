@@ -9,7 +9,7 @@ use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\PackageBuilder\Tests\AbstractKernelTestCase;
+use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 
 final class FixerServiceRegistrationTest extends AbstractKernelTestCase
 {

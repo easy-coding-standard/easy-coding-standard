@@ -16,7 +16,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->public();
 
     $services->load('Symplify\EasyCodingStandard\FixerRunner\\', __DIR__ . '/../src')
-        ->exclude([__DIR__ . '/../src/Exception']);
+        ->exclude([__DIR__ . '/../src/Exception', __DIR__ . '/../src/ValueObject']);
 
     $services->set(UnifiedDiffer::class);
 

@@ -6,25 +6,11 @@ namespace Symplify\EasyCodingStandard\FixerRunner;
 
 use PhpCsFixer\WhitespacesFixerConfig;
 use Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException;
+use Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
 final class WhitespacesFixerConfigFactory
 {
-    /**
-     * @var string
-     */
-    private const TWO_SPACES = '  ';
-
-    /**
-     * @var string
-     */
-    private const FOUR_SPACES = '    ';
-
-    /**
-     * @var string
-     */
-    private const ONE_TAB = '	';
-
     /**
      * @var ParameterProvider
      */
@@ -49,19 +35,19 @@ final class WhitespacesFixerConfigFactory
     private function resolveIndentation(): string
     {
         $indentation = $this->parameterProvider->provideParameter('indentation');
-        if ($indentation === 'tab' || $indentation === self::ONE_TAB) {
-            return self::ONE_TAB;
+        if ($indentation === 'tab' || $indentation === Spacing::ONE_TAB) {
+            return Spacing::ONE_TAB;
         }
 
-        if ($indentation === self::TWO_SPACES) {
-            return self::TWO_SPACES;
+        if ($indentation === Spacing::TWO_SPACES) {
+            return Spacing::TWO_SPACES;
         }
 
-        if ($indentation === 'spaces' || $indentation === self::FOUR_SPACES) {
-            return self::FOUR_SPACES;
+        if ($indentation === 'spaces' || $indentation === Spacing::FOUR_SPACES) {
+            return Spacing::FOUR_SPACES;
         }
 
-        $allowedValues = ['tab', 'spaces', self::TWO_SPACES, self::FOUR_SPACES, self::ONE_TAB];
+        $allowedValues = ['tab', 'spaces', Spacing::TWO_SPACES, Spacing::FOUR_SPACES, Spacing::ONE_TAB];
 
         throw new WhitespaceConfigurationException(sprintf(
             'Value "%s" is not supported in "parameters > indentation".%sUse one of: "%s".',
