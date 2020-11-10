@@ -22,13 +22,19 @@ final class SnippetFormatter
      * @see https://regex101.com/r/MJTq5C/1
      * @var string
      */
-    private const DECLARE_REGEX = '#(declare\(strict\_types\=1\)\;\s+)#ms';
+    private const DECLARE_REGEX = '#(declare\(strict\_types\=1\)\;\n)#ms';
 
     /**
      * @see https://regex101.com/r/MJTq5C/3
      * @var string
      */
     private const OPENING_TAG_REGEX = '#^\<\?php\n#ms';
+
+    /**
+     * @see https://regex101.com/r/MJTq5C/3
+     * @var string
+     */
+    private const OPENING_TAG_HERENOWDOC_REGEX = '#^\<\?php\n#ms';
 
     /**
      * @var SmartFileSystem
@@ -68,37 +74,39 @@ final class SnippetFormatter
         $this->isPhp73OrAbove = PHP_VERSION_ID >= 70300;
     }
 
-    public function format(SmartFileInfo $fileInfo, string $snippetRegex): string
+    public function format(SmartFileInfo $fileInfo, string $snippetRegex, string $kind): string
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
 
-        return (string) Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match): string {
+        return (string) Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use (
+            $kind
+        ): string {
             if (Strings::contains($match['content'], '-----')) {
                 // do nothing
                 return $match['opening'] . $match['content'] . $match['closing'];
             }
 
-            return $this->fixContentAndPreserveFormatting($match);
+            return $this->fixContentAndPreserveFormatting($match, $kind);
         });
     }
 
     /**
      * @param string[] $match
      */
-    private function fixContentAndPreserveFormatting(array $match): string
+    private function fixContentAndPreserveFormatting(array $match, string $kind): string
     {
         if ($this->isPhp73OrAbove) {
             return str_replace(PHP_EOL, '', $match['opening']) . PHP_EOL
-                . $this->fixContent($match['content'])
+                . $this->fixContent($match['content'], $kind)
                 . str_replace(PHP_EOL, '', $match['closing']);
         }
 
         return rtrim($match['opening'], PHP_EOL) . PHP_EOL
-            . $this->fixContent($match['content'])
+            . $this->fixContent($match['content'], $kind)
             . ltrim($match['closing'], PHP_EOL);
     }
 
-    private function fixContent(string $content): string
+    private function fixContent(string $content, string $kind): string
     {
         $content = $this->isPhp73OrAbove ? $content : trim($content);
         $temporaryFilePath = $this->createTemporaryFilePath($content);
@@ -126,11 +134,15 @@ final class SnippetFormatter
 
         $fileContent = rtrim($fileContent, PHP_EOL) . PHP_EOL;
 
-        if ($this->isPhp73OrAbove) {
+        if ($kind === 'markdown') {
             $fileContent = ltrim($fileContent, PHP_EOL);
+
+            $fileContent = $this->removeOpeningTagAndStrictTypes($fileContent);
+
+            return ltrim($fileContent);
         }
 
-        return $this->removeOpeningTagAndStrictTypes($fileContent);
+        return Strings::replace($fileContent, self::OPENING_TAG_HERENOWDOC_REGEX, '$1');
     }
 
     /**
@@ -140,7 +152,7 @@ final class SnippetFormatter
     {
         $content = Strings::replace($content, self::DECLARE_REGEX, '');
 
-        return Strings::replace($content, self::OPENING_TAG_REGEX, '$1');
+        return $this->removeOpeningTag($content);
     }
 
     private function createTemporaryFilePath(string $content): string
@@ -149,5 +161,10 @@ final class SnippetFormatter
         $fileName = sprintf('php-code-%s.php', $key);
 
         return sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'ecs_temp' . DIRECTORY_SEPARATOR . $fileName;
+    }
+
+    private function removeOpeningTag(string $fileContent): string
+    {
+        return Strings::replace($fileContent, self::OPENING_TAG_REGEX, '$1');
     }
 }

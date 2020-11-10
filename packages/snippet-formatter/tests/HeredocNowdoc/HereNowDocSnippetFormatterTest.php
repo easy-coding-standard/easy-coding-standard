@@ -52,7 +52,8 @@ final class HereNowDocSnippetFormatterTest extends AbstractKernelTestCase
 
         $changedContent = $this->snippetFormatter->format(
             $inputAndExpectedFileInfos->getInputFileInfo(),
-            SnippetPattern::HERENOWDOC_SNIPPET_REGEX
+            SnippetPattern::HERENOWDOC_SNIPPET_REGEX,
+            'herenowdoc'
         );
 
         $expectedFileContent = $inputAndExpectedFileInfos->getExpectedFileContent();

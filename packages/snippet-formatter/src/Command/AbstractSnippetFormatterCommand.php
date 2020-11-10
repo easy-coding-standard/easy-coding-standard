@@ -45,12 +45,13 @@ abstract class AbstractSnippetFormatterCommand extends AbstractCheckCommand
     protected function doExecuteSnippetFormatterWithFileNamesAndSnippetPattern(
         InputInterface $input,
         string $fileNames,
-        string $snippetPattern
+        string $snippetPattern,
+        string $kind
     ): int {
         $this->configuration->resolveFromInput($input);
 
         $sources = $this->configuration->getSources();
-        $phpFileInfos = $this->smartFinder->find($sources, $fileNames);
+        $phpFileInfos = $this->smartFinder->find($sources, $fileNames, ['Fixture']);
 
         $fileCount = count($phpFileInfos);
         if ($fileCount === 0) {
@@ -59,16 +60,16 @@ abstract class AbstractSnippetFormatterCommand extends AbstractCheckCommand
 
         $this->easyCodingStandardStyle->progressStart($fileCount);
         foreach ($phpFileInfos as $phpFileInfo) {
-            $this->processFileInfoWithPattern($phpFileInfo, $snippetPattern);
+            $this->processFileInfoWithPattern($phpFileInfo, $snippetPattern, $kind);
             $this->easyCodingStandardStyle->progressAdvance();
         }
 
         return $this->reportProcessedFiles($fileCount);
     }
 
-    private function processFileInfoWithPattern(SmartFileInfo $phpFileInfo, string $snippetPattern): void
+    private function processFileInfoWithPattern(SmartFileInfo $phpFileInfo, string $snippetPattern, string $kind): void
     {
-        $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern);
+        $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind);
         if ($phpFileInfo->getContents() === $fixedContent) {
             // nothing has changed
             return;

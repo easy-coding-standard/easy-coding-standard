@@ -7,6 +7,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
+use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\EasyCodingStandard\Application\AbstractFileProcessor;
@@ -209,6 +210,10 @@ final class FixerFileProcessor extends AbstractFileProcessor
         }
 
         if ($fixer instanceof BlankLineAfterOpeningTagFixer) {
+            return true;
+        }
+
+        if ($fixer instanceof DeclareStrictTypesFixer) {
             return true;
         }
 

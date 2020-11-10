@@ -36,7 +36,7 @@ Head over to the ["Easy Coding Standard Prefixed" repository](https://github.com
 - ...or [Fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) you'd love to use
 
 ```php
-<?php // ecs.php
+// ecs.php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -79,7 +79,7 @@ vendor/bin/ecs check src --config another-config.php
 Configuration can be extended with many options. Here is list of them with example values and little description what are they for:
 
 ```php
-<?php use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 

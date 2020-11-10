@@ -22,7 +22,8 @@ final class CheckHeredocNowdocCommand extends AbstractSnippetFormatterCommand
         return $this->doExecuteSnippetFormatterWithFileNamesAndSnippetPattern(
             $input,
             '*.php',
-            SnippetPattern::HERENOWDOC_SNIPPET_REGEX
+            SnippetPattern::HERENOWDOC_SNIPPET_REGEX,
+            'heredocnowdox'
         );
     }
 }
