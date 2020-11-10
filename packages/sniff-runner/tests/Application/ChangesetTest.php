@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
-use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
@@ -24,9 +22,6 @@ final class ChangesetTest extends AbstractKernelTestCase
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.php']
         );
-
-        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
 
         $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
     }

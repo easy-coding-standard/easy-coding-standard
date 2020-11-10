@@ -1,7 +1,7 @@
 This is how coding standard works:
 
 ```php
-<?php
+
 
 $array = array('old array');
 -----

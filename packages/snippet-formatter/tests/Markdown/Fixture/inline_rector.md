@@ -1,8 +1,6 @@
 Move value object to ValueObject namespace/directory
 
 ```php
-<?php
-
 declare(strict_types=1);
 
 use Rector\Autodiscovery\Rector\FileSystem\MoveValueObjectsToValueObjectDirectoryRector;
@@ -19,10 +17,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 Move value object to ValueObject namespace/directory
 
 ```php
-<?php
-
-declare(strict_types=1);
-
 use Rector\Autodiscovery\Rector\FileSystem\MoveValueObjectsToValueObjectDirectoryRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 

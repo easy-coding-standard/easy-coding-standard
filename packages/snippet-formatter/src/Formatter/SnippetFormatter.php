@@ -19,6 +19,18 @@ use Throwable;
 final class SnippetFormatter
 {
     /**
+     * @see https://regex101.com/r/MJTq5C/1
+     * @var string
+     */
+    private const DECLARE_REGEX = '#(declare\(strict\_types\=1\)\;\s+)#ms';
+
+    /**
+     * @see https://regex101.com/r/MJTq5C/3
+     * @var string
+     */
+    private const OPENING_TAG_REGEX = '#^\<\?php\n#ms';
+
+    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
@@ -89,15 +101,10 @@ final class SnippetFormatter
     private function fixContent(string $content): string
     {
         $content = $this->isPhp73OrAbove ? $content : trim($content);
-        $key = md5($content);
+        $temporaryFilePath = $this->createTemporaryFilePath($content);
 
-        /** @var string $temporaryFilePath */
-        $temporaryFilePath = sys_get_temp_dir() . '/ecs_temp/' . sprintf('php-code-%s.php', $key);
-
-        $hasPreviouslyOpeningPHPTag = true;
         if (! Strings::startsWith($this->isPhp73OrAbove ? trim($content) : $content, '<?php')) {
             $content = '<?php' . PHP_EOL . $content;
-            $hasPreviouslyOpeningPHPTag = false;
         }
 
         $fileContent = $this->isPhp73OrAbove ? ltrim($content, PHP_EOL) : $content;
@@ -117,12 +124,30 @@ final class SnippetFormatter
             $this->smartFileSystem->remove($temporaryFilePath);
         }
 
-        if (! $hasPreviouslyOpeningPHPTag) {
-            $fileContent = substr($fileContent, 6);
-        }
-
         $fileContent = rtrim($fileContent, PHP_EOL) . PHP_EOL;
 
-        return ltrim($fileContent, PHP_EOL);
+        if ($this->isPhp73OrAbove) {
+            $fileContent = ltrim($fileContent, PHP_EOL);
+        }
+
+        return $this->removeOpeningTagAndStrictTypes($fileContent);
+    }
+
+    /**
+     * It does not have any added value and only clutters the output
+     */
+    private function removeOpeningTagAndStrictTypes(string $content): string
+    {
+        $content = Strings::replace($content, self::DECLARE_REGEX, '');
+
+        return Strings::replace($content, self::OPENING_TAG_REGEX, '$1');
+    }
+
+    private function createTemporaryFilePath(string $content): string
+    {
+        $key = md5($content);
+        $fileName = sprintf('php-code-%s.php', $key);
+
+        return sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'ecs_temp' . DIRECTORY_SEPARATOR . $fileName;
     }
 }

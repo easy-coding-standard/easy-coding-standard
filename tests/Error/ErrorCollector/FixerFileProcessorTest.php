@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Tests\Error\ErrorCollector;
 
-use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
@@ -33,10 +31,6 @@ final class FixerFileProcessorTest extends AbstractKernelTestCase
 
         $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
         $this->fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
-
-        // silent output
-        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
     }
 
     public function test(): void

@@ -7,8 +7,6 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Tests\Application;
 use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;
 use PhpCsFixer\Fixer\Basic\EncodingFixer;
 use PhpCsFixer\Fixer\PhpTag\FullOpeningTagFixer;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
@@ -26,9 +24,6 @@ final class FileProcessorTest extends AbstractKernelTestCase
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.php']
         );
-
-        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
 
         $this->fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
     }

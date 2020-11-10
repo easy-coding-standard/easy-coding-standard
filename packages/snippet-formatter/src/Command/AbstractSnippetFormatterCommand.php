@@ -78,7 +78,7 @@ abstract class AbstractSnippetFormatterCommand extends AbstractCheckCommand
             return;
         }
 
-        $this->smartFileSystem->dumpFile($phpFileInfo->getPathname(), (string) $fixedContent);
+        $this->smartFileSystem->dumpFile($phpFileInfo->getPathname(), $fixedContent);
     }
 
     /**

@@ -26,7 +26,6 @@ class Foo
     public function getDefinition(): string
     {
         return <<<'PHP'
-<?php
 class Definition
 {
     public function getResult(): array

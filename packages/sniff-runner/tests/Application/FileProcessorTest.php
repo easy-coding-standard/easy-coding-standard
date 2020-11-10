@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\SniffRunner\Tests\Application;
 
-use Symfony\Component\Console\Output\OutputInterface;
-use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
@@ -29,7 +27,6 @@ final class FileProcessorTest extends AbstractKernelTestCase
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.php']
         );
-        $this->makeConsoleOutputQuiet();
 
         $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
     }
@@ -48,11 +45,5 @@ final class FileProcessorTest extends AbstractKernelTestCase
     {
         $sniffs = $this->sniffFileProcessor->getCheckers();
         $this->assertCount(1, $sniffs);
-    }
-
-    private function makeConsoleOutputQuiet(): void
-    {
-        $easyCodingStandardStyle = self::$container->get(EasyCodingStandardStyle::class);
-        $easyCodingStandardStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
     }
 }
