@@ -27,7 +27,7 @@ final class Php73Test extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        self::bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/array_fixer.php']);
+        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/array_fixer.php']);
         $this->snippetFormatter = self::$container->get(SnippetFormatter::class);
 
         // enable fixing
