@@ -25,8 +25,8 @@ final class FileHashComputer
         $loader = $this->createLoader($filePath, $containerBuilder);
         $loader->load($filePath);
 
-        return $this->arrayToHash($containerBuilder->getDefinitions()) .
-            $this->arrayToHash($containerBuilder->getParameterBag()->all());
+        $parameterBag = $containerBuilder->getParameterBag();
+        return $this->arrayToHash($containerBuilder->getDefinitions()) . $this->arrayToHash($parameterBag->all());
     }
 
     public function compute(string $filePath): string
