@@ -20,7 +20,7 @@
         "symfony/console": "^4.4|^5.1",
         "symfony/config": "^4.4|^5.1",
         "symfony/http-kernel": "^4.4|^5.1",
-        "symfony/dependency-injection": "^4.4|^5.1",
+        "symfony/dependency-injection": "^5.1",
         "symfony/finder": "^4.4|^5.1",
         "symfony/yaml": "^4.4|^5.1",
         "symplify/coding-standard": "^9.0",
