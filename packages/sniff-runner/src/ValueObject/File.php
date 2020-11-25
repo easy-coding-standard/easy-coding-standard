@@ -288,13 +288,13 @@ final class File extends BaseFile
     {
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
 
-        if ($this->skipper->shouldSkipCodeAndFile($fullyQualifiedCode, $this->fileInfo)) {
+        if ($this->skipper->shouldSkipElementAndFileInfo($fullyQualifiedCode, $this->fileInfo)) {
             return true;
         }
 
         $message = count($data) > 0 ? vsprintf($error, $data) : $error;
 
-        return $this->skipper->shouldSkipMessageAndFile($message, $this->fileInfo);
+        return $this->skipper->shouldSkipElementAndFileInfo($message, $this->fileInfo);
     }
 
     private function isSniffClassWarningAllowed(string $sniffClass): bool
