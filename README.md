@@ -89,28 +89,31 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // alternative to CLI arguments, easier to maintain and extend
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
 
-    // exclude paths with really nasty code
-    $parameters->set(Option::EXCLUDE_PATHS, [__DIR__ . '/packages/*/src/Legacy']);
-
     // run single rule only on specific path
     $parameters->set(Option::ONLY, [
         ArraySyntaxFixer::class => [__DIR__ . '/src/NewCode'],
     ]);
 
     $parameters->set(Option::SKIP, [
+        // skip paths with legacy code
+        __DIR__ . '/packages/*/src/Legacy',
+
         ArraySyntaxFixer::class => [
-            # path to file (you can copy this from error report)
+            // path to file (you can copy this from error report)
             __DIR__ . '/packages/EasyCodingStandard/packages/SniffRunner/src/File/File.php',
 
-            # or multiple files by path to match against "fnmatch()"
+            // or multiple files by path to match against "fnmatch()"
             __DIR__ . '/packages/*/src/Command',
         ],
+
         // skip rule completely
-        ArraySyntaxFixer::class => null,
+        ArraySyntaxFixer::class,
+
         // just single one part of the rule?
-        ArraySyntaxFixer::class . '.SomeSingleOption' => null,
+        ArraySyntaxFixer::class . '.SomeSingleOption',
+
         // ignore specific error message
-        'Cognitive complexity for method "addAction" is 13 but has to be less than or equal to 8.' => null,
+        'Cognitive complexity for method "addAction" is 13 but has to be less than or equal to 8.',
     ]);
 
     // scan other file extendsions; [default: [php]]

@@ -46,15 +46,15 @@ final class SingleFileProcessor
 
     public function processFileInfo(SmartFileInfo $smartFileInfo): void
     {
+        if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
+            return;
+        }
+
         try {
             $this->changedFilesDetector->addFileInfo($smartFileInfo);
             $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
             foreach ($fileProcessors as $fileProcessor) {
                 if ($fileProcessor->getCheckers() === []) {
-                    continue;
-                }
-
-                if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
                     continue;
                 }
 
