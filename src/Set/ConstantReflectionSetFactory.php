@@ -33,7 +33,9 @@ final class ConstantReflectionSetFactory
         $sets = [];
 
         // new kind of paths sets
-        $constants = $setListReflectionClass->getConstants();
+        /** @var array<string, mixed> $constants */
+        $constants = (array) $setListReflectionClass->getConstants();
+
         foreach ($constants as $name => $setPath) {
             if (! file_exists($setPath)) {
                 $message = sprintf('Set file "%s" not found. Check %s::%s', $setPath, $setClassName, $name);
