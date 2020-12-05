@@ -17,7 +17,7 @@ final class ExcludedCheckersTest extends AbstractKernelTestCase
 
     public function test(): void
     {
-        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = $this->getService(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getCheckers());
     }
 }

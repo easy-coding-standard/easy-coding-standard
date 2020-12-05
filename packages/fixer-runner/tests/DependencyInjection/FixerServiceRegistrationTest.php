@@ -30,7 +30,7 @@ final class FixerServiceRegistrationTest extends AbstractKernelTestCase
             [__DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.php']
         );
 
-        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = $this->getService(FixerFileProcessor::class);
 
         $checkers = $fixerFileProcessor->getCheckers();
         $this->assertCount(2, $checkers);

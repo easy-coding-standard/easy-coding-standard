@@ -14,7 +14,7 @@ final class SourceFinderTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $sourceFinder = self::$container->get(SourceFinder::class);
+        $sourceFinder = $this->getService(SourceFinder::class);
         $foundFiles = $sourceFinder->find([__DIR__ . '/SourceFinderSource/Source']);
         $this->assertCount(1, $foundFiles);
 

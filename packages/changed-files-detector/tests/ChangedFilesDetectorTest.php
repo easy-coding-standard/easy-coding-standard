@@ -27,7 +27,7 @@ final class ChangedFilesDetectorTest extends AbstractKernelTestCase
 
         $this->smartFileInfo = new SmartFileInfo(__DIR__ . '/ChangedFilesDetectorSource/OneClass.php');
 
-        $this->changedFilesDetector = self::$container->get(ChangedFilesDetector::class);
+        $this->changedFilesDetector = $this->getService(ChangedFilesDetector::class);
         $this->changedFilesDetector->changeConfigurationFile(
             __DIR__ . '/ChangedFilesDetectorSource/easy-coding-standard.php'
         );

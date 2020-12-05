@@ -18,10 +18,10 @@ final class ConfigurationFileTest extends AbstractKernelTestCase
             [__DIR__ . '/ConfigurationFileSource/empty-config.php']
         );
 
-        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = $this->getService(FixerFileProcessor::class);
         $this->assertCount(0, $fixerFileProcessor->getCheckers());
 
-        $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
+        $sniffFileProcessor = $this->getService(SniffFileProcessor::class);
         $this->assertCount(0, $sniffFileProcessor->getCheckers());
     }
 
@@ -32,10 +32,10 @@ final class ConfigurationFileTest extends AbstractKernelTestCase
             [__DIR__ . '/ConfigurationFileSource/include-another-config.php']
         );
 
-        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = $this->getService(FixerFileProcessor::class);
         $this->assertCount(1, $fixerFileProcessor->getCheckers());
 
-        $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
+        $sniffFileProcessor = $this->getService(SniffFileProcessor::class);
         $this->assertCount(1, $sniffFileProcessor->getCheckers());
     }
 }

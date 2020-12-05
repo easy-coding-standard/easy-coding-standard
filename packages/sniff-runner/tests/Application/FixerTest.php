@@ -27,10 +27,10 @@ final class FixerTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $fileFactory = self::$container->get(FileFactory::class);
+        $fileFactory = $this->getService(FileFactory::class);
 
         $this->file = $fileFactory->createFromFileInfo(new SmartFileInfo(__DIR__ . '/FixerSource/SomeFile.php'));
-        $this->fixer = self::$container->get(Fixer::class);
+        $this->fixer = $this->getService(Fixer::class);
     }
 
     public function testStartFile(): void

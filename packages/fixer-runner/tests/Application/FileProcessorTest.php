@@ -25,7 +25,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.php']
         );
 
-        $this->fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
+        $this->fixerFileProcessor = $this->getService(FixerFileProcessor::class);
     }
 
     public function testGetSortedCheckers(): void

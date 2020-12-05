@@ -30,9 +30,9 @@ final class FileTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
+        $this->errorAndDiffCollector = $this->getService(ErrorAndDiffCollector::class);
 
-        $fileFactory = self::$container->get(FileFactory::class);
+        $fileFactory = $this->getService(FileFactory::class);
         $fileInfo = new SmartFileInfo(__DIR__ . '/FileSource/SomeFile.php');
 
         $this->file = $fileFactory->createFromFileInfo($fileInfo);

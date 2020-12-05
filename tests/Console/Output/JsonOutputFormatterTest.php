@@ -34,9 +34,9 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $this->jsonOutputFormatter = self::$container->get(JsonOutputFormatter::class);
-        $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
-        $this->errorAndDiffResultFactory = self::$container->get(ErrorAndDiffResultFactory::class);
+        $this->jsonOutputFormatter = $this->getService(JsonOutputFormatter::class);
+        $this->errorAndDiffCollector = $this->getService(ErrorAndDiffCollector::class);
+        $this->errorAndDiffResultFactory = $this->getService(ErrorAndDiffResultFactory::class);
     }
 
     public function test(): void

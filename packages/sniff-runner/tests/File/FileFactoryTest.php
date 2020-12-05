@@ -22,7 +22,7 @@ final class FileFactoryTest extends AbstractKernelTestCase
     protected function setUp(): void
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
-        $this->fileFactory = self::$container->get(FileFactory::class);
+        $this->fileFactory = $this->getService(FileFactory::class);
     }
 
     public function test(): void

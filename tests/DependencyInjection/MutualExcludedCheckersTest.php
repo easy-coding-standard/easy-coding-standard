@@ -18,10 +18,10 @@ final class MutualExcludedCheckersTest extends AbstractKernelTestCase
             [__DIR__ . '/MutualExcludedCheckersSource/config.php']
         );
 
-        $fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
+        $fixerFileProcessor = $this->getService(FixerFileProcessor::class);
         $this->assertCount(2, $fixerFileProcessor->getCheckers());
 
-        $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
+        $sniffFileProcessor = $this->getService(SniffFileProcessor::class);
         $this->assertCount(0, $sniffFileProcessor->getCheckers());
     }
 }

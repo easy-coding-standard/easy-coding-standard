@@ -19,7 +19,7 @@ final class ApplicationTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $this->easyCodingStandardApplication = self::$container->get(EasyCodingStandardApplication::class);
+        $this->easyCodingStandardApplication = $this->getService(EasyCodingStandardApplication::class);
     }
 
     /**

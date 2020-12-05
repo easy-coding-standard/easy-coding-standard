@@ -37,9 +37,9 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     {
         $this->bootKernel(EasyCodingStandardKernel::class);
 
-        $this->fileHashComputer = self::$container->get(FileHashComputer::class);
-        $this->smartFileSystem = self::$container->get(SmartFileSystem::class);
-        $this->yamlToPhpConverter = self::$container->get(YamlToPhpConverter::class);
+        $this->fileHashComputer = $this->getService(FileHashComputer::class);
+        $this->smartFileSystem = $this->getService(SmartFileSystem::class);
+        $this->yamlToPhpConverter = $this->getService(YamlToPhpConverter::class);
     }
 
     public function testInvalidateCacheOnConfigurationChange(): void

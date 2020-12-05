@@ -18,7 +18,7 @@ final class SniffServiceRegistrationTest extends AbstractKernelTestCase
             [__DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.php']
         );
 
-        $sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
+        $sniffFileProcessor = $this->getService(SniffFileProcessor::class);
 
         /** @var LineLengthSniff $lineLengthSniff */
         $lineLengthSniff = $sniffFileProcessor->getCheckers()[0];

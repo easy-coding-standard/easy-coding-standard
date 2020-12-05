@@ -29,8 +29,8 @@ final class FixerFileProcessorTest extends AbstractKernelTestCase
             [__DIR__ . '/FixerRunnerSource/phpunit-fixer-config.php']
         );
 
-        $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
-        $this->fixerFileProcessor = self::$container->get(FixerFileProcessor::class);
+        $this->errorAndDiffCollector = $this->getService(ErrorAndDiffCollector::class);
+        $this->fixerFileProcessor = $this->getService(FixerFileProcessor::class);
     }
 
     public function test(): void

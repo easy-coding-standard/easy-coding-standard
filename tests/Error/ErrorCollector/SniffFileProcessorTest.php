@@ -36,11 +36,11 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
             [__DIR__ . '/SniffRunnerSource/easy-coding-standard.php']
         );
 
-        $this->errorAndDiffCollector = self::$container->get(ErrorAndDiffCollector::class);
-        $this->errorAndDiffResultFactory = self::$container->get(ErrorAndDiffResultFactory::class);
-        $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
+        $this->errorAndDiffCollector = $this->getService(ErrorAndDiffCollector::class);
+        $this->errorAndDiffResultFactory = $this->getService(ErrorAndDiffResultFactory::class);
+        $this->sniffFileProcessor = $this->getService(SniffFileProcessor::class);
 
-        $changedFilesDetector = self::$container->get(ChangedFilesDetector::class);
+        $changedFilesDetector = $this->getService(ChangedFilesDetector::class);
         $changedFilesDetector->clearCache();
     }
 

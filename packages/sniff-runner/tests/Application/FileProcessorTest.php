@@ -28,7 +28,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.php']
         );
 
-        $this->sniffFileProcessor = self::$container->get(SniffFileProcessor::class);
+        $this->sniffFileProcessor = $this->getService(SniffFileProcessor::class);
     }
 
     public function test(): void
