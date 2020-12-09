@@ -12,11 +12,6 @@ use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-/**
- * @deprecated
- * This noun name looks like value object, while it is actually a service.
- * Should be rename to ConfigurationManager or something like this.
- */
 final class Configuration
 {
     /**
