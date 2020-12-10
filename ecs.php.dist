@@ -9,10 +9,16 @@ use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
-    $services->set(ArraySyntaxFixer::class);
+    $services->set(ArraySyntaxFixer::class)
+        ->call('configure', [[
+            'syntax' => 'short',
+        ]]);
 
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/ecs.php']);
+    $parameters->set(Option::PATHS, [
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+    ]);
 
     $parameters->set(Option::SETS, [
         SetList::SPACES,
