@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -18,8 +17,9 @@ use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 
-abstract class AbstractCheckCommand extends Command
+abstract class AbstractCheckCommand extends AbstractSymplifyCommand
 {
     /**
      * @var Configuration

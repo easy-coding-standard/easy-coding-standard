@@ -8,9 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
 use Symplify\PackageBuilder\Console\ShellCode;
-use Symplify\SmartFileSystem\Finder\SmartFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 abstract class AbstractSnippetFormatterCommand extends AbstractCheckCommand
 {
@@ -20,26 +18,11 @@ abstract class AbstractSnippetFormatterCommand extends AbstractCheckCommand
     private $snippetFormatter;
 
     /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-
-    /**
-     * @var SmartFinder
-     */
-    private $smartFinder;
-
-    /**
      * @required
      */
-    public function autowireAbstractSnippetFormatterCommand(
-        SnippetFormatter $snippetFormatter,
-        SmartFileSystem $smartFileSystem,
-        SmartFinder $smartFinder
-    ): void {
+    public function autowireAbstractSnippetFormatterCommand(SnippetFormatter $snippetFormatter): void
+    {
         $this->snippetFormatter = $snippetFormatter;
-        $this->smartFileSystem = $smartFileSystem;
-        $this->smartFinder = $smartFinder;
     }
 
     protected function doExecuteSnippetFormatterWithFileNamesAndSnippetPattern(

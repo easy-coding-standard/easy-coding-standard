@@ -100,14 +100,6 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     private function addExtraOptions(InputDefinition $inputDefinition): void
     {
         $inputDefinition->addOption(new InputOption(
-            Option::CONFIG,
-            'c',
-            InputOption::VALUE_REQUIRED,
-            'Path to config file.',
-            getcwd() . DIRECTORY_SEPARATOR . 'ecs.php'
-        ));
-
-        $inputDefinition->addOption(new InputOption(
             Option::XDEBUG,
             null,
             InputOption::VALUE_NONE,
