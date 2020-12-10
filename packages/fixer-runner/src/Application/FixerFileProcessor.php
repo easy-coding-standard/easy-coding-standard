@@ -6,6 +6,7 @@ namespace Symplify\EasyCodingStandard\FixerRunner\Application;
 
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Fixer\FixerInterface;
+use PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
@@ -27,6 +28,17 @@ use Throwable;
  */
 final class FixerFileProcessor extends AbstractFileProcessor
 {
+    /**
+     * @var string[]
+     */
+    private const MARKDOWN_EXCLUDED_FIXERS = [
+        VoidReturnFixer::class,
+        DeclareStrictTypesFixer::class,
+        SingleBlankLineBeforeNamespaceFixer::class,
+        BlankLineAfterOpeningTagFixer::class,
+        SingleBlankLineAtEofFixer::class,
+    ];
+
     /**
      * @var class-string[]
      */
@@ -210,18 +222,12 @@ final class FixerFileProcessor extends AbstractFileProcessor
             return false;
         }
 
-        if ($fixer instanceof BlankLineAfterOpeningTagFixer) {
-            return true;
+        foreach (self::MARKDOWN_EXCLUDED_FIXERS as $markdownExcludedFixer) {
+            if (is_a($fixer, $markdownExcludedFixer, true)) {
+                return true;
+            }
         }
 
-        if ($fixer instanceof DeclareStrictTypesFixer) {
-            return true;
-        }
-
-        if ($fixer instanceof SingleBlankLineBeforeNamespaceFixer) {
-            return true;
-        }
-
-        return $fixer instanceof SingleBlankLineAtEofFixer;
+        return false;
     }
 }
