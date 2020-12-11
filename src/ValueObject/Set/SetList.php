@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ValueObject\Set;
 
-/**
- * @todo refactor to rull paths
- */
 final class SetList
 {
     /**
