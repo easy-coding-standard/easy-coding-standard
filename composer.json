@@ -34,7 +34,7 @@
         "symplify/easy-testing": "^9.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5|^9.4",
+        "phpunit/phpunit": "^9.5",
         "symplify/easy-coding-standard-tester": "^9.1",
         "symplify/php-config-printer": "^9.1"
     },
