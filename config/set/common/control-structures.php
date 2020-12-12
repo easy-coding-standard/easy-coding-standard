@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
-use PhpCsFixer\Fixer\Basic\Psr4Fixer;
 use PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer;
 use PhpCsFixer\Fixer\ClassNotation\OrderedClassElementsFixer;
@@ -44,8 +43,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ExplicitStringVariableFixer::class);
 
     $services->set(ExplicitIndirectVariableFixer::class);
-
-    $services->set(Psr4Fixer::class);
 
     $services->set(SingleClassElementPerStatementFixer::class)
         ->call('configure', [[
