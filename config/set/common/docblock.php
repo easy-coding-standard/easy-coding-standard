@@ -15,6 +15,7 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
 use SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
@@ -40,6 +41,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(PhpdocReturnSelfReferenceFixer::class);
 
     $services->set(PhpdocVarWithoutNameFixer::class);
+
+    $services->set(RemoveUselessDefaultCommentFixer::class);
 
     $services->set(NoSuperfluousPhpdocTagsFixer::class)
         ->call('configure', [
