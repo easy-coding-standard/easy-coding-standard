@@ -8,7 +8,7 @@
     "require": {
         "php": ">=7.3",
         "composer/xdebug-handler": "^1.4",
-        "friendsofphp/php-cs-fixer": "^2.16",
+        "friendsofphp/php-cs-fixer": "^2.17.1",
         "jean85/pretty-package-versions": "^1.5",
         "nette/utils": "^3.0",
         "nette/robot-loader": "^3.2",
