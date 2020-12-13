@@ -15,8 +15,6 @@ use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
-
-    // array spacing
     $services->set(NoWhitespaceBeforeCommaInArrayFixer::class);
     $services->set(ArrayOpenerAndCloserNewlineFixer::class);
     $services->set(ArrayIndentationFixer::class);

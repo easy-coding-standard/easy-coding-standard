@@ -12,6 +12,7 @@ use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
 use PhpCsFixer\Tokenizer\Tokens;
+use Symplify\CodingStandard\Fixer\Commenting\RemoveCommentedCodeFixer;
 use Symplify\EasyCodingStandard\Application\AbstractFileProcessor;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
@@ -37,6 +38,7 @@ final class FixerFileProcessor extends AbstractFileProcessor
         SingleBlankLineBeforeNamespaceFixer::class,
         BlankLineAfterOpeningTagFixer::class,
         SingleBlankLineAtEofFixer::class,
+        RemoveCommentedCodeFixer::class,
     ];
 
     /**
