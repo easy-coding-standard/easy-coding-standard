@@ -76,6 +76,8 @@ final class SourceFinder
             ->name($normalizedFileExtensions)
             ->in($directory)
             ->exclude('vendor')
+            // skip empty files
+            ->size('> 0')
             ->sortByName();
 
         return $this->finderSanitizer->sanitize($finder);
