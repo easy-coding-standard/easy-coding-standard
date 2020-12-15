@@ -57,8 +57,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(BinaryOperatorSpacesFixer::class)
         ->call('configure', [[
-            'align_double_arrow' => false,
-            'align_equals' => false,
+            'operators' => [
+                '=>' => 'single_space',
+                '=' => 'single_space'
+            ],
         ]]);
 
     $services->set(FunctionTypehintSpaceFixer::class);
