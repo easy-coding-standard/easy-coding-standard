@@ -59,7 +59,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [[
             'operators' => [
                 '=>' => 'single_space',
-                '=' => 'single_space'
+                '=' => 'single_space',
             ],
         ]]);
 

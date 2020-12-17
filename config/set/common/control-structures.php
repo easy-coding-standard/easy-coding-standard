@@ -19,7 +19,6 @@ use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
 use SlevomatCodingStandard\Sniffs\Classes\DisallowMultiConstantDefinitionSniff;
 use SlevomatCodingStandard\Sniffs\Classes\DisallowMultiPropertyDefinitionSniff;
-use SlevomatCodingStandard\Sniffs\Classes\ModernClassNameReferenceSniff;
 use SlevomatCodingStandard\Sniffs\Classes\TraitUseDeclarationSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -35,8 +34,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     }
 
     $services->set(PhpUnitMethodCasingFixer::class);
-
-    $services->set(ModernClassNameReferenceSniff::class);
 
     $services->set(FunctionToConstantFixer::class);
 
