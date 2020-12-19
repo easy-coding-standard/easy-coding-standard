@@ -64,9 +64,8 @@ final class ShowCommand extends AbstractSymplifyCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $totalCheckerCount = count($this->sniffFileProcessor->getCheckers()) + count(
-            $this->fixerFileProcessor->getCheckers()
-        );
+        $totalCheckerCount = count($this->sniffFileProcessor->getCheckers())
+            + count($this->fixerFileProcessor->getCheckers());
 
         $this->checkerListReporter->report($this->sniffFileProcessor->getCheckers(), 'PHP_CodeSniffer');
         $this->checkerListReporter->report($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
