@@ -28,10 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(DisallowMultiConstantDefinitionSniff::class);
 
-    // breaks on PHP 8
-    if (PHP_VERSION_ID < 80000) {
-        $services->set(DisallowMultiPropertyDefinitionSniff::class);
-    }
+    $services->set(DisallowMultiPropertyDefinitionSniff::class);
 
     $services->set(PhpUnitMethodCasingFixer::class);
 
