@@ -13,7 +13,7 @@ final class InitCommand extends AbstractSymplifyCommand
 {
     protected function configure(): void
     {
-        $this->setDescription('Generate rector.php configuration file');
+        $this->setDescription('Generate ecs.php configuration file');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
