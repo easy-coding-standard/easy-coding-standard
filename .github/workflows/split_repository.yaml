@@ -1,4 +1,4 @@
-# see https://github.com/dear-github/dear-github/issues/84#issuecomment-696475017
+# đ€e https://github.com/dear-github/dear-github/issues/84#issuecomment-696475017
 name: 'Split Repository'
 
 on:
@@ -15,13 +15,12 @@ jobs:
                 with:
                     github-token: ${{ secrets.ACCESS_TOKEN }}
                     pr-comment: |
-                        Hi, thank you for you contribution.
+                        Hi, thank you for your contribution.
 
                         Unfortunatelly, this repository is read-only. It's a split from our main monorepo repository.
-                        We'd like to kindly ask you to move the contribution there - https://github.com/symplify/symplify
-                        We'll check it, review it and give you feed back right way :)
+
+                        We'd like to kindly ask you to move the contribution there - https://github.com/symplify/symplify.
+
+                        We'll check it, review it and give you feed back right way.
 
                         Thank you
-
-                    # to allow further questoins
-                    lock-pr: false
