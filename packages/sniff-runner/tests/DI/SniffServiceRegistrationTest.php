@@ -13,7 +13,7 @@ final class SniffServiceRegistrationTest extends AbstractKernelTestCase
 {
     public function test(): void
     {
-        static::bootKernelWithConfigs(
+        $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
             [__DIR__ . '/SniffServiceRegistrationSource/easy-coding-standard.php']
         );

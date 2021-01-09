@@ -40,7 +40,7 @@ final class ErrorAndDiffResult
 
     public function getFileDiffsCount(): int
     {
-        return count($this->getFileDiffs());
+        return count($this->fileDiffs);
     }
 
     /**

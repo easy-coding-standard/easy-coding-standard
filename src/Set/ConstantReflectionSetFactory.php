@@ -34,7 +34,7 @@ final class ConstantReflectionSetFactory
 
         // new kind of paths sets
         /** @var array<string, mixed> $constants */
-        $constants = (array) $setListReflectionClass->getConstants();
+        $constants = $setListReflectionClass->getConstants();
 
         foreach ($constants as $name => $setPath) {
             if (! file_exists($setPath)) {

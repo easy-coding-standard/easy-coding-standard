@@ -18,7 +18,7 @@ final class ChangesetTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        static::bootKernelWithConfigs(
+        $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/easy-coding-standard.php']
         );

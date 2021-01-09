@@ -154,7 +154,7 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
      */
     private function resolveCheckersToRemove(array $checkers): array
     {
-        $checkers = (array) array_flip($checkers);
+        $checkers = array_flip($checkers);
 
         $checkersToRemove = [];
         foreach (self::DUPLICATED_CHECKER_GROUPS as $matchingCheckerGroup) {

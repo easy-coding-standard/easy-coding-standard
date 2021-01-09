@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\ValueObject;
 
-class Option
+final class Option
 {
     /**
      * @var string
@@ -103,9 +103,4 @@ class Option
      * @var string
      */
     public const DEBUG = 'debug';
-
-    /**
-     * @var string
-     */
-    public const CONFIG = 'config';
 }

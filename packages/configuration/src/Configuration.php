@@ -75,7 +75,7 @@ final class Configuration
             $this->setSources($paths);
         } else {
             // if not paths are provided from CLI, use the config ones
-            $this->setSources($this->getPaths());
+            $this->setSources($this->paths);
         }
 
         $this->isFixer = (bool) $input->getOption(Option::FIX);
@@ -85,14 +85,6 @@ final class Configuration
         $this->doesMatchGitDiff = (bool) $input->getOption(Option::MATCH_GIT_DIFF);
 
         $this->setOutputFormat($input);
-    }
-
-    /**
-     * @param mixed[] $options
-     */
-    public function resolveFromArray(array $options): void
-    {
-        $this->isFixer = (bool) $options['isFixer'];
     }
 
     /**

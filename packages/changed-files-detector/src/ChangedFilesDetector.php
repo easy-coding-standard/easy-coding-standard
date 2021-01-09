@@ -16,7 +16,7 @@ final class ChangedFilesDetector
     /**
      * @var string
      */
-    public const CHANGED_FILES_CACHE_TAG = 'changed_files';
+    private const CHANGED_FILES_CACHE_TAG = 'changed_files';
 
     /**
      * @var string

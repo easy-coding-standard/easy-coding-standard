@@ -37,6 +37,21 @@ final class SnippetFormatter
     private const OPENING_TAG_HERENOWDOC_REGEX = '#^\<\?php\n#ms';
 
     /**
+     * @var string
+     */
+    private const CONTENT = 'content';
+
+    /**
+     * @var string
+     */
+    private const OPENING = 'opening';
+
+    /**
+     * @var string
+     */
+    private const CLOSING = 'closing';
+
+    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
@@ -59,7 +74,7 @@ final class SnippetFormatter
     /**
      * @var bool
      */
-    private $isPhp73OrAbove;
+    private $isPhp73OrAbove = false;
 
     public function __construct(
         SmartFileSystem $smartFileSystem,
@@ -78,12 +93,10 @@ final class SnippetFormatter
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
 
-        return (string) Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use (
-            $kind
-        ): string {
-            if (Strings::contains($match['content'], '-----')) {
+        return Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use ($kind): string {
+            if (Strings::contains($match[self::CONTENT], '-----')) {
                 // do nothing
-                return $match['opening'] . $match['content'] . $match['closing'];
+                return $match[self::OPENING] . $match[self::CONTENT] . $match[self::CLOSING];
             }
 
             return $this->fixContentAndPreserveFormatting($match, $kind);
@@ -96,14 +109,14 @@ final class SnippetFormatter
     private function fixContentAndPreserveFormatting(array $match, string $kind): string
     {
         if ($this->isPhp73OrAbove) {
-            return str_replace(PHP_EOL, '', $match['opening']) . PHP_EOL
-                . $this->fixContent($match['content'], $kind)
-                . str_replace(PHP_EOL, '', $match['closing']);
+            return str_replace(PHP_EOL, '', $match[self::OPENING]) . PHP_EOL
+                . $this->fixContent($match[self::CONTENT], $kind)
+                . str_replace(PHP_EOL, '', $match[self::CLOSING]);
         }
 
-        return rtrim($match['opening'], PHP_EOL) . PHP_EOL
-            . $this->fixContent($match['content'], $kind)
-            . ltrim($match['closing'], PHP_EOL);
+        return rtrim($match[self::OPENING], PHP_EOL) . PHP_EOL
+            . $this->fixContent($match[self::CONTENT], $kind)
+            . ltrim($match[self::CLOSING], PHP_EOL);
     }
 
     private function fixContent(string $content, string $kind): string

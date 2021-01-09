@@ -23,7 +23,7 @@ final class FileProcessorTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        static::bootKernelWithConfigs(
+        $this->bootKernelWithConfigs(
             EasyCodingStandardKernel::class,
             [__DIR__ . '/FileProcessorSource/easy-coding-standard.php']
         );

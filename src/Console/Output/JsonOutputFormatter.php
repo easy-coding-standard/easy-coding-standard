@@ -23,6 +23,11 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     public const NAME = 'json';
 
     /**
+     * @var string
+     */
+    private const FILES = 'files';
+
+    /**
      * @var Configuration
      */
     private $configuration;
@@ -63,7 +68,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
 
         $codingStandardErrors = $errorAndDiffResult->getErrors();
         foreach ($codingStandardErrors as $codingStandardError) {
-            $errorsArray['files'][$codingStandardError->getRelativeFilePathFromCwd()]['errors'][] = [
+            $errorsArray[self::FILES][$codingStandardError->getRelativeFilePathFromCwd()]['errors'][] = [
                 'line' => $codingStandardError->getLine(),
                 'file_path' => $codingStandardError->getRelativeFilePathFromCwd(),
                 'message' => $codingStandardError->getMessage(),
@@ -73,7 +78,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
 
         $fileDiffs = $errorAndDiffResult->getFileDiffs();
         foreach ($fileDiffs as $fileDiff) {
-            $errorsArray['files'][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = [
+            $errorsArray[self::FILES][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = [
                 'diff' => $fileDiff->getDiff(),
                 'applied_checkers' => $fileDiff->getAppliedCheckers(),
             ];
@@ -97,7 +102,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
                 'errors' => $errorAndDiffResult->getErrorCount(),
                 'diffs' => $errorAndDiffResult->getFileDiffsCount(),
             ],
-            'files' => [],
+            self::FILES => [],
         ];
     }
 }
