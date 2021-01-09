@@ -36,7 +36,7 @@ final class EasyCodingStandardStyleFactory
         $consoleOutput = new ConsoleOutput();
 
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        $this->privatesCaller->callPrivateMethod(new Application(), 'configureIO', $argvInput, $consoleOutput);
+        $this->privatesCaller->callPrivateMethod(new Application(), 'configureIO', [$argvInput, $consoleOutput]);
 
         // --debug is called
         if ($argvInput->hasParameterOption('--debug')) {

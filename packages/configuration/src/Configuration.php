@@ -115,6 +115,9 @@ final class Configuration
         return $this->showErrorTable;
     }
 
+    /**
+     * @api
+     */
     public function setFirstResolvedConfigFileInfo(?SmartFileInfo $firstResolverConfigFileInfo): void
     {
         $this->firstResolvedConfigFileInfo = $firstResolverConfigFileInfo;
@@ -165,8 +168,10 @@ final class Configuration
     {
         $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT) !== JsonOutputFormatter::NAME;
         $progressBarEnabled = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
-
-        return $notJsonOutput && $progressBarEnabled;
+        if (! $notJsonOutput) {
+            return false;
+        }
+        return $progressBarEnabled;
     }
 
     /**

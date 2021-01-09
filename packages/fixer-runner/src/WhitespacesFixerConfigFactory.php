@@ -35,7 +35,7 @@ final class WhitespacesFixerConfigFactory
     private function resolveIndentation(): string
     {
         $indentation = $this->parameterProvider->provideParameter('indentation');
-        if ($indentation === 'tab' || $indentation === Spacing::ONE_TAB) {
+        if ($this->isOneTab($indentation)) {
             return Spacing::ONE_TAB;
         }
 
@@ -43,7 +43,7 @@ final class WhitespacesFixerConfigFactory
             return Spacing::TWO_SPACES;
         }
 
-        if ($indentation === 'spaces' || $indentation === Spacing::FOUR_SPACES) {
+        if ($this->isFourSpaces($indentation)) {
             return Spacing::FOUR_SPACES;
         }
 
@@ -55,5 +55,23 @@ final class WhitespacesFixerConfigFactory
             PHP_EOL,
             implode('", "', $allowedValues)
         ));
+    }
+
+    private function isOneTab(string $indentation): bool
+    {
+        if ($indentation === 'tab') {
+            return true;
+        }
+
+        return $indentation === Spacing::ONE_TAB;
+    }
+
+    private function isFourSpaces(string $indentation): bool
+    {
+        if ($indentation === 'spaces') {
+            return true;
+        }
+
+        return $indentation === Spacing::FOUR_SPACES;
     }
 }

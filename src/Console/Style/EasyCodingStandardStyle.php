@@ -60,7 +60,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
         $progressBar = $privatesAccessor->getPrivateProperty($this, 'progressBar');
 
         $privatesCaller = new PrivatesCaller();
-        $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', 'debug');
+        $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
 
     private function separator(): void

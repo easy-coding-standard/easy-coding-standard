@@ -9,6 +9,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ConfigHasher
 {
     /**
+     * @api
      * @param SmartFileInfo[] $configFileInfos
      */
     public function computeFileInfosHash(array $configFileInfos): string

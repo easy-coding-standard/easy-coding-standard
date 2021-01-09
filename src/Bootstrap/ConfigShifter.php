@@ -9,6 +9,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ConfigShifter
 {
     /**
+     * @api
      * Shift input config as last, so the parameters override previous rules loaded from sets
      *
      * @param SmartFileInfo[] $configFileInfos
