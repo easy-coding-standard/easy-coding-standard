@@ -6,4 +6,5 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests\FileHashCompute
 
 final class ChangedScannedClass
 {
+    // verison 2
 }

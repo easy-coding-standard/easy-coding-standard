@@ -6,4 +6,5 @@ namespace Symplify\EasyCodingStandard\ChangedFilesDetector\Tests\ChangedFilesDet
 
 final class OneClass
 {
+    // change me
 }
