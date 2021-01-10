@@ -23,20 +23,20 @@
         "symfony/dependency-injection": "^5.1",
         "symfony/finder": "^4.4|^5.1",
         "symfony/yaml": "^4.4|^5.1",
-        "symplify/coding-standard": "^9.0.28",
-        "symplify/package-builder": "^9.0.28",
-        "symplify/set-config-resolver": "^9.0.28",
-        "symplify/symplify-kernel": "^9.0.28",
-        "symplify/smart-file-system": "^9.0.28",
-        "symplify/autowire-array-parameter": "^9.0.28",
-        "symplify/skipper": "^9.0.28",
-        "symplify/console-color-diff": "^9.0.28",
-        "symplify/easy-testing": "^9.0.28"
+        "symplify/coding-standard": "^9.1",
+        "symplify/package-builder": "^9.1",
+        "symplify/set-config-resolver": "^9.1",
+        "symplify/symplify-kernel": "^9.1",
+        "symplify/smart-file-system": "^9.1",
+        "symplify/autowire-array-parameter": "^9.1",
+        "symplify/skipper": "^9.1",
+        "symplify/console-color-diff": "^9.1",
+        "symplify/easy-testing": "^9.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "symplify/easy-coding-standard-tester": "^9.0.28",
-        "symplify/php-config-printer": "^9.0.28"
+        "symplify/easy-coding-standard-tester": "^9.1",
+        "symplify/php-config-printer": "^9.1"
     },
     "autoload": {
         "psr-4": {
