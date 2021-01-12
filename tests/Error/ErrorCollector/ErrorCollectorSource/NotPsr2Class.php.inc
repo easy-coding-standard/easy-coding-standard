@@ -6,7 +6,9 @@ abstract class SomeClassTest
 {
     public function test()
     {
-        $list =    [   1   ]  ;
+        $list =
+                [   1
+                        ]  ;
 
         $this->assertEquals('', '');
         // $this->assertEquals('', '');

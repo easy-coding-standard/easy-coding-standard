@@ -51,7 +51,7 @@ final class SniffFileProcessorTest extends AbstractKernelTestCase
 
         $errorAndDiffResult = $this->errorAndDiffResultFactory->create($this->errorAndDiffCollector);
 
-        $this->assertSame(1, $errorAndDiffResult->getErrorCount());
-        $this->assertSame(0, $errorAndDiffResult->getFileDiffsCount());
+        $this->assertSame(0, $errorAndDiffResult->getErrorCount());
+        $this->assertSame(1, $errorAndDiffResult->getFileDiffsCount());
     }
 }

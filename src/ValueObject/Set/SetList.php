@@ -217,6 +217,8 @@ final class SetList
     public const STRICT = __DIR__ . '/../../../config/set/common/strict.php';
 
     /**
+     * @deprecated ECS set DEAD_CODE from  is deprecated. Use more advanced and precise Rector set https://github.com/rectorphp/rector/blob/master/config/set/dead-code.php instead
+     *
      * @var string
      * @api
      */

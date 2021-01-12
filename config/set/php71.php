@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer;
+use PhpCsFixer\Fixer\FunctionNotation\NullableTypeDeclarationForDefaultNullValueFixer;
 use PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer;
 use PhpCsFixer\Fixer\ListNotation\ListSyntaxFixer;
 use PhpCsFixer\Fixer\Whitespace\CompactNullableTypehintFixer;
-use SlevomatCodingStandard\Sniffs\TypeHints\NullableTypeForNullDefaultValueSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -22,9 +22,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'syntax' => 'short',
         ]]);
 
-    $services->set(NullableTypeForNullDefaultValueSniff::class);
-
+    $services->set(NullableTypeDeclarationForDefaultNullValueFixer::class);
     $services->set(CompactNullableTypehintFixer::class);
-
     $services->set(VoidReturnFixer::class);
 };

@@ -8,35 +8,16 @@ use PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer;
 use PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
+use PhpCsFixer\Fixer\Operator\TernaryToElvisOperatorFixer;
 use PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer;
 use PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer;
-use SlevomatCodingStandard\Sniffs\ControlStructures\RequireShortTernaryOperatorSniff;
-use SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff;
-use SlevomatCodingStandard\Sniffs\Operators\RequireCombinedAssignmentOperatorSniff;
-use SlevomatCodingStandard\Sniffs\PHP\DisallowDirectMagicInvokeCallSniff;
-use SlevomatCodingStandard\Sniffs\PHP\UselessParenthesesSniff;
-use SlevomatCodingStandard\Sniffs\PHP\UselessSemicolonSniff;
-use SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff;
-use SlevomatCodingStandard\Sniffs\Variables\UselessVariableSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
-    $services->set(DisallowDirectMagicInvokeCallSniff::class);
-
     $services->set(ParamReturnAndVarTagMalformsFixer::class);
-
-    $services->set(UnusedVariableSniff::class);
-
-    $services->set(UselessVariableSniff::class);
-
-    $services->set(UnusedInheritedVariablePassedToClosureSniff::class);
-
-    $services->set(UselessSemicolonSniff::class);
-
-    $services->set(UselessParenthesesSniff::class);
 
     $services->set(ArraySyntaxFixer::class)
         ->call('configure', [[
@@ -57,7 +38,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(ReturnAssignmentFixer::class);
 
-    $services->set(RequireShortTernaryOperatorSniff::class);
-
-    $services->set(RequireCombinedAssignmentOperatorSniff::class);
+    $services->set(TernaryToElvisOperatorFixer::class);
 };

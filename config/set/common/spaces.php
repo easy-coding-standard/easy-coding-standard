@@ -7,6 +7,7 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff
 use PhpCsFixer\Fixer\CastNotation\CastSpacesFixer;
 use PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer;
 use PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer;
+use PhpCsFixer\Fixer\ClassNotation\SingleTraitInsertPerStatementFixer;
 use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\FunctionNotation\MethodArgumentSpaceFixer;
 use PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer;
@@ -21,9 +22,6 @@ use PhpCsFixer\Fixer\Semicolon\SpaceAfterSemicolonFixer;
 use PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer;
 use PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
-use SlevomatCodingStandard\Sniffs\Classes\ParentCallSpacingSniff;
-use SlevomatCodingStandard\Sniffs\Classes\TraitUseSpacingSniff;
-use SlevomatCodingStandard\Sniffs\Whitespaces\DuplicateSpacesSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Spacing\StandaloneLinePromotedPropertyFixer;
 
@@ -31,10 +29,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(StandaloneLinePromotedPropertyFixer::class);
-
-    $services->set(ParentCallSpacingSniff::class);
-
-    $services->set(DuplicateSpacesSniff::class);
 
     $services->set(MethodChainingIndentationFixer::class);
 
@@ -63,6 +57,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]]);
 
+    $services->set(SingleTraitInsertPerStatementFixer::class);
+
     $services->set(FunctionTypehintSpaceFixer::class);
 
     $services->set(NoBlankLinesAfterClassOpeningFixer::class);
@@ -86,10 +82,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MethodArgumentSpaceFixer::class);
 
     $services->set(LanguageConstructSpacingSniff::class);
-
-    $services->set(TraitUseSpacingSniff::class)
-        ->property('linesCountAfterLastUse', 1)
-        ->property('linesCountAfterLastUseWhenLastInClass', 0)
-        ->property('linesCountBeforeFirstUse', 0)
-        ->property('linesCountBetweenUses', 0);
 };

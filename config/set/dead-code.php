@@ -2,24 +2,11 @@
 
 declare(strict_types=1);
 
-use SlevomatCodingStandard\Sniffs\Functions\UnusedInheritedVariablePassedToClosureSniff;
-use SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff;
-use SlevomatCodingStandard\Sniffs\Variables\UnusedVariableSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-
-    $services->set(UnusedInheritedVariablePassedToClosureSniff::class);
-
-    $services->set(UnusedParameterSniff::class);
-
-    $services->set(UnusedVariableSniff::class);
-
-    $parameters = $containerConfigurator->parameters();
-
-    $parameters->set(Option::SKIP, [
-        UnusedParameterSniff::class . '.UnusedParameter' => null,
-    ]);
+    trigger_error(
+        'ECS set DEAD_CODE from  is deprecated. Use more advanced and precise Rector set https://github.com/rectorphp/rector/blob/master/config/set/dead-code.php instead.'
+    );
+    sleep(3);
 };

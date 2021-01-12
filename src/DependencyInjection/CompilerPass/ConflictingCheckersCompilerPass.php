@@ -13,8 +13,6 @@ use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
-use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff;
-use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
@@ -27,12 +25,12 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
      * @var string[][]
      */
     private const CONFLICTING_CHECKER_GROUPS = [
-        [DisallowYodaComparisonSniff::class, YodaStyleFixer::class],
+        ['SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff', YodaStyleFixer::class],
         [LowerCaseConstantSniff::class, UpperCaseConstantSniff::class],
         [LowercaseConstantsFixer::class, UpperCaseConstantSniff::class],
         [ConstantCaseFixer::class, UpperCaseConstantSniff::class],
-        [DeclareStrictTypesSniff::class, DeclareEqualNormalizeFixer::class],
-        [DeclareStrictTypesSniff::class, BlankLineAfterOpeningTagFixer::class],
+        ['SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff', DeclareEqualNormalizeFixer::class],
+        ['SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff', BlankLineAfterOpeningTagFixer::class],
         [FileHeaderSniff::class, NoBlankLinesAfterPhpdocFixer::class],
     ];
 

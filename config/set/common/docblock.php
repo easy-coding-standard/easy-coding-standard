@@ -13,7 +13,6 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
-use SlevomatCodingStandard\Sniffs\TypeHints\NullTypeHintOnLastPositionSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
 
@@ -21,27 +20,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(PhpdocLineSpanFixer::class);
-
-    $services->set(NullTypeHintOnLastPositionSniff::class);
-
     $services->set(NoTrailingWhitespaceInCommentFixer::class);
-
     $services->set(PhpdocTrimConsecutiveBlankLineSeparationFixer::class);
-
     $services->set(PhpdocTrimFixer::class);
-
     $services->set(NoEmptyPhpdocFixer::class);
-
     $services->set(PhpdocNoEmptyReturnFixer::class);
-
     $services->set(PhpdocIndentFixer::class);
-
     $services->set(PhpdocTypesFixer::class);
-
     $services->set(PhpdocReturnSelfReferenceFixer::class);
-
     $services->set(PhpdocVarWithoutNameFixer::class);
-
     $services->set(RemoveUselessDefaultCommentFixer::class);
 
     $services->set(NoSuperfluousPhpdocTagsFixer::class)

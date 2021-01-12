@@ -8,7 +8,6 @@ use PhpCsFixer\Fixer\FunctionNotation\ReturnTypeDeclarationFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
 use PhpCsFixer\Fixer\Operator\TernaryToNullCoalescingFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
-use SlevomatCodingStandard\Sniffs\Exceptions\ReferenceThrowableOnlySniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Strict\BlankLineAfterStrictTypesFixer;
 
@@ -35,6 +34,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(DeclareEqualNormalizeFixer::class);
 
     $services->set(ReturnTypeDeclarationFixer::class);
-
-    $services->set(ReferenceThrowableOnlySniff::class);
 };

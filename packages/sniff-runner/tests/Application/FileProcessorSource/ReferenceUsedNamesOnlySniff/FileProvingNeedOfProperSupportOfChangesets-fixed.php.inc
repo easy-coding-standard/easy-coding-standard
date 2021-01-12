@@ -3,17 +3,16 @@
 declare(strict_types=1);
 
 namespace Foo;
-use Foo\Baz;
 
 final class FileProvingNeedOfProperSupportOfChangesets
 {
     /**
-     * @var Baz
+     * @var \Foo\Baz
      */
     private $foo;
 
     /**
-     * @var Baz
+     * @var \Foo\Baz
      */
     private $bar;
 }

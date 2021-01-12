@@ -17,18 +17,11 @@ use PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
 use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
-use SlevomatCodingStandard\Sniffs\Classes\DisallowMultiConstantDefinitionSniff;
-use SlevomatCodingStandard\Sniffs\Classes\DisallowMultiPropertyDefinitionSniff;
-use SlevomatCodingStandard\Sniffs\Classes\TraitUseDeclarationSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
-
-    $services->set(DisallowMultiConstantDefinitionSniff::class);
-
-    $services->set(DisallowMultiPropertyDefinitionSniff::class);
 
     $services->set(PhpUnitMethodCasingFixer::class);
 
@@ -70,8 +63,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
 
     $services->set(OrderedClassElementsFixer::class);
-
-    $services->set(TraitUseDeclarationSniff::class);
 
     $parameters = $containerConfigurator->parameters();
 
