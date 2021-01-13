@@ -80,26 +80,33 @@ final class FixerTest extends AbstractKernelTestCase
         $this->fixer->startFile($this->file);
         $this->fixer->beginChangeSet();
 
-        $this->assertSame('\\', $this->fixer->getTokenContent(14));
+        $tokenContent = $this->fixer->getTokenContent(14);
+        $this->assertSame('\\', $tokenContent);
 
         $this->fixer->addContentBefore(14, 'A');
-        $this->assertSame('A\\', $this->fixer->getTokenContent(14));
+        $tokenContent = $this->fixer->getTokenContent(14);
+        $this->assertSame('A\\', $tokenContent);
 
         // during the changeset, you are free to modify current token as you wish...
         $this->fixer->addContent(14, 'B');
-        $this->assertSame('A\\B', $this->fixer->getTokenContent(14));
+        $tokenContent = $this->fixer->getTokenContent(14);
+        $this->assertSame('A\\B', $tokenContent);
 
         // you can also rollback the changes...
         $this->fixer->rollbackChangeset();
-        $this->assertSame('\\', $this->fixer->getTokenContent(14));
+        $tokenContent = $this->fixer->getTokenContent(14);
+        $this->assertSame('\\', $tokenContent);
 
         $this->fixer->addContent(14, 'B');
         $this->fixer->endChangeSet();
-        $this->assertSame('\\B', $this->fixer->getTokenContent(14));
+
+        $tokenContent = $this->fixer->getTokenContent(14);
+        $this->assertSame('\\B', $tokenContent);
 
         // ...that stops being the case after changeset is committed
         $this->fixer->addContent(14, 'C');
-        $this->assertSame('\\B', $this->fixer->getTokenContent(14));
+        $tokenContent = $this->fixer->getTokenContent(14);
+        $this->assertSame('\\B', $tokenContent);
     }
 
     public function testAddNewline(): void
