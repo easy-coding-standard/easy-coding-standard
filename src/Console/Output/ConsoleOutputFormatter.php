@@ -159,7 +159,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         }
 
         $fixableMessage = sprintf(
-            '%s%d %s fixable! Just add run "ecs:fix" to apply.',
+            '%s%d %s fixable! Just run "ecs:fix" to apply.',
             $errorCount !== 0 ? 'Good news is that ' : '',
             $fileDiffsCount,
             $fileDiffsCount === 1 ? 'error is' : 'errors are'
