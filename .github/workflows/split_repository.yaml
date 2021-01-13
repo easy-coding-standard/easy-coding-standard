@@ -1,9 +1,8 @@
-# đ€e https://github.com/dear-github/dear-github/issues/84#issuecomment-696475017
+# see https://github.com/dear-github/dear-github/issues/84#issuecomment-696475017
 name: 'Split Repository'
 
 on:
-    pull_request:
-        types: opened
+    pull_request: null
 
 jobs:
     lockdown:
