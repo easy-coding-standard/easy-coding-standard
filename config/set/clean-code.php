@@ -8,7 +8,6 @@ use PhpCsFixer\Fixer\ControlStructure\NoUnneededControlParenthesesFixer;
 use PhpCsFixer\Fixer\ControlStructure\NoUnneededCurlyBracesFixer;
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
-use PhpCsFixer\Fixer\Operator\TernaryToElvisOperatorFixer;
 use PhpCsFixer\Fixer\ReturnNotation\ReturnAssignmentFixer;
 use PhpCsFixer\Fixer\Semicolon\NoEmptyStatementFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -37,6 +36,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NoUnneededCurlyBracesFixer::class);
 
     $services->set(ReturnAssignmentFixer::class);
-
-    $services->set(TernaryToElvisOperatorFixer::class);
 };
