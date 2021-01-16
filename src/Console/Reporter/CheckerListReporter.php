@@ -25,7 +25,7 @@ final class CheckerListReporter
      */
     public function report(array $checkers, string $type): void
     {
-        if (count($checkers) === 0) {
+        if ($checkers === []) {
             return;
         }
 

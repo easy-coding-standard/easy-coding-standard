@@ -65,7 +65,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
      */
     private function reportFileDiffs(array $fileDiffs): void
     {
-        if (count($fileDiffs) === 0) {
+        if ($fileDiffs === []) {
             return;
         }
 
@@ -119,7 +119,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
     {
         if ($this->configuration->shouldShowErrorTable()) {
             $errors = $errorAndDiffResult->getErrors();
-            if (count($errors) > 0) {
+            if ($errors !== []) {
                 $this->easyCodingStandardStyle->newLine();
                 $this->easyCodingStandardStyle->printErrors($errors);
             }

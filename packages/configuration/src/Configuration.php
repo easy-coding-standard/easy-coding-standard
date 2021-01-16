@@ -167,11 +167,10 @@ final class Configuration
     private function canShowProgressBar(InputInterface $input): bool
     {
         $notJsonOutput = $input->getOption(Option::OUTPUT_FORMAT) !== JsonOutputFormatter::NAME;
-        $progressBarEnabled = ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
         if (! $notJsonOutput) {
             return false;
         }
-        return $progressBarEnabled;
+        return ! (bool) $input->getOption(Option::NO_PROGRESS_BAR);
     }
 
     /**

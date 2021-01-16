@@ -84,7 +84,7 @@ final class ChangedFilesDetector
      */
     public function setUsedConfigs(array $configFileInfos): void
     {
-        if (count($configFileInfos) === 0) {
+        if ($configFileInfos === []) {
             return;
         }
 
