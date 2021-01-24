@@ -63,6 +63,7 @@ final class ConflictingCheckersCompilerPass implements CompilerPassInterface
         $checkers = array_flip($checkers);
         $matchingCheckerGroup = array_flip($matchingCheckerGroup);
 
-        return count(array_intersect_key($matchingCheckerGroup, $checkers)) === count($matchingCheckerGroup);
+        $foundCheckers = array_intersect_key($matchingCheckerGroup, $checkers);
+        return count($foundCheckers) === count($matchingCheckerGroup);
     }
 }

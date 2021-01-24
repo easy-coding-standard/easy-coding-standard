@@ -173,7 +173,8 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
     private function isMatch(array $checkers, array $matchingCheckerGroup): bool
     {
         $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
+        $matchingCheckers = array_intersect_key($matchingCheckerGroupKeys, $checkers);
 
-        return count(array_intersect_key($matchingCheckerGroupKeys, $checkers)) === count($matchingCheckerGroup);
+        return count($matchingCheckers) === count($matchingCheckerGroup);
     }
 }

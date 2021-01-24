@@ -14,6 +14,9 @@ final class GitDiffProvider
         $plainDiff = shell_exec('git diff --name-only') ?: '';
         $relativePaths = explode(PHP_EOL, trim($plainDiff));
 
-        return array_values(array_filter(array_map('realpath', $relativePaths)));
+        $realPaths = array_map('realpath', $relativePaths);
+        $existingRealPaths = array_filter($realPaths);
+
+        return array_values($existingRealPaths);
     }
 }

@@ -30,10 +30,13 @@ final class OutputFormatterCollector
             return $this->outputFormatters[$name];
         }
 
-        throw new OutputFormatterNotFoundException(sprintf(
+        $outputFormatterKeys = array_keys($this->outputFormatters);
+
+        $errorMessage = sprintf(
             'Output formatter "%s" not found. Use one of: "%s".',
             $name,
-            implode('", "', array_keys($this->outputFormatters))
-        ));
+            implode('", "', $outputFormatterKeys)
+        );
+        throw new OutputFormatterNotFoundException($errorMessage);
     }
 }
