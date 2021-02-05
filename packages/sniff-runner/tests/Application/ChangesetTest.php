@@ -29,12 +29,12 @@ final class ChangesetTest extends AbstractKernelTestCase
     public function testFileProvingNeedOfProperSupportOfChangesets(): void
     {
         $smartFileInfo = new SmartFileInfo(
-            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets.php.inc'
+            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProveNeedSupportChangesets.php.inc'
         );
 
         $changedContent = $this->sniffFileProcessor->processFile($smartFileInfo);
         $this->assertStringEqualsFile(
-            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProvingNeedOfProperSupportOfChangesets-fixed.php.inc',
+            __DIR__ . '/FileProcessorSource/ReferenceUsedNamesOnlySniff/FileProveNeedSupportChangesets-fix.php.inc',
             $changedContent
         );
     }
