@@ -22,20 +22,20 @@
         "symfony/dependency-injection": "^5.1",
         "symfony/finder": "^4.4|^5.1",
         "symfony/yaml": "^4.4|^5.1",
-        "symplify/coding-standard": "^9.1.5",
-        "symplify/package-builder": "^9.1.5",
-        "symplify/set-config-resolver": "^9.1.5",
-        "symplify/symplify-kernel": "^9.1.5",
-        "symplify/smart-file-system": "^9.1.5",
-        "symplify/autowire-array-parameter": "^9.1.5",
-        "symplify/skipper": "^9.1.5",
-        "symplify/console-color-diff": "^9.1.5",
-        "symplify/easy-testing": "^9.1.5"
+        "symplify/coding-standard": "^9.2",
+        "symplify/package-builder": "^9.2",
+        "symplify/set-config-resolver": "^9.2",
+        "symplify/symplify-kernel": "^9.2",
+        "symplify/smart-file-system": "^9.2",
+        "symplify/autowire-array-parameter": "^9.2",
+        "symplify/skipper": "^9.2",
+        "symplify/console-color-diff": "^9.2",
+        "symplify/easy-testing": "^9.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "symplify/easy-coding-standard-tester": "^9.1.5",
-        "symplify/php-config-printer": "^9.1.5"
+        "symplify/easy-coding-standard-tester": "^9.2",
+        "symplify/php-config-printer": "^9.2"
     },
     "autoload": {
         "psr-4": {
