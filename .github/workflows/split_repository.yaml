@@ -16,7 +16,7 @@ jobs:
                     pr-comment: |
                         Hi, thank you for your contribution.
 
-                        Unfortunatelly, this repository is read-only. It's a split from our main monorepo repository.
+                        Unfortunately, this repository is read-only. It's a split from our main monorepo repository.
 
                         We'd like to kindly ask you to move the contribution there - https://github.com/symplify/symplify.
 
