@@ -1,5 +1,5 @@
 # see https://github.com/dear-github/dear-github/issues/84#issuecomment-696475017
-name: 'Split Repository'
+name: 'Repo Lockdown'
 
 on:
     pull_request: null
