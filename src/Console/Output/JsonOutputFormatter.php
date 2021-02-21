@@ -6,7 +6,6 @@ namespace Symplify\EasyCodingStandard\Console\Output;
 
 use Jean85\PrettyVersions;
 use Nette\Utils\Json;
-use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;

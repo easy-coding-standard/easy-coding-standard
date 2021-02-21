@@ -12,7 +12,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
-use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -29,7 +28,8 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     /**
      * @param Command[] $commands
      */
-    public function __construct(NoCheckersLoaderReporter $noCheckersLoaderReporter, array $commands) {
+    public function __construct(NoCheckersLoaderReporter $noCheckersLoaderReporter, array $commands)
+    {
         $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
 
         parent::__construct($commands, 'EasyCodingStandard', $version->getPrettyVersion());

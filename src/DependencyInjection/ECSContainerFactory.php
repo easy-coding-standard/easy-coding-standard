@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;

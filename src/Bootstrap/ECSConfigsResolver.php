@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCodingStandard\Bootstrap;
 
-use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Set\ConstantReflectionSetFactory;
 use Symplify\EasyCodingStandard\Set\EasyCodingStandardSetProvider;
@@ -33,11 +32,10 @@ final class ECSConfigsResolver
         if ($mainConfigFileInfo !== null) {
             // 2. "parameters > set" in provided yaml files
             $parameterSetsConfigs = $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles(
-                $configFileInfos
+                [$mainConfigFileInfo]
             );
-            if ($parameterSetsConfigs !== []) {
-                $configFileInfos = array_merge($configFileInfos, $parameterSetsConfigs);
-            }
+
+            $configFileInfos = array_merge($configFileInfos, $parameterSetsConfigs);
         }
 
         return new BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
