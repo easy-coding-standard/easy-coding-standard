@@ -22,11 +22,6 @@ use Throwable;
 final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsoleApplication
 {
     /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
      * @var NoCheckersLoaderReporter
      */
     private $noCheckersLoaderReporter;
@@ -34,16 +29,10 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     /**
      * @param Command[] $commands
      */
-    public function __construct(
-        Configuration $configuration,
-        NoCheckersLoaderReporter $noCheckersLoaderReporter,
-        array $commands
-    ) {
+    public function __construct(NoCheckersLoaderReporter $noCheckersLoaderReporter, array $commands) {
         $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
 
         parent::__construct($commands, 'EasyCodingStandard', $version->getPrettyVersion());
-
-        $this->configuration = $configuration;
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
     }
 
@@ -60,11 +49,6 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
         // skip in this case, since generate content must be clear from meta-info
         if ($this->shouldPrintMetaInformation($input)) {
             $output->writeln($this->getLongVersion());
-        }
-
-        $firstResolvedConfigFileInfo = $this->configuration->getFirstResolvedConfigFileInfo();
-        if ($firstResolvedConfigFileInfo !== null && $this->shouldPrintMetaInformation($input)) {
-            $output->writeln('Config file: ' . $firstResolvedConfigFileInfo->getRelativeFilePathFromCwd());
         }
 
         return parent::doRun($input, $output);

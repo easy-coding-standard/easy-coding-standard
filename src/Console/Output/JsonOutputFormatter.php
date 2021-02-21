@@ -28,18 +28,12 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     private const FILES = 'files';
 
     /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
 
-    public function __construct(Configuration $configuration, EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(EasyCodingStandardStyle $easyCodingStandardStyle)
     {
-        $this->configuration = $configuration;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
     }
 
@@ -60,11 +54,6 @@ final class JsonOutputFormatter implements OutputFormatterInterface
     public function createJsonContent(ErrorAndDiffResult $errorAndDiffResult): string
     {
         $errorsArray = $this->createBaseErrorsArray($errorAndDiffResult);
-
-        $firstResolvedConfigFileInfo = $this->configuration->getFirstResolvedConfigFileInfo();
-        if ($firstResolvedConfigFileInfo !== null) {
-            $errorsArray['meta']['config'] = $firstResolvedConfigFileInfo->getRealPath();
-        }
 
         $codingStandardErrors = $errorAndDiffResult->getErrors();
         foreach ($codingStandardErrors as $codingStandardError) {

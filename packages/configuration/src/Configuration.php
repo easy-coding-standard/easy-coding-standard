@@ -35,11 +35,6 @@ final class Configuration
     private $showErrorTable = true;
 
     /**
-     * @var SmartFileInfo|null
-     */
-    private $firstResolvedConfigFileInfo;
-
-    /**
      * @var string[]
      */
     private $sources = [];
@@ -113,19 +108,6 @@ final class Configuration
     public function shouldShowErrorTable(): bool
     {
         return $this->showErrorTable;
-    }
-
-    /**
-     * @api
-     */
-    public function setFirstResolvedConfigFileInfo(?SmartFileInfo $firstResolverConfigFileInfo): void
-    {
-        $this->firstResolvedConfigFileInfo = $firstResolverConfigFileInfo;
-    }
-
-    public function getFirstResolvedConfigFileInfo(): ?SmartFileInfo
-    {
-        return $this->firstResolvedConfigFileInfo;
     }
 
     /**
