@@ -8,10 +8,11 @@ use PHP_CodeSniffer\Fixer;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 use PhpCsFixer\Differ\DifferInterface;
-use Symplify\EasyCodingStandard\Application\AbstractFileProcessor;
 use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
+use Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
+use Symplify\EasyCodingStandard\FileSystem\TargetFileInfoResolver;
 use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -20,7 +21,7 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
  */
-final class SniffFileProcessor extends AbstractFileProcessor
+final class SniffFileProcessor implements FileProcessorInterface
 {
     /**
      * @var Sniff[]
@@ -66,6 +67,10 @@ final class SniffFileProcessor extends AbstractFileProcessor
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+    /**
+     * @var TargetFileInfoResolver
+     */
+    private $targetFileInfoResolver;
 
     /**
      * @param Sniff[] $sniffs
@@ -78,6 +83,7 @@ final class SniffFileProcessor extends AbstractFileProcessor
         DifferInterface $differ,
         AppliedCheckersCollector $appliedCheckersCollector,
         SmartFileSystem $smartFileSystem,
+        TargetFileInfoResolver $targetFileInfoResolver,
         array $sniffs = []
     ) {
         $this->fixer = $fixer;
@@ -93,6 +99,7 @@ final class SniffFileProcessor extends AbstractFileProcessor
             $this->addSniff($sniff);
         }
         $this->smartFileSystem = $smartFileSystem;
+        $this->targetFileInfoResolver = $targetFileInfoResolver;
     }
 
     public function addSniff(Sniff $sniff): void
@@ -125,7 +132,7 @@ final class SniffFileProcessor extends AbstractFileProcessor
         if ($smartFileInfo->getContents() !== $this->fixer->getContents()) {
             $diff = $this->differ->diff($smartFileInfo->getContents(), $this->fixer->getContents());
 
-            $targetFileInfo = $this->resolveTargetFileInfo($smartFileInfo);
+            $targetFileInfo = $this->targetFileInfoResolver->resolveTargetFileInfo($smartFileInfo);
 
             $this->errorAndDiffCollector->addDiffForFileInfo(
                 $targetFileInfo,

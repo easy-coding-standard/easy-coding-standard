@@ -11,10 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Application\EasyCodingStandardApplication;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
-use Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
-use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
@@ -37,21 +34,6 @@ abstract class AbstractCheckCommand extends AbstractSymplifyCommand
     protected $easyCodingStandardApplication;
 
     /**
-     * @var OutputFormatterCollector
-     */
-    private $outputFormatterCollector;
-
-    /**
-     * @var ErrorAndDiffCollector
-     */
-    private $errorAndDiffCollector;
-
-    /**
-     * @var ErrorAndDiffResultFactory
-     */
-    private $errorAndDiffResultFactory;
-
-    /**
      * @var LoadedCheckersGuard
      */
     private $loadedCheckersGuard;
@@ -63,17 +45,11 @@ abstract class AbstractCheckCommand extends AbstractSymplifyCommand
         Configuration $configuration,
         EasyCodingStandardApplication $easyCodingStandardApplication,
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        OutputFormatterCollector $outputFormatterCollector,
-        ErrorAndDiffCollector $errorAndDiffCollector,
-        ErrorAndDiffResultFactory $errorAndDiffResultFactory,
         LoadedCheckersGuard $loadedCheckersGuard
     ): void {
         $this->configuration = $configuration;
         $this->easyCodingStandardApplication = $easyCodingStandardApplication;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
-        $this->outputFormatterCollector = $outputFormatterCollector;
-        $this->errorAndDiffCollector = $errorAndDiffCollector;
-        $this->errorAndDiffResultFactory = $errorAndDiffResultFactory;
         $this->loadedCheckersGuard = $loadedCheckersGuard;
     }
 
@@ -123,14 +99,5 @@ abstract class AbstractCheckCommand extends AbstractSymplifyCommand
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->loadedCheckersGuard->ensureSomeCheckersAreRegistered();
-    }
-
-    protected function reportProcessedFiles(int $processedFileCount): int
-    {
-        $outputFormat = $this->configuration->getOutputFormat();
-        $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
-
-        $errorAndDiffResult = $this->errorAndDiffResultFactory->create($this->errorAndDiffCollector);
-        return $outputFormatter->report($errorAndDiffResult, $processedFileCount);
     }
 }
