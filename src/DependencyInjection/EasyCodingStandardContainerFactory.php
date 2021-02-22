@@ -12,7 +12,7 @@ use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
 use Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
 
-final class ECSContainerFactory
+final class EasyCodingStandardContainerFactory
 {
     public function createFromFromInput(InputInterface $input): ContainerInterface
     {

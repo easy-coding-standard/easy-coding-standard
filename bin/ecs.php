@@ -7,7 +7,7 @@ declare(strict_types=1);
 use PHP_CodeSniffer\Util\Tokens;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
-use Symplify\EasyCodingStandard\DependencyInjection\ECSContainerFactory;
+use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
@@ -25,7 +25,7 @@ $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
 
 try {
     $input = new ArgvInput();
-    $ecsContainerFactory = new ECSContainerFactory();
+    $ecsContainerFactory = new EasyCodingStandardContainerFactory();
     $container = $ecsContainerFactory->createFromFromInput($input);
 } catch (SetNotFoundException $setNotFoundException) {
     $invalidSetReporter = new InvalidSetReporter();
