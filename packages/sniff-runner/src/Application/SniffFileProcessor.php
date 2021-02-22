@@ -67,6 +67,7 @@ final class SniffFileProcessor implements FileProcessorInterface
      * @var SmartFileSystem
      */
     private $smartFileSystem;
+
     /**
      * @var TargetFileInfoResolver
      */

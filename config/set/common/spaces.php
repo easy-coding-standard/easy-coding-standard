@@ -60,6 +60,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]]);
 
+    $services->set(ClassAttributesSeparationFixer::class);
+
     $services->set(SingleTraitInsertPerStatementFixer::class);
 
     $services->set(FunctionTypehintSpaceFixer::class);
