@@ -14,7 +14,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         null,
         'not_found'
     );
-
-    # C. installed in PHAR
-    $containerConfigurator->import('phar://vendor/symplify/coding-standard/config/symplify.php', null, 'not_found');
 };

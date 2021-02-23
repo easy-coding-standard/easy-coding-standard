@@ -12,6 +12,7 @@ use PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
+use Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
@@ -21,6 +22,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TrimArraySpacesFixer::class);
     $services->set(WhitespaceAfterCommaInArrayFixer::class);
     $services->set(ArrayListItemNewlineFixer::class);
+    $services->set(StandaloneLineInMultilineArrayFixer::class);
 
     // commas
     $services->set(TrailingCommaInMultilineArrayFixer::class);
