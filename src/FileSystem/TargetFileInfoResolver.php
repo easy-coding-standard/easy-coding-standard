@@ -20,8 +20,8 @@ final class TargetFileInfoResolver
     }
 
     /**
-     * Useful for @see \Symplify\EasyCodingStandard\SnippetFormatter\Command\CheckMarkdownCommand
-     * Where the $smartFileInfo is only temporary snippet, so original markdown file should be used
+     * Useful for @see \Symplify\EasyCodingStandard\SnippetFormatter\Command\CheckMarkdownCommand Where the
+     * $smartFileInfo is only temporary snippet, so original markdown file should be used
      */
     public function resolveTargetFileInfo(SmartFileInfo $smartFileInfo): SmartFileInfo
     {

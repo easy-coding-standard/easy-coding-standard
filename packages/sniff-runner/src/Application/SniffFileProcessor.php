@@ -124,9 +124,6 @@ final class SniffFileProcessor implements FileProcessorInterface
     {
         $file = $this->fileFactory->createFromFileInfo($smartFileInfo);
 
-        // mimic original behavior
-        /** mimics @see \PHP_CodeSniffer\Files\File::process() */
-        /** mimics @see \PHP_CodeSniffer\Fixer::fixFile() */
         $this->fixFile($file, $this->fixer, $smartFileInfo, $this->tokenListeners);
 
         // add diff
@@ -159,6 +156,10 @@ final class SniffFileProcessor implements FileProcessorInterface
     }
 
     /**
+     * Mimics @see \PHP_CodeSniffer\Files\File::process()
+     *
+     * @see \PHP_CodeSniffer\Fixer::fixFile()
+     *
      * @param Sniff[][] $tokenListeners
      */
     private function fixFile(File $file, Fixer $fixer, SmartFileInfo $smartFileInfo, array $tokenListeners): void

@@ -67,8 +67,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
 {
     /**
-     * List of checkers with the same functionality.
-     * If found, only the first one is used.
+     * List of checkers with the same functionality. If found, only the first one is used.
      *
      * @var string[][]
      */

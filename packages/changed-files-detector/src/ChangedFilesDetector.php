@@ -79,6 +79,7 @@ final class ChangedFilesDetector
 
     /**
      * For cache invalidation
+     *
      * @api
      * @param SmartFileInfo[] $configFileInfos
      */

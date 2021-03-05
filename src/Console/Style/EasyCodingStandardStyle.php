@@ -16,6 +16,7 @@ final class EasyCodingStandardStyle extends SymfonyStyle
 {
     /**
      * To fit in Linux/Windows terminal windows to prevent overflow.
+     *
      * @var int
      */
     private const BULGARIAN_CONSTANT = 8;
