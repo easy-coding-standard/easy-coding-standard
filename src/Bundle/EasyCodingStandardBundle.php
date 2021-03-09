@@ -7,7 +7,6 @@ namespace Symplify\EasyCodingStandard\Bundle;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass;
@@ -42,7 +41,7 @@ final class EasyCodingStandardBundle extends Bundle
         $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
     }
 
-    protected function createContainerExtension(): ?ExtensionInterface
+    protected function createContainerExtension(): EasyCodingStandardExtension
     {
         return new EasyCodingStandardExtension();
     }

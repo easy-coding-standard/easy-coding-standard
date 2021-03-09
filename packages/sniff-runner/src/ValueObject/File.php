@@ -146,7 +146,7 @@ final class File extends BaseFile
         $this->fixedCount += $this->fixer->getFixCount();
     }
 
-    public function getErrorCount(): int
+    public function getErrorCount(): void
     {
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',
@@ -158,7 +158,7 @@ final class File extends BaseFile
     /**
      * @return mixed[]
      */
-    public function getErrors(): array
+    public function getErrors(): void
     {
         throw new NotImplementedException(sprintf(
             'Method "%s" is not needed to be public. Use "%s" service.',

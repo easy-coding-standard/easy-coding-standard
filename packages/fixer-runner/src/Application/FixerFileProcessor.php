@@ -12,6 +12,7 @@ use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
+use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveCommentedCodeFixer;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
@@ -185,6 +186,9 @@ final class FixerFileProcessor implements FileProcessorInterface
         return $fixers;
     }
 
+    /**
+     * @param Tokens<Token> $tokens
+     */
     private function processTokensByFixer(SmartFileInfo $smartFileInfo, Tokens $tokens, FixerInterface $fixer): void
     {
         if ($this->shouldSkip($smartFileInfo, $fixer, $tokens)) {
@@ -219,6 +223,9 @@ final class FixerFileProcessor implements FileProcessorInterface
         $this->appliedFixers[] = get_class($fixer);
     }
 
+    /**
+     * @param Tokens<Token> $tokens
+     */
     private function shouldSkip(SmartFileInfo $smartFileInfo, FixerInterface $fixer, Tokens $tokens): bool
     {
         if ($this->skipper->shouldSkipElementAndFileInfo($fixer, $smartFileInfo)) {

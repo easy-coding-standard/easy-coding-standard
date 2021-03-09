@@ -21,6 +21,9 @@ final class Issue1024Test extends AbstractCheckerTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo[]>
+     */
     public function provideData(): Iterator
     {
         yield [
