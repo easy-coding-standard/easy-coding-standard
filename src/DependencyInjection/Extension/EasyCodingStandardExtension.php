@@ -11,6 +11,9 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class EasyCodingStandardExtension extends Extension
 {
+    /**
+     * @param string[] $configs
+     */
     public function load(array $configs, ContainerBuilder $containerBuilder): void
     {
         // needed for parameter shifting of sniff/fixer params
