@@ -11,6 +11,7 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use Symplify\PhpConfigPrinter\Naming\ClassNaming;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\FileSystemGuard;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
@@ -58,4 +59,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->factory([service(WhitespacesFixerConfigFactory::class), 'create']);
 
     $services->set(NoCheckersLoaderReporter::class);
+    $services->set(ClassNaming::class);
 };

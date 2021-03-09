@@ -13,8 +13,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
 use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
+use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\PhpConfigPrinter\Naming\ClassNaming;
 use Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication;
 use Throwable;
 
@@ -28,12 +30,16 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     /**
      * @param Command[] $commands
      */
-    public function __construct(NoCheckersLoaderReporter $noCheckersLoaderReporter, array $commands)
-    {
+    public function __construct(
+        NoCheckersLoaderReporter $noCheckersLoaderReporter,
+        ClassNaming $classNaming,
+        array $commands
+    ) {
         $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
 
         parent::__construct($commands, 'EasyCodingStandard', $version->getPrettyVersion());
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
+        $this->setDefaultCommand($classNaming->getShortName(CheckCommand::class));
     }
 
     public function doRun(InputInterface $input, OutputInterface $output): int
