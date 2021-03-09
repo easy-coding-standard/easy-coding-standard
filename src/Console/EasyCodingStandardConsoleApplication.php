@@ -16,7 +16,7 @@ use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedExceptio
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PhpConfigPrinter\Naming\ClassNaming;
+use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication;
 use Throwable;
 
@@ -30,16 +30,13 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
     /**
      * @param Command[] $commands
      */
-    public function __construct(
-        NoCheckersLoaderReporter $noCheckersLoaderReporter,
-        ClassNaming $classNaming,
-        array $commands
-    ) {
+    public function __construct(NoCheckersLoaderReporter $noCheckersLoaderReporter, array $commands)
+    {
         $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
 
         parent::__construct($commands, 'EasyCodingStandard', $version->getPrettyVersion());
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
-        $this->setDefaultCommand($classNaming->getShortName(CheckCommand::class));
+        $this->setDefaultCommand(CommandNaming::classToName(CheckCommand::class));
     }
 
     public function doRun(InputInterface $input, OutputInterface $output): int
