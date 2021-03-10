@@ -9,7 +9,7 @@
         "php": ">=7.3",
         "composer/xdebug-handler": "^1.4",
         "friendsofphp/php-cs-fixer": "^2.18.2",
-        "jean85/pretty-package-versions": "^1.6",
+        "jean85/pretty-package-versions": "^1.6|^2.0.1",
         "nette/utils": "^3.2",
         "nette/robot-loader": "^3.3",
         "ocramius/package-versions": "^1.4",

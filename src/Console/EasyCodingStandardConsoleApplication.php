@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Symplify\EasyCodingStandard\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
-use Jean85\PrettyVersions;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,6 +15,7 @@ use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedExceptio
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\PackageBuilder\Composer\PackageVersionProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication;
 use Throwable;
@@ -32,9 +32,10 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
      */
     public function __construct(NoCheckersLoaderReporter $noCheckersLoaderReporter, array $commands)
     {
-        $version = PrettyVersions::getVersion('symplify/easy-coding-standard');
+        $packageVersionProvider = new PackageVersionProvider();
+        $version = $packageVersionProvider->provide('symplify/easy-coding-standard');
 
-        parent::__construct($commands, 'EasyCodingStandard', $version->getPrettyVersion());
+        parent::__construct($commands, 'EasyCodingStandard', $version);
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
         $this->setDefaultCommand(CommandNaming::classToName(CheckCommand::class));
     }
