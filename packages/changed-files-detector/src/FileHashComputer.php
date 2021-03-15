@@ -14,7 +14,7 @@ use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFi
 use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 
 /**
- * @see \Symplify\EasyCodingStandard\ChangedFilesDetector\Tests\FileHashComputerTest
+ * @see \Symplify\EasyCodingStandard\ChangedFilesDetector\Tests\FileHashComputer\FileHashComputerTest
  */
 final class FileHashComputer
 {
@@ -26,7 +26,7 @@ final class FileHashComputer
         $loader->load($filePath);
 
         $parameterBag = $containerBuilder->getParameterBag();
-        return $this->arrayToHash($containerBuilder->getDefinitions()) . $this->arrayToHash($parameterBag->all());
+        return $this->arrayToHash($containerBuilder->getServiceIds()) . $this->arrayToHash($parameterBag->all());
     }
 
     public function compute(string $filePath): string

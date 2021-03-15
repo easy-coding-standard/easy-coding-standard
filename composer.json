@@ -21,7 +21,6 @@
         "symfony/http-kernel": "^4.4|^5.2",
         "symfony/dependency-injection": "^5.2",
         "symfony/finder": "^4.4|^5.2",
-        "symfony/yaml": "^4.4|^5.2",
         "symplify/coding-standard": "^9.3",
         "symplify/package-builder": "^9.3",
         "symplify/set-config-resolver": "^9.3",
