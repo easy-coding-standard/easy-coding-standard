@@ -5,14 +5,15 @@ declare(strict_types=1);
 use Nette\Utils\Strings;
 use Isolated\Symfony\Component\Finder\Finder;
 
-$polyfillFilesFinder = (new Finder)
-    ->files()
+$finder = new Finder();
+$polyfillFileInfos = $finder->files()
     ->in(__DIR__ . '/vendor/symfony/polyfill-*')
-    ->name('*.php');
+    ->name('*.php')
+    ->getIterator();
 
 $polyfillFilePaths = [];
-foreach ($polyfillFilesFinder->getIterator() as $fileInfo) {
-    $polyfillFilePaths[] = $fileInfo->getPathname();
+foreach ($polyfillFileInfos as $polyfillFileInfo) {
+    $polyfillFilePaths[] = $polyfillFileInfo->getPathname();
 }
 
 return [
