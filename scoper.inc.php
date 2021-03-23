@@ -22,7 +22,6 @@ return [
         // these paths are relative to this file location, so it should be in the root directory
         'vendor/symfony/deprecation-contracts/function.php',
         // for package versions - https://github.com/symplify/easy-coding-standard-prefixed/runs/2176047833
-        'Composer\InstalledVersions',
     ] + $polyfillFilePaths,
     'whitelist' => [
         // needed for autoload, that is not prefixed, since it's in bin/* file
@@ -32,6 +31,7 @@ return [
         'SlevomatCodingStandard\*',
         'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
         'Symfony\Component\DependencyInjection\Extension\ExtensionInterface',
+        'Composer\InstalledVersions',
         'Symfony\Polyfill\*',
     ],
     'patchers' => [
