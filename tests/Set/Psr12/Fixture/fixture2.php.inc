@@ -372,8 +372,7 @@ $b, $c) {
 /** Anonymous Classes */
 new class($a, $b, $c) extends SomeExtendedClass implements
     \ArrayAccess,
-    \Countable
-{
+    \Countable {
     // Body
 };
 
