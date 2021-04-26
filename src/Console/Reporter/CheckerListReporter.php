@@ -21,7 +21,7 @@ final class CheckerListReporter
     }
 
     /**
-     * @param FixerInterface[]|Sniff[]|string[] $checkers
+     * @param FixerInterface[]|Sniff[] $checkers
      */
     public function report(array $checkers, string $type): void
     {
@@ -29,8 +29,8 @@ final class CheckerListReporter
             return;
         }
 
-        $checkerNames = array_map(function ($fixer): string {
-            return is_string($fixer) ? $fixer : get_class($fixer);
+        $checkerNames = array_map(function ($checker): string {
+            return get_class($checker);
         }, $checkers);
 
         $sectionMessage = sprintf('%d checker%s from %s:', count($checkers), count($checkers) === 1 ? '' : 's', $type);
