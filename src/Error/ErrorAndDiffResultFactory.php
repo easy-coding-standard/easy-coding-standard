@@ -8,12 +8,22 @@ use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 
 final class ErrorAndDiffResultFactory
 {
-    public function create(ErrorAndDiffCollector $errorAndDiffCollector): ErrorAndDiffResult
+    /**
+     * @var ErrorAndDiffCollector
+     */
+    private $errorAndDiffCollector;
+
+    public function __construct(ErrorAndDiffCollector $errorAndDiffCollector)
+    {
+        $this->errorAndDiffCollector = $errorAndDiffCollector;
+    }
+
+    public function create(): ErrorAndDiffResult
     {
         return new ErrorAndDiffResult(
-            $errorAndDiffCollector->getErrors(),
-            $errorAndDiffCollector->getFileDiffs(),
-            $errorAndDiffCollector->getSystemErrors()
+            $this->errorAndDiffCollector->getErrors(),
+            $this->errorAndDiffCollector->getFileDiffs(),
+            $this->errorAndDiffCollector->getSystemErrors()
         );
     }
 }

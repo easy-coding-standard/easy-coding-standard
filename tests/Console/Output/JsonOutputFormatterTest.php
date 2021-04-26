@@ -47,7 +47,7 @@ final class JsonOutputFormatterTest extends AbstractKernelTestCase
         $this->errorAndDiffCollector->addDiffForFileInfo($randomFileInfo, 'some diff', [LineLengthFixer::class]);
         $this->errorAndDiffCollector->addDiffForFileInfo($randomFileInfo, 'some other diff', [LineLengthFixer::class]);
 
-        $errorAndDiffResult = $this->errorAndDiffResultFactory->create($this->errorAndDiffCollector);
+        $errorAndDiffResult = $this->errorAndDiffResultFactory->create();
 
         $jsonContent = $this->jsonOutputFormatter->createJsonContent($errorAndDiffResult);
         $this->assertStringMatchesFormatFile(__DIR__ . '/Fixture/expected_json_output.json', $jsonContent . PHP_EOL);
