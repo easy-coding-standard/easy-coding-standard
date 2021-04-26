@@ -29,7 +29,7 @@ final class Issue3113Test extends AbstractCheckerTestCase
         yield [new SmartFileInfo(__DIR__ . '/Fixture/fixture3113.php.inc')];
     }
 
-    protected function provideConfig(): string
+    public function provideConfig(): string
     {
         return __DIR__ . '/config/config3113.php';
     }
