@@ -7,6 +7,7 @@
     ],
     "require": {
         "php": ">=7.3",
+        "composer/package-versions-deprecated": "^1.8",
         "composer/xdebug-handler": "^1.4",
         "friendsofphp/php-cs-fixer": "^2.18.5",
         "jean85/pretty-package-versions": "^1.6|^2.0.1",
