@@ -40,7 +40,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(ClassDefinitionFixer::class)
         ->call('configure', [[
-            'singleLine' => true,
+            'single_line' => true,
         ]]);
 
     $services->set(StandardizeIncrementFixer::class);
