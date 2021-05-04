@@ -150,6 +150,11 @@ final class SniffFileProcessor implements FileProcessorInterface
     private function addCompatibilityLayer(): void
     {
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
+            // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
+            if (defined('T_MATCH') === false) {
+                define('T_MATCH', 5000);
+            }
+
             define('PHP_CODESNIFFER_VERBOSITY', 0);
             new Tokens();
         }

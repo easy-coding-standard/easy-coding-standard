@@ -6,7 +6,6 @@ use PhpCsFixer\Fixer\Alias\EregToPregFixer;
 use PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer;
 use PhpCsFixer\Fixer\Alias\SetTypeToCastFixer;
 use PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer;
-use PhpCsFixer\Fixer\Basic\Psr4Fixer;
 use PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer;
 use PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer;
 use PhpCsFixer\Fixer\ClassNotation\NoUnneededFinalMethodFixer;
@@ -83,7 +82,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(PhpUnitStrictFixer::class);
     $services->set(PhpUnitTestAnnotationFixer::class);
     $services->set(PhpUnitTestCaseStaticMethodCallsFixer::class);
-    $services->set(Psr4Fixer::class);
     $services->set(SelfAccessorFixer::class);
     $services->set(SetTypeToCastFixer::class);
     $services->set(StrictComparisonFixer::class);

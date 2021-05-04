@@ -5,9 +5,9 @@ declare(strict_types=1);
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ArrayNotation\NoTrailingCommaInSinglelineArrayFixer;
 use PhpCsFixer\Fixer\ArrayNotation\NoWhitespaceBeforeCommaInArrayFixer;
-use PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer;
 use PhpCsFixer\Fixer\ArrayNotation\TrimArraySpacesFixer;
 use PhpCsFixer\Fixer\ArrayNotation\WhitespaceAfterCommaInArrayFixer;
+use PhpCsFixer\Fixer\ControlStructure\TrailingCommaInMultilineFixer;
 use PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
@@ -25,7 +25,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(StandaloneLineInMultilineArrayFixer::class);
 
     // commas
-    $services->set(TrailingCommaInMultilineArrayFixer::class);
+    $services->set(TrailingCommaInMultilineFixer::class)
+        ->call('configure', [[
+            'elements' => [TrailingCommaInMultilineFixer::ELEMENTS_ARRAYS],
+        ]]);
+
     $services->set(NoTrailingCommaInSinglelineArrayFixer::class);
 
     $services->set(ArraySyntaxFixer::class)

@@ -108,7 +108,11 @@ final class AutoloadIncluder
             require_once $possiblePhpCodeSnifferAutoloadPath;
         }
 
-        // initalize PHPCS tokens
+        // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
+        if (defined('T_MATCH') === false) {
+            define('T_MATCH', 5000);
+        }
+
         new Tokens();
     }
 
