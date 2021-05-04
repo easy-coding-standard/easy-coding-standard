@@ -151,7 +151,7 @@ final class SniffFileProcessor implements FileProcessorInterface
     {
         if (! defined('PHP_CODESNIFFER_VERBOSITY')) {
             // initalize token with INT type, otherwise php-cs-fixer and php-parser breaks
-            if (defined('T_MATCH') === false) {
+            if (! defined('T_MATCH')) {
                 define('T_MATCH', 5000);
             }
 
