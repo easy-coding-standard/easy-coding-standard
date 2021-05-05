@@ -25,7 +25,7 @@ composer require symplify/easy-coding-standard --dev
 
 ### Prefixed Version
 
-The prefix verion can be used when there are dependancy clashes. Head over to the 
+The prefix verion can be used when there are dependancy clashes. Head over to the
 ["Easy Coding Standard Prefixed" repository](https://github.com/symplify/easy-coding-standard-prefixed) for more information.
 
 ```bash

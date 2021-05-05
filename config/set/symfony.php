@@ -127,7 +127,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CastSpacesFixer::class);
     $services->set(ClassAttributesSeparationFixer::class)
         ->call('configure', [[
-            'elements' => ['method' => ClassAttributesSeparationFixer::SPACING_ONE],
+            'elements' => [
+                'method' => ClassAttributesSeparationFixer::SPACING_ONE,
+            ],
         ]]);
     $services->set(ClassDefinitionFixer::class)
         ->call('configure', [[
