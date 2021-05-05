@@ -37,7 +37,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(ClassAttributesSeparationFixer::class)
         ->call('configure', [[
-            'elements' => ['const', 'property', 'method'],
+            'elements' => [
+                'const' => ClassAttributesSeparationFixer::SPACING_ONE,
+                'property' => ClassAttributesSeparationFixer::SPACING_ONE,
+                'method' => ClassAttributesSeparationFixer::SPACING_ONE,
+            ],
         ]]);
 
     $services->set(ConcatSpaceFixer::class)
