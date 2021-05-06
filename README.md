@@ -44,7 +44,6 @@ composer require symplify/easy-coding-standard-prefixed --dev
 // ecs.php
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -56,8 +55,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
 
     // B. full sets
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SETS, [SetList::CLEAN_CODE, SetList::PSR_12]);
+    $containerConfigurator->import(SetList::PSR_12);
 };
 ```
 

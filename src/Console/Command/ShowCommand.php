@@ -7,7 +7,6 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
-use Symplify\EasyCodingStandard\Console\Reporter\SetsReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
@@ -36,17 +35,11 @@ final class ShowCommand extends AbstractSymplifyCommand
      */
     private $checkerListReporter;
 
-    /**
-     * @var SetsReporter
-     */
-    private $setsReporter;
-
     public function __construct(
         SniffFileProcessor $sniffFileProcessor,
         FixerFileProcessor $fixerFileProcessor,
         EasyCodingStandardStyle $easyCodingStandardStyle,
-        CheckerListReporter $checkerListReporter,
-        SetsReporter $setsReporter
+        CheckerListReporter $checkerListReporter
     ) {
         parent::__construct();
 
@@ -54,7 +47,6 @@ final class ShowCommand extends AbstractSymplifyCommand
         $this->fixerFileProcessor = $fixerFileProcessor;
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->checkerListReporter = $checkerListReporter;
-        $this->setsReporter = $setsReporter;
     }
 
     protected function configure(): void
@@ -76,8 +68,6 @@ final class ShowCommand extends AbstractSymplifyCommand
             $totalCheckerCount === 1 ? '' : 's'
         );
         $this->easyCodingStandardStyle->success($successMessage);
-
-        $this->setsReporter->report();
 
         return ShellCode::SUCCESS;
     }
