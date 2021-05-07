@@ -7,7 +7,7 @@ use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\
 use Symplify\EasyCodingStandard\ValueObject\Option;
 return static function (\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/services.php');
-    $containerConfigurator->import(__DIR__ . '/../packages/*/config/*.php');
+    $containerConfigurator->import(__DIR__ . '/packages.php');
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::INDENTATION, \Symplify\EasyCodingStandard\ValueObject\Option::INDENTATION_SPACES);
     $parameters->set(\Symplify\EasyCodingStandard\ValueObject\Option::LINE_ENDING, \PHP_EOL);

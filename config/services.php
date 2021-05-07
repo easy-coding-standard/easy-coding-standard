@@ -2,13 +2,19 @@
 
 namespace ECSPrefix20210507;
 
+use PHP_CodeSniffer\Fixer;
+use PhpCsFixer\Differ\DifferInterface;
+use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
+use ECSPrefix20210507\Symfony\Component\Cache\Adapter\Psr16Adapter;
+use ECSPrefix20210507\Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210507\Symfony\Component\Console\Terminal;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory;
+use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\SmartFileSystem\FileSystemFilter;
@@ -41,4 +47,13 @@ return static function (\ECSPrefix20210507\Symfony\Component\DependencyInjection
     $services->set(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle::class)->factory([\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory::class), 'create']);
     $services->set(\PhpCsFixer\WhitespacesFixerConfig::class)->factory([\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory::class), 'create']);
     $services->set(\Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter::class);
+    // code sniffer
+    $services->set(\PHP_CodeSniffer\Fixer::class);
+    // fixer
+    $services->set(\PhpCsFixer\Differ\UnifiedDiffer::class);
+    $services->alias(\PhpCsFixer\Differ\DifferInterface::class, \PhpCsFixer\Differ\UnifiedDiffer::class);
+    $services->set(\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::class);
+    // cache
+    $services->set(\ECSPrefix20210507\Symfony\Component\Cache\Adapter\Psr16Adapter::class);
+    $services->set(\ECSPrefix20210507\Symfony\Component\Cache\Adapter\TagAwareAdapter::class)->args(['$itemsPool' => \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20210507\Symfony\Component\Cache\Adapter\Psr16Adapter::class), '$tagsPool' => \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20210507\Symfony\Component\Cache\Adapter\Psr16Adapter::class)]);
 };

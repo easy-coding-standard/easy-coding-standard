@@ -1,0 +1,109 @@
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace ECSPrefix20210507\Symfony\Component\HttpKernel;
+
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerEvent;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\TerminateEvent;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ViewEvent;
+/**
+ * Contains all events thrown in the HttpKernel component.
+ *
+ * @author Bernhard Schussek <bschussek@gmail.com>
+ */
+final class KernelEvents
+{
+    /**
+     * The REQUEST event occurs at the very beginning of request
+     * dispatching.
+     *
+     * This event allows you to create a response for a request before any
+     * other code in the framework is executed.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\RequestEvent")
+     */
+    const REQUEST = 'kernel.request';
+    /**
+     * The EXCEPTION event occurs when an uncaught exception appears.
+     *
+     * This event allows you to create a response for a thrown exception or
+     * to modify the thrown exception.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\ExceptionEvent")
+     */
+    const EXCEPTION = 'kernel.exception';
+    /**
+     * The CONTROLLER event occurs once a controller was found for
+     * handling a request.
+     *
+     * This event allows you to change the controller that will handle the
+     * request.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\ControllerEvent")
+     */
+    const CONTROLLER = 'kernel.controller';
+    /**
+     * The CONTROLLER_ARGUMENTS event occurs once controller arguments have been resolved.
+     *
+     * This event allows you to change the arguments that will be passed to
+     * the controller.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent")
+     */
+    const CONTROLLER_ARGUMENTS = 'kernel.controller_arguments';
+    /**
+     * The VIEW event occurs when the return value of a controller
+     * is not a Response instance.
+     *
+     * This event allows you to create a response for the return value of the
+     * controller.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\ViewEvent")
+     */
+    const VIEW = 'kernel.view';
+    /**
+     * The RESPONSE event occurs once a response was created for
+     * replying to a request.
+     *
+     * This event allows you to modify or replace the response that will be
+     * replied.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\ResponseEvent")
+     */
+    const RESPONSE = 'kernel.response';
+    /**
+     * The FINISH_REQUEST event occurs when a response was generated for a request.
+     *
+     * This event allows you to reset the global and environmental state of
+     * the application, when it was changed during the request.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\FinishRequestEvent")
+     */
+    const FINISH_REQUEST = 'kernel.finish_request';
+    /**
+     * The TERMINATE event occurs once a response was sent.
+     *
+     * This event allows you to run expensive post-response jobs.
+     *
+     * @Event("Symfony\Component\HttpKernel\Event\TerminateEvent")
+     */
+    const TERMINATE = 'kernel.terminate';
+    /**
+     * Event aliases.
+     *
+     * These aliases can be consumed by RegisterListenersPass.
+     */
+    const ALIASES = [\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class => self::CONTROLLER_ARGUMENTS, \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerEvent::class => self::CONTROLLER, \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent::class => self::RESPONSE, \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class => self::FINISH_REQUEST, \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent::class => self::REQUEST, \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ViewEvent::class => self::VIEW, \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent::class => self::EXCEPTION, \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\TerminateEvent::class => self::TERMINATE];
+}
