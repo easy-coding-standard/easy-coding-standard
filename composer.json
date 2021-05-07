@@ -12,7 +12,6 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "jean85/pretty-package-versions": "^1.6|^2.0.1",
         "nette/utils": "^3.2",
-        "nette/robot-loader": "^3.3",
         "ocramius/package-versions": "^1.4",
         "psr/simple-cache": "^1.0",
         "squizlabs/php_codesniffer": "^3.6",
