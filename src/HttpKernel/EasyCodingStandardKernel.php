@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\HttpKernel;
 
-use Symfony\Component\Config\Loader\DelegatingLoader;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210507\Symfony\Component\Config\Loader\DelegatingLoader;
+use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210507\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle;
 use Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle;
@@ -17,38 +15,32 @@ use Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use Symplify\Skipper\Bundle\SkipperBundle;
 use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-
 final class EasyCodingStandardKernel extends AbstractSymplifyKernel
 {
     /**
-     * @return BundleInterface[]
+     * @return mixed[]
      */
-    public function registerBundles(): iterable
+    public function registerBundles()
     {
-        $bundles = [
-            new EasyCodingStandardBundle(),
-            new SymplifyCodingStandardBundle(),
-            new ConsoleColorDiffBundle(),
-            new SymplifyKernelBundle(),
-            new SkipperBundle(),
-        ];
-
+        $bundles = [new EasyCodingStandardBundle(), new SymplifyCodingStandardBundle(), new ConsoleColorDiffBundle(), new SymplifyKernelBundle(), new SkipperBundle()];
         if ($this->environment === 'test') {
             $bundles[] = new PhpConfigPrinterBundle();
         }
-
         return $bundles;
     }
-
-    protected function build(ContainerBuilder $containerBuilder): void
+    /**
+     * @return void
+     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     */
+    protected function build($containerBuilder)
     {
         $containerBuilder->addCompilerPass(new DeprecationWarningCompilerPass());
     }
-
     /**
      * @param ContainerInterface|ContainerBuilder $container
+     * @return \Symfony\Component\Config\Loader\DelegatingLoader
      */
-    protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
+    protected function getContainerLoader($container)
     {
         $delegatingLoaderFactory = new DelegatingLoaderFactory();
         return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);

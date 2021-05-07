@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\FixerRunner\ValueObject;
 
 final class Spacing
@@ -9,15 +7,13 @@ final class Spacing
     /**
      * @var string
      */
-    public const FOUR_SPACES = '    ';
-
+    const FOUR_SPACES = '    ';
     /**
      * @var string
      */
-    public const ONE_TAB = '	';
-
+    const ONE_TAB = '	';
     /**
      * @var string
      */
-    public const TWO_SPACES = '  ';
+    const TWO_SPACES = '  ';
 }

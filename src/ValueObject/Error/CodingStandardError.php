@@ -1,62 +1,71 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 final class CodingStandardError
 {
     /**
      * @var int
      */
     private $line;
-
     /**
      * @var string
      */
     private $message;
-
     /**
      * @var string
      */
     private $checkerClass;
-
     /**
      * @var SmartFileInfo
      */
     private $fileInfo;
-
-    public function __construct(int $line, string $message, string $checkerClass, SmartFileInfo $fileInfo)
+    /**
+     * @param int $line
+     * @param string $message
+     * @param string $checkerClass
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
+     */
+    public function __construct($line, $message, $checkerClass, $fileInfo)
     {
         $this->line = $line;
         $this->message = $message;
         $this->checkerClass = $checkerClass;
         $this->fileInfo = $fileInfo;
     }
-
-    public function getLine(): int
+    /**
+     * @return int
+     */
+    public function getLine()
     {
         return $this->line;
     }
-
-    public function getMessage(): string
+    /**
+     * @return string
+     */
+    public function getMessage()
     {
         return $this->message;
     }
-
-    public function getCheckerClass(): string
+    /**
+     * @return string
+     */
+    public function getCheckerClass()
     {
         return $this->checkerClass;
     }
-
-    public function getFileWithLine(): string
+    /**
+     * @return string
+     */
+    public function getFileWithLine()
     {
         return $this->getRelativeFilePathFromCwd() . ':' . $this->line;
     }
-
-    public function getRelativeFilePathFromCwd(): string
+    /**
+     * @return string
+     */
+    public function getRelativeFilePathFromCwd()
     {
         return $this->fileInfo->getRelativeFilePathFromCwd();
     }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+namespace ECSPrefix20210507;
 
 use PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
@@ -135,35 +135,20 @@ use PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer;
 use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->set(AlignMultilineCommentFixer::class);
     $services->set(ArrayIndentationFixer::class);
-    $services->set(ArraySyntaxFixer::class)
-        ->call('configure', [[
-            'syntax' => 'short',
-        ]]);
+    $services->set(ArraySyntaxFixer::class)->call('configure', [['syntax' => 'short']]);
     $services->set(BinaryOperatorSpacesFixer::class);
     $services->set(BlankLineAfterNamespaceFixer::class);
     $services->set(BlankLineAfterOpeningTagFixer::class);
     $services->set(BlankLineBeforeStatementFixer::class);
-    $services->set(BracesFixer::class)
-        ->call('configure', [[
-            'allow_single_line_closure' => true,
-        ]]);
+    $services->set(BracesFixer::class)->call('configure', [['allow_single_line_closure' => \true]]);
     $services->set(CastSpacesFixer::class);
-    $services->set(ClassAttributesSeparationFixer::class)
-        ->call('configure', [[
-            'elements' => [
-                'method' => ClassAttributesSeparationFixer::SPACING_ONE,
-            ],
-        ]]);
-    $services->set(ClassDefinitionFixer::class)
-        ->call('configure', [[
-            'single_line' => true,
-        ]]);
+    $services->set(ClassAttributesSeparationFixer::class)->call('configure', [['elements' => ['method' => ClassAttributesSeparationFixer::SPACING_ONE]]]);
+    $services->set(ClassDefinitionFixer::class)->call('configure', [['single_line' => \true]]);
     $services->set(CombineConsecutiveIssetsFixer::class);
     $services->set(CombineConsecutiveUnsetsFixer::class);
     $services->set(CompactNullableTypehintFixer::class);
@@ -189,16 +174,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(LowercaseStaticReferenceFixer::class);
     $services->set(MagicConstantCasingFixer::class);
     $services->set(MagicMethodCasingFixer::class);
-    $services->set(MethodArgumentSpaceFixer::class)
-        ->call('configure', [[
-            'on_multiline' => 'ensure_fully_multiline',
-        ]]);
+    $services->set(MethodArgumentSpaceFixer::class)->call('configure', [['on_multiline' => 'ensure_fully_multiline']]);
     $services->set(MethodChainingIndentationFixer::class);
     $services->set(MultilineCommentOpeningClosingFixer::class);
-    $services->set(MultilineWhitespaceBeforeSemicolonsFixer::class)
-        ->call('configure', [[
-            'strategy' => 'new_line_for_chained_calls',
-        ]]);
+    $services->set(MultilineWhitespaceBeforeSemicolonsFixer::class)->call('configure', [['strategy' => 'new_line_for_chained_calls']]);
     $services->set(NativeFunctionCasingFixer::class);
     $services->set(NativeFunctionTypeDeclarationCasingFixer::class);
     $services->set(NewWithBracesFixer::class);
@@ -211,20 +190,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NoEmptyCommentFixer::class);
     $services->set(NoEmptyPhpdocFixer::class);
     $services->set(NoEmptyStatementFixer::class);
-    $services->set(NoExtraBlankLinesFixer::class)
-        ->call('configure', [[
-            'tokens' => [
-                'break',
-                'continue',
-                'curly_brace_block',
-                'extra',
-                'parenthesis_brace_block',
-                'return',
-                'square_brace_block',
-                'throw',
-                'use',
-            ],
-        ]]);
+    $services->set(NoExtraBlankLinesFixer::class)->call('configure', [['tokens' => ['break', 'continue', 'curly_brace_block', 'extra', 'parenthesis_brace_block', 'return', 'square_brace_block', 'throw', 'use']]]);
     $services->set(NoLeadingImportSlashFixer::class);
     $services->set(NoLeadingNamespaceWhitespaceFixer::class);
     $services->set(NoMixedEchoPrintFixer::class);
@@ -236,20 +202,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(NoSpacesAroundOffsetFixer::class);
     $services->set(NoSpacesInsideParenthesisFixer::class);
     $services->set(NoSuperfluousElseifFixer::class);
-    $services->set(NoSuperfluousPhpdocTagsFixer::class)
-        ->call('configure', [[
-            'allow_mixed' => true,
-            'allow_unused_params' => true,
-        ]]);
+    $services->set(NoSuperfluousPhpdocTagsFixer::class)->call('configure', [['allow_mixed' => \true, 'allow_unused_params' => \true]]);
     $services->set(NoTrailingCommaInListCallFixer::class);
     $services->set(NoTrailingCommaInSinglelineArrayFixer::class);
     $services->set(NoTrailingWhitespaceFixer::class);
     $services->set(NoTrailingWhitespaceInCommentFixer::class);
     $services->set(NoUnneededControlParenthesesFixer::class);
-    $services->set(NoUnneededCurlyBracesFixer::class)
-        ->call('configure', [[
-            'namespaces' => true,
-        ]]);
+    $services->set(NoUnneededCurlyBracesFixer::class)->call('configure', [['namespaces' => \true]]);
     $services->set(NoUnsetCastFixer::class);
     $services->set(NoUnusedImportsFixer::class);
     $services->set(NoUselessElseFixer::class);
@@ -265,10 +224,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(PhpUnitMethodCasingFixer::class);
     $services->set(PhpUnitTestClassRequiresCoversFixer::class);
     $services->set(PhpdocAddMissingParamAnnotationFixer::class);
-    $services->set(PhpdocAlignFixer::class)
-        ->call('configure', [[
-            'tags' => ['method', 'param', 'property', 'return', 'throws', 'type', 'var'],
-        ]]);
+    $services->set(PhpdocAlignFixer::class)->call('configure', [['tags' => ['method', 'param', 'property', 'return', 'throws', 'type', 'var']]]);
     $services->set(PhpdocAnnotationWithoutDotFixer::class);
     $services->set(PhpdocIndentFixer::class);
     $services->set(PhpdocNoAccessFixer::class);
@@ -303,19 +259,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SingleLineCommentStyleFixer::class);
     $services->set(SingleQuoteFixer::class);
     $services->set(SingleTraitInsertPerStatementFixer::class);
-    $services->set(SpaceAfterSemicolonFixer::class)
-        ->call('configure', [[
-            'remove_in_empty_for_expressions' => true,
-        ]]);
+    $services->set(SpaceAfterSemicolonFixer::class)->call('configure', [['remove_in_empty_for_expressions' => \true]]);
     $services->set(StandardizeIncrementFixer::class);
     $services->set(StandardizeNotEqualsFixer::class);
     $services->set(SwitchCaseSemicolonToColonFixer::class);
     $services->set(SwitchCaseSpaceFixer::class);
     $services->set(TernaryOperatorSpacesFixer::class);
-    $services->set(TrailingCommaInMultilineFixer::class)
-        ->call('configure', [[
-            'elements' => [TrailingCommaInMultilineFixer::ELEMENTS_ARRAYS],
-        ]]);
+    $services->set(TrailingCommaInMultilineFixer::class)->call('configure', [['elements' => [TrailingCommaInMultilineFixer::ELEMENTS_ARRAYS]]]);
     $services->set(TrimArraySpacesFixer::class);
     $services->set(UnaryOperatorSpacesFixer::class);
     $services->set(VisibilityRequiredFixer::class);

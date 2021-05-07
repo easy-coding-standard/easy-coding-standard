@@ -1,24 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Provider;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 final class CurrentParentFileInfoProvider
 {
     /**
      * @var SmartFileInfo|null
      */
     private $smartFileInfo;
-
-    public function setParentFileInfo(SmartFileInfo $smartFileInfo): void
+    /**
+     * @return void
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
+     */
+    public function setParentFileInfo($smartFileInfo)
     {
         $this->smartFileInfo = $smartFileInfo;
     }
-
-    public function provide(): ?SmartFileInfo
+    /**
+     * @return \Symplify\SmartFileSystem\SmartFileInfo|null
+     */
+    public function provide()
     {
         return $this->smartFileInfo;
     }

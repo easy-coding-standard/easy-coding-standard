@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\Contract\Application;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 interface FileProcessorInterface
 {
-    public function processFile(SmartFileInfo $smartFileInfo): string;
-
     /**
-     * @return object[]
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
+     * @return string
      */
-    public function getCheckers(): array;
+    public function processFile($smartFileInfo);
+    /**
+     * @return mixed[]
+     */
+    public function getCheckers();
 }
