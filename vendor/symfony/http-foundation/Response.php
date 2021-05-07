@@ -1200,7 +1200,7 @@ class Response
      */
     protected function ensureIEOverSSLCompatibility($request)
     {
-        if (\false !== \stripos(isset($this->headers->get('Content-Disposition')) ? $this->headers->get('Content-Disposition') : '', 'attachment') && 1 == \preg_match('/MSIE (.*?);/i', isset($request->server->get('HTTP_USER_AGENT')) ? $request->server->get('HTTP_USER_AGENT') : '', $match) && \true === $request->isSecure()) {
+        if (\false !== \stripos($this->headers->get('Content-Disposition') !== null ? $this->headers->get('Content-Disposition') : '', 'attachment') && 1 == \preg_match('/MSIE (.*?);/i', $request->server->get('HTTP_USER_AGENT') !== null ? $request->server->get('HTTP_USER_AGENT') : '', $match) && \true === $request->isSecure()) {
             if ((int) \preg_replace('/(MSIE )(.*?);/', '$2', $match[0]) < 9) {
                 $this->headers->remove('Cache-Control');
             }

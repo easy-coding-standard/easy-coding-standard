@@ -58,6 +58,6 @@ class EarlyExpirationDispatcher
         }
         // The item's value is not stale, no need to write it to the backend
         $save = \false;
-        return isset($message->getItem()->get()) ? $message->getItem()->get() : $item->get();
+        return $message->getItem()->get() !== null ? $message->getItem()->get() : $item->get();
     }
 }

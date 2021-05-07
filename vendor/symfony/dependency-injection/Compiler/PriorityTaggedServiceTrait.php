@@ -44,7 +44,7 @@ trait PriorityTaggedServiceTrait
             $indexAttribute = $tagName->getIndexAttribute();
             $defaultIndexMethod = $tagName->getDefaultIndexMethod();
             $needsIndexes = $tagName->needsIndexes();
-            $defaultPriorityMethod = isset($tagName->getDefaultPriorityMethod()) ? $tagName->getDefaultPriorityMethod() : 'getDefaultPriority';
+            $defaultPriorityMethod = $tagName->getDefaultPriorityMethod() !== null ? $tagName->getDefaultPriorityMethod() : 'getDefaultPriority';
             $tagName = $tagName->getTag();
         }
         $i = 0;

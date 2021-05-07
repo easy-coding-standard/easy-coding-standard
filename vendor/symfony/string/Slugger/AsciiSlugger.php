@@ -98,7 +98,7 @@ class AsciiSlugger implements \ECSPrefix20210507\Symfony\Component\String\Slugge
         }
         // Exact locale supported, cache and return
         if ($id = isset(self::LOCALE_TO_TRANSLITERATOR_ID[$locale]) ? self::LOCALE_TO_TRANSLITERATOR_ID[$locale] : null) {
-            return $this->transliterators[$locale] = isset(\Transliterator::create($id . '/BGN')) ? \Transliterator::create($id . '/BGN') : \Transliterator::create($id);
+            return $this->transliterators[$locale] = \Transliterator::create($id . '/BGN') !== null ? \Transliterator::create($id . '/BGN') : \Transliterator::create($id);
         }
         // Locale not supported and no parent, fallback to any-latin
         if (\false === ($str = \strrchr($locale, '_'))) {
@@ -107,7 +107,7 @@ class AsciiSlugger implements \ECSPrefix20210507\Symfony\Component\String\Slugge
         // Try to use the parent locale (ie. try "de" for "de_AT") and cache both locales
         $parent = \substr($locale, 0, -\strlen($str));
         if ($id = isset(self::LOCALE_TO_TRANSLITERATOR_ID[$parent]) ? self::LOCALE_TO_TRANSLITERATOR_ID[$parent] : null) {
-            $transliterator = isset(\Transliterator::create($id . '/BGN')) ? \Transliterator::create($id . '/BGN') : \Transliterator::create($id);
+            $transliterator = \Transliterator::create($id . '/BGN') !== null ? \Transliterator::create($id . '/BGN') : \Transliterator::create($id);
         }
         return $this->transliterators[$locale] = $this->transliterators[$parent] = isset($transliterator) ? $transliterator : null;
     }

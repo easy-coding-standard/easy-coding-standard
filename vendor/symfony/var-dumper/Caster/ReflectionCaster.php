@@ -118,7 +118,7 @@ class ReflectionCaster
             $a[$prefix . 'this'] = new \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\CutStub($c->getThis());
         }
         $function = $c->getFunction();
-        $frame = ['class' => isset($function->class) ? $function->class : null, 'type' => isset($function->class) ? $function->isStatic() ? '::' : '->' : null, 'function' => $function->name, 'file' => $c->getExecutingFile(), 'line' => $c->getExecutingLine()];
+        $frame = ['class' => $function->class !== null ? $function->class : null, 'type' => isset($function->class) ? $function->isStatic() ? '::' : '->' : null, 'function' => $function->name, 'file' => $c->getExecutingFile(), 'line' => $c->getExecutingLine()];
         if ($trace = $c->getTrace(\DEBUG_BACKTRACE_IGNORE_ARGS)) {
             $function = new \ReflectionGenerator($c->getExecutingGenerator());
             \array_unshift($trace, ['function' => 'yield', 'file' => $function->getExecutingFile(), 'line' => $function->getExecutingLine() - 1]);

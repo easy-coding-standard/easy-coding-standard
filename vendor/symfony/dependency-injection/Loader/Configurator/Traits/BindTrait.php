@@ -37,7 +37,7 @@ trait BindTrait
         }
         $bindings = $this->definition->getBindings();
         $type = $this instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\DefaultsConfigurator ? \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\BoundArgument::DEFAULTS_BINDING : ($this instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator ? \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\BoundArgument::INSTANCEOF_BINDING : \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\BoundArgument::SERVICE_BINDING);
-        $bindings[$nameOrFqcn] = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\BoundArgument($valueOrRef, \true, $type, isset($this->path) ? $this->path : null);
+        $bindings[$nameOrFqcn] = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\BoundArgument($valueOrRef, \true, $type, $this->path !== null ? $this->path : null);
         $this->definition->setBindings($bindings);
         return $this;
     }

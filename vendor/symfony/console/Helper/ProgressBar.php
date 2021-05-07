@@ -368,7 +368,7 @@ final class ProgressBar
         } elseif ($step < 0) {
             $step = 0;
         }
-        $redrawFreq = isset($this->redrawFreq) ? $this->redrawFreq : ($this->max ?: 10) / 10;
+        $redrawFreq = $this->redrawFreq !== null ? $this->redrawFreq : ($this->max ?: 10) / 10;
         $prevPeriod = (int) ($this->step / $redrawFreq);
         $currPeriod = (int) ($step / $redrawFreq);
         $this->step = $step;

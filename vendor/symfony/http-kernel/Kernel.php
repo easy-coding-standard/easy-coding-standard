@@ -167,7 +167,7 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
     public function handle($request, $type = \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
         if (!$this->booted) {
-            $container = isset($this->container) ? $this->container : $this->preBoot();
+            $container = $this->container !== null ? $this->container : $this->preBoot();
             if ($container->has('http_cache')) {
                 return $container->get('http_cache')->handle($request, $type, $catch);
             }

@@ -36,8 +36,8 @@ class MemcachedCaster
      */
     private static function getNonDefaultOptions($c)
     {
-        self::$defaultOptions = isset(self::$defaultOptions) ? self::$defaultOptions : self::discoverDefaultOptions();
-        self::$optionConstants = isset(self::$optionConstants) ? self::$optionConstants : self::getOptionConstants();
+        self::$defaultOptions = self::$defaultOptions !== null ? self::$defaultOptions : self::discoverDefaultOptions();
+        self::$optionConstants = self::$optionConstants !== null ? self::$optionConstants : self::getOptionConstants();
         $nonDefaultOptions = [];
         foreach (self::$optionConstants as $constantKey => $value) {
             if (self::$defaultOptions[$constantKey] !== ($option = $c->getOption($value))) {
@@ -54,7 +54,7 @@ class MemcachedCaster
         $defaultMemcached = new \Memcached();
         $defaultMemcached->addServer('127.0.0.1', 11211);
         $defaultOptions = [];
-        self::$optionConstants = isset(self::$optionConstants) ? self::$optionConstants : self::getOptionConstants();
+        self::$optionConstants = self::$optionConstants !== null ? self::$optionConstants : self::getOptionConstants();
         foreach (self::$optionConstants as $constantKey => $value) {
             $defaultOptions[$constantKey] = $defaultMemcached->getOption($value);
         }

@@ -74,7 +74,7 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
             if ($this->throwOnAutowiringException) {
                 throw $e;
             }
-            $this->container->getDefinition($this->currentId)->addError(isset($e->getMessageCallback()) ? $e->getMessageCallback() : $e->getMessage());
+            $this->container->getDefinition($this->currentId)->addError($e->getMessageCallback() !== null ? $e->getMessageCallback() : $e->getMessage());
             return parent::processValue($value, $isRoot);
         }
     }

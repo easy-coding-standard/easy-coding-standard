@@ -75,12 +75,12 @@ trait ContractsTrait
             try {
                 $value = ($this->callbackWrapper)($callback, $item, $save, $pool, function (\ECSPrefix20210507\Symfony\Component\Cache\CacheItem $item) use($setMetadata, $startTime, &$metadata) {
                     $setMetadata($item, $startTime, $metadata);
-                }, isset($this->logger) ? $this->logger : null);
+                }, $this->logger !== null ? $this->logger : null);
                 $setMetadata($item, $startTime, $metadata);
                 return $value;
             } finally {
                 unset($this->computing[$key]);
             }
-        }, $beta, $metadata, isset($this->logger) ? $this->logger : null);
+        }, $beta, $metadata, $this->logger !== null ? $this->logger : null);
     }
 }

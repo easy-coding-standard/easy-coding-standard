@@ -325,7 +325,7 @@ class Command
      */
     public function getDefinition()
     {
-        return isset($this->fullDefinition) ? $this->fullDefinition : $this->getNativeDefinition();
+        return $this->fullDefinition !== null ? $this->fullDefinition : $this->getNativeDefinition();
     }
     /**
      * Gets the InputDefinition to be used to create representations of this Command.

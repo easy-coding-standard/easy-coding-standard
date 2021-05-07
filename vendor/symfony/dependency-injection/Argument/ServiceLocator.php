@@ -46,7 +46,7 @@ class ServiceLocator extends \ECSPrefix20210507\Symfony\Component\DependencyInje
      */
     public function getProvidedServices()
     {
-        return isset($this->serviceTypes) ? $this->serviceTypes : ($this->serviceTypes = \array_map(function () {
+        return $this->serviceTypes !== null ? $this->serviceTypes : ($this->serviceTypes = \array_map(function () {
             return '?';
         }, $this->serviceMap));
     }

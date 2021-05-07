@@ -99,7 +99,7 @@ abstract class AbstractAdapter implements \ECSPrefix20210507\Symfony\Component\C
         if (null !== $logger) {
             $opcache->setLogger($logger);
         }
-        if (!(self::$apcuSupported = isset(self::$apcuSupported) ? self::$apcuSupported : \ECSPrefix20210507\Symfony\Component\Cache\Adapter\ApcuAdapter::isSupported())) {
+        if (!(self::$apcuSupported = self::$apcuSupported !== null ? self::$apcuSupported : \ECSPrefix20210507\Symfony\Component\Cache\Adapter\ApcuAdapter::isSupported())) {
             return $opcache;
         }
         if (\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) && !\filter_var(\ini_get('apc.enable_cli'), \FILTER_VALIDATE_BOOLEAN)) {

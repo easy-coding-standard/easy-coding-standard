@@ -329,7 +329,7 @@ class Cookie
      */
     public function isSecure()
     {
-        return isset($this->secure) ? $this->secure : $this->secureDefault;
+        return $this->secure !== null ? $this->secure : $this->secureDefault;
     }
     /**
      * Checks whether the cookie will be made accessible only through the HTTP protocol.

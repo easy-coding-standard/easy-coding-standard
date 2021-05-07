@@ -41,7 +41,7 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
     public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $appendOnly = \false)
     {
         $this->appendOnly = $appendOnly;
-        self::$startTime = isset(self::$startTime) ? self::$startTime : (isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : \time());
+        self::$startTime = self::$startTime !== null ? self::$startTime : (isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : \time());
         parent::__construct('', $defaultLifetime);
         $this->init($namespace, $directory);
         $this->includeHandler = static function ($type, $msg, $file, $line) {
@@ -50,7 +50,7 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
     }
     public static function isSupported()
     {
-        self::$startTime = isset(self::$startTime) ? self::$startTime : (isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : \time());
+        self::$startTime = self::$startTime !== null ? self::$startTime : (isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : \time());
         return \function_exists('opcache_invalidate') && \filter_var(\ini_get('opcache.enable'), \FILTER_VALIDATE_BOOLEAN) && (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) || \filter_var(\ini_get('opcache.enable_cli'), \FILTER_VALIDATE_BOOLEAN));
     }
     /**

@@ -68,7 +68,7 @@ class RedisSessionHandler extends \ECSPrefix20210507\Symfony\Component\HttpFound
      */
     protected function doWrite($sessionId, $data)
     {
-        $result = $this->redis->setEx($this->prefix . $sessionId, (int) (isset($this->ttl) ? $this->ttl : \ini_get('session.gc_maxlifetime')), $data);
+        $result = $this->redis->setEx($this->prefix . $sessionId, (int) ($this->ttl !== null ? $this->ttl : \ini_get('session.gc_maxlifetime')), $data);
         return $result && !$result instanceof \ECSPrefix20210507\Predis\Response\ErrorInterface;
     }
     /**
@@ -112,6 +112,6 @@ class RedisSessionHandler extends \ECSPrefix20210507\Symfony\Component\HttpFound
      */
     public function updateTimestamp($sessionId, $data)
     {
-        return (bool) $this->redis->expire($this->prefix . $sessionId, (int) (isset($this->ttl) ? $this->ttl : \ini_get('session.gc_maxlifetime')));
+        return (bool) $this->redis->expire($this->prefix . $sessionId, (int) ($this->ttl !== null ? $this->ttl : \ini_get('session.gc_maxlifetime')));
     }
 }

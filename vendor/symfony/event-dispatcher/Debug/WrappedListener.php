@@ -117,7 +117,7 @@ final class WrappedListener
         $this->called = \true;
         $this->priority = $dispatcher->getListenerPriority($eventName, $this->listener);
         $e = $this->stopwatch->start($this->name, 'event_listener');
-        (isset($this->optimizedListener) ? $this->optimizedListener : $this->listener)($event, $eventName, $dispatcher);
+        ($this->optimizedListener !== null ? $this->optimizedListener : $this->listener)($event, $eventName, $dispatcher);
         if ($e->isStarted()) {
             $e->stop();
         }
