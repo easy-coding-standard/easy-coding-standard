@@ -23,7 +23,7 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * Explicit list for now.
      *
-     * @var array<class-string<Sniff>>
+     * @var string[]
      */
     const REPORT_WARNINGS_SNIFFS = [\PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class];
     /**
