@@ -21,9 +21,9 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class File extends \PHP_CodeSniffer\Files\File
 {
     /**
-     * Explicit list for now.
+     * Explicit list for classes that use only warnings. ECS only knows only errors, so this one promotes them to error.
      *
-     * @var string[]
+     * @var class-string<Sniff>
      */
     const REPORT_WARNINGS_SNIFFS = [\PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class];
     /**
