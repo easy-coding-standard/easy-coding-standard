@@ -11,7 +11,7 @@ use Symplify\PackageBuilder\Console\ShellCode;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
  */
-final class JsonOutputFormatter implements OutputFormatterInterface
+final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
 {
     /**
      * @var string
@@ -42,7 +42,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
         $errorCount = $errorAndDiffResult->getErrorCount();
-        return $errorCount === 0 ? ShellCode::SUCCESS : ShellCode::ERROR;
+        return $errorCount === 0 ? \Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
      * @return string
@@ -66,7 +66,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
         foreach ($fileDiffs as $fileDiff) {
             $errorsArray[self::FILES][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
-        return Json::encode($errorsArray, Json::PRETTY);
+        return \ECSPrefix20210507\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210507\Nette\Utils\Json::PRETTY);
     }
     /**
      * @return mixed[]
@@ -74,7 +74,7 @@ final class JsonOutputFormatter implements OutputFormatterInterface
      */
     private function createBaseErrorsArray($errorAndDiffResult)
     {
-        $packageVersionProvider = new PackageVersionProvider();
+        $packageVersionProvider = new \Symplify\PackageBuilder\Composer\PackageVersionProvider();
         $version = $packageVersionProvider->provide('symplify/easy-coding-standard');
         return ['meta' => ['version' => $version], 'totals' => ['errors' => $errorAndDiffResult->getErrorCount(), 'diffs' => $errorAndDiffResult->getFileDiffsCount()], self::FILES => []];
     }

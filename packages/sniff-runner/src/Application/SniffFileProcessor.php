@@ -18,7 +18,7 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\SniffFileProcessorTest
  */
-final class SniffFileProcessor implements FileProcessorInterface
+final class SniffFileProcessor implements \Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface
 {
     /**
      * @var Sniff[]
@@ -136,7 +136,7 @@ final class SniffFileProcessor implements FileProcessorInterface
                 \define('T_MATCH', 5000);
             }
             \define('PHP_CODESNIFFER_VERBOSITY', 0);
-            new Tokens();
+            new \PHP_CodeSniffer\Util\Tokens();
         }
     }
     /**

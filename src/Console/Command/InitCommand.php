@@ -6,7 +6,7 @@ use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 use Symplify\PackageBuilder\Console\ShellCode;
-final class InitCommand extends AbstractSymplifyCommand
+final class InitCommand extends \Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @return void
@@ -29,6 +29,6 @@ final class InitCommand extends AbstractSymplifyCommand
         } else {
             $this->symfonyStyle->warning('The "ecs.php" configuration file already exists');
         }
-        return ShellCode::SUCCESS;
+        return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

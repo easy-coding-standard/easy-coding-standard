@@ -26,7 +26,7 @@ final class LoadedCheckersGuard
         if ($checkerCount !== 0) {
             return;
         }
-        throw new NoCheckersLoadedException();
+        throw new \Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException();
     }
     /**
      * @return int

@@ -15,7 +15,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * For testing approach @see https://github.com/symplify/easy-testing
  */
-final class MarkdownSnippetFormatterTest extends AbstractKernelTestCase
+final class MarkdownSnippetFormatterTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var SnippetFormatter
@@ -23,28 +23,28 @@ final class MarkdownSnippetFormatterTest extends AbstractKernelTestCase
     private $snippetFormatter;
     protected function setUp() : void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/config/array_fixer.php']);
-        $this->snippetFormatter = $this->getService(SnippetFormatter::class);
+        $this->bootKernelWithConfigs(\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel::class, [__DIR__ . '/config/array_fixer.php']);
+        $this->snippetFormatter = $this->getService(\Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter::class);
         // enable fixing
         /** @var Configuration $configuration */
-        $configuration = $this->getService(Configuration::class);
+        $configuration = $this->getService(\Symplify\EasyCodingStandard\Configuration\Configuration::class);
         $configuration->enableFixing();
     }
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fixtureFileInfo) : void
+    public function test(\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo) : void
     {
-        $inputAndExpectedFileInfos = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
-        $changedContent = $this->snippetFormatter->format($inputAndExpectedFileInfos->getInputFileInfo(), SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, 'markdown');
+        $inputAndExpectedFileInfos = \Symplify\EasyTesting\StaticFixtureSplitter::splitFileInfoToLocalInputAndExpectedFileInfos($fixtureFileInfo);
+        $changedContent = $this->snippetFormatter->format($inputAndExpectedFileInfos->getInputFileInfo(), \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, 'markdown');
         $expectedFileContent = $inputAndExpectedFileInfos->getExpectedFileContent();
         $this->assertSame($expectedFileContent, $changedContent, $fixtureFileInfo->getRelativeFilePathFromCwd());
     }
     /**
      * @return Iterator<mixed, SmartFileInfo[]>
      */
-    public function provideData() : Iterator
+    public function provideData() : \Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.md');
+        return \Symplify\EasyTesting\DataProvider\StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.md');
     }
 }

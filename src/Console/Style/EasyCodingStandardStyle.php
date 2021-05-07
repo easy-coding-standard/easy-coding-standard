@@ -9,7 +9,7 @@ use ECSPrefix20210507\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
-final class EasyCodingStandardStyle extends SymfonyStyle
+final class EasyCodingStandardStyle extends \ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle
 {
     /**
      * To fit in Linux/Windows terminal windows to prevent overflow.
@@ -53,9 +53,9 @@ final class EasyCodingStandardStyle extends SymfonyStyle
      */
     public function enableDebugProgressBar()
     {
-        $privatesAccessor = new PrivatesAccessor();
+        $privatesAccessor = new \Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $progressBar = $privatesAccessor->getPrivateProperty($this, 'progressBar');
-        $privatesCaller = new PrivatesCaller();
+        $privatesCaller = new \Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
     /**

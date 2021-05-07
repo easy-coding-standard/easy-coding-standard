@@ -27,12 +27,12 @@ use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Error\ErrorCollector\FixerFileProcessorTest
  */
-final class FixerFileProcessor implements FileProcessorInterface
+final class FixerFileProcessor implements \Symplify\EasyCodingStandard\Contract\Application\FileProcessorInterface
 {
     /**
      * @var array<class-string<FixerInterface>>
      */
-    const MARKDOWN_EXCLUDED_FIXERS = [VoidReturnFixer::class, DeclareStrictTypesFixer::class, SingleBlankLineBeforeNamespaceFixer::class, BlankLineAfterOpeningTagFixer::class, SingleBlankLineAtEofFixer::class, RemoveCommentedCodeFixer::class];
+    const MARKDOWN_EXCLUDED_FIXERS = [\PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer::class, \PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer::class, \PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer::class, \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class, \PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer::class, \Symplify\CodingStandard\Fixer\Commenting\RemoveCommentedCodeFixer::class];
     /**
      * @var class-string[]
      */
@@ -139,7 +139,7 @@ final class FixerFileProcessor implements FileProcessorInterface
         if ($this->configuration->isFixer()) {
             $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $tokenGeneratedCode);
         }
-        Tokens::clearCache();
+        \PhpCsFixer\Tokenizer\Tokens::clearCache();
         return $tokenGeneratedCode;
     }
     /**
@@ -148,7 +148,7 @@ final class FixerFileProcessor implements FileProcessorInterface
      */
     private function sortFixers(array $fixers)
     {
-        \usort($fixers, function (FixerInterface $firstFixer, FixerInterface $secondFixer) : int {
+        \usort($fixers, function (\PhpCsFixer\Fixer\FixerInterface $firstFixer, \PhpCsFixer\Fixer\FixerInterface $secondFixer) : int {
             $battleShipcompare = function ($left, $right) {
                 if ($left === $right) {
                     return 0;
@@ -176,8 +176,8 @@ final class FixerFileProcessor implements FileProcessorInterface
         }
         try {
             $fixer->fix($smartFileInfo, $tokens);
-        } catch (Throwable $throwable) {
-            throw new FixerFailedException(\sprintf('Fixing of "%s" file by "%s" failed: %s in file %s on line %d', $smartFileInfo->getRelativeFilePath(), \get_class($fixer), $throwable->getMessage(), $throwable->getFile(), $throwable->getLine()), $throwable->getCode(), $throwable);
+        } catch (\Throwable $throwable) {
+            throw new \Symplify\EasyCodingStandard\FixerRunner\Exception\Application\FixerFailedException(\sprintf('Fixing of "%s" file by "%s" failed: %s in file %s on line %d', $smartFileInfo->getRelativeFilePath(), \get_class($fixer), $throwable->getMessage(), $throwable->getFile(), $throwable->getLine()), $throwable->getCode(), $throwable);
         }
         if (!$tokens->isChanged()) {
             return;

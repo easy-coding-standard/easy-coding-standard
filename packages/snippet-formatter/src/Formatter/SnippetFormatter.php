@@ -85,8 +85,8 @@ final class SnippetFormatter
     public function format($fileInfo, $snippetRegex, $kind)
     {
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
-        return Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use($kind) : string {
-            if (Strings::contains($match[self::CONTENT], '-----')) {
+        return \ECSPrefix20210507\Nette\Utils\Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use($kind) : string {
+            if (\ECSPrefix20210507\Nette\Utils\Strings::contains($match[self::CONTENT], '-----')) {
                 // do nothing
                 return $match[self::OPENING] . $match[self::CONTENT] . $match[self::CLOSING];
             }
@@ -114,17 +114,17 @@ final class SnippetFormatter
     {
         $content = $this->isPhp73OrAbove ? $content : \trim($content);
         $temporaryFilePath = $this->createTemporaryFilePath($content);
-        if (!Strings::startsWith($this->isPhp73OrAbove ? \trim($content) : $content, '<?php')) {
+        if (!\ECSPrefix20210507\Nette\Utils\Strings::startsWith($this->isPhp73OrAbove ? \trim($content) : $content, '<?php')) {
             $content = '<?php' . \PHP_EOL . $content;
         }
         $fileContent = $this->isPhp73OrAbove ? \ltrim($content, \PHP_EOL) : $content;
         $this->smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
-        $temporaryFileInfo = new SmartFileInfo($temporaryFilePath);
+        $temporaryFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
         try {
             $this->fixerFileProcessor->processFile($temporaryFileInfo);
             $this->sniffFileProcessor->processFile($temporaryFileInfo);
             $fileContent = $temporaryFileInfo->getContents();
-        } catch (Throwable $throwable) {
+        } catch (\Throwable $throwable) {
             // Skipped parsed error when processing php temporaryFile
         } finally {
             // remove temporary temporaryFile
@@ -136,7 +136,7 @@ final class SnippetFormatter
             $fileContent = $this->removeOpeningTagAndStrictTypes($fileContent);
             return \ltrim($fileContent);
         }
-        return Strings::replace($fileContent, self::OPENING_TAG_HERENOWDOC_REGEX, '$1');
+        return \ECSPrefix20210507\Nette\Utils\Strings::replace($fileContent, self::OPENING_TAG_HERENOWDOC_REGEX, '$1');
     }
     /**
      * It does not have any added value and only clutters the output
@@ -145,7 +145,7 @@ final class SnippetFormatter
      */
     private function removeOpeningTagAndStrictTypes($content)
     {
-        $content = Strings::replace($content, self::DECLARE_REGEX, '');
+        $content = \ECSPrefix20210507\Nette\Utils\Strings::replace($content, self::DECLARE_REGEX, '');
         return $this->removeOpeningTag($content);
     }
     /**
@@ -164,6 +164,6 @@ final class SnippetFormatter
      */
     private function removeOpeningTag($fileContent)
     {
-        return Strings::replace($fileContent, self::OPENING_TAG_REGEX, '$1');
+        return \ECSPrefix20210507\Nette\Utils\Strings::replace($fileContent, self::OPENING_TAG_REGEX, '$1');
     }
 }

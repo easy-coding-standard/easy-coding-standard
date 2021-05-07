@@ -27,6 +27,6 @@ final class FileDiffFactory
     public function createFromDiffAndAppliedCheckers($smartFileInfo, $diff, array $appliedCheckers)
     {
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
-        return new FileDiff($smartFileInfo, $diff, $consoleFormattedDiff, $appliedCheckers);
+        return new \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff($smartFileInfo, $diff, $consoleFormattedDiff, $appliedCheckers);
     }
 }

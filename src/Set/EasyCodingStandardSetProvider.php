@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Set;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 use Symplify\SetConfigResolver\Provider\AbstractSetProvider;
 use Symplify\SetConfigResolver\ValueObject\Set;
-final class EasyCodingStandardSetProvider extends AbstractSetProvider
+final class EasyCodingStandardSetProvider extends \Symplify\SetConfigResolver\Provider\AbstractSetProvider
 {
     /**
      * @var Set[]
@@ -16,7 +16,7 @@ final class EasyCodingStandardSetProvider extends AbstractSetProvider
      */
     public function __construct($constantReflectionSetFactory)
     {
-        $this->sets = $constantReflectionSetFactory->createSetsFromClass(SetList::class);
+        $this->sets = $constantReflectionSetFactory->createSetsFromClass(\Symplify\EasyCodingStandard\ValueObject\Set\SetList::class);
     }
     /**
      * @return mixed[]

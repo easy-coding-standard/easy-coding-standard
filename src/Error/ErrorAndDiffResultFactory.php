@@ -21,6 +21,6 @@ final class ErrorAndDiffResultFactory
      */
     public function create()
     {
-        return new ErrorAndDiffResult($this->errorAndDiffCollector->getErrors(), $this->errorAndDiffCollector->getFileDiffs(), $this->errorAndDiffCollector->getSystemErrors());
+        return new \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult($this->errorAndDiffCollector->getErrors(), $this->errorAndDiffCollector->getFileDiffs(), $this->errorAndDiffCollector->getSystemErrors());
     }
 }

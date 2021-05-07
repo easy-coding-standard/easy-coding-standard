@@ -18,16 +18,16 @@ $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
 try {
-    $input = new ArgvInput();
-    $ecsContainerFactory = new EasyCodingStandardContainerFactory();
+    $input = new \ECSPrefix20210507\Symfony\Component\Console\Input\ArgvInput();
+    $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
     $container = $ecsContainerFactory->createFromFromInput($input);
 } catch (\Throwable $throwable) {
-    $symfonyStyleFactory = new SymfonyStyleFactory();
+    $symfonyStyleFactory = new \Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();
     $symfonyStyle->error($throwable->getMessage());
-    exit(ShellCode::ERROR);
+    exit(\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 }
-$application = $container->get(EasyCodingStandardConsoleApplication::class);
+$application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
 exit($application->run());
 /**
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
@@ -103,7 +103,7 @@ final class AutoloadIncluder
         if (\defined('T_MATCH') === \false) {
             \define('T_MATCH', 5000);
         }
-        new Tokens();
+        new \PHP_CodeSniffer\Util\Tokens();
     }
     /**
      * @return void

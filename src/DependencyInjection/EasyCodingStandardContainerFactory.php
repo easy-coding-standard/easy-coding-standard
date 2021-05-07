@@ -17,7 +17,7 @@ final class EasyCodingStandardContainerFactory
      */
     public function createFromFromInput($input)
     {
-        $ecsConfigsResolver = new ECSConfigsResolver();
+        $ecsConfigsResolver = new \Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver();
         $bootstrapConfigs = $ecsConfigsResolver->resolveFromInput($input);
         return $this->createFromFromBootstrapConfigs($bootstrapConfigs);
     }
@@ -28,7 +28,7 @@ final class EasyCodingStandardContainerFactory
     public function createFromFromBootstrapConfigs($bootstrapConfigs)
     {
         $environment = 'prod' . \random_int(1, 100000);
-        $easyCodingStandardKernel = new EasyCodingStandardKernel($environment, StaticInputDetector::isDebug());
+        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
         $configFileInfos = $bootstrapConfigs->getConfigFileInfos();
         if ($configFileInfos !== []) {
             $easyCodingStandardKernel->setConfigs($configFileInfos);
@@ -38,7 +38,7 @@ final class EasyCodingStandardContainerFactory
         if ($configFileInfos !== []) {
             // for cache invalidation on config change
             /** @var ChangedFilesDetector $changedFilesDetector */
-            $changedFilesDetector = $container->get(ChangedFilesDetector::class);
+            $changedFilesDetector = $container->get(\Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector::class);
             $changedFilesDetector->setUsedConfigs($configFileInfos);
         }
         return $container;

@@ -7,7 +7,7 @@ use PhpCsFixer\WhitespacesFixerConfig;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference;
-final class FixerWhitespaceConfigCompilerPass implements CompilerPassInterface
+final class FixerWhitespaceConfigCompilerPass implements \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
@@ -20,10 +20,10 @@ final class FixerWhitespaceConfigCompilerPass implements CompilerPassInterface
             if ($definition->getClass() === null) {
                 continue;
             }
-            if (!\is_a($definition->getClass(), WhitespacesAwareFixerInterface::class, \true)) {
+            if (!\is_a($definition->getClass(), \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface::class, \true)) {
                 continue;
             }
-            $definition->addMethodCall('setWhitespacesConfig', [new Reference(WhitespacesFixerConfig::class)]);
+            $definition->addMethodCall('setWhitespacesConfig', [new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference(\PhpCsFixer\WhitespacesFixerConfig::class)]);
         }
     }
 }

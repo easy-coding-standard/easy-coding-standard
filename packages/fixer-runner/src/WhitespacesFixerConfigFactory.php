@@ -28,7 +28,7 @@ final class WhitespacesFixerConfigFactory
         if ($lineEnding === '\\n') {
             $lineEnding = "\n";
         }
-        return new WhitespacesFixerConfig($this->resolveIndentation(), $lineEnding);
+        return new \PhpCsFixer\WhitespacesFixerConfig($this->resolveIndentation(), $lineEnding);
     }
     /**
      * @return string
@@ -37,16 +37,16 @@ final class WhitespacesFixerConfigFactory
     {
         $indentation = $this->parameterProvider->provideParameter('indentation');
         if ($this->isOneTab($indentation)) {
-            return Spacing::ONE_TAB;
+            return \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::ONE_TAB;
         }
-        if ($indentation === Spacing::TWO_SPACES) {
-            return Spacing::TWO_SPACES;
+        if ($indentation === \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::TWO_SPACES) {
+            return \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::TWO_SPACES;
         }
         if ($this->isFourSpaces($indentation)) {
-            return Spacing::FOUR_SPACES;
+            return \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::FOUR_SPACES;
         }
-        $allowedValues = ['tab', 'spaces', Spacing::TWO_SPACES, Spacing::FOUR_SPACES, Spacing::ONE_TAB];
-        throw new WhitespaceConfigurationException(\sprintf('Value "%s" is not supported in "parameters > indentation".%sUse one of: "%s".', $indentation, \PHP_EOL, \implode('", "', $allowedValues)));
+        $allowedValues = ['tab', 'spaces', \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::TWO_SPACES, \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::FOUR_SPACES, \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::ONE_TAB];
+        throw new \Symplify\EasyCodingStandard\Exception\Configuration\WhitespaceConfigurationException(\sprintf('Value "%s" is not supported in "parameters > indentation".%sUse one of: "%s".', $indentation, \PHP_EOL, \implode('", "', $allowedValues)));
     }
     /**
      * @param string $indentation
@@ -57,7 +57,7 @@ final class WhitespacesFixerConfigFactory
         if ($indentation === 'tab') {
             return \true;
         }
-        return $indentation === Spacing::ONE_TAB;
+        return $indentation === \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::ONE_TAB;
     }
     /**
      * @param string $indentation
@@ -68,6 +68,6 @@ final class WhitespacesFixerConfigFactory
         if ($indentation === 'spaces') {
             return \true;
         }
-        return $indentation === Spacing::FOUR_SPACES;
+        return $indentation === \Symplify\EasyCodingStandard\FixerRunner\ValueObject\Spacing::FOUR_SPACES;
     }
 }

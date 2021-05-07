@@ -17,7 +17,7 @@ use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
 use Symplify\SmartFileSystem\SmartFileSystem;
 use function ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $containerConfigurator->import(__DIR__ . '/services/services_cache.php');
     $services = $containerConfigurator->services();
     $services->defaults()->public()->autowire()->autoconfigure();
@@ -30,15 +30,15 @@ return static function (ContainerConfigurator $containerConfigurator) {
         __DIR__ . '/../src/Exception',
         __DIR__ . '/../src/ValueObject',
     ]);
-    $services->set(Terminal::class);
-    $services->set(FileSystemGuard::class);
-    $services->set(FinderSanitizer::class);
-    $services->set(SmartFileSystem::class);
-    $services->set(SmartFinder::class);
-    $services->set(FileSystemFilter::class);
-    $services->set(SymfonyStyleFactory::class);
-    $services->set(SymfonyStyle::class)->factory([service(SymfonyStyleFactory::class), 'create']);
-    $services->set(EasyCodingStandardStyle::class)->factory([service(EasyCodingStandardStyleFactory::class), 'create']);
-    $services->set(WhitespacesFixerConfig::class)->factory([service(WhitespacesFixerConfigFactory::class), 'create']);
-    $services->set(NoCheckersLoaderReporter::class);
+    $services->set(\ECSPrefix20210507\Symfony\Component\Console\Terminal::class);
+    $services->set(\Symplify\SmartFileSystem\FileSystemGuard::class);
+    $services->set(\Symplify\SmartFileSystem\Finder\FinderSanitizer::class);
+    $services->set(\Symplify\SmartFileSystem\SmartFileSystem::class);
+    $services->set(\Symplify\SmartFileSystem\Finder\SmartFinder::class);
+    $services->set(\Symplify\SmartFileSystem\FileSystemFilter::class);
+    $services->set(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
+    $services->set(\ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle::class)->factory([\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyleFactory::class), 'create']);
+    $services->set(\PhpCsFixer\WhitespacesFixerConfig::class)->factory([\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\FixerRunner\WhitespacesFixerConfigFactory::class), 'create']);
+    $services->set(\Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter::class);
 };

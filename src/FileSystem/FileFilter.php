@@ -23,7 +23,7 @@ final class FileFilter
      */
     public function filterOnlyChangedFiles(array $fileInfos)
     {
-        return \array_filter($fileInfos, function (SmartFileInfo $smartFileInfo) : bool {
+        return \array_filter($fileInfos, function (\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool {
             return $this->changedFilesDetector->hasFileInfoChanged($smartFileInfo);
         });
     }

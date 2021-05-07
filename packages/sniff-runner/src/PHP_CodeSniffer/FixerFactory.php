@@ -10,7 +10,7 @@ final class FixerFactory
      */
     public function create()
     {
-        $fixer = new Fixer();
+        $fixer = new \PHP_CodeSniffer\Fixer();
         $fixer->enabled = \true;
         return $fixer;
     }

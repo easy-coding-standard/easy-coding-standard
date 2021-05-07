@@ -15,6 +15,6 @@ final class ErrorFactory
      */
     public function create($line, $message, $sourceClass, $smartFileInfo)
     {
-        return new CodingStandardError($line, $message, $sourceClass, $smartFileInfo);
+        return new \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError($line, $message, $sourceClass, $smartFileInfo);
     }
 }

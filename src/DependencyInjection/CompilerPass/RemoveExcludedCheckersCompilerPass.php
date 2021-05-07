@@ -6,7 +6,7 @@ use ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPas
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
+final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
@@ -30,11 +30,11 @@ final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
     private function getExcludedCheckersFromParameterBag($parameterBag)
     {
         // parts of "skip" parameter
-        if (!$parameterBag->has(Option::SKIP)) {
+        if (!$parameterBag->has(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP)) {
             return [];
         }
         $excludedCheckers = [];
-        $skip = (array) $parameterBag->get(Option::SKIP);
+        $skip = (array) $parameterBag->get(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             $excludedChecker = $this->matchFullClassSkip($key, $value);
             if ($excludedChecker === null) {

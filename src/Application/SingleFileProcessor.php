@@ -56,7 +56,7 @@ final class SingleFileProcessor
                 }
                 $fileProcessor->processFile($smartFileInfo);
             }
-        } catch (ParseError $parseError) {
+        } catch (\ParseError $parseError) {
             $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
             $this->errorAndDiffCollector->addSystemErrorMessage($smartFileInfo, $parseError->getLine(), $parseError->getMessage());
         }

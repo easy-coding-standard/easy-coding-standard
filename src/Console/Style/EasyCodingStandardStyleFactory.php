@@ -24,7 +24,7 @@ final class EasyCodingStandardStyleFactory
      */
     public function __construct($terminal)
     {
-        $this->privatesCaller = new PrivatesCaller();
+        $this->privatesCaller = new \Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $this->terminal = $terminal;
     }
     /**
@@ -32,17 +32,17 @@ final class EasyCodingStandardStyleFactory
      */
     public function create()
     {
-        $argvInput = new ArgvInput();
-        $consoleOutput = new ConsoleOutput();
+        $argvInput = new \ECSPrefix20210507\Symfony\Component\Console\Input\ArgvInput();
+        $consoleOutput = new \ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleOutput();
         // to configure all -v, -vv, -vvv options without memory-lock to Application run() arguments
-        $this->privatesCaller->callPrivateMethod(new Application(), 'configureIO', [$argvInput, $consoleOutput]);
+        $this->privatesCaller->callPrivateMethod(new \ECSPrefix20210507\Symfony\Component\Console\Application(), 'configureIO', [$argvInput, $consoleOutput]);
         // --debug is called
         if ($argvInput->hasParameterOption('--debug')) {
-            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+            $consoleOutput->setVerbosity(\ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
         }
         // disable output for tests
-        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            $consoleOutput->setVerbosity(OutputInterface::VERBOSITY_QUIET);
+        if (\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            $consoleOutput->setVerbosity(\ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
         return new \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle($argvInput, $consoleOutput, $this->terminal);
     }

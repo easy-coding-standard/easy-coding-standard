@@ -18,8 +18,8 @@ final class ECSConfigsResolver
     private $setAwareConfigResolver;
     public function __construct()
     {
-        $easyCodingStandardSetProvider = new EasyCodingStandardSetProvider(new ConstantReflectionSetFactory());
-        $this->setAwareConfigResolver = new SetAwareConfigResolver($easyCodingStandardSetProvider);
+        $easyCodingStandardSetProvider = new \Symplify\EasyCodingStandard\Set\EasyCodingStandardSetProvider(new \Symplify\EasyCodingStandard\Set\ConstantReflectionSetFactory());
+        $this->setAwareConfigResolver = new \Symplify\SetConfigResolver\SetAwareConfigResolver($easyCodingStandardSetProvider);
     }
     /**
      * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
@@ -34,6 +34,6 @@ final class ECSConfigsResolver
             $parameterSetsConfigs = $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$mainConfigFileInfo]);
             $configFileInfos = \array_merge($configFileInfos, $parameterSetsConfigs);
         }
-        return new BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
+        return new \Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
     }
 }

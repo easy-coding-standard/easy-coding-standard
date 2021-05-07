@@ -30,6 +30,6 @@ final class OutputFormatterCollector
         }
         $outputFormatterKeys = \array_keys($this->outputFormatters);
         $errorMessage = \sprintf('Output formatter "%s" not found. Use one of: "%s".', $name, \implode('", "', $outputFormatterKeys));
-        throw new OutputFormatterNotFoundException($errorMessage);
+        throw new \Symplify\EasyCodingStandard\Configuration\Exception\OutputFormatterNotFoundException($errorMessage);
     }
 }

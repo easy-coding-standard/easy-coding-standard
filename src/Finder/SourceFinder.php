@@ -33,7 +33,7 @@ final class SourceFinder
     public function __construct($finderSanitizer, $parameterProvider, $gitDiffProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
-        $this->fileExtensions = $parameterProvider->provideArrayParameter(Option::FILE_EXTENSIONS);
+        $this->fileExtensions = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS);
         $this->gitDiffProvider = $gitDiffProvider;
     }
     /**
@@ -46,7 +46,7 @@ final class SourceFinder
         $fileInfos = [];
         foreach ($source as $singleSource) {
             if (\is_file($singleSource)) {
-                $fileInfos[] = new SmartFileInfo($singleSource);
+                $fileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($singleSource);
             } else {
                 $filesInDirectory = $this->processDirectory($singleSource);
                 $fileInfos = \array_merge($fileInfos, $filesInDirectory);
@@ -63,7 +63,7 @@ final class SourceFinder
     private function processDirectory($directory)
     {
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
-        $finder = Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
+        $finder = \ECSPrefix20210507\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);
     }
     /**

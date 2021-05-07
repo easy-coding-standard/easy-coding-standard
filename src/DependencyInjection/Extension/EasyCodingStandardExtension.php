@@ -6,7 +6,7 @@ use ECSPrefix20210507\Symfony\Component\Config\FileLocator;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\Extension;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-final class EasyCodingStandardExtension extends Extension
+final class EasyCodingStandardExtension extends \ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\Extension
 {
     /**
      * @param string[] $configs
@@ -16,7 +16,7 @@ final class EasyCodingStandardExtension extends Extension
     public function load(array $configs, $containerBuilder)
     {
         // needed for parameter shifting of sniff/fixer params
-        $phpFileLoader = new PhpFileLoader($containerBuilder, new FileLocator(__DIR__ . '/../../../config'));
+        $phpFileLoader = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210507\Symfony\Component\Config\FileLocator(__DIR__ . '/../../../config'));
         $phpFileLoader->load('config.php');
     }
 }

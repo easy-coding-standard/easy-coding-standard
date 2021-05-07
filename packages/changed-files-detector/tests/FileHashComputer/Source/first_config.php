@@ -5,7 +5,7 @@ namespace ECSPrefix20210507;
 
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (ContainerConfigurator $containerConfigurator) : void {
+return static function (\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(DeclareStrictTypesFixer::class);
+    $services->set(\PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer::class);
 };

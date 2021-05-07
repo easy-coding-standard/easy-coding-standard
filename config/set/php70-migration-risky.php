@@ -9,14 +9,14 @@ use PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer;
 use PhpCsFixer\Fixer\FunctionNotation\CombineNestedDirnameFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (ContainerConfigurator $containerConfigurator) {
+return static function (\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     \trigger_error('ECS set PHP_70_MIGRATION_RISKY is deprecated. Use more advanced and precise Rector instead (http://github.com/rectorphp/rector)');
     \sleep(3);
     $services = $containerConfigurator->services();
-    $services->set(CombineNestedDirnameFixer::class);
-    $services->set(DeclareStrictTypesFixer::class);
-    $services->set(NonPrintableCharacterFixer::class)->call('configure', [['use_escape_sequences_in_strings' => \true]]);
-    $services->set(PowToExponentiationFixer::class);
-    $services->set(RandomApiMigrationFixer::class)->call('configure', [['replacements' => ['mt_rand' => 'random_int', 'rand' => 'random_int']]]);
-    $services->set(BacktickToShellExecFixer::class);
+    $services->set(\PhpCsFixer\Fixer\FunctionNotation\CombineNestedDirnameFixer::class);
+    $services->set(\PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer::class);
+    $services->set(\PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer::class)->call('configure', [['use_escape_sequences_in_strings' => \true]]);
+    $services->set(\PhpCsFixer\Fixer\Alias\PowToExponentiationFixer::class);
+    $services->set(\PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer::class)->call('configure', [['replacements' => ['mt_rand' => 'random_int', 'rand' => 'random_int']]]);
+    $services->set(\PhpCsFixer\Fixer\Alias\BacktickToShellExecFixer::class);
 };

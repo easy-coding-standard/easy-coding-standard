@@ -13,7 +13,7 @@ use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedC
 use Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass;
 use Symplify\EasyCodingStandard\DependencyInjection\Extension\EasyCodingStandardExtension;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
-final class EasyCodingStandardBundle extends Bundle
+final class EasyCodingStandardBundle extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * Order of compiler passes matters!
@@ -23,20 +23,20 @@ final class EasyCodingStandardBundle extends Bundle
     public function build($containerBuilder)
     {
         // cleanup
-        $containerBuilder->addCompilerPass(new RemoveExcludedCheckersCompilerPass());
-        $containerBuilder->addCompilerPass(new RemoveMutualCheckersCompilerPass());
+        $containerBuilder->addCompilerPass(new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveExcludedCheckersCompilerPass());
+        $containerBuilder->addCompilerPass(new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\RemoveMutualCheckersCompilerPass());
         // autowire
-        $containerBuilder->addCompilerPass(new AutowireInterfacesCompilerPass([FixerInterface::class, Sniff::class, OutputFormatterInterface::class]));
+        $containerBuilder->addCompilerPass(new \Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass([\PhpCsFixer\Fixer\FixerInterface::class, \PHP_CodeSniffer\Sniffs\Sniff::class, \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface::class]));
         // exceptions
-        $containerBuilder->addCompilerPass(new ConflictingCheckersCompilerPass());
+        $containerBuilder->addCompilerPass(new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\ConflictingCheckersCompilerPass());
         // method calls
-        $containerBuilder->addCompilerPass(new FixerWhitespaceConfigCompilerPass());
+        $containerBuilder->addCompilerPass(new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass());
     }
     /**
      * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
      */
     protected function createContainerExtension()
     {
-        return new EasyCodingStandardExtension();
+        return new \Symplify\EasyCodingStandard\DependencyInjection\Extension\EasyCodingStandardExtension();
     }
 }

@@ -37,6 +37,6 @@ final class AppliedCheckersCollector
         if (isset($this->appliedCheckersByFile[$smartFileInfo->getRealPath()])) {
             return;
         }
-        throw new MissingCheckersForChangedFileException(\sprintf('File "%s" was changed, but no responsible checkers were added to "%s".', $smartFileInfo->getRelativePathname(), self::class));
+        throw new \Symplify\EasyCodingStandard\Exception\Application\MissingCheckersForChangedFileException(\sprintf('File "%s" was changed, but no responsible checkers were added to "%s".', $smartFileInfo->getRelativePathname(), self::class));
     }
 }

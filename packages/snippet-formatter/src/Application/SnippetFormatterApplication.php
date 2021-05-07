@@ -66,7 +66,7 @@ final class SnippetFormatterApplication
         $fileCount = \count($fileInfos);
         if ($fileCount === 0) {
             $this->snippetReporter->reportNoFilesFound($sources);
-            return ShellCode::SUCCESS;
+            return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         $this->symfonyStyle->progressStart($fileCount);
         foreach ($fileInfos as $fileInfo) {

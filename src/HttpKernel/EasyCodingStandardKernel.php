@@ -15,16 +15,16 @@ use Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use Symplify\Skipper\Bundle\SkipperBundle;
 use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class EasyCodingStandardKernel extends AbstractSymplifyKernel
+final class EasyCodingStandardKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return mixed[]
      */
     public function registerBundles()
     {
-        $bundles = [new EasyCodingStandardBundle(), new SymplifyCodingStandardBundle(), new ConsoleColorDiffBundle(), new SymplifyKernelBundle(), new SkipperBundle()];
+        $bundles = [new \Symplify\EasyCodingStandard\Bundle\EasyCodingStandardBundle(), new \Symplify\CodingStandard\Bundle\SymplifyCodingStandardBundle(), new \Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle(), new \Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle(), new \Symplify\Skipper\Bundle\SkipperBundle()];
         if ($this->environment === 'test') {
-            $bundles[] = new PhpConfigPrinterBundle();
+            $bundles[] = new \Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle();
         }
         return $bundles;
     }
@@ -34,7 +34,7 @@ final class EasyCodingStandardKernel extends AbstractSymplifyKernel
      */
     protected function build($containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new DeprecationWarningCompilerPass());
+        $containerBuilder->addCompilerPass(new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\DeprecationWarningCompilerPass());
     }
     /**
      * @param ContainerInterface|ContainerBuilder $container
@@ -42,7 +42,7 @@ final class EasyCodingStandardKernel extends AbstractSymplifyKernel
      */
     protected function getContainerLoader($container)
     {
-        $delegatingLoaderFactory = new DelegatingLoaderFactory();
+        $delegatingLoaderFactory = new \Symplify\EasyCodingStandard\DependencyInjection\DelegatingLoaderFactory();
         return $delegatingLoaderFactory->createFromContainerBuilderAndKernel($container, $this);
     }
 }

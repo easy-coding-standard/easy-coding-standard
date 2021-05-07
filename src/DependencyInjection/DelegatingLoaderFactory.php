@@ -19,7 +19,7 @@ final class DelegatingLoaderFactory
      */
     public function createFromContainerBuilderAndKernel($containerBuilder, $kernel)
     {
-        $kernelFileLocator = new FileLocator($kernel);
+        $kernelFileLocator = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Config\FileLocator($kernel);
         return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $kernelFileLocator);
     }
     /**
@@ -31,18 +31,18 @@ final class DelegatingLoaderFactory
     public function createContainerBuilderAndConfig($containerBuilder, $config)
     {
         $directory = \dirname($config);
-        $fileLocator = new SimpleFileLocator($directory);
+        $fileLocator = new \ECSPrefix20210507\Symfony\Component\Config\FileLocator($directory);
         return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $fileLocator);
     }
     /**
      * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param SimpleFileLocator $simpleFileLocator
+     * @param \ECSPrefix20210507\Symfony\Component\Config\FileLocator $simpleFileLocator
      * @return \ECSPrefix20210507\Symfony\Component\Config\Loader\DelegatingLoader
      */
     private function createFromContainerBuilderAndFileLocator($containerBuilder, $simpleFileLocator)
     {
-        $loaders = [new GlobFileLoader($simpleFileLocator), new ParameterMergingPhpFileLoader($containerBuilder, $simpleFileLocator)];
-        $loaderResolver = new LoaderResolver($loaders);
-        return new DelegatingLoader($loaderResolver);
+        $loaders = [new \ECSPrefix20210507\Symfony\Component\Config\Loader\GlobFileLoader($simpleFileLocator), new \Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $simpleFileLocator)];
+        $loaderResolver = new \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderResolver($loaders);
+        return new \ECSPrefix20210507\Symfony\Component\Config\Loader\DelegatingLoader($loaderResolver);
     }
 }

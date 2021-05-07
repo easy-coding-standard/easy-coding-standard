@@ -7,7 +7,7 @@ use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
-final class CheckMarkdownCommand extends AbstractCheckCommand
+final class CheckMarkdownCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
      * @var SnippetFormatterApplication
@@ -39,6 +39,6 @@ final class CheckMarkdownCommand extends AbstractCheckCommand
         $this->configuration->resolveFromInput($input);
         $sources = $this->configuration->getSources();
         $phpFileInfos = $this->smartFinder->find($sources, '*.php', ['Fixture']);
-        return $this->snippetFormatterApplication->processFileInfosWithSnippetPattern($this->configuration, $phpFileInfos, SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, 'markdown');
+        return $this->snippetFormatterApplication->processFileInfosWithSnippetPattern($this->configuration, $phpFileInfos, \Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern::MARKDOWN_PHP_SNIPPET_REGEX, 'markdown');
     }
 }

@@ -20,14 +20,14 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\SniffRunner\Tests\ValueObject\FileTest
  */
-final class File extends BaseFile
+final class File extends \PHP_CodeSniffer\Files\File
 {
     /**
      * Explicit list for now.
      *
      * @var string[]
      */
-    const REPORT_WARNINGS_SNIFFS = [CommentedOutCodeSniff::class, AssignmentInConditionSniff::class, PropertyDeclarationSniff::class, MethodDeclarationSniff::class];
+    const REPORT_WARNINGS_SNIFFS = [\Symplify\CodingStandard\Sniffs\Debug\CommentedOutCodeSniff::class, \ECSPrefix20210507\SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Classes\PropertyDeclarationSniff::class, \PHP_CodeSniffer\Standards\PSR2\Sniffs\Methods\MethodDeclarationSniff::class];
     /**
      * @var string
      */
@@ -83,7 +83,7 @@ final class File extends BaseFile
         $this->content = $content;
         $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
-        $this->eolChar = Common::detectLineEndings($content);
+        $this->eolChar = \PHP_CodeSniffer\Util\Common::detectLineEndings($content);
         $this->skipper = $skipper;
         $this->appliedCheckersCollector = $appliedCheckersCollector;
         // compat
@@ -91,7 +91,7 @@ final class File extends BaseFile
             \define('PHP_CODESNIFFER_CBF', \false);
         }
         // parent required
-        $this->config = new Config([], \false);
+        $this->config = new \PHP_CodeSniffer\Config([], \false);
         $this->config->tabWidth = 4;
         $this->config->annotations = \false;
         $this->config->encoding = 'UTF-8';
@@ -125,14 +125,14 @@ final class File extends BaseFile
      */
     public function getErrorCount()
     {
-        throw new NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, ErrorAndDiffCollector::class));
+        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector::class));
     }
     /**
      * @return mixed[]
      */
     public function getErrors()
     {
-        throw new NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, ErrorAndDiffCollector::class));
+        throw new \Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException(\sprintf('Method "%s" is not needed to be public. Use "%s" service.', __METHOD__, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector::class));
     }
     /**
      * Delegate to addError().

@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\SniffRunner\File\FileFactory;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class FixerTest extends AbstractKernelTestCase
+final class FixerTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var Fixer
@@ -21,10 +21,10 @@ final class FixerTest extends AbstractKernelTestCase
     private $file;
     protected function setUp() : void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
-        $fileFactory = $this->getService(FileFactory::class);
-        $this->file = $fileFactory->createFromFileInfo(new SmartFileInfo(__DIR__ . '/FixerSource/SomeFile.php'));
-        $this->fixer = $this->getService(Fixer::class);
+        $this->bootKernel(\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel::class);
+        $fileFactory = $this->getService(\Symplify\EasyCodingStandard\SniffRunner\File\FileFactory::class);
+        $this->file = $fileFactory->createFromFileInfo(new \Symplify\SmartFileSystem\SmartFileInfo(__DIR__ . '/FixerSource/SomeFile.php'));
+        $this->fixer = $this->getService(\PHP_CodeSniffer\Fixer::class);
     }
     public function testStartFile() : void
     {

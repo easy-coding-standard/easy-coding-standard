@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileSystem;
-final class FileHashComputerTest extends AbstractKernelTestCase
+final class FileHashComputerTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var string
@@ -23,9 +23,9 @@ final class FileHashComputerTest extends AbstractKernelTestCase
     private $smartFileSystem;
     protected function setUp() : void
     {
-        $this->bootKernel(EasyCodingStandardKernel::class);
-        $this->fileHashComputer = $this->getService(FileHashComputer::class);
-        $this->smartFileSystem = $this->getService(SmartFileSystem::class);
+        $this->bootKernel(\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel::class);
+        $this->fileHashComputer = $this->getService(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer::class);
+        $this->smartFileSystem = $this->getService(\Symplify\SmartFileSystem\SmartFileSystem::class);
     }
     public function testInvalidateCacheOnConfigurationChange() : void
     {

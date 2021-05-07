@@ -8,7 +8,7 @@ use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\PackageBuilder\Console\ShellCode;
-final class ConsoleOutputFormatter implements OutputFormatterInterface
+final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
 {
     /**
      * @var string
@@ -44,7 +44,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
                 $this->easyCodingStandardStyle->newLine();
             }
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
-            return ShellCode::SUCCESS;
+            return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         $this->easyCodingStandardStyle->newLine();
         return $this->configuration->isFixer() ? $this->printAfterFixerStatus($errorAndDiffResult) : $this->printNoFixerStatus($errorAndDiffResult);
@@ -92,10 +92,10 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
         if ($errorAndDiffResult->getErrorCount() === 0) {
             $successMessage = \sprintf('%d error%s successfully fixed and no other errors found!', $errorAndDiffResult->getFileDiffsCount(), $errorAndDiffResult->getFileDiffsCount() === 1 ? '' : 's');
             $this->easyCodingStandardStyle->success($successMessage);
-            return ShellCode::SUCCESS;
+            return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getErrorCount(), $errorAndDiffResult->getFileDiffsCount());
-        return ShellCode::ERROR;
+        return \Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
      * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
@@ -117,7 +117,7 @@ final class ConsoleOutputFormatter implements OutputFormatterInterface
             $this->easyCodingStandardStyle->warning($systemError->getMessage());
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getErrorCount(), $errorAndDiffResult->getFileDiffsCount());
-        return ShellCode::ERROR;
+        return \Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
      * @return void

@@ -17,7 +17,7 @@ use Symplify\PackageBuilder\Composer\PackageVersionProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication;
 use Throwable;
-final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsoleApplication
+final class EasyCodingStandardConsoleApplication extends \Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication
 {
     /**
      * @var NoCheckersLoaderReporter
@@ -29,11 +29,11 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
      */
     public function __construct($noCheckersLoaderReporter, array $commands)
     {
-        $packageVersionProvider = new PackageVersionProvider();
+        $packageVersionProvider = new \Symplify\PackageBuilder\Composer\PackageVersionProvider();
         $version = $packageVersionProvider->provide('symplify/easy-coding-standard');
         parent::__construct($commands, 'EasyCodingStandard', $version);
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
-        $this->setDefaultCommand(CommandNaming::classToName(CheckCommand::class));
+        $this->setDefaultCommand(\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class));
     }
     /**
      * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
@@ -45,7 +45,7 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
         if (!$isXdebugAllowed && !\defined('PHPUNIT_COMPOSER_INSTALL')) {
-            $xdebugHandler = new XdebugHandler('ecs');
+            $xdebugHandler = new \ECSPrefix20210507\Composer\XdebugHandler\XdebugHandler('ecs');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }
@@ -62,7 +62,7 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
      */
     public function renderThrowable($throwable, $output)
     {
-        if (\is_a($throwable, NoCheckersLoadedException::class)) {
+        if (\is_a($throwable, \Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException::class)) {
             $this->noCheckersLoaderReporter->report();
             return;
         }
@@ -91,8 +91,8 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
         if ($hasNoArguments) {
             return \false;
         }
-        $outputFormat = $input->getParameterOption('--' . Option::OUTPUT_FORMAT);
-        return $outputFormat === ConsoleOutputFormatter::NAME;
+        $outputFormat = $input->getParameterOption('--' . \Symplify\EasyCodingStandard\ValueObject\Option::OUTPUT_FORMAT);
+        return $outputFormat === \Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter::NAME;
     }
     /**
      * @return void
@@ -100,7 +100,7 @@ final class EasyCodingStandardConsoleApplication extends AbstractSymplifyConsole
      */
     private function addExtraOptions($inputDefinition)
     {
-        $inputDefinition->addOption(new InputOption(Option::XDEBUG, null, InputOption::VALUE_NONE, 'Allow running xdebug'));
-        $inputDefinition->addOption(new InputOption(Option::DEBUG, null, InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")'));
+        $inputDefinition->addOption(new \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::XDEBUG, null, \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
+        $inputDefinition->addOption(new \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG, null, \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")'));
     }
 }

@@ -5,12 +5,12 @@ namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-final class DeprecationWarningCompilerPass implements CompilerPassInterface
+final class DeprecationWarningCompilerPass implements \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var array<string, string>
      */
-    const DEPRECATED_PARAMETERS = [Option::SETS => 'Use $containerConfigurator->import(<set>); instead'];
+    const DEPRECATED_PARAMETERS = [\Symplify\EasyCodingStandard\ValueObject\Option::SETS => 'Use $containerConfigurator->import(<set>); instead'];
     /**
      * @return void
      * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder

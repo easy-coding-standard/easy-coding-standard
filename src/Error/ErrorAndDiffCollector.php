@@ -82,7 +82,7 @@ final class ErrorAndDiffCollector
     public function addSystemErrorMessage($smartFileInfo, $line, $message)
     {
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
-        $this->systemErrors[] = new SystemError($line, $message, $smartFileInfo);
+        $this->systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($line, $message, $smartFileInfo);
     }
     /**
      * @return mixed[]
@@ -135,16 +135,16 @@ final class ErrorAndDiffCollector
     private function ensureIsFixerOrChecker($sourceClass)
     {
         // remove dot suffix of "."
-        if (Strings::contains($sourceClass, '.')) {
-            $sourceClass = (string) Strings::before($sourceClass, '.', 1);
+        if (\ECSPrefix20210507\Nette\Utils\Strings::contains($sourceClass, '.')) {
+            $sourceClass = (string) \ECSPrefix20210507\Nette\Utils\Strings::before($sourceClass, '.', 1);
         }
-        if (\is_a($sourceClass, FixerInterface::class, \true)) {
+        if (\is_a($sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
             return;
         }
-        if (\is_a($sourceClass, Sniff::class, \true)) {
+        if (\is_a($sourceClass, \PHP_CodeSniffer\Sniffs\Sniff::class, \true)) {
             return;
         }
-        $message = \sprintf('Source class "%s" must be "%s" or "%s"', $sourceClass, FixerInterface::class, Sniff::class);
-        throw new NotSniffNorFixerException($message);
+        $message = \sprintf('Source class "%s" must be "%s" or "%s"', $sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \PHP_CodeSniffer\Sniffs\Sniff::class);
+        throw new \Symplify\EasyCodingStandard\Exception\NotSniffNorFixerException($message);
     }
 }

@@ -9,7 +9,7 @@ use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
-final class FixerServiceRegistrationTest extends AbstractKernelTestCase
+final class FixerServiceRegistrationTest extends \Symplify\PackageBuilder\Testing\AbstractKernelTestCase
 {
     /**
      * @var PrivatesAccessor
@@ -17,22 +17,22 @@ final class FixerServiceRegistrationTest extends AbstractKernelTestCase
     private $privatesAccessor;
     protected function setUp() : void
     {
-        $this->privatesAccessor = new PrivatesAccessor();
+        $this->privatesAccessor = new \Symplify\PackageBuilder\Reflection\PrivatesAccessor();
     }
     public function test() : void
     {
-        $this->bootKernelWithConfigs(EasyCodingStandardKernel::class, [__DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.php']);
-        $fixerFileProcessor = $this->getService(FixerFileProcessor::class);
+        $this->bootKernelWithConfigs(\Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel::class, [__DIR__ . '/FixerServiceRegistrationSource/easy-coding-standard.php']);
+        $fixerFileProcessor = $this->getService(\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::class);
         $checkers = $fixerFileProcessor->getCheckers();
         $this->assertCount(2, $checkers);
         /** @var ArraySyntaxFixer $arraySyntaxFixer */
         $arraySyntaxFixer = $checkers[0];
-        $this->assertInstanceOf(ArraySyntaxFixer::class, $arraySyntaxFixer);
+        $this->assertInstanceOf(\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class, $arraySyntaxFixer);
         $configuration = $this->privatesAccessor->getPrivateProperty($arraySyntaxFixer, 'configuration');
         $this->assertSame(['syntax' => 'short'], $configuration);
         /** @var VisibilityRequiredFixer $visibilityRequiredFixer */
         $visibilityRequiredFixer = $checkers[1];
-        $this->assertInstanceOf(VisibilityRequiredFixer::class, $visibilityRequiredFixer);
+        $this->assertInstanceOf(\PhpCsFixer\Fixer\ClassNotation\VisibilityRequiredFixer::class, $visibilityRequiredFixer);
         $configuration = $this->privatesAccessor->getPrivateProperty($visibilityRequiredFixer, 'configuration');
         $this->assertSame(['elements' => ['property']], $configuration);
     }

@@ -6,8 +6,8 @@ namespace ECSPrefix20210507;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
-return static function (ContainerConfigurator $containerConfigurator) : void {
+return static function (\ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $services = $containerConfigurator->services();
-    $services->set(ArraySyntaxFixer::class)->call('configure', [['syntax' => 'short']]);
-    $services->set(ArrayOpenerAndCloserNewlineFixer::class);
+    $services->set(\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class)->call('configure', [['syntax' => 'short']]);
+    $services->set(\Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer::class);
 };
