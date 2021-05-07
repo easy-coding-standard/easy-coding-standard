@@ -21,9 +21,6 @@ use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedMeth
 use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer;
 use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
 use ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
-class AnonymousFor_ErrorHandler extends \Exception
-{
-}
 /**
  * A generic ErrorHandler for the PHP engine.
  *
@@ -159,7 +156,7 @@ class ErrorHandler
             $traceReflector->setValue($e, $trace);
             $e->file = isset($file) ? $file : $e->file;
             $e->line = isset($line) ? $line : $e->line;
-        }, null, new \ECSPrefix20210507\Symfony\Component\ErrorHandler\AnonymousFor_ErrorHandler());
+        }, null, new \ECSPrefix20210507\Symfony\Component\ErrorHandler\Anonymous__2bfbc307e7c0b459d50bc27a0405b12d__0());
         $this->debug = $debug;
     }
     /**
@@ -696,4 +693,7 @@ class ErrorHandler
             return \class_exists($m[0], \false) ? ((\get_parent_class($m[0]) ?: \key(\class_implements($m[0]))) ?: 'class') . '@anonymous' : $m[0];
         }, $message);
     }
+}
+class Anonymous__2bfbc307e7c0b459d50bc27a0405b12d__0 extends \Exception
+{
 }

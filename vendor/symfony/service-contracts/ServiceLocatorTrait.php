@@ -15,12 +15,6 @@ use ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface;
 // Help opcache.preload discover always-needed symbols
 \class_exists(\ECSPrefix20210507\Psr\Container\ContainerExceptionInterface::class);
 \class_exists(\ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface::class);
-class AnonymousFor_ServiceLocatorTrait extends \InvalidArgumentException implements \ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface
-{
-}
-class AnonymousFor_ServiceLocatorTrait extends \RuntimeException implements \ECSPrefix20210507\Psr\Container\ContainerExceptionInterface
-{
-}
 /**
  * A trait to help implement ServiceProviderInterface.
  *
@@ -113,7 +107,7 @@ trait ServiceLocatorTrait
         } else {
             $message = \sprintf('Service "%s" not found: the current service locator %s', $id, $message);
         }
-        return new \ECSPrefix20210507\Symfony\Contracts\Service\AnonymousFor_ServiceLocatorTrait($message);
+        return new \ECSPrefix20210507\Symfony\Contracts\Service\Anonymous__3e88683f5fba080472fe4fa460352f72__0($message);
     }
     /**
      * @param string $id
@@ -121,6 +115,12 @@ trait ServiceLocatorTrait
      */
     private function createCircularReferenceException($id, array $path)
     {
-        return new \ECSPrefix20210507\Symfony\Contracts\Service\AnonymousFor_ServiceLocatorTrait(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path)));
+        return new \ECSPrefix20210507\Symfony\Contracts\Service\Anonymous__3e88683f5fba080472fe4fa460352f72__1(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path)));
     }
+}
+class Anonymous__3e88683f5fba080472fe4fa460352f72__0 extends \InvalidArgumentException implements \ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface
+{
+}
+class Anonymous__3e88683f5fba080472fe4fa460352f72__1 extends \RuntimeException implements \ECSPrefix20210507\Psr\Container\ContainerExceptionInterface
+{
 }

@@ -21,14 +21,6 @@ use ECSPrefix20210507\Symfony\Component\Mime\Part\TextPart;
 use ECSPrefix20210507\Symfony\Contracts\HttpClient\HttpClientInterface;
 // Help opcache.preload discover always-needed symbols
 \class_exists(\ECSPrefix20210507\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
-class AnonymousFor_HttpClientKernel extends \ECSPrefix20210507\Symfony\Component\HttpFoundation\ResponseHeaderBag
-{
-    protected function computeCacheControlValue() : string
-    {
-        return $this->getCacheControlHeader();
-        // preserve the original value
-    }
-}
 /**
  * An implementation of a Symfony HTTP kernel using a "real" HTTP client.
  *
@@ -66,7 +58,7 @@ final class HttpClientKernel implements \ECSPrefix20210507\Symfony\Component\Htt
         $response->headers->remove('X-Body-File');
         $response->headers->remove('X-Body-Eval');
         $response->headers->remove('X-Content-Digest');
-        $response->headers = new \ECSPrefix20210507\Symfony\Component\HttpKernel\AnonymousFor_HttpClientKernel($response->headers->all());
+        $response->headers = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Anonymous__6e0937e1ca473be937c05584b1c8bc14__0($response->headers->all());
         return $response;
     }
     /**
@@ -108,5 +100,13 @@ final class HttpClientKernel implements \ECSPrefix20210507\Symfony\Component\Htt
             $headers['cookie'] = \implode('; ', $cookies);
         }
         return $headers;
+    }
+}
+class Anonymous__6e0937e1ca473be937c05584b1c8bc14__0 extends \ECSPrefix20210507\Symfony\Component\HttpFoundation\ResponseHeaderBag
+{
+    protected function computeCacheControlValue() : string
+    {
+        return $this->getCacheControlHeader();
+        // preserve the original value
     }
 }

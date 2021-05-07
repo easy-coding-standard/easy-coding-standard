@@ -10,26 +10,6 @@
  */
 namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception;
 
-class AnonymousFor_AutowiringFailedException
-{
-    private $message;
-    private $messageCallback;
-    public function __construct(&$message, &$messageCallback)
-    {
-        $this->message =& $message;
-        $this->messageCallback =& $messageCallback;
-    }
-    public function __toString() : string
-    {
-        $messageCallback = $this->messageCallback;
-        $this->messageCallback = null;
-        try {
-            return $this->message = $messageCallback();
-        } catch (\Throwable $e) {
-            return $this->message = $e->getMessage();
-        }
-    }
-}
 /**
  * Thrown when a definition cannot be autowired.
  */
@@ -54,7 +34,7 @@ class AutowiringFailedException extends \ECSPrefix20210507\Symfony\Component\Dep
         }
         $this->messageCallback = $message;
         parent::__construct('', $code, $previous);
-        $this->message = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\AnonymousFor_AutowiringFailedException($this->message, $this->messageCallback);
+        $this->message = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\Anonymous__f2200998121b1c0886562f1a6a7e315b__0($this->message, $this->messageCallback);
     }
     /**
      * @return \Closure|null
@@ -66,5 +46,25 @@ class AutowiringFailedException extends \ECSPrefix20210507\Symfony\Component\Dep
     public function getServiceId()
     {
         return $this->serviceId;
+    }
+}
+class Anonymous__f2200998121b1c0886562f1a6a7e315b__0
+{
+    private $message;
+    private $messageCallback;
+    public function __construct(&$message, &$messageCallback)
+    {
+        $this->message =& $message;
+        $this->messageCallback =& $messageCallback;
+    }
+    public function __toString() : string
+    {
+        $messageCallback = $this->messageCallback;
+        $this->messageCallback = null;
+        try {
+            return $this->message = $messageCallback();
+        } catch (\Throwable $e) {
+            return $this->message = $e->getMessage();
+        }
     }
 }

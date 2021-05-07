@@ -15,9 +15,6 @@ use ECSPrefix20210507\Psr\Cache\InvalidArgumentException;
 use ECSPrefix20210507\Psr\Log\LoggerInterface;
 // Help opcache.preload discover always-needed symbols
 \class_exists(\ECSPrefix20210507\Psr\Cache\InvalidArgumentException::class);
-class AnonymousFor_CacheTrait extends \InvalidArgumentException implements \ECSPrefix20210507\Psr\Cache\InvalidArgumentException
-{
-}
 /**
  * An implementation of CacheInterface for PSR-6 CacheItemPoolInterface classes.
  *
@@ -52,7 +49,7 @@ trait CacheTrait
     private function doGet($pool, $key, callable $callback, $beta, array &$metadata = null, $logger = null)
     {
         if (0 > ($beta = isset($beta) ? $beta : 1.0)) {
-            throw new \ECSPrefix20210507\Symfony\Contracts\Cache\AnonymousFor_CacheTrait(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
+            throw new \ECSPrefix20210507\Symfony\Contracts\Cache\Anonymous__50cd8e993d9370f0249c9d4487d12ea2__0(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
         }
         $item = $pool->getItem($key);
         $recompute = !$item->isHit() || \INF === $beta;
@@ -75,4 +72,7 @@ trait CacheTrait
         }
         return $item->get();
     }
+}
+class Anonymous__50cd8e993d9370f0249c9d4487d12ea2__0 extends \InvalidArgumentException implements \ECSPrefix20210507\Psr\Cache\InvalidArgumentException
+{
 }

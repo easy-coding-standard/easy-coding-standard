@@ -11,12 +11,6 @@
 namespace ECSPrefix20210507\Symfony\Component\VarExporter\Internal;
 
 use ECSPrefix20210507\Symfony\Component\VarExporter\Exception\ClassNotFoundException;
-class AnonymousFor_Hydrator extends \ErrorException
-{
-}
-class AnonymousFor_Hydrator extends \Error
-{
-}
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -94,9 +88,9 @@ class Hydrator
                     }
                 };
             case 'ErrorException':
-                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\AnonymousFor_Hydrator());
+                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__0());
             case 'TypeError':
-                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\AnonymousFor_Hydrator());
+                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__1());
             case 'SplObjectStorage':
                 return self::$hydrators[$class] = static function ($properties, $objects) {
                     foreach ($properties as $name => $values) {
@@ -138,4 +132,10 @@ class Hydrator
             }
         };
     }
+}
+class Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__0 extends \ErrorException
+{
+}
+class Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__1 extends \Error
+{
 }
