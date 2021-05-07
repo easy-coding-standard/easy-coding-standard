@@ -21,7 +21,7 @@ class FileLocator extends \ECSPrefix20210507\Symfony\Component\Config\FileLocato
 {
     private $kernel;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelInterface $kernel
+     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
      */
     public function __construct($kernel)
     {
@@ -31,7 +31,7 @@ class FileLocator extends \ECSPrefix20210507\Symfony\Component\Config\FileLocato
     /**
      * {@inheritdoc}
      * @param string $file
-     * @param string $currentPath
+     * @param string|null $currentPath
      * @param bool $first
      */
     public function locate($file, $currentPath = null, $first = \true)

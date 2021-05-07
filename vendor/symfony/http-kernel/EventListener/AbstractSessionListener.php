@@ -41,7 +41,7 @@ abstract class AbstractSessionListener implements \ECSPrefix20210507\Symfony\Com
     private $sessionUsageStack = [];
     private $debug;
     /**
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
+     * @param \Psr\Container\ContainerInterface $container
      * @param bool $debug
      */
     public function __construct($container = null, $debug = \false)
@@ -50,7 +50,7 @@ abstract class AbstractSessionListener implements \ECSPrefix20210507\Symfony\Com
         $this->debug = $debug;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {
@@ -68,7 +68,7 @@ abstract class AbstractSessionListener implements \ECSPrefix20210507\Symfony\Com
         $this->sessionUsageStack[] = $session instanceof \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() : 0;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
     public function onKernelResponse($event)
     {
@@ -127,7 +127,7 @@ abstract class AbstractSessionListener implements \ECSPrefix20210507\Symfony\Com
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
      */
     public function onFinishRequest($event)
     {

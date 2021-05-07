@@ -162,7 +162,7 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function save($item)
     {
@@ -208,7 +208,7 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function saveDeferred($item)
     {

@@ -49,11 +49,11 @@ final class LockRegistry
         return $previousFiles;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Contracts\Cache\ItemInterface $item
+     * @param \Symfony\Contracts\Cache\ItemInterface $item
      * @param bool $save
-     * @param \ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface $pool
+     * @param \Symfony\Contracts\Cache\CacheInterface $pool
      * @param \Closure $setMetadata
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public static function compute(callable $callback, $item, &$save, $pool, $setMetadata = null, $logger = null)
     {

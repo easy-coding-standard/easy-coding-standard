@@ -22,9 +22,9 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210507\Symfony\Component
      */
     private $terminal;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Terminal $terminal
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Terminal $terminal
      */
     public function __construct($input, $output, $terminal)
     {

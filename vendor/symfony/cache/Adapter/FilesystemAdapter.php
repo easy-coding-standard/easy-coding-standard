@@ -21,7 +21,7 @@ class FilesystemAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapt
      * @param string $namespace
      * @param int $defaultLifetime
      * @param string $directory
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
     public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $marshaller = null)
     {

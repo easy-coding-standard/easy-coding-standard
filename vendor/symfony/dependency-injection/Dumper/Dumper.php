@@ -20,7 +20,7 @@ abstract class Dumper implements \ECSPrefix20210507\Symfony\Component\Dependency
 {
     protected $container;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function __construct($container)
     {

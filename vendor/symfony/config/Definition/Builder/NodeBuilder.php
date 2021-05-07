@@ -27,7 +27,7 @@ class NodeBuilder implements \ECSPrefix20210507\Symfony\Component\Config\Definit
      * Set the parent node.
      *
      * @return $this
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface $parent
+     * @param \Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface $parent
      */
     public function setParent($parent = null)
     {
@@ -144,7 +144,7 @@ class NodeBuilder implements \ECSPrefix20210507\Symfony\Component\Config\Definit
      *     ;
      *
      * @return $this
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeDefinition $node
+     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
      */
     public function append($node)
     {

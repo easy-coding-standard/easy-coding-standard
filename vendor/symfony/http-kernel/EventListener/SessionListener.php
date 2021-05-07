@@ -28,7 +28,7 @@ use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent;
 class SessionListener extends \ECSPrefix20210507\Symfony\Component\HttpKernel\EventListener\AbstractSessionListener
 {
     /**
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
+     * @param \Psr\Container\ContainerInterface $container
      * @param bool $debug
      */
     public function __construct($container, $debug = \false)
@@ -36,7 +36,7 @@ class SessionListener extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Ev
         parent::__construct($container, $debug);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {
@@ -49,7 +49,7 @@ class SessionListener extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Ev
         }
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionInterface|null
+     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface|null
      */
     protected function getSession()
     {

@@ -44,7 +44,7 @@ trait ServiceSubscriberTrait
     }
     /**
      * @required
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
+     * @param \Psr\Container\ContainerInterface $container
      */
     public function setContainer($container)
     {

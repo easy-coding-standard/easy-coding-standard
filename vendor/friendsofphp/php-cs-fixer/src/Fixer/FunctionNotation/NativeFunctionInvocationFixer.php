@@ -55,10 +55,9 @@ final class NativeFunctionInvocationFixer extends \PhpCsFixer\AbstractFixer impl
      */
     private $functionFilter;
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->functionFilter = $this->getFunctionFilter();

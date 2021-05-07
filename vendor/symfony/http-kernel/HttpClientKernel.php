@@ -38,7 +38,7 @@ final class HttpClientKernel implements \ECSPrefix20210507\Symfony\Component\Htt
 {
     private $client;
     /**
-     * @param \ECSPrefix20210507\Symfony\Contracts\HttpClient\HttpClientInterface $client
+     * @param \Symfony\Contracts\HttpClient\HttpClientInterface $client
      */
     public function __construct($client = null)
     {
@@ -48,10 +48,10 @@ final class HttpClientKernel implements \ECSPrefix20210507\Symfony\Component\Htt
         $this->client = isset($client) ? $client : \ECSPrefix20210507\Symfony\Component\HttpClient\HttpClient::create();
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @param bool $catch
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function handle($request, $type = \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
@@ -66,12 +66,12 @@ final class HttpClientKernel implements \ECSPrefix20210507\Symfony\Component\Htt
         $response->headers->remove('X-Body-File');
         $response->headers->remove('X-Body-Eval');
         $response->headers->remove('X-Content-Digest');
-        $response->headers = new AnonymousFor_HttpClientKernel($response->headers->all());
+        $response->headers = new \ECSPrefix20210507\Symfony\Component\HttpKernel\AnonymousFor_HttpClientKernel($response->headers->all());
         return $response;
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Mime\Part\AbstractPart|null
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\Mime\Part\AbstractPart|null
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function getBody($request)
     {
@@ -91,7 +91,7 @@ final class HttpClientKernel implements \ECSPrefix20210507\Symfony\Component\Htt
         return new \ECSPrefix20210507\Symfony\Component\Mime\Part\Multipart\FormDataPart($fields);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return mixed[]
      */
     private function getHeaders($request)

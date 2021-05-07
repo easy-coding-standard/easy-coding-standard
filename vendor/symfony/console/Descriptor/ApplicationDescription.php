@@ -37,7 +37,7 @@ class ApplicationDescription
      */
     private $aliases;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      * @param string $namespace
      * @param bool $showHidden
      */
@@ -70,7 +70,7 @@ class ApplicationDescription
     /**
      * @throws CommandNotFoundException
      * @param string $name
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Command\Command
+     * @return \Symfony\Component\Console\Command\Command
      */
     public function getCommand($name)
     {

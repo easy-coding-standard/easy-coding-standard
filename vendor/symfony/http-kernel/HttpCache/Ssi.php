@@ -28,7 +28,7 @@ class Ssi extends \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function addSurrogateControl($response)
     {
@@ -49,8 +49,8 @@ class Ssi extends \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache\Abst
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function process($request, $response)
     {

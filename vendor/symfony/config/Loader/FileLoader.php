@@ -27,7 +27,7 @@ abstract class FileLoader extends \ECSPrefix20210507\Symfony\Component\Config\Lo
     protected $locator;
     private $currentDir;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\FileLocatorInterface $locator
+     * @param \Symfony\Component\Config\FileLocatorInterface $locator
      */
     public function __construct($locator)
     {

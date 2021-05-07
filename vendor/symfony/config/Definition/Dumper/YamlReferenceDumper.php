@@ -28,14 +28,14 @@ class YamlReferenceDumper
 {
     private $reference;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\ConfigurationInterface $configuration
+     * @param \Symfony\Component\Config\Definition\ConfigurationInterface $configuration
      */
     public function dump($configuration)
     {
         return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree());
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\ConfigurationInterface $configuration
+     * @param \Symfony\Component\Config\Definition\ConfigurationInterface $configuration
      * @param string $path
      */
     public function dumpAtPath($configuration, $path)
@@ -58,7 +58,7 @@ class YamlReferenceDumper
         return $this->dumpNode($node);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $node
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      */
     public function dumpNode($node)
     {
@@ -69,8 +69,8 @@ class YamlReferenceDumper
         return $ref;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $node
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $parentNode
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
+     * @param \Symfony\Component\Config\Definition\NodeInterface $parentNode
      * @param int $depth
      * @param bool $prototypedArray
      */
@@ -195,7 +195,7 @@ class YamlReferenceDumper
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\PrototypedArrayNode $node
+     * @param \Symfony\Component\Config\Definition\PrototypedArrayNode $node
      * @return mixed[]
      */
     private function getPrototypeChildren($node)

@@ -22,7 +22,7 @@ use ECSPrefix20210507\Symfony\Component\Config\Exception\LoaderLoadException;
 class DelegatingLoader extends \ECSPrefix20210507\Symfony\Component\Config\Loader\Loader
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
+     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
     public function __construct($resolver)
     {

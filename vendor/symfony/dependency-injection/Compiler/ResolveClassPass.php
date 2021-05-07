@@ -20,7 +20,7 @@ class ResolveClassPass implements \ECSPrefix20210507\Symfony\Component\Dependenc
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {

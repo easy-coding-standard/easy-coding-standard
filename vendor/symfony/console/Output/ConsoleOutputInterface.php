@@ -25,11 +25,11 @@ interface ConsoleOutputInterface extends \ECSPrefix20210507\Symfony\Component\Co
      */
     public function getErrorOutput();
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $error
+     * @param \Symfony\Component\Console\Output\OutputInterface $error
      */
     public function setErrorOutput($error);
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleSectionOutput
+     * @return \Symfony\Component\Console\Output\ConsoleSectionOutput
      */
     public function section();
 }

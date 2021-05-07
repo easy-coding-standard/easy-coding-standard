@@ -21,7 +21,7 @@ class EnumNode extends \ECSPrefix20210507\Symfony\Component\Config\Definition\Sc
     private $values;
     /**
      * @param string|null $name
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $parent
+     * @param \Symfony\Component\Config\Definition\NodeInterface $parent
      * @param string $pathSeparator
      */
     public function __construct($name, $parent = null, array $values = [], $pathSeparator = \ECSPrefix20210507\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)

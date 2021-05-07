@@ -32,7 +32,7 @@ class InlineServiceConfigurator extends \ECSPrefix20210507\Symfony\Component\Dep
     private $allowParent = \true;
     private $path = null;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
     public function __construct($definition)
     {

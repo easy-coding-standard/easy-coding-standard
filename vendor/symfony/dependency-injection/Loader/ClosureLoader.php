@@ -23,7 +23,7 @@ class ClosureLoader extends \ECSPrefix20210507\Symfony\Component\Config\Loader\L
 {
     private $container;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function __construct($container)
     {

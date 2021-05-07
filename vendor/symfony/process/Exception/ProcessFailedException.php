@@ -20,7 +20,7 @@ class ProcessFailedException extends \ECSPrefix20210507\Symfony\Component\Proces
 {
     private $process;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Process\Process $process
+     * @param \Symfony\Component\Process\Process $process
      */
     public function __construct($process)
     {

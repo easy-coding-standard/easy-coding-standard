@@ -70,7 +70,7 @@ abstract class Extension implements \ECSPrefix20210507\Symfony\Component\Depende
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function getConfiguration(array $config, $container)
     {
@@ -93,7 +93,7 @@ abstract class Extension implements \ECSPrefix20210507\Symfony\Component\Depende
         return null;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\ConfigurationInterface $configuration
+     * @param \Symfony\Component\Config\Definition\ConfigurationInterface $configuration
      * @return mixed[]
      */
     protected final function processConfiguration($configuration, array $configs)
@@ -117,7 +117,7 @@ abstract class Extension implements \ECSPrefix20210507\Symfony\Component\Depende
      * @return bool Whether the configuration is enabled
      *
      * @throws InvalidArgumentException When the config is not enableable
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     protected function isConfigEnabled($container, array $config)
     {

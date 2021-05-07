@@ -42,9 +42,9 @@ trait CacheTrait
     }
     /**
      * @param float|null $beta
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemPoolInterface $pool
+     * @param \Psr\Cache\CacheItemPoolInterface $pool
      * @param string $key
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     private function doGet($pool, $key, callable $callback, $beta, array &$metadata = null, $logger = null)
     {
@@ -52,7 +52,7 @@ trait CacheTrait
             class AnonymousFor_NotInFunction extends \InvalidArgumentException implements \ECSPrefix20210507\Psr\Cache\InvalidArgumentException
             {
             }
-            throw new AnonymousFor_NotInFunction(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
+            throw new \ECSPrefix20210507\Symfony\Contracts\Cache\AnonymousFor_NotInFunction(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
         }
         $item = $pool->getItem($key);
         $recompute = !$item->isHit() || \INF === $beta;

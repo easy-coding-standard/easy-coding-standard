@@ -53,10 +53,10 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
     protected $requestStack;
     private $argumentResolver;
     /**
-     * @param \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $argumentResolver
+     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $argumentResolver
      */
     public function __construct($dispatcher, $resolver, $requestStack = null, $argumentResolver = null)
     {
@@ -70,7 +70,7 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @param bool $catch
      */
@@ -92,8 +92,8 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function terminate($request, $response)
     {
@@ -102,7 +102,7 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
     /**
      * @internal
      * @param \Throwable $exception
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function terminateWithException($exception, $request = null)
     {
@@ -121,9 +121,9 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
      *
      * @throws \LogicException       If one of the listener does not behave as expected
      * @throws NotFoundHttpException When controller cannot be found
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     private function handleRaw($request, $type = self::MASTER_REQUEST)
     {
@@ -170,10 +170,10 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
      * Filters a response object.
      *
      * @throws \RuntimeException if the passed object is not a Response instance
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     private function filterResponse($response, $request, $type)
     {
@@ -188,7 +188,7 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
      * Note that the order of the operations is important here, otherwise
      * operations such as {@link RequestStack::getParentRequest()} can lead to
      * weird results.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      */
     private function finishRequest($request, $type)
@@ -201,9 +201,9 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
      *
      * @throws \Exception
      * @param \Throwable $e
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     private function handleThrowable($e, $request, $type)
     {

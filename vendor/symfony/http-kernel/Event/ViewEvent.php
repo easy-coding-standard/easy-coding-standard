@@ -30,8 +30,8 @@ final class ViewEvent extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Ev
      */
     private $controllerResult;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $requestType
      */
     public function __construct($kernel, $request, $requestType, $controllerResult)

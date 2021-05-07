@@ -24,8 +24,8 @@ use ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub;
 class DoctrineCaster
 {
     /**
-     * @param \ECSPrefix20210507\Doctrine\Common\Proxy\Proxy $proxy
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param CommonProxy $proxy
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castCommonProxy($proxy, array $a, $stub, $isNested)
@@ -39,8 +39,8 @@ class DoctrineCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Doctrine\ORM\Proxy\Proxy $proxy
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param OrmProxy $proxy
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castOrmProxy($proxy, array $a, $stub, $isNested)
@@ -54,8 +54,8 @@ class DoctrineCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Doctrine\ORM\PersistentCollection $coll
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castPersistentCollection($coll, array $a, $stub, $isNested)

@@ -34,7 +34,7 @@ interface EventDispatcherInterface extends \ECSPrefix20210507\Symfony\Contracts\
      *
      * The subscriber is asked for all the events it is
      * interested in and added as a listener for these events.
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
     public function addSubscriber($subscriber);
     /**
@@ -45,7 +45,7 @@ interface EventDispatcherInterface extends \ECSPrefix20210507\Symfony\Contracts\
      */
     public function removeListener($eventName, $listener);
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
     public function removeSubscriber($subscriber);
     /**

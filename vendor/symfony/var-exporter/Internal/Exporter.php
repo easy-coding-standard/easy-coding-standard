@@ -247,7 +247,7 @@ class Exporter
         throw new \UnexpectedValueException(\sprintf('Cannot export value of type "%s".', \get_debug_type($value)));
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\Registry $value
+     * @param \Symfony\Component\VarExporter\Internal\Registry $value
      * @param string $indent
      * @param string $subIndent
      * @return string
@@ -319,7 +319,7 @@ class Exporter
         return '$o = ' . $code;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\Hydrator $value
+     * @param \Symfony\Component\VarExporter\Internal\Hydrator $value
      * @param string $indent
      * @param string $subIndent
      * @return string

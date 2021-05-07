@@ -68,8 +68,8 @@ final class BlankLineAfterStrictTypesFixer extends \Symplify\CodingStandard\Fixe
         if ($sequenceLocation === null) {
             return;
         }
-        end($sequenceLocation);
-        $semicolonPosition = (int) key($sequenceLocation);
+        \end($sequenceLocation);
+        $semicolonPosition = (int) \key($sequenceLocation);
         // empty file
         if (!isset($tokens[$semicolonPosition + 2])) {
             return;

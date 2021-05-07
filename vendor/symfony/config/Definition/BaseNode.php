@@ -39,7 +39,7 @@ abstract class BaseNode implements \ECSPrefix20210507\Symfony\Component\Config\D
     /**
      * @throws \InvalidArgumentException if the name contains a period
      * @param string|null $name
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $parent
+     * @param \Symfony\Component\Config\Definition\NodeInterface $parent
      * @param string $pathSeparator
      */
     public function __construct($name, $parent = null, $pathSeparator = self::DEFAULT_PATH_SEPARATOR)

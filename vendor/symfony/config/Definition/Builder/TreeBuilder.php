@@ -23,7 +23,7 @@ class TreeBuilder implements \ECSPrefix20210507\Symfony\Component\Config\Definit
     /**
      * @param string $name
      * @param string $type
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
+     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
      */
     public function __construct($name, $type = 'array', $builder = null)
     {
@@ -31,7 +31,7 @@ class TreeBuilder implements \ECSPrefix20210507\Symfony\Component\Config\Definit
         $this->root = $builder->node($name, $type)->setParent($this);
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
      */
     public function getRootNode()
     {

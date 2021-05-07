@@ -25,8 +25,8 @@ class SymfonyQuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Question\Question $question
      */
     protected function writePrompt($output, $question)
     {
@@ -67,7 +67,7 @@ class SymfonyQuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Exception $error
      */
     protected function writeError($output, $error)

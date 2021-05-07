@@ -28,7 +28,7 @@ final class ChangedFilesDetector
     private $tagAwareAdapter;
     /**
      * @param \Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter
+     * @param \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter
      */
     public function __construct($fileHashComputer, $tagAwareAdapter)
     {

@@ -11,7 +11,7 @@ final class FixerWhitespaceConfigCompilerPass implements \ECSPrefix20210507\Symf
 {
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function process($containerBuilder)
     {

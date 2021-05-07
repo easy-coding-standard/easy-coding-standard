@@ -24,7 +24,7 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -45,10 +45,10 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $id
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
     private function processDefinition($container, $id, $definition, array $tagsToKeep)
     {
@@ -132,7 +132,7 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
         return $definition;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @return mixed[]
      */
     private function mergeConditionals(array $autoconfiguredInstanceof, array $instanceofConditionals, $container)

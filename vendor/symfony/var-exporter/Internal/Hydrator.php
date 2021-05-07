@@ -31,8 +31,8 @@ class Hydrator
     public $value;
     public $wakeups;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\Registry|null $registry
-     * @param \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\Values|null $values
+     * @param \Symfony\Component\VarExporter\Internal\Registry|null $registry
+     * @param \Symfony\Component\VarExporter\Internal\Values|null $values
      */
     public function __construct($registry, $values, array $properties, $value, array $wakeups)
     {
@@ -49,7 +49,7 @@ class Hydrator
         }
         foreach ($wakeups as $k => $v) {
             if (\is_array($v)) {
-                $objects[strlen($objects) - $k]->__unserialize($v);
+                $objects[\strlen($objects) - $k]->__unserialize($v);
             } else {
                 $objects[$v]->__wakeup();
             }
@@ -94,9 +94,9 @@ class Hydrator
                     }
                 };
             case 'ErrorException':
-                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new AnonymousFor_Hydrator());
+                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\AnonymousFor_Hydrator());
             case 'TypeError':
-                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new AnonymousFor_Hydrator());
+                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210507\Symfony\Component\VarExporter\Internal\AnonymousFor_Hydrator());
             case 'SplObjectStorage':
                 return self::$hydrators[$class] = static function ($properties, $objects) {
                     foreach ($properties as $name => $values) {

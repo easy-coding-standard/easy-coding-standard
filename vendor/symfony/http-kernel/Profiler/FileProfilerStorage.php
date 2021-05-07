@@ -43,13 +43,13 @@ class FileProfilerStorage implements \ECSPrefix20210507\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
-     * @param string|null $statusCode
      * @param string|null $ip
      * @param string|null $url
      * @param int|null $limit
      * @param string|null $method
      * @param int $start
      * @param int $end
+     * @param string $statusCode
      * @return mixed[]
      */
     public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null)
@@ -97,7 +97,7 @@ class FileProfilerStorage implements \ECSPrefix20210507\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
-     * @return \ECSPrefix20210507\Symfony\Component\HttpKernel\Profiler\Profile|null
+     * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
      * @param string $token
      */
     public function read($token)
@@ -114,7 +114,7 @@ class FileProfilerStorage implements \ECSPrefix20210507\Symfony\Component\HttpKe
      * {@inheritdoc}
      *
      * @throws \RuntimeException
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Profiler\Profile $profile
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      * @return bool
      */
     public function write($profile)
@@ -217,7 +217,7 @@ class FileProfilerStorage implements \ECSPrefix20210507\Symfony\Component\HttpKe
     }
     /**
      * @param string $token
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Profiler\Profile $parent
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $parent
      */
     protected function createProfileFromData($token, array $data, $parent = null)
     {

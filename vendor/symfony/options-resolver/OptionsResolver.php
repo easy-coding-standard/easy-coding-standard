@@ -643,7 +643,7 @@ class OptionsResolver implements \ECSPrefix20210507\Symfony\Component\OptionsRes
     /**
      * Defines an option configurator with the given name.
      * @param string $option
-     * @return \ECSPrefix20210507\Symfony\Component\OptionsResolver\OptionConfigurator
+     * @return \Symfony\Component\OptionsResolver\OptionConfigurator
      */
     public function define($option)
     {

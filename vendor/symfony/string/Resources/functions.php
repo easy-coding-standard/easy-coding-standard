@@ -13,7 +13,7 @@ namespace ECSPrefix20210507\Symfony\Component\String;
 if (!\function_exists(\ECSPrefix20210507\Symfony\Component\String\u::class)) {
     /**
      * @param string|null $string
-     * @return \ECSPrefix20210507\Symfony\Component\String\UnicodeString
+     * @return \Symfony\Component\String\UnicodeString
      */
     function u($string = '')
     {
@@ -23,7 +23,7 @@ if (!\function_exists(\ECSPrefix20210507\Symfony\Component\String\u::class)) {
 if (!\function_exists(\ECSPrefix20210507\Symfony\Component\String\b::class)) {
     /**
      * @param string|null $string
-     * @return \ECSPrefix20210507\Symfony\Component\String\ByteString
+     * @return \Symfony\Component\String\ByteString
      */
     function b($string = '')
     {
@@ -32,7 +32,7 @@ if (!\function_exists(\ECSPrefix20210507\Symfony\Component\String\b::class)) {
 }
 if (!\function_exists(\ECSPrefix20210507\Symfony\Component\String\s::class)) {
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      * @param string|null $string
      */
     function s($string = '')

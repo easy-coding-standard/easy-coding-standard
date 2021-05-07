@@ -36,7 +36,7 @@ final class FileFilterIterator extends \FilterIterator
      */
     private $visitedElements = [];
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface|null $eventDispatcher
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface|null $eventDispatcher
      * @param \Traversable $iterator
      * @param \PhpCsFixer\Cache\CacheManagerInterface $cacheManager
      */
@@ -77,7 +77,7 @@ final class FileFilterIterator extends \FilterIterator
     /**
      * @return void
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\Event $event
+     * @param \Symfony\Contracts\EventDispatcher\Event $event
      */
     private function dispatchEvent($name, $event)
     {

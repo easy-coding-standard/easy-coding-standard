@@ -88,7 +88,7 @@ trait ServiceLocatorTrait
     }
     /**
      * @param string $id
-     * @return \ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface
+     * @return \Psr\Container\NotFoundExceptionInterface
      */
     private function createNotFoundException($id)
     {
@@ -110,17 +110,17 @@ trait ServiceLocatorTrait
         class AnonymousFor_NotInFunction extends \InvalidArgumentException implements \ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface
         {
         }
-        return new AnonymousFor_NotInFunction($message);
+        return new \ECSPrefix20210507\Symfony\Contracts\Service\AnonymousFor_NotInFunction($message);
     }
     /**
      * @param string $id
-     * @return \ECSPrefix20210507\Psr\Container\ContainerExceptionInterface
+     * @return \Psr\Container\ContainerExceptionInterface
      */
     private function createCircularReferenceException($id, array $path)
     {
         class AnonymousFor_NotInFunction extends \RuntimeException implements \ECSPrefix20210507\Psr\Container\ContainerExceptionInterface
         {
         }
-        return new AnonymousFor_NotInFunction(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path)));
+        return new \ECSPrefix20210507\Symfony\Contracts\Service\AnonymousFor_NotInFunction(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path)));
     }
 }

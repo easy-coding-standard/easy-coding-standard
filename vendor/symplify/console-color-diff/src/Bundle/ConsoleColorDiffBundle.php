@@ -7,7 +7,7 @@ use Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExte
 final class ConsoleColorDiffBundle extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
+     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
      */
     protected function createContainerExtension()
     {

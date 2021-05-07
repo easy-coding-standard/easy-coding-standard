@@ -23,7 +23,7 @@ abstract class OutputStyle implements \ECSPrefix20210507\Symfony\Component\Conso
 {
     private $output;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function __construct($output)
     {
@@ -94,7 +94,7 @@ abstract class OutputStyle implements \ECSPrefix20210507\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
     public function setFormatter($formatter)
     {

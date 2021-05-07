@@ -770,10 +770,10 @@ class ScopeIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
             /*
                 The indent of the line is checked by the following IF block.
-
+            
                 Up until now, we've just been figuring out what the indent
                 of this line should be.
-
+            
                 After this IF block, we adjust the indent again for
                 the checking of future lines
             */

@@ -23,8 +23,8 @@ class RealServiceInstantiator implements \ECSPrefix20210507\Symfony\Component\De
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param string $id
      */
     public function instantiateProxy($container, $definition, $id, callable $realInstantiator)

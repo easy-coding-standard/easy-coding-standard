@@ -16,15 +16,20 @@ final class RequestAttributeValueSame extends \ECSPrefix20210507\PHPUnit\Framewo
 {
     private $name;
     private $value;
-    public function __construct(string $name, string $value)
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function __construct($name, $value)
     {
         $this->name = $name;
         $this->value = $value;
     }
     /**
      * {@inheritdoc}
+     * @return string
      */
-    public function toString() : string
+    public function toString()
     {
         return \sprintf('has attribute "%s" with value "%s"', $this->name, $this->value);
     }
@@ -32,8 +37,9 @@ final class RequestAttributeValueSame extends \ECSPrefix20210507\PHPUnit\Framewo
      * @param Request $request
      *
      * {@inheritdoc}
+     * @return bool
      */
-    protected function matches($request) : bool
+    protected function matches($request)
     {
         return $this->value === $request->attributes->get($this->name);
     }
@@ -41,8 +47,9 @@ final class RequestAttributeValueSame extends \ECSPrefix20210507\PHPUnit\Framewo
      * @param Request $request
      *
      * {@inheritdoc}
+     * @return string
      */
-    protected function failureDescription($request) : string
+    protected function failureDescription($request)
     {
         return 'the Request ' . $this->toString();
     }

@@ -30,7 +30,7 @@ final class EasyCodingStandardKernel extends \Symplify\SymplifyKernel\HttpKernel
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     protected function build($containerBuilder)
     {

@@ -32,7 +32,7 @@ final class PackageVersionProvider
      * @see https://github.com/Jean85/pretty-package-versions/pull/16#issuecomment-620550459
      * @param string $packageName
      * @param string $replacingPackageName
-     * @return \ECSPrefix20210507\Jean85\Version
+     * @return \Jean85\Version
      */
     private function getVersion($packageName, $replacingPackageName)
     {

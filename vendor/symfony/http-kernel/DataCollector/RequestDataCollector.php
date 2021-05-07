@@ -32,7 +32,7 @@ class RequestDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKern
     private $sessionUsages = [];
     private $requestStack;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack|null $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack|null $requestStack
      */
     public function __construct($requestStack = null)
     {
@@ -41,9 +41,9 @@ class RequestDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKern
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
+     * @param \Throwable|null $exception
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function collect($request, $response, $exception = null)
     {
@@ -284,14 +284,14 @@ class RequestDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKern
         return isset($this->data['forward_token']) ? $this->data['forward_token'] : null;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
      */
     public function onKernelController($event)
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
     public function onKernelResponse($event)
     {

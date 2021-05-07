@@ -23,8 +23,8 @@ final class SessionValueResolver implements \ECSPrefix20210507\Symfony\Component
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      * @return bool
      */
     public function supports($request, $argument)
@@ -41,8 +41,8 @@ final class SessionValueResolver implements \ECSPrefix20210507\Symfony\Component
     /**
      * {@inheritdoc}
      * @return mixed[]
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      */
     public function resolve($request, $argument)
     {

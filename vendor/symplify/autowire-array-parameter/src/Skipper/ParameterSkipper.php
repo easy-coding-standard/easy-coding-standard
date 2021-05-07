@@ -34,7 +34,7 @@ final class ParameterSkipper
     }
     /**
      * @param \ReflectionMethod $reflectionMethod
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param \ReflectionParameter $reflectionParameter
      * @return bool
      */

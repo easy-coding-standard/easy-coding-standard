@@ -36,7 +36,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210507\Symfony\Component\Config\De
     /**
      * {@inheritdoc}
      * @param string|null $name
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
+     * @param \Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
      */
     public function __construct($name, $parent = null)
     {
@@ -46,7 +46,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210507\Symfony\Component\Config\De
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
+     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $builder
      */
     public function setBuilder($builder)
     {
@@ -305,7 +305,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210507\Symfony\Component\Config\De
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeDefinition $node
+     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
      */
     public function append($node)
     {
@@ -389,7 +389,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210507\Symfony\Component\Config\De
      * Validate the configuration of a concrete node.
      *
      * @throws InvalidDefinitionException
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\ArrayNode $node
+     * @param \Symfony\Component\Config\Definition\ArrayNode $node
      */
     protected function validateConcreteNode($node)
     {
@@ -414,7 +414,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210507\Symfony\Component\Config\De
      * Validate the configuration of a prototype node.
      *
      * @throws InvalidDefinitionException
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\PrototypedArrayNode $node
+     * @param \Symfony\Component\Config\Definition\PrototypedArrayNode $node
      */
     protected function validatePrototypeNode($node)
     {
@@ -445,7 +445,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210507\Symfony\Component\Config\De
      * Finds a node defined by the given $nodePath.
      *
      * @param string $nodePath The path of the node to find. e.g "doctrine.orm.mappings"
-     * @return \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
     public function find($nodePath)
     {

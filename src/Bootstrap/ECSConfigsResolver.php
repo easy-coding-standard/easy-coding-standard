@@ -22,7 +22,7 @@ final class ECSConfigsResolver
         $this->setAwareConfigResolver = new \Symplify\SetConfigResolver\SetAwareConfigResolver($easyCodingStandardSetProvider);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @return \Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs
      */
     public function resolveFromInput($input)

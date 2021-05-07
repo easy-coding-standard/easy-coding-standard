@@ -66,8 +66,8 @@ final class HelpCommand extends \ECSPrefix20210507\Symfony\Component\Console\Com
     /**
      * {@inheritdoc}
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function initialize($input, $output)
     {

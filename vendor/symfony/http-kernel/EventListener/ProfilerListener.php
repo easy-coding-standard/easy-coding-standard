@@ -38,9 +38,9 @@ class ProfilerListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
     /**
      * @param bool $onlyException      True if the profiler only collects data when an exception occurs, false otherwise
      * @param bool $onlyMasterRequests True if the profiler only collects data when the request is a master request, false otherwise
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Profiler\Profiler $profiler
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestMatcherInterface $matcher
+     * @param \Symfony\Component\HttpKernel\Profiler\Profiler $profiler
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestMatcherInterface $matcher
      */
     public function __construct($profiler, $requestStack, $matcher = null, $onlyException = \false, $onlyMasterRequests = \false)
     {
@@ -54,7 +54,7 @@ class ProfilerListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
     }
     /**
      * Handles the onKernelException event.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
     public function onKernelException($event)
     {
@@ -65,7 +65,7 @@ class ProfilerListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
     }
     /**
      * Handles the onKernelResponse event.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
     public function onKernelResponse($event)
     {
@@ -89,7 +89,7 @@ class ProfilerListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
         $this->parents[$request] = $this->requestStack->getParentRequest();
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\TerminateEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\TerminateEvent $event
      */
     public function onKernelTerminate($event)
     {

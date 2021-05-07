@@ -40,7 +40,7 @@ class CacheCollectorPass implements \ECSPrefix20210507\Symfony\Component\Depende
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -55,7 +55,7 @@ class CacheCollectorPass implements \ECSPrefix20210507\Symfony\Component\Depende
     /**
      * @param string $id
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     private function addToCollector($id, $name, $container)
     {

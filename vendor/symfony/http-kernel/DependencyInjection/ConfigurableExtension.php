@@ -27,7 +27,7 @@ abstract class ConfigurableExtension extends \ECSPrefix20210507\Symfony\Componen
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public final function load(array $configs, $container)
     {
@@ -35,7 +35,7 @@ abstract class ConfigurableExtension extends \ECSPrefix20210507\Symfony\Componen
     }
     /**
      * Configures the passed container according to the merged configuration.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     protected abstract function loadInternal(array $mergedConfig, $container);
 }

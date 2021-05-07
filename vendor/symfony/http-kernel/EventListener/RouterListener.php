@@ -48,12 +48,12 @@ class RouterListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
     private $debug;
     /**
      * @param UrlMatcherInterface|RequestMatcherInterface $matcher    The Url or Request matcher
-     * @param \ECSPrefix20210507\Symfony\Component\Routing\RequestContext $context The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
+     * @param \Symfony\Component\Routing\RequestContext $context The RequestContext (can be null when $matcher implements RequestContextAwareInterface)
      * @param string                                      $projectDir
      *
      * @throws \InvalidArgumentException
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Psr\Log\LoggerInterface $logger
      * @param bool $debug
      */
     public function __construct($matcher, $requestStack, $context = null, $logger = null, $projectDir = null, $debug = \true)
@@ -72,7 +72,7 @@ class RouterListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
         $this->debug = $debug;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function setCurrentRequest($request = null)
     {
@@ -87,14 +87,14 @@ class RouterListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
     /**
      * After a sub-request is done, we need to reset the routing context to the parent request so that the URL generator
      * operates on the correct context again.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
      */
     public function onKernelFinishRequest($event)
     {
         $this->setCurrentRequest($this->requestStack->getParentRequest());
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {
@@ -130,7 +130,7 @@ class RouterListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
     public function onKernelException($event)
     {
@@ -149,7 +149,7 @@ class RouterListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
         return [\ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 32]], \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => [['onKernelFinishRequest', 0]], \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION => ['onKernelException', -64]];
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     private function createWelcomeResponse()
     {

@@ -112,7 +112,7 @@ interface SessionStorageInterface
     public function getBag($name);
     /**
      * Registers a SessionBagInterface for use.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
+     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
     public function registerBag($bag);
     /**

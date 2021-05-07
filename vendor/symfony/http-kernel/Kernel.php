@@ -129,8 +129,8 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function terminate($request, $response)
     {
@@ -160,7 +160,7 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @param bool $catch
      */
@@ -351,7 +351,7 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
      * The extension point similar to the Bundle::build() method.
      *
      * Use this method to register compiler passes and manipulate the container during the building process.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     protected function build($container)
     {
@@ -552,7 +552,7 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
     }
     /**
      * Prepares the ContainerBuilder before it is compiled.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     protected function prepareContainer($container)
     {
@@ -600,8 +600,8 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
      *
      * @param string $class     The name of the class to generate
      * @param string $baseClass The name of the container's base class
-     * @param \ECSPrefix20210507\Symfony\Component\Config\ConfigCache $cache
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\Config\ConfigCache $cache
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     protected function dumpContainer($cache, $container, $class, $baseClass)
     {
@@ -628,7 +628,7 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
      * Returns a loader for the container.
      *
      * @return DelegatingLoader The loader
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
     protected function getContainerLoader($container)
     {
@@ -637,7 +637,7 @@ abstract class Kernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel
         return new \ECSPrefix20210507\Symfony\Component\Config\Loader\DelegatingLoader($resolver);
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
     private function preBoot()
     {

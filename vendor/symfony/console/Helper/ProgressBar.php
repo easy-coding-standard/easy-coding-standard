@@ -51,7 +51,7 @@ final class ProgressBar
     private static $formats;
     /**
      * @param int $max Maximum steps (0 if unknown)
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param float $minSecondsBetweenRedraws
      */
     public function __construct($output, $max = 0, $minSecondsBetweenRedraws = 1 / 25)

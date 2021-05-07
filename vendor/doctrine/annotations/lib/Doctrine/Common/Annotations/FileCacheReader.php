@@ -53,7 +53,7 @@ class FileCacheReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\
      * @param int    $umask
      *
      * @throws InvalidArgumentException
-     * @param \ECSPrefix20210507\Doctrine\Common\Annotations\Reader $reader
+     * @param \Doctrine\Common\Annotations\Reader $reader
      */
     public function __construct($reader, $cacheDir, $debug = \false, $umask = 02)
     {

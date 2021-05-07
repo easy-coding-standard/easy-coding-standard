@@ -46,8 +46,8 @@ class DebugHandlersListener implements \ECSPrefix20210507\Symfony\Component\Even
      * @param bool                          $scream           Enables/disables screaming mode, where even silenced errors are logged
      * @param string|FileLinkFormatter|null $fileLinkFormat   The format for links to source files
      * @param bool                          $scope            Enables/disables scoping mode
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $deprecationLogger
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $deprecationLogger
      */
     public function __construct(callable $exceptionHandler = null, $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, $scream = \true, $fileLinkFormat = null, $scope = \true, $deprecationLogger = null)
     {
@@ -139,7 +139,7 @@ class DebugHandlersListener implements \ECSPrefix20210507\Symfony\Component\Even
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorHandler $handler
+     * @param \Symfony\Component\ErrorHandler\ErrorHandler $handler
      */
     private function setDefaultLoggers($handler)
     {

@@ -19,7 +19,7 @@ use ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data;
 interface DataDumperInterface
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data $data
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
     public function dump($data);
 }

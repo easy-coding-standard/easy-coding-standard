@@ -25,7 +25,7 @@ class ArrayInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Inpu
 {
     private $parameters;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     public function __construct(array $parameters, $definition = null)
     {

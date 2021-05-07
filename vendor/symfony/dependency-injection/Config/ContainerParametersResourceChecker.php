@@ -21,7 +21,7 @@ class ContainerParametersResourceChecker implements \ECSPrefix20210507\Symfony\C
     /** @var ContainerInterface */
     private $container;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
     public function __construct($container)
     {
@@ -29,7 +29,7 @@ class ContainerParametersResourceChecker implements \ECSPrefix20210507\Symfony\C
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Resource\ResourceInterface $metadata
+     * @param \Symfony\Component\Config\Resource\ResourceInterface $metadata
      */
     public function supports($metadata)
     {
@@ -37,7 +37,7 @@ class ContainerParametersResourceChecker implements \ECSPrefix20210507\Symfony\C
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Resource\ResourceInterface $resource
+     * @param \Symfony\Component\Config\Resource\ResourceInterface $resource
      * @param int $timestamp
      */
     public function isFresh($resource, $timestamp)

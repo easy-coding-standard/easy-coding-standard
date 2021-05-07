@@ -21,7 +21,7 @@ class ContextualizedDumper implements \ECSPrefix20210507\Symfony\Component\VarDu
     private $contextProviders;
     /**
      * @param ContextProviderInterface[] $contextProviders
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper
+     * @param \Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper
      */
     public function __construct($wrappedDumper, array $contextProviders)
     {
@@ -29,7 +29,7 @@ class ContextualizedDumper implements \ECSPrefix20210507\Symfony\Component\VarDu
         $this->contextProviders = $contextProviders;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data $data
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
     public function dump($data)
     {

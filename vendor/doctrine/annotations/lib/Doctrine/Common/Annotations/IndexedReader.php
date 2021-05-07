@@ -15,7 +15,7 @@ class IndexedReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\Re
     /** @var Reader */
     private $delegate;
     /**
-     * @param \ECSPrefix20210507\Doctrine\Common\Annotations\Reader $reader
+     * @param \Doctrine\Common\Annotations\Reader $reader
      */
     public function __construct($reader)
     {

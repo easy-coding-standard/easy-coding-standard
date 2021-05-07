@@ -45,7 +45,7 @@ trait ContractsTrait
         return $previousWrapper;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface $pool
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $pool
      * @param float|null $beta
      * @param string $key
      */

@@ -100,7 +100,7 @@ final class RemoveMutualCheckersCompilerPass implements \ECSPrefix20210507\Symfo
     ];
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function process($containerBuilder)
     {

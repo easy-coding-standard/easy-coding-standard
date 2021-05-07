@@ -20,8 +20,8 @@ class TraceableControllerResolver implements \ECSPrefix20210507\Symfony\Componen
     private $resolver;
     private $stopwatch;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver
-     * @param \ECSPrefix20210507\Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     * @param \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
      */
     public function __construct($resolver, $stopwatch)
     {
@@ -30,7 +30,7 @@ class TraceableControllerResolver implements \ECSPrefix20210507\Symfony\Componen
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function getController($request)
     {

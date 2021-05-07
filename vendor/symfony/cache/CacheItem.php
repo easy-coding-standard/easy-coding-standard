@@ -106,7 +106,7 @@ final class CacheItem implements \ECSPrefix20210507\Symfony\Contracts\Cache\Item
         if (!$this->isTaggable) {
             throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\LogicException(\sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', $this->key));
         }
-        if (!(is_array($tags) || $tags instanceof \Traversable)) {
+        if (!(\is_array($tags) || $tags instanceof \Traversable)) {
             $tags = [$tags];
         }
         foreach ($tags as $tag) {
@@ -160,7 +160,7 @@ final class CacheItem implements \ECSPrefix20210507\Symfony\Contracts\Cache\Item
      * Internal logging helper.
      *
      * @internal
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface|null $logger
+     * @param \Psr\Log\LoggerInterface|null $logger
      * @param string $message
      */
     public static function log($logger, $message, array $context = [])

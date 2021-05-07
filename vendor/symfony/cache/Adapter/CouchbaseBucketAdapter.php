@@ -26,10 +26,10 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\
     private $bucket;
     private $marshaller;
     /**
-     * @param \ECSPrefix20210507\CouchbaseBucket $bucket
+     * @param \CouchbaseBucket $bucket
      * @param string $namespace
      * @param int $defaultLifetime
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
     public function __construct($bucket, $namespace = '', $defaultLifetime = 0, $marshaller = null)
     {
@@ -44,7 +44,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\
     }
     /**
      * @param array|string $servers
-     * @return \ECSPrefix20210507\CouchbaseBucket
+     * @return \CouchbaseBucket
      */
     public static function createConnection($servers, array $options = [])
     {

@@ -11,7 +11,7 @@ class PrettyVersions
     /**
      * @throws VersionMissingExceptionInterface When a package is provided ({@see ProvidedPackageException}) or replaced ({@see ReplacedPackageException})
      * @param string $packageName
-     * @return \ECSPrefix20210507\Jean85\Version
+     * @return \Jean85\Version
      */
     public static function getVersion($packageName)
     {
@@ -31,7 +31,7 @@ class PrettyVersions
         return \Composer\InstalledVersions::getRootPackage()['name'];
     }
     /**
-     * @return \ECSPrefix20210507\Jean85\Version
+     * @return \Jean85\Version
      */
     public static function getRootPackageVersion()
     {

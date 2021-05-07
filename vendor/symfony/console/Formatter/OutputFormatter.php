@@ -93,7 +93,7 @@ class OutputFormatter implements \ECSPrefix20210507\Symfony\Component\Console\Fo
     /**
      * {@inheritdoc}
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
     public function setStyle($name, $style)
     {
@@ -179,7 +179,7 @@ class OutputFormatter implements \ECSPrefix20210507\Symfony\Component\Console\Fo
     }
     /**
      * Tries to create new style instance from string.
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface|null
+     * @return \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface|null
      * @param string $string
      */
     private function createStyleFromString($string)

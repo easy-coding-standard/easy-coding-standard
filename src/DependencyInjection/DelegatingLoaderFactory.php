@@ -13,9 +13,9 @@ use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFi
 final class DelegatingLoaderFactory
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelInterface $kernel
-     * @return \ECSPrefix20210507\Symfony\Component\Config\Loader\DelegatingLoader
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
+     * @return \Symfony\Component\Config\Loader\DelegatingLoader
      */
     public function createFromContainerBuilderAndKernel($containerBuilder, $kernel)
     {
@@ -24,9 +24,9 @@ final class DelegatingLoaderFactory
     }
     /**
      * For tests
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      * @param string $config
-     * @return \ECSPrefix20210507\Symfony\Component\Config\Loader\DelegatingLoader
+     * @return \Symfony\Component\Config\Loader\DelegatingLoader
      */
     public function createContainerBuilderAndConfig($containerBuilder, $config)
     {
@@ -35,9 +35,9 @@ final class DelegatingLoaderFactory
         return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $fileLocator);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param \ECSPrefix20210507\Symfony\Component\Config\FileLocator $simpleFileLocator
-     * @return \ECSPrefix20210507\Symfony\Component\Config\Loader\DelegatingLoader
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param SimpleFileLocator $simpleFileLocator
+     * @return \Symfony\Component\Config\Loader\DelegatingLoader
      */
     private function createFromContainerBuilderAndFileLocator($containerBuilder, $simpleFileLocator)
     {

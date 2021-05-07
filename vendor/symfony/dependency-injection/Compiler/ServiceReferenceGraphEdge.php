@@ -26,8 +26,8 @@ class ServiceReferenceGraphEdge
     private $weak;
     private $byConstructor;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode
+     * @param \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode
+     * @param \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode
      * @param bool $lazy
      * @param bool $weak
      * @param bool $byConstructor

@@ -54,7 +54,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
      * Tries to lock the cache for a given Request, without blocking.
      *
      * @return bool|string true if the lock is acquired, the path to the current lock otherwise
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function lock($request)
     {
@@ -77,7 +77,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
      * Releases the lock for the given Request.
      *
      * @return bool False if the lock file does not exist or cannot be unlocked, true otherwise
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function unlock($request)
     {
@@ -91,7 +91,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
         return \false;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function isLocked($request)
     {
@@ -114,7 +114,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
      * Locates a cached Response for the Request provided.
      *
      * @return Response|null A Response instance, or null if no cache entry was found
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function lookup($request)
     {
@@ -151,8 +151,8 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
      * @return string The key under which the response is stored
      *
      * @throws \RuntimeException
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function write($request, $response)
     {
@@ -201,7 +201,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
      * Returns content digest for $response.
      *
      * @return string
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     protected function generateContentDigest($response)
     {
@@ -211,7 +211,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
      * Invalidates all cache entries that match the request.
      *
      * @throws \RuntimeException
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function invalidate($request)
     {
@@ -378,7 +378,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
      * be stored independently under the same cache key.
      *
      * @return string A key for the given Request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     protected function generateCacheKey($request)
     {
@@ -386,7 +386,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
     }
     /**
      * Returns a cache key for the given Request.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return string
      */
     private function getCacheKey($request)
@@ -398,7 +398,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
     }
     /**
      * Persists the Request HTTP headers.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return mixed[]
      */
     private function persistRequest($request)
@@ -407,7 +407,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
     }
     /**
      * Persists the Response HTTP headers.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      * @return mixed[]
      */
     private function persistResponse($response)
@@ -419,7 +419,7 @@ class Store implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache
     /**
      * Restores a Response from the HTTP headers and body.
      * @param string $path
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     private function restoreResponse(array $headers, $path = null)
     {

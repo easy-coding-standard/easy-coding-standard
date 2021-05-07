@@ -135,7 +135,7 @@ interface SessionInterface
     public function isStarted();
     /**
      * Registers a SessionBagInterface with the session.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
+     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
     public function registerBag($bag);
     /**

@@ -51,7 +51,7 @@ interface ProfilerStorageInterface
      * Saves a Profile.
      *
      * @return bool Write operation successful
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Profiler\Profile $profile
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
     public function write($profile);
     /**

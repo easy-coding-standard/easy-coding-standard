@@ -69,7 +69,7 @@ final class Differ
      *
      * @param array|string $from
      * @param array|string $to
-     * @param \ECSPrefix20210507\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs
+     * @param \SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs
      * @return string
      */
     public function diff($from, $to, $lcs = null)
@@ -163,7 +163,7 @@ final class Differ
         return \preg_split('/(.*\\R)/', $input, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
     }
     /**
-     * @return \ECSPrefix20210507\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator
+     * @return \SebastianBergmann\Diff\LongestCommonSubsequenceCalculator
      */
     private function selectLcsImplementation(array $from, array $to)
     {

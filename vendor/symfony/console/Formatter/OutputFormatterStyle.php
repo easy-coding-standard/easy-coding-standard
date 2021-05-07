@@ -36,7 +36,7 @@ class OutputFormatterStyle implements \ECSPrefix20210507\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param string $color
+     * @param string|null $color
      */
     public function setForeground($color = null)
     {
@@ -44,7 +44,7 @@ class OutputFormatterStyle implements \ECSPrefix20210507\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param string $color
+     * @param string|null $color
      */
     public function setBackground($color = null)
     {

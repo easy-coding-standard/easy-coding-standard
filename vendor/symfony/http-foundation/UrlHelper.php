@@ -21,8 +21,8 @@ final class UrlHelper
     private $requestStack;
     private $requestContext;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \ECSPrefix20210507\Symfony\Component\Routing\RequestContext $requestContext
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\Routing\RequestContext $requestContext
      */
     public function __construct($requestStack, $requestContext = null)
     {

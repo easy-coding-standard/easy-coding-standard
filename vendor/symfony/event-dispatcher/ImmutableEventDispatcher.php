@@ -19,7 +19,7 @@ class ImmutableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
 {
     private $dispatcher;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      */
     public function __construct($dispatcher)
     {
@@ -27,9 +27,9 @@ class ImmutableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param string|null $eventName
      * @param object $event
      * @return object
+     * @param string $eventName
      */
     public function dispatch($event, $eventName = null)
     {
@@ -46,7 +46,7 @@ class ImmutableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
     public function addSubscriber($subscriber)
     {
@@ -62,7 +62,7 @@ class ImmutableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
     public function removeSubscriber($subscriber)
     {

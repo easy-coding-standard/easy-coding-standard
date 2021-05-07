@@ -25,9 +25,9 @@ class ConsoleEvent extends \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\
     private $input;
     private $output;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function __construct($command = null, $input, $output)
     {

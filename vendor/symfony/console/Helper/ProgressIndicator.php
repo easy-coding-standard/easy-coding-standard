@@ -32,7 +32,7 @@ class ProgressIndicator
     /**
      * @param int        $indicatorChangeInterval Change interval in milliseconds
      * @param array|null $indicatorValues         Animated indicator characters
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $format
      */
     public function __construct($output, $format = null, $indicatorChangeInterval = 100, array $indicatorValues = null)

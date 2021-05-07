@@ -33,8 +33,8 @@ final class ExceptionEvent extends \ECSPrefix20210507\Symfony\Component\HttpKern
      */
     private $allowCustomResponseCode = \false;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $requestType
      * @param \Throwable $e
      */

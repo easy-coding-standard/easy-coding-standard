@@ -25,7 +25,7 @@ class DsCaster
 {
     /**
      * @param \Ds\Collection $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */
@@ -40,7 +40,7 @@ class DsCaster
     }
     /**
      * @param \Ds\Map $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */
@@ -53,7 +53,7 @@ class DsCaster
     }
     /**
      * @param \Ds\Pair $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */
@@ -65,8 +65,8 @@ class DsCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\DsPairStub $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Caster\DsPairStub $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */

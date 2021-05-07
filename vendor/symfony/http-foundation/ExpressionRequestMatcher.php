@@ -21,7 +21,7 @@ class ExpressionRequestMatcher extends \ECSPrefix20210507\Symfony\Component\Http
     private $language;
     private $expression;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\ExpressionLanguage\ExpressionLanguage $language
+     * @param \Symfony\Component\ExpressionLanguage\ExpressionLanguage $language
      */
     public function setExpression($language, $expression)
     {
@@ -29,7 +29,7 @@ class ExpressionRequestMatcher extends \ECSPrefix20210507\Symfony\Component\Http
         $this->expression = $expression;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function matches($request)
     {

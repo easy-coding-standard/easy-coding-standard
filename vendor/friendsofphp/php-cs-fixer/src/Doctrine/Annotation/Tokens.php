@@ -26,7 +26,7 @@ final class Tokens extends \SplFixedArray
      *
      * @throws \InvalidArgumentException
      * @return $this
-     * @param \PhpCsFixer\Tokenizer\Token $input
+     * @param PhpToken $input
      */
     public static function createFromDocComment($input, array $ignoredTags = [])
     {

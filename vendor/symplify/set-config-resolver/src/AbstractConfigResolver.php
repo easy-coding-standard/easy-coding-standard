@@ -19,7 +19,7 @@ abstract class AbstractConfigResolver
     }
     /**
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      */
     public function resolveFromInput($input)
     {
@@ -36,7 +36,7 @@ abstract class AbstractConfigResolver
     /**
      * @param string[] $fallbackFiles
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      */
     public function resolveFromInputWithFallback($input, array $fallbackFiles)
     {

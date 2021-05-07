@@ -31,9 +31,9 @@ class LocaleListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
     private $defaultLocale;
     private $requestStack;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param string $defaultLocale
-     * @param \ECSPrefix20210507\Symfony\Component\Routing\RequestContextAwareInterface $router
+     * @param \Symfony\Component\Routing\RequestContextAwareInterface $router
      */
     public function __construct($requestStack, $defaultLocale = 'en', $router = null)
     {
@@ -42,14 +42,14 @@ class LocaleListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
         $this->router = $router;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\KernelEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\KernelEvent $event
      */
     public function setDefaultLocale($event)
     {
         $event->getRequest()->setDefaultLocale($this->defaultLocale);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {
@@ -58,7 +58,7 @@ class LocaleListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
         $this->setRouterContext($request);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
      */
     public function onKernelFinishRequest($event)
     {
@@ -67,7 +67,7 @@ class LocaleListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function setLocale($request)
     {
@@ -76,7 +76,7 @@ class LocaleListener implements \ECSPrefix20210507\Symfony\Component\EventDispat
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function setRouterContext($request)
     {

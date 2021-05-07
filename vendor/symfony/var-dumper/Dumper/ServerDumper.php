@@ -24,7 +24,7 @@ class ServerDumper implements \ECSPrefix20210507\Symfony\Component\VarDumper\Dum
     private $wrappedDumper;
     /**
      * @param string                     $host             The server host
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper A wrapped instance used whenever we failed contacting the server
+     * @param \Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper A wrapped instance used whenever we failed contacting the server
      * @param ContextProviderInterface[] $contextProviders Context providers indexed by context name
      */
     public function __construct($host, $wrappedDumper = null, array $contextProviders = [])
@@ -41,7 +41,7 @@ class ServerDumper implements \ECSPrefix20210507\Symfony\Component\VarDumper\Dum
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data $data
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
     public function dump($data)
     {

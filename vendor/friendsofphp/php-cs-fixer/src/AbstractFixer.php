@@ -106,10 +106,9 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
         return \true;
     }
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         if (!$this instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface) {
             throw new \LogicException('Cannot configure using Abstract parent, child not implementing "PhpCsFixer\\Fixer\\ConfigurableFixerInterface".');

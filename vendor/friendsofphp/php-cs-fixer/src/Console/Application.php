@@ -61,8 +61,8 @@ final class Application extends \ECSPrefix20210507\Symfony\Component\Console\App
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
     public function doRun($input, $output)

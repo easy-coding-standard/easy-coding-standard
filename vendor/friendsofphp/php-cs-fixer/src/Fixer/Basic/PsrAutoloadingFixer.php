@@ -48,10 +48,9 @@ class InvalidName {}
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         if (null !== $this->configuration['dir']) {

@@ -24,14 +24,14 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
 {
     private $logger;
     /**
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct($logger = null)
     {
         $this->logger = $logger;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Event\ConsoleErrorEvent $event
+     * @param \Symfony\Component\Console\Event\ConsoleErrorEvent $event
      */
     public function onConsoleError($event)
     {
@@ -46,7 +46,7 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
         $this->logger->critical('Error thrown while running command "{command}". Message: "{message}"', ['exception' => $error, 'command' => $inputString, 'message' => $error->getMessage()]);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Event\ConsoleTerminateEvent $event
+     * @param \Symfony\Component\Console\Event\ConsoleTerminateEvent $event
      */
     public function onConsoleTerminate($event)
     {
@@ -69,7 +69,7 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
     }
     /**
      * @return string|null
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Event\ConsoleEvent $event
+     * @param \Symfony\Component\Console\Event\ConsoleEvent $event
      */
     private static function getInputString($event)
     {

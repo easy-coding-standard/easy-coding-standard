@@ -45,7 +45,7 @@ interface LoaderInterface
     public function getResolver();
     /**
      * Sets the loader resolver.
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
+     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
     public function setResolver($resolver);
 }

@@ -25,9 +25,9 @@ final class TerminateEvent extends \ECSPrefix20210507\Symfony\Component\HttpKern
 {
     private $response;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function __construct($kernel, $request, $response)
     {
@@ -35,7 +35,7 @@ final class TerminateEvent extends \ECSPrefix20210507\Symfony\Component\HttpKern
         $this->response = $response;
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getResponse()
     {

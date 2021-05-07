@@ -22,11 +22,11 @@ use ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface;
 class SubRequestHandler
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @param bool $catch
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public static function handle($kernel, $request, $type, $catch)
     {

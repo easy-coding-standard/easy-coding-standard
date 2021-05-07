@@ -29,7 +29,7 @@ class ApplicationTester
     private $input;
     private $statusCode;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      */
     public function __construct($application)
     {

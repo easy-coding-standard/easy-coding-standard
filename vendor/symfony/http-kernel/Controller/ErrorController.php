@@ -27,8 +27,8 @@ class ErrorController
     private $controller;
     private $errorRenderer;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface $errorRenderer
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface $errorRenderer
      */
     public function __construct($kernel, $controller, $errorRenderer)
     {
@@ -38,7 +38,7 @@ class ErrorController
     }
     /**
      * @param \Throwable $exception
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function __invoke($exception)
     {
@@ -46,9 +46,9 @@ class ErrorController
         return new \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response($exception->getAsString(), $exception->getStatusCode(), $exception->getHeaders());
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $code
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function preview($request, $code)
     {

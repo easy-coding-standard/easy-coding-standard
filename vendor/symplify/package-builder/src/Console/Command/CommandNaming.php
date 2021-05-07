@@ -18,7 +18,7 @@ final class CommandNaming
      * Converts:
      * - "SomeClass\SomeSuperCommand" → "some-super"
      * - "SomeClass\SOMESuperCommand" → "some-super"
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      * @return string
      */
     public function resolveFromCommand($command)

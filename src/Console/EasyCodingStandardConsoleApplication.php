@@ -36,8 +36,8 @@ final class EasyCodingStandardConsoleApplication extends \Symplify\SymplifyKerne
         $this->setDefaultCommand(\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class));
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
     public function doRun($input, $output)
@@ -56,9 +56,9 @@ final class EasyCodingStandardConsoleApplication extends \Symplify\SymplifyKerne
         return parent::doRun($input, $output);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
      * @return void
      * @param \Throwable $throwable
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function renderThrowable($throwable, $output)
     {
@@ -78,7 +78,7 @@ final class EasyCodingStandardConsoleApplication extends \Symplify\SymplifyKerne
         return $inputDefinition;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @return bool
      */
     private function shouldPrintMetaInformation($input)
@@ -96,7 +96,7 @@ final class EasyCodingStandardConsoleApplication extends \Symplify\SymplifyKerne
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $inputDefinition
+     * @param \Symfony\Component\Console\Input\InputDefinition $inputDefinition
      */
     private function addExtraOptions($inputDefinition)
     {

@@ -45,7 +45,7 @@ class MemcachedAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapte
      * @param \Memcached $client
      * @param string $namespace
      * @param int $defaultLifetime
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
     public function __construct($client, $namespace = '', $defaultLifetime = 0, $marshaller = null)
     {

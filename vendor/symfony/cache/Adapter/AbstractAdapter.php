@@ -91,7 +91,7 @@ abstract class AbstractAdapter implements \ECSPrefix20210507\Symfony\Component\C
      * @param int $defaultLifetime
      * @param string $version
      * @param string $directory
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public static function createSystemCache($namespace, $defaultLifetime, $version, $directory, $logger = null)
     {

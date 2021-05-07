@@ -140,7 +140,7 @@ class RequestMatcher implements \ECSPrefix20210507\Symfony\Component\HttpFoundat
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function matches($request)
     {

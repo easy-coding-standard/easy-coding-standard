@@ -35,7 +35,7 @@ class FragmentListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
     private $fragmentPath;
     /**
      * @param string $fragmentPath The path that triggers this listener
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\UriSigner $signer
+     * @param \Symfony\Component\HttpKernel\UriSigner $signer
      */
     public function __construct($signer, $fragmentPath = '/_fragment')
     {
@@ -46,7 +46,7 @@ class FragmentListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
      * Fixes request attributes when the path is '/_fragment'.
      *
      * @throws AccessDeniedHttpException if the request does not come from a trusted IP
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {
@@ -68,7 +68,7 @@ class FragmentListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
         $request->query->remove('_path');
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     protected function validateRequest($request)
     {

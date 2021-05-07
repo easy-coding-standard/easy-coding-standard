@@ -25,7 +25,7 @@ use ECSPrefix20210507\Symfony\Component\Console\Input\InputOption;
 class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      * @return \DOMDocument
      */
     public function getInputDefinitionDocument($definition)
@@ -43,7 +43,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
         return $dom;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      * @return \DOMDocument
      */
     public function getCommandDocument($command)
@@ -67,7 +67,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
         return $dom;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      * @param string $namespace
      * @return \DOMDocument
      */
@@ -104,7 +104,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
     protected function describeInputArgument($argument, array $options = [])
     {
@@ -112,7 +112,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      */
     protected function describeInputOption($option, array $options = [])
     {
@@ -120,7 +120,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     protected function describeInputDefinition($definition, array $options = [])
     {
@@ -128,7 +128,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     protected function describeCommand($command, array $options = [])
     {
@@ -136,7 +136,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      */
     protected function describeApplication($application, array $options = [])
     {
@@ -163,7 +163,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
         $this->write($dom->saveXML());
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      * @return \DOMDocument
      */
     private function getInputArgumentDocument($argument)
@@ -184,7 +184,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
         return $dom;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      * @return \DOMDocument
      */
     private function getInputOptionDocument($option)

@@ -60,7 +60,7 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -209,7 +209,7 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
     }
     /**
      * @internal
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public static function getServiceProvider($container, $name)
     {

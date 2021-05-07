@@ -84,7 +84,7 @@ class InputDefinition
     }
     /**
      * @throws LogicException When incorrect argument is given
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
     public function addArgument($argument)
     {
@@ -200,7 +200,7 @@ class InputDefinition
     }
     /**
      * @throws LogicException When option given already exist
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      */
     public function addOption($option)
     {

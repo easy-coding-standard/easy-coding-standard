@@ -45,7 +45,7 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -246,8 +246,8 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
     }
     /**
      * Returns a reference to the service matching the given type, if any.
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\TypedReference|null
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\TypedReference $reference
+     * @return \Symfony\Component\DependencyInjection\TypedReference|null
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
      */
     private function getAutowiredReference($reference)
     {
@@ -275,7 +275,7 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
     }
     /**
      * Populates the list of available types.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     private function populateAvailableTypes($container)
     {
@@ -287,9 +287,9 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
     }
     /**
      * Populates the list of available types for a given definition.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $id
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
     private function populateAvailableType($container, $id, $definition)
     {
@@ -332,7 +332,7 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
         $this->ambiguousServiceTypes[$type][] = $id;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\TypedReference $reference
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
      * @param string $label
      * @return callable
      */
@@ -350,7 +350,7 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
         })->bindTo($this->typesClone);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\TypedReference $reference
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
      * @param string $label
      * @param string $currentId
      * @return string
@@ -384,8 +384,8 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
         return $message;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\TypedReference $reference
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\TypedReference $reference
      * @return string
      */
     private function createTypeAlternatives($container, $reference)
@@ -411,7 +411,7 @@ class AutowirePass extends \ECSPrefix20210507\Symfony\Component\DependencyInject
     }
     /**
      * @return string|null
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $type
      */
     private function getAliasesSuggestionForType($container, $type)

@@ -28,7 +28,7 @@ class ConsoleSectionOutput extends \ECSPrefix20210507\Symfony\Component\Console\
      * @param ConsoleSectionOutput[] $sections
      * @param int $verbosity
      * @param bool $decorated
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
     public function __construct($stream, array &$sections, $verbosity, $decorated, $formatter)
     {

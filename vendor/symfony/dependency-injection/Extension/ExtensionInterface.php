@@ -22,7 +22,7 @@ interface ExtensionInterface
      * Loads a specific configuration.
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function load(array $configs, $container);
     /**

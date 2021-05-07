@@ -30,7 +30,7 @@ abstract class Descriptor implements \ECSPrefix20210507\Symfony\Component\Consol
     protected $output;
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function describe($output, $object, array $options = [])
     {
@@ -66,27 +66,27 @@ abstract class Descriptor implements \ECSPrefix20210507\Symfony\Component\Consol
     }
     /**
      * Describes an InputArgument instance.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
     protected abstract function describeInputArgument($argument, array $options = []);
     /**
      * Describes an InputOption instance.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      */
     protected abstract function describeInputOption($option, array $options = []);
     /**
      * Describes an InputDefinition instance.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     protected abstract function describeInputDefinition($definition, array $options = []);
     /**
      * Describes a Command instance.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     protected abstract function describeCommand($command, array $options = []);
     /**
      * Describes an Application instance.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      */
     protected abstract function describeApplication($application, array $options = []);
 }

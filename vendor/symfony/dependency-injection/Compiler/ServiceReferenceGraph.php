@@ -40,7 +40,7 @@ class ServiceReferenceGraph
      *
      * @throws InvalidArgumentException if no node matches the supplied identifier
      * @param string $id
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+     * @return \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
      */
     public function getNode($id)
     {
@@ -89,7 +89,7 @@ class ServiceReferenceGraph
     }
     /**
      * @param string $id
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+     * @return \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
      */
     private function createNode($id, $value)
     {

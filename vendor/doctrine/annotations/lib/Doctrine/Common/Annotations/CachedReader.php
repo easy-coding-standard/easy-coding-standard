@@ -29,8 +29,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     private $loadedFilemtimes = [];
     /**
      * @param bool $debug
-     * @param \ECSPrefix20210507\Doctrine\Common\Annotations\Reader $reader
-     * @param \ECSPrefix20210507\Doctrine\Common\Cache\Cache $cache
+     * @param \Doctrine\Common\Annotations\Reader $reader
+     * @param \Doctrine\Common\Cache\Cache $cache
      */
     public function __construct($reader, $cache, $debug = \false)
     {

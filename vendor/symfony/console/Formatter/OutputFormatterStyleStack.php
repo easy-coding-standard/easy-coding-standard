@@ -23,7 +23,7 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
     private $styles;
     private $emptyStyle;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
      */
     public function __construct($emptyStyle = null)
     {
@@ -39,7 +39,7 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
     }
     /**
      * Pushes a style in the stack.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
     public function push($style)
     {
@@ -51,7 +51,7 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
      * @return OutputFormatterStyleInterface
      *
      * @throws InvalidArgumentException When style tags incorrectly nested
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
     public function pop($style = null)
     {
@@ -83,7 +83,7 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
     }
     /**
      * @return $this
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
      */
     public function setEmptyStyle($emptyStyle)
     {

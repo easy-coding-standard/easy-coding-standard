@@ -29,8 +29,8 @@ class EventDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel
     private $requestStack;
     private $currentRequest;
     /**
-     * @param \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function __construct($dispatcher = null, $requestStack = null)
     {
@@ -39,9 +39,9 @@ class EventDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
+     * @param \Throwable|null $exception
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function collect($request, $response, $exception = null)
     {

@@ -38,9 +38,9 @@ class PrototypeConfigurator extends \ECSPrefix20210507\Symfony\Component\Depende
     private $excludes;
     private $allowParent;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $defaults
+     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
+     * @param \Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader
+     * @param \Symfony\Component\DependencyInjection\Definition $defaults
      * @param string $namespace
      * @param string $resource
      * @param bool $allowParent

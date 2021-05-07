@@ -28,7 +28,7 @@ class Psr16Adapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter\Ab
     use ProxyTrait;
     private $miss;
     /**
-     * @param \ECSPrefix20210507\Psr\SimpleCache\CacheInterface $pool
+     * @param \Psr\SimpleCache\CacheInterface $pool
      * @param string $namespace
      * @param int $defaultLifetime
      */

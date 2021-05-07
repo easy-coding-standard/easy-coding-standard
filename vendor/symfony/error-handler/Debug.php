@@ -18,7 +18,7 @@ namespace ECSPrefix20210507\Symfony\Component\ErrorHandler;
 class Debug
 {
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorHandler
+     * @return \Symfony\Component\ErrorHandler\ErrorHandler
      */
     public static function enable()
     {

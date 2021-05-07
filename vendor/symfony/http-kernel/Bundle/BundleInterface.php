@@ -32,7 +32,7 @@ interface BundleInterface extends \ECSPrefix20210507\Symfony\Component\Dependenc
      * Builds the bundle.
      *
      * It is only ever called once when the cache is empty.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function build($container);
     /**

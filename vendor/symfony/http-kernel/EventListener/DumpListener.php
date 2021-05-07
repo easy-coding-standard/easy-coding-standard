@@ -27,9 +27,9 @@ class DumpListener implements \ECSPrefix20210507\Symfony\Component\EventDispatch
     private $dumper;
     private $connection;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Server\Connection $connection
+     * @param \Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner
+     * @param \Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper
+     * @param \Symfony\Component\VarDumper\Server\Connection $connection
      */
     public function __construct($cloner, $dumper, $connection = null)
     {

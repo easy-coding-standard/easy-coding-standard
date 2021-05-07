@@ -23,9 +23,9 @@ final class EarlyExpirationMessage
     private $callback;
     /**
      * @return $this|null
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\CacheItem $item
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface $pool
+     * @param \Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
+     * @param \Symfony\Component\Cache\CacheItem $item
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $pool
      */
     public static function create($reverseContainer, callable $callback, $item, $pool)
     {
@@ -54,7 +54,7 @@ final class EarlyExpirationMessage
         return new self($item, $pool, $callback);
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Cache\CacheItem
+     * @return \Symfony\Component\Cache\CacheItem
      */
     public function getItem()
     {
@@ -72,15 +72,15 @@ final class EarlyExpirationMessage
         return $this->callback;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
-     * @return \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface
+     * @param \Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
+     * @return \Symfony\Component\Cache\Adapter\AdapterInterface
      */
     public function findPool($reverseContainer)
     {
         return $reverseContainer->getService($this->pool);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
+     * @param \Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
      * @return callable
      */
     public function findCallback($reverseContainer)
@@ -94,7 +94,7 @@ final class EarlyExpirationMessage
         return $callback;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\CacheItem $item
+     * @param \Symfony\Component\Cache\CacheItem $item
      * @param string $pool
      */
     private function __construct($item, $pool, $callback)

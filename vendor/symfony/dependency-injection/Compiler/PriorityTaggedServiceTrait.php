@@ -35,7 +35,7 @@ trait PriorityTaggedServiceTrait
      * @param string|TaggedIteratorArgument $tagName
      *
      * @return mixed[]
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     private function findAndSortTaggedServices($tagName, $container)
     {
@@ -117,7 +117,7 @@ class PriorityTaggedServiceUtil
      * Gets the index defined by the default index method.
      * @param string|null $indexAttribute
      * @return string|null
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $serviceId
      * @param string $class
      * @param string $defaultIndexMethod
@@ -149,7 +149,7 @@ class PriorityTaggedServiceUtil
     /**
      * Gets the priority defined by the default priority method.
      * @return int|null
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $serviceId
      * @param string $class
      * @param string $defaultPriorityMethod

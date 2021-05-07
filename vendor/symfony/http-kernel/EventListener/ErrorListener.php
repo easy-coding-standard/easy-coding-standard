@@ -31,7 +31,7 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
     protected $logger;
     protected $debug;
     /**
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      * @param bool $debug
      */
     public function __construct($controller, $logger = null, $debug = \false)
@@ -41,7 +41,7 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
         $this->debug = $debug;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
     public function logKernelException($event)
     {
@@ -49,7 +49,7 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
         $this->logException($event->getThrowable(), \sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), $e->getFile(), $e->getLine()));
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
     public function onKernelException($event)
     {
@@ -81,7 +81,7 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
     public function removeCspHeader($event)
     {
@@ -90,7 +90,7 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent $event
      */
     public function onControllerArguments($event)
     {
@@ -132,8 +132,8 @@ class ErrorListener implements \ECSPrefix20210507\Symfony\Component\EventDispatc
     /**
      * Clones the request for the exception.
      * @param \Throwable $exception
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Request
      */
     protected function duplicateRequest($exception, $request)
     {

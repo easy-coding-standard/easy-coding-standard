@@ -37,7 +37,7 @@ class ResponseCacheStrategy implements \ECSPrefix20210507\Symfony\Component\Http
     private $ageDirectives = ['max-age' => null, 's-maxage' => null, 'expires' => null];
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function add($response)
     {
@@ -66,7 +66,7 @@ class ResponseCacheStrategy implements \ECSPrefix20210507\Symfony\Component\Http
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function update($response)
     {
@@ -115,7 +115,7 @@ class ResponseCacheStrategy implements \ECSPrefix20210507\Symfony\Component\Http
      * RFC2616, Section 13.4.
      *
      * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec13.html#sec13.4
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      * @return bool
      */
     private function willMakeFinalResponseUncacheable($response)

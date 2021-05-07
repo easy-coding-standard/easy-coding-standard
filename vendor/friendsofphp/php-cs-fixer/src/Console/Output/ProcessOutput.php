@@ -48,8 +48,8 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
      */
     private $symbolsPerLine;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      * @param int $width
      * @param int $nbFiles
      */

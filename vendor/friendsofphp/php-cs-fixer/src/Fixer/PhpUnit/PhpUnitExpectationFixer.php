@@ -35,10 +35,9 @@ final class PhpUnitExpectationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFix
     private $methodMap = [];
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->methodMap = ['setExpectedException' => 'expectExceptionMessage'];

@@ -28,8 +28,8 @@ final class ControllerEvent extends \ECSPrefix20210507\Symfony\Component\HttpKer
     private $controller;
     /**
      * @param int|null $requestType
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function __construct($kernel, callable $controller, $request, $requestType)
     {

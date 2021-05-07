@@ -20,7 +20,7 @@ final class SymfonyStyleFactory
         $this->privatesCaller = new \Symplify\PackageBuilder\Reflection\PrivatesCaller();
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle
+     * @return \Symfony\Component\Console\Style\SymfonyStyle
      */
     public function create()
     {

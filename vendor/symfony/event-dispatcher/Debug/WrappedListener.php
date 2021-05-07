@@ -32,8 +32,8 @@ final class WrappedListener
     private static $hasClassStub;
     /**
      * @param string|null $name
-     * @param \ECSPrefix20210507\Symfony\Component\Stopwatch\Stopwatch $stopwatch
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      */
     public function __construct($listener, $name, $stopwatch, $dispatcher = null)
     {
@@ -109,7 +109,7 @@ final class WrappedListener
      * @param object $event
      * @return void
      * @param string $eventName
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      */
     public function __invoke($event, $eventName, $dispatcher)
     {

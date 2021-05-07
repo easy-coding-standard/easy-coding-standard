@@ -70,7 +70,7 @@ final class VarExporter
             if (0 < $wakeup) {
                 $states[$wakeup] = $i;
             } elseif (0 > $wakeup) {
-                $states[strlen($states) - $wakeup] = [$i, \array_pop($values)];
+                $states[\strlen($states) - $wakeup] = [$i, \array_pop($values)];
                 $values[] = [];
             }
         }
@@ -78,7 +78,7 @@ final class VarExporter
         $wakeups = [null];
         foreach ($states as $k => $v) {
             if (\is_array($v)) {
-                $wakeups[strlen($wakeups) - $v[0]] = $v[1];
+                $wakeups[\strlen($wakeups) - $v[0]] = $v[1];
             } else {
                 $wakeups[] = $v;
             }

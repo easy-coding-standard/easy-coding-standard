@@ -23,7 +23,7 @@ interface SluggerInterface
      * @param string $string
      * @param string $separator
      * @param string $locale
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractUnicodeString
+     * @return \Symfony\Component\String\AbstractUnicodeString
      */
     public function slug($string, $separator = '-', $locale = null);
 }

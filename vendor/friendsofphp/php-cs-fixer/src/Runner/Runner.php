@@ -74,7 +74,7 @@ final class Runner
      */
     private $stopOnViolation;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface|null $eventDispatcher
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface|null $eventDispatcher
      * @param \PhpCsFixer\Cache\DirectoryInterface|null $directory
      * @param \PhpCsFixer\Differ\DifferInterface $differ
      * @param \PhpCsFixer\Error\ErrorsManager $errorsManager
@@ -217,7 +217,7 @@ final class Runner
     /**
      * @return void
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\Event $event
+     * @param \Symfony\Contracts\EventDispatcher\Event $event
      */
     private function dispatchEvent($name, $event)
     {

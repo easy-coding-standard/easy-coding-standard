@@ -36,10 +36,10 @@ class TraceableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     private $requestStack;
     private $currentRequestHash = '';
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \ECSPrefix20210507\Symfony\Component\Stopwatch\Stopwatch $stopwatch
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function __construct($dispatcher, $stopwatch, $logger = null, $requestStack = null)
     {
@@ -61,7 +61,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
     public function addSubscriber($subscriber)
     {
@@ -86,7 +86,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
+     * @param \Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber
      */
     public function removeSubscriber($subscriber)
     {
@@ -127,9 +127,9 @@ class TraceableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * {@inheritdoc}
-     * @param string|null $eventName
      * @param object $event
      * @return object
+     * @param string $eventName
      */
     public function dispatch($event, $eventName = null)
     {
@@ -164,7 +164,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * @return array
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function getCalledListeners($request = null)
     {
@@ -183,7 +183,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
     }
     /**
      * @return array
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function getNotCalledListeners($request = null)
     {
@@ -221,7 +221,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210507\Symfony\Component\E
         return $notCalled;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return mixed[]
      */
     public function getOrphanedEvents($request = null)

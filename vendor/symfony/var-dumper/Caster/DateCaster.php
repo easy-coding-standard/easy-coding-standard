@@ -23,7 +23,7 @@ class DateCaster
     const PERIOD_LIMIT = 3;
     /**
      * @param \DateTimeInterface $d
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -40,7 +40,7 @@ class DateCaster
     }
     /**
      * @param \DateInterval $interval
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -72,7 +72,7 @@ class DateCaster
     }
     /**
      * @param \DateTimeZone $timeZone
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -86,7 +86,7 @@ class DateCaster
     }
     /**
      * @param \DatePeriod $p
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */

@@ -26,7 +26,7 @@ class SurrogateListener implements \ECSPrefix20210507\Symfony\Component\EventDis
 {
     private $surrogate;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate
+     * @param \Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate
      */
     public function __construct($surrogate = null)
     {
@@ -34,7 +34,7 @@ class SurrogateListener implements \ECSPrefix20210507\Symfony\Component\EventDis
     }
     /**
      * Filters the Response.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
     public function onKernelResponse($event)
     {

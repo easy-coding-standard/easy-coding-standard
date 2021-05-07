@@ -91,7 +91,7 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
      * Initializes a new AnnotationReader.
      *
      * @throws AnnotationException
-     * @param \ECSPrefix20210507\Doctrine\Common\Annotations\DocParser|null $parser
+     * @param \Doctrine\Common\Annotations\DocParser|null $parser
      */
     public function __construct($parser = null)
     {

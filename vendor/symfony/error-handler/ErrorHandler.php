@@ -144,7 +144,7 @@ class ErrorHandler
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\ErrorHandler\BufferingLogger $bootstrappingLogger
+     * @param \Symfony\Component\ErrorHandler\BufferingLogger $bootstrappingLogger
      * @param bool $debug
      */
     public function __construct($bootstrappingLogger = null, $debug = \false)
@@ -159,7 +159,7 @@ class ErrorHandler
             $traceReflector->setValue($e, $trace);
             $e->file = isset($file) ? $file : $e->file;
             $e->line = isset($line) ? $line : $e->line;
-        }, null, new AnonymousFor_ErrorHandler());
+        }, null, new \ECSPrefix20210507\Symfony\Component\ErrorHandler\AnonymousFor_ErrorHandler());
         $this->debug = $debug;
     }
     /**

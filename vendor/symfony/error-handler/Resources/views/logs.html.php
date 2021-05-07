@@ -25,7 +25,7 @@ foreach ($logs as $log) {
         $status = 'warning';
     } else {
         $severity = 0;
-        if (($exception = $log['context']['exception'] ?? null) instanceof \ErrorException) {
+        if (($exception = isset($log['context']['exception']) ? $log['context']['exception'] : null) instanceof \ErrorException) {
             $severity = $exception->getSeverity();
         }
         $status = \E_DEPRECATED === $severity || \E_USER_DEPRECATED === $severity ? 'warning' : 'normal';

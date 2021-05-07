@@ -27,7 +27,7 @@ class DumpServer
     private $logger;
     /**
      * @param string $host
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct($host, $logger = null)
     {

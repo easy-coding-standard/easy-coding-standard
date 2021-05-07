@@ -22,7 +22,7 @@ class MemcachedCaster
     private static $defaultOptions;
     /**
      * @param \Memcached $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castMemcached($c, array $a, $stub, $isNested)

@@ -31,7 +31,7 @@ abstract class Input implements \ECSPrefix20210507\Symfony\Component\Console\Inp
     protected $arguments = [];
     protected $interactive = \true;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     public function __construct($definition = null)
     {
@@ -44,7 +44,7 @@ abstract class Input implements \ECSPrefix20210507\Symfony\Component\Console\Inp
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     public function bind($definition)
     {

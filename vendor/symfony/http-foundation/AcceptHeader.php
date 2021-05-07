@@ -90,7 +90,7 @@ class AcceptHeader
      * Adds an item.
      *
      * @return $this
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\AcceptHeaderItem $item
+     * @param \Symfony\Component\HttpFoundation\AcceptHeaderItem $item
      */
     public function add($item)
     {

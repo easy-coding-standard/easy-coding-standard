@@ -53,7 +53,7 @@ class YamlDumper extends \ECSPrefix20210507\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return string
      */
     private function addService($id, $definition)
@@ -145,7 +145,7 @@ class YamlDumper extends \ECSPrefix20210507\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $alias
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Alias $id
+     * @param \Symfony\Component\DependencyInjection\Alias $id
      * @return string
      */
     private function addServiceAlias($alias, $id)
@@ -277,7 +277,7 @@ class YamlDumper extends \ECSPrefix20210507\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference $reference
+     * @param \Symfony\Component\DependencyInjection\Reference $reference
      * @return string
      */
     private function getServiceCall($id, $reference = null)

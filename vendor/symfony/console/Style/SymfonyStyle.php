@@ -40,8 +40,8 @@ class SymfonyStyle extends \ECSPrefix20210507\Symfony\Component\Console\Style\Ou
     private $lineLength;
     private $bufferedOutput;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function __construct($input, $output)
     {
@@ -320,7 +320,7 @@ class SymfonyStyle extends \ECSPrefix20210507\Symfony\Component\Console\Style\Ou
     }
     /**
      * @return mixed
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Question\Question $question
      */
     public function askQuestion($question)
     {
@@ -343,7 +343,7 @@ class SymfonyStyle extends \ECSPrefix20210507\Symfony\Component\Console\Style\Ou
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
-        if (!(is_array($messages) || $messages instanceof \Traversable)) {
+        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }
         foreach ($messages as $message) {
@@ -358,7 +358,7 @@ class SymfonyStyle extends \ECSPrefix20210507\Symfony\Component\Console\Style\Ou
      */
     public function write($messages, $newline = \false, $type = self::OUTPUT_NORMAL)
     {
-        if (!(is_array($messages) || $messages instanceof \Traversable)) {
+        if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }
         foreach ($messages as $message) {
@@ -385,7 +385,7 @@ class SymfonyStyle extends \ECSPrefix20210507\Symfony\Component\Console\Style\Ou
         return new self($this->input, $this->getErrorOutput());
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Helper\ProgressBar
+     * @return \Symfony\Component\Console\Helper\ProgressBar
      */
     private function getProgressBar()
     {

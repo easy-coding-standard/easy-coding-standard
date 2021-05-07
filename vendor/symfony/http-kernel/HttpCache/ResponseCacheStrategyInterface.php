@@ -25,12 +25,12 @@ interface ResponseCacheStrategyInterface
 {
     /**
      * Adds a Response.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function add($response);
     /**
      * Updates the Response HTTP headers based on the embedded Responses.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function update($response);
 }

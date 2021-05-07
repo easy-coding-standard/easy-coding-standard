@@ -52,7 +52,7 @@ final class Configuration
     /**
      * Needs to run in the start of the life cycle, since the rest of workflow uses it.
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      */
     public function resolveFromInput($input)
     {
@@ -146,7 +146,7 @@ final class Configuration
         return $this->doesMatchGitDiff;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      * @return bool
      */
     private function canShowProgressBar($input)
@@ -183,7 +183,7 @@ final class Configuration
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      */
     private function setOutputFormat($input)
     {

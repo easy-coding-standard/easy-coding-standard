@@ -23,8 +23,8 @@ class LazyLoadingFragmentHandler extends \ECSPrefix20210507\Symfony\Component\Ht
     private $container;
     private $initialized = [];
     /**
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Psr\Container\ContainerInterface $container
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param bool $debug
      */
     public function __construct($container, $requestStack, $debug = \false)

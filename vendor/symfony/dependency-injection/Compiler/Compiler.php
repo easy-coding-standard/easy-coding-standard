@@ -47,7 +47,7 @@ class Compiler
     }
     /**
      * Adds a pass to the PassConfig.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
+     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
      * @param string $type
      * @param int $priority
      */
@@ -57,7 +57,7 @@ class Compiler
     }
     /**
      * @final
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
+     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
      * @param string $message
      */
     public function log($pass, $message)
@@ -78,7 +78,7 @@ class Compiler
     }
     /**
      * Run the Compiler and process all Passes.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function compile($container)
     {

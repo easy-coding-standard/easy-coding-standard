@@ -33,8 +33,9 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210507\Symfony\Compo
     private $inExpression = \false;
     /**
      * {@inheritdoc}
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process(\ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process($container)
     {
         $this->container = $container;
         try {
@@ -47,7 +48,11 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210507\Symfony\Compo
     {
         $this->processExpressions = \true;
     }
-    protected function inExpression(bool $reset = \true) : bool
+    /**
+     * @param bool $reset
+     * @return bool
+     */
+    protected function inExpression($reset = \true)
     {
         $inExpression = $this->inExpression;
         if ($reset) {
@@ -61,8 +66,9 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210507\Symfony\Compo
      * @param mixed $value
      *
      * @return mixed The processed value
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
@@ -95,8 +101,10 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210507\Symfony\Compo
      * @return \ReflectionFunctionAbstract|null
      *
      * @throws RuntimeException
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param bool $required
      */
-    protected function getConstructor(\ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition, bool $required)
+    protected function getConstructor($definition, $required)
     {
         if ($definition->isSynthetic()) {
             return null;
@@ -112,7 +120,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210507\Symfony\Compo
             return $r;
         }
         if ($factory) {
-            [$class, $method] = $factory;
+            list($class, $method) = $factory;
             if ($class instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference) {
                 $class = $this->container->findDefinition((string) $class)->getClass();
             } elseif ($class instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition) {
@@ -146,8 +154,10 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210507\Symfony\Compo
      * @throws RuntimeException
      *
      * @return \ReflectionFunctionAbstract
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
+     * @param string $method
      */
-    protected function getReflectionMethod(\ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition, string $method)
+    protected function getReflectionMethod($definition, $method)
     {
         if ('__construct' === $method) {
             return $this->getConstructor($definition, \true);
@@ -167,7 +177,10 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210507\Symfony\Compo
         }
         return $r;
     }
-    private function getExpressionLanguage() : \ECSPrefix20210507\Symfony\Component\DependencyInjection\ExpressionLanguage
+    /**
+     * @return \Symfony\Component\DependencyInjection\ExpressionLanguage
+     */
+    private function getExpressionLanguage()
     {
         if (null === $this->expressionLanguage) {
             if (!\class_exists(\ECSPrefix20210507\Symfony\Component\DependencyInjection\ExpressionLanguage::class)) {

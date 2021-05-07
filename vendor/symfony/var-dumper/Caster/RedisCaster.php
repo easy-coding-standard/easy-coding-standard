@@ -30,7 +30,7 @@ class RedisCaster
     const FAILOVER_OPTIONS = [\RedisCluster::FAILOVER_NONE => 'NONE', \RedisCluster::FAILOVER_ERROR => 'ERROR', \RedisCluster::FAILOVER_DISTRIBUTE => 'DISTRIBUTE', \RedisCluster::FAILOVER_DISTRIBUTE_SLAVES => 'DISTRIBUTE_SLAVES'];
     /**
      * @param \Redis $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castRedis($c, array $a, $stub, $isNested)
@@ -44,7 +44,7 @@ class RedisCaster
     }
     /**
      * @param \RedisArray $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castRedisArray($c, array $a, $stub, $isNested)
@@ -54,7 +54,7 @@ class RedisCaster
     }
     /**
      * @param \RedisCluster $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castRedisCluster($c, array $a, $stub, $isNested)
@@ -66,7 +66,7 @@ class RedisCaster
     }
     /**
      * @param \Redis|\RedisArray|\RedisCluster $redis
-     * @return \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\EnumStub
+     * @return \Symfony\Component\VarDumper\Caster\EnumStub
      */
     private static function getRedisOptions($redis, array $options = [])
     {

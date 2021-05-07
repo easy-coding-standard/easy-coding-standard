@@ -25,8 +25,8 @@ class EarlyExpirationDispatcher
     private $reverseContainer;
     private $callbackWrapper;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Messenger\MessageBusInterface $bus
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
+     * @param \Symfony\Component\Messenger\MessageBusInterface $bus
+     * @param \Symfony\Component\DependencyInjection\ReverseContainer $reverseContainer
      */
     public function __construct($bus, $reverseContainer, callable $callbackWrapper = null)
     {
@@ -35,11 +35,11 @@ class EarlyExpirationDispatcher
         $this->callbackWrapper = $callbackWrapper;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\CacheItem $item
+     * @param \Symfony\Component\Cache\CacheItem $item
      * @param bool $save
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface $pool
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $pool
      * @param \Closure $setMetadata
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __invoke(callable $callback, $item, &$save, $pool, $setMetadata, $logger = null)
     {

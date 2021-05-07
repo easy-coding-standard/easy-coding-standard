@@ -19,7 +19,7 @@ final class AutowireInterfacesCompilerPass implements \ECSPrefix20210507\Symfony
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function process($containerBuilder)
     {

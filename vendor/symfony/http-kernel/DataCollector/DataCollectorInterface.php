@@ -22,9 +22,9 @@ interface DataCollectorInterface extends \ECSPrefix20210507\Symfony\Contracts\Se
 {
     /**
      * Collects data for the given Request and Response.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
+     * @param \Throwable|null $exception
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function collect($request, $response, $exception = null);
     /**

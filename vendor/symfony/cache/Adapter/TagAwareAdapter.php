@@ -38,8 +38,8 @@ class TagAwareAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
     private $knownTagVersions = [];
     private $knownTagVersionsTtl;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool
      * @param float $knownTagVersionsTtl
      */
     public function __construct($itemsPool, $tagsPool = null, $knownTagVersionsTtl = 0.15)
@@ -233,7 +233,7 @@ class TagAwareAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function save($item)
     {
@@ -247,7 +247,7 @@ class TagAwareAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function saveDeferred($item)
     {

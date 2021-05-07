@@ -25,7 +25,7 @@ class Processor
      * @param array $configs An array of configuration items to process
      *
      * @return array The processed configuration
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $configTree
+     * @param \Symfony\Component\Config\Definition\NodeInterface $configTree
      */
     public function process($configTree, array $configs)
     {
@@ -42,7 +42,7 @@ class Processor
      * @param array $configs An array of configuration items to process
      *
      * @return array The processed configuration
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\ConfigurationInterface $configuration
+     * @param \Symfony\Component\Config\Definition\ConfigurationInterface $configuration
      */
     public function processConfiguration($configuration, array $configs)
     {

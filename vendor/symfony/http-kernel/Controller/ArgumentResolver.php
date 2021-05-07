@@ -32,7 +32,7 @@ final class ArgumentResolver implements \ECSPrefix20210507\Symfony\Component\Htt
     private $argumentValueResolvers;
     /**
      * @param mixed[] $argumentValueResolvers
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactoryInterface $argumentMetadataFactory
      */
     public function __construct($argumentMetadataFactory = null, $argumentValueResolvers = [])
     {
@@ -41,7 +41,7 @@ final class ArgumentResolver implements \ECSPrefix20210507\Symfony\Component\Htt
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return mixed[]
      */
     public function getArguments($request, callable $controller)

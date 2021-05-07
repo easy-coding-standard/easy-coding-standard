@@ -35,14 +35,14 @@ class ServiceReferenceGraphNode
         $this->value = $value;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge
+     * @param \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge
      */
     public function addInEdge($edge)
     {
         $this->inEdges[] = $edge;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge
+     * @param \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge
      */
     public function addOutEdge($edge)
     {

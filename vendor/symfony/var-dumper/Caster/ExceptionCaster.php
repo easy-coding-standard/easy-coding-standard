@@ -28,7 +28,7 @@ class ExceptionCaster
     private static $framesCache = [];
     /**
      * @param \Error $e
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -38,7 +38,7 @@ class ExceptionCaster
     }
     /**
      * @param \Exception $e
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -48,7 +48,7 @@ class ExceptionCaster
     }
     /**
      * @param \ErrorException $e
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castErrorException($e, array $a, $stub, $isNested)
@@ -59,8 +59,8 @@ class ExceptionCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Exception\ThrowingCasterException $e
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Exception\ThrowingCasterException $e
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castThrowingCasterException($e, array $a, $stub, $isNested)
@@ -78,8 +78,8 @@ class ExceptionCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext $e
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\ErrorHandler\Exception\SilencedErrorContext $e
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castSilencedErrorContext($e, array $a, $stub, $isNested)
@@ -100,8 +100,8 @@ class ExceptionCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\TraceStub $trace
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Caster\TraceStub $trace
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castTraceStub($trace, array $a, $stub, $isNested)
@@ -164,8 +164,8 @@ class ExceptionCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\FrameStub $frame
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Caster\FrameStub $frame
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castFrameStub($frame, array $a, $stub, $isNested)
@@ -292,7 +292,7 @@ class ExceptionCaster
      * @param int $line
      * @param int $srcContext
      * @param string $lang
-     * @return \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\EnumStub
+     * @return \Symfony\Component\VarDumper\Caster\EnumStub
      */
     private static function extractSource($srcLines, $line, $srcContext, $lang, $file, array $frame)
     {

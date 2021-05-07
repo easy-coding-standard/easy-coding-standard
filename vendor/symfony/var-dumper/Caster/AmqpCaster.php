@@ -24,7 +24,7 @@ class AmqpCaster
     const EXCHANGE_TYPES = [\AMQP_EX_TYPE_DIRECT => 'AMQP_EX_TYPE_DIRECT', \AMQP_EX_TYPE_FANOUT => 'AMQP_EX_TYPE_FANOUT', \AMQP_EX_TYPE_TOPIC => 'AMQP_EX_TYPE_TOPIC', \AMQP_EX_TYPE_HEADERS => 'AMQP_EX_TYPE_HEADERS'];
     /**
      * @param \AMQPConnection $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castConnection($c, array $a, $stub, $isNested)
@@ -46,7 +46,7 @@ class AmqpCaster
     }
     /**
      * @param \AMQPChannel $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castChannel($c, array $a, $stub, $isNested)
@@ -62,7 +62,7 @@ class AmqpCaster
     }
     /**
      * @param \AMQPQueue $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castQueue($c, array $a, $stub, $isNested)
@@ -78,7 +78,7 @@ class AmqpCaster
     }
     /**
      * @param \AMQPExchange $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castExchange($c, array $a, $stub, $isNested)
@@ -96,7 +96,7 @@ class AmqpCaster
     }
     /**
      * @param \AMQPEnvelope $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -117,7 +117,7 @@ class AmqpCaster
     }
     /**
      * @param int $flags
-     * @return \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\ConstStub
+     * @return \Symfony\Component\VarDumper\Caster\ConstStub
      */
     private static function extractFlags($flags)
     {

@@ -32,7 +32,7 @@ trait RedisTrait
     private $marshaller;
     /**
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface $redisClient
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface|null $marshaller
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface|null $marshaller
      * @param string $namespace
      * @param int $defaultLifetime
      */

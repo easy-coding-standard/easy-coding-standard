@@ -21,11 +21,18 @@ use ECSPrefix20210507\Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 abstract class HttpClientTestCase extends \ECSPrefix20210507\PHPUnit\Framework\TestCase
 {
-    public static function setUpBeforeClass() : void
+    /**
+     * @return void
+     */
+    public static function setUpBeforeClass()
     {
         \ECSPrefix20210507\Symfony\Contracts\HttpClient\Test\TestHttpServer::start();
     }
-    protected abstract function getHttpClient(string $testCase) : \ECSPrefix20210507\Symfony\Contracts\HttpClient\HttpClientInterface;
+    /**
+     * @param string $testCase
+     * @return \Symfony\Contracts\HttpClient\HttpClientInterface
+     */
+    protected abstract function getHttpClient($testCase);
     public function testGetRequest()
     {
         $client = $this->getHttpClient(__FUNCTION__);

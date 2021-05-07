@@ -24,7 +24,7 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20210507\Symfo
 {
     private $container;
     /**
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
+     * @param \Psr\Container\ContainerInterface $container
      */
     public function __construct($container)
     {
@@ -32,8 +32,8 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20210507\Symfo
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      * @return bool
      */
     public function supports($request, $argument)
@@ -55,8 +55,8 @@ final class NotTaggedControllerValueResolver implements \ECSPrefix20210507\Symfo
     /**
      * {@inheritdoc}
      * @return mixed[]
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      */
     public function resolve($request, $argument)
     {

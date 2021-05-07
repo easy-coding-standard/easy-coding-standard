@@ -21,7 +21,7 @@ if (!\interface_exists(\ECSPrefix20210507\Symfony\Contracts\Translation\LocaleAw
  */
 class AsciiSlugger implements \ECSPrefix20210507\Symfony\Component\String\Slugger\SluggerInterface, \ECSPrefix20210507\Symfony\Contracts\Translation\LocaleAwareInterface
 {
-    private const LOCALE_TO_TRANSLITERATOR_ID = ['am' => 'Amharic-Latin', 'ar' => 'Arabic-Latin', 'az' => 'Azerbaijani-Latin', 'be' => 'Belarusian-Latin', 'bg' => 'Bulgarian-Latin', 'bn' => 'Bengali-Latin', 'de' => 'de-ASCII', 'el' => 'Greek-Latin', 'fa' => 'Persian-Latin', 'he' => 'Hebrew-Latin', 'hy' => 'Armenian-Latin', 'ka' => 'Georgian-Latin', 'kk' => 'Kazakh-Latin', 'ky' => 'Kirghiz-Latin', 'ko' => 'Korean-Latin', 'mk' => 'Macedonian-Latin', 'mn' => 'Mongolian-Latin', 'or' => 'Oriya-Latin', 'ps' => 'Pashto-Latin', 'ru' => 'Russian-Latin', 'sr' => 'Serbian-Latin', 'sr_Cyrl' => 'Serbian-Latin', 'th' => 'Thai-Latin', 'tk' => 'Turkmen-Latin', 'uk' => 'Ukrainian-Latin', 'uz' => 'Uzbek-Latin', 'zh' => 'Han-Latin'];
+    const LOCALE_TO_TRANSLITERATOR_ID = ['am' => 'Amharic-Latin', 'ar' => 'Arabic-Latin', 'az' => 'Azerbaijani-Latin', 'be' => 'Belarusian-Latin', 'bg' => 'Bulgarian-Latin', 'bn' => 'Bengali-Latin', 'de' => 'de-ASCII', 'el' => 'Greek-Latin', 'fa' => 'Persian-Latin', 'he' => 'Hebrew-Latin', 'hy' => 'Armenian-Latin', 'ka' => 'Georgian-Latin', 'kk' => 'Kazakh-Latin', 'ky' => 'Kirghiz-Latin', 'ko' => 'Korean-Latin', 'mk' => 'Macedonian-Latin', 'mn' => 'Mongolian-Latin', 'or' => 'Oriya-Latin', 'ps' => 'Pashto-Latin', 'ru' => 'Russian-Latin', 'sr' => 'Serbian-Latin', 'sr_Cyrl' => 'Serbian-Latin', 'th' => 'Thai-Latin', 'tk' => 'Turkmen-Latin', 'uk' => 'Ukrainian-Latin', 'uz' => 'Uzbek-Latin', 'zh' => 'Han-Latin'];
     private $defaultLocale;
     private $symbolsMap = ['en' => ['@' => 'at', '&' => 'and']];
     /**
@@ -32,14 +32,15 @@ class AsciiSlugger implements \ECSPrefix20210507\Symfony\Component\String\Slugge
     private $transliterators = [];
     /**
      * @param array|\Closure|null $symbolsMap
+     * @param string $defaultLocale
      */
-    public function __construct(string $defaultLocale = null, $symbolsMap = null)
+    public function __construct($defaultLocale = null, $symbolsMap = null)
     {
         if (null !== $symbolsMap && !\is_array($symbolsMap) && !$symbolsMap instanceof \Closure) {
             throw new \TypeError(\sprintf('Argument 2 passed to "%s()" must be array, Closure or null, "%s" given.', __METHOD__, \gettype($symbolsMap)));
         }
         $this->defaultLocale = $defaultLocale;
-        $this->symbolsMap = $symbolsMap ?? $this->symbolsMap;
+        $this->symbolsMap = isset($symbolsMap) ? $symbolsMap : $this->symbolsMap;
     }
     /**
      * {@inheritdoc}
@@ -57,10 +58,14 @@ class AsciiSlugger implements \ECSPrefix20210507\Symfony\Component\String\Slugge
     }
     /**
      * {@inheritdoc}
+     * @param string $string
+     * @param string $separator
+     * @param string $locale
+     * @return \Symfony\Component\String\AbstractUnicodeString
      */
-    public function slug(string $string, string $separator = '-', string $locale = null) : \ECSPrefix20210507\Symfony\Component\String\AbstractUnicodeString
+    public function slug($string, $separator = '-', $locale = null)
     {
-        $locale = $locale ?? $this->defaultLocale;
+        $locale = isset($locale) ? $locale : $this->defaultLocale;
         $transliterator = [];
         if ('de' === $locale || 0 === \strpos($locale, 'de_')) {
             // Use the shortcut for German in UnicodeString::ascii() if possible (faster and no requirement on intl)
@@ -82,14 +87,18 @@ class AsciiSlugger implements \ECSPrefix20210507\Symfony\Component\String\Slugge
         }
         return $unicodeString->replaceMatches('/[^A-Za-z0-9]++/', $separator)->trim($separator);
     }
-    private function createTransliterator(string $locale) : ?\Transliterator
+    /**
+     * @return \Transliterator|null
+     * @param string $locale
+     */
+    private function createTransliterator($locale)
     {
         if (\array_key_exists($locale, $this->transliterators)) {
             return $this->transliterators[$locale];
         }
         // Exact locale supported, cache and return
-        if ($id = self::LOCALE_TO_TRANSLITERATOR_ID[$locale] ?? null) {
-            return $this->transliterators[$locale] = \Transliterator::create($id . '/BGN') ?? \Transliterator::create($id);
+        if ($id = isset(self::LOCALE_TO_TRANSLITERATOR_ID[$locale]) ? self::LOCALE_TO_TRANSLITERATOR_ID[$locale] : null) {
+            return $this->transliterators[$locale] = isset(\Transliterator::create($id . '/BGN')) ? \Transliterator::create($id . '/BGN') : \Transliterator::create($id);
         }
         // Locale not supported and no parent, fallback to any-latin
         if (\false === ($str = \strrchr($locale, '_'))) {
@@ -97,9 +106,9 @@ class AsciiSlugger implements \ECSPrefix20210507\Symfony\Component\String\Slugge
         }
         // Try to use the parent locale (ie. try "de" for "de_AT") and cache both locales
         $parent = \substr($locale, 0, -\strlen($str));
-        if ($id = self::LOCALE_TO_TRANSLITERATOR_ID[$parent] ?? null) {
-            $transliterator = \Transliterator::create($id . '/BGN') ?? \Transliterator::create($id);
+        if ($id = isset(self::LOCALE_TO_TRANSLITERATOR_ID[$parent]) ? self::LOCALE_TO_TRANSLITERATOR_ID[$parent] : null) {
+            $transliterator = isset(\Transliterator::create($id . '/BGN')) ? \Transliterator::create($id . '/BGN') : \Transliterator::create($id);
         }
-        return $this->transliterators[$locale] = $this->transliterators[$parent] = $transliterator ?? null;
+        return $this->transliterators[$locale] = $this->transliterators[$parent] = isset($transliterator) ? $transliterator : null;
     }
 }

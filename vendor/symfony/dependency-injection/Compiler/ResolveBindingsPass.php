@@ -30,7 +30,7 @@ class ResolveBindingsPass extends \ECSPrefix20210507\Symfony\Component\Dependenc
     private $errorMessages = [];
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -185,7 +185,7 @@ class ResolveBindingsPass extends \ECSPrefix20210507\Symfony\Component\Dependenc
     }
     /**
      * @return mixed
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\BoundArgument $binding
+     * @param \Symfony\Component\DependencyInjection\Argument\BoundArgument $binding
      */
     private function getBindingValue($binding)
     {

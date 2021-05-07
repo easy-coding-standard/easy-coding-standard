@@ -58,7 +58,7 @@ class Container implements \ECSPrefix20210507\Symfony\Component\DependencyInject
     private $compiled = \false;
     private $getEnv;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
+     * @param \Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
      */
     public function __construct($parameterBag = null)
     {

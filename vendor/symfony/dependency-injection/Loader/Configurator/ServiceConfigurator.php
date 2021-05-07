@@ -42,10 +42,10 @@ class ServiceConfigurator extends \ECSPrefix20210507\Symfony\Component\Dependenc
     private $allowParent;
     private $path;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param bool $allowParent
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param string $path
      */
     public function __construct($container, array $instanceof, $allowParent, $parent, $definition, $id, array $defaultTags, $path = null)

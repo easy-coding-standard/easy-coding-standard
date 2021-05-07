@@ -24,8 +24,8 @@ final class TraceableValueResolver implements \ECSPrefix20210507\Symfony\Compone
     private $inner;
     private $stopwatch;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface $inner
-     * @param \ECSPrefix20210507\Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     * @param \Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface $inner
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
      */
     public function __construct($inner, $stopwatch)
     {
@@ -34,8 +34,8 @@ final class TraceableValueResolver implements \ECSPrefix20210507\Symfony\Compone
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      * @return bool
      */
     public function supports($request, $argument)
@@ -49,8 +49,8 @@ final class TraceableValueResolver implements \ECSPrefix20210507\Symfony\Compone
     /**
      * {@inheritdoc}
      * @return mixed[]
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument
      */
     public function resolve($request, $argument)
     {

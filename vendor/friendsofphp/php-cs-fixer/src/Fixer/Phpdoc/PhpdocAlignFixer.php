@@ -59,10 +59,9 @@ final class PhpdocAlignFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
     private $align;
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $tagsWithNameToAlign = \array_intersect($this->configuration['tags'], self::TAGS_WITH_NAME);

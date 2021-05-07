@@ -58,7 +58,7 @@ final class Parser
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\SebastianBergmann\Diff\Diff $diff
+     * @param \SebastianBergmann\Diff\Diff $diff
      */
     private function parseFileDiff($diff, array $lines)
     {

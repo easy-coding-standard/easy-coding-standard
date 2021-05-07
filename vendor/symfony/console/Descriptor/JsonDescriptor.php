@@ -26,7 +26,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
     protected function describeInputArgument($argument, array $options = [])
     {
@@ -34,7 +34,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      */
     protected function describeInputOption($option, array $options = [])
     {
@@ -42,7 +42,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     protected function describeInputDefinition($definition, array $options = [])
     {
@@ -50,7 +50,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     protected function describeCommand($command, array $options = [])
     {
@@ -58,7 +58,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      */
     protected function describeApplication($application, array $options = [])
     {
@@ -92,7 +92,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
         $this->write(\json_encode($data, $flags));
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      * @return mixed[]
      */
     private function getInputArgumentData($argument)
@@ -100,7 +100,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
         return ['name' => $argument->getName(), 'is_required' => $argument->isRequired(), 'is_array' => $argument->isArray(), 'description' => \preg_replace('/\\s*[\\r\\n]\\s*/', ' ', $argument->getDescription()), 'default' => \INF === $argument->getDefault() ? 'INF' : $argument->getDefault()];
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      * @return mixed[]
      */
     private function getInputOptionData($option)
@@ -108,7 +108,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
         return ['name' => '--' . $option->getName(), 'shortcut' => $option->getShortcut() ? '-' . \str_replace('|', '|-', $option->getShortcut()) : '', 'accept_value' => $option->acceptValue(), 'is_value_required' => $option->isValueRequired(), 'is_multiple' => $option->isArray(), 'description' => \preg_replace('/\\s*[\\r\\n]\\s*/', ' ', $option->getDescription()), 'default' => \INF === $option->getDefault() ? 'INF' : $option->getDefault()];
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      * @return mixed[]
      */
     private function getInputDefinitionData($definition)
@@ -124,7 +124,7 @@ class JsonDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
         return ['arguments' => $inputArguments, 'options' => $inputOptions];
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      * @return mixed[]
      */
     private function getCommandData($command)

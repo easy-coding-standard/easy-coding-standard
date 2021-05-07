@@ -56,7 +56,7 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210507\Sym
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function process($containerBuilder)
     {
@@ -73,8 +73,8 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210507\Sym
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return bool
      */
     private function shouldSkipDefinition($containerBuilder, $definition)
@@ -115,9 +115,9 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210507\Sym
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      * @param \ReflectionMethod $reflectionMethod
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
     private function processParameters($containerBuilder, $reflectionMethod, $definition)
     {

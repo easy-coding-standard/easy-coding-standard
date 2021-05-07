@@ -13,14 +13,15 @@ namespace ECSPrefix20210507\Symfony\Contracts\Service\Test;
 use ECSPrefix20210507\PHPUnit\Framework\TestCase;
 use ECSPrefix20210507\Psr\Container\ContainerInterface;
 use ECSPrefix20210507\Symfony\Contracts\Service\ServiceLocatorTrait;
+class AnonymousFor_ServiceLocatorTest implements \ECSPrefix20210507\Psr\Container\ContainerInterface
+{
+    use ServiceLocatorTrait;
+}
 abstract class ServiceLocatorTest extends \ECSPrefix20210507\PHPUnit\Framework\TestCase
 {
     protected function getServiceLocator(array $factories)
     {
-        return new class($factories) implements \ECSPrefix20210507\Psr\Container\ContainerInterface
-        {
-            use ServiceLocatorTrait;
-        };
+        return new \ECSPrefix20210507\Symfony\Contracts\Service\Test\AnonymousFor_ServiceLocatorTest($factories);
     }
     public function testHas()
     {

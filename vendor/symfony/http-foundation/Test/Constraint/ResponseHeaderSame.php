@@ -16,15 +16,20 @@ final class ResponseHeaderSame extends \ECSPrefix20210507\PHPUnit\Framework\Cons
 {
     private $headerName;
     private $expectedValue;
-    public function __construct(string $headerName, string $expectedValue)
+    /**
+     * @param string $headerName
+     * @param string $expectedValue
+     */
+    public function __construct($headerName, $expectedValue)
     {
         $this->headerName = $headerName;
         $this->expectedValue = $expectedValue;
     }
     /**
      * {@inheritdoc}
+     * @return string
      */
-    public function toString() : string
+    public function toString()
     {
         return \sprintf('has header "%s" with value "%s"', $this->headerName, $this->expectedValue);
     }
@@ -32,8 +37,9 @@ final class ResponseHeaderSame extends \ECSPrefix20210507\PHPUnit\Framework\Cons
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return bool
      */
-    protected function matches($response) : bool
+    protected function matches($response)
     {
         return $this->expectedValue === $response->headers->get($this->headerName, null);
     }
@@ -41,8 +47,9 @@ final class ResponseHeaderSame extends \ECSPrefix20210507\PHPUnit\Framework\Cons
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return string
      */
-    protected function failureDescription($response) : string
+    protected function failureDescription($response)
     {
         return 'the Response ' . $this->toString();
     }

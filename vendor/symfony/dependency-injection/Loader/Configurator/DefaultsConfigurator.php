@@ -24,8 +24,8 @@ class DefaultsConfigurator extends \ECSPrefix20210507\Symfony\Component\Dependen
     use Traits\PublicTrait;
     private $path;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param string $path
      */
     public function __construct($parent, $definition, $path = null)
@@ -57,7 +57,7 @@ class DefaultsConfigurator extends \ECSPrefix20210507\Symfony\Component\Dependen
     /**
      * Defines an instanceof-conditional to be applied to following service definitions.
      * @param string $fqcn
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
      */
     public final function instanceof($fqcn)
     {

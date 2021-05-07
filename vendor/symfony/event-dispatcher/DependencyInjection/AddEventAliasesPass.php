@@ -31,7 +31,7 @@ class AddEventAliasesPass implements \ECSPrefix20210507\Symfony\Component\Depend
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {

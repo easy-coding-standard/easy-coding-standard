@@ -13,7 +13,7 @@ final class DeprecationWarningCompilerPass implements \ECSPrefix20210507\Symfony
     const DEPRECATED_PARAMETERS = [\Symplify\EasyCodingStandard\ValueObject\Option::SETS => 'Use $containerConfigurator->import(<set>); instead'];
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function process($containerBuilder)
     {

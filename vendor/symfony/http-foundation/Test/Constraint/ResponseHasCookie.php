@@ -18,7 +18,12 @@ final class ResponseHasCookie extends \ECSPrefix20210507\PHPUnit\Framework\Const
     private $name;
     private $path;
     private $domain;
-    public function __construct(string $name, string $path = '/', string $domain = null)
+    /**
+     * @param string $name
+     * @param string $path
+     * @param string $domain
+     */
+    public function __construct($name, $path = '/', $domain = null)
     {
         $this->name = $name;
         $this->path = $path;
@@ -26,8 +31,9 @@ final class ResponseHasCookie extends \ECSPrefix20210507\PHPUnit\Framework\Const
     }
     /**
      * {@inheritdoc}
+     * @return string
      */
-    public function toString() : string
+    public function toString()
     {
         $str = \sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
@@ -42,8 +48,9 @@ final class ResponseHasCookie extends \ECSPrefix20210507\PHPUnit\Framework\Const
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return bool
      */
-    protected function matches($response) : bool
+    protected function matches($response)
     {
         return null !== $this->getCookie($response);
     }
@@ -51,12 +58,17 @@ final class ResponseHasCookie extends \ECSPrefix20210507\PHPUnit\Framework\Const
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return string
      */
-    protected function failureDescription($response) : string
+    protected function failureDescription($response)
     {
         return 'the Response ' . $this->toString();
     }
-    private function getCookie(\ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response) : ?\ECSPrefix20210507\Symfony\Component\HttpFoundation\Cookie
+    /**
+     * @return \Symfony\Component\HttpFoundation\Cookie|null
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     */
+    private function getCookie($response)
     {
         $cookies = $response->headers->getCookies();
         $filteredCookies = \array_filter($cookies, function (\ECSPrefix20210507\Symfony\Component\HttpFoundation\Cookie $cookie) {

@@ -76,7 +76,7 @@ class Table
     private static $styles;
     private $rendered = \false;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function __construct($output)
     {
@@ -89,7 +89,7 @@ class Table
     /**
      * Sets a style definition.
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Helper\TableStyle $style
+     * @param \Symfony\Component\Console\Helper\TableStyle $style
      */
     public static function setStyleDefinition($name, $style)
     {
@@ -504,7 +504,7 @@ class Table
         $this->numberOfColumns = \max($columns);
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Helper\TableRows
+     * @return \Symfony\Component\Console\Helper\TableRows
      */
     private function buildTableRows(array $rows)
     {
@@ -754,7 +754,7 @@ class Table
         return ['default' => new \ECSPrefix20210507\Symfony\Component\Console\Helper\TableStyle(), 'borderless' => $borderless, 'compact' => $compact, 'symfony-style-guide' => $styleGuide, 'box' => $box, 'box-double' => $boxDouble];
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Helper\TableStyle
+     * @return \Symfony\Component\Console\Helper\TableStyle
      */
     private function resolveStyle($name)
     {

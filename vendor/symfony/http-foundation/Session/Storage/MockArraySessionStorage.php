@@ -55,7 +55,7 @@ class MockArraySessionStorage implements \ECSPrefix20210507\Symfony\Component\Ht
     protected $bags = [];
     /**
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
      */
     public function __construct($name = 'MOCKSESSID', $metaBag = null)
     {
@@ -155,7 +155,7 @@ class MockArraySessionStorage implements \ECSPrefix20210507\Symfony\Component\Ht
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
+     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
     public function registerBag($bag)
     {
@@ -183,7 +183,7 @@ class MockArraySessionStorage implements \ECSPrefix20210507\Symfony\Component\Ht
         return $this->started;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $bag
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $bag
      */
     public function setMetadataBag($bag = null)
     {

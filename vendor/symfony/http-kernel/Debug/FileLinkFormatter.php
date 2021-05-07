@@ -28,7 +28,7 @@ class FileLinkFormatter
     private $urlFormat;
     /**
      * @param string|\Closure $urlFormat the URL format, or a closure that returns it on-demand
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param string $baseDir
      */
     public function __construct($fileLinkFormat = null, $requestStack = null, $baseDir = null, $urlFormat = null)
@@ -72,7 +72,7 @@ class FileLinkFormatter
     /**
      * @internal
      * @return string|null
-     * @param \ECSPrefix20210507\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router
+     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $router
      * @param string $routeName
      * @param string $queryString
      */

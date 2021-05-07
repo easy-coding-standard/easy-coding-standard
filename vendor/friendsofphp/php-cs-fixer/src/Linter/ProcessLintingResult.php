@@ -33,7 +33,7 @@ final class ProcessLintingResult implements \PhpCsFixer\Linter\LintingResultInte
     private $path;
     /**
      * @param string|null $path
-     * @param \ECSPrefix20210507\Symfony\Component\Process\Process $process
+     * @param \Symfony\Component\Process\Process $process
      */
     public function __construct($process, $path = null)
     {

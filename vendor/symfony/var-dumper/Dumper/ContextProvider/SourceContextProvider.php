@@ -30,7 +30,7 @@ final class SourceContextProvider implements \ECSPrefix20210507\Symfony\Componen
     /**
      * @param string $charset
      * @param string $projectDir
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter
+     * @param \Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter
      * @param int $limit
      */
     public function __construct($charset = null, $projectDir = null, $fileLinkFormatter = null, $limit = 9)

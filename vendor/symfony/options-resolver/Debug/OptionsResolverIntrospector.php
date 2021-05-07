@@ -22,7 +22,7 @@ class OptionsResolverIntrospector
 {
     private $get;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
      */
     public function __construct($optionsResolver)
     {

@@ -88,7 +88,7 @@ interface OutputInterface
      */
     public function isDecorated();
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
     public function setFormatter($formatter);
     /**

@@ -94,7 +94,7 @@ class NativeSessionStorage implements \ECSPrefix20210507\Symfony\Component\HttpF
      * trans_sid_tags, "a=href,area=href,frame=src,form="
      *
      * @param AbstractProxy|\SessionHandlerInterface|null $handler
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
      */
     public function __construct(array $options = [], $handler = null, $metaBag = null)
     {
@@ -255,7 +255,7 @@ class NativeSessionStorage implements \ECSPrefix20210507\Symfony\Component\HttpF
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
+     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
     public function registerBag($bag)
     {
@@ -281,7 +281,7 @@ class NativeSessionStorage implements \ECSPrefix20210507\Symfony\Component\HttpF
         return $this->bags[$name];
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
      */
     public function setMetadataBag($metaBag = null)
     {

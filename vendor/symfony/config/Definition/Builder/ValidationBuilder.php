@@ -20,7 +20,7 @@ class ValidationBuilder
     protected $node;
     public $rules = [];
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeDefinition $node
+     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
      */
     public function __construct($node)
     {

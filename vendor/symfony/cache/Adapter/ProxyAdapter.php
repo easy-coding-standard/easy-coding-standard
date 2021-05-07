@@ -32,7 +32,7 @@ class ProxyAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
     private $poolHash;
     private $defaultLifetime;
     /**
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemPoolInterface $pool
+     * @param \Psr\Cache\CacheItemPoolInterface $pool
      * @param string $namespace
      * @param int $defaultLifetime
      */
@@ -174,7 +174,7 @@ class ProxyAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function save($item)
     {
@@ -184,7 +184,7 @@ class ProxyAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function saveDeferred($item)
     {
@@ -200,7 +200,7 @@ class ProxyAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
         return $this->pool->commit();
     }
     /**
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      * @param string $method
      */
     private function doSave($item, $method)

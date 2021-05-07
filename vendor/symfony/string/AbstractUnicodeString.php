@@ -217,7 +217,7 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210507\Symfony\Componen
                 }
                 throw new \ECSPrefix20210507\Symfony\Component\String\Exception\RuntimeException('Matching failed with unknown error code.');
             }
-            array_walk_recursive($matches, function (&$value) {
+            \array_walk_recursive($matches, function (&$value) {
                 if ($value === '') {
                     $value = null;
                 }

@@ -58,7 +58,7 @@ class MongoDbSessionHandler extends \ECSPrefix20210507\Symfony\Component\HttpFou
      * no garbage-collection is required.
      *
      * @throws \InvalidArgumentException When "database" or "collection" not provided
-     * @param \ECSPrefix20210507\MongoDB\Client $mongo
+     * @param \MongoDB\Client $mongo
      */
     public function __construct($mongo, array $options)
     {
@@ -126,7 +126,7 @@ class MongoDbSessionHandler extends \ECSPrefix20210507\Symfony\Component\HttpFou
         return $dbData[$this->options['data_field']]->getData();
     }
     /**
-     * @return \ECSPrefix20210507\MongoDB\Collection
+     * @return \MongoDB\Collection
      */
     private function getCollection()
     {

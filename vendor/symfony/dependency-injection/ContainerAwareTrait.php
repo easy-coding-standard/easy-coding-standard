@@ -22,7 +22,7 @@ trait ContainerAwareTrait
      */
     protected $container;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
     public function setContainer($container = null)
     {

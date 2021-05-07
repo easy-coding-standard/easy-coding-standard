@@ -128,7 +128,7 @@ abstract class AbstractCloner implements \ECSPrefix20210507\Symfony\Component\Va
      * @param bool $isNested True if the object is nested in the dumped structure
      *
      * @return array The object casted as array
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     protected function castObject($stub, $isNested)
     {
@@ -177,7 +177,7 @@ abstract class AbstractCloner implements \ECSPrefix20210507\Symfony\Component\Va
      * @param bool $isNested True if the object is nested in the dumped structure
      *
      * @return array The resource casted as array
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     protected function castResource($stub, $isNested)
     {

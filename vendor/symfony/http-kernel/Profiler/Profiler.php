@@ -33,8 +33,8 @@ class Profiler implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetInte
     private $initiallyEnabled = \true;
     private $enabled = \true;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface $storage
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface $storage
+     * @param \Psr\Log\LoggerInterface $logger
      * @param bool $enable
      */
     public function __construct($storage, $logger = null, $enable = \true)
@@ -61,7 +61,7 @@ class Profiler implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetInte
      * Loads the Profile for the given Response.
      *
      * @return Profile|null A Profile instance
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function loadProfileFromResponse($response)
     {
@@ -84,7 +84,7 @@ class Profiler implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetInte
      * Saves a Profile.
      *
      * @return bool
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Profiler\Profile $profile
+     * @param \Symfony\Component\HttpKernel\Profiler\Profile $profile
      */
     public function saveProfile($profile)
     {
@@ -129,8 +129,8 @@ class Profiler implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetInte
      * Collects data for the given Response.
      *
      * @return Profile|null A Profile instance or null if the profiler is disabled
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      * @param \Throwable $exception
      */
     public function collect($request, $response, $exception = null)
@@ -189,7 +189,7 @@ class Profiler implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetInte
     }
     /**
      * Adds a Collector.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector
+     * @param \Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface $collector
      */
     public function add($collector)
     {

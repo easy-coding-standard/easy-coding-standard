@@ -25,7 +25,7 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20210507\Symfony\Compo
 {
     private $kernel;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Kernel $kernel
+     * @param \Symfony\Component\HttpKernel\Kernel $kernel
      */
     public function __construct($kernel)
     {
@@ -33,7 +33,7 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20210507\Symfony\Compo
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {

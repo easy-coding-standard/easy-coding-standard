@@ -105,7 +105,7 @@ class XmlFileLoader extends \ECSPrefix20210507\Symfony\Component\DependencyInjec
     /**
      * @param \DOMDocument $xml
      * @param string $file
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $defaults
+     * @param \Symfony\Component\DependencyInjection\Definition $defaults
      */
     private function parseDefinitions($xml, $file, $defaults)
     {
@@ -158,7 +158,7 @@ class XmlFileLoader extends \ECSPrefix20210507\Symfony\Component\DependencyInjec
     /**
      * @param \DOMDocument $xml
      * @param string $file
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
     private function getServiceDefaults($xml, $file)
     {
@@ -172,10 +172,10 @@ class XmlFileLoader extends \ECSPrefix20210507\Symfony\Component\DependencyInjec
     }
     /**
      * Parses an individual Definition.
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition|null
+     * @return \Symfony\Component\DependencyInjection\Definition|null
      * @param \DOMElement $service
      * @param string $file
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $defaults
+     * @param \Symfony\Component\DependencyInjection\Definition $defaults
      */
     private function parseDefinition($service, $file, $defaults)
     {

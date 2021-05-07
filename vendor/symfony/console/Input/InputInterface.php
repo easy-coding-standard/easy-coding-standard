@@ -58,7 +58,7 @@ interface InputInterface
      * Binds the current Input instance with the given arguments and options.
      *
      * @throws RuntimeException
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     public function bind($definition);
     /**

@@ -38,10 +38,9 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     private $candidateTokenType;
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         if ('echo' === $this->configuration['use']) {

@@ -72,7 +72,7 @@ class UriSigner
         return \hash_equals($this->computeHash($this->buildUrl($url, $params)), $hash);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return bool
      */
     public function checkRequest($request)

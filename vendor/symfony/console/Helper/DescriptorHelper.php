@@ -41,7 +41,7 @@ class DescriptorHelper extends \ECSPrefix20210507\Symfony\Component\Console\Help
      *
      * @throws InvalidArgumentException when the given format is not supported
      * @param object|null $object
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function describe($output, $object, array $options = [])
     {
@@ -57,7 +57,7 @@ class DescriptorHelper extends \ECSPrefix20210507\Symfony\Component\Console\Help
      *
      * @return $this
      * @param string $format
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Descriptor\DescriptorInterface $descriptor
+     * @param \Symfony\Component\Console\Descriptor\DescriptorInterface $descriptor
      */
     public function register($format, $descriptor)
     {

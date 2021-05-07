@@ -307,7 +307,7 @@ final class DocParser
      *
      * @param string       $expected Expected string.
      * @param mixed[]|null $token    Optional token.
-     * @return \ECSPrefix20210507\Doctrine\Common\Annotations\AnnotationException
+     * @return \Doctrine\Common\Annotations\AnnotationException
      */
     private function syntaxError($expected, $token = null)
     {
@@ -436,7 +436,7 @@ final class DocParser
      *
      * @param mixed[] $metadata
      * @return void
-     * @param \ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\Attribute $attribute
+     * @param \Doctrine\Common\Annotations\Annotation\Attribute $attribute
      */
     private function collectAttributeTypeMetadata(array &$metadata, $attribute)
     {

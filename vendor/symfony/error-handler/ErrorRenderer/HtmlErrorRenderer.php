@@ -38,7 +38,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210507\Symfony\Component\ErrorHan
      * @param bool|callable                 $outputBuffer   The output buffer as a string or a callable that should return it
      * @param string $charset
      * @param string $projectDir
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct($debug = \false, $charset = null, $fileLinkFormat = null, $projectDir = null, $outputBuffer = '', $logger = null)
     {
@@ -58,7 +58,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210507\Symfony\Component\ErrorHan
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
-     * @return \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\FlattenException
+     * @return \Symfony\Component\ErrorHandler\Exception\FlattenException
      */
     public function render($exception)
     {
@@ -72,7 +72,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210507\Symfony\Component\ErrorHan
     }
     /**
      * Gets the HTML content associated with the given exception.
-     * @param \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\FlattenException $exception
+     * @param \Symfony\Component\ErrorHandler\Exception\FlattenException $exception
      * @return string
      */
     public function getBody($exception)
@@ -91,7 +91,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210507\Symfony\Component\ErrorHan
         return $this->include('assets/css/exception.css');
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param bool $debug
      * @return \Closure
      */
@@ -105,7 +105,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210507\Symfony\Component\ErrorHan
         };
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @return \Closure
      */
     public static function getAndCleanOutputBuffer($requestStack)
@@ -123,7 +123,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210507\Symfony\Component\ErrorHan
         };
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\FlattenException $exception
+     * @param \Symfony\Component\ErrorHandler\Exception\FlattenException $exception
      * @param string $debugTemplate
      * @return string
      */

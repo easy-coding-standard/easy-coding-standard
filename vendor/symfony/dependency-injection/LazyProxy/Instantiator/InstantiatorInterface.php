@@ -27,8 +27,8 @@ interface InstantiatorInterface
      * @param callable $realInstantiator Zero-argument callback that is capable of producing the real service instance
      *
      * @return object
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
     public function instantiateProxy($container, $definition, $id, callable $realInstantiator);
 }

@@ -224,7 +224,7 @@ trait AbstractAdapterTrait
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function save($item)
     {
@@ -238,7 +238,7 @@ trait AbstractAdapterTrait
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function saveDeferred($item)
     {

@@ -37,7 +37,7 @@ abstract class NodeDefinition implements \ECSPrefix20210507\Symfony\Component\Co
     protected $attributes = [];
     /**
      * @param string|null $name
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
+     * @param \Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
      */
     public function __construct($name, $parent = null)
     {
@@ -48,7 +48,7 @@ abstract class NodeDefinition implements \ECSPrefix20210507\Symfony\Component\Co
      * Sets the parent node.
      *
      * @return $this
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
+     * @param \Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
      */
     public function setParent($parent)
     {

@@ -23,7 +23,7 @@ class TestSessionListener extends \ECSPrefix20210507\Symfony\Component\HttpKerne
 {
     private $container;
     /**
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
+     * @param \Psr\Container\ContainerInterface $container
      */
     public function __construct($container, array $sessionOptions = [])
     {
@@ -31,7 +31,7 @@ class TestSessionListener extends \ECSPrefix20210507\Symfony\Component\HttpKerne
         parent::__construct($sessionOptions);
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionInterface|null
+     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface|null
      */
     protected function getSession()
     {

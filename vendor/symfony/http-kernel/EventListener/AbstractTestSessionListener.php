@@ -36,7 +36,7 @@ abstract class AbstractTestSessionListener implements \ECSPrefix20210507\Symfony
         $this->sessionOptions = $sessionOptions;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {
@@ -56,7 +56,7 @@ abstract class AbstractTestSessionListener implements \ECSPrefix20210507\Symfony
     /**
      * Checks if session was initialized and saves if current request is master
      * Runs on 'kernel.response' in test environment.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
     public function onKernelResponse($event)
     {

@@ -30,14 +30,14 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\
     private $notInlinableIds = [];
     private $graph;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass $analyzingPass
+     * @param \Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass $analyzingPass
      */
     public function __construct($analyzingPass = null)
     {
         $this->analyzingPass = $analyzingPass;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -147,7 +147,7 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\
     /**
      * Checks if the definition is inlineable.
      * @param string $id
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return bool
      */
     private function isInlineableDefinition($id, $definition)

@@ -25,7 +25,7 @@ class HtmlDescriptor implements \ECSPrefix20210507\Symfony\Component\VarDumper\C
     private $dumper;
     private $initialized = \false;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper
+     * @param \Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper
      */
     public function __construct($dumper)
     {
@@ -33,8 +33,8 @@ class HtmlDescriptor implements \ECSPrefix20210507\Symfony\Component\VarDumper\C
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data $data
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      * @param int $clientId
      */
     public function describe($output, $data, array $context, $clientId)

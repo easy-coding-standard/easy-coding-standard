@@ -36,12 +36,12 @@ class CliErrorRenderer implements \ECSPrefix20210507\Symfony\Component\ErrorHand
     /**
      * {@inheritdoc}
      * @param \Throwable $exception
-     * @return \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\FlattenException
+     * @return \Symfony\Component\ErrorHandler\Exception\FlattenException
      */
     public function render($exception)
     {
         $cloner = new \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\VarCloner();
-        $dumper = new AnonymousFor_CliErrorRenderer();
+        $dumper = new \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\AnonymousFor_CliErrorRenderer();
         return \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)->setAsString($dumper->dump($cloner->cloneVar($exception), \true));
     }
 }

@@ -10,7 +10,7 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210507\Sym
 {
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function process($containerBuilder)
     {
@@ -25,7 +25,7 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210507\Sym
     }
     /**
      * @return mixed[]
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
+     * @param \Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
      */
     private function getExcludedCheckersFromParameterBag($parameterBag)
     {

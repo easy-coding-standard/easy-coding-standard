@@ -25,7 +25,7 @@ class TrimmedBufferOutput extends \ECSPrefix20210507\Symfony\Component\Console\O
      * @param int|null $verbosity
      * @param int $maxLength
      * @param bool $decorated
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
     public function __construct($maxLength, $verbosity = self::VERBOSITY_NORMAL, $decorated = \false, $formatter = null)
     {

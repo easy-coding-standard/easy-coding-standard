@@ -20,7 +20,7 @@ final class EasyCodingStandardStyleFactory
      */
     private $terminal;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Terminal $terminal
+     * @param \Symfony\Component\Console\Terminal $terminal
      */
     public function __construct($terminal)
     {

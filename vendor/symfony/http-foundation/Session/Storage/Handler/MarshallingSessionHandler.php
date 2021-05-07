@@ -19,8 +19,8 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     private $handler;
     private $marshaller;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler $handler
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler $handler
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
     public function __construct($handler, $marshaller)
     {

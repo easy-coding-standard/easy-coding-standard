@@ -25,13 +25,13 @@ use ECSPrefix20210507\Symfony\Component\RateLimiter\RateLimit;
 interface RequestRateLimiterInterface
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @return \ECSPrefix20210507\Symfony\Component\RateLimiter\RateLimit
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\RateLimiter\RateLimit
      */
     public function consume($request);
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function reset($request);
 }

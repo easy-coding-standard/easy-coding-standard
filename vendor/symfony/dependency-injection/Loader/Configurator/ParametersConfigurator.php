@@ -19,7 +19,7 @@ class ParametersConfigurator extends \ECSPrefix20210507\Symfony\Component\Depend
     const FACTORY = 'parameters';
     private $container;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function __construct($container)
     {

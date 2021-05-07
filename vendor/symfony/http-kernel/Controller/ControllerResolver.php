@@ -23,7 +23,7 @@ class ControllerResolver implements \ECSPrefix20210507\Symfony\Component\HttpKer
 {
     private $logger;
     /**
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct($logger = null)
     {
@@ -31,7 +31,7 @@ class ControllerResolver implements \ECSPrefix20210507\Symfony\Component\HttpKer
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function getController($request)
     {

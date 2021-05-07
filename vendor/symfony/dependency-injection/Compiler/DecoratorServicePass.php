@@ -33,7 +33,7 @@ class DecoratorServicePass extends \ECSPrefix20210507\Symfony\Component\Dependen
         $this->innerId = $innerId;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {

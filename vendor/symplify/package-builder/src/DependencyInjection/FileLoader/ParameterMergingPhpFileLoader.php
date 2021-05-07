@@ -18,8 +18,8 @@ final class ParameterMergingPhpFileLoader extends \ECSPrefix20210507\Symfony\Com
      */
     private $parametersMerger;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @param \ECSPrefix20210507\Symfony\Component\Config\FileLocatorInterface $fileLocator
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\Config\FileLocatorInterface $fileLocator
      */
     public function __construct($containerBuilder, $fileLocator)
     {

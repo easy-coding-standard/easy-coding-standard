@@ -23,10 +23,10 @@ final class ConsoleErrorEvent extends \ECSPrefix20210507\Symfony\Component\Conso
     private $error;
     private $exitCode;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Throwable $error
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     public function __construct($input, $output, $error, $command = null)
     {

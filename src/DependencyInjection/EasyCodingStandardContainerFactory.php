@@ -12,8 +12,8 @@ use Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
 final class EasyCodingStandardContainerFactory
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
     public function createFromFromInput($input)
     {
@@ -23,7 +23,7 @@ final class EasyCodingStandardContainerFactory
     }
     /**
      * @param \Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
     public function createFromFromBootstrapConfigs($bootstrapConfigs)
     {

@@ -54,7 +54,7 @@ class AutowiringFailedException extends \ECSPrefix20210507\Symfony\Component\Dep
         }
         $this->messageCallback = $message;
         parent::__construct('', $code, $previous);
-        $this->message = new AnonymousFor_AutowiringFailedException($this->message, $this->messageCallback);
+        $this->message = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\AnonymousFor_AutowiringFailedException($this->message, $this->messageCallback);
     }
     /**
      * @return \Closure|null

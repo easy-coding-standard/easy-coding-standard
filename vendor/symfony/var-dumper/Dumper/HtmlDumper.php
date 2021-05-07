@@ -94,7 +94,7 @@ class HtmlDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\C
     /**
      * {@inheritdoc}
      * @param mixed[] $extraDisplayOptions
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data $data
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
     public function dump($data, $output = null, $extraDisplayOptions = [])
     {
@@ -739,7 +739,7 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      * @param string $str
      * @param bool $bin
      * @param int $cut
@@ -760,7 +760,7 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      * @param int $type
      * @param bool $hasChild
      */
@@ -790,7 +790,7 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      * @param int $type
      * @param bool $hasChild
      * @param int $cut

@@ -33,9 +33,9 @@ class Session implements \ECSPrefix20210507\Symfony\Component\HttpFoundation\Ses
     private $usageIndex = 0;
     private $usageReporter;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage
+     * @param \Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes
+     * @param \Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes
      */
     public function __construct($storage = null, $attributes = null, $flashes = null, callable $usageReporter = null)
     {
@@ -161,7 +161,7 @@ class Session implements \ECSPrefix20210507\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param int $lifetime
+     * @param int|null $lifetime
      */
     public function invalidate($lifetime = null)
     {
@@ -170,8 +170,8 @@ class Session implements \ECSPrefix20210507\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
+     * @param int|null $lifetime
      * @param bool $destroy
-     * @param int $lifetime
      */
     public function migrate($destroy = \false, $lifetime = null)
     {
@@ -229,7 +229,7 @@ class Session implements \ECSPrefix20210507\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
+     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
     public function registerBag($bag)
     {
@@ -257,7 +257,7 @@ class Session implements \ECSPrefix20210507\Symfony\Component\HttpFoundation\Ses
      * Gets the attributebag interface.
      *
      * Note that this method was added to help with IDE autocompletion.
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface
+     * @return \Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface
      */
     private function getAttributeBag()
     {

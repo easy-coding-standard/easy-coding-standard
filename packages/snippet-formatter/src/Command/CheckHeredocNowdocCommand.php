@@ -30,8 +30,8 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
         parent::configure();
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
     protected function execute($input, $output)

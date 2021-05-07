@@ -38,7 +38,7 @@ trait MemcachedTrait
         return \extension_loaded('memcached') && \version_compare(\phpversion('memcached'), '2.2.0', '>=');
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface|null $marshaller
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface|null $marshaller
      * @param \Memcached $client
      * @param string $namespace
      * @param int $defaultLifetime

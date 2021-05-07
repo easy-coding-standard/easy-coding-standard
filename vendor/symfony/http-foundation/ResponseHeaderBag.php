@@ -150,7 +150,7 @@ class ResponseHeaderBag extends \ECSPrefix20210507\Symfony\Component\HttpFoundat
         return \array_key_exists($key, $this->computedCacheControl) ? $this->computedCacheControl[$key] : null;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Cookie $cookie
+     * @param \Symfony\Component\HttpFoundation\Cookie $cookie
      */
     public function setCookie($cookie)
     {

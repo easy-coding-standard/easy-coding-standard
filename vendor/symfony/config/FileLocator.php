@@ -29,7 +29,7 @@ class FileLocator implements \ECSPrefix20210507\Symfony\Component\Config\FileLoc
     /**
      * {@inheritdoc}
      * @param string $name
-     * @param string $currentPath
+     * @param string|null $currentPath
      * @param bool $first
      */
     public function locate($name, $currentPath = null, $first = \true)

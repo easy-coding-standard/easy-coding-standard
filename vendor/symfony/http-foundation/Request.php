@@ -647,7 +647,7 @@ class Request
         return null !== $this->session;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\SessionInterface $session
+     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
      */
     public function setSession($session)
     {

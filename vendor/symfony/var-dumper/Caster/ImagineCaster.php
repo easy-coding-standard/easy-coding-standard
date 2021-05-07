@@ -18,8 +18,8 @@ use ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub;
 final class ImagineCaster
 {
     /**
-     * @param \ECSPrefix20210507\Imagine\Image\ImageInterface $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Imagine\Image\ImageInterface $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */

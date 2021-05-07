@@ -25,7 +25,7 @@ class XmlReferenceDumper
 {
     private $reference;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\ConfigurationInterface $configuration
+     * @param \Symfony\Component\Config\Definition\ConfigurationInterface $configuration
      * @param string $namespace
      */
     public function dump($configuration, $namespace = null)
@@ -33,7 +33,7 @@ class XmlReferenceDumper
         return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree(), $namespace);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $node
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      * @param string $namespace
      */
     public function dumpNode($node, $namespace = null)
@@ -45,7 +45,7 @@ class XmlReferenceDumper
         return $ref;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $node
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      * @param int $depth
      * @param bool $root
      * @param string $namespace

@@ -20,7 +20,7 @@ class DeflateMarshaller implements \ECSPrefix20210507\Symfony\Component\Cache\Ma
 {
     private $marshaller;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
     public function __construct($marshaller)
     {

@@ -23,7 +23,7 @@ class ContainerCommandLoader implements \ECSPrefix20210507\Symfony\Component\Con
     private $commandMap;
     /**
      * @param array $commandMap An array with command names as keys and service ids as values
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
+     * @param \Psr\Container\ContainerInterface $container
      */
     public function __construct($container, array $commandMap)
     {

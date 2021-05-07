@@ -287,7 +287,7 @@ class Response
      * the Request that is "associated" with this Response.
      *
      * @return $this
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function prepare($request)
     {
@@ -1016,7 +1016,7 @@ class Response
      * @return bool true if the Response validators match the Request, false otherwise
      *
      * @final
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function isNotModified($request)
     {
@@ -1196,7 +1196,7 @@ class Response
      *
      * @final
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     protected function ensureIEOverSSLCompatibility($request)
     {

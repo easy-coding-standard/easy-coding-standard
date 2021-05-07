@@ -18,8 +18,8 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210507\Symfony\Co
     protected $id;
     private $defaultTags = [];
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param string $id
      */
     public function __construct($parent, $definition, $id = null, array $defaultTags = [])
@@ -43,7 +43,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210507\Symfony\Co
      * Registers a service.
      * @param string|null $id
      * @param string $class
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
      */
     public final function set($id, $class = null)
     {
@@ -54,7 +54,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210507\Symfony\Co
      * Creates an alias.
      * @param string $id
      * @param string $referencedId
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
      */
     public final function alias($id, $referencedId)
     {
@@ -65,7 +65,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210507\Symfony\Co
      * Registers a PSR-4 namespace using a glob pattern.
      * @param string $namespace
      * @param string $resource
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
      */
     public final function load($namespace, $resource)
     {
@@ -77,7 +77,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210507\Symfony\Co
      *
      * @throws ServiceNotFoundException if the service definition does not exist
      * @param string $id
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
      */
     public final function get($id)
     {
@@ -89,7 +89,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210507\Symfony\Co
      *
      * @param InlineServiceConfigurator[]|ReferenceConfigurator[] $services
      * @param string $id
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
      */
     public final function stack($id, array $services)
     {
@@ -100,7 +100,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210507\Symfony\Co
      * Registers a service.
      * @param string $id
      * @param string $class
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
      */
     public final function __invoke($id, $class = null)
     {

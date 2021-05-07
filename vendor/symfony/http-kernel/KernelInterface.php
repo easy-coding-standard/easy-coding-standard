@@ -34,7 +34,7 @@ interface KernelInterface extends \ECSPrefix20210507\Symfony\Component\HttpKerne
     public function registerBundles();
     /**
      * Loads the container configuration.
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderInterface $loader
+     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
      */
     public function registerContainerConfiguration($loader);
     /**

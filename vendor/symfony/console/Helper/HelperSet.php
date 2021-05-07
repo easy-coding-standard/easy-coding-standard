@@ -34,7 +34,7 @@ class HelperSet implements \IteratorAggregate
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Helper\HelperInterface $helper
+     * @param \Symfony\Component\Console\Helper\HelperInterface $helper
      * @param string $alias
      */
     public function set($helper, $alias = null)
@@ -71,7 +71,7 @@ class HelperSet implements \IteratorAggregate
         return $this->helpers[$name];
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     public function setCommand($command = null)
     {

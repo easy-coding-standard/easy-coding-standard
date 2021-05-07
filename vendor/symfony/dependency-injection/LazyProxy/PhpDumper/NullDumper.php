@@ -22,7 +22,7 @@ class NullDumper implements \ECSPrefix20210507\Symfony\Component\DependencyInjec
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return bool
      */
     public function isProxyCandidate($definition)
@@ -31,7 +31,7 @@ class NullDumper implements \ECSPrefix20210507\Symfony\Component\DependencyInjec
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param string $id
      * @param string $factoryCode
      * @return string
@@ -42,7 +42,7 @@ class NullDumper implements \ECSPrefix20210507\Symfony\Component\DependencyInjec
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return string
      */
     public function getProxyCode($definition)

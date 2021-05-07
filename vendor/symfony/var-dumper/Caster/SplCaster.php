@@ -23,7 +23,7 @@ class SplCaster
     const SPL_FILE_OBJECT_FLAGS = [\SplFileObject::DROP_NEW_LINE => 'DROP_NEW_LINE', \SplFileObject::READ_AHEAD => 'READ_AHEAD', \SplFileObject::SKIP_EMPTY => 'SKIP_EMPTY', \SplFileObject::READ_CSV => 'READ_CSV'];
     /**
      * @param \ArrayObject $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castArrayObject($c, array $a, $stub, $isNested)
@@ -32,7 +32,7 @@ class SplCaster
     }
     /**
      * @param \ArrayIterator $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castArrayIterator($c, array $a, $stub, $isNested)
@@ -41,7 +41,7 @@ class SplCaster
     }
     /**
      * @param \Iterator $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castHeap($c, array $a, $stub, $isNested)
     {
@@ -50,7 +50,7 @@ class SplCaster
     }
     /**
      * @param \SplDoublyLinkedList $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castDoublyLinkedList($c, array $a, $stub, $isNested)
@@ -64,7 +64,7 @@ class SplCaster
     }
     /**
      * @param \SplFileInfo $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castFileInfo($c, array $a, $stub, $isNested)
@@ -117,7 +117,7 @@ class SplCaster
     }
     /**
      * @param \SplFileObject $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castFileObject($c, array $a, $stub, $isNested)
@@ -146,7 +146,7 @@ class SplCaster
     }
     /**
      * @param \SplObjectStorage $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castObjectStorage($c, array $a, $stub, $isNested)
@@ -164,7 +164,7 @@ class SplCaster
     }
     /**
      * @param \OuterIterator $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castOuterIterator($c, array $a, $stub, $isNested)
@@ -174,7 +174,7 @@ class SplCaster
     }
     /**
      * @param \WeakReference $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castWeakReference($c, array $a, $stub, $isNested)
@@ -183,7 +183,7 @@ class SplCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */

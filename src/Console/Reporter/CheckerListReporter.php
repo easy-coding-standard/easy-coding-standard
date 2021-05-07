@@ -12,7 +12,7 @@ final class CheckerListReporter
      */
     private $symfonyStyle;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      */
     public function __construct($symfonyStyle)
     {

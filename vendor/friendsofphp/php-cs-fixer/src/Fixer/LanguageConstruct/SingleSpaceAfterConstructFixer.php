@@ -41,10 +41,9 @@ final class SingleSpaceAfterConstructFixer extends \PhpCsFixer\AbstractFixer imp
     private $fixTokenMap = [];
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         // @TODO: drop condition when PHP 8.0+ is required

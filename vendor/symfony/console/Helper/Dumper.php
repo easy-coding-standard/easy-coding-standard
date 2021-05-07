@@ -24,9 +24,9 @@ final class Dumper
     private $cloner;
     private $handler;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\CliDumper $dumper
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\VarDumper\Dumper\CliDumper $dumper
+     * @param \Symfony\Component\VarDumper\Cloner\ClonerInterface $cloner
      */
     public function __construct($output, $dumper = null, $cloner = null)
     {

@@ -11,7 +11,7 @@ final class ConsoleColorDiffExtension extends \ECSPrefix20210507\Symfony\Compone
     /**
      * @param string[] $configs
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function load(array $configs, $containerBuilder)
     {

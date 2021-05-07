@@ -35,8 +35,8 @@ abstract class FileLoader extends \ECSPrefix20210507\Symfony\Component\Config\Lo
     protected $singlyImplemented = [];
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \true;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param \ECSPrefix20210507\Symfony\Component\Config\FileLocatorInterface $locator
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\Config\FileLocatorInterface $locator
      */
     public function __construct($container, $locator)
     {
@@ -122,7 +122,7 @@ abstract class FileLoader extends \ECSPrefix20210507\Symfony\Component\Config\Lo
      * Registers a definition in the container with its instanceof-conditionals.
      *
      * @param string $id
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      */
     protected function setDefinition($id, $definition)
     {

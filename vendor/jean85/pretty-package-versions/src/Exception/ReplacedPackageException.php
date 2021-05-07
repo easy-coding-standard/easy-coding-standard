@@ -6,7 +6,7 @@ class ReplacedPackageException extends \Exception implements \ECSPrefix20210507\
 {
     /**
      * @param string $packageName
-     * @return \ECSPrefix20210507\Jean85\Exception\VersionMissingExceptionInterface
+     * @return \Jean85\Exception\VersionMissingExceptionInterface
      */
     public static function create($packageName)
     {

@@ -94,7 +94,7 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      * @param string $type
      */
     public function dumpScalar($cursor, $type, $value)
@@ -145,7 +145,7 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      * @param string $str
      * @param bool $bin
      * @param int $cut
@@ -228,7 +228,7 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      * @param int $type
      * @param bool $hasChild
      */
@@ -265,7 +265,7 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      * @param int $type
      * @param bool $hasChild
      * @param int $cut
@@ -283,7 +283,7 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
      *
      * @param bool $hasChild When the dump of the hash has child item
      * @param int  $cut      The number of items the hash has been cut by
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
     protected function dumpEllipsis($cursor, $hasChild, $cut)
     {
@@ -299,7 +299,7 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
     }
     /**
      * Dumps a key in a hash structure.
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
     protected function dumpKey($cursor)
     {
@@ -497,7 +497,7 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
         parent::dumpLine($depth);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
     protected function endValue($cursor)
     {
@@ -539,10 +539,10 @@ class CliDumper extends \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\Ab
         }
         $streamIsatty = function ($stream) {
             if ('\\' === \DIRECTORY_SEPARATOR) {
-                $stat = @fstat($stream);
-                return $stat ? 020000 === ($stat['mode'] & 0170000) : false;
+                $stat = @\fstat($stream);
+                return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
             }
-            return @posix_isatty($stream);
+            return @\posix_isatty($stream);
         };
         return $streamIsatty($stream);
     }

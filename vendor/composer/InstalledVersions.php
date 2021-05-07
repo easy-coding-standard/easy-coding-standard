@@ -30,7 +30,7 @@ class InstalledVersions
         return \false;
     }
     /**
-     * @param \ECSPrefix20210507\Composer\Semver\VersionParser $parser
+     * @param \Composer\Semver\VersionParser $parser
      */
     public static function satisfies($parser, $packageName, $constraint)
     {

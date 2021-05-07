@@ -41,10 +41,9 @@ final class NoAliasFunctionsFixer extends \PhpCsFixer\AbstractFixer implements \
     private static $exifSet = ['read_exif_data' => 'exif_read_data'];
     private static $timeSet = ['mktime' => ['time', 0], 'gmmktime' => ['time', 0]];
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->aliases = [];

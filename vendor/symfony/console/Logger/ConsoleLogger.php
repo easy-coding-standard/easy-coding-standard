@@ -31,7 +31,7 @@ class ConsoleLogger extends \ECSPrefix20210507\Psr\Log\AbstractLogger
     private $formatLevelMap = [\ECSPrefix20210507\Psr\Log\LogLevel::EMERGENCY => self::ERROR, \ECSPrefix20210507\Psr\Log\LogLevel::ALERT => self::ERROR, \ECSPrefix20210507\Psr\Log\LogLevel::CRITICAL => self::ERROR, \ECSPrefix20210507\Psr\Log\LogLevel::ERROR => self::ERROR, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING => self::INFO, \ECSPrefix20210507\Psr\Log\LogLevel::NOTICE => self::INFO, \ECSPrefix20210507\Psr\Log\LogLevel::INFO => self::INFO, \ECSPrefix20210507\Psr\Log\LogLevel::DEBUG => self::INFO];
     private $errored = \false;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function __construct($output, array $verbosityLevelMap = [], array $formatLevelMap = [])
     {

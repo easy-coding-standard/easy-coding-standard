@@ -88,7 +88,7 @@ class XmlDumper extends \ECSPrefix20210507\Symfony\Component\DependencyInjection
     }
     /**
      * @param string|null $id
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param \DOMElement $parent
      */
     private function addService($definition, $id, $parent)
@@ -205,7 +205,7 @@ class XmlDumper extends \ECSPrefix20210507\Symfony\Component\DependencyInjection
     }
     /**
      * @param string $alias
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Alias $id
+     * @param \Symfony\Component\DependencyInjection\Alias $id
      * @param \DOMElement $parent
      */
     private function addServiceAlias($alias, $id, $parent)

@@ -156,7 +156,7 @@ class GraphvizDumper extends \ECSPrefix20210507\Symfony\Component\DependencyInje
         return $nodes;
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder
+     * @return \Symfony\Component\DependencyInjection\ContainerBuilder
      */
     private function cloneContainer()
     {

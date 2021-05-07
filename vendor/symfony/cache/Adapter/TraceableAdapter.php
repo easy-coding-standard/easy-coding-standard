@@ -28,7 +28,7 @@ class TraceableAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Ada
     protected $pool;
     private $calls = [];
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface $pool
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $pool
      */
     public function __construct($pool)
     {
@@ -113,7 +113,7 @@ class TraceableAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Ada
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function save($item)
     {
@@ -128,7 +128,7 @@ class TraceableAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Ada
      * {@inheritdoc}
      *
      * @return bool
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemInterface $item
+     * @param \Psr\Cache\CacheItemInterface $item
      */
     public function saveDeferred($item)
     {

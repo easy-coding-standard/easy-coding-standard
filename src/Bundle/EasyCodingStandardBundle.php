@@ -18,7 +18,7 @@ final class EasyCodingStandardBundle extends \ECSPrefix20210507\Symfony\Componen
     /**
      * Order of compiler passes matters!
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function build($containerBuilder)
     {
@@ -33,7 +33,7 @@ final class EasyCodingStandardBundle extends \ECSPrefix20210507\Symfony\Componen
         $containerBuilder->addCompilerPass(new \Symplify\EasyCodingStandard\DependencyInjection\CompilerPass\FixerWhitespaceConfigCompilerPass());
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
+     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
      */
     protected function createContainerExtension()
     {

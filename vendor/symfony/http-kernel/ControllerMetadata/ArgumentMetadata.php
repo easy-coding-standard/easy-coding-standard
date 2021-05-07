@@ -27,7 +27,7 @@ class ArgumentMetadata
     private $attribute;
     /**
      * @param string|null $type
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null $attribute
+     * @param \Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null $attribute
      * @param string $name
      * @param bool $isVariadic
      * @param bool $hasDefaultValue
@@ -108,7 +108,7 @@ class ArgumentMetadata
     }
     /**
      * Returns the attribute (if any) that was set on the argument.
-     * @return \ECSPrefix20210507\Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null
+     * @return \Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null
      */
     public function getAttribute()
     {

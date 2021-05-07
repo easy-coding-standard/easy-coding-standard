@@ -28,8 +28,8 @@ class InstanceofConfigurator extends \ECSPrefix20210507\Symfony\Component\Depend
     use Traits\TagTrait;
     private $path;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $definition
+     * @param \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent
+     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param string $id
      * @param string $path
      */

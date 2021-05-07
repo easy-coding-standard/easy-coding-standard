@@ -80,7 +80,7 @@ class Command
         $this->ignoreValidationErrors = \true;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      */
     public function setApplication($application = null)
     {
@@ -93,7 +93,7 @@ class Command
         $this->fullDefinition = null;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Helper\HelperSet $helperSet
+     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
      */
     public function setHelperSet($helperSet)
     {
@@ -148,8 +148,8 @@ class Command
      * @throws LogicException When this abstract method is not implemented
      *
      * @see setCode()
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function execute($input, $output)
     {
@@ -161,8 +161,8 @@ class Command
      * This method is executed before the InputDefinition is validated.
      * This means that this is the only place where the command can
      * interactively ask for values of missing required arguments.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function interact($input, $output)
     {
@@ -176,8 +176,8 @@ class Command
      *
      * @see InputInterface::bind()
      * @see InputInterface::validate()
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function initialize($input, $output)
     {
@@ -195,8 +195,8 @@ class Command
      *
      * @see setCode()
      * @see execute()
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function run($input, $output)
     {

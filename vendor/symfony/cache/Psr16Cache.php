@@ -29,7 +29,7 @@ class Psr16Cache implements \ECSPrefix20210507\Psr\SimpleCache\CacheInterface, \
     private $createCacheItem;
     private $cacheItemPrototype;
     /**
-     * @param \ECSPrefix20210507\Psr\Cache\CacheItemPoolInterface $pool
+     * @param \Psr\Cache\CacheItemPoolInterface $pool
      */
     public function __construct($pool)
     {

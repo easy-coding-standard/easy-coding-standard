@@ -22,7 +22,7 @@ final class CompleteUnifiedDiffOutputBuilderFactory
     }
     /**
      * @api
-     * @return \ECSPrefix20210507\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder
+     * @return \SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder
      */
     public function create()
     {

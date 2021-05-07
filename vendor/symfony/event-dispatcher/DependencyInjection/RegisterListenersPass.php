@@ -65,7 +65,7 @@ class RegisterListenersPass implements \ECSPrefix20210507\Symfony\Component\Depe
         return $this;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -158,7 +158,7 @@ class RegisterListenersPass implements \ECSPrefix20210507\Symfony\Component\Depe
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $id
      * @param string $method
      * @return string

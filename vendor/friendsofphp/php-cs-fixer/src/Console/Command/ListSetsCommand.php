@@ -38,8 +38,8 @@ final class ListSetsCommand extends \ECSPrefix20210507\Symfony\Component\Console
         $this->setDefinition([new \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption('format', '', \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'To output results in other formats.', (new \PhpCsFixer\Console\Report\ListSetsReport\TextReporter())->getFormat())])->setDescription('List all available RuleSets.');
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function execute($input, $output)
     {

@@ -23,7 +23,7 @@ class GmpCaster
 {
     /**
      * @param \GMP $gmp
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      * @return mixed[]

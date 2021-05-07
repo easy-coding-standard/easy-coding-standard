@@ -47,7 +47,7 @@ class LoaderResolver implements \ECSPrefix20210507\Symfony\Component\Config\Load
         return \false;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderInterface $loader
+     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
      */
     public function addLoader($loader)
     {

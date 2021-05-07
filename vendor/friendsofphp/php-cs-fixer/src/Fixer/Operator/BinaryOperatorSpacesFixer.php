@@ -91,10 +91,9 @@ final class BinaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer implemen
     private $operators = [];
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->operators = $this->resolveOperatorsFromConfig();

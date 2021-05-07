@@ -22,7 +22,7 @@ abstract class Helper implements \ECSPrefix20210507\Symfony\Component\Console\He
     protected $helperSet = null;
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Helper\HelperSet $helperSet
+     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
      */
     public function setHelperSet($helperSet = null)
     {
@@ -131,7 +131,7 @@ abstract class Helper implements \ECSPrefix20210507\Symfony\Component\Console\He
     }
     /**
      * @param string|null $string
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
     public static function strlenWithoutDecoration($formatter, $string)
     {
@@ -139,7 +139,7 @@ abstract class Helper implements \ECSPrefix20210507\Symfony\Component\Console\He
     }
     /**
      * @param string|null $string
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
     public static function removeDecoration($formatter, $string)
     {

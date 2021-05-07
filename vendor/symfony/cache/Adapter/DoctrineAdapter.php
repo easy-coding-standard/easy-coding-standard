@@ -18,7 +18,7 @@ class DoctrineAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
 {
     private $provider;
     /**
-     * @param \ECSPrefix20210507\Doctrine\Common\Cache\CacheProvider $provider
+     * @param \Doctrine\Common\Cache\CacheProvider $provider
      * @param string $namespace
      * @param int $defaultLifetime
      */

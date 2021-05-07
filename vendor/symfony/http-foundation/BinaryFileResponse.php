@@ -158,7 +158,7 @@ class BinaryFileResponse extends \ECSPrefix20210507\Symfony\Component\HttpFounda
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function prepare($request)
     {

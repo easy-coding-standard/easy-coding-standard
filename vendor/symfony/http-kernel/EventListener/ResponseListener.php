@@ -32,7 +32,7 @@ class ResponseListener implements \ECSPrefix20210507\Symfony\Component\EventDisp
     }
     /**
      * Filters the Response.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
     public function onKernelResponse($event)
     {

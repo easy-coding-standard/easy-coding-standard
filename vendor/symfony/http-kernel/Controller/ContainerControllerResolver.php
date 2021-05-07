@@ -23,8 +23,8 @@ class ContainerControllerResolver extends \ECSPrefix20210507\Symfony\Component\H
 {
     protected $container;
     /**
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $container
-     * @param \ECSPrefix20210507\Psr\Log\LoggerInterface $logger
+     * @param \Psr\Container\ContainerInterface $container
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct($container, $logger = null)
     {

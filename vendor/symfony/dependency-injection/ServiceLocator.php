@@ -65,7 +65,7 @@ class ServiceLocator implements \ECSPrefix20210507\Symfony\Contracts\Service\Ser
      *
      * @return static
      * @param string $externalId
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Container $container
+     * @param \Symfony\Component\DependencyInjection\Container $container
      */
     public function withContext($externalId, $container)
     {
@@ -76,7 +76,7 @@ class ServiceLocator implements \ECSPrefix20210507\Symfony\Contracts\Service\Ser
     }
     /**
      * @param string $id
-     * @return \ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface
+     * @return \Psr\Container\NotFoundExceptionInterface
      */
     private function createNotFoundException($id)
     {
@@ -121,7 +121,7 @@ class ServiceLocator implements \ECSPrefix20210507\Symfony\Contracts\Service\Ser
     }
     /**
      * @param string $id
-     * @return \ECSPrefix20210507\Psr\Container\ContainerExceptionInterface
+     * @return \Psr\Container\ContainerExceptionInterface
      */
     private function createCircularReferenceException($id, array $path)
     {

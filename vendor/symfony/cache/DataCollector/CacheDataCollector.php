@@ -30,7 +30,7 @@ class CacheDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel
     private $instances = [];
     /**
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Adapter\TraceableAdapter $instance
+     * @param \Symfony\Component\Cache\Adapter\TraceableAdapter $instance
      */
     public function addInstance($name, $instance)
     {
@@ -38,9 +38,9 @@ class CacheDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
+     * @param \Throwable|null $exception
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function collect($request, $response, $exception = null)
     {

@@ -251,7 +251,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
     }
     /**
      * Dumps data with a DumperInterface dumper.
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
+     * @param \Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
      */
     public function dump($dumper)
     {
@@ -271,8 +271,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Depth-first dumping of items.
      *
      * @param mixed $item A Stub object or the original value being dumped
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $cursor
+     * @param \Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
     private function dumpItem($dumper, $cursor, array &$refs, $item)
     {
@@ -367,8 +367,8 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      * Dumps children of hash structures.
      *
      * @return int The final number of removed items
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Cursor $parentCursor
+     * @param \Symfony\Component\VarDumper\Cloner\DumperInterface $dumper
+     * @param \Symfony\Component\VarDumper\Cloner\Cursor $parentCursor
      * @param int $hashCut
      * @param int $hashType
      * @param bool $dumpKeys

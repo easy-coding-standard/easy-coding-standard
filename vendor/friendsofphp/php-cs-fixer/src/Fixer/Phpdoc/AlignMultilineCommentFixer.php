@@ -32,10 +32,9 @@ final class AlignMultilineCommentFixer extends \PhpCsFixer\AbstractFixer impleme
     private $tokenKinds;
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->tokenKinds = [\T_DOC_COMMENT];

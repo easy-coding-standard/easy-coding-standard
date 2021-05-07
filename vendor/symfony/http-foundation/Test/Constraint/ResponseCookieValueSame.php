@@ -19,7 +19,13 @@ final class ResponseCookieValueSame extends \ECSPrefix20210507\PHPUnit\Framework
     private $value;
     private $path;
     private $domain;
-    public function __construct(string $name, string $value, string $path = '/', string $domain = null)
+    /**
+     * @param string $name
+     * @param string $value
+     * @param string $path
+     * @param string $domain
+     */
+    public function __construct($name, $value, $path = '/', $domain = null)
     {
         $this->name = $name;
         $this->value = $value;
@@ -28,8 +34,9 @@ final class ResponseCookieValueSame extends \ECSPrefix20210507\PHPUnit\Framework
     }
     /**
      * {@inheritdoc}
+     * @return string
      */
-    public function toString() : string
+    public function toString()
     {
         $str = \sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
@@ -45,8 +52,9 @@ final class ResponseCookieValueSame extends \ECSPrefix20210507\PHPUnit\Framework
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return bool
      */
-    protected function matches($response) : bool
+    protected function matches($response)
     {
         $cookie = $this->getCookie($response);
         if (!$cookie) {
@@ -58,12 +66,17 @@ final class ResponseCookieValueSame extends \ECSPrefix20210507\PHPUnit\Framework
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return string
      */
-    protected function failureDescription($response) : string
+    protected function failureDescription($response)
     {
         return 'the Response ' . $this->toString();
     }
-    protected function getCookie(\ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response) : ?\ECSPrefix20210507\Symfony\Component\HttpFoundation\Cookie
+    /**
+     * @return \Symfony\Component\HttpFoundation\Cookie|null
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     */
+    protected function getCookie($response)
     {
         $cookies = $response->headers->getCookies();
         $filteredCookies = \array_filter($cookies, function (\ECSPrefix20210507\Symfony\Component\HttpFoundation\Cookie $cookie) {

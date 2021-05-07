@@ -63,7 +63,7 @@ class PdoAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter\Abst
      * @throws InvalidArgumentException When namespace contains invalid characters
      * @param string $namespace
      * @param int $defaultLifetime
-     * @param \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
+     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
     public function __construct($connOrDsn, $namespace = '', $defaultLifetime = 0, array $options = [], $marshaller = null)
     {
@@ -154,8 +154,8 @@ class PdoAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter\Abst
     /**
      * Adds the Table to the Schema if the adapter uses this Connection.
      * @return void
-     * @param \ECSPrefix20210507\Doctrine\DBAL\Schema\Schema $schema
-     * @param \ECSPrefix20210507\Doctrine\DBAL\Connection $forConnection
+     * @param \Doctrine\DBAL\Schema\Schema $schema
+     * @param \Doctrine\DBAL\Connection $forConnection
      */
     public function configureSchema($schema, $forConnection)
     {
@@ -461,7 +461,7 @@ class PdoAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter\Abst
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Doctrine\DBAL\Schema\Schema $schema
+     * @param \Doctrine\DBAL\Schema\Schema $schema
      */
     private function addTableToSchema($schema)
     {

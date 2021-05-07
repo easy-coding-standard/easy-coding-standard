@@ -26,10 +26,10 @@ final class ResponseEvent extends \ECSPrefix20210507\Symfony\Component\HttpKerne
 {
     private $response;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $requestType
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function __construct($kernel, $request, $requestType, $response)
     {
@@ -37,7 +37,7 @@ final class ResponseEvent extends \ECSPrefix20210507\Symfony\Component\HttpKerne
         $this->setResponse($response);
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getResponse()
     {
@@ -45,7 +45,7 @@ final class ResponseEvent extends \ECSPrefix20210507\Symfony\Component\HttpKerne
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function setResponse($response)
     {

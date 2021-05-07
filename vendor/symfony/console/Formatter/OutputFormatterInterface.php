@@ -31,7 +31,7 @@ interface OutputFormatterInterface
     /**
      * Sets a new style.
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
     public function setStyle($name, $style);
     /**

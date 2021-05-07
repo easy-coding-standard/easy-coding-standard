@@ -23,7 +23,7 @@ class ProcessTimedOutException extends \ECSPrefix20210507\Symfony\Component\Proc
     private $process;
     private $timeoutType;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Process\Process $process
+     * @param \Symfony\Component\Process\Process $process
      * @param int $timeoutType
      */
     public function __construct($process, $timeoutType)

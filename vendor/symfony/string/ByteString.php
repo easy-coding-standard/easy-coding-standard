@@ -257,7 +257,7 @@ class ByteString extends \ECSPrefix20210507\Symfony\Component\String\AbstractStr
                 }
                 throw new \ECSPrefix20210507\Symfony\Component\String\Exception\RuntimeException('Matching failed with unknown error code.');
             }
-            array_walk_recursive($matches, function (&$value) {
+            \array_walk_recursive($matches, function (&$value) {
                 if ($value === '') {
                     $value = null;
                 }
@@ -435,7 +435,7 @@ class ByteString extends \ECSPrefix20210507\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string|null $fromEncoding
-     * @return \ECSPrefix20210507\Symfony\Component\String\UnicodeString
+     * @return \Symfony\Component\String\UnicodeString
      */
     public function toUnicodeString($fromEncoding = null)
     {
@@ -443,7 +443,7 @@ class ByteString extends \ECSPrefix20210507\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string|null $fromEncoding
-     * @return \ECSPrefix20210507\Symfony\Component\String\CodePointString
+     * @return \Symfony\Component\String\CodePointString
      */
     public function toCodePointString($fromEncoding = null)
     {

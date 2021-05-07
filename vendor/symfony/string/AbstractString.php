@@ -517,7 +517,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     public abstract function title($allWords = \false);
     /**
      * @param string $toEncoding
-     * @return \ECSPrefix20210507\Symfony\Component\String\ByteString
+     * @return \Symfony\Component\String\ByteString
      */
     public function toByteString($toEncoding = null)
     {
@@ -545,7 +545,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         return $b;
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\String\CodePointString
+     * @return \Symfony\Component\String\CodePointString
      */
     public function toCodePointString()
     {
@@ -559,7 +559,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
         return $this->string;
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\String\UnicodeString
+     * @return \Symfony\Component\String\UnicodeString
      */
     public function toUnicodeString()
     {

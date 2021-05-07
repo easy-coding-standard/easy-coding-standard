@@ -28,7 +28,7 @@ class CheckCircularReferencesPass implements \ECSPrefix20210507\Symfony\Componen
     private $checkedNodes;
     /**
      * Checks the ContainerBuilder object for circular references.
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {

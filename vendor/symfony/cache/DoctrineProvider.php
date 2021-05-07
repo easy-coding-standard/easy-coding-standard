@@ -19,7 +19,10 @@ use ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface;
 class DoctrineProvider extends \ECSPrefix20210507\Doctrine\Common\Cache\CacheProvider implements \ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210507\Symfony\Component\Cache\ResettableInterface
 {
     private $pool;
-    public function __construct(\ECSPrefix20210507\Psr\Cache\CacheItemPoolInterface $pool)
+    /**
+     * @param \Psr\Cache\CacheItemPoolInterface $pool
+     */
+    public function __construct($pool)
     {
         $this->pool = $pool;
     }

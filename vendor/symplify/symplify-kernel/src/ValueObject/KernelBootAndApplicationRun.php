@@ -45,7 +45,7 @@ final class KernelBootAndApplicationRun
         }
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelInterface
+     * @return \Symfony\Component\HttpKernel\KernelInterface
      */
     private function createKernel()
     {
@@ -73,7 +73,7 @@ final class KernelBootAndApplicationRun
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelInterface $kernel
+     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
      * @param string $kernelClass
      */
     private function setExtraConfigs($kernel, $kernelClass)

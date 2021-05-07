@@ -15,14 +15,18 @@ use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
 final class ResponseStatusCodeSame extends \ECSPrefix20210507\PHPUnit\Framework\Constraint\Constraint
 {
     private $statusCode;
-    public function __construct(int $statusCode)
+    /**
+     * @param int $statusCode
+     */
+    public function __construct($statusCode)
     {
         $this->statusCode = $statusCode;
     }
     /**
      * {@inheritdoc}
+     * @return string
      */
-    public function toString() : string
+    public function toString()
     {
         return 'status code is ' . $this->statusCode;
     }
@@ -30,8 +34,9 @@ final class ResponseStatusCodeSame extends \ECSPrefix20210507\PHPUnit\Framework\
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return bool
      */
-    protected function matches($response) : bool
+    protected function matches($response)
     {
         return $this->statusCode === $response->getStatusCode();
     }
@@ -39,8 +44,9 @@ final class ResponseStatusCodeSame extends \ECSPrefix20210507\PHPUnit\Framework\
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return string
      */
-    protected function failureDescription($response) : string
+    protected function failureDescription($response)
     {
         return 'the Response ' . $this->toString();
     }
@@ -48,8 +54,9 @@ final class ResponseStatusCodeSame extends \ECSPrefix20210507\PHPUnit\Framework\
      * @param Response $response
      *
      * {@inheritdoc}
+     * @return string
      */
-    protected function additionalFailureDescription($response) : string
+    protected function additionalFailureDescription($response)
     {
         return (string) $response;
     }

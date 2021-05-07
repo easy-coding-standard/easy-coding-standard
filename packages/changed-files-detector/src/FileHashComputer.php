@@ -50,8 +50,8 @@ final class FileHashComputer
     }
     /**
      * @param string $filePath
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
-     * @return \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderInterface
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @return \Symfony\Component\Config\Loader\LoaderInterface
      */
     private function createLoader($filePath, $containerBuilder)
     {

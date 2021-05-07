@@ -28,8 +28,8 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\Http
     private $charset;
     /**
      * @param string $globalDefaultTemplate The global default content (it can be a template name or the content)
-     * @param \ECSPrefix20210507\Twig\Environment $twig
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\UriSigner $signer
+     * @param \Twig\Environment $twig
+     * @param \Symfony\Component\HttpKernel\UriSigner $signer
      * @param string $charset
      */
     public function __construct($twig = null, $signer = null, $globalDefaultTemplate = null, $charset = 'utf-8')
@@ -56,7 +56,7 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\Http
      *  * default:    The default content (it can be a template name or the content)
      *  * id:         An optional hx:include tag id attribute
      *  * attributes: An optional array of hx:include tag attributes
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function render($uri, $request, array $options = [])
     {

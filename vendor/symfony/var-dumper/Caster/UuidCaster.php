@@ -18,8 +18,8 @@ use ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub;
 final class UuidCaster
 {
     /**
-     * @param \ECSPrefix20210507\Ramsey\Uuid\UuidInterface $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Ramsey\Uuid\UuidInterface $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */

@@ -28,7 +28,7 @@ class MarkdownDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\De
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function describe($output, $object, array $options = [])
     {
@@ -48,7 +48,7 @@ class MarkdownDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
     protected function describeInputArgument($argument, array $options = [])
     {
@@ -56,7 +56,7 @@ class MarkdownDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      */
     protected function describeInputOption($option, array $options = [])
     {
@@ -68,7 +68,7 @@ class MarkdownDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     protected function describeInputDefinition($definition, array $options = [])
     {
@@ -96,7 +96,7 @@ class MarkdownDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     protected function describeCommand($command, array $options = [])
     {
@@ -116,7 +116,7 @@ class MarkdownDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\De
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      */
     protected function describeApplication($application, array $options = [])
     {
@@ -142,7 +142,7 @@ class MarkdownDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\De
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      * @return string
      */
     private function getApplicationTitle($application)

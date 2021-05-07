@@ -27,7 +27,7 @@ class LocaleAwareListener implements \ECSPrefix20210507\Symfony\Component\EventD
     private $requestStack;
     /**
      * @param LocaleAwareInterface[] $localeAwareServices
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function __construct($localeAwareServices, $requestStack)
     {
@@ -36,7 +36,7 @@ class LocaleAwareListener implements \ECSPrefix20210507\Symfony\Component\EventD
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {
@@ -44,7 +44,7 @@ class LocaleAwareListener implements \ECSPrefix20210507\Symfony\Component\EventD
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\FinishRequestEvent $event
      */
     public function onKernelFinishRequest($event)
     {

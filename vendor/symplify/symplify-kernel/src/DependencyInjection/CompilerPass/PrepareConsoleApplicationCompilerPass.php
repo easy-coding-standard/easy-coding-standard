@@ -12,7 +12,7 @@ final class PrepareConsoleApplicationCompilerPass implements \ECSPrefix20210507\
 {
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     public function process($containerBuilder)
     {
@@ -32,7 +32,7 @@ final class PrepareConsoleApplicationCompilerPass implements \ECSPrefix20210507\
     }
     /**
      * @return string|null
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     private function resolveConsoleApplicationClass($containerBuilder)
     {
@@ -47,7 +47,7 @@ final class PrepareConsoleApplicationCompilerPass implements \ECSPrefix20210507\
     /**
      * Missing console application? add basic one
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
     private function registerAutowiredSymfonyConsole($containerBuilder)
     {

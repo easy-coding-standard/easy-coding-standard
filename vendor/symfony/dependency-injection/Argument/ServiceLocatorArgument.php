@@ -33,7 +33,7 @@ class ServiceLocatorArgument implements \ECSPrefix20210507\Symfony\Component\Dep
         }
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument|null
+     * @return \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument|null
      */
     public function getTaggedIteratorArgument()
     {

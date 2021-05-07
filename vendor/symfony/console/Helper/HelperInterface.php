@@ -19,7 +19,7 @@ interface HelperInterface
 {
     /**
      * Sets the helper set associated with this helper.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Helper\HelperSet $helperSet
+     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
      */
     public function setHelperSet($helperSet = null);
     /**

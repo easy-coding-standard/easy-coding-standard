@@ -24,8 +24,8 @@ final class ReverseContainer
     private $tagName;
     private $getServiceId;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Container $serviceContainer
-     * @param \ECSPrefix20210507\Psr\Container\ContainerInterface $reversibleLocator
+     * @param \Symfony\Component\DependencyInjection\Container $serviceContainer
+     * @param \Psr\Container\ContainerInterface $reversibleLocator
      * @param string $tagName
      */
     public function __construct($serviceContainer, $reversibleLocator, $tagName = 'container.reversible')

@@ -97,21 +97,21 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
     }
     /**
      * @final
-     * @param \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
      */
     public function setDispatcher($dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\CommandLoader\CommandLoaderInterface $commandLoader
+     * @param \Symfony\Component\Console\CommandLoader\CommandLoaderInterface $commandLoader
      */
     public function setCommandLoader($commandLoader)
     {
         $this->commandLoader = $commandLoader;
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Console\SignalRegistry\SignalRegistry
+     * @return \Symfony\Component\Console\SignalRegistry\SignalRegistry
      */
     public function getSignalRegistry()
     {
@@ -133,8 +133,8 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
      * @return int 0 if everything went fine, or an error code
      *
      * @throws \Exception When running fails. Bypass this when {@link setCatchExceptions()}.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function run($input = null, $output = null)
     {
@@ -207,8 +207,8 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
      * Runs the current application.
      *
      * @return int 0 if everything went fine, or an error code
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function doRun($input, $output)
     {
@@ -277,7 +277,7 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
     {
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Helper\HelperSet $helperSet
+     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
      */
     public function setHelperSet($helperSet)
     {
@@ -296,7 +296,7 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
         return $this->helperSet;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     public function setDefinition($definition)
     {
@@ -441,7 +441,7 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
      * If the command is not enabled it will not be added.
      *
      * @return Command|null The registered command if enabled or null
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     public function add($command)
     {
@@ -703,7 +703,7 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
     /**
      * @return void
      * @param \Throwable $e
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function renderThrowable($e, $output)
     {
@@ -717,7 +717,7 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
     /**
      * @return void
      * @param \Throwable $e
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function doRenderThrowable($e, $output)
     {
@@ -778,8 +778,8 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
     }
     /**
      * Configures the input and output instances based on the user arguments and options.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function configureIO($input, $output)
     {
@@ -839,9 +839,9 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
      * events are also dispatched during the life-cycle of the command.
      *
      * @return int 0 if everything went fine, or an error code
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     protected function doRunCommand($command, $input, $output)
     {
@@ -910,7 +910,7 @@ class Application implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetI
      * Gets the name of the command based on input.
      *
      * @return string|null
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      */
     protected function getCommandName($input)
     {

@@ -78,8 +78,8 @@ final class DescribeCommand extends \ECSPrefix20210507\Symfony\Component\Console
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
     protected function execute($input, $output)
@@ -106,7 +106,7 @@ final class DescribeCommand extends \ECSPrefix20210507\Symfony\Component\Console
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $name
      */
     private function describeRule($output, $name)
@@ -219,7 +219,7 @@ final class DescribeCommand extends \ECSPrefix20210507\Symfony\Component\Console
     }
     /**
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $name
      */
     private function describeSet($output, $name)
@@ -279,7 +279,7 @@ final class DescribeCommand extends \ECSPrefix20210507\Symfony\Component\Console
     /**
      * @param string $type 'rule'|'set'
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     private function describeList($output, $type)
     {

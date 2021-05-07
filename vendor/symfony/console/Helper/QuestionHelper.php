@@ -41,9 +41,9 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
      * @return mixed The user answer
      *
      * @throws RuntimeException If there is no data to read in the input stream
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface $input
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Question\Question $question
      */
     public function ask($input, $output, $question)
     {
@@ -92,8 +92,8 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
      * @return mixed
      *
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Question\Question $question
      */
     private function doAsk($output, $question)
     {
@@ -140,7 +140,7 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
     }
     /**
      * @return mixed
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Question\Question $question
      */
     private function getDefaultAnswer($question)
     {
@@ -165,8 +165,8 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
     }
     /**
      * Outputs the question prompt.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Question\Question $question
      */
     protected function writePrompt($output, $question)
     {
@@ -179,7 +179,7 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
     }
     /**
      * @return string[]
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\ChoiceQuestion $question
+     * @param \Symfony\Component\Console\Question\ChoiceQuestion $question
      * @param string $tag
      */
     protected function formatChoiceQuestionChoices($question, $tag)
@@ -194,7 +194,7 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
     }
     /**
      * Outputs an error message.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param \Exception $error
      */
     protected function writeError($output, $error)
@@ -210,8 +210,8 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
      * Autocompletes a question.
      *
      * @param resource $inputStream
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Question\Question $question
      * @return string
      */
     private function autocomplete($output, $question, $inputStream, callable $autocomplete)
@@ -344,7 +344,7 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
      * @param bool     $trimmable   Is the answer trimmable
      *
      * @throws RuntimeException In case the fallback is deactivated and the response cannot be hidden
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return string
      */
     private function getHiddenResponse($output, $inputStream, $trimmable = \true)
@@ -392,8 +392,8 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
      * @return mixed The validated response
      *
      * @throws \Exception In case the max number of attempts has been reached and no valid response has been given
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Question\Question $question
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Question\Question $question
      */
     private function validateAttempts(callable $interviewer, $output, $question)
     {
@@ -426,10 +426,10 @@ class QuestionHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper
         if (\function_exists('stream_isatty')) {
             $streamIsatty = function ($stream) {
                 if ('\\' === \DIRECTORY_SEPARATOR) {
-                    $stat = @fstat($stream);
-                    return $stat ? 020000 === ($stat['mode'] & 0170000) : false;
+                    $stat = @\fstat($stream);
+                    return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
                 }
-                return @posix_isatty($stream);
+                return @\posix_isatty($stream);
             };
             return self::$stdinIsInteractive = $streamIsatty(\fopen('php://stdin', 'r'));
         }

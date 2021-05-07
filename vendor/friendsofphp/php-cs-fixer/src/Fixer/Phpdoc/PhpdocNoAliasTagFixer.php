@@ -71,10 +71,9 @@ final class Example
         return parent::getPriority();
     }
     /**
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         /** @var GeneralPhpdocTagRenameFixer $generalPhpdocTagRenameFixer */

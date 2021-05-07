@@ -26,7 +26,7 @@ interface FragmentRendererInterface
      * @param string|ControllerReference $uri A URI as a string or a ControllerReference instance
      *
      * @return Response A Response instance
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function render($uri, $request, array $options = []);
     /**

@@ -38,10 +38,9 @@ final class SingleLineCommentStyleFixer extends \PhpCsFixer\AbstractFixer implem
     private $hashEnabled;
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->asteriskEnabled = \in_array('asterisk', $this->configuration['comment_types'], \true);

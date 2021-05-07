@@ -17,7 +17,7 @@ final class OptionConfigurator
     private $resolver;
     /**
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
      */
     public function __construct($name, $resolver)
     {

@@ -39,8 +39,8 @@ use ECSPrefix20210507\Symfony\Component\ExpressionLanguage\Expression;
  */
 final class CheckTypeDeclarationsPass extends \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    private const SCALAR_TYPES = ['int' => \true, 'float' => \true, 'bool' => \true, 'string' => \true];
-    private const BUILTIN_TYPES = ['array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true];
+    const SCALAR_TYPES = ['int' => \true, 'float' => \true, 'bool' => \true, 'string' => \true];
+    const BUILTIN_TYPES = ['array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true];
     private $autoload;
     private $skippedIds;
     private $expressionLanguage;
@@ -49,15 +49,16 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210507\Symfony\Compone
      *                          Defaults to false to save loading code during compilation.
      * @param array $skippedIds An array indexed by the service ids to skip
      */
-    public function __construct(bool $autoload = \false, array $skippedIds = [])
+    public function __construct($autoload = \false, array $skippedIds = [])
     {
         $this->autoload = $autoload;
         $this->skippedIds = $skippedIds;
     }
     /**
      * {@inheritdoc}
+     * @param bool $isRoot
      */
-    protected function processValue($value, bool $isRoot = \false)
+    protected function processValue($value, $isRoot = \false)
     {
         if (isset($this->skippedIds[$this->currentId])) {
             return $value;
@@ -89,8 +90,11 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210507\Symfony\Compone
     }
     /**
      * @throws InvalidArgumentException When not enough parameters are defined for the method
+     * @return void
+     * @param \Symfony\Component\DependencyInjection\Definition $checkedDefinition
+     * @param \ReflectionFunctionAbstract $reflectionFunction
      */
-    private function checkTypeDeclarations(\ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $checkedDefinition, \ReflectionFunctionAbstract $reflectionFunction, array $values) : void
+    private function checkTypeDeclarations($checkedDefinition, $reflectionFunction, array $values)
     {
         $numberOfRequiredParameters = $reflectionFunction->getNumberOfRequiredParameters();
         if (\count($values) < $numberOfRequiredParameters) {
@@ -114,10 +118,15 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210507\Symfony\Compone
     }
     /**
      * @throws InvalidParameterTypeException When a parameter is not compatible with the declared type
+     * @param string|null $envPlaceholderUniquePrefix
+     * @return void
+     * @param \Symfony\Component\DependencyInjection\Definition $checkedDefinition
+     * @param \ReflectionParameter $parameter
+     * @param \ReflectionType $reflectionType
      */
-    private function checkType(\ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition $checkedDefinition, $value, \ReflectionParameter $parameter, ?string $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null) : void
+    private function checkType($checkedDefinition, $value, $parameter, $envPlaceholderUniquePrefix, $reflectionType = null)
     {
-        $reflectionType = $reflectionType ?? $parameter->getType();
+        $reflectionType = isset($reflectionType) ? $reflectionType : $parameter->getType();
         if ($reflectionType instanceof \ReflectionUnionType) {
             foreach ($reflectionType->getTypes() as $t) {
                 try {
@@ -165,7 +174,7 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210507\Symfony\Compone
                 return;
             }
         } elseif (\is_string($value)) {
-            if ('%' === ($value[0] ?? '') && \preg_match('/^%([^%]+)%$/', $value, $match)) {
+            if ('%' === (isset($value[0]) ? $value[0] : '') && \preg_match('/^%([^%]+)%$/', $value, $match)) {
                 $value = $this->container->getParameter(\substr($value, 1, -1));
             }
             if ($envPlaceholderUniquePrefix && \is_string($value) && \false !== \strpos($value, 'env_')) {
@@ -195,7 +204,7 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210507\Symfony\Compone
                 $class = \get_class($value);
             } else {
                 $class = \gettype($value);
-                $class = ['integer' => 'int', 'double' => 'float', 'boolean' => 'bool'][$class] ?? $class;
+                $class = isset(['integer' => 'int', 'double' => 'float', 'boolean' => 'bool'][$class]) ? ['integer' => 'int', 'double' => 'float', 'boolean' => 'bool'][$class] : $class;
             }
         }
         if (isset(self::SCALAR_TYPES[$type]) && isset(self::SCALAR_TYPES[$class])) {
@@ -237,7 +246,10 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210507\Symfony\Compone
         }
         throw new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException($this->currentId, \is_object($value) ? $class : \get_debug_type($value), $parameter);
     }
-    private function getExpressionLanguage() : \ECSPrefix20210507\Symfony\Component\DependencyInjection\ExpressionLanguage
+    /**
+     * @return \Symfony\Component\DependencyInjection\ExpressionLanguage
+     */
+    private function getExpressionLanguage()
     {
         if (null === $this->expressionLanguage) {
             $this->expressionLanguage = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\ExpressionLanguage(null, $this->container->getExpressionLanguageProviders());

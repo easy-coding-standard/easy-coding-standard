@@ -28,8 +28,8 @@ class InlineFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\HttpKe
     private $kernel;
     private $dispatcher;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
+     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
+     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
      */
     public function __construct($kernel, $dispatcher = null)
     {
@@ -42,7 +42,7 @@ class InlineFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\HttpKe
      * Additional available options:
      *
      *  * alt: an alternative URI to render in case of an error
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function render($uri, $request, array $options = [])
     {
@@ -93,7 +93,7 @@ class InlineFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\HttpKe
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     protected function createSubRequest($uri, $request)
     {

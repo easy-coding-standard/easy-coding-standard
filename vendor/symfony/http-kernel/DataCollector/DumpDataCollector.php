@@ -43,9 +43,9 @@ class DumpDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel\
     /**
      * @param string|FileLinkFormatter|null       $fileLinkFormat
      * @param DataDumperInterface|Connection|null $dumper
-     * @param \ECSPrefix20210507\Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
      * @param string $charset
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function __construct($stopwatch = null, $fileLinkFormat = null, $charset = null, $requestStack = null, $dumper = null)
     {
@@ -63,7 +63,7 @@ class DumpDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel\
         $this->clonesIndex = ++$this->clonesCount;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data $data
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      */
     public function dump($data)
     {
@@ -90,9 +90,9 @@ class DumpDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel\
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
-     * @param \Throwable $exception
+     * @param \Throwable|null $exception
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     public function collect($request, $response, $exception = null)
     {
@@ -232,8 +232,8 @@ class DumpDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel\
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data $data
+     * @param \Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper
+     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      * @param string $name
      * @param string $file
      * @param int $line

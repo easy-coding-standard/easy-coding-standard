@@ -31,7 +31,7 @@ class ProcessHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper\
      *                                output available on STDOUT or STDERR
      *
      * @return Process The process that ran
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $error
      * @param int $verbosity
      */
@@ -90,7 +90,7 @@ class ProcessHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper\
      * @throws ProcessFailedException
      *
      * @see run()
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $error
      */
     public function mustRun($output, $cmd, $error = null, callable $callback = null)
@@ -103,8 +103,8 @@ class ProcessHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper\
     }
     /**
      * Wraps a Process callback to add debugging output.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
-     * @param \ECSPrefix20210507\Symfony\Component\Process\Process $process
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Process\Process $process
      * @return callable
      */
     public function wrapCallback($output, $process, callable $callback = null)

@@ -23,7 +23,7 @@ class EnvVarProcessor implements \ECSPrefix20210507\Symfony\Component\Dependency
     private $loadedVars = [];
     /**
      * @param \Traversable $loaders
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      */
     public function __construct($container, $loaders = null)
     {

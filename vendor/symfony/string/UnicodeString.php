@@ -42,7 +42,7 @@ class UnicodeString extends \ECSPrefix20210507\Symfony\Component\String\Abstract
     }
     /**
      * @param string ...$suffix
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function append(...$suffix)
     {
@@ -177,7 +177,7 @@ class UnicodeString extends \ECSPrefix20210507\Symfony\Component\String\Abstract
     }
     /**
      * @param string $lastGlue
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function join(array $strings, $lastGlue = null)
     {
@@ -211,7 +211,7 @@ class UnicodeString extends \ECSPrefix20210507\Symfony\Component\String\Abstract
     }
     /**
      * @param string ...$prefix
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function prepend(...$prefix)
     {
@@ -226,7 +226,7 @@ class UnicodeString extends \ECSPrefix20210507\Symfony\Component\String\Abstract
     /**
      * @param string $from
      * @param string $to
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function replace($from, $to)
     {
@@ -251,7 +251,7 @@ class UnicodeString extends \ECSPrefix20210507\Symfony\Component\String\Abstract
     }
     /**
      * @param string $fromRegexp
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function replaceMatches($fromRegexp, $to)
     {
@@ -262,7 +262,7 @@ class UnicodeString extends \ECSPrefix20210507\Symfony\Component\String\Abstract
     /**
      * @param int $start
      * @param int $length
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function slice($start = 0, $length = null)
     {
@@ -277,7 +277,7 @@ class UnicodeString extends \ECSPrefix20210507\Symfony\Component\String\Abstract
      * @param string $replacement
      * @param int $start
      * @param int $length
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function splice($replacement, $start = 0, $length = null)
     {

@@ -21,7 +21,7 @@ class IntlCaster
 {
     /**
      * @param \MessageFormatter $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castMessageFormatter($c, array $a, $stub, $isNested)
@@ -31,7 +31,7 @@ class IntlCaster
     }
     /**
      * @param \NumberFormatter $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -47,7 +47,7 @@ class IntlCaster
     }
     /**
      * @param \IntlTimeZone $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castIntlTimeZone($c, array $a, $stub, $isNested)
@@ -60,7 +60,7 @@ class IntlCaster
     }
     /**
      * @param \IntlCalendar $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -71,7 +71,7 @@ class IntlCaster
     }
     /**
      * @param \IntlDateFormatter $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */

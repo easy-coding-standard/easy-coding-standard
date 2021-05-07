@@ -51,10 +51,9 @@ final class ClassAttributesSeparationFixer extends \PhpCsFixer\AbstractFixer imp
     private $classElementTypes = [];
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         $this->classElementTypes = [];

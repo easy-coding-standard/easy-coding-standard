@@ -24,7 +24,7 @@ class ReflectionCaster
     const EXTRA_MAP = ['docComment' => 'getDocComment', 'extension' => 'getExtensionName', 'isDisabled' => 'isDisabled', 'isDeprecated' => 'isDeprecated', 'isInternal' => 'isInternal', 'isUserDefined' => 'isUserDefined', 'isGenerator' => 'isGenerator', 'isVariadic' => 'isVariadic'];
     /**
      * @param \Closure $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -64,7 +64,7 @@ class ReflectionCaster
     }
     /**
      * @param \Generator $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castGenerator($c, array $a, $stub, $isNested)
@@ -80,7 +80,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionType $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castType($c, array $a, $stub, $isNested)
@@ -98,7 +98,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionAttribute $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castAttribute($c, array $a, $stub, $isNested)
@@ -108,7 +108,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionGenerator $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castReflectionGenerator($c, array $a, $stub, $isNested)
@@ -134,7 +134,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionClass $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -159,7 +159,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionFunctionAbstract $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -210,7 +210,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionClassConstant $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castClassConstant($c, array $a, $stub, $isNested)
@@ -222,7 +222,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionMethod $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castMethod($c, array $a, $stub, $isNested)
@@ -232,7 +232,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionParameter $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castParameter($c, array $a, $stub, $isNested)
@@ -263,7 +263,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionProperty $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castProperty($c, array $a, $stub, $isNested)
@@ -275,7 +275,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionReference $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castReference($c, array $a, $stub, $isNested)
@@ -285,7 +285,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionExtension $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castExtension($c, array $a, $stub, $isNested)
@@ -295,7 +295,7 @@ class ReflectionCaster
     }
     /**
      * @param \ReflectionZendExtension $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castZendExtension($c, array $a, $stub, $isNested)

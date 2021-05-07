@@ -18,8 +18,8 @@ class Interval
     /** @var Constraint */
     private $end;
     /**
-     * @param \ECSPrefix20210507\Composer\Semver\Constraint\Constraint $start
-     * @param \ECSPrefix20210507\Composer\Semver\Constraint\Constraint $end
+     * @param \Composer\Semver\Constraint\Constraint $start
+     * @param \Composer\Semver\Constraint\Constraint $end
      */
     public function __construct($start, $end)
     {

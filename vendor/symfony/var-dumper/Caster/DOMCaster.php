@@ -24,7 +24,7 @@ class DOMCaster
     const NODE_TYPES = [\XML_ELEMENT_NODE => 'XML_ELEMENT_NODE', \XML_ATTRIBUTE_NODE => 'XML_ATTRIBUTE_NODE', \XML_TEXT_NODE => 'XML_TEXT_NODE', \XML_CDATA_SECTION_NODE => 'XML_CDATA_SECTION_NODE', \XML_ENTITY_REF_NODE => 'XML_ENTITY_REF_NODE', \XML_ENTITY_NODE => 'XML_ENTITY_NODE', \XML_PI_NODE => 'XML_PI_NODE', \XML_COMMENT_NODE => 'XML_COMMENT_NODE', \XML_DOCUMENT_NODE => 'XML_DOCUMENT_NODE', \XML_DOCUMENT_TYPE_NODE => 'XML_DOCUMENT_TYPE_NODE', \XML_DOCUMENT_FRAG_NODE => 'XML_DOCUMENT_FRAG_NODE', \XML_NOTATION_NODE => 'XML_NOTATION_NODE', \XML_HTML_DOCUMENT_NODE => 'XML_HTML_DOCUMENT_NODE', \XML_DTD_NODE => 'XML_DTD_NODE', \XML_ELEMENT_DECL_NODE => 'XML_ELEMENT_DECL_NODE', \XML_ATTRIBUTE_DECL_NODE => 'XML_ATTRIBUTE_DECL_NODE', \XML_ENTITY_DECL_NODE => 'XML_ENTITY_DECL_NODE', \XML_NAMESPACE_DECL_NODE => 'XML_NAMESPACE_DECL_NODE'];
     /**
      * @param \DOMException $e
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castException($e, array $a, $stub, $isNested)
@@ -36,7 +36,7 @@ class DOMCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castLength($dom, array $a, $stub, $isNested)
@@ -45,7 +45,7 @@ class DOMCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castImplementation($dom, array $a, $stub, $isNested)
@@ -55,7 +55,7 @@ class DOMCaster
     }
     /**
      * @param \DOMNode $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castNode($dom, array $a, $stub, $isNested)
@@ -65,7 +65,7 @@ class DOMCaster
     }
     /**
      * @param \DOMNameSpaceNode $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castNameSpaceNode($dom, array $a, $stub, $isNested)
@@ -75,7 +75,7 @@ class DOMCaster
     }
     /**
      * @param \DOMDocument $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @param int $filter
      */
@@ -92,7 +92,7 @@ class DOMCaster
     }
     /**
      * @param \DOMCharacterData $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castCharacterData($dom, array $a, $stub, $isNested)
@@ -102,7 +102,7 @@ class DOMCaster
     }
     /**
      * @param \DOMAttr $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castAttr($dom, array $a, $stub, $isNested)
@@ -112,7 +112,7 @@ class DOMCaster
     }
     /**
      * @param \DOMElement $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castElement($dom, array $a, $stub, $isNested)
@@ -122,7 +122,7 @@ class DOMCaster
     }
     /**
      * @param \DOMText $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castText($dom, array $a, $stub, $isNested)
@@ -132,7 +132,7 @@ class DOMCaster
     }
     /**
      * @param \DOMTypeinfo $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castTypeinfo($dom, array $a, $stub, $isNested)
@@ -142,7 +142,7 @@ class DOMCaster
     }
     /**
      * @param \DOMDomError $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castDomError($dom, array $a, $stub, $isNested)
@@ -152,7 +152,7 @@ class DOMCaster
     }
     /**
      * @param \DOMLocator $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castLocator($dom, array $a, $stub, $isNested)
@@ -162,7 +162,7 @@ class DOMCaster
     }
     /**
      * @param \DOMDocumentType $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castDocumentType($dom, array $a, $stub, $isNested)
@@ -172,7 +172,7 @@ class DOMCaster
     }
     /**
      * @param \DOMNotation $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castNotation($dom, array $a, $stub, $isNested)
@@ -182,7 +182,7 @@ class DOMCaster
     }
     /**
      * @param \DOMEntity $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castEntity($dom, array $a, $stub, $isNested)
@@ -192,7 +192,7 @@ class DOMCaster
     }
     /**
      * @param \DOMProcessingInstruction $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castProcessingInstruction($dom, array $a, $stub, $isNested)
@@ -202,7 +202,7 @@ class DOMCaster
     }
     /**
      * @param \DOMXPath $dom
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castXPath($dom, array $a, $stub, $isNested)

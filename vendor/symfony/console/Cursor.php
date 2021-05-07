@@ -19,7 +19,7 @@ final class Cursor
     private $output;
     private $input;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $output
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
     public function __construct($output, $input = null)
     {

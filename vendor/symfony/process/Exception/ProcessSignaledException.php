@@ -20,7 +20,7 @@ final class ProcessSignaledException extends \ECSPrefix20210507\Symfony\Componen
 {
     private $process;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Process\Process $process
+     * @param \Symfony\Component\Process\Process $process
      */
     public function __construct($process)
     {
@@ -28,7 +28,7 @@ final class ProcessSignaledException extends \ECSPrefix20210507\Symfony\Componen
         parent::__construct(\sprintf('The process has been signaled with signal "%s".', $process->getTermSignal()));
     }
     /**
-     * @return \ECSPrefix20210507\Symfony\Component\Process\Process
+     * @return \Symfony\Component\Process\Process
      */
     public function getProcess()
     {

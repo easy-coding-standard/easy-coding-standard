@@ -29,7 +29,7 @@ class MergeExtensionConfigurationPass implements \ECSPrefix20210507\Symfony\Comp
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {
@@ -106,8 +106,8 @@ class MergeExtensionConfigurationParameterBag extends \ECSPrefix20210507\Symfony
         $this->mergeEnvPlaceholders($parameterBag);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\Extension $extension
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\Extension\Extension $extension
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function freezeAfterProcessing($extension, $container)
     {
@@ -152,8 +152,8 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20210507\Sym
 {
     private $extensionClass;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
+     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
+     * @param \Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
      */
     public function __construct($extension, $parameterBag = null)
     {
@@ -163,7 +163,7 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20210507\Sym
     /**
      * {@inheritdoc}
      * @return $this
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
+     * @param \Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass
      * @param string $type
      * @param int $priority
      */
@@ -173,7 +173,7 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20210507\Sym
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
+     * @param \Symfony\Component\DependencyInjection\Extension\ExtensionInterface $extension
      */
     public function registerExtension($extension)
     {

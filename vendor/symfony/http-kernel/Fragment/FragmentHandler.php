@@ -33,7 +33,7 @@ class FragmentHandler
     /**
      * @param FragmentRendererInterface[] $renderers An array of FragmentRendererInterface instances
      * @param bool                        $debug     Whether the debug mode is enabled or not
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function __construct($requestStack, array $renderers = [], $debug = \false)
     {
@@ -45,7 +45,7 @@ class FragmentHandler
     }
     /**
      * Adds a renderer.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface $renderer
+     * @param \Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface $renderer
      */
     public function addRenderer($renderer)
     {
@@ -88,7 +88,7 @@ class FragmentHandler
      * @return string|null The Response content or null when the Response is streamed
      *
      * @throws \RuntimeException when the Response is not successful
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response $response
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
     protected function deliver($response)
     {

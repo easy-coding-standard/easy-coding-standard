@@ -18,7 +18,7 @@ class ContainerBag extends \ECSPrefix20210507\Symfony\Component\DependencyInject
 {
     private $container;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Container $container
+     * @param \Symfony\Component\DependencyInjection\Container $container
      */
     public function __construct($container)
     {

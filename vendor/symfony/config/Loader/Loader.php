@@ -28,7 +28,7 @@ abstract class Loader implements \ECSPrefix20210507\Symfony\Component\Config\Loa
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
+     * @param \Symfony\Component\Config\Loader\LoaderResolverInterface $resolver
      */
     public function setResolver($resolver)
     {

@@ -31,7 +31,7 @@ class RdKafkaCaster
 {
     /**
      * @param \RdKafka\KafkaConsumer $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castKafkaConsumer($c, array $a, $stub, $isNested)
     {
@@ -47,7 +47,7 @@ class RdKafkaCaster
     }
     /**
      * @param \RdKafka\Topic $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castTopic($c, array $a, $stub, $isNested)
     {
@@ -66,7 +66,7 @@ class RdKafkaCaster
     }
     /**
      * @param \RdKafka\Message $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castMessage($c, array $a, $stub, $isNested)
     {
@@ -76,7 +76,7 @@ class RdKafkaCaster
     }
     /**
      * @param \RdKafka\Conf $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castConf($c, array $a, $stub, $isNested)
     {
@@ -88,7 +88,7 @@ class RdKafkaCaster
     }
     /**
      * @param \RdKafka\TopicConf $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castTopicConf($c, array $a, $stub, $isNested)
     {
@@ -100,7 +100,7 @@ class RdKafkaCaster
     }
     /**
      * @param \RdKafka $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castRdKafka($c, array $a, $stub, $isNested)
     {
@@ -110,8 +110,8 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param \RdKafka\Metadata\Collection $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param CollectionMetadata $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castCollectionMetadata($c, array $a, $stub, $isNested)
     {
@@ -119,8 +119,8 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param \RdKafka\Metadata\Topic $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param TopicMetadata $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castTopicMetadata($c, array $a, $stub, $isNested)
     {
@@ -129,8 +129,8 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param \RdKafka\Metadata\Partition $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param PartitionMetadata $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castPartitionMetadata($c, array $a, $stub, $isNested)
     {
@@ -139,8 +139,8 @@ class RdKafkaCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\RdKafka\Metadata\Broker $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param BrokerMetadata $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castBrokerMetadata($c, array $a, $stub, $isNested)
     {

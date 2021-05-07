@@ -125,7 +125,7 @@ class PrototypedArrayNode extends \ECSPrefix20210507\Symfony\Component\Config\De
     }
     /**
      * Sets the node prototype.
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\PrototypeNodeInterface $node
+     * @param \Symfony\Component\Config\Definition\PrototypeNodeInterface $node
      */
     public function setPrototype($node)
     {
@@ -144,7 +144,7 @@ class PrototypedArrayNode extends \ECSPrefix20210507\Symfony\Component\Config\De
      * Disable adding concrete children for prototyped nodes.
      *
      * @throws Exception
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\NodeInterface $node
+     * @param \Symfony\Component\Config\Definition\NodeInterface $node
      */
     public function addChild($node)
     {

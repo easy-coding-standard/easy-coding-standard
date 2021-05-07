@@ -35,7 +35,7 @@ class FragmentRendererPass implements \ECSPrefix20210507\Symfony\Component\Depen
         $this->rendererTag = $rendererTag;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {

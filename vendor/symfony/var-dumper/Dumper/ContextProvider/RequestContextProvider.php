@@ -23,7 +23,7 @@ final class RequestContextProvider implements \ECSPrefix20210507\Symfony\Compone
     private $requestStack;
     private $cloner;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function __construct($requestStack)
     {

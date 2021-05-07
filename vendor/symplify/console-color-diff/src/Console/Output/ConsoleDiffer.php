@@ -20,8 +20,8 @@ final class ConsoleDiffer
      */
     private $colorConsoleDiffFormatter;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
-     * @param \ECSPrefix20210507\SebastianBergmann\Diff\Differ $differ
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+     * @param \SebastianBergmann\Diff\Differ $differ
      * @param \Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter
      */
     public function __construct($symfonyStyle, $differ, $colorConsoleDiffFormatter)

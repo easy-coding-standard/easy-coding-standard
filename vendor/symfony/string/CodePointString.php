@@ -34,7 +34,7 @@ class CodePointString extends \ECSPrefix20210507\Symfony\Component\String\Abstra
     }
     /**
      * @param string ...$suffix
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function append(...$suffix)
     {
@@ -164,7 +164,7 @@ class CodePointString extends \ECSPrefix20210507\Symfony\Component\String\Abstra
     }
     /**
      * @param string ...$prefix
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function prepend(...$prefix)
     {
@@ -178,7 +178,7 @@ class CodePointString extends \ECSPrefix20210507\Symfony\Component\String\Abstra
     /**
      * @param string $from
      * @param string $to
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function replace($from, $to)
     {
@@ -199,7 +199,7 @@ class CodePointString extends \ECSPrefix20210507\Symfony\Component\String\Abstra
     /**
      * @param int $start
      * @param int $length
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function slice($start = 0, $length = null)
     {
@@ -211,7 +211,7 @@ class CodePointString extends \ECSPrefix20210507\Symfony\Component\String\Abstra
      * @param string $replacement
      * @param int $start
      * @param int $length
-     * @return \ECSPrefix20210507\Symfony\Component\String\AbstractString
+     * @return \Symfony\Component\String\AbstractString
      */
     public function splice($replacement, $start = 0, $length = null)
     {

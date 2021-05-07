@@ -47,7 +47,7 @@ class RegisterControllerArgumentLocatorsPass implements \ECSPrefix20210507\Symfo
         $this->notTaggedControllerResolverServiceId = $notTaggedControllerResolverServiceId;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process($container)
     {

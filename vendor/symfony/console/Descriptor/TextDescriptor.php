@@ -28,7 +28,7 @@ class TextDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
 {
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument $argument
+     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
     protected function describeInputArgument($argument, array $options = [])
     {
@@ -50,7 +50,7 @@ class TextDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption $option
+     * @param \Symfony\Component\Console\Input\InputOption $option
      */
     protected function describeInputOption($option, array $options = [])
     {
@@ -81,7 +81,7 @@ class TextDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
     protected function describeInputDefinition($definition, array $options = [])
     {
@@ -119,7 +119,7 @@ class TextDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      */
     protected function describeCommand($command, array $options = [])
     {
@@ -153,7 +153,7 @@ class TextDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application $application
      */
     protected function describeApplication($application, array $options = [])
     {
@@ -224,7 +224,7 @@ class TextDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descri
     }
     /**
      * Formats command aliases to show them in the command description.
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Command\Command $command
+     * @param \Symfony\Component\Console\Command\Command $command
      * @return string
      */
     private function getCommandAliasesText($command)

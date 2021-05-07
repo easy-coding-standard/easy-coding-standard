@@ -20,8 +20,8 @@ class TraceableArgumentResolver implements \ECSPrefix20210507\Symfony\Component\
     private $resolver;
     private $stopwatch;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $resolver
-     * @param \ECSPrefix20210507\Symfony\Component\Stopwatch\Stopwatch $stopwatch
+     * @param \Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $resolver
+     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
      */
     public function __construct($resolver, $stopwatch)
     {
@@ -30,7 +30,7 @@ class TraceableArgumentResolver implements \ECSPrefix20210507\Symfony\Component\
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function getArguments($request, callable $controller)
     {

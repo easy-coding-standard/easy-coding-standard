@@ -32,7 +32,7 @@ final class ProcessLinterProcessBuilder
     }
     /**
      * @param string $path
-     * @return \ECSPrefix20210507\Symfony\Component\Process\Process
+     * @return \Symfony\Component\Process\Process
      */
     public function build($path)
     {

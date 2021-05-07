@@ -10,8 +10,8 @@ use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class SkipperKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderInterface $loader
      * @return void
+     * @param \Symfony\Component\Config\Loader\LoaderInterface $loader
      */
     public function registerContainerConfiguration($loader)
     {

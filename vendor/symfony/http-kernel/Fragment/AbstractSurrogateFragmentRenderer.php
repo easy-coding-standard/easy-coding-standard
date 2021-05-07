@@ -30,8 +30,8 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210507\Symf
      * instance of InlineFragmentRenderer.
      *
      * @param FragmentRendererInterface $inlineStrategy The inline strategy to use when the surrogate is not supported
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\UriSigner $signer
+     * @param \Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate
+     * @param \Symfony\Component\HttpKernel\UriSigner $signer
      */
     public function __construct($surrogate = null, $inlineStrategy, $signer = null)
     {
@@ -54,7 +54,7 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210507\Symf
      * 'alt' and 'comment' are only supported by ESI.
      *
      * @see Symfony\Component\HttpKernel\HttpCache\SurrogateInterface
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      */
     public function render($uri, $request, array $options = [])
     {
@@ -75,8 +75,8 @@ abstract class AbstractSurrogateFragmentRenderer extends \ECSPrefix20210507\Symf
         return new \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response($tag);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerReference $uri
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpKernel\Controller\ControllerReference $uri
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return string
      */
     private function generateSignedFragmentUri($uri, $request)

@@ -35,7 +35,7 @@ abstract class AbstractSymplifyCommand extends \ECSPrefix20210507\Symfony\Compon
     /**
      * @required
      * @return void
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
      * @param \Symplify\SmartFileSystem\Finder\SmartFinder $smartFinder
      * @param \Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard

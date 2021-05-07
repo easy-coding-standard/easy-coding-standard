@@ -21,8 +21,8 @@ use ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub;
 class StubCaster
 {
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castStub($c, array $a, $stub, $isNested)
@@ -43,8 +43,8 @@ class StubCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\CutArrayStub $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Caster\CutArrayStub $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castCutArray($c, array $a, $stub, $isNested)
@@ -52,7 +52,7 @@ class StubCaster
         return $isNested ? $c->preservedSubset : $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function cutInternals($obj, array $a, $stub, $isNested)
@@ -64,8 +64,8 @@ class StubCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Caster\EnumStub $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Caster\EnumStub $c
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castEnum($c, array $a, $stub, $isNested)

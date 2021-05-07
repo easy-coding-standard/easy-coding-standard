@@ -21,7 +21,7 @@ class ServiceClosureArgument implements \ECSPrefix20210507\Symfony\Component\Dep
 {
     private $values;
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference $reference
+     * @param \Symfony\Component\DependencyInjection\Reference $reference
      */
     public function __construct($reference)
     {

@@ -118,7 +118,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     }
     /**
      * @param string $path path to file
-     * @return \ECSPrefix20210507\Symfony\Component\Process\Process
+     * @return \Symfony\Component\Process\Process
      */
     private function createProcessForFile($path)
     {
@@ -135,7 +135,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      * Create process that lint PHP code.
      *
      * @param string $source code
-     * @return \ECSPrefix20210507\Symfony\Component\Process\Process
+     * @return \Symfony\Component\Process\Process
      */
     private function createProcessForSource($source)
     {

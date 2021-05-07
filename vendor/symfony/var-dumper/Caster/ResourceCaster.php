@@ -24,7 +24,7 @@ class ResourceCaster
      * @param \CurlHandle|resource $h
      *
      * @return array
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castCurl($h, array $a, $stub, $isNested)
@@ -32,7 +32,7 @@ class ResourceCaster
         return \curl_getinfo($h);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castDba($dba, array $a, $stub, $isNested)
@@ -42,7 +42,7 @@ class ResourceCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castProcess($process, array $a, $stub, $isNested)
@@ -50,7 +50,7 @@ class ResourceCaster
         return \proc_get_status($process);
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castStream($stream, array $a, $stub, $isNested)
@@ -62,7 +62,7 @@ class ResourceCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castStreamContext($stream, array $a, $stub, $isNested)
@@ -70,7 +70,7 @@ class ResourceCaster
         return @\stream_context_get_params($stream) ?: $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      */
     public static function castGd($gd, array $a, $stub, $isNested)
     {
@@ -79,7 +79,7 @@ class ResourceCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castMysqlLink($h, array $a, $stub, $isNested)
@@ -90,7 +90,7 @@ class ResourceCaster
         return $a;
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      */
     public static function castOpensslX509($h, array $a, $stub, $isNested)

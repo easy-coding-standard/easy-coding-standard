@@ -32,7 +32,7 @@ class StreamOutput extends \ECSPrefix20210507\Symfony\Component\Console\Output\O
      * @param resource                      $stream    A stream resource
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
      * @param bool $decorated Whether to decorate messages (null for auto-guessing)
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter Output formatter instance (null to use default OutputFormatter)
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter Output formatter instance (null to use default OutputFormatter)
      *
      * @throws InvalidArgumentException When first argument is not a real stream
      */
@@ -96,10 +96,10 @@ class StreamOutput extends \ECSPrefix20210507\Symfony\Component\Console\Output\O
         }
         $streamIsatty = function ($stream) {
             if ('\\' === \DIRECTORY_SEPARATOR) {
-                $stat = @fstat($stream);
-                return $stat ? 020000 === ($stat['mode'] & 0170000) : false;
+                $stat = @\fstat($stream);
+                return $stat ? 020000 === ($stat['mode'] & 0170000) : \false;
             }
-            return @posix_isatty($stream);
+            return @\posix_isatty($stream);
         };
         return $streamIsatty($this->stream);
     }

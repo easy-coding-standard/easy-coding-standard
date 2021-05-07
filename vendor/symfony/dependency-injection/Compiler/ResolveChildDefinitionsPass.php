@@ -52,8 +52,8 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\D
      * Resolves the definition.
      *
      * @throws RuntimeException When the definition is invalid
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition $definition
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition
+     * @param \Symfony\Component\DependencyInjection\ChildDefinition $definition
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
     private function resolveDefinition($definition)
     {
@@ -69,8 +69,8 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\D
         }
     }
     /**
-     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition $definition
-     * @return \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition
+     * @param \Symfony\Component\DependencyInjection\ChildDefinition $definition
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
     private function doResolveDefinition($definition)
     {

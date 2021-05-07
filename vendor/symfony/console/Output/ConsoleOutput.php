@@ -32,7 +32,7 @@ class ConsoleOutput extends \ECSPrefix20210507\Symfony\Component\Console\Output\
     /**
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
      * @param bool $decorated Whether to decorate messages (null for auto-guessing)
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter Output formatter instance (null to use default OutputFormatter)
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter Output formatter instance (null to use default OutputFormatter)
      */
     public function __construct($verbosity = self::VERBOSITY_NORMAL, $decorated = null, $formatter = null)
     {
@@ -50,7 +50,7 @@ class ConsoleOutput extends \ECSPrefix20210507\Symfony\Component\Console\Output\
     }
     /**
      * Creates a new output section.
-     * @return \ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleSectionOutput
+     * @return \Symfony\Component\Console\Output\ConsoleSectionOutput
      */
     public function section()
     {
@@ -67,7 +67,7 @@ class ConsoleOutput extends \ECSPrefix20210507\Symfony\Component\Console\Output\
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
+     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
     public function setFormatter($formatter)
     {
@@ -92,7 +92,7 @@ class ConsoleOutput extends \ECSPrefix20210507\Symfony\Component\Console\Output\
     }
     /**
      * {@inheritdoc}
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface $error
+     * @param \Symfony\Component\Console\Output\OutputInterface $error
      */
     public function setErrorOutput($error)
     {

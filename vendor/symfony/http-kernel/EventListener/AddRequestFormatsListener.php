@@ -29,7 +29,7 @@ class AddRequestFormatsListener implements \ECSPrefix20210507\Symfony\Component\
     }
     /**
      * Adds request formats.
-     * @param \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest($event)
     {

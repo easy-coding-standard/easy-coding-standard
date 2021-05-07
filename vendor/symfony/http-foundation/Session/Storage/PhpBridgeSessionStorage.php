@@ -20,7 +20,7 @@ class PhpBridgeSessionStorage extends \ECSPrefix20210507\Symfony\Component\HttpF
 {
     /**
      * @param AbstractProxy|\SessionHandlerInterface|null $handler
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
      */
     public function __construct($handler = null, $metaBag = null)
     {

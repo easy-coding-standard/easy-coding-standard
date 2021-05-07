@@ -27,7 +27,7 @@ class MockFileSessionStorage extends \ECSPrefix20210507\Symfony\Component\HttpFo
     /**
      * @param string $savePath Path of directory to save session files
      * @param string $name
-     * @param \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
+     * @param \Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag
      */
     public function __construct($savePath = null, $name = 'MOCKSESSID', $metaBag = null)
     {

@@ -37,10 +37,9 @@ final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpC
     private $fixFunction;
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         if ('lower' === $this->configuration['case']) {

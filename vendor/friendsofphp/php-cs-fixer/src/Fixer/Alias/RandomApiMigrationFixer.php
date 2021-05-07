@@ -34,10 +34,9 @@ final class RandomApiMigrationFixer extends \PhpCsFixer\AbstractFunctionReferenc
     private static $argumentCounts = ['getrandmax' => [0], 'mt_rand' => [1, 2], 'rand' => [0, 2], 'srand' => [0, 1]];
     /**
      * {@inheritdoc}
-     * @param mixed[] $configuration
      * @return void
      */
-    public function configure($configuration)
+    public function configure(array $configuration)
     {
         parent::configure($configuration);
         foreach ($this->configuration['replacements'] as $functionName => $replacement) {

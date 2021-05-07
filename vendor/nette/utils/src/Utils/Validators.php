@@ -105,7 +105,7 @@ class Validators
     {
         foreach (\explode('|', $expected) as $item) {
             if (\substr($item, -2) === '[]') {
-                if ((is_array($value) || $value instanceof \Traversable) && self::everyIs($value, \substr($item, 0, -2))) {
+                if ((\is_array($value) || $value instanceof \Traversable) && self::everyIs($value, \substr($item, 0, -2))) {
                     return \true;
                 }
                 continue;

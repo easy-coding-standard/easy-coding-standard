@@ -41,7 +41,7 @@ final class SnippetFormatterApplication
      * @param \Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter $snippetReporter
      * @param \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter $snippetFormatter
      * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
-     * @param \ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
+     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
      * @param \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter
      */
     public function __construct($configuration, $snippetReporter, $snippetFormatter, $smartFileSystem, $symfonyStyle, $processedFileReporter)

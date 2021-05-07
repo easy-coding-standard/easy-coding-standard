@@ -149,7 +149,7 @@ class Caster
     }
     /**
      * @param \__PHP_Incomplete_Class $c
-     * @param \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Stub $stub
+     * @param \Symfony\Component\VarDumper\Cloner\Stub $stub
      * @param bool $isNested
      * @return mixed[]
      */
