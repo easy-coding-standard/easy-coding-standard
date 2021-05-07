@@ -1,7 +1,0 @@
-<documentation title="Line Endings">
-    <standard>
-    <![CDATA[
-    Unix-style line endings are preferred ("\n" instead of "\ECSPrefix20210507\r\n").
-    ]]>
-    </standard>
-</documentation>

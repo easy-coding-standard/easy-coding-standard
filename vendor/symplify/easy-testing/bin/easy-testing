@@ -1,5 +1,0 @@
-#!/usr/bin/env php
-<?php 
-namespace ECSPrefix20210507;
-
-require __DIR__ . '/easy-testing.php';
