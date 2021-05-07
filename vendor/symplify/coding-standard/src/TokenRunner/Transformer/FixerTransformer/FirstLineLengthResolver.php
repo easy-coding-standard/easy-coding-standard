@@ -1,0 +1,82 @@
+<?php
+
+namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
+
+use ECSPrefix20210507\Nette\Utils\Strings;
+use PhpCsFixer\Tokenizer\CT;
+use PhpCsFixer\Tokenizer\Token;
+use PhpCsFixer\Tokenizer\Tokens;
+use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
+use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
+use Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory;
+use Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+final class FirstLineLengthResolver
+{
+    /**
+     * @var LineLengthAndPositionFactory
+     */
+    private $lineLengthAndPositionFactory;
+    /**
+     * @param \Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory $lineLengthAndPositionFactory
+     */
+    public function __construct($lineLengthAndPositionFactory)
+    {
+        $this->lineLengthAndPositionFactory = $lineLengthAndPositionFactory;
+    }
+    /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
+     * @return int
+     */
+    public function resolveFromTokensAndStartPosition($tokens, $blockInfo)
+    {
+        // compute from here to start of line
+        $currentPosition = $blockInfo->getStart();
+        // collect length of tokens on current line which precede token at $currentPosition
+        $lineLengthAndPosition = $this->lineLengthAndPositionFactory->createFromTokensAndLineStartPosition($tokens, $currentPosition);
+        $lineLength = $lineLengthAndPosition->getLineLength();
+        $currentPosition = $lineLengthAndPosition->getCurrentPosition();
+        /** @var Token $currentToken */
+        $currentToken = $tokens[$currentPosition];
+        // includes indent in the beginning
+        $lineLength += \strlen($currentToken->getContent());
+        // minus end of lines, do not count line feeds as characters
+        $endOfLineCount = \substr_count($currentToken->getContent(), \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar());
+        $lineLength -= $endOfLineCount;
+        // compute from here to end of line
+        $currentPosition = $blockInfo->getStart() + 1;
+        // collect length of tokens on current line which follow token at $currentPosition
+        while (!$this->isEndOFArgumentsLine($tokens, $currentPosition)) {
+            /** @var Token $currentToken */
+            $currentToken = $tokens[$currentPosition];
+            // in case of multiline string, we are interested in length of the part on current line only
+            $explode = \explode("\n", $currentToken->getContent(), 2);
+            // string follows current token, so we are interested in beginning only
+            $lineLength += \strlen($explode[0]);
+            ++$currentPosition;
+            if (\count($explode) > 1) {
+                // no longer need to continue searching for end of arguments
+                break;
+            }
+            if (!isset($tokens[$currentPosition])) {
+                break;
+            }
+        }
+        return $lineLength;
+    }
+    /**
+     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param int $position
+     * @return bool
+     */
+    private function isEndOFArgumentsLine($tokens, $position)
+    {
+        if (!isset($tokens[$position])) {
+            throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
+        }
+        if (\ECSPrefix20210507\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
+            return \true;
+        }
+        return $tokens[$position]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA);
+    }
+}

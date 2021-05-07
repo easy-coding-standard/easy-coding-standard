@@ -1,0 +1,50 @@
+<?php
+
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace ECSPrefix20210507\Symfony\Component\Config\Definition\Builder;
+
+use ECSPrefix20210507\Symfony\Component\Config\Definition\BooleanNode;
+use ECSPrefix20210507\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+/**
+ * This class provides a fluent interface for defining a node.
+ *
+ * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ */
+class BooleanNodeDefinition extends \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition
+{
+    /**
+     * {@inheritdoc}
+     * @param string|null $name
+     * @param \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\NodeParentInterface $parent
+     */
+    public function __construct($name, $parent = null)
+    {
+        parent::__construct($name, $parent);
+        $this->nullEquivalent = \true;
+    }
+    /**
+     * Instantiate a Node.
+     *
+     * @return BooleanNode The node
+     */
+    protected function instantiateNode()
+    {
+        return new \ECSPrefix20210507\Symfony\Component\Config\Definition\BooleanNode($this->name, $this->parent, $this->pathSeparator);
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * @throws InvalidDefinitionException
+     */
+    public function cannotBeEmpty()
+    {
+        throw new \ECSPrefix20210507\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('->cannotBeEmpty() is not applicable to BooleanNodeDefinition.');
+    }
+}
