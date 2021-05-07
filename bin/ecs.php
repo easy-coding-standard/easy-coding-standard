@@ -10,8 +10,6 @@ use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
-use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
-use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 
 // performance boost
 gc_disable();
@@ -27,10 +25,6 @@ try {
     $input = new ArgvInput();
     $ecsContainerFactory = new EasyCodingStandardContainerFactory();
     $container = $ecsContainerFactory->createFromFromInput($input);
-} catch (SetNotFoundException $setNotFoundException) {
-    $invalidSetReporter = new InvalidSetReporter();
-    $invalidSetReporter->report($setNotFoundException);
-    exit(ShellCode::ERROR);
 } catch (Throwable $throwable) {
     $symfonyStyleFactory = new SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();

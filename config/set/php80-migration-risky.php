@@ -15,6 +15,11 @@ use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
+    trigger_error(
+        'ECS set PHP_80_MIGRATION_RISKY is deprecated. Use more advanced and precise Rector instead (http://github.com/rectorphp/rector)'
+    );
+    sleep(3);
+
     $services = $containerConfigurator->services();
     $services->set(BacktickToShellExecFixer::class);
     $services->set(CombineNestedDirnameFixer::class);

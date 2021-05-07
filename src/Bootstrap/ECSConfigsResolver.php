@@ -10,6 +10,9 @@ use Symplify\EasyCodingStandard\Set\EasyCodingStandardSetProvider;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
 use Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
 
+/**
+ * @deprecated Move to direct $containerConfigurator->import() approach, instead of our hidden nested magic with same result
+ */
 final class ECSConfigsResolver
 {
     /**
