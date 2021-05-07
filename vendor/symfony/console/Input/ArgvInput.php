@@ -40,9 +40,12 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
 {
     private $tokens;
     private $parsed;
-    public function __construct(array $argv = null, \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition $definition = null)
+    /**
+     * @param \Symfony\Component\Console\Input\InputDefinition $definition
+     */
+    public function __construct(array $argv = null, $definition = null)
     {
-        $argv = $argv ?? $_SERVER['argv'] ?? [];
+        $argv = isset($argv) ? $argv : (isset($_SERVER['argv']) ? $_SERVER['argv'] : []);
         // strip the application name
         \array_shift($argv);
         $this->tokens = $argv;
@@ -75,8 +78,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
     }
     /**
      * Parses a short option.
+     * @param string $token
      */
-    private function parseShortOption(string $token)
+    private function parseShortOption($token)
     {
         $name = \substr($token, 1);
         if (\strlen($name) > 1) {
@@ -94,8 +98,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
      * Parses a short option set.
      *
      * @throws RuntimeException When option given doesn't exist
+     * @param string $name
      */
-    private function parseShortOptionSet(string $name)
+    private function parseShortOptionSet($name)
     {
         $len = \strlen($name);
         for ($i = 0; $i < $len; ++$i) {
@@ -114,8 +119,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
     }
     /**
      * Parses a long option.
+     * @param string $token
      */
-    private function parseLongOption(string $token)
+    private function parseLongOption($token)
     {
         $name = \substr($token, 2);
         if (\false !== ($pos = \strpos($name, '='))) {
@@ -131,8 +137,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
      * Parses an argument.
      *
      * @throws RuntimeException When too many arguments are given
+     * @param string $token
      */
-    private function parseArgument(string $token)
+    private function parseArgument($token)
     {
         $c = \count($this->arguments);
         // if input is expecting another argument, add it
@@ -147,8 +154,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
         } else {
             $all = $this->definition->getArguments();
             $symfonyCommandName = null;
-            if (($inputArgument = $all[$key = \array_key_first($all)] ?? null) && 'command' === $inputArgument->getName()) {
-                $symfonyCommandName = $this->arguments['command'] ?? null;
+            \reset($all);
+            if (($inputArgument = isset($all[$key = \key($all)]) ? $all[$key = \key($all)] : null) && 'command' === $inputArgument->getName()) {
+                $symfonyCommandName = isset($this->arguments['command']) ? $this->arguments['command'] : null;
                 unset($all[$key]);
             }
             if (\count($all)) {
@@ -169,8 +177,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
      * Adds a short option value.
      *
      * @throws RuntimeException When option given doesn't exist
+     * @param string $shortcut
      */
-    private function addShortOption(string $shortcut, $value)
+    private function addShortOption($shortcut, $value)
     {
         if (!$this->definition->hasShortcut($shortcut)) {
             throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\RuntimeException(\sprintf('The "-%s" option does not exist.', $shortcut));
@@ -181,8 +190,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
      * Adds a long option value.
      *
      * @throws RuntimeException When option given doesn't exist
+     * @param string $name
      */
-    private function addLongOption(string $name, $value)
+    private function addLongOption($name, $value)
     {
         if (!$this->definition->hasOption($name)) {
             throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\RuntimeException(\sprintf('The "--%s" option does not exist.', $name));
@@ -246,8 +256,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
     }
     /**
      * {@inheritdoc}
+     * @param bool $onlyParams
      */
-    public function hasParameterOption($values, bool $onlyParams = \false)
+    public function hasParameterOption($values, $onlyParams = \false)
     {
         $values = (array) $values;
         foreach ($this->tokens as $token) {
@@ -268,8 +279,9 @@ class ArgvInput extends \ECSPrefix20210507\Symfony\Component\Console\Input\Input
     }
     /**
      * {@inheritdoc}
+     * @param bool $onlyParams
      */
-    public function getParameterOption($values, $default = \false, bool $onlyParams = \false)
+    public function getParameterOption($values, $default = \false, $onlyParams = \false)
     {
         $values = (array) $values;
         $tokens = $this->tokens;
