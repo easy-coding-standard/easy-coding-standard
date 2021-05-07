@@ -1,11 +1,11 @@
 <?php
 
-declare (strict_types=1);
-namespace ECSPrefix20210507;
+declare(strict_types=1);
 
-use ECSPrefix20210507\SlevomatCodingStandard\Sniffs\Files\LineLengthSniff;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (ContainerConfigurator $containerConfigurator) : void {
+use SlevomatCodingStandard\Sniffs\Files\LineLengthSniff;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(LineLengthSniff::class);
 };

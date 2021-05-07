@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507;
+declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PhpCsFixer\Fixer\Casing\MagicConstantCasingFixer;
@@ -17,25 +17,56 @@ use PhpCsFixer\Fixer\Operator\StandardizeIncrementFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitMethodCasingFixer;
 use PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer;
 use PhpCsFixer\Fixer\StringNotation\SingleQuoteFixer;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-return static function (ContainerConfigurator $containerConfigurator) {
+
+return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
+
     $services->set(PhpUnitMethodCasingFixer::class);
+
     $services->set(FunctionToConstantFixer::class);
+
     $services->set(ExplicitStringVariableFixer::class);
+
     $services->set(ExplicitIndirectVariableFixer::class);
-    $services->set(SingleClassElementPerStatementFixer::class)->call('configure', [['elements' => ['const', 'property']]]);
+
+    $services->set(SingleClassElementPerStatementFixer::class)
+        ->call('configure', [[
+            'elements' => ['const', 'property'],
+        ]]);
+
     $services->set(NewWithBracesFixer::class);
-    $services->set(ClassDefinitionFixer::class)->call('configure', [['single_line' => \true]]);
+
+    $services->set(ClassDefinitionFixer::class)
+        ->call('configure', [[
+            'single_line' => true,
+        ]]);
+
     $services->set(StandardizeIncrementFixer::class);
+
     $services->set(SelfAccessorFixer::class);
+
     $services->set(MagicConstantCasingFixer::class);
+
     $services->set(AssignmentInConditionSniff::class);
+
     $services->set(NoUselessElseFixer::class);
+
     $services->set(SingleQuoteFixer::class);
-    $services->set(YodaStyleFixer::class)->call('configure', [['equal' => \false, 'identical' => \false, 'less_and_greater' => \false]]);
+
+    $services->set(YodaStyleFixer::class)
+        ->call('configure', [[
+            'equal' => false,
+            'identical' => false,
+            'less_and_greater' => false,
+        ]]);
+
     $services->set(OrderedClassElementsFixer::class);
+
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SKIP, [AssignmentInConditionSniff::class . '.FoundInWhileCondition' => null]);
+
+    $parameters->set(Option::SKIP, [
+        AssignmentInConditionSniff::class . '.FoundInWhileCondition' => null,
+    ]);
 };

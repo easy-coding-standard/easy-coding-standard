@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 final class ErrorAndDiffResult
@@ -8,14 +10,17 @@ final class ErrorAndDiffResult
      * @var CodingStandardError[]
      */
     private $codingStandardErrors = [];
+
     /**
      * @var FileDiff[]
      */
     private $fileDiffs = [];
+
     /**
      * @var SystemError[]
      */
     private $systemErrors = [];
+
     /**
      * @param CodingStandardError[] $codingStandardErrors
      * @param FileDiff[] $fileDiffs
@@ -27,73 +32,71 @@ final class ErrorAndDiffResult
         $this->fileDiffs = $this->sortByFilePath($fileDiffs);
         $this->systemErrors = $systemErrors;
     }
-    /**
-     * @return int
-     */
-    public function getErrorCount()
+
+    public function getErrorCount(): int
     {
-        return \count($this->codingStandardErrors) + \count($this->systemErrors);
+        return count($this->codingStandardErrors) + count($this->systemErrors);
     }
-    /**
-     * @return int
-     */
-    public function getFileDiffsCount()
+
+    public function getFileDiffsCount(): int
     {
-        return \count($this->fileDiffs);
+        return count($this->fileDiffs);
     }
+
     /**
-     * @return mixed[]
+     * @return CodingStandardError[]
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->codingStandardErrors;
     }
+
     /**
-     * @return mixed[]
+     * @return SystemError[]
      */
-    public function getSystemErrors()
+    public function getSystemErrors(): array
     {
         return $this->systemErrors;
     }
+
     /**
-     * @return mixed[]
+     * @return FileDiff[]
      */
-    public function getFileDiffs()
+    public function getFileDiffs(): array
     {
         return $this->fileDiffs;
     }
+
     /**
      * @param CodingStandardError[] $errorMessages
-     * @return mixed[]
+     * @return CodingStandardError[]
      */
-    private function sortByFileAndLine(array $errorMessages)
+    private function sortByFileAndLine(array $errorMessages): array
     {
-        \usort($errorMessages, static function (\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $firstCodingStandardError, \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $secondCodingStandardError) : int {
-            $battleShipcompare = function ($left, $right) {
-                if ($left === $right) {
-                    return 0;
-                }
-                return $left < $right ? -1 : 1;
-            };
-            return $battleShipcompare([$firstCodingStandardError->getRelativeFilePathFromCwd(), $firstCodingStandardError->getLine()], [$secondCodingStandardError->getRelativeFilePathFromCwd(), $secondCodingStandardError->getLine()]);
-        });
+        usort(
+            $errorMessages,
+            static function (
+                CodingStandardError $firstCodingStandardError,
+                CodingStandardError $secondCodingStandardError
+            ): int {
+                return [$firstCodingStandardError->getRelativeFilePathFromCwd(), $firstCodingStandardError->getLine()]
+                <=> [$secondCodingStandardError->getRelativeFilePathFromCwd(), $secondCodingStandardError->getLine()];
+            }
+        );
+
         return $errorMessages;
     }
+
     /**
      * @param FileDiff[] $fileDiffs
-     * @return mixed[]
+     * @return FileDiff[]
      */
-    private function sortByFilePath(array $fileDiffs)
+    private function sortByFilePath(array $fileDiffs): array
     {
-        \uasort($fileDiffs, static function (\Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $firstFileDiff, \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff $secondFileDiff) : int {
-            $battleShipcompare = function ($left, $right) {
-                if ($left === $right) {
-                    return 0;
-                }
-                return $left < $right ? -1 : 1;
-            };
-            return $battleShipcompare($firstFileDiff->getRelativeFilePathFromCwd(), $secondFileDiff->getRelativeFilePathFromCwd());
+        uasort($fileDiffs, static function (FileDiff $firstFileDiff, FileDiff $secondFileDiff): int {
+            return $firstFileDiff->getRelativeFilePathFromCwd() <=> $secondFileDiff->getRelativeFilePathFromCwd();
         });
+
         return $fileDiffs;
     }
 }

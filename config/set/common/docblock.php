@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507;
+declare(strict_types=1);
 
 use PhpCsFixer\Fixer\Comment\NoTrailingWhitespaceInCommentFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoEmptyPhpdocFixer;
@@ -13,10 +13,12 @@ use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimConsecutiveBlankLineSeparationFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTrimFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocTypesFixer;
 use PhpCsFixer\Fixer\Phpdoc\PhpdocVarWithoutNameFixer;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDefaultCommentFixer;
-return static function (ContainerConfigurator $containerConfigurator) {
+
+return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
+
     $services->set(PhpdocLineSpanFixer::class);
     $services->set(NoTrailingWhitespaceInCommentFixer::class);
     $services->set(PhpdocTrimConsecutiveBlankLineSeparationFixer::class);
@@ -28,5 +30,12 @@ return static function (ContainerConfigurator $containerConfigurator) {
     $services->set(PhpdocReturnSelfReferenceFixer::class);
     $services->set(PhpdocVarWithoutNameFixer::class);
     $services->set(RemoveUselessDefaultCommentFixer::class);
-    $services->set(NoSuperfluousPhpdocTagsFixer::class)->call('configure', [['remove_inheritdoc' => \true, 'allow_mixed' => \true]]);
+
+    $services->set(NoSuperfluousPhpdocTagsFixer::class)
+        ->call('configure', [
+            [
+                'remove_inheritdoc' => true,
+                'allow_mixed' => true,
+            ],
+        ]);
 };
