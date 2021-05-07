@@ -20,16 +20,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/tests',
     ]);
 
-    $parameters->set(Option::SETS, [
-        // run and fix, one by one
-        // SetList::SPACES,
-        // SetList::ARRAY,
-        // SetList::DOCBLOCK,
-        // SetList::NAMESPACES,
-        // SetList::CONTROL_STRUCTURES,
-        // SetList::CLEAN_CODE,
-        // SetList::PSR_12,
-        // SetList::PHP_70,
-        // SetList::PHP_71,
-    ]);
+    // run and fix, one by one
+    // $containerConfigurator->import(SetList::SPACES);
+    // $containerConfigurator->import(SetList::ARRAY);
+    // $containerConfigurator->import(SetList::DOCBLOCK);
+    // $containerConfigurator->import(SetList::NAMESPACES);
+    // $containerConfigurator->import(SetList::CLEAN_CODE);
+    // $containerConfigurator->import(SetList::PSR_12);
 };

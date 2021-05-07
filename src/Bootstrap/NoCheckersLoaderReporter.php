@@ -31,8 +31,7 @@ final class NoCheckersLoaderReporter
         $this->symfonyStyle->newLine(2);
 
         $this->symfonyStyle->title('Add set of rules to "ecs.php"');
-        $this->symfonyStyle->writeln('  $parameters = $containerConfigurator->parameters();');
-        $this->symfonyStyle->writeln('  $parameters->set(Option::SETS, [...]);');
+        $this->symfonyStyle->writeln('  $containerConfigurator->import(...);');
         $this->symfonyStyle->newLine(2);
 
         $this->symfonyStyle->title('Missing "ecs.php" in your project? Let ECS create it for you');
