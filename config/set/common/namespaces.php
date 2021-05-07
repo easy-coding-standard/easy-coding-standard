@@ -1,18 +1,14 @@
 <?php
 
-declare(strict_types=1);
+namespace ECSPrefix20210507;
 
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Import\OrderedImportsFixer;
 use PhpCsFixer\Fixer\NamespaceNotation\SingleBlankLineBeforeNamespaceFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-
     $services->set(NoUnusedImportsFixer::class);
-
     $services->set(OrderedImportsFixer::class);
-
     $services->set(SingleBlankLineBeforeNamespaceFixer::class);
 };

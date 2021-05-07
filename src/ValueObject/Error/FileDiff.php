@@ -1,70 +1,66 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 final class FileDiff
 {
     /**
      * @var string
      */
     private $diff;
-
     /**
      * @var string[]
      */
     private $appliedCheckers = [];
-
     /**
      * @var string
      */
     private $consoleFormattedDiff;
-
     /**
      * @var SmartFileInfo
      */
     private $smartFileInfo;
-
     /**
      * @param string[] $appliedCheckers
+     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
+     * @param string $diff
+     * @param string $consoleFormattedDiff
      */
-    public function __construct(
-        SmartFileInfo $smartFileInfo,
-        string $diff,
-        string $consoleFormattedDiff,
-        array $appliedCheckers
-    ) {
+    public function __construct($smartFileInfo, $diff, $consoleFormattedDiff, array $appliedCheckers)
+    {
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
         $this->consoleFormattedDiff = $consoleFormattedDiff;
         $this->smartFileInfo = $smartFileInfo;
     }
-
-    public function getDiff(): string
+    /**
+     * @return string
+     */
+    public function getDiff()
     {
         return $this->diff;
     }
-
-    public function getDiffConsoleFormatted(): string
+    /**
+     * @return string
+     */
+    public function getDiffConsoleFormatted()
     {
         return $this->consoleFormattedDiff;
     }
-
     /**
-     * @return string[]
+     * @return mixed[]
      */
-    public function getAppliedCheckers(): array
+    public function getAppliedCheckers()
     {
-        $this->appliedCheckers = array_unique($this->appliedCheckers);
-        sort($this->appliedCheckers);
-
+        $this->appliedCheckers = \array_unique($this->appliedCheckers);
+        \sort($this->appliedCheckers);
         return $this->appliedCheckers;
     }
-
-    public function getRelativeFilePathFromCwd(): string
+    /**
+     * @return string
+     */
+    public function getRelativeFilePathFromCwd()
     {
         return $this->smartFileInfo->getRelativeFilePathFromCwd();
     }

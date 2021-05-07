@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+namespace ECSPrefix20210507;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures\InlineControlStructureSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\ByteOrderMarkSniff;
@@ -38,95 +38,46 @@ use PHP_CodeSniffer\Standards\Squiz\Sniffs\Scope\MethodScopeSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeClosingBraceSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\ScopeKeywordSpacingSniff;
 use PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace\SuperfluousWhitespaceSniff;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20210507\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-
     $services->set(NamespaceDeclarationSniff::class);
-
     $services->set(UseDeclarationSniff::class);
-
     $services->set(ClassDeclarationSniff::class);
-
     $services->set(PropertyDeclarationSniff::class);
-
     $services->set(EndFileNewlineSniff::class);
-
     $services->set(ClosingTagSniff::class);
-
     $services->set(ControlStructureSpacingSniff::class);
-
     $services->set(SwitchDeclarationSniff::class);
-
     $services->set(ElseIfDeclarationSniff::class);
-
     $services->set(FunctionCallSignatureSniff::class);
-
     $services->set(MethodDeclarationSniff::class);
-
     $services->set(FunctionClosingBraceSniff::class);
-
     $services->set(ByteOrderMarkSniff::class);
-
     $services->set(ValidClassNameSniff::class);
-
     $services->set(UpperCaseConstantNameSniff::class);
-
-    $services->set(LineEndingsSniff::class)
-        ->property('eolChar', '\n');
-
-    $services->set(SuperfluousWhitespaceSniff::class)
-        ->property('ignoreBlankLines', true);
-
+    $services->set(LineEndingsSniff::class)->property('eolChar', '\\n');
+    $services->set(SuperfluousWhitespaceSniff::class)->property('ignoreBlankLines', \true);
     $services->set(DisallowMultipleStatementsSniff::class);
-
-    $services->set(ScopeIndentSniff::class)
-        ->property('ignoreIndentationTokens', ['T_COMMENT', 'T_DOC_COMMENT_OPEN_TAG']);
-
+    $services->set(ScopeIndentSniff::class)->property('ignoreIndentationTokens', ['T_COMMENT', 'T_DOC_COMMENT_OPEN_TAG']);
     $services->set(DisallowTabIndentSniff::class);
-
     $services->set(LowerCaseKeywordSniff::class);
-
     $services->set(LowerCaseConstantSniff::class);
-
     $services->set(MethodScopeSniff::class);
-
     $services->set(ScopeKeywordSpacingSniff::class);
-
     $services->set(FunctionDeclarationSniff::class);
-
     $services->set(LowercaseFunctionKeywordsSniff::class);
-
-    $services->set(FunctionDeclarationArgumentSpacingSniff::class)
-        ->property('equalsSpacing', 1);
-
+    $services->set(FunctionDeclarationArgumentSpacingSniff::class)->property('equalsSpacing', 1);
     $services->set(ValidDefaultValueSniff::class);
-
     $services->set(MultiLineFunctionDeclarationSniff::class);
-
     $services->set(FunctionCallArgumentSpacingSniff::class);
-
     $services->set(ControlSignatureSniff::class);
-
     $services->set(ScopeClosingBraceSniff::class);
-
     $services->set(ForEachLoopDeclarationSniff::class);
-
     $services->set(ForLoopDeclarationSniff::class);
-
     $services->set(LowercaseDeclarationSniff::class);
-
     $services->set(InlineControlStructureSniff::class);
-
     $parameters = $containerConfigurator->parameters();
-
-    $parameters->set(Option::SKIP, [
-        ControlStructureSpacingSniff::class . '.SpacingAfterOpenBrace' => null,
-        ControlStructureSpacingSniff::class . '.SpaceBeforeCloseBrace' => null,
-        ControlStructureSpacingSniff::class . '.LineAfterClose' => null,
-        ControlStructureSpacingSniff::class . '.NoLineAfterClose' => null,
-        FunctionCallSignatureSniff::class . '.OpeningIndent' => null,
-    ]);
+    $parameters->set(Option::SKIP, [ControlStructureSpacingSniff::class . '.SpacingAfterOpenBrace' => null, ControlStructureSpacingSniff::class . '.SpaceBeforeCloseBrace' => null, ControlStructureSpacingSniff::class . '.LineAfterClose' => null, ControlStructureSpacingSniff::class . '.NoLineAfterClose' => null, FunctionCallSignatureSniff::class . '.OpeningIndent' => null]);
 };

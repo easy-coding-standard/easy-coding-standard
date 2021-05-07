@@ -1,25 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\FixerRunner\Parser;
 
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\SmartFileSystem\SmartFileSystem;
-
 final class FileToTokensParser
 {
     /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-
-    public function __construct(SmartFileSystem $smartFileSystem)
+    /**
+     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
+     */
+    public function __construct($smartFileSystem)
     {
         $this->smartFileSystem = $smartFileSystem;
     }
-
-    public function parseFromFilePath(string $filePath): Tokens
+    /**
+     * @param string $filePath
+     * @return \PhpCsFixer\Tokenizer\Tokens
+     */
+    public function parseFromFilePath($filePath)
     {
         $fileContent = $this->smartFileSystem->readFile($filePath);
         return Tokens::fromCode($fileContent);

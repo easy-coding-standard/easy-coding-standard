@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff;
@@ -52,9 +50,8 @@ use PhpCsFixer\Fixer\Whitespace\IndentationTypeFixer;
 use PhpCsFixer\Fixer\Whitespace\LineEndingFixer;
 use PhpCsFixer\Fixer\Whitespace\NoExtraBlankLinesFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
+use ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
 final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
 {
     /**
@@ -62,41 +59,31 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
      *
      * @var string[][]
      */
-    private const DUPLICATED_CHECKER_GROUPS = [
+    const DUPLICATED_CHECKER_GROUPS = [
         [IndentationTypeFixer::class, DisallowTabIndentSniff::class],
         [IndentationTypeFixer::class, DisallowSpaceIndentSniff::class],
-        [StrictComparisonFixer::class, 'SlevomatCodingStandard\Sniffs\Operators\DisallowEqualOperatorsSniff'],
-        [VisibilityRequiredFixer::class, 'SlevomatCodingStandard\Sniffs\Classes\ClassConstantVisibilitySniff'],
+        [StrictComparisonFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Operators\\DisallowEqualOperatorsSniff'],
+        [VisibilityRequiredFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Classes\\ClassConstantVisibilitySniff'],
         [ArraySyntaxFixer::class, DisallowShortArraySyntaxSniff::class],
         [ArraySyntaxFixer::class, DisallowLongArraySyntaxSniff::class],
         [LowercaseKeywordsFixer::class, LowercaseClassKeywordsSniff::class],
         [LowercaseKeywordsFixer::class, LowerCaseKeywordSniff::class],
         [SingleImportPerStatementFixer::class, UseDeclarationSniff::class],
-        [SingleImportPerStatementFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\DisallowGroupUseSniff'],
-        [SingleImportPerStatementFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\MultipleUsesPerLineSniff'],
-        [PhpdocScalarFixer::class, 'SlevomatCodingStandard\Sniffs\TypeHints\LongTypeHintsSniff'],
-        [OrderedImportsFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff'],
-        [NoUnusedImportsFixer::class, 'SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff'],
-        [TrailingCommaInMultilineFixer::class, 'SlevomatCodingStandard\Sniffs\Arrays\TrailingArrayCommaSniff'],
-        [
-            NoUnneededControlParenthesesFixer::class,
-            'SlevomatCodingStandard\Sniffs\ControlStructures\LanguageConstructWithParenthesesSniff',
-        ],
-        [ReturnTypeDeclarationFixer::class, 'SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSpacingSniff'],
-        [FunctionTypehintSpaceFixer::class, 'SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSpacingSniff'],
+        [SingleImportPerStatementFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Namespaces\\DisallowGroupUseSniff'],
+        [SingleImportPerStatementFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Namespaces\\MultipleUsesPerLineSniff'],
+        [PhpdocScalarFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\TypeHints\\LongTypeHintsSniff'],
+        [OrderedImportsFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Namespaces\\AlphabeticallySortedUsesSniff'],
+        [NoUnusedImportsFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Namespaces\\UnusedUsesSniff'],
+        [TrailingCommaInMultilineFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Arrays\\TrailingArrayCommaSniff'],
+        [NoUnneededControlParenthesesFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\LanguageConstructWithParenthesesSniff'],
+        [ReturnTypeDeclarationFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\TypeHints\\ReturnTypeHintSpacingSniff'],
+        [FunctionTypehintSpaceFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\TypeHints\\ParameterTypeHintSpacingSniff'],
         [FunctionTypehintSpaceFixer::class, FunctionDeclarationArgumentSpacingSniff::class],
-        [
-            GeneralPhpdocAnnotationRemoveFixer::class,
-            'SlevomatCodingStandard\Sniffs\Commenting\ForbiddenAnnotationsSniff',
-        ],
+        [GeneralPhpdocAnnotationRemoveFixer::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\Commenting\\ForbiddenAnnotationsSniff'],
         [NoExtraBlankLinesFixer::class, SuperfluousWhitespaceSniff::class],
         [IncludeFixer::class, LanguageConstructSpacingSniff::class],
-        [
-            AssignmentInConditionSniff::class,
-            'SlevomatCodingStandard\Sniffs\ControlStructures\AssignmentInConditionSniff',
-        ],
+        [AssignmentInConditionSniff::class, 'ECSPrefix20210507\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\AssignmentInConditionSniff'],
         [SingleQuoteFixer::class, DoubleQuoteUsageSniff::class],
-
         // PSR2
         [BracesFixer::class, ScopeClosingBraceSniff::class],
         [BlankLineAfterNamespaceFixer::class, NamespaceDeclarationSniff::class],
@@ -111,51 +98,48 @@ final class RemoveMutualCheckersCompilerPass implements CompilerPassInterface
         [NoClosingTagFixer::class, ClosingTagSniff::class],
         [SingleClassElementPerStatementFixer::class, PropertyDeclarationSniff::class],
     ];
-
-    public function process(ContainerBuilder $containerBuilder): void
+    /**
+     * @return void
+     * @param \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
+     */
+    public function process($containerBuilder)
     {
         $checkersToRemove = $this->resolveCheckersToRemove($containerBuilder->getServiceIds());
-
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $id => $definition) {
-            if (in_array($definition->getClass(), $checkersToRemove, true)) {
+            if (\in_array($definition->getClass(), $checkersToRemove, \true)) {
                 $containerBuilder->removeDefinition($id);
             }
         }
     }
-
     /**
      * @param string[] $checkers
-     * @return string[]
+     * @return mixed[]
      */
-    private function resolveCheckersToRemove(array $checkers): array
+    private function resolveCheckersToRemove(array $checkers)
     {
-        $checkers = array_flip($checkers);
-
+        $checkers = \array_flip($checkers);
         $checkersToRemove = [];
         foreach (self::DUPLICATED_CHECKER_GROUPS as $matchingCheckerGroup) {
-            if (! $this->isMatch($checkers, $matchingCheckerGroup)) {
+            if (!$this->isMatch($checkers, $matchingCheckerGroup)) {
                 continue;
             }
-
-            array_shift($matchingCheckerGroup);
+            \array_shift($matchingCheckerGroup);
             foreach ($matchingCheckerGroup as $checkerToRemove) {
                 $checkersToRemove[] = $checkerToRemove;
             }
         }
-
         return $checkersToRemove;
     }
-
     /**
      * @param string[] $checkers
      * @param string[] $matchingCheckerGroup
+     * @return bool
      */
-    private function isMatch(array $checkers, array $matchingCheckerGroup): bool
+    private function isMatch(array $checkers, array $matchingCheckerGroup)
     {
-        $matchingCheckerGroupKeys = array_flip($matchingCheckerGroup);
-        $matchingCheckers = array_intersect_key($matchingCheckerGroupKeys, $checkers);
-
-        return count($matchingCheckers) === count($matchingCheckerGroup);
+        $matchingCheckerGroupKeys = \array_flip($matchingCheckerGroup);
+        $matchingCheckers = \array_intersect_key($matchingCheckerGroupKeys, $checkers);
+        return \count($matchingCheckers) === \count($matchingCheckerGroup);
     }
 }
