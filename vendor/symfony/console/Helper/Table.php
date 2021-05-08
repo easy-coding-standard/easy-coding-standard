@@ -89,6 +89,9 @@ class Table
      */
     public static function setStyleDefinition($name, \ECSPrefix20210508\Symfony\Component\Console\Helper\TableStyle $style)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!self::$styles) {
             self::$styles = self::initStyles();
         }
@@ -102,6 +105,9 @@ class Table
      */
     public static function getStyleDefinition($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!self::$styles) {
             self::$styles = self::initStyles();
         }
@@ -420,10 +426,12 @@ class Table
      *
      *     | 9971-5-0210-0 | A Tale of Two Cities  | Charles Dickens  |
      * @param string $cellFormat
-     * @param string $firstCellFormat
      */
-    private function renderRow(array $row, $cellFormat, $firstCellFormat = null)
+    private function renderRow(array $row, $cellFormat, string $firstCellFormat = null)
     {
+        if (\is_object($cellFormat)) {
+            $cellFormat = (string) $cellFormat;
+        }
         $rowContent = $this->renderColumnSeparator(self::BORDER_OUTSIDE);
         $columns = $this->getRowColumns($row);
         $last = \count($columns) - 1;
@@ -441,10 +449,12 @@ class Table
      * Renders table cell with padding.
      * @param int $column
      * @param string $cellFormat
-     * @return string
      */
-    private function renderCell(array $row, $column, $cellFormat)
+    private function renderCell(array $row, $column, $cellFormat) : string
     {
+        if (\is_object($cellFormat)) {
+            $cellFormat = (string) $cellFormat;
+        }
         $cell = isset($row[$column]) ? $row[$column] : '';
         $width = $this->effectiveColumnWidths[$column];
         if ($cell instanceof \ECSPrefix20210508\Symfony\Component\Console\Helper\TableCell && $cell->getColspan() > 1) {

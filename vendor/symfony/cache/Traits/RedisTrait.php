@@ -34,10 +34,12 @@ trait RedisTrait
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface $redisClient
      * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface|null $marshaller
      * @param string $namespace
-     * @param int $defaultLifetime
      */
-    private function init($redisClient, $namespace, $defaultLifetime, $marshaller)
+    private function init($redisClient, $namespace, int $defaultLifetime, $marshaller)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         parent::__construct($namespace, $defaultLifetime);
         if (\preg_match('#[^-+_.A-Za-z0-9]#', $namespace, $match)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('RedisAdapter namespace contains "%s" but only characters in [-+_.A-Za-z0-9] are allowed.', $match[0]));
@@ -74,6 +76,9 @@ trait RedisTrait
      */
     public static function createConnection($dsn, array $options = [])
     {
+        if (\is_object($dsn)) {
+            $dsn = (string) $dsn;
+        }
         if (0 === \strpos($dsn, 'redis:')) {
             $scheme = 'redis';
         } elseif (0 === \strpos($dsn, 'rediss:')) {
@@ -310,6 +315,9 @@ trait RedisTrait
      */
     protected function doHave($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return (bool) $this->redis->exists($id);
     }
     /**
@@ -318,6 +326,9 @@ trait RedisTrait
      */
     protected function doClear($namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $cleared = \true;
         if ($this->redis instanceof \ECSPrefix20210508\Predis\ClientInterface) {
             $evalArgs = [0, $namespace];

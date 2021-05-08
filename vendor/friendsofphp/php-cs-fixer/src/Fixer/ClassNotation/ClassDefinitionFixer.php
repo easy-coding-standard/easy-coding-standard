@@ -234,10 +234,12 @@ interface Bar extends
     /**
      * @param int $startIndex
      * @param string $label
-     * @return mixed[]
      */
-    private function getClassyInheritanceInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $label)
+    private function getClassyInheritanceInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $label) : array
     {
+        if (\is_object($label)) {
+            $label = (string) $label;
+        }
         $implementsInfo = ['start' => $startIndex, $label => 1, 'multiLine' => \false];
         ++$startIndex;
         $endIndex = $tokens->getNextTokenOfKind($startIndex, ['{', [\T_IMPLEMENTS], [\T_EXTENDS]]);

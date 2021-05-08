@@ -16,10 +16,12 @@ final class StringFormatConverter
     const BIG_LETTER_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]*)#';
     /**
      * @param string $value
-     * @return string
      */
-    public function underscoreAndHyphenToCamelCase($value)
+    public function underscoreAndHyphenToCamelCase($value) : string
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         $underscoreToHyphensValue = \str_replace(['_', '-'], ' ', $value);
         $uppercasedWords = \ucwords($underscoreToHyphensValue);
         $value = \str_replace(' ', '', $uppercasedWords);
@@ -27,18 +29,22 @@ final class StringFormatConverter
     }
     /**
      * @param string $input
-     * @return string
      */
-    public function camelCaseToUnderscore($input)
+    public function camelCaseToUnderscore($input) : string
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         return $this->camelCaseToGlue($input, '_');
     }
     /**
      * @param string $input
-     * @return string
      */
-    public function camelCaseToDashed($input)
+    public function camelCaseToDashed($input) : string
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         return $this->camelCaseToGlue($input, '-');
     }
     /**
@@ -62,11 +68,12 @@ final class StringFormatConverter
     }
     /**
      * @param string $input
-     * @param string $glue
-     * @return string
      */
-    private function camelCaseToGlue($input, $glue)
+    private function camelCaseToGlue($input, string $glue) : string
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         $matches = \ECSPrefix20210508\Nette\Utils\Strings::matchAll($input, self::BIG_LETTER_REGEX);
         $parts = [];
         foreach ($matches as $match) {

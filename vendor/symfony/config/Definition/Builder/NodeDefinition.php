@@ -61,6 +61,9 @@ abstract class NodeDefinition implements \ECSPrefix20210508\Symfony\Component\Co
      */
     public function info($info)
     {
+        if (\is_object($info)) {
+            $info = (string) $info;
+        }
         return $this->attribute('info', $info);
     }
     /**
@@ -84,6 +87,9 @@ abstract class NodeDefinition implements \ECSPrefix20210508\Symfony\Component\Co
      */
     public function attribute($key, $value)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $this->attributes[$key] = $value;
         return $this;
     }
@@ -328,6 +334,9 @@ abstract class NodeDefinition implements \ECSPrefix20210508\Symfony\Component\Co
      */
     public function setPathSeparator($separator)
     {
+        if (\is_object($separator)) {
+            $separator = (string) $separator;
+        }
         if ($this instanceof \ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface) {
             foreach ($this->getChildNodeDefinitions() as $child) {
                 $child->setPathSeparator($separator);

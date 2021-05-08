@@ -86,12 +86,12 @@ class Sample
      * Replace occurrences of the name of the classy element by "self" (if possible).
      * @return void
      * @param string $namespace
-     * @param string $name
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, $name, $startIndex, $endIndex)
+    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, string $name, int $startIndex, int $endIndex)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $insideMethodSignatureUntil = null;
         for ($i = $startIndex; $i < $endIndex; ++$i) {
@@ -144,6 +144,9 @@ class Sample
      */
     private function getClassStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $namespace = ('' !== $namespace ? '\\' . $namespace : '') . '\\';
         foreach (\array_reverse(\PhpCsFixer\Preg::split('/(\\\\)/', $namespace, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE)) as $piece) {
             $index = $tokens->getPrevMeaningfulToken($index);

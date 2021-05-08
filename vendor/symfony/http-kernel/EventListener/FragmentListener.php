@@ -38,6 +38,9 @@ class FragmentListener implements \ECSPrefix20210508\Symfony\Component\EventDisp
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\UriSigner $signer, $fragmentPath = '/_fragment')
     {
+        if (\is_object($fragmentPath)) {
+            $fragmentPath = (string) $fragmentPath;
+        }
         $this->signer = $signer;
         $this->fragmentPath = $fragmentPath;
     }

@@ -24,8 +24,11 @@ class UriSigner
      * @param string $secret    A secret
      * @param string $parameter Query string parameter to use
      */
-    public function __construct($secret, $parameter = '_hash')
+    public function __construct($secret, string $parameter = '_hash')
     {
+        if (\is_object($secret)) {
+            $secret = (string) $secret;
+        }
         $this->secret = $secret;
         $this->parameter = $parameter;
     }
@@ -40,6 +43,9 @@ class UriSigner
      */
     public function sign($uri)
     {
+        if (\is_object($uri)) {
+            $uri = (string) $uri;
+        }
         $url = \parse_url($uri);
         if (isset($url['query'])) {
             \parse_str($url['query'], $params);
@@ -58,6 +64,9 @@ class UriSigner
      */
     public function check($uri)
     {
+        if (\is_object($uri)) {
+            $uri = (string) $uri;
+        }
         $url = \parse_url($uri);
         if (isset($url['query'])) {
             \parse_str($url['query'], $params);
@@ -82,10 +91,12 @@ class UriSigner
     }
     /**
      * @param string $uri
-     * @return string
      */
-    private function computeHash($uri)
+    private function computeHash($uri) : string
     {
+        if (\is_object($uri)) {
+            $uri = (string) $uri;
+        }
         return \base64_encode(\hash_hmac('sha256', $uri, $this->secret, \true));
     }
     /**

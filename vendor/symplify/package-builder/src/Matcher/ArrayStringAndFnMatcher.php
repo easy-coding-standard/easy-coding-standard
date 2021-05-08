@@ -7,10 +7,12 @@ final class ArrayStringAndFnMatcher
     /**
      * @param string[] $matchingValues
      * @param string $currentValue
-     * @return bool
      */
-    public function isMatchWithIsA($currentValue, array $matchingValues)
+    public function isMatchWithIsA($currentValue, array $matchingValues) : bool
     {
+        if (\is_object($currentValue)) {
+            $currentValue = (string) $currentValue;
+        }
         if ($this->isMatch($currentValue, $matchingValues)) {
             return \true;
         }
@@ -24,10 +26,12 @@ final class ArrayStringAndFnMatcher
     /**
      * @param string[] $matchingValues
      * @param string $currentValue
-     * @return bool
      */
-    public function isMatch($currentValue, array $matchingValues)
+    public function isMatch($currentValue, array $matchingValues) : bool
     {
+        if (\is_object($currentValue)) {
+            $currentValue = (string) $currentValue;
+        }
         foreach ($matchingValues as $matchingValue) {
             if ($currentValue === $matchingValue) {
                 return \true;

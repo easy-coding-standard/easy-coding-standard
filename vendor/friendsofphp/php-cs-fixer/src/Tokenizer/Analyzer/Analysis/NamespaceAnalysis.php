@@ -54,14 +54,12 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
     private $scopeEndIndex;
     /**
      * @param string $fullName
-     * @param string $shortName
-     * @param int $startIndex
-     * @param int $endIndex
-     * @param int $scopeStartIndex
-     * @param int $scopeEndIndex
      */
-    public function __construct($fullName, $shortName, $startIndex, $endIndex, $scopeStartIndex, $scopeEndIndex)
+    public function __construct($fullName, string $shortName, int $startIndex, int $endIndex, int $scopeStartIndex, int $scopeEndIndex)
     {
+        if (\is_object($fullName)) {
+            $fullName = (string) $fullName;
+        }
         $this->fullName = $fullName;
         $this->shortName = $shortName;
         $this->startIndex = $startIndex;

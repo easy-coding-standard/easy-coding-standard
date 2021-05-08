@@ -118,10 +118,12 @@ class ProcessHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper\
     }
     /**
      * @param string $str
-     * @return string
      */
-    private function escapeString($str)
+    private function escapeString($str) : string
     {
+        if (\is_object($str)) {
+            $str = (string) $str;
+        }
         return \str_replace('<', '\\<', $str);
     }
     /**

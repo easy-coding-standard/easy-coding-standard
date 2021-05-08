@@ -581,6 +581,9 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     private function record(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $event)
     {
+        if (\is_object($event)) {
+            $event = (string) $event;
+        }
         $this->traces[$this->getTraceKey($request)][] = $event;
     }
     /**

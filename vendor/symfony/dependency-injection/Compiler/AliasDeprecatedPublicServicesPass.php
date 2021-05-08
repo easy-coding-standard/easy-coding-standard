@@ -22,6 +22,9 @@ final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20210508\Symfony
      */
     public function __construct($tagName = 'container.private')
     {
+        if (\is_object($tagName)) {
+            $tagName = (string) $tagName;
+        }
         $this->tagName = $tagName;
     }
     /**

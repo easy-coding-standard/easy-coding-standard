@@ -48,10 +48,12 @@ final class UnifiedDiffOutputBuilder extends \ECSPrefix20210508\SebastianBergman
     private $addLineNumbers;
     /**
      * @param string $header
-     * @param bool $addLineNumbers
      */
-    public function __construct($header = "--- Original\n+++ New\n", $addLineNumbers = \false)
+    public function __construct($header = "--- Original\n+++ New\n", bool $addLineNumbers = \false)
     {
+        if (\is_object($header)) {
+            $header = (string) $header;
+        }
         $this->header = $header;
         $this->addLineNumbers = $addLineNumbers;
     }

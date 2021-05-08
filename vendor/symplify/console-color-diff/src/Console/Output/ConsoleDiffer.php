@@ -27,21 +27,24 @@ final class ConsoleDiffer
     }
     /**
      * @param string $old
-     * @param string $new
-     * @return string
      */
-    public function diff($old, $new)
+    public function diff($old, string $new) : string
     {
+        if (\is_object($old)) {
+            $old = (string) $old;
+        }
         $diff = $this->differ->diff($old, $new);
         return $this->colorConsoleDiffFormatter->format($diff);
     }
     /**
      * @return void
      * @param string $old
-     * @param string $new
      */
-    public function diffAndPrint($old, $new)
+    public function diffAndPrint($old, string $new)
     {
+        if (\is_object($old)) {
+            $old = (string) $old;
+        }
         $formattedDiff = $this->diff($old, $new);
         $this->symfonyStyle->writeln($formattedDiff);
     }

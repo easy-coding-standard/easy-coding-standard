@@ -18,10 +18,12 @@ final class DocBlockLinesFactory
     const END_OF_DOC_BLOCK_REGEX = '/(\\*\\/)$/';
     /**
      * @param string $docBlock
-     * @return \Symplify\CodingStandard\ValueObject\DocBlockLines
      */
-    public function createFromDocBlock($docBlock)
+    public function createFromDocBlock($docBlock) : \Symplify\CodingStandard\ValueObject\DocBlockLines
     {
+        if (\is_object($docBlock)) {
+            $docBlock = (string) $docBlock;
+        }
         // Remove the prefix '/**'
         $docBlock = \ECSPrefix20210508\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
         // Remove the suffix '*/'
@@ -59,11 +61,14 @@ final class DocBlockLinesFactory
         return new \Symplify\CodingStandard\ValueObject\DocBlockLines($descriptionLines, $otherLines);
     }
     /**
-     * @return mixed[]
+     * @return string[]
      * @param string $string
      */
-    private function splitToLines($string)
+    private function splitToLines($string) : array
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         return \explode(\PHP_EOL, $string);
     }
 }

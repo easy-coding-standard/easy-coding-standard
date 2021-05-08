@@ -25,13 +25,11 @@ interface LinterInterface
     /**
      * Lint PHP file.
      * @param string $path
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintFile($path);
+    public function lintFile($path) : \PhpCsFixer\Linter\LintingResultInterface;
     /**
      * Lint PHP code.
      * @param string $source
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintSource($source);
+    public function lintSource($source) : \PhpCsFixer\Linter\LintingResultInterface;
 }

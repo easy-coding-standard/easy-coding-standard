@@ -166,10 +166,12 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
      * Creates new use statement group.
      * @param int $insertIndex
      * @param string $currentNamespace
-     * @return int
      */
-    private function createNewGroup(\PhpCsFixer\Tokenizer\Tokens $tokens, $insertIndex, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration, $currentNamespace)
+    private function createNewGroup(\PhpCsFixer\Tokenizer\Tokens $tokens, $insertIndex, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration, $currentNamespace) : int
     {
+        if (\is_object($currentNamespace)) {
+            $currentNamespace = (string) $currentNamespace;
+        }
         $insertedTokens = 0;
         if (\count($tokens) === $insertIndex) {
             $tokens->setSize($insertIndex + 1);

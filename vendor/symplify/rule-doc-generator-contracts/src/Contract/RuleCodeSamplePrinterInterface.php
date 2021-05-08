@@ -7,9 +7,8 @@ interface RuleCodeSamplePrinterInterface
 {
     /**
      * @param string $class
-     * @return bool
      */
-    public function isMatch($class);
+    public function isMatch($class) : bool;
     /**
      * @return mixed[]
      */

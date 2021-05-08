@@ -28,6 +28,9 @@ final class InputBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundation
      */
     public function get($key, $default = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (null !== $default && !\is_scalar($default) && !(\is_object($default) && \method_exists($default, '__toString'))) {
             trigger_deprecation('symfony/http-foundation', '5.1', 'Passing a non-string value as 2nd argument to "%s()" is deprecated, pass a string or null instead.', __METHOD__);
         }
@@ -39,7 +42,7 @@ final class InputBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundation
     }
     /**
      * {@inheritdoc}
-     * @param string|null $key
+     * @param string $key
      * @return mixed[]
      */
     public function all($key = null)
@@ -71,6 +74,9 @@ final class InputBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundation
      */
     public function set($key, $value)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (null !== $value && !\is_scalar($value) && !\is_array($value) && !\method_exists($value, '__toString')) {
             trigger_deprecation('symfony/http-foundation', '5.1', 'Passing "%s" as a 2nd Argument to "%s()" is deprecated, pass a string, array, or null instead.', \get_debug_type($value), __METHOD__);
         }
@@ -79,10 +85,12 @@ final class InputBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundation
     /**
      * {@inheritdoc}
      * @param string $key
-     * @param int $filter
      */
-    public function filter($key, $default = null, $filter = \FILTER_DEFAULT, $options = [])
+    public function filter($key, $default = null, int $filter = \FILTER_DEFAULT, $options = [])
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $value = $this->has($key) ? $this->all()[$key] : $default;
         // Always turn $options into an array - this allows filter_var option shortcuts.
         if (!\is_array($options) && $options) {

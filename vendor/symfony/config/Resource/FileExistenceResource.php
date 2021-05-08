@@ -29,6 +29,9 @@ class FileExistenceResource implements \ECSPrefix20210508\Symfony\Component\Conf
      */
     public function __construct($resource)
     {
+        if (\is_object($resource)) {
+            $resource = (string) $resource;
+        }
         $this->resource = $resource;
         $this->exists = \file_exists($resource);
     }

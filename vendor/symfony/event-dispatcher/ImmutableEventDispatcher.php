@@ -35,10 +35,12 @@ class ImmutableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
     /**
      * {@inheritdoc}
      * @param string $eventName
-     * @param int $priority
      */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener($eventName, $listener, int $priority = 0)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
@@ -54,6 +56,9 @@ class ImmutableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     public function removeListener($eventName, $listener)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
     /**
@@ -77,6 +82,9 @@ class ImmutableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     public function getListenerPriority($eventName, $listener)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         return $this->dispatcher->getListenerPriority($eventName, $listener);
     }
     /**

@@ -133,6 +133,9 @@ class ArrayInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Inpu
      */
     private function addShortOption($shortcut, $value)
     {
+        if (\is_object($shortcut)) {
+            $shortcut = (string) $shortcut;
+        }
         if (!$this->definition->hasShortcut($shortcut)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
@@ -147,6 +150,9 @@ class ArrayInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Inpu
      */
     private function addLongOption($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->definition->hasOption($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidOptionException(\sprintf('The "--%s" option does not exist.', $name));
         }

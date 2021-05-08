@@ -29,10 +29,13 @@ class ClassExistenceResource implements \ECSPrefix20210508\Symfony\Component\Con
     private static $existsCache = [];
     /**
      * @param string    $resource The fully-qualified class name
-     * @param bool $exists Boolean when the existency check has already been done
+     * @param bool|null $exists   Boolean when the existency check has already been done
      */
-    public function __construct($resource, $exists = null)
+    public function __construct($resource, bool $exists = null)
     {
+        if (\is_object($resource)) {
+            $resource = (string) $resource;
+        }
         $this->resource = $resource;
         if (null !== $exists) {
             $this->exists = [(bool) $exists, null];
@@ -140,6 +143,9 @@ class ClassExistenceResource implements \ECSPrefix20210508\Symfony\Component\Con
      */
     public static function throwOnRequiredClass($class, \Exception $previous = null)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         // If the passed class is the resource being checked, we shouldn't throw.
         if (null === $previous && self::$autoloadedClass === $class) {
             return;

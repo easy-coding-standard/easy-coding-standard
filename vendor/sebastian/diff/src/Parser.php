@@ -21,11 +21,14 @@ use function preg_split;
 final class Parser
 {
     /**
-     * @return mixed[]
+     * @return Diff[]
      * @param string $string
      */
-    public function parse($string)
+    public function parse($string) : array
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         $lines = \preg_split('(\\r\\n|\\r|\\n)', $string);
         if (!empty($lines) && $lines[\count($lines) - 1] === '') {
             \array_pop($lines);

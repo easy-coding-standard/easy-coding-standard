@@ -29,6 +29,9 @@ class StringInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Arg
      */
     public function __construct($input)
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         parent::__construct([]);
         $this->setTokens($this->tokenize($input));
     }
@@ -37,10 +40,12 @@ class StringInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Arg
      *
      * @throws InvalidArgumentException When unable to parse input (should never happen)
      * @param string $input
-     * @return mixed[]
      */
-    private function tokenize($input)
+    private function tokenize($input) : array
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         $tokens = [];
         $length = \strlen($input);
         $cursor = 0;

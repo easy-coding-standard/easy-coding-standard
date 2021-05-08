@@ -49,16 +49,19 @@ class UploadedFile extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\F
      *
      * @param string      $path         The full temporary path to the file
      * @param string      $originalName The original file name of the uploaded file
-     * @param string $mimeType The type of the file as provided by PHP; null defaults to application/octet-stream
-     * @param int $error The error constant of the upload (one of PHP's UPLOAD_ERR_XXX constants); null defaults to UPLOAD_ERR_OK
+     * @param string|null $mimeType     The type of the file as provided by PHP; null defaults to application/octet-stream
+     * @param int|null    $error        The error constant of the upload (one of PHP's UPLOAD_ERR_XXX constants); null defaults to UPLOAD_ERR_OK
      * @param bool        $test         Whether the test mode is active
      *                                  Local files are used in test mode hence the code should not enforce HTTP uploads
      *
      * @throws FileException         If file_uploads is disabled
      * @throws FileNotFoundException If the file does not exist
      */
-    public function __construct($path, $originalName, $mimeType = null, $error = null, $test = \false)
+    public function __construct($path, string $originalName, string $mimeType = null, int $error = null, bool $test = \false)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $this->originalName = $this->getName($originalName);
         $this->mimeType = $mimeType ?: 'application/octet-stream';
         $this->error = $error ?: \UPLOAD_ERR_OK;
@@ -159,10 +162,12 @@ class UploadedFile extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\F
      *
      * @throws FileException if, for any reason, the file could not have been moved
      * @param string $directory
-     * @param string $name
      */
-    public function move($directory, $name = null)
+    public function move($directory, string $name = null)
     {
+        if (\is_object($directory)) {
+            $directory = (string) $directory;
+        }
         if ($this->isValid()) {
             if ($this->test) {
                 return parent::move($directory, $name);

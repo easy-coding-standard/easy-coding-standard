@@ -17,6 +17,9 @@ class ClassNotFoundException extends \Exception implements \ECSPrefix20210508\Sy
      */
     public function __construct($class, \Throwable $previous = null)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         parent::__construct(\sprintf('Class "%s" not found.', $class), 0, $previous);
     }
 }

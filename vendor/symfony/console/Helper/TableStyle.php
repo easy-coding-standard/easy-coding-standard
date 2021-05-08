@@ -53,6 +53,9 @@ class TableStyle
      */
     public function setPaddingChar($paddingChar)
     {
+        if (\is_object($paddingChar)) {
+            $paddingChar = (string) $paddingChar;
+        }
         if (!$paddingChar) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('The padding char must not be empty.');
         }
@@ -83,10 +86,12 @@ class TableStyle
      * </code>
      * @return $this
      * @param string $outside
-     * @param string $inside
      */
-    public function setHorizontalBorderChars($outside, $inside = null)
+    public function setHorizontalBorderChars($outside, string $inside = null)
     {
+        if (\is_object($outside)) {
+            $outside = (string) $outside;
+        }
         $this->horizontalOutsideBorderChar = $outside;
         $this->horizontalInsideBorderChar = isset($inside) ? $inside : $outside;
         return $this;
@@ -107,10 +112,12 @@ class TableStyle
      * </code>
      * @return $this
      * @param string $outside
-     * @param string $inside
      */
-    public function setVerticalBorderChars($outside, $inside = null)
+    public function setVerticalBorderChars($outside, string $inside = null)
     {
+        if (\is_object($outside)) {
+            $outside = (string) $outside;
+        }
         $this->verticalOutsideBorderChar = $outside;
         $this->verticalInsideBorderChar = isset($inside) ? $inside : $outside;
         return $this;
@@ -150,13 +157,16 @@ class TableStyle
      * @param string      $bottomMid      Bottom mid char (see #6 of example)
      * @param string      $bottomLeft     Bottom left char (see #7 of example)
      * @param string      $midLeft        Mid left char (see #8 of example)
-     * @param string $topLeftBottom Top left bottom char (see #8' of example), equals to $midLeft if null
-     * @param string $topMidBottom Top mid bottom char (see #0' of example), equals to $cross if null
-     * @param string $topRightBottom Top right bottom char (see #4' of example), equals to $midRight if null
+     * @param string|null $topLeftBottom  Top left bottom char (see #8' of example), equals to $midLeft if null
+     * @param string|null $topMidBottom   Top mid bottom char (see #0' of example), equals to $cross if null
+     * @param string|null $topRightBottom Top right bottom char (see #4' of example), equals to $midRight if null
      * @return $this
      */
-    public function setCrossingChars($cross, $topLeft, $topMid, $topRight, $midRight, $bottomRight, $bottomMid, $bottomLeft, $midLeft, $topLeftBottom = null, $topMidBottom = null, $topRightBottom = null)
+    public function setCrossingChars($cross, string $topLeft, string $topMid, string $topRight, string $midRight, string $bottomRight, string $bottomMid, string $bottomLeft, string $midLeft, string $topLeftBottom = null, string $topMidBottom = null, string $topRightBottom = null)
     {
+        if (\is_object($cross)) {
+            $cross = (string) $cross;
+        }
         $this->crossingChar = $cross;
         $this->crossingTopLeftChar = $topLeft;
         $this->crossingTopMidChar = $topMid;
@@ -180,6 +190,9 @@ class TableStyle
      */
     public function setDefaultCrossingChar($char)
     {
+        if (\is_object($char)) {
+            $char = (string) $char;
+        }
         return $this->setCrossingChars($char, $char, $char, $char, $char, $char, $char, $char, $char);
     }
     /**
@@ -209,6 +222,9 @@ class TableStyle
      */
     public function setCellHeaderFormat($cellHeaderFormat)
     {
+        if (\is_object($cellHeaderFormat)) {
+            $cellHeaderFormat = (string) $cellHeaderFormat;
+        }
         $this->cellHeaderFormat = $cellHeaderFormat;
         return $this;
     }
@@ -229,6 +245,9 @@ class TableStyle
      */
     public function setCellRowFormat($cellRowFormat)
     {
+        if (\is_object($cellRowFormat)) {
+            $cellRowFormat = (string) $cellRowFormat;
+        }
         $this->cellRowFormat = $cellRowFormat;
         return $this;
     }
@@ -249,6 +268,9 @@ class TableStyle
      */
     public function setCellRowContentFormat($cellRowContentFormat)
     {
+        if (\is_object($cellRowContentFormat)) {
+            $cellRowContentFormat = (string) $cellRowContentFormat;
+        }
         $this->cellRowContentFormat = $cellRowContentFormat;
         return $this;
     }
@@ -269,6 +291,9 @@ class TableStyle
      */
     public function setBorderFormat($borderFormat)
     {
+        if (\is_object($borderFormat)) {
+            $borderFormat = (string) $borderFormat;
+        }
         $this->borderFormat = $borderFormat;
         return $this;
     }
@@ -317,6 +342,9 @@ class TableStyle
      */
     public function setHeaderTitleFormat($format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         $this->headerTitleFormat = $format;
         return $this;
     }
@@ -333,6 +361,9 @@ class TableStyle
      */
     public function setFooterTitleFormat($format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         $this->footerTitleFormat = $format;
         return $this;
     }

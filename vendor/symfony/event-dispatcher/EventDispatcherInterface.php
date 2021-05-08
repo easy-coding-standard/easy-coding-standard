@@ -28,7 +28,7 @@ interface EventDispatcherInterface extends \ECSPrefix20210508\Symfony\Contracts\
      *                           listener will be triggered in the chain (defaults to 0)
      * @param string $eventName
      */
-    public function addListener($eventName, $listener, $priority = 0);
+    public function addListener($eventName, $listener, int $priority = 0);
     /**
      * Adds an event subscriber.
      *

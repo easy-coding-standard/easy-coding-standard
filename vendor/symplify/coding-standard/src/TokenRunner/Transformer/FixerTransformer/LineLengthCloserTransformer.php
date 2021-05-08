@@ -29,10 +29,12 @@ final class LineLengthCloserTransformer
      * @return void
      * @param int $kind
      * @param string $newlineIndentWhitespace
-     * @param string $closingBracketNewlineIndentWhitespace
      */
-    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, $kind, $newlineIndentWhitespace, $closingBracketNewlineIndentWhitespace)
+    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, $kind, $newlineIndentWhitespace, string $closingBracketNewlineIndentWhitespace)
     {
+        if (\is_object($newlineIndentWhitespace)) {
+            $newlineIndentWhitespace = (string) $newlineIndentWhitespace;
+        }
         $isMethodCall = $this->callAnalyzer->isMethodCall($tokens, $blockInfo->getStart());
         $endIndex = $blockInfo->getEnd();
         $previousToken = $this->tokenFinder->getPreviousMeaningfulToken($tokens, $endIndex);

@@ -32,11 +32,12 @@ final class FullDiffer implements \PhpCsFixer\Differ\DifferInterface
      * {@inheritdoc}
      * @param \SplFileInfo|null $file
      * @param string $old
-     * @param string $new
-     * @return string
      */
-    public function diff($old, $new, $file = null)
+    public function diff($old, string $new, $file = null) : string
     {
+        if (\is_object($old)) {
+            $old = (string) $old;
+        }
         return $this->differ->diff($old, $new);
     }
 }

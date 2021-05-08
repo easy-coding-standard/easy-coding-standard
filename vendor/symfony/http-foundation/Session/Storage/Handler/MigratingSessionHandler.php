@@ -48,6 +48,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function destroy($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $result = $this->currentHandler->destroy($sessionId);
         $this->writeOnlyHandler->destroy($sessionId);
         return $result;
@@ -66,6 +69,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($savePath)) {
+            $savePath = (string) $savePath;
+        }
         $result = $this->currentHandler->open($savePath, $sessionName);
         $this->writeOnlyHandler->open($savePath, $sessionName);
         return $result;
@@ -75,6 +81,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function read($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         // No reading from new handler until switch-over
         return $this->currentHandler->read($sessionId);
     }
@@ -83,6 +92,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function write($sessionId, $sessionData)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $result = $this->currentHandler->write($sessionId, $sessionData);
         $this->writeOnlyHandler->write($sessionId, $sessionData);
         return $result;
@@ -92,6 +104,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function validateId($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         // No reading from new handler until switch-over
         return $this->currentHandler->validateId($sessionId);
     }
@@ -100,6 +115,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function updateTimestamp($sessionId, $sessionData)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $result = $this->currentHandler->updateTimestamp($sessionId, $sessionData);
         $this->writeOnlyHandler->updateTimestamp($sessionId, $sessionData);
         return $result;

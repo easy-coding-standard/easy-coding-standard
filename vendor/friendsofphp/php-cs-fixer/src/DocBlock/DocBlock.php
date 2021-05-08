@@ -51,6 +51,9 @@ final class DocBlock
      */
     public function __construct($content, $namespace = null, array $namespaceUses = [])
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         foreach (\PhpCsFixer\Preg::split('/([^\\n\\r]+\\R*)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE) as $line) {
             $this->lines[] = new \PhpCsFixer\DocBlock\Line($line);
         }
@@ -121,10 +124,12 @@ final class DocBlock
      * Take a one line doc block, and turn it into a multi line doc block.
      * @return void
      * @param string $indent
-     * @param string $lineEnd
      */
-    public function makeMultiLine($indent, $lineEnd)
+    public function makeMultiLine($indent, string $lineEnd)
     {
+        if (\is_object($indent)) {
+            $indent = (string) $indent;
+        }
         if ($this->isMultiLine()) {
             return;
         }

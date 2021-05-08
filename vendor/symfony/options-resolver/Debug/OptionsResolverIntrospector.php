@@ -42,26 +42,35 @@ class OptionsResolverIntrospector
      */
     public function getDefault($option)
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return ($this->get)('defaults', $option, \sprintf('No default value was set for the "%s" option.', $option));
     }
     /**
-     * @return mixed[]
+     * @return \Closure[]
      *
      * @throws NoConfigurationException on no configured closures
      * @param string $option
      */
-    public function getLazyClosures($option)
+    public function getLazyClosures($option) : array
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return ($this->get)('lazy', $option, \sprintf('No lazy closures were set for the "%s" option.', $option));
     }
     /**
-     * @return mixed[]
+     * @return string[]
      *
      * @throws NoConfigurationException on no configured types
      * @param string $option
      */
-    public function getAllowedTypes($option)
+    public function getAllowedTypes($option) : array
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return ($this->get)('allowedTypes', $option, \sprintf('No allowed types were set for the "%s" option.', $option));
     }
     /**
@@ -70,26 +79,33 @@ class OptionsResolverIntrospector
      * @throws NoConfigurationException on no configured values
      * @param string $option
      */
-    public function getAllowedValues($option)
+    public function getAllowedValues($option) : array
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return ($this->get)('allowedValues', $option, \sprintf('No allowed values were set for the "%s" option.', $option));
     }
     /**
      * @throws NoConfigurationException on no configured normalizer
      * @param string $option
-     * @return \Closure
      */
-    public function getNormalizer($option)
+    public function getNormalizer($option) : \Closure
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return \current($this->getNormalizers($option));
     }
     /**
      * @throws NoConfigurationException when no normalizer is configured
      * @param string $option
-     * @return mixed[]
      */
-    public function getNormalizers($option)
+    public function getNormalizers($option) : array
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return ($this->get)('normalizers', $option, \sprintf('No normalizer was set for the "%s" option.', $option));
     }
     /**
@@ -102,16 +118,21 @@ class OptionsResolverIntrospector
      */
     public function getDeprecationMessage($option)
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         trigger_deprecation('symfony/options-resolver', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($option)['message'];
     }
     /**
      * @throws NoConfigurationException on no configured deprecation
      * @param string $option
-     * @return mixed[]
      */
-    public function getDeprecation($option)
+    public function getDeprecation($option) : array
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return ($this->get)('deprecated', $option, \sprintf('No deprecation was set for the "%s" option.', $option));
     }
 }

@@ -19,11 +19,14 @@ final class ConstantReflectionSetFactory
      */
     const UNDERSCORE_REGEX = '#_#';
     /**
-     * @return mixed[]
+     * @return Set[]
      * @param string $setClassName
      */
-    public function createSetsFromClass($setClassName)
+    public function createSetsFromClass($setClassName) : array
     {
+        if (\is_object($setClassName)) {
+            $setClassName = (string) $setClassName;
+        }
         $setListReflectionClass = new \ReflectionClass($setClassName);
         $sets = [];
         // new kind of paths sets
@@ -43,10 +46,12 @@ final class ConstantReflectionSetFactory
     }
     /**
      * @param string $string
-     * @return string
      */
-    private function constantToDashes($string)
+    private function constantToDashes($string) : string
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         $string = \strtolower($string);
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }

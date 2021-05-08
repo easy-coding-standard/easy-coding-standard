@@ -65,10 +65,12 @@ final class ReporterFactory
     }
     /**
      * @param string $format
-     * @return \PhpCsFixer\Console\Report\FixReport\ReporterInterface
      */
-    public function getReporter($format)
+    public function getReporter($format) : \PhpCsFixer\Console\Report\FixReport\ReporterInterface
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         if (!isset($this->reporters[$format])) {
             throw new \UnexpectedValueException(\sprintf('Reporter for format "%s" is not registered.', $format));
         }

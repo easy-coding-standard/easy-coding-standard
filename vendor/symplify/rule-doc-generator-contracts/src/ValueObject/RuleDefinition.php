@@ -31,6 +31,9 @@ final class RuleDefinition
      */
     public function __construct($description, array $codeSamples)
     {
+        if (\is_object($description)) {
+            $description = (string) $description;
+        }
         $this->description = $description;
         if ($codeSamples === []) {
             throw new \Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
@@ -50,6 +53,9 @@ final class RuleDefinition
      */
     public function setRuleClass($ruleClass)
     {
+        if (\is_object($ruleClass)) {
+            $ruleClass = (string) $ruleClass;
+        }
         $this->ruleClass = $ruleClass;
     }
     /**
@@ -68,6 +74,9 @@ final class RuleDefinition
      */
     public function setRuleFilePath($ruleFilePath)
     {
+        if (\is_object($ruleFilePath)) {
+            $ruleFilePath = (string) $ruleFilePath;
+        }
         // fir relative file path for GitHub
         $this->ruleFilePath = \ltrim($ruleFilePath, '/');
     }

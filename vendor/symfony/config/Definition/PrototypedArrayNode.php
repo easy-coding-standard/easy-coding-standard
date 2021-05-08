@@ -64,8 +64,11 @@ class PrototypedArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\De
      * @param string $attribute The name of the attribute which value is to be used as a key
      * @param bool   $remove    Whether or not to remove the key
      */
-    public function setKeyAttribute($attribute, $remove = \true)
+    public function setKeyAttribute($attribute, bool $remove = \true)
     {
+        if (\is_object($attribute)) {
+            $attribute = (string) $attribute;
+        }
         $this->keyAttribute = $attribute;
         $this->removeKeyAttribute = $remove;
     }
@@ -324,6 +327,9 @@ class PrototypedArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     private function getPrototypeForChild($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $prototype = isset($this->valuePrototypes[$key]) ? $this->valuePrototypes[$key] : $this->prototype;
         $prototype->setName($key);
         return $prototype;

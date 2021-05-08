@@ -80,18 +80,22 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210508\Symfony\Component
     /**
      * This prevents message override in Windows system.
      * @param string $message
-     * @return string
      */
-    private function clearCrLfFromMessage($message)
+    private function clearCrLfFromMessage($message) : string
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         return \str_replace("\r", '', $message);
     }
     /**
      * @param string $message
-     * @return string
      */
-    private function wrapMessageSoItFitsTheColumnWidth($message)
+    private function wrapMessageSoItFitsTheColumnWidth($message) : string
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         return \wordwrap($message, $this->getTerminalWidth(), \PHP_EOL);
     }
 }

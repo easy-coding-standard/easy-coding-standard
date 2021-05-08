@@ -81,8 +81,11 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      *
      * @return static
      */
-    public static function fromJsonString($data, $status = 200, array $headers = [])
+    public static function fromJsonString($data, int $status = 200, array $headers = [])
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         return new static($data, $status, $headers, \true);
     }
     /**
@@ -121,6 +124,9 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      */
     public function setJson($json)
     {
+        if (\is_object($json)) {
+            $json = (string) $json;
+        }
         $this->data = $json;
         return $this->update();
     }

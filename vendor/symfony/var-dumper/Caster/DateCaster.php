@@ -98,19 +98,22 @@ class DateCaster
     }
     /**
      * @param string $extra
-     * @return string
      */
-    private static function formatDateTime(\DateTimeInterface $d, $extra = '')
+    private static function formatDateTime(\DateTimeInterface $d, $extra = '') : string
     {
+        if (\is_object($extra)) {
+            $extra = (string) $extra;
+        }
         return $d->format('Y-m-d H:i:' . self::formatSeconds($d->format('s'), $d->format('u')) . $extra);
     }
     /**
      * @param string $s
-     * @param string $us
-     * @return string
      */
-    private static function formatSeconds($s, $us)
+    private static function formatSeconds($s, string $us) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return \sprintf('%02d.%s', $s, 0 === ($len = \strlen($t = \rtrim($us, '0'))) ? '0' : ($len <= 3 ? \str_pad($t, 3, '0') : $us));
     }
 }

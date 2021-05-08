@@ -137,6 +137,9 @@ class Terminal
      */
     private static function readFromProcess($command)
     {
+        if (\is_object($command)) {
+            $command = (string) $command;
+        }
         if (!\function_exists('proc_open')) {
             return null;
         }

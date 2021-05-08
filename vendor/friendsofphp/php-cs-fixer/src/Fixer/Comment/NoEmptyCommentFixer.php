@@ -106,10 +106,12 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param string $content
-     * @return int
      */
-    private function getCommentType($content)
+    private function getCommentType($content) : int
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if ('#' === $content[0]) {
             return self::TYPE_HASH;
         }
@@ -133,10 +135,12 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param string $content
-     * @return bool
      */
-    private function isEmptyComment($content)
+    private function isEmptyComment($content) : bool
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         static $mapper = [
             self::TYPE_HASH => '|^#\\s*$|',
             // single line comment starting with '#'

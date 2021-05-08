@@ -235,6 +235,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($savePath)) {
+            $savePath = (string) $savePath;
+        }
         $this->sessionExpired = \false;
         if (null === $this->pdo) {
             $this->connect($this->dsn ?: $savePath);
@@ -246,6 +249,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function read($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         try {
             return parent::read($sessionId);
         } catch (\PDOException $e) {
@@ -269,6 +275,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     protected function doDestroy($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         // delete the record associated with this id
         $sql = "DELETE FROM {$this->table} WHERE {$this->idCol} = :id";
         try {
@@ -284,10 +293,12 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * {@inheritdoc}
      * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite($sessionId, string $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $maxlifetime = (int) \ini_get('session.gc_maxlifetime');
         try {
             // We use a single MERGE SQL query when supported by the database.
@@ -381,6 +392,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function connect($dsn)
     {
+        if (\is_object($dsn)) {
+            $dsn = (string) $dsn;
+        }
         $this->pdo = new \PDO($dsn, $this->username, $this->password, $this->connectionOptions);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->driver = $this->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME);
@@ -390,10 +404,12 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      *
      * @todo implement missing support for oci DSN (which look totally different from other PDO ones)
      * @param string $dsnOrUrl
-     * @return string
      */
-    private function buildDsnFromUrl($dsnOrUrl)
+    private function buildDsnFromUrl($dsnOrUrl) : string
     {
+        if (\is_object($dsnOrUrl)) {
+            $dsnOrUrl = (string) $dsnOrUrl;
+        }
         // (pdo_)?sqlite3?:///... => (pdo_)?sqlite3?://localhost/... or else the URL will be invalid
         $url = \preg_replace('#^((?:pdo_)?sqlite3?):///#', '$1://localhost/', $dsnOrUrl);
         $params = \parse_url($url);
@@ -539,6 +555,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     protected function doRead($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         if (self::LOCK_ADVISORY === $this->lockMode) {
             $this->unlockStatements[] = $this->doAdvisoryLock($sessionId);
         }
@@ -601,8 +620,11 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      *       - for sqlsrv using sp_getapplock with LockOwner = Session
      * @param string $sessionId
      */
-    private function doAdvisoryLock($sessionId)
+    private function doAdvisoryLock($sessionId) : \PDOStatement
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         switch ($this->driver) {
             case 'mysql':
                 // MySQL 5.7.5 and later enforces a maximum length on lock names of 64 characters. Previously, no limit was enforced.
@@ -649,10 +671,12 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      *
      * Keep in mind, PHP integers are signed.
      * @param string $string
-     * @return int
      */
-    private function convertStringToInt($string)
+    private function convertStringToInt($string) : int
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         if (4 === \PHP_INT_SIZE) {
             return (\ord($string[3]) << 24) + (\ord($string[2]) << 16) + (\ord($string[1]) << 8) + \ord($string[0]);
         }
@@ -690,12 +714,12 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * Returns an insert statement supported by the database for writing session data.
      * @param string $sessionId
-     * @param string $sessionData
-     * @param int $maxlifetime
-     * @return \PDOStatement
      */
-    private function getInsertStatement($sessionId, $sessionData, $maxlifetime)
+    private function getInsertStatement($sessionId, string $sessionData, int $maxlifetime) : \PDOStatement
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         switch ($this->driver) {
             case 'oci':
                 $data = \fopen('php://memory', 'r+');
@@ -718,12 +742,12 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * Returns an update statement supported by the database for writing session data.
      * @param string $sessionId
-     * @param string $sessionData
-     * @param int $maxlifetime
-     * @return \PDOStatement
      */
-    private function getUpdateStatement($sessionId, $sessionData, $maxlifetime)
+    private function getUpdateStatement($sessionId, string $sessionData, int $maxlifetime) : \PDOStatement
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         switch ($this->driver) {
             case 'oci':
                 $data = \fopen('php://memory', 'r+');
@@ -747,11 +771,12 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      * Returns a merge/upsert (i.e. insert or update) statement when supported by the database for writing session data.
      * @return \PDOStatement|null
      * @param string $sessionId
-     * @param string $data
-     * @param int $maxlifetime
      */
-    private function getMergeStatement($sessionId, $data, $maxlifetime)
+    private function getMergeStatement($sessionId, string $data, int $maxlifetime)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         switch (\true) {
             case 'mysql' === $this->driver:
                 $mergeSql = "INSERT INTO {$this->table} ({$this->idCol}, {$this->dataCol}, {$this->lifetimeCol}, {$this->timeCol}) VALUES (:id, :data, :expiry, :time) " . "ON DUPLICATE KEY UPDATE {$this->dataCol} = VALUES({$this->dataCol}), {$this->lifetimeCol} = VALUES({$this->lifetimeCol}), {$this->timeCol} = VALUES({$this->timeCol})";

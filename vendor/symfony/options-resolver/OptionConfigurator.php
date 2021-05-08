@@ -20,6 +20,9 @@ final class OptionConfigurator
      */
     public function __construct($name, \ECSPrefix20210508\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->name = $name;
         $this->resolver = $resolver;
         $this->resolver->setDefined($name);
@@ -73,6 +76,9 @@ final class OptionConfigurator
      */
     public function define($option)
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         return $this->resolver->define($option);
     }
     /**
@@ -84,8 +90,11 @@ final class OptionConfigurator
      *
      * @return $this
      */
-    public function deprecated($package, $version, $message = 'The option "%name%" is deprecated.')
+    public function deprecated($package, string $version, $message = 'The option "%name%" is deprecated.')
     {
+        if (\is_object($package)) {
+            $package = (string) $package;
+        }
         $this->resolver->setDeprecated($this->name, $package, $version, $message);
         return $this;
     }
@@ -125,6 +134,9 @@ final class OptionConfigurator
      */
     public function info($info)
     {
+        if (\is_object($info)) {
+            $info = (string) $info;
+        }
         $this->resolver->setInfo($this->name, $info);
         return $this;
     }

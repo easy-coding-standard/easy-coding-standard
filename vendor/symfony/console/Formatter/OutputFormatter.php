@@ -37,6 +37,9 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public static function escape($text)
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         $text = \preg_replace('/([^\\\\]?)</', '$1\\<', $text);
         return self::escapeTrailingBackslash($text);
     }
@@ -45,10 +48,12 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      *
      * @internal
      * @param string $text
-     * @return string
      */
-    public static function escapeTrailingBackslash($text)
+    public static function escapeTrailingBackslash($text) : string
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         if ('\\' === \substr($text, -1)) {
             $len = \strlen($text);
             $text = \rtrim($text, '\\');
@@ -96,6 +101,9 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function setStyle($name, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->styles[\strtolower($name)] = $style;
     }
     /**
@@ -104,6 +112,9 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function hasStyle($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->styles[\strtolower($name)]);
     }
     /**
@@ -112,6 +123,9 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function getStyle($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->hasStyle($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
         }
@@ -183,6 +197,9 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     private function createStyleFromString($string)
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         if (isset($this->styles[$string])) {
             return $this->styles[$string];
         }
@@ -214,13 +231,12 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
     /**
      * Applies current style from stack to text, if must be applied.
      * @param string $text
-     * @param string $current
-     * @param int $width
-     * @param int $currentLineLength
-     * @return string
      */
-    private function applyCurrentStyle($text, $current, $width, &$currentLineLength)
+    private function applyCurrentStyle($text, string $current, int $width, int &$currentLineLength) : string
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         if ('' === $text) {
             return '';
         }

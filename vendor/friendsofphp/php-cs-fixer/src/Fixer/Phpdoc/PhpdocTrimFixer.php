@@ -79,10 +79,12 @@ final class Foo {}
     /**
      * Make sure the first useful line starts immediately after the first line.
      * @param string $content
-     * @return string
      */
-    private function fixStart($content)
+    private function fixStart($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \PhpCsFixer\Preg::replace('~
                 (^/\\*\\*)            # DocComment begin
                 (?:
@@ -95,10 +97,12 @@ final class Foo {}
     /**
      * Make sure the last useful line is immediately before the final line.
      * @param string $content
-     * @return string
      */
-    private function fixEnd($content)
+    private function fixEnd($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \PhpCsFixer\Preg::replace('~
                 (\\R\\h*(?:\\*\\h*)?\\S.*?) # last line with useful content
                 (?:

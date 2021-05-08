@@ -25,29 +25,34 @@ trait CacheTrait
     /**
      * {@inheritdoc}
      * @param string $key
-     * @param float $beta
      */
-    public function get($key, callable $callback, $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return $this->doGet($this, $key, $callback, $beta, $metadata);
     }
     /**
      * {@inheritdoc}
      * @param string $key
-     * @return bool
      */
-    public function delete($key)
+    public function delete($key) : bool
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return $this->deleteItem($key);
     }
     /**
      * @param float|null $beta
      * @param string $key
-     * @param \Psr\Cache\CacheItemPoolInterface $pool
-     * @param \Psr\Log\LoggerInterface|null $logger
      */
-    private function doGet($pool, $key, callable $callback, $beta, array &$metadata = null, $logger = null)
+    private function doGet(\ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $pool, $key, callable $callback, $beta, array &$metadata = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (0 > ($beta = isset($beta) ? $beta : 1.0)) {
             throw new \ECSPrefix20210508\Symfony\Contracts\Cache\Anonymous__50cd8e993d9370f0249c9d4487d12ea2__0(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
         }

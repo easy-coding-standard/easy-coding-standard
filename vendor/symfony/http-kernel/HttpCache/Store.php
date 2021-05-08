@@ -31,6 +31,9 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      */
     public function __construct($root)
     {
+        if (\is_object($root)) {
+            $root = (string) $root;
+        }
         $this->root = $root;
         if (!\is_dir($this->root) && !@\mkdir($this->root, 0777, \true) && !\is_dir($this->root)) {
             throw new \RuntimeException(\sprintf('Unable to create the store directory (%s).', $this->root));
@@ -229,10 +232,12 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      * @param string|null $vary A Response vary header
      * @param array       $env1 A Request HTTP header array
      * @param array       $env2 A Request HTTP header array
-     * @return bool
      */
-    private function requestsMatch($vary, array $env1, array $env2)
+    private function requestsMatch($vary, array $env1, array $env2) : bool
     {
+        if (\is_object($vary)) {
+            $vary = (string) $vary;
+        }
         if (empty($vary)) {
             return \true;
         }
@@ -251,10 +256,12 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      *
      * Use this method only if you know what you are doing.
      * @param string $key
-     * @return mixed[]
      */
-    private function getMetadata($key)
+    private function getMetadata($key) : array
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (!($entries = $this->load($key))) {
             return [];
         }
@@ -270,6 +277,9 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      */
     public function purge($url)
     {
+        if (\is_object($url)) {
+            $url = (string) $url;
+        }
         $http = \preg_replace('#^https:#', 'http:', $url);
         $https = \preg_replace('#^http:#', 'https:', $url);
         $purgedHttp = $this->doPurge($http);
@@ -279,10 +289,12 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
     /**
      * Purges data for the given URL.
      * @param string $url
-     * @return bool
      */
-    private function doPurge($url)
+    private function doPurge($url) : bool
     {
+        if (\is_object($url)) {
+            $url = (string) $url;
+        }
         $key = $this->getCacheKey(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request::create($url));
         if (isset($this->locks[$key])) {
             \flock($this->locks[$key], \LOCK_UN);
@@ -302,18 +314,21 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      */
     private function load($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $path = $this->getPath($key);
         return \is_file($path) && \false !== ($contents = \file_get_contents($path)) ? $contents : null;
     }
     /**
      * Save data for the given key.
      * @param string $key
-     * @param string $data
-     * @param bool $overwrite
-     * @return bool
      */
-    private function save($key, $data, $overwrite = \true)
+    private function save($key, string $data, bool $overwrite = \true) : bool
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $path = $this->getPath($key);
         if (!$overwrite && \file_exists($path)) {
             return \true;
@@ -355,6 +370,9 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      */
     public function getPath($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return $this->root . \DIRECTORY_SEPARATOR . \substr($key, 0, 2) . \DIRECTORY_SEPARATOR . \substr($key, 2, 2) . \DIRECTORY_SEPARATOR . \substr($key, 4, 2) . \DIRECTORY_SEPARATOR . \substr($key, 6);
     }
     /**

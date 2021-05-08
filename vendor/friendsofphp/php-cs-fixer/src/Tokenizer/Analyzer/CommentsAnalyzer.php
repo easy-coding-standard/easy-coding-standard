@@ -200,10 +200,12 @@ final class CommentsAnalyzer
     }
     /**
      * @param string $content
-     * @return int
      */
-    private function getCommentType($content)
+    private function getCommentType($content) : int
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if ('#' === $content[0]) {
             return self::TYPE_HASH;
         }

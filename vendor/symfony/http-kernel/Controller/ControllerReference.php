@@ -34,6 +34,9 @@ class ControllerReference
      */
     public function __construct($controller, array $attributes = [], array $query = [])
     {
+        if (\is_object($controller)) {
+            $controller = (string) $controller;
+        }
         $this->controller = $controller;
         $this->attributes = $attributes;
         $this->query = $query;

@@ -389,6 +389,9 @@ $array = [
      */
     private function injectAlignmentPlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $startAt, $endAt, $tokenContent)
     {
+        if (\is_object($tokenContent)) {
+            $tokenContent = (string) $tokenContent;
+        }
         for ($index = $startAt; $index < $endAt; ++$index) {
             $token = $tokens[$index];
             $content = $token->getContent();
@@ -500,6 +503,9 @@ $array = [
      */
     private function fixWhiteSpaceBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $alignStrategy)
     {
+        if (\is_object($alignStrategy)) {
+            $alignStrategy = (string) $alignStrategy;
+        }
         // fix white space after operator is not needed as BinaryOperatorSpacesFixer took care of this (if strategy is _not_ ALIGN)
         if (!$tokens[$index - 1]->isWhitespace()) {
             $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
@@ -516,10 +522,12 @@ $array = [
     /**
      * Look for group of placeholders and provide vertical alignment.
      * @param string $alignStrategy
-     * @return string
      */
-    private function replacePlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $alignStrategy)
+    private function replacePlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $alignStrategy) : string
     {
+        if (\is_object($alignStrategy)) {
+            $alignStrategy = (string) $alignStrategy;
+        }
         $tmpCode = $tokens->generateCode();
         for ($j = 0; $j <= $this->deepestLevel; ++$j) {
             $placeholder = \sprintf(self::ALIGN_PLACEHOLDER, $j);

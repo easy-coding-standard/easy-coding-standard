@@ -67,6 +67,9 @@ final class ReporterFactory
      */
     public function getReporter($format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         if (!isset($this->reporters[$format])) {
             throw new \UnexpectedValueException(\sprintf('Reporter for format "%s" is not registered.', $format));
         }

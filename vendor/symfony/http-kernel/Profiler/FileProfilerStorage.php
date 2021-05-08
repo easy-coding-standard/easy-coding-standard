@@ -33,6 +33,9 @@ class FileProfilerStorage implements \ECSPrefix20210508\Symfony\Component\HttpKe
      */
     public function __construct($dsn)
     {
+        if (\is_object($dsn)) {
+            $dsn = (string) $dsn;
+        }
         if (0 !== \strpos($dsn, 'file:')) {
             throw new \RuntimeException(\sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
         }
@@ -102,6 +105,9 @@ class FileProfilerStorage implements \ECSPrefix20210508\Symfony\Component\HttpKe
      */
     public function read($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;
         }
@@ -162,6 +168,9 @@ class FileProfilerStorage implements \ECSPrefix20210508\Symfony\Component\HttpKe
      */
     protected function getFilename($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         // Uses 4 last characters, because first are mostly the same.
         $folderA = \substr($token, -2, 2);
         $folderB = \substr($token, -4, 2);
@@ -219,6 +228,9 @@ class FileProfilerStorage implements \ECSPrefix20210508\Symfony\Component\HttpKe
      */
     protected function createProfileFromData($token, array $data, \ECSPrefix20210508\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         $profile = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);
         $profile->setMethod($data['method']);

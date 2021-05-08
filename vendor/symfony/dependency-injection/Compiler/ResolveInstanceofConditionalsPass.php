@@ -45,10 +45,12 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210508\Symfony\Co
     }
     /**
      * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Definition
      */
-    private function processDefinition(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, array $tagsToKeep)
+    private function processDefinition(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, array $tagsToKeep) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $instanceofConditionals = $definition->getInstanceofConditionals();
         $autoconfiguredInstanceof = $definition->isAutoconfigured() ? $container->getAutoconfiguredInstanceof() : [];
         if (!$instanceofConditionals && !$autoconfiguredInstanceof) {

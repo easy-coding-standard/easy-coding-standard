@@ -39,6 +39,9 @@ class FilenameFilterIterator extends \ECSPrefix20210508\Symfony\Component\Finder
      */
     protected function toRegex($str)
     {
+        if (\is_object($str)) {
+            $str = (string) $str;
+        }
         return $this->isRegex($str) ? $str : \ECSPrefix20210508\Symfony\Component\Finder\Glob::toRegex($str);
     }
 }

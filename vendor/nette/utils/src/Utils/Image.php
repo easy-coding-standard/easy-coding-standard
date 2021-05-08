@@ -122,10 +122,12 @@ class Image
      * @throws UnknownImageFileException if file not found or file type is not known
      * @return static
      * @param string $file
-     * @param int $type
      */
-    public static function fromFile($file, &$type = null)
+    public static function fromFile($file, int &$type = null)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!\extension_loaded('gd')) {
             throw new \ECSPrefix20210508\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
@@ -144,10 +146,12 @@ class Image
      * @throws Nette\NotSupportedException if gd extension is not loaded
      * @throws ImageException
      * @param string $s
-     * @param int $type
      */
-    public static function fromString($s, &$type = null)
+    public static function fromString($s, int &$type = null)
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         if (!\extension_loaded('gd')) {
             throw new \ECSPrefix20210508\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
@@ -191,6 +195,9 @@ class Image
      */
     public static function detectTypeFromFile($file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $type = @\getimagesize($file)[2];
         // @ - files smaller than 12 bytes causes read error
         return isset(self::FORMATS[$type]) ? $type : null;
@@ -202,6 +209,9 @@ class Image
      */
     public static function detectTypeFromString($s)
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         $type = @\getimagesizefromstring($s)[2];
         // @ - strings smaller than 12 bytes causes read error
         return isset(self::FORMATS[$type]) ? $type : null;
@@ -480,11 +490,12 @@ class Image
      * @throws ImageException
      * @return void
      * @param string $file
-     * @param int $quality
-     * @param int $type
      */
-    public function save($file, $quality = null, $type = null)
+    public function save($file, int $quality = null, int $type = null)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if ($type === null) {
             $extensions = \array_flip(self::FORMATS) + ['jpg' => self::JPEG];
             $ext = \strtolower(\pathinfo($file, \PATHINFO_EXTENSION));
@@ -584,6 +595,9 @@ class Image
      */
     public function __call($name, array $args)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $function = 'image' . $name;
         if (!\function_exists($function)) {
             \ECSPrefix20210508\Nette\Utils\ObjectHelpers::strictCall(static::class, $name);

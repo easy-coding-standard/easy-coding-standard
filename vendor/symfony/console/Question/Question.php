@@ -35,6 +35,9 @@ class Question
      */
     public function __construct($question, $default = null)
     {
+        if (\is_object($question)) {
+            $question = (string) $question;
+        }
         $this->question = $question;
         $this->default = $default;
     }

@@ -27,6 +27,9 @@ class SingleCommandApplication extends \ECSPrefix20210508\Symfony\Component\Cons
      */
     public function setVersion($version)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         $this->version = $version;
         return $this;
     }

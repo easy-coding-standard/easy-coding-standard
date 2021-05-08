@@ -117,6 +117,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function __get($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (null !== ($data = $this->seek($key))) {
             $item = $this->getStub($data->data[$data->position][$data->key]);
             return $item instanceof \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub || [] === $item ? $data : $item;
@@ -129,6 +132,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function __isset($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return null !== $this->seek($key);
     }
     /**

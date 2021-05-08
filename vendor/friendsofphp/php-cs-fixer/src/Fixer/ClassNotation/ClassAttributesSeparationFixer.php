@@ -176,6 +176,9 @@ class Sample
      */
     private function fixSpaceBelowClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $classEndIndex, $elementEndIndex, $spacing)
     {
+        if (\is_object($spacing)) {
+            $spacing = (string) $spacing;
+        }
         for ($nextNotWhite = $elementEndIndex + 1;; ++$nextNotWhite) {
             if (($tokens[$nextNotWhite]->isComment() || $tokens[$nextNotWhite]->isWhitespace()) && \false === \strpos($tokens[$nextNotWhite]->getContent(), "\n")) {
                 continue;
@@ -204,6 +207,9 @@ class Sample
      */
     private function fixSpaceBelowClassMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $classEndIndex, $elementEndIndex, $spacing)
     {
+        if (\is_object($spacing)) {
+            $spacing = (string) $spacing;
+        }
         $nextNotWhite = $tokens->getNextNonWhitespace($elementEndIndex);
         $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $nextNotWhite === $classEndIndex || self::SPACING_NONE === $spacing ? 1 : 2);
     }
@@ -220,6 +226,9 @@ class Sample
      */
     private function fixSpaceAboveClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $classStartIndex, $elementIndex, $spacing)
     {
+        if (\is_object($spacing)) {
+            $spacing = (string) $spacing;
+        }
         static $methodAttr = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_ABSTRACT, \T_FINAL, \T_STATIC, \T_STRING, \T_NS_SEPARATOR, \T_VAR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION];
         $nonWhiteAbove = null;
         // find out where the element definition starts

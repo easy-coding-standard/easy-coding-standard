@@ -47,6 +47,9 @@ class AsciiSlugger implements \ECSPrefix20210508\Symfony\Component\String\Slugge
      */
     public function setLocale($locale)
     {
+        if (\is_object($locale)) {
+            $locale = (string) $locale;
+        }
         $this->defaultLocale = $locale;
     }
     /**
@@ -59,12 +62,12 @@ class AsciiSlugger implements \ECSPrefix20210508\Symfony\Component\String\Slugge
     /**
      * {@inheritdoc}
      * @param string $string
-     * @param string $separator
-     * @param string $locale
-     * @return \Symfony\Component\String\AbstractUnicodeString
      */
-    public function slug($string, $separator = '-', $locale = null)
+    public function slug($string, string $separator = '-', string $locale = null) : \ECSPrefix20210508\Symfony\Component\String\AbstractUnicodeString
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         $locale = isset($locale) ? $locale : $this->defaultLocale;
         $transliterator = [];
         if ('de' === $locale || 0 === \strpos($locale, 'de_')) {
@@ -93,6 +96,9 @@ class AsciiSlugger implements \ECSPrefix20210508\Symfony\Component\String\Slugge
      */
     private function createTransliterator($locale)
     {
+        if (\is_object($locale)) {
+            $locale = (string) $locale;
+        }
         if (\array_key_exists($locale, $this->transliterators)) {
             return $this->transliterators[$locale];
         }

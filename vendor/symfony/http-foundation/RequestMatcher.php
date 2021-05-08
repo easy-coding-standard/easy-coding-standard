@@ -106,6 +106,9 @@ class RequestMatcher implements \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function matchIp($ip)
     {
+        if (\is_object($ip)) {
+            $ip = (string) $ip;
+        }
         $this->matchIps($ip);
     }
     /**
@@ -132,10 +135,12 @@ class RequestMatcher implements \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * Adds a check for request attribute.
      * @param string $key
-     * @param string $regexp
      */
-    public function matchAttribute($key, $regexp)
+    public function matchAttribute($key, string $regexp)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $this->attributes[$key] = $regexp;
     }
     /**

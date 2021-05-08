@@ -105,6 +105,9 @@ class Notifysend implements \PHP_CodeSniffer\Reports\Report
      */
     public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
     {
+        if (\is_object($cachedData)) {
+            $cachedData = (string) $cachedData;
+        }
         $checkedFiles = \explode(\PHP_EOL, \trim($cachedData));
         $msg = $this->generateMessage($checkedFiles, $totalErrors, $totalWarnings);
         if ($msg === null) {
@@ -170,6 +173,9 @@ class Notifysend implements \PHP_CodeSniffer\Reports\Report
      */
     protected function notifyErrors($msg)
     {
+        if (\is_object($msg)) {
+            $msg = (string) $msg;
+        }
         $cmd = $this->getBasicCommand();
         $cmd .= ' -i error';
         $cmd .= ' "PHP CodeSniffer: Error"';

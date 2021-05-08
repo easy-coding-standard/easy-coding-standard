@@ -55,6 +55,9 @@ final class Decoder
      */
     public function decode($input)
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         if (\substr($input, 0, 3) === "﻿") {
             // BOM
             $input = \substr($input, 3);
@@ -327,6 +330,9 @@ final class Decoder
      */
     private function error($message = "Unexpected '%s'")
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $last = isset($this->tokens[$this->pos]) ? $this->tokens[$this->pos] : null;
         $offset = $last ? $last[1] : \strlen($this->input);
         $text = \substr($this->input, 0, $offset);

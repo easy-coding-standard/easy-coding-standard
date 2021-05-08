@@ -37,17 +37,12 @@ class CachePoolPass implements \ECSPrefix20210508\Symfony\Component\DependencyIn
     private $messageHandlerId;
     /**
      * @param string $cachePoolTag
-     * @param string $kernelResetTag
-     * @param string $cacheClearerId
-     * @param string $cachePoolClearerTag
-     * @param string $cacheSystemClearerId
-     * @param string $cacheSystemClearerTag
-     * @param string $reverseContainerId
-     * @param string $reversibleTag
-     * @param string $messageHandlerId
      */
-    public function __construct($cachePoolTag = 'cache.pool', $kernelResetTag = 'kernel.reset', $cacheClearerId = 'cache.global_clearer', $cachePoolClearerTag = 'cache.pool.clearer', $cacheSystemClearerId = 'cache.system_clearer', $cacheSystemClearerTag = 'kernel.cache_clearer', $reverseContainerId = 'reverse_container', $reversibleTag = 'container.reversible', $messageHandlerId = 'cache.early_expiration_handler')
+    public function __construct($cachePoolTag = 'cache.pool', string $kernelResetTag = 'kernel.reset', string $cacheClearerId = 'cache.global_clearer', string $cachePoolClearerTag = 'cache.pool.clearer', string $cacheSystemClearerId = 'cache.system_clearer', string $cacheSystemClearerTag = 'kernel.cache_clearer', string $reverseContainerId = 'reverse_container', string $reversibleTag = 'container.reversible', string $messageHandlerId = 'cache.early_expiration_handler')
     {
+        if (\is_object($cachePoolTag)) {
+            $cachePoolTag = (string) $cachePoolTag;
+        }
         $this->cachePoolTag = $cachePoolTag;
         $this->kernelResetTag = $kernelResetTag;
         $this->cacheClearerId = $cacheClearerId;
@@ -200,10 +195,12 @@ class CachePoolPass implements \ECSPrefix20210508\Symfony\Component\DependencyIn
     }
     /**
      * @param string $seed
-     * @param string $id
      */
-    private function getNamespace($seed, $id)
+    private function getNamespace($seed, string $id)
     {
+        if (\is_object($seed)) {
+            $seed = (string) $seed;
+        }
         return \substr(\str_replace('/', '-', \base64_encode(\hash('sha256', $id . $seed, \true))), 0, 10);
     }
     /**

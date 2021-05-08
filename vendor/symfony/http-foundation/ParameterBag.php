@@ -77,6 +77,9 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function get($key, $default = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }
     /**
@@ -87,6 +90,9 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function set($key, $value)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $this->parameters[$key] = $value;
     }
     /**
@@ -97,6 +103,9 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function has($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \array_key_exists($key, $this->parameters);
     }
     /**
@@ -105,6 +114,9 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function remove($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         unset($this->parameters[$key]);
     }
     /**
@@ -112,10 +124,12 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return string The filtered value
      * @param string $key
-     * @param string $default
      */
-    public function getAlpha($key, $default = '')
+    public function getAlpha($key, string $default = '')
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \preg_replace('/[^[:alpha:]]/', '', $this->get($key, $default));
     }
     /**
@@ -123,10 +137,12 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return string The filtered value
      * @param string $key
-     * @param string $default
      */
-    public function getAlnum($key, $default = '')
+    public function getAlnum($key, string $default = '')
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \preg_replace('/[^[:alnum:]]/', '', $this->get($key, $default));
     }
     /**
@@ -134,10 +150,12 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return string The filtered value
      * @param string $key
-     * @param string $default
      */
-    public function getDigits($key, $default = '')
+    public function getDigits($key, string $default = '')
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         // we need to remove - and + because they're allowed in the filter
         return \str_replace(['-', '+'], '', $this->filter($key, $default, \FILTER_SANITIZE_NUMBER_INT));
     }
@@ -146,10 +164,12 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return int The filtered value
      * @param string $key
-     * @param int $default
      */
-    public function getInt($key, $default = 0)
+    public function getInt($key, int $default = 0)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return (int) $this->get($key, $default);
     }
     /**
@@ -157,10 +177,12 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return bool The filtered value
      * @param string $key
-     * @param bool $default
      */
-    public function getBoolean($key, $default = \false)
+    public function getBoolean($key, bool $default = \false)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return $this->filter($key, $default, \FILTER_VALIDATE_BOOLEAN);
     }
     /**
@@ -175,8 +197,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
      * @return mixed
      * @param string $key
      */
-    public function filter($key, $default = null, $filter = \FILTER_DEFAULT, $options = [])
+    public function filter($key, $default = null, int $filter = \FILTER_DEFAULT, $options = [])
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $value = $this->get($key, $default);
         // Always turn $options into an array - this allows filter_var option shortcuts.
         if (!\is_array($options) && $options) {

@@ -193,6 +193,9 @@ final class DocParser
      */
     public function addNamespace($namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         if ($this->imports) {
             throw new \RuntimeException('You must either use addNamespace(), or setImports(), but not both.');
         }
@@ -238,6 +241,9 @@ final class DocParser
      */
     public function parse($input, $context = '')
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         $pos = $this->findInitialTokenPosition($input);
         if ($pos === null) {
             return [];
@@ -255,6 +261,9 @@ final class DocParser
      */
     private function findInitialTokenPosition($input)
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         $pos = 0;
         // search for first valid annotation
         while (($pos = \strpos($input, '@', $pos)) !== \false) {
@@ -307,10 +316,12 @@ final class DocParser
      *
      * @param string       $expected Expected string.
      * @param mixed[]|null $token    Optional token.
-     * @return \Doctrine\Common\Annotations\AnnotationException
      */
-    private function syntaxError($expected, $token = null)
+    private function syntaxError($expected, $token = null) : \ECSPrefix20210508\Doctrine\Common\Annotations\AnnotationException
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
         if ($token === null) {
             $token = $this->lexer->lookahead;
         }
@@ -327,10 +338,12 @@ final class DocParser
      * but uses the {@link AnnotationRegistry} to load classes.
      *
      * @param class-string $fqcn
-     * @return bool
      */
-    private function classExists($fqcn)
+    private function classExists($fqcn) : bool
     {
+        if (\is_object($fqcn)) {
+            $fqcn = (string) $fqcn;
+        }
         if (isset($this->classExists[$fqcn])) {
             return $this->classExists[$fqcn];
         }
@@ -352,6 +365,9 @@ final class DocParser
      */
     private function collectAnnotationMetadata($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (self::$metadataParser === null) {
             self::$metadataParser = new self();
             self::$metadataParser->setIgnoreNotImportedAnnotations(\true);
@@ -799,18 +815,22 @@ EXCEPTION
     }
     /**
      * @param string $identifier
-     * @return bool
      */
-    private function identifierStartsWithBackslash($identifier)
+    private function identifierStartsWithBackslash($identifier) : bool
     {
+        if (\is_object($identifier)) {
+            $identifier = (string) $identifier;
+        }
         return $identifier[0] === '\\';
     }
     /**
      * @param string $identifier
-     * @return bool
      */
-    private function identifierEndsWithClassConstant($identifier)
+    private function identifierEndsWithClassConstant($identifier) : bool
     {
+        if (\is_object($identifier)) {
+            $identifier = (string) $identifier;
+        }
         return $this->getClassConstantPositionInIdentifier($identifier) === \strlen($identifier) - \strlen('::class');
     }
     /**
@@ -819,6 +839,9 @@ EXCEPTION
      */
     private function getClassConstantPositionInIdentifier($identifier)
     {
+        if (\is_object($identifier)) {
+            $identifier = (string) $identifier;
+        }
         return \stripos($identifier, '::class');
     }
     /**
@@ -984,10 +1007,12 @@ EXCEPTION
     /**
      * Checks whether the given $name matches any ignored annotation name or namespace
      * @param string $name
-     * @return bool
      */
-    private function isIgnoredAnnotation($name)
+    private function isIgnoredAnnotation($name) : bool
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if ($this->ignoreNotImportedAnnotations || isset($this->ignoredAnnotationNames[$name])) {
             return \true;
         }
@@ -1004,11 +1029,14 @@ EXCEPTION
      *
      * @param array<string,mixed> $arguments
      *
-     * @return mixed[]
+     * @return array<string,mixed>
      * @param string $name
      */
-    private function resolvePositionalValues(array $arguments, $name)
+    private function resolvePositionalValues(array $arguments, $name) : array
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $positionalArguments = isset($arguments['positional_arguments']) ? $arguments['positional_arguments'] : [];
         $values = isset($arguments['named_arguments']) ? $arguments['named_arguments'] : [];
         if (self::$annotationMetadata[$name]['has_named_argument_constructor'] && self::$annotationMetadata[$name]['default_property'] !== null) {

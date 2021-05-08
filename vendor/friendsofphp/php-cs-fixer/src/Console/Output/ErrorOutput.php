@@ -43,6 +43,9 @@ final class ErrorOutput
      */
     public function listErrors($process, array $errors)
     {
+        if (\is_object($process)) {
+            $process = (string) $process;
+        }
         $this->output->writeln(['', \sprintf('Files that were not fixed due to errors reported during %s:', $process)]);
         $showDetails = $this->output->getVerbosity() >= \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE;
         $showTrace = $this->output->getVerbosity() >= \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG;
@@ -106,10 +109,12 @@ final class ErrorOutput
     }
     /**
      * @param string $string
-     * @return string
      */
-    private function prepareOutput($string)
+    private function prepareOutput($string) : string
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         return $this->isDecorated ? \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escape($string) : $string;
     }
 }

@@ -60,6 +60,9 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function get($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!\array_key_exists($name, $this->parameters)) {
             if (!$name) {
                 throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
@@ -97,6 +100,9 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function set($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->parameters[$name] = $value;
     }
     /**
@@ -105,6 +111,9 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function has($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return \array_key_exists((string) $name, $this->parameters);
     }
     /**
@@ -114,6 +123,9 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function remove($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         unset($this->parameters[$name]);
     }
     /**
@@ -149,7 +161,7 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      * @throws ParameterCircularReferenceException if a circular reference if detected
      * @throws RuntimeException                    when a given parameter has a type problem
      */
-    public function resolveValue($value, $resolving = [])
+    public function resolveValue($value, array $resolving = [])
     {
         if (\is_array($value)) {
             $args = [];
@@ -177,6 +189,9 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function resolveString($value, array $resolving = [])
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         // we do this to deal with non string values (Boolean, integer, ...)
         // as the preg_replace_callback throw an exception when trying
         // a non-string in a parameter value

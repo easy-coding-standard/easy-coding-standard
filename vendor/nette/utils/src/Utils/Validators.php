@@ -62,10 +62,12 @@ class Validators
      * @throws AssertionException
      * @return void
      * @param string $expected
-     * @param string $label
      */
-    public static function assert($value, $expected, $label = 'variable')
+    public static function assert($value, $expected, string $label = 'variable')
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
         if (!static::is($value, $expected)) {
             $expected = \str_replace(['|', ':'], [' or ', ' in range '], $expected);
             static $translate = ['boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'NULL' => 'null'];
@@ -89,6 +91,9 @@ class Validators
      */
     public static function assertField(array $array, $key, $expected = null, $label = "item '%' in array")
     {
+        if (\is_object($label)) {
+            $label = (string) $label;
+        }
         if (!\array_key_exists($key, $array)) {
             throw new \ECSPrefix20210508\Nette\Utils\AssertionException('Missing ' . \str_replace('%', $key, $label) . '.');
         } elseif ($expected) {
@@ -99,10 +104,12 @@ class Validators
      * Verifies that the value is of expected types separated by pipe.
      * @param  mixed  $value
      * @param string $expected
-     * @return bool
      */
-    public static function is($value, $expected)
+    public static function is($value, $expected) : bool
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
         foreach (\explode('|', $expected) as $item) {
             if (\substr($item, -2) === '[]') {
                 if ((\is_array($value) || $value instanceof \Traversable) && self::everyIs($value, \substr($item, 0, -2))) {
@@ -153,10 +160,12 @@ class Validators
      * Finds whether all values are of expected types separated by pipe.
      * @param  mixed[]  $values
      * @param string $expected
-     * @return bool
      */
-    public static function everyIs($values, $expected)
+    public static function everyIs($values, $expected) : bool
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
         foreach ($values as $value) {
             if (!static::is($value, $expected)) {
                 return \false;
@@ -263,10 +272,12 @@ class Validators
     /**
      * Checks if the value is a valid email address. It does not verify that the domain actually exists, only the syntax is verified.
      * @param string $value
-     * @return bool
      */
-    public static function isEmail($value)
+    public static function isEmail($value) : bool
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         $atom = "[-a-z0-9!#\$%&'*+/=?^_`{|}~]";
         // RFC 5322 unquoted characters in local-part
         $alpha = "a-z€-ÿ";
@@ -284,10 +295,12 @@ XX
     /**
      * Checks if the value is a valid URL address.
      * @param string $value
-     * @return bool
      */
-    public static function isUrl($value)
+    public static function isUrl($value) : bool
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         $alpha = "a-z€-ÿ";
         return (bool) \preg_match(<<<XX
 \t\t(^
@@ -308,28 +321,34 @@ XX
     /**
      * Checks if the value is a valid URI address, that is, actually a string beginning with a syntactically valid schema.
      * @param string $value
-     * @return bool
      */
-    public static function isUri($value)
+    public static function isUri($value) : bool
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         return (bool) \preg_match('#^[a-z\\d+\\.-]+:\\S+$#Di', $value);
     }
     /**
      * Checks whether the input is a class, interface or trait.
      * @param string $type
-     * @return bool
      */
-    public static function isType($type)
+    public static function isType($type) : bool
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         return \class_exists($type) || \interface_exists($type) || \trait_exists($type);
     }
     /**
      * Checks whether the input is a valid PHP identifier.
      * @param string $value
-     * @return bool
      */
-    public static function isPhpIdentifier($value)
+    public static function isPhpIdentifier($value) : bool
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         return \is_string($value) && \preg_match('#^[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*$#D', $value);
     }
 }

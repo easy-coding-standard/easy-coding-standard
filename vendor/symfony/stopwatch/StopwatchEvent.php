@@ -51,6 +51,9 @@ class StopwatchEvent
      */
     public function __construct($origin, $category = null, $morePrecision = \false, $name = null)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->origin = $this->formatTime($origin);
         $this->category = \is_string($category) ? $category : 'default';
         $this->morePrecision = $morePrecision;

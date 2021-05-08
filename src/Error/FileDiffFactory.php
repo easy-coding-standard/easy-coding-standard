@@ -18,10 +18,12 @@ final class FileDiffFactory
     /**
      * @param string[] $appliedCheckers
      * @param string $diff
-     * @return \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
      */
-    public function createFromDiffAndAppliedCheckers(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
+    public function createFromDiffAndAppliedCheckers(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers) : \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
     {
+        if (\is_object($diff)) {
+            $diff = (string) $diff;
+        }
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
         return new \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff($smartFileInfo, $diff, $consoleFormattedDiff, $appliedCheckers);
     }

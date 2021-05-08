@@ -85,11 +85,12 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
     }
     /**
      * @param string $file
-     * @param bool $shouldAddAppliedFixers
-     * @return \DOMElement
      */
-    private function createFailedTestCase(\DOMDocument $dom, $file, array $fixResult, $shouldAddAppliedFixers)
+    private function createFailedTestCase(\DOMDocument $dom, $file, array $fixResult, bool $shouldAddAppliedFixers) : \DOMElement
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $appliedFixersCount = \count($fixResult['appliedFixers']);
         $testName = \str_replace('.', '_DOT_', \PhpCsFixer\Preg::replace('@\\.' . \pathinfo($file, \PATHINFO_EXTENSION) . '$@', '', $file));
         $testcase = $dom->createElement('testcase');

@@ -31,7 +31,7 @@ interface DumperInterface
      * @param bool   $bin Whether $str is UTF-8 or binary encoded
      * @param int    $cut The number of characters $str has been cut by
      */
-    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut);
+    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, bool $bin, int $cut);
     /**
      * Dumps while entering an hash.
      *

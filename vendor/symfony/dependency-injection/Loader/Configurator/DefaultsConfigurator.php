@@ -41,6 +41,9 @@ class DefaultsConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function tag($name, array $attributes = [])
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if ('' === $name) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The tag name in "_defaults" must be a non-empty string.');
         }
@@ -55,10 +58,12 @@ class DefaultsConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
     /**
      * Defines an instanceof-conditional to be applied to following service definitions.
      * @param string $fqcn
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
      */
-    public final function instanceof($fqcn)
+    public final function instanceof($fqcn) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
     {
+        if (\is_object($fqcn)) {
+            $fqcn = (string) $fqcn;
+        }
         return $this->parent->instanceof($fqcn);
     }
 }

@@ -32,11 +32,12 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
     const TAG_FOLDER = 'tags';
     /**
      * @param string $namespace
-     * @param int $defaultLifetime
-     * @param string $directory
      */
-    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($namespace = '', int $defaultLifetime = 0, string $directory = null, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $this->marshaller = new \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\TagAwareMarshaller($marshaller);
         parent::__construct('', $defaultLifetime);
         $this->init($namespace, $directory);
@@ -47,6 +48,9 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
      */
     protected function doClear($namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $ok = $this->doClearCache($namespace);
         if ('' !== $namespace) {
             return $ok;
@@ -88,12 +92,10 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $addTagData
-     * @param mixed[] $removeTagData
      * @param int $lifetime
      * @return mixed[]
      */
-    protected function doSave(array $values, $lifetime, $addTagData = [], $removeTagData = [])
+    protected function doSave(array $values, $lifetime, array $addTagData = [], array $removeTagData = [])
     {
         $failed = $this->doSaveCache($values, $lifetime);
         // Add Tags as symlinks
@@ -213,10 +215,12 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
     }
     /**
      * @param string $tagId
-     * @return string
      */
-    private function getTagFolder($tagId)
+    private function getTagFolder($tagId) : string
     {
+        if (\is_object($tagId)) {
+            $tagId = (string) $tagId;
+        }
         return $this->getFile($tagId, \false, $this->directory . self::TAG_FOLDER . \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
     }
 }

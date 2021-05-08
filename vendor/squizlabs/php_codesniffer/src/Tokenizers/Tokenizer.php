@@ -73,6 +73,9 @@ abstract class Tokenizer
      */
     public function __construct($content, $config, $eolChar = '\\n')
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->eolChar = $eolChar;
         $this->config = $config;
         $this->tokens = $this->tokenize($content);
@@ -98,6 +101,9 @@ abstract class Tokenizer
      */
     protected function isMinifiedContent($content, $eolChar = '\\n')
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         // Minified files often have a very large number of characters per line
         // and cause issues when tokenizing.
         $numChars = \strlen($content);
@@ -487,6 +493,9 @@ abstract class Tokenizer
      */
     public function replaceTabsInToken(&$token, $prefix = ' ', $padding = ' ', $tabWidth = null)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $checkEncoding = \false;
         if (\function_exists('iconv_strlen') === \true) {
             $checkEncoding = \true;

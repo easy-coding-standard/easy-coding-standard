@@ -53,9 +53,8 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @param string $type
-     * @return bool
      */
-    protected abstract function isSkippedType($type);
+    protected abstract function isSkippedType($type) : bool;
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
@@ -79,12 +78,14 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         return null;
     }
     /**
-     * @return mixed[]
+     * @return Annotation[]
      * @param string $name
-     * @param int $docCommentIndex
      */
-    protected function getAnnotationsFromDocComment($name, \PhpCsFixer\Tokenizer\Tokens $tokens, $docCommentIndex)
+    protected function getAnnotationsFromDocComment($name, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex) : array
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
         $namespace = $namespacesAnalyzer->getNamespaceAt($tokens, $docCommentIndex);
         $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
@@ -93,12 +94,14 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         return $doc->getAnnotationsOfType($name);
     }
     /**
-     * @return mixed[]
+     * @return Token[]
      * @param string $type
-     * @param bool $isNullable
      */
-    protected function createTypeDeclarationTokens($type, $isNullable)
+    protected function createTypeDeclarationTokens($type, bool $isNullable) : array
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         static $specialTypes = ['array' => [\PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, 'array'], 'callable' => [\T_CALLABLE, 'callable'], 'static' => [\T_STATIC, 'static']];
         $newTokens = [];
         if (\true === $isNullable && 'mixed' !== $type) {
@@ -160,10 +163,12 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @param string $code
-     * @return bool
      */
-    protected final function isValidSyntax($code)
+    protected final function isValidSyntax($code) : bool
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (!isset(self::$syntaxValidationCache[$code])) {
             try {
                 \PhpCsFixer\Tokenizer\Tokens::fromCode($code);

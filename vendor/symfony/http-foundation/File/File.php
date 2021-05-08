@@ -28,8 +28,11 @@ class File extends \SplFileInfo
      *
      * @throws FileNotFoundException If the given path is not a file
      */
-    public function __construct($path, $checkPath = \true)
+    public function __construct($path, bool $checkPath = \true)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if ($checkPath && !\is_file($path)) {
             throw new \ECSPrefix20210508\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException($path);
         }
@@ -80,10 +83,12 @@ class File extends \SplFileInfo
      *
      * @throws FileException if the target file could not be created
      * @param string $directory
-     * @param string $name
      */
-    public function move($directory, $name = null)
+    public function move($directory, string $name = null)
     {
+        if (\is_object($directory)) {
+            $directory = (string) $directory;
+        }
         $target = $this->getTargetFile($directory, $name);
         \set_error_handler(function ($type, $msg) use(&$error) {
             $error = $msg;
@@ -110,10 +115,12 @@ class File extends \SplFileInfo
     /**
      * @return self
      * @param string $directory
-     * @param string $name
      */
-    protected function getTargetFile($directory, $name = null)
+    protected function getTargetFile($directory, string $name = null)
     {
+        if (\is_object($directory)) {
+            $directory = (string) $directory;
+        }
         if (!\is_dir($directory)) {
             if (\false === @\mkdir($directory, 0777, \true) && !\is_dir($directory)) {
                 throw new \ECSPrefix20210508\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Unable to create the "%s" directory.', $directory));
@@ -132,6 +139,9 @@ class File extends \SplFileInfo
      */
     protected function getName($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $originalName = \str_replace('\\', '/', $name);
         $pos = \strrpos($originalName, '/');
         $originalName = \false === $pos ? $originalName : \substr($originalName, $pos + 1);

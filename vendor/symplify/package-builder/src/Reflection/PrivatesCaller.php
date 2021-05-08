@@ -18,6 +18,9 @@ final class PrivatesCaller
      */
     public function callPrivateMethod($object, $methodName, array $arguments)
     {
+        if (\is_object($methodName)) {
+            $methodName = (string) $methodName;
+        }
         $this->ensureIsNotNull($object, __METHOD__);
         if (\is_string($object)) {
             $reflectionClass = new \ReflectionClass($object);
@@ -33,6 +36,9 @@ final class PrivatesCaller
      */
     public function callPrivateMethodWithReference($object, $methodName, $argument)
     {
+        if (\is_object($methodName)) {
+            $methodName = (string) $methodName;
+        }
         $this->ensureIsNotNull($object, __METHOD__);
         if (\is_string($object)) {
             $reflectionClass = new \ReflectionClass($object);
@@ -45,10 +51,12 @@ final class PrivatesCaller
     /**
      * @param object $object
      * @param string $methodName
-     * @return \ReflectionMethod
      */
-    private function createAccessibleMethodReflection($object, $methodName)
+    private function createAccessibleMethodReflection($object, $methodName) : \ReflectionMethod
     {
+        if (\is_object($methodName)) {
+            $methodName = (string) $methodName;
+        }
         $reflectionMethod = new \ReflectionMethod(\get_class($object), $methodName);
         $reflectionMethod->setAccessible(\true);
         return $reflectionMethod;
@@ -60,6 +68,9 @@ final class PrivatesCaller
      */
     private function ensureIsNotNull($object, $location)
     {
+        if (\is_object($location)) {
+            $location = (string) $location;
+        }
         if ($object !== null) {
             return;
         }

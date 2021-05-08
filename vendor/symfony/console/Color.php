@@ -23,10 +23,12 @@ final class Color
     private $options = [];
     /**
      * @param string $foreground
-     * @param string $background
      */
-    public function __construct($foreground = '', $background = '', array $options = [])
+    public function __construct($foreground = '', string $background = '', array $options = [])
     {
+        if (\is_object($foreground)) {
+            $foreground = (string) $foreground;
+        }
         $this->foreground = $this->parseColor($foreground);
         $this->background = $this->parseColor($background);
         foreach ($options as $option) {
@@ -38,10 +40,12 @@ final class Color
     }
     /**
      * @param string $text
-     * @return string
      */
-    public function apply($text)
+    public function apply($text) : string
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         return $this->set() . $text . $this->unset();
     }
     /**
@@ -86,10 +90,12 @@ final class Color
     }
     /**
      * @param string $color
-     * @return string
      */
-    private function parseColor($color)
+    private function parseColor($color) : string
     {
+        if (\is_object($color)) {
+            $color = (string) $color;
+        }
         if ('' === $color) {
             return '';
         }

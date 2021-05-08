@@ -30,6 +30,9 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($sessionName)) {
+            $sessionName = (string) $sessionName;
+        }
         $this->sessionName = $sessionName;
         if (!\headers_sent() && !\ini_get('session.cache_limiter') && '0' !== \ini_get('session.cache_limiter')) {
             \header(\sprintf('Cache-Control: max-age=%d, private, must-revalidate', 60 * (int) \ini_get('session.cache_expire')));
@@ -44,9 +47,8 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     /**
      * @return bool
      * @param string $sessionId
-     * @param string $data
      */
-    protected abstract function doWrite($sessionId, $data);
+    protected abstract function doWrite($sessionId, string $data);
     /**
      * @return bool
      * @param string $sessionId
@@ -57,6 +59,9 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
      */
     public function validateId($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $this->prefetchData = $this->read($sessionId);
         $this->prefetchId = $sessionId;
         if (\PHP_VERSION_ID < 70317 || 70400 <= \PHP_VERSION_ID && \PHP_VERSION_ID < 70405) {
@@ -74,6 +79,9 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
      */
     public function read($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         if (null !== $this->prefetchId) {
             $prefetchId = $this->prefetchId;
             $prefetchData = $this->prefetchData;
@@ -92,6 +100,9 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
      */
     public function write($sessionId, $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         if (null === $this->igbinaryEmptyData) {
             // see https://github.com/igbinary/igbinary/issues/146
             $this->igbinaryEmptyData = \function_exists('igbinary_serialize') ? \igbinary_serialize([]) : '';
@@ -107,6 +118,9 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
      */
     public function destroy($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         if (!\headers_sent() && \filter_var(\ini_get('session.use_cookies'), \FILTER_VALIDATE_BOOLEAN)) {
             if (!$this->sessionName) {
                 throw new \LogicException(\sprintf('Session name cannot be empty, did you forget to call "parent::open()" in "%s"?.', static::class));

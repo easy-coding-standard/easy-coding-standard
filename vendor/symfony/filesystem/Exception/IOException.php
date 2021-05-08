@@ -22,11 +22,12 @@ class IOException extends \RuntimeException implements \ECSPrefix20210508\Symfon
     private $path;
     /**
      * @param string $message
-     * @param int $code
-     * @param string $path
      */
-    public function __construct($message, $code = 0, \Throwable $previous = null, $path = null)
+    public function __construct($message, int $code = 0, \Throwable $previous = null, string $path = null)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->path = $path;
         parent::__construct($message, $code, $previous);
     }

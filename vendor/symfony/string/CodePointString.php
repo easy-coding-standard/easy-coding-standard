@@ -27,6 +27,9 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function __construct($string = '')
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         if ('' !== $string && !\preg_match('//u', $string)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
@@ -177,11 +180,12 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
     }
     /**
      * @param string $from
-     * @param string $to
-     * @return \Symfony\Component\String\AbstractString
      */
-    public function replace($from, $to)
+    public function replace($from, string $to) : \ECSPrefix20210508\Symfony\Component\String\AbstractString
     {
+        if (\is_object($from)) {
+            $from = (string) $from;
+        }
         $str = clone $this;
         if ('' === $from || !\preg_match('//u', $from)) {
             return $str;
@@ -209,12 +213,12 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
     }
     /**
      * @param string $replacement
-     * @param int $start
-     * @param int $length
-     * @return \Symfony\Component\String\AbstractString
      */
-    public function splice($replacement, $start = 0, $length = null)
+    public function splice($replacement, int $start = 0, int $length = null) : \ECSPrefix20210508\Symfony\Component\String\AbstractString
     {
+        if (\is_object($replacement)) {
+            $replacement = (string) $replacement;
+        }
         if (!\preg_match('//u', $replacement)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
@@ -226,12 +230,12 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
     }
     /**
      * @param string $delimiter
-     * @param int $limit
-     * @param int $flags
-     * @return mixed[]
      */
-    public function split($delimiter, $limit = null, $flags = null)
+    public function split($delimiter, int $limit = null, int $flags = null) : array
     {
+        if (\is_object($delimiter)) {
+            $delimiter = (string) $delimiter;
+        }
         if (1 > ($limit = isset($limit) ? $limit : \PHP_INT_MAX)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Split limit must be a positive integer.');
         }

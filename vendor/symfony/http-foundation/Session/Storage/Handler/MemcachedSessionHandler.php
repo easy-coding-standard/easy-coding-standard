@@ -60,6 +60,9 @@ class MemcachedSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpF
      */
     protected function doRead($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         return $this->memcached->get($this->prefix . $sessionId) ?: '';
     }
     /**
@@ -67,16 +70,21 @@ class MemcachedSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpF
      */
     public function updateTimestamp($sessionId, $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $this->memcached->touch($this->prefix . $sessionId, \time() + $this->ttl);
         return \true;
     }
     /**
      * {@inheritdoc}
      * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite($sessionId, string $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         return $this->memcached->set($this->prefix . $sessionId, $data, \time() + $this->ttl);
     }
     /**
@@ -85,6 +93,9 @@ class MemcachedSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpF
      */
     protected function doDestroy($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $result = $this->memcached->delete($this->prefix . $sessionId);
         return $result || \Memcached::RES_NOTFOUND == $this->memcached->getResultCode();
     }

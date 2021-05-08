@@ -54,30 +54,35 @@ class RedisSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFound
     /**
      * {@inheritdoc}
      * @param string $sessionId
-     * @return string
      */
-    protected function doRead($sessionId)
+    protected function doRead($sessionId) : string
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         return $this->redis->get($this->prefix . $sessionId) ?: '';
     }
     /**
      * {@inheritdoc}
      * @param string $sessionId
-     * @param string $data
-     * @return bool
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite($sessionId, string $data) : bool
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $result = $this->redis->setEx($this->prefix . $sessionId, (int) ($this->ttl !== null ? $this->ttl : \ini_get('session.gc_maxlifetime')), $data);
         return $result && !$result instanceof \ECSPrefix20210508\Predis\Response\ErrorInterface;
     }
     /**
      * {@inheritdoc}
      * @param string $sessionId
-     * @return bool
      */
-    protected function doDestroy($sessionId)
+    protected function doDestroy($sessionId) : bool
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         static $unlink = \true;
         if ($unlink) {
             try {
@@ -112,6 +117,9 @@ class RedisSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function updateTimestamp($sessionId, $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         return (bool) $this->redis->expire($this->prefix . $sessionId, (int) ($this->ttl !== null ? $this->ttl : \ini_get('session.gc_maxlifetime')));
     }
 }

@@ -28,6 +28,9 @@ final class FileHandler implements \PhpCsFixer\Cache\FileHandlerInterface
      */
     public function __construct($file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $this->file = $file;
     }
     /**

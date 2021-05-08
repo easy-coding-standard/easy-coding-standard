@@ -54,10 +54,12 @@ final class Versions
      * @psalm-suppress ImpureMethodCall we know that {@see InstalledVersions} interaction does not
      *                                  cause any side effects here.
      * @param string $packageName
-     * @return string
      */
-    public static function getVersion($packageName)
+    public static function getVersion($packageName) : string
     {
+        if (\is_object($packageName)) {
+            $packageName = (string) $packageName;
+        }
         if (\class_exists(\ECSPrefix20210508\Composer\InstalledVersions::class, \false) && \ECSPrefix20210508\Composer\InstalledVersions::getRawData()) {
             return \ECSPrefix20210508\Composer\InstalledVersions::getPrettyVersion($packageName) . '@' . \ECSPrefix20210508\Composer\InstalledVersions::getReference($packageName);
         }

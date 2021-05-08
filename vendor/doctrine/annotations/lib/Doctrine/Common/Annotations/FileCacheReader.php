@@ -56,6 +56,9 @@ class FileCacheReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\
      */
     public function __construct(\ECSPrefix20210508\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
     {
+        if (\is_object($cacheDir)) {
+            $cacheDir = (string) $cacheDir;
+        }
         if (!\is_int($umask)) {
             throw new \InvalidArgumentException(\sprintf('The parameter umask must be an integer, was: %s', \gettype($umask)));
         }
@@ -160,6 +163,9 @@ class FileCacheReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\
      */
     private function saveCacheFile($path, $data)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if (!\is_writable($this->dir)) {
             throw new \InvalidArgumentException(\sprintf(<<<'EXCEPTION'
 The directory "%s" is not writable. Both the webserver and the console user need access.
@@ -188,6 +194,9 @@ EXCEPTION
      */
     public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         $annotations = $this->getClassAnnotations($class);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {
@@ -201,6 +210,9 @@ EXCEPTION
      */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         $annotations = $this->getMethodAnnotations($method);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {
@@ -214,6 +226,9 @@ EXCEPTION
      */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         $annotations = $this->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {

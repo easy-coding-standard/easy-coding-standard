@@ -27,10 +27,12 @@ final class UrlHelper
     }
     /**
      * @param string $path
-     * @return string
      */
-    public function getAbsoluteUrl($path)
+    public function getAbsoluteUrl($path) : string
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if (\false !== \strpos($path, '://') || '//' === \substr($path, 0, 2)) {
             return $path;
         }
@@ -54,10 +56,12 @@ final class UrlHelper
     }
     /**
      * @param string $path
-     * @return string
      */
-    public function getRelativePath($path)
+    public function getRelativePath($path) : string
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if (\false !== \strpos($path, '://') || '//' === \substr($path, 0, 2)) {
             return $path;
         }
@@ -68,10 +72,12 @@ final class UrlHelper
     }
     /**
      * @param string $path
-     * @return string
      */
-    private function getAbsoluteUrlFromContext($path)
+    private function getAbsoluteUrlFromContext($path) : string
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if (null === $this->requestContext || '' === ($host = $this->requestContext->getHost())) {
             return $path;
         }

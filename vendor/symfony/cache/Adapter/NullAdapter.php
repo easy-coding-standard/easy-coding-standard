@@ -31,10 +31,12 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
     /**
      * {@inheritdoc}
      * @param string $key
-     * @param float $beta
      */
-    public function get($key, callable $callback, $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $save = \true;
         return $callback(($this->createCacheItem)($key), $save);
     }
@@ -43,6 +45,9 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
      */
     public function getItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $f = $this->createCacheItem;
         return $f($key);
     }
@@ -70,6 +75,9 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
      */
     public function clear($prefix = '')
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         return \true;
     }
     /**
@@ -120,10 +128,12 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
     /**
      * {@inheritdoc}
      * @param string $key
-     * @return bool
      */
-    public function delete($key)
+    public function delete($key) : bool
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return $this->deleteItem($key);
     }
     private function generateItems(array $keys)

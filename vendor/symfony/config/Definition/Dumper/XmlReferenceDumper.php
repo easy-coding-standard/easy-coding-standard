@@ -221,10 +221,12 @@ class XmlReferenceDumper
     /**
      * Outputs a single config reference line.
      * @param string $text
-     * @param int $indent
      */
-    private function writeLine($text, $indent = 0)
+    private function writeLine($text, int $indent = 0)
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         $indent = \strlen($text) + $indent;
         $format = '%' . $indent . 's';
         $this->reference .= \sprintf($format, $text) . \PHP_EOL;

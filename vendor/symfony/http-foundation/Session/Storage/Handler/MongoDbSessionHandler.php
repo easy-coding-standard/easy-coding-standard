@@ -80,6 +80,9 @@ class MongoDbSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     protected function doDestroy($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $this->getCollection()->deleteOne([$this->options['id_field'] => $sessionId]);
         return \true;
     }
@@ -94,10 +97,12 @@ class MongoDbSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFou
     /**
      * {@inheritdoc}
      * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite($sessionId, string $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $expiry = new \MongoDB\BSON\UTCDateTime((\time() + (int) \ini_get('session.gc_maxlifetime')) * 1000);
         $fields = [$this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(), $this->options['expiry_field'] => $expiry, $this->options['data_field'] => new \MongoDB\BSON\Binary($data, \MongoDB\BSON\Binary::TYPE_OLD_BINARY)];
         $this->getCollection()->updateOne([$this->options['id_field'] => $sessionId], ['$set' => $fields], ['upsert' => \true]);
@@ -108,6 +113,9 @@ class MongoDbSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function updateTimestamp($sessionId, $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $expiry = new \MongoDB\BSON\UTCDateTime((\time() + (int) \ini_get('session.gc_maxlifetime')) * 1000);
         $this->getCollection()->updateOne([$this->options['id_field'] => $sessionId], ['$set' => [$this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(), $this->options['expiry_field'] => $expiry]]);
         return \true;
@@ -118,6 +126,9 @@ class MongoDbSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     protected function doRead($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $dbData = $this->getCollection()->findOne([$this->options['id_field'] => $sessionId, $this->options['expiry_field'] => ['$gte' => new \MongoDB\BSON\UTCDateTime()]]);
         if (null === $dbData) {
             return '';

@@ -31,6 +31,9 @@ class Process
      */
     public static function escape($arg, $meta = \true, $module = \false)
     {
+        if (\is_object($arg)) {
+            $arg = (string) $arg;
+        }
         if (!\defined('PHP_WINDOWS_VERSION_BUILD')) {
             return "'" . \str_replace("'", "'\\''", $arg) . "'";
         }
@@ -77,6 +80,9 @@ class Process
      */
     public static function setEnv($name, $value = null)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $unset = null === $value;
         if (!\putenv($unset ? $name : $name . '=' . $value)) {
             return \false;

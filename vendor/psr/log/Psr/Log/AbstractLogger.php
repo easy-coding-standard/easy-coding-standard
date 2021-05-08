@@ -21,6 +21,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function emergency($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::EMERGENCY, $message, $context);
     }
     /**
@@ -36,6 +39,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function alert($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::ALERT, $message, $context);
     }
     /**
@@ -50,6 +56,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function critical($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL, $message, $context);
     }
     /**
@@ -63,6 +72,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function error($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::ERROR, $message, $context);
     }
     /**
@@ -78,6 +90,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function warning($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::WARNING, $message, $context);
     }
     /**
@@ -90,6 +105,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function notice($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::NOTICE, $message, $context);
     }
     /**
@@ -104,6 +122,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function info($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::INFO, $message, $context);
     }
     /**
@@ -116,6 +137,9 @@ abstract class AbstractLogger implements \ECSPrefix20210508\Psr\Log\LoggerInterf
      */
     public function debug($message, array $context = array())
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::DEBUG, $message, $context);
     }
 }

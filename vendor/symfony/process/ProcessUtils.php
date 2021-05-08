@@ -38,6 +38,9 @@ class ProcessUtils
      */
     public static function validateInput($caller, $input)
     {
+        if (\is_object($caller)) {
+            $caller = (string) $caller;
+        }
         if (null !== $input) {
             if (\is_resource($input)) {
                 return $input;

@@ -30,6 +30,9 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
      */
     public function __construct($code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, $configuration = null)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->versionSpecification = $versionSpecification;
     }

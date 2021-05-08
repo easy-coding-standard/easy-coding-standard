@@ -286,6 +286,9 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     private function populateAvailableType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         // Never use abstract services
         if ($definition->isAbstract()) {
             return;
@@ -303,10 +306,12 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
     /**
      * Associates a type and a service id if applicable.
      * @param string $type
-     * @param string $id
      */
-    private function set($type, $id)
+    private function set($type, string $id)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         // is this already a type/class that is known to match multiple services?
         if (isset($this->ambiguousServiceTypes[$type])) {
             $this->ambiguousServiceTypes[$type][] = $id;
@@ -326,10 +331,12 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
     }
     /**
      * @param string $label
-     * @return callable
      */
-    private function createTypeNotFoundMessageCallback(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label)
+    private function createTypeNotFoundMessageCallback(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label) : callable
     {
+        if (\is_object($label)) {
+            $label = (string) $label;
+        }
         if (null === $this->typesClone->container) {
             $this->typesClone->container = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder($this->container->getParameterBag());
             $this->typesClone->container->setAliases($this->container->getAliases());
@@ -343,11 +350,12 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
     }
     /**
      * @param string $label
-     * @param string $currentId
-     * @return string
      */
-    private function createTypeNotFoundMessage(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label, $currentId)
+    private function createTypeNotFoundMessage(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label, string $currentId) : string
     {
+        if (\is_object($label)) {
+            $label = (string) $label;
+        }
         if (!($r = $this->container->getReflectionClass($type = $reference->getType(), \false))) {
             // either $type does not exist or a parent class does not exist
             try {
@@ -404,6 +412,9 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     private function getAliasesSuggestionForType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $aliases = [];
         foreach (\class_parents($type) + \class_implements($type) as $parent) {
             if ($container->has($parent) && !$container->findDefinition($parent)->isAbstract()) {

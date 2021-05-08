@@ -48,11 +48,14 @@ final class JsonFileManager
         return $this->cachedJSONFiles[$realPath];
     }
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      * @param string $filePath
      */
-    public function loadFromFilePath($filePath)
+    public function loadFromFilePath($filePath) : array
     {
+        if (\is_object($filePath)) {
+            $filePath = (string) $filePath;
+        }
         $fileContent = $this->smartFileSystem->readFile($filePath);
         return \ECSPrefix20210508\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
     }
@@ -68,10 +71,12 @@ final class JsonFileManager
     }
     /**
      * @param string $filePath
-     * @return string
      */
-    public function printComposerJsonToFilePath(\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $filePath)
+    public function printComposerJsonToFilePath(\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $filePath) : string
     {
+        if (\is_object($filePath)) {
+            $filePath = (string) $filePath;
+        }
         $jsonString = $this->encodeJsonToFileContent($composerJson->getJsonArray());
         $this->smartFileSystem->dumpFile($filePath, $jsonString);
         return $jsonString;

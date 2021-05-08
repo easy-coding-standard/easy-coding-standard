@@ -18,11 +18,12 @@ final class TrioContent
     private $expectedResult;
     /**
      * @param string $firstValue
-     * @param string $secondValue
-     * @param string $expectedResult
      */
-    public function __construct($firstValue, $secondValue, $expectedResult)
+    public function __construct($firstValue, string $secondValue, string $expectedResult)
     {
+        if (\is_object($firstValue)) {
+            $firstValue = (string) $firstValue;
+        }
         $this->firstValue = $firstValue;
         $this->secondValue = $secondValue;
         $this->expectedResult = $expectedResult;

@@ -143,6 +143,9 @@ class DisallowAlternativePHPTagsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function getSnippet($content, $start = '', $length = 40)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $startPos = 0;
         if ($start !== '') {
             $startPos = \strpos($content, $start);
@@ -170,6 +173,9 @@ class DisallowAlternativePHPTagsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function findClosingTag(\PHP_CodeSniffer\Files\File $phpcsFile, $tokens, $stackPtr, $content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $closer = $phpcsFile->findNext(\T_CLOSE_TAG, $stackPtr + 1);
         if ($closer !== \false && $content === \trim($tokens[$closer]['content'])) {
             return $closer;

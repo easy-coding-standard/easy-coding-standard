@@ -41,10 +41,12 @@ class Caster
      * @return array The array-cast of the object, with prefixed dynamic properties
      * @param object $obj
      * @param string $class
-     * @param string $debugClass
      */
-    public static function castObject($obj, $class, $hasDebugInfo = \false, $debugClass = null)
+    public static function castObject($obj, $class, bool $hasDebugInfo = \false, string $debugClass = null) : array
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if ($hasDebugInfo) {
             try {
                 $debugInfo = $obj->__debugInfo();

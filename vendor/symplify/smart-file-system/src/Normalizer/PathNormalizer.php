@@ -28,11 +28,12 @@ final class PathNormalizer
     const SCHEME_UNDEFINED = 'undefined';
     /**
      * @param string $originalPath
-     * @param string $directorySeparator
-     * @return string
      */
-    public function normalizePath($originalPath, $directorySeparator = \DIRECTORY_SEPARATOR)
+    public function normalizePath($originalPath, string $directorySeparator = \DIRECTORY_SEPARATOR) : string
     {
+        if (\is_object($originalPath)) {
+            $originalPath = (string) $originalPath;
+        }
         $matches = \ECSPrefix20210508\Nette\Utils\Strings::match($originalPath, self::SCHEME_PATH_REGEX);
         if ($matches !== null) {
             list(, $scheme, $path) = $matches;
@@ -50,11 +51,14 @@ final class PathNormalizer
     }
     /**
      * @param string[] $pathParts
-     * @return mixed[]
+     * @return string[]
      * @param string $scheme
      */
-    private function normalizePathParts(array $pathParts, $scheme)
+    private function normalizePathParts(array $pathParts, $scheme) : array
     {
+        if (\is_object($scheme)) {
+            $scheme = (string) $scheme;
+        }
         $normalizedPathParts = [];
         foreach ($pathParts as $pathPart) {
             if ($pathPart === '.') {

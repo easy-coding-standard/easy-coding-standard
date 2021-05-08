@@ -93,6 +93,9 @@ final class EarlyExpirationMessage
      */
     private function __construct(\ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item, $pool, $callback)
     {
+        if (\is_object($pool)) {
+            $pool = (string) $pool;
+        }
         $this->item = $item;
         $this->pool = $pool;
         $this->callback = $callback;

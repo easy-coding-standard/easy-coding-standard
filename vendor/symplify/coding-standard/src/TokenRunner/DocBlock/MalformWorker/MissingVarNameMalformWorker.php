@@ -16,11 +16,12 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
+        if (\is_object($docContent)) {
+            $docContent = (string) $docContent;
+        }
         if (!\ECSPrefix20210508\Nette\Utils\Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
             return $docContent;
         }

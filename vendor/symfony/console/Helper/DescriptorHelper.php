@@ -59,6 +59,9 @@ class DescriptorHelper extends \ECSPrefix20210508\Symfony\Component\Console\Help
      */
     public function register($format, \ECSPrefix20210508\Symfony\Component\Console\Descriptor\DescriptorInterface $descriptor)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         $this->descriptors[$format] = $descriptor;
         return $this;
     }

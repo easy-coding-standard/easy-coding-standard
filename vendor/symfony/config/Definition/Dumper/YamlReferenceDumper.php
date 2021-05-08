@@ -36,6 +36,9 @@ class YamlReferenceDumper
      */
     public function dumpAtPath(\ECSPrefix20210508\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, $path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $rootNode = $node = $configuration->getConfigTreeBuilder()->buildTree();
         foreach (\explode('.', $path) as $step) {
             if (!$node instanceof \ECSPrefix20210508\Symfony\Component\Config\Definition\ArrayNode) {
@@ -155,10 +158,12 @@ class YamlReferenceDumper
     /**
      * Outputs a single config reference line.
      * @param string $text
-     * @param int $indent
      */
-    private function writeLine($text, $indent = 0)
+    private function writeLine($text, int $indent = 0)
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         $indent = \strlen($text) + $indent;
         $format = '%' . $indent . 's';
         $this->reference .= \sprintf($format, $text) . "\n";

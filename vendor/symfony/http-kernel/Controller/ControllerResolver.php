@@ -101,6 +101,9 @@ class ControllerResolver implements \ECSPrefix20210508\Symfony\Component\HttpKer
      */
     protected function createController($controller)
     {
+        if (\is_object($controller)) {
+            $controller = (string) $controller;
+        }
         if (\false === \strpos($controller, '::')) {
             $controller = $this->instantiateController($controller);
             if (!\is_callable($controller)) {
@@ -143,6 +146,9 @@ class ControllerResolver implements \ECSPrefix20210508\Symfony\Component\HttpKer
      */
     protected function instantiateController($class)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         return new $class();
     }
     /**

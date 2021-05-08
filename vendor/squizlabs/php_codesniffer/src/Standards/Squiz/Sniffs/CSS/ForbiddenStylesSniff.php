@@ -106,6 +106,9 @@ class ForbiddenStylesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function addError($phpcsFile, $stackPtr, $style, $pattern = null)
     {
+        if (\is_object($style)) {
+            $style = (string) $style;
+        }
         $data = [$style];
         $error = 'The use of style %s is ';
         if ($this->error === \true) {

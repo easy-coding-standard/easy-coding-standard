@@ -155,6 +155,9 @@ class NativeSessionStorage implements \ECSPrefix20210508\Symfony\Component\HttpF
      */
     public function setId($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $this->saveHandler->setId($id);
     }
     /**
@@ -170,6 +173,9 @@ class NativeSessionStorage implements \ECSPrefix20210508\Symfony\Component\HttpF
      */
     public function setName($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->saveHandler->setName($name);
     }
     /**
@@ -268,6 +274,9 @@ class NativeSessionStorage implements \ECSPrefix20210508\Symfony\Component\HttpF
      */
     public function getBag($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!isset($this->bags[$name])) {
             throw new \InvalidArgumentException(\sprintf('The SessionBagInterface "%s" is not registered.', $name));
         }

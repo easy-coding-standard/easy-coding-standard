@@ -133,6 +133,9 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixFunctionUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $replacement)
     {
+        if (\is_object($replacement)) {
+            $replacement = (string) $replacement;
+        }
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$prevIndex]->isGivenKind([\T_DOUBLE_COLON, \T_NEW]) || $tokens[$prevIndex]->isObjectOperator()) {
             return;

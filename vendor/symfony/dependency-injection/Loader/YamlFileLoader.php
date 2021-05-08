@@ -47,10 +47,13 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
-     * @param string|null $type
+     * @param string $type
      */
     public function load($resource, $type = null)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $path = $this->locator->locate($resource);
         $content = $this->loadFile($path);
         $this->container->fileExists($path);
@@ -101,6 +104,9 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     private function parseImports(array $content, $file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!isset($content['imports'])) {
             return;
         }
@@ -124,6 +130,9 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     private function parseDefinitions(array $content, $file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!isset($content['services'])) {
             return;
         }
@@ -157,10 +166,12 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     /**
      * @throws InvalidArgumentException
      * @param string $file
-     * @return mixed[]
      */
-    private function parseDefaults(array &$content, $file)
+    private function parseDefaults(array &$content, $file) : array
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!\array_key_exists('_defaults', $content['services'])) {
             return [];
         }
@@ -231,11 +242,12 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      *
      * @throws InvalidArgumentException When tags are invalid
      * @param string $id
-     * @param string $file
-     * @param bool $return
      */
-    private function parseDefinition($id, $service, $file, array $defaults, $return = \false)
+    private function parseDefinition($id, $service, string $file, array $defaults, bool $return = \false)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (\preg_match('/^_[a-zA-Z0-9_]*$/', $id)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Service names that start with an underscore are reserved. Rename the "%s" service or define it in XML instead.', $id));
         }
@@ -515,11 +527,12 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      *
      * @return string|array|Reference A parsed callable
      * @param string $parameter
-     * @param string $id
-     * @param string $file
      */
-    private function parseCallable($callable, $parameter, $id, $file)
+    private function parseCallable($callable, $parameter, string $id, string $file)
     {
+        if (\is_object($parameter)) {
+            $parameter = (string) $parameter;
+        }
         if (\is_string($callable)) {
             if ('' !== $callable && '@' === $callable[0]) {
                 if (\false === \strpos($callable, ':')) {
@@ -551,6 +564,9 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     protected function loadFile($file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!\class_exists(\ECSPrefix20210508\Symfony\Component\Yaml\Parser::class)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\RuntimeException('Unable to load YAML config files as the Symfony Yaml Component is not installed.');
         }
@@ -579,6 +595,9 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     private function validate($content, $file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (null === $content) {
             return $content;
         }
@@ -603,10 +622,12 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      *
      * @return array|string|Reference|ArgumentInterface
      * @param string $file
-     * @param bool $isParameter
      */
-    private function resolveServices($value, $file, $isParameter = \false)
+    private function resolveServices($value, $file, bool $isParameter = \false)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\Yaml\Tag\TaggedValue) {
             $argument = $value->getValue();
             if ('iterator' === $value->getTag()) {
@@ -718,10 +739,12 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     /**
      * Checks the keywords used to define a service.
      * @param string $id
-     * @param string $file
      */
-    private function checkDefinition($id, array $definition, $file)
+    private function checkDefinition($id, array $definition, string $file)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if ($this->isLoadingInstanceof) {
             $keywords = self::INSTANCEOF_KEYWORDS;
         } elseif (isset($definition['resource']) || isset($definition['namespace'])) {

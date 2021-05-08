@@ -22,6 +22,9 @@ final class CheckerListReporter
      */
     public function report(array $checkers, $type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if ($checkers === []) {
             return;
         }

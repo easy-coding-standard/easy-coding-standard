@@ -35,10 +35,12 @@ final class Json
      * @return mixed
      * @throws JsonException
      * @param string $json
-     * @param int $flags
      */
-    public static function decode($json, $flags = 0)
+    public static function decode($json, int $flags = 0)
     {
+        if (\is_object($json)) {
+            $json = (string) $json;
+        }
         $forceArray = (bool) ($flags & self::FORCE_ARRAY);
         $value = \json_decode($json, $forceArray, 512, \JSON_BIGINT_AS_STRING);
         if ($error = \json_last_error()) {

@@ -16,11 +16,12 @@ final class ParamNameReferenceMalformWorker implements \Symplify\CodingStandard\
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
+        if (\is_object($docContent)) {
+            $docContent = (string) $docContent;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, self::PARAM_NAME_REGEX, function ($match) : string {
             return $match['param'] . $match['paramName'];
         });

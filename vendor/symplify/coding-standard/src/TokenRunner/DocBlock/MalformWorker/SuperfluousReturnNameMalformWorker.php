@@ -30,11 +30,12 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
+        if (\is_object($docContent)) {
+            $docContent = (string) $docContent;
+        }
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         $lines = $docBlock->getLines();
         foreach ($lines as $line) {
@@ -59,10 +60,12 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
     /**
      * @param array<string, string> $match
      * @param string $content
-     * @return bool
      */
-    private function shouldSkip(array $match, $content)
+    private function shouldSkip(array $match, $content) : bool
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if (\in_array($match[self::VARIABLE_NAME_PART], self::ALLOWED_VARIABLE_NAMES, \true)) {
             return \true;
         }

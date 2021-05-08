@@ -103,14 +103,14 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
         return [\rtrim($groupPrefix), $groupOpenIndex, $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_GROUP_IMPORT_BRACE, $groupOpenIndex), $comment];
     }
     /**
-     * @return mixed[]
+     * @return string[]
      * @param string $groupPrefix
-     * @param int $groupOpenIndex
-     * @param int $groupCloseIndex
-     * @param string $comment
      */
-    private function getGroupStatements(\PhpCsFixer\Tokenizer\Tokens $tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment)
+    private function getGroupStatements(\PhpCsFixer\Tokenizer\Tokens $tokens, $groupPrefix, int $groupOpenIndex, int $groupCloseIndex, string $comment) : array
     {
+        if (\is_object($groupPrefix)) {
+            $groupPrefix = (string) $groupPrefix;
+        }
         $statements = [];
         $statement = $groupPrefix;
         for ($i = $groupOpenIndex + 1; $i <= $groupCloseIndex; ++$i) {

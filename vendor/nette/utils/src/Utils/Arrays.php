@@ -153,11 +153,12 @@ class Arrays
      * Returns only those array items, which matches a regular expression $pattern.
      * @throws Nette\RegexpException  on compilation or runtime error
      * @param string $pattern
-     * @param int $flags
-     * @return mixed[]
      */
-    public static function grep(array $array, $pattern, $flags = 0)
+    public static function grep(array $array, $pattern, int $flags = 0) : array
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::pcre('preg_grep', [$pattern, $array, $flags]);
     }
     /**
@@ -322,10 +323,12 @@ class Arrays
      * Invokes method on every object in an array and returns array of results.
      * @param  object[]  $objects
      * @param string $method
-     * @return mixed[]
      */
-    public static function invokeMethod($objects, $method, ...$args)
+    public static function invokeMethod($objects, $method, ...$args) : array
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         $res = [];
         foreach ($objects as $k => $obj) {
             $res[$k] = $obj->{$method}(...$args);
@@ -357,12 +360,14 @@ class Arrays
     /**
      * Returns copy of the $array where every item is converted to string
      * and prefixed by $prefix and suffixed by $suffix.
-     * @return mixed[]
+     * @return string[]
      * @param string $prefix
-     * @param string $suffix
      */
-    public static function wrap(array $array, $prefix = '', $suffix = '')
+    public static function wrap(array $array, $prefix = '', string $suffix = '') : array
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $res = [];
         foreach ($array as $k => $v) {
             $res[$k] = $prefix . $v . $suffix;

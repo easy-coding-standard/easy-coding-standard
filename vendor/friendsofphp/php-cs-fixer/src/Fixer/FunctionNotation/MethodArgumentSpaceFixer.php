@@ -266,8 +266,11 @@ SAMPLE
      * @param bool   $override    whether to override the existing character or not
      * @return void
      */
-    private function fixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $indentation, $override = \true)
+    private function fixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $indentation, bool $override = \true)
     {
+        if (\is_object($indentation)) {
+            $indentation = (string) $indentation;
+        }
         if ($tokens[$index + 1]->isComment()) {
             return;
         }

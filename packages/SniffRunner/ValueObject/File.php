@@ -68,10 +68,12 @@ final class File extends \PHP_CodeSniffer\Files\File
     private $fileInfo;
     /**
      * @param string $path
-     * @param string $content
      */
-    public function __construct($path, $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct($path, string $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $this->path = $path;
         $this->content = $content;
         $this->fixer = $fixer;
@@ -131,18 +133,20 @@ final class File extends \PHP_CodeSniffer\Files\File
      * Delegate to addError().
      *
      * {@inheritdoc}
-     * @return bool
      */
-    public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0)
+    public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0) : bool
     {
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         $this->appliedCheckersCollector->addFileInfoAndChecker($this->fileInfo, $this->resolveFullyQualifiedCode($code));
         return !$this->shouldSkipError($error, $code, $data);
     }
-    /**
-     * @return bool
-     */
-    public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
+    public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         if ($this->shouldSkipError($error, $code, $data)) {
             return \false;
         }
@@ -152,10 +156,12 @@ final class File extends \PHP_CodeSniffer\Files\File
      * Allow only specific classes
      *
      * {@inheritdoc}
-     * @return bool
      */
-    public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
+    public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false) : bool
     {
+        if (\is_object($warning)) {
+            $warning = (string) $warning;
+        }
         if (!$this->isSniffClassWarningAllowed($this->activeSniffClass)) {
             return \false;
         }
@@ -175,10 +181,12 @@ final class File extends \PHP_CodeSniffer\Files\File
      * Delegated from addError().
      *
      * {@inheritdoc}
-     * @return bool
      */
-    protected function addMessage($isError, $message, $line, $column, $sniffClassOrCode, $data, $severity, $isFixable = \false)
+    protected function addMessage($isError, $message, $line, $column, $sniffClassOrCode, $data, $severity, $isFixable = \false) : bool
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         // skip warnings
         if (!$isError) {
             return \false;
@@ -212,10 +220,12 @@ final class File extends \PHP_CodeSniffer\Files\File
     }
     /**
      * @param string $sniffClassOrCode
-     * @return string
      */
-    private function resolveFullyQualifiedCode($sniffClassOrCode)
+    private function resolveFullyQualifiedCode($sniffClassOrCode) : string
     {
+        if (\is_object($sniffClassOrCode)) {
+            $sniffClassOrCode = (string) $sniffClassOrCode;
+        }
         if (\class_exists($sniffClassOrCode)) {
             return $sniffClassOrCode;
         }
@@ -224,11 +234,12 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @param string[] $data
      * @param string $error
-     * @param string $code
-     * @return bool
      */
-    private function shouldSkipError($error, $code, array $data)
+    private function shouldSkipError($error, string $code, array $data) : bool
     {
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         $fullyQualifiedCode = $this->resolveFullyQualifiedCode($code);
         if ($this->skipper->shouldSkipElementAndFileInfo($fullyQualifiedCode, $this->fileInfo)) {
             return \true;
@@ -238,10 +249,12 @@ final class File extends \PHP_CodeSniffer\Files\File
     }
     /**
      * @param string $sniffClass
-     * @return bool
      */
-    private function isSniffClassWarningAllowed($sniffClass)
+    private function isSniffClassWarningAllowed($sniffClass) : bool
     {
+        if (\is_object($sniffClass)) {
+            $sniffClass = (string) $sniffClass;
+        }
         foreach (self::REPORT_WARNINGS_SNIFFS as $reportWarningsSniff) {
             if (\is_a($sniffClass, $reportWarningsSniff, \true)) {
                 return \true;

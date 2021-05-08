@@ -46,11 +46,12 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
     private $nullable;
     /**
      * @param string $name
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    public function __construct($name, $startIndex, $endIndex)
+    public function __construct($name, int $startIndex, int $endIndex)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->name = $name;
         $this->nullable = \false;
         if (0 === \strpos($name, '?')) {

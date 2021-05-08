@@ -36,6 +36,9 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function __construct($name = 'default')
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->name = $name;
     }
     /**
@@ -151,10 +154,12 @@ class Config implements \PhpCsFixer\ConfigInterface
     /**
      * {@inheritdoc}
      * @param string $cacheFile
-     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setCacheFile($cacheFile)
+    public function setCacheFile($cacheFile) : \PhpCsFixer\ConfigInterface
     {
+        if (\is_object($cacheFile)) {
+            $cacheFile = (string) $cacheFile;
+        }
         $this->cacheFile = $cacheFile;
         return $this;
     }
@@ -171,10 +176,12 @@ class Config implements \PhpCsFixer\ConfigInterface
     /**
      * {@inheritdoc}
      * @param string $format
-     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setFormat($format)
+    public function setFormat($format) : \PhpCsFixer\ConfigInterface
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         $this->format = $format;
         return $this;
     }
@@ -191,20 +198,24 @@ class Config implements \PhpCsFixer\ConfigInterface
     /**
      * {@inheritdoc}
      * @param string $indent
-     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setIndent($indent)
+    public function setIndent($indent) : \PhpCsFixer\ConfigInterface
     {
+        if (\is_object($indent)) {
+            $indent = (string) $indent;
+        }
         $this->indent = $indent;
         return $this;
     }
     /**
      * {@inheritdoc}
      * @param string $lineEnding
-     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setLineEnding($lineEnding)
+    public function setLineEnding($lineEnding) : \PhpCsFixer\ConfigInterface
     {
+        if (\is_object($lineEnding)) {
+            $lineEnding = (string) $lineEnding;
+        }
         $this->lineEnding = $lineEnding;
         return $this;
     }

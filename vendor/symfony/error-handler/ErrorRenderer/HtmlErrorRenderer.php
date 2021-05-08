@@ -119,10 +119,12 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
     }
     /**
      * @param string $debugTemplate
-     * @return string
      */
-    private function renderException(\ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException $exception, $debugTemplate = 'views/exception_full.html.php')
+    private function renderException(\ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException $exception, $debugTemplate = 'views/exception_full.html.php') : string
     {
+        if (\is_object($debugTemplate)) {
+            $debugTemplate = (string) $debugTemplate;
+        }
         $debug = \is_bool($this->debug) ? $this->debug : ($this->debug)($exception);
         $statusText = $this->escape($exception->getStatusText());
         $statusCode = $this->escape($exception->getStatusCode());
@@ -163,18 +165,22 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
     }
     /**
      * @param string $string
-     * @return string
      */
-    private function escape($string)
+    private function escape($string) : string
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         return \htmlspecialchars($string, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset);
     }
     /**
      * @param string $class
-     * @return string
      */
-    private function abbrClass($class)
+    private function abbrClass($class) : string
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         $parts = \explode('\\', $class);
         $short = \array_pop($parts);
         return \sprintf('<abbr title="%s">%s</abbr>', $class, $short);
@@ -185,6 +191,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function getFileRelative($file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $file = \str_replace('\\', '/', $file);
         if (null !== $this->projectDir && 0 === \strpos($file, $this->projectDir)) {
             return \ltrim(\substr($file, \strlen($this->projectDir)), '/');
@@ -196,10 +205,12 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      *
      * @return string|false A link or false
      * @param string $file
-     * @param int $line
      */
-    private function getFileLink($file, $line)
+    private function getFileLink($file, int $line)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if ($fmt = $this->fileLinkFormat) {
             return \is_string($fmt) ? \strtr($fmt, ['%f' => $file, '%l' => $line]) : $fmt->format($file, $line);
         }
@@ -211,10 +222,12 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      * @param string $file An absolute file path
      * @param int    $line The line number
      * @param string $text Use this text for the link rather than the file path
-     * @return string
      */
-    private function formatFile($file, $line, $text = null)
+    private function formatFile($file, int $line, string $text = null) : string
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $file = \trim($file);
         if (null === $text) {
             $text = $file;
@@ -240,8 +253,11 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      *
      * @return string An HTML string
      */
-    private function fileExcerpt($file, $line, $srcContext = 3)
+    private function fileExcerpt($file, int $line, int $srcContext = 3) : string
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_file($file) && \is_readable($file)) {
             // highlight_file could throw warnings
             // see https://bugs.php.net/25725
@@ -269,6 +285,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function fixCodeMarkup($line)
     {
+        if (\is_object($line)) {
+            $line = (string) $line;
+        }
         // </span> ending tag from previous line
         $opening = \strpos($line, '<span');
         $closing = \strpos($line, '</span>');
@@ -288,6 +307,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function formatFileFromText($text)
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         return \preg_replace_callback('/in ("|&quot;)?(.+?)\\1(?: +(?:on|at))? +line (\\d+)/s', function ($match) {
             return 'in ' . $this->formatFile($match[2], $match[3]);
         }, $text);
@@ -297,6 +319,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function formatLogMessage($message, array $context)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if ($context && \false !== \strpos($message, '{')) {
             $replacements = [];
             foreach ($context as $key => $val) {
@@ -322,10 +347,12 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
     }
     /**
      * @param string $name
-     * @return string
      */
-    private function include($name, array $context = [])
+    private function include($name, array $context = []) : string
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         \extract($context, \EXTR_SKIP);
         \ob_start();
         include \is_file(\dirname(__DIR__) . '/Resources/' . $name) ? \dirname(__DIR__) . '/Resources/' . $name : $name;
@@ -339,6 +366,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     public static function setTemplate($template)
     {
+        if (\is_object($template)) {
+            $template = (string) $template;
+        }
         self::$template = $template;
     }
 }

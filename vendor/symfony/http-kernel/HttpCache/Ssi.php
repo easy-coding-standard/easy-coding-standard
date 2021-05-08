@@ -38,12 +38,12 @@ class Ssi extends \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\Abst
     /**
      * {@inheritdoc}
      * @param string $uri
-     * @param string $alt
-     * @param bool $ignoreErrors
-     * @param string $comment
      */
-    public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '')
+    public function renderIncludeTag($uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '')
     {
+        if (\is_object($uri)) {
+            $uri = (string) $uri;
+        }
         return \sprintf('<!--#include virtual="%s" -->', $uri);
     }
     /**

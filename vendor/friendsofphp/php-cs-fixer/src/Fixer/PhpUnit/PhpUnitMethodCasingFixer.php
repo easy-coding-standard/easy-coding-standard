@@ -101,10 +101,12 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
     /**
      * @param string $functionName
-     * @return string
      */
-    private function updateMethodCasing($functionName)
+    private function updateMethodCasing($functionName) : string
     {
+        if (\is_object($functionName)) {
+            $functionName = (string) $functionName;
+        }
         $parts = \explode('::', $functionName);
         $functionNamePart = \array_pop($parts);
         if (self::CAMEL_CASE === $this->configuration['case']) {
@@ -148,11 +150,12 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
     /**
      * @param string $needle
-     * @param string $haystack
-     * @return bool
      */
-    private function startsWith($needle, $haystack)
+    private function startsWith($needle, string $haystack) : bool
     {
+        if (\is_object($needle)) {
+            $needle = (string) $needle;
+        }
         return \substr($haystack, 0, \strlen($needle)) === $needle;
     }
     /**

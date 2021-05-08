@@ -28,14 +28,19 @@ final class ProcessLinterProcessBuilder
      */
     public function __construct($executable)
     {
+        if (\is_object($executable)) {
+            $executable = (string) $executable;
+        }
         $this->executable = $executable;
     }
     /**
      * @param string $path
-     * @return \Symfony\Component\Process\Process
      */
-    public function build($path)
+    public function build($path) : \ECSPrefix20210508\Symfony\Component\Process\Process
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         return new \ECSPrefix20210508\Symfony\Component\Process\Process([$this->executable, '-l', $path]);
     }
 }

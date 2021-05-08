@@ -164,10 +164,12 @@ final class FixerFactory
     /**
      * Check if fixer exists.
      * @param string $name
-     * @return bool
      */
-    public function hasRule($name)
+    public function hasRule($name) : bool
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->fixersByName[$name]);
     }
     /**

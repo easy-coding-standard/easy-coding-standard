@@ -51,22 +51,24 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
     /**
      * Creates an alias.
      * @param string $id
-     * @param string $referencedId
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
      */
-    public final function alias($id, $referencedId)
+    public final function alias($id, string $referencedId) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $this->__destruct();
         return $this->parent->alias($id, $referencedId);
     }
     /**
      * Registers a PSR-4 namespace using a glob pattern.
      * @param string $namespace
-     * @param string $resource
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
      */
-    public final function load($namespace, $resource)
+    public final function load($namespace, string $resource) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $this->__destruct();
         return $this->parent->load($namespace, $resource);
     }
@@ -75,10 +77,12 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
      *
      * @throws ServiceNotFoundException if the service definition does not exist
      * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
      */
-    public final function get($id)
+    public final function get($id) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $this->__destruct();
         return $this->parent->get($id);
     }
@@ -87,21 +91,24 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
      *
      * @param InlineServiceConfigurator[]|ReferenceConfigurator[] $services
      * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
      */
-    public final function stack($id, array $services)
+    public final function stack($id, array $services) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\AliasConfigurator
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $this->__destruct();
         return $this->parent->stack($id, $services);
     }
     /**
      * Registers a service.
      * @param string $id
-     * @param string $class
-     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
      */
-    public final function __invoke($id, $class = null)
+    public final function __invoke($id, string $class = null) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $this->__destruct();
         return $this->parent->set($id, $class);
     }

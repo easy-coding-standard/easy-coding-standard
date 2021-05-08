@@ -150,10 +150,12 @@ final class ArrayIndentationFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * @param string $content
-     * @return string
      */
-    private function extractIndent($content)
+    private function extractIndent($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if (\PhpCsFixer\Preg::match('/\\R(\\h*)[^\\r\\n]*$/D', $content, $matches)) {
             return $matches[1];
         }

@@ -37,7 +37,7 @@ abstract class Loader implements \ECSPrefix20210508\Symfony\Component\Config\Loa
      * Imports a resource.
      *
      * @param mixed       $resource A resource
-     * @param string|null $type     The resource type or null if unknown
+     * @param string $type The resource type or null if unknown
      *
      * @return mixed
      */

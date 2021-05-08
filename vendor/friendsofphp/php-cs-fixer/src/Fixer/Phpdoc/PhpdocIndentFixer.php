@@ -106,8 +106,11 @@ class DocBlocks
      *
      * @return string Dockblock contents including correct indentation
      */
-    private function fixDocBlock($content, $indent)
+    private function fixDocBlock($content, string $indent) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \ltrim(\PhpCsFixer\Preg::replace('/^\\h*\\*/m', $indent . ' *', $content));
     }
     /**
@@ -116,8 +119,11 @@ class DocBlocks
      *
      * @return string Whitespace including correct indentation for Dockblock after this whitespace
      */
-    private function fixWhitespaceBeforeDocblock($content, $indent)
+    private function fixWhitespaceBeforeDocblock($content, string $indent) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \rtrim($content, " \t") . $indent;
     }
 }

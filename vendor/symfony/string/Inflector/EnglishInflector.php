@@ -222,10 +222,12 @@ final class EnglishInflector implements \ECSPrefix20210508\Symfony\Component\Str
     /**
      * {@inheritdoc}
      * @param string $plural
-     * @return mixed[]
      */
-    public function singularize($plural)
+    public function singularize($plural) : array
     {
+        if (\is_object($plural)) {
+            $plural = (string) $plural;
+        }
         $pluralRev = \strrev($plural);
         $lowerPluralRev = \strtolower($pluralRev);
         $pluralLength = \strlen($lowerPluralRev);
@@ -288,10 +290,12 @@ final class EnglishInflector implements \ECSPrefix20210508\Symfony\Component\Str
     /**
      * {@inheritdoc}
      * @param string $singular
-     * @return mixed[]
      */
-    public function pluralize($singular)
+    public function pluralize($singular) : array
     {
+        if (\is_object($singular)) {
+            $singular = (string) $singular;
+        }
         $singularRev = \strrev($singular);
         $lowerSingularRev = \strtolower($singularRev);
         $singularLength = \strlen($lowerSingularRev);

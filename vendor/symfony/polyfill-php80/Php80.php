@@ -104,31 +104,34 @@ final class Php80
 
     /**
      * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
-    public static function str_contains($haystack, $needle)
+    public static function str_contains($haystack, string $needle): bool
     {
+        if (is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         return '' === $needle || false !== strpos($haystack, $needle);
     }
 
     /**
      * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
-    public static function str_starts_with($haystack, $needle)
+    public static function str_starts_with($haystack, string $needle): bool
     {
+        if (is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         return 0 === strncmp($haystack, $needle, \strlen($needle));
     }
 
     /**
      * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
-    public static function str_ends_with($haystack, $needle)
+    public static function str_ends_with($haystack, string $needle): bool
     {
+        if (is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -\strlen($needle)));
     }
 }

@@ -17,10 +17,12 @@ final class ParameterNormalizer
 {
     /**
      * @param string $duration
-     * @return int
      */
-    public static function normalizeDuration($duration)
+    public static function normalizeDuration($duration) : int
     {
+        if (\is_object($duration)) {
+            $duration = (string) $duration;
+        }
         if (\is_numeric($duration)) {
             return $duration;
         }

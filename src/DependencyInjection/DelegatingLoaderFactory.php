@@ -23,10 +23,12 @@ final class DelegatingLoaderFactory
     /**
      * For tests
      * @param string $config
-     * @return \Symfony\Component\Config\Loader\DelegatingLoader
      */
-    public function createContainerBuilderAndConfig(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $config)
+    public function createContainerBuilderAndConfig(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $config) : \ECSPrefix20210508\Symfony\Component\Config\Loader\DelegatingLoader
     {
+        if (\is_object($config)) {
+            $config = (string) $config;
+        }
         $directory = \dirname($config);
         $fileLocator = new \ECSPrefix20210508\Symfony\Component\Config\FileLocator($directory);
         return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $fileLocator);

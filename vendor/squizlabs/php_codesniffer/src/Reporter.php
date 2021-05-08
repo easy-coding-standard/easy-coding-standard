@@ -175,6 +175,9 @@ class Reporter
      */
     public function printReport($report)
     {
+        if (\is_object($report)) {
+            $report = (string) $report;
+        }
         $reportClass = $this->reports[$report]['class'];
         $reportFile = $this->reports[$report]['output'];
         if ($reportFile !== null) {

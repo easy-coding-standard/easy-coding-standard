@@ -33,10 +33,12 @@ final class FallbackVersions
      * @throws OutOfBoundsException If a version cannot be located.
      * @throws UnexpectedValueException If the composer.lock file could not be located.
      * @param string $packageName
-     * @return string
      */
-    public static function getVersion($packageName)
+    public static function getVersion($packageName) : string
     {
+        if (\is_object($packageName)) {
+            $packageName = (string) $packageName;
+        }
         $versions = \iterator_to_array(self::getVersions(self::getPackageData()));
         if (!\array_key_exists($packageName, $versions)) {
             throw new \OutOfBoundsException('Required package "' . $packageName . '" is not installed: check your ./vendor/composer/installed.json and/or ./composer.lock files');

@@ -27,10 +27,12 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
     private $marshaller;
     /**
      * @param string $namespace
-     * @param int $defaultLifetime
      */
-    public function __construct(\ECSPrefix20210508\CouchbaseBucket $bucket, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct(\ECSPrefix20210508\CouchbaseBucket $bucket, $namespace = '', int $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         if (!static::isSupported()) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
         }
@@ -104,10 +106,12 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
     }
     /**
      * @param string $options
-     * @return mixed[]
      */
-    private static function getOptions($options)
+    private static function getOptions($options) : array
     {
+        if (\is_object($options)) {
+            $options = (string) $options;
+        }
         $results = [];
         $optionsInArray = \explode('&', $options);
         foreach ($optionsInArray as $option) {
@@ -153,18 +157,22 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    protected function doHave($id)
+    protected function doHave($id) : bool
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return \false !== $this->bucket->get($id);
     }
     /**
      * {@inheritdoc}
-     * @return bool
      */
-    protected function doClear($namespace)
+    protected function doClear($namespace) : bool
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         if ('' === $namespace) {
             $this->bucket->manager()->flush();
             return \true;

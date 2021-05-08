@@ -38,7 +38,6 @@ interface ToolInfoInterface
     public function isInstalledByComposer();
     /**
      * @param string $version
-     * @return string
      */
-    public function getPharDownloadUri($version);
+    public function getPharDownloadUri($version) : string;
 }

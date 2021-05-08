@@ -20,10 +20,12 @@ final class PathNormalizer
     const ONLY_STARTS_WITH_ASTERISK_REGEX = '#^\\*(.*?)[^*]$#';
     /**
      * @param string $path
-     * @return string
      */
-    public function normalizeForFnmatch($path)
+    public function normalizeForFnmatch($path) : string
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         // ends with *
         if (\ECSPrefix20210508\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;

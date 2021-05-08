@@ -36,10 +36,12 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210508\Symfony\Com
      * @param bool   $recursive Whether directories should be scanned recursively or not
      *
      * @throws \InvalidArgumentException
-     * @param bool $forExclusion
      */
-    public function __construct($prefix, $pattern, $recursive, $forExclusion = \false, array $excludedPrefixes = [])
+    public function __construct($prefix, string $pattern, bool $recursive, bool $forExclusion = \false, array $excludedPrefixes = [])
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         \ksort($excludedPrefixes);
         $this->prefix = \realpath($prefix) ?: (\file_exists($prefix) ? $prefix : \false);
         $this->pattern = $pattern;
@@ -191,10 +193,12 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210508\Symfony\Com
     }
     /**
      * @param string $pattern
-     * @return mixed[]
      */
-    private function expandGlob($pattern)
+    private function expandGlob($pattern) : array
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         $segments = \preg_split('/\\{([^{}]*+)\\}/', $pattern, -1, \PREG_SPLIT_DELIM_CAPTURE);
         $paths = [$segments[0]];
         $patterns = [];

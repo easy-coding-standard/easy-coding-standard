@@ -104,6 +104,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function getParameter($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->parameterBag->get($name);
     }
     /**
@@ -115,6 +118,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function hasParameter($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->parameterBag->has($name);
     }
     /**
@@ -125,6 +131,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function setParameter($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->parameterBag->set($name, $value);
     }
     /**
@@ -137,6 +146,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function set($id, $service)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         // Runs the internal initializer; used by the dumped container to include always-needed files
         if (isset($this->privates['service_container']) && $this->privates['service_container'] instanceof \Closure) {
             $initialize = $this->privates['service_container'];
@@ -175,6 +187,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function has($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];
         }
@@ -200,8 +215,11 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      *
      * @see Reference
      */
-    public function get($id, $invalidBehavior = 1)
+    public function get($id, int $invalidBehavior = 1)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return isset($this->services[$id]) ? $this->services[$id] : (isset($this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id]) ? $this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id] : ('service_container' === $id ? $this : (isset($this->factories[$id]) ? $this->factories[$id] : [$this, 'make'])($id, $invalidBehavior)));
     }
     /**
@@ -209,10 +227,12 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      *
      * As a separate method to allow "get()" to use the really fast `??` operator.
      * @param string $id
-     * @param int $invalidBehavior
      */
-    private function make($id, $invalidBehavior)
+    private function make($id, int $invalidBehavior)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (isset($this->loading[$id])) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_merge(\array_keys($this->loading), [$id]));
         }
@@ -262,6 +282,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function initialized($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];
         }
@@ -314,6 +337,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public static function camelize($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return \strtr(\ucwords(\strtr($id, ['_' => ' ', '.' => '_ ', '\\' => '_ '])), [' ' => '']);
     }
     /**
@@ -325,6 +351,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public static function underscore($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], \str_replace('_', '.', $id)));
     }
     /**
@@ -345,6 +374,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     protected function getEnv($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (isset($this->resolving[$envName = "env({$name})"])) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($this->resolving));
         }
@@ -387,6 +419,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     protected final function getService($registry, $id, $method, $load)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if ('service_container' === $id) {
             return $this;
         }

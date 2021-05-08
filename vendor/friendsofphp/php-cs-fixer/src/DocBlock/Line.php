@@ -33,6 +33,9 @@ final class Line
      */
     public function __construct($content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->content = $content;
     }
     /**
@@ -94,6 +97,9 @@ final class Line
      */
     public function setContent($content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->content = $content;
     }
     /**

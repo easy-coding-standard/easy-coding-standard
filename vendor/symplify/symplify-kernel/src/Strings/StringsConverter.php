@@ -12,11 +12,12 @@ final class StringsConverter
     const CAMEL_CASE_BY_WORD_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)#';
     /**
      * @param string $input
-     * @param string $glue
-     * @return string
      */
-    public function camelCaseToGlue($input, $glue)
+    public function camelCaseToGlue($input, string $glue) : string
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         if ($input === \strtolower($input)) {
             return $input;
         }
@@ -29,11 +30,12 @@ final class StringsConverter
     }
     /**
      * @param string $content
-     * @param string $glue
-     * @return string
      */
-    public function dashedToCamelCaseWithGlue($content, $glue)
+    public function dashedToCamelCaseWithGlue($content, string $glue) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $parts = \explode('-', $content);
         $casedParts = [];
         foreach ($parts as $part) {

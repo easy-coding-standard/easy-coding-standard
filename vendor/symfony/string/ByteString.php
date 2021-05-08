@@ -29,6 +29,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function __construct($string = '')
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         $this->string = $string;
     }
     /*
@@ -234,12 +237,12 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string $regexp
-     * @param int $flags
-     * @param int $offset
-     * @return mixed[]
      */
-    public function match($regexp, $flags = 0, $offset = 0)
+    public function match($regexp, int $flags = 0, int $offset = 0) : array
     {
+        if (\is_object($regexp)) {
+            $regexp = (string) $regexp;
+        }
         $match = (\PREG_PATTERN_ORDER | \PREG_SET_ORDER) & $flags ? 'preg_match_all' : 'preg_match';
         if ($this->ignoreCase) {
             $regexp .= 'i';
@@ -273,6 +276,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function padBoth($length, $padStr = ' ')
     {
+        if (\is_object($padStr)) {
+            $padStr = (string) $padStr;
+        }
         $str = clone $this;
         $str->string = \str_pad($this->string, $length, $padStr, \STR_PAD_BOTH);
         return $str;
@@ -283,6 +289,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function padEnd($length, $padStr = ' ')
     {
+        if (\is_object($padStr)) {
+            $padStr = (string) $padStr;
+        }
         $str = clone $this;
         $str->string = \str_pad($this->string, $length, $padStr, \STR_PAD_RIGHT);
         return $str;
@@ -293,6 +302,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function padStart($length, $padStr = ' ')
     {
+        if (\is_object($padStr)) {
+            $padStr = (string) $padStr;
+        }
         $str = clone $this;
         $str->string = \str_pad($this->string, $length, $padStr, \STR_PAD_LEFT);
         return $str;
@@ -308,10 +320,12 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string $from
-     * @param string $to
      */
-    public function replace($from, $to)
+    public function replace($from, string $to)
     {
+        if (\is_object($from)) {
+            $from = (string) $from;
+        }
         $str = clone $this;
         if ('' !== $from) {
             $str->string = $this->ignoreCase ? \str_ireplace($from, $to, $this->string) : \str_replace($from, $to, $this->string);
@@ -323,6 +337,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function replaceMatches($fromRegexp, $to)
     {
+        if (\is_object($fromRegexp)) {
+            $fromRegexp = (string) $fromRegexp;
+        }
         if ($this->ignoreCase) {
             $fromRegexp .= 'i';
         }
@@ -378,23 +395,24 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string $replacement
-     * @param int $start
-     * @param int $length
      */
-    public function splice($replacement, $start = 0, $length = null)
+    public function splice($replacement, int $start = 0, int $length = null)
     {
+        if (\is_object($replacement)) {
+            $replacement = (string) $replacement;
+        }
         $str = clone $this;
         $str->string = \substr_replace($this->string, $replacement, $start, isset($length) ? $length : \PHP_INT_MAX);
         return $str;
     }
     /**
      * @param string $delimiter
-     * @param int $limit
-     * @param int $flags
-     * @return mixed[]
      */
-    public function split($delimiter, $limit = null, $flags = null)
+    public function split($delimiter, int $limit = null, int $flags = null) : array
     {
+        if (\is_object($delimiter)) {
+            $delimiter = (string) $delimiter;
+        }
         if (1 > ($limit = isset($limit) ? $limit : \PHP_INT_MAX)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Split limit must be a positive integer.');
         }
@@ -434,7 +452,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
         return $str;
     }
     /**
-     * @param string|null $fromEncoding
+     * @param string $fromEncoding
      * @return \Symfony\Component\String\UnicodeString
      */
     public function toUnicodeString($fromEncoding = null)
@@ -442,7 +460,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
         return new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($this->toCodePointString($fromEncoding)->string);
     }
     /**
-     * @param string|null $fromEncoding
+     * @param string $fromEncoding
      * @return \Symfony\Component\String\CodePointString
      */
     public function toCodePointString($fromEncoding = null)
@@ -479,6 +497,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function trim($chars = " \t\n\r\0\v\f")
     {
+        if (\is_object($chars)) {
+            $chars = (string) $chars;
+        }
         $str = clone $this;
         $str->string = \trim($str->string, $chars);
         return $str;
@@ -488,6 +509,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function trimEnd($chars = " \t\n\r\0\v\f")
     {
+        if (\is_object($chars)) {
+            $chars = (string) $chars;
+        }
         $str = clone $this;
         $str->string = \rtrim($str->string, $chars);
         return $str;
@@ -497,6 +521,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function trimStart($chars = " \t\n\r\0\v\f")
     {
+        if (\is_object($chars)) {
+            $chars = (string) $chars;
+        }
         $str = clone $this;
         $str->string = \ltrim($str->string, $chars);
         return $str;

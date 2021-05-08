@@ -55,11 +55,12 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      * @param string|null $type
      * @param string|null $style
      * @param string $prefix
-     * @param bool $padding
-     * @param bool $escape
      */
-    public function block($messages, $type = null, $style = null, $prefix = ' ', $padding = \false, $escape = \true)
+    public function block($messages, $type = null, $style = null, $prefix = ' ', bool $padding = \false, bool $escape = \true)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $messages = \is_array($messages) ? \array_values($messages) : [$messages];
         $this->autoPrependBlock();
         $this->writeln($this->createBlock($messages, $type, $style, $prefix, $padding, $escape));
@@ -71,6 +72,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function title($message)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->autoPrependBlock();
         $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('=', \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
         $this->newLine();
@@ -81,6 +85,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function section($message)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->autoPrependBlock();
         $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('-', \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
         $this->newLine();
@@ -238,6 +245,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function ask($question, $default = null, $validator = null)
     {
+        if (\is_object($question)) {
+            $question = (string) $question;
+        }
         $question = new \ECSPrefix20210508\Symfony\Component\Console\Question\Question($question, $default);
         $question->setValidator($validator);
         return $this->askQuestion($question);
@@ -248,6 +258,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function askHidden($question, $validator = null)
     {
+        if (\is_object($question)) {
+            $question = (string) $question;
+        }
         $question = new \ECSPrefix20210508\Symfony\Component\Console\Question\Question($question);
         $question->setHidden(\true);
         $question->setValidator($validator);
@@ -258,6 +271,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function confirm($question, $default = \true)
     {
+        if (\is_object($question)) {
+            $question = (string) $question;
+        }
         return $this->askQuestion(new \ECSPrefix20210508\Symfony\Component\Console\Question\ConfirmationQuestion($question, $default));
     }
     /**
@@ -266,6 +282,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function choice($question, array $choices, $default = null)
     {
+        if (\is_object($question)) {
+            $question = (string) $question;
+        }
         if (null !== $default) {
             $values = \array_flip($choices);
             $default = isset($values[$default]) ? $values[$default] : $default;
@@ -417,11 +436,12 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
     /**
      * @return void
      * @param string $message
-     * @param bool $newLine
-     * @param int $type
      */
-    private function writeBuffer($message, $newLine, $type)
+    private function writeBuffer($message, bool $newLine, int $type)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         // We need to know if the last chars are PHP_EOL
         $this->bufferedOutput->write($message, $newLine, $type);
     }
@@ -430,12 +450,12 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      * @param string $type
      * @param string $style
      * @param string $prefix
-     * @param bool $padding
-     * @param bool $escape
-     * @return mixed[]
      */
-    private function createBlock($messages, $type = null, $style = null, $prefix = ' ', $padding = \false, $escape = \false)
+    private function createBlock($messages, $type = null, $style = null, $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $indentLength = 0;
         $prefixLength = \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $prefix);
         $lines = [];

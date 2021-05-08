@@ -20,6 +20,9 @@ trait PropertyTrait
      */
     public final function property($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->definition->setProperty($name, static::processValue($value, \true));
         return $this;
     }

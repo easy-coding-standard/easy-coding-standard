@@ -110,6 +110,9 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
      */
     private function fixAssertNegative(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         static $map = ['false' => 'assertNotFalse', 'null' => 'assertNotNull', 'true' => 'assertNotTrue'];
         return $this->fixAssert($map, $tokens, $index, $method);
     }
@@ -120,6 +123,9 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
      */
     private function fixAssertPositive(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         static $map = ['false' => 'assertFalse', 'null' => 'assertNull', 'true' => 'assertTrue'];
         return $this->fixAssert($map, $tokens, $index, $method);
     }
@@ -131,6 +137,9 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
      */
     private function fixAssert(array $map, \PhpCsFixer\Tokenizer\Tokens $tokens, $index, $method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $sequence = $tokens->findSequence([[\T_STRING, $method], '('], $index);
         if (null === $sequence) {

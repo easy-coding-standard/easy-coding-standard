@@ -48,10 +48,12 @@ final class UselessDocBlockCleaner
     /**
      * @param int $position
      * @param string $docContent
-     * @return string
      */
-    public function clearDocTokenContent(array $tokens, $position, $docContent)
+    public function clearDocTokenContent(array $tokens, $position, $docContent) : string
     {
+        if (\is_object($docContent)) {
+            $docContent = (string) $docContent;
+        }
         foreach (self::CLEANING_REGEXES as $cleaningRegex) {
             $docContent = \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, $cleaningRegex, '');
         }
@@ -61,10 +63,12 @@ final class UselessDocBlockCleaner
      * @param Token[] $reversedTokens
      * @param int $index
      * @param string $docContent
-     * @return string
      */
-    private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, $index, $docContent)
+    private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, $index, $docContent) : string
     {
+        if (\is_object($docContent)) {
+            $docContent = (string) $docContent;
+        }
         $matchMethodClass = \ECSPrefix20210508\Nette\Utils\Strings::match($docContent, self::COMMENT_METHOD_CLASS_REGEX);
         if ($matchMethodClass) {
             return $docContent;
@@ -97,10 +101,12 @@ final class UselessDocBlockCleaner
     }
     /**
      * @param string $content
-     * @return string
      */
-    private function removeSpaces($content)
+    private function removeSpaces($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($content, self::SPACE_STAR_SLASH_REGEX, '');
     }
 }

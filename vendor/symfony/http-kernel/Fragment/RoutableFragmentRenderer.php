@@ -29,6 +29,9 @@ abstract class RoutableFragmentRenderer implements \ECSPrefix20210508\Symfony\Co
      */
     public function setFragmentPath($path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $this->fragmentPath = $path;
     }
     /**

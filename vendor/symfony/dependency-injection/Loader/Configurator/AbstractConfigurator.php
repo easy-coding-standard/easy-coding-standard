@@ -31,6 +31,9 @@ abstract class AbstractConfigurator
      */
     public function __call($method, array $args)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         if (\method_exists($this, 'set' . $method)) {
             return $this->{'set' . $method}(...$args);
         }

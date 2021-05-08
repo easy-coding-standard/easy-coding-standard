@@ -46,6 +46,9 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      */
     protected function isAccepted($string)
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         // should at least not match one rule to exclude
         foreach ($this->noMatchRegexps as $regex) {
             if (\preg_match($regex, $string)) {
@@ -72,6 +75,9 @@ abstract class MultiplePcreFilterIterator extends \FilterIterator
      */
     protected function isRegex($str)
     {
+        if (\is_object($str)) {
+            $str = (string) $str;
+        }
         if (\preg_match('/^(.{3,}?)[imsxuADU]*$/', $str, $m)) {
             $start = \substr($m[1], 0, 1);
             $end = \substr($m[1], -1);

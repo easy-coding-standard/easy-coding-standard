@@ -29,11 +29,12 @@ class CacheCollectorPass implements \ECSPrefix20210508\Symfony\Component\Depende
     private $cachePoolRecorderInnerSuffix;
     /**
      * @param string $dataCollectorCacheId
-     * @param string $cachePoolTag
-     * @param string $cachePoolRecorderInnerSuffix
      */
-    public function __construct($dataCollectorCacheId = 'data_collector.cache', $cachePoolTag = 'cache.pool', $cachePoolRecorderInnerSuffix = '.recorder_inner')
+    public function __construct($dataCollectorCacheId = 'data_collector.cache', string $cachePoolTag = 'cache.pool', string $cachePoolRecorderInnerSuffix = '.recorder_inner')
     {
+        if (\is_object($dataCollectorCacheId)) {
+            $dataCollectorCacheId = (string) $dataCollectorCacheId;
+        }
         $this->dataCollectorCacheId = $dataCollectorCacheId;
         $this->cachePoolTag = $cachePoolTag;
         $this->cachePoolRecorderInnerSuffix = $cachePoolRecorderInnerSuffix;
@@ -53,10 +54,12 @@ class CacheCollectorPass implements \ECSPrefix20210508\Symfony\Component\Depende
     }
     /**
      * @param string $id
-     * @param string $name
      */
-    private function addToCollector($id, $name, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    private function addToCollector($id, string $name, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $definition = $container->getDefinition($id);
         if ($definition->isAbstract()) {
             return;

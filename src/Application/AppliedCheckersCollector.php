@@ -16,6 +16,9 @@ final class AppliedCheckersCollector
      */
     public function addFileInfoAndChecker(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $checker)
     {
+        if (\is_object($checker)) {
+            $checker = (string) $checker;
+        }
         $this->appliedCheckersByFile[$smartFileInfo->getRealPath()][] = $checker;
     }
     /**

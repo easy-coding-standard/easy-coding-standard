@@ -51,6 +51,9 @@ class FrozenParameterBag extends \ECSPrefix20210508\Symfony\Component\Dependency
      */
     public function set($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\LogicException('Impossible to call set() on a frozen ParameterBag.');
     }
     /**
@@ -59,6 +62,9 @@ class FrozenParameterBag extends \ECSPrefix20210508\Symfony\Component\Dependency
      */
     public function remove($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\LogicException('Impossible to call remove() on a frozen ParameterBag.');
     }
 }

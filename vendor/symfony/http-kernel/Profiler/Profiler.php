@@ -75,6 +75,9 @@ class Profiler implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInte
      */
     public function loadProfile($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         return $this->storage->read($token);
     }
     /**
@@ -196,6 +199,9 @@ class Profiler implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInte
      */
     public function has($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->collectors[$name]);
     }
     /**
@@ -209,6 +215,9 @@ class Profiler implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInte
      */
     public function get($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!isset($this->collectors[$name])) {
             throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));
         }

@@ -184,10 +184,12 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * @param string $content
-     * @return string
      */
-    private function getMessage($content)
+    private function getMessage($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if (0 === \strpos($content, '#')) {
             return \substr($content, 1);
         }

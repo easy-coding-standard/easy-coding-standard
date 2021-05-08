@@ -33,26 +33,32 @@ final class NeonPrinter
     }
     /**
      * @param string $neonContent
-     * @return string
      */
-    private function replaceTabsWithSpaces($neonContent)
+    private function replaceTabsWithSpaces($neonContent) : string
     {
+        if (\is_object($neonContent)) {
+            $neonContent = (string) $neonContent;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($neonContent, '#\\t#', '    ');
     }
     /**
      * @param string $neonContent
-     * @return string
      */
-    private function inlineSingleTags($neonContent)
+    private function inlineSingleTags($neonContent) : string
     {
+        if (\is_object($neonContent)) {
+            $neonContent = (string) $neonContent;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($neonContent, self::TAGS_REGEX, 'tags: [$1]');
     }
     /**
      * @param string $neonContent
-     * @return string
      */
-    private function fixDoubleSpaceInArguments($neonContent)
+    private function fixDoubleSpaceInArguments($neonContent) : string
     {
+        if (\is_object($neonContent)) {
+            $neonContent = (string) $neonContent;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($neonContent, self::ARGUMENTS_DOUBLE_SPACE_REGEX, '$1');
     }
 }

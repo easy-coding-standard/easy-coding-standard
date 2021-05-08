@@ -79,10 +79,7 @@ class Command
     {
         $this->ignoreValidationErrors = \true;
     }
-    /**
-     * @param \Symfony\Component\Console\Application|null $application
-     */
-    public function setApplication($application = null)
+    public function setApplication(\ECSPrefix20210508\Symfony\Component\Console\Application $application = null)
     {
         $this->application = $application;
         if ($application) {
@@ -336,17 +333,19 @@ class Command
     /**
      * Adds an argument.
      *
-     * @param int $mode The argument mode: InputArgument::REQUIRED or InputArgument::OPTIONAL
+     * @param int|null             $mode    The argument mode: InputArgument::REQUIRED or InputArgument::OPTIONAL
      * @param string|string[]|null $default The default value (for InputArgument::OPTIONAL mode only)
      *
      * @throws InvalidArgumentException When argument mode is not valid
      *
      * @return $this
      * @param string $name
-     * @param string $description
      */
-    public function addArgument($name, $mode = null, $description = '', $default = null)
+    public function addArgument($name, int $mode = null, string $description = '', $default = null)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->definition->addArgument(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
             $this->fullDefinition->addArgument(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
@@ -357,17 +356,19 @@ class Command
      * Adds an option.
      *
      * @param string|array|null         $shortcut The shortcuts, can be null, a string of shortcuts delimited by | or an array of shortcuts
-     * @param int $mode The option mode: One of the InputOption::VALUE_* constants
+     * @param int|null                  $mode     The option mode: One of the InputOption::VALUE_* constants
      * @param string|string[]|bool|null $default  The default value (must be null for InputOption::VALUE_NONE)
      *
      * @throws InvalidArgumentException If option mode is invalid or incompatible
      *
      * @return $this
      * @param string $name
-     * @param string $description
      */
-    public function addOption($name, $shortcut = null, $mode = null, $description = '', $default = null)
+    public function addOption($name, $shortcut = null, int $mode = null, string $description = '', $default = null)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->definition->addOption(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
             $this->fullDefinition->addOption(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
@@ -389,6 +390,9 @@ class Command
      */
     public function setName($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->validateName($name);
         $this->name = $name;
         return $this;
@@ -404,6 +408,9 @@ class Command
      */
     public function setProcessTitle($title)
     {
+        if (\is_object($title)) {
+            $title = (string) $title;
+        }
         $this->processTitle = $title;
         return $this;
     }
@@ -444,6 +451,9 @@ class Command
      */
     public function setDescription($description)
     {
+        if (\is_object($description)) {
+            $description = (string) $description;
+        }
         $this->description = $description;
         return $this;
     }
@@ -464,6 +474,9 @@ class Command
      */
     public function setHelp($help)
     {
+        if (\is_object($help)) {
+            $help = (string) $help;
+        }
         $this->help = $help;
         return $this;
     }
@@ -539,6 +552,9 @@ class Command
      */
     public function addUsage($usage)
     {
+        if (\is_object($usage)) {
+            $usage = (string) $usage;
+        }
         if (0 !== \strpos($usage, $this->name)) {
             $usage = \sprintf('%s %s', $this->name, $usage);
         }
@@ -565,6 +581,9 @@ class Command
      */
     public function getHelper($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (null === $this->helperSet) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException(\sprintf('Cannot retrieve helper "%s" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.', $name));
         }
@@ -580,6 +599,9 @@ class Command
      */
     private function validateName($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!\preg_match('/^[^\\:]++(\\:[^\\:]++)*$/', $name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Command name "%s" is invalid.', $name));
         }

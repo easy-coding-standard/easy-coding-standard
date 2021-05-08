@@ -32,6 +32,9 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210508\Symfony\Component\Http
      */
     public function __construct(\ECSPrefix20210508\Twig\Environment $twig = null, \ECSPrefix20210508\Symfony\Component\HttpKernel\UriSigner $signer = null, $globalDefaultTemplate = null, $charset = 'utf-8')
     {
+        if (\is_object($charset)) {
+            $charset = (string) $charset;
+        }
         $this->twig = $twig;
         $this->globalDefaultTemplate = $globalDefaultTemplate;
         $this->signer = $signer;

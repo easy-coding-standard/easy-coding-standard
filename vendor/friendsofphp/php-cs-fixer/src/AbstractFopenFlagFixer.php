@@ -64,10 +64,12 @@ abstract class AbstractFopenFlagFixer extends \PhpCsFixer\AbstractFunctionRefere
     protected abstract function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex);
     /**
      * @param string $mode
-     * @return bool
      */
-    protected function isValidModeString($mode)
+    protected function isValidModeString($mode) : bool
     {
+        if (\is_object($mode)) {
+            $mode = (string) $mode;
+        }
         $modeLength = \strlen($mode);
         if ($modeLength < 1 || $modeLength > 13) {
             // 13 === length 'r+w+a+x+c+etb'

@@ -101,27 +101,33 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * {@inheritdoc}
      * @param string $path
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintFile($path)
+    public function lintFile($path) : \PhpCsFixer\Linter\LintingResultInterface
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         return new \PhpCsFixer\Linter\ProcessLintingResult($this->createProcessForFile($path), $path);
     }
     /**
      * {@inheritdoc}
      * @param string $source
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintSource($source)
+    public function lintSource($source) : \PhpCsFixer\Linter\LintingResultInterface
     {
+        if (\is_object($source)) {
+            $source = (string) $source;
+        }
         return new \PhpCsFixer\Linter\ProcessLintingResult($this->createProcessForSource($source), $this->temporaryFile);
     }
     /**
      * @param string $path path to file
-     * @return \Symfony\Component\Process\Process
      */
-    private function createProcessForFile($path)
+    private function createProcessForFile($path) : \ECSPrefix20210508\Symfony\Component\Process\Process
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         // in case php://stdin
         if (!\is_file($path)) {
             return $this->createProcessForSource(\PhpCsFixer\FileReader::createSingleton()->read($path));
@@ -135,10 +141,12 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      * Create process that lint PHP code.
      *
      * @param string $source code
-     * @return \Symfony\Component\Process\Process
      */
-    private function createProcessForSource($source)
+    private function createProcessForSource($source) : \ECSPrefix20210508\Symfony\Component\Process\Process
     {
+        if (\is_object($source)) {
+            $source = (string) $source;
+        }
         if (null === $this->temporaryFile) {
             $this->temporaryFile = \tempnam(\sys_get_temp_dir(), 'cs_fixer_tmp_');
             $this->fileRemoval->observe($this->temporaryFile);

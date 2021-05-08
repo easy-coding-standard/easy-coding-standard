@@ -37,10 +37,12 @@ final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVote
     }
     /**
      * @param string $element
-     * @return bool
      */
-    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : bool
     {
+        if (\is_object($element)) {
+            $element = (string) $element;
+        }
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {
             return \false;

@@ -41,10 +41,12 @@ class Normalizer
 
     /**
      * @param string $s
-     * @param int $form
      */
-    public static function isNormalized($s, $form = self::FORM_C)
+    public static function isNormalized($s, int $form = self::FORM_C)
     {
+        if (is_object($s)) {
+            $s = (string) $s;
+        }
         if (!\in_array($form, [self::NFD, self::NFKD, self::NFC, self::NFKC])) {
             return false;
         }
@@ -60,10 +62,12 @@ class Normalizer
 
     /**
      * @param string $s
-     * @param int $form
      */
-    public static function normalize($s, $form = self::FORM_C)
+    public static function normalize($s, int $form = self::FORM_C)
     {
+        if (is_object($s)) {
+            $s = (string) $s;
+        }
         if (!preg_match('//u', $s)) {
             return false;
         }

@@ -148,18 +148,22 @@ $foo->__INVOKE(1);
     }
     /**
      * @param string $name
-     * @return bool
      */
-    private function isMagicMethodName($name)
+    private function isMagicMethodName($name) : bool
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset(self::$magicNames[$name]);
     }
     /**
      * @param string $name name of a magic method
-     * @return string
      */
-    private function getMagicMethodNameInCorrectCasing($name)
+    private function getMagicMethodNameInCorrectCasing($name) : string
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return self::$magicNames[$name];
     }
     /**
@@ -169,6 +173,9 @@ $foo->__INVOKE(1);
      */
     private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $nameInCorrectCasing)
     {
+        if (\is_object($nameInCorrectCasing)) {
+            $nameInCorrectCasing = (string) $nameInCorrectCasing;
+        }
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $nameInCorrectCasing]);
     }
 }

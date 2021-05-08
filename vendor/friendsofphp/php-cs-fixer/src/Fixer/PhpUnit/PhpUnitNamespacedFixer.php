@@ -140,10 +140,12 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * @param string $originalClassName
-     * @return \PhpCsFixer\Tokenizer\Tokens
      */
-    private function generateReplacement($originalClassName)
+    private function generateReplacement($originalClassName) : \PhpCsFixer\Tokenizer\Tokens
     {
+        if (\is_object($originalClassName)) {
+            $originalClassName = (string) $originalClassName;
+        }
         $delimiter = '_';
         $string = $originalClassName;
         if (isset($this->classMap[$originalClassName])) {

@@ -203,6 +203,9 @@ class File
      */
     public function __construct($path, \PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $this->path = $path;
         $this->ruleset = $ruleset;
         $this->config = $config;
@@ -236,6 +239,9 @@ class File
      */
     public function setContent($content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->content = $content;
         $this->tokens = [];
         try {
@@ -569,6 +575,9 @@ class File
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         if ($stackPtr === null) {
             $line = 1;
             $column = 1;
@@ -594,6 +603,9 @@ class File
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
+        if (\is_object($warning)) {
+            $warning = (string) $warning;
+        }
         if ($stackPtr === null) {
             $line = 1;
             $column = 1;
@@ -618,6 +630,9 @@ class File
      */
     public function addErrorOnLine($error, $line, $code, $data = [], $severity = 0)
     {
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         return $this->addMessage(\true, $error, $line, 1, $code, $data, $severity, \false);
     }
     //end addErrorOnLine()
@@ -635,6 +650,9 @@ class File
      */
     public function addWarningOnLine($warning, $line, $code, $data = [], $severity = 0)
     {
+        if (\is_object($warning)) {
+            $warning = (string) $warning;
+        }
         return $this->addMessage(\false, $warning, $line, 1, $code, $data, $severity, \false);
     }
     //end addWarningOnLine()
@@ -654,6 +672,9 @@ class File
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0)
     {
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         $recorded = $this->addError($error, $stackPtr, $code, $data, $severity, \true);
         if ($recorded === \true && $this->fixer->enabled === \true) {
             return \true;
@@ -677,6 +698,9 @@ class File
      */
     public function addFixableWarning($warning, $stackPtr, $code, $data = [], $severity = 0)
     {
+        if (\is_object($warning)) {
+            $warning = (string) $warning;
+        }
         $recorded = $this->addWarning($warning, $stackPtr, $code, $data, $severity, \true);
         if ($recorded === \true && $this->fixer->enabled === \true) {
             return \true;
@@ -701,6 +725,9 @@ class File
      */
     protected function addMessage($error, $message, $line, $column, $code, $data, $severity, $fixable)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         // Check if this line is ignoring all message codes.
         if (isset($this->tokenizer->ignoredLines[$line]['.all']) === \true) {
             return \false;
@@ -901,6 +928,9 @@ class File
      */
     public function recordMetric($stackPtr, $metric, $value)
     {
+        if (\is_object($metric)) {
+            $metric = (string) $metric;
+        }
         if (isset($this->metrics[$metric]) === \false) {
             $this->metrics[$metric] = ['values' => [$value => 1]];
             $this->metricTokens[$metric][$stackPtr] = \true;

@@ -54,11 +54,12 @@ class RegisterEnvVarProcessorsPass implements \ECSPrefix20210508\Symfony\Compone
     }
     /**
      * @param string $types
-     * @param string $class
-     * @return mixed[]
      */
-    private static function validateProvidedTypes($types, $class)
+    private static function validateProvidedTypes($types, string $class) : array
     {
+        if (\is_object($types)) {
+            $types = (string) $types;
+        }
         $types = \explode('|', $types);
         foreach ($types as $type) {
             if (!\in_array($type, self::ALLOWED_TYPES)) {

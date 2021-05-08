@@ -43,6 +43,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public function __construct($name, \ECSPrefix20210508\Symfony\Component\Config\Definition\NodeInterface $parent = null, $pathSeparator = self::DEFAULT_PATH_SEPARATOR)
     {
+        if (\is_object($pathSeparator)) {
+            $pathSeparator = (string) $pathSeparator;
+        }
         if (\false !== \strpos($name = (string) $name, $pathSeparator)) {
             throw new \InvalidArgumentException('The name must not contain ".' . $pathSeparator . '".');
         }
@@ -62,6 +65,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public static function setPlaceholder($placeholder, array $values)
     {
+        if (\is_object($placeholder)) {
+            $placeholder = (string) $placeholder;
+        }
         if (!$values) {
             throw new \InvalidArgumentException('At least one value must be provided.');
         }
@@ -79,6 +85,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public static function setPlaceholderUniquePrefix($prefix)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         self::$placeholderUniquePrefixes[] = $prefix;
     }
     /**
@@ -97,6 +106,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public function setAttribute($key, $value)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $this->attributes[$key] = $value;
     }
     /**
@@ -105,6 +117,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public function getAttribute($key, $default = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return isset($this->attributes[$key]) ? $this->attributes[$key] : $default;
     }
     /**
@@ -113,6 +128,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public function hasAttribute($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return isset($this->attributes[$key]);
     }
     /**
@@ -131,6 +149,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public function removeAttribute($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         unset($this->attributes[$key]);
     }
     /**
@@ -139,6 +160,9 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      */
     public function setInfo($info)
     {
+        if (\is_object($info)) {
+            $info = (string) $info;
+        }
         $this->setAttribute('info', $info);
     }
     /**
@@ -268,18 +292,23 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      *
      * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
      */
-    public function getDeprecationMessage($node, $path)
+    public function getDeprecationMessage($node, string $path)
     {
+        if (\is_object($node)) {
+            $node = (string) $node;
+        }
         trigger_deprecation('symfony/config', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($node, $path)['message'];
     }
     /**
      * @param string $node The configuration node name
      * @param string $path The path of the node
-     * @return mixed[]
      */
-    public function getDeprecation($node, $path)
+    public function getDeprecation($node, string $path) : array
     {
+        if (\is_object($node)) {
+            $node = (string) $node;
+        }
         return ['package' => isset($this->deprecation['package']) ? $this->deprecation['package'] : '', 'version' => isset($this->deprecation['version']) ? $this->deprecation['version'] : '', 'message' => \strtr(isset($this->deprecation['message']) ? $this->deprecation['message'] : '', ['%node%' => $node, '%path%' => $path])];
     }
     /**

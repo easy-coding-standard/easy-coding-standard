@@ -47,10 +47,12 @@ final class RuleSets
     }
     /**
      * @param string $name
-     * @return \PhpCsFixer\RuleSet\RuleSetDescriptionInterface
      */
-    public static function getSetDefinition($name)
+    public static function getSetDefinition($name) : \PhpCsFixer\RuleSet\RuleSetDescriptionInterface
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $definitions = self::getSetDefinitions();
         if (!isset($definitions[$name])) {
             throw new \InvalidArgumentException(\sprintf('Set "%s" does not exist.', $name));

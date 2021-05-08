@@ -28,6 +28,9 @@ final class Neon
      */
     public static function decode($input)
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         $decoder = new \ECSPrefix20210508\Nette\Neon\Decoder();
         return $decoder->decode($input);
     }

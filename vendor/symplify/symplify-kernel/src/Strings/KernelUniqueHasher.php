@@ -17,10 +17,12 @@ final class KernelUniqueHasher
     }
     /**
      * @param string $kernelClass
-     * @return string
      */
-    public function hashKernelClass($kernelClass)
+    public function hashKernelClass($kernelClass) : string
     {
+        if (\is_object($kernelClass)) {
+            $kernelClass = (string) $kernelClass;
+        }
         $this->ensureIsNotGenericKernelClass($kernelClass);
         $shortClassName = (string) \ECSPrefix20210508\Nette\Utils\Strings::after($kernelClass, '\\', -1);
         return $this->stringsConverter->camelCaseToGlue($shortClassName, '_');
@@ -31,6 +33,9 @@ final class KernelUniqueHasher
      */
     private function ensureIsNotGenericKernelClass($kernelClass)
     {
+        if (\is_object($kernelClass)) {
+            $kernelClass = (string) $kernelClass;
+        }
         if ($kernelClass !== \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel::class) {
             return;
         }

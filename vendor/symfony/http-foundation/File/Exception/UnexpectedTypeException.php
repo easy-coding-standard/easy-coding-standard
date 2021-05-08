@@ -17,6 +17,9 @@ class UnexpectedTypeException extends \ECSPrefix20210508\Symfony\Component\HttpF
      */
     public function __construct($value, $expectedType)
     {
+        if (\is_object($expectedType)) {
+            $expectedType = (string) $expectedType;
+        }
         parent::__construct(\sprintf('Expected argument of type %s, %s given', $expectedType, \get_debug_type($value)));
     }
 }

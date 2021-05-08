@@ -38,10 +38,12 @@ class Cookie
      *
      * @return static
      * @param string $cookie
-     * @param bool $decode
      */
-    public static function fromString($cookie, $decode = \false)
+    public static function fromString($cookie, bool $decode = \false)
     {
+        if (\is_object($cookie)) {
+            $cookie = (string) $cookie;
+        }
         $data = ['expires' => 0, 'path' => '/', 'domain' => null, 'secure' => \false, 'httponly' => \false, 'raw' => !$decode, 'samesite' => null];
         $parts = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::split($cookie, ';=');
         $part = \array_shift($parts);
@@ -59,31 +61,32 @@ class Cookie
      * @param string|null $path
      * @param string|null $sameSite
      * @param string $name
-     * @param string $value
-     * @param string $domain
-     * @param bool $secure
-     * @param bool $httpOnly
-     * @param bool $raw
      */
-    public static function create($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = null, $httpOnly = \true, $raw = \false, $sameSite = self::SAMESITE_LAX)
+    public static function create($name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = self::SAMESITE_LAX)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
     }
     /**
      * @param string                        $name     The name of the cookie
-     * @param string $value The value of the cookie
+     * @param string|null                   $value    The value of the cookie
      * @param int|string|\DateTimeInterface $expire   The time the cookie expires
      * @param string                        $path     The path on the server in which the cookie will be available on
-     * @param string $domain The domain that the cookie is available to
-     * @param bool $secure Whether the client should send back the cookie only over HTTPS or null to auto-enable this when the request is already using HTTPS
+     * @param string|null                   $domain   The domain that the cookie is available to
+     * @param bool|null                     $secure   Whether the client should send back the cookie only over HTTPS or null to auto-enable this when the request is already using HTTPS
      * @param bool                          $httpOnly Whether the cookie will be made accessible only through the HTTP protocol
      * @param bool                          $raw      Whether the cookie value should be sent with no url encoding
      * @param string|null                   $sameSite Whether the cookie will be available for cross-site requests
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = null, $httpOnly = \true, $raw = \false, $sameSite = 'lax')
+    public function __construct($name, string $value = null, $expire = 0, $path = '/', string $domain = null, bool $secure = null, bool $httpOnly = \true, bool $raw = \false, $sameSite = 'lax')
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         // from PHP source code
         if ($raw && \false !== \strpbrk($name, self::$reservedCharsList)) {
             throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $name));
@@ -166,6 +169,9 @@ class Cookie
      */
     public function withPath($path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $cookie = clone $this;
         $cookie->path = '' === $path ? '/' : $path;
         return $cookie;

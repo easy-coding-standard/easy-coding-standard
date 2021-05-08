@@ -27,10 +27,12 @@ class FragmentRendererPass implements \ECSPrefix20210508\Symfony\Component\Depen
     private $rendererTag;
     /**
      * @param string $handlerService
-     * @param string $rendererTag
      */
-    public function __construct($handlerService = 'fragment.handler', $rendererTag = 'kernel.fragment_renderer')
+    public function __construct($handlerService = 'fragment.handler', string $rendererTag = 'kernel.fragment_renderer')
     {
+        if (\is_object($handlerService)) {
+            $handlerService = (string) $handlerService;
+        }
         $this->handlerService = $handlerService;
         $this->rendererTag = $rendererTag;
     }

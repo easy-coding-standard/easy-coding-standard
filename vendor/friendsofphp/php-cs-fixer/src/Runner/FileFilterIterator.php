@@ -78,6 +78,9 @@ final class FileFilterIterator extends \FilterIterator
      */
     private function dispatchEvent($name, \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\Event $event)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (null === $this->eventDispatcher) {
             return;
         }

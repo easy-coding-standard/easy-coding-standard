@@ -400,6 +400,9 @@ class Fixer
      */
     public function replaceToken($stackPtr, $content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if ($this->inConflict === \true) {
             return \false;
         }
@@ -602,6 +605,9 @@ class Fixer
      */
     public function addContent($stackPtr, $content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $current = $this->getTokenContent($stackPtr);
         return $this->replaceToken($stackPtr, $current . $content);
     }
@@ -616,6 +622,9 @@ class Fixer
      */
     public function addContentBefore($stackPtr, $content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $current = $this->getTokenContent($stackPtr);
         return $this->replaceToken($stackPtr, $content . $current);
     }

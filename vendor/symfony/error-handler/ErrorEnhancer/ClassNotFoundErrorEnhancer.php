@@ -62,10 +62,12 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
      * @param string $class A class name (without its namespace)
      *
      * Returns an array of possible fully qualified class names
-     * @return mixed[]
      */
-    private function getClassCandidates($class)
+    private function getClassCandidates($class) : array
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if (!\is_array($functions = \spl_autoload_functions())) {
             return [];
         }
@@ -99,12 +101,12 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
     }
     /**
      * @param string $path
-     * @param string $class
-     * @param string $prefix
-     * @return mixed[]
      */
-    private function findClassInPath($path, $class, $prefix)
+    private function findClassInPath($path, string $class, string $prefix) : array
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if (!($path = (\realpath($path . '/' . \strtr($prefix, '\\_', '//')) ?: \realpath($path . '/' . \dirname(\strtr($prefix, '\\_', '//')))) ?: \realpath($path))) {
             return [];
         }
@@ -120,11 +122,12 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
     /**
      * @return string|null
      * @param string $path
-     * @param string $file
-     * @param string $prefix
      */
-    private function convertFileToClass($path, $file, $prefix)
+    private function convertFileToClass($path, string $file, string $prefix)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $candidates = [
             // namespaced class
             $namespacedClass = \str_replace([$path . \DIRECTORY_SEPARATOR, '.php', '/'], ['', '', '\\'], $file),
@@ -166,10 +169,12 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
     }
     /**
      * @param string $class
-     * @return bool
      */
-    private function classExists($class)
+    private function classExists($class) : bool
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         return \class_exists($class, \false) || \interface_exists($class, \false) || \trait_exists($class, \false);
     }
 }

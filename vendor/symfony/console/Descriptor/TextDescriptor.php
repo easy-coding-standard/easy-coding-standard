@@ -215,6 +215,9 @@ class TextDescriptor extends \ECSPrefix20210508\Symfony\Component\Console\Descri
      */
     private function writeText($content, array $options = [])
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->write(isset($options['raw_text']) && $options['raw_text'] ? \strip_tags($content) : $content, isset($options['raw_output']) ? !$options['raw_output'] : \true);
     }
     /**

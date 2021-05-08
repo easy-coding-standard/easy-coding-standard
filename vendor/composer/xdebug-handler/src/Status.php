@@ -40,6 +40,9 @@ class Status
      */
     public function __construct($envAllowXdebug, $debug)
     {
+        if (\is_object($envAllowXdebug)) {
+            $envAllowXdebug = (string) $envAllowXdebug;
+        }
         $start = \getenv(self::ENV_RESTART);
         \ECSPrefix20210508\Composer\XdebugHandler\Process::setEnv(self::ENV_RESTART);
         $this->time = $start ? \round((\microtime(\true) - $start) * 1000) : 0;
@@ -61,6 +64,9 @@ class Status
      */
     public function report($op, $data)
     {
+        if (\is_object($op)) {
+            $op = (string) $op;
+        }
         if ($this->logger || $this->debug) {
             \call_user_func(array($this, 'report' . $op), $data);
         }
@@ -73,6 +79,9 @@ class Status
      */
     private function output($text, $level = null)
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         if ($this->logger) {
             $this->logger->log($level ?: \ECSPrefix20210508\Psr\Log\LogLevel::DEBUG, $text);
         }

@@ -59,6 +59,9 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public function __construct($operator, $version)
     {
+        if (\is_object($operator)) {
+            $operator = (string) $operator;
+        }
         if (!isset(self::$transOpStr[$operator])) {
             throw new \InvalidArgumentException(\sprintf('Invalid operator "%s" given, expected one of: %s', $operator, \implode(', ', self::getSupportedOperators())));
         }
@@ -120,6 +123,9 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public static function getOperatorConstant($operator)
     {
+        if (\is_object($operator)) {
+            $operator = (string) $operator;
+        }
         return self::$transOpStr[$operator];
     }
     /**
@@ -134,6 +140,9 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public function versionCompare($a, $b, $operator, $compareBranches = \false)
     {
+        if (\is_object($a)) {
+            $a = (string) $a;
+        }
         if (!isset(self::$transOpStr[$operator])) {
             throw new \InvalidArgumentException(\sprintf('Invalid operator "%s" given, expected one of: %s', $operator, \implode(', ', self::getSupportedOperators())));
         }

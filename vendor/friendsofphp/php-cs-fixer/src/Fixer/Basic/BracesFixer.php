@@ -657,6 +657,9 @@ class Foo
      */
     private function ensureWhitespaceAtIndexAndIndentMultilineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $whitespace)
     {
+        if (\is_object($whitespace)) {
+            $whitespace = (string) $whitespace;
+        }
         if ($tokens[$index]->isWhitespace()) {
             $nextTokenIndex = $tokens->getNextNonWhitespace($index);
         } else {

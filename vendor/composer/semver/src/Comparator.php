@@ -23,6 +23,9 @@ class Comparator
      */
     public static function greaterThan($version1, $version2)
     {
+        if (\is_object($version1)) {
+            $version1 = (string) $version1;
+        }
         return self::compare($version1, '>', $version2);
     }
     /**
@@ -35,6 +38,9 @@ class Comparator
      */
     public static function greaterThanOrEqualTo($version1, $version2)
     {
+        if (\is_object($version1)) {
+            $version1 = (string) $version1;
+        }
         return self::compare($version1, '>=', $version2);
     }
     /**
@@ -47,6 +53,9 @@ class Comparator
      */
     public static function lessThan($version1, $version2)
     {
+        if (\is_object($version1)) {
+            $version1 = (string) $version1;
+        }
         return self::compare($version1, '<', $version2);
     }
     /**
@@ -59,6 +68,9 @@ class Comparator
      */
     public static function lessThanOrEqualTo($version1, $version2)
     {
+        if (\is_object($version1)) {
+            $version1 = (string) $version1;
+        }
         return self::compare($version1, '<=', $version2);
     }
     /**
@@ -71,6 +83,9 @@ class Comparator
      */
     public static function equalTo($version1, $version2)
     {
+        if (\is_object($version1)) {
+            $version1 = (string) $version1;
+        }
         return self::compare($version1, '==', $version2);
     }
     /**
@@ -83,6 +98,9 @@ class Comparator
      */
     public static function notEqualTo($version1, $version2)
     {
+        if (\is_object($version1)) {
+            $version1 = (string) $version1;
+        }
         return self::compare($version1, '!=', $version2);
     }
     /**
@@ -96,6 +114,9 @@ class Comparator
      */
     public static function compare($version1, $operator, $version2)
     {
+        if (\is_object($version1)) {
+            $version1 = (string) $version1;
+        }
         $constraint = new \ECSPrefix20210508\Composer\Semver\Constraint\Constraint($operator, $version2);
         return $constraint->matchSpecific(new \ECSPrefix20210508\Composer\Semver\Constraint\Constraint('==', $version1), \true);
     }

@@ -157,6 +157,9 @@ class Tokens extends \SplFixedArray
      */
     public static function fromCode($code)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         $codeHash = self::calculateCodeHash($code);
         if (self::hasCache($codeHash)) {
             $tokens = self::getCache($codeHash);
@@ -280,8 +283,11 @@ class Tokens extends \SplFixedArray
      *
      * @return bool if new Token was added
      */
-    public function ensureWhitespaceAtIndex($index, $indexOffset, $whitespace)
+    public function ensureWhitespaceAtIndex($index, $indexOffset, $whitespace) : bool
     {
+        if (\is_object($whitespace)) {
+            $whitespace = (string) $whitespace;
+        }
         $removeLastCommentLine = static function (self $tokens, int $index, int $indexOffset, string $whitespace) {
             $token = $tokens[$index];
             if (1 === $indexOffset && $token->isGivenKind(\T_OPEN_TAG)) {
@@ -813,6 +819,9 @@ class Tokens extends \SplFixedArray
      */
     public function setCode($code)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         // No need to work when the code is the same.
         // That is how we avoid a lot of work and setting changed flag.
         if ($code === $this->generateCode()) {
@@ -1069,10 +1078,12 @@ class Tokens extends \SplFixedArray
     /**
      * Calculate hash for code.
      * @param string $code
-     * @return string
      */
-    private static function calculateCodeHash($code)
+    private static function calculateCodeHash($code) : string
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         return \PhpCsFixer\Tokenizer\CodeHasher::calculateCodeHash($code);
     }
     /**
@@ -1083,6 +1094,9 @@ class Tokens extends \SplFixedArray
      */
     private static function getCache($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (!self::hasCache($key)) {
             throw new \OutOfBoundsException(\sprintf('Unknown cache key: "%s".', $key));
         }
@@ -1092,10 +1106,12 @@ class Tokens extends \SplFixedArray
      * Check if given key exists in cache.
      *
      * @param string $key item key
-     * @return bool
      */
-    private static function hasCache($key)
+    private static function hasCache($key) : bool
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return isset(self::$cache[$key]);
     }
     /**
@@ -1105,6 +1121,9 @@ class Tokens extends \SplFixedArray
      */
     private static function setCache($key, $value)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         self::$cache[$key] = $value;
     }
     /**
@@ -1117,6 +1136,9 @@ class Tokens extends \SplFixedArray
      */
     private function changeCodeHash($codeHash)
     {
+        if (\is_object($codeHash)) {
+            $codeHash = (string) $codeHash;
+        }
         if (null !== $this->codeHash) {
             self::clearCache($this->codeHash);
         }

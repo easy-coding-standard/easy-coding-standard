@@ -43,10 +43,12 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      *
      * Using a MemcachedAdapter as a pure items store is fine.
      * @param string $namespace
-     * @param int $defaultLifetime
      */
-    public function __construct(\Memcached $client, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct(\Memcached $client, $namespace = '', int $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         if (!static::isSupported()) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('Memcached >= 2.2.0 is required.');
         }
@@ -254,6 +256,9 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doHave($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return \false !== $this->getClient()->get(self::encodeKey($id)) || $this->checkResultCode(\Memcached::RES_SUCCESS === $this->client->getResultCode());
     }
     /**
@@ -276,6 +281,9 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doClear($namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         return '' === $namespace && $this->getClient()->flush();
     }
     private function checkResultCode($result)
@@ -305,18 +313,22 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
     }
     /**
      * @param string $key
-     * @return string
      */
-    private static function encodeKey($key)
+    private static function encodeKey($key) : string
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \strtr($key, self::RESERVED_MEMCACHED, self::RESERVED_PSR6);
     }
     /**
      * @param string $key
-     * @return string
      */
-    private static function decodeKey($key)
+    private static function decodeKey($key) : string
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \strtr($key, self::RESERVED_PSR6, self::RESERVED_MEMCACHED);
     }
 }

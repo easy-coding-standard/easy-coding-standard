@@ -41,6 +41,9 @@ trait ServiceLocatorTrait
      */
     public function has($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return isset($this->factories[$id]);
     }
     /**
@@ -51,6 +54,9 @@ trait ServiceLocatorTrait
      */
     public function get($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (!isset($this->factories[$id])) {
             throw $this->createNotFoundException($id);
         }
@@ -88,10 +94,12 @@ trait ServiceLocatorTrait
     }
     /**
      * @param string $id
-     * @return \Psr\Container\NotFoundExceptionInterface
      */
-    private function createNotFoundException($id)
+    private function createNotFoundException($id) : \ECSPrefix20210508\Psr\Container\NotFoundExceptionInterface
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (!($alternatives = \array_keys($this->factories))) {
             $message = 'is empty...';
         } else {
@@ -111,10 +119,12 @@ trait ServiceLocatorTrait
     }
     /**
      * @param string $id
-     * @return \Psr\Container\ContainerExceptionInterface
      */
-    private function createCircularReferenceException($id, array $path)
+    private function createCircularReferenceException($id, array $path) : \ECSPrefix20210508\Psr\Container\ContainerExceptionInterface
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return new \ECSPrefix20210508\Symfony\Contracts\Service\Anonymous__3e88683f5fba080472fe4fa460352f72__1(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, \implode(' -> ', $path)));
     }
 }

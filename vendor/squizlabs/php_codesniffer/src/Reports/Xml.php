@@ -96,6 +96,9 @@ class Xml implements \PHP_CodeSniffer\Reports\Report
      */
     public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
     {
+        if (\is_object($cachedData)) {
+            $cachedData = (string) $cachedData;
+        }
         echo '<?xml version="1.0" encoding="UTF-8"?>' . \PHP_EOL;
         echo '<phpcs version="' . \PHP_CodeSniffer\Config::VERSION . '">' . \PHP_EOL;
         echo $cachedData;

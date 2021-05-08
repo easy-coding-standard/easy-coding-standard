@@ -95,6 +95,9 @@ abstract class Input implements \ECSPrefix20210508\Symfony\Component\Console\Inp
      */
     public function getArgument($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->definition->hasArgument($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
@@ -106,6 +109,9 @@ abstract class Input implements \ECSPrefix20210508\Symfony\Component\Console\Inp
      */
     public function setArgument($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->definition->hasArgument($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
@@ -131,6 +137,9 @@ abstract class Input implements \ECSPrefix20210508\Symfony\Component\Console\Inp
      */
     public function getOption($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->definition->hasOption($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
         }
@@ -142,6 +151,9 @@ abstract class Input implements \ECSPrefix20210508\Symfony\Component\Console\Inp
      */
     public function setOption($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->definition->hasOption($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" option does not exist.', $name));
         }
@@ -153,6 +165,9 @@ abstract class Input implements \ECSPrefix20210508\Symfony\Component\Console\Inp
      */
     public function hasOption($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->definition->hasOption($name);
     }
     /**
@@ -163,6 +178,9 @@ abstract class Input implements \ECSPrefix20210508\Symfony\Component\Console\Inp
      */
     public function escapeToken($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         return \preg_match('{^[\\w-]+$}', $token) ? $token : \escapeshellarg($token);
     }
     /**

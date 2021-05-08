@@ -35,10 +35,12 @@ abstract class AbstractTagAwareAdapter implements \ECSPrefix20210508\Symfony\Com
     const TAGS_PREFIX = "\0tags\0";
     /**
      * @param string $namespace
-     * @param int $defaultLifetime
      */
-    protected function __construct($namespace = '', $defaultLifetime = 0)
+    protected function __construct($namespace = '', int $defaultLifetime = 0)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $this->namespace = '' === $namespace ? '' : \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($namespace) . ':';
         if (null !== $this->maxIdLength && \strlen($namespace) > $this->maxIdLength - 24) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace must be %d chars max, %d given ("%s").', $this->maxIdLength - 24, \strlen($namespace), $namespace));
@@ -115,7 +117,7 @@ abstract class AbstractTagAwareAdapter implements \ECSPrefix20210508\Symfony\Com
      *
      * @return array The identifiers that failed to be cached or a boolean stating if caching succeeded or not
      */
-    protected abstract function doSave(array $values, $lifetime, $addTagData = [], $removeTagData = []);
+    protected abstract function doSave(array $values, $lifetime, array $addTagData = [], array $removeTagData = []);
     /**
      * Removes multiple items from the pool and their corresponding tags.
      *

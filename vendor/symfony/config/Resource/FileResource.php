@@ -32,6 +32,9 @@ class FileResource implements \ECSPrefix20210508\Symfony\Component\Config\Resour
      */
     public function __construct($resource)
     {
+        if (\is_object($resource)) {
+            $resource = (string) $resource;
+        }
         $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         if (\false === $this->resource) {
             throw new \InvalidArgumentException(\sprintf('The file "%s" does not exist.', $resource));

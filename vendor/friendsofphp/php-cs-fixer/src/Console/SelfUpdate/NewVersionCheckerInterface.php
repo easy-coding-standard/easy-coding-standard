@@ -31,8 +31,6 @@ interface NewVersionCheckerInterface
      * Returns -1, 0, or 1 if the first version is respectively less than,
      * equal to, or greater than the second.
      * @param string $versionA
-     * @param string $versionB
-     * @return int
      */
-    public function compareVersions($versionA, $versionB);
+    public function compareVersions($versionA, string $versionB) : int;
 }

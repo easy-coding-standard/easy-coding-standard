@@ -22,6 +22,9 @@ class EnvParameterException extends \ECSPrefix20210508\Symfony\Component\Depende
      */
     public function __construct(array $envs, \Throwable $previous = null, $message = 'Incompatible use of dynamic environment variables "%s" found in parameters.')
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         parent::__construct(\sprintf($message, \implode('", "', $envs)), 0, $previous);
     }
 }

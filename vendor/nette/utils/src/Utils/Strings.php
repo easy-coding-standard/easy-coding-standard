@@ -14,19 +14,23 @@ class Strings
     /**
      * Checks if the string is valid in UTF-8 encoding.
      * @param string $s
-     * @return bool
      */
-    public static function checkEncoding($s)
+    public static function checkEncoding($s) : bool
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return $s === self::fixEncoding($s);
     }
     /**
      * Removes all invalid UTF-8 characters from a string.
      * @param string $s
-     * @return string
      */
-    public static function fixEncoding($s)
+    public static function fixEncoding($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         // removes xD800-xDFFF, x110000 and higher
         return \htmlspecialchars_decode(\htmlspecialchars($s, \ENT_NOQUOTES | \ENT_IGNORE, 'UTF-8'), \ENT_NOQUOTES);
     }
@@ -48,43 +52,46 @@ class Strings
     /**
      * Starts the $haystack string with the prefix $needle?
      * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
-    public static function startsWith($haystack, $needle)
+    public static function startsWith($haystack, string $needle) : bool
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         return \strncmp($haystack, $needle, \strlen($needle)) === 0;
     }
     /**
      * Ends the $haystack string with the suffix $needle?
      * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
-    public static function endsWith($haystack, $needle)
+    public static function endsWith($haystack, string $needle) : bool
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         return $needle === '' || \substr($haystack, -\strlen($needle)) === $needle;
     }
     /**
      * Does $haystack contain $needle?
      * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
-    public static function contains($haystack, $needle)
+    public static function contains($haystack, string $needle) : bool
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         return \strpos($haystack, $needle) !== \false;
     }
     /**
      * Returns a part of UTF-8 string specified by starting position and length. If start is negative,
      * the returned string will start at the start'th character from the end of string.
      * @param string $s
-     * @param int $start
-     * @param int $length
-     * @return string
      */
-    public static function substring($s, $start, $length = null)
+    public static function substring($s, int $start, int $length = null) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         if (\function_exists('mb_substr')) {
             return \mb_substr($s, $start, $length, 'UTF-8');
             // MB is much faster
@@ -102,10 +109,12 @@ class Strings
      * Removes control characters, normalizes line breaks to `\n`, removes leading and trailing blank lines,
      * trims end spaces on lines, normalizes UTF-8 to the normal form of NFC.
      * @param string $s
-     * @return string
      */
-    public static function normalize($s)
+    public static function normalize($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         // convert to compressed normal form (NFC)
         if (\class_exists('Normalizer', \false) && ($n = \Normalizer::normalize($s, \Normalizer::FORM_C)) !== \false) {
             $s = $n;
@@ -122,19 +131,23 @@ class Strings
     /**
      * Standardize line endings to unix-like.
      * @param string $s
-     * @return string
      */
-    public static function normalizeNewLines($s)
+    public static function normalizeNewLines($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return \str_replace(["\r\n", "\r"], "\n", $s);
     }
     /**
      * Converts UTF-8 string to ASCII, ie removes diacritics etc.
      * @param string $s
-     * @return string
      */
-    public static function toAscii($s)
+    public static function toAscii($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         $iconv = \defined('ICONV_IMPL') ? \trim(\ICONV_IMPL, '"\'') : null;
         static $transliterator = null;
         if ($transliterator === null) {
@@ -195,12 +208,12 @@ class Strings
      * Modifies the UTF-8 string to the form used in the URL, ie removes diacritics and replaces all characters
      * except letters of the English alphabet and numbers with a hyphens.
      * @param string $s
-     * @param string $charlist
-     * @param bool $lower
-     * @return string
      */
-    public static function webalize($s, $charlist = null, $lower = \true)
+    public static function webalize($s, string $charlist = null, bool $lower = \true) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         $s = self::toAscii($s);
         if ($lower) {
             $s = \strtolower($s);
@@ -213,12 +226,12 @@ class Strings
      * Truncates a UTF-8 string to given maximal length, while trying not to split whole words. Only if the string is truncated,
      * an ellipsis (or something else set with third argument) is appended to the string.
      * @param string $s
-     * @param int $maxLen
-     * @param string $append
-     * @return string
      */
-    public static function truncate($s, $maxLen, $append = "…")
+    public static function truncate($s, int $maxLen, string $append = "…") : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         if (self::length($s) > $maxLen) {
             $maxLen -= self::length($append);
             if ($maxLen < 1) {
@@ -235,12 +248,12 @@ class Strings
      * Indents a multiline text from the left. Second argument sets how many indentation chars should be used,
      * while the indent itself is the third argument (*tab* by default).
      * @param string $s
-     * @param int $level
-     * @param string $chars
-     * @return string
      */
-    public static function indent($s, $level = 1, $chars = "\t")
+    public static function indent($s, int $level = 1, string $chars = "\t") : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         if ($level > 0) {
             $s = self::replace($s, '#(?:^|[\\r\\n]+)(?=[^\\r\\n])#', '$0' . \str_repeat($chars, $level));
         }
@@ -249,46 +262,56 @@ class Strings
     /**
      * Converts all characters of UTF-8 string to lower case.
      * @param string $s
-     * @return string
      */
-    public static function lower($s)
+    public static function lower($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return \mb_strtolower($s, 'UTF-8');
     }
     /**
      * Converts the first character of a UTF-8 string to lower case and leaves the other characters unchanged.
      * @param string $s
-     * @return string
      */
-    public static function firstLower($s)
+    public static function firstLower($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return self::lower(self::substring($s, 0, 1)) . self::substring($s, 1);
     }
     /**
      * Converts all characters of a UTF-8 string to upper case.
      * @param string $s
-     * @return string
      */
-    public static function upper($s)
+    public static function upper($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return \mb_strtoupper($s, 'UTF-8');
     }
     /**
      * Converts the first character of a UTF-8 string to upper case and leaves the other characters unchanged.
      * @param string $s
-     * @return string
      */
-    public static function firstUpper($s)
+    public static function firstUpper($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return self::upper(self::substring($s, 0, 1)) . self::substring($s, 1);
     }
     /**
      * Converts the first character of every word of a UTF-8 string to upper case and the others to lower case.
      * @param string $s
-     * @return string
      */
-    public static function capitalize($s)
+    public static function capitalize($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return \mb_convert_case($s, \MB_CASE_TITLE, 'UTF-8');
     }
     /**
@@ -296,12 +319,12 @@ class Strings
      * if it is negative, the corresponding number of characters from the end of the strings is compared,
      * otherwise the appropriate number of characters from the beginning is compared.
      * @param string $left
-     * @param string $right
-     * @param int $length
-     * @return bool
      */
-    public static function compare($left, $right, $length = null)
+    public static function compare($left, string $right, int $length = null) : bool
     {
+        if (\is_object($left)) {
+            $left = (string) $left;
+        }
         if (\class_exists('Normalizer', \false)) {
             $left = \Normalizer::normalize($left, \Normalizer::FORM_D);
             // form NFD is faster
@@ -341,32 +364,35 @@ class Strings
      * Returns number of characters (not bytes) in UTF-8 string.
      * That is the number of Unicode code points which may differ from the number of graphemes.
      * @param string $s
-     * @return int
      */
-    public static function length($s)
+    public static function length($s) : int
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         return \function_exists('mb_strlen') ? \mb_strlen($s, 'UTF-8') : \strlen(\utf8_decode($s));
     }
     /**
      * Removes all left and right side spaces (or the characters passed as second argument) from a UTF-8 encoded string.
      * @param string $s
-     * @param string $charlist
-     * @return string
      */
-    public static function trim($s, $charlist = self::TRIM_CHARACTERS)
+    public static function trim($s, string $charlist = self::TRIM_CHARACTERS) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         $charlist = \preg_quote($charlist, '#');
         return self::replace($s, '#^[' . $charlist . ']+|[' . $charlist . ']+$#Du', '');
     }
     /**
      * Pads a UTF-8 string to given length by prepending the $pad string to the beginning.
      * @param string $s
-     * @param int $length
-     * @param string $pad
-     * @return string
      */
-    public static function padLeft($s, $length, $pad = ' ')
+    public static function padLeft($s, int $length, string $pad = ' ') : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         $length = \max(0, $length - self::length($s));
         $padLen = self::length($pad);
         return \str_repeat($pad, (int) ($length / $padLen)) . self::substring($pad, 0, $length % $padLen) . $s;
@@ -374,12 +400,12 @@ class Strings
     /**
      * Pads UTF-8 string to given length by appending the $pad string to the end.
      * @param string $s
-     * @param int $length
-     * @param string $pad
-     * @return string
      */
-    public static function padRight($s, $length, $pad = ' ')
+    public static function padRight($s, int $length, string $pad = ' ') : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         $length = \max(0, $length - self::length($s));
         $padLen = self::length($pad);
         return $s . \str_repeat($pad, (int) ($length / $padLen)) . self::substring($pad, 0, $length % $padLen);
@@ -387,10 +413,12 @@ class Strings
     /**
      * Reverses UTF-8 string.
      * @param string $s
-     * @return string
      */
-    public static function reverse($s)
+    public static function reverse($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         if (!\extension_loaded('iconv')) {
             throw new \ECSPrefix20210508\Nette\NotSupportedException(__METHOD__ . '() requires ICONV extension that is not loaded.');
         }
@@ -401,11 +429,12 @@ class Strings
      * Negative value means searching from the end.
      * @return string|null
      * @param string $haystack
-     * @param string $needle
-     * @param int $nth
      */
-    public static function before($haystack, $needle, $nth = 1)
+    public static function before($haystack, string $needle, int $nth = 1)
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, 0, $pos);
     }
@@ -414,11 +443,12 @@ class Strings
      * Negative value means searching from the end.
      * @return string|null
      * @param string $haystack
-     * @param string $needle
-     * @param int $nth
      */
-    public static function after($haystack, $needle, $nth = 1)
+    public static function after($haystack, string $needle, int $nth = 1)
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, $pos + \strlen($needle));
     }
@@ -427,11 +457,12 @@ class Strings
      * Negative value of `$nth` means searching from the end.
      * @return int|null
      * @param string $haystack
-     * @param string $needle
-     * @param int $nth
      */
-    public static function indexOf($haystack, $needle, $nth = 1)
+    public static function indexOf($haystack, string $needle, int $nth = 1)
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : self::length(\substr($haystack, 0, $pos));
     }
@@ -439,11 +470,12 @@ class Strings
      * Returns position in bytes of $nth occurence of $needle in $haystack or null if the needle was not found.
      * @return int|null
      * @param string $haystack
-     * @param string $needle
-     * @param int $nth
      */
-    private static function pos($haystack, $needle, $nth = 1)
+    private static function pos($haystack, string $needle, int $nth = 1)
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         if (!$nth) {
             return null;
         } elseif ($nth > 0) {
@@ -470,12 +502,12 @@ class Strings
      * Splits a string into array by the regular expression.
      * Argument $flag takes same arguments as preg_split(), but PREG_SPLIT_DELIM_CAPTURE is set by default.
      * @param string $subject
-     * @param string $pattern
-     * @param int $flags
-     * @return mixed[]
      */
-    public static function split($subject, $pattern, $flags = 0)
+    public static function split($subject, string $pattern, int $flags = 0) : array
     {
+        if (\is_object($subject)) {
+            $subject = (string) $subject;
+        }
         return self::pcre('preg_split', [$pattern, $subject, -1, $flags | \PREG_SPLIT_DELIM_CAPTURE]);
     }
     /**
@@ -483,12 +515,12 @@ class Strings
      * Argument $flag takes same arguments as function preg_match().
      * @return mixed[]|null
      * @param string $subject
-     * @param string $pattern
-     * @param int $flags
-     * @param int $offset
      */
-    public static function match($subject, $pattern, $flags = 0, $offset = 0)
+    public static function match($subject, string $pattern, int $flags = 0, int $offset = 0)
     {
+        if (\is_object($subject)) {
+            $subject = (string) $subject;
+        }
         if ($offset > \strlen($subject)) {
             return null;
         }
@@ -498,13 +530,12 @@ class Strings
      * Finds all occurrences matching regular expression pattern and returns a two-dimensional array.
      * Argument $flag takes same arguments as function preg_match_all(), but PREG_SET_ORDER is set by default.
      * @param string $subject
-     * @param string $pattern
-     * @param int $flags
-     * @param int $offset
-     * @return mixed[]
      */
-    public static function matchAll($subject, $pattern, $flags = 0, $offset = 0)
+    public static function matchAll($subject, string $pattern, int $flags = 0, int $offset = 0) : array
     {
+        if (\is_object($subject)) {
+            $subject = (string) $subject;
+        }
         if ($offset > \strlen($subject)) {
             return [];
         }
@@ -516,11 +547,12 @@ class Strings
      * @param  string|array  $pattern
      * @param  string|callable  $replacement
      * @param string $subject
-     * @param int $limit
-     * @return string
      */
-    public static function replace($subject, $pattern, $replacement = '', $limit = -1)
+    public static function replace($subject, $pattern, $replacement = '', int $limit = -1) : string
     {
+        if (\is_object($subject)) {
+            $subject = (string) $subject;
+        }
         if (\is_object($replacement) || \is_array($replacement)) {
             if (!\is_callable($replacement, \false, $textual)) {
                 throw new \ECSPrefix20210508\Nette\InvalidStateException("Callback '{$textual}' is not callable.");
@@ -536,6 +568,9 @@ class Strings
      * @param string $func */
     public static function pcre($func, array $args)
     {
+        if (\is_object($func)) {
+            $func = (string) $func;
+        }
         $res = \ECSPrefix20210508\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) {
             // compile-time error, not detectable by preg_last_error
             throw new \ECSPrefix20210508\Nette\Utils\RegexpException($message . ' in pattern: ' . \implode(' or ', (array) $args[0]));

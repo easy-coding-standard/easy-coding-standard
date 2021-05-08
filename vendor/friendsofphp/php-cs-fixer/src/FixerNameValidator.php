@@ -20,11 +20,12 @@ final class FixerNameValidator
 {
     /**
      * @param string $name
-     * @param bool $isCustom
-     * @return bool
      */
-    public function isValid($name, $isCustom)
+    public function isValid($name, bool $isCustom) : bool
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$isCustom) {
             return 1 === \PhpCsFixer\Preg::match('/^[a-z][a-z0-9_]*$/', $name);
         }

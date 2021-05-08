@@ -58,6 +58,9 @@ class DefaultMarshaller implements \ECSPrefix20210508\Symfony\Component\Cache\Ma
      */
     public function unmarshall($value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         if ('b:0;' === $value) {
             return \false;
         }
@@ -92,6 +95,9 @@ class DefaultMarshaller implements \ECSPrefix20210508\Symfony\Component\Cache\Ma
      */
     public static function handleUnserializeCallback($class)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         throw new \DomainException('Class not found: ' . $class);
     }
 }

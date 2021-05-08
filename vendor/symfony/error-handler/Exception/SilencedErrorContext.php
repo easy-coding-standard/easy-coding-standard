@@ -25,11 +25,12 @@ class SilencedErrorContext implements \JsonSerializable
     /**
      * @param int $severity
      * @param string $file
-     * @param int $line
-     * @param int $count
      */
-    public function __construct($severity, $file, $line, array $trace = [], $count = 1)
+    public function __construct($severity, $file, int $line, array $trace = [], int $count = 1)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $this->severity = $severity;
         $this->file = $file;
         $this->line = $line;

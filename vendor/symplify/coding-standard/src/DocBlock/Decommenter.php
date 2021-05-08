@@ -26,10 +26,12 @@ final class Decommenter
     }
     /**
      * @param string $content
-     * @return string
      */
-    public function decoment($content)
+    public function decoment($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $lines = \explode(\PHP_EOL, $content);
         foreach ($lines as $key => $line) {
             $lines[$key] = $this->commentedLineTrimmer->trim($line);
@@ -41,10 +43,12 @@ final class Decommenter
     /**
      * Quite a few comments use multiple dashes, equals signs etc to frame comments and licence headers.
      * @param string $content
-     * @return string
      */
-    private function clearContent($content)
+    private function clearContent($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
     }
 }

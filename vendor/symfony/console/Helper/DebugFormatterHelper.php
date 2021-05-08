@@ -27,11 +27,12 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      *
      * @return string
      * @param string $id
-     * @param string $message
-     * @param string $prefix
      */
-    public function start($id, $message, $prefix = 'RUN')
+    public function start($id, string $message, string $prefix = 'RUN')
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $this->started[$id] = ['border' => ++$this->count % \count($this->colors)];
         return \sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
     }
@@ -40,13 +41,12 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      *
      * @return string
      * @param string $id
-     * @param string $buffer
-     * @param bool $error
-     * @param string $prefix
-     * @param string $errorPrefix
      */
-    public function progress($id, $buffer, $error = \false, $prefix = 'OUT', $errorPrefix = 'ERR')
+    public function progress($id, string $buffer, bool $error = \false, string $prefix = 'OUT', string $errorPrefix = 'ERR')
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $message = '';
         if ($error) {
             if (isset($this->started[$id]['out'])) {
@@ -76,12 +76,12 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      *
      * @return string
      * @param string $id
-     * @param string $message
-     * @param bool $successful
-     * @param string $prefix
      */
-    public function stop($id, $message, $successful, $prefix = 'RES')
+    public function stop($id, string $message, bool $successful, string $prefix = 'RES')
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $trailingEOL = isset($this->started[$id]['out']) || isset($this->started[$id]['err']) ? "\n" : '';
         if ($successful) {
             return \sprintf("%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
@@ -92,10 +92,12 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
     }
     /**
      * @param string $id
-     * @return string
      */
-    private function getBorder($id)
+    private function getBorder($id) : string
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return \sprintf('<bg=%s> </>', $this->colors[$this->started[$id]['border']]);
     }
     /**

@@ -35,12 +35,12 @@ class RegisterControllerArgumentLocatorsPass implements \ECSPrefix20210508\Symfo
     private $notTaggedControllerResolverServiceId;
     /**
      * @param string $resolverServiceId
-     * @param string $controllerTag
-     * @param string $controllerLocator
-     * @param string $notTaggedControllerResolverServiceId
      */
-    public function __construct($resolverServiceId = 'argument_resolver.service', $controllerTag = 'controller.service_arguments', $controllerLocator = 'argument_resolver.controller_locator', $notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller')
+    public function __construct($resolverServiceId = 'argument_resolver.service', string $controllerTag = 'controller.service_arguments', string $controllerLocator = 'argument_resolver.controller_locator', string $notTaggedControllerResolverServiceId = 'argument_resolver.not_tagged_controller')
     {
+        if (\is_object($resolverServiceId)) {
+            $resolverServiceId = (string) $resolverServiceId;
+        }
         $this->resolverServiceId = $resolverServiceId;
         $this->controllerTag = $controllerTag;
         $this->controllerLocator = $controllerLocator;

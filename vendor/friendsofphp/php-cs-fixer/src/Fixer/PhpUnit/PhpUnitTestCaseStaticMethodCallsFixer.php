@@ -392,10 +392,12 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      * @param int $index
      * @param int $referenceIndex
      * @param string $callType
-     * @return bool
      */
-    private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $referenceIndex, $callType)
+    private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $referenceIndex, $callType) : bool
     {
+        if (\is_object($callType)) {
+            $callType = (string) $callType;
+        }
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         return $functionsAnalyzer->isTheSameClassCall($tokens, $index) && !$tokens[$referenceIndex]->equals($this->conversionMap[$callType][1], \false);
     }

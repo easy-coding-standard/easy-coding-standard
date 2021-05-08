@@ -25,11 +25,14 @@ final class SmartFinder
     }
     /**
      * @param string[] $directoriesOrFiles
-     * @return mixed[]
+     * @return SmartFileInfo[]
      * @param string $path
      */
-    public function findPaths(array $directoriesOrFiles, $path)
+    public function findPaths(array $directoriesOrFiles, $path) : array
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {
@@ -42,11 +45,14 @@ final class SmartFinder
     /**
      * @param string[] $directoriesOrFiles
      * @param string[] $excludedDirectories
-     * @return mixed[]
+     * @return SmartFileInfo[]
      * @param string $name
      */
-    public function find(array $directoriesOrFiles, $name, array $excludedDirectories = [])
+    public function find(array $directoriesOrFiles, $name, array $excludedDirectories = []) : array
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {

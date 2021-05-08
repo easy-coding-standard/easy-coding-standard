@@ -86,6 +86,9 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
      */
     private function updateContent(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if ('' === $content) {
             $tokens->clearAt($index);
             return;

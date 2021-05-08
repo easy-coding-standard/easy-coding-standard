@@ -26,6 +26,9 @@ trait FilesystemCommonTrait
      */
     private function init($namespace, $directory)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         if (!isset($directory[0])) {
             $directory = \sys_get_temp_dir() . \DIRECTORY_SEPARATOR . 'symfony-cache';
         } else {
@@ -55,6 +58,9 @@ trait FilesystemCommonTrait
      */
     protected function doClear($namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $ok = \true;
         foreach ($this->scanHashDir($this->directory) as $file) {
             if ('' !== $namespace && 0 !== \strpos($this->getFileKey($file), $namespace)) {
@@ -82,11 +88,12 @@ trait FilesystemCommonTrait
     }
     /**
      * @param string $file
-     * @param string $data
-     * @param int $expiresAt
      */
-    private function write($file, $data, $expiresAt = null)
+    private function write($file, string $data, int $expiresAt = null)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         \set_error_handler(__CLASS__ . '::throwError');
         try {
             if (null === $this->tmp) {
@@ -113,11 +120,12 @@ trait FilesystemCommonTrait
     }
     /**
      * @param string $id
-     * @param bool $mkdir
-     * @param string $directory
      */
-    private function getFile($id, $mkdir = \false, $directory = null)
+    private function getFile($id, bool $mkdir = \false, string $directory = null)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         // Use MD5 to favor speed over security, which is not an issue here
         $hash = \str_replace('/', '-', \base64_encode(\hash('md5', static::class . $id, \true)));
         $dir = (isset($directory) ? $directory : $this->directory) . \strtoupper($hash[0] . \DIRECTORY_SEPARATOR . $hash[1] . \DIRECTORY_SEPARATOR);
@@ -128,18 +136,22 @@ trait FilesystemCommonTrait
     }
     /**
      * @param string $file
-     * @return string
      */
-    private function getFileKey($file)
+    private function getFileKey($file) : string
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         return '';
     }
     /**
      * @param string $directory
-     * @return \Generator
      */
-    private function scanHashDir($directory)
+    private function scanHashDir($directory) : \Generator
     {
+        if (\is_object($directory)) {
+            $directory = (string) $directory;
+        }
         if (!\is_dir($directory)) {
             return;
         }

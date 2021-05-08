@@ -29,10 +29,12 @@ class ServiceReferenceGraph
     private $nodes = [];
     /**
      * @param string $id
-     * @return bool
      */
-    public function hasNode($id)
+    public function hasNode($id) : bool
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return isset($this->nodes[$id]);
     }
     /**
@@ -40,10 +42,12 @@ class ServiceReferenceGraph
      *
      * @throws InvalidArgumentException if no node matches the supplied identifier
      * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
      */
-    public function getNode($id)
+    public function getNode($id) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (!isset($this->nodes[$id])) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no node with id "%s".', $id));
         }
@@ -89,10 +93,12 @@ class ServiceReferenceGraph
     }
     /**
      * @param string $id
-     * @return \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
      */
-    private function createNode($id, $value)
+    private function createNode($id, $value) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (isset($this->nodes[$id]) && $this->nodes[$id]->getValue() === $value) {
             return $this->nodes[$id];
         }

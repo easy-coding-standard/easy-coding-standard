@@ -50,10 +50,12 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      *
      * @internal in Symfony 5.2
      * @param string|null $string
-     * @return int
      */
-    public static function width($string)
+    public static function width($string) : int
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         isset($string) ? $string : ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($string))->width(\false);
@@ -69,10 +71,12 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      *
      * @internal in Symfony 5.2
      * @param string|null $string
-     * @return int
      */
-    public static function length($string)
+    public static function length($string) : int
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         isset($string) ? $string : ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($string))->length();
@@ -87,11 +91,12 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      *
      * @return string The string subset
      * @param string|null $string
-     * @param int $from
-     * @param int $length
      */
-    public static function substr($string, $from, $length = null)
+    public static function substr($string, int $from, int $length = null)
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         isset($string) ? $string : ($string = '');
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
             return \substr($string, $from, $length);

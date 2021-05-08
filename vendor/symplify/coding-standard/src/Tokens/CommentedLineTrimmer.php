@@ -16,10 +16,12 @@ final class CommentedLineTrimmer
     const OPENING_LINE = ['//', '#'];
     /**
      * @param string $tokenContent
-     * @return string
      */
-    public function trim($tokenContent)
+    public function trim($tokenContent) : string
     {
+        if (\is_object($tokenContent)) {
+            $tokenContent = (string) $tokenContent;
+        }
         foreach (self::OPENING_LINE as $openingLine) {
             if (!\ECSPrefix20210508\Nette\Utils\Strings::startsWith($tokenContent, $openingLine)) {
                 continue;

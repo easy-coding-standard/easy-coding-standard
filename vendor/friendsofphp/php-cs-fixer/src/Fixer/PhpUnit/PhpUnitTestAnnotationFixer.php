@@ -177,10 +177,12 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * @param string $functionName
-     * @return bool
      */
-    private function hasTestPrefix($functionName)
+    private function hasTestPrefix($functionName) : bool
     {
+        if (\is_object($functionName)) {
+            $functionName = (string) $functionName;
+        }
         return 0 === \strpos($functionName, 'test');
     }
     /**
@@ -195,10 +197,12 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * @param string $functionName
-     * @return string
      */
-    private function removeTestPrefix($functionName)
+    private function removeTestPrefix($functionName) : string
     {
+        if (\is_object($functionName)) {
+            $functionName = (string) $functionName;
+        }
         $remainder = \PhpCsFixer\Preg::replace('/^test(?=[A-Z_])_?/', '', $functionName);
         if ('' === $remainder) {
             return $functionName;
@@ -207,10 +211,12 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * @param string $functionName
-     * @return string
      */
-    private function addTestPrefix($functionName)
+    private function addTestPrefix($functionName) : string
     {
+        if (\is_object($functionName)) {
+            $functionName = (string) $functionName;
+        }
         return 'test' . \ucfirst($functionName);
     }
     /**

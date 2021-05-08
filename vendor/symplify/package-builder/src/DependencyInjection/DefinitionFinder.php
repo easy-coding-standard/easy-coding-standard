@@ -12,11 +12,14 @@ use Throwable;
 final class DefinitionFinder
 {
     /**
-     * @return mixed[]
+     * @return Definition[]
      * @param string $type
      */
-    public function findAllByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    public function findAllByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type) : array
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $definitions = [];
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
@@ -32,10 +35,12 @@ final class DefinitionFinder
     }
     /**
      * @param string $type
-     * @return \Symfony\Component\DependencyInjection\Definition
      */
-    public function getByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    public function getByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $definition = $this->getByTypeIfExists($containerBuilder, $type);
         if ($definition !== null) {
             return $definition;
@@ -48,6 +53,9 @@ final class DefinitionFinder
      */
     private function getByTypeIfExists(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
             $class = $definition->getClass() ?: $name;
@@ -62,10 +70,12 @@ final class DefinitionFinder
     }
     /**
      * @param string $class
-     * @return bool
      */
-    private function doesClassExists($class)
+    private function doesClassExists($class) : bool
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         try {
             return \class_exists($class);
         } catch (\Throwable $throwable) {

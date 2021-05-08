@@ -162,6 +162,9 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
      */
     public function processBracket($phpcsFile, $openBracket, $tokens, $type = 'function')
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $errorPrefix = '';
         if ($type === 'use') {
             $errorPrefix = 'Use';

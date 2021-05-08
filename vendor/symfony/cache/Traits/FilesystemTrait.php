@@ -73,6 +73,9 @@ trait FilesystemTrait
      */
     protected function doHave($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $file = $this->getFile($id);
         return \is_file($file) && (@\filemtime($file) > \time() || $this->doFetch([$id]));
     }
@@ -96,10 +99,12 @@ trait FilesystemTrait
     }
     /**
      * @param string $file
-     * @return string
      */
-    private function getFileKey($file)
+    private function getFileKey($file) : string
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!($h = @\fopen($file, 'r'))) {
             return '';
         }

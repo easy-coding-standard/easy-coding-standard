@@ -50,6 +50,9 @@ final class ListSetsCommand extends \ECSPrefix20210508\Symfony\Component\Console
      */
     private function resolveReporterWithFactory($format, \PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory $factory)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         try {
             $factory->registerBuiltInReporters();
             $reporter = $factory->getReporter($format);

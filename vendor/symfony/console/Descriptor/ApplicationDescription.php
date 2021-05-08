@@ -69,10 +69,12 @@ class ApplicationDescription
     /**
      * @throws CommandNotFoundException
      * @param string $name
-     * @return \Symfony\Component\Console\Command\Command
      */
-    public function getCommand($name)
+    public function getCommand($name) : \ECSPrefix20210508\Symfony\Component\Console\Command\Command
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!isset($this->commands[$name]) && !isset($this->aliases[$name])) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }

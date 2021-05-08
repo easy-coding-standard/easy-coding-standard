@@ -26,10 +26,12 @@ final class Utils
     /**
      * Converts a camel cased string to a snake cased string.
      * @param string $string
-     * @return string
      */
-    public static function camelCaseToUnderscore($string)
+    public static function camelCaseToUnderscore($string) : string
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         return \strtolower(\PhpCsFixer\Preg::replace('/(?<!^)((?=[A-Z][^A-Z])|(?<![A-Z])(?=[A-Z]))/', '_', $string));
     }
     /**
@@ -135,10 +137,12 @@ final class Utils
      * Handle triggering deprecation error.
      * @return void
      * @param string $message
-     * @param string $exceptionClass
      */
-    public static function triggerDeprecation($message, $exceptionClass = \RuntimeException::class)
+    public static function triggerDeprecation($message, string $exceptionClass = \RuntimeException::class)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (\getenv('PHP_CS_FIXER_FUTURE_MODE')) {
             throw new $exceptionClass("{$message} This check was performed as `PHP_CS_FIXER_FUTURE_MODE` env var is set.");
         }

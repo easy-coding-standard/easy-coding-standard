@@ -22,11 +22,12 @@ final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
-     * @param int $position
-     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
     {
+        if (\is_object($docContent)) {
+            $docContent = (string) $docContent;
+        }
         if ($this->shouldSkip($tokens, $position)) {
             return $docContent;
         }

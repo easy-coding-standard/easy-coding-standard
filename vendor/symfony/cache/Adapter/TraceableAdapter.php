@@ -34,10 +34,12 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
     /**
      * {@inheritdoc}
      * @param string $key
-     * @param float $beta
      */
-    public function get($key, callable $callback, $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (!$this->pool instanceof \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface) {
             throw new \BadMethodCallException(\sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', \get_debug_type($this->pool), \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface::class));
         }
@@ -65,6 +67,9 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function getItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $event = $this->start(__FUNCTION__);
         try {
             $item = $this->pool->getItem($key);
@@ -85,6 +90,9 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function hasItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $event = $this->start(__FUNCTION__);
         try {
             return $event->result[$key] = $this->pool->hasItem($key);
@@ -99,6 +107,9 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function deleteItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $event = $this->start(__FUNCTION__);
         try {
             return $event->result[$key] = $this->pool->deleteItem($key);
@@ -166,6 +177,9 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function clear($prefix = '')
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $event = $this->start(__FUNCTION__);
         try {
             if ($this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
@@ -233,10 +247,12 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
     /**
      * {@inheritdoc}
      * @param string $key
-     * @return bool
      */
-    public function delete($key)
+    public function delete($key) : bool
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $event = $this->start(__FUNCTION__);
         try {
             return $event->result[$key] = $this->pool->deleteItem($key);

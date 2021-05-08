@@ -21,8 +21,11 @@ if (!function_exists('trigger_deprecation')) {
      * @author Nicolas Grekas <p@tchwork.com>
      * @return void
      */
-    function trigger_deprecation($package, $version, $message, ...$args)
+    function trigger_deprecation($package, string $version, string $message, ...$args)
     {
+        if (is_object($package)) {
+            $package = (string) $package;
+        }
         @trigger_error(($package || $version ? "Since $package $version: " : '').($args ? vsprintf($message, $args) : $message), \E_USER_DEPRECATED);
     }
 }

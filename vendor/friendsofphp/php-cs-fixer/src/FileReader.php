@@ -39,10 +39,12 @@ final class FileReader
     }
     /**
      * @param string $filePath
-     * @return string
      */
-    public function read($filePath)
+    public function read($filePath) : string
     {
+        if (\is_object($filePath)) {
+            $filePath = (string) $filePath;
+        }
         if ('php://stdin' === $filePath) {
             if (null === $this->stdinContent) {
                 $this->stdinContent = $this->readRaw($filePath);
@@ -53,10 +55,12 @@ final class FileReader
     }
     /**
      * @param string $realPath
-     * @return string
      */
-    private function readRaw($realPath)
+    private function readRaw($realPath) : string
     {
+        if (\is_object($realPath)) {
+            $realPath = (string) $realPath;
+        }
         $content = @\file_get_contents($realPath);
         if (\false === $content) {
             $error = \error_get_last();

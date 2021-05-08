@@ -101,10 +101,12 @@ final class Example
     /**
      * @return void
      * @param string $type
-     * @param int $index
      */
-    private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $index)
+    private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, int $index)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $repeatIndex = $index;
         while (\true) {
@@ -133,11 +135,12 @@ final class Example
     /**
      * @return void
      * @param string $type
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
+    private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, int $startIndex, int $endIndex)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $divisionContent = null;
         if ($tokens[$startIndex - 1]->isWhitespace()) {
             $divisionContent = $tokens[$startIndex - 1]->getContent();
@@ -172,13 +175,14 @@ final class Example
         }
     }
     /**
-     * @return mixed[]
+     * @return Token[]
      * @param string $type
-     * @param int $startIndex
-     * @param int $endIndex
      */
-    private function getModifiersSequences(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
+    private function getModifiersSequences(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, int $startIndex, int $endIndex) : array
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if ('property' === $type) {
             $tokenKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_STATIC, \T_VAR, \T_STRING, \T_NS_SEPARATOR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT];
         } else {

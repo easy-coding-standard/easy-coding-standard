@@ -66,10 +66,12 @@ class Processor
      * @param array  $config A config array
      * @param string $key    The key to normalize
      * @param string $plural The plural form of the key if it is irregular
-     * @return mixed[]
      */
-    public static function normalizeConfig(array $config, $key, $plural = null)
+    public static function normalizeConfig(array $config, $key, string $plural = null) : array
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (null === $plural) {
             $plural = $key . 's';
         }

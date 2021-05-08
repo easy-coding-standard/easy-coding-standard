@@ -37,7 +37,6 @@ interface RuleSetInterface
      * Check given rule is in rules set.
      *
      * @param string $rule name of rule
-     * @return bool
      */
-    public function hasRule($rule);
+    public function hasRule($rule) : bool;
 }

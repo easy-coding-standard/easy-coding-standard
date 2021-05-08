@@ -82,10 +82,12 @@ function foo () {}
     /**
      * Is the last line of the short description correctly formatted?
      * @param string $content
-     * @return bool
      */
-    private function isCorrectlyFormatted($content)
+    private function isCorrectlyFormatted($content) : bool
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if (\false !== \stripos($content, '{@inheritdoc}')) {
             return \true;
         }

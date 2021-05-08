@@ -86,10 +86,12 @@ HTML
     }
     /**
      * @param string $format
-     * @return string
      */
-    private function extractDate(array $context, $format = 'r')
+    private function extractDate(array $context, $format = 'r') : string
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         return \date($format, $context['timestamp']);
     }
     /**

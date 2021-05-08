@@ -64,6 +64,9 @@ class SodiumMarshaller implements \ECSPrefix20210508\Symfony\Component\Cache\Mar
      */
     public function unmarshall($value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         foreach ($this->decryptionKeys as $k) {
             if (\false !== ($decryptedValue = @\sodium_crypto_box_seal_open($value, $k))) {
                 $value = $decryptedValue;

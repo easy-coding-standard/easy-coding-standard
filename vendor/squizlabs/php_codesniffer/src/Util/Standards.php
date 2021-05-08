@@ -68,6 +68,9 @@ class Standards
      */
     public static function getInstalledStandardDetails($includeGeneric = \false, $standardsDir = '')
     {
+        if (\is_object($standardsDir)) {
+            $standardsDir = (string) $standardsDir;
+        }
         $rulesets = [];
         if ($standardsDir === '') {
             $installedPaths = self::getInstalledStandardPaths();
@@ -139,6 +142,9 @@ class Standards
      */
     public static function getInstalledStandards($includeGeneric = \false, $standardsDir = '')
     {
+        if (\is_object($standardsDir)) {
+            $standardsDir = (string) $standardsDir;
+        }
         $installedStandards = [];
         if ($standardsDir === '') {
             $installedPaths = self::getInstalledStandardPaths();
@@ -190,6 +196,9 @@ class Standards
      */
     public static function isInstalledStandard($standard)
     {
+        if (\is_object($standard)) {
+            $standard = (string) $standard;
+        }
         $path = self::getInstalledStandardPath($standard);
         if ($path !== null && \strpos($path, 'ruleset.xml') !== \false) {
             return \true;
@@ -229,6 +238,9 @@ class Standards
      */
     public static function getInstalledStandardPath($standard)
     {
+        if (\is_object($standard)) {
+            $standard = (string) $standard;
+        }
         if (\strpos($standard, '.') !== \false) {
             return null;
         }

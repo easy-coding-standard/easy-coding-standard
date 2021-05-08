@@ -18,6 +18,9 @@ final class InputAndExpected
      */
     public function __construct($original, $expected)
     {
+        if (\is_object($original)) {
+            $original = (string) $original;
+        }
         $this->input = $original;
         $this->expected = $expected;
     }

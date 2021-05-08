@@ -62,6 +62,9 @@ final class BlockFinder
      */
     public function findInTokensByPositionAndContent(\PhpCsFixer\Tokenizer\Tokens $tokens, $position, $content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $blockStart = $tokens->getNextTokenOfKind($position, [$content]);
         if ($blockStart === null) {
             return null;
@@ -71,10 +74,12 @@ final class BlockFinder
     }
     /**
      * @param string $content
-     * @return int
      */
-    public function getBlockTypeByContent($content)
+    public function getBlockTypeByContent($content) : int
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if (isset(self::CONTENT_TO_BLOCK_TYPE[$content])) {
             return self::CONTENT_TO_BLOCK_TYPE[$content];
         }

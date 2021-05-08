@@ -89,6 +89,9 @@ class SubversionPropertiesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function getProperties($path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         $properties = [];
         $paths = [];
         $paths[] = \dirname($path) . '/.svn/props/' . \basename($path) . '.svn-work';

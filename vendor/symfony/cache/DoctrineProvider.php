@@ -45,6 +45,9 @@ class DoctrineProvider extends \ECSPrefix20210508\Doctrine\Common\Cache\CachePro
      */
     protected function doFetch($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $item = $this->pool->getItem(\rawurlencode($id));
         return $item->isHit() ? $item->get() : \false;
     }
@@ -55,6 +58,9 @@ class DoctrineProvider extends \ECSPrefix20210508\Doctrine\Common\Cache\CachePro
      */
     protected function doContains($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return $this->pool->hasItem(\rawurlencode($id));
     }
     /**
@@ -64,6 +70,9 @@ class DoctrineProvider extends \ECSPrefix20210508\Doctrine\Common\Cache\CachePro
      */
     protected function doSave($id, $data, $lifeTime = 0)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $item = $this->pool->getItem(\rawurlencode($id));
         if (0 < $lifeTime) {
             $item->expiresAfter($lifeTime);
@@ -77,6 +86,9 @@ class DoctrineProvider extends \ECSPrefix20210508\Doctrine\Common\Cache\CachePro
      */
     protected function doDelete($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return $this->pool->deleteItem(\rawurlencode($id));
     }
     /**

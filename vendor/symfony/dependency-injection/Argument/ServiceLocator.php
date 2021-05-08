@@ -35,6 +35,9 @@ class ServiceLocator extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     public function get($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return isset($this->serviceMap[$id]) ? ($this->factory)(...$this->serviceMap[$id]) : parent::get($id);
     }
     /**

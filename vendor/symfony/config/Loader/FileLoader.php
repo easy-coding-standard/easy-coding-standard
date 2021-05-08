@@ -36,6 +36,9 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     public function setCurrentDir($dir)
     {
+        if (\is_object($dir)) {
+            $dir = (string) $dir;
+        }
         $this->currentDir = $dir;
     }
     /**
@@ -51,9 +54,9 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      * Imports a resource.
      *
      * @param mixed                $resource       A Resource
-     * @param string|null          $type           The resource type or null if unknown
+     * @param string $type The resource type or null if unknown
      * @param bool                 $ignoreErrors   Whether to ignore import errors or not
-     * @param string|null          $sourceResource The original resource importing the new resource
+     * @param string $sourceResource The original resource importing the new resource
      * @param string|string[]|null $exclude        Glob patterns to exclude from the import
      *
      * @return mixed
@@ -89,12 +92,12 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
     /**
      * @internal
      * @param string $pattern
-     * @param bool $recursive
-     * @param bool $ignoreErrors
-     * @param bool $forExclusion
      */
-    protected function glob($pattern, $recursive, &$resource = null, $ignoreErrors = \false, $forExclusion = \false, array $excluded = [])
+    protected function glob($pattern, bool $recursive, &$resource = null, bool $ignoreErrors = \false, bool $forExclusion = \false, array $excluded = [])
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         if (\strlen($pattern) === ($i = \strcspn($pattern, '*?{['))) {
             $prefix = $pattern;
             $pattern = '';

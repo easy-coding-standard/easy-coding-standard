@@ -19,11 +19,12 @@ final class ConfigurationException extends \ECSPrefix20210508\SebastianBergmann\
 {
     /**
      * @param string $option
-     * @param string $expected
-     * @param int $code
      */
-    public function __construct($option, $expected, $value, $code = 0, \Exception $previous = null)
+    public function __construct($option, string $expected, $value, int $code = 0, \Exception $previous = null)
     {
+        if (\is_object($option)) {
+            $option = (string) $option;
+        }
         parent::__construct(\sprintf('Option "%s" must be %s, got "%s".', $option, $expected, \is_object($value) ? \get_class($value) : (null === $value ? '<null>' : \gettype($value) . '#' . $value)), $code, $previous);
     }
 }

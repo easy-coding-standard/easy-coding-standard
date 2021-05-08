@@ -45,6 +45,9 @@ trait VarDumperTestTrait
      */
     public function assertDumpEquals($expected, $data, $filter = 0, $message = '')
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->assertSame($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
     }
     /**
@@ -53,6 +56,9 @@ trait VarDumperTestTrait
      */
     public function assertDumpMatchesFormat($expected, $data, $filter = 0, $message = '')
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->assertStringMatchesFormat($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
     }
     /**

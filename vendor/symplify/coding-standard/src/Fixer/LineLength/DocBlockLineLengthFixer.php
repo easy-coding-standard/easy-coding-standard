@@ -152,19 +152,23 @@ CODE_SAMPLE
     }
     /**
      * @param string $docBlock
-     * @return string
      */
-    private function resolveIndentationStringFor($docBlock)
+    private function resolveIndentationStringFor($docBlock) : string
     {
+        if (\is_object($docBlock)) {
+            $docBlock = (string) $docBlock;
+        }
         $matches = \ECSPrefix20210508\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
         return isset($matches[self::INDENTATION_PART]) ? $matches[self::INDENTATION_PART] : '';
     }
     /**
      * @param string $indentationString
-     * @return string
      */
-    private function formatLinesAsDocBlockContent(array $docBlockLines, $indentationString)
+    private function formatLinesAsDocBlockContent(array $docBlockLines, $indentationString) : string
     {
+        if (\is_object($indentationString)) {
+            $indentationString = (string) $indentationString;
+        }
         foreach ($docBlockLines as $index => $docBlockLine) {
             $docBlockLines[$index] = $indentationString . ' *' . ($docBlockLine !== '' ? ' ' : '') . $docBlockLine;
         }
@@ -195,11 +199,14 @@ CODE_SAMPLE
         }, $paragraphLines);
     }
     /**
-     * @return mixed[]
+     * @return string[]
      * @param string $string
      */
-    private function getLines($string)
+    private function getLines($string) : array
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         return \explode(\PHP_EOL, $string);
     }
     /**

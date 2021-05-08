@@ -78,6 +78,9 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function setCharset($charset)
     {
+        if (\is_object($charset)) {
+            $charset = (string) $charset;
+        }
         $prev = $this->charset;
         $charset = \strtoupper($charset);
         $charset = null === $charset || 'UTF-8' === $charset || 'UTF8' === $charset ? 'CP1252' : $charset;
@@ -93,6 +96,9 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function setIndentPad($pad)
     {
+        if (\is_object($pad)) {
+            $pad = (string) $pad;
+        }
         $prev = $this->indentPad;
         $this->indentPad = $pad;
         return $prev;
@@ -149,11 +155,12 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
     /**
      * Generic line dumper callback.
      * @param string $line
-     * @param int $depth
-     * @param string $indentPad
      */
-    protected function echoLine($line, $depth, $indentPad)
+    protected function echoLine($line, int $depth, string $indentPad)
     {
+        if (\is_object($line)) {
+            $line = (string) $line;
+        }
         if (-1 !== $depth) {
             \fwrite($this->outputStream, \str_repeat($indentPad, $depth) . $line . "\n");
         }

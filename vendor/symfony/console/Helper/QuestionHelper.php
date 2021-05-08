@@ -175,6 +175,9 @@ class QuestionHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper
      */
     protected function formatChoiceQuestionChoices(\ECSPrefix20210508\Symfony\Component\Console\Question\ChoiceQuestion $question, $tag)
     {
+        if (\is_object($tag)) {
+            $tag = (string) $tag;
+        }
         $messages = [];
         $maxWidth = \max(\array_map('self::strlen', \array_keys($choices = $question->getChoices())));
         foreach ($choices as $key => $value) {
@@ -310,10 +313,12 @@ class QuestionHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper
     }
     /**
      * @param string $entered
-     * @return string
      */
-    private function mostRecentlyEnteredValue($entered)
+    private function mostRecentlyEnteredValue($entered) : string
     {
+        if (\is_object($entered)) {
+            $entered = (string) $entered;
+        }
         // Determine the most recent value that the user entered
         if (\false === \strpos($entered, ',')) {
             return $entered;

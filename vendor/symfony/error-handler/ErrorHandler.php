@@ -349,11 +349,12 @@ class ErrorHandler
      * @internal
      * @param int $type
      * @param string $message
-     * @param string $file
-     * @param int $line
      */
-    public function handleError($type, $message, $file, $line)
+    public function handleError($type, $message, string $file, int $line) : bool
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (\PHP_VERSION_ID >= 70300 && \E_WARNING === $type && '"' === $message[0] && \false !== \strpos($message, '" targeting switch is equivalent to "break')) {
             $type = \E_DEPRECATED;
         }
@@ -638,12 +639,12 @@ class ErrorHandler
      * Cleans the trace by removing function arguments and the frames added by the error handler and DebugClassLoader.
      * @param int $type
      * @param string $file
-     * @param int $line
-     * @param bool $throw
-     * @return mixed[]
      */
-    private function cleanTrace(array $backtrace, $type, &$file, &$line, $throw)
+    private function cleanTrace(array $backtrace, $type, &$file, int &$line, bool $throw) : array
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $lightTrace = $backtrace;
         for ($i = 0; isset($backtrace[$i]); ++$i) {
             if (isset($backtrace[$i]['file'], $backtrace[$i]['line']) && $backtrace[$i]['line'] === $line && $backtrace[$i]['file'] === $file) {
@@ -682,10 +683,12 @@ class ErrorHandler
      * Parse the error message by removing the anonymous class notation
      * and using the parent class instead if possible.
      * @param string $message
-     * @return string
      */
-    private function parseAnonymousClass($message)
+    private function parseAnonymousClass($message) : string
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         return \preg_replace_callback('/[a-zA-Z_\\x7f-\\xff][\\\\a-zA-Z0-9_\\x7f-\\xff]*+@anonymous\\x00.*?\\.php(?:0x?|:[0-9]++\\$)[0-9a-fA-F]++/', static function ($m) {
             return \class_exists($m[0], \false) ? ((\get_parent_class($m[0]) ?: \key(\class_implements($m[0]))) ?: 'class') . '@anonymous' : $m[0];
         }, $message);

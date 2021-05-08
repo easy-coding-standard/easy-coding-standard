@@ -52,11 +52,14 @@ final class SourceFinder
         return $fileInfos;
     }
     /**
-     * @return mixed[]
+     * @return SmartFileInfo[]
      * @param string $directory
      */
-    private function processDirectory($directory)
+    private function processDirectory($directory) : array
     {
+        if (\is_object($directory)) {
+            $directory = (string) $directory;
+        }
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
         $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);

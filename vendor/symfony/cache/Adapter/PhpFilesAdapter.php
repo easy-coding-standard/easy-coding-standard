@@ -38,8 +38,11 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      *
      * @throws CacheException if OPcache is not enabled
      */
-    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $appendOnly = \false)
+    public function __construct($namespace = '', int $defaultLifetime = 0, string $directory = null, bool $appendOnly = \false)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $this->appendOnly = $appendOnly;
         self::$startTime = self::$startTime !== null ? self::$startTime : (isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : \time());
         parent::__construct('', $defaultLifetime);
@@ -152,6 +155,9 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doHave($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if ($this->appendOnly && isset($this->values[$id])) {
             return \true;
         }
@@ -243,6 +249,9 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doClear($namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $this->values = [];
         return $this->doCommonClear($namespace);
     }
@@ -266,10 +275,12 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     }
     /**
      * @param string $file
-     * @return string
      */
-    private function getFileKey($file)
+    private function getFileKey($file) : string
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!($h = @\fopen($file, 'r'))) {
             return '';
         }

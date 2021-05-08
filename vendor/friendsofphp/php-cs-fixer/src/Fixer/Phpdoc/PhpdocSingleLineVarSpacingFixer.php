@@ -72,10 +72,12 @@ final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param string $content
-     * @return string
      */
-    private function fixTokenContent($content)
+    private function fixTokenContent($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \PhpCsFixer\Preg::replaceCallback('#^/\\*\\*\\h*@var\\h+(\\S+)\\h*(\\$\\S+)?\\h*([^\\n]*)\\*/$#', static function (array $matches) {
             $content = '/** @var';
             for ($i = 1, $m = \count($matches); $i < $m; ++$i) {

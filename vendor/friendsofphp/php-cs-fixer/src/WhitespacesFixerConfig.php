@@ -20,10 +20,12 @@ final class WhitespacesFixerConfig
     private $lineEnding;
     /**
      * @param string $indent
-     * @param string $lineEnding
      */
-    public function __construct($indent = '    ', $lineEnding = "\n")
+    public function __construct($indent = '    ', string $lineEnding = "\n")
     {
+        if (\is_object($indent)) {
+            $indent = (string) $indent;
+        }
         if (!\in_array($indent, ['  ', '    ', "\t"], \true)) {
             throw new \InvalidArgumentException('Invalid "indent" param, expected tab or two or four spaces.');
         }

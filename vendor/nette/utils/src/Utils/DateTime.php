@@ -69,6 +69,9 @@ class DateTime extends \DateTime implements \JsonSerializable
      */
     public static function createFromFormat($format, $time, $timezone = null)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         if ($timezone === null) {
             $timezone = new \DateTimeZone(\date_default_timezone_get());
         } elseif (\is_string($timezone)) {
@@ -102,6 +105,9 @@ class DateTime extends \DateTime implements \JsonSerializable
      */
     public function modifyClone($modify = '')
     {
+        if (\is_object($modify)) {
+            $modify = (string) $modify;
+        }
         $dolly = clone $this;
         return $modify ? $dolly->modify($modify) : $dolly;
     }

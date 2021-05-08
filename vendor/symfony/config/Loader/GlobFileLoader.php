@@ -19,10 +19,13 @@ class GlobFileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Loader\
 {
     /**
      * {@inheritdoc}
-     * @param string|null $type
+     * @param string $type
      */
     public function load($resource, $type = null)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         return $this->import($resource);
     }
     /**

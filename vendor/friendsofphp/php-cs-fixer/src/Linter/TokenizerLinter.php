@@ -40,19 +40,23 @@ final class TokenizerLinter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * {@inheritdoc}
      * @param string $path
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintFile($path)
+    public function lintFile($path) : \PhpCsFixer\Linter\LintingResultInterface
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         return $this->lintSource(\PhpCsFixer\FileReader::createSingleton()->read($path));
     }
     /**
      * {@inheritdoc}
      * @param string $source
-     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintSource($source)
+    public function lintSource($source) : \PhpCsFixer\Linter\LintingResultInterface
     {
+        if (\is_object($source)) {
+            $source = (string) $source;
+        }
         try {
             // To lint, we will parse the source into Tokens.
             // During that process, it might throw a ParseError or CompileError.

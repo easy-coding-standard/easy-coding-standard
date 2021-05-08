@@ -57,6 +57,9 @@ if (\class_exists('PHP_CodeSniffer\\Autoload', \false) === \false) {
          */
         public static function load($class)
         {
+            if (\is_object($class)) {
+                $class = (string) $class;
+            }
             // Include the composer autoloader if there is one, but re-register it
             // so this autoloader runs before the composer one as we need to include
             // all files so we can figure out what the class/interface/trait name is.
@@ -130,6 +133,9 @@ if (\class_exists('PHP_CodeSniffer\\Autoload', \false) === \false) {
          */
         public static function loadFile($path)
         {
+            if (\is_object($path)) {
+                $path = (string) $path;
+            }
             if (\strpos(__DIR__, 'phar://') !== 0) {
                 $path = \realpath($path);
                 if ($path === \false) {
@@ -207,6 +213,9 @@ if (\class_exists('PHP_CodeSniffer\\Autoload', \false) === \false) {
          */
         public static function addSearchPath($path, $nsPrefix = '')
         {
+            if (\is_object($path)) {
+                $path = (string) $path;
+            }
             self::$searchPaths[$path] = \rtrim(\trim((string) $nsPrefix), '\\');
         }
         //end addSearchPath()
@@ -230,6 +239,9 @@ if (\class_exists('PHP_CodeSniffer\\Autoload', \false) === \false) {
          */
         public static function getLoadedClassName($path)
         {
+            if (\is_object($path)) {
+                $path = (string) $path;
+            }
             if (isset(self::$loadedClasses[$path]) === \false) {
                 throw new \Exception("Cannot get class name for {$path}; file has not been included");
             }
@@ -246,6 +258,9 @@ if (\class_exists('PHP_CodeSniffer\\Autoload', \false) === \false) {
          */
         public static function getLoadedFileName($class)
         {
+            if (\is_object($class)) {
+                $class = (string) $class;
+            }
             if (isset(self::$loadedFiles[$class]) === \false) {
                 throw new \Exception("Cannot get file name for {$class}; class has not been included");
             }

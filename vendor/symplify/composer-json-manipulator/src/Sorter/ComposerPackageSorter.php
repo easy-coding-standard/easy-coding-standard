@@ -43,10 +43,12 @@ final class ComposerPackageSorter
     }
     /**
      * @param string $requirementName
-     * @return string
      */
-    private function createNameWithPriority($requirementName)
+    private function createNameWithPriority($requirementName) : string
     {
+        if (\is_object($requirementName)) {
+            $requirementName = (string) $requirementName;
+        }
         if ($this->isPlatformPackage($requirementName)) {
             return \ECSPrefix20210508\Nette\Utils\Strings::replace($requirementName, self::REQUIREMENT_TYPE_REGEX, function (array $match) : string {
                 $name = $match['name'];
@@ -69,10 +71,12 @@ final class ComposerPackageSorter
     }
     /**
      * @param string $name
-     * @return bool
      */
-    private function isPlatformPackage($name)
+    private function isPlatformPackage($name) : bool
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return (bool) \ECSPrefix20210508\Nette\Utils\Strings::match($name, self::PLATFORM_PACKAGE_REGEX);
     }
 }

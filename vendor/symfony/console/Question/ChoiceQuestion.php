@@ -29,6 +29,9 @@ class ChoiceQuestion extends \ECSPrefix20210508\Symfony\Component\Console\Questi
      */
     public function __construct($question, array $choices, $default = null)
     {
+        if (\is_object($question)) {
+            $question = (string) $question;
+        }
         if (!$choices) {
             throw new \LogicException('Choice question must have at least 1 choice available.');
         }
@@ -86,6 +89,9 @@ class ChoiceQuestion extends \ECSPrefix20210508\Symfony\Component\Console\Questi
      */
     public function setPrompt($prompt)
     {
+        if (\is_object($prompt)) {
+            $prompt = (string) $prompt;
+        }
         $this->prompt = $prompt;
         return $this;
     }
@@ -99,6 +105,9 @@ class ChoiceQuestion extends \ECSPrefix20210508\Symfony\Component\Console\Questi
      */
     public function setErrorMessage($errorMessage)
     {
+        if (\is_object($errorMessage)) {
+            $errorMessage = (string) $errorMessage;
+        }
         $this->errorMessage = $errorMessage;
         $this->setValidator($this->getDefaultValidator());
         return $this;

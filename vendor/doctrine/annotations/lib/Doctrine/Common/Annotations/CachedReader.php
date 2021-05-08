@@ -57,6 +57,9 @@ final class CachedReader implements \ECSPrefix20210508\Doctrine\Common\Annotatio
      */
     public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         foreach ($this->getClassAnnotations($class) as $annot) {
             if ($annot instanceof $annotationName) {
                 return $annot;
@@ -86,6 +89,9 @@ final class CachedReader implements \ECSPrefix20210508\Doctrine\Common\Annotatio
      */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         foreach ($this->getPropertyAnnotations($property) as $annot) {
             if ($annot instanceof $annotationName) {
                 return $annot;
@@ -115,6 +121,9 @@ final class CachedReader implements \ECSPrefix20210508\Doctrine\Common\Annotatio
      */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         foreach ($this->getMethodAnnotations($method) as $annot) {
             if ($annot instanceof $annotationName) {
                 return $annot;
@@ -141,6 +150,9 @@ final class CachedReader implements \ECSPrefix20210508\Doctrine\Common\Annotatio
      */
     private function fetchFromCache($cacheKey, \ReflectionClass $class)
     {
+        if (\is_object($cacheKey)) {
+            $cacheKey = (string) $cacheKey;
+        }
         $data = $this->cache->fetch($cacheKey);
         if ($data !== \false) {
             if (!$this->debug || $this->isCacheFresh($cacheKey, $class)) {
@@ -159,6 +171,9 @@ final class CachedReader implements \ECSPrefix20210508\Doctrine\Common\Annotatio
      */
     private function saveToCache($cacheKey, $value)
     {
+        if (\is_object($cacheKey)) {
+            $cacheKey = (string) $cacheKey;
+        }
         $this->cache->save($cacheKey, $value);
         if (!$this->debug) {
             return;
@@ -174,6 +189,9 @@ final class CachedReader implements \ECSPrefix20210508\Doctrine\Common\Annotatio
      */
     private function isCacheFresh($cacheKey, \ReflectionClass $class)
     {
+        if (\is_object($cacheKey)) {
+            $cacheKey = (string) $cacheKey;
+        }
         $lastModification = $this->getLastModification($class);
         if ($lastModification === 0) {
             return \true;

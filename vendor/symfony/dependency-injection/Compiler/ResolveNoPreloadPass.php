@@ -28,6 +28,9 @@ class ResolveNoPreloadPass extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public function __construct($tagName = 'container.no_preload')
     {
+        if (\is_object($tagName)) {
+            $tagName = (string) $tagName;
+        }
         $this->tagName = $tagName;
     }
     /**

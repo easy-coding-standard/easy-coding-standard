@@ -56,6 +56,9 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setTheme($themeName)
     {
+        if (\is_object($themeName)) {
+            $themeName = (string) $themeName;
+        }
         if (!isset(static::$themes[$themeName])) {
             throw new \InvalidArgumentException(\sprintf('Theme "%s" does not exist in class "%s".', $themeName, static::class));
         }
@@ -78,6 +81,9 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setDumpHeader($header)
     {
+        if (\is_object($header)) {
+            $header = (string) $header;
+        }
         $this->dumpHeader = $header;
     }
     /**
@@ -88,14 +94,16 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setDumpBoundaries($prefix, $suffix)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $this->dumpPrefix = $prefix;
         $this->dumpSuffix = $suffix;
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $extraDisplayOptions
      */
-    public function dump(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, $extraDisplayOptions = [])
+    public function dump(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, array $extraDisplayOptions = [])
     {
         $this->extraDisplayOptions = $extraDisplayOptions;
         $result = parent::dump($data, $output);
@@ -739,11 +747,12 @@ EOHTML
     /**
      * {@inheritdoc}
      * @param string $str
-     * @param bool $bin
-     * @param int $cut
      */
-    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut)
+    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, bool $bin, int $cut)
     {
+        if (\is_object($str)) {
+            $str = (string) $str;
+        }
         if ('' === $str && isset($cursor->attr['img-data'], $cursor->attr['content-type'])) {
             $this->dumpKey($cursor);
             $this->line .= $this->style('default', isset($cursor->attr['img-size']) ? $cursor->attr['img-size'] : '', []);
@@ -804,6 +813,9 @@ EOHTML
      */
     protected function style($style, $value, $attr = [])
     {
+        if (\is_object($style)) {
+            $style = (string) $style;
+        }
         if ('' === $value) {
             return '';
         }
@@ -880,8 +892,8 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param bool $endOfValue
      * @param int $depth
+     * @param bool $endOfValue
      */
     protected function dumpLine($depth, $endOfValue = \false)
     {
@@ -908,10 +920,12 @@ EOHTML
     }
     /**
      * @param string $file
-     * @param int $line
      */
-    private function getSourceLink($file, $line)
+    private function getSourceLink($file, int $line)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $options = $this->extraDisplayOptions + $this->displayOptions;
         if ($fmt = $options['fileLinkFormat']) {
             return \is_string($fmt) ? \strtr($fmt, ['%f' => $file, '%l' => $line]) : $fmt->format($file, $line);

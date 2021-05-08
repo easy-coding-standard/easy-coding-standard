@@ -154,7 +154,6 @@ abstract class Output implements \ECSPrefix20210508\Symfony\Component\Console\Ou
     /**
      * Writes a message to the output.
      * @param string $message
-     * @param bool $newline
      */
-    protected abstract function doWrite($message, $newline);
+    protected abstract function doWrite($message, bool $newline);
 }

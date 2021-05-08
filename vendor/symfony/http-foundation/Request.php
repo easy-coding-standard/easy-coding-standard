@@ -278,8 +278,11 @@ class Request
      *
      * @return static
      */
-    public static function create($uri, $method = 'GET', array $parameters = [], array $cookies = [], array $files = [], array $server = [], $content = null)
+    public static function create($uri, string $method = 'GET', array $parameters = [], array $cookies = [], array $files = [], array $server = [], $content = null)
     {
+        if (\is_object($uri)) {
+            $uri = (string) $uri;
+        }
         $server = \array_replace(['SERVER_NAME' => 'localhost', 'SERVER_PORT' => 80, 'HTTP_HOST' => 'localhost', 'HTTP_USER_AGENT' => 'Symfony', 'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'HTTP_ACCEPT_LANGUAGE' => 'en-us,en;q=0.5', 'HTTP_ACCEPT_CHARSET' => 'ISO-8859-1,utf-8;q=0.7,*;q=0.7', 'REMOTE_ADDR' => '127.0.0.1', 'SCRIPT_NAME' => '', 'SCRIPT_FILENAME' => '', 'SERVER_PROTOCOL' => 'HTTP/1.1', 'REQUEST_TIME' => \time(), 'REQUEST_TIME_FLOAT' => \microtime(\true)], $server);
         $server['PATH_INFO'] = '';
         $server['REQUEST_METHOD'] = \strtoupper($method);
@@ -548,6 +551,9 @@ class Request
      */
     public static function normalizeQueryString($qs)
     {
+        if (\is_object($qs)) {
+            $qs = (string) $qs;
+        }
         if ('' === (isset($qs) ? $qs : '')) {
             return '';
         }
@@ -595,6 +601,9 @@ class Request
      */
     public function get($key, $default = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if ($this !== ($result = $this->attributes->get($key, $this))) {
             return $result;
         }
@@ -915,6 +924,9 @@ class Request
      */
     public function getUriForPath($path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         return $this->getSchemeAndHttpHost() . $this->getBaseUrl() . $path;
     }
     /**
@@ -937,6 +949,9 @@ class Request
      */
     public function getRelativeUriForPath($path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         // be sure that we are dealing with an absolute path
         if (!isset($path[0]) || '/' !== $path[0]) {
             return $path;
@@ -1053,6 +1068,9 @@ class Request
      */
     public function setMethod($method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         $this->method = null;
         $this->server->set('REQUEST_METHOD', $method);
     }
@@ -1115,6 +1133,9 @@ class Request
      */
     public function getMimeType($format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         if (null === static::$formats) {
             static::initializeFormats();
         }
@@ -1128,6 +1149,9 @@ class Request
      */
     public static function getMimeTypes($format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         if (null === static::$formats) {
             static::initializeFormats();
         }
@@ -1215,6 +1239,9 @@ class Request
      */
     public function setDefaultLocale($locale)
     {
+        if (\is_object($locale)) {
+            $locale = (string) $locale;
+        }
         $this->defaultLocale = $locale;
         if (null === $this->locale) {
             $this->setPhpDefaultLocale($locale);
@@ -1235,6 +1262,9 @@ class Request
      */
     public function setLocale($locale)
     {
+        if (\is_object($locale)) {
+            $locale = (string) $locale;
+        }
         $this->setPhpDefaultLocale($this->locale = $locale);
     }
     /**
@@ -1255,6 +1285,9 @@ class Request
      */
     public function isMethod($method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         return $this->getMethod() === \strtoupper($method);
     }
     /**
@@ -1708,6 +1741,9 @@ class Request
      */
     private function setPhpDefaultLocale($locale)
     {
+        if (\is_object($locale)) {
+            $locale = (string) $locale;
+        }
         // if either the class Locale doesn't exist, or an exception is thrown when
         // setting the default locale, the intl module is not installed, and
         // the call can be ignored:
@@ -1723,10 +1759,12 @@ class Request
      * the given prefix, null otherwise.
      * @return string|null
      * @param string $string
-     * @param string $prefix
      */
-    private function getUrlencodedPrefix($string, $prefix)
+    private function getUrlencodedPrefix($string, string $prefix)
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         if (0 !== \strpos(\rawurldecode($string), $prefix)) {
             return null;
         }
@@ -1812,10 +1850,12 @@ class Request
     }
     /**
      * @param string $ip
-     * @return mixed[]
      */
-    private function normalizeAndFilterClientIps(array $clientIps, $ip)
+    private function normalizeAndFilterClientIps(array $clientIps, $ip) : array
     {
+        if (\is_object($ip)) {
+            $ip = (string) $ip;
+        }
         if (!$clientIps) {
             return [];
         }

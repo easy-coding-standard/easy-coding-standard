@@ -25,6 +25,9 @@ class ChildDefinition extends \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function __construct($parent)
     {
+        if (\is_object($parent)) {
+            $parent = (string) $parent;
+        }
         $this->parent = $parent;
     }
     /**
@@ -45,6 +48,9 @@ class ChildDefinition extends \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function setParent($parent)
     {
+        if (\is_object($parent)) {
+            $parent = (string) $parent;
+        }
         $this->parent = $parent;
         return $this;
     }

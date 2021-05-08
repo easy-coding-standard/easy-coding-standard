@@ -47,10 +47,12 @@ final class WhitespacesFixerConfigFactory
     }
     /**
      * @param string $indentation
-     * @return bool
      */
-    private function isOneTab($indentation)
+    private function isOneTab($indentation) : bool
     {
+        if (\is_object($indentation)) {
+            $indentation = (string) $indentation;
+        }
         if ($indentation === 'tab') {
             return \true;
         }
@@ -58,10 +60,12 @@ final class WhitespacesFixerConfigFactory
     }
     /**
      * @param string $indentation
-     * @return bool
      */
-    private function isFourSpaces($indentation)
+    private function isFourSpaces($indentation) : bool
     {
+        if (\is_object($indentation)) {
+            $indentation = (string) $indentation;
+        }
         if ($indentation === 'spaces') {
             return \true;
         }

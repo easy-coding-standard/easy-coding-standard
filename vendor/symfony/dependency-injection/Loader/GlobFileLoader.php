@@ -19,10 +19,13 @@ class GlobFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
 {
     /**
      * {@inheritdoc}
-     * @param string|null $type
+     * @param string $type
      */
     public function load($resource, $type = null)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         foreach ($this->glob($resource, \false, $globResource) as $path => $info) {
             $this->import($path);
         }

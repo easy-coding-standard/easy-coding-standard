@@ -52,6 +52,9 @@ class HelperSet implements \IteratorAggregate
      */
     public function has($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->helpers[$name]);
     }
     /**
@@ -64,6 +67,9 @@ class HelperSet implements \IteratorAggregate
      */
     public function get($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->has($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
         }

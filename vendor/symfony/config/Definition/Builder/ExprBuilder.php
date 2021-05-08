@@ -179,6 +179,9 @@ class ExprBuilder
      */
     public function thenInvalid($message)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->thenPart = function ($v) use($message) {
             throw new \InvalidArgumentException(\sprintf($message, \json_encode($v)));
         };

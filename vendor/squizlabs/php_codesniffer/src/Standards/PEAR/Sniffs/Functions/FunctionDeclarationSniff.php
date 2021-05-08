@@ -335,6 +335,9 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processArgumentList($phpcsFile, $stackPtr, $indent, $type = 'function')
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $tokens = $phpcsFile->getTokens();
         // We need to work out how far indented the function
         // declaration itself is, so we can work out how far to

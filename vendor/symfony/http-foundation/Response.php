@@ -405,6 +405,9 @@ class Response
      */
     public function setContent($content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->content = isset($content) ? $content : '';
         return $this;
     }
@@ -427,6 +430,9 @@ class Response
      */
     public function setProtocolVersion($version)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         $this->version = $version;
         return $this;
     }
@@ -490,6 +496,9 @@ class Response
      */
     public function setCharset($charset)
     {
+        if (\is_object($charset)) {
+            $charset = (string) $charset;
+        }
         $this->charset = $charset;
         return $this;
     }

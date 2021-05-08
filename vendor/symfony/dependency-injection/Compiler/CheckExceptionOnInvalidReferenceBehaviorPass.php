@@ -79,10 +79,12 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210508\Sy
     }
     /**
      * @param string $id
-     * @return mixed[]
      */
-    private function getAlternatives($id)
+    private function getAlternatives($id) : array
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $alternatives = [];
         foreach ($this->container->getServiceIds() as $knownId) {
             if ('' === $knownId || '.' === $knownId[0]) {

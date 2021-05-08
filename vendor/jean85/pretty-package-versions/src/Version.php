@@ -17,10 +17,12 @@ class Version
     /**
      * @param string|null $reference
      * @param string $packageName
-     * @param string $prettyVersion
      */
-    public function __construct($packageName, $prettyVersion, $reference = null)
+    public function __construct($packageName, string $prettyVersion, $reference = null)
     {
+        if (\is_object($packageName)) {
+            $packageName = (string) $packageName;
+        }
         $this->packageName = $packageName;
         $this->prettyVersion = $prettyVersion;
         $this->reference = isset($reference) ? $reference : self::NO_REFERENCE_TEXT;

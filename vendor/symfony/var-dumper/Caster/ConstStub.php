@@ -23,6 +23,9 @@ class ConstStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\St
      */
     public function __construct($name, $value = null)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->class = $name;
         $this->value = 1 < \func_num_args() ? $value : $name;
     }

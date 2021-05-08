@@ -53,10 +53,12 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
-     * @return string
      */
-    private function addService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
+    private function addService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition) : string
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $code = "    {$id}:\n";
         if ($class = $definition->getClass()) {
             if ('\\' === \substr($class, 0, 1)) {
@@ -144,10 +146,12 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $alias
-     * @return string
      */
-    private function addServiceAlias($alias, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias $id)
+    private function addServiceAlias($alias, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias $id) : string
     {
+        if (\is_object($alias)) {
+            $alias = (string) $alias;
+        }
         $deprecated = '';
         if ($id->isDeprecated()) {
             $deprecated = "        deprecated:\n";
@@ -275,10 +279,12 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
-     * @return string
      */
-    private function getServiceCall($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference $reference = null)
+    private function getServiceCall($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference $reference = null) : string
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (null !== $reference) {
             switch ($reference->getInvalidBehavior()) {
                 case \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE:
@@ -295,18 +301,22 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
-     * @return string
      */
-    private function getParameterCall($id)
+    private function getParameterCall($id) : string
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return \sprintf('%%%s%%', $id);
     }
     /**
      * @param string $expression
-     * @return string
      */
-    private function getExpressionCall($expression)
+    private function getExpressionCall($expression) : string
     {
+        if (\is_object($expression)) {
+            $expression = (string) $expression;
+        }
         return \sprintf('@=%s', $expression);
     }
     /**

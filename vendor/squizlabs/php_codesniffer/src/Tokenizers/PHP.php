@@ -58,6 +58,9 @@ class PHP extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     protected function tokenize($string)
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** START PHP TOKENIZING ***" . \PHP_EOL;
             $isWin = \false;
@@ -1944,6 +1947,9 @@ class PHP extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     public static function resolveSimpleToken($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         $newToken = [];
         switch ($token) {
             case '{':
@@ -2048,6 +2054,9 @@ class PHP extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     private function findCloser(array &$tokens, $start, $openerTokens, $closerChar)
     {
+        if (\is_object($closerChar)) {
+            $closerChar = (string) $closerChar;
+        }
         $numTokens = \count($tokens);
         $stack = [0];
         $closer = null;

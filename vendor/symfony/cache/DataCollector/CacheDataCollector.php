@@ -33,13 +33,15 @@ class CacheDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public function addInstance($name, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\TraceableAdapter $instance)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->instances[$name] = $instance;
     }
     /**
      * {@inheritdoc}
-     * @param \Throwable|null $exception
      */
-    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $empty = ['calls' => [], 'config' => [], 'options' => [], 'statistics' => []];
         $this->data = ['instances' => $empty, 'total' => $empty];

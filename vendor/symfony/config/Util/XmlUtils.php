@@ -43,6 +43,9 @@ class XmlUtils
      */
     public static function parse($content, $schemaOrCallable = null)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if (!\extension_loaded('dom')) {
             throw new \LogicException('Extension DOM is required.');
         }
@@ -112,6 +115,9 @@ class XmlUtils
      */
     public static function loadFile($file, $schemaOrCallable = null)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!\is_file($file)) {
             throw new \InvalidArgumentException(\sprintf('Resource "%s" is not a file.', $file));
         }

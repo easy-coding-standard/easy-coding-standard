@@ -13,10 +13,12 @@ final class Reflection
     /**
      * Determines if type is PHP built-in type. Otherwise, it is the class name.
      * @param string $type
-     * @return bool
      */
-    public static function isBuiltinType($type)
+    public static function isBuiltinType($type) : bool
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         return isset(self::BUILTIN_TYPES[\strtolower($type)]);
     }
     /**
@@ -105,10 +107,12 @@ final class Reflection
     /**
      * @param  \ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
      * @param string $type
-     * @return string
      */
-    private static function normalizeType($type, $reflection)
+    private static function normalizeType($type, $reflection) : string
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $lower = \strtolower($type);
         if ($reflection instanceof \ReflectionFunction) {
             return $type;
@@ -219,10 +223,12 @@ final class Reflection
      * Thus, it returns how the PHP parser would understand $name if it were written in the body of the class $context.
      * @throws Nette\InvalidArgumentException
      * @param string $name
-     * @return string
      */
-    public static function expandClassName($name, \ReflectionClass $context)
+    public static function expandClassName($name, \ReflectionClass $context) : string
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $lower = \strtolower($name);
         if (empty($name)) {
             throw new \ECSPrefix20210508\Nette\InvalidArgumentException('Class name must not be empty.');
@@ -265,11 +271,12 @@ final class Reflection
     /**
      * Parses PHP code to [class => [alias => class, ...]]
      * @param string $code
-     * @param string $forClass
-     * @return mixed[]
      */
-    private static function parseUseStatements($code, $forClass = null)
+    private static function parseUseStatements($code, string $forClass = null) : array
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         try {
             $tokens = \token_get_all($code, \TOKEN_PARSE);
         } catch (\ParseError $e) {

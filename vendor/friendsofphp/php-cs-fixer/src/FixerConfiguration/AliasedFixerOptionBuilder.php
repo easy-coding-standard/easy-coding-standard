@@ -31,6 +31,9 @@ final class AliasedFixerOptionBuilder
      */
     public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionBuilder $optionBuilder, $alias)
     {
+        if (\is_object($alias)) {
+            $alias = (string) $alias;
+        }
         $this->optionBuilder = $optionBuilder;
         $this->alias = $alias;
     }

@@ -25,6 +25,9 @@ class FlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Se
      */
     public function __construct($storageKey = '_symfony_flashes')
     {
+        if (\is_object($storageKey)) {
+            $storageKey = (string) $storageKey;
+        }
         $this->storageKey = $storageKey;
     }
     /**
@@ -39,6 +42,9 @@ class FlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Se
      */
     public function setName($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->name = $name;
     }
     /**
@@ -54,6 +60,9 @@ class FlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Se
      */
     public function add($type, $message)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $this->flashes[$type][] = $message;
     }
     /**
@@ -62,6 +71,9 @@ class FlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Se
      */
     public function peek($type, array $default = [])
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         return $this->has($type) ? $this->flashes[$type] : $default;
     }
     /**
@@ -77,6 +89,9 @@ class FlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Se
      */
     public function get($type, array $default = [])
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if (!$this->has($type)) {
             return $default;
         }
@@ -99,6 +114,9 @@ class FlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Se
      */
     public function set($type, $messages)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $this->flashes[$type] = (array) $messages;
     }
     /**
@@ -114,6 +132,9 @@ class FlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Se
      */
     public function has($type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         return \array_key_exists($type, $this->flashes) && $this->flashes[$type];
     }
     /**

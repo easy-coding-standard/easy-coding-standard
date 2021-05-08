@@ -64,11 +64,12 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     /**
      * {@inheritdoc}
      * @param string $versionA
-     * @param string $versionB
-     * @return int
      */
-    public function compareVersions($versionA, $versionB)
+    public function compareVersions($versionA, string $versionB) : int
     {
+        if (\is_object($versionA)) {
+            $versionA = (string) $versionA;
+        }
         $versionA = $this->versionParser->normalize($versionA);
         $versionB = $this->versionParser->normalize($versionB);
         if (\ECSPrefix20210508\Composer\Semver\Comparator::lessThan($versionA, $versionB)) {

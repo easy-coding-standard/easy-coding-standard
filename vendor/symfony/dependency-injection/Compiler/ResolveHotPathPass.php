@@ -28,6 +28,9 @@ class ResolveHotPathPass extends \ECSPrefix20210508\Symfony\Component\Dependency
      */
     public function __construct($tagName = 'container.hot_path')
     {
+        if (\is_object($tagName)) {
+            $tagName = (string) $tagName;
+        }
         $this->tagName = $tagName;
     }
     /**

@@ -28,11 +28,12 @@ class FileLocator extends \ECSPrefix20210508\Symfony\Component\Config\FileLocato
     /**
      * {@inheritdoc}
      * @param string $file
-     * @param string|null $currentPath
-     * @param bool $first
      */
-    public function locate($file, $currentPath = null, $first = \true)
+    public function locate($file, string $currentPath = null, bool $first = \true)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (isset($file[0]) && '@' === $file[0]) {
             $resource = $this->kernel->locateResource($file);
             return $first ? $resource : [$resource];

@@ -58,11 +58,12 @@ final class StaticFixtureSplitter
     }
     /**
      * @param string $prefix
-     * @param string $fileContent
-     * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
-    public static function createTemporaryFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, $prefix, $fileContent)
+    public static function createTemporaryFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, $prefix, string $fileContent) : \Symplify\SmartFileSystem\SmartFileInfo
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $temporaryFilePath = self::createTemporaryPathWithPrefix($fixtureSmartFileInfo, $prefix);
         $smartFileSystem = new \Symplify\SmartFileSystem\SmartFileSystem();
         $smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
@@ -84,10 +85,12 @@ final class StaticFixtureSplitter
     }
     /**
      * @param string $prefix
-     * @return string
      */
-    private static function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $prefix)
+    private static function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $prefix) : string
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $hash = \ECSPrefix20210508\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
         $fileBaseName = $smartFileInfo->getBasename('.inc');
         return self::getTemporaryPath() . \sprintf('/%s_%s_%s', $prefix, $hash, $fileBaseName);

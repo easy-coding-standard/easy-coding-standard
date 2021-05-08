@@ -149,6 +149,9 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20210508\Symfony\Component\
      */
     private function getDefinitionId($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         while (isset($this->aliases[$id])) {
             $id = (string) $this->aliases[$id];
         }

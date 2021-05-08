@@ -93,10 +93,12 @@ class HeaderBag implements \IteratorAggregate, \Countable
      *
      * @return string|null The first header value or default value
      * @param string $key
-     * @param string $default
      */
-    public function get($key, $default = null)
+    public function get($key, string $default = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $headers = $this->all($key);
         if (!$headers) {
             return $default;
@@ -113,8 +115,11 @@ class HeaderBag implements \IteratorAggregate, \Countable
      * @param bool            $replace Whether to replace the actual value or not (true by default)
      * @param string $key
      */
-    public function set($key, $values, $replace = \true)
+    public function set($key, $values, bool $replace = \true)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $key = \strtr($key, self::UPPER, self::LOWER);
         if (\is_array($values)) {
             $values = \array_values($values);
@@ -142,6 +147,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function has($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \array_key_exists(\strtr($key, self::UPPER, self::LOWER), $this->all());
     }
     /**
@@ -149,10 +157,12 @@ class HeaderBag implements \IteratorAggregate, \Countable
      *
      * @return bool true if the value is contained in the header, false otherwise
      * @param string $key
-     * @param string $value
      */
-    public function contains($key, $value)
+    public function contains($key, string $value)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \in_array($value, $this->all($key));
     }
     /**
@@ -161,6 +171,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function remove($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $key = \strtr($key, self::UPPER, self::LOWER);
         unset($this->headers[$key]);
         if ('cache-control' === $key) {
@@ -177,6 +190,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function getDate($key, \DateTime $default = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (null === ($value = $this->get($key))) {
             return $default;
         }
@@ -193,6 +209,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function addCacheControlDirective($key, $value = \true)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $this->cacheControl[$key] = $value;
         $this->set('Cache-Control', $this->getCacheControlHeader());
     }
@@ -204,6 +223,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function hasCacheControlDirective($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \array_key_exists($key, $this->cacheControl);
     }
     /**
@@ -214,6 +236,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function getCacheControlDirective($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return \array_key_exists($key, $this->cacheControl) ? $this->cacheControl[$key] : null;
     }
     /**
@@ -222,6 +247,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     public function removeCacheControlDirective($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         unset($this->cacheControl[$key]);
         $this->set('Cache-Control', $this->getCacheControlHeader());
     }
@@ -256,6 +284,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      */
     protected function parseCacheControl($header)
     {
+        if (\is_object($header)) {
+            $header = (string) $header;
+        }
         $parts = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::split($header, ',=');
         return \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts);
     }

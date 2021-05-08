@@ -134,6 +134,9 @@ class ArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\Definition\B
      */
     public function setName($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->name = $name;
     }
     /**

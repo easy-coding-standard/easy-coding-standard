@@ -28,6 +28,9 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
      */
     public function __construct($content, \PHP_CodeSniffer\Config $config, $eolChar = '\\n')
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if ($this->isMinifiedContent($content, $eolChar) === \true) {
             throw new \PHP_CodeSniffer\Exceptions\TokenizerException('File appears to be minified and cannot be processed');
         }
@@ -45,6 +48,9 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
      */
     public function tokenize($string)
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** START CSS TOKENIZING 1ST PASS ***" . \PHP_EOL;
         }

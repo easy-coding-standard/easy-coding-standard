@@ -20,6 +20,9 @@ final class ResponseHasHeader extends \ECSPrefix20210508\PHPUnit\Framework\Const
      */
     public function __construct($headerName)
     {
+        if (\is_object($headerName)) {
+            $headerName = (string) $headerName;
+        }
         $this->headerName = $headerName;
     }
     /**

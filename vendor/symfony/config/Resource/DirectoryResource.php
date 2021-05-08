@@ -23,12 +23,15 @@ class DirectoryResource implements \ECSPrefix20210508\Symfony\Component\Config\R
     private $pattern;
     /**
      * @param string      $resource The file path to the resource
-     * @param string $pattern A pattern to restrict monitored files
+     * @param string|null $pattern  A pattern to restrict monitored files
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($resource, $pattern = null)
+    public function __construct($resource, string $pattern = null)
     {
+        if (\is_object($resource)) {
+            $resource = (string) $resource;
+        }
         $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         $this->pattern = $pattern;
         if (\false === $this->resource || !\is_dir($this->resource)) {

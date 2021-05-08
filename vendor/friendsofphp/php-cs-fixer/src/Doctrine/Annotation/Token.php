@@ -33,6 +33,9 @@ final class Token
      */
     public function __construct($type = \ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE, $content = '')
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->type = $type;
         $this->content = $content;
     }
@@ -64,6 +67,9 @@ final class Token
      */
     public function setContent($content)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $this->content = $content;
     }
     /**

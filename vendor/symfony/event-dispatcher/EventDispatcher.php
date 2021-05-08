@@ -85,6 +85,9 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
      */
     public function getListenerPriority($eventName, $listener)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         if (empty($this->listeners[$eventName])) {
             return null;
         }
@@ -124,10 +127,12 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
     /**
      * {@inheritdoc}
      * @param string $eventName
-     * @param int $priority
      */
-    public function addListener($eventName, $listener, $priority = 0)
+    public function addListener($eventName, $listener, int $priority = 0)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         $this->listeners[$eventName][$priority][] = $listener;
         unset($this->sorted[$eventName], $this->optimized[$eventName]);
     }
@@ -137,6 +142,9 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
      */
     public function removeListener($eventName, $listener)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         if (empty($this->listeners[$eventName])) {
             return;
         }
@@ -203,6 +211,9 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
      */
     protected function callListeners($listeners, $eventName, $event)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         $stoppable = $event instanceof \ECSPrefix20210508\Psr\EventDispatcher\StoppableEventInterface;
         foreach ($listeners as $listener) {
             if ($stoppable && $event->isPropagationStopped()) {
@@ -217,6 +228,9 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
      */
     private function sortListeners($eventName)
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         \krsort($this->listeners[$eventName]);
         $this->sorted[$eventName] = [];
         foreach ($this->listeners[$eventName] as &$listeners) {
@@ -232,10 +246,12 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
     /**
      * Optimizes the internal list of listeners for the given event by priority.
      * @param string $eventName
-     * @return mixed[]
      */
-    private function optimizeListeners($eventName)
+    private function optimizeListeners($eventName) : array
     {
+        if (\is_object($eventName)) {
+            $eventName = (string) $eventName;
+        }
         \krsort($this->listeners[$eventName]);
         $this->optimized[$eventName] = [];
         foreach ($this->listeners[$eventName] as &$listeners) {

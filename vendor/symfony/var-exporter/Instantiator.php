@@ -57,6 +57,9 @@ final class Instantiator
      */
     public static function instantiate($class, array $properties = [], array $privateProperties = [])
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         $reflector = isset(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$reflectors[$class]) ? \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$reflectors[$class] : \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::getClassReflector($class);
         if (\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$cloneable[$class]) {
             $wrappedInstance = [clone \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$prototypes[$class]];

@@ -77,10 +77,12 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
     const END_OF_LIFE = '07/2021';
     /**
      * @param string $environment
-     * @param bool $debug
      */
-    public function __construct($environment, $debug)
+    public function __construct($environment, bool $debug)
     {
+        if (\is_object($environment)) {
+            $environment = (string) $environment;
+        }
         $this->environment = $environment;
         $this->debug = $debug;
     }
@@ -200,6 +202,9 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public function getBundle($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!isset($this->bundles[$name])) {
             throw new \InvalidArgumentException(\sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the "registerBundles()" method of your "%s.php" file?', $name, \get_debug_type($this)));
         }
@@ -211,6 +216,9 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public function locateResource($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if ('@' !== $name[0]) {
             throw new \InvalidArgumentException(\sprintf('A resource name must start with @ ("%s" given).', $name));
         }
@@ -596,8 +604,11 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      * @param string $class     The name of the class to generate
      * @param string $baseClass The name of the container's base class
      */
-    protected function dumpContainer(\ECSPrefix20210508\Symfony\Component\Config\ConfigCache $cache, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $class, $baseClass)
+    protected function dumpContainer(\ECSPrefix20210508\Symfony\Component\Config\ConfigCache $cache, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $class, string $baseClass)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         // cache the container
         $dumper = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
         if (\class_exists(\ECSPrefix20210508\ProxyManager\Configuration::class) && \class_exists(\ECSPrefix20210508\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper::class)) {
@@ -663,6 +674,9 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public static function stripComments($source)
     {
+        if (\is_object($source)) {
+            $source = (string) $source;
+        }
         if (!\function_exists('token_get_all')) {
             return $source;
         }

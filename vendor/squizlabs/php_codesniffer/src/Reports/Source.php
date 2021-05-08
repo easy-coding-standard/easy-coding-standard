@@ -70,6 +70,9 @@ class Source implements \PHP_CodeSniffer\Reports\Report
      */
     public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
     {
+        if (\is_object($cachedData)) {
+            $cachedData = (string) $cachedData;
+        }
         $lines = \explode(\PHP_EOL, $cachedData);
         \array_pop($lines);
         if (empty($lines) === \true) {
@@ -224,6 +227,9 @@ class Source implements \PHP_CodeSniffer\Reports\Report
      */
     public function makeFriendlyName($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\trim($name) === '') {
             return '';
         }

@@ -41,6 +41,9 @@ class Profile
      */
     public function __construct($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         $this->token = $token;
     }
     /**
@@ -48,6 +51,9 @@ class Profile
      */
     public function setToken($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         $this->token = $token;
     }
     /**
@@ -115,6 +121,9 @@ class Profile
      */
     public function setMethod($method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         $this->method = $method;
     }
     /**
@@ -200,6 +209,9 @@ class Profile
      */
     public function getChildByToken($token)
     {
+        if (\is_object($token)) {
+            $token = (string) $token;
+        }
         foreach ($this->children as $child) {
             if ($token === $child->getToken()) {
                 return $child;
@@ -217,6 +229,9 @@ class Profile
      */
     public function getCollector($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!isset($this->collectors[$name])) {
             throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));
         }
@@ -256,6 +271,9 @@ class Profile
      */
     public function hasCollector($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->collectors[$name]);
     }
     /**

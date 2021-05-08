@@ -30,6 +30,9 @@ class ParametersConfigurator extends \ECSPrefix20210508\Symfony\Component\Depend
      */
     public final function set($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->container->setParameter($name, static::processValue($value, \true));
         return $this;
     }
@@ -41,6 +44,9 @@ class ParametersConfigurator extends \ECSPrefix20210508\Symfony\Component\Depend
      */
     public final function __invoke($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->set($name, $value);
     }
 }

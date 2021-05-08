@@ -23,6 +23,9 @@ final class PharChecker implements \PhpCsFixer\PharCheckerInterface
      */
     public function checkFileValidity($filename)
     {
+        if (\is_object($filename)) {
+            $filename = (string) $filename;
+        }
         try {
             $phar = new \Phar($filename);
             // free the variable to unlock the file

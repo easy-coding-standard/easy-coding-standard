@@ -91,13 +91,12 @@ class GraphvizDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     /**
      * Finds all edges belonging to a specific service id.
      * @param string $id
-     * @param bool $required
-     * @param string $name
-     * @param bool $lazy
-     * @return mixed[]
      */
-    private function findEdges($id, array $arguments, $required, $name, $lazy = \false)
+    private function findEdges($id, array $arguments, bool $required, string $name, bool $lazy = \false) : array
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $edges = [];
         foreach ($arguments as $argument) {
             if ($argument instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Parameter) {
@@ -208,18 +207,22 @@ class GraphvizDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     }
     /**
      * @param string $id
-     * @return string
      */
-    private function dotize($id)
+    private function dotize($id) : string
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return \preg_replace('/\\W/i', '_', $id);
     }
     /**
      * @param string $id
-     * @return mixed[]
      */
-    private function getAliases($id)
+    private function getAliases($id) : array
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $aliases = [];
         foreach ($this->container->getAliases() as $alias => $origin) {
             if ($id == $origin) {

@@ -19,10 +19,12 @@ class Alias
     private static $defaultDeprecationTemplate = 'The "%alias_id%" service alias is deprecated. You should stop using it, as it will be removed in the future.';
     /**
      * @param string $id
-     * @param bool $public
      */
-    public function __construct($id, $public = \false)
+    public function __construct($id, bool $public = \false)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $this->id = $id;
         $this->public = $public;
     }
@@ -118,19 +120,23 @@ class Alias
     /**
      * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
      * @param string $id
-     * @return string
      */
-    public function getDeprecationMessage($id)
+    public function getDeprecationMessage($id) : string
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         trigger_deprecation('symfony/dependency-injection', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($id)['message'];
     }
     /**
      * @param string $id Service id relying on this definition
-     * @return mixed[]
      */
-    public function getDeprecation($id)
+    public function getDeprecation($id) : array
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \str_replace('%alias_id%', $id, $this->deprecation['message'])];
     }
     /**

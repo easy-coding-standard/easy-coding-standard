@@ -330,10 +330,12 @@ RST;
     }
     /**
      * @param string $name
-     * @return string
      */
-    public function getRuleSetsDocumentationFilePath($name)
+    public function getRuleSetsDocumentationFilePath($name) : string
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->getRuleSetsDocumentationDirectoryPath() . '/' . \str_replace(':risky', 'Risky', \ucfirst(\substr($name, 1))) . '.rst';
     }
     /**
@@ -355,10 +357,12 @@ RST;
     /**
      * @param int $sampleNumber
      * @param string $ruleName
-     * @return string
      */
-    private function generateSampleDiff(\PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\FixerDefinition\CodeSampleInterface $sample, $sampleNumber, $ruleName)
+    private function generateSampleDiff(\PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\FixerDefinition\CodeSampleInterface $sample, $sampleNumber, $ruleName) : string
     {
+        if (\is_object($ruleName)) {
+            $ruleName = (string) $ruleName;
+        }
         if ($sample instanceof \PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface && !$sample->isSuitableFor(\PHP_VERSION_ID)) {
             $existingFile = @\file_get_contents($this->getFixerDocumentationFilePath($fixer));
             if (\false !== $existingFile) {
@@ -400,11 +404,12 @@ RST;
     }
     /**
      * @param string $string
-     * @param int $indent
-     * @return string
      */
-    private function toRst($string, $indent = 0)
+    private function toRst($string, int $indent = 0) : string
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         $string = \wordwrap(\PhpCsFixer\Preg::replace('/(?<!`)(`.*?`)(?!`)/', '`$1`', $string), 80 - $indent);
         if (0 !== $indent) {
             $string = $this->indent($string, $indent);
@@ -413,11 +418,12 @@ RST;
     }
     /**
      * @param string $string
-     * @param int $indent
-     * @return string
      */
-    private function indent($string, $indent)
+    private function indent($string, int $indent) : string
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         return \PhpCsFixer\Preg::replace('/(\\n)(?!\\n|$)/', '$1' . \str_repeat(' ', $indent), $string);
     }
 }

@@ -30,10 +30,12 @@ class BufferedOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output
     /**
      * {@inheritdoc}
      * @param string $message
-     * @param bool $newline
      */
-    protected function doWrite($message, $newline)
+    protected function doWrite($message, bool $newline)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->buffer .= $message;
         if ($newline) {
             $this->buffer .= \PHP_EOL;

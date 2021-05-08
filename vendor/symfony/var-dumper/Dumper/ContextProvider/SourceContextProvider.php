@@ -100,10 +100,12 @@ final class SourceContextProvider implements \ECSPrefix20210508\Symfony\Componen
     }
     /**
      * @param string $s
-     * @return string
      */
-    private function htmlEncode($s)
+    private function htmlEncode($s) : string
     {
+        if (\is_object($s)) {
+            $s = (string) $s;
+        }
         $html = '';
         $dumper = new \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\HtmlDumper(function ($line) use(&$html) {
             $html .= $line;

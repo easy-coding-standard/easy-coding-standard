@@ -24,10 +24,12 @@ final class ParameterProvider
     }
     /**
      * @param string $name
-     * @return bool
      */
-    public function hasParameter($name)
+    public function hasParameter($name) : bool
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->parameters[$name]);
     }
     /**
@@ -37,15 +39,20 @@ final class ParameterProvider
      */
     public function provideParameter($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->parameters[$name]) ? $this->parameters[$name] : null;
     }
     /**
      * @api
      * @param string $name
-     * @return string
      */
-    public function provideStringParameter($name)
+    public function provideStringParameter($name) : string
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->ensureParameterIsSet($name);
         return (string) $this->parameters[$name];
     }
@@ -54,18 +61,23 @@ final class ParameterProvider
      * @return mixed[]
      * @param string $name
      */
-    public function provideArrayParameter($name)
+    public function provideArrayParameter($name) : array
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->ensureParameterIsSet($name);
         return $this->parameters[$name];
     }
     /**
      * @api
      * @param string $parameterName
-     * @return bool
      */
-    public function provideBoolParameter($parameterName)
+    public function provideBoolParameter($parameterName) : bool
     {
+        if (\is_object($parameterName)) {
+            $parameterName = (string) $parameterName;
+        }
         return isset($this->parameters[$parameterName]) ? $this->parameters[$parameterName] : \false;
     }
     /**
@@ -74,6 +86,9 @@ final class ParameterProvider
      */
     public function changeParameter($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->parameters[$name] = $value;
     }
     /**
@@ -87,10 +102,12 @@ final class ParameterProvider
     /**
      * @api
      * @param string $name
-     * @return int
      */
-    public function provideIntParameter($name)
+    public function provideIntParameter($name) : int
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->ensureParameterIsSet($name);
         return (int) $this->parameters[$name];
     }
@@ -101,6 +118,9 @@ final class ParameterProvider
      */
     public function ensureParameterIsSet($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\array_key_exists($name, $this->parameters)) {
             return;
         }

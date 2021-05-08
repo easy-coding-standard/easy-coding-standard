@@ -99,10 +99,8 @@ interface HttpClientInterface
      *
      * @throws TransportExceptionInterface When an unsupported option is passed
      * @param string $method
-     * @param string $url
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
      */
-    public function request($method, $url, array $options = []);
+    public function request($method, string $url, array $options = []) : \ECSPrefix20210508\Symfony\Contracts\HttpClient\ResponseInterface;
     /**
      * Yields responses chunk by chunk as they complete.
      *

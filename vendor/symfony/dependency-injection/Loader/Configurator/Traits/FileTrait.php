@@ -20,6 +20,9 @@ trait FileTrait
      */
     public final function file($file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $this->definition->setFile($file);
         return $this;
     }

@@ -32,6 +32,9 @@ class ContainerControllerResolver extends \ECSPrefix20210508\Symfony\Component\H
      */
     protected function createController($controller)
     {
+        if (\is_object($controller)) {
+            $controller = (string) $controller;
+        }
         if (1 === \substr_count($controller, ':')) {
             $controller = \str_replace(':', '::', $controller);
             trigger_deprecation('symfony/http-kernel', '5.1', 'Referencing controllers with a single colon is deprecated. Use "%s" instead.', $controller);
@@ -44,6 +47,9 @@ class ContainerControllerResolver extends \ECSPrefix20210508\Symfony\Component\H
      */
     protected function instantiateController($class)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         $class = \ltrim($class, '\\');
         if ($this->container->has($class)) {
             return $this->container->get($class);
@@ -63,6 +69,9 @@ class ContainerControllerResolver extends \ECSPrefix20210508\Symfony\Component\H
      */
     private function throwExceptionIfControllerWasRemoved($controller, \Throwable $previous)
     {
+        if (\is_object($controller)) {
+            $controller = (string) $controller;
+        }
         if ($this->container instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Container && isset($this->container->getRemovedIds()[$controller])) {
             throw new \InvalidArgumentException(\sprintf('Controller "%s" cannot be fetched from the container because it is private. Did you forget to tag the service with "controller.service_arguments"?', $controller), 0, $previous);
         }

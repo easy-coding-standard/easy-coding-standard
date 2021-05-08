@@ -154,6 +154,9 @@ class ForbiddenFunctionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function addError($phpcsFile, $stackPtr, $function, $pattern = null)
     {
+        if (\is_object($function)) {
+            $function = (string) $function;
+        }
         $data = [$function];
         $error = 'The use of function %s() is ';
         if ($this->error === \true) {

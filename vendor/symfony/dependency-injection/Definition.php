@@ -209,6 +209,9 @@ class Definition
      */
     public function setProperty($name, $value)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->properties[$name] = $value;
         return $this;
     }
@@ -310,8 +313,11 @@ class Definition
      *
      * @throws InvalidArgumentException on empty $method param
      */
-    public function addMethodCall($method, array $arguments = [], $returnsClone = \false)
+    public function addMethodCall($method, array $arguments = [], bool $returnsClone = \false)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         if (empty($method)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Method name cannot be empty.');
         }
@@ -326,6 +332,9 @@ class Definition
      */
     public function removeMethodCall($method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         foreach ($this->calls as $i => $call) {
             if ($call[0] === $method) {
                 unset($this->calls[$i]);
@@ -341,6 +350,9 @@ class Definition
      */
     public function hasMethodCall($method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         foreach ($this->calls as $call) {
             if ($call[0] === $method) {
                 return \true;
@@ -424,6 +436,9 @@ class Definition
      */
     public function getTag($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->tags[$name]) ? $this->tags[$name] : [];
     }
     /**
@@ -434,6 +449,9 @@ class Definition
      */
     public function addTag($name, array $attributes = [])
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->tags[$name][] = $attributes;
         return $this;
     }
@@ -445,6 +463,9 @@ class Definition
      */
     public function hasTag($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->tags[$name]);
     }
     /**
@@ -455,6 +476,9 @@ class Definition
      */
     public function clearTag($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         unset($this->tags[$name]);
         return $this;
     }
@@ -683,15 +707,20 @@ class Definition
      */
     public function getDeprecationMessage($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         trigger_deprecation('symfony/dependency-injection', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($id)['message'];
     }
     /**
      * @param string $id Service id relying on this definition
-     * @return mixed[]
      */
-    public function getDeprecation($id)
+    public function getDeprecation($id) : array
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \str_replace('%service_id%', $id, $this->deprecation['message'])];
     }
     /**

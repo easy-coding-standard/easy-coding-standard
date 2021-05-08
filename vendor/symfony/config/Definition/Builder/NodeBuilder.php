@@ -41,6 +41,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function arrayNode($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->node($name, 'array');
     }
     /**
@@ -51,6 +54,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function scalarNode($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->node($name, 'scalar');
     }
     /**
@@ -61,6 +67,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function booleanNode($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->node($name, 'boolean');
     }
     /**
@@ -71,6 +80,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function integerNode($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->node($name, 'integer');
     }
     /**
@@ -81,6 +93,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function floatNode($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->node($name, 'float');
     }
     /**
@@ -91,6 +106,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function enumNode($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->node($name, 'enum');
     }
     /**
@@ -101,6 +119,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function variableNode($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->node($name, 'variable');
     }
     /**
@@ -124,6 +145,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function node($name, $type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $class = $this->getNodeClass($type);
         $node = new $class($name);
         $this->append($node);
@@ -166,8 +190,11 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      *
      * @return $this
      */
-    public function setNodeClass($type, $class)
+    public function setNodeClass($type, string $class)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $this->nodeMapping[\strtolower($type)] = $class;
         return $this;
     }
@@ -182,6 +209,9 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     protected function getNodeClass($type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         $type = \strtolower($type);
         if (!isset($this->nodeMapping[$type])) {
             throw new \RuntimeException(\sprintf('The node type "%s" is not registered.', $type));

@@ -30,9 +30,8 @@ abstract class HttpClientTestCase extends \ECSPrefix20210508\PHPUnit\Framework\T
     }
     /**
      * @param string $testCase
-     * @return \Symfony\Contracts\HttpClient\HttpClientInterface
      */
-    protected abstract function getHttpClient($testCase);
+    protected abstract function getHttpClient($testCase) : \ECSPrefix20210508\Symfony\Contracts\HttpClient\HttpClientInterface;
     public function testGetRequest()
     {
         $client = $this->getHttpClient(__FUNCTION__);

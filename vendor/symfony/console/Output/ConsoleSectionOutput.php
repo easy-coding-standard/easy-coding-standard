@@ -79,6 +79,9 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     public function addContent($input)
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         foreach (\explode(\PHP_EOL, $input) as $lineContent) {
             $this->lines += \ceil($this->getDisplayLength($lineContent) / $this->terminal->getWidth()) ?: 1;
             $this->content[] = $lineContent;
@@ -90,6 +93,9 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     protected function doWrite($message, $newline)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (!$this->isDecorated()) {
             parent::doWrite($message, $newline);
             return;
@@ -126,10 +132,12 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
     }
     /**
      * @param string $text
-     * @return string
      */
-    private function getDisplayLength($text)
+    private function getDisplayLength($text) : string
     {
+        if (\is_object($text)) {
+            $text = (string) $text;
+        }
         return \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), \str_replace("\t", '        ', $text));
     }
 }

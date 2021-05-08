@@ -557,6 +557,9 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function prepareError($found, $patternCode)
     {
+        if (\is_object($found)) {
+            $found = (string) $found;
+        }
         $found = \str_replace("\r\n", '\\n', $found);
         $found = \str_replace("\n", '\\n', $found);
         $found = \str_replace("\r", '\\n', $found);
@@ -614,6 +617,9 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function parse($pattern)
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         $patterns = [];
         $length = \strlen($pattern);
         $lastToken = 0;
@@ -702,6 +708,9 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function createSkipPattern($pattern, $from)
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         $skip = ['type' => 'skip'];
         $nestedParenthesis = 0;
         $nestedBraces = 0;
@@ -749,6 +758,9 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function createTokenPattern($str)
     {
+        if (\is_object($str)) {
+            $str = (string) $str;
+        }
         // Don't add a space after the closing php tag as it will add a new
         // whitespace token.
         $tokenizer = new \PHP_CodeSniffer\Tokenizers\PHP('<?php ' . $str . '?>', null);

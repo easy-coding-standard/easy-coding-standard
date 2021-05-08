@@ -63,10 +63,12 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     /**
      * {@inheritdoc}
      * @param string $key
-     * @param float $beta
      */
-    public function get($key, callable $callback, $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $item = $this->getItem($key);
         $metadata = $item->getMetadata();
         // ArrayAdapter works in memory, we don't care about stampede protection
@@ -79,10 +81,12 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     /**
      * {@inheritdoc}
      * @param string $key
-     * @return bool
      */
-    public function delete($key)
+    public function delete($key) : bool
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         return $this->deleteItem($key);
     }
     /**
@@ -92,6 +96,9 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function hasItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (\is_string($key) && isset($this->expiries[$key]) && $this->expiries[$key] > \microtime(\true)) {
             if ($this->maxItems) {
                 // Move the item last in the storage
@@ -109,6 +116,9 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function getItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (!($isHit = $this->hasItem($key))) {
             $value = null;
             if (!$this->maxItems) {
@@ -140,6 +150,9 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function deleteItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if (!\is_string($key) || !isset($this->expiries[$key])) {
             \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($key);
         }
@@ -229,6 +242,9 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function clear($prefix = '')
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         if ('' !== $prefix) {
             $now = \microtime(\true);
             foreach ($this->values as $key => $value) {
@@ -325,10 +341,12 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     }
     /**
      * @param string $key
-     * @param bool $isHit
      */
-    private function unfreeze($key, &$isHit)
+    private function unfreeze($key, bool &$isHit)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         if ('N;' === ($value = $this->values[$key])) {
             return null;
         }

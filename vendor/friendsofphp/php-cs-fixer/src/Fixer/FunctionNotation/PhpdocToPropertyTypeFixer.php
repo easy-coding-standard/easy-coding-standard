@@ -68,10 +68,12 @@ class Foo {
     }
     /**
      * @param string $type
-     * @return bool
      */
-    protected function isSkippedType($type)
+    protected function isSkippedType($type) : bool
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         return isset($this->skippedTypes[$type]);
     }
     /**

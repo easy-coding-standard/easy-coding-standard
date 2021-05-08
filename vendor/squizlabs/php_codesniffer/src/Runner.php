@@ -498,6 +498,9 @@ class Runner
      */
     public function handleErrors($code, $message, $file, $line)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if ((\error_reporting() & $code) === 0) {
             // This type of error is being muted.
             return \true;

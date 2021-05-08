@@ -179,10 +179,12 @@ class InvalidName {}
     /**
      * @param string|null $namespace
      * @param string $currentName
-     * @return string
      */
-    private function calculateClassyName(\SplFileInfo $file, $namespace, $currentName)
+    private function calculateClassyName(\SplFileInfo $file, $namespace, $currentName) : string
     {
+        if (\is_object($currentName)) {
+            $currentName = (string) $currentName;
+        }
         $name = $file->getBasename('.php');
         $maxNamespace = $this->calculateMaxNamespace($file, $namespace);
         if (null !== $this->configuration['dir']) {

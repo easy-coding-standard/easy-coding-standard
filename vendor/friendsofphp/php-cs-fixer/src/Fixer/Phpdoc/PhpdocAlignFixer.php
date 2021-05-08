@@ -233,10 +233,12 @@ EOF;
     /**
      * @return mixed[]|null
      * @param string $line
-     * @param bool $matchCommentOnly
      */
-    private function getMatches($line, $matchCommentOnly = \false)
+    private function getMatches($line, bool $matchCommentOnly = \false)
     {
+        if (\is_object($line)) {
+            $line = (string) $line;
+        }
         if (\PhpCsFixer\Preg::match($this->regex, $line, $matches)) {
             if (!empty($matches['tag2'])) {
                 $matches['tag'] = $matches['tag2'];

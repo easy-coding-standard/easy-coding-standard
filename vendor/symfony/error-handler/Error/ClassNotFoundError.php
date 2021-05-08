@@ -18,6 +18,9 @@ class ClassNotFoundError extends \Error
      */
     public function __construct($message, \Throwable $previous)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         parent::__construct($message, $previous->getCode(), $previous->getPrevious());
         foreach (['file' => $previous->getFile(), 'line' => $previous->getLine(), 'trace' => $previous->getTrace()] as $property => $value) {
             $refl = new \ReflectionProperty(\Error::class, $property);

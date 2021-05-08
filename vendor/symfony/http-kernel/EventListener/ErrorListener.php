@@ -109,6 +109,9 @@ class ErrorListener implements \ECSPrefix20210508\Symfony\Component\EventDispatc
      */
     protected function logException(\Throwable $exception, $message)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (null !== $this->logger) {
             if (!$exception instanceof \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {
                 $this->logger->critical($message, ['exception' => $exception]);

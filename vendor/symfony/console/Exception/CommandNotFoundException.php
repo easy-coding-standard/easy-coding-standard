@@ -24,8 +24,11 @@ class CommandNotFoundException extends \InvalidArgumentException implements \ECS
      * @param int             $code         Exception code
      * @param \Throwable|null $previous     Previous exception used for the exception chaining
      */
-    public function __construct($message, array $alternatives = [], $code = 0, \Throwable $previous = null)
+    public function __construct($message, array $alternatives = [], int $code = 0, \Throwable $previous = null)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         parent::__construct($message, $code, $previous);
         $this->alternatives = $alternatives;
     }

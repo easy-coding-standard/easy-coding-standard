@@ -122,8 +122,11 @@ class Foo
      * @param int    $classEnd   the class end index
      * @return void
      */
-    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $className, $classStart, $classEnd)
+    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $className, int $classStart, int $classEnd)
     {
+        if (\is_object($className)) {
+            $className = (string) $className;
+        }
         $php4 = $this->findFunction($tokens, $className, $classStart, $classEnd);
         if (null === $php4) {
             // no PHP4-constructor!
@@ -241,8 +244,11 @@ class Foo
      *
      * @return array an array containing the sequence and case sensitiveness [ 0 => $seq, 1 => $case ]
      */
-    private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $method, $startIndex, $bodyIndex)
+    private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $method, int $startIndex, int $bodyIndex) : array
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         $sequences = [];
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
             // initialise sequence as { $this->{$method}(
@@ -288,8 +294,11 @@ class Foo
      *     - modifiers (array): The modifiers as array keys and their index as
      *       the values, e.g. array(T_PUBLIC => 10)
      */
-    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $name, $startIndex, $endIndex)
+    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $name, int $startIndex, int $endIndex)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $function = $tokens->findSequence([[\T_FUNCTION], [\T_STRING, $name], '('], $startIndex, $endIndex, \false);
         if (null === $function) {
             return null;

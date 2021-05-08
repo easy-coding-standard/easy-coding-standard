@@ -23,6 +23,9 @@ class TableCell
      */
     public function __construct($value = '', array $options = [])
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         $this->value = $value;
         // check option names
         if ($diff = \array_diff(\array_keys($options), \array_keys($this->options))) {

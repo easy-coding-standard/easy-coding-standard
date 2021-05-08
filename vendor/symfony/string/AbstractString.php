@@ -250,6 +250,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function ensureEnd($suffix)
     {
+        if (\is_object($suffix)) {
+            $suffix = (string) $suffix;
+        }
         if (!$this->endsWith($suffix)) {
             return $this->append($suffix);
         }
@@ -263,6 +266,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function ensureStart($prefix)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $prefix = new static($prefix);
         if (!$this->startsWith($prefix)) {
             return $this->prepend($prefix);
@@ -376,10 +382,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      *
      * @return array All matches in a multi-dimensional array ordered according to flags
      * @param string $regexp
-     * @param int $flags
-     * @param int $offset
      */
-    public abstract function match($regexp, $flags = 0, $offset = 0);
+    public abstract function match($regexp, int $flags = 0, int $offset = 0) : array;
     /**
      * @return static
      * @param int $length
@@ -419,9 +423,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     /**
      * @return static
      * @param string $from
-     * @param string $to
      */
-    public abstract function replace($from, $to);
+    public abstract function replace($from, string $to);
     /**
      * @param string|callable $to
      *
@@ -446,18 +449,17 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     /**
      * @return static
      * @param string $replacement
-     * @param int $start
-     * @param int $length
      */
-    public abstract function splice($replacement, $start = 0, $length = null);
+    public abstract function splice($replacement, int $start = 0, int $length = null);
     /**
-     * @return mixed[]
+     * @return static[]
      * @param string $delimiter
-     * @param int $limit
-     * @param int $flags
      */
-    public function split($delimiter, $limit = null, $flags = null)
+    public function split($delimiter, int $limit = null, int $flags = null) : array
     {
+        if (\is_object($delimiter)) {
+            $delimiter = (string) $delimiter;
+        }
         if (null === $flags) {
             throw new \TypeError('Split behavior when $flags is null must be implemented by child classes.');
         }
@@ -584,10 +586,12 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      * @return static
      * @param int $length
      * @param string $ellipsis
-     * @param bool $cut
      */
-    public function truncate($length, $ellipsis = '', $cut = \true)
+    public function truncate($length, $ellipsis = '', bool $cut = \true)
     {
+        if (\is_object($ellipsis)) {
+            $ellipsis = (string) $ellipsis;
+        }
         $stringLength = $this->length();
         if ($stringLength <= $length) {
             return clone $this;
@@ -619,10 +623,12 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      * @return static
      * @param int $width
      * @param string $break
-     * @param bool $cut
      */
-    public function wordwrap($width = 75, $break = "\n", $cut = \false)
+    public function wordwrap($width = 75, $break = "\n", bool $cut = \false)
     {
+        if (\is_object($break)) {
+            $break = (string) $break;
+        }
         $lines = '' !== $break ? $this->split($break) : [clone $this];
         $chars = [];
         $mask = '';

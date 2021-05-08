@@ -39,10 +39,12 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     }
     /**
      * @param string $file
-     * @return bool
      */
-    public function has($file)
+    public function has($file) : bool
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         return \array_key_exists($file, $this->hashes);
     }
     /**
@@ -51,6 +53,9 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
      */
     public function get($file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (!$this->has($file)) {
             return null;
         }
@@ -59,10 +64,12 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     /**
      * @return void
      * @param string $file
-     * @param int $hash
      */
-    public function set($file, $hash)
+    public function set($file, int $hash)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $this->hashes[$file] = $hash;
     }
     /**
@@ -71,6 +78,9 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
      */
     public function clear($file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         unset($this->hashes[$file]);
     }
     /**
@@ -92,6 +102,9 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
      */
     public static function fromJson($json)
     {
+        if (\is_object($json)) {
+            $json = (string) $json;
+        }
         $data = \json_decode($json, \true);
         if (null === $data && \JSON_ERROR_NONE !== \json_last_error()) {
             throw new \InvalidArgumentException(\sprintf('Value needs to be a valid JSON string, got "%s", error: "%s".', $json, \json_last_error_msg()));

@@ -35,6 +35,9 @@ class ContainerCommandLoader implements \ECSPrefix20210508\Symfony\Component\Con
      */
     public function get($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!$this->has($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
@@ -46,6 +49,9 @@ class ContainerCommandLoader implements \ECSPrefix20210508\Symfony\Component\Con
      */
     public function has($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->commandMap[$name]) && $this->container->has($this->commandMap[$name]);
     }
     /**

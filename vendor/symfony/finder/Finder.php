@@ -624,10 +624,12 @@ class Finder implements \IteratorAggregate, \Countable
     }
     /**
      * @param string $dir
-     * @return \Iterator
      */
-    private function searchInDirectory($dir)
+    private function searchInDirectory($dir) : \Iterator
     {
+        if (\is_object($dir)) {
+            $dir = (string) $dir;
+        }
         $exclude = $this->exclude;
         $notPaths = $this->notPaths;
         if (static::IGNORE_VCS_FILES === (static::IGNORE_VCS_FILES & $this->ignore)) {
@@ -703,10 +705,12 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * Excluding: (s)ftp:// or ssh2.(s)ftp:// wrapper
      * @param string $dir
-     * @return string
      */
-    private function normalizeDir($dir)
+    private function normalizeDir($dir) : string
     {
+        if (\is_object($dir)) {
+            $dir = (string) $dir;
+        }
         if ('/' === $dir) {
             return $dir;
         }

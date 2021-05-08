@@ -172,11 +172,12 @@ class Foo {
     }
     /**
      * @param string $content
-     * @param int $functionIndex
-     * @return string
      */
-    private function fixFunctionDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, array $shortNames)
+    private function fixFunctionDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, array $shortNames) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
         $openingParenthesisIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
         $closingParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingParenthesisIndex);
@@ -204,10 +205,12 @@ class Foo {
     /**
      * @param int $index Index of the DocComment token
      * @param string $content
-     * @return string
      */
-    private function fixPropertyDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $shortNames)
+    private function fixPropertyDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $shortNames) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
         do {
             $index = $tokens->getNextMeaningfulToken($index);
@@ -345,10 +348,12 @@ class Foo {
     }
     /**
      * @param string $docComment
-     * @return string
      */
-    private function removeSuperfluousInheritDoc($docComment)
+    private function removeSuperfluousInheritDoc($docComment) : string
     {
+        if (\is_object($docComment)) {
+            $docComment = (string) $docComment;
+        }
         return \PhpCsFixer\Preg::replace('~
             # $1: before @inheritDoc tag
             (

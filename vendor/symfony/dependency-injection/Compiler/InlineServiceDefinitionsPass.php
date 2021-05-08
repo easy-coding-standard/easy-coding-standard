@@ -141,10 +141,12 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210508\Symfony\Component\
     /**
      * Checks if the definition is inlineable.
      * @param string $id
-     * @return bool
      */
-    private function isInlineableDefinition($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
+    private function isInlineableDefinition($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition) : bool
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if ($definition->hasErrors() || $definition->isDeprecated() || $definition->isLazy() || $definition->isSynthetic()) {
             return \false;
         }

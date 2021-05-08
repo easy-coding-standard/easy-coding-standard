@@ -64,8 +64,11 @@ class RedisTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Ad
      * @param string                                                   $namespace       The default namespace
      * @param int                                                      $defaultLifetime The default lifetime
      */
-    public function __construct($redisClient, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($redisClient, $namespace = '', int $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         if ($redisClient instanceof \ECSPrefix20210508\Predis\ClientInterface && $redisClient->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\ClusterInterface && !$redisClient->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Unsupported Predis cluster connection: only "%s" is, "%s" given.', \ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster::class, \get_debug_type($redisClient->getConnection())));
         }
@@ -81,12 +84,10 @@ class RedisTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Ad
     }
     /**
      * {@inheritdoc}
-     * @param mixed[] $addTagData
-     * @param mixed[] $delTagData
      * @param int $lifetime
      * @return mixed[]
      */
-    protected function doSave(array $values, $lifetime, $addTagData = [], $delTagData = [])
+    protected function doSave(array $values, $lifetime, array $addTagData = [], array $delTagData = [])
     {
         $eviction = $this->getRedisEvictionPolicy();
         if ('noeviction' !== $eviction && 0 !== \strpos($eviction, 'volatile-')) {

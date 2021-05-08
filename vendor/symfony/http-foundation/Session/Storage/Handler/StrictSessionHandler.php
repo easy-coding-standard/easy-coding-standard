@@ -31,6 +31,9 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($savePath)) {
+            $savePath = (string) $savePath;
+        }
         parent::open($savePath, $sessionName);
         return $this->handler->open($savePath, $sessionName);
     }
@@ -40,6 +43,9 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     protected function doRead($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         return $this->handler->read($sessionId);
     }
     /**
@@ -47,15 +53,20 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function updateTimestamp($sessionId, $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         return $this->write($sessionId, $data);
     }
     /**
      * {@inheritdoc}
      * @param string $sessionId
-     * @param string $data
      */
-    protected function doWrite($sessionId, $data)
+    protected function doWrite($sessionId, string $data)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         return $this->handler->write($sessionId, $data);
     }
     /**
@@ -63,6 +74,9 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function destroy($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $this->doDestroy = \true;
         $destroyed = parent::destroy($sessionId);
         return $this->doDestroy ? $this->doDestroy($sessionId) : $destroyed;
@@ -73,6 +87,9 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     protected function doDestroy($sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         $this->doDestroy = \false;
         return $this->handler->destroy($sessionId);
     }

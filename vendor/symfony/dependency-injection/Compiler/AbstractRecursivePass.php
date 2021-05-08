@@ -156,6 +156,9 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210508\Symfony\Compo
      */
     protected function getReflectionMethod(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         if ('__construct' === $method) {
             return $this->getConstructor($definition, \true);
         }

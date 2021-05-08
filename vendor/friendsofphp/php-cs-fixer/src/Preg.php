@@ -26,13 +26,12 @@ final class Preg
      *
      * @throws PregException
      * @param string $pattern
-     * @param string $subject
-     * @param int $flags
-     * @param int $offset
-     * @return int
      */
-    public static function match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0)
+    public static function match($pattern, string $subject, &$matches = null, int $flags = 0, int $offset = 0) : int
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         $result = @\preg_match(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -48,13 +47,12 @@ final class Preg
      *
      * @throws PregException
      * @param string $pattern
-     * @param string $subject
-     * @param int $flags
-     * @param int $offset
-     * @return int
      */
-    public static function matchAll($pattern, $subject, &$matches = null, $flags = \PREG_PATTERN_ORDER, $offset = 0)
+    public static function matchAll($pattern, string $subject, &$matches = null, int $flags = \PREG_PATTERN_ORDER, int $offset = 0) : int
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         $result = @\preg_match_all(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -113,14 +111,14 @@ final class Preg
     /**
      * @throws PregException
      *
-     * @return mixed[]
+     * @return string[]
      * @param string $pattern
-     * @param string $subject
-     * @param int $limit
-     * @param int $flags
      */
-    public static function split($pattern, $subject, $limit = -1, $flags = 0)
+    public static function split($pattern, string $subject, int $limit = -1, int $flags = 0) : array
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         $result = @\preg_split(self::addUtf8Modifier($pattern), $subject, $limit, $flags);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -169,10 +167,12 @@ final class Preg
      * @param string[] $patterns
      * @param int $error
      * @param string $method
-     * @return \PhpCsFixer\PregException
      */
-    private static function newPregException($error, $method, array $patterns)
+    private static function newPregException($error, $method, array $patterns) : \PhpCsFixer\PregException
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         foreach ($patterns as $pattern) {
             $last = \error_get_last();
             $result = @\preg_match($pattern, '');

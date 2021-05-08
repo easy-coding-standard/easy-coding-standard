@@ -47,10 +47,12 @@ final class FixerOptionBuilder
     private $deprecationMessage;
     /**
      * @param string $name
-     * @param string $description
      */
-    public function __construct($name, $description)
+    public function __construct($name, string $description)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->name = $name;
         $this->description = $description;
     }

@@ -28,6 +28,9 @@ class Gitblame extends \PHP_CodeSniffer\Reports\VersionControl
      */
     protected function getAuthor($line)
     {
+        if (\is_object($line)) {
+            $line = (string) $line;
+        }
         $blameParts = [];
         $line = \preg_replace('|\\s+|', ' ', $line);
         \preg_match('|\\(.+[0-9]{4}-[0-9]{2}-[0-9]{2}\\s+[0-9]+\\)|', $line, $blameParts);
@@ -53,6 +56,9 @@ class Gitblame extends \PHP_CodeSniffer\Reports\VersionControl
      */
     protected function getBlameContent($filename)
     {
+        if (\is_object($filename)) {
+            $filename = (string) $filename;
+        }
         $cwd = \getcwd();
         \chdir(\dirname($filename));
         $command = 'git blame --date=short "' . $filename . '" 2>&1';

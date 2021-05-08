@@ -75,10 +75,12 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     /**
      * {@inheritdoc}
      * @param string $key
-     * @param float $beta
      */
-    public function get($key, callable $callback, $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $lastItem = null;
         $i = 0;
         $wrap = function (\ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item = null) use($key, $callback, $beta, &$wrap, &$i, &$lastItem, &$metadata) {
@@ -104,6 +106,9 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function getItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $syncItem = $this->syncItem;
         $misses = [];
         foreach ($this->adapters as $i => $adapter) {
@@ -162,6 +167,9 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function hasItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         foreach ($this->adapters as $adapter) {
             if ($adapter->hasItem($key)) {
                 return \true;
@@ -177,6 +185,9 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function clear($prefix = '')
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $cleared = \true;
         $i = $this->adapterCount;
         while ($i--) {
@@ -195,6 +206,9 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function deleteItem($key)
     {
+        if (\is_object($key)) {
+            $key = (string) $key;
+        }
         $deleted = \true;
         $i = $this->adapterCount;
         while ($i--) {

@@ -22,6 +22,9 @@ abstract class CacheWarmer implements \ECSPrefix20210508\Symfony\Component\HttpK
      */
     protected function writeCacheFile($file, $content)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $tmpFile = @\tempnam(\dirname($file), \basename($file));
         if (\false !== @\file_put_contents($tmpFile, $content) && @\rename($tmpFile, $file)) {
             @\chmod($file, 0666 & ~\umask());

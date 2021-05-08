@@ -106,6 +106,9 @@ trait AbstractAdapterTrait
      */
     public function clear($prefix = '')
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         $this->deferred = [];
         if ($cleared = $this->versioningIsEnabled) {
             if ('' === ($namespaceVersionToClear = $this->namespaceVersion)) {

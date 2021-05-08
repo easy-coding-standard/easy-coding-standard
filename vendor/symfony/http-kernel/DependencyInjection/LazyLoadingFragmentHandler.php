@@ -36,6 +36,9 @@ class LazyLoadingFragmentHandler extends \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function render($uri, $renderer = 'inline', array $options = [])
     {
+        if (\is_object($renderer)) {
+            $renderer = (string) $renderer;
+        }
         if (!isset($this->initialized[$renderer]) && $this->container->has($renderer)) {
             $this->addRenderer($this->container->get($renderer));
             $this->initialized[$renderer] = \true;

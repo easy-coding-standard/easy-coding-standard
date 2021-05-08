@@ -155,10 +155,12 @@ final class Differ
     /**
      * Checks if input is string, if so it will split it line-by-line.
      * @param string $input
-     * @return mixed[]
      */
-    private function splitStringByLines($input)
+    private function splitStringByLines($input) : array
     {
+        if (\is_object($input)) {
+            $input = (string) $input;
+        }
         return \preg_split('/(.*\\R)/', $input, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
     }
     /**

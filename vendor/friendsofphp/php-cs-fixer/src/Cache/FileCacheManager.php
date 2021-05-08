@@ -87,21 +87,24 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
     }
     /**
      * @param string $file
-     * @param string $fileContent
-     * @return bool
      */
-    public function needFixing($file, $fileContent)
+    public function needFixing($file, string $fileContent) : bool
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $file = $this->cacheDirectory->getRelativePathTo($file);
         return !$this->cache->has($file) || $this->cache->get($file) !== $this->calcHash($fileContent);
     }
     /**
      * @return void
      * @param string $file
-     * @param string $fileContent
      */
-    public function setFile($file, $fileContent)
+    public function setFile($file, string $fileContent)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         $file = $this->cacheDirectory->getRelativePathTo($file);
         $hash = $this->calcHash($fileContent);
         if ($this->isDryRun && $this->cache->has($file) && $this->cache->get($file) !== $hash) {
@@ -130,10 +133,12 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
     }
     /**
      * @param string $content
-     * @return int
      */
-    private function calcHash($content)
+    private function calcHash($content) : int
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         return \crc32($content);
     }
 }

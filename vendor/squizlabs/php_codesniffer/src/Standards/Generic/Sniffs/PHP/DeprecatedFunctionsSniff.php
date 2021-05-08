@@ -50,6 +50,9 @@ class DeprecatedFunctionsSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs
      */
     protected function addError($phpcsFile, $stackPtr, $function, $pattern = null)
     {
+        if (\is_object($function)) {
+            $function = (string) $function;
+        }
         $data = [$function];
         $error = 'Function %s() has been deprecated';
         $type = 'Deprecated';

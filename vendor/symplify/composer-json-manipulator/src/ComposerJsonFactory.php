@@ -22,10 +22,12 @@ final class ComposerJsonFactory
     }
     /**
      * @param string $jsonString
-     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
      */
-    public function createFromString($jsonString)
+    public function createFromString($jsonString) : \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
+        if (\is_object($jsonString)) {
+            $jsonString = (string) $jsonString;
+        }
         $jsonArray = \ECSPrefix20210508\Nette\Utils\Json::decode($jsonString, \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
         return $this->createFromArray($jsonArray);
     }
@@ -41,10 +43,12 @@ final class ComposerJsonFactory
     }
     /**
      * @param string $filePath
-     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
      */
-    public function createFromFilePath($filePath)
+    public function createFromFilePath($filePath) : \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
     {
+        if (\is_object($filePath)) {
+            $filePath = (string) $filePath;
+        }
         $jsonArray = $this->jsonFileManager->loadFromFilePath($filePath);
         $composerJson = $this->createFromArray($jsonArray);
         $fileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($filePath);

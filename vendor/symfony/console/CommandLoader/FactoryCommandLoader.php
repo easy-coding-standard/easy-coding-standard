@@ -32,6 +32,9 @@ class FactoryCommandLoader implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function has($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return isset($this->factories[$name]);
     }
     /**
@@ -40,6 +43,9 @@ class FactoryCommandLoader implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function get($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!isset($this->factories[$name])) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }

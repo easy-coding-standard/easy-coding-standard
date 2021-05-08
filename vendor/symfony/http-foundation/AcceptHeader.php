@@ -47,6 +47,9 @@ class AcceptHeader
      */
     public static function fromString($headerValue)
     {
+        if (\is_object($headerValue)) {
+            $headerValue = (string) $headerValue;
+        }
         $index = 0;
         $parts = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::split(isset($headerValue) ? $headerValue : '', ',;=');
         return new self(\array_map(function ($subParts) use(&$index) {
@@ -74,6 +77,9 @@ class AcceptHeader
      */
     public function has($value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         return isset($this->items[$value]);
     }
     /**
@@ -84,6 +90,9 @@ class AcceptHeader
      */
     public function get($value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         return isset($this->items[$value]) ? $this->items[$value] : (isset($this->items[\explode('/', $value)[0] . '/*']) ? $this->items[\explode('/', $value)[0] . '/*'] : (isset($this->items['*/*']) ? $this->items['*/*'] : (isset($this->items['*']) ? $this->items['*'] : null)));
     }
     /**
@@ -115,6 +124,9 @@ class AcceptHeader
      */
     public function filter($pattern)
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         return new self(\array_filter($this->items, function (\ECSPrefix20210508\Symfony\Component\HttpFoundation\AcceptHeaderItem $item) use($pattern) {
             return \preg_match($pattern, $item->getValue());
         }));

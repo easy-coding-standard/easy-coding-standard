@@ -85,6 +85,9 @@ final class ProgressBar
      */
     public static function setPlaceholderFormatterDefinition($name, callable $callable)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
@@ -99,6 +102,9 @@ final class ProgressBar
      */
     public static function getPlaceholderFormatterDefinition($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
@@ -113,8 +119,11 @@ final class ProgressBar
      * @param string $format A format string
      * @return void
      */
-    public static function setFormatDefinition($name, $format)
+    public static function setFormatDefinition($name, string $format)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!self::$formats) {
             self::$formats = self::initFormats();
         }
@@ -129,6 +138,9 @@ final class ProgressBar
      */
     public static function getFormatDefinition($name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (!self::$formats) {
             self::$formats = self::initFormats();
         }
@@ -144,8 +156,11 @@ final class ProgressBar
      * @param string $message The text to associate with the placeholder
      * @param string $name    The name of the placeholder
      */
-    public function setMessage($message, $name = 'message')
+    public function setMessage($message, string $name = 'message')
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         $this->messages[$name] = $message;
     }
     /**
@@ -153,6 +168,9 @@ final class ProgressBar
      */
     public function getMessage($name = 'message')
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         return $this->messages[$name];
     }
     /**
@@ -236,6 +254,9 @@ final class ProgressBar
      */
     public function setBarCharacter($char)
     {
+        if (\is_object($char)) {
+            $char = (string) $char;
+        }
         $this->barChar = $char;
     }
     /**
@@ -253,6 +274,9 @@ final class ProgressBar
      */
     public function setEmptyBarCharacter($char)
     {
+        if (\is_object($char)) {
+            $char = (string) $char;
+        }
         $this->emptyBarChar = $char;
     }
     /**
@@ -267,6 +291,9 @@ final class ProgressBar
      */
     public function setProgressCharacter($char)
     {
+        if (\is_object($char)) {
+            $char = (string) $char;
+        }
         $this->progressChar = $char;
     }
     /**
@@ -281,6 +308,9 @@ final class ProgressBar
      */
     public function setFormat($format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         $this->format = null;
         $this->internalFormat = $format;
     }
@@ -448,6 +478,9 @@ final class ProgressBar
      */
     private function setRealFormat($format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         // try to use the _nomax variant if available
         if (!$this->max && null !== self::getFormatDefinition($format . '_nomax')) {
             $this->format = self::getFormatDefinition($format . '_nomax');
@@ -465,6 +498,9 @@ final class ProgressBar
      */
     private function overwrite($message)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if ($this->previousMessage === $message) {
             return;
         }

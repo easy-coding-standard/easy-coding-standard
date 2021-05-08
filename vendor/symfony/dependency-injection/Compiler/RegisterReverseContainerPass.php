@@ -26,10 +26,12 @@ class RegisterReverseContainerPass implements \ECSPrefix20210508\Symfony\Compone
     /**
      * @param bool $beforeRemoving
      * @param string $serviceId
-     * @param string $tagName
      */
-    public function __construct($beforeRemoving, $serviceId = 'reverse_container', $tagName = 'container.reversible')
+    public function __construct($beforeRemoving, $serviceId = 'reverse_container', string $tagName = 'container.reversible')
     {
+        if (\is_object($serviceId)) {
+            $serviceId = (string) $serviceId;
+        }
         $this->beforeRemoving = $beforeRemoving;
         $this->serviceId = $serviceId;
         $this->tagName = $tagName;

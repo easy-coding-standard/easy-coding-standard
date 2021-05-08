@@ -18,10 +18,12 @@ final class SmartFileSystem extends \ECSPrefix20210508\Symfony\Component\Filesys
     /**
      * @see https://github.com/symfony/filesystem/pull/4/files
      * @param string $filename
-     * @return string
      */
-    public function readFile($filename)
+    public function readFile($filename) : string
     {
+        if (\is_object($filename)) {
+            $filename = (string) $filename;
+        }
         $source = @\file_get_contents($filename);
         if (!$source) {
             $message = \sprintf('Failed to read "%s" file: "%s"', $filename, $this->getLastError());
@@ -31,10 +33,12 @@ final class SmartFileSystem extends \ECSPrefix20210508\Symfony\Component\Filesys
     }
     /**
      * @param string $filename
-     * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
-    public function readFileToSmartFileInfo($filename)
+    public function readFileToSmartFileInfo($filename) : \Symplify\SmartFileSystem\SmartFileInfo
     {
+        if (\is_object($filename)) {
+            $filename = (string) $filename;
+        }
         return new \Symplify\SmartFileSystem\SmartFileInfo($filename);
     }
     /**
@@ -42,10 +46,12 @@ final class SmartFileSystem extends \ECSPrefix20210508\Symfony\Component\Filesys
      *
      * @source https://github.com/nette/utils/blob/e7bd59f1dd860d25dbbb1ac720dddd0fa1388f4c/src/Utils/Html.php#L325-L331
      * @param string $html
-     * @return string
      */
-    public function htmlToText($html)
+    public function htmlToText($html) : string
     {
+        if (\is_object($html)) {
+            $html = (string) $html;
+        }
         $content = \strip_tags($html);
         return \html_entity_decode($content, \ENT_QUOTES | \ENT_HTML5, 'UTF-8');
     }

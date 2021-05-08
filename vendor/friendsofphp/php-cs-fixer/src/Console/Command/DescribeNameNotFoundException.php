@@ -28,10 +28,12 @@ final class DescribeNameNotFoundException extends \InvalidArgumentException
     private $type;
     /**
      * @param string $name
-     * @param string $type
      */
-    public function __construct($name, $type)
+    public function __construct($name, string $type)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         $this->name = $name;
         $this->type = $type;
         parent::__construct();

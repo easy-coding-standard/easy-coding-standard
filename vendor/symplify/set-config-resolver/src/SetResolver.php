@@ -18,10 +18,12 @@ final class SetResolver
     }
     /**
      * @param string $setName
-     * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
-    public function detectFromName($setName)
+    public function detectFromName($setName) : \Symplify\SmartFileSystem\SmartFileInfo
     {
+        if (\is_object($setName)) {
+            $setName = (string) $setName;
+        }
         $set = $this->setProvider->provideByName($setName);
         if (!$set instanceof \Symplify\SetConfigResolver\ValueObject\Set) {
             $this->reportSetNotFound($setName);
@@ -34,6 +36,9 @@ final class SetResolver
      */
     private function reportSetNotFound($setName)
     {
+        if (\is_object($setName)) {
+            $setName = (string) $setName;
+        }
         $message = \sprintf('Set "%s" was not found', $setName);
         throw new \Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $setName, $this->setProvider->provideSetNames());
     }

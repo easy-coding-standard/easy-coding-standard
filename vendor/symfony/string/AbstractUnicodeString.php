@@ -194,12 +194,12 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
     }
     /**
      * @param string $regexp
-     * @param int $flags
-     * @param int $offset
-     * @return mixed[]
      */
-    public function match($regexp, $flags = 0, $offset = 0)
+    public function match($regexp, int $flags = 0, int $offset = 0) : array
     {
+        if (\is_object($regexp)) {
+            $regexp = (string) $regexp;
+        }
         $match = (\PREG_PATTERN_ORDER | \PREG_SET_ORDER) & $flags ? 'preg_match_all' : 'preg_match';
         if ($this->ignoreCase) {
             $regexp .= 'i';
@@ -246,6 +246,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function padBoth($length, $padStr = ' ')
     {
+        if (\is_object($padStr)) {
+            $padStr = (string) $padStr;
+        }
         if ('' === $padStr || !\preg_match('//u', $padStr)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
@@ -259,6 +262,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function padEnd($length, $padStr = ' ')
     {
+        if (\is_object($padStr)) {
+            $padStr = (string) $padStr;
+        }
         if ('' === $padStr || !\preg_match('//u', $padStr)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
@@ -272,6 +278,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function padStart($length, $padStr = ' ')
     {
+        if (\is_object($padStr)) {
+            $padStr = (string) $padStr;
+        }
         if ('' === $padStr || !\preg_match('//u', $padStr)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
@@ -284,6 +293,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function replaceMatches($fromRegexp, $to)
     {
+        if (\is_object($fromRegexp)) {
+            $fromRegexp = (string) $fromRegexp;
+        }
         if ($this->ignoreCase) {
             $fromRegexp .= 'i';
         }
@@ -353,6 +365,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function trim($chars = " \t\n\r\0\v\f ﻿")
     {
+        if (\is_object($chars)) {
+            $chars = (string) $chars;
+        }
         if (" \t\n\r\0\v\f ﻿" !== $chars && !\preg_match('//u', $chars)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 chars.');
         }
@@ -366,6 +381,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function trimEnd($chars = " \t\n\r\0\v\f ﻿")
     {
+        if (\is_object($chars)) {
+            $chars = (string) $chars;
+        }
         if (" \t\n\r\0\v\f ﻿" !== $chars && !\preg_match('//u', $chars)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 chars.');
         }
@@ -379,6 +397,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function trimStart($chars = " \t\n\r\0\v\f ﻿")
     {
+        if (\is_object($chars)) {
+            $chars = (string) $chars;
+        }
         if (" \t\n\r\0\v\f ﻿" !== $chars && !\preg_match('//u', $chars)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 chars.');
         }
@@ -458,10 +479,12 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
     /**
      * Based on https://github.com/jquast/wcwidth, a Python implementation of https://www.cl.cam.ac.uk/~mgk25/ucs/wcwidth.c.
      * @param string $string
-     * @return int
      */
-    private function wcswidth($string)
+    private function wcswidth($string) : int
     {
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         $width = 0;
         foreach (\preg_split('//u', $string, -1, \PREG_SPLIT_NO_EMPTY) as $c) {
             $codePoint = \mb_ord($c, 'UTF-8');

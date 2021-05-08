@@ -62,10 +62,12 @@ class PdoAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abst
      * @throws InvalidArgumentException When PDO error mode is not PDO::ERRMODE_EXCEPTION
      * @throws InvalidArgumentException When namespace contains invalid characters
      * @param string $namespace
-     * @param int $defaultLifetime
      */
-    public function __construct($connOrDsn, $namespace = '', $defaultLifetime = 0, array $options = [], \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($connOrDsn, $namespace = '', int $defaultLifetime = 0, array $options = [], \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         if (isset($namespace[0]) && \preg_match('#[^-+.A-Za-z0-9]#', $namespace, $match)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
         }
@@ -238,6 +240,9 @@ class PdoAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abst
      */
     protected function doHave($id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         $sql = "SELECT 1 FROM {$this->table} WHERE {$this->idCol} = :id AND ({$this->lifetimeCol} IS NULL OR {$this->lifetimeCol} + {$this->timeCol} > :time)";
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -251,6 +256,9 @@ class PdoAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abst
      */
     protected function doClear($namespace)
     {
+        if (\is_object($namespace)) {
+            $namespace = (string) $namespace;
+        }
         $conn = $this->getConnection();
         if ('' === $namespace) {
             if ('sqlite' === $this->driver) {

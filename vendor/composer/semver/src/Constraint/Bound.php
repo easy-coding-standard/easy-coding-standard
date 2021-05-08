@@ -26,6 +26,9 @@ class Bound
      */
     public function __construct($version, $isInclusive)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         $this->version = $version;
         $this->isInclusive = $isInclusive;
     }
@@ -61,6 +64,9 @@ class Bound
      */
     public function compareTo(\ECSPrefix20210508\Composer\Semver\Constraint\Bound $other, $operator)
     {
+        if (\is_object($operator)) {
+            $operator = (string) $operator;
+        }
         if (!\in_array($operator, array('<', '>'), \true)) {
             throw new \InvalidArgumentException('Does not support any other operator other than > or <.');
         }

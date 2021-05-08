@@ -36,10 +36,12 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210508\PHPUnit\Framewo
     /**
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
-     * @return \Symfony\Component\HttpKernel\KernelInterface
      */
-    protected function bootKernelWithConfigs($kernelClass, array $configs)
+    protected function bootKernelWithConfigs($kernelClass, array $configs) : \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface
     {
+        if (\is_object($kernelClass)) {
+            $kernelClass = (string) $kernelClass;
+        }
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
         $configsHash = $this->resolveConfigsHash($configFilePaths);
@@ -51,10 +53,12 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210508\PHPUnit\Framewo
     /**
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
-     * @return \Symfony\Component\HttpKernel\KernelInterface
      */
-    protected function bootKernelWithConfigsAndStaticCache($kernelClass, array $configs)
+    protected function bootKernelWithConfigsAndStaticCache($kernelClass, array $configs) : \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface
     {
+        if (\is_object($kernelClass)) {
+            $kernelClass = (string) $kernelClass;
+        }
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
         $configsHash = $this->resolveConfigsHash($configFilePaths);
@@ -77,6 +81,9 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210508\PHPUnit\Framewo
      */
     protected function getService($type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if (self::$container === null) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException('First, crewate container with booKernel(KernelClass::class)');
         }
@@ -88,6 +95,9 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210508\PHPUnit\Framewo
      */
     protected function bootKernel($kernelClass)
     {
+        if (\is_object($kernelClass)) {
+            $kernelClass = (string) $kernelClass;
+        }
         $this->ensureKernelShutdown();
         $kernel = new $kernelClass('test', \true);
         if (!$kernel instanceof \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface) {
@@ -177,11 +187,12 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210508\PHPUnit\Framewo
     /**
      * @param string[] $configFilePaths
      * @param string $kernelClass
-     * @param string $configsHash
-     * @return \Symfony\Component\HttpKernel\KernelInterface
      */
-    private function createBootedKernelFromConfigs($kernelClass, $configsHash, array $configFilePaths)
+    private function createBootedKernelFromConfigs($kernelClass, string $configsHash, array $configFilePaths) : \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface
     {
+        if (\is_object($kernelClass)) {
+            $kernelClass = (string) $kernelClass;
+        }
         $kernel = new $kernelClass('test_' . $configsHash, \true);
         $this->ensureIsConfigAwareKernel($kernel);
         /** @var ExtraConfigAwareKernelInterface $kernel */

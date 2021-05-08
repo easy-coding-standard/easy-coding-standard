@@ -72,11 +72,12 @@ final class SnippetFormatter
     }
     /**
      * @param string $snippetRegex
-     * @param string $kind
-     * @return string
      */
-    public function format(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $snippetRegex, $kind)
+    public function format(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $snippetRegex, string $kind) : string
     {
+        if (\is_object($snippetRegex)) {
+            $snippetRegex = (string) $snippetRegex;
+        }
         $this->currentParentFileInfoProvider->setParentFileInfo($fileInfo);
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($fileInfo->getContents(), $snippetRegex, function ($match) use($kind) : string {
             if (\ECSPrefix20210508\Nette\Utils\Strings::contains($match[self::CONTENT], '-----')) {
@@ -89,10 +90,12 @@ final class SnippetFormatter
     /**
      * @param string[] $match
      * @param string $kind
-     * @return string
      */
-    private function fixContentAndPreserveFormatting(array $match, $kind)
+    private function fixContentAndPreserveFormatting(array $match, $kind) : string
     {
+        if (\is_object($kind)) {
+            $kind = (string) $kind;
+        }
         if ($this->isPhp73OrAbove) {
             return \str_replace(\PHP_EOL, '', $match[self::OPENING]) . \PHP_EOL . $this->fixContent($match[self::CONTENT], $kind) . \str_replace(\PHP_EOL, '', $match[self::CLOSING]);
         }
@@ -100,11 +103,12 @@ final class SnippetFormatter
     }
     /**
      * @param string $content
-     * @param string $kind
-     * @return string
      */
-    private function fixContent($content, $kind)
+    private function fixContent($content, string $kind) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $content = $this->isPhp73OrAbove ? $content : \trim($content);
         $temporaryFilePath = $this->createTemporaryFilePath($content);
         if (!\ECSPrefix20210508\Nette\Utils\Strings::startsWith($this->isPhp73OrAbove ? \trim($content) : $content, '<?php')) {
@@ -134,29 +138,35 @@ final class SnippetFormatter
     /**
      * It does not have any added value and only clutters the output
      * @param string $content
-     * @return string
      */
-    private function removeOpeningTagAndStrictTypes($content)
+    private function removeOpeningTagAndStrictTypes($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $content = \ECSPrefix20210508\Nette\Utils\Strings::replace($content, self::DECLARE_REGEX, '');
         return $this->removeOpeningTag($content);
     }
     /**
      * @param string $content
-     * @return string
      */
-    private function createTemporaryFilePath($content)
+    private function createTemporaryFilePath($content) : string
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         $key = \md5($content);
         $fileName = \sprintf('php-code-%s.php', $key);
         return \sys_get_temp_dir() . \DIRECTORY_SEPARATOR . 'ecs_temp' . \DIRECTORY_SEPARATOR . $fileName;
     }
     /**
      * @param string $fileContent
-     * @return string
      */
-    private function removeOpeningTag($fileContent)
+    private function removeOpeningTag($fileContent) : string
     {
+        if (\is_object($fileContent)) {
+            $fileContent = (string) $fileContent;
+        }
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($fileContent, self::OPENING_TAG_REGEX, '$1');
     }
 }

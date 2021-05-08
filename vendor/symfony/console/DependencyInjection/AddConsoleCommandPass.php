@@ -30,12 +30,12 @@ class AddConsoleCommandPass implements \ECSPrefix20210508\Symfony\Component\Depe
     private $privateTagName;
     /**
      * @param string $commandLoaderServiceId
-     * @param string $commandTag
-     * @param string $noPreloadTag
-     * @param string $privateTagName
      */
-    public function __construct($commandLoaderServiceId = 'console.command_loader', $commandTag = 'console.command', $noPreloadTag = 'container.no_preload', $privateTagName = 'container.private')
+    public function __construct($commandLoaderServiceId = 'console.command_loader', string $commandTag = 'console.command', string $noPreloadTag = 'container.no_preload', string $privateTagName = 'container.private')
     {
+        if (\is_object($commandLoaderServiceId)) {
+            $commandLoaderServiceId = (string) $commandLoaderServiceId;
+        }
         $this->commandLoaderServiceId = $commandLoaderServiceId;
         $this->commandTag = $commandTag;
         $this->noPreloadTag = $noPreloadTag;

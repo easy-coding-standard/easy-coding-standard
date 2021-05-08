@@ -25,13 +25,16 @@ class PhpProcess extends \ECSPrefix20210508\Symfony\Component\Process\Process
 {
     /**
      * @param string      $script  The PHP script to run (as a string)
-     * @param string $cwd The working directory or null to use the working dir of the current PHP process
+     * @param string|null $cwd     The working directory or null to use the working dir of the current PHP process
      * @param array|null  $env     The environment variables or null to use the same environment as the current PHP process
      * @param int         $timeout The timeout in seconds
      * @param array|null  $php     Path to the PHP binary to use with any additional arguments
      */
-    public function __construct($script, $cwd = null, array $env = null, $timeout = 60, array $php = null)
+    public function __construct($script, string $cwd = null, array $env = null, int $timeout = 60, array $php = null)
     {
+        if (\is_object($script)) {
+            $script = (string) $script;
+        }
         if (null === $php) {
             $executableFinder = new \ECSPrefix20210508\Symfony\Component\Process\PhpExecutableFinder();
             $php = $executableFinder->find(\false);
@@ -50,10 +53,12 @@ class PhpProcess extends \ECSPrefix20210508\Symfony\Component\Process\Process
      * {@inheritdoc}
      * @param float|null $timeout
      * @param string $command
-     * @param string $cwd
      */
-    public static function fromShellCommandline($command, $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public static function fromShellCommandline($command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
     {
+        if (\is_object($command)) {
+            $command = (string) $command;
+        }
         throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\LogicException(\sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
     }
     /**

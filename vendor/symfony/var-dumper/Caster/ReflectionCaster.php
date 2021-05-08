@@ -334,6 +334,9 @@ class ReflectionCaster
      */
     private static function addMap(array &$a, $c, array $map, $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         foreach ($map as $k => $m) {
             if (\PHP_VERSION_ID >= 80000 && 'isDisabled' === $k) {
                 continue;
@@ -349,6 +352,9 @@ class ReflectionCaster
      */
     private static function addAttributes(array &$a, \Reflector $c, $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         if (\PHP_VERSION_ID >= 80000) {
             foreach ($c->getAttributes() as $n) {
                 $a[$prefix . 'attributes'][] = $n;

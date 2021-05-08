@@ -29,6 +29,9 @@ class ServerDumper implements \ECSPrefix20210508\Symfony\Component\VarDumper\Dum
      */
     public function __construct($host, \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\DataDumperInterface $wrappedDumper = null, array $contextProviders = [])
     {
+        if (\is_object($host)) {
+            $host = (string) $host;
+        }
         $this->connection = new \ECSPrefix20210508\Symfony\Component\VarDumper\Server\Connection($host, $contextProviders);
         $this->wrappedDumper = $wrappedDumper;
     }
