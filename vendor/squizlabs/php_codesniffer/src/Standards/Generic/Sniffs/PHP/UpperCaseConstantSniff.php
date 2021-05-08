@@ -34,7 +34,6 @@ class UpperCaseConstantSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $keyword = $tokens[$stackPtr]['content'];
         $expected = \strtoupper($keyword);

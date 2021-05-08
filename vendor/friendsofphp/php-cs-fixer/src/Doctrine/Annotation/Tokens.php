@@ -253,7 +253,6 @@ final class Tokens extends \SplFixedArray
      */
     public function offsetUnset($index)
     {
-        $index = (int) $index;
         if (!isset($this[$index])) {
             throw new \OutOfBoundsException(\sprintf('Index %s is invalid or does not exist.', $index));
         }

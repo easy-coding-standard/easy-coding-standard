@@ -35,7 +35,6 @@ class CompilingMatcher
      */
     public static function match(\ECSPrefix20210508\Composer\Semver\Constraint\ConstraintInterface $constraint, $operator, $version)
     {
-        $version = (string) $version;
         if (self::$enabled === null) {
             self::$enabled = !\in_array('eval', \explode(',', \ini_get('disable_functions')), \true);
         }

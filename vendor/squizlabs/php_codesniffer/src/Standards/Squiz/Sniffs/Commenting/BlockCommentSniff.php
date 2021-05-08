@@ -41,7 +41,6 @@ class BlockCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         if ($this->tabWidth === null) {
             if (isset($phpcsFile->config->tabWidth) === \false || $phpcsFile->config->tabWidth === 0) {
                 // We have no idea how wide tabs are, so assume 4 spaces for fixing.

@@ -40,7 +40,6 @@ class MultiLineAssignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Equal sign can't be the last thing on the line.
         $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);

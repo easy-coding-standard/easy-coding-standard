@@ -35,7 +35,6 @@ class DisallowSelfActionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // We are not interested in abstract classes.
         $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);

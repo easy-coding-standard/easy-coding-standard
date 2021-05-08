@@ -52,8 +52,6 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      */
     protected final function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
-        $stackPtr = (int) $stackPtr;
-        $currScope = (int) $currScope;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === T_HEREDOC) {
             // Check to see if this string has a variable in it.
@@ -124,7 +122,6 @@ abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractSco
      */
     protected final function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // These variables are not member vars.
         if ($tokens[$stackPtr]['code'] === \T_VARIABLE) {

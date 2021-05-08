@@ -180,7 +180,6 @@ final class DocParser
      */
     public function setIgnoreNotImportedAnnotations($bool)
     {
-        $bool = (bool) $bool;
         $this->ignoreNotImportedAnnotations = (bool) $bool;
     }
     /**
@@ -194,7 +193,6 @@ final class DocParser
      */
     public function addNamespace($namespace)
     {
-        $namespace = (string) $namespace;
         if ($this->imports) {
             throw new \RuntimeException('You must either use addNamespace(), or setImports(), but not both.');
         }
@@ -225,7 +223,6 @@ final class DocParser
      */
     public function setTarget($target)
     {
-        $target = (int) $target;
         $this->target = $target;
     }
     /**
@@ -241,8 +238,6 @@ final class DocParser
      */
     public function parse($input, $context = '')
     {
-        $input = (string) $input;
-        $context = (string) $context;
         $pos = $this->findInitialTokenPosition($input);
         if ($pos === null) {
             return [];
@@ -260,7 +255,6 @@ final class DocParser
      */
     private function findInitialTokenPosition($input)
     {
-        $input = (string) $input;
         $pos = 0;
         // search for first valid annotation
         while (($pos = \strpos($input, '@', $pos)) !== \false) {

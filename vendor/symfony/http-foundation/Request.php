@@ -551,7 +551,6 @@ class Request
      */
     public static function normalizeQueryString($qs)
     {
-        $qs = (string) $qs;
         if ('' === (isset($qs) ? $qs : '')) {
             return '';
         }

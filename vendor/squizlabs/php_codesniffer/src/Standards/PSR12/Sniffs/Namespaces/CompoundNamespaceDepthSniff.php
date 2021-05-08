@@ -40,7 +40,6 @@ class CompoundNamespaceDepthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $this->maxDepth = (int) $this->maxDepth;
         $tokens = $phpcsFile->getTokens();
         $end = $phpcsFile->findNext(T_CLOSE_USE_GROUP, $stackPtr + 1);

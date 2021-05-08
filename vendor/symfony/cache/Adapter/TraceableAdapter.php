@@ -66,7 +66,6 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function getItem($key)
     {
-        $key = (string) $key;
         $event = $this->start(__FUNCTION__);
         try {
             $item = $this->pool->getItem($key);
@@ -87,7 +86,6 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function hasItem($key)
     {
-        $key = (string) $key;
         $event = $this->start(__FUNCTION__);
         try {
             return $event->result[$key] = $this->pool->hasItem($key);
@@ -102,7 +100,6 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function deleteItem($key)
     {
-        $key = (string) $key;
         $event = $this->start(__FUNCTION__);
         try {
             return $event->result[$key] = $this->pool->deleteItem($key);

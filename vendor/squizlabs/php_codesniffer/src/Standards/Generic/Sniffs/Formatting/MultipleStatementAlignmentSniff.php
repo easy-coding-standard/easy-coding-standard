@@ -68,7 +68,6 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Ignore assignments used in a condition, like an IF or FOR.
         if (isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
@@ -102,7 +101,6 @@ class MultipleStatementAlignmentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function checkAlignment($phpcsFile, $stackPtr, $end = null)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $assignments = [];
         $prevAssign = null;

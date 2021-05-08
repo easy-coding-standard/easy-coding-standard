@@ -55,7 +55,6 @@ abstract class AbstractConfigurator
      */
     public static function processValue($value, $allowServices = \false)
     {
-        $allowServices = (bool) $allowServices;
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
                 $value[$k] = static::processValue($v, $allowServices);

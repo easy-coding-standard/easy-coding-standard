@@ -137,8 +137,6 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0)
     {
-        $error = (string) $error;
-        $code = (string) $code;
         $this->appliedCheckersCollector->addFileInfoAndChecker($this->fileInfo, $this->resolveFullyQualifiedCode($code));
         return !$this->shouldSkipError($error, $code, $data);
     }
@@ -147,11 +145,6 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
-        $error = (string) $error;
-        $stackPtr = (int) $stackPtr;
-        $code = (string) $code;
-        $severity = (int) $severity;
-        $fixable = (bool) $fixable;
         if ($this->shouldSkipError($error, $code, $data)) {
             return \false;
         }
@@ -165,11 +158,6 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
-        $warning = (string) $warning;
-        $stackPtr = (int) $stackPtr;
-        $code = (string) $code;
-        $severity = (int) $severity;
-        $fixable = (bool) $fixable;
         if (!$this->isSniffClassWarningAllowed($this->activeSniffClass)) {
             return \false;
         }
@@ -193,11 +181,6 @@ final class File extends \PHP_CodeSniffer\Files\File
      */
     protected function addMessage($isError, $message, $line, $column, $sniffClassOrCode, $data, $severity, $isFixable = \false)
     {
-        $isError = (bool) $isError;
-        $message = (string) $message;
-        $line = (int) $line;
-        $sniffClassOrCode = (string) $sniffClassOrCode;
-        $isFixable = (bool) $isFixable;
         // skip warnings
         if (!$isError) {
             return \false;

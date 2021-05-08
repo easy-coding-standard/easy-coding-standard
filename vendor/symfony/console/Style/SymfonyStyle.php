@@ -265,8 +265,6 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function confirm($question, $default = \true)
     {
-        $question = (string) $question;
-        $default = (bool) $default;
         return $this->askQuestion(new \ECSPrefix20210508\Symfony\Component\Console\Question\ConfirmationQuestion($question, $default));
     }
     /**

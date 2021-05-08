@@ -31,8 +31,6 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function open($savePath, $sessionName)
     {
-        $savePath = (string) $savePath;
-        $sessionName = (string) $sessionName;
         parent::open($savePath, $sessionName);
         return $this->handler->open($savePath, $sessionName);
     }
@@ -50,8 +48,6 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function updateTimestamp($sessionId, $data)
     {
-        $sessionId = (string) $sessionId;
-        $data = (string) $data;
         return $this->write($sessionId, $data);
     }
     /**
@@ -70,7 +66,6 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function destroy($sessionId)
     {
-        $sessionId = (string) $sessionId;
         $this->doDestroy = \true;
         $destroyed = parent::destroy($sessionId);
         return $this->doDestroy ? $this->doDestroy($sessionId) : $destroyed;
@@ -97,7 +92,6 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function gc($maxlifetime)
     {
-        $maxlifetime = (int) $maxlifetime;
         return $this->handler->gc($maxlifetime);
     }
 }

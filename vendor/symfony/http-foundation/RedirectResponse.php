@@ -55,7 +55,6 @@ class RedirectResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      */
     public static function create($url = '', $status = 302, array $headers = [])
     {
-        $url = (string) $url;
         $status = (int) $status;
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($url, $status, $headers);

@@ -45,7 +45,6 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
      */
     public function getItem($key)
     {
-        $key = (string) $key;
         $f = $this->createCacheItem;
         return $f($key);
     }

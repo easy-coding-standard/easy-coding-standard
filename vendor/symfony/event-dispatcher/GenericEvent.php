@@ -113,7 +113,6 @@ class GenericEvent extends \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\
      */
     public function offsetGet($key)
     {
-        $key = (string) $key;
         return $this->getArgument($key);
     }
     /**
@@ -124,7 +123,6 @@ class GenericEvent extends \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\
      */
     public function offsetSet($key, $value)
     {
-        $key = (string) $key;
         $this->setArgument($key, $value);
     }
     /**
@@ -134,7 +132,6 @@ class GenericEvent extends \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\
      */
     public function offsetUnset($key)
     {
-        $key = (string) $key;
         if ($this->hasArgument($key)) {
             unset($this->arguments[$key]);
         }
@@ -148,7 +145,6 @@ class GenericEvent extends \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\
      */
     public function offsetExists($key)
     {
-        $key = (string) $key;
         return $this->hasArgument($key);
     }
     /**

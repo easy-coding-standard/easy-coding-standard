@@ -40,7 +40,6 @@ class AcceptHeaderItem
      */
     public static function fromString($itemValue)
     {
-        $itemValue = (string) $itemValue;
         $parts = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::split(isset($itemValue) ? $itemValue : '', ';=');
         $part = \array_shift($parts);
         $attributes = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts);

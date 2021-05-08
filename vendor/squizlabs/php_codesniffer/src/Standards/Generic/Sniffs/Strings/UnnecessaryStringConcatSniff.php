@@ -56,7 +56,6 @@ class UnnecessaryStringConcatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         // Work out which type of file this is for.
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_STRING_CONCAT) {

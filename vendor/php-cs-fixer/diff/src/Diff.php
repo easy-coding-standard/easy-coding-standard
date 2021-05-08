@@ -31,8 +31,6 @@ final class Diff
      */
     public function __construct($from, $to, array $chunks = [])
     {
-        $from = (string) $from;
-        $to = (string) $to;
         $this->from = $from;
         $this->to = $to;
         $this->chunks = $chunks;

@@ -23,7 +23,6 @@ class Version
     {
         $packageName = (string) $packageName;
         $prettyVersion = (string) $prettyVersion;
-        $reference = (string) $reference;
         $this->packageName = $packageName;
         $this->prettyVersion = $prettyVersion;
         $this->reference = isset($reference) ? $reference : self::NO_REFERENCE_TEXT;

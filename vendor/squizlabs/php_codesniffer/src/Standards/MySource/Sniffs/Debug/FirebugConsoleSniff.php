@@ -40,7 +40,6 @@ class FirebugConsoleSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if (\strtolower($tokens[$stackPtr]['content']) === 'console') {
             $error = 'Variables, functions and labels must not be named "console"; name may conflict with Firebug internal variable';

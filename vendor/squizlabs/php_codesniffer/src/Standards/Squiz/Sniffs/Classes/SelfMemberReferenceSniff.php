@@ -38,8 +38,6 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      */
     protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
-        $stackPtr = (int) $stackPtr;
-        $currScope = (int) $currScope;
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a double colon which needs to be examined.
         $conditions = $tokens[$stackPtr]['conditions'];
@@ -164,7 +162,6 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      */
     protected function getDeclarationNameWithNamespace(array $tokens, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $nameParts = [];
         $currentPointer = $stackPtr;
         while ($tokens[$currentPointer]['code'] === \T_NS_SEPARATOR || $tokens[$currentPointer]['code'] === \T_STRING || isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$tokens[$currentPointer]['code']]) === \true) {
@@ -190,7 +187,6 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      */
     protected function getNamespaceOfScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $namespace = '\\';
         $namespaceDeclaration = $phpcsFile->findPrevious(\T_NAMESPACE, $stackPtr);
         if ($namespaceDeclaration !== \false) {

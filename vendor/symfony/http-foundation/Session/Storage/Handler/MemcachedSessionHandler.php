@@ -68,7 +68,6 @@ class MemcachedSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpF
      */
     public function updateTimestamp($sessionId, $data)
     {
-        $sessionId = (string) $sessionId;
         $this->memcached->touch($this->prefix . $sessionId, \time() + $this->ttl);
         return \true;
     }

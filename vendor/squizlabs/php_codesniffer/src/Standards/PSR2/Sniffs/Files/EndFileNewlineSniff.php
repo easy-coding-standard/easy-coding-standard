@@ -34,7 +34,6 @@ class EndFileNewlineSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         if ($phpcsFile->findNext(\T_INLINE_HTML, $stackPtr + 1) !== \false) {
             return $phpcsFile->numTokens + 1;
         }

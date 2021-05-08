@@ -34,7 +34,6 @@ class DisallowLongArraySyntaxSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'no');
         $error = 'Short array syntax must be used to define arrays';

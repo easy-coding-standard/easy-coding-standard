@@ -58,7 +58,6 @@ class Psr16Cache implements \ECSPrefix20210508\Psr\SimpleCache\CacheInterface, \
      */
     public function get($key, $default = null)
     {
-        $key = (string) $key;
         try {
             $item = $this->pool->getItem($key);
         } catch (\ECSPrefix20210508\Psr\SimpleCache\CacheException $e) {
@@ -79,7 +78,6 @@ class Psr16Cache implements \ECSPrefix20210508\Psr\SimpleCache\CacheInterface, \
      */
     public function set($key, $value, $ttl = null)
     {
-        $key = (string) $key;
         try {
             if (null !== ($f = $this->createCacheItem)) {
                 $item = $f($key, $value);
@@ -103,7 +101,6 @@ class Psr16Cache implements \ECSPrefix20210508\Psr\SimpleCache\CacheInterface, \
      */
     public function delete($key)
     {
-        $key = (string) $key;
         try {
             return $this->pool->deleteItem($key);
         } catch (\ECSPrefix20210508\Psr\SimpleCache\CacheException $e) {
@@ -239,7 +236,6 @@ class Psr16Cache implements \ECSPrefix20210508\Psr\SimpleCache\CacheInterface, \
      */
     public function has($key)
     {
-        $key = (string) $key;
         try {
             return $this->pool->hasItem($key);
         } catch (\ECSPrefix20210508\Psr\SimpleCache\CacheException $e) {

@@ -75,8 +75,6 @@ class DateTime extends \DateTime implements \JsonSerializable
      */
     public static function createFromFormat($format, $time, $timezone = null)
     {
-        $format = (string) $format;
-        $time = (string) $time;
         if ($timezone === null) {
             $timezone = new \DateTimeZone(\date_default_timezone_get());
         } elseif (\is_string($timezone)) {

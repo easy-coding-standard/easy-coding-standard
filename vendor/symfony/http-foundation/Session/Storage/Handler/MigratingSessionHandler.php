@@ -48,7 +48,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function destroy($sessionId)
     {
-        $sessionId = (string) $sessionId;
         $result = $this->currentHandler->destroy($sessionId);
         $this->writeOnlyHandler->destroy($sessionId);
         return $result;
@@ -58,7 +57,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function gc($maxlifetime)
     {
-        $maxlifetime = (int) $maxlifetime;
         $result = $this->currentHandler->gc($maxlifetime);
         $this->writeOnlyHandler->gc($maxlifetime);
         return $result;
@@ -68,8 +66,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function open($savePath, $sessionName)
     {
-        $savePath = (string) $savePath;
-        $sessionName = (string) $sessionName;
         $result = $this->currentHandler->open($savePath, $sessionName);
         $this->writeOnlyHandler->open($savePath, $sessionName);
         return $result;
@@ -79,7 +75,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function read($sessionId)
     {
-        $sessionId = (string) $sessionId;
         // No reading from new handler until switch-over
         return $this->currentHandler->read($sessionId);
     }
@@ -88,8 +83,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function write($sessionId, $sessionData)
     {
-        $sessionId = (string) $sessionId;
-        $sessionData = (string) $sessionData;
         $result = $this->currentHandler->write($sessionId, $sessionData);
         $this->writeOnlyHandler->write($sessionId, $sessionData);
         return $result;
@@ -99,7 +92,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function validateId($sessionId)
     {
-        $sessionId = (string) $sessionId;
         // No reading from new handler until switch-over
         return $this->currentHandler->validateId($sessionId);
     }
@@ -108,8 +100,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function updateTimestamp($sessionId, $sessionData)
     {
-        $sessionId = (string) $sessionId;
-        $sessionData = (string) $sessionData;
         $result = $this->currentHandler->updateTimestamp($sessionId, $sessionData);
         $this->writeOnlyHandler->updateTimestamp($sessionId, $sessionData);
         return $result;

@@ -57,7 +57,6 @@ class ClosureLinterSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $lintPath = \PHP_CodeSniffer\Config::getExecutablePath('gjslint');
         if ($lintPath === null) {
             return;

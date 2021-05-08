@@ -49,8 +49,6 @@ class ConstructorNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      */
     protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
-        $stackPtr = (int) $stackPtr;
-        $currScope = (int) $currScope;
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
         $conditions = $tokens[$stackPtr]['conditions'];
@@ -119,7 +117,6 @@ class ConstructorNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      */
     protected function loadFunctionNamesInScope(\PHP_CodeSniffer\Files\File $phpcsFile, $currScope)
     {
-        $currScope = (int) $currScope;
         $this->functionList = [];
         $tokens = $phpcsFile->getTokens();
         for ($i = $tokens[$currScope]['scope_opener'] + 1; $i < $tokens[$currScope]['scope_closer']; $i++) {

@@ -34,7 +34,6 @@ class FileExtensionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $fileName = $phpcsFile->getFilename();
         $extension = \substr($fileName, \strrpos($fileName, '.'));

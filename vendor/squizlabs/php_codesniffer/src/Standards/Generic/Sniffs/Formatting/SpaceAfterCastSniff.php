@@ -47,7 +47,6 @@ class SpaceAfterCastSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $this->spacing = (int) $this->spacing;
         if ($tokens[$stackPtr]['code'] === T_BINARY_CAST && $tokens[$stackPtr]['content'] === 'b') {

@@ -828,7 +828,6 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function offsetGet($option, $triggerDeprecation = \true)
     {
-        $option = (string) $option;
         $triggerDeprecation = (bool) $triggerDeprecation;
         if (!$this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Array access is only supported within closures of lazy options and normalizers.');
@@ -1032,7 +1031,6 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function offsetExists($option)
     {
-        $option = (string) $option;
         if (!$this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Array access is only supported within closures of lazy options and normalizers.');
         }

@@ -40,7 +40,6 @@ class ObjectOperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr - 1]['code'] !== \T_WHITESPACE) {
             $before = 0;
@@ -82,7 +81,6 @@ class ObjectOperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function checkSpacingBeforeOperator(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $before)
     {
-        $stackPtr = (int) $stackPtr;
         if ($before !== 0 && ($before !== 'newline' || $this->ignoreNewlines === \false)) {
             $error = 'Space found before object operator';
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'Before');
@@ -114,7 +112,6 @@ class ObjectOperatorSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function checkSpacingAfterOperator(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $after)
     {
-        $stackPtr = (int) $stackPtr;
         if ($after !== 0 && ($after !== 'newline' || $this->ignoreNewlines === \false)) {
             $error = 'Space found after object operator';
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'After');

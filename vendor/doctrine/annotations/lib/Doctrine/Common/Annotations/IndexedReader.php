@@ -34,7 +34,6 @@ class IndexedReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\Re
      */
     public function getClassAnnotation(\ReflectionClass $class, $annotation)
     {
-        $annotation = (string) $annotation;
         return $this->delegate->getClassAnnotation($class, $annotation);
     }
     /**
@@ -53,7 +52,6 @@ class IndexedReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\Re
      */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotation)
     {
-        $annotation = (string) $annotation;
         return $this->delegate->getMethodAnnotation($method, $annotation);
     }
     /**
@@ -72,7 +70,6 @@ class IndexedReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\Re
      */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotation)
     {
-        $annotation = (string) $annotation;
         return $this->delegate->getPropertyAnnotation($property, $annotation);
     }
     /**
@@ -85,7 +82,6 @@ class IndexedReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\Re
      */
     public function __call($method, $args)
     {
-        $method = (string) $method;
         return \call_user_func_array([$this->delegate, $method], $args);
     }
 }

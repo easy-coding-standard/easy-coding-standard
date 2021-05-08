@@ -129,7 +129,6 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function hasItem($key)
     {
-        $key = (string) $key;
         if ($this->deferred) {
             $this->commit();
         }
@@ -155,7 +154,6 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function getItem($key)
     {
-        $key = (string) $key;
         foreach ($this->getItems([$key]) as $item) {
             return $item;
         }
@@ -215,7 +213,6 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function deleteItem($key)
     {
-        $key = (string) $key;
         return $this->deleteItems([$key]);
     }
     /**

@@ -27,7 +27,6 @@ class Svnblame extends \PHP_CodeSniffer\Reports\VersionControl
      */
     protected function getAuthor($line)
     {
-        $line = (string) $line;
         $blameParts = [];
         \preg_match('|\\s*([^\\s]+)\\s+([^\\s]+)|', $line, $blameParts);
         if (isset($blameParts[2]) === \false) {
@@ -46,7 +45,6 @@ class Svnblame extends \PHP_CodeSniffer\Reports\VersionControl
      */
     protected function getBlameContent($filename)
     {
-        $filename = (string) $filename;
         $command = 'svn blame "' . $filename . '" 2>&1';
         $handle = \popen($command, 'r');
         if ($handle === \false) {

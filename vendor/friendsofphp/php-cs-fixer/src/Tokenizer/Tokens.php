@@ -194,7 +194,6 @@ class Tokens extends \SplFixedArray
      */
     public function setSize($size)
     {
-        $size = (int) $size;
         if ($this->getSize() !== $size) {
             $this->changed = \true;
             return parent::setSize($size);
@@ -209,7 +208,6 @@ class Tokens extends \SplFixedArray
      */
     public function offsetUnset($index)
     {
-        $index = (int) $index;
         $this->changed = \true;
         $this->unregisterFoundToken($this[$index]);
         parent::offsetUnset($index);
@@ -225,7 +223,6 @@ class Tokens extends \SplFixedArray
      */
     public function offsetSet($index, $newval)
     {
-        $index = (int) $index;
         $this->blockStartCache = [];
         $this->blockEndCache = [];
         if (!isset($this[$index]) || !$this[$index]->equals($newval)) {

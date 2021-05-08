@@ -116,7 +116,6 @@ class RedisSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function updateTimestamp($sessionId, $data)
     {
-        $sessionId = (string) $sessionId;
         return (bool) $this->redis->expire($this->prefix . $sessionId, (int) ($this->ttl !== null ? $this->ttl : \ini_get('session.gc_maxlifetime')));
     }
 }

@@ -28,8 +28,6 @@ class Csv implements \PHP_CodeSniffer\Reports\Report
      */
     public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
     {
-        $showSources = (bool) $showSources;
-        $width = (int) $width;
         if ($report['errors'] === 0 && $report['warnings'] === 0) {
             // Nothing to print.
             return \false;
@@ -68,15 +66,6 @@ class Csv implements \PHP_CodeSniffer\Reports\Report
      */
     public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
     {
-        $cachedData = (string) $cachedData;
-        $totalFiles = (int) $totalFiles;
-        $totalErrors = (int) $totalErrors;
-        $totalWarnings = (int) $totalWarnings;
-        $totalFixable = (int) $totalFixable;
-        $showSources = (bool) $showSources;
-        $width = (int) $width;
-        $interactive = (bool) $interactive;
-        $toScreen = (bool) $toScreen;
         echo 'File,Line,Column,Type,Message,Source,Severity,Fixable' . \PHP_EOL;
         echo $cachedData;
     }

@@ -25,7 +25,6 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\Class
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         // We want all the errors from the PSR2 standard, plus some of our own.
         parent::process($phpcsFile, $stackPtr);
         // Check that this is the only class or interface in the file.
@@ -48,7 +47,6 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\Class
      */
     public function processOpen(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         parent::processOpen($phpcsFile, $stackPtr);
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr - 1]['code'] === \T_WHITESPACE) {
@@ -84,7 +82,6 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\Class
      */
     public function processClose(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_closer']) === \false) {
             return;

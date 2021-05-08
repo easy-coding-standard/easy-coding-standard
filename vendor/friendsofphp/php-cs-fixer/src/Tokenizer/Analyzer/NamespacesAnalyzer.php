@@ -58,7 +58,6 @@ final class NamespacesAnalyzer
      */
     public function getNamespaceAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
-        $index = (int) $index;
         if (!$tokens->offsetExists($index)) {
             throw new \InvalidArgumentException("Token index {$index} does not exist.");
         }

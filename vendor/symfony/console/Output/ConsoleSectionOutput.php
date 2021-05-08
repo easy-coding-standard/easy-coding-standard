@@ -93,8 +93,6 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     protected function doWrite($message, $newline)
     {
-        $message = (string) $message;
-        $newline = (bool) $newline;
         if (!$this->isDecorated()) {
             parent::doWrite($message, $newline);
             return;

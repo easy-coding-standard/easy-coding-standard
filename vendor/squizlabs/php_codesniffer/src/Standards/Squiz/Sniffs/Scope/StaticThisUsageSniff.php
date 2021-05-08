@@ -34,8 +34,6 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      */
     public function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
-        $stackPtr = (int) $stackPtr;
-        $currScope = (int) $currScope;
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
         $conditions = $tokens[$stackPtr]['conditions'];
@@ -73,8 +71,6 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      */
     private function checkThisUsage(\PHP_CodeSniffer\Files\File $phpcsFile, $next, $end)
     {
-        $next = (int) $next;
-        $end = (int) $end;
         $tokens = $phpcsFile->getTokens();
         do {
             $next = $phpcsFile->findNext([\T_VARIABLE, T_ANON_CLASS], $next + 1, $end);

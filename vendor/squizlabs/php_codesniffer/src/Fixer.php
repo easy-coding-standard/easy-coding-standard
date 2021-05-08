@@ -196,7 +196,6 @@ class Fixer
      */
     public function generateDiff($filePath = null, $colors = \true)
     {
-        $colors = (bool) $colors;
         if ($filePath === null) {
             $filePath = $this->currentFile->getFilename();
         }
@@ -285,7 +284,6 @@ class Fixer
      */
     public function getTokenContent($stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         if ($this->inChangeset === \true && isset($this->changeset[$stackPtr]) === \true) {
             return $this->changeset[$stackPtr];
         } else {
@@ -402,8 +400,6 @@ class Fixer
      */
     public function replaceToken($stackPtr, $content)
     {
-        $stackPtr = (int) $stackPtr;
-        $content = (string) $content;
         if ($this->inConflict === \true) {
             return \false;
         }
@@ -508,7 +504,6 @@ class Fixer
      */
     public function revertToken($stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         if (isset($this->fixedTokens[$stackPtr]) === \false) {
             return \false;
         }
@@ -562,8 +557,6 @@ class Fixer
      */
     public function substrToken($stackPtr, $start, $length = null)
     {
-        $stackPtr = (int) $stackPtr;
-        $start = (int) $start;
         $current = $this->getTokenContent($stackPtr);
         if ($length === null) {
             $newContent = \substr($current, $start);
@@ -582,7 +575,6 @@ class Fixer
      */
     public function addNewline($stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $current = $this->getTokenContent($stackPtr);
         return $this->replaceToken($stackPtr, $current . $this->currentFile->eolChar);
     }
@@ -596,7 +588,6 @@ class Fixer
      */
     public function addNewlineBefore($stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $current = $this->getTokenContent($stackPtr);
         return $this->replaceToken($stackPtr, $this->currentFile->eolChar . $current);
     }
@@ -611,8 +602,6 @@ class Fixer
      */
     public function addContent($stackPtr, $content)
     {
-        $stackPtr = (int) $stackPtr;
-        $content = (string) $content;
         $current = $this->getTokenContent($stackPtr);
         return $this->replaceToken($stackPtr, $current . $content);
     }
@@ -627,8 +616,6 @@ class Fixer
      */
     public function addContentBefore($stackPtr, $content)
     {
-        $stackPtr = (int) $stackPtr;
-        $content = (string) $content;
         $current = $this->getTokenContent($stackPtr);
         return $this->replaceToken($stackPtr, $content . $current);
     }
@@ -647,9 +634,6 @@ class Fixer
      */
     public function changeCodeBlockIndent($start, $end, $change)
     {
-        $start = (int) $start;
-        $end = (int) $end;
-        $change = (int) $change;
         $tokens = $this->currentFile->getTokens();
         $baseIndent = '';
         if ($change > 0) {

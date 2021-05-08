@@ -34,7 +34,6 @@ class ShortFormTypeKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $typecast = \str_replace(' ', '', $tokens[$stackPtr]['content']);
         $typecast = \str_replace("\t", '', $typecast);

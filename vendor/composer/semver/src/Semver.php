@@ -27,8 +27,6 @@ class Semver
      */
     public static function satisfies($version, $constraints)
     {
-        $version = (string) $version;
-        $constraints = (string) $constraints;
         if (null === self::$versionParser) {
             self::$versionParser = new \ECSPrefix20210508\Composer\Semver\VersionParser();
         }
@@ -47,7 +45,6 @@ class Semver
      */
     public static function satisfiedBy(array $versions, $constraints)
     {
-        $constraints = (string) $constraints;
         $versions = \array_filter($versions, function ($version) use($constraints) {
             return \ECSPrefix20210508\Composer\Semver\Semver::satisfies($version, $constraints);
         });
@@ -83,7 +80,6 @@ class Semver
      */
     private static function usort(array $versions, $direction)
     {
-        $direction = (int) $direction;
         if (null === self::$versionParser) {
             self::$versionParser = new \ECSPrefix20210508\Composer\Semver\VersionParser();
         }

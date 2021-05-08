@@ -129,7 +129,6 @@ final class TokensAnalyzer
      */
     public function isBlockMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
-        $index = (int) $index;
         $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
         if (null === $blockType || !$blockType['isStart']) {
             throw new \InvalidArgumentException(\sprintf('Not an block start at given index %d.', $index));

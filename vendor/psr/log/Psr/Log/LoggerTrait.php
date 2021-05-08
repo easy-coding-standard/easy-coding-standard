@@ -22,7 +22,6 @@ trait LoggerTrait
      */
     public function emergency($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::EMERGENCY, $message, $context);
     }
     /**
@@ -38,7 +37,6 @@ trait LoggerTrait
      */
     public function alert($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::ALERT, $message, $context);
     }
     /**
@@ -53,7 +51,6 @@ trait LoggerTrait
      */
     public function critical($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL, $message, $context);
     }
     /**
@@ -67,7 +64,6 @@ trait LoggerTrait
      */
     public function error($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::ERROR, $message, $context);
     }
     /**
@@ -83,7 +79,6 @@ trait LoggerTrait
      */
     public function warning($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::WARNING, $message, $context);
     }
     /**
@@ -96,7 +91,6 @@ trait LoggerTrait
      */
     public function notice($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::NOTICE, $message, $context);
     }
     /**
@@ -111,7 +105,6 @@ trait LoggerTrait
      */
     public function info($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::INFO, $message, $context);
     }
     /**
@@ -124,7 +117,6 @@ trait LoggerTrait
      */
     public function debug($message, array $context = array())
     {
-        $message = (string) $message;
         $this->log(\ECSPrefix20210508\Psr\Log\LogLevel::DEBUG, $message, $context);
     }
     /**

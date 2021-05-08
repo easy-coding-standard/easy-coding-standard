@@ -148,7 +148,6 @@ final class Differ
      */
     private function splitStringByLines($input)
     {
-        $input = (string) $input;
         return \preg_split('/(.*\\R)/', $input, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
     }
     /**

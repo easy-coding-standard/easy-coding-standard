@@ -34,7 +34,6 @@ class ClassDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $errorData = [\strtolower($tokens[$stackPtr]['content'])];
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {

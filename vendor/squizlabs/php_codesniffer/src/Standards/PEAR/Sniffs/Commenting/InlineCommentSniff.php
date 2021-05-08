@@ -34,7 +34,6 @@ class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['content'][0] === '#') {
             $phpcsFile->recordMetric($stackPtr, 'Inline comment style', '# ...');

@@ -46,7 +46,6 @@ class ChildDefinition extends \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function setParent($parent)
     {
-        $parent = (string) $parent;
         $this->parent = $parent;
         return $this;
     }

@@ -97,7 +97,6 @@ class FileList implements \Iterator, \Countable
      */
     public function addFile($path, $file = null)
     {
-        $path = (string) $path;
         // No filtering is done for STDIN when the filename
         // has not been specified.
         if ($path === 'STDIN') {

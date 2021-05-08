@@ -294,8 +294,6 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     protected function dumpEllipsis(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $hasChild, $cut)
     {
-        $hasChild = (bool) $hasChild;
-        $cut = (int) $cut;
         if ($cut) {
             $this->line .= ' …';
             if (0 < $cut) {
@@ -394,8 +392,6 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     protected function style($style, $value, $attr = [])
     {
-        $style = (string) $style;
-        $value = (string) $value;
         if (null === $this->colors) {
             $this->colors = $this->supportsColors();
         }

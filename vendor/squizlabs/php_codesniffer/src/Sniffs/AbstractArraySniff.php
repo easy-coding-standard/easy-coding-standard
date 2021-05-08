@@ -34,7 +34,6 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_ARRAY) {
             $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'no');
@@ -88,7 +87,6 @@ abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function getNext(\PHP_CodeSniffer\Files\File $phpcsFile, $ptr, $arrayEnd)
     {
-        $arrayEnd = (int) $arrayEnd;
         $tokens = $phpcsFile->getTokens();
         while ($ptr < $arrayEnd) {
             if (isset($tokens[$ptr]['scope_closer']) === \true) {

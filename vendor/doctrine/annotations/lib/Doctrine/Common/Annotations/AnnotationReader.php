@@ -46,7 +46,6 @@ class AnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annotations
      */
     public static function addGlobalIgnoredName($name)
     {
-        $name = (string) $name;
         self::$globalIgnoredNames[$name] = \true;
     }
     /**
@@ -56,7 +55,6 @@ class AnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annotations
      */
     public static function addGlobalIgnoredNamespace($namespace)
     {
-        $namespace = (string) $namespace;
         self::$globalIgnoredNamespaces[$namespace] = \true;
     }
     /**
@@ -128,7 +126,6 @@ class AnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annotations
      */
     public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         $annotations = $this->getClassAnnotations($class);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {
@@ -155,7 +152,6 @@ class AnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annotations
      */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         $annotations = $this->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {
@@ -182,7 +178,6 @@ class AnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annotations
      */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         $annotations = $this->getMethodAnnotations($method);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {

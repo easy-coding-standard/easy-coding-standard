@@ -111,7 +111,6 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function getItem($key)
     {
-        $key = (string) $key;
         $f = $this->createCacheItem;
         $item = $this->pool->getItem($this->getId($key));
         return $f($key, $item);
@@ -135,7 +134,6 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function hasItem($key)
     {
-        $key = (string) $key;
         return $this->pool->hasItem($this->getId($key));
     }
     /**
@@ -159,7 +157,6 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function deleteItem($key)
     {
-        $key = (string) $key;
         return $this->pool->deleteItem($this->getId($key));
     }
     /**

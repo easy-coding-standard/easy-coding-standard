@@ -49,7 +49,6 @@ class XdebugHandler
      */
     public function __construct($envPrefix)
     {
-        $envPrefix = (string) $envPrefix;
         if (!\is_string($envPrefix) || empty($envPrefix)) {
             throw new \RuntimeException('Invalid constructor parameter');
         }
@@ -92,7 +91,6 @@ class XdebugHandler
      */
     public function setMainScript($script)
     {
-        $script = (string) $script;
         $this->script = $script;
         return $this;
     }
@@ -217,7 +215,6 @@ class XdebugHandler
      */
     protected function requiresRestart($default)
     {
-        $default = (bool) $default;
         return $default;
     }
     /**
@@ -314,8 +311,6 @@ class XdebugHandler
      */
     private function writeTmpIni(array $iniFiles, $tmpDir, &$error)
     {
-        $tmpDir = (string) $tmpDir;
-        $error = (string) $error;
         if (!($this->tmpIni = @\tempnam($tmpDir, ''))) {
             return \false;
         }
@@ -369,7 +364,6 @@ class XdebugHandler
      */
     private function setEnvironment($scannedInis, array $iniFiles)
     {
-        $scannedInis = (bool) $scannedInis;
         $scanDir = \getenv('PHP_INI_SCAN_DIR');
         $phprc = \getenv('PHPRC');
         // Make original inis available to restarted process
@@ -394,7 +388,6 @@ class XdebugHandler
      */
     private function notify($op, $data = null)
     {
-        $op = (string) $op;
         $this->statusWriter->report($op, $data);
     }
     /**
@@ -486,7 +479,6 @@ class XdebugHandler
      */
     private function checkConfiguration(&$info)
     {
-        $info = (string) $info;
         if (!\function_exists('proc_open')) {
             $info = 'proc_open function is disabled';
             return \false;

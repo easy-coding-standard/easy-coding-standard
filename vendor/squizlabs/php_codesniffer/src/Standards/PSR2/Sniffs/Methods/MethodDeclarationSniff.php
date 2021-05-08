@@ -33,8 +33,6 @@ class MethodDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      */
     protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
-        $stackPtr = (int) $stackPtr;
-        $currScope = (int) $currScope;
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
         $conditions = $tokens[$stackPtr]['conditions'];

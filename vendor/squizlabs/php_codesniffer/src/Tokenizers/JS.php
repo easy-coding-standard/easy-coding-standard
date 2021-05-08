@@ -67,8 +67,6 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     public function __construct($content, \PHP_CodeSniffer\Config $config, $eolChar = '\\n')
     {
-        $content = (string) $content;
-        $eolChar = (string) $eolChar;
         if ($this->isMinifiedContent($content, $eolChar) === \true) {
             throw new \PHP_CodeSniffer\Exceptions\TokenizerException('File appears to be minified and cannot be processed');
         }
@@ -84,7 +82,6 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     public function tokenize($string)
     {
-        $string = (string) $string;
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t*** START JS TOKENIZING ***" . \PHP_EOL;
         }
@@ -579,10 +576,6 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     public function getRegexToken($char, $string, $chars, $tokens)
     {
-        $char = (string) $char;
-        $string = (string) $string;
-        $chars = (string) $chars;
-        $tokens = (string) $tokens;
         $beforeTokens = [T_EQUAL => \true, \T_IS_NOT_EQUAL => \true, \T_IS_IDENTICAL => \true, \T_IS_NOT_IDENTICAL => \true, T_OPEN_PARENTHESIS => \true, T_OPEN_SQUARE_BRACKET => \true, \T_RETURN => \true, \T_BOOLEAN_OR => \true, \T_BOOLEAN_AND => \true, T_BOOLEAN_NOT => \true, T_BITWISE_OR => \true, T_BITWISE_AND => \true, T_COMMA => \true, T_COLON => \true, T_TYPEOF => \true, T_INLINE_THEN => \true, T_INLINE_ELSE => \true];
         $afterTokens = [',' => \true, ')' => \true, ']' => \true, ';' => \true, ' ' => \true, '.' => \true, ':' => \true, $this->eolChar => \true];
         // Find the last non-whitespace token that was added

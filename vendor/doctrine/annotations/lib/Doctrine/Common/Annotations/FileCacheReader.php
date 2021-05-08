@@ -56,9 +56,6 @@ class FileCacheReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\
      */
     public function __construct(\ECSPrefix20210508\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
     {
-        $cacheDir = (string) $cacheDir;
-        $debug = (bool) $debug;
-        $umask = (int) $umask;
         if (!\is_int($umask)) {
             throw new \InvalidArgumentException(\sprintf('The parameter umask must be an integer, was: %s', \gettype($umask)));
         }
@@ -163,7 +160,6 @@ class FileCacheReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\
      */
     private function saveCacheFile($path, $data)
     {
-        $path = (string) $path;
         if (!\is_writable($this->dir)) {
             throw new \InvalidArgumentException(\sprintf(<<<'EXCEPTION'
 The directory "%s" is not writable. Both the webserver and the console user need access.
@@ -192,7 +188,6 @@ EXCEPTION
      */
     public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         $annotations = $this->getClassAnnotations($class);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {
@@ -206,7 +201,6 @@ EXCEPTION
      */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         $annotations = $this->getMethodAnnotations($method);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {
@@ -220,7 +214,6 @@ EXCEPTION
      */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         $annotations = $this->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof $annotationName) {

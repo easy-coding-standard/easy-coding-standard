@@ -35,7 +35,6 @@ class EchoedStringsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $firstContent = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
         // If the first non-whitespace token is not an opening parenthesis, then we are not concerned.

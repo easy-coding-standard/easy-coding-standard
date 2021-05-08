@@ -40,7 +40,6 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $commentStart = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
         if ($tokens[$commentStart]['code'] === \T_COMMENT) {

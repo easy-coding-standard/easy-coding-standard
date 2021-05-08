@@ -35,7 +35,6 @@ class ScopeClosingBraceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // If this is an inline condition (ie. there is no scope opener), then
         // return, as this is not a new scope.

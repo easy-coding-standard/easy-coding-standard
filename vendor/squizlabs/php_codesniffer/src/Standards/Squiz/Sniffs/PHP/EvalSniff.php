@@ -34,7 +34,6 @@ class EvalSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $error = 'Use of eval() is discouraged';
         $phpcsFile->addWarning($error, $stackPtr, 'Discouraged');
     }

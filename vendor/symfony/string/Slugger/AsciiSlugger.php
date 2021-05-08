@@ -47,7 +47,6 @@ class AsciiSlugger implements \ECSPrefix20210508\Symfony\Component\String\Slugge
      */
     public function setLocale($locale)
     {
-        $locale = (string) $locale;
         $this->defaultLocale = $locale;
     }
     /**

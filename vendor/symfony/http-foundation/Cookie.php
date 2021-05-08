@@ -90,7 +90,6 @@ class Cookie
     public function __construct($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = null, $httpOnly = \true, $raw = \false, $sameSite = 'lax')
     {
         $name = (string) $name;
-        $path = (string) $path;
         $httpOnly = (bool) $httpOnly;
         $raw = (bool) $raw;
         // from PHP source code

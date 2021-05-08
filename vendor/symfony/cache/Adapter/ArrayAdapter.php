@@ -98,7 +98,6 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function hasItem($key)
     {
-        $key = (string) $key;
         if (\is_string($key) && isset($this->expiries[$key]) && $this->expiries[$key] > \microtime(\true)) {
             if ($this->maxItems) {
                 // Move the item last in the storage
@@ -116,7 +115,6 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function getItem($key)
     {
-        $key = (string) $key;
         if (!($isHit = $this->hasItem($key))) {
             $value = null;
             if (!$this->maxItems) {
@@ -148,7 +146,6 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function deleteItem($key)
     {
-        $key = (string) $key;
         if (!\is_string($key) || !isset($this->expiries[$key])) {
             \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($key);
         }

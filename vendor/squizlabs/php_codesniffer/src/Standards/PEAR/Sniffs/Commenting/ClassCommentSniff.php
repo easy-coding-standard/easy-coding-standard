@@ -34,7 +34,6 @@ class ClassCommentSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Commentin
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $type = \strtolower($tokens[$stackPtr]['content']);
         $errorData = [$type];

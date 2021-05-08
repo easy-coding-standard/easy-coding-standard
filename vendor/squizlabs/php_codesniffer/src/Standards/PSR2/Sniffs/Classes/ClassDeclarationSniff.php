@@ -31,7 +31,6 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         // We want all the errors from the PEAR standard, plus some of our own.
         parent::process($phpcsFile, $stackPtr);
         // Just in case.
@@ -54,7 +53,6 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
      */
     public function processOpen(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $stackPtrType = \strtolower($tokens[$stackPtr]['content']);
         // Check alignment of the keyword and braces.
@@ -392,7 +390,6 @@ class ClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Class
      */
     public function processClose(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Check that the closing brace comes right after the code body.
         $closeBrace = $tokens[$stackPtr]['scope_closer'];

@@ -234,7 +234,6 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      */
     private function requestsMatch($vary, array $env1, array $env2)
     {
-        $vary = (string) $vary;
         if (empty($vary)) {
             return \true;
         }

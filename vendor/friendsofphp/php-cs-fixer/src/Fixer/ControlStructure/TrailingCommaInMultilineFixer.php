@@ -140,7 +140,6 @@ SAMPLE
      */
     private function fixBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
     {
-        $startIndex = (int) $startIndex;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         if (!$tokensAnalyzer->isBlockMultiline($tokens, $startIndex)) {
             return;

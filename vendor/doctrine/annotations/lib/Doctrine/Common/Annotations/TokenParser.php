@@ -46,7 +46,6 @@ class TokenParser
      */
     public function __construct($contents)
     {
-        $contents = (string) $contents;
         $this->tokens = \token_get_all($contents);
         // The PHP parser sets internal compiler globals for certain things. Annoyingly, the last docblock comment it
         // saw gets stored in doc_comment. When it comes to compile the next thing to be include()d this stored
@@ -68,7 +67,6 @@ class TokenParser
      */
     public function next($docCommentIsComment = \true)
     {
-        $docCommentIsComment = (bool) $docCommentIsComment;
         for ($i = $this->pointer; $i < $this->numTokens; $i++) {
             $this->pointer++;
             if ($this->tokens[$i][0] === \T_WHITESPACE || $this->tokens[$i][0] === \T_COMMENT || $docCommentIsComment && $this->tokens[$i][0] === \T_DOC_COMMENT) {
@@ -134,7 +132,6 @@ class TokenParser
      */
     public function parseUseStatements($namespaceName)
     {
-        $namespaceName = (string) $namespaceName;
         $statements = [];
         while ($token = $this->next()) {
             if ($token[0] === \T_USE) {

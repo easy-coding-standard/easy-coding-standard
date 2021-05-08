@@ -43,7 +43,6 @@ class ByteOrderMarkSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         // The BOM will be the very first token in the file.
         if ($stackPtr !== 0) {
             return;

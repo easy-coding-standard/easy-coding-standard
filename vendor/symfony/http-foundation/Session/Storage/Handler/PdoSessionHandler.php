@@ -235,8 +235,6 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function open($savePath, $sessionName)
     {
-        $savePath = (string) $savePath;
-        $sessionName = (string) $sessionName;
         $this->sessionExpired = \false;
         if (null === $this->pdo) {
             $this->connect($this->dsn ?: $savePath);
@@ -248,7 +246,6 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function read($sessionId)
     {
-        $sessionId = (string) $sessionId;
         try {
             return parent::read($sessionId);
         } catch (\PDOException $e) {

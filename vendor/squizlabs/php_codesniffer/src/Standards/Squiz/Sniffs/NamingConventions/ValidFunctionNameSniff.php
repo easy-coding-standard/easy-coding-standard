@@ -25,7 +25,6 @@ class ValidFunctionNameSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Nami
      */
     protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $functionName = $phpcsFile->getDeclarationName($stackPtr);
         if ($functionName === null) {
             return;

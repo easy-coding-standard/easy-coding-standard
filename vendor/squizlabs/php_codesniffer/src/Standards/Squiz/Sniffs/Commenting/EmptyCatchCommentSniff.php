@@ -34,7 +34,6 @@ class EmptyCatchCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $scopeStart = $tokens[$stackPtr]['scope_opener'];
         $firstContent = $phpcsFile->findNext(\T_WHITESPACE, $scopeStart + 1, $tokens[$stackPtr]['scope_closer'], \true);

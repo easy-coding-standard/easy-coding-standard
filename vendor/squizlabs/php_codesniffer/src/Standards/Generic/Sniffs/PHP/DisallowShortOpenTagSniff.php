@@ -40,7 +40,6 @@ class DisallowShortOpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $token = $tokens[$stackPtr];
         if ($token['code'] === \T_OPEN_TAG && $token['content'] === '<?') {
@@ -122,9 +121,6 @@ class DisallowShortOpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function getSnippet($content, $start = '', $length = 40)
     {
-        $content = (string) $content;
-        $start = (string) $start;
-        $length = (int) $length;
         $startPos = 0;
         if ($start !== '') {
             $startPos = \strpos($content, $start);

@@ -67,7 +67,6 @@ final class DocLexer extends \ECSPrefix20210508\Doctrine\Common\Lexer\AbstractLe
      */
     protected function getType(&$value)
     {
-        $value = (string) $value;
         $type = self::T_NONE;
         if ($value[0] === '"') {
             $value = \str_replace('""', '"', \substr($value, 1, \strlen($value) - 2));

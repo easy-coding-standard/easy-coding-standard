@@ -49,7 +49,6 @@ class ESLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $eslintPath = \PHP_CodeSniffer\Config::getExecutablePath('eslint');
         if ($eslintPath === null) {
             return;

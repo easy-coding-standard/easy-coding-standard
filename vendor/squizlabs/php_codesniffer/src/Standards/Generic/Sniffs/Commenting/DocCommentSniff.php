@@ -40,7 +40,6 @@ class DocCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['comment_closer']) === \false || $tokens[$tokens[$stackPtr]['comment_closer']]['content'] === '' && $tokens[$stackPtr]['comment_closer'] === $phpcsFile->numTokens - 1) {
             // Don't process an unfinished comment during live coding.

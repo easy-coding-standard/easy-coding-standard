@@ -49,7 +49,6 @@ class FunctionCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $scopeModifier = $phpcsFile->getMethodProperties($stackPtr)['scope'];
         if ($scopeModifier === 'protected' && $this->minimumVisibility === 'public' || $scopeModifier === 'private' && ($this->minimumVisibility === 'public' || $this->minimumVisibility === 'protected')) {
             return;
@@ -112,8 +111,6 @@ class FunctionCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processReturn(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $commentStart)
     {
-        $stackPtr = (int) $stackPtr;
-        $commentStart = (int) $commentStart;
         $tokens = $phpcsFile->getTokens();
         // Skip constructor and destructor.
         $methodName = $phpcsFile->getDeclarationName($stackPtr);
@@ -157,8 +154,6 @@ class FunctionCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processThrows(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $commentStart)
     {
-        $stackPtr = (int) $stackPtr;
-        $commentStart = (int) $commentStart;
         $tokens = $phpcsFile->getTokens();
         foreach ($tokens[$commentStart]['comment_tags'] as $tag) {
             if ($tokens[$tag]['content'] !== '@throws') {
@@ -190,8 +185,6 @@ class FunctionCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processParams(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $commentStart)
     {
-        $stackPtr = (int) $stackPtr;
-        $commentStart = (int) $commentStart;
         $tokens = $phpcsFile->getTokens();
         $params = [];
         $maxType = 0;

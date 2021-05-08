@@ -45,7 +45,6 @@ class SubversionPropertiesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $path = $phpcsFile->getFilename();
         $properties = $this->getProperties($path);
         if ($properties === null) {
@@ -90,7 +89,6 @@ class SubversionPropertiesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function getProperties($path)
     {
-        $path = (string) $path;
         $properties = [];
         $paths = [];
         $paths[] = \dirname($path) . '/.svn/props/' . \basename($path) . '.svn-work';

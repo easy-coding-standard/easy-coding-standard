@@ -80,7 +80,6 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setDumpHeader($header)
     {
-        $header = (string) $header;
         $this->dumpHeader = $header;
     }
     /**
@@ -91,8 +90,6 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setDumpBoundaries($prefix, $suffix)
     {
-        $prefix = (string) $prefix;
-        $suffix = (string) $suffix;
         $this->dumpPrefix = $prefix;
         $this->dumpSuffix = $suffix;
     }
@@ -816,8 +813,6 @@ EOHTML
      */
     protected function style($style, $value, $attr = [])
     {
-        $style = (string) $style;
-        $value = (string) $value;
         if ('' === $value) {
             return '';
         }

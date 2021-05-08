@@ -111,7 +111,6 @@ class MongoDbSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function updateTimestamp($sessionId, $data)
     {
-        $sessionId = (string) $sessionId;
         $expiry = new \MongoDB\BSON\UTCDateTime((\time() + (int) \ini_get('session.gc_maxlifetime')) * 1000);
         $this->getCollection()->updateOne([$this->options['id_field'] => $sessionId], ['$set' => [$this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(), $this->options['expiry_field'] => $expiry]]);
         return \true;

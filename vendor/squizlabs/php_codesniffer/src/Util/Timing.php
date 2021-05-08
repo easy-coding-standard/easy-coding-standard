@@ -43,7 +43,6 @@ class Timing
      */
     public static function printRunTime($force = \false)
     {
-        $force = (bool) $force;
         if ($force === \false && self::$printed === \true) {
             // A double call.
             return;

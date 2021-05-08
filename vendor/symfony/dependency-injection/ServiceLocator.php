@@ -36,7 +36,6 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
      */
     public function get($id)
     {
-        $id = (string) $id;
         if (!$this->externalId) {
             return $this->doGet($id);
         }

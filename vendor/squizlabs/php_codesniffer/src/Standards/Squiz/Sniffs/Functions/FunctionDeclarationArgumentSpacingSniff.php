@@ -53,7 +53,6 @@ class FunctionDeclarationArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false || isset($tokens[$stackPtr]['parenthesis_closer']) === \false || $tokens[$stackPtr]['parenthesis_opener'] === null || $tokens[$stackPtr]['parenthesis_closer'] === null) {
             return;
@@ -82,7 +81,6 @@ class FunctionDeclarationArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs
      */
     public function processBracket($phpcsFile, $openBracket)
     {
-        $openBracket = (int) $openBracket;
         $tokens = $phpcsFile->getTokens();
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         $multiLine = $tokens[$openBracket]['line'] !== $tokens[$closeBracket]['line'];

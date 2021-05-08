@@ -35,7 +35,6 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Skip tokens that are the names of functions or classes
         // within their definitions. For example:
@@ -78,8 +77,6 @@ class FunctionCallArgumentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function checkSpacing(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket)
     {
-        $stackPtr = (int) $stackPtr;
-        $openBracket = (int) $openBracket;
         $tokens = $phpcsFile->getTokens();
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         $nextSeparator = $openBracket;

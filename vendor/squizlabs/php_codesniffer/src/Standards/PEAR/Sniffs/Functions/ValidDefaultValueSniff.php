@@ -34,7 +34,6 @@ class ValidDefaultValueSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         // Flag for when we have found a default in our arg list.
         // If there is a value without a default after this, it is an error.
         $defaultFound = \false;

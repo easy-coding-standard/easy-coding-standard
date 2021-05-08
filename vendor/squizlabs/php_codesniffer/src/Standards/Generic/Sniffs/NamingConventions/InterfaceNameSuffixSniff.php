@@ -33,7 +33,6 @@ class InterfaceNameSuffixSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $interfaceName = $phpcsFile->getDeclarationName($stackPtr);
         if ($interfaceName === null) {
             return;

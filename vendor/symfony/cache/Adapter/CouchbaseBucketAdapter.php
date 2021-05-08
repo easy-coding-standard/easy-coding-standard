@@ -160,7 +160,6 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         return \false !== $this->bucket->get($id);
     }
     /**
@@ -169,7 +168,6 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         if ('' === $namespace) {
             $this->bucket->manager()->flush();
             return \true;
@@ -196,7 +194,6 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
         }

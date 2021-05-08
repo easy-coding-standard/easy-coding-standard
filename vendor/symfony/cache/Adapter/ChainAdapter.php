@@ -106,7 +106,6 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function getItem($key)
     {
-        $key = (string) $key;
         $syncItem = $this->syncItem;
         $misses = [];
         foreach ($this->adapters as $i => $adapter) {
@@ -166,7 +165,6 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function hasItem($key)
     {
-        $key = (string) $key;
         foreach ($this->adapters as $adapter) {
             if ($adapter->hasItem($key)) {
                 return \true;
@@ -201,7 +199,6 @@ class ChainAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function deleteItem($key)
     {
-        $key = (string) $key;
         $deleted = \true;
         $i = $this->adapterCount;
         while ($i--) {

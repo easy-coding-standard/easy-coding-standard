@@ -47,7 +47,6 @@ class NoSilencedErrorsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         // Prepare the "Found" string to display.
         $contextLength = 4;
         $endOfStatement = $phpcsFile->findEndOfStatement($stackPtr, [T_COMMA, T_COLON]);

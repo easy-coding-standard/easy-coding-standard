@@ -76,7 +76,6 @@ trait RedisTrait
      */
     public static function createConnection($dsn, array $options = [])
     {
-        $dsn = (string) $dsn;
         if (0 === \strpos($dsn, 'redis:')) {
             $scheme = 'redis';
         } elseif (0 === \strpos($dsn, 'rediss:')) {

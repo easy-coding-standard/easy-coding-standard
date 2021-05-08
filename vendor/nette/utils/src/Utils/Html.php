@@ -625,7 +625,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function offsetGet($index)
     {
-        $index = (int) $index;
         return $this->children[$index];
     }
     /**
@@ -635,7 +634,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function offsetExists($index)
     {
-        $index = (int) $index;
         return isset($this->children[$index]);
     }
     /**
@@ -645,7 +643,6 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function offsetUnset($index)
     {
-        $index = (int) $index;
         if (isset($this->children[$index])) {
             \array_splice($this->children, $index, 1);
         }

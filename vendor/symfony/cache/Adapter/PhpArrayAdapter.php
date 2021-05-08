@@ -106,7 +106,6 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function getItem($key)
     {
-        $key = (string) $key;
         if (!\is_string($key)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
@@ -153,7 +152,6 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function hasItem($key)
     {
-        $key = (string) $key;
         if (!\is_string($key)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
@@ -169,7 +167,6 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function deleteItem($key)
     {
-        $key = (string) $key;
         if (!\is_string($key)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }

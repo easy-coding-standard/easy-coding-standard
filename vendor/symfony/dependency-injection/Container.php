@@ -179,7 +179,6 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function has($id)
     {
-        $id = (string) $id;
         if (isset($this->aliases[$id])) {
             $id = $this->aliases[$id];
         }
@@ -207,7 +206,6 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function get($id, $invalidBehavior = 1)
     {
-        $id = (string) $id;
         $invalidBehavior = (int) $invalidBehavior;
         return isset($this->services[$id]) ? $this->services[$id] : (isset($this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id]) ? $this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id] : ('service_container' === $id ? $this : (isset($this->factories[$id]) ? $this->factories[$id] : [$this, 'make'])($id, $invalidBehavior)));
     }
@@ -324,7 +322,6 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public static function camelize($id)
     {
-        $id = (string) $id;
         return \strtr(\ucwords(\strtr($id, ['_' => ' ', '.' => '_ ', '\\' => '_ '])), [' ' => '']);
     }
     /**
@@ -336,7 +333,6 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public static function underscore($id)
     {
-        $id = (string) $id;
         return \strtolower(\preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\\d])([A-Z])/'], ['\\1_\\2', '\\1_\\2'], \str_replace('_', '.', $id)));
     }
     /**
@@ -357,7 +353,6 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     protected function getEnv($name)
     {
-        $name = (string) $name;
         if (isset($this->resolving[$envName = "env({$name})"])) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($this->resolving));
         }

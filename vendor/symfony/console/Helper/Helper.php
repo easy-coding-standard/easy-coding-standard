@@ -54,7 +54,6 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      */
     public static function width($string)
     {
-        $string = (string) $string;
         isset($string) ? $string : ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($string))->width(\false);
@@ -74,7 +73,6 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      */
     public static function length($string)
     {
-        $string = (string) $string;
         isset($string) ? $string : ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($string))->length();
@@ -94,7 +92,6 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      */
     public static function substr($string, $from, $length = null)
     {
-        $string = (string) $string;
         $from = (int) $from;
         isset($string) ? $string : ($string = '');
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {

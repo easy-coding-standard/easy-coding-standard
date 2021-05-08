@@ -449,7 +449,6 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
     public function has($id)
     {
         $id = (string) $id;
-        $id = (string) $id;
         return isset($this->definitions[$id]) || isset($this->aliasDefinitions[$id]) || parent::has($id);
     }
     /**
@@ -469,7 +468,6 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function get($id, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        $id = (string) $id;
         $invalidBehavior = (int) $invalidBehavior;
         if ($this->isCompiled() && isset($this->removedIds[$id = (string) $id]) && \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
@@ -1385,7 +1383,6 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     protected function getEnv($name)
     {
-        $name = (string) $name;
         $value = parent::getEnv($name);
         $bag = $this->getParameterBag();
         if (!\is_string($value) || !$bag instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {

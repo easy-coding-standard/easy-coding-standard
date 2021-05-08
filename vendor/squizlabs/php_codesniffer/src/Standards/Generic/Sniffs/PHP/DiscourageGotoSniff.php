@@ -34,7 +34,6 @@ class DiscourageGotoSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $phpcsFile->addWarning('Use of the GOTO language construct is discouraged', $stackPtr, 'Found');
     }
     //end process()

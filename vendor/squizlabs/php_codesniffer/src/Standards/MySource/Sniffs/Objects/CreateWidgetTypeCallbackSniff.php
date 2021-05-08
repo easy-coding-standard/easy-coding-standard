@@ -41,7 +41,6 @@ class CreateWidgetTypeCallbackSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $className = $phpcsFile->findPrevious(\T_STRING, $stackPtr - 1);
         if (\substr(\strtolower($tokens[$className]['content']), -10) !== 'widgettype') {

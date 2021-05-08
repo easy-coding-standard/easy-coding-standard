@@ -28,7 +28,6 @@ class Hgblame extends \PHP_CodeSniffer\Reports\VersionControl
      */
     protected function getAuthor($line)
     {
-        $line = (string) $line;
         $blameParts = [];
         $line = \preg_replace('|\\s+|', ' ', $line);
         \preg_match('|(.+[0-9]{2}:[0-9]{2}:[0-9]{2}\\s[0-9]{4}\\s.[0-9]{4}:)|', $line, $blameParts);
@@ -53,7 +52,6 @@ class Hgblame extends \PHP_CodeSniffer\Reports\VersionControl
      */
     protected function getBlameContent($filename)
     {
-        $filename = (string) $filename;
         $cwd = \getcwd();
         $fileParts = \explode(\DIRECTORY_SEPARATOR, $filename);
         $found = \false;

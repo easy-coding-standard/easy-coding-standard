@@ -561,7 +561,6 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     protected function loadFile($file)
     {
-        $file = (string) $file;
         if (!\class_exists(\ECSPrefix20210508\Symfony\Component\Yaml\Parser::class)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\RuntimeException('Unable to load YAML config files as the Symfony Yaml Component is not installed.');
         }

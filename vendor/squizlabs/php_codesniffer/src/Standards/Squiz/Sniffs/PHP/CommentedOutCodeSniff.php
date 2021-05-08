@@ -49,7 +49,6 @@ class CommentedOutCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Ignore comments at the end of code blocks.
         if (\substr($tokens[$stackPtr]['content'], 0, 6) === '//end ') {

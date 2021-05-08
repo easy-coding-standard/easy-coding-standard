@@ -35,7 +35,6 @@ class DisallowBooleanStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
             foreach ($tokens[$stackPtr]['nested_parenthesis'] as $open => $close) {

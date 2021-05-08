@@ -23,7 +23,6 @@ class MemberVarScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      */
     protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $properties = $phpcsFile->getMemberProperties($stackPtr);
         if ($properties === [] || $properties['scope_specified'] !== \false) {
@@ -44,7 +43,6 @@ class MemberVarScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      */
     protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */
@@ -60,7 +58,6 @@ class MemberVarScopeSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      */
     protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */

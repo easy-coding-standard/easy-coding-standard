@@ -34,8 +34,6 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
      */
     public function isMultiLineDeclaration($phpcsFile, $stackPtr, $openBracket, $tokens)
     {
-        $stackPtr = (int) $stackPtr;
-        $openBracket = (int) $openBracket;
         $bracketsToCheck = [$stackPtr => $openBracket];
         // Closures may use the USE keyword and so be multi-line in this way.
         if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
@@ -94,7 +92,6 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
      */
     public function processSingleLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
-        $stackPtr = (int) $stackPtr;
         // We do everything the parent sniff does, and a bit more because we
         // define multi-line declarations a bit differently.
         parent::processSingleLineDeclaration($phpcsFile, $stackPtr, $tokens);
@@ -135,7 +132,6 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
      */
     public function processMultiLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
-        $stackPtr = (int) $stackPtr;
         // We do everything the parent sniff does, and a bit more.
         parent::processMultiLineDeclaration($phpcsFile, $stackPtr, $tokens);
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];
@@ -166,8 +162,6 @@ class MultiLineFunctionDeclarationSniff extends \PHP_CodeSniffer\Standards\PEAR\
      */
     public function processBracket($phpcsFile, $openBracket, $tokens, $type = 'function')
     {
-        $openBracket = (int) $openBracket;
-        $type = (string) $type;
         $errorPrefix = '';
         if ($type === 'use') {
             $errorPrefix = 'Use';

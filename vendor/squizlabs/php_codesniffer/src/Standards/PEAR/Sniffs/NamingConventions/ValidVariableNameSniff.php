@@ -24,7 +24,6 @@ class ValidVariableNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSni
      */
     protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $memberProps = $phpcsFile->getMemberProperties($stackPtr);
         if (empty($memberProps) === \true) {
@@ -64,7 +63,6 @@ class ValidVariableNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSni
      */
     protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */
@@ -80,7 +78,6 @@ class ValidVariableNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSni
      */
     protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */

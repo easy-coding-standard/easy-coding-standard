@@ -34,7 +34,6 @@ class ElseIfDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $error = 'Usage of ELSEIF not allowed; use ELSE IF instead';
         $fix = $phpcsFile->addFixableError($error, $stackPtr, 'NotAllowed');
         if ($fix === \true) {

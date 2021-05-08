@@ -47,7 +47,6 @@ class NestingLevelSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Ignore abstract methods.
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {

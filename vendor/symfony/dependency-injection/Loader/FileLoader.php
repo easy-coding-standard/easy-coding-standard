@@ -78,8 +78,6 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     public function registerClasses(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $prototype, $namespace, $resource, $exclude = null)
     {
-        $namespace = (string) $namespace;
-        $resource = (string) $resource;
         if ('\\' !== \substr($namespace, -1)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Namespace prefix must end with a "\\": "%s".', $namespace));
         }
@@ -123,7 +121,6 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     protected function setDefinition($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        $id = (string) $id;
         $this->container->removeBindings($id);
         if ($this->isLoadingInstanceof) {
             if (!$definition instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition) {

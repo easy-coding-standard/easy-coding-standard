@@ -97,7 +97,6 @@ class Question
      */
     public function setHidden($hidden)
     {
-        $hidden = (bool) $hidden;
         if ($this->autocompleterCallback) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
         }
@@ -122,7 +121,6 @@ class Question
      */
     public function setHiddenFallback($fallback)
     {
-        $fallback = (bool) $fallback;
         $this->hiddenFallback = (bool) $fallback;
         return $this;
     }

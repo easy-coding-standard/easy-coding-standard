@@ -33,7 +33,6 @@ class ContainerBag extends \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function get($name)
     {
-        $name = (string) $name;
         return $this->container->getParameter($name);
     }
     /**
@@ -41,7 +40,6 @@ class ContainerBag extends \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function has($name)
     {
-        $name = (string) $name;
         return $this->container->hasParameter($name);
     }
 }

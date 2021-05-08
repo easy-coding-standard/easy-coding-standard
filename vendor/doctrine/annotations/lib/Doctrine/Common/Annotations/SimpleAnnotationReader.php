@@ -34,7 +34,6 @@ class SimpleAnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annot
      */
     public function addNamespace($namespace)
     {
-        $namespace = (string) $namespace;
         $this->parser->addNamespace($namespace);
     }
     /**
@@ -63,7 +62,6 @@ class SimpleAnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annot
      */
     public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         foreach ($this->getClassAnnotations($class) as $annot) {
             if ($annot instanceof $annotationName) {
                 return $annot;
@@ -76,7 +74,6 @@ class SimpleAnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annot
      */
     public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         foreach ($this->getMethodAnnotations($method) as $annot) {
             if ($annot instanceof $annotationName) {
                 return $annot;
@@ -89,7 +86,6 @@ class SimpleAnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annot
      */
     public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
-        $annotationName = (string) $annotationName;
         foreach ($this->getPropertyAnnotations($property) as $annot) {
             if ($annot instanceof $annotationName) {
                 return $annot;

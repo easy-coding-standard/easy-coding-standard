@@ -59,7 +59,6 @@ class FunctionSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $previousNonEmpty = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
         if ($previousNonEmpty !== \false && $tokens[$previousNonEmpty]['code'] === \T_OPEN_TAG && $tokens[$previousNonEmpty]['line'] !== 1) {

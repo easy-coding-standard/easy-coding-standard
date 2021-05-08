@@ -261,7 +261,6 @@ trait AbstractAdapterTrait
      */
     public function enableVersioning($enable = \true)
     {
-        $enable = (bool) $enable;
         $wasEnabled = $this->versioningIsEnabled;
         $this->versioningIsEnabled = (bool) $enable;
         $this->namespaceVersion = '';

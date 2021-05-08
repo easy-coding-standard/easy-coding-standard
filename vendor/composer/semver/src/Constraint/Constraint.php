@@ -59,8 +59,6 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public function __construct($operator, $version)
     {
-        $operator = (string) $operator;
-        $version = (string) $version;
         if (!isset(self::$transOpStr[$operator])) {
             throw new \InvalidArgumentException(\sprintf('Invalid operator "%s" given, expected one of: %s', $operator, \implode(', ', self::getSupportedOperators())));
         }
@@ -122,7 +120,6 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public static function getOperatorConstant($operator)
     {
-        $operator = (string) $operator;
         return self::$transOpStr[$operator];
     }
     /**
@@ -137,10 +134,6 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public function versionCompare($a, $b, $operator, $compareBranches = \false)
     {
-        $a = (string) $a;
-        $b = (string) $b;
-        $operator = (string) $operator;
-        $compareBranches = (bool) $compareBranches;
         if (!isset(self::$transOpStr[$operator])) {
             throw new \InvalidArgumentException(\sprintf('Invalid operator "%s" given, expected one of: %s', $operator, \implode(', ', self::getSupportedOperators())));
         }
@@ -160,7 +153,6 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
     }
     public function compile($otherOperator)
     {
-        $otherOperator = (int) $otherOperator;
         if (\strpos($this->version, 'dev-') === 0) {
             if (self::OP_EQ === $this->operator) {
                 if (self::OP_EQ === $otherOperator) {
@@ -232,7 +224,6 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public function matchSpecific(\ECSPrefix20210508\Composer\Semver\Constraint\Constraint $provider, $compareBranches = \false)
     {
-        $compareBranches = (bool) $compareBranches;
         $noEqualOp = \str_replace('=', '', self::$transOpInt[$this->operator]);
         $providerNoEqualOp = \str_replace('=', '', self::$transOpInt[$provider->operator]);
         $isEqualOp = self::OP_EQ === $this->operator;

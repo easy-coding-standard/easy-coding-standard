@@ -25,7 +25,6 @@ class VariableCommentSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
      */
     public function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $ignore = [\T_PUBLIC, \T_PRIVATE, \T_PROTECTED, \T_VAR, \T_STATIC, \T_WHITESPACE, \T_STRING, \T_NS_SEPARATOR, T_NULLABLE];
         $commentEnd = $phpcsFile->findPrevious($ignore, $stackPtr - 1, null, \true);

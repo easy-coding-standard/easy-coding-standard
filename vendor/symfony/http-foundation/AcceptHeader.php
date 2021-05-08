@@ -47,7 +47,6 @@ class AcceptHeader
      */
     public static function fromString($headerValue)
     {
-        $headerValue = (string) $headerValue;
         $index = 0;
         $parts = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::split(isset($headerValue) ? $headerValue : '', ',;=');
         return new self(\array_map(function ($subParts) use(&$index) {

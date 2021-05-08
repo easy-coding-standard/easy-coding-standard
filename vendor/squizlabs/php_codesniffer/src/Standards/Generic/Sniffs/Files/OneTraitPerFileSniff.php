@@ -34,7 +34,6 @@ class OneTraitPerFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $stackPtr = (int) $stackPtr;
         $nextClass = $phpcsFile->findNext($this->register(), $stackPtr + 1);
         if ($nextClass !== \false) {
             $error = 'Only one trait is allowed in a file';

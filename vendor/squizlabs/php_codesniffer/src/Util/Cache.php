@@ -265,7 +265,6 @@ class Cache
      */
     public static function set($key, $value)
     {
-        $key = (string) $key;
         if ($key === null) {
             self::$cache = $value;
         } else {

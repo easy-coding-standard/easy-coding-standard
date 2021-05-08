@@ -65,7 +65,6 @@ class TestLogger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = [])
     {
-        $message = (string) $message;
         $record = ['level' => $level, 'message' => $message, 'context' => $context];
         $this->recordsByLevel[$record['level']][] = $record;
         $this->records[] = $record;

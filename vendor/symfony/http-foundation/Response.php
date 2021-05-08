@@ -407,7 +407,6 @@ class Response
      */
     public function setContent($content)
     {
-        $content = (string) $content;
         $this->content = isset($content) ? $content : '';
         return $this;
     }

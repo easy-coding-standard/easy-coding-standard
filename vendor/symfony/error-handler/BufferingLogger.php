@@ -24,7 +24,6 @@ class BufferingLogger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = [])
     {
-        $message = (string) $message;
         $this->logs[] = [$level, $message, $context];
     }
     /**

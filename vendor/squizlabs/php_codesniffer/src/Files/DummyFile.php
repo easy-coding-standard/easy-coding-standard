@@ -29,7 +29,6 @@ class DummyFile extends \PHP_CodeSniffer\Files\File
      */
     public function __construct($content, \PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
     {
-        $content = (string) $content;
         $this->setContent($content);
         // See if a filename was defined in the content.
         // This is done by including: phpcs_input_file: [file path]
@@ -63,10 +62,6 @@ class DummyFile extends \PHP_CodeSniffer\Files\File
      */
     public function setErrorCounts($errorCount, $warningCount, $fixableCount, $fixedCount)
     {
-        $errorCount = (int) $errorCount;
-        $warningCount = (int) $warningCount;
-        $fixableCount = (int) $fixableCount;
-        $fixedCount = (int) $fixedCount;
         $this->errorCount = $errorCount;
         $this->warningCount = $warningCount;
         $this->fixableCount = $fixableCount;
