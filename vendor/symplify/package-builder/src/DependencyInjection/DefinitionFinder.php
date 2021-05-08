@@ -12,10 +12,10 @@ use Throwable;
 final class DefinitionFinder
 {
     /**
-     * @return Definition[]
+     * @return mixed[]
      * @param string $type
      */
-    public function findAllByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type) : array
+    public function findAllByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -35,8 +35,9 @@ final class DefinitionFinder
     }
     /**
      * @param string $type
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
-    public function getByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition
+    public function getByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -70,8 +71,9 @@ final class DefinitionFinder
     }
     /**
      * @param string $class
+     * @return bool
      */
-    private function doesClassExists($class) : bool
+    private function doesClassExists($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;

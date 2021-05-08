@@ -43,8 +43,9 @@ final class ComposerPackageSorter
     }
     /**
      * @param string $requirementName
+     * @return string
      */
-    private function createNameWithPriority($requirementName) : string
+    private function createNameWithPriority($requirementName)
     {
         if (\is_object($requirementName)) {
             $requirementName = (string) $requirementName;
@@ -71,8 +72,9 @@ final class ComposerPackageSorter
     }
     /**
      * @param string $name
+     * @return bool
      */
-    private function isPlatformPackage($name) : bool
+    private function isPlatformPackage($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

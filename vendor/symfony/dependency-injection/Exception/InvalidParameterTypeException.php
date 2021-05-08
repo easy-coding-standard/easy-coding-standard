@@ -20,9 +20,13 @@ class InvalidParameterTypeException extends \ECSPrefix20210508\Symfony\Component
 {
     /**
      * @param string $serviceId
+     * @param string $type
      */
-    public function __construct($serviceId, string $type, \ReflectionParameter $parameter)
+    public function __construct($serviceId, $type, \ReflectionParameter $parameter)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if (\is_object($serviceId)) {
             $serviceId = (string) $serviceId;
         }

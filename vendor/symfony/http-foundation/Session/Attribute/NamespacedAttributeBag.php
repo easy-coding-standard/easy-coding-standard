@@ -23,8 +23,11 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      * @param string $storageKey         Session storage key
      * @param string $namespaceCharacter Namespace character to use in keys
      */
-    public function __construct($storageKey = '_sf2_attributes', string $namespaceCharacter = '/')
+    public function __construct($storageKey = '_sf2_attributes', $namespaceCharacter = '/')
     {
+        if (\is_object($namespaceCharacter)) {
+            $namespaceCharacter = (string) $namespaceCharacter;
+        }
         if (\is_object($storageKey)) {
             $storageKey = (string) $storageKey;
         }
@@ -106,7 +109,7 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      *
      * @return array|null
      */
-    protected function &resolveAttributePath($name, bool $writeContext = \false)
+    protected function &resolveAttributePath($name, $writeContext = \false)
     {
         if (\is_object($name)) {
             $name = (string) $name;

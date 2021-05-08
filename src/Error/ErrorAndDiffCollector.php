@@ -55,8 +55,11 @@ final class ErrorAndDiffCollector
      * @param int $line
      * @param string $message
      */
-    public function addErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $line, $message, string $sourceClass)
+    public function addErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $line, $message, $sourceClass)
     {
+        if (\is_object($sourceClass)) {
+            $sourceClass = (string) $sourceClass;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

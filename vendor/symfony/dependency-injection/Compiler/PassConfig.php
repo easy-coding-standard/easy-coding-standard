@@ -53,8 +53,9 @@ class PassConfig
      *
      * @throws InvalidArgumentException when a pass type doesn't exist
      * @param string $type
+     * @param int $priority
      */
-    public function addPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = self::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
+    public function addPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = self::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
         if (\is_object($type)) {
             $type = (string) $type;

@@ -40,8 +40,9 @@ trait MemcachedTrait
     /**
      * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface|null $marshaller
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    private function init(\Memcached $client, $namespace, int $defaultLifetime, $marshaller)
+    private function init(\Memcached $client, $namespace, $defaultLifetime, $marshaller)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
@@ -298,8 +299,9 @@ trait MemcachedTrait
     }
     /**
      * @param string $key
+     * @return string
      */
-    private static function encodeKey($key) : string
+    private static function encodeKey($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -308,8 +310,9 @@ trait MemcachedTrait
     }
     /**
      * @param string $key
+     * @return string
      */
-    private static function decodeKey($key) : string
+    private static function decodeKey($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;

@@ -13,8 +13,9 @@ final class Reflection
     /**
      * Determines if type is PHP built-in type. Otherwise, it is the class name.
      * @param string $type
+     * @return bool
      */
-    public static function isBuiltinType($type) : bool
+    public static function isBuiltinType($type)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -107,8 +108,9 @@ final class Reflection
     /**
      * @param  \ReflectionFunction|\ReflectionMethod|\ReflectionParameter|\ReflectionProperty  $reflection
      * @param string $type
+     * @return string
      */
-    private static function normalizeType($type, $reflection) : string
+    private static function normalizeType($type, $reflection)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -223,8 +225,9 @@ final class Reflection
      * Thus, it returns how the PHP parser would understand $name if it were written in the body of the class $context.
      * @throws Nette\InvalidArgumentException
      * @param string $name
+     * @return string
      */
-    public static function expandClassName($name, \ReflectionClass $context) : string
+    public static function expandClassName($name, \ReflectionClass $context)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -271,8 +274,10 @@ final class Reflection
     /**
      * Parses PHP code to [class => [alias => class, ...]]
      * @param string $code
+     * @param string $forClass
+     * @return mixed[]
      */
-    private static function parseUseStatements($code, string $forClass = null) : array
+    private static function parseUseStatements($code, $forClass = null)
     {
         if (\is_object($code)) {
             $code = (string) $code;

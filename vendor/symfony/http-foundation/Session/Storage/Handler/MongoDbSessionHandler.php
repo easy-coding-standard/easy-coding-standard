@@ -97,9 +97,13 @@ class MongoDbSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFou
     /**
      * {@inheritdoc}
      * @param string $sessionId
+     * @param string $data
      */
-    protected function doWrite($sessionId, string $data)
+    protected function doWrite($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }

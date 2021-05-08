@@ -38,7 +38,7 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      *
      * @throws CacheException if OPcache is not enabled
      */
-    public function __construct($namespace = '', int $defaultLifetime = 0, string $directory = null, bool $appendOnly = \false)
+    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $appendOnly = \false)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
@@ -275,8 +275,9 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     }
     /**
      * @param string $file
+     * @return string
      */
-    private function getFileKey($file) : string
+    private function getFileKey($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;

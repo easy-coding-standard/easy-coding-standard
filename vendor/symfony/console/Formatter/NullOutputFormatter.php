@@ -28,8 +28,9 @@ final class NullOutputFormatter implements \ECSPrefix20210508\Symfony\Component\
     /**
      * {@inheritdoc}
      * @param string $name
+     * @return \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
      */
-    public function getStyle($name) : \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+    public function getStyle($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -43,8 +44,9 @@ final class NullOutputFormatter implements \ECSPrefix20210508\Symfony\Component\
     /**
      * {@inheritdoc}
      * @param string $name
+     * @return bool
      */
-    public function hasStyle($name) : bool
+    public function hasStyle($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

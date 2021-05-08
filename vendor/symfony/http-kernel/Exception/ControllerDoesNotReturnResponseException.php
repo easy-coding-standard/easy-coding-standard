@@ -17,9 +17,14 @@ class ControllerDoesNotReturnResponseException extends \LogicException
 {
     /**
      * @param string $message
+     * @param string $file
+     * @param int $line
      */
-    public function __construct($message, callable $controller, string $file, int $line)
+    public function __construct($message, callable $controller, $file, $line)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

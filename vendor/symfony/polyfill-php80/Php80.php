@@ -104,9 +104,14 @@ final class Php80
 
     /**
      * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    public static function str_contains($haystack, string $needle): bool
+    public static function str_contains($haystack, $needle)
     {
+        if (is_object($needle)) {
+            $needle = (string) $needle;
+        }
         if (is_object($haystack)) {
             $haystack = (string) $haystack;
         }
@@ -115,9 +120,14 @@ final class Php80
 
     /**
      * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    public static function str_starts_with($haystack, string $needle): bool
+    public static function str_starts_with($haystack, $needle)
     {
+        if (is_object($needle)) {
+            $needle = (string) $needle;
+        }
         if (is_object($haystack)) {
             $haystack = (string) $haystack;
         }
@@ -126,9 +136,14 @@ final class Php80
 
     /**
      * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    public static function str_ends_with($haystack, string $needle): bool
+    public static function str_ends_with($haystack, $needle)
     {
+        if (is_object($needle)) {
+            $needle = (string) $needle;
+        }
         if (is_object($haystack)) {
             $haystack = (string) $haystack;
         }

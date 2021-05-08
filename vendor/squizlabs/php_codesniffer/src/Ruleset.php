@@ -581,6 +581,9 @@ class Ruleset
      */
     private function expandRulesetReference($ref, $rulesetDir, $depth = 0)
     {
+        if (\is_object($rulesetDir)) {
+            $rulesetDir = (string) $rulesetDir;
+        }
         if (\is_object($ref)) {
             $ref = (string) $ref;
         }
@@ -1089,6 +1092,12 @@ class Ruleset
      */
     public function setSniffProperty($sniffClass, $name, $value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\is_object($sniffClass)) {
             $sniffClass = (string) $sniffClass;
         }

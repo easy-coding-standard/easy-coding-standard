@@ -23,9 +23,17 @@ class FormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helpe
      *
      * @return string The format section
      * @param string $section
+     * @param string $message
+     * @param string $style
      */
-    public function formatSection($section, string $message, string $style = 'info')
+    public function formatSection($section, $message, $style = 'info')
     {
+        if (\is_object($style)) {
+            $style = (string) $style;
+        }
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (\is_object($section)) {
             $section = (string) $section;
         }
@@ -38,8 +46,9 @@ class FormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helpe
      *
      * @return string The formatter message
      * @param string $style
+     * @param bool $large
      */
-    public function formatBlock($messages, $style, bool $large = \false)
+    public function formatBlock($messages, $style, $large = \false)
     {
         if (\is_object($style)) {
             $style = (string) $style;
@@ -71,9 +80,14 @@ class FormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helpe
      *
      * @return string
      * @param string $message
+     * @param int $length
+     * @param string $suffix
      */
-    public function truncate($message, int $length, string $suffix = '...')
+    public function truncate($message, $length, $suffix = '...')
     {
+        if (\is_object($suffix)) {
+            $suffix = (string) $suffix;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

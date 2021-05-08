@@ -47,8 +47,9 @@ final class RuleSets
     }
     /**
      * @param string $name
+     * @return \PhpCsFixer\RuleSet\RuleSetDescriptionInterface
      */
-    public static function getSetDefinition($name) : \PhpCsFixer\RuleSet\RuleSetDescriptionInterface
+    public static function getSetDefinition($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

@@ -150,8 +150,9 @@ final class ArrayIndentationFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * @param string $content
+     * @return string
      */
-    private function extractIndent($content) : string
+    private function extractIndent($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

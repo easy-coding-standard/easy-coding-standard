@@ -17,9 +17,16 @@ class Version
     /**
      * @param string|null $reference
      * @param string $packageName
+     * @param string $prettyVersion
      */
-    public function __construct($packageName, string $prettyVersion, $reference = null)
+    public function __construct($packageName, $prettyVersion, $reference = null)
     {
+        if (\is_object($reference)) {
+            $reference = (string) $reference;
+        }
+        if (\is_object($prettyVersion)) {
+            $prettyVersion = (string) $prettyVersion;
+        }
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
         }

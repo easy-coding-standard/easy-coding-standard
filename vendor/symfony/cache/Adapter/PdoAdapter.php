@@ -62,8 +62,9 @@ class PdoAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abst
      * @throws InvalidArgumentException When PDO error mode is not PDO::ERRMODE_EXCEPTION
      * @throws InvalidArgumentException When namespace contains invalid characters
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    public function __construct($connOrDsn, $namespace = '', int $defaultLifetime = 0, array $options = [], \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($connOrDsn, $namespace = '', $defaultLifetime = 0, array $options = [], \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

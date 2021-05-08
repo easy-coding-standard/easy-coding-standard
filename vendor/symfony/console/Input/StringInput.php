@@ -40,8 +40,9 @@ class StringInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Arg
      *
      * @throws InvalidArgumentException When unable to parse input (should never happen)
      * @param string $input
+     * @return mixed[]
      */
-    private function tokenize($input) : array
+    private function tokenize($input)
     {
         if (\is_object($input)) {
             $input = (string) $input;

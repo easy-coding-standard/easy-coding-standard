@@ -33,8 +33,9 @@ abstract class AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\C
     private static $phpFilesSupported;
     /**
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    protected function __construct($namespace = '', int $defaultLifetime = 0)
+    protected function __construct($namespace = '', $defaultLifetime = 0)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
@@ -90,9 +91,18 @@ abstract class AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\C
      *
      * @return AdapterInterface
      * @param string $namespace
+     * @param int $defaultLifetime
+     * @param string $version
+     * @param string $directory
      */
-    public static function createSystemCache($namespace, int $defaultLifetime, string $version, string $directory, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
+    public static function createSystemCache($namespace, $defaultLifetime, $version, $directory, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
+        if (\is_object($directory)) {
+            $directory = (string) $directory;
+        }
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
         }

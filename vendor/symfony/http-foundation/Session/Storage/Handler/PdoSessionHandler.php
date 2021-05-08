@@ -235,6 +235,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($sessionName)) {
+            $sessionName = (string) $sessionName;
+        }
         if (\is_object($savePath)) {
             $savePath = (string) $savePath;
         }
@@ -293,9 +296,13 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * {@inheritdoc}
      * @param string $sessionId
+     * @param string $data
      */
-    protected function doWrite($sessionId, string $data)
+    protected function doWrite($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -404,8 +411,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      *
      * @todo implement missing support for oci DSN (which look totally different from other PDO ones)
      * @param string $dsnOrUrl
+     * @return string
      */
-    private function buildDsnFromUrl($dsnOrUrl) : string
+    private function buildDsnFromUrl($dsnOrUrl)
     {
         if (\is_object($dsnOrUrl)) {
             $dsnOrUrl = (string) $dsnOrUrl;
@@ -620,7 +628,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      *       - for sqlsrv using sp_getapplock with LockOwner = Session
      * @param string $sessionId
      */
-    private function doAdvisoryLock($sessionId) : \PDOStatement
+    private function doAdvisoryLock($sessionId)
     {
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
@@ -671,8 +679,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      *
      * Keep in mind, PHP integers are signed.
      * @param string $string
+     * @return int
      */
-    private function convertStringToInt($string) : int
+    private function convertStringToInt($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -714,9 +723,15 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * Returns an insert statement supported by the database for writing session data.
      * @param string $sessionId
+     * @param string $sessionData
+     * @param int $maxlifetime
+     * @return \PDOStatement
      */
-    private function getInsertStatement($sessionId, string $sessionData, int $maxlifetime) : \PDOStatement
+    private function getInsertStatement($sessionId, $sessionData, $maxlifetime)
     {
+        if (\is_object($sessionData)) {
+            $sessionData = (string) $sessionData;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -742,9 +757,15 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * Returns an update statement supported by the database for writing session data.
      * @param string $sessionId
+     * @param string $sessionData
+     * @param int $maxlifetime
+     * @return \PDOStatement
      */
-    private function getUpdateStatement($sessionId, string $sessionData, int $maxlifetime) : \PDOStatement
+    private function getUpdateStatement($sessionId, $sessionData, $maxlifetime)
     {
+        if (\is_object($sessionData)) {
+            $sessionData = (string) $sessionData;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -771,9 +792,14 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      * Returns a merge/upsert (i.e. insert or update) statement when supported by the database for writing session data.
      * @return \PDOStatement|null
      * @param string $sessionId
+     * @param string $data
+     * @param int $maxlifetime
      */
-    private function getMergeStatement($sessionId, string $data, int $maxlifetime)
+    private function getMergeStatement($sessionId, $data, $maxlifetime)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }

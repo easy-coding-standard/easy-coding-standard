@@ -99,8 +99,9 @@ trait FilesystemTrait
     }
     /**
      * @param string $file
+     * @return string
      */
-    private function getFileKey($file) : string
+    private function getFileKey($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;

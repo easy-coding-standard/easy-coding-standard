@@ -84,8 +84,9 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210508\Symfony\Component\D
     }
     /**
      * @param string $doc
+     * @return bool
      */
-    private function isWither(\ReflectionMethod $reflectionMethod, $doc) : bool
+    private function isWither(\ReflectionMethod $reflectionMethod, $doc)
     {
         if (\is_object($doc)) {
             $doc = (string) $doc;

@@ -31,8 +31,9 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
     /**
      * {@inheritdoc}
      * @param string $key
+     * @param float $beta
      */
-    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, $beta = null, array &$metadata = null)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -128,8 +129,9 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
     /**
      * {@inheritdoc}
      * @param string $key
+     * @return bool
      */
-    public function delete($key) : bool
+    public function delete($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;

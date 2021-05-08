@@ -25,8 +25,9 @@ final class CodeHasher
     /**
      * Calculate hash for code.
      * @param string $code
+     * @return string
      */
-    public static function calculateCodeHash($code) : string
+    public static function calculateCodeHash($code)
     {
         if (\is_object($code)) {
             $code = (string) $code;

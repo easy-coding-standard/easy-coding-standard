@@ -33,8 +33,9 @@ class IdentityMarshaller implements \ECSPrefix20210508\Symfony\Component\Cache\M
     /**
      * {@inheritdoc}
      * @param string $value
+     * @return string
      */
-    public function unmarshall($value) : string
+    public function unmarshall($value)
     {
         if (\is_object($value)) {
             $value = (string) $value;

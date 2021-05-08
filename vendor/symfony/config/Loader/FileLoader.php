@@ -92,8 +92,11 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
     /**
      * @internal
      * @param string $pattern
+     * @param bool $recursive
+     * @param bool $ignoreErrors
+     * @param bool $forExclusion
      */
-    protected function glob($pattern, bool $recursive, &$resource = null, bool $ignoreErrors = \false, bool $forExclusion = \false, array $excluded = [])
+    protected function glob($pattern, $recursive, &$resource = null, $ignoreErrors = \false, $forExclusion = \false, array $excluded = [])
     {
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;

@@ -24,9 +24,13 @@ final class FileDiff
     /**
      * @param string[] $appliedCheckers
      * @param string $diff
+     * @param string $consoleFormattedDiff
      */
-    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, string $consoleFormattedDiff, array $appliedCheckers)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, $consoleFormattedDiff, array $appliedCheckers)
     {
+        if (\is_object($consoleFormattedDiff)) {
+            $consoleFormattedDiff = (string) $consoleFormattedDiff;
+        }
         if (\is_object($diff)) {
             $diff = (string) $diff;
         }

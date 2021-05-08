@@ -44,8 +44,9 @@ final class ArgumentAnalysis
      * @param string|null $default
      * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null $typeAnalysis
      * @param string $name
+     * @param int $nameIndex
      */
-    public function __construct($name, int $nameIndex, $default, $typeAnalysis = null)
+    public function __construct($name, $nameIndex, $default, $typeAnalysis = null)
     {
         if (\is_object($name)) {
             $name = (string) $name;

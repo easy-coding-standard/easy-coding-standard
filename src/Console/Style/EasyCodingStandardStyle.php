@@ -80,8 +80,9 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210508\Symfony\Component
     /**
      * This prevents message override in Windows system.
      * @param string $message
+     * @return string
      */
-    private function clearCrLfFromMessage($message) : string
+    private function clearCrLfFromMessage($message)
     {
         if (\is_object($message)) {
             $message = (string) $message;
@@ -90,8 +91,9 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210508\Symfony\Component
     }
     /**
      * @param string $message
+     * @return string
      */
-    private function wrapMessageSoItFitsTheColumnWidth($message) : string
+    private function wrapMessageSoItFitsTheColumnWidth($message)
     {
         if (\is_object($message)) {
             $message = (string) $message;

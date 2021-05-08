@@ -18,6 +18,7 @@ interface DirectoryInterface
 {
     /**
      * @param string $file
+     * @return string
      */
-    public function getRelativePathTo($file) : string;
+    public function getRelativePathTo($file);
 }

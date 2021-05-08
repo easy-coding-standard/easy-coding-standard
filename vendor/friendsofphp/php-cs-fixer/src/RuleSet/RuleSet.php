@@ -53,8 +53,9 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
     /**
      * {@inheritdoc}
      * @param string $rule
+     * @return bool
      */
-    public function hasRule($rule) : bool
+    public function hasRule($rule)
     {
         if (\is_object($rule)) {
             $rule = (string) $rule;
@@ -118,8 +119,10 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      * If set value is false then disable all fixers in set,
      * if not then get value from set item.
      * @param string $setName
+     * @param bool $setValue
+     * @return mixed[]
      */
-    private function resolveSubset($setName, bool $setValue) : array
+    private function resolveSubset($setName, $setValue)
     {
         if (\is_object($setName)) {
             $setName = (string) $setName;

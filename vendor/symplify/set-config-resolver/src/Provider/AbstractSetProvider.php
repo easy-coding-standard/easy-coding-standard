@@ -58,8 +58,9 @@ abstract class AbstractSetProvider implements \Symplify\SetConfigResolver\Contra
     }
     /**
      * @param string $setPath
+     * @return string
      */
-    private function resolveSetUniquePathId($setPath) : string
+    private function resolveSetUniquePathId($setPath)
     {
         if (\is_object($setPath)) {
             $setPath = (string) $setPath;

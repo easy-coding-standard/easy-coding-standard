@@ -251,9 +251,14 @@ class Exporter
     }
     /**
      * @param string $indent
+     * @param string $subIndent
+     * @return string
      */
-    private static function exportRegistry(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry $value, $indent, string $subIndent) : string
+    private static function exportRegistry(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry $value, $indent, $subIndent)
     {
+        if (\is_object($subIndent)) {
+            $subIndent = (string) $subIndent;
+        }
         if (\is_object($indent)) {
             $indent = (string) $indent;
         }
@@ -323,9 +328,14 @@ class Exporter
     }
     /**
      * @param string $indent
+     * @param string $subIndent
+     * @return string
      */
-    private static function exportHydrator(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator $value, $indent, string $subIndent) : string
+    private static function exportHydrator(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator $value, $indent, $subIndent)
     {
+        if (\is_object($subIndent)) {
+            $subIndent = (string) $subIndent;
+        }
         if (\is_object($indent)) {
             $indent = (string) $indent;
         }

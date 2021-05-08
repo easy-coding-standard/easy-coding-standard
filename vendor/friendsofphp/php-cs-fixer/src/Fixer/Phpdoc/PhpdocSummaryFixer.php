@@ -82,8 +82,9 @@ function foo () {}
     /**
      * Is the last line of the short description correctly formatted?
      * @param string $content
+     * @return bool
      */
-    private function isCorrectlyFormatted($content) : bool
+    private function isCorrectlyFormatted($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

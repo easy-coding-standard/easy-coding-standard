@@ -34,8 +34,9 @@ final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
     }
     /**
      * @param string $file
+     * @return string
      */
-    public function getRelativePathTo($file) : string
+    public function getRelativePathTo($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -48,8 +49,9 @@ final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
     }
     /**
      * @param string $path
+     * @return string
      */
-    private function normalizePath($path) : string
+    private function normalizePath($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

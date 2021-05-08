@@ -98,6 +98,15 @@ class AnnotationException extends \Exception
      */
     public static function attributeTypeError($attributeName, $annotationName, $context, $expected, $actual)
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
+        if (\is_object($context)) {
+            $context = (string) $context;
+        }
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         if (\is_object($attributeName)) {
             $attributeName = (string) $attributeName;
         }
@@ -115,6 +124,15 @@ class AnnotationException extends \Exception
      */
     public static function requiredError($attributeName, $annotationName, $context, $expected)
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
+        if (\is_object($context)) {
+            $context = (string) $context;
+        }
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         if (\is_object($attributeName)) {
             $attributeName = (string) $attributeName;
         }
@@ -134,6 +152,12 @@ class AnnotationException extends \Exception
      */
     public static function enumeratorError($attributeName, $annotationName, $context, $available, $given)
     {
+        if (\is_object($context)) {
+            $context = (string) $context;
+        }
+        if (\is_object($annotationName)) {
+            $annotationName = (string) $annotationName;
+        }
         if (\is_object($attributeName)) {
             $attributeName = (string) $attributeName;
         }

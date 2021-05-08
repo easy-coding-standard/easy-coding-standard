@@ -283,7 +283,7 @@ class Tokens extends \SplFixedArray
      *
      * @return bool if new Token was added
      */
-    public function ensureWhitespaceAtIndex($index, $indexOffset, $whitespace) : bool
+    public function ensureWhitespaceAtIndex($index, $indexOffset, $whitespace)
     {
         if (\is_object($whitespace)) {
             $whitespace = (string) $whitespace;
@@ -1078,8 +1078,9 @@ class Tokens extends \SplFixedArray
     /**
      * Calculate hash for code.
      * @param string $code
+     * @return string
      */
-    private static function calculateCodeHash($code) : string
+    private static function calculateCodeHash($code)
     {
         if (\is_object($code)) {
             $code = (string) $code;
@@ -1106,8 +1107,9 @@ class Tokens extends \SplFixedArray
      * Check if given key exists in cache.
      *
      * @param string $key item key
+     * @return bool
      */
-    private static function hasCache($key) : bool
+    private static function hasCache($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;

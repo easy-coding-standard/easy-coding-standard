@@ -43,8 +43,9 @@ final class ColorConsoleDiffFormatter
     }
     /**
      * @param string $diff
+     * @return string
      */
-    public function format($diff) : string
+    public function format($diff)
     {
         if (\is_object($diff)) {
             $diff = (string) $diff;
@@ -53,9 +54,14 @@ final class ColorConsoleDiffFormatter
     }
     /**
      * @param string $diff
+     * @param string $template
+     * @return string
      */
-    private function formatWithTemplate($diff, string $template) : string
+    private function formatWithTemplate($diff, $template)
     {
+        if (\is_object($template)) {
+            $template = (string) $template;
+        }
         if (\is_object($diff)) {
             $diff = (string) $diff;
         }
@@ -74,8 +80,9 @@ final class ColorConsoleDiffFormatter
     }
     /**
      * @param string $string
+     * @return string
      */
-    private function makePlusLinesGreen($string) : string
+    private function makePlusLinesGreen($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -84,8 +91,9 @@ final class ColorConsoleDiffFormatter
     }
     /**
      * @param string $string
+     * @return string
      */
-    private function makeMinusLinesRed($string) : string
+    private function makeMinusLinesRed($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -94,8 +102,9 @@ final class ColorConsoleDiffFormatter
     }
     /**
      * @param string $string
+     * @return string
      */
-    private function makeAtNoteCyan($string) : string
+    private function makeAtNoteCyan($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;

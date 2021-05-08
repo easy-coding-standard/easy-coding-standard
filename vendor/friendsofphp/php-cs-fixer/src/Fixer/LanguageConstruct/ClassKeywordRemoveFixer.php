@@ -124,8 +124,10 @@ $className = Baz::class;
     /**
      * @return void
      * @param string $namespace
+     * @param int $startIndex
+     * @param int $endIndex
      */
-    private function replaceClassKeywordsSection(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, int $startIndex, int $endIndex)
+    private function replaceClassKeywordsSection(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, $startIndex, $endIndex)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
@@ -142,8 +144,9 @@ $className = Baz::class;
     /**
      * @return void
      * @param string $namespacePrefix
+     * @param int $classIndex
      */
-    private function replaceClassKeyword(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespacePrefix, int $classIndex)
+    private function replaceClassKeyword(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespacePrefix, $classIndex)
     {
         if (\is_object($namespacePrefix)) {
             $namespacePrefix = (string) $namespacePrefix;
@@ -192,9 +195,14 @@ $className = Baz::class;
     /**
      * @param false|string $classImport
      * @param string $namespacePrefix
+     * @param string $classString
+     * @return string
      */
-    private function makeClassFQN($namespacePrefix, $classImport, string $classString) : string
+    private function makeClassFQN($namespacePrefix, $classImport, $classString)
     {
+        if (\is_object($classString)) {
+            $classString = (string) $classString;
+        }
         if (\is_object($namespacePrefix)) {
             $namespacePrefix = (string) $namespacePrefix;
         }

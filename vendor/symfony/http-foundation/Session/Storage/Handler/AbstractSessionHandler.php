@@ -47,8 +47,9 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     /**
      * @return bool
      * @param string $sessionId
+     * @param string $data
      */
-    protected abstract function doWrite($sessionId, string $data);
+    protected abstract function doWrite($sessionId, $data);
     /**
      * @return bool
      * @param string $sessionId
@@ -100,6 +101,9 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
      */
     public function write($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }

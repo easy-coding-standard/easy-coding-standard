@@ -199,8 +199,9 @@ echo 1;
     /**
      * Find the index where the header comment must be inserted.
      * @param string $location
+     * @return int
      */
-    private function findHeaderCommentInsertionIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $location) : int
+    private function findHeaderCommentInsertionIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $location)
     {
         if (\is_object($location)) {
             $location = (string) $location;

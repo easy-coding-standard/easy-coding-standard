@@ -6,8 +6,9 @@ class ProvidedPackageException extends \Exception implements \ECSPrefix20210508\
 {
     /**
      * @param string $packageName
+     * @return \Jean85\Exception\VersionMissingExceptionInterface
      */
-    public static function create($packageName) : \ECSPrefix20210508\Jean85\Exception\VersionMissingExceptionInterface
+    public static function create($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;

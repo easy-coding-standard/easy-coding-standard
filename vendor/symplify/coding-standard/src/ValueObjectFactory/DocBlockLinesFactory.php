@@ -18,8 +18,9 @@ final class DocBlockLinesFactory
     const END_OF_DOC_BLOCK_REGEX = '/(\\*\\/)$/';
     /**
      * @param string $docBlock
+     * @return \Symplify\CodingStandard\ValueObject\DocBlockLines
      */
-    public function createFromDocBlock($docBlock) : \Symplify\CodingStandard\ValueObject\DocBlockLines
+    public function createFromDocBlock($docBlock)
     {
         if (\is_object($docBlock)) {
             $docBlock = (string) $docBlock;
@@ -61,10 +62,10 @@ final class DocBlockLinesFactory
         return new \Symplify\CodingStandard\ValueObject\DocBlockLines($descriptionLines, $otherLines);
     }
     /**
-     * @return string[]
+     * @return mixed[]
      * @param string $string
      */
-    private function splitToLines($string) : array
+    private function splitToLines($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;

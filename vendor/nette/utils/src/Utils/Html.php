@@ -303,8 +303,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
     /**
      * Converts given HTML code to plain text.
      * @param string $html
+     * @return string
      */
-    public static function htmlToText($html) : string
+    public static function htmlToText($html)
     {
         if (\is_object($html)) {
             $html = (string) $html;
@@ -315,8 +316,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      * Changes element's name.
      * @return static
      * @param string $name
+     * @param bool $isEmpty
      */
-    public final function setName($name, bool $isEmpty = null)
+    public final function setName($name, $isEmpty = null)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -454,8 +456,9 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
     /**
      * Overloaded tester for element's attribute.
      * @param string $name
+     * @return bool
      */
-    public final function __isset($name) : bool
+    public final function __isset($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

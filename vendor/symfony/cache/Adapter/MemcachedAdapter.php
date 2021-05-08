@@ -43,8 +43,9 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      *
      * Using a MemcachedAdapter as a pure items store is fine.
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    public function __construct(\Memcached $client, $namespace = '', int $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct(\Memcached $client, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
@@ -313,8 +314,9 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
     }
     /**
      * @param string $key
+     * @return string
      */
-    private static function encodeKey($key) : string
+    private static function encodeKey($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -323,8 +325,9 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
     }
     /**
      * @param string $key
+     * @return string
      */
-    private static function decodeKey($key) : string
+    private static function decodeKey($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;

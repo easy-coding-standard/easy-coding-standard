@@ -238,8 +238,9 @@ use Bar;
     }
     /**
      * @param string $namespace
+     * @return string
      */
-    private function prepareNamespace($namespace) : string
+    private function prepareNamespace($namespace)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

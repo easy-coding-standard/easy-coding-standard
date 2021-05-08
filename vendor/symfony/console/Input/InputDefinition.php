@@ -308,8 +308,9 @@ class InputDefinition
      *
      * @internal
      * @param string $shortcut
+     * @return string
      */
-    public function shortcutToName($shortcut) : string
+    public function shortcutToName($shortcut)
     {
         if (\is_object($shortcut)) {
             $shortcut = (string) $shortcut;

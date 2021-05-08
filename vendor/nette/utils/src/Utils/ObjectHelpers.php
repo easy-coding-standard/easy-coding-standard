@@ -12,9 +12,13 @@ final class ObjectHelpers
     use Nette\StaticClass;
     /** @throws MemberAccessException
      * @return void
-     * @param string $class */
-    public static function strictGet($class, string $name)
+     * @param string $class
+     * @param string $name */
+    public static function strictGet($class, $name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\is_object($class)) {
             $class = (string) $class;
         }
@@ -26,9 +30,13 @@ final class ObjectHelpers
     }
     /** @throws MemberAccessException
      * @return void
-     * @param string $class */
-    public static function strictSet($class, string $name)
+     * @param string $class
+     * @param string $name */
+    public static function strictSet($class, $name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\is_object($class)) {
             $class = (string) $class;
         }
@@ -40,9 +48,13 @@ final class ObjectHelpers
     }
     /** @throws MemberAccessException
      * @return void
-     * @param string $class */
-    public static function strictCall($class, string $method, array $additionalMethods = [])
+     * @param string $class
+     * @param string $method */
+    public static function strictCall($class, $method, array $additionalMethods = [])
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         if (\is_object($class)) {
             $class = (string) $class;
         }
@@ -55,9 +67,13 @@ final class ObjectHelpers
     }
     /** @throws MemberAccessException
      * @return void
-     * @param string $class */
-    public static function strictStaticCall($class, string $method)
+     * @param string $class
+     * @param string $method */
+    public static function strictStaticCall($class, $method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         if (\is_object($class)) {
             $class = (string) $class;
         }
@@ -72,7 +88,7 @@ final class ObjectHelpers
      * @internal
      * @param string $class
      */
-    public static function getMagicProperties($class) : array
+    public static function getMagicProperties($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -127,8 +143,9 @@ final class ObjectHelpers
     }
     /**
      * @param string $pattern
+     * @return mixed[]
      */
-    private static function parseFullDoc(\ReflectionClass $rc, $pattern) : array
+    private static function parseFullDoc(\ReflectionClass $rc, $pattern)
     {
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;
@@ -148,9 +165,13 @@ final class ObjectHelpers
      * @return bool|string returns 'event' if the property exists and has event like name
      * @internal
      * @param string $class
+     * @param string $name
      */
-    public static function hasProperty($class, string $name)
+    public static function hasProperty($class, $name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\is_object($class)) {
             $class = (string) $class;
         }

@@ -136,8 +136,14 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      *
      * @return $this
      */
-    public function setContentDisposition($disposition, string $filename = '', string $filenameFallback = '')
+    public function setContentDisposition($disposition, $filename = '', $filenameFallback = '')
     {
+        if (\is_object($filenameFallback)) {
+            $filenameFallback = (string) $filenameFallback;
+        }
+        if (\is_object($filename)) {
+            $filename = (string) $filename;
+        }
         if (\is_object($disposition)) {
             $disposition = (string) $disposition;
         }

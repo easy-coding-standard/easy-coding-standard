@@ -155,9 +155,14 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
     /**
      * Generic line dumper callback.
      * @param string $line
+     * @param int $depth
+     * @param string $indentPad
      */
-    protected function echoLine($line, int $depth, string $indentPad)
+    protected function echoLine($line, $depth, $indentPad)
     {
+        if (\is_object($indentPad)) {
+            $indentPad = (string) $indentPad;
+        }
         if (\is_object($line)) {
             $line = (string) $line;
         }

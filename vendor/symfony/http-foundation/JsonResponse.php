@@ -81,7 +81,7 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      *
      * @return static
      */
-    public static function fromJsonString($data, int $status = 200, array $headers = [])
+    public static function fromJsonString($data, $status = 200, array $headers = [])
     {
         if (\is_object($data)) {
             $data = (string) $data;

@@ -24,8 +24,9 @@ interface CacheInterface
     public function getSignature();
     /**
      * @param string $file
+     * @return bool
      */
-    public function has($file) : bool;
+    public function has($file);
     /**
      * @return int|null
      * @param string $file
@@ -34,8 +35,9 @@ interface CacheInterface
     /**
      * @return void
      * @param string $file
+     * @param int $hash
      */
-    public function set($file, int $hash);
+    public function set($file, $hash);
     /**
      * @return void
      * @param string $file

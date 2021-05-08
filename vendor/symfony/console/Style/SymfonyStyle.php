@@ -55,8 +55,10 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      * @param string|null $type
      * @param string|null $style
      * @param string $prefix
+     * @param bool $padding
+     * @param bool $escape
      */
-    public function block($messages, $type = null, $style = null, $prefix = ' ', bool $padding = \false, bool $escape = \true)
+    public function block($messages, $type = null, $style = null, $prefix = ' ', $padding = \false, $escape = \true)
     {
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;
@@ -436,8 +438,10 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
     /**
      * @return void
      * @param string $message
+     * @param bool $newLine
+     * @param int $type
      */
-    private function writeBuffer($message, bool $newLine, int $type)
+    private function writeBuffer($message, $newLine, $type)
     {
         if (\is_object($message)) {
             $message = (string) $message;
@@ -450,8 +454,11 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      * @param string $type
      * @param string $style
      * @param string $prefix
+     * @param bool $padding
+     * @param bool $escape
+     * @return mixed[]
      */
-    private function createBlock($messages, $type = null, $style = null, $prefix = ' ', bool $padding = \false, bool $escape = \false) : array
+    private function createBlock($messages, $type = null, $style = null, $prefix = ' ', $padding = \false, $escape = \false)
     {
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;

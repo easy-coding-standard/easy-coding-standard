@@ -86,8 +86,9 @@ HTML
     }
     /**
      * @param string $format
+     * @return string
      */
-    private function extractDate(array $context, $format = 'r') : string
+    private function extractDate(array $context, $format = 'r')
     {
         if (\is_object($format)) {
             $format = (string) $format;

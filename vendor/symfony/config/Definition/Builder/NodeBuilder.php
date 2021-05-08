@@ -190,8 +190,11 @@ class NodeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      *
      * @return $this
      */
-    public function setNodeClass($type, string $class)
+    public function setNodeClass($type, $class)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if (\is_object($type)) {
             $type = (string) $type;
         }

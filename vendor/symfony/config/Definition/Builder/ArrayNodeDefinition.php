@@ -175,11 +175,11 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      * Sets a normalization rule for XML configurations.
      *
      * @param string      $singular The key to remap
-     * @param string|null $plural   The plural of the key for irregular plurals
+     * @param string $plural The plural of the key for irregular plurals
      *
      * @return $this
      */
-    public function fixXmlConfig($singular, string $plural = null)
+    public function fixXmlConfig($singular, $plural = null)
     {
         if (\is_object($singular)) {
             $singular = (string) $singular;
@@ -215,7 +215,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      *
      * @return $this
      */
-    public function useAttributeAsKey($name, bool $removeKeyItem = \true)
+    public function useAttributeAsKey($name, $removeKeyItem = \true)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -449,8 +449,9 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      * Finds a node defined by the given $nodePath.
      *
      * @param string $nodePath The path of the node to find. e.g "doctrine.orm.mappings"
+     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
-    public function find($nodePath) : \ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\NodeDefinition
+    public function find($nodePath)
     {
         if (\is_object($nodePath)) {
             $nodePath = (string) $nodePath;

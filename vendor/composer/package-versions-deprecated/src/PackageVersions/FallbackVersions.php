@@ -33,8 +33,9 @@ final class FallbackVersions
      * @throws OutOfBoundsException If a version cannot be located.
      * @throws UnexpectedValueException If the composer.lock file could not be located.
      * @param string $packageName
+     * @return string
      */
-    public static function getVersion($packageName) : string
+    public static function getVersion($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;

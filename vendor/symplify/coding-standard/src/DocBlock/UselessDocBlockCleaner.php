@@ -48,8 +48,9 @@ final class UselessDocBlockCleaner
     /**
      * @param int $position
      * @param string $docContent
+     * @return string
      */
-    public function clearDocTokenContent(array $tokens, $position, $docContent) : string
+    public function clearDocTokenContent(array $tokens, $position, $docContent)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
@@ -63,8 +64,9 @@ final class UselessDocBlockCleaner
      * @param Token[] $reversedTokens
      * @param int $index
      * @param string $docContent
+     * @return string
      */
-    private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, $index, $docContent) : string
+    private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, $index, $docContent)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
@@ -101,8 +103,9 @@ final class UselessDocBlockCleaner
     }
     /**
      * @param string $content
+     * @return string
      */
-    private function removeSpaces($content) : string
+    private function removeSpaces($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

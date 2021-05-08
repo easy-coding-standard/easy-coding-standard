@@ -53,8 +53,9 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @param string $type
+     * @return bool
      */
-    protected abstract function isSkippedType($type) : bool;
+    protected abstract function isSkippedType($type);
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
@@ -78,10 +79,11 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         return null;
     }
     /**
-     * @return Annotation[]
+     * @return mixed[]
      * @param string $name
+     * @param int $docCommentIndex
      */
-    protected function getAnnotationsFromDocComment($name, \PhpCsFixer\Tokenizer\Tokens $tokens, int $docCommentIndex) : array
+    protected function getAnnotationsFromDocComment($name, \PhpCsFixer\Tokenizer\Tokens $tokens, $docCommentIndex)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -94,10 +96,11 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
         return $doc->getAnnotationsOfType($name);
     }
     /**
-     * @return Token[]
+     * @return mixed[]
      * @param string $type
+     * @param bool $isNullable
      */
-    protected function createTypeDeclarationTokens($type, bool $isNullable) : array
+    protected function createTypeDeclarationTokens($type, $isNullable)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -163,8 +166,9 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @param string $code
+     * @return bool
      */
-    protected final function isValidSyntax($code) : bool
+    protected final function isValidSyntax($code)
     {
         if (\is_object($code)) {
             $code = (string) $code;

@@ -132,8 +132,9 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
     }
     /**
      * @param string $text
+     * @return string
      */
-    private function getDisplayLength($text) : string
+    private function getDisplayLength($text)
     {
         if (\is_object($text)) {
             $text = (string) $text;

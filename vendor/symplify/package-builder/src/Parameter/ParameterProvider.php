@@ -24,8 +24,9 @@ final class ParameterProvider
     }
     /**
      * @param string $name
+     * @return bool
      */
-    public function hasParameter($name) : bool
+    public function hasParameter($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -47,8 +48,9 @@ final class ParameterProvider
     /**
      * @api
      * @param string $name
+     * @return string
      */
-    public function provideStringParameter($name) : string
+    public function provideStringParameter($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -61,7 +63,7 @@ final class ParameterProvider
      * @return mixed[]
      * @param string $name
      */
-    public function provideArrayParameter($name) : array
+    public function provideArrayParameter($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -72,8 +74,9 @@ final class ParameterProvider
     /**
      * @api
      * @param string $parameterName
+     * @return bool
      */
-    public function provideBoolParameter($parameterName) : bool
+    public function provideBoolParameter($parameterName)
     {
         if (\is_object($parameterName)) {
             $parameterName = (string) $parameterName;
@@ -102,8 +105,9 @@ final class ParameterProvider
     /**
      * @api
      * @param string $name
+     * @return int
      */
-    public function provideIntParameter($name) : int
+    public function provideIntParameter($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

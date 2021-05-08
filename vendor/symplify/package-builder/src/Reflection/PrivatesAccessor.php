@@ -40,8 +40,9 @@ final class PrivatesAccessor
     /**
      * @param object $object
      * @param string $propertyName
+     * @return \ReflectionProperty
      */
-    private function resolvePropertyReflection($object, $propertyName) : \ReflectionProperty
+    private function resolvePropertyReflection($object, $propertyName)
     {
         if (\is_object($propertyName)) {
             $propertyName = (string) $propertyName;

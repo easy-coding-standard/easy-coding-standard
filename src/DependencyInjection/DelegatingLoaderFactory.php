@@ -23,8 +23,9 @@ final class DelegatingLoaderFactory
     /**
      * For tests
      * @param string $config
+     * @return \Symfony\Component\Config\Loader\DelegatingLoader
      */
-    public function createContainerBuilderAndConfig(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $config) : \ECSPrefix20210508\Symfony\Component\Config\Loader\DelegatingLoader
+    public function createContainerBuilderAndConfig(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $config)
     {
         if (\is_object($config)) {
             $config = (string) $config;

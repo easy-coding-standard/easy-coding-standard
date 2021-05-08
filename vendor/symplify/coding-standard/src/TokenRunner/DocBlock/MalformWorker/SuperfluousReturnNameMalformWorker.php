@@ -30,8 +30,10 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
+     * @param int $position
+     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
@@ -60,8 +62,9 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
     /**
      * @param array<string, string> $match
      * @param string $content
+     * @return bool
      */
-    private function shouldSkip(array $match, $content) : bool
+    private function shouldSkip(array $match, $content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

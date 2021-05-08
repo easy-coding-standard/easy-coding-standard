@@ -77,8 +77,9 @@ class ConsoleLogger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
      *
      * @author PHP Framework Interoperability Group
      * @param string $message
+     * @return string
      */
-    private function interpolate($message, array $context) : string
+    private function interpolate($message, array $context)
     {
         if (\is_object($message)) {
             $message = (string) $message;

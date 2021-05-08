@@ -36,8 +36,13 @@ if (!function_exists('preg_last_error_msg')) {
 if (!function_exists('str_contains')) {
     /**
      * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    function str_contains($haystack, string $needle): bool { if (is_object($haystack)) {
+    function str_contains($haystack, $needle) { if (is_object($needle)) {
+        $needle = (string) $needle;
+    }
+    if (is_object($haystack)) {
         $haystack = (string) $haystack;
     }
     return p\Php80::str_contains($haystack, $needle); }
@@ -45,8 +50,13 @@ if (!function_exists('str_contains')) {
 if (!function_exists('str_starts_with')) {
     /**
      * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    function str_starts_with($haystack, string $needle): bool { if (is_object($haystack)) {
+    function str_starts_with($haystack, $needle) { if (is_object($needle)) {
+        $needle = (string) $needle;
+    }
+    if (is_object($haystack)) {
         $haystack = (string) $haystack;
     }
     return p\Php80::str_starts_with($haystack, $needle); }
@@ -54,8 +64,13 @@ if (!function_exists('str_starts_with')) {
 if (!function_exists('str_ends_with')) {
     /**
      * @param string $haystack
+     * @param string $needle
+     * @return bool
      */
-    function str_ends_with($haystack, string $needle): bool { if (is_object($haystack)) {
+    function str_ends_with($haystack, $needle) { if (is_object($needle)) {
+        $needle = (string) $needle;
+    }
+    if (is_object($haystack)) {
         $haystack = (string) $haystack;
     }
     return p\Php80::str_ends_with($haystack, $needle); }

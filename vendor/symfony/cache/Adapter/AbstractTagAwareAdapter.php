@@ -35,8 +35,9 @@ abstract class AbstractTagAwareAdapter implements \ECSPrefix20210508\Symfony\Com
     const TAGS_PREFIX = "\0tags\0";
     /**
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    protected function __construct($namespace = '', int $defaultLifetime = 0)
+    protected function __construct($namespace = '', $defaultLifetime = 0)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

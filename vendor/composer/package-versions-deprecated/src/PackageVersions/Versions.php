@@ -54,8 +54,9 @@ final class Versions
      * @psalm-suppress ImpureMethodCall we know that {@see InstalledVersions} interaction does not
      *                                  cause any side effects here.
      * @param string $packageName
+     * @return string
      */
-    public static function getVersion($packageName) : string
+    public static function getVersion($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;

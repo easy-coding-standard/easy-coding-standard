@@ -25,10 +25,10 @@ final class SmartFinder
     }
     /**
      * @param string[] $directoriesOrFiles
-     * @return SmartFileInfo[]
+     * @return mixed[]
      * @param string $path
      */
-    public function findPaths(array $directoriesOrFiles, $path) : array
+    public function findPaths(array $directoriesOrFiles, $path)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -45,10 +45,10 @@ final class SmartFinder
     /**
      * @param string[] $directoriesOrFiles
      * @param string[] $excludedDirectories
-     * @return SmartFileInfo[]
+     * @return mixed[]
      * @param string $name
      */
-    public function find(array $directoriesOrFiles, $name, array $excludedDirectories = []) : array
+    public function find(array $directoriesOrFiles, $name, array $excludedDirectories = [])
     {
         if (\is_object($name)) {
             $name = (string) $name;

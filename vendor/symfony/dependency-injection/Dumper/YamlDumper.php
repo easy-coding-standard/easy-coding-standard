@@ -53,8 +53,9 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
+     * @return string
      */
-    private function addService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition) : string
+    private function addService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -146,8 +147,9 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $alias
+     * @return string
      */
-    private function addServiceAlias($alias, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias $id) : string
+    private function addServiceAlias($alias, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias $id)
     {
         if (\is_object($alias)) {
             $alias = (string) $alias;
@@ -279,8 +281,9 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
+     * @return string
      */
-    private function getServiceCall($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference $reference = null) : string
+    private function getServiceCall($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference $reference = null)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -301,8 +304,9 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $id
+     * @return string
      */
-    private function getParameterCall($id) : string
+    private function getParameterCall($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -311,8 +315,9 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
     }
     /**
      * @param string $expression
+     * @return string
      */
-    private function getExpressionCall($expression) : string
+    private function getExpressionCall($expression)
     {
         if (\is_object($expression)) {
             $expression = (string) $expression;

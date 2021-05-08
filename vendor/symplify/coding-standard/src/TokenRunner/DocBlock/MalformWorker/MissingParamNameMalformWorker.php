@@ -38,8 +38,10 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
+     * @param int $position
+     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
@@ -58,10 +60,10 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     }
     /**
      * @param string[] $functionArgumentNames
-     * @return string[]
+     * @return mixed[]
      * @param string $docContent
      */
-    private function filterOutExistingParamNames($docContent, array $functionArgumentNames) : array
+    private function filterOutExistingParamNames($docContent, array $functionArgumentNames)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
@@ -97,8 +99,10 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     /**
      * @param string[] $argumentNames
      * @param string $missingArgumentName
+     * @param int $key
+     * @return string
      */
-    private function resolveNewArgumentName(array $argumentNames, $missingArgumentName, int $key) : string
+    private function resolveNewArgumentName(array $argumentNames, $missingArgumentName, $key)
     {
         if (\is_object($missingArgumentName)) {
             $missingArgumentName = (string) $missingArgumentName;
@@ -125,8 +129,9 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
     }
     /**
      * @param string $newArgumentName
+     * @return string
      */
-    private function createNewLineContent($newArgumentName, \PhpCsFixer\DocBlock\Line $line) : string
+    private function createNewLineContent($newArgumentName, \PhpCsFixer\DocBlock\Line $line)
     {
         if (\is_object($newArgumentName)) {
             $newArgumentName = (string) $newArgumentName;

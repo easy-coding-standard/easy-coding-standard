@@ -27,9 +27,13 @@ final class Diff
     /**
      * @param Chunk[] $chunks
      * @param string $from
+     * @param string $to
      */
-    public function __construct($from, string $to, array $chunks = [])
+    public function __construct($from, $to, array $chunks = [])
     {
+        if (\is_object($to)) {
+            $to = (string) $to;
+        }
         if (\is_object($from)) {
             $from = (string) $from;
         }

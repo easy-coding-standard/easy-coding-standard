@@ -133,6 +133,9 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processUnionType(\PHP_CodeSniffer\Files\File $phpcsFile, $typeDeclStart, $typeDeclEnd, $error, $errorCode)
     {
+        if (\is_object($errorCode)) {
+            $errorCode = (string) $errorCode;
+        }
         if (\is_object($error)) {
             $error = (string) $error;
         }
@@ -177,6 +180,12 @@ class LowerCaseTypeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processType(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $type, $error, $errorCode)
     {
+        if (\is_object($errorCode)) {
+            $errorCode = (string) $errorCode;
+        }
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         if (\is_object($type)) {
             $type = (string) $type;
         }

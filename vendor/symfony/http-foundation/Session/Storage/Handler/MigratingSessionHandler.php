@@ -69,6 +69,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($sessionName)) {
+            $sessionName = (string) $sessionName;
+        }
         if (\is_object($savePath)) {
             $savePath = (string) $savePath;
         }
@@ -92,6 +95,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function write($sessionId, $sessionData)
     {
+        if (\is_object($sessionData)) {
+            $sessionData = (string) $sessionData;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -115,6 +121,9 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
      */
     public function updateTimestamp($sessionId, $sessionData)
     {
+        if (\is_object($sessionData)) {
+            $sessionData = (string) $sessionData;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }

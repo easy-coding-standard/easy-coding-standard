@@ -172,8 +172,10 @@ class Foo {
     }
     /**
      * @param string $content
+     * @param int $functionIndex
+     * @return string
      */
-    private function fixFunctionDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, int $functionIndex, array $shortNames) : string
+    private function fixFunctionDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, array $shortNames)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -205,8 +207,9 @@ class Foo {
     /**
      * @param int $index Index of the DocComment token
      * @param string $content
+     * @return string
      */
-    private function fixPropertyDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, int $index, array $shortNames) : string
+    private function fixPropertyDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $shortNames)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -348,8 +351,9 @@ class Foo {
     }
     /**
      * @param string $docComment
+     * @return string
      */
-    private function removeSuperfluousInheritDoc($docComment) : string
+    private function removeSuperfluousInheritDoc($docComment)
     {
         if (\is_object($docComment)) {
             $docComment = (string) $docComment;

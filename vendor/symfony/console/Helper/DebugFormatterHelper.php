@@ -27,9 +27,17 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      *
      * @return string
      * @param string $id
+     * @param string $message
+     * @param string $prefix
      */
-    public function start($id, string $message, string $prefix = 'RUN')
+    public function start($id, $message, $prefix = 'RUN')
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -41,9 +49,22 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      *
      * @return string
      * @param string $id
+     * @param string $buffer
+     * @param bool $error
+     * @param string $prefix
+     * @param string $errorPrefix
      */
-    public function progress($id, string $buffer, bool $error = \false, string $prefix = 'OUT', string $errorPrefix = 'ERR')
+    public function progress($id, $buffer, $error = \false, $prefix = 'OUT', $errorPrefix = 'ERR')
     {
+        if (\is_object($errorPrefix)) {
+            $errorPrefix = (string) $errorPrefix;
+        }
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
+        if (\is_object($buffer)) {
+            $buffer = (string) $buffer;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -76,9 +97,18 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      *
      * @return string
      * @param string $id
+     * @param string $message
+     * @param bool $successful
+     * @param string $prefix
      */
-    public function stop($id, string $message, bool $successful, string $prefix = 'RES')
+    public function stop($id, $message, $successful, $prefix = 'RES')
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -92,8 +122,9 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
     }
     /**
      * @param string $id
+     * @return string
      */
-    private function getBorder($id) : string
+    private function getBorder($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;

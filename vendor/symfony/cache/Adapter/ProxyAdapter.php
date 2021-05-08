@@ -33,8 +33,9 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     private $defaultLifetime;
     /**
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    public function __construct(\ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $pool, $namespace = '', int $defaultLifetime = 0)
+    public function __construct(\ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $pool, $namespace = '', $defaultLifetime = 0)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
@@ -91,8 +92,9 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     /**
      * {@inheritdoc}
      * @param string $key
+     * @param float $beta
      */
-    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, $beta = null, array &$metadata = null)
     {
         if (\is_object($key)) {
             $key = (string) $key;

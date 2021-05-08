@@ -12,8 +12,9 @@ final class PackageVersionProvider
     /**
      * Returns current version of package, contains only major and minor.
      * @param string $packageName
+     * @return string
      */
-    public function provide($packageName) : string
+    public function provide($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
@@ -33,9 +34,14 @@ final class PackageVersionProvider
      * @see https://github.com/symplify/symplify/pull/2901#issuecomment-771536136
      * @see https://github.com/Jean85/pretty-package-versions/pull/16#issuecomment-620550459
      * @param string $packageName
+     * @param string $replacingPackageName
+     * @return \Jean85\Version
      */
-    private function getVersion($packageName, string $replacingPackageName) : \ECSPrefix20210508\Jean85\Version
+    private function getVersion($packageName, $replacingPackageName)
     {
+        if (\is_object($replacingPackageName)) {
+            $replacingPackageName = (string) $replacingPackageName;
+        }
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
         }

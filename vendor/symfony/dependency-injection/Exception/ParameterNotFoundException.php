@@ -29,9 +29,9 @@ class ParameterNotFoundException extends \ECSPrefix20210508\Symfony\Component\De
      * @param string      $sourceKey            The parameter key that references the non-existent parameter
      * @param \Throwable  $previous             The previous exception
      * @param string[]    $alternatives         Some parameter name alternatives
-     * @param string|null $nonNestedAlternative The alternative parameter name when the user expected dot notation for nested parameters
+     * @param string $nonNestedAlternative The alternative parameter name when the user expected dot notation for nested parameters
      */
-    public function __construct($key, string $sourceId = null, string $sourceKey = null, \Throwable $previous = null, array $alternatives = [], string $nonNestedAlternative = null)
+    public function __construct($key, $sourceId = null, $sourceKey = null, \Throwable $previous = null, array $alternatives = [], $nonNestedAlternative = null)
     {
         if (\is_object($key)) {
             $key = (string) $key;

@@ -69,6 +69,9 @@ class DateTime extends \DateTime implements \JsonSerializable
      */
     public static function createFromFormat($format, $time, $timezone = null)
     {
+        if (\is_object($time)) {
+            $time = (string) $time;
+        }
         if (\is_object($format)) {
             $format = (string) $format;
         }

@@ -241,6 +241,9 @@ final class DocParser
      */
     public function parse($input, $context = '')
     {
+        if (\is_object($context)) {
+            $context = (string) $context;
+        }
         if (\is_object($input)) {
             $input = (string) $input;
         }
@@ -316,8 +319,9 @@ final class DocParser
      *
      * @param string       $expected Expected string.
      * @param mixed[]|null $token    Optional token.
+     * @return \Doctrine\Common\Annotations\AnnotationException
      */
-    private function syntaxError($expected, $token = null) : \ECSPrefix20210508\Doctrine\Common\Annotations\AnnotationException
+    private function syntaxError($expected, $token = null)
     {
         if (\is_object($expected)) {
             $expected = (string) $expected;
@@ -338,8 +342,9 @@ final class DocParser
      * but uses the {@link AnnotationRegistry} to load classes.
      *
      * @param class-string $fqcn
+     * @return bool
      */
-    private function classExists($fqcn) : bool
+    private function classExists($fqcn)
     {
         if (\is_object($fqcn)) {
             $fqcn = (string) $fqcn;
@@ -815,8 +820,9 @@ EXCEPTION
     }
     /**
      * @param string $identifier
+     * @return bool
      */
-    private function identifierStartsWithBackslash($identifier) : bool
+    private function identifierStartsWithBackslash($identifier)
     {
         if (\is_object($identifier)) {
             $identifier = (string) $identifier;
@@ -825,8 +831,9 @@ EXCEPTION
     }
     /**
      * @param string $identifier
+     * @return bool
      */
-    private function identifierEndsWithClassConstant($identifier) : bool
+    private function identifierEndsWithClassConstant($identifier)
     {
         if (\is_object($identifier)) {
             $identifier = (string) $identifier;
@@ -1007,8 +1014,9 @@ EXCEPTION
     /**
      * Checks whether the given $name matches any ignored annotation name or namespace
      * @param string $name
+     * @return bool
      */
-    private function isIgnoredAnnotation($name) : bool
+    private function isIgnoredAnnotation($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -1029,10 +1037,10 @@ EXCEPTION
      *
      * @param array<string,mixed> $arguments
      *
-     * @return array<string,mixed>
+     * @return mixed[]
      * @param string $name
      */
-    private function resolvePositionalValues(array $arguments, $name) : array
+    private function resolvePositionalValues(array $arguments, $name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

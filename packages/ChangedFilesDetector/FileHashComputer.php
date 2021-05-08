@@ -17,8 +17,9 @@ final class FileHashComputer
 {
     /**
      * @param string $filePath
+     * @return string
      */
-    public function computeConfig($filePath) : string
+    public function computeConfig($filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;
@@ -31,8 +32,9 @@ final class FileHashComputer
     }
     /**
      * @param string $filePath
+     * @return string
      */
-    public function compute($filePath) : string
+    public function compute($filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;
@@ -54,8 +56,9 @@ final class FileHashComputer
     }
     /**
      * @param string $filePath
+     * @return \Symfony\Component\Config\Loader\LoaderInterface
      */
-    private function createLoader($filePath, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : \ECSPrefix20210508\Symfony\Component\Config\Loader\LoaderInterface
+    private function createLoader($filePath, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;

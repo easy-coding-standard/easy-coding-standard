@@ -194,8 +194,11 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
     }
     /**
      * @param string $regexp
+     * @param int $flags
+     * @param int $offset
+     * @return mixed[]
      */
-    public function match($regexp, int $flags = 0, int $offset = 0) : array
+    public function match($regexp, $flags = 0, $offset = 0)
     {
         if (\is_object($regexp)) {
             $regexp = (string) $regexp;
@@ -479,8 +482,9 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
     /**
      * Based on https://github.com/jquast/wcwidth, a Python implementation of https://www.cl.cam.ac.uk/~mgk25/ucs/wcwidth.c.
      * @param string $string
+     * @return int
      */
-    private function wcswidth($string) : int
+    private function wcswidth($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;

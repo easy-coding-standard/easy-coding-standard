@@ -52,8 +52,9 @@ final class CheckstyleReporter implements \PhpCsFixer\Console\Report\FixReport\R
     }
     /**
      * @param string $appliedFixer
+     * @return \DOMElement
      */
-    private function createError(\DOMDocument $dom, $appliedFixer) : \DOMElement
+    private function createError(\DOMDocument $dom, $appliedFixer)
     {
         if (\is_object($appliedFixer)) {
             $appliedFixer = (string) $appliedFixer;

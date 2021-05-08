@@ -143,6 +143,9 @@ class DisallowAlternativePHPTagsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function getSnippet($content, $start = '', $length = 40)
     {
+        if (\is_object($start)) {
+            $start = (string) $start;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }

@@ -76,8 +76,9 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
     /**
      * {@inheritdoc}
      * @param string $key
+     * @param float $beta
      */
-    public function get($key, callable $callback, float $beta = null, array &$metadata = null)
+    public function get($key, callable $callback, $beta = null, array &$metadata = null)
     {
         if (\is_object($key)) {
             $key = (string) $key;

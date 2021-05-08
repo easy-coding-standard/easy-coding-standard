@@ -16,8 +16,9 @@ final class FileToTokensParser
     }
     /**
      * @param string $filePath
+     * @return \PhpCsFixer\Tokenizer\Tokens
      */
-    public function parseFromFilePath($filePath) : \PhpCsFixer\Tokenizer\Tokens
+    public function parseFromFilePath($filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;

@@ -70,6 +70,9 @@ class DoctrineProvider extends \ECSPrefix20210508\Doctrine\Common\Cache\CachePro
      */
     protected function doSave($id, $data, $lifeTime = 0)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }

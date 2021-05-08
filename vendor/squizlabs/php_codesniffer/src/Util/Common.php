@@ -121,6 +121,9 @@ class Common
      */
     public static function stripBasepath($path, $basepath)
     {
+        if (\is_object($basepath)) {
+            $basepath = (string) $basepath;
+        }
         if (\is_object($path)) {
             $path = (string) $path;
         }

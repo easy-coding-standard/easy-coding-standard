@@ -9,9 +9,13 @@ final class FileSystemGuard
     /**
      * @return void
      * @param string $file
+     * @param string $location
      */
-    public function ensureFileExists($file, string $location)
+    public function ensureFileExists($file, $location)
     {
+        if (\is_object($location)) {
+            $location = (string) $location;
+        }
         if (\is_object($file)) {
             $file = (string) $file;
         }
@@ -23,9 +27,13 @@ final class FileSystemGuard
     /**
      * @return void
      * @param string $directory
+     * @param string $extraMessage
      */
-    public function ensureDirectoryExists($directory, string $extraMessage = '')
+    public function ensureDirectoryExists($directory, $extraMessage = '')
     {
+        if (\is_object($extraMessage)) {
+            $extraMessage = (string) $extraMessage;
+        }
         if (\is_object($directory)) {
             $directory = (string) $directory;
         }

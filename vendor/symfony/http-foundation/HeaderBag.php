@@ -93,8 +93,9 @@ class HeaderBag implements \IteratorAggregate, \Countable
      *
      * @return string|null The first header value or default value
      * @param string $key
+     * @param string $default
      */
-    public function get($key, string $default = null)
+    public function get($key, $default = null)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -115,7 +116,7 @@ class HeaderBag implements \IteratorAggregate, \Countable
      * @param bool            $replace Whether to replace the actual value or not (true by default)
      * @param string $key
      */
-    public function set($key, $values, bool $replace = \true)
+    public function set($key, $values, $replace = \true)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -157,9 +158,13 @@ class HeaderBag implements \IteratorAggregate, \Countable
      *
      * @return bool true if the value is contained in the header, false otherwise
      * @param string $key
+     * @param string $value
      */
-    public function contains($key, string $value)
+    public function contains($key, $value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         if (\is_object($key)) {
             $key = (string) $key;
         }

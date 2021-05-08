@@ -28,6 +28,9 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function open($savePath, $name)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\is_object($savePath)) {
             $savePath = (string) $savePath;
         }
@@ -72,6 +75,9 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function write($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -97,6 +103,9 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function updateTimestamp($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }

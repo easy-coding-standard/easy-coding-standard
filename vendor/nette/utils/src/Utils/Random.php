@@ -14,8 +14,9 @@ final class Random
      * Supports intervals, such as `0-9` or `A-Z`.
      * @param int $length
      * @param string $charlist
+     * @return string
      */
-    public static function generate($length = 10, $charlist = '0-9a-z') : string
+    public static function generate($length = 10, $charlist = '0-9a-z')
     {
         if (\is_object($charlist)) {
             $charlist = (string) $charlist;

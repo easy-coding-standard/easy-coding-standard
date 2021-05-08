@@ -124,9 +124,13 @@ final class DocBlock
      * Take a one line doc block, and turn it into a multi line doc block.
      * @return void
      * @param string $indent
+     * @param string $lineEnd
      */
-    public function makeMultiLine($indent, string $lineEnd)
+    public function makeMultiLine($indent, $lineEnd)
     {
+        if (\is_object($lineEnd)) {
+            $lineEnd = (string) $lineEnd;
+        }
         if (\is_object($indent)) {
             $indent = (string) $indent;
         }

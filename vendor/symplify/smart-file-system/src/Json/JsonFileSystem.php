@@ -28,7 +28,7 @@ final class JsonFileSystem
      * @return mixed[]
      * @param string $filePath
      */
-    public function loadFilePathToJson($filePath) : array
+    public function loadFilePathToJson($filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;

@@ -226,9 +226,15 @@ class ExceptionCaster
     }
     /**
      * @param string $xClass
+     * @param string $xPrefix
+     * @param int $filter
+     * @return mixed[]
      */
-    private static function filterExceptionArray($xClass, array $a, string $xPrefix, int $filter) : array
+    private static function filterExceptionArray($xClass, array $a, $xPrefix, $filter)
     {
+        if (\is_object($xPrefix)) {
+            $xPrefix = (string) $xPrefix;
+        }
         if (\is_object($xClass)) {
             $xClass = (string) $xClass;
         }
@@ -263,8 +269,9 @@ class ExceptionCaster
      * @param string|null $class
      * @return void
      * @param string $file
+     * @param int $line
      */
-    private static function traceUnshift(array &$trace, $class, $file, int $line)
+    private static function traceUnshift(array &$trace, $class, $file, $line)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -277,9 +284,16 @@ class ExceptionCaster
     /**
      * @param string|null $file
      * @param string $srcLines
+     * @param int $line
+     * @param int $srcContext
+     * @param string $lang
+     * @return \Symfony\Component\VarDumper\Caster\EnumStub
      */
-    private static function extractSource($srcLines, int $line, int $srcContext, string $lang, $file, array $frame) : \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\EnumStub
+    private static function extractSource($srcLines, $line, $srcContext, $lang, $file, array $frame)
     {
+        if (\is_object($lang)) {
+            $lang = (string) $lang;
+        }
         if (\is_object($srcLines)) {
             $srcLines = (string) $srcLines;
         }

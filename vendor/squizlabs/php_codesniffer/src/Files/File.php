@@ -575,6 +575,9 @@ class File
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (\is_object($error)) {
             $error = (string) $error;
         }
@@ -603,6 +606,9 @@ class File
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (\is_object($warning)) {
             $warning = (string) $warning;
         }
@@ -630,6 +636,9 @@ class File
      */
     public function addErrorOnLine($error, $line, $code, $data = [], $severity = 0)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (\is_object($error)) {
             $error = (string) $error;
         }
@@ -650,6 +659,9 @@ class File
      */
     public function addWarningOnLine($warning, $line, $code, $data = [], $severity = 0)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (\is_object($warning)) {
             $warning = (string) $warning;
         }
@@ -672,6 +684,9 @@ class File
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (\is_object($error)) {
             $error = (string) $error;
         }
@@ -698,6 +713,9 @@ class File
      */
     public function addFixableWarning($warning, $stackPtr, $code, $data = [], $severity = 0)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (\is_object($warning)) {
             $warning = (string) $warning;
         }
@@ -725,6 +743,9 @@ class File
      */
     protected function addMessage($error, $message, $line, $column, $code, $data, $severity, $fixable)
     {
+        if (\is_object($code)) {
+            $code = (string) $code;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }
@@ -928,6 +949,9 @@ class File
      */
     public function recordMetric($stackPtr, $metric, $value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         if (\is_object($metric)) {
             $metric = (string) $metric;
         }

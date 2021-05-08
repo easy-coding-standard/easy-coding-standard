@@ -21,10 +21,10 @@ use function preg_split;
 final class Parser
 {
     /**
-     * @return Diff[]
+     * @return mixed[]
      * @param string $string
      */
-    public function parse($string) : array
+    public function parse($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;

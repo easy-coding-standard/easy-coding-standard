@@ -20,9 +20,13 @@ final class WhitespacesFixerConfig
     private $lineEnding;
     /**
      * @param string $indent
+     * @param string $lineEnding
      */
-    public function __construct($indent = '    ', string $lineEnding = "\n")
+    public function __construct($indent = '    ', $lineEnding = "\n")
     {
+        if (\is_object($lineEnding)) {
+            $lineEnding = (string) $lineEnding;
+        }
         if (\is_object($indent)) {
             $indent = (string) $indent;
         }

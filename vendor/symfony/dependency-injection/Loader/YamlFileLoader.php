@@ -166,8 +166,9 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     /**
      * @throws InvalidArgumentException
      * @param string $file
+     * @return mixed[]
      */
-    private function parseDefaults(array &$content, $file) : array
+    private function parseDefaults(array &$content, $file)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -242,9 +243,14 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      *
      * @throws InvalidArgumentException When tags are invalid
      * @param string $id
+     * @param string $file
+     * @param bool $return
      */
-    private function parseDefinition($id, $service, string $file, array $defaults, bool $return = \false)
+    private function parseDefinition($id, $service, $file, array $defaults, $return = \false)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -527,9 +533,17 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      *
      * @return string|array|Reference A parsed callable
      * @param string $parameter
+     * @param string $id
+     * @param string $file
      */
-    private function parseCallable($callable, $parameter, string $id, string $file)
+    private function parseCallable($callable, $parameter, $id, $file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (\is_object($parameter)) {
             $parameter = (string) $parameter;
         }
@@ -622,8 +636,9 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      *
      * @return array|string|Reference|ArgumentInterface
      * @param string $file
+     * @param bool $isParameter
      */
-    private function resolveServices($value, $file, bool $isParameter = \false)
+    private function resolveServices($value, $file, $isParameter = \false)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -739,9 +754,13 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     /**
      * Checks the keywords used to define a service.
      * @param string $id
+     * @param string $file
      */
-    private function checkDefinition($id, array $definition, string $file)
+    private function checkDefinition($id, array $definition, $file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }

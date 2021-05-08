@@ -86,9 +86,13 @@ class TableStyle
      * </code>
      * @return $this
      * @param string $outside
+     * @param string $inside
      */
-    public function setHorizontalBorderChars($outside, string $inside = null)
+    public function setHorizontalBorderChars($outside, $inside = null)
     {
+        if (\is_object($inside)) {
+            $inside = (string) $inside;
+        }
         if (\is_object($outside)) {
             $outside = (string) $outside;
         }
@@ -112,9 +116,13 @@ class TableStyle
      * </code>
      * @return $this
      * @param string $outside
+     * @param string $inside
      */
-    public function setVerticalBorderChars($outside, string $inside = null)
+    public function setVerticalBorderChars($outside, $inside = null)
     {
+        if (\is_object($inside)) {
+            $inside = (string) $inside;
+        }
         if (\is_object($outside)) {
             $outside = (string) $outside;
         }
@@ -157,13 +165,46 @@ class TableStyle
      * @param string      $bottomMid      Bottom mid char (see #6 of example)
      * @param string      $bottomLeft     Bottom left char (see #7 of example)
      * @param string      $midLeft        Mid left char (see #8 of example)
-     * @param string|null $topLeftBottom  Top left bottom char (see #8' of example), equals to $midLeft if null
-     * @param string|null $topMidBottom   Top mid bottom char (see #0' of example), equals to $cross if null
-     * @param string|null $topRightBottom Top right bottom char (see #4' of example), equals to $midRight if null
+     * @param string $topLeftBottom Top left bottom char (see #8' of example), equals to $midLeft if null
+     * @param string $topMidBottom Top mid bottom char (see #0' of example), equals to $cross if null
+     * @param string $topRightBottom Top right bottom char (see #4' of example), equals to $midRight if null
      * @return $this
      */
-    public function setCrossingChars($cross, string $topLeft, string $topMid, string $topRight, string $midRight, string $bottomRight, string $bottomMid, string $bottomLeft, string $midLeft, string $topLeftBottom = null, string $topMidBottom = null, string $topRightBottom = null)
+    public function setCrossingChars($cross, $topLeft, $topMid, $topRight, $midRight, $bottomRight, $bottomMid, $bottomLeft, $midLeft, $topLeftBottom = null, $topMidBottom = null, $topRightBottom = null)
     {
+        if (\is_object($topRightBottom)) {
+            $topRightBottom = (string) $topRightBottom;
+        }
+        if (\is_object($topMidBottom)) {
+            $topMidBottom = (string) $topMidBottom;
+        }
+        if (\is_object($topLeftBottom)) {
+            $topLeftBottom = (string) $topLeftBottom;
+        }
+        if (\is_object($midLeft)) {
+            $midLeft = (string) $midLeft;
+        }
+        if (\is_object($bottomLeft)) {
+            $bottomLeft = (string) $bottomLeft;
+        }
+        if (\is_object($bottomMid)) {
+            $bottomMid = (string) $bottomMid;
+        }
+        if (\is_object($bottomRight)) {
+            $bottomRight = (string) $bottomRight;
+        }
+        if (\is_object($midRight)) {
+            $midRight = (string) $midRight;
+        }
+        if (\is_object($topRight)) {
+            $topRight = (string) $topRight;
+        }
+        if (\is_object($topMid)) {
+            $topMid = (string) $topMid;
+        }
+        if (\is_object($topLeft)) {
+            $topLeft = (string) $topLeft;
+        }
         if (\is_object($cross)) {
             $cross = (string) $cross;
         }

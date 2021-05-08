@@ -16,8 +16,9 @@ final class CommentedLineTrimmer
     const OPENING_LINE = ['//', '#'];
     /**
      * @param string $tokenContent
+     * @return string
      */
-    public function trim($tokenContent) : string
+    public function trim($tokenContent)
     {
         if (\is_object($tokenContent)) {
             $tokenContent = (string) $tokenContent;

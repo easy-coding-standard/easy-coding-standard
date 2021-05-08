@@ -35,6 +35,9 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($sessionName)) {
+            $sessionName = (string) $sessionName;
+        }
         if (\is_object($savePath)) {
             $savePath = (string) $savePath;
         }
@@ -62,6 +65,9 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function write($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -99,6 +105,9 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function updateTimestamp($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }

@@ -19,10 +19,10 @@ final class ConstantReflectionSetFactory
      */
     const UNDERSCORE_REGEX = '#_#';
     /**
-     * @return Set[]
+     * @return mixed[]
      * @param string $setClassName
      */
-    public function createSetsFromClass($setClassName) : array
+    public function createSetsFromClass($setClassName)
     {
         if (\is_object($setClassName)) {
             $setClassName = (string) $setClassName;
@@ -46,8 +46,9 @@ final class ConstantReflectionSetFactory
     }
     /**
      * @param string $string
+     * @return string
      */
-    private function constantToDashes($string) : string
+    private function constantToDashes($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;

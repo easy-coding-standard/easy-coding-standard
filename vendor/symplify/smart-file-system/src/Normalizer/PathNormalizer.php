@@ -28,9 +28,14 @@ final class PathNormalizer
     const SCHEME_UNDEFINED = 'undefined';
     /**
      * @param string $originalPath
+     * @param string $directorySeparator
+     * @return string
      */
-    public function normalizePath($originalPath, string $directorySeparator = \DIRECTORY_SEPARATOR) : string
+    public function normalizePath($originalPath, $directorySeparator = \DIRECTORY_SEPARATOR)
     {
+        if (\is_object($directorySeparator)) {
+            $directorySeparator = (string) $directorySeparator;
+        }
         if (\is_object($originalPath)) {
             $originalPath = (string) $originalPath;
         }
@@ -51,10 +56,10 @@ final class PathNormalizer
     }
     /**
      * @param string[] $pathParts
-     * @return string[]
+     * @return mixed[]
      * @param string $scheme
      */
-    private function normalizePathParts(array $pathParts, $scheme) : array
+    private function normalizePathParts(array $pathParts, $scheme)
     {
         if (\is_object($scheme)) {
             $scheme = (string) $scheme;

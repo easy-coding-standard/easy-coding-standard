@@ -65,8 +65,9 @@ final class ReporterFactory
     }
     /**
      * @param string $format
+     * @return \PhpCsFixer\Console\Report\FixReport\ReporterInterface
      */
-    public function getReporter($format) : \PhpCsFixer\Console\Report\FixReport\ReporterInterface
+    public function getReporter($format)
     {
         if (\is_object($format)) {
             $format = (string) $format;

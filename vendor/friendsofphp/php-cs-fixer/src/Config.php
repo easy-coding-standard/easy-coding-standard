@@ -154,8 +154,9 @@ class Config implements \PhpCsFixer\ConfigInterface
     /**
      * {@inheritdoc}
      * @param string $cacheFile
+     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setCacheFile($cacheFile) : \PhpCsFixer\ConfigInterface
+    public function setCacheFile($cacheFile)
     {
         if (\is_object($cacheFile)) {
             $cacheFile = (string) $cacheFile;
@@ -176,8 +177,9 @@ class Config implements \PhpCsFixer\ConfigInterface
     /**
      * {@inheritdoc}
      * @param string $format
+     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setFormat($format) : \PhpCsFixer\ConfigInterface
+    public function setFormat($format)
     {
         if (\is_object($format)) {
             $format = (string) $format;
@@ -198,8 +200,9 @@ class Config implements \PhpCsFixer\ConfigInterface
     /**
      * {@inheritdoc}
      * @param string $indent
+     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setIndent($indent) : \PhpCsFixer\ConfigInterface
+    public function setIndent($indent)
     {
         if (\is_object($indent)) {
             $indent = (string) $indent;
@@ -210,8 +213,9 @@ class Config implements \PhpCsFixer\ConfigInterface
     /**
      * {@inheritdoc}
      * @param string $lineEnding
+     * @return \PhpCsFixer\ConfigInterface
      */
-    public function setLineEnding($lineEnding) : \PhpCsFixer\ConfigInterface
+    public function setLineEnding($lineEnding)
     {
         if (\is_object($lineEnding)) {
             $lineEnding = (string) $lineEnding;

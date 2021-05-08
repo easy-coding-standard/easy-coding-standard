@@ -18,8 +18,9 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
     /**
      * {@inheritdoc}
      * @param string $text
+     * @return string
      */
-    public function apply($text) : string
+    public function apply($text)
     {
         if (\is_object($text)) {
             $text = (string) $text;

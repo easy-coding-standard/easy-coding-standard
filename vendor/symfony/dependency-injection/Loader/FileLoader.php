@@ -78,6 +78,9 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     public function registerClasses(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $prototype, $namespace, $resource, $exclude = null)
     {
+        if (\is_object($resource)) {
+            $resource = (string) $resource;
+        }
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
         }
@@ -139,9 +142,14 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
     }
     /**
      * @param string $namespace
+     * @param string $pattern
+     * @return mixed[]
      */
-    private function findClasses($namespace, string $pattern, array $excludePatterns) : array
+    private function findClasses($namespace, $pattern, array $excludePatterns)
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
         }

@@ -317,6 +317,9 @@ class XdebugHandler
      */
     private function writeTmpIni(array $iniFiles, $tmpDir, &$error)
     {
+        if (\is_object($error)) {
+            $error = (string) $error;
+        }
         if (\is_object($tmpDir)) {
             $tmpDir = (string) $tmpDir;
         }

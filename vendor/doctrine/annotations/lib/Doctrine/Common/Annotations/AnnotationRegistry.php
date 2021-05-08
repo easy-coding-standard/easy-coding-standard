@@ -135,8 +135,9 @@ final class AnnotationRegistry
     /**
      * Autoloads an annotation class silently.
      * @param string $class
+     * @return bool
      */
-    public static function loadAnnotationClass($class) : bool
+    public static function loadAnnotationClass($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;

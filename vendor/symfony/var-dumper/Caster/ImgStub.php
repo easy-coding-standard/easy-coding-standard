@@ -17,9 +17,17 @@ class ImgStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Cons
 {
     /**
      * @param string $data
+     * @param string $contentType
+     * @param string $size
      */
-    public function __construct($data, string $contentType, string $size = '')
+    public function __construct($data, $contentType, $size = '')
     {
+        if (\is_object($size)) {
+            $size = (string) $size;
+        }
+        if (\is_object($contentType)) {
+            $contentType = (string) $contentType;
+        }
         if (\is_object($data)) {
             $data = (string) $data;
         }

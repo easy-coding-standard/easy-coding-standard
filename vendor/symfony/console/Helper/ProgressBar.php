@@ -119,8 +119,11 @@ final class ProgressBar
      * @param string $format A format string
      * @return void
      */
-    public static function setFormatDefinition($name, string $format)
+    public static function setFormatDefinition($name, $format)
     {
+        if (\is_object($format)) {
+            $format = (string) $format;
+        }
         if (\is_object($name)) {
             $name = (string) $name;
         }
@@ -156,8 +159,11 @@ final class ProgressBar
      * @param string $message The text to associate with the placeholder
      * @param string $name    The name of the placeholder
      */
-    public function setMessage($message, string $name = 'message')
+    public function setMessage($message, $name = 'message')
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

@@ -155,8 +155,9 @@ final class Differ
     /**
      * Checks if input is string, if so it will split it line-by-line.
      * @param string $input
+     * @return mixed[]
      */
-    private function splitStringByLines($input) : array
+    private function splitStringByLines($input)
     {
         if (\is_object($input)) {
             $input = (string) $input;

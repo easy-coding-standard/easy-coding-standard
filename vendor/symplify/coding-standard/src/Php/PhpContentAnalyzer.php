@@ -24,8 +24,9 @@ final class PhpContentAnalyzer
     }
     /**
      * @param string $content
+     * @return bool
      */
-    public function isPhpContent($content) : bool
+    public function isPhpContent($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

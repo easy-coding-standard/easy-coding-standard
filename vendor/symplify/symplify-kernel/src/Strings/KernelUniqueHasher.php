@@ -17,8 +17,9 @@ final class KernelUniqueHasher
     }
     /**
      * @param string $kernelClass
+     * @return string
      */
-    public function hashKernelClass($kernelClass) : string
+    public function hashKernelClass($kernelClass)
     {
         if (\is_object($kernelClass)) {
             $kernelClass = (string) $kernelClass;

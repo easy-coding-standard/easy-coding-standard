@@ -23,8 +23,10 @@ trait DecorateTrait
      *
      * @throws InvalidArgumentException in case the decorated service id and the new decorated service id are equals
      * @param string $renamedId
+     * @param int $priority
+     * @param int $invalidBehavior
      */
-    public final function decorate($id, $renamedId = null, int $priority = 0, int $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public final function decorate($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         if (\is_object($renamedId)) {
             $renamedId = (string) $renamedId;

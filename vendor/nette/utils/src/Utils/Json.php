@@ -35,8 +35,9 @@ final class Json
      * @return mixed
      * @throws JsonException
      * @param string $json
+     * @param int $flags
      */
-    public static function decode($json, int $flags = 0)
+    public static function decode($json, $flags = 0)
     {
         if (\is_object($json)) {
             $json = (string) $json;

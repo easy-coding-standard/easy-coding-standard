@@ -20,8 +20,9 @@ final class PathNormalizer
     const ONLY_STARTS_WITH_ASTERISK_REGEX = '#^\\*(.*?)[^*]$#';
     /**
      * @param string $path
+     * @return string
      */
-    public function normalizeForFnmatch($path) : string
+    public function normalizeForFnmatch($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

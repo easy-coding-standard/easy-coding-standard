@@ -106,8 +106,9 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param string $content
+     * @return int
      */
-    private function getCommentType($content) : int
+    private function getCommentType($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -135,8 +136,9 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param string $content
+     * @return bool
      */
-    private function isEmptyComment($content) : bool
+    private function isEmptyComment($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

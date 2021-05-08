@@ -91,8 +91,9 @@ interface StyleInterface
      *
      * @return bool
      * @param string $question
+     * @param bool $default
      */
-    public function confirm($question, bool $default = \true);
+    public function confirm($question, $default = \true);
     /**
      * Asks a choice question.
      *

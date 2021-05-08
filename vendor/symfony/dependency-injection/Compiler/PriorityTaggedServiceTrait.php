@@ -117,9 +117,21 @@ class PriorityTaggedServiceUtil
      * @param string|null $indexAttribute
      * @return string|null
      * @param string $serviceId
+     * @param string $class
+     * @param string $defaultIndexMethod
+     * @param string $tagName
      */
-    public static function getDefaultIndex(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, string $class, string $defaultIndexMethod, string $tagName, $indexAttribute)
+    public static function getDefaultIndex(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultIndexMethod, $tagName, $indexAttribute)
     {
+        if (\is_object($tagName)) {
+            $tagName = (string) $tagName;
+        }
+        if (\is_object($defaultIndexMethod)) {
+            $defaultIndexMethod = (string) $defaultIndexMethod;
+        }
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if (\is_object($serviceId)) {
             $serviceId = (string) $serviceId;
         }
@@ -148,9 +160,21 @@ class PriorityTaggedServiceUtil
      * Gets the priority defined by the default priority method.
      * @return int|null
      * @param string $serviceId
+     * @param string $class
+     * @param string $defaultPriorityMethod
+     * @param string $tagName
      */
-    public static function getDefaultPriority(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, string $class, string $defaultPriorityMethod, string $tagName)
+    public static function getDefaultPriority(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultPriorityMethod, $tagName)
     {
+        if (\is_object($tagName)) {
+            $tagName = (string) $tagName;
+        }
+        if (\is_object($defaultPriorityMethod)) {
+            $defaultPriorityMethod = (string) $defaultPriorityMethod;
+        }
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if (\is_object($serviceId)) {
             $serviceId = (string) $serviceId;
         }

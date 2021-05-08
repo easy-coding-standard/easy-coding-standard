@@ -69,8 +69,9 @@ class ApplicationDescription
     /**
      * @throws CommandNotFoundException
      * @param string $name
+     * @return \Symfony\Component\Console\Command\Command
      */
-    public function getCommand($name) : \ECSPrefix20210508\Symfony\Component\Console\Command\Command
+    public function getCommand($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

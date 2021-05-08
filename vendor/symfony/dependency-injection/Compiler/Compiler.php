@@ -48,8 +48,9 @@ class Compiler
     /**
      * Adds a pass to the PassConfig.
      * @param string $type
+     * @param int $priority
      */
-    public function addPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
+    public function addPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
         if (\is_object($type)) {
             $type = (string) $type;

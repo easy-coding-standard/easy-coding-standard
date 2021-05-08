@@ -48,8 +48,9 @@ class ResolveReferencesToAliasesPass extends \ECSPrefix20210508\Symfony\Componen
     }
     /**
      * @param string $id
+     * @return string
      */
-    private function getDefinitionId($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container) : string
+    private function getDefinitionId($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (\is_object($id)) {
             $id = (string) $id;

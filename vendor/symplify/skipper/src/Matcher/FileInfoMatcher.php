@@ -30,8 +30,9 @@ final class FileInfoMatcher
     /**
      * Supports both relative and absolute $file path. They differ for PHP-CS-Fixer and PHP_CodeSniffer.
      * @param string $ignoredPath
+     * @return bool
      */
-    private function doesFileInfoMatchPattern(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $ignoredPath) : bool
+    private function doesFileInfoMatchPattern(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $ignoredPath)
     {
         if (\is_object($ignoredPath)) {
             $ignoredPath = (string) $ignoredPath;

@@ -77,8 +77,9 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
     const END_OF_LIFE = '07/2021';
     /**
      * @param string $environment
+     * @param bool $debug
      */
-    public function __construct($environment, bool $debug)
+    public function __construct($environment, $debug)
     {
         if (\is_object($environment)) {
             $environment = (string) $environment;
@@ -604,8 +605,11 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      * @param string $class     The name of the class to generate
      * @param string $baseClass The name of the container's base class
      */
-    protected function dumpContainer(\ECSPrefix20210508\Symfony\Component\Config\ConfigCache $cache, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $class, string $baseClass)
+    protected function dumpContainer(\ECSPrefix20210508\Symfony\Component\Config\ConfigCache $cache, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $class, $baseClass)
     {
+        if (\is_object($baseClass)) {
+            $baseClass = (string) $baseClass;
+        }
         if (\is_object($class)) {
             $class = (string) $class;
         }

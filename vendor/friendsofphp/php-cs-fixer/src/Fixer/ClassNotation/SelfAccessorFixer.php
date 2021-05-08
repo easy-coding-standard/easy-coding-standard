@@ -86,9 +86,15 @@ class Sample
      * Replace occurrences of the name of the classy element by "self" (if possible).
      * @return void
      * @param string $namespace
+     * @param string $name
+     * @param int $startIndex
+     * @param int $endIndex
      */
-    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, string $name, int $startIndex, int $endIndex)
+    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, $name, $startIndex, $endIndex)
     {
+        if (\is_object($name)) {
+            $name = (string) $name;
+        }
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;
         }

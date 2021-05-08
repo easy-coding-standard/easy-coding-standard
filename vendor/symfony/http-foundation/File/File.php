@@ -28,7 +28,7 @@ class File extends \SplFileInfo
      *
      * @throws FileNotFoundException If the given path is not a file
      */
-    public function __construct($path, bool $checkPath = \true)
+    public function __construct($path, $checkPath = \true)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -83,8 +83,9 @@ class File extends \SplFileInfo
      *
      * @throws FileException if the target file could not be created
      * @param string $directory
+     * @param string $name
      */
-    public function move($directory, string $name = null)
+    public function move($directory, $name = null)
     {
         if (\is_object($directory)) {
             $directory = (string) $directory;
@@ -115,8 +116,9 @@ class File extends \SplFileInfo
     /**
      * @return self
      * @param string $directory
+     * @param string $name
      */
-    protected function getTargetFile($directory, string $name = null)
+    protected function getTargetFile($directory, $name = null)
     {
         if (\is_object($directory)) {
             $directory = (string) $directory;

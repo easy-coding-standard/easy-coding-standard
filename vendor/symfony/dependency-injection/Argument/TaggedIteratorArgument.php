@@ -24,12 +24,12 @@ class TaggedIteratorArgument extends \ECSPrefix20210508\Symfony\Component\Depend
     private $needsIndexes = \false;
     /**
      * @param string      $tag                   The name of the tag identifying the target services
-     * @param string|null $indexAttribute        The name of the attribute that defines the key referencing each service in the tagged collection
-     * @param string|null $defaultIndexMethod    The static method that should be called to get each service's key when their tag doesn't define the previous attribute
+     * @param string $indexAttribute The name of the attribute that defines the key referencing each service in the tagged collection
+     * @param string $defaultIndexMethod The static method that should be called to get each service's key when their tag doesn't define the previous attribute
      * @param bool        $needsIndexes          Whether indexes are required and should be generated when computing the map
-     * @param string|null $defaultPriorityMethod The static method that should be called to get each service's priority when their tag doesn't define the "priority" attribute
+     * @param string $defaultPriorityMethod The static method that should be called to get each service's priority when their tag doesn't define the "priority" attribute
      */
-    public function __construct($tag, string $indexAttribute = null, string $defaultIndexMethod = null, bool $needsIndexes = \false, string $defaultPriorityMethod = null)
+    public function __construct($tag, $indexAttribute = null, $defaultIndexMethod = null, $needsIndexes = \false, $defaultPriorityMethod = null)
     {
         if (\is_object($tag)) {
             $tag = (string) $tag;

@@ -93,8 +93,9 @@ function sample($a, $b, $c)
     /**
      * {@inheritdoc}
      * @param string $type
+     * @return string
      */
-    protected function normalize($type) : string
+    protected function normalize($type)
     {
         if (\is_object($type)) {
             $type = (string) $type;

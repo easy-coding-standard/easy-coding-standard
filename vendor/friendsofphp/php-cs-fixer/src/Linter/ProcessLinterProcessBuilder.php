@@ -35,8 +35,9 @@ final class ProcessLinterProcessBuilder
     }
     /**
      * @param string $path
+     * @return \Symfony\Component\Process\Process
      */
-    public function build($path) : \ECSPrefix20210508\Symfony\Component\Process\Process
+    public function build($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

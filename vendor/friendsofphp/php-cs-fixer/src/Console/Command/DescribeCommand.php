@@ -304,8 +304,9 @@ final class DescribeCommand extends \ECSPrefix20210508\Symfony\Component\Console
     }
     /**
      * @param string $content
+     * @return string
      */
-    private function replaceRstLinks($content) : string
+    private function replaceRstLinks($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

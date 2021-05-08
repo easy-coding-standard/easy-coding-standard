@@ -23,9 +23,13 @@ final class Color
     private $options = [];
     /**
      * @param string $foreground
+     * @param string $background
      */
-    public function __construct($foreground = '', string $background = '', array $options = [])
+    public function __construct($foreground = '', $background = '', array $options = [])
     {
+        if (\is_object($background)) {
+            $background = (string) $background;
+        }
         if (\is_object($foreground)) {
             $foreground = (string) $foreground;
         }
@@ -40,8 +44,9 @@ final class Color
     }
     /**
      * @param string $text
+     * @return string
      */
-    public function apply($text) : string
+    public function apply($text)
     {
         if (\is_object($text)) {
             $text = (string) $text;
@@ -90,8 +95,9 @@ final class Color
     }
     /**
      * @param string $color
+     * @return string
      */
-    private function parseColor($color) : string
+    private function parseColor($color)
     {
         if (\is_object($color)) {
             $color = (string) $color;

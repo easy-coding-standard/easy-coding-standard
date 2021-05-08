@@ -39,8 +39,9 @@ final class FileReader
     }
     /**
      * @param string $filePath
+     * @return string
      */
-    public function read($filePath) : string
+    public function read($filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;
@@ -55,8 +56,9 @@ final class FileReader
     }
     /**
      * @param string $realPath
+     * @return string
      */
-    private function readRaw($realPath) : string
+    private function readRaw($realPath)
     {
         if (\is_object($realPath)) {
             $realPath = (string) $realPath;

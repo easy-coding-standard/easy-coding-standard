@@ -22,9 +22,13 @@ class TreeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
     protected $root;
     /**
      * @param string $name
+     * @param string $type
      */
-    public function __construct($name, string $type = 'array', \ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
+    public function __construct($name, $type = 'array', \ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if (\is_object($name)) {
             $name = (string) $name;
         }

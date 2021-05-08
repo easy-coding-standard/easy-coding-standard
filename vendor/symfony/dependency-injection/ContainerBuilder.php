@@ -327,8 +327,9 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      *                                   it will be used as pattern for tracking contents of the requested directory
      *
      * @final
+     * @return bool
      */
-    public function fileExists($path, $trackContents = \true) : bool
+    public function fileExists($path, $trackContents = \true)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -386,7 +387,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      *
      * @return $this
      */
-    public function addCompilerPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0)
+    public function addCompilerPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -479,7 +480,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      *
      * @see Reference
      */
-    public function get($id, int $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get($id, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -491,8 +492,10 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
     }
     /**
      * @param string $id
+     * @param int $invalidBehavior
+     * @param bool $isConstructorArgument
      */
-    private function doGet($id, int $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, array &$inlineServices = null, bool $isConstructorArgument = \false)
+    private function doGet($id, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, array &$inlineServices = null, $isConstructorArgument = \false)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -816,8 +819,9 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      *
      * @return Definition A Definition instance
      * @param string $id
+     * @param string $class
      */
-    public function register($id, string $class = null)
+    public function register($id, $class = null)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -832,8 +836,9 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      *
      * @return Definition The created definition
      * @param string $id
+     * @param string $class
      */
-    public function autowire($id, string $class = null)
+    public function autowire($id, $class = null)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -1148,8 +1153,9 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      *
      * @return array An array of tags with the tagged service as key, holding a list of attribute arrays
      * @param string $name
+     * @param bool $throwOnAbstract
      */
-    public function findTaggedServiceIds($name, bool $throwOnAbstract = \false)
+    public function findTaggedServiceIds($name, $throwOnAbstract = \false)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -1223,9 +1229,15 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      * "$fooBar"-named arguments with $type as type-hint. Such arguments will
      * receive the service $id when autowiring is used.
      * @param string $id
+     * @param string $type
+     * @param string $name
+     * @return \Symfony\Component\DependencyInjection\Alias
      */
-    public function registerAliasForArgument($id, string $type, string $name = null) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias
+    public function registerAliasForArgument($id, $type, $name = null)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -1487,8 +1499,9 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
     }
     /**
      * @param string $path
+     * @return bool
      */
-    private function inVendors($path) : bool
+    private function inVendors($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

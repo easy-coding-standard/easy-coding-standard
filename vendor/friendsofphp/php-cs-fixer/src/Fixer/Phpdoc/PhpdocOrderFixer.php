@@ -83,8 +83,9 @@ final class PhpdocOrderFixer extends \PhpCsFixer\AbstractFixer
     /**
      * Move all param annotations in before throws and return annotations.
      * @param string $content
+     * @return string
      */
-    private function moveParamAnnotations($content) : string
+    private function moveParamAnnotations($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -115,8 +116,9 @@ final class PhpdocOrderFixer extends \PhpCsFixer\AbstractFixer
     /**
      * Move all return annotations after param and throws annotations.
      * @param string $content
+     * @return string
      */
-    private function moveReturnAnnotations($content) : string
+    private function moveReturnAnnotations($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

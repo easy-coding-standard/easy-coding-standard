@@ -135,9 +135,13 @@ class RequestMatcher implements \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * Adds a check for request attribute.
      * @param string $key
+     * @param string $regexp
      */
-    public function matchAttribute($key, string $regexp)
+    public function matchAttribute($key, $regexp)
     {
+        if (\is_object($regexp)) {
+            $regexp = (string) $regexp;
+        }
         if (\is_object($key)) {
             $key = (string) $key;
         }

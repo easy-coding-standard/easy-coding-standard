@@ -29,9 +29,9 @@ class ClassExistenceResource implements \ECSPrefix20210508\Symfony\Component\Con
     private static $existsCache = [];
     /**
      * @param string    $resource The fully-qualified class name
-     * @param bool|null $exists   Boolean when the existency check has already been done
+     * @param bool $exists Boolean when the existency check has already been done
      */
-    public function __construct($resource, bool $exists = null)
+    public function __construct($resource, $exists = null)
     {
         if (\is_object($resource)) {
             $resource = (string) $resource;

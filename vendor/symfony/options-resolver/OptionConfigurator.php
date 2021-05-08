@@ -90,8 +90,11 @@ final class OptionConfigurator
      *
      * @return $this
      */
-    public function deprecated($package, string $version, $message = 'The option "%name%" is deprecated.')
+    public function deprecated($package, $version, $message = 'The option "%name%" is deprecated.')
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($package)) {
             $package = (string) $package;
         }

@@ -110,8 +110,9 @@ class AddAnnotatedClassesToCachePass implements \ECSPrefix20210508\Symfony\Compo
     }
     /**
      * @param string $class
+     * @return bool
      */
-    private function matchAnyRegexps($class, array $regexps) : bool
+    private function matchAnyRegexps($class, array $regexps)
     {
         if (\is_object($class)) {
             $class = (string) $class;

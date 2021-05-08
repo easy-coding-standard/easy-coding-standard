@@ -557,6 +557,9 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function prepareError($found, $patternCode)
     {
+        if (\is_object($patternCode)) {
+            $patternCode = (string) $patternCode;
+        }
         if (\is_object($found)) {
             $found = (string) $found;
         }
@@ -708,6 +711,9 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function createSkipPattern($pattern, $from)
     {
+        if (\is_object($from)) {
+            $from = (string) $from;
+        }
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;
         }

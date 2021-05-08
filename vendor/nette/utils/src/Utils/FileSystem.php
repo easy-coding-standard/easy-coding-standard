@@ -14,8 +14,9 @@ final class FileSystem
      * @throws Nette\IOException  on error occurred
      * @return void
      * @param string $dir
+     * @param int $mode
      */
-    public static function createDir($dir, int $mode = 0777)
+    public static function createDir($dir, $mode = 0777)
     {
         if (\is_object($dir)) {
             $dir = (string) $dir;
@@ -31,9 +32,14 @@ final class FileSystem
      * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
      * @return void
      * @param string $origin
+     * @param string $target
+     * @param bool $overwrite
      */
-    public static function copy($origin, string $target, bool $overwrite = \true)
+    public static function copy($origin, $target, $overwrite = \true)
     {
+        if (\is_object($target)) {
+            $target = (string) $target;
+        }
         if (\is_object($origin)) {
             $origin = (string) $origin;
         }
@@ -94,9 +100,14 @@ final class FileSystem
      * @throws Nette\InvalidStateException  if $overwrite is set to false and destination already exists
      * @return void
      * @param string $origin
+     * @param string $target
+     * @param bool $overwrite
      */
-    public static function rename($origin, string $target, bool $overwrite = \true)
+    public static function rename($origin, $target, $overwrite = \true)
     {
+        if (\is_object($target)) {
+            $target = (string) $target;
+        }
         if (\is_object($origin)) {
             $origin = (string) $origin;
         }
@@ -119,8 +130,9 @@ final class FileSystem
      * Reads the content of a file.
      * @throws Nette\IOException  on error occurred
      * @param string $file
+     * @return string
      */
-    public static function read($file) : string
+    public static function read($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -138,9 +150,13 @@ final class FileSystem
      * @param int|null $mode
      * @return void
      * @param string $file
+     * @param string $content
      */
-    public static function write($file, string $content, $mode = 0666)
+    public static function write($file, $content, $mode = 0666)
     {
+        if (\is_object($content)) {
+            $content = (string) $content;
+        }
         if (\is_object($file)) {
             $file = (string) $file;
         }
@@ -157,8 +173,9 @@ final class FileSystem
     /**
      * Determines if the path is absolute.
      * @param string $path
+     * @return bool
      */
-    public static function isAbsolute($path) : bool
+    public static function isAbsolute($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -168,8 +185,9 @@ final class FileSystem
     /**
      * Normalizes `..` and `.` and directory separators in path.
      * @param string $path
+     * @return string
      */
-    public static function normalizePath($path) : string
+    public static function normalizePath($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

@@ -313,8 +313,9 @@ class QuestionHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper
     }
     /**
      * @param string $entered
+     * @return string
      */
-    private function mostRecentlyEnteredValue($entered) : string
+    private function mostRecentlyEnteredValue($entered)
     {
         if (\is_object($entered)) {
             $entered = (string) $entered;

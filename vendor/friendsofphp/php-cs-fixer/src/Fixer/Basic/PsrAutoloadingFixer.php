@@ -179,8 +179,9 @@ class InvalidName {}
     /**
      * @param string|null $namespace
      * @param string $currentName
+     * @return string
      */
-    private function calculateClassyName(\SplFileInfo $file, $namespace, $currentName) : string
+    private function calculateClassyName(\SplFileInfo $file, $namespace, $currentName)
     {
         if (\is_object($currentName)) {
             $currentName = (string) $currentName;

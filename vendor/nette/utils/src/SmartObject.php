@@ -117,8 +117,9 @@ trait SmartObject
     }
     /**
      * @param string $name
+     * @return bool
      */
-    public function __isset($name) : bool
+    public function __isset($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

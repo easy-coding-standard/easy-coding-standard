@@ -49,7 +49,7 @@ class MetadataBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation
      * @param string $storageKey      The key used to store bag in the session
      * @param int    $updateThreshold The time to wait between two UPDATED updates
      */
-    public function __construct($storageKey = '_sf2_meta', int $updateThreshold = 0)
+    public function __construct($storageKey = '_sf2_meta', $updateThreshold = 0)
     {
         if (\is_object($storageKey)) {
             $storageKey = (string) $storageKey;

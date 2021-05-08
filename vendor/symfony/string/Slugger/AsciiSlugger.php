@@ -62,9 +62,15 @@ class AsciiSlugger implements \ECSPrefix20210508\Symfony\Component\String\Slugge
     /**
      * {@inheritdoc}
      * @param string $string
+     * @param string $separator
+     * @param string $locale
+     * @return \Symfony\Component\String\AbstractUnicodeString
      */
-    public function slug($string, string $separator = '-', string $locale = null) : \ECSPrefix20210508\Symfony\Component\String\AbstractUnicodeString
+    public function slug($string, $separator = '-', $locale = null)
     {
+        if (\is_object($separator)) {
+            $separator = (string) $separator;
+        }
         if (\is_object($string)) {
             $string = (string) $string;
         }

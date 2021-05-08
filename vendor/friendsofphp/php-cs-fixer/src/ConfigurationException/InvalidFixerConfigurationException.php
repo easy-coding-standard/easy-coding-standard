@@ -29,9 +29,13 @@ class InvalidFixerConfigurationException extends \PhpCsFixer\ConfigurationExcept
     /**
      * @param \Throwable|null $previous
      * @param string $fixerName
+     * @param string $message
      */
-    public function __construct($fixerName, string $message, $previous = null)
+    public function __construct($fixerName, $message, $previous = null)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (\is_object($fixerName)) {
             $fixerName = (string) $fixerName;
         }

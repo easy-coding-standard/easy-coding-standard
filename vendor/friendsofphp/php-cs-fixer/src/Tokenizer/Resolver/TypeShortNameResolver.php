@@ -25,8 +25,9 @@ final class TypeShortNameResolver
      * This method will resolve the shortName of a FQCN if possible or otherwise return the inserted type name.
      * E.g.: use Foo\Bar => "Bar".
      * @param string $typeName
+     * @return string
      */
-    public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $typeName) : string
+    public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $typeName)
     {
         if (\is_object($typeName)) {
             $typeName = (string) $typeName;

@@ -29,8 +29,9 @@ interface DumperInterface
      *
      * @return string
      * @param string $id
+     * @param string $factoryCode
      */
-    public function getProxyFactoryCode(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, string $factoryCode);
+    public function getProxyFactoryCode(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, $factoryCode);
     /**
      * Generates the code for the lazy proxy.
      *

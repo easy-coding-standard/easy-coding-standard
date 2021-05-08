@@ -62,8 +62,9 @@ class LinkStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Con
     }
     /**
      * @param string $file
+     * @param bool $inVendor
      */
-    private function getComposerRoot($file, bool &$inVendor)
+    private function getComposerRoot($file, &$inVendor)
     {
         if (\is_object($file)) {
             $file = (string) $file;

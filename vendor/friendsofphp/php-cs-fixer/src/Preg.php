@@ -26,9 +26,16 @@ final class Preg
      *
      * @throws PregException
      * @param string $pattern
+     * @param string $subject
+     * @param int $flags
+     * @param int $offset
+     * @return int
      */
-    public static function match($pattern, string $subject, &$matches = null, int $flags = 0, int $offset = 0) : int
+    public static function match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0)
     {
+        if (\is_object($subject)) {
+            $subject = (string) $subject;
+        }
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;
         }
@@ -47,9 +54,16 @@ final class Preg
      *
      * @throws PregException
      * @param string $pattern
+     * @param string $subject
+     * @param int $flags
+     * @param int $offset
+     * @return int
      */
-    public static function matchAll($pattern, string $subject, &$matches = null, int $flags = \PREG_PATTERN_ORDER, int $offset = 0) : int
+    public static function matchAll($pattern, $subject, &$matches = null, $flags = \PREG_PATTERN_ORDER, $offset = 0)
     {
+        if (\is_object($subject)) {
+            $subject = (string) $subject;
+        }
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;
         }
@@ -111,11 +125,17 @@ final class Preg
     /**
      * @throws PregException
      *
-     * @return string[]
+     * @return mixed[]
      * @param string $pattern
+     * @param string $subject
+     * @param int $limit
+     * @param int $flags
      */
-    public static function split($pattern, string $subject, int $limit = -1, int $flags = 0) : array
+    public static function split($pattern, $subject, $limit = -1, $flags = 0)
     {
+        if (\is_object($subject)) {
+            $subject = (string) $subject;
+        }
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;
         }
@@ -167,8 +187,9 @@ final class Preg
      * @param string[] $patterns
      * @param int $error
      * @param string $method
+     * @return \PhpCsFixer\PregException
      */
-    private static function newPregException($error, $method, array $patterns) : \PhpCsFixer\PregException
+    private static function newPregException($error, $method, array $patterns)
     {
         if (\is_object($method)) {
             $method = (string) $method;

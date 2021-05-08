@@ -666,8 +666,9 @@ final class ConfigurationResolver
     }
     /**
      * @param string $optionName
+     * @return bool
      */
-    private function resolveOptionBooleanValue($optionName) : bool
+    private function resolveOptionBooleanValue($optionName)
     {
         if (\is_object($optionName)) {
             $optionName = (string) $optionName;
@@ -686,8 +687,9 @@ final class ConfigurationResolver
     }
     /**
      * @param string $path
+     * @return \PhpCsFixer\ConfigInterface
      */
-    private static function separatedContextLessInclude($path) : \PhpCsFixer\ConfigInterface
+    private static function separatedContextLessInclude($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

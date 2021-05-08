@@ -64,7 +64,7 @@ class RedisTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Ad
      * @param string                                                   $namespace       The default namespace
      * @param int                                                      $defaultLifetime The default lifetime
      */
-    public function __construct($redisClient, $namespace = '', int $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($redisClient, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

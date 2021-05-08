@@ -148,8 +148,9 @@ $foo->__INVOKE(1);
     }
     /**
      * @param string $name
+     * @return bool
      */
-    private function isMagicMethodName($name) : bool
+    private function isMagicMethodName($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -158,8 +159,9 @@ $foo->__INVOKE(1);
     }
     /**
      * @param string $name name of a magic method
+     * @return string
      */
-    private function getMagicMethodNameInCorrectCasing($name) : string
+    private function getMagicMethodNameInCorrectCasing($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

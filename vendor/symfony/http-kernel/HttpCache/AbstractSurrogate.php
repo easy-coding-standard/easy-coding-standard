@@ -73,9 +73,14 @@ abstract class AbstractSurrogate implements \ECSPrefix20210508\Symfony\Component
     /**
      * {@inheritdoc}
      * @param string $uri
+     * @param string $alt
+     * @param bool $ignoreErrors
      */
-    public function handle(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, $uri, string $alt, bool $ignoreErrors)
+    public function handle(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, $uri, $alt, $ignoreErrors)
     {
+        if (\is_object($alt)) {
+            $alt = (string) $alt;
+        }
         if (\is_object($uri)) {
             $uri = (string) $uri;
         }

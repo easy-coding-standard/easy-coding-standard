@@ -89,8 +89,9 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * {@inheritdoc}
      * @param string $key
+     * @param bool $replace
      */
-    public function set($key, $values, bool $replace = \true)
+    public function set($key, $values, $replace = \true)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -169,8 +170,9 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      * Removes a cookie from the array, but does not unset it in the browser.
      * @param string|null $path
      * @param string $name
+     * @param string $domain
      */
-    public function removeCookie($name, $path = '/', string $domain = null)
+    public function removeCookie($name, $path = '/', $domain = null)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -222,8 +224,12 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      * Clears a cookie in the browser.
      * @param string|null $path
      * @param string $name
+     * @param string $domain
+     * @param bool $secure
+     * @param bool $httpOnly
+     * @param string $sameSite
      */
-    public function clearCookie($name, $path = '/', string $domain = null, bool $secure = \false, bool $httpOnly = \true, string $sameSite = null)
+    public function clearCookie($name, $path = '/', $domain = null, $secure = \false, $httpOnly = \true, $sameSite = null)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -233,9 +239,17 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
     /**
      * @see HeaderUtils::makeDisposition()
      * @param string $disposition
+     * @param string $filename
+     * @param string $filenameFallback
      */
-    public function makeDisposition($disposition, string $filename, string $filenameFallback = '')
+    public function makeDisposition($disposition, $filename, $filenameFallback = '')
     {
+        if (\is_object($filenameFallback)) {
+            $filenameFallback = (string) $filenameFallback;
+        }
+        if (\is_object($filename)) {
+            $filename = (string) $filename;
+        }
         if (\is_object($disposition)) {
             $disposition = (string) $disposition;
         }

@@ -28,6 +28,9 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
      */
     public function __construct($content, \PHP_CodeSniffer\Config $config, $eolChar = '\\n')
     {
+        if (\is_object($eolChar)) {
+            $eolChar = (string) $eolChar;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }

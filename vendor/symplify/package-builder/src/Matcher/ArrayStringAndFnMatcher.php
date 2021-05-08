@@ -7,8 +7,9 @@ final class ArrayStringAndFnMatcher
     /**
      * @param string[] $matchingValues
      * @param string $currentValue
+     * @return bool
      */
-    public function isMatchWithIsA($currentValue, array $matchingValues) : bool
+    public function isMatchWithIsA($currentValue, array $matchingValues)
     {
         if (\is_object($currentValue)) {
             $currentValue = (string) $currentValue;
@@ -26,8 +27,9 @@ final class ArrayStringAndFnMatcher
     /**
      * @param string[] $matchingValues
      * @param string $currentValue
+     * @return bool
      */
-    public function isMatch($currentValue, array $matchingValues) : bool
+    public function isMatch($currentValue, array $matchingValues)
     {
         if (\is_object($currentValue)) {
             $currentValue = (string) $currentValue;

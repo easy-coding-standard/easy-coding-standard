@@ -20,11 +20,14 @@ interface CacheManagerInterface
 {
     /**
      * @param string $file
+     * @param string $fileContent
+     * @return bool
      */
-    public function needFixing($file, string $fileContent) : bool;
+    public function needFixing($file, $fileContent);
     /**
      * @return void
      * @param string $file
+     * @param string $fileContent
      */
-    public function setFile($file, string $fileContent);
+    public function setFile($file, $fileContent);
 }

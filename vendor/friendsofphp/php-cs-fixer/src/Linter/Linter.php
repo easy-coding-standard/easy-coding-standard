@@ -46,8 +46,9 @@ final class Linter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * {@inheritdoc}
      * @param string $path
+     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintFile($path) : \PhpCsFixer\Linter\LintingResultInterface
+    public function lintFile($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -57,8 +58,9 @@ final class Linter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * {@inheritdoc}
      * @param string $source
+     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintSource($source) : \PhpCsFixer\Linter\LintingResultInterface
+    public function lintSource($source)
     {
         if (\is_object($source)) {
             $source = (string) $source;

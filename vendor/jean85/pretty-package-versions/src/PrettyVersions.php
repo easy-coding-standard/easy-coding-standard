@@ -11,8 +11,9 @@ class PrettyVersions
     /**
      * @throws VersionMissingExceptionInterface When a package is provided ({@see ProvidedPackageException}) or replaced ({@see ReplacedPackageException})
      * @param string $packageName
+     * @return \Jean85\Version
      */
-    public static function getVersion($packageName) : \ECSPrefix20210508\Jean85\Version
+    public static function getVersion($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;

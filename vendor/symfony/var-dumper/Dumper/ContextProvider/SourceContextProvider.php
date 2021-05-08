@@ -100,8 +100,9 @@ final class SourceContextProvider implements \ECSPrefix20210508\Symfony\Componen
     }
     /**
      * @param string $s
+     * @return string
      */
-    private function htmlEncode($s) : string
+    private function htmlEncode($s)
     {
         if (\is_object($s)) {
             $s = (string) $s;

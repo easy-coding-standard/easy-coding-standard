@@ -164,7 +164,7 @@ class Process implements \IteratorAggregate
      *   $process->run(null, ['MY_VAR' => $theValue]);
      *
      * @param string         $command The command line to pass to the shell of the OS
-     * @param string|null    $cwd     The working directory or null to use the working dir of the current PHP process
+     * @param string $cwd The working directory or null to use the working dir of the current PHP process
      * @param array|null     $env     The environment variables or null to use the same environment as the current PHP process
      * @param mixed          $input   The input as stream resource, scalar or \Traversable, or null for no input
      * @param float|null $timeout The timeout in seconds or null to disable
@@ -173,7 +173,7 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException When proc_open is not installed
      */
-    public static function fromShellCommandline($command, string $cwd = null, array $env = null, $input = null, $timeout = 60)
+    public static function fromShellCommandline($command, $cwd = null, array $env = null, $input = null, $timeout = 60)
     {
         if (\is_object($command)) {
             $command = (string) $command;
@@ -1232,7 +1232,7 @@ class Process implements \IteratorAggregate
      *
      * @throws LogicException in case output has been disabled or process is not started
      */
-    private function readPipesForOutput($caller, bool $blocking = \false)
+    private function readPipesForOutput($caller, $blocking = \false)
     {
         if (\is_object($caller)) {
             $caller = (string) $caller;
@@ -1375,8 +1375,9 @@ class Process implements \IteratorAggregate
     }
     /**
      * @param string $cmd
+     * @return string
      */
-    private function prepareWindowsCommandLine($cmd, array &$env) : string
+    private function prepareWindowsCommandLine($cmd, array &$env)
     {
         if (\is_object($cmd)) {
             $cmd = (string) $cmd;

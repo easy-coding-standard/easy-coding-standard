@@ -233,8 +233,9 @@ EOF;
     /**
      * @return mixed[]|null
      * @param string $line
+     * @param bool $matchCommentOnly
      */
-    private function getMatches($line, bool $matchCommentOnly = \false)
+    private function getMatches($line, $matchCommentOnly = \false)
     {
         if (\is_object($line)) {
             $line = (string) $line;

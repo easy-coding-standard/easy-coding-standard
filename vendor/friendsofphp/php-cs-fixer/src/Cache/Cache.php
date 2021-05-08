@@ -39,8 +39,9 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     }
     /**
      * @param string $file
+     * @return bool
      */
-    public function has($file) : bool
+    public function has($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -64,8 +65,9 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
     /**
      * @return void
      * @param string $file
+     * @param int $hash
      */
-    public function set($file, int $hash)
+    public function set($file, $hash)
     {
         if (\is_object($file)) {
             $file = (string) $file;

@@ -152,8 +152,9 @@ CODE_SAMPLE
     }
     /**
      * @param string $docBlock
+     * @return string
      */
-    private function resolveIndentationStringFor($docBlock) : string
+    private function resolveIndentationStringFor($docBlock)
     {
         if (\is_object($docBlock)) {
             $docBlock = (string) $docBlock;
@@ -163,8 +164,9 @@ CODE_SAMPLE
     }
     /**
      * @param string $indentationString
+     * @return string
      */
-    private function formatLinesAsDocBlockContent(array $docBlockLines, $indentationString) : string
+    private function formatLinesAsDocBlockContent(array $docBlockLines, $indentationString)
     {
         if (\is_object($indentationString)) {
             $indentationString = (string) $indentationString;
@@ -199,10 +201,10 @@ CODE_SAMPLE
         }, $paragraphLines);
     }
     /**
-     * @return string[]
+     * @return mixed[]
      * @param string $string
      */
-    private function getLines($string) : array
+    private function getLines($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;

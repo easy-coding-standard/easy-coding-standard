@@ -30,8 +30,9 @@ final class CommandNaming
      * - "SomeClass\SomeSuperCommand" → "some-super"
      * - "SomeClass\SOMESuperCommand" → "some-super"
      * @param string $class
+     * @return string
      */
-    public static function classToName($class) : string
+    public static function classToName($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -54,8 +55,9 @@ final class CommandNaming
     }
     /**
      * @param string $class
+     * @return string
      */
-    private static function resolveShortName($class) : string
+    private static function resolveShortName($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -65,8 +67,10 @@ final class CommandNaming
     }
     /**
      * @param string $string
+     * @param int $position
+     * @return bool
      */
-    private static function isFollowedByUpperCaseLetterOrNothing($string, int $position) : bool
+    private static function isFollowedByUpperCaseLetterOrNothing($string, $position)
     {
         if (\is_object($string)) {
             $string = (string) $string;

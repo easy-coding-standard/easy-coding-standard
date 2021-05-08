@@ -177,8 +177,9 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * @param string $functionName
+     * @return bool
      */
-    private function hasTestPrefix($functionName) : bool
+    private function hasTestPrefix($functionName)
     {
         if (\is_object($functionName)) {
             $functionName = (string) $functionName;
@@ -197,8 +198,9 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * @param string $functionName
+     * @return string
      */
-    private function removeTestPrefix($functionName) : string
+    private function removeTestPrefix($functionName)
     {
         if (\is_object($functionName)) {
             $functionName = (string) $functionName;
@@ -211,8 +213,9 @@ public function testItDoesSomething() {}}' . $this->whitespacesConfig->getLineEn
     }
     /**
      * @param string $functionName
+     * @return string
      */
-    private function addTestPrefix($functionName) : string
+    private function addTestPrefix($functionName)
     {
         if (\is_object($functionName)) {
             $functionName = (string) $functionName;

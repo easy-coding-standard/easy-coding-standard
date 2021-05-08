@@ -124,9 +124,13 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return string The filtered value
      * @param string $key
+     * @param string $default
      */
-    public function getAlpha($key, string $default = '')
+    public function getAlpha($key, $default = '')
     {
+        if (\is_object($default)) {
+            $default = (string) $default;
+        }
         if (\is_object($key)) {
             $key = (string) $key;
         }
@@ -137,9 +141,13 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return string The filtered value
      * @param string $key
+     * @param string $default
      */
-    public function getAlnum($key, string $default = '')
+    public function getAlnum($key, $default = '')
     {
+        if (\is_object($default)) {
+            $default = (string) $default;
+        }
         if (\is_object($key)) {
             $key = (string) $key;
         }
@@ -150,9 +158,13 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return string The filtered value
      * @param string $key
+     * @param string $default
      */
-    public function getDigits($key, string $default = '')
+    public function getDigits($key, $default = '')
     {
+        if (\is_object($default)) {
+            $default = (string) $default;
+        }
         if (\is_object($key)) {
             $key = (string) $key;
         }
@@ -164,8 +176,9 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return int The filtered value
      * @param string $key
+     * @param int $default
      */
-    public function getInt($key, int $default = 0)
+    public function getInt($key, $default = 0)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -177,8 +190,9 @@ class ParameterBag implements \IteratorAggregate, \Countable
      *
      * @return bool The filtered value
      * @param string $key
+     * @param bool $default
      */
-    public function getBoolean($key, bool $default = \false)
+    public function getBoolean($key, $default = \false)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -197,7 +211,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      * @return mixed
      * @param string $key
      */
-    public function filter($key, $default = null, int $filter = \FILTER_DEFAULT, $options = [])
+    public function filter($key, $default = null, $filter = \FILTER_DEFAULT, $options = [])
     {
         if (\is_object($key)) {
             $key = (string) $key;

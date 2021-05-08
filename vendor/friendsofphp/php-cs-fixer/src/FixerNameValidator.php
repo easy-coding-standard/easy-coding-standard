@@ -20,8 +20,10 @@ final class FixerNameValidator
 {
     /**
      * @param string $name
+     * @param bool $isCustom
+     * @return bool
      */
-    public function isValid($name, bool $isCustom) : bool
+    public function isValid($name, $isCustom)
     {
         if (\is_object($name)) {
             $name = (string) $name;

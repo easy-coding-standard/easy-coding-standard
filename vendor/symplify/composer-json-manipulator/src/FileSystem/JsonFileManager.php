@@ -48,10 +48,10 @@ final class JsonFileManager
         return $this->cachedJSONFiles[$realPath];
     }
     /**
-     * @return array<string, mixed>
+     * @return mixed[]
      * @param string $filePath
      */
-    public function loadFromFilePath($filePath) : array
+    public function loadFromFilePath($filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;
@@ -71,8 +71,9 @@ final class JsonFileManager
     }
     /**
      * @param string $filePath
+     * @return string
      */
-    public function printComposerJsonToFilePath(\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $filePath) : string
+    public function printComposerJsonToFilePath(\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;

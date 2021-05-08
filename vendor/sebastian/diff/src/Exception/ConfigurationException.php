@@ -19,9 +19,14 @@ final class ConfigurationException extends \ECSPrefix20210508\SebastianBergmann\
 {
     /**
      * @param string $option
+     * @param string $expected
+     * @param int $code
      */
-    public function __construct($option, string $expected, $value, int $code = 0, \Exception $previous = null)
+    public function __construct($option, $expected, $value, $code = 0, \Exception $previous = null)
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
         if (\is_object($option)) {
             $option = (string) $option;
         }

@@ -21,6 +21,9 @@ final class ConfigurationException extends \PhpCsFixer\Diff\InvalidArgumentExcep
      */
     public function __construct($option, $expected, $value, $code = 0, \Exception $previous = null)
     {
+        if (\is_object($expected)) {
+            $expected = (string) $expected;
+        }
         if (\is_object($option)) {
             $option = (string) $option;
         }

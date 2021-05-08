@@ -292,8 +292,11 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
      *
      * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
      */
-    public function getDeprecationMessage($node, string $path)
+    public function getDeprecationMessage($node, $path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if (\is_object($node)) {
             $node = (string) $node;
         }
@@ -303,9 +306,13 @@ abstract class BaseNode implements \ECSPrefix20210508\Symfony\Component\Config\D
     /**
      * @param string $node The configuration node name
      * @param string $path The path of the node
+     * @return mixed[]
      */
-    public function getDeprecation($node, string $path) : array
+    public function getDeprecation($node, $path)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
         if (\is_object($node)) {
             $node = (string) $node;
         }

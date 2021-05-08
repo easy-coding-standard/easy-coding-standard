@@ -27,9 +27,14 @@ final class ConsoleDiffer
     }
     /**
      * @param string $old
+     * @param string $new
+     * @return string
      */
-    public function diff($old, string $new) : string
+    public function diff($old, $new)
     {
+        if (\is_object($new)) {
+            $new = (string) $new;
+        }
         if (\is_object($old)) {
             $old = (string) $old;
         }
@@ -39,9 +44,13 @@ final class ConsoleDiffer
     /**
      * @return void
      * @param string $old
+     * @param string $new
      */
-    public function diffAndPrint($old, string $new)
+    public function diffAndPrint($old, $new)
     {
+        if (\is_object($new)) {
+            $new = (string) $new;
+        }
         if (\is_object($old)) {
             $old = (string) $old;
         }

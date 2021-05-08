@@ -228,9 +228,14 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
     }
     /**
      * @param string $from
+     * @param string $to
+     * @return \Symfony\Component\String\AbstractString
      */
-    public function replace($from, string $to) : \ECSPrefix20210508\Symfony\Component\String\AbstractString
+    public function replace($from, $to)
     {
+        if (\is_object($to)) {
+            $to = (string) $to;
+        }
         if (\is_object($from)) {
             $from = (string) $from;
         }
@@ -255,8 +260,9 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
     }
     /**
      * @param string $fromRegexp
+     * @return \Symfony\Component\String\AbstractString
      */
-    public function replaceMatches($fromRegexp, $to) : \ECSPrefix20210508\Symfony\Component\String\AbstractString
+    public function replaceMatches($fromRegexp, $to)
     {
         if (\is_object($fromRegexp)) {
             $fromRegexp = (string) $fromRegexp;
@@ -281,8 +287,11 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
     }
     /**
      * @param string $replacement
+     * @param int $start
+     * @param int $length
+     * @return \Symfony\Component\String\AbstractString
      */
-    public function splice($replacement, int $start = 0, int $length = null) : \ECSPrefix20210508\Symfony\Component\String\AbstractString
+    public function splice($replacement, $start = 0, $length = null)
     {
         if (\is_object($replacement)) {
             $replacement = (string) $replacement;
@@ -302,8 +311,11 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
     }
     /**
      * @param string $delimiter
+     * @param int $limit
+     * @param int $flags
+     * @return mixed[]
      */
-    public function split($delimiter, int $limit = null, int $flags = null) : array
+    public function split($delimiter, $limit = null, $flags = null)
     {
         if (\is_object($delimiter)) {
             $delimiter = (string) $delimiter;

@@ -44,8 +44,9 @@ final class StaticFixtureUpdater
     }
     /**
      * @param string $changedContent
+     * @return string
      */
-    private static function resolveNewFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent) : string
+    private static function resolveNewFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent)
     {
         if (\is_object($changedContent)) {
             $changedContent = (string) $changedContent;

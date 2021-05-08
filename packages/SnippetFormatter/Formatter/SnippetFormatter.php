@@ -72,9 +72,14 @@ final class SnippetFormatter
     }
     /**
      * @param string $snippetRegex
+     * @param string $kind
+     * @return string
      */
-    public function format(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $snippetRegex, string $kind) : string
+    public function format(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $snippetRegex, $kind)
     {
+        if (\is_object($kind)) {
+            $kind = (string) $kind;
+        }
         if (\is_object($snippetRegex)) {
             $snippetRegex = (string) $snippetRegex;
         }
@@ -90,8 +95,9 @@ final class SnippetFormatter
     /**
      * @param string[] $match
      * @param string $kind
+     * @return string
      */
-    private function fixContentAndPreserveFormatting(array $match, $kind) : string
+    private function fixContentAndPreserveFormatting(array $match, $kind)
     {
         if (\is_object($kind)) {
             $kind = (string) $kind;
@@ -103,9 +109,14 @@ final class SnippetFormatter
     }
     /**
      * @param string $content
+     * @param string $kind
+     * @return string
      */
-    private function fixContent($content, string $kind) : string
+    private function fixContent($content, $kind)
     {
+        if (\is_object($kind)) {
+            $kind = (string) $kind;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }
@@ -138,8 +149,9 @@ final class SnippetFormatter
     /**
      * It does not have any added value and only clutters the output
      * @param string $content
+     * @return string
      */
-    private function removeOpeningTagAndStrictTypes($content) : string
+    private function removeOpeningTagAndStrictTypes($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -149,8 +161,9 @@ final class SnippetFormatter
     }
     /**
      * @param string $content
+     * @return string
      */
-    private function createTemporaryFilePath($content) : string
+    private function createTemporaryFilePath($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -161,8 +174,9 @@ final class SnippetFormatter
     }
     /**
      * @param string $fileContent
+     * @return string
      */
-    private function removeOpeningTag($fileContent) : string
+    private function removeOpeningTag($fileContent)
     {
         if (\is_object($fileContent)) {
             $fileContent = (string) $fileContent;

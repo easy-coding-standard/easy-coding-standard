@@ -73,6 +73,9 @@ abstract class Tokenizer
      */
     public function __construct($content, $config, $eolChar = '\\n')
     {
+        if (\is_object($eolChar)) {
+            $eolChar = (string) $eolChar;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }
@@ -101,6 +104,9 @@ abstract class Tokenizer
      */
     protected function isMinifiedContent($content, $eolChar = '\\n')
     {
+        if (\is_object($eolChar)) {
+            $eolChar = (string) $eolChar;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }
@@ -493,6 +499,9 @@ abstract class Tokenizer
      */
     public function replaceTabsInToken(&$token, $prefix = ' ', $padding = ' ', $tabWidth = null)
     {
+        if (\is_object($padding)) {
+            $padding = (string) $padding;
+        }
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;
         }

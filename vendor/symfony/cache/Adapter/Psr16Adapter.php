@@ -29,8 +29,9 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
     private $miss;
     /**
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    public function __construct(\ECSPrefix20210508\Psr\SimpleCache\CacheInterface $pool, $namespace = '', int $defaultLifetime = 0)
+    public function __construct(\ECSPrefix20210508\Psr\SimpleCache\CacheInterface $pool, $namespace = '', $defaultLifetime = 0)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

@@ -278,8 +278,11 @@ class Request
      *
      * @return static
      */
-    public static function create($uri, string $method = 'GET', array $parameters = [], array $cookies = [], array $files = [], array $server = [], $content = null)
+    public static function create($uri, $method = 'GET', array $parameters = [], array $cookies = [], array $files = [], array $server = [], $content = null)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         if (\is_object($uri)) {
             $uri = (string) $uri;
         }
@@ -1759,9 +1762,13 @@ class Request
      * the given prefix, null otherwise.
      * @return string|null
      * @param string $string
+     * @param string $prefix
      */
-    private function getUrlencodedPrefix($string, string $prefix)
+    private function getUrlencodedPrefix($string, $prefix)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         if (\is_object($string)) {
             $string = (string) $string;
         }
@@ -1850,8 +1857,9 @@ class Request
     }
     /**
      * @param string $ip
+     * @return mixed[]
      */
-    private function normalizeAndFilterClientIps(array $clientIps, $ip) : array
+    private function normalizeAndFilterClientIps(array $clientIps, $ip)
     {
         if (\is_object($ip)) {
             $ip = (string) $ip;

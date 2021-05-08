@@ -122,7 +122,7 @@ class Foo
      * @param int    $classEnd   the class end index
      * @return void
      */
-    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $className, int $classStart, int $classEnd)
+    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $className, $classStart, $classEnd)
     {
         if (\is_object($className)) {
             $className = (string) $className;
@@ -244,7 +244,7 @@ class Foo
      *
      * @return array an array containing the sequence and case sensitiveness [ 0 => $seq, 1 => $case ]
      */
-    private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $method, int $startIndex, int $bodyIndex) : array
+    private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $method, $startIndex, $bodyIndex)
     {
         if (\is_object($method)) {
             $method = (string) $method;
@@ -294,7 +294,7 @@ class Foo
      *     - modifiers (array): The modifiers as array keys and their index as
      *       the values, e.g. array(T_PUBLIC => 10)
      */
-    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $name, int $startIndex, int $endIndex)
+    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $name, $startIndex, $endIndex)
     {
         if (\is_object($name)) {
             $name = (string) $name;

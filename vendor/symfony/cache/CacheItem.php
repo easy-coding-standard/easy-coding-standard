@@ -141,8 +141,9 @@ final class CacheItem implements \ECSPrefix20210508\Symfony\Contracts\Cache\Item
      * @param string $key The key to validate
      *
      * @throws InvalidArgumentException When $key is not valid
+     * @return string
      */
-    public static function validateKey($key) : string
+    public static function validateKey($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;

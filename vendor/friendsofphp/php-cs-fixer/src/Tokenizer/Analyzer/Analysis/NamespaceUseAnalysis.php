@@ -57,9 +57,17 @@ final class NamespaceUseAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analy
     private $type;
     /**
      * @param string $fullName
+     * @param string $shortName
+     * @param bool $isAliased
+     * @param int $startIndex
+     * @param int $endIndex
+     * @param int $type
      */
-    public function __construct($fullName, string $shortName, bool $isAliased, int $startIndex, int $endIndex, int $type)
+    public function __construct($fullName, $shortName, $isAliased, $startIndex, $endIndex, $type)
     {
+        if (\is_object($shortName)) {
+            $shortName = (string) $shortName;
+        }
         if (\is_object($fullName)) {
             $fullName = (string) $fullName;
         }

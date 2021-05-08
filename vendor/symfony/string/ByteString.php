@@ -237,8 +237,11 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string $regexp
+     * @param int $flags
+     * @param int $offset
+     * @return mixed[]
      */
-    public function match($regexp, int $flags = 0, int $offset = 0) : array
+    public function match($regexp, $flags = 0, $offset = 0)
     {
         if (\is_object($regexp)) {
             $regexp = (string) $regexp;
@@ -320,9 +323,13 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string $from
+     * @param string $to
      */
-    public function replace($from, string $to)
+    public function replace($from, $to)
     {
+        if (\is_object($to)) {
+            $to = (string) $to;
+        }
         if (\is_object($from)) {
             $from = (string) $from;
         }
@@ -395,8 +402,10 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string $replacement
+     * @param int $start
+     * @param int $length
      */
-    public function splice($replacement, int $start = 0, int $length = null)
+    public function splice($replacement, $start = 0, $length = null)
     {
         if (\is_object($replacement)) {
             $replacement = (string) $replacement;
@@ -407,8 +416,11 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
     }
     /**
      * @param string $delimiter
+     * @param int $limit
+     * @param int $flags
+     * @return mixed[]
      */
-    public function split($delimiter, int $limit = null, int $flags = null) : array
+    public function split($delimiter, $limit = null, $flags = null)
     {
         if (\is_object($delimiter)) {
             $delimiter = (string) $delimiter;

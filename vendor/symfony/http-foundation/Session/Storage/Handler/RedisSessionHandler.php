@@ -54,8 +54,9 @@ class RedisSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFound
     /**
      * {@inheritdoc}
      * @param string $sessionId
+     * @return string
      */
-    protected function doRead($sessionId) : string
+    protected function doRead($sessionId)
     {
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
@@ -65,9 +66,14 @@ class RedisSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFound
     /**
      * {@inheritdoc}
      * @param string $sessionId
+     * @param string $data
+     * @return bool
      */
-    protected function doWrite($sessionId, string $data) : bool
+    protected function doWrite($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -77,8 +83,9 @@ class RedisSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFound
     /**
      * {@inheritdoc}
      * @param string $sessionId
+     * @return bool
      */
-    protected function doDestroy($sessionId) : bool
+    protected function doDestroy($sessionId)
     {
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;

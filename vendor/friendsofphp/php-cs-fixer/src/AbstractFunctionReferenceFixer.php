@@ -35,8 +35,9 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
      * @return mixed[]|null returns $functionName, $openParenthesis, $closeParenthesis packed into array
      * @param int|null $end
      * @param string $functionNameToSearch
+     * @param int $start
      */
-    protected function find($functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, int $start = 0, $end = null)
+    protected function find($functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, $start = 0, $end = null)
     {
         if (\is_object($functionNameToSearch)) {
             $functionNameToSearch = (string) $functionNameToSearch;

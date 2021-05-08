@@ -42,9 +42,14 @@ final class DiffConsoleFormatter
     }
     /**
      * @param string $diff
+     * @param string $lineTemplate
+     * @return string
      */
-    public function format($diff, string $lineTemplate = '%s') : string
+    public function format($diff, $lineTemplate = '%s')
     {
+        if (\is_object($lineTemplate)) {
+            $lineTemplate = (string) $lineTemplate;
+        }
         if (\is_object($diff)) {
             $diff = (string) $diff;
         }

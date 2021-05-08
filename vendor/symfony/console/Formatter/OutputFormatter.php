@@ -48,8 +48,9 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      *
      * @internal
      * @param string $text
+     * @return string
      */
-    public static function escapeTrailingBackslash($text) : string
+    public static function escapeTrailingBackslash($text)
     {
         if (\is_object($text)) {
             $text = (string) $text;
@@ -231,9 +232,16 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
     /**
      * Applies current style from stack to text, if must be applied.
      * @param string $text
+     * @param string $current
+     * @param int $width
+     * @param int $currentLineLength
+     * @return string
      */
-    private function applyCurrentStyle($text, string $current, int $width, int &$currentLineLength) : string
+    private function applyCurrentStyle($text, $current, $width, &$currentLineLength)
     {
+        if (\is_object($current)) {
+            $current = (string) $current;
+        }
         if (\is_object($text)) {
             $text = (string) $text;
         }

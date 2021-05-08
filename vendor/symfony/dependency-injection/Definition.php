@@ -313,7 +313,7 @@ class Definition
      *
      * @throws InvalidArgumentException on empty $method param
      */
-    public function addMethodCall($method, array $arguments = [], bool $returnsClone = \false)
+    public function addMethodCall($method, array $arguments = [], $returnsClone = \false)
     {
         if (\is_object($method)) {
             $method = (string) $method;
@@ -715,8 +715,9 @@ class Definition
     }
     /**
      * @param string $id Service id relying on this definition
+     * @return mixed[]
      */
-    public function getDeprecation($id) : array
+    public function getDeprecation($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;

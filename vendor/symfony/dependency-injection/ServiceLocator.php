@@ -84,8 +84,9 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
     }
     /**
      * @param string $id
+     * @return \Psr\Container\NotFoundExceptionInterface
      */
-    private function createNotFoundException($id) : \ECSPrefix20210508\Psr\Container\NotFoundExceptionInterface
+    private function createNotFoundException($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -131,8 +132,9 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
     }
     /**
      * @param string $id
+     * @return \Psr\Container\ContainerExceptionInterface
      */
-    private function createCircularReferenceException($id, array $path) : \ECSPrefix20210508\Psr\Container\ContainerExceptionInterface
+    private function createCircularReferenceException($id, array $path)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -141,8 +143,9 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
     }
     /**
      * @param string $separator
+     * @return string
      */
-    private function formatAlternatives(array $alternatives = null, $separator = 'and') : string
+    private function formatAlternatives(array $alternatives = null, $separator = 'and')
     {
         if (\is_object($separator)) {
             $separator = (string) $separator;

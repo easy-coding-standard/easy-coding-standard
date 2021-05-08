@@ -72,8 +72,9 @@ final class PhpdocSingleLineVarSpacingFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @param string $content
+     * @return string
      */
-    private function fixTokenContent($content) : string
+    private function fixTokenContent($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

@@ -39,9 +39,14 @@ final class PhpUnitTargetVersion
     }
     /**
      * @param string $candidate
+     * @param string $target
+     * @return bool
      */
-    public static function fulfills($candidate, string $target) : bool
+    public static function fulfills($candidate, $target)
     {
+        if (\is_object($target)) {
+            $target = (string) $target;
+        }
         if (\is_object($candidate)) {
             $candidate = (string) $candidate;
         }

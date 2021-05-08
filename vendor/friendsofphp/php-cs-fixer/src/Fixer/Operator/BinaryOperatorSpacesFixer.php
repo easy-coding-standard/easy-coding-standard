@@ -522,8 +522,9 @@ $array = [
     /**
      * Look for group of placeholders and provide vertical alignment.
      * @param string $alignStrategy
+     * @return string
      */
-    private function replacePlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $alignStrategy) : string
+    private function replacePlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $alignStrategy)
     {
         if (\is_object($alignStrategy)) {
             $alignStrategy = (string) $alignStrategy;

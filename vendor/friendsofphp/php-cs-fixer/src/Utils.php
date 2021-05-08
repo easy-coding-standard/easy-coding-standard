@@ -26,8 +26,9 @@ final class Utils
     /**
      * Converts a camel cased string to a snake cased string.
      * @param string $string
+     * @return string
      */
-    public static function camelCaseToUnderscore($string) : string
+    public static function camelCaseToUnderscore($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -137,9 +138,13 @@ final class Utils
      * Handle triggering deprecation error.
      * @return void
      * @param string $message
+     * @param string $exceptionClass
      */
-    public static function triggerDeprecation($message, string $exceptionClass = \RuntimeException::class)
+    public static function triggerDeprecation($message, $exceptionClass = \RuntimeException::class)
     {
+        if (\is_object($exceptionClass)) {
+            $exceptionClass = (string) $exceptionClass;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

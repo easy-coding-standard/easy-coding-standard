@@ -20,8 +20,9 @@ class FileLocatorFileNotFoundException extends \InvalidArgumentException
     private $paths;
     /**
      * @param string $message
+     * @param int $code
      */
-    public function __construct($message = '', int $code = 0, \Throwable $previous = null, array $paths = [])
+    public function __construct($message = '', $code = 0, \Throwable $previous = null, array $paths = [])
     {
         if (\is_object($message)) {
             $message = (string) $message;

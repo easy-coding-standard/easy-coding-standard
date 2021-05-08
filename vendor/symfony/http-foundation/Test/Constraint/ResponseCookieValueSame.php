@@ -21,9 +21,18 @@ final class ResponseCookieValueSame extends \ECSPrefix20210508\PHPUnit\Framework
     private $domain;
     /**
      * @param string $name
+     * @param string $value
+     * @param string $path
+     * @param string $domain
      */
-    public function __construct($name, string $value, string $path = '/', string $domain = null)
+    public function __construct($name, $value, $path = '/', $domain = null)
     {
+        if (\is_object($path)) {
+            $path = (string) $path;
+        }
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         if (\is_object($name)) {
             $name = (string) $name;
         }

@@ -81,9 +81,15 @@ final class DoctrineBlockFinder
      * @param int $startIndex
      * @param int $endIndex
      * @param string $startEdge
+     * @param string $endEdge
+     * @param int $indexOffset
+     * @return int
      */
-    private function resolveIndexForBlockLevel($startIndex, $endIndex, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $startEdge, string $endEdge, int $indexOffset) : int
+    private function resolveIndexForBlockLevel($startIndex, $endIndex, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $startEdge, $endEdge, $indexOffset)
     {
+        if (\is_object($endEdge)) {
+            $endEdge = (string) $endEdge;
+        }
         if (\is_object($startEdge)) {
             $startEdge = (string) $startEdge;
         }
@@ -110,8 +116,9 @@ final class DoctrineBlockFinder
      * @return void
      * @param int $startIndex
      * @param string $startEdge
+     * @param bool $findEnd
      */
-    private function ensureStartTokenIsNotStartEdge(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $startIndex, $startEdge, bool $findEnd)
+    private function ensureStartTokenIsNotStartEdge(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $startIndex, $startEdge, $findEnd)
     {
         if (\is_object($startEdge)) {
             $startEdge = (string) $startEdge;

@@ -26,8 +26,9 @@ final class Decommenter
     }
     /**
      * @param string $content
+     * @return string
      */
-    public function decoment($content) : string
+    public function decoment($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -43,8 +44,9 @@ final class Decommenter
     /**
      * Quite a few comments use multiple dashes, equals signs etc to frame comments and licence headers.
      * @param string $content
+     * @return string
      */
-    private function clearContent($content) : string
+    private function clearContent($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

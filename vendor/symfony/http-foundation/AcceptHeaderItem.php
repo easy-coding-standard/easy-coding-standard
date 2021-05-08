@@ -168,9 +168,13 @@ class AcceptHeaderItem
      *
      * @return $this
      * @param string $name
+     * @param string $value
      */
-    public function setAttribute($name, string $value)
+    public function setAttribute($name, $value)
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         if (\is_object($name)) {
             $name = (string) $name;
         }

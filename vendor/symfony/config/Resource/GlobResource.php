@@ -36,9 +36,13 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210508\Symfony\Com
      * @param bool   $recursive Whether directories should be scanned recursively or not
      *
      * @throws \InvalidArgumentException
+     * @param bool $forExclusion
      */
-    public function __construct($prefix, string $pattern, bool $recursive, bool $forExclusion = \false, array $excludedPrefixes = [])
+    public function __construct($prefix, $pattern, $recursive, $forExclusion = \false, array $excludedPrefixes = [])
     {
+        if (\is_object($pattern)) {
+            $pattern = (string) $pattern;
+        }
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;
         }
@@ -193,8 +197,9 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210508\Symfony\Com
     }
     /**
      * @param string $pattern
+     * @return mixed[]
      */
-    private function expandGlob($pattern) : array
+    private function expandGlob($pattern)
     {
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;

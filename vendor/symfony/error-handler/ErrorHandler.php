@@ -349,9 +349,14 @@ class ErrorHandler
      * @internal
      * @param int $type
      * @param string $message
+     * @param string $file
+     * @param int $line
      */
-    public function handleError($type, $message, string $file, int $line) : bool
+    public function handleError($type, $message, $file, $line)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }
@@ -639,8 +644,11 @@ class ErrorHandler
      * Cleans the trace by removing function arguments and the frames added by the error handler and DebugClassLoader.
      * @param int $type
      * @param string $file
+     * @param int $line
+     * @param bool $throw
+     * @return mixed[]
      */
-    private function cleanTrace(array $backtrace, $type, &$file, int &$line, bool $throw) : array
+    private function cleanTrace(array $backtrace, $type, &$file, &$line, $throw)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -683,8 +691,9 @@ class ErrorHandler
      * Parse the error message by removing the anonymous class notation
      * and using the parent class instead if possible.
      * @param string $message
+     * @return string
      */
-    private function parseAnonymousClass($message) : string
+    private function parseAnonymousClass($message)
     {
         if (\is_object($message)) {
             $message = (string) $message;

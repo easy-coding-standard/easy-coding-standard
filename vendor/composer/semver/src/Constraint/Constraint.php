@@ -59,6 +59,9 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public function __construct($operator, $version)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($operator)) {
             $operator = (string) $operator;
         }
@@ -140,6 +143,12 @@ class Constraint implements \ECSPrefix20210508\Composer\Semver\Constraint\Constr
      */
     public function versionCompare($a, $b, $operator, $compareBranches = \false)
     {
+        if (\is_object($operator)) {
+            $operator = (string) $operator;
+        }
+        if (\is_object($b)) {
+            $b = (string) $b;
+        }
         if (\is_object($a)) {
             $a = (string) $a;
         }

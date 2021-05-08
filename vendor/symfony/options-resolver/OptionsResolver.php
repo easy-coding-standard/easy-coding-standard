@@ -365,8 +365,9 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
     }
     /**
      * @param string $option
+     * @return bool
      */
-    public function isNested($option) : bool
+    public function isNested($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -431,8 +432,9 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
     }
     /**
      * @param string $option
+     * @return bool
      */
-    public function isDeprecated($option) : bool
+    public function isDeprecated($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -508,7 +510,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      * @throws UndefinedOptionsException If the option is undefined
      * @throws AccessException           If called from a lazy option or normalizer
      */
-    public function addNormalizer($option, \Closure $normalizer, bool $forcePrepend = \false)
+    public function addNormalizer($option, \Closure $normalizer, $forcePrepend = \false)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -683,8 +685,9 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
     /**
      * Defines an option configurator with the given name.
      * @param string $option
+     * @return \Symfony\Component\OptionsResolver\OptionConfigurator
      */
-    public function define($option) : \ECSPrefix20210508\Symfony\Component\OptionsResolver\OptionConfigurator
+    public function define($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -702,9 +705,13 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      * @throws UndefinedOptionsException If the option is undefined
      * @throws AccessException           If called from a lazy option or normalizer
      * @param string $option
+     * @param string $info
      */
-    public function setInfo($option, string $info)
+    public function setInfo($option, $info)
     {
+        if (\is_object($info)) {
+            $info = (string) $info;
+        }
         if (\is_object($option)) {
             $option = (string) $option;
         }
@@ -854,7 +861,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      * @throws OptionDefinitionException If there is a cyclic dependency between
      *                                   lazy options and/or normalizers
      */
-    public function offsetGet($option, bool $triggerDeprecation = \true)
+    public function offsetGet($option, $triggerDeprecation = \true)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -1023,8 +1030,10 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
     }
     /**
      * @param string $type
+     * @param int $level
+     * @return bool
      */
-    private function verifyTypes($type, $value, array &$invalidTypes, int $level = 0) : bool
+    private function verifyTypes($type, $value, array &$invalidTypes, $level = 0)
     {
         if (\is_object($type)) {
             $type = (string) $type;

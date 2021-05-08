@@ -27,6 +27,9 @@ class Semver
      */
     public static function satisfies($version, $constraints)
     {
+        if (\is_object($constraints)) {
+            $constraints = (string) $constraints;
+        }
         if (\is_object($version)) {
             $version = (string) $version;
         }

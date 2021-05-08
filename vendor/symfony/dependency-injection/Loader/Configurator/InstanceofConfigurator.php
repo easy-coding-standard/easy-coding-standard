@@ -29,8 +29,9 @@ class InstanceofConfigurator extends \ECSPrefix20210508\Symfony\Component\Depend
     private $path;
     /**
      * @param string $id
+     * @param string $path
      */
-    public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, string $path = null)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, $path = null)
     {
         if (\is_object($id)) {
             $id = (string) $id;

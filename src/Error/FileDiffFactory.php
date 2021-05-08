@@ -18,8 +18,9 @@ final class FileDiffFactory
     /**
      * @param string[] $appliedCheckers
      * @param string $diff
+     * @return \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
      */
-    public function createFromDiffAndAppliedCheckers(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers) : \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
+    public function createFromDiffAndAppliedCheckers(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
     {
         if (\is_object($diff)) {
             $diff = (string) $diff;

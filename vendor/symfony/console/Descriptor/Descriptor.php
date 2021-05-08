@@ -57,8 +57,9 @@ abstract class Descriptor implements \ECSPrefix20210508\Symfony\Component\Consol
     /**
      * Writes content to output.
      * @param string $content
+     * @param bool $decorated
      */
-    protected function write($content, bool $decorated = \false)
+    protected function write($content, $decorated = \false)
     {
         if (\is_object($content)) {
             $content = (string) $content;

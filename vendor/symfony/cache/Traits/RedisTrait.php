@@ -34,8 +34,9 @@ trait RedisTrait
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface $redisClient
      * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface|null $marshaller
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    private function init($redisClient, $namespace, int $defaultLifetime, $marshaller)
+    private function init($redisClient, $namespace, $defaultLifetime, $marshaller)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

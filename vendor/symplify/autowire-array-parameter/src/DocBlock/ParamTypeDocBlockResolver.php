@@ -36,9 +36,13 @@ final class ParamTypeDocBlockResolver
     /**
      * @return string|null
      * @param string $docBlock
+     * @param string $parameterName
      */
-    public function resolve($docBlock, string $parameterName)
+    public function resolve($docBlock, $parameterName)
     {
+        if (\is_object($parameterName)) {
+            $parameterName = (string) $parameterName;
+        }
         if (\is_object($docBlock)) {
             $docBlock = (string) $docBlock;
         }

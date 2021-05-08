@@ -27,8 +27,9 @@ final class UrlHelper
     }
     /**
      * @param string $path
+     * @return string
      */
-    public function getAbsoluteUrl($path) : string
+    public function getAbsoluteUrl($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -56,8 +57,9 @@ final class UrlHelper
     }
     /**
      * @param string $path
+     * @return string
      */
-    public function getRelativePath($path) : string
+    public function getRelativePath($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -72,8 +74,9 @@ final class UrlHelper
     }
     /**
      * @param string $path
+     * @return string
      */
-    private function getAbsoluteUrlFromContext($path) : string
+    private function getAbsoluteUrlFromContext($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

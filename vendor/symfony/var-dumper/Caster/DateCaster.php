@@ -98,8 +98,9 @@ class DateCaster
     }
     /**
      * @param string $extra
+     * @return string
      */
-    private static function formatDateTime(\DateTimeInterface $d, $extra = '') : string
+    private static function formatDateTime(\DateTimeInterface $d, $extra = '')
     {
         if (\is_object($extra)) {
             $extra = (string) $extra;
@@ -108,9 +109,14 @@ class DateCaster
     }
     /**
      * @param string $s
+     * @param string $us
+     * @return string
      */
-    private static function formatSeconds($s, string $us) : string
+    private static function formatSeconds($s, $us)
     {
+        if (\is_object($us)) {
+            $us = (string) $us;
+        }
         if (\is_object($s)) {
             $s = (string) $s;
         }

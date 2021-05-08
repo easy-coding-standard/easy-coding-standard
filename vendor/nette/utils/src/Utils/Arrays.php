@@ -153,8 +153,10 @@ class Arrays
      * Returns only those array items, which matches a regular expression $pattern.
      * @throws Nette\RegexpException  on compilation or runtime error
      * @param string $pattern
+     * @param int $flags
+     * @return mixed[]
      */
-    public static function grep(array $array, $pattern, int $flags = 0) : array
+    public static function grep(array $array, $pattern, $flags = 0)
     {
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;
@@ -323,8 +325,9 @@ class Arrays
      * Invokes method on every object in an array and returns array of results.
      * @param  object[]  $objects
      * @param string $method
+     * @return mixed[]
      */
-    public static function invokeMethod($objects, $method, ...$args) : array
+    public static function invokeMethod($objects, $method, ...$args)
     {
         if (\is_object($method)) {
             $method = (string) $method;
@@ -360,11 +363,15 @@ class Arrays
     /**
      * Returns copy of the $array where every item is converted to string
      * and prefixed by $prefix and suffixed by $suffix.
-     * @return string[]
+     * @return mixed[]
      * @param string $prefix
+     * @param string $suffix
      */
-    public static function wrap(array $array, $prefix = '', string $suffix = '') : array
+    public static function wrap(array $array, $prefix = '', $suffix = '')
     {
+        if (\is_object($suffix)) {
+            $suffix = (string) $suffix;
+        }
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;
         }

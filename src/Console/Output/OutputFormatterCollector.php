@@ -21,8 +21,9 @@ final class OutputFormatterCollector
     }
     /**
      * @param string $name
+     * @return \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
      */
-    public function getByName($name) : \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
+    public function getByName($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

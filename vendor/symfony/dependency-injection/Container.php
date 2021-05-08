@@ -215,7 +215,7 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      *
      * @see Reference
      */
-    public function get($id, int $invalidBehavior = 1)
+    public function get($id, $invalidBehavior = 1)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -227,8 +227,9 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      *
      * As a separate method to allow "get()" to use the really fast `??` operator.
      * @param string $id
+     * @param int $invalidBehavior
      */
-    private function make($id, int $invalidBehavior)
+    private function make($id, $invalidBehavior)
     {
         if (\is_object($id)) {
             $id = (string) $id;

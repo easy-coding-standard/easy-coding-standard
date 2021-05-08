@@ -59,8 +59,9 @@ class StreamOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\O
     /**
      * {@inheritdoc}
      * @param string $message
+     * @param bool $newline
      */
-    protected function doWrite($message, bool $newline)
+    protected function doWrite($message, $newline)
     {
         if (\is_object($message)) {
             $message = (string) $message;

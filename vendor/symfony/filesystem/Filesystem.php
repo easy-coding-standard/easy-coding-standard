@@ -31,9 +31,14 @@ class Filesystem
      * @throws FileNotFoundException When originFile doesn't exist
      * @throws IOException           When copy fails
      * @param string $originFile
+     * @param string $targetFile
+     * @param bool $overwriteNewerFiles
      */
-    public function copy($originFile, string $targetFile, bool $overwriteNewerFiles = \false)
+    public function copy($originFile, $targetFile, $overwriteNewerFiles = \false)
     {
+        if (\is_object($targetFile)) {
+            $targetFile = (string) $targetFile;
+        }
         if (\is_object($originFile)) {
             $originFile = (string) $originFile;
         }
@@ -244,9 +249,14 @@ class Filesystem
      * @throws IOException When target file or directory already exists
      * @throws IOException When origin cannot be renamed
      * @param string $origin
+     * @param string $target
+     * @param bool $overwrite
      */
-    public function rename($origin, string $target, bool $overwrite = \false)
+    public function rename($origin, $target, $overwrite = \false)
     {
+        if (\is_object($target)) {
+            $target = (string) $target;
+        }
         if (\is_object($origin)) {
             $origin = (string) $origin;
         }
@@ -269,8 +279,9 @@ class Filesystem
      *
      * @throws IOException When windows path is longer than 258 characters
      * @param string $filename
+     * @return bool
      */
-    private function isReadable($filename) : bool
+    private function isReadable($filename)
     {
         if (\is_object($filename)) {
             $filename = (string) $filename;
@@ -286,9 +297,14 @@ class Filesystem
      *
      * @throws IOException When symlink fails
      * @param string $originDir
+     * @param string $targetDir
+     * @param bool $copyOnWindows
      */
-    public function symlink($originDir, string $targetDir, bool $copyOnWindows = \false)
+    public function symlink($originDir, $targetDir, $copyOnWindows = \false)
     {
+        if (\is_object($targetDir)) {
+            $targetDir = (string) $targetDir;
+        }
         if (\is_object($originDir)) {
             $originDir = (string) $originDir;
         }
@@ -346,9 +362,16 @@ class Filesystem
     /**
      * @param string $linkType Name of the link type, typically 'symbolic' or 'hard'
      * @param string $origin
+     * @param string $target
      */
-    private function linkException($origin, string $target, string $linkType)
+    private function linkException($origin, $target, $linkType)
     {
+        if (\is_object($linkType)) {
+            $linkType = (string) $linkType;
+        }
+        if (\is_object($target)) {
+            $target = (string) $target;
+        }
         if (\is_object($origin)) {
             $origin = (string) $origin;
         }
@@ -372,8 +395,9 @@ class Filesystem
      *
      * @return string|null
      * @param string $path
+     * @param bool $canonicalize
      */
-    public function readlink($path, bool $canonicalize = \false)
+    public function readlink($path, $canonicalize = \false)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -400,9 +424,13 @@ class Filesystem
      *
      * @return string Path of target relative to starting path
      * @param string $endPath
+     * @param string $startPath
      */
-    public function makePathRelative($endPath, string $startPath)
+    public function makePathRelative($endPath, $startPath)
     {
+        if (\is_object($startPath)) {
+            $startPath = (string) $startPath;
+        }
         if (\is_object($endPath)) {
             $endPath = (string) $endPath;
         }
@@ -474,9 +502,13 @@ class Filesystem
      *
      * @throws IOException When file type is unknown
      * @param string $originDir
+     * @param string $targetDir
      */
-    public function mirror($originDir, string $targetDir, \Traversable $iterator = null, array $options = [])
+    public function mirror($originDir, $targetDir, \Traversable $iterator = null, array $options = [])
     {
+        if (\is_object($targetDir)) {
+            $targetDir = (string) $targetDir;
+        }
         if (\is_object($originDir)) {
             $originDir = (string) $originDir;
         }
@@ -548,8 +580,11 @@ class Filesystem
      * @return string The new temporary filename (with path), or throw an exception on failure
      * @param string $dir
      */
-    public function tempnam($dir, string $prefix)
+    public function tempnam($dir, $prefix)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
         if (\is_object($dir)) {
             $dir = (string) $dir;
         }
@@ -659,8 +694,9 @@ class Filesystem
     /**
      * Gets a 2-tuple of scheme (may be null) and hierarchical part of a filename (e.g. file:///tmp -> [file, tmp]).
      * @param string $filename
+     * @return mixed[]
      */
-    private function getSchemeAndHierarchy($filename) : array
+    private function getSchemeAndHierarchy($filename)
     {
         if (\is_object($filename)) {
             $filename = (string) $filename;

@@ -119,8 +119,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
     }
     /**
      * @param string $debugTemplate
+     * @return string
      */
-    private function renderException(\ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException $exception, $debugTemplate = 'views/exception_full.html.php') : string
+    private function renderException(\ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException $exception, $debugTemplate = 'views/exception_full.html.php')
     {
         if (\is_object($debugTemplate)) {
             $debugTemplate = (string) $debugTemplate;
@@ -165,8 +166,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
     }
     /**
      * @param string $string
+     * @return string
      */
-    private function escape($string) : string
+    private function escape($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -175,8 +177,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
     }
     /**
      * @param string $class
+     * @return string
      */
-    private function abbrClass($class) : string
+    private function abbrClass($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -205,8 +208,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      *
      * @return string|false A link or false
      * @param string $file
+     * @param int $line
      */
-    private function getFileLink($file, int $line)
+    private function getFileLink($file, $line)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -222,8 +226,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      * @param string $file An absolute file path
      * @param int    $line The line number
      * @param string $text Use this text for the link rather than the file path
+     * @return string
      */
-    private function formatFile($file, int $line, string $text = null) : string
+    private function formatFile($file, $line, $text = null)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -253,7 +258,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      *
      * @return string An HTML string
      */
-    private function fileExcerpt($file, int $line, int $srcContext = 3) : string
+    private function fileExcerpt($file, $line, $srcContext = 3)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -347,8 +352,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
     }
     /**
      * @param string $name
+     * @return string
      */
-    private function include($name, array $context = []) : string
+    private function include($name, array $context = [])
     {
         if (\is_object($name)) {
             $name = (string) $name;

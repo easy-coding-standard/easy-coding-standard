@@ -498,6 +498,9 @@ class Runner
      */
     public function handleErrors($code, $message, $file, $line)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

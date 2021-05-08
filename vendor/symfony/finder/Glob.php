@@ -39,9 +39,15 @@ class Glob
      *
      * @return string
      * @param string $glob
+     * @param bool $strictLeadingDot
+     * @param bool $strictWildcardSlash
+     * @param string $delimiter
      */
-    public static function toRegex($glob, bool $strictLeadingDot = \true, bool $strictWildcardSlash = \true, string $delimiter = '#')
+    public static function toRegex($glob, $strictLeadingDot = \true, $strictWildcardSlash = \true, $delimiter = '#')
     {
+        if (\is_object($delimiter)) {
+            $delimiter = (string) $delimiter;
+        }
         if (\is_object($glob)) {
             $glob = (string) $glob;
         }

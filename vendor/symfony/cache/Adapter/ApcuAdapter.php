@@ -20,8 +20,10 @@ class ApcuAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abs
     /**
      * @throws CacheException if APCu is not enabled
      * @param string $namespace
+     * @param int $defaultLifetime
+     * @param string $version
      */
-    public function __construct($namespace = '', int $defaultLifetime = 0, string $version = null)
+    public function __construct($namespace = '', $defaultLifetime = 0, $version = null)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

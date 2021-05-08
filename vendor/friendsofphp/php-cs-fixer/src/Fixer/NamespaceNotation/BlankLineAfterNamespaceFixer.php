@@ -107,8 +107,10 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
     }
     /**
      * @param string $currentContent
+     * @param bool $isLastIndex
+     * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function getTokenToInsert($currentContent, bool $isLastIndex) : \PhpCsFixer\Tokenizer\Token
+    private function getTokenToInsert($currentContent, $isLastIndex)
     {
         if (\is_object($currentContent)) {
             $currentContent = (string) $currentContent;

@@ -29,8 +29,9 @@ class ServiceReferenceGraph
     private $nodes = [];
     /**
      * @param string $id
+     * @return bool
      */
-    public function hasNode($id) : bool
+    public function hasNode($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -42,8 +43,9 @@ class ServiceReferenceGraph
      *
      * @throws InvalidArgumentException if no node matches the supplied identifier
      * @param string $id
+     * @return \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
      */
-    public function getNode($id) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+    public function getNode($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -93,8 +95,9 @@ class ServiceReferenceGraph
     }
     /**
      * @param string $id
+     * @return \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
      */
-    private function createNode($id, $value) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
+    private function createNode($id, $value)
     {
         if (\is_object($id)) {
             $id = (string) $id;

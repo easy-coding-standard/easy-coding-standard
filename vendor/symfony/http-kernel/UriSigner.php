@@ -24,8 +24,11 @@ class UriSigner
      * @param string $secret    A secret
      * @param string $parameter Query string parameter to use
      */
-    public function __construct($secret, string $parameter = '_hash')
+    public function __construct($secret, $parameter = '_hash')
     {
+        if (\is_object($parameter)) {
+            $parameter = (string) $parameter;
+        }
         if (\is_object($secret)) {
             $secret = (string) $secret;
         }
@@ -91,8 +94,9 @@ class UriSigner
     }
     /**
      * @param string $uri
+     * @return string
      */
-    private function computeHash($uri) : string
+    private function computeHash($uri)
     {
         if (\is_object($uri)) {
             $uri = (string) $uri;

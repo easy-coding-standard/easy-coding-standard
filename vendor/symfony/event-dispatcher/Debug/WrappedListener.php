@@ -94,8 +94,9 @@ final class WrappedListener
     }
     /**
      * @param string $eventName
+     * @return mixed[]
      */
-    public function getInfo($eventName) : array
+    public function getInfo($eventName)
     {
         if (\is_object($eventName)) {
             $eventName = (string) $eventName;

@@ -16,9 +16,13 @@ abstract class AbstractCodeSample implements \Symplify\RuleDocGenerator\Contract
     private $badCode;
     /**
      * @param string $badCode
+     * @param string $goodCode
      */
-    public function __construct($badCode, string $goodCode)
+    public function __construct($badCode, $goodCode)
     {
+        if (\is_object($goodCode)) {
+            $goodCode = (string) $goodCode;
+        }
         if (\is_object($badCode)) {
             $badCode = (string) $badCode;
         }

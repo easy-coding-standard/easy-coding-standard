@@ -306,9 +306,13 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
     /**
      * Associates a type and a service id if applicable.
      * @param string $type
+     * @param string $id
      */
-    private function set($type, string $id)
+    private function set($type, $id)
     {
+        if (\is_object($id)) {
+            $id = (string) $id;
+        }
         if (\is_object($type)) {
             $type = (string) $type;
         }
@@ -331,8 +335,9 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
     }
     /**
      * @param string $label
+     * @return callable
      */
-    private function createTypeNotFoundMessageCallback(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label) : callable
+    private function createTypeNotFoundMessageCallback(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label)
     {
         if (\is_object($label)) {
             $label = (string) $label;
@@ -350,9 +355,14 @@ class AutowirePass extends \ECSPrefix20210508\Symfony\Component\DependencyInject
     }
     /**
      * @param string $label
+     * @param string $currentId
+     * @return string
      */
-    private function createTypeNotFoundMessage(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label, string $currentId) : string
+    private function createTypeNotFoundMessage(\ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference $reference, $label, $currentId)
     {
+        if (\is_object($currentId)) {
+            $currentId = (string) $currentId;
+        }
         if (\is_object($label)) {
             $label = (string) $label;
         }

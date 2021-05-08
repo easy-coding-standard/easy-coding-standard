@@ -88,9 +88,14 @@ trait FilesystemCommonTrait
     }
     /**
      * @param string $file
+     * @param string $data
+     * @param int $expiresAt
      */
-    private function write($file, string $data, int $expiresAt = null)
+    private function write($file, $data, $expiresAt = null)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($file)) {
             $file = (string) $file;
         }
@@ -120,9 +125,14 @@ trait FilesystemCommonTrait
     }
     /**
      * @param string $id
+     * @param bool $mkdir
+     * @param string $directory
      */
-    private function getFile($id, bool $mkdir = \false, string $directory = null)
+    private function getFile($id, $mkdir = \false, $directory = null)
     {
+        if (\is_object($directory)) {
+            $directory = (string) $directory;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -136,8 +146,9 @@ trait FilesystemCommonTrait
     }
     /**
      * @param string $file
+     * @return string
      */
-    private function getFileKey($file) : string
+    private function getFileKey($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -146,8 +157,9 @@ trait FilesystemCommonTrait
     }
     /**
      * @param string $directory
+     * @return \Generator
      */
-    private function scanHashDir($directory) : \Generator
+    private function scanHashDir($directory)
     {
         if (\is_object($directory)) {
             $directory = (string) $directory;

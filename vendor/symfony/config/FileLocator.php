@@ -29,8 +29,10 @@ class FileLocator implements \ECSPrefix20210508\Symfony\Component\Config\FileLoc
     /**
      * {@inheritdoc}
      * @param string $name
+     * @param string $currentPath
+     * @param bool $first
      */
-    public function locate($name, string $currentPath = null, bool $first = \true)
+    public function locate($name, $currentPath = null, $first = \true)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -68,8 +70,9 @@ class FileLocator implements \ECSPrefix20210508\Symfony\Component\Config\FileLoc
     /**
      * Returns whether the file path is an absolute path.
      * @param string $file
+     * @return bool
      */
-    private function isAbsolutePath($file) : bool
+    private function isAbsolutePath($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;

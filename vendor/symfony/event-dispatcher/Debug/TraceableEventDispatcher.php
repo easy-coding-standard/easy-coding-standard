@@ -47,8 +47,9 @@ class TraceableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
     /**
      * {@inheritdoc}
      * @param string $eventName
+     * @param int $priority
      */
-    public function addListener($eventName, $listener, int $priority = 0)
+    public function addListener($eventName, $listener, $priority = 0)
     {
         if (\is_object($eventName)) {
             $eventName = (string) $eventName;

@@ -52,10 +52,10 @@ final class SourceFinder
         return $fileInfos;
     }
     /**
-     * @return SmartFileInfo[]
+     * @return mixed[]
      * @param string $directory
      */
-    private function processDirectory($directory) : array
+    private function processDirectory($directory)
     {
         if (\is_object($directory)) {
             $directory = (string) $directory;

@@ -19,9 +19,13 @@ final class DocBlockEdgeDefinition
     /**
      * @param int $kind
      * @param string $startChar
+     * @param string $endChar
      */
-    public function __construct($kind, $startChar, string $endChar)
+    public function __construct($kind, $startChar, $endChar)
     {
+        if (\is_object($endChar)) {
+            $endChar = (string) $endChar;
+        }
         if (\is_object($startChar)) {
             $startChar = (string) $startChar;
         }

@@ -11,9 +11,17 @@ final class ComposerJsonAwareCodeSample extends \Symplify\RuleDocGenerator\Value
     private $composerJson;
     /**
      * @param string $badCode
+     * @param string $goodCode
+     * @param string $composerJson
      */
-    public function __construct($badCode, string $goodCode, string $composerJson)
+    public function __construct($badCode, $goodCode, $composerJson)
     {
+        if (\is_object($composerJson)) {
+            $composerJson = (string) $composerJson;
+        }
+        if (\is_object($goodCode)) {
+            $goodCode = (string) $goodCode;
+        }
         if (\is_object($badCode)) {
             $badCode = (string) $badCode;
         }

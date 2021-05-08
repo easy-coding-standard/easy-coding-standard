@@ -221,8 +221,11 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * @param string $lowerContent
+     * @param int $braceOpenIndex
+     * @param int $braceCloseIndex
+     * @return mixed[]
      */
-    private function getReplacementTokenClones($lowerContent, int $braceOpenIndex, int $braceCloseIndex) : array
+    private function getReplacementTokenClones($lowerContent, $braceOpenIndex, $braceCloseIndex)
     {
         if (\is_object($lowerContent)) {
             $lowerContent = (string) $lowerContent;

@@ -19,8 +19,9 @@ class Alias
     private static $defaultDeprecationTemplate = 'The "%alias_id%" service alias is deprecated. You should stop using it, as it will be removed in the future.';
     /**
      * @param string $id
+     * @param bool $public
      */
-    public function __construct($id, bool $public = \false)
+    public function __construct($id, $public = \false)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -120,8 +121,9 @@ class Alias
     /**
      * @deprecated since Symfony 5.1, use "getDeprecation()" instead.
      * @param string $id
+     * @return string
      */
-    public function getDeprecationMessage($id) : string
+    public function getDeprecationMessage($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -131,8 +133,9 @@ class Alias
     }
     /**
      * @param string $id Service id relying on this definition
+     * @return mixed[]
      */
-    public function getDeprecation($id) : array
+    public function getDeprecation($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;

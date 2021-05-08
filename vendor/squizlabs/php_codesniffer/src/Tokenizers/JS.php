@@ -67,6 +67,9 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     public function __construct($content, \PHP_CodeSniffer\Config $config, $eolChar = '\\n')
     {
+        if (\is_object($eolChar)) {
+            $eolChar = (string) $eolChar;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }
@@ -582,6 +585,15 @@ class JS extends \PHP_CodeSniffer\Tokenizers\Tokenizer
      */
     public function getRegexToken($char, $string, $chars, $tokens)
     {
+        if (\is_object($tokens)) {
+            $tokens = (string) $tokens;
+        }
+        if (\is_object($chars)) {
+            $chars = (string) $chars;
+        }
+        if (\is_object($string)) {
+            $string = (string) $string;
+        }
         if (\is_object($char)) {
             $char = (string) $char;
         }

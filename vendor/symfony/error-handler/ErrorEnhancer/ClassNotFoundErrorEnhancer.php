@@ -62,8 +62,9 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
      * @param string $class A class name (without its namespace)
      *
      * Returns an array of possible fully qualified class names
+     * @return mixed[]
      */
-    private function getClassCandidates($class) : array
+    private function getClassCandidates($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -101,9 +102,18 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
     }
     /**
      * @param string $path
+     * @param string $class
+     * @param string $prefix
+     * @return mixed[]
      */
-    private function findClassInPath($path, string $class, string $prefix) : array
+    private function findClassInPath($path, $class, $prefix)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if (\is_object($path)) {
             $path = (string) $path;
         }
@@ -122,9 +132,17 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
     /**
      * @return string|null
      * @param string $path
+     * @param string $file
+     * @param string $prefix
      */
-    private function convertFileToClass($path, string $file, string $prefix)
+    private function convertFileToClass($path, $file, $prefix)
     {
+        if (\is_object($prefix)) {
+            $prefix = (string) $prefix;
+        }
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($path)) {
             $path = (string) $path;
         }
@@ -169,8 +187,9 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
     }
     /**
      * @param string $class
+     * @return bool
      */
-    private function classExists($class) : bool
+    private function classExists($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;

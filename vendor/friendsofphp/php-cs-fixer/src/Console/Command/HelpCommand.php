@@ -73,10 +73,11 @@ final class HelpCommand extends \ECSPrefix20210508\Symfony\Component\Console\Com
     /**
      * Wraps a string to the given number of characters, ignoring style tags.
      *
-     * @return string[]
+     * @return mixed[]
      * @param string $string
+     * @param int $width
      */
-    private static function wordwrap($string, int $width) : array
+    private static function wordwrap($string, $width)
     {
         if (\is_object($string)) {
             $string = (string) $string;

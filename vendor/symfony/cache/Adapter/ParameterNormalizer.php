@@ -17,8 +17,9 @@ final class ParameterNormalizer
 {
     /**
      * @param string $duration
+     * @return int
      */
-    public static function normalizeDuration($duration) : int
+    public static function normalizeDuration($duration)
     {
         if (\is_object($duration)) {
             $duration = (string) $duration;

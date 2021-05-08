@@ -16,8 +16,9 @@ final class StringFormatConverter
     const BIG_LETTER_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]*)#';
     /**
      * @param string $value
+     * @return string
      */
-    public function underscoreAndHyphenToCamelCase($value) : string
+    public function underscoreAndHyphenToCamelCase($value)
     {
         if (\is_object($value)) {
             $value = (string) $value;
@@ -29,8 +30,9 @@ final class StringFormatConverter
     }
     /**
      * @param string $input
+     * @return string
      */
-    public function camelCaseToUnderscore($input) : string
+    public function camelCaseToUnderscore($input)
     {
         if (\is_object($input)) {
             $input = (string) $input;
@@ -39,8 +41,9 @@ final class StringFormatConverter
     }
     /**
      * @param string $input
+     * @return string
      */
-    public function camelCaseToDashed($input) : string
+    public function camelCaseToDashed($input)
     {
         if (\is_object($input)) {
             $input = (string) $input;
@@ -68,9 +71,14 @@ final class StringFormatConverter
     }
     /**
      * @param string $input
+     * @param string $glue
+     * @return string
      */
-    private function camelCaseToGlue($input, string $glue) : string
+    private function camelCaseToGlue($input, $glue)
     {
+        if (\is_object($glue)) {
+            $glue = (string) $glue;
+        }
         if (\is_object($input)) {
             $input = (string) $input;
         }

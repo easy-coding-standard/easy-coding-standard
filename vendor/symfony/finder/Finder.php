@@ -624,8 +624,9 @@ class Finder implements \IteratorAggregate, \Countable
     }
     /**
      * @param string $dir
+     * @return \Iterator
      */
-    private function searchInDirectory($dir) : \Iterator
+    private function searchInDirectory($dir)
     {
         if (\is_object($dir)) {
             $dir = (string) $dir;
@@ -705,8 +706,9 @@ class Finder implements \IteratorAggregate, \Countable
      *
      * Excluding: (s)ftp:// or ssh2.(s)ftp:// wrapper
      * @param string $dir
+     * @return string
      */
-    private function normalizeDir($dir) : string
+    private function normalizeDir($dir)
     {
         if (\is_object($dir)) {
             $dir = (string) $dir;

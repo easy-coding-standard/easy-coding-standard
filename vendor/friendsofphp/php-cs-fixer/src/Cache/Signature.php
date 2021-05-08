@@ -40,9 +40,21 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
     private $rules;
     /**
      * @param string $phpVersion
+     * @param string $fixerVersion
+     * @param string $indent
+     * @param string $lineEnding
      */
-    public function __construct($phpVersion, string $fixerVersion, string $indent, string $lineEnding, array $rules)
+    public function __construct($phpVersion, $fixerVersion, $indent, $lineEnding, array $rules)
     {
+        if (\is_object($lineEnding)) {
+            $lineEnding = (string) $lineEnding;
+        }
+        if (\is_object($indent)) {
+            $indent = (string) $indent;
+        }
+        if (\is_object($fixerVersion)) {
+            $fixerVersion = (string) $fixerVersion;
+        }
         if (\is_object($phpVersion)) {
             $phpVersion = (string) $phpVersion;
         }

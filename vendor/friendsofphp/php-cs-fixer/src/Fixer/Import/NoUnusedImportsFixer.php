@@ -83,8 +83,9 @@ final class NoUnusedImportsFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param array<int, int> $ignoredIndexes
      * @param string $shortName
+     * @return bool
      */
-    private function isImportUsed(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $ignoredIndexes, $shortName) : bool
+    private function isImportUsed(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace, array $ignoredIndexes, $shortName)
     {
         if (\is_object($shortName)) {
             $shortName = (string) $shortName;

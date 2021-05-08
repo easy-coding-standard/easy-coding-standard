@@ -127,8 +127,9 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
     /**
      * {@inheritdoc}
      * @param string $eventName
+     * @param int $priority
      */
-    public function addListener($eventName, $listener, int $priority = 0)
+    public function addListener($eventName, $listener, $priority = 0)
     {
         if (\is_object($eventName)) {
             $eventName = (string) $eventName;
@@ -246,8 +247,9 @@ class EventDispatcher implements \ECSPrefix20210508\Symfony\Component\EventDispa
     /**
      * Optimizes the internal list of listeners for the given event by priority.
      * @param string $eventName
+     * @return mixed[]
      */
-    private function optimizeListeners($eventName) : array
+    private function optimizeListeners($eventName)
     {
         if (\is_object($eventName)) {
             $eventName = (string) $eventName;

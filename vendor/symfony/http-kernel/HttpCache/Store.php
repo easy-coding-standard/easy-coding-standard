@@ -232,8 +232,9 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      * @param string|null $vary A Response vary header
      * @param array       $env1 A Request HTTP header array
      * @param array       $env2 A Request HTTP header array
+     * @return bool
      */
-    private function requestsMatch($vary, array $env1, array $env2) : bool
+    private function requestsMatch($vary, array $env1, array $env2)
     {
         if (\is_object($vary)) {
             $vary = (string) $vary;
@@ -256,8 +257,9 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
      *
      * Use this method only if you know what you are doing.
      * @param string $key
+     * @return mixed[]
      */
-    private function getMetadata($key) : array
+    private function getMetadata($key)
     {
         if (\is_object($key)) {
             $key = (string) $key;
@@ -289,8 +291,9 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
     /**
      * Purges data for the given URL.
      * @param string $url
+     * @return bool
      */
-    private function doPurge($url) : bool
+    private function doPurge($url)
     {
         if (\is_object($url)) {
             $url = (string) $url;
@@ -323,9 +326,15 @@ class Store implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache
     /**
      * Save data for the given key.
      * @param string $key
+     * @param string $data
+     * @param bool $overwrite
+     * @return bool
      */
-    private function save($key, string $data, bool $overwrite = \true) : bool
+    private function save($key, $data, $overwrite = \true)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($key)) {
             $key = (string) $key;
         }

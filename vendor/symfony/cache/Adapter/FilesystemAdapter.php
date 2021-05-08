@@ -19,8 +19,10 @@ class FilesystemAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapt
     use FilesystemTrait;
     /**
      * @param string $namespace
+     * @param int $defaultLifetime
+     * @param string $directory
      */
-    public function __construct($namespace = '', int $defaultLifetime = 0, string $directory = null, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

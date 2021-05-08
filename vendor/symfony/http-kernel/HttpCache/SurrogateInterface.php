@@ -56,8 +56,9 @@ interface SurrogateInterface
      *
      * @return string
      * @param string $uri
+     * @param bool $ignoreErrors
      */
-    public function renderIncludeTag($uri, string $alt = null, bool $ignoreErrors = \true, string $comment = '');
+    public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '');
     /**
      * Replaces a Response Surrogate tags with the included resource content.
      *
@@ -74,6 +75,7 @@ interface SurrogateInterface
      * @throws \RuntimeException
      * @throws \Exception
      * @param string $uri
+     * @param bool $ignoreErrors
      */
-    public function handle(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, $uri, string $alt, bool $ignoreErrors);
+    public function handle(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\HttpCache $cache, $uri, $alt, $ignoreErrors);
 }

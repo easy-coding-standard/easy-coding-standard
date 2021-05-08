@@ -51,8 +51,9 @@ final class PrivatesCaller
     /**
      * @param object $object
      * @param string $methodName
+     * @return \ReflectionMethod
      */
-    private function createAccessibleMethodReflection($object, $methodName) : \ReflectionMethod
+    private function createAccessibleMethodReflection($object, $methodName)
     {
         if (\is_object($methodName)) {
             $methodName = (string) $methodName;

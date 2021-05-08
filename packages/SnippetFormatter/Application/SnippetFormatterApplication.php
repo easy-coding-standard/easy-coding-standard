@@ -48,9 +48,14 @@ final class SnippetFormatterApplication
     /**
      * @param SmartFileInfo[] $fileInfos
      * @param string $snippetPattern
+     * @param string $kind
+     * @return int
      */
-    public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, array $fileInfos, $snippetPattern, string $kind) : int
+    public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, array $fileInfos, $snippetPattern, $kind)
     {
+        if (\is_object($kind)) {
+            $kind = (string) $kind;
+        }
         if (\is_object($snippetPattern)) {
             $snippetPattern = (string) $snippetPattern;
         }
@@ -70,9 +75,13 @@ final class SnippetFormatterApplication
     /**
      * @return void
      * @param string $snippetPattern
+     * @param string $kind
      */
-    private function processFileInfoWithPattern(\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, $snippetPattern, string $kind)
+    private function processFileInfoWithPattern(\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, $snippetPattern, $kind)
     {
+        if (\is_object($kind)) {
+            $kind = (string) $kind;
+        }
         if (\is_object($snippetPattern)) {
             $snippetPattern = (string) $snippetPattern;
         }

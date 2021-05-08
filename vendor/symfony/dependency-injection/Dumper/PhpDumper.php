@@ -363,8 +363,9 @@ EOF;
     /**
      * @return void
      * @param string $sourceId
+     * @param bool $byConstructor
      */
-    private function collectCircularReferences($sourceId, array $edges, array &$checkedNodes, array &$loops = [], array $path = [], bool $byConstructor = \true)
+    private function collectCircularReferences($sourceId, array $edges, array &$checkedNodes, array &$loops = [], array $path = [], $byConstructor = \true)
     {
         if (\is_object($sourceId)) {
             $sourceId = (string) $sourceId;
@@ -431,8 +432,9 @@ EOF;
     }
     /**
      * @param string $sourceId
+     * @param bool $byConstructor
      */
-    private function addCircularReferences($sourceId, array $currentPath, bool $byConstructor)
+    private function addCircularReferences($sourceId, array $currentPath, $byConstructor)
     {
         if (\is_object($sourceId)) {
             $sourceId = (string) $sourceId;
@@ -534,8 +536,9 @@ EOF;
     }
     /**
      * @param string $cId
+     * @return string
      */
-    private function addServiceInclude($cId, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition) : string
+    private function addServiceInclude($cId, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
         if (\is_object($cId)) {
             $cId = (string) $cId;
@@ -577,8 +580,10 @@ EOF;
      * @throws InvalidArgumentException
      * @throws RuntimeException
      * @param string $id
+     * @param bool $isSimpleInstance
+     * @return string
      */
-    private function addServiceInstance($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, bool $isSimpleInstance) : string
+    private function addServiceInstance($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $isSimpleInstance)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -652,8 +657,9 @@ EOF;
     /**
      * @param string|null $sharedNonLazyId
      * @param string $variableName
+     * @return string
      */
-    private function addServiceMethodCalls(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $variableName, $sharedNonLazyId) : string
+    private function addServiceMethodCalls(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $variableName, $sharedNonLazyId)
     {
         if (\is_object($variableName)) {
             $variableName = (string) $variableName;
@@ -683,8 +689,9 @@ EOF;
     }
     /**
      * @param string $variableName
+     * @return string
      */
-    private function addServiceProperties(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $variableName = 'instance') : string
+    private function addServiceProperties(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $variableName = 'instance')
     {
         if (\is_object($variableName)) {
             $variableName = (string) $variableName;
@@ -697,8 +704,9 @@ EOF;
     }
     /**
      * @param string $variableName
+     * @return string
      */
-    private function addServiceConfigurator(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $variableName = 'instance') : string
+    private function addServiceConfigurator(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $variableName = 'instance')
     {
         if (\is_object($variableName)) {
             $variableName = (string) $variableName;
@@ -724,8 +732,9 @@ EOF;
     }
     /**
      * @param string $id
+     * @return mixed[]
      */
-    private function addService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition) : array
+    private function addService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -855,8 +864,10 @@ EOF;
     }
     /**
      * @param string $id
+     * @param bool $forConstructor
+     * @return string
      */
-    private function addInlineVariables($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, array $arguments, bool $forConstructor) : string
+    private function addInlineVariables($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, array $arguments, $forConstructor)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -875,9 +886,15 @@ EOF;
     }
     /**
      * @param string $id
+     * @param string $targetId
+     * @param bool $forConstructor
+     * @return string
      */
-    private function addInlineReference($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, string $targetId, bool $forConstructor) : string
+    private function addInlineReference($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $targetId, $forConstructor)
     {
+        if (\is_object($targetId)) {
+            $targetId = (string) $targetId;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -922,8 +939,10 @@ EOTXT
     }
     /**
      * @param string $id
+     * @param bool $forConstructor
+     * @return string
      */
-    private function addInlineService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $inlineDef = null, bool $forConstructor = \true) : string
+    private function addInlineService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $inlineDef = null, $forConstructor = \true)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -1016,8 +1035,10 @@ EOTXT
     }
     /**
      * @param string $return
+     * @param string $id
+     * @return string
      */
-    private function addNewInstance(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $return = '', string $id = null) : string
+    private function addNewInstance(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $return = '', $id = null)
     {
         if (\is_object($return)) {
             $return = (string) $return;
@@ -1065,9 +1086,14 @@ EOTXT
     }
     /**
      * @param string $class
+     * @param string $baseClass
+     * @return string
      */
-    private function startClass($class, string $baseClass) : string
+    private function startClass($class, $baseClass)
     {
+        if (\is_object($baseClass)) {
+            $baseClass = (string) $baseClass;
+        }
         if (\is_object($class)) {
             $class = (string) $class;
         }
@@ -1473,8 +1499,10 @@ EOF;
     /**
      * @throws InvalidArgumentException
      * @param string $path
+     * @param int $indent
+     * @return string
      */
-    private function exportParameters(array $parameters, $path = '', int $indent = 12) : string
+    private function exportParameters(array $parameters, $path = '', $indent = 12)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -1523,8 +1551,9 @@ EOF;
     }
     /**
      * @param string $code
+     * @return string
      */
-    private function wrapServiceConditionals($value, $code) : string
+    private function wrapServiceConditionals($value, $code)
     {
         if (\is_object($code)) {
             $code = (string) $code;
@@ -1732,8 +1761,9 @@ EOF;
      *
      * @throws RuntimeException
      * @param string $class
+     * @return string
      */
-    private function dumpLiteralClass($class) : string
+    private function dumpLiteralClass($class)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -1749,8 +1779,9 @@ EOF;
     }
     /**
      * @param string $name
+     * @return string
      */
-    private function dumpParameter($name) : string
+    private function dumpParameter($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -1769,8 +1800,9 @@ EOF;
     }
     /**
      * @param string $id
+     * @return string
      */
-    private function getServiceCall($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference $reference = null) : string
+    private function getServiceCall($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference $reference = null)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -1842,8 +1874,9 @@ EOF;
     /**
      * @throws InvalidArgumentException
      * @param string $id
+     * @return string
      */
-    private function generateMethodName($id) : string
+    private function generateMethodName($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;
@@ -2049,8 +2082,9 @@ EOF;
     }
     /**
      * @param string $id
+     * @return mixed[]
      */
-    private function getClasses(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id) : array
+    private function getClasses(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id)
     {
         if (\is_object($id)) {
             $id = (string) $id;

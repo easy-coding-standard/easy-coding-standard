@@ -200,8 +200,9 @@ final class CommentsAnalyzer
     }
     /**
      * @param string $content
+     * @return int
      */
-    private function getCommentType($content) : int
+    private function getCommentType($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

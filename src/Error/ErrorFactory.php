@@ -9,9 +9,14 @@ final class ErrorFactory
     /**
      * @param int $line
      * @param string $message
+     * @param string $sourceClass
+     * @return \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError
      */
-    public function create($line, $message, string $sourceClass, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo) : \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError
+    public function create($line, $message, $sourceClass, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
+        if (\is_object($sourceClass)) {
+            $sourceClass = (string) $sourceClass;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

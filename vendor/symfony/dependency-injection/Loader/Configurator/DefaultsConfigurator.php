@@ -58,8 +58,9 @@ class DefaultsConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
     /**
      * Defines an instanceof-conditional to be applied to following service definitions.
      * @param string $fqcn
+     * @return \Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
      */
-    public final function instanceof($fqcn) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator
+    public final function instanceof($fqcn)
     {
         if (\is_object($fqcn)) {
             $fqcn = (string) $fqcn;

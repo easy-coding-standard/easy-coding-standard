@@ -21,8 +21,14 @@ if (!function_exists('trigger_deprecation')) {
      * @author Nicolas Grekas <p@tchwork.com>
      * @return void
      */
-    function trigger_deprecation($package, string $version, string $message, ...$args)
+    function trigger_deprecation($package, $version, $message, ...$args)
     {
+        if (is_object($message)) {
+            $message = (string) $message;
+        }
+        if (is_object($version)) {
+            $version = (string) $version;
+        }
         if (is_object($package)) {
             $package = (string) $package;
         }

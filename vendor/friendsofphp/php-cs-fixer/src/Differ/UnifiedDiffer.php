@@ -23,9 +23,14 @@ final class UnifiedDiffer implements \PhpCsFixer\Differ\DifferInterface
      * {@inheritdoc}
      * @param \SplFileInfo|null $file
      * @param string $old
+     * @param string $new
+     * @return string
      */
-    public function diff($old, string $new, $file = null) : string
+    public function diff($old, $new, $file = null)
     {
+        if (\is_object($new)) {
+            $new = (string) $new;
+        }
         if (\is_object($old)) {
             $old = (string) $old;
         }

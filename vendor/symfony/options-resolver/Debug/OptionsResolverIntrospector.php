@@ -48,12 +48,12 @@ class OptionsResolverIntrospector
         return ($this->get)('defaults', $option, \sprintf('No default value was set for the "%s" option.', $option));
     }
     /**
-     * @return \Closure[]
+     * @return mixed[]
      *
      * @throws NoConfigurationException on no configured closures
      * @param string $option
      */
-    public function getLazyClosures($option) : array
+    public function getLazyClosures($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -61,12 +61,12 @@ class OptionsResolverIntrospector
         return ($this->get)('lazy', $option, \sprintf('No lazy closures were set for the "%s" option.', $option));
     }
     /**
-     * @return string[]
+     * @return mixed[]
      *
      * @throws NoConfigurationException on no configured types
      * @param string $option
      */
-    public function getAllowedTypes($option) : array
+    public function getAllowedTypes($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -79,7 +79,7 @@ class OptionsResolverIntrospector
      * @throws NoConfigurationException on no configured values
      * @param string $option
      */
-    public function getAllowedValues($option) : array
+    public function getAllowedValues($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -89,8 +89,9 @@ class OptionsResolverIntrospector
     /**
      * @throws NoConfigurationException on no configured normalizer
      * @param string $option
+     * @return \Closure
      */
-    public function getNormalizer($option) : \Closure
+    public function getNormalizer($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -100,8 +101,9 @@ class OptionsResolverIntrospector
     /**
      * @throws NoConfigurationException when no normalizer is configured
      * @param string $option
+     * @return mixed[]
      */
-    public function getNormalizers($option) : array
+    public function getNormalizers($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;
@@ -127,8 +129,9 @@ class OptionsResolverIntrospector
     /**
      * @throws NoConfigurationException on no configured deprecation
      * @param string $option
+     * @return mixed[]
      */
-    public function getDeprecation($option) : array
+    public function getDeprecation($option)
     {
         if (\is_object($option)) {
             $option = (string) $option;

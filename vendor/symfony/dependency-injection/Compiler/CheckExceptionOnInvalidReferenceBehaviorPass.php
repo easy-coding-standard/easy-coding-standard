@@ -79,8 +79,9 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210508\Sy
     }
     /**
      * @param string $id
+     * @return mixed[]
      */
-    private function getAlternatives($id) : array
+    private function getAlternatives($id)
     {
         if (\is_object($id)) {
             $id = (string) $id;

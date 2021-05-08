@@ -112,8 +112,9 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
      * Check the validity of a PCRE.
      *
      * @param string $pattern the regular expression
+     * @return bool
      */
-    private function checkPreg($pattern) : bool
+    private function checkPreg($pattern)
     {
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;
@@ -132,7 +133,7 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
      *
      * @return string the preg delimiter
      */
-    private function getBestDelimiter($pattern) : string
+    private function getBestDelimiter($pattern)
     {
         if (\is_object($pattern)) {
             $pattern = (string) $pattern;

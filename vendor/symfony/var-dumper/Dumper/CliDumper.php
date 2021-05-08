@@ -148,8 +148,10 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
     /**
      * {@inheritdoc}
      * @param string $str
+     * @param bool $bin
+     * @param int $cut
      */
-    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, bool $bin, int $cut)
+    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut)
     {
         if (\is_object($str)) {
             $str = (string) $str;
@@ -384,6 +386,9 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     protected function style($style, $value, $attr = [])
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         if (\is_object($style)) {
             $style = (string) $style;
         }
@@ -563,8 +568,9 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
     }
     /**
      * @param string $file
+     * @param int $line
      */
-    private function getSourceLink($file, int $line)
+    private function getSourceLink($file, $line)
     {
         if (\is_object($file)) {
             $file = (string) $file;

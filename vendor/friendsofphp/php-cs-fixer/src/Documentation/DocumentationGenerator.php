@@ -330,8 +330,9 @@ RST;
     }
     /**
      * @param string $name
+     * @return string
      */
-    public function getRuleSetsDocumentationFilePath($name) : string
+    public function getRuleSetsDocumentationFilePath($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -357,8 +358,9 @@ RST;
     /**
      * @param int $sampleNumber
      * @param string $ruleName
+     * @return string
      */
-    private function generateSampleDiff(\PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\FixerDefinition\CodeSampleInterface $sample, $sampleNumber, $ruleName) : string
+    private function generateSampleDiff(\PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\FixerDefinition\CodeSampleInterface $sample, $sampleNumber, $ruleName)
     {
         if (\is_object($ruleName)) {
             $ruleName = (string) $ruleName;
@@ -404,8 +406,10 @@ RST;
     }
     /**
      * @param string $string
+     * @param int $indent
+     * @return string
      */
-    private function toRst($string, int $indent = 0) : string
+    private function toRst($string, $indent = 0)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -418,8 +422,10 @@ RST;
     }
     /**
      * @param string $string
+     * @param int $indent
+     * @return string
      */
-    private function indent($string, int $indent) : string
+    private function indent($string, $indent)
     {
         if (\is_object($string)) {
             $string = (string) $string;

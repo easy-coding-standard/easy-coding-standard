@@ -19,8 +19,9 @@ class DoctrineAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
     private $provider;
     /**
      * @param string $namespace
+     * @param int $defaultLifetime
      */
-    public function __construct(\ECSPrefix20210508\Doctrine\Common\Cache\CacheProvider $provider, $namespace = '', int $defaultLifetime = 0)
+    public function __construct(\ECSPrefix20210508\Doctrine\Common\Cache\CacheProvider $provider, $namespace = '', $defaultLifetime = 0)
     {
         if (\is_object($namespace)) {
             $namespace = (string) $namespace;

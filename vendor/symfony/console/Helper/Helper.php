@@ -50,8 +50,9 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      *
      * @internal in Symfony 5.2
      * @param string|null $string
+     * @return int
      */
-    public static function width($string) : int
+    public static function width($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -71,8 +72,9 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      *
      * @internal in Symfony 5.2
      * @param string|null $string
+     * @return int
      */
-    public static function length($string) : int
+    public static function length($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -91,8 +93,10 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      *
      * @return string The string subset
      * @param string|null $string
+     * @param int $from
+     * @param int $length
      */
-    public static function substr($string, int $from, int $length = null)
+    public static function substr($string, $from, $length = null)
     {
         if (\is_object($string)) {
             $string = (string) $string;

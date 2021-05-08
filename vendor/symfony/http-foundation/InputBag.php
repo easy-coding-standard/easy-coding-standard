@@ -85,8 +85,9 @@ final class InputBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundation
     /**
      * {@inheritdoc}
      * @param string $key
+     * @param int $filter
      */
-    public function filter($key, $default = null, int $filter = \FILTER_DEFAULT, $options = [])
+    public function filter($key, $default = null, $filter = \FILTER_DEFAULT, $options = [])
     {
         if (\is_object($key)) {
             $key = (string) $key;

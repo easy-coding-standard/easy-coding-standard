@@ -126,9 +126,13 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
     /**
      * @return string mixed
      * @param string $content
+     * @param string $indent
      */
-    private function getExpectedIndent($content, string $indent) : string
+    private function getExpectedIndent($content, $indent)
     {
+        if (\is_object($indent)) {
+            $indent = (string) $indent;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }

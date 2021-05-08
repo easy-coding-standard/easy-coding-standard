@@ -392,8 +392,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      * @param int $index
      * @param int $referenceIndex
      * @param string $callType
+     * @return bool
      */
-    private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $referenceIndex, $callType) : bool
+    private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $referenceIndex, $callType)
     {
         if (\is_object($callType)) {
             $callType = (string) $callType;

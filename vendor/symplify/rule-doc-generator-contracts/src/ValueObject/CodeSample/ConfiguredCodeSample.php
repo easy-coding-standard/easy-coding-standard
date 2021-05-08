@@ -14,9 +14,13 @@ final class ConfiguredCodeSample extends \Symplify\RuleDocGenerator\ValueObject\
     /**
      * @param array<string, mixed> $configuration
      * @param string $badCode
+     * @param string $goodCode
      */
-    public function __construct($badCode, string $goodCode, array $configuration)
+    public function __construct($badCode, $goodCode, array $configuration)
     {
+        if (\is_object($goodCode)) {
+            $goodCode = (string) $goodCode;
+        }
         if (\is_object($badCode)) {
             $badCode = (string) $badCode;
         }

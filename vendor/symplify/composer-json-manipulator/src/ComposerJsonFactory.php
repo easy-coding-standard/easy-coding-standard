@@ -22,8 +22,9 @@ final class ComposerJsonFactory
     }
     /**
      * @param string $jsonString
+     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
      */
-    public function createFromString($jsonString) : \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function createFromString($jsonString)
     {
         if (\is_object($jsonString)) {
             $jsonString = (string) $jsonString;
@@ -43,8 +44,9 @@ final class ComposerJsonFactory
     }
     /**
      * @param string $filePath
+     * @return \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
      */
-    public function createFromFilePath($filePath) : \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson
+    public function createFromFilePath($filePath)
     {
         if (\is_object($filePath)) {
             $filePath = (string) $filePath;

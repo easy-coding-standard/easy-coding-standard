@@ -397,8 +397,9 @@ final class ComposerJson
     }
     /**
      * @param string $packageName
+     * @return bool
      */
-    public function isReplacePackageSet($packageName) : bool
+    public function isReplacePackageSet($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
@@ -417,9 +418,13 @@ final class ComposerJson
     /**
      * @return void
      * @param string $packageName
+     * @param string $version
      */
-    public function setReplacePackage($packageName, string $version)
+    public function setReplacePackage($packageName, $version)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
         }
@@ -547,8 +552,9 @@ final class ComposerJson
     }
     /**
      * @param string $packageName
+     * @return bool
      */
-    public function hasPackage($packageName) : bool
+    public function hasPackage($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
@@ -560,8 +566,9 @@ final class ComposerJson
     }
     /**
      * @param string $packageName
+     * @return bool
      */
-    public function hasRequiredPackage($packageName) : bool
+    public function hasRequiredPackage($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
@@ -570,8 +577,9 @@ final class ComposerJson
     }
     /**
      * @param string $packageName
+     * @return bool
      */
-    public function hasRequiredDevPackage($packageName) : bool
+    public function hasRequiredDevPackage($packageName)
     {
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
@@ -581,9 +589,13 @@ final class ComposerJson
     /**
      * @return void
      * @param string $packageName
+     * @param string $version
      */
-    public function addRequiredPackage($packageName, string $version)
+    public function addRequiredPackage($packageName, $version)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
         }
@@ -595,9 +607,13 @@ final class ComposerJson
     /**
      * @return void
      * @param string $packageName
+     * @param string $version
      */
-    public function addRequiredDevPackage($packageName, string $version)
+    public function addRequiredDevPackage($packageName, $version)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
         }
@@ -609,9 +625,13 @@ final class ComposerJson
     /**
      * @return void
      * @param string $packageName
+     * @param string $version
      */
-    public function changePackageVersion($packageName, string $version)
+    public function changePackageVersion($packageName, $version)
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($packageName)) {
             $packageName = (string) $packageName;
         }
@@ -668,9 +688,17 @@ final class ComposerJson
     /**
      * @return void
      * @param string $oldPackageName
+     * @param string $newPackageName
+     * @param string $targetVersion
      */
-    public function replacePackage($oldPackageName, string $newPackageName, string $targetVersion)
+    public function replacePackage($oldPackageName, $newPackageName, $targetVersion)
     {
+        if (\is_object($targetVersion)) {
+            $targetVersion = (string) $targetVersion;
+        }
+        if (\is_object($newPackageName)) {
+            $newPackageName = (string) $newPackageName;
+        }
         if (\is_object($oldPackageName)) {
             $oldPackageName = (string) $oldPackageName;
         }
@@ -849,8 +877,9 @@ final class ComposerJson
     }
     /**
      * @param string $autoloadDirectory
+     * @return string
      */
-    private function resolveExistingAutoloadDirectory($autoloadDirectory) : string
+    private function resolveExistingAutoloadDirectory($autoloadDirectory)
     {
         if (\is_object($autoloadDirectory)) {
             $autoloadDirectory = (string) $autoloadDirectory;

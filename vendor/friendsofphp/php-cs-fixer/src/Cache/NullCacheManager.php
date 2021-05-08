@@ -20,9 +20,14 @@ final class NullCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
 {
     /**
      * @param string $file
+     * @param string $fileContent
+     * @return bool
      */
-    public function needFixing($file, string $fileContent) : bool
+    public function needFixing($file, $fileContent)
     {
+        if (\is_object($fileContent)) {
+            $fileContent = (string) $fileContent;
+        }
         if (\is_object($file)) {
             $file = (string) $file;
         }
@@ -31,8 +36,9 @@ final class NullCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
     /**
      * @return void
      * @param string $file
+     * @param string $fileContent
      */
-    public function setFile($file, string $fileContent)
+    public function setFile($file, $fileContent)
     {
     }
 }

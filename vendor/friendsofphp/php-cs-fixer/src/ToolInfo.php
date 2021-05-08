@@ -92,8 +92,9 @@ final class ToolInfo implements \PhpCsFixer\ToolInfoInterface
     }
     /**
      * @param string $version
+     * @return string
      */
-    public function getPharDownloadUri($version) : string
+    public function getPharDownloadUri($version)
     {
         if (\is_object($version)) {
             $version = (string) $version;

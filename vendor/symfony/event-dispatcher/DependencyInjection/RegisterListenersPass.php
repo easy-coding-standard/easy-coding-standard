@@ -33,9 +33,21 @@ class RegisterListenersPass implements \ECSPrefix20210508\Symfony\Component\Depe
     private $noPreloadTagName;
     /**
      * @param string $dispatcherService
+     * @param string $listenerTag
+     * @param string $subscriberTag
+     * @param string $eventAliasesParameter
      */
-    public function __construct($dispatcherService = 'event_dispatcher', string $listenerTag = 'kernel.event_listener', string $subscriberTag = 'kernel.event_subscriber', string $eventAliasesParameter = 'event_dispatcher.event_aliases')
+    public function __construct($dispatcherService = 'event_dispatcher', $listenerTag = 'kernel.event_listener', $subscriberTag = 'kernel.event_subscriber', $eventAliasesParameter = 'event_dispatcher.event_aliases')
     {
+        if (\is_object($eventAliasesParameter)) {
+            $eventAliasesParameter = (string) $eventAliasesParameter;
+        }
+        if (\is_object($subscriberTag)) {
+            $subscriberTag = (string) $subscriberTag;
+        }
+        if (\is_object($listenerTag)) {
+            $listenerTag = (string) $listenerTag;
+        }
         if (\is_object($dispatcherService)) {
             $dispatcherService = (string) $dispatcherService;
         }
@@ -162,9 +174,14 @@ class RegisterListenersPass implements \ECSPrefix20210508\Symfony\Component\Depe
     }
     /**
      * @param string $id
+     * @param string $method
+     * @return string
      */
-    private function getEventFromTypeDeclaration(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, string $method) : string
+    private function getEventFromTypeDeclaration(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, $method)
     {
+        if (\is_object($method)) {
+            $method = (string) $method;
+        }
         if (\is_object($id)) {
             $id = (string) $id;
         }
@@ -184,8 +201,9 @@ class ExtractingEventDispatcher extends \ECSPrefix20210508\Symfony\Component\Eve
     public static $subscriber;
     /**
      * @param string $eventName
+     * @param int $priority
      */
-    public function addListener($eventName, $listener, int $priority = 0)
+    public function addListener($eventName, $listener, $priority = 0)
     {
         if (\is_object($eventName)) {
             $eventName = (string) $eventName;

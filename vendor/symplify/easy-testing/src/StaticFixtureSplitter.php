@@ -58,9 +58,14 @@ final class StaticFixtureSplitter
     }
     /**
      * @param string $prefix
+     * @param string $fileContent
+     * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
-    public static function createTemporaryFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, $prefix, string $fileContent) : \Symplify\SmartFileSystem\SmartFileInfo
+    public static function createTemporaryFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, $prefix, $fileContent)
     {
+        if (\is_object($fileContent)) {
+            $fileContent = (string) $fileContent;
+        }
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;
         }
@@ -85,8 +90,9 @@ final class StaticFixtureSplitter
     }
     /**
      * @param string $prefix
+     * @return string
      */
-    private static function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $prefix) : string
+    private static function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $prefix)
     {
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;

@@ -91,8 +91,9 @@ final class SmartFileInfo extends \ECSPrefix20210508\Symfony\Component\Finder\Sp
     }
     /**
      * @param string $directory
+     * @return string
      */
-    public function getRelativeFilePathFromDirectory($directory) : string
+    public function getRelativeFilePathFromDirectory($directory)
     {
         if (\is_object($directory)) {
             $directory = (string) $directory;
@@ -123,8 +124,9 @@ final class SmartFileInfo extends \ECSPrefix20210508\Symfony\Component\Finder\Sp
     }
     /**
      * @param string $string
+     * @return bool
      */
-    public function endsWith($string) : bool
+    public function endsWith($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -133,8 +135,9 @@ final class SmartFileInfo extends \ECSPrefix20210508\Symfony\Component\Finder\Sp
     }
     /**
      * @param string $string
+     * @return bool
      */
-    public function doesFnmatch($string) : bool
+    public function doesFnmatch($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -162,8 +165,9 @@ final class SmartFileInfo extends \ECSPrefix20210508\Symfony\Component\Finder\Sp
     }
     /**
      * @param string $partialPath
+     * @return bool
      */
-    public function startsWith($partialPath) : bool
+    public function startsWith($partialPath)
     {
         if (\is_object($partialPath)) {
             $partialPath = (string) $partialPath;
@@ -179,8 +183,9 @@ final class SmartFileInfo extends \ECSPrefix20210508\Symfony\Component\Finder\Sp
     }
     /**
      * @param string $path
+     * @return string
      */
-    private function normalizePath($path) : string
+    private function normalizePath($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;

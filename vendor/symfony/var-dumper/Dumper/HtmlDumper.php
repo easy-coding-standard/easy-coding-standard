@@ -94,6 +94,9 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setDumpBoundaries($prefix, $suffix)
     {
+        if (\is_object($suffix)) {
+            $suffix = (string) $suffix;
+        }
         if (\is_object($prefix)) {
             $prefix = (string) $prefix;
         }
@@ -747,8 +750,10 @@ EOHTML
     /**
      * {@inheritdoc}
      * @param string $str
+     * @param bool $bin
+     * @param int $cut
      */
-    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, bool $bin, int $cut)
+    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut)
     {
         if (\is_object($str)) {
             $str = (string) $str;
@@ -813,6 +818,9 @@ EOHTML
      */
     protected function style($style, $value, $attr = [])
     {
+        if (\is_object($value)) {
+            $value = (string) $value;
+        }
         if (\is_object($style)) {
             $style = (string) $style;
         }
@@ -920,8 +928,9 @@ EOHTML
     }
     /**
      * @param string $file
+     * @param int $line
      */
-    private function getSourceLink($file, int $line)
+    private function getSourceLink($file, $line)
     {
         if (\is_object($file)) {
             $file = (string) $file;

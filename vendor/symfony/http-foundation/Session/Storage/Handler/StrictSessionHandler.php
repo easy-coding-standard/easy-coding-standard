@@ -31,6 +31,9 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function open($savePath, $sessionName)
     {
+        if (\is_object($sessionName)) {
+            $sessionName = (string) $sessionName;
+        }
         if (\is_object($savePath)) {
             $savePath = (string) $savePath;
         }
@@ -53,6 +56,9 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function updateTimestamp($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }
@@ -61,9 +67,13 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
     /**
      * {@inheritdoc}
      * @param string $sessionId
+     * @param string $data
      */
-    protected function doWrite($sessionId, string $data)
+    protected function doWrite($sessionId, $data)
     {
+        if (\is_object($data)) {
+            $data = (string) $data;
+        }
         if (\is_object($sessionId)) {
             $sessionId = (string) $sessionId;
         }

@@ -106,8 +106,11 @@ class DocBlocks
      *
      * @return string Dockblock contents including correct indentation
      */
-    private function fixDocBlock($content, string $indent) : string
+    private function fixDocBlock($content, $indent)
     {
+        if (\is_object($indent)) {
+            $indent = (string) $indent;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }
@@ -119,8 +122,11 @@ class DocBlocks
      *
      * @return string Whitespace including correct indentation for Dockblock after this whitespace
      */
-    private function fixWhitespaceBeforeDocblock($content, string $indent) : string
+    private function fixWhitespaceBeforeDocblock($content, $indent)
     {
+        if (\is_object($indent)) {
+            $indent = (string) $indent;
+        }
         if (\is_object($content)) {
             $content = (string) $content;
         }

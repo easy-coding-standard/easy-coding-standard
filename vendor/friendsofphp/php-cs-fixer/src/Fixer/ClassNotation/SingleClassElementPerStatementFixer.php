@@ -101,8 +101,9 @@ final class Example
     /**
      * @return void
      * @param string $type
+     * @param int $index
      */
-    private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, int $index)
+    private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $index)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -135,8 +136,10 @@ final class Example
     /**
      * @return void
      * @param string $type
+     * @param int $startIndex
+     * @param int $endIndex
      */
-    private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, int $startIndex, int $endIndex)
+    private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -175,10 +178,12 @@ final class Example
         }
     }
     /**
-     * @return Token[]
+     * @return mixed[]
      * @param string $type
+     * @param int $startIndex
+     * @param int $endIndex
      */
-    private function getModifiersSequences(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, int $startIndex, int $endIndex) : array
+    private function getModifiersSequences(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
     {
         if (\is_object($type)) {
             $type = (string) $type;

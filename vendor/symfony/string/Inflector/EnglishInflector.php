@@ -222,8 +222,9 @@ final class EnglishInflector implements \ECSPrefix20210508\Symfony\Component\Str
     /**
      * {@inheritdoc}
      * @param string $plural
+     * @return mixed[]
      */
-    public function singularize($plural) : array
+    public function singularize($plural)
     {
         if (\is_object($plural)) {
             $plural = (string) $plural;
@@ -290,8 +291,9 @@ final class EnglishInflector implements \ECSPrefix20210508\Symfony\Component\Str
     /**
      * {@inheritdoc}
      * @param string $singular
+     * @return mixed[]
      */
-    public function pluralize($singular) : array
+    public function pluralize($singular)
     {
         if (\is_object($singular)) {
             $singular = (string) $singular;

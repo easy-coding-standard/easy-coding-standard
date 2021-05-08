@@ -34,8 +34,10 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
     /**
      * @throws \RuntimeException
      * @param string $path
+     * @param int $flags
+     * @param bool $ignoreUnreadableDirs
      */
-    public function __construct($path, int $flags, bool $ignoreUnreadableDirs = \false)
+    public function __construct($path, $flags, $ignoreUnreadableDirs = \false)
     {
         if (\is_object($path)) {
             $path = (string) $path;

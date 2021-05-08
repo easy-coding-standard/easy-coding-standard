@@ -151,8 +151,9 @@ class ResponseCacheStrategy implements \ECSPrefix20210508\Symfony\Component\Http
      * minimal value of each instruction. If the value is NULL, the directive will not be set on the final response.
      * @param int|null $value
      * @param string $directive
+     * @param int $age
      */
-    private function storeRelativeAgeDirective($directive, $value, int $age)
+    private function storeRelativeAgeDirective($directive, $value, $age)
     {
         if (\is_object($directive)) {
             $directive = (string) $directive;

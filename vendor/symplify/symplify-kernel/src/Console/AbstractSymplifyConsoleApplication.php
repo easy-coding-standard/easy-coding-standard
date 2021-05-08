@@ -14,9 +14,13 @@ abstract class AbstractSymplifyConsoleApplication extends \ECSPrefix20210508\Sym
     /**
      * @param Command[] $commands
      * @param string $name
+     * @param string $version
      */
-    public function __construct(array $commands, $name = 'UNKNOWN', string $version = 'UNKNOWN')
+    public function __construct(array $commands, $name = 'UNKNOWN', $version = 'UNKNOWN')
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($name)) {
             $name = (string) $name;
         }

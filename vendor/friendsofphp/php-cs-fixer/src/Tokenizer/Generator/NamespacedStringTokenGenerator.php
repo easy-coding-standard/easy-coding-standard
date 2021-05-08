@@ -20,10 +20,10 @@ final class NamespacedStringTokenGenerator
     /**
      * Parse a string that contains a namespace into tokens.
      *
-     * @return Token[]
+     * @return mixed[]
      * @param string $input
      */
-    public function generate($input) : array
+    public function generate($input)
     {
         if (\is_object($input)) {
             $input = (string) $input;

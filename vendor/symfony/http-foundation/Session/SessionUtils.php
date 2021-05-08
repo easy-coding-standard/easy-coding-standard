@@ -25,9 +25,13 @@ final class SessionUtils
      * it so the caller can process it further.
      * @return string|null
      * @param string $sessionName
+     * @param string $sessionId
      */
-    public static function popSessionCookie($sessionName, string $sessionId)
+    public static function popSessionCookie($sessionName, $sessionId)
     {
+        if (\is_object($sessionId)) {
+            $sessionId = (string) $sessionId;
+        }
         if (\is_object($sessionName)) {
             $sessionName = (string) $sessionName;
         }

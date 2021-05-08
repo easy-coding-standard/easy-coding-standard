@@ -91,8 +91,9 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      *
      * @return StopwatchEvent
      * @param string $name
+     * @param string $category
      */
-    public function start($name, string $category = null)
+    public function start($name, $category = null)
     {
         if (\is_object($name)) {
             $name = (string) $name;

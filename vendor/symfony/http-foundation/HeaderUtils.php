@@ -40,8 +40,11 @@ class HeaderUtils
      *               $separators
      * @param string $header
      */
-    public static function split($header, string $separators) : array
+    public static function split($header, $separators)
     {
+        if (\is_object($separators)) {
+            $separators = (string) $separators;
+        }
         if (\is_object($header)) {
             $header = (string) $header;
         }
@@ -101,8 +104,9 @@ class HeaderUtils
      *     HeaderUtils::toString(["foo" => "abc", "bar" => true, "baz" => "a b c"], ",")
      *     // => 'foo=abc, bar, baz="a b c"'
      * @param string $separator
+     * @return string
      */
-    public static function toString(array $assoc, $separator) : string
+    public static function toString(array $assoc, $separator)
     {
         if (\is_object($separator)) {
             $separator = (string) $separator;
@@ -124,8 +128,9 @@ class HeaderUtils
      * the HTTP specification, it is backslash-escaped and enclosed in quotes
      * to match the "quoted-string" construct.
      * @param string $s
+     * @return string
      */
-    public static function quote($s) : string
+    public static function quote($s)
     {
         if (\is_object($s)) {
             $s = (string) $s;
@@ -141,8 +146,9 @@ class HeaderUtils
      * If passed an unquoted string that matches the "token" construct (as
      * defined in the HTTP specification), it is passed through verbatimly.
      * @param string $s
+     * @return string
      */
-    public static function unquote($s) : string
+    public static function unquote($s)
     {
         if (\is_object($s)) {
             $s = (string) $s;
@@ -164,8 +170,14 @@ class HeaderUtils
      *
      * @see RFC 6266
      */
-    public static function makeDisposition($disposition, string $filename, string $filenameFallback = '') : string
+    public static function makeDisposition($disposition, $filename, $filenameFallback = '')
     {
+        if (\is_object($filenameFallback)) {
+            $filenameFallback = (string) $filenameFallback;
+        }
+        if (\is_object($filename)) {
+            $filename = (string) $filename;
+        }
         if (\is_object($disposition)) {
             $disposition = (string) $disposition;
         }
@@ -196,9 +208,15 @@ class HeaderUtils
     /**
      * Like parse_str(), but preserves dots in variable names.
      * @param string $query
+     * @param bool $ignoreBrackets
+     * @param string $separator
+     * @return mixed[]
      */
-    public static function parseQuery($query, bool $ignoreBrackets = \false, string $separator = '&') : array
+    public static function parseQuery($query, $ignoreBrackets = \false, $separator = '&')
     {
+        if (\is_object($separator)) {
+            $separator = (string) $separator;
+        }
         if (\is_object($query)) {
             $query = (string) $query;
         }
@@ -244,8 +262,10 @@ class HeaderUtils
     }
     /**
      * @param string $separators
+     * @param bool $first
+     * @return mixed[]
      */
-    private static function groupParts(array $matches, $separators, bool $first = \true) : array
+    private static function groupParts(array $matches, $separators, $first = \true)
     {
         if (\is_object($separators)) {
             $separators = (string) $separators;

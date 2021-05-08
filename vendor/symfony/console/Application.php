@@ -82,9 +82,13 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
     private $signalsToDispatchEvent = [];
     /**
      * @param string $name
+     * @param string $version
      */
-    public function __construct($name = 'UNKNOWN', string $version = 'UNKNOWN')
+    public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
+        if (\is_object($version)) {
+            $version = (string) $version;
+        }
         if (\is_object($name)) {
             $name = (string) $name;
         }
@@ -956,8 +960,9 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      *
      * @return string The namespace of the command
      * @param string $name
+     * @param int $limit
      */
-    public function extractNamespace($name, int $limit = null)
+    public function extractNamespace($name, $limit = null)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -969,11 +974,11 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      * Finds alternative of $name among $collection,
      * if nothing is found in $collection, try in $abbrevs.
      *
-     * @return string[] A sorted array of similar string
+     * @return mixed[] A sorted array of similar string
      * @param mixed[] $collection
      * @param string $name
      */
-    private function findAlternatives($name, $collection) : array
+    private function findAlternatives($name, $collection)
     {
         if (\is_object($name)) {
             $name = (string) $name;
@@ -1018,8 +1023,9 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      *
      * @return self
      * @param string $commandName
+     * @param bool $isSingleCommand
      */
-    public function setDefaultCommand($commandName, bool $isSingleCommand = \false)
+    public function setDefaultCommand($commandName, $isSingleCommand = \false)
     {
         if (\is_object($commandName)) {
             $commandName = (string) $commandName;
@@ -1042,8 +1048,10 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
     }
     /**
      * @param string $string
+     * @param int $width
+     * @return mixed[]
      */
-    private function splitStringByWidth($string, int $width) : array
+    private function splitStringByWidth($string, $width)
     {
         if (\is_object($string)) {
             $string = (string) $string;
@@ -1078,10 +1086,10 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
     /**
      * Returns all namespaces of the command name.
      *
-     * @return string[] The namespaces of the command
+     * @return mixed[] The namespaces of the command
      * @param string $name
      */
-    private function extractAllNamespaces($name) : array
+    private function extractAllNamespaces($name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

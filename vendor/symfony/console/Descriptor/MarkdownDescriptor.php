@@ -39,8 +39,9 @@ class MarkdownDescriptor extends \ECSPrefix20210508\Symfony\Component\Console\De
     /**
      * {@inheritdoc}
      * @param string $content
+     * @param bool $decorated
      */
-    protected function write($content, bool $decorated = \true)
+    protected function write($content, $decorated = \true)
     {
         if (\is_object($content)) {
             $content = (string) $content;

@@ -240,9 +240,13 @@ class XmlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjection
     }
     /**
      * @param string $type
+     * @param string $keyAttribute
      */
-    private function convertParameters(array $parameters, $type, \DOMElement $parent, string $keyAttribute = 'key')
+    private function convertParameters(array $parameters, $type, \DOMElement $parent, $keyAttribute = 'key')
     {
+        if (\is_object($keyAttribute)) {
+            $keyAttribute = (string) $keyAttribute;
+        }
         if (\is_object($type)) {
             $type = (string) $type;
         }

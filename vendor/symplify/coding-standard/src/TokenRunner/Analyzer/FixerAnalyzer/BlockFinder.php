@@ -74,8 +74,9 @@ final class BlockFinder
     }
     /**
      * @param string $content
+     * @return int
      */
-    public function getBlockTypeByContent($content) : int
+    public function getBlockTypeByContent($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

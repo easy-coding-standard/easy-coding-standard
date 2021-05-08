@@ -223,8 +223,9 @@ class DebugClassLoader
     /**
      * @return void
      * @param string $class
+     * @param string $file
      */
-    private function checkClass($class, string $file = null)
+    private function checkClass($class, $file = null)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -266,8 +267,9 @@ class DebugClassLoader
     }
     /**
      * @param string $class
+     * @return mixed[]
      */
-    public function checkAnnotations(\ReflectionClass $refl, $class) : array
+    public function checkAnnotations(\ReflectionClass $refl, $class)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -497,9 +499,13 @@ class DebugClassLoader
     /**
      * @return mixed[]|null
      * @param string $file
+     * @param string $class
      */
-    public function checkCase(\ReflectionClass $refl, $file, string $class)
+    public function checkCase(\ReflectionClass $refl, $file, $class)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if (\is_object($file)) {
             $file = (string) $file;
         }
@@ -529,8 +535,9 @@ class DebugClassLoader
     /**
      * `realpath` on MacOSX doesn't normalize the case of characters.
      * @param string $real
+     * @return string
      */
-    private function darwinRealpath($real) : string
+    private function darwinRealpath($real)
     {
         if (\is_object($real)) {
             $real = (string) $real;
@@ -591,11 +598,11 @@ class DebugClassLoader
     /**
      * `class_implements` includes interfaces from the parents so we have to manually exclude them.
      *
-     * @return string[]
+     * @return mixed[]
      * @param string|null $parent
      * @param string $class
      */
-    private function getOwnInterfaces($class, $parent) : array
+    private function getOwnInterfaces($class, $parent)
     {
         if (\is_object($class)) {
             $class = (string) $class;
@@ -683,9 +690,14 @@ class DebugClassLoader
     /**
      * @param string|null $parent
      * @param string $type
+     * @param string $class
+     * @return string
      */
-    private function normalizeType($type, string $class, $parent) : string
+    private function normalizeType($type, $class, $parent)
     {
+        if (\is_object($class)) {
+            $class = (string) $class;
+        }
         if (\is_object($type)) {
             $type = (string) $type;
         }
@@ -710,9 +722,17 @@ class DebugClassLoader
     /**
      * Utility method to add @return annotations to the Symfony code-base where it triggers a self-deprecations.
      * @param string $returnType
+     * @param string $declaringFile
+     * @param string $normalizedType
      */
-    private function patchMethod(\ReflectionMethod $method, $returnType, string $declaringFile, string $normalizedType)
+    private function patchMethod(\ReflectionMethod $method, $returnType, $declaringFile, $normalizedType)
     {
+        if (\is_object($normalizedType)) {
+            $normalizedType = (string) $normalizedType;
+        }
+        if (\is_object($declaringFile)) {
+            $declaringFile = (string) $declaringFile;
+        }
         if (\is_object($returnType)) {
             $returnType = (string) $returnType;
         }
@@ -793,8 +813,9 @@ EOTXT;
     }
     /**
      * @param string $file
+     * @return mixed[]
      */
-    private static function getUseStatements($file) : array
+    private static function getUseStatements($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;

@@ -109,8 +109,9 @@ final class ErrorOutput
     }
     /**
      * @param string $string
+     * @return string
      */
-    private function prepareOutput($string) : string
+    private function prepareOutput($string)
     {
         if (\is_object($string)) {
             $string = (string) $string;

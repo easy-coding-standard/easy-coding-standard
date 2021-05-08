@@ -26,6 +26,9 @@ class Comment
      */
     public function tokenizeString($string, $eolChar, $stackPtr)
     {
+        if (\is_object($eolChar)) {
+            $eolChar = (string) $eolChar;
+        }
         if (\is_object($string)) {
             $string = (string) $string;
         }
@@ -135,6 +138,9 @@ class Comment
      */
     private function processLine($string, $eolChar, $start, $end)
     {
+        if (\is_object($eolChar)) {
+            $eolChar = (string) $eolChar;
+        }
         if (\is_object($string)) {
             $string = (string) $string;
         }

@@ -62,9 +62,13 @@ class Validators
      * @throws AssertionException
      * @return void
      * @param string $expected
+     * @param string $label
      */
-    public static function assert($value, $expected, string $label = 'variable')
+    public static function assert($value, $expected, $label = 'variable')
     {
+        if (\is_object($label)) {
+            $label = (string) $label;
+        }
         if (\is_object($expected)) {
             $expected = (string) $expected;
         }
@@ -104,8 +108,9 @@ class Validators
      * Verifies that the value is of expected types separated by pipe.
      * @param  mixed  $value
      * @param string $expected
+     * @return bool
      */
-    public static function is($value, $expected) : bool
+    public static function is($value, $expected)
     {
         if (\is_object($expected)) {
             $expected = (string) $expected;
@@ -160,8 +165,9 @@ class Validators
      * Finds whether all values are of expected types separated by pipe.
      * @param  mixed[]  $values
      * @param string $expected
+     * @return bool
      */
-    public static function everyIs($values, $expected) : bool
+    public static function everyIs($values, $expected)
     {
         if (\is_object($expected)) {
             $expected = (string) $expected;
@@ -272,8 +278,9 @@ class Validators
     /**
      * Checks if the value is a valid email address. It does not verify that the domain actually exists, only the syntax is verified.
      * @param string $value
+     * @return bool
      */
-    public static function isEmail($value) : bool
+    public static function isEmail($value)
     {
         if (\is_object($value)) {
             $value = (string) $value;
@@ -295,8 +302,9 @@ XX
     /**
      * Checks if the value is a valid URL address.
      * @param string $value
+     * @return bool
      */
-    public static function isUrl($value) : bool
+    public static function isUrl($value)
     {
         if (\is_object($value)) {
             $value = (string) $value;
@@ -321,8 +329,9 @@ XX
     /**
      * Checks if the value is a valid URI address, that is, actually a string beginning with a syntactically valid schema.
      * @param string $value
+     * @return bool
      */
-    public static function isUri($value) : bool
+    public static function isUri($value)
     {
         if (\is_object($value)) {
             $value = (string) $value;
@@ -332,8 +341,9 @@ XX
     /**
      * Checks whether the input is a class, interface or trait.
      * @param string $type
+     * @return bool
      */
-    public static function isType($type) : bool
+    public static function isType($type)
     {
         if (\is_object($type)) {
             $type = (string) $type;
@@ -343,8 +353,9 @@ XX
     /**
      * Checks whether the input is a valid PHP identifier.
      * @param string $value
+     * @return bool
      */
-    public static function isPhpIdentifier($value) : bool
+    public static function isPhpIdentifier($value)
     {
         if (\is_object($value)) {
             $value = (string) $value;

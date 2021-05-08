@@ -33,8 +33,9 @@ final class NeonPrinter
     }
     /**
      * @param string $neonContent
+     * @return string
      */
-    private function replaceTabsWithSpaces($neonContent) : string
+    private function replaceTabsWithSpaces($neonContent)
     {
         if (\is_object($neonContent)) {
             $neonContent = (string) $neonContent;
@@ -43,8 +44,9 @@ final class NeonPrinter
     }
     /**
      * @param string $neonContent
+     * @return string
      */
-    private function inlineSingleTags($neonContent) : string
+    private function inlineSingleTags($neonContent)
     {
         if (\is_object($neonContent)) {
             $neonContent = (string) $neonContent;
@@ -53,8 +55,9 @@ final class NeonPrinter
     }
     /**
      * @param string $neonContent
+     * @return string
      */
-    private function fixDoubleSpaceInArguments($neonContent) : string
+    private function fixDoubleSpaceInArguments($neonContent)
     {
         if (\is_object($neonContent)) {
             $neonContent = (string) $neonContent;

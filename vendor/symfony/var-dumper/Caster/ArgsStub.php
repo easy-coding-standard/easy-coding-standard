@@ -53,8 +53,9 @@ class ArgsStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Enu
     /**
      * @param string|null $class
      * @param string $function
+     * @return mixed[]
      */
-    private static function getParameters($function, $class) : array
+    private static function getParameters($function, $class)
     {
         if (\is_object($function)) {
             $function = (string) $function;

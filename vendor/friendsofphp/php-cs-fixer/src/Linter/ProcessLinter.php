@@ -101,8 +101,9 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * {@inheritdoc}
      * @param string $path
+     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintFile($path) : \PhpCsFixer\Linter\LintingResultInterface
+    public function lintFile($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -112,8 +113,9 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     /**
      * {@inheritdoc}
      * @param string $source
+     * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    public function lintSource($source) : \PhpCsFixer\Linter\LintingResultInterface
+    public function lintSource($source)
     {
         if (\is_object($source)) {
             $source = (string) $source;
@@ -122,8 +124,9 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
     }
     /**
      * @param string $path path to file
+     * @return \Symfony\Component\Process\Process
      */
-    private function createProcessForFile($path) : \ECSPrefix20210508\Symfony\Component\Process\Process
+    private function createProcessForFile($path)
     {
         if (\is_object($path)) {
             $path = (string) $path;
@@ -141,8 +144,9 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      * Create process that lint PHP code.
      *
      * @param string $source code
+     * @return \Symfony\Component\Process\Process
      */
-    private function createProcessForSource($source) : \ECSPrefix20210508\Symfony\Component\Process\Process
+    private function createProcessForSource($source)
     {
         if (\is_object($source)) {
             $source = (string) $source;

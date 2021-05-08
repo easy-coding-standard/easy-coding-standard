@@ -19,8 +19,9 @@ class AutowiringFailedException extends \ECSPrefix20210508\Symfony\Component\Dep
     private $messageCallback;
     /**
      * @param string $serviceId
+     * @param int $code
      */
-    public function __construct($serviceId, $message = '', int $code = 0, \Throwable $previous = null)
+    public function __construct($serviceId, $message = '', $code = 0, \Throwable $previous = null)
     {
         if (\is_object($serviceId)) {
             $serviceId = (string) $serviceId;

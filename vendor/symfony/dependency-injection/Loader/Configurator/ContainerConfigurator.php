@@ -34,9 +34,13 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
     private $anonymousCount = 0;
     /**
      * @param string $path
+     * @param string $file
      */
-    public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, $path, string $file)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, $path, $file)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($path)) {
             $path = (string) $path;
         }
@@ -64,8 +68,9 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
     }
     /**
      * @param string $resource
+     * @param string $type
      */
-    public final function import($resource, string $type = null, $ignoreErrors = \false)
+    public final function import($resource, $type = null, $ignoreErrors = \false)
     {
         if (\is_object($resource)) {
             $resource = (string) $resource;
@@ -108,8 +113,9 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
 /**
  * Creates a parameter.
  * @param string $name
+ * @return string
  */
-function param($name) : string
+function param($name)
 {
     if (\is_object($name)) {
         $name = (string) $name;
@@ -121,8 +127,9 @@ function param($name) : string
  *
  * @deprecated since Symfony 5.1, use service() instead.
  * @param string $id
+ * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
  */
-function ref($id) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
+function ref($id)
 {
     if (\is_object($id)) {
         $id = (string) $id;
@@ -133,8 +140,9 @@ function ref($id) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loa
 /**
  * Creates a reference to a service.
  * @param string $serviceId
+ * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
  */
-function service($serviceId) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator
+function service($serviceId)
 {
     if (\is_object($serviceId)) {
         $serviceId = (string) $serviceId;
@@ -146,8 +154,9 @@ function service($serviceId) : \ECSPrefix20210508\Symfony\Component\DependencyIn
  *
  * @deprecated since Symfony 5.1, use inline_service() instead.
  * @param string $class
+ * @return \Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
  */
-function inline($class = null) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
+function inline($class = null)
 {
     if (\is_object($class)) {
         $class = (string) $class;
@@ -158,8 +167,9 @@ function inline($class = null) : \ECSPrefix20210508\Symfony\Component\Dependency
 /**
  * Creates an inline service.
  * @param string $class
+ * @return \Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
  */
-function inline_service($class = null) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator
+function inline_service($class = null)
 {
     if (\is_object($class)) {
         $class = (string) $class;
@@ -189,9 +199,22 @@ function iterator(array $values)
 /**
  * Creates a lazy iterator by tag name.
  * @param string $tag
+ * @param string $indexAttribute
+ * @param string $defaultIndexMethod
+ * @param string $defaultPriorityMethod
+ * @return \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument
  */
-function tagged_iterator($tag, string $indexAttribute = null, string $defaultIndexMethod = null, string $defaultPriorityMethod = null) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument
+function tagged_iterator($tag, $indexAttribute = null, $defaultIndexMethod = null, $defaultPriorityMethod = null)
 {
+    if (\is_object($defaultPriorityMethod)) {
+        $defaultPriorityMethod = (string) $defaultPriorityMethod;
+    }
+    if (\is_object($defaultIndexMethod)) {
+        $defaultIndexMethod = (string) $defaultIndexMethod;
+    }
+    if (\is_object($indexAttribute)) {
+        $indexAttribute = (string) $indexAttribute;
+    }
     if (\is_object($tag)) {
         $tag = (string) $tag;
     }
@@ -200,9 +223,18 @@ function tagged_iterator($tag, string $indexAttribute = null, string $defaultInd
 /**
  * Creates a service locator by tag name.
  * @param string $tag
+ * @param string $indexAttribute
+ * @param string $defaultIndexMethod
+ * @return \Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument
  */
-function tagged_locator($tag, string $indexAttribute = null, string $defaultIndexMethod = null) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument
+function tagged_locator($tag, $indexAttribute = null, $defaultIndexMethod = null)
 {
+    if (\is_object($defaultIndexMethod)) {
+        $defaultIndexMethod = (string) $defaultIndexMethod;
+    }
+    if (\is_object($indexAttribute)) {
+        $indexAttribute = (string) $indexAttribute;
+    }
     if (\is_object($tag)) {
         $tag = (string) $tag;
     }
@@ -211,8 +243,9 @@ function tagged_locator($tag, string $indexAttribute = null, string $defaultInde
 /**
  * Creates an expression.
  * @param string $expression
+ * @return \Symfony\Component\ExpressionLanguage\Expression
  */
-function expr($expression) : \ECSPrefix20210508\Symfony\Component\ExpressionLanguage\Expression
+function expr($expression)
 {
     if (\is_object($expression)) {
         $expression = (string) $expression;
@@ -222,8 +255,9 @@ function expr($expression) : \ECSPrefix20210508\Symfony\Component\ExpressionLang
 /**
  * Creates an abstract argument.
  * @param string $description
+ * @return \Symfony\Component\DependencyInjection\Argument\AbstractArgument
  */
-function abstract_arg($description) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\AbstractArgument
+function abstract_arg($description)
 {
     if (\is_object($description)) {
         $description = (string) $description;

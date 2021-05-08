@@ -64,7 +64,7 @@ class PrototypedArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\De
      * @param string $attribute The name of the attribute which value is to be used as a key
      * @param bool   $remove    Whether or not to remove the key
      */
-    public function setKeyAttribute($attribute, bool $remove = \true)
+    public function setKeyAttribute($attribute, $remove = \true)
     {
         if (\is_object($attribute)) {
             $attribute = (string) $attribute;

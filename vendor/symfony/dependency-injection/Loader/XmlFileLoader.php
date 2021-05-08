@@ -165,8 +165,9 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
     }
     /**
      * @param string $file
+     * @return \Symfony\Component\DependencyInjection\Definition
      */
-    private function getServiceDefaults(\DOMDocument $xml, $file) : \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition
+    private function getServiceDefaults(\DOMDocument $xml, $file)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -340,8 +341,9 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      *
      * @throws InvalidArgumentException When loading of XML file returns error
      * @param string $file
+     * @return \DOMDocument
      */
-    private function parseFileToDOM($file) : \DOMDocument
+    private function parseFileToDOM($file)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -400,9 +402,15 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
     }
     /**
      * @param string $name
+     * @param string $file
+     * @param bool $isChildDefinition
+     * @return mixed[]
      */
-    private function getArgumentsAsPhp(\DOMElement $node, $name, string $file, bool $isChildDefinition = \false) : array
+    private function getArgumentsAsPhp(\DOMElement $node, $name, $file, $isChildDefinition = \false)
     {
+        if (\is_object($file)) {
+            $file = (string) $file;
+        }
         if (\is_object($name)) {
             $name = (string) $name;
         }
@@ -501,10 +509,10 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
     /**
      * Get child elements by name.
      *
-     * @return \DOMElement[]
+     * @return mixed[]
      * @param string $name
      */
-    private function getChildren(\DOMNode $node, $name) : array
+    private function getChildren(\DOMNode $node, $name)
     {
         if (\is_object($name)) {
             $name = (string) $name;

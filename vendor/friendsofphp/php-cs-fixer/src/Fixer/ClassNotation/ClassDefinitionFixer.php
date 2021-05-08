@@ -234,8 +234,9 @@ interface Bar extends
     /**
      * @param int $startIndex
      * @param string $label
+     * @return mixed[]
      */
-    private function getClassyInheritanceInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $label) : array
+    private function getClassyInheritanceInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $label)
     {
         if (\is_object($label)) {
             $label = (string) $label;

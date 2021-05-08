@@ -79,8 +79,9 @@ final class Foo {}
     /**
      * Make sure the first useful line starts immediately after the first line.
      * @param string $content
+     * @return string
      */
-    private function fixStart($content) : string
+    private function fixStart($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;
@@ -97,8 +98,9 @@ final class Foo {}
     /**
      * Make sure the last useful line is immediately before the final line.
      * @param string $content
+     * @return string
      */
-    private function fixEnd($content) : string
+    private function fixEnd($content)
     {
         if (\is_object($content)) {
             $content = (string) $content;

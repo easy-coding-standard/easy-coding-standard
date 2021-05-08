@@ -27,8 +27,10 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
+     * @param int $position
+     * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, int $position) : string
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
@@ -56,10 +58,10 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
         return $this->fixTypos($argumentNames, $paramNames, $docContent);
     }
     /**
-     * @return string[]
+     * @return mixed[]
      * @param string $docContent
      */
-    private function getParamNames($docContent) : array
+    private function getParamNames($docContent)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
@@ -75,11 +77,15 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
         return $paramNames;
     }
     /**
-     * @return Annotation[]
+     * @return mixed[]
      * @param string $docContent
+     * @param string $type
      */
-    private function getAnnotationsOfType($docContent, string $type) : array
+    private function getAnnotationsOfType($docContent, $type)
     {
+        if (\is_object($type)) {
+            $type = (string) $type;
+        }
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;
         }
@@ -90,8 +96,9 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      * @param string[] $argumentNames
      * @param string[] $paramNames
      * @param string $docContent
+     * @return string
      */
-    private function fixTypos(array $argumentNames, array $paramNames, $docContent) : string
+    private function fixTypos(array $argumentNames, array $paramNames, $docContent)
     {
         if (\is_object($docContent)) {
             $docContent = (string) $docContent;

@@ -382,8 +382,10 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      *
      * @return array All matches in a multi-dimensional array ordered according to flags
      * @param string $regexp
+     * @param int $flags
+     * @param int $offset
      */
-    public abstract function match($regexp, int $flags = 0, int $offset = 0) : array;
+    public abstract function match($regexp, $flags = 0, $offset = 0);
     /**
      * @return static
      * @param int $length
@@ -423,8 +425,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     /**
      * @return static
      * @param string $from
+     * @param string $to
      */
-    public abstract function replace($from, string $to);
+    public abstract function replace($from, $to);
     /**
      * @param string|callable $to
      *
@@ -449,13 +452,17 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
     /**
      * @return static
      * @param string $replacement
+     * @param int $start
+     * @param int $length
      */
-    public abstract function splice($replacement, int $start = 0, int $length = null);
+    public abstract function splice($replacement, $start = 0, $length = null);
     /**
-     * @return static[]
+     * @return mixed[]
      * @param string $delimiter
+     * @param int $limit
+     * @param int $flags
      */
-    public function split($delimiter, int $limit = null, int $flags = null) : array
+    public function split($delimiter, $limit = null, $flags = null)
     {
         if (\is_object($delimiter)) {
             $delimiter = (string) $delimiter;
@@ -586,8 +593,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      * @return static
      * @param int $length
      * @param string $ellipsis
+     * @param bool $cut
      */
-    public function truncate($length, $ellipsis = '', bool $cut = \true)
+    public function truncate($length, $ellipsis = '', $cut = \true)
     {
         if (\is_object($ellipsis)) {
             $ellipsis = (string) $ellipsis;
@@ -623,8 +631,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      * @return static
      * @param int $width
      * @param string $break
+     * @param bool $cut
      */
-    public function wordwrap($width = 75, $break = "\n", bool $cut = \false)
+    public function wordwrap($width = 75, $break = "\n", $cut = \false)
     {
         if (\is_object($break)) {
             $break = (string) $break;

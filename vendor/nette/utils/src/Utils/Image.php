@@ -122,8 +122,9 @@ class Image
      * @throws UnknownImageFileException if file not found or file type is not known
      * @return static
      * @param string $file
+     * @param int $type
      */
-    public static function fromFile($file, int &$type = null)
+    public static function fromFile($file, &$type = null)
     {
         if (\is_object($file)) {
             $file = (string) $file;
@@ -146,8 +147,9 @@ class Image
      * @throws Nette\NotSupportedException if gd extension is not loaded
      * @throws ImageException
      * @param string $s
+     * @param int $type
      */
-    public static function fromString($s, int &$type = null)
+    public static function fromString($s, &$type = null)
     {
         if (\is_object($s)) {
             $s = (string) $s;
@@ -490,8 +492,10 @@ class Image
      * @throws ImageException
      * @return void
      * @param string $file
+     * @param int $quality
+     * @param int $type
      */
-    public function save($file, int $quality = null, int $type = null)
+    public function save($file, $quality = null, $type = null)
     {
         if (\is_object($file)) {
             $file = (string) $file;

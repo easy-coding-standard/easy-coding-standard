@@ -30,7 +30,7 @@ class RedirectResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      *
      * @see https://tools.ietf.org/html/rfc2616#section-10.3
      */
-    public function __construct($url, int $status = 302, array $headers = [])
+    public function __construct($url, $status = 302, array $headers = [])
     {
         if (\is_object($url)) {
             $url = (string) $url;
@@ -52,8 +52,9 @@ class RedirectResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      * @return static
      *
      * @deprecated since Symfony 5.1, use __construct() instead.
+     * @param int $status
      */
-    public static function create($url = '', int $status = 302, array $headers = [])
+    public static function create($url = '', $status = 302, array $headers = [])
     {
         if (\is_object($url)) {
             $url = (string) $url;

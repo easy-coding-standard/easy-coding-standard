@@ -22,8 +22,9 @@ final class JsonInliner
     }
     /**
      * @param string $jsonContent
+     * @return string
      */
-    public function inlineSections($jsonContent) : string
+    public function inlineSections($jsonContent)
     {
         if (\is_object($jsonContent)) {
             $jsonContent = (string) $jsonContent;

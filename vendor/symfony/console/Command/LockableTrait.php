@@ -27,8 +27,10 @@ trait LockableTrait
     /**
      * Locks a command.
      * @param string $name
+     * @param bool $blocking
+     * @return bool
      */
-    private function lock($name = null, bool $blocking = \false) : bool
+    private function lock($name = null, $blocking = \false)
     {
         if (\is_object($name)) {
             $name = (string) $name;

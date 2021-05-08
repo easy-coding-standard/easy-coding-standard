@@ -23,7 +23,7 @@ class Gitignore
      * @return string The regexp
      * @param string $gitignoreFileContent
      */
-    public static function toRegex($gitignoreFileContent) : string
+    public static function toRegex($gitignoreFileContent)
     {
         if (\is_object($gitignoreFileContent)) {
             $gitignoreFileContent = (string) $gitignoreFileContent;
@@ -61,8 +61,10 @@ class Gitignore
     }
     /**
      * @param string $gitignorePattern
+     * @param bool $negative
+     * @return string
      */
-    private static function getRegexFromGitignore($gitignorePattern, bool $negative = \false) : string
+    private static function getRegexFromGitignore($gitignorePattern, $negative = \false)
     {
         if (\is_object($gitignorePattern)) {
             $gitignorePattern = (string) $gitignorePattern;

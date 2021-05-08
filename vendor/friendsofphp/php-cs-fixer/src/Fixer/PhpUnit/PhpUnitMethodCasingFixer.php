@@ -101,8 +101,9 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
     /**
      * @param string $functionName
+     * @return string
      */
-    private function updateMethodCasing($functionName) : string
+    private function updateMethodCasing($functionName)
     {
         if (\is_object($functionName)) {
             $functionName = (string) $functionName;
@@ -150,9 +151,14 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
     /**
      * @param string $needle
+     * @param string $haystack
+     * @return bool
      */
-    private function startsWith($needle, string $haystack) : bool
+    private function startsWith($needle, $haystack)
     {
+        if (\is_object($haystack)) {
+            $haystack = (string) $haystack;
+        }
         if (\is_object($needle)) {
             $needle = (string) $needle;
         }

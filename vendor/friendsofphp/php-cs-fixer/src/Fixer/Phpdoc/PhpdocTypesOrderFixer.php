@@ -152,8 +152,9 @@ final class PhpdocTypesOrderFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * @param string $types
+     * @return string
      */
-    private function sortJoinedTypes($types) : string
+    private function sortJoinedTypes($types)
     {
         if (\is_object($types)) {
             $types = (string) $types;

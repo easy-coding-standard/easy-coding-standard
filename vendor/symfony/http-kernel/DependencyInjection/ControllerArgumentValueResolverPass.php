@@ -30,9 +30,17 @@ class ControllerArgumentValueResolverPass implements \ECSPrefix20210508\Symfony\
     private $traceableResolverStopwatch;
     /**
      * @param string $argumentResolverService
+     * @param string $argumentValueResolverTag
+     * @param string $traceableResolverStopwatch
      */
-    public function __construct($argumentResolverService = 'argument_resolver', string $argumentValueResolverTag = 'controller.argument_value_resolver', string $traceableResolverStopwatch = 'debug.stopwatch')
+    public function __construct($argumentResolverService = 'argument_resolver', $argumentValueResolverTag = 'controller.argument_value_resolver', $traceableResolverStopwatch = 'debug.stopwatch')
     {
+        if (\is_object($traceableResolverStopwatch)) {
+            $traceableResolverStopwatch = (string) $traceableResolverStopwatch;
+        }
+        if (\is_object($argumentValueResolverTag)) {
+            $argumentValueResolverTag = (string) $argumentValueResolverTag;
+        }
         if (\is_object($argumentResolverService)) {
             $argumentResolverService = (string) $argumentResolverService;
         }

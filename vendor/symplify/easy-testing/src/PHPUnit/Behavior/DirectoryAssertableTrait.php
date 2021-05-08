@@ -18,9 +18,13 @@ trait DirectoryAssertableTrait
     /**
      * @return void
      * @param string $expectedDirectory
+     * @param string $outputDirectory
      */
-    protected function assertDirectoryEquals($expectedDirectory, string $outputDirectory)
+    protected function assertDirectoryEquals($expectedDirectory, $outputDirectory)
     {
+        if (\is_object($outputDirectory)) {
+            $outputDirectory = (string) $outputDirectory;
+        }
         if (\is_object($expectedDirectory)) {
             $expectedDirectory = (string) $expectedDirectory;
         }
@@ -38,10 +42,10 @@ trait DirectoryAssertableTrait
         }
     }
     /**
-     * @return SmartFileInfo[]
+     * @return mixed[]
      * @param string $directory
      */
-    private function findFileInfosInDirectory($directory) : array
+    private function findFileInfosInDirectory($directory)
     {
         if (\is_object($directory)) {
             $directory = (string) $directory;
@@ -54,11 +58,15 @@ trait DirectoryAssertableTrait
     /**
      * @param SmartFileInfo[] $expectedFileInfos
      * @param SmartFileInfo[] $outputFileInfos
-     * @return array<string, ExpectedAndOutputFileInfoPair>
+     * @return mixed[]
      * @param string $expectedDirectory
+     * @param string $outputDirectory
      */
-    private function groupFileInfosByRelativeFilePath(array $expectedFileInfos, $expectedDirectory, array $outputFileInfos, string $outputDirectory) : array
+    private function groupFileInfosByRelativeFilePath(array $expectedFileInfos, $expectedDirectory, array $outputFileInfos, $outputDirectory)
     {
+        if (\is_object($outputDirectory)) {
+            $outputDirectory = (string) $outputDirectory;
+        }
         if (\is_object($expectedDirectory)) {
             $expectedDirectory = (string) $expectedDirectory;
         }
@@ -75,9 +83,13 @@ trait DirectoryAssertableTrait
      * @param SmartFileInfo[] $fileInfos
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      * @param string $directory
+     * @param string $desiredRelativeFilePath
      */
-    private function resolveFileInfoByRelativeFilePath(array $fileInfos, $directory, string $desiredRelativeFilePath)
+    private function resolveFileInfoByRelativeFilePath(array $fileInfos, $directory, $desiredRelativeFilePath)
     {
+        if (\is_object($desiredRelativeFilePath)) {
+            $desiredRelativeFilePath = (string) $desiredRelativeFilePath;
+        }
         if (\is_object($directory)) {
             $directory = (string) $directory;
         }

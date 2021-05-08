@@ -82,9 +82,15 @@ class Logger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
     }
     /**
      * @param string $level
+     * @param string $message
+     * @param bool $prefixDate
+     * @return string
      */
-    private function format($level, string $message, array $context, bool $prefixDate = \true) : string
+    private function format($level, $message, array $context, $prefixDate = \true)
     {
+        if (\is_object($message)) {
+            $message = (string) $message;
+        }
         if (\is_object($level)) {
             $level = (string) $level;
         }

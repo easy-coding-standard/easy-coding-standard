@@ -15,8 +15,9 @@ final class ClassLikeExistenceChecker
     private $sensitiveNonExistingClasses = [];
     /**
      * @param string $classLike
+     * @return bool
      */
-    public function doesClassLikeExist($classLike) : bool
+    public function doesClassLikeExist($classLike)
     {
         if (\is_object($classLike)) {
             $classLike = (string) $classLike;
@@ -31,8 +32,9 @@ final class ClassLikeExistenceChecker
     }
     /**
      * @param string $classLikeName
+     * @return bool
      */
-    public function doesClassLikeInsensitiveExists($classLikeName) : bool
+    public function doesClassLikeInsensitiveExists($classLikeName)
     {
         if (\is_object($classLikeName)) {
             $classLikeName = (string) $classLikeName;

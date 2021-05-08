@@ -24,9 +24,13 @@ final class CodingStandardError
     /**
      * @param int $line
      * @param string $message
+     * @param string $checkerClass
      */
-    public function __construct($line, $message, string $checkerClass, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    public function __construct($line, $message, $checkerClass, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
+        if (\is_object($checkerClass)) {
+            $checkerClass = (string) $checkerClass;
+        }
         if (\is_object($message)) {
             $message = (string) $message;
         }

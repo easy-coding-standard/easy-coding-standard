@@ -18,8 +18,9 @@ final class SetResolver
     }
     /**
      * @param string $setName
+     * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
-    public function detectFromName($setName) : \Symplify\SmartFileSystem\SmartFileInfo
+    public function detectFromName($setName)
     {
         if (\is_object($setName)) {
             $setName = (string) $setName;

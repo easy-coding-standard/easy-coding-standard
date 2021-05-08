@@ -213,6 +213,9 @@ if (\class_exists('PHP_CodeSniffer\\Autoload', \false) === \false) {
          */
         public static function addSearchPath($path, $nsPrefix = '')
         {
+            if (\is_object($nsPrefix)) {
+                $nsPrefix = (string) $nsPrefix;
+            }
             if (\is_object($path)) {
                 $path = (string) $path;
             }

@@ -23,8 +23,11 @@ class ConfirmationQuestion extends \ECSPrefix20210508\Symfony\Component\Console\
      * @param bool   $default         The default answer to return, true or false
      * @param string $trueAnswerRegex A regex to match the "yes" answer
      */
-    public function __construct($question, bool $default = \true, string $trueAnswerRegex = '/^y/i')
+    public function __construct($question, $default = \true, $trueAnswerRegex = '/^y/i')
     {
+        if (\is_object($trueAnswerRegex)) {
+            $trueAnswerRegex = (string) $trueAnswerRegex;
+        }
         if (\is_object($question)) {
             $question = (string) $question;
         }

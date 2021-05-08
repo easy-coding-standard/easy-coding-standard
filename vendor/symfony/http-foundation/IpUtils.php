@@ -142,8 +142,9 @@ class IpUtils
      *
      * Removes the last byte for v4 and the last 8 bytes for v6 IPs
      * @param string $ip
+     * @return string
      */
-    public static function anonymize($ip) : string
+    public static function anonymize($ip)
     {
         if (\is_object($ip)) {
             $ip = (string) $ip;
