@@ -29,6 +29,7 @@ final class Cursor
      */
     public function moveUp($lines = 1)
     {
+        $lines = (int) $lines;
         $this->output->write(\sprintf("\33[%dA", $lines));
         return $this;
     }
@@ -38,6 +39,7 @@ final class Cursor
      */
     public function moveDown($lines = 1)
     {
+        $lines = (int) $lines;
         $this->output->write(\sprintf("\33[%dB", $lines));
         return $this;
     }
@@ -47,6 +49,7 @@ final class Cursor
      */
     public function moveRight($columns = 1)
     {
+        $columns = (int) $columns;
         $this->output->write(\sprintf("\33[%dC", $columns));
         return $this;
     }
@@ -56,6 +59,7 @@ final class Cursor
      */
     public function moveLeft($columns = 1)
     {
+        $columns = (int) $columns;
         $this->output->write(\sprintf("\33[%dD", $columns));
         return $this;
     }
@@ -65,6 +69,7 @@ final class Cursor
      */
     public function moveToColumn($column)
     {
+        $column = (int) $column;
         $this->output->write(\sprintf("\33[%dG", $column));
         return $this;
     }
@@ -75,6 +80,8 @@ final class Cursor
      */
     public function moveToPosition($column, $row)
     {
+        $column = (int) $column;
+        $row = (int) $row;
         $this->output->write(\sprintf("\33[%d;%dH", $row + 1, $column));
         return $this;
     }

@@ -112,6 +112,7 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getIssetInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $openIndex = $tokens->getNextMeaningfulToken($index);
         $braceOpenCount = 1;
         $meaningfulTokenIndexes = [$openIndex];

@@ -145,9 +145,7 @@ final class CacheItem implements \ECSPrefix20210508\Symfony\Contracts\Cache\Item
      */
     public static function validateKey($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (!\is_string($key)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
@@ -168,9 +166,7 @@ final class CacheItem implements \ECSPrefix20210508\Symfony\Contracts\Cache\Item
      */
     public static function log($logger, $message, array $context = [])
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if ($logger) {
             $logger->warning($message, $context);
         } else {

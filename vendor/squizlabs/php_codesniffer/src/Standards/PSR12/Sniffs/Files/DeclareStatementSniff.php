@@ -35,6 +35,7 @@ class DeclareStatementSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         // Allow a byte-order mark.
         $tokens = $phpcsFile->getTokens();
         // There should be no space between declare keyword and opening parenthesis.

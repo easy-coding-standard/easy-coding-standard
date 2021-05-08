@@ -24,9 +24,7 @@ final class PathNormalizer
      */
     public function normalizeForFnmatch($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         // ends with *
         if (\ECSPrefix20210508\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;

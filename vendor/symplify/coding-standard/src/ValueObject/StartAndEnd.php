@@ -18,6 +18,8 @@ final class StartAndEnd
      */
     public function __construct($start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $this->start = $start;
         $this->end = $end;
     }

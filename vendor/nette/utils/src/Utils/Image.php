@@ -114,6 +114,10 @@ class Image
      */
     public static function rgb($red, $green, $blue, $transparency = 0)
     {
+        $red = (int) $red;
+        $green = (int) $green;
+        $blue = (int) $blue;
+        $transparency = (int) $transparency;
         return ['red' => \max(0, \min(255, $red)), 'green' => \max(0, \min(255, $green)), 'blue' => \max(0, \min(255, $blue)), 'alpha' => \max(0, \min(127, $transparency))];
     }
     /**
@@ -126,9 +130,7 @@ class Image
      */
     public static function fromFile($file, &$type = null)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if (!\extension_loaded('gd')) {
             throw new \ECSPrefix20210508\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
@@ -151,9 +153,7 @@ class Image
      */
     public static function fromString($s, &$type = null)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         if (!\extension_loaded('gd')) {
             throw new \ECSPrefix20210508\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
@@ -174,6 +174,8 @@ class Image
      */
     public static function fromBlank($width, $height, array $color = null)
     {
+        $width = (int) $width;
+        $height = (int) $height;
         if (!\extension_loaded('gd')) {
             throw new \ECSPrefix20210508\Nette\NotSupportedException('PHP extension GD is not loaded.');
         }
@@ -197,9 +199,7 @@ class Image
      */
     public static function detectTypeFromFile($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $type = @\getimagesize($file)[2];
         // @ - files smaller than 12 bytes causes read error
         return isset(self::FORMATS[$type]) ? $type : null;
@@ -211,9 +211,7 @@ class Image
      */
     public static function detectTypeFromString($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         $type = @\getimagesizefromstring($s)[2];
         // @ - strings smaller than 12 bytes causes read error
         return isset(self::FORMATS[$type]) ? $type : null;
@@ -225,6 +223,7 @@ class Image
      */
     public static function typeToExtension($type)
     {
+        $type = (int) $type;
         if (!isset(self::FORMATS[$type])) {
             throw new \ECSPrefix20210508\Nette\InvalidArgumentException("Unsupported image type '{$type}'.");
         }
@@ -237,6 +236,7 @@ class Image
      */
     public static function typeToMimeType($type)
     {
+        $type = (int) $type;
         return 'image/' . self::typeToExtension($type);
     }
     /**
@@ -294,6 +294,7 @@ class Image
      */
     public function resize($width, $height, $flags = self::FIT)
     {
+        $flags = (int) $flags;
         if ($flags & self::EXACT) {
             return $this->resize($width, $height, self::FILL)->crop('50%', '50%', $width, $height);
         }
@@ -320,6 +321,9 @@ class Image
      */
     public static function calculateSize($srcWidth, $srcHeight, $newWidth, $newHeight, $flags = self::FIT)
     {
+        $srcWidth = (int) $srcWidth;
+        $srcHeight = (int) $srcHeight;
+        $flags = (int) $flags;
         if ($newWidth === null) {
         } elseif (self::isPercent($newWidth)) {
             $newWidth = (int) \round($srcWidth / 100 * \abs($newWidth));
@@ -402,6 +406,8 @@ class Image
      */
     public static function calculateCutout($srcWidth, $srcHeight, $left, $top, $newWidth, $newHeight)
     {
+        $srcWidth = (int) $srcWidth;
+        $srcHeight = (int) $srcHeight;
         if (self::isPercent($newWidth)) {
             $newWidth = (int) \round($srcWidth / 100 * $newWidth);
         }
@@ -450,6 +456,7 @@ class Image
      */
     public function place($image, $left = 0, $top = 0, $opacity = 100)
     {
+        $opacity = (int) $opacity;
         $opacity = \max(0, \min(100, $opacity));
         if ($opacity === 0) {
             return $this;
@@ -497,9 +504,7 @@ class Image
      */
     public function save($file, $quality = null, $type = null)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if ($type === null) {
             $extensions = \array_flip(self::FORMATS) + ['jpg' => self::JPEG];
             $ext = \strtolower(\pathinfo($file, \PATHINFO_EXTENSION));
@@ -518,6 +523,7 @@ class Image
      */
     public function toString($type = self::JPEG, $quality = null)
     {
+        $type = (int) $type;
         return \ECSPrefix20210508\Nette\Utils\Helpers::capture(function () use($type, $quality) {
             $this->output($type, $quality);
         });
@@ -547,6 +553,7 @@ class Image
      */
     public function send($type = self::JPEG, $quality = null)
     {
+        $type = (int) $type;
         \header('Content-Type: ' . self::typeToMimeType($type));
         $this->output($type, $quality);
     }
@@ -560,6 +567,7 @@ class Image
      */
     private function output($type, $quality, $file = null)
     {
+        $type = (int) $type;
         switch ($type) {
             case self::JPEG:
                 $quality = $quality === null ? 85 : \max(0, \min(100, $quality));
@@ -599,9 +607,7 @@ class Image
      */
     public function __call($name, array $args)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $function = 'image' . $name;
         if (!\function_exists($function)) {
             \ECSPrefix20210508\Nette\Utils\ObjectHelpers::strictCall(static::class, $name);

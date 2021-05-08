@@ -48,9 +48,8 @@ final class ArgumentAnalysis
      */
     public function __construct($name, $nameIndex, $default, $typeAnalysis = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $nameIndex = (int) $nameIndex;
         $this->name = $name;
         $this->nameIndex = $nameIndex;
         $this->default = $default ?: null;

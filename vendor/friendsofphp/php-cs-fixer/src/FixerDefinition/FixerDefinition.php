@@ -28,9 +28,7 @@ final class FixerDefinition implements \PhpCsFixer\FixerDefinition\FixerDefiniti
      */
     public function __construct($summary, array $codeSamples, $description = null, $riskyDescription = null)
     {
-        if (\is_object($summary)) {
-            $summary = (string) $summary;
-        }
+        $summary = (string) $summary;
         $this->summary = $summary;
         $this->codeSamples = $codeSamples;
         $this->description = $description;

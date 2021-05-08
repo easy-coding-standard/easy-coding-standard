@@ -35,6 +35,7 @@ class ErrorListener implements \ECSPrefix20210508\Symfony\Component\EventDispatc
      */
     public function __construct($controller, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null, $debug = \false)
     {
+        $debug = (bool) $debug;
         $this->controller = $controller;
         $this->logger = $logger;
         $this->debug = $debug;
@@ -109,9 +110,7 @@ class ErrorListener implements \ECSPrefix20210508\Symfony\Component\EventDispatc
      */
     protected function logException(\Throwable $exception, $message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if (null !== $this->logger) {
             if (!$exception instanceof \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface || $exception->getStatusCode() >= 500) {
                 $this->logger->critical($message, ['exception' => $exception]);

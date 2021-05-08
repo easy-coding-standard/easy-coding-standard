@@ -20,12 +20,8 @@ final class SetNotFoundException extends \Exception
      */
     public function __construct($message, $setName, array $availableSetNames)
     {
-        if (\is_object($setName)) {
-            $setName = (string) $setName;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $setName = (string) $setName;
         $this->setName = $setName;
         $this->availableSetNames = $availableSetNames;
         parent::__construct($message);

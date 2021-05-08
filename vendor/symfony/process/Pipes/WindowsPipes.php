@@ -34,6 +34,7 @@ class WindowsPipes extends \ECSPrefix20210508\Symfony\Component\Process\Pipes\Ab
      */
     public function __construct($input, $haveReadSupport)
     {
+        $haveReadSupport = (bool) $haveReadSupport;
         $this->haveReadSupport = $haveReadSupport;
         if ($this->haveReadSupport) {
             // Fix for PHP bug #51800: reading from STDOUT pipe hangs forever on Windows if the output is too big.
@@ -122,6 +123,8 @@ class WindowsPipes extends \ECSPrefix20210508\Symfony\Component\Process\Pipes\Ab
      */
     public function readAndWrite($blocking, $close = \false)
     {
+        $blocking = (bool) $blocking;
+        $close = (bool) $close;
         $this->unblock();
         $w = $this->write();
         $read = $r = $e = [];

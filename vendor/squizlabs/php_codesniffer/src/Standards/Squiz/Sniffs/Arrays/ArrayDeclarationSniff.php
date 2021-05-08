@@ -35,6 +35,7 @@ class ArrayDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_ARRAY) {
             $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'no');
@@ -121,6 +122,9 @@ class ArrayDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processSingleLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd)
     {
+        $stackPtr = (int) $stackPtr;
+        $arrayStart = (int) $arrayStart;
+        $arrayEnd = (int) $arrayEnd;
         $tokens = $phpcsFile->getTokens();
         // Check if there are multiple values. If so, then it has to be multiple lines
         // unless it is contained inside a function call or condition.
@@ -271,6 +275,9 @@ class ArrayDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processMultiLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd)
     {
+        $stackPtr = (int) $stackPtr;
+        $arrayStart = (int) $arrayStart;
+        $arrayEnd = (int) $arrayEnd;
         $tokens = $phpcsFile->getTokens();
         $keywordStart = $tokens[$stackPtr]['column'];
         // Check the closing bracket is on a new line.

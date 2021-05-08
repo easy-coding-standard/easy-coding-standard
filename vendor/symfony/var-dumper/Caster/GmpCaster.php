@@ -28,6 +28,8 @@ class GmpCaster
      */
     public static function castGmp(\GMP $gmp, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $a[\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'value'] = new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ConstStub(\gmp_strval($gmp), \gmp_strval($gmp));
         return $a;
     }

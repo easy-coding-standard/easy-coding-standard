@@ -17,12 +17,8 @@ final class StringsConverter
      */
     public function camelCaseToGlue($input, $glue)
     {
-        if (\is_object($glue)) {
-            $glue = (string) $glue;
-        }
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
+        $glue = (string) $glue;
         if ($input === \strtolower($input)) {
             return $input;
         }
@@ -40,12 +36,8 @@ final class StringsConverter
      */
     public function dashedToCamelCaseWithGlue($content, $glue)
     {
-        if (\is_object($glue)) {
-            $glue = (string) $glue;
-        }
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $glue = (string) $glue;
         $parts = \explode('-', $content);
         $casedParts = [];
         foreach ($parts as $part) {

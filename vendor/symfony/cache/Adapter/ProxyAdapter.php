@@ -37,9 +37,8 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function __construct(\ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $pool, $namespace = '', $defaultLifetime = 0)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         $this->pool = $pool;
         $this->poolHash = $poolHash = \spl_object_hash($pool);
         $this->namespace = '' === $namespace ? '' : \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($namespace);
@@ -96,9 +95,7 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function get($key, callable $callback, $beta = null, array &$metadata = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (!$this->pool instanceof \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface) {
             return $this->doGet($this, $key, $callback, $beta, $metadata);
         }
@@ -114,9 +111,7 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function getItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         $f = $this->createCacheItem;
         $item = $this->pool->getItem($this->getId($key));
         return $f($key, $item);
@@ -140,9 +135,7 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function hasItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return $this->pool->hasItem($this->getId($key));
     }
     /**
@@ -153,9 +146,7 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function clear($prefix = '')
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
         if ($this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
             return $this->pool->clear($this->namespace . $prefix);
         }
@@ -168,9 +159,7 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function deleteItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return $this->pool->deleteItem($this->getId($key));
     }
     /**
@@ -219,9 +208,7 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     private function doSave(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item, $method)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         if (!$item instanceof \ECSPrefix20210508\Symfony\Component\Cache\CacheItem) {
             return \false;
         }

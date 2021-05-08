@@ -26,6 +26,7 @@ class HttpException extends \RuntimeException implements \ECSPrefix20210508\Symf
      */
     public function __construct($statusCode, $message = '', \Throwable $previous = null, array $headers = [], $code = 0)
     {
+        $statusCode = (int) $statusCode;
         $this->statusCode = $statusCode;
         $this->headers = $headers;
         parent::__construct($message, $code, $previous);

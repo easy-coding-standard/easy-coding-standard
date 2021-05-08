@@ -76,6 +76,7 @@ final class WhitespaceAfterCommaInArrayFixer extends \PhpCsFixer\AbstractFixer
      */
     private function skipNonArrayElements($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         if ($tokens[$index]->equals('}')) {
             return $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }

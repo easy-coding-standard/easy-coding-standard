@@ -95,6 +95,7 @@ EOT
      */
     private function clear(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         while (!$tokens[++$index]->equals(';')) {
             if ($this->shouldClearToken($tokens, $index)) {
                 $tokens->clearAt($index);
@@ -108,6 +109,7 @@ EOT
      */
     private function needFixing(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if ($this->isStrictOrNullableReturnTypeFunction($tokens, $index)) {
             return \false;
         }
@@ -128,6 +130,7 @@ EOT
      */
     private function isStrictOrNullableReturnTypeFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $returnIndex)
     {
+        $returnIndex = (int) $returnIndex;
         $functionIndex = $returnIndex;
         do {
             $functionIndex = $tokens->getPrevTokenOfKind($functionIndex, [[\T_FUNCTION]]);
@@ -153,6 +156,7 @@ EOT
      */
     private function shouldClearToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $token = $tokens[$index];
         return !$token->isComment() && !($token->isWhitespace() && $tokens[$index + 1]->isComment());
     }

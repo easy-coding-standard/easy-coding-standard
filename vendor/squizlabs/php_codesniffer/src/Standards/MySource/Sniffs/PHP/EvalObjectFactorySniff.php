@@ -35,6 +35,7 @@ class EvalObjectFactorySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         /*
             We need to find all strings that will be in the eval

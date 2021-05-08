@@ -29,6 +29,7 @@ class PgSqlCaster
      */
     public static function castLargeObject($lo, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a['seek position'] = \pg_lo_tell($lo);
         return $a;
     }
@@ -37,6 +38,7 @@ class PgSqlCaster
      */
     public static function castLink($link, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a['status'] = \pg_connection_status($link);
         $a['status'] = new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ConstStub(\PGSQL_CONNECTION_OK === $a['status'] ? 'PGSQL_CONNECTION_OK' : 'PGSQL_CONNECTION_BAD', $a['status']);
         $a['busy'] = \pg_connection_busy($link);
@@ -66,6 +68,7 @@ class PgSqlCaster
      */
     public static function castResult($result, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a['num rows'] = \pg_num_rows($result);
         $a['status'] = \pg_result_status($result);
         if (isset(self::RESULT_STATUS[$a['status']])) {

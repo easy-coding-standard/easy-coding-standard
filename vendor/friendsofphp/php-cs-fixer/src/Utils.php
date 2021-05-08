@@ -30,9 +30,7 @@ final class Utils
      */
     public static function camelCaseToUnderscore($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         return \strtolower(\PhpCsFixer\Preg::replace('/(?<!^)((?=[A-Z][^A-Z])|(?<![A-Z])(?=[A-Z]))/', '_', $string));
     }
     /**
@@ -46,6 +44,8 @@ final class Utils
      */
     public static function cmpInt($a, $b)
     {
+        $a = (int) $a;
+        $b = (int) $b;
         if ($a === $b) {
             return 0;
         }
@@ -142,12 +142,8 @@ final class Utils
      */
     public static function triggerDeprecation($message, $exceptionClass = \RuntimeException::class)
     {
-        if (\is_object($exceptionClass)) {
-            $exceptionClass = (string) $exceptionClass;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $exceptionClass = (string) $exceptionClass;
         if (\getenv('PHP_CS_FIXER_FUTURE_MODE')) {
             throw new $exceptionClass("{$message} This check was performed as `PHP_CS_FIXER_FUTURE_MODE` env var is set.");
         }

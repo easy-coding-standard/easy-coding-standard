@@ -51,9 +51,7 @@ final class DocBlock
      */
     public function __construct($content, $namespace = null, array $namespaceUses = [])
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         foreach (\PhpCsFixer\Preg::split('/([^\\n\\r]+\\R*)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE) as $line) {
             $this->lines[] = new \PhpCsFixer\DocBlock\Line($line);
         }
@@ -84,6 +82,7 @@ final class DocBlock
      */
     public function getLine($pos)
     {
+        $pos = (int) $pos;
         return isset($this->lines[$pos]) ? $this->lines[$pos] : null;
     }
     /**
@@ -128,12 +127,8 @@ final class DocBlock
      */
     public function makeMultiLine($indent, $lineEnd)
     {
-        if (\is_object($lineEnd)) {
-            $lineEnd = (string) $lineEnd;
-        }
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
+        $indent = (string) $indent;
+        $lineEnd = (string) $lineEnd;
         if ($this->isMultiLine()) {
             return;
         }
@@ -170,6 +165,7 @@ final class DocBlock
      */
     public function getAnnotation($pos)
     {
+        $pos = (int) $pos;
         $annotations = $this->getAnnotations();
         return isset($annotations[$pos]) ? $annotations[$pos] : null;
     }
@@ -210,6 +206,7 @@ final class DocBlock
      */
     private function findAnnotationLength($start)
     {
+        $start = (int) $start;
         $index = $start;
         while ($line = $this->getLine(++$index)) {
             if ($line->containsATag()) {

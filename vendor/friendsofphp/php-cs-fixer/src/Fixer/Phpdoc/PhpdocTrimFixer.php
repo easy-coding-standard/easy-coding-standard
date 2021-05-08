@@ -83,9 +83,7 @@ final class Foo {}
      */
     private function fixStart($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         return \PhpCsFixer\Preg::replace('~
                 (^/\\*\\*)            # DocComment begin
                 (?:
@@ -102,9 +100,7 @@ final class Foo {}
      */
     private function fixEnd($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         return \PhpCsFixer\Preg::replace('~
                 (\\R\\h*(?:\\*\\h*)?\\S.*?) # last line with useful content
                 (?:

@@ -22,9 +22,7 @@ final class DocBlockLinesFactory
      */
     public function createFromDocBlock($docBlock)
     {
-        if (\is_object($docBlock)) {
-            $docBlock = (string) $docBlock;
-        }
+        $docBlock = (string) $docBlock;
         // Remove the prefix '/**'
         $docBlock = \ECSPrefix20210508\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
         // Remove the suffix '*/'
@@ -67,9 +65,7 @@ final class DocBlockLinesFactory
      */
     private function splitToLines($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         return \explode(\PHP_EOL, $string);
     }
 }

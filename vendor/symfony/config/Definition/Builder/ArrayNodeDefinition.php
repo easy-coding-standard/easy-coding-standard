@@ -65,9 +65,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function prototype($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return $this->prototype = $this->getNodeBuilder()->node(null, $type)->setParent($this);
     }
     /**
@@ -181,9 +179,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function fixXmlConfig($singular, $plural = null)
     {
-        if (\is_object($singular)) {
-            $singular = (string) $singular;
-        }
+        $singular = (string) $singular;
         $this->normalization()->remap($singular, $plural);
         return $this;
     }
@@ -217,9 +213,8 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function useAttributeAsKey($name, $removeKeyItem = \true)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $removeKeyItem = (bool) $removeKeyItem;
         $this->key = $name;
         $this->removeKeyItem = $removeKeyItem;
         return $this;
@@ -232,6 +227,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function canBeUnset($allow = \true)
     {
+        $allow = (bool) $allow;
         $this->merge()->allowUnset($allow);
         return $this;
     }
@@ -295,6 +291,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function ignoreExtraKeys($remove = \true)
     {
+        $remove = (bool) $remove;
         $this->ignoreExtraKeys = \true;
         $this->removeExtraKeys = $remove;
         return $this;
@@ -307,6 +304,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function normalizeKeys($bool)
     {
+        $bool = (bool) $bool;
         $this->normalizeKeys = $bool;
         return $this;
     }
@@ -453,9 +451,7 @@ class ArrayNodeDefinition extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function find($nodePath)
     {
-        if (\is_object($nodePath)) {
-            $nodePath = (string) $nodePath;
-        }
+        $nodePath = (string) $nodePath;
         $firstPathSegment = \false === ($pathSeparatorPos = \strpos($nodePath, $this->pathSeparator)) ? $nodePath : \substr($nodePath, 0, $pathSeparatorPos);
         if (null === ($node = isset($this->children[$firstPathSegment]) ? $this->children[$firstPathSegment] : null)) {
             throw new \RuntimeException(\sprintf('Node with name "%s" does not exist in the current node "%s".', $firstPathSegment, $this->name));

@@ -123,6 +123,7 @@ return $foo === count($bar);
      */
     private function findComparisonEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         ++$index;
         $count = \count($tokens);
         while ($index < $count) {
@@ -162,6 +163,7 @@ return $foo === count($bar);
      */
     private function findComparisonStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         --$index;
         $nonBlockFound = \false;
         while (0 <= $index) {
@@ -227,6 +229,11 @@ return $foo === count($bar);
      */
     private function fixTokensCompare(\PhpCsFixer\Tokenizer\Tokens $tokens, $startLeft, $endLeft, $compareOperatorIndex, $startRight, $endRight)
     {
+        $startLeft = (int) $startLeft;
+        $endLeft = (int) $endLeft;
+        $compareOperatorIndex = (int) $compareOperatorIndex;
+        $startRight = (int) $startRight;
+        $endRight = (int) $endRight;
         $type = $tokens[$compareOperatorIndex]->getId();
         $content = $tokens[$compareOperatorIndex]->getContent();
         if (\array_key_exists($type, $this->candidatesMap)) {
@@ -253,6 +260,8 @@ return $foo === count($bar);
      */
     private function fixTokensComparePart(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $newTokens = $tokens->generatePartialCode($start, $end);
         $newTokens = $this->fixTokens(\PhpCsFixer\Tokenizer\Tokens::fromCode(\sprintf('<?php %s;', $newTokens)));
         $newTokens->clearAt(\count($newTokens) - 1);
@@ -267,6 +276,8 @@ return $foo === count($bar);
      */
     private function getCompareFixableInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $yoda)
     {
+        $index = (int) $index;
+        $yoda = (bool) $yoda;
         $left = $this->getLeftSideCompareFixableInfo($tokens, $index);
         $right = $this->getRightSideCompareFixableInfo($tokens, $index);
         if (!$yoda && $tokens[$tokens->getNextMeaningfulToken($right['end'])]->equals('=')) {
@@ -296,6 +307,7 @@ return $foo === count($bar);
      */
     private function getLeftSideCompareFixableInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         return ['start' => $this->findComparisonStart($tokens, $index), 'end' => $tokens->getPrevMeaningfulToken($index)];
     }
     /**
@@ -304,6 +316,7 @@ return $foo === count($bar);
      */
     private function getRightSideCompareFixableInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         return ['start' => $tokens->getNextMeaningfulToken($index), 'end' => $this->findComparisonEnd($tokens, $index)];
     }
     /**
@@ -313,6 +326,8 @@ return $foo === count($bar);
      */
     private function isListStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $end)
     {
+        $index = (int) $index;
+        $end = (int) $end;
         for ($i = $index; $i <= $end; ++$i) {
             if ($tokens[$i]->isGivenKind([\T_LIST, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE])) {
                 return \true;
@@ -421,6 +436,9 @@ return $foo === count($bar);
      */
     private function isVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end, $strict)
     {
+        $start = (int) $start;
+        $end = (int) $end;
+        $strict = (bool) $strict;
         $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         if ($start === $end) {
             return $tokens[$start]->isGivenKind(\T_VARIABLE);
@@ -521,6 +539,8 @@ return $foo === count($bar);
      */
     private function isConstant(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $end)
     {
+        $index = (int) $index;
+        $end = (int) $end;
         $expectArrayOnly = \false;
         $expectNumberOnly = \false;
         $expectNothing = \false;

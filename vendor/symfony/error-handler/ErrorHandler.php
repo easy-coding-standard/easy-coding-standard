@@ -78,6 +78,7 @@ class ErrorHandler
      */
     public static function register($handler = null, $replace = \true)
     {
+        $replace = (bool) $replace;
         if (null === self::$reservedMemory) {
             self::$reservedMemory = \str_repeat('x', 10240);
             \register_shutdown_function(__CLASS__ . '::handleFatalError');
@@ -145,6 +146,7 @@ class ErrorHandler
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\ErrorHandler\BufferingLogger $bootstrappingLogger = null, $debug = \false)
     {
+        $debug = (bool) $debug;
         if ($bootstrappingLogger) {
             $this->bootstrappingLogger = $bootstrappingLogger;
             $this->setDefaultLogger($bootstrappingLogger);
@@ -168,6 +170,7 @@ class ErrorHandler
      */
     public function setDefaultLogger(\ECSPrefix20210508\Psr\Log\LoggerInterface $logger, $levels = \E_ALL, $replace = \false)
     {
+        $replace = (bool) $replace;
         $loggers = [];
         if (\is_array($levels)) {
             foreach ($levels as $type => $logLevel) {
@@ -259,6 +262,8 @@ class ErrorHandler
      */
     public function throwAt($levels, $replace = \false)
     {
+        $levels = (int) $levels;
+        $replace = (bool) $replace;
         $prev = $this->thrownErrors;
         $this->thrownErrors = ($levels | \E_RECOVERABLE_ERROR | \E_USER_ERROR) & ~\E_USER_DEPRECATED & ~\E_DEPRECATED;
         if (!$replace) {
@@ -277,6 +282,8 @@ class ErrorHandler
      */
     public function scopeAt($levels, $replace = \false)
     {
+        $levels = (int) $levels;
+        $replace = (bool) $replace;
         $prev = $this->scopedErrors;
         $this->scopedErrors = $levels;
         if (!$replace) {
@@ -294,6 +301,8 @@ class ErrorHandler
      */
     public function traceAt($levels, $replace = \false)
     {
+        $levels = (int) $levels;
+        $replace = (bool) $replace;
         $prev = $this->tracedErrors;
         $this->tracedErrors = (int) $levels;
         if (!$replace) {
@@ -311,6 +320,8 @@ class ErrorHandler
      */
     public function screamAt($levels, $replace = \false)
     {
+        $levels = (int) $levels;
+        $replace = (bool) $replace;
         $prev = $this->screamedErrors;
         $this->screamedErrors = $levels;
         if (!$replace) {
@@ -325,6 +336,7 @@ class ErrorHandler
      */
     private function reRegister($prev)
     {
+        $prev = (int) $prev;
         if ($prev !== $this->thrownErrors | $this->loggedErrors) {
             $handler = \set_error_handler('var_dump');
             $handler = \is_array($handler) ? $handler[0] : null;
@@ -354,12 +366,10 @@ class ErrorHandler
      */
     public function handleError($type, $message, $file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $type = (int) $type;
+        $message = (string) $message;
+        $file = (string) $file;
+        $line = (int) $line;
         if (\PHP_VERSION_ID >= 70300 && \E_WARNING === $type && '"' === $message[0] && \false !== \strpos($message, '" targeting switch is equivalent to "break')) {
             $type = \E_DEPRECATED;
         }
@@ -650,9 +660,10 @@ class ErrorHandler
      */
     private function cleanTrace(array $backtrace, $type, &$file, &$line, $throw)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $type = (int) $type;
+        $file = (string) $file;
+        $line = (int) $line;
+        $throw = (bool) $throw;
         $lightTrace = $backtrace;
         for ($i = 0; isset($backtrace[$i]); ++$i) {
             if (isset($backtrace[$i]['file'], $backtrace[$i]['line']) && $backtrace[$i]['line'] === $line && $backtrace[$i]['file'] === $file) {
@@ -695,9 +706,7 @@ class ErrorHandler
      */
     private function parseAnonymousClass($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         return \preg_replace_callback('/[a-zA-Z_\\x7f-\\xff][\\\\a-zA-Z0-9_\\x7f-\\xff]*+@anonymous\\x00.*?\\.php(?:0x?|:[0-9]++\\$)[0-9a-fA-F]++/', static function ($m) {
             return \class_exists($m[0], \false) ? ((\get_parent_class($m[0]) ?: \key(\class_implements($m[0]))) ?: 'class') . '@anonymous' : $m[0];
         }, $message);

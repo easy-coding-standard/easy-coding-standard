@@ -44,12 +44,8 @@ final class PhpUnitTargetVersion
      */
     public static function fulfills($candidate, $target)
     {
-        if (\is_object($target)) {
-            $target = (string) $target;
-        }
-        if (\is_object($candidate)) {
-            $candidate = (string) $candidate;
-        }
+        $candidate = (string) $candidate;
+        $target = (string) $target;
         if (self::VERSION_NEWEST === $target) {
             throw new \LogicException(\sprintf('Parameter `target` shall not be provided as "%s", determine proper target for tested PHPUnit feature instead.', self::VERSION_NEWEST));
         }

@@ -25,6 +25,7 @@ class StubCaster
      */
     public static function castStub(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         if ($isNested) {
             $stub->type = $c->type;
             $stub->class = $c->class;
@@ -45,6 +46,7 @@ class StubCaster
      */
     public static function castCutArray(\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\CutArrayStub $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         return $isNested ? $c->preservedSubset : $a;
     }
     /**
@@ -52,6 +54,7 @@ class StubCaster
      */
     public static function cutInternals($obj, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         if ($isNested) {
             $stub->cut += \count($a);
             return [];
@@ -63,6 +66,7 @@ class StubCaster
      */
     public static function castEnum(\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\EnumStub $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         if ($isNested) {
             $stub->class = $c->dumpKeys ? '' : null;
             $stub->handle = 0;

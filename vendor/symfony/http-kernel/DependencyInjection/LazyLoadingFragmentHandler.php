@@ -27,6 +27,7 @@ class LazyLoadingFragmentHandler extends \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function __construct(\ECSPrefix20210508\Psr\Container\ContainerInterface $container, \ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack, $debug = \false)
     {
+        $debug = (bool) $debug;
         $this->container = $container;
         parent::__construct($requestStack, [], $debug);
     }
@@ -36,9 +37,7 @@ class LazyLoadingFragmentHandler extends \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function render($uri, $renderer = 'inline', array $options = [])
     {
-        if (\is_object($renderer)) {
-            $renderer = (string) $renderer;
-        }
+        $renderer = (string) $renderer;
         if (!isset($this->initialized[$renderer]) && $this->container->has($renderer)) {
             $this->addRenderer($this->container->get($renderer));
             $this->initialized[$renderer] = \true;

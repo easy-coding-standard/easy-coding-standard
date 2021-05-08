@@ -42,9 +42,7 @@ class OptionsResolverIntrospector
      */
     public function getDefault($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return ($this->get)('defaults', $option, \sprintf('No default value was set for the "%s" option.', $option));
     }
     /**
@@ -55,9 +53,7 @@ class OptionsResolverIntrospector
      */
     public function getLazyClosures($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return ($this->get)('lazy', $option, \sprintf('No lazy closures were set for the "%s" option.', $option));
     }
     /**
@@ -68,9 +64,7 @@ class OptionsResolverIntrospector
      */
     public function getAllowedTypes($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return ($this->get)('allowedTypes', $option, \sprintf('No allowed types were set for the "%s" option.', $option));
     }
     /**
@@ -81,9 +75,7 @@ class OptionsResolverIntrospector
      */
     public function getAllowedValues($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return ($this->get)('allowedValues', $option, \sprintf('No allowed values were set for the "%s" option.', $option));
     }
     /**
@@ -93,9 +85,7 @@ class OptionsResolverIntrospector
      */
     public function getNormalizer($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return \current($this->getNormalizers($option));
     }
     /**
@@ -105,9 +95,7 @@ class OptionsResolverIntrospector
      */
     public function getNormalizers($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return ($this->get)('normalizers', $option, \sprintf('No normalizer was set for the "%s" option.', $option));
     }
     /**
@@ -120,9 +108,7 @@ class OptionsResolverIntrospector
      */
     public function getDeprecationMessage($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         trigger_deprecation('symfony/options-resolver', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($option)['message'];
     }
@@ -133,9 +119,7 @@ class OptionsResolverIntrospector
      */
     public function getDeprecation($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return ($this->get)('deprecated', $option, \sprintf('No deprecation was set for the "%s" option.', $option));
     }
 }

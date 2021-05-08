@@ -229,9 +229,7 @@ class InputDefinition
      */
     public function getOption($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!$this->hasOption($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
         }
@@ -248,9 +246,7 @@ class InputDefinition
      */
     public function hasOption($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->options[$name]);
     }
     /**
@@ -270,9 +266,7 @@ class InputDefinition
      */
     public function hasShortcut($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->shortcuts[$name]);
     }
     /**
@@ -283,9 +277,7 @@ class InputDefinition
      */
     public function getOptionForShortcut($shortcut)
     {
-        if (\is_object($shortcut)) {
-            $shortcut = (string) $shortcut;
-        }
+        $shortcut = (string) $shortcut;
         return $this->getOption($this->shortcutToName($shortcut));
     }
     /**
@@ -312,9 +304,7 @@ class InputDefinition
      */
     public function shortcutToName($shortcut)
     {
-        if (\is_object($shortcut)) {
-            $shortcut = (string) $shortcut;
-        }
+        $shortcut = (string) $shortcut;
         if (!isset($this->shortcuts[$shortcut])) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
@@ -328,6 +318,7 @@ class InputDefinition
      */
     public function getSynopsis($short = \false)
     {
+        $short = (bool) $short;
         $elements = [];
         if ($short && $this->getOptions()) {
             $elements[] = '[options]';

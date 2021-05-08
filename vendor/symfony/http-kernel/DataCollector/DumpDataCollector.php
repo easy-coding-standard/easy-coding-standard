@@ -228,12 +228,9 @@ class DumpDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel\
      */
     private function doDump(\ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, $name, $file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $file = (string) $file;
+        $line = (int) $line;
         if ($dumper instanceof \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\CliDumper) {
             $contextDumper = function ($name, $file, $line, $fmt) {
                 if ($this instanceof \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\HtmlDumper) {

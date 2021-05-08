@@ -56,9 +56,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function has($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->getAttributeBag()->has($name);
     }
     /**
@@ -67,9 +65,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function get($name, $default = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->getAttributeBag()->get($name, $default);
     }
     /**
@@ -78,9 +74,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function set($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->getAttributeBag()->set($name, $value);
     }
     /**
@@ -103,9 +97,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function remove($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->getAttributeBag()->remove($name);
     }
     /**
@@ -182,6 +174,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function migrate($destroy = \false, $lifetime = null)
     {
+        $destroy = (bool) $destroy;
         return $this->storage->regenerate($destroy, $lifetime);
     }
     /**
@@ -204,9 +197,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function setId($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($this->storage->getId() !== $id) {
             $this->storage->setId($id);
         }
@@ -224,9 +215,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->storage->setName($name);
     }
     /**
@@ -253,9 +242,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
      */
     public function getBag($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $bag = $this->storage->getBag($name);
         return \method_exists($bag, 'getBag') ? $bag->getBag() : $bag;
     }

@@ -72,9 +72,7 @@ class Foo {
      */
     protected function isSkippedType($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return isset($this->skippedTypes[$type]);
     }
     /**
@@ -95,6 +93,7 @@ class Foo {
      */
     private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         for (; $index < $classEndIndex; ++$index) {

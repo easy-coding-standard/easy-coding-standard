@@ -95,6 +95,8 @@ namespace Foo {
      */
     private function clearOverCompleteBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $closeIndex)
     {
+        $openIndex = (int) $openIndex;
+        $closeIndex = (int) $closeIndex;
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeIndex);
         $tokens->clearTokenAndMergeSurroundingWhitespace($openIndex);
     }
@@ -115,6 +117,7 @@ namespace Foo {
      */
     private function isOverComplete(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         static $include = ['{', '}', [\T_OPEN_TAG], ':', ';'];
         return $tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny($include);
     }

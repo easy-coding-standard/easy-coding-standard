@@ -24,6 +24,7 @@ final class ClassyAnalyzer
      */
     public function isClassyInvocation(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $token = $tokens[$index];
         if (!$token->isGivenKind(\T_STRING)) {
             throw new \LogicException(\sprintf('No T_STRING at given index %d, got "%s".', $index, $tokens[$index]->getName()));

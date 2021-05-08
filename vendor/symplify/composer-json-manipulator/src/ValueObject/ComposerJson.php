@@ -138,9 +138,7 @@ final class ComposerJson
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -149,9 +147,7 @@ final class ComposerJson
      */
     public function setType($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $this->type = $type;
     }
     /**
@@ -175,9 +171,7 @@ final class ComposerJson
      */
     public function setVersion($version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
+        $version = (string) $version;
         $this->version = $version;
     }
     /**
@@ -304,9 +298,7 @@ final class ComposerJson
      */
     public function setMinimumStability($minimumStability)
     {
-        if (\is_object($minimumStability)) {
-            $minimumStability = (string) $minimumStability;
-        }
+        $minimumStability = (string) $minimumStability;
         $this->minimumStability = $minimumStability;
     }
     /**
@@ -336,6 +328,7 @@ final class ComposerJson
      */
     public function setPreferStable($preferStable)
     {
+        $preferStable = (bool) $preferStable;
         $this->preferStable = $preferStable;
     }
     /**
@@ -401,9 +394,7 @@ final class ComposerJson
      */
     public function isReplacePackageSet($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         return isset($this->replace[$packageName]);
     }
     /**
@@ -422,12 +413,8 @@ final class ComposerJson
      */
     public function setReplacePackage($packageName, $version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
+        $version = (string) $version;
         $this->replace[$packageName] = $version;
     }
     /**
@@ -475,9 +462,7 @@ final class ComposerJson
      */
     public function setDescription($description)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
+        $description = (string) $description;
         $this->description = $description;
     }
     /**
@@ -508,9 +493,7 @@ final class ComposerJson
      */
     public function setHomepage($homepage)
     {
-        if (\is_object($homepage)) {
-            $homepage = (string) $homepage;
-        }
+        $homepage = (string) $homepage;
         $this->homepage = $homepage;
     }
     /**
@@ -556,9 +539,7 @@ final class ComposerJson
      */
     public function hasPackage($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         if ($this->hasRequiredPackage($packageName)) {
             return \true;
         }
@@ -570,9 +551,7 @@ final class ComposerJson
      */
     public function hasRequiredPackage($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         return isset($this->require[$packageName]);
     }
     /**
@@ -581,9 +560,7 @@ final class ComposerJson
      */
     public function hasRequiredDevPackage($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         return isset($this->requireDev[$packageName]);
     }
     /**
@@ -593,12 +570,8 @@ final class ComposerJson
      */
     public function addRequiredPackage($packageName, $version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
+        $version = (string) $version;
         if (!$this->hasPackage($packageName)) {
             $this->require[$packageName] = $version;
             $this->require = $this->sortPackagesIfNeeded($this->require);
@@ -611,12 +584,8 @@ final class ComposerJson
      */
     public function addRequiredDevPackage($packageName, $version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
+        $version = (string) $version;
         if (!$this->hasPackage($packageName)) {
             $this->requireDev[$packageName] = $version;
             $this->requireDev = $this->sortPackagesIfNeeded($this->requireDev);
@@ -629,12 +598,8 @@ final class ComposerJson
      */
     public function changePackageVersion($packageName, $version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
+        $version = (string) $version;
         if ($this->hasRequiredPackage($packageName)) {
             $this->require[$packageName] = $version;
         }
@@ -648,9 +613,7 @@ final class ComposerJson
      */
     public function movePackageToRequire($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         if (!$this->hasRequiredDevPackage($packageName)) {
             return;
         }
@@ -664,9 +627,7 @@ final class ComposerJson
      */
     public function movePackageToRequireDev($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         if (!$this->hasRequiredPackage($packageName)) {
             return;
         }
@@ -680,9 +641,7 @@ final class ComposerJson
      */
     public function removePackage($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         unset($this->require[$packageName], $this->requireDev[$packageName]);
     }
     /**
@@ -693,15 +652,9 @@ final class ComposerJson
      */
     public function replacePackage($oldPackageName, $newPackageName, $targetVersion)
     {
-        if (\is_object($targetVersion)) {
-            $targetVersion = (string) $targetVersion;
-        }
-        if (\is_object($newPackageName)) {
-            $newPackageName = (string) $newPackageName;
-        }
-        if (\is_object($oldPackageName)) {
-            $oldPackageName = (string) $oldPackageName;
-        }
+        $oldPackageName = (string) $oldPackageName;
+        $newPackageName = (string) $newPackageName;
+        $targetVersion = (string) $targetVersion;
         if ($this->hasRequiredPackage($oldPackageName)) {
             unset($this->require[$oldPackageName]);
             $this->addRequiredPackage($newPackageName, $targetVersion);
@@ -835,9 +788,7 @@ final class ComposerJson
      */
     private function moveValueToBack($valueName)
     {
-        if (\is_object($valueName)) {
-            $valueName = (string) $valueName;
-        }
+        $valueName = (string) $valueName;
         $key = \array_search($valueName, $this->orderedKeys, \true);
         if ($key !== \false) {
             unset($this->orderedKeys[$key]);
@@ -881,9 +832,7 @@ final class ComposerJson
      */
     private function resolveExistingAutoloadDirectory($autoloadDirectory)
     {
-        if (\is_object($autoloadDirectory)) {
-            $autoloadDirectory = (string) $autoloadDirectory;
-        }
+        $autoloadDirectory = (string) $autoloadDirectory;
         if ($this->fileInfo === null) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
@@ -916,9 +865,7 @@ final class ComposerJson
      */
     private function findPosition($key, array $items)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \array_search($key, $items, \true);
     }
 }

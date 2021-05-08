@@ -86,9 +86,7 @@ function foo () {}
      */
     private function isCorrectlyFormatted($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         if (\false !== \stripos($content, '{@inheritdoc}')) {
             return \true;
         }

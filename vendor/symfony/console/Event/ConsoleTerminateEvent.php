@@ -26,6 +26,7 @@ final class ConsoleTerminateEvent extends \ECSPrefix20210508\Symfony\Component\C
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Command\Command $command, \ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $exitCode)
     {
+        $exitCode = (int) $exitCode;
         parent::__construct($command, $input, $output);
         $this->setExitCode($exitCode);
     }
@@ -35,6 +36,7 @@ final class ConsoleTerminateEvent extends \ECSPrefix20210508\Symfony\Component\C
      */
     public function setExitCode($exitCode)
     {
+        $exitCode = (int) $exitCode;
         $this->exitCode = $exitCode;
     }
     /**

@@ -216,6 +216,7 @@ switch($a) {
      */
     private function fixByToken(\PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         foreach ($this->tokenKindCallbackMap as $kind => $callback) {
             if (!$token->isGivenKind($kind)) {
                 continue;
@@ -237,6 +238,7 @@ switch($a) {
      */
     private function removeBetweenUse($index)
     {
+        $index = (int) $index;
         $next = $this->tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
         if (null === $next || $this->tokens[$next]->isGivenKind(\T_CLOSE_TAG)) {
             return;
@@ -253,6 +255,7 @@ switch($a) {
      */
     private function removeMultipleBlankLines($index)
     {
+        $index = (int) $index;
         $expected = $this->tokens[$index - 1]->isGivenKind(\T_OPEN_TAG) && 1 === \PhpCsFixer\Preg::match('/\\R$/', $this->tokens[$index - 1]->getContent()) ? 1 : 2;
         $parts = \PhpCsFixer\Preg::split('/(.*\\R)/', $this->tokens[$index]->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
         $count = \count($parts);
@@ -266,6 +269,7 @@ switch($a) {
      */
     private function fixAfterToken($index)
     {
+        $index = (int) $index;
         for ($i = $index - 1; $i > 0; --$i) {
             if ($this->tokens[$i]->isGivenKind(\T_FUNCTION) && $this->tokensAnalyzer->isLambda($i)) {
                 return;
@@ -285,6 +289,7 @@ switch($a) {
      */
     private function fixAfterThrowToken($index)
     {
+        $index = (int) $index;
         if ($this->tokens[$this->tokens->getPrevMeaningfulToken($index)]->equalsAny([';', '{', '}', ':', [\T_OPEN_TAG]])) {
             $this->fixAfterToken($index);
         }
@@ -298,6 +303,7 @@ switch($a) {
      */
     private function fixStructureOpenCloseIfMultiLine($index)
     {
+        $index = (int) $index;
         $blockTypeInfo = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($this->tokens[$index]);
         $bodyEnd = $this->tokens->findBlockEnd($blockTypeInfo['type'], $index);
         for ($i = $bodyEnd - 1; $i >= $index; --$i) {
@@ -314,6 +320,7 @@ switch($a) {
      */
     private function removeEmptyLinesAfterLineWithTokenAt($index)
     {
+        $index = (int) $index;
         // find the line break
         $tokenCount = \count($this->tokens);
         for ($end = $index; $end < $tokenCount; ++$end) {
@@ -348,6 +355,8 @@ switch($a) {
      */
     private function containsLinebreak($startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         for ($i = $endIndex; $i > $startIndex; --$i) {
             if (\PhpCsFixer\Preg::match('/\\R/', $this->tokens[$i]->getContent())) {
                 return \true;

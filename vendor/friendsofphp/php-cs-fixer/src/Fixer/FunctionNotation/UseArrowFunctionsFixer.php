@@ -140,6 +140,8 @@ SAMPLE
      */
     private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         for ($i = $start; $i < $end; ++$i) {
             if (\false !== \strpos($tokens[$i]->getContent(), "\n")) {
                 return \true;
@@ -159,6 +161,11 @@ SAMPLE
      */
     private function transform(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $useStart, $useEnd, $braceOpen, $return, $semicolon, $braceClose)
     {
+        $index = (int) $index;
+        $braceOpen = (int) $braceOpen;
+        $return = (int) $return;
+        $semicolon = (int) $semicolon;
+        $braceClose = (int) $braceClose;
         $tokens->clearRange($semicolon, $braceClose);
         $tokens->clearRange($braceOpen + 1, $return);
         $tokens[$braceOpen] = new \PhpCsFixer\Tokenizer\Token([\T_DOUBLE_ARROW, '=>']);

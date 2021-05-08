@@ -21,6 +21,7 @@ abstract class AbstractChunkOutputBuilder implements \ECSPrefix20210508\Sebastia
      */
     protected function getCommonChunks(array $diff, $lineThreshold = 5)
     {
+        $lineThreshold = (int) $lineThreshold;
         $diffSize = \count($diff);
         $capturing = \false;
         $chunkStart = 0;

@@ -70,9 +70,7 @@ final class AutoloadIncluder
      */
     public function autoloadProjectAutoloaderFile($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $path = \dirname(__DIR__) . $file;
         if (!\is_file($path)) {
             return;
@@ -114,9 +112,7 @@ final class AutoloadIncluder
      */
     private function loadIfNotLoadedYet($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if (\in_array($file, $this->alreadyLoadedAutoloadFiles, \true)) {
             return;
         }

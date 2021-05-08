@@ -15,9 +15,7 @@ class PrettyVersions
      */
     public static function getVersion($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         if (isset(\Composer\InstalledVersions::getRawData()['versions'][$packageName]['provided'])) {
             throw \ECSPrefix20210508\Jean85\Exception\ProvidedPackageException::create($packageName);
         }

@@ -131,6 +131,7 @@ SAMPLE
      */
     private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $startFunctionIndex)
     {
+        $startFunctionIndex = (int) $startFunctionIndex;
         $endFunctionIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startFunctionIndex);
         $isMultiline = \false;
         $firstWhitespaceIndex = $this->findWhitespaceIndexAfterParenthesis($tokens, $startFunctionIndex, $endFunctionIndex);
@@ -179,6 +180,8 @@ SAMPLE
      */
     private function findWhitespaceIndexAfterParenthesis(\PhpCsFixer\Tokenizer\Tokens $tokens, $startParenthesisIndex, $endParenthesisIndex)
     {
+        $startParenthesisIndex = (int) $startParenthesisIndex;
+        $endParenthesisIndex = (int) $endParenthesisIndex;
         $direction = $endParenthesisIndex > $startParenthesisIndex ? 1 : -1;
         $startIndex = $startParenthesisIndex + $direction;
         $endIndex = $endParenthesisIndex - $direction;
@@ -199,6 +202,7 @@ SAMPLE
      */
     private function ensureSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $previousToken = $tokens[$index - 1];
         if ($previousToken->isComment() && 0 !== \strpos($previousToken->getContent(), '/*')) {
             return \false;
@@ -217,6 +221,7 @@ SAMPLE
      */
     private function ensureFunctionFullyMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $startFunctionIndex)
     {
+        $startFunctionIndex = (int) $startFunctionIndex;
         // find out what the indentation is
         $searchIndex = $startFunctionIndex;
         do {
@@ -268,9 +273,9 @@ SAMPLE
      */
     private function fixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $indentation, $override = \true)
     {
-        if (\is_object($indentation)) {
-            $indentation = (string) $indentation;
-        }
+        $index = (int) $index;
+        $indentation = (string) $indentation;
+        $override = (bool) $override;
         if ($tokens[$index + 1]->isComment()) {
             return;
         }
@@ -294,6 +299,7 @@ SAMPLE
      */
     private function fixSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         // remove space before comma if exist
         if ($tokens[$index - 1]->isWhitespace()) {
             $prevIndex = $tokens->getPrevNonWhitespace($index - 1);
@@ -330,6 +336,7 @@ SAMPLE
      */
     private function isCommentLastLineToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isComment() || !$tokens[$index + 1]->isWhitespace()) {
             return \false;
         }

@@ -134,6 +134,7 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $blockEdgeDefinitions)
     {
+        $index = (int) $index;
         $index = $tokens->getPrevMeaningfulToken($index);
         $before = ['end' => $index];
         while (!$tokens[$index]->equalsAny(self::VALID_BEFORE_ENDTYPES)) {
@@ -175,6 +176,7 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getAfterOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $index = $tokens->getNextMeaningfulToken($index);
         $after = ['start' => $index];
         while (!$tokens[$index]->equals(':')) {

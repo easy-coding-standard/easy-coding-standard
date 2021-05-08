@@ -165,6 +165,8 @@ function f9(string $foo, $bar, $baz) {}
      */
     private function prepareArgumentInformation(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $info = ['default' => '', 'name' => '', 'type' => ''];
         $sawName = \false;
         for ($index = $start; $index <= $end; ++$index) {

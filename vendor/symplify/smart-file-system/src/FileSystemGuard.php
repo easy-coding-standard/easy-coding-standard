@@ -13,12 +13,8 @@ final class FileSystemGuard
      */
     public function ensureFileExists($file, $location)
     {
-        if (\is_object($location)) {
-            $location = (string) $location;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $location = (string) $location;
         if (\file_exists($file)) {
             return;
         }
@@ -31,12 +27,8 @@ final class FileSystemGuard
      */
     public function ensureDirectoryExists($directory, $extraMessage = '')
     {
-        if (\is_object($extraMessage)) {
-            $extraMessage = (string) $extraMessage;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $extraMessage = (string) $extraMessage;
         if (\is_dir($directory) && \file_exists($directory)) {
             return;
         }

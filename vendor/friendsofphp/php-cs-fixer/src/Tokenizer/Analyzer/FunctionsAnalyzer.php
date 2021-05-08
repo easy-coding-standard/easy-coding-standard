@@ -33,6 +33,7 @@ final class FunctionsAnalyzer
      */
     public function isGlobalFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind(\T_STRING)) {
             return \false;
         }
@@ -108,6 +109,7 @@ final class FunctionsAnalyzer
      */
     public function getFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $methodIndex)
     {
+        $methodIndex = (int) $methodIndex;
         $argumentsStart = $tokens->getNextTokenOfKind($methodIndex, ['(']);
         $argumentsEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
         $argumentAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
@@ -124,6 +126,7 @@ final class FunctionsAnalyzer
      */
     public function getFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, $methodIndex)
     {
+        $methodIndex = (int) $methodIndex;
         $argumentsStart = $tokens->getNextTokenOfKind($methodIndex, ['(']);
         $argumentsEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $argumentsStart);
         $typeColonIndex = $tokens->getNextMeaningfulToken($argumentsEnd);
@@ -149,6 +152,7 @@ final class FunctionsAnalyzer
      */
     public function isTheSameClassCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens->offsetExists($index)) {
             return \false;
         }

@@ -66,6 +66,7 @@ final class NoShortBoolCastFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixShortCast(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         for ($i = $index - 1; $i > 1; --$i) {
             if ($tokens[$i]->equals('!')) {
                 $this->fixShortCastToBoolCast($tokens, $i, $index);
@@ -84,6 +85,8 @@ final class NoShortBoolCastFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixShortCastToBoolCast(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         for (; $start <= $end; ++$start) {
             if (!$tokens[$start]->isComment() && !($tokens[$start]->isWhitespace() && $tokens[$start - 1]->isComment())) {
                 $tokens->clearAt($start);

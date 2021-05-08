@@ -45,9 +45,7 @@ final class CachingLinter implements \PhpCsFixer\Linter\LinterInterface
      */
     public function lintFile($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $checksum = \crc32(\file_get_contents($path));
         if (!isset($this->cache[$checksum])) {
             $this->cache[$checksum] = $this->sublinter->lintFile($path);
@@ -61,9 +59,7 @@ final class CachingLinter implements \PhpCsFixer\Linter\LinterInterface
      */
     public function lintSource($source)
     {
-        if (\is_object($source)) {
-            $source = (string) $source;
-        }
+        $source = (string) $source;
         $checksum = \crc32($source);
         if (!isset($this->cache[$checksum])) {
             $this->cache[$checksum] = $this->sublinter->lintSource($source);

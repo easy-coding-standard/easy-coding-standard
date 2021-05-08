@@ -49,6 +49,8 @@ final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implement
      */
     protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
     {
+        $argumentStartIndex = (int) $argumentStartIndex;
+        $argumentEndIndex = (int) $argumentEndIndex;
         $argumentFlagIndex = null;
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {
             if ($tokens[$i]->isGivenKind([\T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT])) {

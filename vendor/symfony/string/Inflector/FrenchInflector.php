@@ -96,9 +96,7 @@ final class FrenchInflector implements \ECSPrefix20210508\Symfony\Component\Stri
      */
     public function singularize($plural)
     {
-        if (\is_object($plural)) {
-            $plural = (string) $plural;
-        }
+        $plural = (string) $plural;
         if ($this->isInflectedWord($plural)) {
             return [$plural];
         }
@@ -117,9 +115,7 @@ final class FrenchInflector implements \ECSPrefix20210508\Symfony\Component\Stri
      */
     public function pluralize($singular)
     {
-        if (\is_object($singular)) {
-            $singular = (string) $singular;
-        }
+        $singular = (string) $singular;
         if ($this->isInflectedWord($singular)) {
             return [$singular];
         }
@@ -137,9 +133,7 @@ final class FrenchInflector implements \ECSPrefix20210508\Symfony\Component\Stri
      */
     private function isInflectedWord($word)
     {
-        if (\is_object($word)) {
-            $word = (string) $word;
-        }
+        $word = (string) $word;
         return 1 === \preg_match(self::UNINFLECTED, $word);
     }
 }

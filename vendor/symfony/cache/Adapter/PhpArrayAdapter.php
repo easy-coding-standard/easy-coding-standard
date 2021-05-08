@@ -42,9 +42,7 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function __construct($file, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $fallbackPool)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $this->file = $file;
         $this->pool = $fallbackPool;
         $this->createCacheItem = \Closure::bind(static function ($key, $value, $isHit) {
@@ -65,9 +63,7 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public static function create($file, \ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $fallbackPool)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if (!$fallbackPool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
             $fallbackPool = new \ECSPrefix20210508\Symfony\Component\Cache\Adapter\ProxyAdapter($fallbackPool);
         }
@@ -80,9 +76,7 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function get($key, callable $callback, $beta = null, array &$metadata = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (null === $this->values) {
             $this->initialize();
         }
@@ -112,9 +106,7 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function getItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (!\is_string($key)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
@@ -161,9 +153,7 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function hasItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (!\is_string($key)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
@@ -179,9 +169,7 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function deleteItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (!\is_string($key)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
@@ -258,9 +246,7 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function clear($prefix = '')
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
         $this->keys = $this->values = [];
         $cleared = @\unlink($this->file) || !\file_exists($this->file);
         unset(self::$valuesCache[$this->file]);

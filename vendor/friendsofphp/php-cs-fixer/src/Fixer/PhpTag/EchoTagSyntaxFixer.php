@@ -165,6 +165,7 @@ EOT;
      */
     private function isComplexCode(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $semicolonFound = \false;
         for ($count = $tokens->count(); $index < $count; ++$index) {
             $token = $tokens[$index];
@@ -188,6 +189,8 @@ EOT;
      */
     private function buildLongToShortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $openTagIndex, $echoTagIndex)
     {
+        $openTagIndex = (int) $openTagIndex;
+        $echoTagIndex = (int) $echoTagIndex;
         $result = [new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG_WITH_ECHO, '<?='])];
         $start = $tokens->getNextNonWhitespace($openTagIndex);
         if ($start === $echoTagIndex) {

@@ -36,9 +36,7 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     public function setCurrentDir($dir)
     {
-        if (\is_object($dir)) {
-            $dir = (string) $dir;
-        }
+        $dir = (string) $dir;
         $this->currentDir = $dir;
     }
     /**
@@ -67,6 +65,7 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     public function import($resource, $type = null, $ignoreErrors = \false, $sourceResource = null, $exclude = null)
     {
+        $ignoreErrors = (bool) $ignoreErrors;
         if (\is_string($resource) && \strlen($resource) !== ($i = \strcspn($resource, '*?{[')) && \false === \strpos($resource, "\n")) {
             $excluded = [];
             foreach ((array) $exclude as $pattern) {
@@ -98,9 +97,10 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     protected function glob($pattern, $recursive, &$resource = null, $ignoreErrors = \false, $forExclusion = \false, array $excluded = [])
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
+        $recursive = (bool) $recursive;
+        $ignoreErrors = (bool) $ignoreErrors;
+        $forExclusion = (bool) $forExclusion;
         if (\strlen($pattern) === ($i = \strcspn($pattern, '*?{['))) {
             $prefix = $pattern;
             $pattern = '';
@@ -133,6 +133,7 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     private function doImport($resource, $type = null, $ignoreErrors = \false, $sourceResource = null)
     {
+        $ignoreErrors = (bool) $ignoreErrors;
         try {
             $loader = $this->resolve($resource, $type);
             if ($loader instanceof self && null !== $this->currentDir) {

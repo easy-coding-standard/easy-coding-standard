@@ -24,6 +24,7 @@ final class ConsoleSignalEvent extends \ECSPrefix20210508\Symfony\Component\Cons
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Command\Command $command, \ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $handlingSignal)
     {
+        $handlingSignal = (int) $handlingSignal;
         parent::__construct($command, $input, $output);
         $this->handlingSignal = $handlingSignal;
     }

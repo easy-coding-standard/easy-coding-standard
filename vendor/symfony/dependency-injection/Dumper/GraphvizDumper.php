@@ -98,12 +98,10 @@ class GraphvizDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     private function findEdges($id, array $arguments, $required, $name, $lazy = \false)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $required = (bool) $required;
+        $name = (string) $name;
+        $lazy = (bool) $lazy;
         $edges = [];
         foreach ($arguments as $argument) {
             if ($argument instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Parameter) {
@@ -218,9 +216,7 @@ class GraphvizDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     private function dotize($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return \preg_replace('/\\W/i', '_', $id);
     }
     /**
@@ -229,9 +225,7 @@ class GraphvizDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     private function getAliases($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $aliases = [];
         foreach ($this->container->getAliases() as $alias => $origin) {
             if ($id == $origin) {

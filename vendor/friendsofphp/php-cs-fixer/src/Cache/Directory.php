@@ -27,9 +27,7 @@ final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
      */
     public function __construct($directoryName)
     {
-        if (\is_object($directoryName)) {
-            $directoryName = (string) $directoryName;
-        }
+        $directoryName = (string) $directoryName;
         $this->directoryName = $directoryName;
     }
     /**
@@ -38,9 +36,7 @@ final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
      */
     public function getRelativePathTo($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $file = $this->normalizePath($file);
         if ('' === $this->directoryName || 0 !== \stripos($file, $this->directoryName . \DIRECTORY_SEPARATOR)) {
             return $file;
@@ -53,9 +49,7 @@ final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
      */
     private function normalizePath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         return \str_replace(['\\', '/'], \DIRECTORY_SEPARATOR, $path);
     }
 }

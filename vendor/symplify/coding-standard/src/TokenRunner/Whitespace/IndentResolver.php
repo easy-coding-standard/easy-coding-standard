@@ -28,6 +28,7 @@ final class IndentResolver
      */
     public function resolveClosingBracketNewlineWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
     {
+        $startIndex = (int) $startIndex;
         $indentLevel = $this->indentDetector->detectOnPosition($tokens, $startIndex);
         return $this->whitespacesFixerConfig->getLineEnding() . \str_repeat($this->whitespacesFixerConfig->getIndent(), $indentLevel);
     }
@@ -38,6 +39,7 @@ final class IndentResolver
      */
     public function resolveCurrentNewlineIndentWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $indentLevel = $this->indentDetector->detectOnPosition($tokens, $index);
         $indentWhitespace = \str_repeat($this->whitespacesFixerConfig->getIndent(), $indentLevel);
         return $this->whitespacesFixerConfig->getLineEnding() . $indentWhitespace;
@@ -49,6 +51,7 @@ final class IndentResolver
      */
     public function resolveNewlineIndentWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $indentWhitespace = $this->resolveIndentWhitespace($tokens, $index);
         return $this->whitespacesFixerConfig->getLineEnding() . $indentWhitespace;
     }
@@ -59,6 +62,7 @@ final class IndentResolver
      */
     private function resolveIndentWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $indentLevel = $this->indentDetector->detectOnPosition($tokens, $index);
         return \str_repeat($this->whitespacesFixerConfig->getIndent(), $indentLevel + 1);
     }

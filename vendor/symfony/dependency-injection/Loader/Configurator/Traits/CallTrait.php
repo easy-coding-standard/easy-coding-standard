@@ -26,9 +26,8 @@ trait CallTrait
      */
     public final function call($method, array $arguments = [], $returnsClone = \false)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
+        $returnsClone = (bool) $returnsClone;
         $this->definition->addMethodCall($method, static::processValue($arguments, \true), $returnsClone);
         return $this;
     }

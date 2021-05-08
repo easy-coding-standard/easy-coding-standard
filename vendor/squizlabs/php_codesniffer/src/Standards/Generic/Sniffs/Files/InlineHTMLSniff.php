@@ -42,6 +42,7 @@ class InlineHTMLSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         // Allow a byte-order mark.
         $tokens = $phpcsFile->getTokens();
         foreach ($this->bomDefinitions as $bomName => $expectedBomHex) {

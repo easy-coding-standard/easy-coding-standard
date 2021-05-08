@@ -23,6 +23,7 @@ class ResolveFactoryClassPass extends \ECSPrefix20210508\Symfony\Component\Depen
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition && \is_array($factory = $value->getFactory()) && null === $factory[0]) {
             if (null === ($class = $value->getClass())) {
                 throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('The "%s" service is defined to be created by a factory, but is missing the factory class. Did you forget to define the factory or service class?', $this->currentId));

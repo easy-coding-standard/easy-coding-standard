@@ -61,6 +61,8 @@ class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSn
      */
     protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
+        $stackPtr = (int) $stackPtr;
+        $currScope = (int) $currScope;
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
         $conditions = $tokens[$stackPtr]['conditions'];
@@ -128,6 +130,7 @@ class CamelCapsFunctionNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSn
      */
     protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $functionName = $phpcsFile->getDeclarationName($stackPtr);
         if ($functionName === null) {
             // Ignore closures.

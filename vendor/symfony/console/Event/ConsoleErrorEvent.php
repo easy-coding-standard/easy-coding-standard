@@ -47,6 +47,7 @@ final class ConsoleErrorEvent extends \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function setExitCode($exitCode)
     {
+        $exitCode = (int) $exitCode;
         $this->exitCode = $exitCode;
         $r = new \ReflectionProperty($this->error, 'code');
         $r->setAccessible(\true);

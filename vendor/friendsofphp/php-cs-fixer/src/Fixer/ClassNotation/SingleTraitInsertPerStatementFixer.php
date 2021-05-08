@@ -74,6 +74,7 @@ final class Example
      */
     private function fixTraitUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $useTraitIndex, array $candidates)
     {
+        $useTraitIndex = (int) $useTraitIndex;
         foreach ($candidates as $commaIndex) {
             $inserts = [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, 'use']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
             $nextImportStartIndex = $tokens->getNextMeaningfulToken($commaIndex);
@@ -93,6 +94,7 @@ final class Example
      */
     private function getCandidates(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $indexes = [];
         $index = $tokens->getNextTokenOfKind($index, [',', ';', '{']);
         while (!$tokens[$index]->equals(';')) {

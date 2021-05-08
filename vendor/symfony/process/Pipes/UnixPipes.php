@@ -30,6 +30,8 @@ class UnixPipes extends \ECSPrefix20210508\Symfony\Component\Process\Pipes\Abstr
      */
     public function __construct($ttyMode, $ptyMode, $input, $haveReadSupport)
     {
+        $ptyMode = (bool) $ptyMode;
+        $haveReadSupport = (bool) $haveReadSupport;
         $this->ttyMode = $ttyMode;
         $this->ptyMode = $ptyMode;
         $this->haveReadSupport = $haveReadSupport;
@@ -86,6 +88,8 @@ class UnixPipes extends \ECSPrefix20210508\Symfony\Component\Process\Pipes\Abstr
      */
     public function readAndWrite($blocking, $close = \false)
     {
+        $blocking = (bool) $blocking;
+        $close = (bool) $close;
         $this->unblock();
         $w = $this->write();
         $read = $e = [];

@@ -123,18 +123,10 @@ class PriorityTaggedServiceUtil
      */
     public static function getDefaultIndex(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultIndexMethod, $tagName, $indexAttribute)
     {
-        if (\is_object($tagName)) {
-            $tagName = (string) $tagName;
-        }
-        if (\is_object($defaultIndexMethod)) {
-            $defaultIndexMethod = (string) $defaultIndexMethod;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
-        if (\is_object($serviceId)) {
-            $serviceId = (string) $serviceId;
-        }
+        $serviceId = (string) $serviceId;
+        $class = (string) $class;
+        $defaultIndexMethod = (string) $defaultIndexMethod;
+        $tagName = (string) $tagName;
         if (!($r = $container->getReflectionClass($class)) || !$r->hasMethod($defaultIndexMethod)) {
             return null;
         }
@@ -166,18 +158,10 @@ class PriorityTaggedServiceUtil
      */
     public static function getDefaultPriority(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultPriorityMethod, $tagName)
     {
-        if (\is_object($tagName)) {
-            $tagName = (string) $tagName;
-        }
-        if (\is_object($defaultPriorityMethod)) {
-            $defaultPriorityMethod = (string) $defaultPriorityMethod;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
-        if (\is_object($serviceId)) {
-            $serviceId = (string) $serviceId;
-        }
+        $serviceId = (string) $serviceId;
+        $class = (string) $class;
+        $defaultPriorityMethod = (string) $defaultPriorityMethod;
+        $tagName = (string) $tagName;
         if (!($r = $container->getReflectionClass($class)) || !$r->hasMethod($defaultPriorityMethod)) {
             return null;
         }

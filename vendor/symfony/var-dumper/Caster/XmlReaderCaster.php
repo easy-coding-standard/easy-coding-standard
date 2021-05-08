@@ -26,6 +26,7 @@ class XmlReaderCaster
      */
     public static function castXmlReader(\XMLReader $reader, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $props = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'parserProperties';
         $info = ['localName' => $reader->localName, 'prefix' => $reader->prefix, 'nodeType' => new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ConstStub(self::NODE_TYPES[$reader->nodeType], $reader->nodeType), 'depth' => $reader->depth, 'isDefault' => $reader->isDefault, 'isEmptyElement' => \XMLReader::NONE === $reader->nodeType ? null : $reader->isEmptyElement, 'xmlLang' => $reader->xmlLang, 'attributeCount' => $reader->attributeCount, 'value' => $reader->value, 'namespaceURI' => $reader->namespaceURI, 'baseURI' => $reader->baseURI ? new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\LinkStub($reader->baseURI) : $reader->baseURI, $props => ['LOADDTD' => $reader->getParserProperty(\XMLReader::LOADDTD), 'DEFAULTATTRS' => $reader->getParserProperty(\XMLReader::DEFAULTATTRS), 'VALIDATE' => $reader->getParserProperty(\XMLReader::VALIDATE), 'SUBST_ENTITIES' => $reader->getParserProperty(\XMLReader::SUBST_ENTITIES)]];
         if ($info[$props] = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::filter($info[$props], \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_EMPTY, [], $count)) {

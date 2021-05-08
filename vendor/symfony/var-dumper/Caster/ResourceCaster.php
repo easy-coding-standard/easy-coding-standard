@@ -28,6 +28,7 @@ class ResourceCaster
      */
     public static function castCurl($h, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         return \curl_getinfo($h);
     }
     /**
@@ -35,6 +36,7 @@ class ResourceCaster
      */
     public static function castDba($dba, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $list = \dba_list();
         $a['file'] = $list[(int) $dba];
         return $a;
@@ -44,6 +46,7 @@ class ResourceCaster
      */
     public static function castProcess($process, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         return \proc_get_status($process);
     }
     /**
@@ -51,6 +54,7 @@ class ResourceCaster
      */
     public static function castStream($stream, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a = \stream_get_meta_data($stream) + static::castStreamContext($stream, $a, $stub, $isNested);
         if (isset($a['uri'])) {
             $a['uri'] = new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\LinkStub($a['uri']);
@@ -62,6 +66,7 @@ class ResourceCaster
      */
     public static function castStreamContext($stream, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         return @\stream_context_get_params($stream) ?: $a;
     }
     public static function castGd($gd, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
@@ -75,6 +80,7 @@ class ResourceCaster
      */
     public static function castMysqlLink($h, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a['host'] = \mysql_get_host_info($h);
         $a['protocol'] = \mysql_get_proto_info($h);
         $a['server'] = \mysql_get_server_info($h);
@@ -85,6 +91,7 @@ class ResourceCaster
      */
     public static function castOpensslX509($h, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $stub->cut = -1;
         $info = \openssl_x509_parse($h, \false);
         $pin = \openssl_pkey_get_public($h);

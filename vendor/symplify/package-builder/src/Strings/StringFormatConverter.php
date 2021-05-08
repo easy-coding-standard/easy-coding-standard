@@ -20,9 +20,7 @@ final class StringFormatConverter
      */
     public function underscoreAndHyphenToCamelCase($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         $underscoreToHyphensValue = \str_replace(['_', '-'], ' ', $value);
         $uppercasedWords = \ucwords($underscoreToHyphensValue);
         $value = \str_replace(' ', '', $uppercasedWords);
@@ -34,9 +32,7 @@ final class StringFormatConverter
      */
     public function camelCaseToUnderscore($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         return $this->camelCaseToGlue($input, '_');
     }
     /**
@@ -45,9 +41,7 @@ final class StringFormatConverter
      */
     public function camelCaseToDashed($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         return $this->camelCaseToGlue($input, '-');
     }
     /**
@@ -76,12 +70,8 @@ final class StringFormatConverter
      */
     private function camelCaseToGlue($input, $glue)
     {
-        if (\is_object($glue)) {
-            $glue = (string) $glue;
-        }
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
+        $glue = (string) $glue;
         $matches = \ECSPrefix20210508\Nette\Utils\Strings::matchAll($input, self::BIG_LETTER_REGEX);
         $parts = [];
         foreach ($matches as $match) {

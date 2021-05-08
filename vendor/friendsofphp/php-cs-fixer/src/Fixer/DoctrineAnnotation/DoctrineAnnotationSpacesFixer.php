@@ -196,6 +196,7 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
      */
     private function updateSpacesAfter(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index, $insert)
     {
+        $index = (int) $index;
         $this->updateSpacesAt($tokens, $index + 1, $index + 1, $insert);
     }
     /**
@@ -205,6 +206,7 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
      */
     private function updateSpacesBefore(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index, $insert)
     {
+        $index = (int) $index;
         $this->updateSpacesAt($tokens, $index - 1, $index, $insert);
     }
     /**
@@ -215,6 +217,8 @@ final class DoctrineAnnotationSpacesFixer extends \PhpCsFixer\AbstractDoctrineAn
      */
     private function updateSpacesAt(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index, $insertIndex, $insert)
     {
+        $index = (int) $index;
+        $insertIndex = (int) $insertIndex;
         if (null === $insert) {
             return;
         }

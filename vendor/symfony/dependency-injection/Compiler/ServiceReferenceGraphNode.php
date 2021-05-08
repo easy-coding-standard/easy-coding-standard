@@ -31,9 +31,7 @@ class ServiceReferenceGraphNode
      */
     public function __construct($id, $value)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->id = $id;
         $this->value = $value;
     }

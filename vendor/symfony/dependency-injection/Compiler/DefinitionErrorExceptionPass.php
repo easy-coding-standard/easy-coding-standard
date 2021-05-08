@@ -27,6 +27,7 @@ class DefinitionErrorExceptionPass extends \ECSPrefix20210508\Symfony\Component\
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition || !$value->hasErrors()) {
             return parent::processValue($value, $isRoot);
         }

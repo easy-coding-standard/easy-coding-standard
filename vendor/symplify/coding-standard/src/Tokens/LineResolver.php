@@ -13,6 +13,7 @@ final class LineResolver
      */
     public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $lineCount = 0;
         for ($i = 0; $i < $position; ++$i) {
             if (!isset($tokens[$i])) {

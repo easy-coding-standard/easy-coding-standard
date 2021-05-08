@@ -31,9 +31,7 @@ final class AliasedFixerOption implements \PhpCsFixer\FixerConfiguration\FixerOp
      */
     public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionInterface $fixerOption, $alias)
     {
-        if (\is_object($alias)) {
-            $alias = (string) $alias;
-        }
+        $alias = (string) $alias;
         $this->fixerOption = $fixerOption;
         $this->alias = $alias;
     }

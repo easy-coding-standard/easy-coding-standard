@@ -40,12 +40,10 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210508\Symfony\Com
      */
     public function __construct($prefix, $pattern, $recursive, $forExclusion = \false, array $excludedPrefixes = [])
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $pattern = (string) $pattern;
+        $recursive = (bool) $recursive;
+        $forExclusion = (bool) $forExclusion;
         \ksort($excludedPrefixes);
         $this->prefix = \realpath($prefix) ?: (\file_exists($prefix) ? $prefix : \false);
         $this->pattern = $pattern;
@@ -79,6 +77,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210508\Symfony\Com
      */
     public function isFresh($timestamp)
     {
+        $timestamp = (int) $timestamp;
         $hash = $this->computeHash();
         if (null === $this->hash) {
             $this->hash = $hash;
@@ -201,9 +200,7 @@ class GlobResource implements \IteratorAggregate, \ECSPrefix20210508\Symfony\Com
      */
     private function expandGlob($pattern)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
         $segments = \preg_split('/\\{([^{}]*+)\\}/', $pattern, -1, \PREG_SPLIT_DELIM_CAPTURE);
         $paths = [$segments[0]];
         $patterns = [];

@@ -37,6 +37,7 @@ class Paginator
      */
     public function setPage($page)
     {
+        $page = (int) $page;
         $this->page = $page;
         return $this;
     }
@@ -71,6 +72,7 @@ class Paginator
      */
     public function setBase($base)
     {
+        $base = (int) $base;
         $this->base = $base;
         return $this;
     }
@@ -122,6 +124,7 @@ class Paginator
      */
     public function setItemsPerPage($itemsPerPage)
     {
+        $itemsPerPage = (int) $itemsPerPage;
         $this->itemsPerPage = \max(1, $itemsPerPage);
         return $this;
     }

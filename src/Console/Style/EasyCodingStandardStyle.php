@@ -84,9 +84,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210508\Symfony\Component
      */
     private function clearCrLfFromMessage($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         return \str_replace("\r", '', $message);
     }
     /**
@@ -95,9 +93,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210508\Symfony\Component
      */
     private function wrapMessageSoItFitsTheColumnWidth($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         return \wordwrap($message, $this->getTerminalWidth(), \PHP_EOL);
     }
 }

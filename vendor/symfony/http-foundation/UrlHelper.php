@@ -31,9 +31,7 @@ final class UrlHelper
      */
     public function getAbsoluteUrl($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (\false !== \strpos($path, '://') || '//' === \substr($path, 0, 2)) {
             return $path;
         }
@@ -61,9 +59,7 @@ final class UrlHelper
      */
     public function getRelativePath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (\false !== \strpos($path, '://') || '//' === \substr($path, 0, 2)) {
             return $path;
         }
@@ -78,9 +74,7 @@ final class UrlHelper
      */
     private function getAbsoluteUrlFromContext($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (null === $this->requestContext || '' === ($host = $this->requestContext->getHost())) {
             return $path;
         }

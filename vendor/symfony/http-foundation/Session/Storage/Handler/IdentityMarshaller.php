@@ -37,9 +37,7 @@ class IdentityMarshaller implements \ECSPrefix20210508\Symfony\Component\Cache\M
      */
     public function unmarshall($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         return $value;
     }
 }

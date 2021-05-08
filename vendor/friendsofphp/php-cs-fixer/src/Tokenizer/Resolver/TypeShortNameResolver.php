@@ -29,9 +29,7 @@ final class TypeShortNameResolver
      */
     public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $typeName)
     {
-        if (\is_object($typeName)) {
-            $typeName = (string) $typeName;
-        }
+        $typeName = (string) $typeName;
         // First match explicit imports:
         $useMap = $this->getUseMapFromTokens($tokens);
         foreach ($useMap as $shortName => $fullName) {

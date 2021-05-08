@@ -80,6 +80,8 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
      */
     private function trimNewLines(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             $content = $tokens[$index]->getContent();
             if ($tokens[$index]->isGivenKind(\T_COMMENT)) {

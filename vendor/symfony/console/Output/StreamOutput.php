@@ -38,6 +38,7 @@ class StreamOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\O
      */
     public function __construct($stream, $verbosity = self::VERBOSITY_NORMAL, $decorated = null, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
+        $verbosity = (int) $verbosity;
         if (!\is_resource($stream) || 'stream' !== \get_resource_type($stream)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException('The StreamOutput class needs a stream as its first argument.');
         }
@@ -63,9 +64,8 @@ class StreamOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\O
      */
     protected function doWrite($message, $newline)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $newline = (bool) $newline;
         if ($newline) {
             $message .= \PHP_EOL;
         }

@@ -18,6 +18,8 @@ final class BlockInfo
      */
     public function __construct($start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $this->start = $start;
         $this->end = $end;
     }
@@ -41,6 +43,7 @@ final class BlockInfo
      */
     public function contains($position)
     {
+        $position = (int) $position;
         if ($position < $this->start) {
             return \false;
         }

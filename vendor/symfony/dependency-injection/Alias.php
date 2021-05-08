@@ -23,9 +23,8 @@ class Alias
      */
     public function __construct($id, $public = \false)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $public = (bool) $public;
         $this->id = $id;
         $this->public = $public;
     }
@@ -46,6 +45,7 @@ class Alias
      */
     public function setPublic($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->public = $boolean;
         return $this;
     }
@@ -59,6 +59,7 @@ class Alias
      */
     public function setPrivate($boolean)
     {
+        $boolean = (bool) $boolean;
         trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s()" method is deprecated, use "setPublic()" instead.', __METHOD__);
         return $this->setPublic(!$boolean);
     }
@@ -125,9 +126,7 @@ class Alias
      */
     public function getDeprecationMessage($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         trigger_deprecation('symfony/dependency-injection', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($id)['message'];
     }
@@ -137,9 +136,7 @@ class Alias
      */
     public function getDeprecation($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \str_replace('%alias_id%', $id, $this->deprecation['message'])];
     }
     /**

@@ -48,6 +48,7 @@ final class NullableTypeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransf
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$token->equals('?')) {
             return;
         }

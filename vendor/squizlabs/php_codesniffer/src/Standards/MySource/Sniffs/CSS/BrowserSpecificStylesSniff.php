@@ -50,6 +50,7 @@ class BrowserSpecificStylesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         // Ignore files with browser-specific suffixes.
         $filename = $phpcsFile->getFilename();
         $breakChar = \strrpos($filename, '_');

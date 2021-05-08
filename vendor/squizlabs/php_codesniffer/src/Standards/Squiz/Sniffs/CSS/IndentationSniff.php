@@ -47,6 +47,7 @@ class IndentationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $numTokens = \count($tokens) - 2;
         $indentLevel = 0;

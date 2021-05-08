@@ -60,9 +60,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function block($messages, $type = null, $style = null, $prefix = ' ', $padding = \false, $escape = \true)
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $padding = (bool) $padding;
+        $escape = (bool) $escape;
         $messages = \is_array($messages) ? \array_values($messages) : [$messages];
         $this->autoPrependBlock();
         $this->writeln($this->createBlock($messages, $type, $style, $prefix, $padding, $escape));
@@ -74,9 +74,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function title($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         $this->autoPrependBlock();
         $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('=', \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
         $this->newLine();
@@ -87,9 +85,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function section($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         $this->autoPrependBlock();
         $this->writeln([\sprintf('<comment>%s</>', \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($message)), \sprintf('<comment>%s</>', \str_repeat('-', \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $message)))]);
         $this->newLine();
@@ -247,9 +243,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function ask($question, $default = null, $validator = null)
     {
-        if (\is_object($question)) {
-            $question = (string) $question;
-        }
+        $question = (string) $question;
         $question = new \ECSPrefix20210508\Symfony\Component\Console\Question\Question($question, $default);
         $question->setValidator($validator);
         return $this->askQuestion($question);
@@ -260,9 +254,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function askHidden($question, $validator = null)
     {
-        if (\is_object($question)) {
-            $question = (string) $question;
-        }
+        $question = (string) $question;
         $question = new \ECSPrefix20210508\Symfony\Component\Console\Question\Question($question);
         $question->setHidden(\true);
         $question->setValidator($validator);
@@ -273,9 +265,8 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function confirm($question, $default = \true)
     {
-        if (\is_object($question)) {
-            $question = (string) $question;
-        }
+        $question = (string) $question;
+        $default = (bool) $default;
         return $this->askQuestion(new \ECSPrefix20210508\Symfony\Component\Console\Question\ConfirmationQuestion($question, $default));
     }
     /**
@@ -284,9 +275,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function choice($question, array $choices, $default = null)
     {
-        if (\is_object($question)) {
-            $question = (string) $question;
-        }
+        $question = (string) $question;
         if (null !== $default) {
             $values = \array_flip($choices);
             $default = isset($values[$default]) ? $values[$default] : $default;
@@ -299,6 +288,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function progressStart($max = 0)
     {
+        $max = (int) $max;
         $this->progressBar = $this->createProgressBar($max);
         $this->progressBar->start();
     }
@@ -308,6 +298,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function progressAdvance($step = 1)
     {
+        $step = (int) $step;
         $this->getProgressBar()->advance($step);
     }
     /**
@@ -325,6 +316,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function createProgressBar($max = 0)
     {
+        $max = (int) $max;
         $progressBar = parent::createProgressBar($max);
         if ('\\' !== \DIRECTORY_SEPARATOR || 'Hyper' === \getenv('TERM_PROGRAM')) {
             $progressBar->setEmptyBarCharacter('░');
@@ -359,6 +351,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
+        $type = (int) $type;
         if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }
@@ -374,6 +367,8 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function write($messages, $newline = \false, $type = self::OUTPUT_NORMAL)
     {
+        $newline = (bool) $newline;
+        $type = (int) $type;
         if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }
@@ -388,6 +383,7 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     public function newLine($count = 1)
     {
+        $count = (int) $count;
         parent::newLine($count);
         $this->bufferedOutput->write(\str_repeat("\n", $count));
     }
@@ -443,9 +439,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     private function writeBuffer($message, $newLine, $type)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $newLine = (bool) $newLine;
+        $type = (int) $type;
         // We need to know if the last chars are PHP_EOL
         $this->bufferedOutput->write($message, $newLine, $type);
     }
@@ -460,9 +456,9 @@ class SymfonyStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\Ou
      */
     private function createBlock($messages, $type = null, $style = null, $prefix = ' ', $padding = \false, $escape = \false)
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $padding = (bool) $padding;
+        $escape = (bool) $escape;
         $indentLength = 0;
         $prefixLength = \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), $prefix);
         $lines = [];

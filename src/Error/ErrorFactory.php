@@ -14,12 +14,9 @@ final class ErrorFactory
      */
     public function create($line, $message, $sourceClass, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
-        if (\is_object($sourceClass)) {
-            $sourceClass = (string) $sourceClass;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $line = (int) $line;
+        $message = (string) $message;
+        $sourceClass = (string) $sourceClass;
         return new \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError($line, $message, $sourceClass, $smartFileInfo);
     }
 }

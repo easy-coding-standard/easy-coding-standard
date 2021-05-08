@@ -30,9 +30,7 @@ final class CodeSample implements \PhpCsFixer\FixerDefinition\CodeSampleInterfac
      */
     public function __construct($code, $configuration = null)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
+        $code = (string) $code;
         $this->code = $code;
         $this->configuration = $configuration;
     }

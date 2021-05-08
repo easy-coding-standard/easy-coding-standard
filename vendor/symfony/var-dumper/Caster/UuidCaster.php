@@ -23,6 +23,7 @@ final class UuidCaster
      */
     public static function castRamseyUuid(\ECSPrefix20210508\Ramsey\Uuid\UuidInterface $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'uuid' => (string) $c];
         return $a;
     }

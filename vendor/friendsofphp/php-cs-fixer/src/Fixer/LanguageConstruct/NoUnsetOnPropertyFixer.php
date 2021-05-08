@@ -84,6 +84,7 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getUnsetsInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $unsetStart = $tokens->getNextTokenOfKind($index, ['(']);
         $unsetEnd = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $unsetStart);
@@ -104,6 +105,8 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
      */
     private function isProperty(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
     {
+        $index = (int) $index;
+        $endIndex = (int) $endIndex;
         if ($tokens[$index]->isGivenKind(\T_VARIABLE)) {
             $nextIndex = $tokens->getNextMeaningfulToken($index);
             if (null === $nextIndex || !$tokens[$nextIndex]->isGivenKind(\T_OBJECT_OPERATOR)) {
@@ -146,6 +149,7 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
      */
     private function updateTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $unsetInfo, $isLastUnset)
     {
+        $isLastUnset = (bool) $isLastUnset;
         // if entry is first and to be transform we remove leading "unset("
         if ($unsetInfo['isFirst'] && $unsetInfo['isToTransform']) {
             $braceIndex = $tokens->getPrevTokenOfKind($unsetInfo['startIndex'], ['(']);

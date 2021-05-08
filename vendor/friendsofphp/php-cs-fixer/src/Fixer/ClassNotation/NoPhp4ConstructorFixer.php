@@ -124,9 +124,9 @@ class Foo
      */
     private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $className, $classStart, $classEnd)
     {
-        if (\is_object($className)) {
-            $className = (string) $className;
-        }
+        $className = (string) $className;
+        $classStart = (int) $classStart;
+        $classEnd = (int) $classEnd;
         $php4 = $this->findFunction($tokens, $className, $classStart, $classEnd);
         if (null === $php4) {
             // no PHP4-constructor!
@@ -179,6 +179,8 @@ class Foo
      */
     private function fixParent(\PhpCsFixer\Tokenizer\Tokens $tokens, $classStart, $classEnd)
     {
+        $classStart = (int) $classStart;
+        $classEnd = (int) $classEnd;
         // check calls to the parent constructor
         foreach ($tokens->findGivenKind(\T_EXTENDS) as $index => $token) {
             $parentIndex = $tokens->getNextMeaningfulToken($index);
@@ -220,6 +222,8 @@ class Foo
      */
     private function fixInfiniteRecursion(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
             $seq = [[\T_VARIABLE, '$this'], [$objectOperatorKind], [\T_STRING, '__construct']];
             while (\true) {
@@ -246,9 +250,9 @@ class Foo
      */
     private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $method, $startIndex, $bodyIndex)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
+        $startIndex = (int) $startIndex;
+        $bodyIndex = (int) $bodyIndex;
         $sequences = [];
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
             // initialise sequence as { $this->{$method}(
@@ -296,9 +300,9 @@ class Foo
      */
     private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $name, $startIndex, $endIndex)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $function = $tokens->findSequence([[\T_FUNCTION], [\T_STRING, $name], '('], $startIndex, $endIndex, \false);
         if (null === $function) {
             return null;

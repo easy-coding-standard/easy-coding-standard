@@ -28,15 +28,9 @@ class FormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helpe
      */
     public function formatSection($section, $message, $style = 'info')
     {
-        if (\is_object($style)) {
-            $style = (string) $style;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
-        if (\is_object($section)) {
-            $section = (string) $section;
-        }
+        $section = (string) $section;
+        $message = (string) $message;
+        $style = (string) $style;
         return \sprintf('<%s>[%s]</%s> %s', $style, $section, $style, $message);
     }
     /**
@@ -50,9 +44,8 @@ class FormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helpe
      */
     public function formatBlock($messages, $style, $large = \false)
     {
-        if (\is_object($style)) {
-            $style = (string) $style;
-        }
+        $style = (string) $style;
+        $large = (bool) $large;
         if (!\is_array($messages)) {
             $messages = [$messages];
         }
@@ -85,12 +78,9 @@ class FormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helpe
      */
     public function truncate($message, $length, $suffix = '...')
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $length = (int) $length;
+        $suffix = (string) $suffix;
         $computedLength = $length - self::strlen($suffix);
         if ($computedLength > self::strlen($message)) {
             return $message;

@@ -39,6 +39,7 @@ final class NamespaceOperatorTransformer extends \PhpCsFixer\Tokenizer\AbstractT
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$token->isGivenKind(\T_NAMESPACE)) {
             return;
         }

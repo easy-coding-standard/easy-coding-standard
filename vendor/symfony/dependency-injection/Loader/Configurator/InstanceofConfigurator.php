@@ -33,9 +33,7 @@ class InstanceofConfigurator extends \ECSPrefix20210508\Symfony\Component\Depend
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, $path = null)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         parent::__construct($parent, $definition, $id, []);
         $this->path = $path;
     }
@@ -46,9 +44,7 @@ class InstanceofConfigurator extends \ECSPrefix20210508\Symfony\Component\Depend
      */
     public final function instanceof($fqcn)
     {
-        if (\is_object($fqcn)) {
-            $fqcn = (string) $fqcn;
-        }
+        $fqcn = (string) $fqcn;
         return $this->parent->instanceof($fqcn);
     }
 }

@@ -34,6 +34,9 @@ abstract class AbstractLinesBeforeNamespaceFixer extends \PhpCsFixer\AbstractFix
      */
     protected function fixLinesBeforeNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $expectedMin, $expectedMax)
     {
+        $index = (int) $index;
+        $expectedMin = (int) $expectedMin;
+        $expectedMax = (int) $expectedMax;
         // Let's determine the total numbers of new lines before the namespace
         // and the opening token
         $openingTokenIndex = null;

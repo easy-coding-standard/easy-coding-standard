@@ -66,12 +66,8 @@ class Validators
      */
     public static function assert($value, $expected, $label = 'variable')
     {
-        if (\is_object($label)) {
-            $label = (string) $label;
-        }
-        if (\is_object($expected)) {
-            $expected = (string) $expected;
-        }
+        $expected = (string) $expected;
+        $label = (string) $label;
         if (!static::is($value, $expected)) {
             $expected = \str_replace(['|', ':'], [' or ', ' in range '], $expected);
             static $translate = ['boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'NULL' => 'null'];
@@ -95,9 +91,7 @@ class Validators
      */
     public static function assertField(array $array, $key, $expected = null, $label = "item '%' in array")
     {
-        if (\is_object($label)) {
-            $label = (string) $label;
-        }
+        $label = (string) $label;
         if (!\array_key_exists($key, $array)) {
             throw new \ECSPrefix20210508\Nette\Utils\AssertionException('Missing ' . \str_replace('%', $key, $label) . '.');
         } elseif ($expected) {
@@ -112,9 +106,7 @@ class Validators
      */
     public static function is($value, $expected)
     {
-        if (\is_object($expected)) {
-            $expected = (string) $expected;
-        }
+        $expected = (string) $expected;
         foreach (\explode('|', $expected) as $item) {
             if (\substr($item, -2) === '[]') {
                 if ((\is_array($value) || $value instanceof \Traversable) && self::everyIs($value, \substr($item, 0, -2))) {
@@ -169,9 +161,7 @@ class Validators
      */
     public static function everyIs($values, $expected)
     {
-        if (\is_object($expected)) {
-            $expected = (string) $expected;
-        }
+        $expected = (string) $expected;
         foreach ($values as $value) {
             if (!static::is($value, $expected)) {
                 return \false;
@@ -282,9 +272,7 @@ class Validators
      */
     public static function isEmail($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         $atom = "[-a-z0-9!#\$%&'*+/=?^_`{|}~]";
         // RFC 5322 unquoted characters in local-part
         $alpha = "a-z€-ÿ";
@@ -306,9 +294,7 @@ XX
      */
     public static function isUrl($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         $alpha = "a-z€-ÿ";
         return (bool) \preg_match(<<<XX
 \t\t(^
@@ -333,9 +319,7 @@ XX
      */
     public static function isUri($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         return (bool) \preg_match('#^[a-z\\d+\\.-]+:\\S+$#Di', $value);
     }
     /**
@@ -345,9 +329,7 @@ XX
      */
     public static function isType($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return \class_exists($type) || \interface_exists($type) || \trait_exists($type);
     }
     /**
@@ -357,9 +339,7 @@ XX
      */
     public static function isPhpIdentifier($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         return \is_string($value) && \preg_match('#^[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*$#D', $value);
     }
 }

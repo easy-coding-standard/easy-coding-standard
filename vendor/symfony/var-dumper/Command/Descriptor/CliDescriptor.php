@@ -39,6 +39,7 @@ class CliDescriptor implements \ECSPrefix20210508\Symfony\Component\VarDumper\Co
      */
     public function describe(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
     {
+        $clientId = (int) $clientId;
         $io = $output instanceof \ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle ? $output : new \ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle(new \ECSPrefix20210508\Symfony\Component\Console\Input\ArrayInput([]), $output);
         $this->dumper->setColors($output->isDecorated());
         $rows = [['date', \date('r', $context['timestamp'])]];

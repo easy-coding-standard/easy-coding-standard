@@ -167,6 +167,8 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     public function handle(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
+        $type = (int) $type;
+        $catch = (bool) $catch;
         // FIXME: catch exceptions and implement a 500 error page here? -> in Varnish, there is a built-in error page mechanism
         if (\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $type) {
             $this->traces = [];
@@ -227,6 +229,7 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     protected function pass(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
     {
+        $catch = (bool) $catch;
         $this->record($request, 'pass');
         return $this->forward($request, $catch);
     }
@@ -243,6 +246,7 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     protected function invalidate(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
     {
+        $catch = (bool) $catch;
         $response = $this->pass($request, $catch);
         // invalidate only when the response is successful
         if ($response->isSuccessful() || $response->isRedirect()) {
@@ -282,6 +286,7 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     protected function lookup(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
     {
+        $catch = (bool) $catch;
         try {
             $entry = $this->store->lookup($request);
         } catch (\Exception $e) {
@@ -318,6 +323,7 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     protected function validate(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $entry, $catch = \false)
     {
+        $catch = (bool) $catch;
         $subRequest = clone $request;
         // send no head requests because we want content
         if ('HEAD' === $request->getMethod()) {
@@ -369,6 +375,7 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     protected function fetch(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $catch = \false)
     {
+        $catch = (bool) $catch;
         $subRequest = clone $request;
         // send no head requests because we want content
         if ('HEAD' === $request->getMethod()) {
@@ -396,6 +403,7 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     protected function forward(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $catch = \false, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $entry = null)
     {
+        $catch = (bool) $catch;
         if ($this->surrogate) {
             $this->surrogate->addSurrogateCapability($request);
         }
@@ -581,9 +589,7 @@ class HttpCache implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpK
      */
     private function record(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $event)
     {
-        if (\is_object($event)) {
-            $event = (string) $event;
-        }
+        $event = (string) $event;
         $this->traces[$this->getTraceKey($request)][] = $event;
     }
     /**

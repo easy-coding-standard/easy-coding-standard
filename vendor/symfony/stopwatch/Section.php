@@ -43,6 +43,7 @@ class Section
      */
     public function __construct($origin = null, $morePrecision = \false)
     {
+        $morePrecision = (bool) $morePrecision;
         $this->origin = $origin;
         $this->morePrecision = $morePrecision;
     }
@@ -54,9 +55,7 @@ class Section
      */
     public function get($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         foreach ($this->children as $child) {
             if ($id === $child->getId()) {
                 return $child;
@@ -93,9 +92,7 @@ class Section
      */
     public function setId($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->id = $id;
         return $this;
     }
@@ -108,9 +105,7 @@ class Section
      */
     public function startEvent($name, $category)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->events[$name])) {
             $this->events[$name] = new \ECSPrefix20210508\Symfony\Component\Stopwatch\StopwatchEvent($this->origin ?: \microtime(\true) * 1000, $category, $this->morePrecision, $name);
         }
@@ -124,9 +119,7 @@ class Section
      */
     public function isEventStarted($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->events[$name]) && $this->events[$name]->isStarted();
     }
     /**
@@ -139,9 +132,7 @@ class Section
      */
     public function stopEvent($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->events[$name])) {
             throw new \LogicException(\sprintf('Event "%s" is not started.', $name));
         }
@@ -157,9 +148,7 @@ class Section
      */
     public function lap($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->stopEvent($name)->start();
     }
     /**
@@ -172,9 +161,7 @@ class Section
      */
     public function getEvent($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->events[$name])) {
             throw new \LogicException(\sprintf('Event "%s" is not known.', $name));
         }

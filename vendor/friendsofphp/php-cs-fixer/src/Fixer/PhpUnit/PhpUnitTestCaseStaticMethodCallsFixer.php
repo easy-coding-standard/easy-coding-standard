@@ -344,6 +344,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             // skip anonymous classes
@@ -396,9 +398,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     private function needsConversion(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $referenceIndex, $callType)
     {
-        if (\is_object($callType)) {
-            $callType = (string) $callType;
-        }
+        $index = (int) $index;
+        $referenceIndex = (int) $referenceIndex;
+        $callType = (string) $callType;
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         return $functionsAnalyzer->isTheSameClassCall($tokens, $index) && !$tokens[$referenceIndex]->equals($this->conversionMap[$callType][1], \false);
     }
@@ -408,6 +410,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     private function findEndOfNextBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $nextIndex = $tokens->getNextTokenOfKind($index, [';', '{']);
         return $tokens[$nextIndex]->equals('{') ? $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $nextIndex) : $nextIndex;
     }

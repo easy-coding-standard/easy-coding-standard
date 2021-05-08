@@ -17,9 +17,7 @@ final class DefinitionFinder
      */
     public function findAllByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $definitions = [];
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
@@ -39,9 +37,7 @@ final class DefinitionFinder
      */
     public function getByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $definition = $this->getByTypeIfExists($containerBuilder, $type);
         if ($definition !== null) {
             return $definition;
@@ -54,9 +50,7 @@ final class DefinitionFinder
      */
     private function getByTypeIfExists(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {
             $class = $definition->getClass() ?: $name;
@@ -75,9 +69,7 @@ final class DefinitionFinder
      */
     private function doesClassExists($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         try {
             return \class_exists($class);
         } catch (\Throwable $throwable) {

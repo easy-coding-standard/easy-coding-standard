@@ -21,9 +21,7 @@ final class FileHashComputer
      */
     public function computeConfig($filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $containerBuilder = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder();
         $loader = $this->createLoader($filePath, $containerBuilder);
         $loader->load($filePath);
@@ -36,9 +34,7 @@ final class FileHashComputer
      */
     public function compute($filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $fileHash = \md5_file($filePath);
         if (!$fileHash) {
             throw new \Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException(\sprintf('File "%s" was not found', $fileHash));
@@ -60,9 +56,7 @@ final class FileHashComputer
      */
     private function createLoader($filePath, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $fileLocator = new \ECSPrefix20210508\Symfony\Component\Config\FileLocator([\dirname($filePath)]);
         $loaders = [new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];
         $loaderResolver = new \ECSPrefix20210508\Symfony\Component\Config\Loader\LoaderResolver($loaders);

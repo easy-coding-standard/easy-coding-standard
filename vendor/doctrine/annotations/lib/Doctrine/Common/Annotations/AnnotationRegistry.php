@@ -62,9 +62,7 @@ final class AnnotationRegistry
      */
     public static function registerFile($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         self::$registerFileUsed = \true;
         require_once $file;
     }
@@ -82,9 +80,7 @@ final class AnnotationRegistry
      */
     public static function registerAutoloadNamespace($namespace, $dirs = null)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         self::$autoloadNamespaces[$namespace] = $dirs;
     }
     /**
@@ -139,9 +135,7 @@ final class AnnotationRegistry
      */
     public static function loadAnnotationClass($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         if (\class_exists($class, \false)) {
             return \true;
         }

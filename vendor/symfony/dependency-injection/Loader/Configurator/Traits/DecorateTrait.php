@@ -28,9 +28,9 @@ trait DecorateTrait
      */
     public final function decorate($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        if (\is_object($renamedId)) {
-            $renamedId = (string) $renamedId;
-        }
+        $renamedId = (string) $renamedId;
+        $priority = (int) $priority;
+        $invalidBehavior = (int) $invalidBehavior;
         $this->definition->setDecoratedService($id, $renamedId, $priority, $invalidBehavior);
         return $this;
     }

@@ -40,6 +40,7 @@ class DisallowInlineIfSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $phpcsFile->addError('Inline IF statements are not allowed', $stackPtr, 'Found');
     }
     //end process()

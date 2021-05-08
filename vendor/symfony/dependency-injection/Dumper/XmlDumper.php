@@ -200,9 +200,7 @@ class XmlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjection
      */
     private function addServiceAlias($alias, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias $id, \DOMElement $parent)
     {
-        if (\is_object($alias)) {
-            $alias = (string) $alias;
-        }
+        $alias = (string) $alias;
         $service = $this->document->createElement('service');
         $service->setAttribute('id', $alias);
         $service->setAttribute('alias', $id);
@@ -244,12 +242,8 @@ class XmlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjection
      */
     private function convertParameters(array $parameters, $type, \DOMElement $parent, $keyAttribute = 'key')
     {
-        if (\is_object($keyAttribute)) {
-            $keyAttribute = (string) $keyAttribute;
-        }
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $keyAttribute = (string) $keyAttribute;
         $withKeys = \array_keys($parameters) !== \range(0, \count($parameters) - 1);
         foreach ($parameters as $key => $value) {
             $element = $this->document->createElement($type);

@@ -23,9 +23,8 @@ final class SystemError
      */
     public function __construct($line, $message, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $line = (int) $line;
+        $message = (string) $message;
         $this->line = $line;
         $this->message = $message;
         $this->fileInfo = $fileInfo;

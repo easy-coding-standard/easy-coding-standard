@@ -35,6 +35,7 @@ class MultiConstraint implements \ECSPrefix20210508\Composer\Semver\Constraint\C
      */
     public function __construct(array $constraints, $conjunctive = \true)
     {
+        $conjunctive = (bool) $conjunctive;
         if (\count($constraints) < 2) {
             throw new \InvalidArgumentException('Must provide at least two constraints for a MultiConstraint. Use ' . 'the regular Constraint class for one constraint only or MatchAllConstraint for none. You may use ' . 'MultiConstraint::create() which optimizes and handles those cases automatically.');
         }
@@ -64,6 +65,7 @@ class MultiConstraint implements \ECSPrefix20210508\Composer\Semver\Constraint\C
     }
     public function compile($otherOperator)
     {
+        $otherOperator = (int) $otherOperator;
         $parts = array();
         foreach ($this->constraints as $constraint) {
             $code = $constraint->compile($otherOperator);
@@ -166,6 +168,7 @@ class MultiConstraint implements \ECSPrefix20210508\Composer\Semver\Constraint\C
      */
     public static function create(array $constraints, $conjunctive = \true)
     {
+        $conjunctive = (bool) $conjunctive;
         if (0 === \count($constraints)) {
             return new \ECSPrefix20210508\Composer\Semver\Constraint\MatchAllConstraint();
         }

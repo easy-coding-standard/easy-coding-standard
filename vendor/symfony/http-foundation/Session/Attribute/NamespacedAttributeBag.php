@@ -25,12 +25,8 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     public function __construct($storageKey = '_sf2_attributes', $namespaceCharacter = '/')
     {
-        if (\is_object($namespaceCharacter)) {
-            $namespaceCharacter = (string) $namespaceCharacter;
-        }
-        if (\is_object($storageKey)) {
-            $storageKey = (string) $storageKey;
-        }
+        $storageKey = (string) $storageKey;
+        $namespaceCharacter = (string) $namespaceCharacter;
         $this->namespaceCharacter = $namespaceCharacter;
         parent::__construct($storageKey);
     }
@@ -40,9 +36,7 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     public function has($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         // reference mismatch: if fixed, re-introduced in array_key_exists; keep as it is
         $attributes = $this->resolveAttributePath($name);
         $name = $this->resolveKey($name);
@@ -57,9 +51,7 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     public function get($name, $default = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         // reference mismatch: if fixed, re-introduced in array_key_exists; keep as it is
         $attributes = $this->resolveAttributePath($name);
         $name = $this->resolveKey($name);
@@ -74,9 +66,7 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     public function set($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $attributes =& $this->resolveAttributePath($name, \true);
         $name = $this->resolveKey($name);
         $attributes[$name] = $value;
@@ -87,9 +77,7 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     public function remove($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $retval = null;
         $attributes =& $this->resolveAttributePath($name);
         $name = $this->resolveKey($name);
@@ -111,9 +99,8 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     protected function &resolveAttributePath($name, $writeContext = \false)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $writeContext = (bool) $writeContext;
         $array =& $this->attributes;
         $name = 0 === \strpos($name, $this->namespaceCharacter) ? \substr($name, 1) : $name;
         // Check if there is anything to do, else return
@@ -151,9 +138,7 @@ class NamespacedAttributeBag extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     protected function resolveKey($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (\false !== ($pos = \strrpos($name, $this->namespaceCharacter))) {
             $name = \substr($name, $pos + 1);
         }

@@ -42,6 +42,7 @@ class ApplicationDescription
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Application $application, $namespace = null, $showHidden = \false)
     {
+        $showHidden = (bool) $showHidden;
         $this->application = $application;
         $this->namespace = $namespace;
         $this->showHidden = $showHidden;
@@ -73,9 +74,7 @@ class ApplicationDescription
      */
     public function getCommand($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->commands[$name]) && !isset($this->aliases[$name])) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }

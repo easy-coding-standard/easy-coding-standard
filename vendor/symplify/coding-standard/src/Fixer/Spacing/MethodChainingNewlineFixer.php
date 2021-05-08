@@ -107,6 +107,7 @@ CODE_SAMPLE
      */
     private function shouldPrefixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $objectOperatorIndex)
     {
+        $objectOperatorIndex = (int) $objectOperatorIndex;
         for ($i = $objectOperatorIndex; $i >= 0; --$i) {
             /** @var Token $currentToken */
             $currentToken = $tokens[$i];
@@ -129,6 +130,7 @@ CODE_SAMPLE
      */
     private function isDoubleBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         /** @var int $nextTokenPosition */
         $nextTokenPosition = $tokens->getNextNonWhitespace($position);
         /** @var Token $nextToken */
@@ -144,6 +146,7 @@ CODE_SAMPLE
      */
     private function isPreceededByOpenedCallInAnotherBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return \false;
@@ -158,6 +161,8 @@ CODE_SAMPLE
      */
     private function shouldBracketPrefix(\PhpCsFixer\Tokenizer\Tokens $tokens, $position, $objectOperatorIndex)
     {
+        $position = (int) $position;
+        $objectOperatorIndex = (int) $objectOperatorIndex;
         if ($this->isDoubleBracket($tokens, $position)) {
             return \false;
         }

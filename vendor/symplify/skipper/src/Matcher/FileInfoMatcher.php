@@ -34,9 +34,7 @@ final class FileInfoMatcher
      */
     private function doesFileInfoMatchPattern(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $ignoredPath)
     {
-        if (\is_object($ignoredPath)) {
-            $ignoredPath = (string) $ignoredPath;
-        }
+        $ignoredPath = (string) $ignoredPath;
         // in ecs.php, the path can be absolute
         if ($smartFileInfo->getRealPath() === $ignoredPath) {
             return \true;

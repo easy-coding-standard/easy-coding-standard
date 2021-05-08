@@ -60,9 +60,8 @@ final class Error
      */
     public function __construct($type, $filePath, $source = null, array $appliedFixers = [], $diff = null)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $type = (int) $type;
+        $filePath = (string) $filePath;
         $this->type = $type;
         $this->filePath = $filePath;
         $this->source = $source;

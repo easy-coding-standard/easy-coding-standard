@@ -70,6 +70,7 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $this->requiredSpacesAfterOpen = (int) $this->requiredSpacesAfterOpen;
         $this->requiredSpacesBeforeClose = (int) $this->requiredSpacesBeforeClose;
         $tokens = $phpcsFile->getTokens();
@@ -151,6 +152,8 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function isMultiLineCall(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket, $tokens)
     {
+        $stackPtr = (int) $stackPtr;
+        $openBracket = (int) $openBracket;
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         if ($tokens[$openBracket]['line'] !== $tokens[$closeBracket]['line']) {
             return \true;
@@ -173,6 +176,8 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processSingleLineCall(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket, $tokens)
     {
+        $stackPtr = (int) $stackPtr;
+        $openBracket = (int) $openBracket;
         $closer = $tokens[$openBracket]['parenthesis_closer'];
         if ($openBracket === $closer - 1) {
             return;
@@ -289,6 +294,8 @@ class FunctionCallSignatureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processMultiLineCall(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $openBracket, $tokens)
     {
+        $stackPtr = (int) $stackPtr;
+        $openBracket = (int) $openBracket;
         // We need to work out how far indented the function
         // call itself is, so we can work out how far to
         // indent the arguments.

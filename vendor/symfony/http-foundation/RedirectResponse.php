@@ -32,9 +32,8 @@ class RedirectResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      */
     public function __construct($url, $status = 302, array $headers = [])
     {
-        if (\is_object($url)) {
-            $url = (string) $url;
-        }
+        $url = (string) $url;
+        $status = (int) $status;
         parent::__construct('', $status, $headers);
         $this->setTargetUrl($url);
         if (!$this->isRedirect()) {
@@ -56,9 +55,8 @@ class RedirectResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      */
     public static function create($url = '', $status = 302, array $headers = [])
     {
-        if (\is_object($url)) {
-            $url = (string) $url;
-        }
+        $url = (string) $url;
+        $status = (int) $status;
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($url, $status, $headers);
     }
@@ -81,9 +79,7 @@ class RedirectResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      */
     public function setTargetUrl($url)
     {
-        if (\is_object($url)) {
-            $url = (string) $url;
-        }
+        $url = (string) $url;
         if ('' === $url) {
             throw new \InvalidArgumentException('Cannot redirect to an empty URL.');
         }

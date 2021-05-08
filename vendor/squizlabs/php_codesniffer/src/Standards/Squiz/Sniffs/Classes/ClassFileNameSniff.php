@@ -34,6 +34,7 @@ class ClassFileNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $fullPath = \basename($phpcsFile->getFilename());
         $fileName = \substr($fullPath, 0, \strrpos($fullPath, '.'));
         if ($fileName === '') {

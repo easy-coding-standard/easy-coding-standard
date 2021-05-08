@@ -31,9 +31,8 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     public function __construct(\ECSPrefix20210508\CouchbaseBucket $bucket, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         if (!static::isSupported()) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
         }
@@ -111,9 +110,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     private static function getOptions($options)
     {
-        if (\is_object($options)) {
-            $options = (string) $options;
-        }
+        $options = (string) $options;
         $results = [];
         $optionsInArray = \explode('&', $options);
         foreach ($optionsInArray as $option) {
@@ -163,9 +160,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     protected function doHave($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return \false !== $this->bucket->get($id);
     }
     /**
@@ -174,9 +169,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     protected function doClear($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         if ('' === $namespace) {
             $this->bucket->manager()->flush();
             return \true;
@@ -203,6 +196,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     protected function doSave(array $values, $lifetime)
     {
+        $lifetime = (int) $lifetime;
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
         }
@@ -222,6 +216,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      */
     private function normalizeExpiry($expiry)
     {
+        $expiry = (int) $expiry;
         if ($expiry && $expiry > static::THIRTY_DAYS_IN_SECONDS) {
             $expiry += \time();
         }

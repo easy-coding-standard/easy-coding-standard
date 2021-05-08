@@ -17,9 +17,7 @@ final class Reflection
      */
     public static function isBuiltinType($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return isset(self::BUILTIN_TYPES[\strtolower($type)]);
     }
     /**
@@ -84,6 +82,7 @@ final class Reflection
      */
     private static function getType($reflection, $type, $asArray = \false)
     {
+        $asArray = (bool) $asArray;
         if ($type === null) {
             return $asArray ? [] : null;
         } elseif ($type instanceof \ReflectionNamedType) {
@@ -112,9 +111,7 @@ final class Reflection
      */
     private static function normalizeType($type, $reflection)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $lower = \strtolower($type);
         if ($reflection instanceof \ReflectionFunction) {
             return $type;
@@ -229,9 +226,7 @@ final class Reflection
      */
     public static function expandClassName($name, \ReflectionClass $context)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $lower = \strtolower($name);
         if (empty($name)) {
             throw new \ECSPrefix20210508\Nette\InvalidArgumentException('Class name must not be empty.');
@@ -279,9 +274,7 @@ final class Reflection
      */
     private static function parseUseStatements($code, $forClass = null)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
+        $code = (string) $code;
         try {
             $tokens = \token_get_all($code, \TOKEN_PARSE);
         } catch (\ParseError $e) {

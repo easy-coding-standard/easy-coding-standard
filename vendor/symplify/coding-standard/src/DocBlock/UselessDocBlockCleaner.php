@@ -52,9 +52,8 @@ final class UselessDocBlockCleaner
      */
     public function clearDocTokenContent(array $tokens, $position, $docContent)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $position = (int) $position;
+        $docContent = (string) $docContent;
         foreach (self::CLEANING_REGEXES as $cleaningRegex) {
             $docContent = \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, $cleaningRegex, '');
         }
@@ -68,9 +67,8 @@ final class UselessDocBlockCleaner
      */
     private function cleanClassMethodCommentMimicMethodName(array $reversedTokens, $index, $docContent)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $index = (int) $index;
+        $docContent = (string) $docContent;
         $matchMethodClass = \ECSPrefix20210508\Nette\Utils\Strings::match($docContent, self::COMMENT_METHOD_CLASS_REGEX);
         if ($matchMethodClass) {
             return $docContent;
@@ -96,6 +94,7 @@ final class UselessDocBlockCleaner
      */
     private function isNextFunction(array $reversedTokens, $index)
     {
+        $index = (int) $index;
         if (!isset($reversedTokens[$index + 4])) {
             return \false;
         }
@@ -107,9 +106,7 @@ final class UselessDocBlockCleaner
      */
     private function removeSpaces($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($content, self::SPACE_STAR_SLASH_REGEX, '');
     }
 }

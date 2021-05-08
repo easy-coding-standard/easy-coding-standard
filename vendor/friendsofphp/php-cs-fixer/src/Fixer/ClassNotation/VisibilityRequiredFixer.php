@@ -150,6 +150,8 @@ class Sample
      */
     private function isKeywordPlacedProperly(\PhpCsFixer\Tokenizer\Tokens $tokens, $keywordIndex, $comparedIndex)
     {
+        $keywordIndex = (int) $keywordIndex;
+        $comparedIndex = (int) $comparedIndex;
         return $keywordIndex + 2 === $comparedIndex && ' ' === $tokens[$keywordIndex + 1]->getContent();
     }
     /**
@@ -159,6 +161,8 @@ class Sample
      */
     private function moveTokenAndEnsureSingleSpaceFollows(\PhpCsFixer\Tokenizer\Tokens $tokens, $fromIndex, $toIndex)
     {
+        $fromIndex = (int) $fromIndex;
+        $toIndex = (int) $toIndex;
         $tokens->insertAt($toIndex, [$tokens[$fromIndex], new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])]);
         $tokens->clearAt($fromIndex);
         if ($tokens[$fromIndex + 1]->isWhitespace()) {

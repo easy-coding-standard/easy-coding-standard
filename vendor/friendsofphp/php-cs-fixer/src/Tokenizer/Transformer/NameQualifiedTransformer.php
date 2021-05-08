@@ -47,6 +47,7 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if ($token->isGivenKind([\T_NAME_QUALIFIED, \T_NAME_FULLY_QUALIFIED])) {
             $this->transformQualified($tokens, $token, $index);
         } elseif ($token->isGivenKind(\T_NAME_RELATIVE)) {
@@ -67,6 +68,7 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      */
     private function transformQualified(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         $parts = \explode('\\', $token->getContent());
         $newTokens = [];
         if ('' === $parts[0]) {
@@ -86,6 +88,7 @@ final class NameQualifiedTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      */
     private function transformRelative(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         $parts = \explode('\\', $token->getContent());
         $newTokens = [new \PhpCsFixer\Tokenizer\Token([\T_NAMESPACE, \array_shift($parts)]), new \PhpCsFixer\Tokenizer\Token([\T_NS_SEPARATOR, '\\'])];
         foreach ($parts as $part) {

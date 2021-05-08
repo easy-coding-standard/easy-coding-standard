@@ -48,33 +48,15 @@ class CachePoolPass implements \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function __construct($cachePoolTag = 'cache.pool', $kernelResetTag = 'kernel.reset', $cacheClearerId = 'cache.global_clearer', $cachePoolClearerTag = 'cache.pool.clearer', $cacheSystemClearerId = 'cache.system_clearer', $cacheSystemClearerTag = 'kernel.cache_clearer', $reverseContainerId = 'reverse_container', $reversibleTag = 'container.reversible', $messageHandlerId = 'cache.early_expiration_handler')
     {
-        if (\is_object($messageHandlerId)) {
-            $messageHandlerId = (string) $messageHandlerId;
-        }
-        if (\is_object($reversibleTag)) {
-            $reversibleTag = (string) $reversibleTag;
-        }
-        if (\is_object($reverseContainerId)) {
-            $reverseContainerId = (string) $reverseContainerId;
-        }
-        if (\is_object($cacheSystemClearerTag)) {
-            $cacheSystemClearerTag = (string) $cacheSystemClearerTag;
-        }
-        if (\is_object($cacheSystemClearerId)) {
-            $cacheSystemClearerId = (string) $cacheSystemClearerId;
-        }
-        if (\is_object($cachePoolClearerTag)) {
-            $cachePoolClearerTag = (string) $cachePoolClearerTag;
-        }
-        if (\is_object($cacheClearerId)) {
-            $cacheClearerId = (string) $cacheClearerId;
-        }
-        if (\is_object($kernelResetTag)) {
-            $kernelResetTag = (string) $kernelResetTag;
-        }
-        if (\is_object($cachePoolTag)) {
-            $cachePoolTag = (string) $cachePoolTag;
-        }
+        $cachePoolTag = (string) $cachePoolTag;
+        $kernelResetTag = (string) $kernelResetTag;
+        $cacheClearerId = (string) $cacheClearerId;
+        $cachePoolClearerTag = (string) $cachePoolClearerTag;
+        $cacheSystemClearerId = (string) $cacheSystemClearerId;
+        $cacheSystemClearerTag = (string) $cacheSystemClearerTag;
+        $reverseContainerId = (string) $reverseContainerId;
+        $reversibleTag = (string) $reversibleTag;
+        $messageHandlerId = (string) $messageHandlerId;
         $this->cachePoolTag = $cachePoolTag;
         $this->kernelResetTag = $kernelResetTag;
         $this->cacheClearerId = $cacheClearerId;
@@ -231,12 +213,8 @@ class CachePoolPass implements \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     private function getNamespace($seed, $id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
-        if (\is_object($seed)) {
-            $seed = (string) $seed;
-        }
+        $seed = (string) $seed;
+        $id = (string) $id;
         return \substr(\str_replace('/', '-', \base64_encode(\hash('sha256', $id . $seed, \true))), 0, 10);
     }
     /**

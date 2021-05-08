@@ -31,9 +31,7 @@ final class DiffOnlyOutputBuilder implements \ECSPrefix20210508\SebastianBergman
      */
     public function __construct($header = "--- Original\n+++ New\n")
     {
-        if (\is_object($header)) {
-            $header = (string) $header;
-        }
+        $header = (string) $header;
         $this->header = $header;
     }
     /**

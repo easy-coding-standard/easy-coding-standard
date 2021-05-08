@@ -34,6 +34,7 @@ class HtmlDescriptor implements \ECSPrefix20210508\Symfony\Component\VarDumper\C
      */
     public function describe(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
     {
+        $clientId = (int) $clientId;
         if (!$this->initialized) {
             $styles = \file_get_contents(__DIR__ . '/../../Resources/css/htmlDescriptor.css');
             $scripts = \file_get_contents(__DIR__ . '/../../Resources/js/htmlDescriptor.js');
@@ -90,9 +91,7 @@ HTML
      */
     private function extractDate(array $context, $format = 'r')
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
         return \date($format, $context['timestamp']);
     }
     /**

@@ -190,6 +190,7 @@ class Example
      */
     private function getElements(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
     {
+        $startIndex = (int) $startIndex;
         static $elementTokenKinds = [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \T_CONST, \T_VARIABLE, \T_FUNCTION];
         ++$startIndex;
         $elements = [];
@@ -241,6 +242,7 @@ class Example
      */
     private function detectElementType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $token = $tokens[$index];
         if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
             return 'use_trait';
@@ -272,6 +274,7 @@ class Example
      */
     private function findElementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $index = $tokens->getNextTokenOfKind($index, ['{', ';']);
         if ($tokens[$index]->equals('{')) {
             $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
@@ -340,6 +343,8 @@ class Example
      */
     private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, array $elements)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $replaceTokens = [];
         foreach ($elements as $element) {
             for ($i = $element['start']; $i <= $element['end']; ++$i) {

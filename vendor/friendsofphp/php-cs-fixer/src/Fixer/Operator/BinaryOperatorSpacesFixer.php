@@ -216,6 +216,7 @@ $array = [
      */
     private function fixWhiteSpaceAroundOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokenContent = \strtolower($tokens[$index]->getContent());
         if (!\array_key_exists($tokenContent, $this->operators)) {
             return;
@@ -249,6 +250,7 @@ $array = [
      */
     private function fixWhiteSpaceAroundOperatorToSingleSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         // fix white space after operator
         if ($tokens[$index + 1]->isWhitespace()) {
             $content = $tokens[$index + 1]->getContent();
@@ -274,6 +276,7 @@ $array = [
      */
     private function fixWhiteSpaceAroundOperatorToNoSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         // fix white space after operator
         if ($tokens[$index + 1]->isWhitespace()) {
             $content = $tokens[$index + 1]->getContent();
@@ -295,6 +298,7 @@ $array = [
      */
     private function isEqualPartOfDeclareStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevMeaningfulIndex = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$prevMeaningfulIndex]->isGivenKind(\T_STRING)) {
             $prevMeaningfulIndex = $tokens->getPrevMeaningfulToken($prevMeaningfulIndex);
@@ -389,9 +393,9 @@ $array = [
      */
     private function injectAlignmentPlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $startAt, $endAt, $tokenContent)
     {
-        if (\is_object($tokenContent)) {
-            $tokenContent = (string) $tokenContent;
-        }
+        $startAt = (int) $startAt;
+        $endAt = (int) $endAt;
+        $tokenContent = (string) $tokenContent;
         for ($index = $startAt; $index < $endAt; ++$index) {
             $token = $tokens[$index];
             $content = $token->getContent();
@@ -424,6 +428,8 @@ $array = [
      */
     private function injectAlignmentPlaceholdersForArrow(\PhpCsFixer\Tokenizer\Tokens $tokens, $startAt, $endAt)
     {
+        $startAt = (int) $startAt;
+        $endAt = (int) $endAt;
         for ($index = $startAt; $index < $endAt; ++$index) {
             $token = $tokens[$index];
             if ($token->isGivenKind([\T_FOREACH, \T_FOR, \T_WHILE, \T_IF, \T_SWITCH])) {
@@ -488,6 +494,8 @@ $array = [
      */
     private function injectArrayAlignmentPlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $from, $until)
     {
+        $from = (int) $from;
+        $until = (int) $until;
         // Only inject placeholders for multi-line arrays
         if ($tokens->isPartialCodeMultiline($from, $until)) {
             ++$this->deepestLevel;
@@ -503,9 +511,8 @@ $array = [
      */
     private function fixWhiteSpaceBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $alignStrategy)
     {
-        if (\is_object($alignStrategy)) {
-            $alignStrategy = (string) $alignStrategy;
-        }
+        $index = (int) $index;
+        $alignStrategy = (string) $alignStrategy;
         // fix white space after operator is not needed as BinaryOperatorSpacesFixer took care of this (if strategy is _not_ ALIGN)
         if (!$tokens[$index - 1]->isWhitespace()) {
             $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
@@ -526,9 +533,7 @@ $array = [
      */
     private function replacePlaceholders(\PhpCsFixer\Tokenizer\Tokens $tokens, $alignStrategy)
     {
-        if (\is_object($alignStrategy)) {
-            $alignStrategy = (string) $alignStrategy;
-        }
+        $alignStrategy = (string) $alignStrategy;
         $tmpCode = $tokens->generateCode();
         for ($j = 0; $j <= $this->deepestLevel; ++$j) {
             $placeholder = \sprintf(self::ALIGN_PLACEHOLDER, $j);

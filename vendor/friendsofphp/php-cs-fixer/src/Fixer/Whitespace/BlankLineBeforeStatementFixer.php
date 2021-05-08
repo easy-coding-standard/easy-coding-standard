@@ -202,6 +202,7 @@ if (true) {
      */
     private function shouldAddBlankLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $prevNonWhitespace)
     {
+        $prevNonWhitespace = (int) $prevNonWhitespace;
         $prevNonWhitespaceToken = $tokens[$prevNonWhitespace];
         if ($prevNonWhitespaceToken->isComment()) {
             for ($j = $prevNonWhitespace - 1; $j >= 0; --$j) {
@@ -222,6 +223,7 @@ if (true) {
      */
     private function insertBlankLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevIndex = $index - 1;
         $prevToken = $tokens[$prevIndex];
         $lineEnding = $this->whitespacesConfig->getLineEnding();

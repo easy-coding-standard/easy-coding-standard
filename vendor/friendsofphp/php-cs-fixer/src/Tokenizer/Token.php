@@ -120,6 +120,7 @@ final class Token
      */
     public function equals($other, $caseSensitive = \true)
     {
+        $caseSensitive = (bool) $caseSensitive;
         if ($other instanceof self) {
             // Inlined getPrototype() on this very hot path.
             // We access the private properties of $other directly to save function call overhead.
@@ -163,6 +164,7 @@ final class Token
      */
     public function equalsAny(array $others, $caseSensitive = \true)
     {
+        $caseSensitive = (bool) $caseSensitive;
         foreach ($others as $other) {
             if ($this->equals($other, $caseSensitive)) {
                 return \true;
@@ -181,6 +183,7 @@ final class Token
      */
     public static function isKeyCaseSensitive($caseSensitive, $key)
     {
+        $key = (int) $key;
         if (\is_array($caseSensitive)) {
             return isset($caseSensitive[$key]) ? $caseSensitive[$key] : \true;
         }
@@ -240,6 +243,7 @@ final class Token
      */
     public static function getNameForId($id)
     {
+        $id = (int) $id;
         if (\PhpCsFixer\Tokenizer\CT::has($id)) {
             return \PhpCsFixer\Tokenizer\CT::getName($id);
         }

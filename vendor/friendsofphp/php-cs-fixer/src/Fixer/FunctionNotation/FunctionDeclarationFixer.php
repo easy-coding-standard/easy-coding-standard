@@ -170,6 +170,8 @@ $f = fn () => null;
      */
     private function fixParenthesisInnerEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         // remove single-line whitespace before )
         if ($tokens[$end - 1]->isWhitespace($this->singleLineWhitespaceOptions)) {
             $tokens->clearAt($end - 1);

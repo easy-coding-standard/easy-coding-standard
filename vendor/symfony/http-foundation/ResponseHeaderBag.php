@@ -93,9 +93,8 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function set($key, $values, $replace = \true)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $replace = (bool) $replace;
         $uniqueKey = \strtr($key, self::UPPER, self::LOWER);
         if ('set-cookie' === $uniqueKey) {
             if ($replace) {
@@ -122,9 +121,7 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function remove($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         $uniqueKey = \strtr($key, self::UPPER, self::LOWER);
         unset($this->headerNames[$uniqueKey]);
         if ('set-cookie' === $uniqueKey) {
@@ -145,9 +142,7 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function hasCacheControlDirective($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \array_key_exists($key, $this->computedCacheControl);
     }
     /**
@@ -156,9 +151,7 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function getCacheControlDirective($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \array_key_exists($key, $this->computedCacheControl) ? $this->computedCacheControl[$key] : null;
     }
     public function setCookie(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Cookie $cookie)
@@ -174,9 +167,7 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function removeCookie($name, $path = '/', $domain = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (null === $path) {
             $path = '/';
         }
@@ -201,9 +192,7 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function getCookies($format = self::COOKIES_FLAT)
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
         if (!\in_array($format, [self::COOKIES_FLAT, self::COOKIES_ARRAY])) {
             throw new \InvalidArgumentException(\sprintf('Format "%s" invalid (%s).', $format, \implode(', ', [self::COOKIES_FLAT, self::COOKIES_ARRAY])));
         }
@@ -231,9 +220,9 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function clearCookie($name, $path = '/', $domain = null, $secure = \false, $httpOnly = \true, $sameSite = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $secure = (bool) $secure;
+        $httpOnly = (bool) $httpOnly;
         $this->setCookie(new \ECSPrefix20210508\Symfony\Component\HttpFoundation\Cookie($name, null, 1, $path, $domain, $secure, $httpOnly, \false, $sameSite));
     }
     /**
@@ -244,15 +233,9 @@ class ResponseHeaderBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function makeDisposition($disposition, $filename, $filenameFallback = '')
     {
-        if (\is_object($filenameFallback)) {
-            $filenameFallback = (string) $filenameFallback;
-        }
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
-        if (\is_object($disposition)) {
-            $disposition = (string) $disposition;
-        }
+        $disposition = (string) $disposition;
+        $filename = (string) $filename;
+        $filenameFallback = (string) $filenameFallback;
         return \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::makeDisposition($disposition, $filename, $filenameFallback);
     }
     /**

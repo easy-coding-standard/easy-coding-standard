@@ -129,6 +129,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function setResourceTracking($track)
     {
+        $track = (bool) $track;
         $this->trackResources = $track;
     }
     /**
@@ -164,9 +165,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function getExtension($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (isset($this->extensions[$name])) {
             return $this->extensions[$name];
         }
@@ -192,9 +191,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function hasExtension($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->extensions[$name]) || isset($this->extensionsByNs[$name]);
     }
     /**
@@ -285,6 +282,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function getReflectionClass($class, $throw = \true)
     {
+        $throw = (bool) $throw;
         if (!($class = $this->getParameterBag()->resolveValue($class))) {
             return null;
         }
@@ -331,9 +329,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function fileExists($path, $trackContents = \true)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $exists = \file_exists($path);
         if (!$this->trackResources || $this->inVendors($path)) {
             return $exists;
@@ -366,9 +362,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function loadFromExtension($extension, array $values = null)
     {
-        if (\is_object($extension)) {
-            $extension = (string) $extension;
-        }
+        $extension = (string) $extension;
         if ($this->isCompiled()) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Cannot load from an extension on a compiled container.');
         }
@@ -389,9 +383,8 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function addCompilerPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $priority = (int) $priority;
         $this->getCompiler()->addPass($pass, $type, $priority);
         $this->addObjectResource($pass);
         return $this;
@@ -426,9 +419,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function set($id, $service)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($this->isCompiled() && (isset($this->definitions[$id]) && !$this->definitions[$id]->isSynthetic())) {
             // setting a synthetic service on a compiled container is alright
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\BadMethodCallException(\sprintf('Setting service "%s" for an unknown or non-synthetic service definition on a compiled container is not allowed.', $id));
@@ -442,9 +433,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function removeDefinition($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (isset($this->definitions[$id])) {
             unset($this->definitions[$id]);
             $this->removedIds[$id] = \true;
@@ -459,9 +448,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function has($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $id = (string) $id;
         return isset($this->definitions[$id]) || isset($this->aliasDefinitions[$id]) || parent::has($id);
     }
@@ -482,9 +469,8 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function get($id, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $invalidBehavior = (int) $invalidBehavior;
         if ($this->isCompiled() && isset($this->removedIds[$id = (string) $id]) && \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
         }
@@ -497,9 +483,9 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     private function doGet($id, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, array &$inlineServices = null, $isConstructorArgument = \false)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $invalidBehavior = (int) $invalidBehavior;
+        $isConstructorArgument = (bool) $isConstructorArgument;
         if (isset($inlineServices[$id])) {
             return $inlineServices[$id];
         }
@@ -620,9 +606,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function getExtensionConfig($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->extensionConfigs[$name])) {
             $this->extensionConfigs[$name] = [];
         }
@@ -634,9 +618,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function prependExtensionConfig($name, array $config)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->extensionConfigs[$name])) {
             $this->extensionConfigs[$name] = [];
         }
@@ -663,6 +645,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function compile($resolveEnvPlaceholders = \false)
     {
+        $resolveEnvPlaceholders = (bool) $resolveEnvPlaceholders;
         $compiler = $this->getCompiler();
         if ($this->trackResources) {
             foreach ($compiler->getPassConfig()->getPasses() as $pass) {
@@ -739,9 +722,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function setAlias($alias, $id)
     {
-        if (\is_object($alias)) {
-            $alias = (string) $alias;
-        }
+        $alias = (string) $alias;
         if ('' === $alias || '\\' === $alias[\strlen($alias) - 1] || \strlen($alias) !== \strcspn($alias, "\0\r\n'")) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid alias id: "%s".', $alias));
         }
@@ -763,9 +744,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function removeAlias($alias)
     {
-        if (\is_object($alias)) {
-            $alias = (string) $alias;
-        }
+        $alias = (string) $alias;
         if (isset($this->aliasDefinitions[$alias])) {
             unset($this->aliasDefinitions[$alias]);
             $this->removedIds[$alias] = \true;
@@ -779,9 +758,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function hasAlias($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return isset($this->aliasDefinitions[$id]);
     }
     /**
@@ -803,9 +780,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function getAlias($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (!isset($this->aliasDefinitions[$id])) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The service alias "%s" does not exist.', $id));
         }
@@ -823,9 +798,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function register($id, $class = null)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return $this->setDefinition($id, new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition($class));
     }
     /**
@@ -840,9 +813,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function autowire($id, $class = null)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return $this->setDefinition($id, (new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition($class))->setAutowired(\true));
     }
     /**
@@ -885,9 +856,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function setDefinition($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($this->isCompiled()) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('Adding definition to a compiled container is not allowed.');
         }
@@ -905,9 +874,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function hasDefinition($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return isset($this->definitions[$id]);
     }
     /**
@@ -920,9 +887,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function getDefinition($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (!isset($this->definitions[$id])) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id);
         }
@@ -940,9 +905,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function findDefinition($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $seen = [];
         while (isset($this->aliasDefinitions[$id])) {
             $id = (string) $this->aliasDefinitions[$id];
@@ -970,6 +933,8 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     private function createService(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, array &$inlineServices, $isConstructorArgument = \false, $id = null, $tryProxy = \true)
     {
+        $isConstructorArgument = (bool) $isConstructorArgument;
+        $tryProxy = (bool) $tryProxy;
         if (null === $id && isset($inlineServices[$h = \spl_object_hash($definition)])) {
             return $inlineServices[$h];
         }
@@ -1074,6 +1039,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     private function doResolveServices($value, array &$inlineServices = [], $isConstructorArgument = \false)
     {
+        $isConstructorArgument = (bool) $isConstructorArgument;
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
                 $value[$k] = $this->doResolveServices($v, $inlineServices, $isConstructorArgument);
@@ -1157,9 +1123,8 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function findTaggedServiceIds($name, $throwOnAbstract = \false)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $throwOnAbstract = (bool) $throwOnAbstract;
         $this->usedTags[] = $name;
         $tags = [];
         foreach ($this->getDefinitions() as $id => $definition) {
@@ -1213,9 +1178,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function registerForAutoconfiguration($interface)
     {
-        if (\is_object($interface)) {
-            $interface = (string) $interface;
-        }
+        $interface = (string) $interface;
         if (!isset($this->autoconfiguredInstanceof[$interface])) {
             $this->autoconfiguredInstanceof[$interface] = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition('');
         }
@@ -1235,12 +1198,8 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function registerAliasForArgument($id, $type, $name = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $type = (string) $type;
         $name = \lcfirst(\str_replace(' ', '', \ucwords(\preg_replace('/[^a-zA-Z0-9\\x7f-\\xff]++/', ' ', isset($name) ? $name : $id))));
         if (!\preg_match('/^[a-zA-Z_\\x7f-\\xff]/', $name)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid argument name "%s" for service "%s": the first character must be a letter.', $name, $id));
@@ -1340,9 +1299,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function log(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         $this->getCompiler()->log($pass, $this->resolveEnvPlaceholders($message));
     }
     /**
@@ -1363,9 +1320,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function removeBindings($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($this->hasDefinition($id)) {
             foreach ($this->getDefinition($id)->getBindings() as $key => $binding) {
                 list(, $bindingId) = $binding->getValues();
@@ -1430,9 +1385,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     protected function getEnv($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $value = parent::getEnv($name);
         $bag = $this->getParameterBag();
         if (!\is_string($value) || !$bag instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
@@ -1503,9 +1456,7 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     private function inVendors($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (null === $this->vendors) {
             $this->vendors = (new \ECSPrefix20210508\Symfony\Component\Config\Resource\ComposerResource())->getVendors();
         }

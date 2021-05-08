@@ -23,9 +23,7 @@ class GlobFileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Loader\
      */
     public function load($resource, $type = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return $this->import($resource);
     }
     /**

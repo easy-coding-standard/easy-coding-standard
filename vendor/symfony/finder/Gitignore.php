@@ -25,9 +25,7 @@ class Gitignore
      */
     public static function toRegex($gitignoreFileContent)
     {
-        if (\is_object($gitignoreFileContent)) {
-            $gitignoreFileContent = (string) $gitignoreFileContent;
-        }
+        $gitignoreFileContent = (string) $gitignoreFileContent;
         $gitignoreFileContent = \preg_replace('/^[^\\\\r\\n]*#.*/m', '', $gitignoreFileContent);
         $gitignoreLines = \preg_split('/\\r\\n|\\r|\\n/', $gitignoreFileContent);
         $positives = [];
@@ -66,9 +64,8 @@ class Gitignore
      */
     private static function getRegexFromGitignore($gitignorePattern, $negative = \false)
     {
-        if (\is_object($gitignorePattern)) {
-            $gitignorePattern = (string) $gitignorePattern;
-        }
+        $gitignorePattern = (string) $gitignorePattern;
+        $negative = (bool) $negative;
         $regex = '';
         $isRelativePath = \false;
         // If there is a separator at the beginning or middle (or both) of the pattern, then the pattern is relative to the directory level of the particular .gitignore file itself

@@ -27,9 +27,8 @@ class IOException extends \RuntimeException implements \ECSPrefix20210508\Symfon
      */
     public function __construct($message, $code = 0, \Throwable $previous = null, $path = null)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $code = (int) $code;
         $this->path = $path;
         parent::__construct($message, $code, $previous);
     }

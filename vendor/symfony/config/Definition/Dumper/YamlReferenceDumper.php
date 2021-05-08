@@ -36,9 +36,7 @@ class YamlReferenceDumper
      */
     public function dumpAtPath(\ECSPrefix20210508\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, $path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $rootNode = $node = $configuration->getConfigTreeBuilder()->buildTree();
         foreach (\explode('.', $path) as $step) {
             if (!$node instanceof \ECSPrefix20210508\Symfony\Component\Config\Definition\ArrayNode) {
@@ -70,6 +68,8 @@ class YamlReferenceDumper
      */
     private function writeNode(\ECSPrefix20210508\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210508\Symfony\Component\Config\Definition\NodeInterface $parentNode = null, $depth = 0, $prototypedArray = \false)
     {
+        $depth = (int) $depth;
+        $prototypedArray = (bool) $prototypedArray;
         $comments = [];
         $default = '';
         $defaultArray = null;
@@ -162,9 +162,8 @@ class YamlReferenceDumper
      */
     private function writeLine($text, $indent = 0)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
+        $indent = (int) $indent;
         $indent = \strlen($text) + $indent;
         $format = '%' . $indent . 's';
         $this->reference .= \sprintf($format, $text) . "\n";
@@ -174,6 +173,7 @@ class YamlReferenceDumper
      */
     private function writeArray(array $array, $depth)
     {
+        $depth = (int) $depth;
         $isIndexed = \array_values($array) === $array;
         foreach ($array as $key => $value) {
             if (\is_array($value)) {

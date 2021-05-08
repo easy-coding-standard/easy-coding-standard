@@ -42,12 +42,8 @@ class HeaderUtils
      */
     public static function split($header, $separators)
     {
-        if (\is_object($separators)) {
-            $separators = (string) $separators;
-        }
-        if (\is_object($header)) {
-            $header = (string) $header;
-        }
+        $header = (string) $header;
+        $separators = (string) $separators;
         $quotedSeparators = \preg_quote($separators, '/');
         \preg_match_all('
             /
@@ -108,9 +104,7 @@ class HeaderUtils
      */
     public static function toString(array $assoc, $separator)
     {
-        if (\is_object($separator)) {
-            $separator = (string) $separator;
-        }
+        $separator = (string) $separator;
         $parts = [];
         foreach ($assoc as $name => $value) {
             if (\true === $value) {
@@ -132,9 +126,7 @@ class HeaderUtils
      */
     public static function quote($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         if (\preg_match('/^[a-z0-9!#$%&\'*.^_`|~-]+$/i', $s)) {
             return $s;
         }
@@ -150,9 +142,7 @@ class HeaderUtils
      */
     public static function unquote($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return \preg_replace('/\\\\(.)|"/', '$1', $s);
     }
     /**
@@ -172,15 +162,9 @@ class HeaderUtils
      */
     public static function makeDisposition($disposition, $filename, $filenameFallback = '')
     {
-        if (\is_object($filenameFallback)) {
-            $filenameFallback = (string) $filenameFallback;
-        }
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
-        if (\is_object($disposition)) {
-            $disposition = (string) $disposition;
-        }
+        $disposition = (string) $disposition;
+        $filename = (string) $filename;
+        $filenameFallback = (string) $filenameFallback;
         if (!\in_array($disposition, [self::DISPOSITION_ATTACHMENT, self::DISPOSITION_INLINE])) {
             throw new \InvalidArgumentException(\sprintf('The disposition must be either "%s" or "%s".', self::DISPOSITION_ATTACHMENT, self::DISPOSITION_INLINE));
         }
@@ -214,12 +198,9 @@ class HeaderUtils
      */
     public static function parseQuery($query, $ignoreBrackets = \false, $separator = '&')
     {
-        if (\is_object($separator)) {
-            $separator = (string) $separator;
-        }
-        if (\is_object($query)) {
-            $query = (string) $query;
-        }
+        $query = (string) $query;
+        $ignoreBrackets = (bool) $ignoreBrackets;
+        $separator = (string) $separator;
         $q = [];
         foreach (\explode($separator, $query) as $v) {
             if (\false !== ($i = \strpos($v, "\0"))) {
@@ -267,9 +248,8 @@ class HeaderUtils
      */
     private static function groupParts(array $matches, $separators, $first = \true)
     {
-        if (\is_object($separators)) {
-            $separators = (string) $separators;
-        }
+        $separators = (string) $separators;
+        $first = (bool) $first;
         $separator = $separators[0];
         $partSeparators = \substr($separators, 1);
         $i = 0;

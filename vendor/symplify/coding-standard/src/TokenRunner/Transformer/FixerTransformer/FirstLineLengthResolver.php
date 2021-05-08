@@ -67,6 +67,7 @@ final class FirstLineLengthResolver
      */
     private function isEndOFArgumentsLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }

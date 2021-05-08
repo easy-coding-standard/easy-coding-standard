@@ -33,12 +33,10 @@ final class Preg
      */
     public static function match($pattern, $subject, &$matches = null, $flags = 0, $offset = 0)
     {
-        if (\is_object($subject)) {
-            $subject = (string) $subject;
-        }
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
+        $subject = (string) $subject;
+        $flags = (int) $flags;
+        $offset = (int) $offset;
         $result = @\preg_match(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -61,12 +59,10 @@ final class Preg
      */
     public static function matchAll($pattern, $subject, &$matches = null, $flags = \PREG_PATTERN_ORDER, $offset = 0)
     {
-        if (\is_object($subject)) {
-            $subject = (string) $subject;
-        }
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
+        $subject = (string) $subject;
+        $flags = (int) $flags;
+        $offset = (int) $offset;
         $result = @\preg_match_all(self::addUtf8Modifier($pattern), $subject, $matches, $flags, $offset);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -90,6 +86,7 @@ final class Preg
      */
     public static function replace($pattern, $replacement, $subject, $limit = -1, &$count = null)
     {
+        $limit = (int) $limit;
         $result = @\preg_replace(self::addUtf8Modifier($pattern), $replacement, $subject, $limit, $count);
         if (null !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -112,6 +109,7 @@ final class Preg
      */
     public static function replaceCallback($pattern, callable $callback, $subject, $limit = -1, &$count = null)
     {
+        $limit = (int) $limit;
         $result = @\preg_replace_callback(self::addUtf8Modifier($pattern), $callback, $subject, $limit, $count);
         if (null !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -133,12 +131,10 @@ final class Preg
      */
     public static function split($pattern, $subject, $limit = -1, $flags = 0)
     {
-        if (\is_object($subject)) {
-            $subject = (string) $subject;
-        }
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
+        $subject = (string) $subject;
+        $limit = (int) $limit;
+        $flags = (int) $flags;
         $result = @\preg_split(self::addUtf8Modifier($pattern), $subject, $limit, $flags);
         if (\false !== $result && \PREG_NO_ERROR === \preg_last_error()) {
             return $result;
@@ -191,9 +187,8 @@ final class Preg
      */
     private static function newPregException($error, $method, array $patterns)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $error = (int) $error;
+        $method = (string) $method;
         foreach ($patterns as $pattern) {
             $last = \error_get_last();
             $result = @\preg_match($pattern, '');

@@ -59,12 +59,9 @@ class UploadedFile extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\F
      */
     public function __construct($path, $originalName, $mimeType = null, $error = null, $test = \false)
     {
-        if (\is_object($originalName)) {
-            $originalName = (string) $originalName;
-        }
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $originalName = (string) $originalName;
+        $test = (bool) $test;
         $this->originalName = $this->getName($originalName);
         $this->mimeType = $mimeType ?: 'application/octet-stream';
         $this->error = $error ?: \UPLOAD_ERR_OK;
@@ -169,9 +166,7 @@ class UploadedFile extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\F
      */
     public function move($directory, $name = null)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
         if ($this->isValid()) {
             if ($this->test) {
                 return parent::move($directory, $name);

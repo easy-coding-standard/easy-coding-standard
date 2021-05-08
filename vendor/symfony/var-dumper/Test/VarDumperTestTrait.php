@@ -27,6 +27,7 @@ trait VarDumperTestTrait
      */
     protected function setUpVarDumper(array $casters, $flags = null)
     {
+        $flags = (int) $flags;
         $this->varDumperConfig['casters'] = $casters;
         $this->varDumperConfig['flags'] = $flags;
     }
@@ -45,9 +46,8 @@ trait VarDumperTestTrait
      */
     public function assertDumpEquals($expected, $data, $filter = 0, $message = '')
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $filter = (int) $filter;
+        $message = (string) $message;
         $this->assertSame($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
     }
     /**
@@ -56,9 +56,8 @@ trait VarDumperTestTrait
      */
     public function assertDumpMatchesFormat($expected, $data, $filter = 0, $message = '')
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $filter = (int) $filter;
+        $message = (string) $message;
         $this->assertStringMatchesFormat($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
     }
     /**
@@ -67,6 +66,7 @@ trait VarDumperTestTrait
      */
     protected function getDump($data, $key = null, $filter = 0)
     {
+        $filter = (int) $filter;
         if (null === ($flags = $this->varDumperConfig['flags'])) {
             $flags = \getenv('DUMP_LIGHT_ARRAY') ? \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY : 0;
             $flags |= \getenv('DUMP_STRING_LENGTH') ? \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_STRING_LENGTH : 0;
@@ -89,6 +89,7 @@ trait VarDumperTestTrait
      */
     private function prepareExpectation($expected, $filter)
     {
+        $filter = (int) $filter;
         if (!\is_string($expected)) {
             $expected = $this->getDump($expected, null, $filter);
         }

@@ -78,6 +78,8 @@ function example($b) {
      */
     private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         for ($index = $end; $index > $start; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_RETURN)) {
                 continue;

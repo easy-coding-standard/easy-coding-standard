@@ -25,9 +25,7 @@ class IniFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     public function load($resource, $type = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $path = $this->locator->locate($resource);
         $this->container->fileExists($path);
         // first pass to catch parsing errors
@@ -67,9 +65,7 @@ class IniFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function phpize($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         // trim on the right as comments removal keep whitespaces
         if ($value !== ($v = \rtrim($value))) {
             $value = '""' === \substr_replace($v, '', 1, -1) ? \substr($v, 1, -1) : $v;

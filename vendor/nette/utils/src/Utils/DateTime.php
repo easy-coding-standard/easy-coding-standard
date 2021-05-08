@@ -54,6 +54,12 @@ class DateTime extends \DateTime implements \JsonSerializable
      */
     public static function fromParts($year, $month, $day, $hour = 0, $minute = 0, $second = 0.0)
     {
+        $year = (int) $year;
+        $month = (int) $month;
+        $day = (int) $day;
+        $hour = (int) $hour;
+        $minute = (int) $minute;
+        $second = (double) $second;
         $s = \sprintf('%04d-%02d-%02d %02d:%02d:%02.5F', $year, $month, $day, $hour, $minute, $second);
         if (!\checkdate($month, $day, $year) || $hour < 0 || $hour > 23 || $minute < 0 || $minute > 59 || $second < 0 || $second >= 60) {
             throw new \ECSPrefix20210508\Nette\InvalidArgumentException("Invalid date '{$s}'");
@@ -69,12 +75,8 @@ class DateTime extends \DateTime implements \JsonSerializable
      */
     public static function createFromFormat($format, $time, $timezone = null)
     {
-        if (\is_object($time)) {
-            $time = (string) $time;
-        }
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
+        $time = (string) $time;
         if ($timezone === null) {
             $timezone = new \DateTimeZone(\date_default_timezone_get());
         } elseif (\is_string($timezone)) {
@@ -108,9 +110,7 @@ class DateTime extends \DateTime implements \JsonSerializable
      */
     public function modifyClone($modify = '')
     {
-        if (\is_object($modify)) {
-            $modify = (string) $modify;
-        }
+        $modify = (string) $modify;
         $dolly = clone $this;
         return $modify ? $dolly->modify($modify) : $dolly;
     }

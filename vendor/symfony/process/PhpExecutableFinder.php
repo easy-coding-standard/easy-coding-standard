@@ -31,6 +31,7 @@ class PhpExecutableFinder
      */
     public function find($includeArgs = \true)
     {
+        $includeArgs = (bool) $includeArgs;
         if ($php = \getenv('PHP_BINARY')) {
             if (!\is_executable($php)) {
                 $command = '\\' === \DIRECTORY_SEPARATOR ? 'where' : 'command -v';

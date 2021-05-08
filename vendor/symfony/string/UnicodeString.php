@@ -35,9 +35,7 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function __construct($string = '')
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         $this->string = \normalizer_is_normalized($string) ? $string : \normalizer_normalize($string);
         if (\false === $this->string) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
@@ -63,6 +61,7 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function chunk($length = 1)
     {
+        $length = (int) $length;
         if (1 > $length) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('The chunk length must be greater than zero.');
         }
@@ -130,6 +129,7 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function indexOf($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if ($needle instanceof \ECSPrefix20210508\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -155,6 +155,7 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function indexOfLast($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if ($needle instanceof \ECSPrefix20210508\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -201,6 +202,7 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function normalize($form = self::NFC)
     {
+        $form = (int) $form;
         $str = clone $this;
         if (\in_array($form, [self::NFC, self::NFKC], \true)) {
             \normalizer_is_normalized($str->string, $form) ?: ($str->string = \normalizer_normalize($str->string, $form));
@@ -233,12 +235,8 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function replace($from, $to)
     {
-        if (\is_object($to)) {
-            $to = (string) $to;
-        }
-        if (\is_object($from)) {
-            $from = (string) $from;
-        }
+        $from = (string) $from;
+        $to = (string) $to;
         $str = clone $this;
         \normalizer_is_normalized($from) ?: ($from = \normalizer_normalize($from));
         if ('' !== $from && \false !== $from) {
@@ -264,9 +262,7 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function replaceMatches($fromRegexp, $to)
     {
-        if (\is_object($fromRegexp)) {
-            $fromRegexp = (string) $fromRegexp;
-        }
+        $fromRegexp = (string) $fromRegexp;
         $str = parent::replaceMatches($fromRegexp, $to);
         \normalizer_is_normalized($str->string) ?: ($str->string = \normalizer_normalize($str->string));
         return $str;
@@ -278,6 +274,8 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function slice($start = 0, $length = null)
     {
+        $start = (int) $start;
+        $length = (int) $length;
         $str = clone $this;
         if (\PHP_VERSION_ID < 80000 && 0 > $start && \grapheme_strlen($this->string) < -$start) {
             $start = 0;
@@ -293,9 +291,8 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function splice($replacement, $start = 0, $length = null)
     {
-        if (\is_object($replacement)) {
-            $replacement = (string) $replacement;
-        }
+        $replacement = (string) $replacement;
+        $start = (int) $start;
         $str = clone $this;
         if (\PHP_VERSION_ID < 80000 && 0 > $start && \grapheme_strlen($this->string) < -$start) {
             $start = 0;
@@ -317,9 +314,7 @@ class UnicodeString extends \ECSPrefix20210508\Symfony\Component\String\Abstract
      */
     public function split($delimiter, $limit = null, $flags = null)
     {
-        if (\is_object($delimiter)) {
-            $delimiter = (string) $delimiter;
-        }
+        $delimiter = (string) $delimiter;
         if (1 > ($limit = isset($limit) ? $limit : 2147483647)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Split limit must be a positive integer.');
         }

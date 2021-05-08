@@ -68,9 +68,7 @@ abstract class AbstractFopenFlagFixer extends \PhpCsFixer\AbstractFunctionRefere
      */
     protected function isValidModeString($mode)
     {
-        if (\is_object($mode)) {
-            $mode = (string) $mode;
-        }
+        $mode = (string) $mode;
         $modeLength = \strlen($mode);
         if ($modeLength < 1 || $modeLength > 13) {
             // 13 === length 'r+w+a+x+c+etb'

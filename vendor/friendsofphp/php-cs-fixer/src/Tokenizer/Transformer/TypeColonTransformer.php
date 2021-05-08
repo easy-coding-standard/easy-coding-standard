@@ -49,6 +49,7 @@ final class TypeColonTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$token->equals(':')) {
             return;
         }

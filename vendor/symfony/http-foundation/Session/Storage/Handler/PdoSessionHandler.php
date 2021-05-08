@@ -235,12 +235,8 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function open($savePath, $sessionName)
     {
-        if (\is_object($sessionName)) {
-            $sessionName = (string) $sessionName;
-        }
-        if (\is_object($savePath)) {
-            $savePath = (string) $savePath;
-        }
+        $savePath = (string) $savePath;
+        $sessionName = (string) $sessionName;
         $this->sessionExpired = \false;
         if (null === $this->pdo) {
             $this->connect($this->dsn ?: $savePath);
@@ -252,9 +248,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     public function read($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         try {
             return parent::read($sessionId);
         } catch (\PDOException $e) {
@@ -278,9 +272,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     protected function doDestroy($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         // delete the record associated with this id
         $sql = "DELETE FROM {$this->table} WHERE {$this->idCol} = :id";
         try {
@@ -300,12 +292,8 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     protected function doWrite($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         $maxlifetime = (int) \ini_get('session.gc_maxlifetime');
         try {
             // We use a single MERGE SQL query when supported by the database.
@@ -399,9 +387,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function connect($dsn)
     {
-        if (\is_object($dsn)) {
-            $dsn = (string) $dsn;
-        }
+        $dsn = (string) $dsn;
         $this->pdo = new \PDO($dsn, $this->username, $this->password, $this->connectionOptions);
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->driver = $this->pdo->getAttribute(\PDO::ATTR_DRIVER_NAME);
@@ -415,9 +401,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function buildDsnFromUrl($dsnOrUrl)
     {
-        if (\is_object($dsnOrUrl)) {
-            $dsnOrUrl = (string) $dsnOrUrl;
-        }
+        $dsnOrUrl = (string) $dsnOrUrl;
         // (pdo_)?sqlite3?:///... => (pdo_)?sqlite3?://localhost/... or else the URL will be invalid
         $url = \preg_replace('#^((?:pdo_)?sqlite3?):///#', '$1://localhost/', $dsnOrUrl);
         $params = \parse_url($url);
@@ -563,9 +547,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     protected function doRead($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         if (self::LOCK_ADVISORY === $this->lockMode) {
             $this->unlockStatements[] = $this->doAdvisoryLock($sessionId);
         }
@@ -630,9 +612,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function doAdvisoryLock($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         switch ($this->driver) {
             case 'mysql':
                 // MySQL 5.7.5 and later enforces a maximum length on lock names of 64 characters. Previously, no limit was enforced.
@@ -683,9 +663,7 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function convertStringToInt($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         if (4 === \PHP_INT_SIZE) {
             return (\ord($string[3]) << 24) + (\ord($string[2]) << 16) + (\ord($string[1]) << 8) + \ord($string[0]);
         }
@@ -729,12 +707,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function getInsertStatement($sessionId, $sessionData, $maxlifetime)
     {
-        if (\is_object($sessionData)) {
-            $sessionData = (string) $sessionData;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $sessionData = (string) $sessionData;
+        $maxlifetime = (int) $maxlifetime;
         switch ($this->driver) {
             case 'oci':
                 $data = \fopen('php://memory', 'r+');
@@ -763,12 +738,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function getUpdateStatement($sessionId, $sessionData, $maxlifetime)
     {
-        if (\is_object($sessionData)) {
-            $sessionData = (string) $sessionData;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $sessionData = (string) $sessionData;
+        $maxlifetime = (int) $maxlifetime;
         switch ($this->driver) {
             case 'oci':
                 $data = \fopen('php://memory', 'r+');
@@ -797,12 +769,9 @@ class PdoSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundat
      */
     private function getMergeStatement($sessionId, $data, $maxlifetime)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
+        $maxlifetime = (int) $maxlifetime;
         switch (\true) {
             case 'mysql' === $this->driver:
                 $mergeSql = "INSERT INTO {$this->table} ({$this->idCol}, {$this->dataCol}, {$this->lifetimeCol}, {$this->timeCol}) VALUES (:id, :data, :expiry, :time) " . "ON DUPLICATE KEY UPDATE {$this->dataCol} = VALUES({$this->dataCol}), {$this->lifetimeCol} = VALUES({$this->lifetimeCol}), {$this->timeCol} = VALUES({$this->timeCol})";

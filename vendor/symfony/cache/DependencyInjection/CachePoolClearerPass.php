@@ -24,9 +24,7 @@ class CachePoolClearerPass implements \ECSPrefix20210508\Symfony\Component\Depen
      */
     public function __construct($cachePoolClearerTag = 'cache.pool.clearer')
     {
-        if (\is_object($cachePoolClearerTag)) {
-            $cachePoolClearerTag = (string) $cachePoolClearerTag;
-        }
+        $cachePoolClearerTag = (string) $cachePoolClearerTag;
         $this->cachePoolClearerTag = $cachePoolClearerTag;
     }
     /**

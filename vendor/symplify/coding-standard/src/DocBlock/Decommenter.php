@@ -30,9 +30,7 @@ final class Decommenter
      */
     public function decoment($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         $lines = \explode(\PHP_EOL, $content);
         foreach ($lines as $key => $line) {
             $lines[$key] = $this->commentedLineTrimmer->trim($line);
@@ -48,9 +46,7 @@ final class Decommenter
      */
     private function clearContent($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
     }
 }

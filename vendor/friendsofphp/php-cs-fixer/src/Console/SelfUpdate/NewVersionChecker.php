@@ -52,6 +52,7 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
      */
     public function getLatestVersionOfMajor($majorVersion)
     {
+        $majorVersion = (int) $majorVersion;
         $this->retrieveAvailableVersions();
         $semverConstraint = '^' . $majorVersion;
         foreach ($this->availableVersions as $availableVersion) {
@@ -69,12 +70,8 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
      */
     public function compareVersions($versionA, $versionB)
     {
-        if (\is_object($versionB)) {
-            $versionB = (string) $versionB;
-        }
-        if (\is_object($versionA)) {
-            $versionA = (string) $versionA;
-        }
+        $versionA = (string) $versionA;
+        $versionB = (string) $versionB;
         $versionA = $this->versionParser->normalize($versionA);
         $versionB = $this->versionParser->normalize($versionB);
         if (\ECSPrefix20210508\Composer\Semver\Comparator::lessThan($versionA, $versionB)) {

@@ -110,6 +110,8 @@ SAMPLE
      */
     private function fixIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $indent = $this->getIndentAt($tokens, $start);
         if ('start_plus_one' === $this->configuration['indentation']) {
             $indent .= $this->whitespacesConfig->getIndent();
@@ -153,6 +155,7 @@ SAMPLE
      */
     private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         for (; $index >= 0; --$index) {
             if (!$tokens[$index]->isGivenKind([\T_WHITESPACE, \T_INLINE_HTML, \T_OPEN_TAG])) {
                 continue;

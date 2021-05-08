@@ -16,9 +16,7 @@ final class PackageVersionProvider
      */
     public function provide($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         try {
             $version = $this->getVersion($packageName, 'symplify/symplify');
             return $version->getPrettyVersion() ?: 'Unknown';
@@ -39,12 +37,8 @@ final class PackageVersionProvider
      */
     private function getVersion($packageName, $replacingPackageName)
     {
-        if (\is_object($replacingPackageName)) {
-            $replacingPackageName = (string) $replacingPackageName;
-        }
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
+        $replacingPackageName = (string) $replacingPackageName;
         try {
             return \ECSPrefix20210508\Jean85\PrettyVersions::getVersion($packageName);
         } catch (\OutOfBoundsException $exception) {

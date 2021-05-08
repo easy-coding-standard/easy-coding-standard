@@ -35,12 +35,8 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function open($savePath, $sessionName)
     {
-        if (\is_object($sessionName)) {
-            $sessionName = (string) $sessionName;
-        }
-        if (\is_object($savePath)) {
-            $savePath = (string) $savePath;
-        }
+        $savePath = (string) $savePath;
+        $sessionName = (string) $sessionName;
         return (bool) $this->handler->open($savePath, $sessionName);
     }
     /**
@@ -55,9 +51,7 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function read($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return (string) $this->handler->read($sessionId);
     }
     /**
@@ -65,12 +59,8 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function write($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         return (bool) $this->handler->write($sessionId, $data);
     }
     /**
@@ -78,9 +68,7 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function destroy($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return (bool) $this->handler->destroy($sessionId);
     }
     /**
@@ -88,6 +76,7 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function gc($maxlifetime)
     {
+        $maxlifetime = (int) $maxlifetime;
         return (bool) $this->handler->gc($maxlifetime);
     }
     /**
@@ -95,9 +84,7 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function validateId($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return !$this->handler instanceof \SessionUpdateTimestampHandlerInterface || $this->handler->validateId($sessionId);
     }
     /**
@@ -105,12 +92,8 @@ class SessionHandlerProxy extends \ECSPrefix20210508\Symfony\Component\HttpFound
      */
     public function updateTimestamp($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         return $this->handler instanceof \SessionUpdateTimestampHandlerInterface ? $this->handler->updateTimestamp($sessionId, $data) : $this->write($sessionId, $data);
     }
 }

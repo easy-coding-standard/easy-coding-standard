@@ -48,6 +48,7 @@ class ComposerResource implements \ECSPrefix20210508\Symfony\Component\Config\Re
      */
     public function isFresh($timestamp)
     {
+        $timestamp = (int) $timestamp;
         self::refresh();
         return \array_values(self::$runtimeVendors) === \array_values($this->vendors);
     }

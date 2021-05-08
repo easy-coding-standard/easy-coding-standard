@@ -22,9 +22,7 @@ class AccessDeniedException extends \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function __construct($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         parent::__construct(\sprintf('The file %s could not be accessed', $path));
     }
 }

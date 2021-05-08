@@ -36,9 +36,7 @@ final class WordMatcher
      */
     public function match($needle)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
+        $needle = (string) $needle;
         $word = null;
         $distance = \ceil(\strlen($needle) * 0.35);
         foreach ($this->candidates as $candidate) {

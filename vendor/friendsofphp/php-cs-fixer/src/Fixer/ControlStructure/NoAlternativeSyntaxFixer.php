@@ -67,6 +67,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      */
     private function findParenthesisEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $structureTokenIndex)
     {
+        $structureTokenIndex = (int) $structureTokenIndex;
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
         // return if next token is not opening parenthesis
@@ -86,6 +87,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixOpenCloseControls($index, \PhpCsFixer\Tokenizer\Token $token, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         if ($token->isGivenKind([\T_IF, \T_FOREACH, \T_WHILE, \T_FOR, \T_SWITCH, \T_DECLARE])) {
             $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
             $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
@@ -125,6 +127,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixElse($index, \PhpCsFixer\Tokenizer\Token $token, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         if (!$token->isGivenKind(\T_ELSE)) {
             return;
         }
@@ -145,6 +148,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixElseif($index, \PhpCsFixer\Tokenizer\Token $token, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         if (!$token->isGivenKind(\T_ELSEIF)) {
             return;
         }
@@ -167,6 +171,8 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      */
     private function addBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index, $colonIndex)
     {
+        $index = (int) $index;
+        $colonIndex = (int) $colonIndex;
         $items = [new \PhpCsFixer\Tokenizer\Token('}'), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), $token];
         if (!$tokens[$index + 1]->isWhitespace()) {
             $items[] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);

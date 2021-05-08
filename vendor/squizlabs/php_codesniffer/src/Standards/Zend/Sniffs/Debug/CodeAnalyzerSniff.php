@@ -39,6 +39,7 @@ class CodeAnalyzerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $analyzerPath = \PHP_CodeSniffer\Config::getExecutablePath('zend_ca');
         if ($analyzerPath === null) {
             return;

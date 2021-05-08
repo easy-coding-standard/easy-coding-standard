@@ -28,9 +28,7 @@ class ResolveNoPreloadPass extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public function __construct($tagName = 'container.no_preload')
     {
-        if (\is_object($tagName)) {
-            $tagName = (string) $tagName;
-        }
+        $tagName = (string) $tagName;
         $this->tagName = $tagName;
     }
     /**
@@ -70,6 +68,7 @@ class ResolveNoPreloadPass extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
             $definition = $this->container->getDefinition($id);
             if (!isset($this->resolvedIds[$id]) && (!$definition->isPublic() || $definition->isPrivate())) {

@@ -32,15 +32,9 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     public function start($id, $message, $prefix = 'RUN')
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $message = (string) $message;
+        $prefix = (string) $prefix;
         $this->started[$id] = ['border' => ++$this->count % \count($this->colors)];
         return \sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
     }
@@ -56,18 +50,11 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     public function progress($id, $buffer, $error = \false, $prefix = 'OUT', $errorPrefix = 'ERR')
     {
-        if (\is_object($errorPrefix)) {
-            $errorPrefix = (string) $errorPrefix;
-        }
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
-        if (\is_object($buffer)) {
-            $buffer = (string) $buffer;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $buffer = (string) $buffer;
+        $error = (bool) $error;
+        $prefix = (string) $prefix;
+        $errorPrefix = (string) $errorPrefix;
         $message = '';
         if ($error) {
             if (isset($this->started[$id]['out'])) {
@@ -103,15 +90,10 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     public function stop($id, $message, $successful, $prefix = 'RES')
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $message = (string) $message;
+        $successful = (bool) $successful;
+        $prefix = (string) $prefix;
         $trailingEOL = isset($this->started[$id]['out']) || isset($this->started[$id]['err']) ? "\n" : '';
         if ($successful) {
             return \sprintf("%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
@@ -126,9 +108,7 @@ class DebugFormatterHelper extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     private function getBorder($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return \sprintf('<bg=%s> </>', $this->colors[$this->started[$id]['border']]);
     }
     /**

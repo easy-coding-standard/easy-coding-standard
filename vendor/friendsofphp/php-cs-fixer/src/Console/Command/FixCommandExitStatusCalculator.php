@@ -34,6 +34,11 @@ final class FixCommandExitStatusCalculator
      */
     public function calculate($isDryRun, $hasChangedFiles, $hasInvalidErrors, $hasExceptionErrors, $hasLintErrorsAfterFixing)
     {
+        $isDryRun = (bool) $isDryRun;
+        $hasChangedFiles = (bool) $hasChangedFiles;
+        $hasInvalidErrors = (bool) $hasInvalidErrors;
+        $hasExceptionErrors = (bool) $hasExceptionErrors;
+        $hasLintErrorsAfterFixing = (bool) $hasLintErrorsAfterFixing;
         $exitStatus = 0;
         if ($isDryRun) {
             if ($hasChangedFiles) {

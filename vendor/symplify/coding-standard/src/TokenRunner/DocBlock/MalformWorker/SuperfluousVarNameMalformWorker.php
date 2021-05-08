@@ -27,9 +27,8 @@ final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\
      */
     public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $position = (int) $position;
         if ($this->shouldSkip($tokens, $position)) {
             return $docContent;
         }
@@ -63,6 +62,7 @@ final class SuperfluousVarNameMalformWorker implements \Symplify\CodingStandard\
      */
     private function shouldSkip(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($position);
         // nothing to change
         if ($nextMeaningfulTokenPosition === null) {

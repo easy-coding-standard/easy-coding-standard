@@ -92,6 +92,7 @@ final class XmlReporter implements \PhpCsFixer\Console\Report\FixReport\Reporter
      */
     private function createTimeElement($time, \DOMDocument $dom)
     {
+        $time = (double) $time;
         $time = \round($time / 1000, 3);
         $timeXML = $dom->createElement('time');
         $timeXML->setAttribute('unit', 's');
@@ -106,6 +107,7 @@ final class XmlReporter implements \PhpCsFixer\Console\Report\FixReport\Reporter
      */
     private function createMemoryElement($memory, \DOMDocument $dom)
     {
+        $memory = (double) $memory;
         $memory = \round($memory / 1024 / 1024, 3);
         $memoryXML = $dom->createElement('memory');
         $memoryXML->setAttribute('value', (string) $memory);

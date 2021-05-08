@@ -37,6 +37,7 @@ class ContainerParametersResourceChecker implements \ECSPrefix20210508\Symfony\C
      */
     public function isFresh(\ECSPrefix20210508\Symfony\Component\Config\Resource\ResourceInterface $resource, $timestamp)
     {
+        $timestamp = (int) $timestamp;
         foreach ($resource->getParameters() as $key => $value) {
             if (!$this->container->hasParameter($key) || $this->container->getParameter($key) !== $value) {
                 return \false;

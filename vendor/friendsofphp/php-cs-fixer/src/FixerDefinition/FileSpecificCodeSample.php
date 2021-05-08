@@ -32,9 +32,7 @@ final class FileSpecificCodeSample implements \PhpCsFixer\FixerDefinition\FileSp
      */
     public function __construct($code, \SplFileInfo $splFileInfo, $configuration = null)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
+        $code = (string) $code;
         $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->splFileInfo = $splFileInfo;
     }

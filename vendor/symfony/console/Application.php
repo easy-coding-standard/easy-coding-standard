@@ -86,12 +86,8 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function __construct($name = 'UNKNOWN', $version = 'UNKNOWN')
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $version = (string) $version;
         $this->name = $name;
         $this->version = $version;
         $this->terminal = new \ECSPrefix20210508\Symfony\Component\Console\Terminal();
@@ -335,6 +331,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function setCatchExceptions($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->catchExceptions = $boolean;
     }
     /**
@@ -352,6 +349,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function setAutoExit($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->autoExit = $boolean;
     }
     /**
@@ -369,9 +367,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      **/
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -389,9 +385,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function setVersion($version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
+        $version = (string) $version;
         $this->version = $version;
     }
     /**
@@ -417,9 +411,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function register($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->add(new \ECSPrefix20210508\Symfony\Component\Console\Command\Command($name));
     }
     /**
@@ -472,9 +464,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function get($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->init();
         if (!$this->has($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('The command "%s" does not exist.', $name));
@@ -500,9 +490,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function has($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->init();
         return isset($this->commands[$name]) || $this->commandLoader && $this->commandLoader->has($name) && $this->add($this->commandLoader->get($name));
     }
@@ -537,9 +525,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function findNamespace($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         $allNamespaces = $this->getNamespaces();
         $expr = \preg_replace_callback('{([^:]+|)}', function ($matches) {
             return \preg_quote($matches[1]) . '[^:]*';
@@ -576,9 +562,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function find($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->init();
         $aliases = [];
         foreach ($this->commands as $command) {
@@ -964,9 +948,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function extractNamespace($name, $limit = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $parts = \explode(':', $name, -1);
         return \implode(':', null === $limit ? $parts : \array_slice($parts, 0, $limit));
     }
@@ -980,9 +962,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     private function findAlternatives($name, $collection)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $threshold = 1000.0;
         $alternatives = [];
         $collectionParts = [];
@@ -1027,9 +1007,8 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     public function setDefaultCommand($commandName, $isSingleCommand = \false)
     {
-        if (\is_object($commandName)) {
-            $commandName = (string) $commandName;
-        }
+        $commandName = (string) $commandName;
+        $isSingleCommand = (bool) $isSingleCommand;
         $this->defaultCommand = $commandName;
         if ($isSingleCommand) {
             // Ensure the command exist
@@ -1053,9 +1032,8 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     private function splitStringByWidth($string, $width)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $width = (int) $width;
         // str_split is not suitable for multi-byte characters, we should use preg_split to get char array properly.
         // additionally, array_slice() is not enough as some character has doubled width.
         // we need a function to split string not by character count but by string width
@@ -1091,9 +1069,7 @@ class Application implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetI
      */
     private function extractAllNamespaces($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         // -1 as third argument is needed to skip the command short name when exploding
         $parts = \explode(':', $name, -1);
         $namespaces = [];

@@ -27,9 +27,7 @@ class RealServiceInstantiator implements \ECSPrefix20210508\Symfony\Component\De
      */
     public function instantiateProxy(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface $container, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, callable $realInstantiator)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return $realInstantiator();
     }
 }

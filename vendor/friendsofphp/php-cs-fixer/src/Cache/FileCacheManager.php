@@ -55,6 +55,7 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
      */
     public function __construct(\PhpCsFixer\Cache\FileHandlerInterface $handler, \PhpCsFixer\Cache\SignatureInterface $signature, $isDryRun = \false, $cacheDirectory = null)
     {
+        $isDryRun = (bool) $isDryRun;
         $this->handler = $handler;
         $this->signature = $signature;
         $this->isDryRun = $isDryRun;
@@ -92,12 +93,8 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
      */
     public function needFixing($file, $fileContent)
     {
-        if (\is_object($fileContent)) {
-            $fileContent = (string) $fileContent;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $fileContent = (string) $fileContent;
         $file = $this->cacheDirectory->getRelativePathTo($file);
         return !$this->cache->has($file) || $this->cache->get($file) !== $this->calcHash($fileContent);
     }
@@ -108,12 +105,8 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
      */
     public function setFile($file, $fileContent)
     {
-        if (\is_object($fileContent)) {
-            $fileContent = (string) $fileContent;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $fileContent = (string) $fileContent;
         $file = $this->cacheDirectory->getRelativePathTo($file);
         $hash = $this->calcHash($fileContent);
         if ($this->isDryRun && $this->cache->has($file) && $this->cache->get($file) !== $hash) {
@@ -146,9 +139,7 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
      */
     private function calcHash($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         return \crc32($content);
     }
 }

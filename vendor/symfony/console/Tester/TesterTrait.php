@@ -33,6 +33,7 @@ trait TesterTrait
      */
     public function getDisplay($normalize = \false)
     {
+        $normalize = (bool) $normalize;
         if (null === $this->output) {
             throw new \RuntimeException('Output not initialized, did you execute the command before requesting the display?');
         }
@@ -52,6 +53,7 @@ trait TesterTrait
      */
     public function getErrorOutput($normalize = \false)
     {
+        $normalize = (bool) $normalize;
         if (!$this->captureStreamsIndependently) {
             throw new \LogicException('The error output is not available when the tester is run without "capture_stderr_separately" option set.');
         }

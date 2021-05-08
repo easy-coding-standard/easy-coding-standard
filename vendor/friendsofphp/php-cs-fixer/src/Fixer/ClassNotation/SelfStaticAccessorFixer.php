@@ -111,6 +111,7 @@ $a = new class() {
      */
     private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classOpenCount = 1;
         while ($classOpenCount > 0) {

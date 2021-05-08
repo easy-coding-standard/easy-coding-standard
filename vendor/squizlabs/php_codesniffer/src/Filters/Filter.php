@@ -64,9 +64,7 @@ class Filter extends \RecursiveFilterIterator
      */
     public function __construct($iterator, $basedir, \PHP_CodeSniffer\Config $config, \PHP_CodeSniffer\Ruleset $ruleset)
     {
-        if (\is_object($basedir)) {
-            $basedir = (string) $basedir;
-        }
+        $basedir = (string) $basedir;
         parent::__construct($iterator);
         $this->basedir = $basedir;
         $this->config = $config;
@@ -140,9 +138,7 @@ class Filter extends \RecursiveFilterIterator
      */
     protected function shouldProcessFile($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         // Check that the file's extension is one we are checking.
         // We are strict about checking the extension and we don't
         // let files through with no extension or that start with a dot.
@@ -175,9 +171,7 @@ class Filter extends \RecursiveFilterIterator
      */
     protected function shouldIgnorePath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if ($this->ignoreFilePatterns === null) {
             $this->ignoreDirPatterns = [];
             $this->ignoreFilePatterns = [];

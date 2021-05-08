@@ -54,9 +54,7 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      */
     public static function width($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         isset($string) ? $string : ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($string))->width(\false);
@@ -76,9 +74,7 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      */
     public static function length($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         isset($string) ? $string : ($string = '');
         if (\preg_match('//u', $string)) {
             return (new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($string))->length();
@@ -98,9 +94,8 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      */
     public static function substr($string, $from, $length = null)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $from = (int) $from;
         isset($string) ? $string : ($string = '');
         if (\false === ($encoding = \mb_detect_encoding($string, null, \true))) {
             return \substr($string, $from, $length);
@@ -126,6 +121,7 @@ abstract class Helper implements \ECSPrefix20210508\Symfony\Component\Console\He
      */
     public static function formatMemory($memory)
     {
+        $memory = (int) $memory;
         if ($memory >= 1024 * 1024 * 1024) {
             return \sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
         }

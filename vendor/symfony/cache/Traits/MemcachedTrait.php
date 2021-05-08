@@ -44,9 +44,8 @@ trait MemcachedTrait
      */
     private function init(\Memcached $client, $namespace, $defaultLifetime, $marshaller)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         if (!static::isSupported()) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('Memcached >= 2.2.0 is required.');
         }
@@ -214,6 +213,7 @@ trait MemcachedTrait
      */
     protected function doSave(array $values, $lifetime)
     {
+        $lifetime = (int) $lifetime;
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
         }
@@ -303,9 +303,7 @@ trait MemcachedTrait
      */
     private static function encodeKey($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \strtr($key, self::$RESERVED_MEMCACHED, self::$RESERVED_PSR6);
     }
     /**
@@ -314,9 +312,7 @@ trait MemcachedTrait
      */
     private static function decodeKey($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \strtr($key, self::$RESERVED_PSR6, self::$RESERVED_MEMCACHED);
     }
 }

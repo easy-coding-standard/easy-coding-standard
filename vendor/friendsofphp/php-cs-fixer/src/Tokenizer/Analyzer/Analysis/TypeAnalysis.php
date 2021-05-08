@@ -51,9 +51,9 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
      */
     public function __construct($name, $startIndex, $endIndex)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $this->name = $name;
         $this->nullable = \false;
         if (0 === \strpos($name, '?')) {

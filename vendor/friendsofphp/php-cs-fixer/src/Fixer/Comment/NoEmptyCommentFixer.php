@@ -79,6 +79,7 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getCommentBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $commentType = $this->getCommentType($tokens[$index]->getContent());
         $empty = $this->isEmptyComment($tokens[$index]->getContent());
         if (self::TYPE_SLASH_ASTERISK === $commentType) {
@@ -110,9 +111,7 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getCommentType($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         if ('#' === $content[0]) {
             return self::TYPE_HASH;
         }
@@ -128,6 +127,8 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, $whiteStart, $whiteEnd)
     {
+        $whiteStart = (int) $whiteStart;
+        $whiteEnd = (int) $whiteEnd;
         $lineCount = 0;
         for ($i = $whiteStart; $i < $whiteEnd; ++$i) {
             $lineCount += \PhpCsFixer\Preg::matchAll('/\\R/u', $tokens[$i]->getContent(), $matches);
@@ -140,9 +141,7 @@ final class NoEmptyCommentFixer extends \PhpCsFixer\AbstractFixer
      */
     private function isEmptyComment($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         static $mapper = [
             self::TYPE_HASH => '|^#\\s*$|',
             // single line comment starting with '#'

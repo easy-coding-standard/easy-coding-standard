@@ -84,9 +84,7 @@ class MemoryDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKerne
      */
     private function convertToBytes($memoryLimit)
     {
-        if (\is_object($memoryLimit)) {
-            $memoryLimit = (string) $memoryLimit;
-        }
+        $memoryLimit = (string) $memoryLimit;
         if ('-1' === $memoryLimit) {
             return -1;
         }

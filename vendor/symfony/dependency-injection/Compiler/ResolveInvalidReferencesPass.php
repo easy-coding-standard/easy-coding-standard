@@ -56,6 +56,8 @@ class ResolveInvalidReferencesPass implements \ECSPrefix20210508\Symfony\Compone
      */
     private function processValue($value, $rootLevel = 0, $level = 0)
     {
+        $rootLevel = (int) $rootLevel;
+        $level = (int) $level;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
             $value->setValues($this->processValue($value->getValues(), 1, 1));
         } elseif ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {

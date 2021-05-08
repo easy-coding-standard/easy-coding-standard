@@ -116,6 +116,7 @@ CODE_SAMPLE
      */
     private function fixStartToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $position)
     {
+        $position = (int) $position;
         $match = \ECSPrefix20210508\Nette\Utils\Strings::match($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX);
         if (!isset($match['name'])) {
             return;
@@ -130,6 +131,7 @@ CODE_SAMPLE
      */
     private function fixEndToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $position)
     {
+        $position = (int) $position;
         if ($token->getContent() === $this->keyword) {
             return;
         }

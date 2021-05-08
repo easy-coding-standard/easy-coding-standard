@@ -32,9 +32,8 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      */
     public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $position = (int) $position;
         $argumentNames = $this->docblockRelatedParamNamesResolver->resolve($tokens, $position);
         if ($argumentNames === []) {
             return $docContent;
@@ -63,9 +62,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      */
     private function getParamNames($docContent)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
         $paramAnnotations = $this->getAnnotationsOfType($docContent, 'param');
         $paramNames = [];
         foreach ($paramAnnotations as $paramAnnotation) {
@@ -83,12 +80,8 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      */
     private function getAnnotationsOfType($docContent, $type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $type = (string) $type;
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         return $docBlock->getAnnotationsOfType($type);
     }
@@ -100,9 +93,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      */
     private function fixTypos(array $argumentNames, array $paramNames, $docContent)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
         foreach ($argumentNames as $key => $argumentName) {
             // 1. the same position
             if (!isset($paramNames[$key])) {

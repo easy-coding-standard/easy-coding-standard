@@ -27,9 +27,7 @@ class ResettableServicePass implements \ECSPrefix20210508\Symfony\Component\Depe
      */
     public function __construct($tagName = 'kernel.reset')
     {
-        if (\is_object($tagName)) {
-            $tagName = (string) $tagName;
-        }
+        $tagName = (string) $tagName;
         $this->tagName = $tagName;
     }
     /**

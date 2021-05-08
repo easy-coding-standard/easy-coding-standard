@@ -10,9 +10,7 @@ class ProvidedPackageException extends \Exception implements \ECSPrefix20210508\
      */
     public static function create($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         return new self('Cannot retrieve a version for package ' . $packageName . ' since it is provided, probably a metapackage');
     }
 }

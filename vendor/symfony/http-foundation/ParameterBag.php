@@ -77,9 +77,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function get($key, $default = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \array_key_exists($key, $this->parameters) ? $this->parameters[$key] : $default;
     }
     /**
@@ -90,9 +88,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function set($key, $value)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         $this->parameters[$key] = $value;
     }
     /**
@@ -103,9 +99,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function has($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \array_key_exists($key, $this->parameters);
     }
     /**
@@ -114,9 +108,7 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function remove($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         unset($this->parameters[$key]);
     }
     /**
@@ -128,12 +120,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function getAlpha($key, $default = '')
     {
-        if (\is_object($default)) {
-            $default = (string) $default;
-        }
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $default = (string) $default;
         return \preg_replace('/[^[:alpha:]]/', '', $this->get($key, $default));
     }
     /**
@@ -145,12 +133,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function getAlnum($key, $default = '')
     {
-        if (\is_object($default)) {
-            $default = (string) $default;
-        }
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $default = (string) $default;
         return \preg_replace('/[^[:alnum:]]/', '', $this->get($key, $default));
     }
     /**
@@ -162,12 +146,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function getDigits($key, $default = '')
     {
-        if (\is_object($default)) {
-            $default = (string) $default;
-        }
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $default = (string) $default;
         // we need to remove - and + because they're allowed in the filter
         return \str_replace(['-', '+'], '', $this->filter($key, $default, \FILTER_SANITIZE_NUMBER_INT));
     }
@@ -180,9 +160,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function getInt($key, $default = 0)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $default = (int) $default;
         return (int) $this->get($key, $default);
     }
     /**
@@ -194,9 +173,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function getBoolean($key, $default = \false)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $default = (bool) $default;
         return $this->filter($key, $default, \FILTER_VALIDATE_BOOLEAN);
     }
     /**
@@ -213,9 +191,8 @@ class ParameterBag implements \IteratorAggregate, \Countable
      */
     public function filter($key, $default = null, $filter = \FILTER_DEFAULT, $options = [])
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $filter = (int) $filter;
         $value = $this->get($key, $default);
         // Always turn $options into an array - this allows filter_var option shortcuts.
         if (!\is_array($options) && $options) {

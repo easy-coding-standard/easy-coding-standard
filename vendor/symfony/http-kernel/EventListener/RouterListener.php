@@ -56,6 +56,7 @@ class RouterListener implements \ECSPrefix20210508\Symfony\Component\EventDispat
      */
     public function __construct($matcher, \ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210508\Symfony\Component\Routing\RequestContext $context = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null, $projectDir = null, $debug = \true)
     {
+        $debug = (bool) $debug;
         if (!$matcher instanceof \ECSPrefix20210508\Symfony\Component\Routing\Matcher\UrlMatcherInterface && !$matcher instanceof \ECSPrefix20210508\Symfony\Component\Routing\Matcher\RequestMatcherInterface) {
             throw new \InvalidArgumentException('Matcher must either implement UrlMatcherInterface or RequestMatcherInterface.');
         }

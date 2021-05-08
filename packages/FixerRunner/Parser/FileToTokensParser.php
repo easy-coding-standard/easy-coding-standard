@@ -20,9 +20,7 @@ final class FileToTokensParser
      */
     public function parseFromFilePath($filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $fileContent = $this->smartFileSystem->readFile($filePath);
         return \PhpCsFixer\Tokenizer\Tokens::fromCode($fileContent);
     }

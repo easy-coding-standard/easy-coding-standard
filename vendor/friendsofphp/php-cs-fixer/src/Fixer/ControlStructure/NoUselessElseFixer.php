@@ -81,6 +81,7 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
      */
     private function fixEmptyElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $next = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$next]->equals('{')) {
             $close = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $next);
@@ -105,6 +106,7 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
      */
     private function clearElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         // clear T_ELSE and the '{' '}' if there are any
         $next = $tokens->getNextMeaningfulToken($index);

@@ -39,6 +39,7 @@ final class ReturnRefTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         $prevKinds = [\T_FUNCTION];
         if (\PHP_VERSION_ID >= 70400) {
             $prevKinds[] = \T_FN;

@@ -25,12 +25,9 @@ class ConfirmationQuestion extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     public function __construct($question, $default = \true, $trueAnswerRegex = '/^y/i')
     {
-        if (\is_object($trueAnswerRegex)) {
-            $trueAnswerRegex = (string) $trueAnswerRegex;
-        }
-        if (\is_object($question)) {
-            $question = (string) $question;
-        }
+        $question = (string) $question;
+        $default = (bool) $default;
+        $trueAnswerRegex = (string) $trueAnswerRegex;
         parent::__construct($question, $default);
         $this->trueAnswerRegex = $trueAnswerRegex;
         $this->setNormalizer($this->getDefaultNormalizer());

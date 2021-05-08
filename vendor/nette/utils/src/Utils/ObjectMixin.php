@@ -15,9 +15,7 @@ final class ObjectMixin
      * @param string $value */
     public static function getSuggestion(array $possibilities, $value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         \trigger_error(__METHOD__ . '() has been renamed to Nette\\Utils\\ObjectHelpers::getSuggestion()', \E_USER_DEPRECATED);
         return \ECSPrefix20210508\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
     }

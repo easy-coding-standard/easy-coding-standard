@@ -25,6 +25,7 @@ class Reference
      */
     public function __construct($id, $value = null)
     {
+        $id = (int) $id;
         $this->id = $id;
         $this->value = $value;
     }

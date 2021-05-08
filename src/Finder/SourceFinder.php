@@ -38,6 +38,7 @@ final class SourceFinder
      */
     public function find(array $source, $doesMatchGitDiff = \false)
     {
+        $doesMatchGitDiff = (bool) $doesMatchGitDiff;
         $fileInfos = [];
         foreach ($source as $singleSource) {
             if (\is_file($singleSource)) {
@@ -57,9 +58,7 @@ final class SourceFinder
      */
     private function processDirectory($directory)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
         $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);
@@ -83,6 +82,7 @@ final class SourceFinder
      */
     private function filterOutGitDiffFiles(array $fileInfos, $doesMatchGitDiff)
     {
+        $doesMatchGitDiff = (bool) $doesMatchGitDiff;
         if (!$doesMatchGitDiff) {
             return $fileInfos;
         }

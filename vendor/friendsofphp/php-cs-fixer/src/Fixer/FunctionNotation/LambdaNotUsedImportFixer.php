@@ -84,6 +84,7 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixLambda(\PhpCsFixer\Tokenizer\Tokens $tokens, $lambdaUseIndex)
     {
+        $lambdaUseIndex = (int) $lambdaUseIndex;
         $lambdaUseOpenBraceIndex = $tokens->getNextTokenOfKind($lambdaUseIndex, ['(']);
         $lambdaUseCloseBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $lambdaUseOpenBraceIndex);
         $arguments = $this->argumentsAnalyzer->getArguments($tokens, $lambdaUseOpenBraceIndex, $lambdaUseCloseBraceIndex);
@@ -111,6 +112,7 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
      */
     private function findNotUsedLambdaImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports, $lambdaUseCloseBraceIndex)
     {
+        $lambdaUseCloseBraceIndex = (int) $lambdaUseCloseBraceIndex;
         static $riskyKinds = [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN, \T_EVAL, \T_INCLUDE, \T_INCLUDE_ONCE, \T_REQUIRE, \T_REQUIRE_ONCE];
         // figure out where the lambda starts ...
         $lambdaOpenIndex = $tokens->getNextTokenOfKind($lambdaUseCloseBraceIndex, ['{']);
@@ -220,6 +222,7 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getLambdaUseIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind(\T_FUNCTION) || !$this->tokensAnalyzer->isLambda($index)) {
             return \false;
         }
@@ -283,6 +286,8 @@ final class LambdaNotUsedImportFixer extends \PhpCsFixer\AbstractFixer
      */
     private function clearImportsAndUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $lambdaUseIndex, $lambdaUseCloseBraceIndex)
     {
+        $lambdaUseIndex = (int) $lambdaUseIndex;
+        $lambdaUseCloseBraceIndex = (int) $lambdaUseCloseBraceIndex;
         for ($i = $lambdaUseCloseBraceIndex; $i >= $lambdaUseIndex; --$i) {
             if ($tokens[$i]->isComment()) {
                 continue;

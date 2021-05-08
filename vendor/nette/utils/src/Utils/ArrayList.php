@@ -52,6 +52,7 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function offsetGet($index)
     {
+        $index = (int) $index;
         if (!\is_int($index) || $index < 0 || $index >= \count($this->list)) {
             throw new \ECSPrefix20210508\Nette\OutOfRangeException('Offset invalid or out of range');
         }
@@ -64,6 +65,7 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function offsetExists($index)
     {
+        $index = (int) $index;
         return \is_int($index) && $index >= 0 && $index < \count($this->list);
     }
     /**
@@ -74,6 +76,7 @@ class ArrayList implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function offsetUnset($index)
     {
+        $index = (int) $index;
         if (!\is_int($index) || $index < 0 || $index >= \count($this->list)) {
             throw new \ECSPrefix20210508\Nette\OutOfRangeException('Offset invalid or out of range');
         }

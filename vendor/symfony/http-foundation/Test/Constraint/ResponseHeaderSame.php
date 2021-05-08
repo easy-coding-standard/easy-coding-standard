@@ -22,12 +22,8 @@ final class ResponseHeaderSame extends \ECSPrefix20210508\PHPUnit\Framework\Cons
      */
     public function __construct($headerName, $expectedValue)
     {
-        if (\is_object($expectedValue)) {
-            $expectedValue = (string) $expectedValue;
-        }
-        if (\is_object($headerName)) {
-            $headerName = (string) $headerName;
-        }
+        $headerName = (string) $headerName;
+        $expectedValue = (string) $expectedValue;
         $this->headerName = $headerName;
         $this->expectedValue = $expectedValue;
     }

@@ -104,6 +104,7 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
      */
     private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $nextTokenIndex = $tokens->getNextMeaningfulToken($index);
         $endTokenIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
         $canBeConverted = \true;
@@ -128,6 +129,7 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
      */
     private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
         if (!$prevToken->equalsAny([';', '{', '}', ')', [\T_OPEN_TAG], [\T_ELSE]])) {
             return;

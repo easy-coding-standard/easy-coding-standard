@@ -29,9 +29,7 @@ abstract class RoutableFragmentRenderer implements \ECSPrefix20210508\Symfony\Co
      */
     public function setFragmentPath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $this->fragmentPath = $path;
     }
     /**
@@ -44,6 +42,8 @@ abstract class RoutableFragmentRenderer implements \ECSPrefix20210508\Symfony\Co
      */
     protected function generateFragmentUri(\ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerReference $reference, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $absolute = \false, $strict = \true)
     {
+        $absolute = (bool) $absolute;
+        $strict = (bool) $strict;
         if ($strict) {
             $this->checkNonScalar($reference->attributes);
         }

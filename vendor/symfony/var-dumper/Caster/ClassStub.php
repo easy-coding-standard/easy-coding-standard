@@ -24,9 +24,7 @@ class ClassStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Co
      */
     public function __construct($identifier, $callable = null)
     {
-        if (\is_object($identifier)) {
-            $identifier = (string) $identifier;
-        }
+        $identifier = (string) $identifier;
         $this->value = $identifier;
         try {
             if (null !== $callable) {

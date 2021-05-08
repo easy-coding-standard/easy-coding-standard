@@ -233,6 +233,7 @@ class Response
      */
     public function __construct($content = '', $status = 200, array $headers = [])
     {
+        $status = (int) $status;
         $this->headers = new \ECSPrefix20210508\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
         $this->setContent($content);
         $this->setStatusCode($status);
@@ -254,6 +255,7 @@ class Response
      */
     public static function create($content = '', $status = 200, array $headers = [])
     {
+        $status = (int) $status;
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($content, $status, $headers);
     }
@@ -405,9 +407,7 @@ class Response
      */
     public function setContent($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         $this->content = isset($content) ? $content : '';
         return $this;
     }
@@ -430,9 +430,7 @@ class Response
      */
     public function setProtocolVersion($version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
+        $version = (string) $version;
         $this->version = $version;
         return $this;
     }
@@ -461,6 +459,7 @@ class Response
      */
     public function setStatusCode($code, $text = null)
     {
+        $code = (int) $code;
         $this->statusCode = $code;
         if ($this->isInvalid()) {
             throw new \InvalidArgumentException(\sprintf('The HTTP status code "%s" is not valid.', $code));
@@ -496,9 +495,7 @@ class Response
      */
     public function setCharset($charset)
     {
-        if (\is_object($charset)) {
-            $charset = (string) $charset;
-        }
+        $charset = (string) $charset;
         $this->charset = $charset;
         return $this;
     }
@@ -605,6 +602,7 @@ class Response
      */
     public function setImmutable($immutable = \true)
     {
+        $immutable = (bool) $immutable;
         if ($immutable) {
             $this->headers->addCacheControlDirective('immutable');
         } else {
@@ -763,6 +761,7 @@ class Response
      */
     public function setMaxAge($value)
     {
+        $value = (int) $value;
         $this->headers->addCacheControlDirective('max-age', $value);
         return $this;
     }
@@ -778,6 +777,7 @@ class Response
      */
     public function setSharedMaxAge($value)
     {
+        $value = (int) $value;
         $this->setPublic();
         $this->headers->addCacheControlDirective('s-maxage', $value);
         return $this;
@@ -810,6 +810,7 @@ class Response
      */
     public function setTtl($seconds)
     {
+        $seconds = (int) $seconds;
         $this->setSharedMaxAge($this->getAge() + $seconds);
         return $this;
     }
@@ -825,6 +826,7 @@ class Response
      */
     public function setClientTtl($seconds)
     {
+        $seconds = (int) $seconds;
         $this->setMaxAge($this->getAge() + $seconds);
         return $this;
     }
@@ -884,6 +886,7 @@ class Response
      */
     public function setEtag($etag = null, $weak = \false)
     {
+        $weak = (bool) $weak;
         if (null === $etag) {
             $this->headers->remove('Etag');
         } else {
@@ -1008,6 +1011,7 @@ class Response
      */
     public function setVary($headers, $replace = \true)
     {
+        $replace = (bool) $replace;
         $this->headers->set('Vary', $headers, $replace);
         return $this;
     }
@@ -1166,6 +1170,8 @@ class Response
      */
     public static function closeOutputBuffers($targetLevel, $flush)
     {
+        $targetLevel = (int) $targetLevel;
+        $flush = (bool) $flush;
         $status = \ob_get_status(\true);
         $level = \count($status);
         $flags = \PHP_OUTPUT_HANDLER_REMOVABLE | ($flush ? \PHP_OUTPUT_HANDLER_FLUSHABLE : \PHP_OUTPUT_HANDLER_CLEANABLE);
@@ -1186,6 +1192,7 @@ class Response
      */
     public function setContentSafe($safe = \true)
     {
+        $safe = (bool) $safe;
         if ($safe) {
             $this->headers->set('Preference-Applied', 'safe');
         } elseif ('safe' === $this->headers->get('Preference-Applied')) {

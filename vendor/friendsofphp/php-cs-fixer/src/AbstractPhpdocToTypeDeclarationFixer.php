@@ -85,9 +85,8 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
      */
     protected function getAnnotationsFromDocComment($name, \PhpCsFixer\Tokenizer\Tokens $tokens, $docCommentIndex)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $docCommentIndex = (int) $docCommentIndex;
         $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
         $namespace = $namespacesAnalyzer->getNamespaceAt($tokens, $docCommentIndex);
         $namespaceUsesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
@@ -102,9 +101,8 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
      */
     protected function createTypeDeclarationTokens($type, $isNullable)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $isNullable = (bool) $isNullable;
         static $specialTypes = ['array' => [\PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, 'array'], 'callable' => [\T_CALLABLE, 'callable'], 'static' => [\T_STATIC, 'static']];
         $newTokens = [];
         if (\true === $isNullable && 'mixed' !== $type) {
@@ -137,6 +135,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
      */
     protected function getCommonTypeFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation, $isReturnType)
     {
+        $isReturnType = (bool) $isReturnType;
         $typesExpression = $annotation->getTypeExpression();
         $commonType = $typesExpression->getCommonType();
         $isNullable = $typesExpression->allowsNull();
@@ -170,9 +169,7 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
      */
     protected final function isValidSyntax($code)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
+        $code = (string) $code;
         if (!isset(self::$syntaxValidationCache[$code])) {
             try {
                 \PhpCsFixer\Tokenizer\Tokens::fromCode($code);

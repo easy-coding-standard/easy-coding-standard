@@ -12,9 +12,7 @@ final class StaticFixtureUpdater
      */
     public static function updateFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent, \Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
     {
-        if (\is_object($changedContent)) {
-            $changedContent = (string) $changedContent;
-        }
+        $changedContent = (string) $changedContent;
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
         }
@@ -27,9 +25,7 @@ final class StaticFixtureUpdater
      */
     public static function updateExpectedFixtureContent($newOriginalContent, \Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo)
     {
-        if (\is_object($newOriginalContent)) {
-            $newOriginalContent = (string) $newOriginalContent;
-        }
+        $newOriginalContent = (string) $newOriginalContent;
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
             return;
         }
@@ -48,9 +44,7 @@ final class StaticFixtureUpdater
      */
     private static function resolveNewFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent)
     {
-        if (\is_object($changedContent)) {
-            $changedContent = (string) $changedContent;
-        }
+        $changedContent = (string) $changedContent;
         if ($originalFileInfo->getContents() === $changedContent) {
             return $originalFileInfo->getContents();
         }

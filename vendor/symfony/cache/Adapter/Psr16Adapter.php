@@ -33,9 +33,8 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      */
     public function __construct(\ECSPrefix20210508\Psr\SimpleCache\CacheInterface $pool, $namespace = '', $defaultLifetime = 0)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         parent::__construct($namespace, $defaultLifetime);
         $this->pool = $pool;
         $this->miss = new \stdClass();
@@ -57,9 +56,7 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      */
     protected function doHave($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return $this->pool->has($id);
     }
     /**
@@ -68,9 +65,7 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      */
     protected function doClear($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         return $this->pool->clear();
     }
     /**
@@ -86,6 +81,7 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      */
     protected function doSave(array $values, $lifetime)
     {
+        $lifetime = (int) $lifetime;
         return $this->pool->setMultiple($values, 0 === $lifetime ? null : $lifetime);
     }
 }

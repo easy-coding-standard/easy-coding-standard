@@ -35,9 +35,7 @@ class LocaleListener implements \ECSPrefix20210508\Symfony\Component\EventDispat
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack, $defaultLocale = 'en', \ECSPrefix20210508\Symfony\Component\Routing\RequestContextAwareInterface $router = null)
     {
-        if (\is_object($defaultLocale)) {
-            $defaultLocale = (string) $defaultLocale;
-        }
+        $defaultLocale = (string) $defaultLocale;
         $this->defaultLocale = $defaultLocale;
         $this->requestStack = $requestStack;
         $this->router = $router;

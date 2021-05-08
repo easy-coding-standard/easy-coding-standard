@@ -41,9 +41,7 @@ class DefaultsConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function tag($name, array $attributes = [])
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if ('' === $name) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The tag name in "_defaults" must be a non-empty string.');
         }
@@ -62,9 +60,7 @@ class DefaultsConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function instanceof($fqcn)
     {
-        if (\is_object($fqcn)) {
-            $fqcn = (string) $fqcn;
-        }
+        $fqcn = (string) $fqcn;
         return $this->parent->instanceof($fqcn);
     }
 }

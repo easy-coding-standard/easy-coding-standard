@@ -93,9 +93,7 @@ final class PhpdocTypesFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implem
      */
     protected function normalize($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $lower = \strtolower($type);
         return \in_array($lower, $this->typesToFix, \true) ? $lower : $type;
     }

@@ -34,9 +34,8 @@ final class DiffConsoleFormatter
      */
     public function __construct($isDecoratedOutput, $template = '%s')
     {
-        if (\is_object($template)) {
-            $template = (string) $template;
-        }
+        $isDecoratedOutput = (bool) $isDecoratedOutput;
+        $template = (string) $template;
         $this->isDecoratedOutput = $isDecoratedOutput;
         $this->template = $template;
     }
@@ -47,12 +46,8 @@ final class DiffConsoleFormatter
      */
     public function format($diff, $lineTemplate = '%s')
     {
-        if (\is_object($lineTemplate)) {
-            $lineTemplate = (string) $lineTemplate;
-        }
-        if (\is_object($diff)) {
-            $diff = (string) $diff;
-        }
+        $diff = (string) $diff;
+        $lineTemplate = (string) $lineTemplate;
         $isDecorated = $this->isDecoratedOutput;
         $template = $isDecorated ? $this->template : \PhpCsFixer\Preg::replace('/<[^<>]+>/', '', $this->template);
         return \sprintf($template, \implode(\PHP_EOL, \array_map(static function (string $line) use($isDecorated, $lineTemplate) {

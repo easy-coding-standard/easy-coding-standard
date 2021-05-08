@@ -37,6 +37,7 @@ class AjaxNullComparisonSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Make sure it is an API function. We know this by the doc comment.
         $commentEnd = $phpcsFile->findPrevious(T_DOC_COMMENT_CLOSE_TAG, $stackPtr);

@@ -108,9 +108,7 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
      */
     private function normalizeType($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         if ('[]' === \substr($type, -2)) {
             return $this->normalizeType(\substr($type, 0, -2)) . '[]';
         }

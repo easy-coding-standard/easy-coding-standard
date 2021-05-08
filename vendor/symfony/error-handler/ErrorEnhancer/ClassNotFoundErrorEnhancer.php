@@ -66,9 +66,7 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
      */
     private function getClassCandidates($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         if (!\is_array($functions = \spl_autoload_functions())) {
             return [];
         }
@@ -108,15 +106,9 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
      */
     private function findClassInPath($path, $class, $prefix)
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $class = (string) $class;
+        $prefix = (string) $prefix;
         if (!($path = (\realpath($path . '/' . \strtr($prefix, '\\_', '//')) ?: \realpath($path . '/' . \dirname(\strtr($prefix, '\\_', '//')))) ?: \realpath($path))) {
             return [];
         }
@@ -137,15 +129,9 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
      */
     private function convertFileToClass($path, $file, $prefix)
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $file = (string) $file;
+        $prefix = (string) $prefix;
         $candidates = [
             // namespaced class
             $namespacedClass = \str_replace([$path . \DIRECTORY_SEPARATOR, '.php', '/'], ['', '', '\\'], $file),
@@ -191,9 +177,7 @@ class ClassNotFoundErrorEnhancer implements \ECSPrefix20210508\Symfony\Component
      */
     private function classExists($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         return \class_exists($class, \false) || \interface_exists($class, \false) || \trait_exists($class, \false);
     }
 }

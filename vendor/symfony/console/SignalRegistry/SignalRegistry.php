@@ -25,6 +25,7 @@ final class SignalRegistry
      */
     public function register($signal, callable $signalHandler)
     {
+        $signal = (int) $signal;
         if (!isset($this->signalHandlers[$signal])) {
             $previousCallback = \pcntl_signal_get_handler($signal);
             if (\is_callable($previousCallback)) {
@@ -54,6 +55,7 @@ final class SignalRegistry
      */
     public function handle($signal)
     {
+        $signal = (int) $signal;
         $count = \count($this->signalHandlers[$signal]);
         foreach ($this->signalHandlers[$signal] as $i => $signalHandler) {
             $hasNext = $i !== $count - 1;

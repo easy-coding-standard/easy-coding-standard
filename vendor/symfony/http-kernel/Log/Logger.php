@@ -64,9 +64,7 @@ class Logger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = [])
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if (!isset(self::LEVELS[$level])) {
             throw new \ECSPrefix20210508\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
@@ -88,12 +86,9 @@ class Logger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
      */
     private function format($level, $message, array $context, $prefixDate = \true)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
-        if (\is_object($level)) {
-            $level = (string) $level;
-        }
+        $level = (string) $level;
+        $message = (string) $message;
+        $prefixDate = (bool) $prefixDate;
         if (\false !== \strpos($message, '{')) {
             $replacements = [];
             foreach ($context as $key => $val) {

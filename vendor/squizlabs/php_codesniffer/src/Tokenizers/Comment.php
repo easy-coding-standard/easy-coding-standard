@@ -26,12 +26,9 @@ class Comment
      */
     public function tokenizeString($string, $eolChar, $stackPtr)
     {
-        if (\is_object($eolChar)) {
-            $eolChar = (string) $eolChar;
-        }
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $eolChar = (string) $eolChar;
+        $stackPtr = (int) $stackPtr;
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo "\t\t*** START COMMENT TOKENIZING ***" . \PHP_EOL;
         }
@@ -138,12 +135,10 @@ class Comment
      */
     private function processLine($string, $eolChar, $start, $end)
     {
-        if (\is_object($eolChar)) {
-            $eolChar = (string) $eolChar;
-        }
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $eolChar = (string) $eolChar;
+        $start = (int) $start;
+        $end = (int) $end;
         $tokens = [];
         // Collect content padding.
         $space = $this->collectWhitespace($string, $start, $end);
@@ -196,9 +191,9 @@ class Comment
      */
     private function collectWhitespace($string, $start, $end)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $start = (int) $start;
+        $end = (int) $end;
         $space = '';
         for ($start; $start < $end; $start++) {
             if ($string[$start] !== ' ' && $string[$start] !== "\t") {

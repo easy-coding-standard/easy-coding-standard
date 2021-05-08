@@ -97,6 +97,7 @@ class ForbiddenFunctionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $ignore = [\T_DOUBLE_COLON => \true, \T_OBJECT_OPERATOR => \true, \T_NULLSAFE_OBJECT_OPERATOR => \true, \T_FUNCTION => \true, \T_CONST => \true, \T_PUBLIC => \true, \T_PRIVATE => \true, \T_PROTECTED => \true, \T_AS => \true, \T_NEW => \true, \T_INSTEADOF => \true, \T_NS_SEPARATOR => \true, \T_IMPLEMENTS => \true];
         $prevToken = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
@@ -154,9 +155,8 @@ class ForbiddenFunctionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function addError($phpcsFile, $stackPtr, $function, $pattern = null)
     {
-        if (\is_object($function)) {
-            $function = (string) $function;
-        }
+        $stackPtr = (int) $stackPtr;
+        $function = (string) $function;
         $data = [$function];
         $error = 'The use of function %s() is ';
         if ($this->error === \true) {

@@ -14,6 +14,7 @@ final class NewlineAnalyzer
      */
     public function doesContentBeforeBracketRequireNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
     {
+        $i = (int) $i;
         $previousMeaningfulTokenPosition = $tokens->getPrevNonWhitespace($i);
         if ($previousMeaningfulTokenPosition === null) {
             return \false;

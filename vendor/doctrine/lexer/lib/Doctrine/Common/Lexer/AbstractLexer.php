@@ -76,9 +76,7 @@ abstract class AbstractLexer
      */
     public function setInput($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         $this->input = $input;
         $this->tokens = [];
         $this->reset();
@@ -114,6 +112,7 @@ abstract class AbstractLexer
      */
     public function resetPosition($position = 0)
     {
+        $position = (int) $position;
         $this->position = $position;
     }
     /**
@@ -125,6 +124,7 @@ abstract class AbstractLexer
      */
     public function getInputUntilPosition($position)
     {
+        $position = (int) $position;
         return \substr($this->input, 0, $position);
     }
     /**
@@ -170,9 +170,7 @@ abstract class AbstractLexer
      */
     public function skipUntil($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         while ($this->lookahead !== null && $this->lookahead['type'] !== $type) {
             $this->moveNext();
         }
@@ -221,9 +219,7 @@ abstract class AbstractLexer
      */
     protected function scan($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         if (!isset($this->regex)) {
             $this->regex = \sprintf('/(%s)|%s/%s', \implode(')|(', $this->getCatchablePatterns()), \implode('|', $this->getNonCatchablePatterns()), $this->getModifiers());
         }

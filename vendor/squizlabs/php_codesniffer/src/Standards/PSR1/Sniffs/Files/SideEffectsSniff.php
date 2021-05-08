@@ -35,6 +35,7 @@ class SideEffectsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $result = $this->searchForConflict($phpcsFile, 0, $phpcsFile->numTokens - 1, $tokens);
         if ($result['symbol'] !== null && $result['effect'] !== null) {
@@ -66,6 +67,8 @@ class SideEffectsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function searchForConflict($phpcsFile, $start, $end, $tokens)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $symbols = [\T_CLASS => \T_CLASS, \T_INTERFACE => \T_INTERFACE, \T_TRAIT => \T_TRAIT, \T_FUNCTION => \T_FUNCTION];
         $conditions = [\T_IF => \T_IF, \T_ELSE => \T_ELSE, \T_ELSEIF => \T_ELSEIF];
         $checkAnnotations = $phpcsFile->config->annotations;

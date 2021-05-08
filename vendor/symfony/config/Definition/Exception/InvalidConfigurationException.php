@@ -34,9 +34,7 @@ class InvalidConfigurationException extends \ECSPrefix20210508\Symfony\Component
      */
     public function addHint($hint)
     {
-        if (\is_object($hint)) {
-            $hint = (string) $hint;
-        }
+        $hint = (string) $hint;
         if (!$this->containsHints) {
             $this->message .= "\nHint: " . $hint;
             $this->containsHints = \true;

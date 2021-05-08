@@ -25,6 +25,7 @@ class LinkStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Con
      */
     public function __construct($label, $line = 0, $href = null)
     {
+        $line = (int) $line;
         $this->value = $label;
         if (null === $href) {
             $href = $label;
@@ -66,9 +67,8 @@ class LinkStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Con
      */
     private function getComposerRoot($file, &$inVendor)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $inVendor = (bool) $inVendor;
         if (null === self::$vendorRoots) {
             self::$vendorRoots = [];
             foreach (\get_declared_classes() as $class) {

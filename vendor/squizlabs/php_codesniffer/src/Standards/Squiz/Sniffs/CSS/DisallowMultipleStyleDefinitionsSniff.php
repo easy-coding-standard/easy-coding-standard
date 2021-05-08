@@ -40,6 +40,7 @@ class DisallowMultipleStyleDefinitionsSniff implements \PHP_CodeSniffer\Sniffs\S
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $next = $phpcsFile->findNext(T_STYLE, $stackPtr + 1);
         if ($next === \false) {

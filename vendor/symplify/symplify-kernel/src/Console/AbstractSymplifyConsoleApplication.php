@@ -18,12 +18,8 @@ abstract class AbstractSymplifyConsoleApplication extends \ECSPrefix20210508\Sym
      */
     public function __construct(array $commands, $name = 'UNKNOWN', $version = 'UNKNOWN')
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $version = (string) $version;
         $this->commandNaming = new \Symplify\PackageBuilder\Console\Command\CommandNaming();
         $this->addCommands($commands);
         parent::__construct($name, $version);

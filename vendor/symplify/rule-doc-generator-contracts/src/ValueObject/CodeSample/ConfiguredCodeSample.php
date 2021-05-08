@@ -18,12 +18,8 @@ final class ConfiguredCodeSample extends \Symplify\RuleDocGenerator\ValueObject\
      */
     public function __construct($badCode, $goodCode, array $configuration)
     {
-        if (\is_object($goodCode)) {
-            $goodCode = (string) $goodCode;
-        }
-        if (\is_object($badCode)) {
-            $badCode = (string) $badCode;
-        }
+        $badCode = (string) $badCode;
+        $goodCode = (string) $goodCode;
         if ($configuration === []) {
             $message = \sprintf('Configuration cannot be empty. Look for "%s"', $badCode);
             throw new \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($message);

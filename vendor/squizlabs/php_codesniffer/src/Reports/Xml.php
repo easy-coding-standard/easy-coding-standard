@@ -29,6 +29,8 @@ class Xml implements \PHP_CodeSniffer\Reports\Report
      */
     public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
     {
+        $showSources = (bool) $showSources;
+        $width = (int) $width;
         $out = new \XMLWriter();
         $out->openMemory();
         $out->setIndent(\true);
@@ -96,9 +98,15 @@ class Xml implements \PHP_CodeSniffer\Reports\Report
      */
     public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
     {
-        if (\is_object($cachedData)) {
-            $cachedData = (string) $cachedData;
-        }
+        $cachedData = (string) $cachedData;
+        $totalFiles = (int) $totalFiles;
+        $totalErrors = (int) $totalErrors;
+        $totalWarnings = (int) $totalWarnings;
+        $totalFixable = (int) $totalFixable;
+        $showSources = (bool) $showSources;
+        $width = (int) $width;
+        $interactive = (bool) $interactive;
+        $toScreen = (bool) $toScreen;
         echo '<?xml version="1.0" encoding="UTF-8"?>' . \PHP_EOL;
         echo '<phpcs version="' . \PHP_CodeSniffer\Config::VERSION . '">' . \PHP_EOL;
         echo $cachedData;

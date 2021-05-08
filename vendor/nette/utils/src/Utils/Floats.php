@@ -16,6 +16,7 @@ class Floats
      */
     public static function isZero($value)
     {
+        $value = (double) $value;
         return \abs($value) < self::EPSILON;
     }
     /**
@@ -24,6 +25,7 @@ class Floats
      */
     public static function isInteger($value)
     {
+        $value = (double) $value;
         return \abs(\round($value) - $value) < self::EPSILON;
     }
     /**
@@ -35,6 +37,8 @@ class Floats
      */
     public static function compare($a, $b)
     {
+        $a = (double) $a;
+        $b = (double) $b;
         if (\is_nan($a) || \is_nan($b)) {
             throw new \LogicException('Trying to compare NAN');
         } elseif (!\is_finite($a) && !\is_finite($b) && $a === $b) {
@@ -55,6 +59,8 @@ class Floats
      */
     public static function areEqual($a, $b)
     {
+        $a = (double) $a;
+        $b = (double) $b;
         return self::compare($a, $b) === 0;
     }
     /**
@@ -66,6 +72,8 @@ class Floats
      */
     public static function isLessThan($a, $b)
     {
+        $a = (double) $a;
+        $b = (double) $b;
         return self::compare($a, $b) < 0;
     }
     /**
@@ -77,6 +85,8 @@ class Floats
      */
     public static function isLessThanOrEqualTo($a, $b)
     {
+        $a = (double) $a;
+        $b = (double) $b;
         return self::compare($a, $b) <= 0;
     }
     /**
@@ -88,6 +98,8 @@ class Floats
      */
     public static function isGreaterThan($a, $b)
     {
+        $a = (double) $a;
+        $b = (double) $b;
         return self::compare($a, $b) > 0;
     }
     /**
@@ -99,6 +111,8 @@ class Floats
      */
     public static function isGreaterThanOrEqualTo($a, $b)
     {
+        $a = (double) $a;
+        $b = (double) $b;
         return self::compare($a, $b) >= 0;
     }
 }

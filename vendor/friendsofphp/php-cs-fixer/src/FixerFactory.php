@@ -109,6 +109,7 @@ final class FixerFactory
      */
     public function registerFixer(\PhpCsFixer\Fixer\FixerInterface $fixer, $isCustom)
     {
+        $isCustom = (bool) $isCustom;
         $name = $fixer->getName();
         if (isset($this->fixersByName[$name])) {
             throw new \UnexpectedValueException(\sprintf('Fixer named "%s" is already registered.', $name));
@@ -168,9 +169,7 @@ final class FixerFactory
      */
     public function hasRule($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->fixersByName[$name]);
     }
     /**

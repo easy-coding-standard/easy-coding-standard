@@ -27,6 +27,7 @@ class AmqpCaster
      */
     public static function castConnection(\AMQPConnection $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $a += [$prefix . 'is_connected' => $c->isConnected()];
         // Recent version of the extension already expose private properties
@@ -47,6 +48,7 @@ class AmqpCaster
      */
     public static function castChannel(\AMQPChannel $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $a += [$prefix . 'is_connected' => $c->isConnected(), $prefix . 'channel_id' => $c->getChannelId()];
         // Recent version of the extension already expose private properties
@@ -61,6 +63,7 @@ class AmqpCaster
      */
     public static function castQueue(\AMQPQueue $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $a += [$prefix . 'flags' => self::extractFlags($c->getFlags())];
         // Recent version of the extension already expose private properties
@@ -75,6 +78,7 @@ class AmqpCaster
      */
     public static function castExchange(\AMQPExchange $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $a += [$prefix . 'flags' => self::extractFlags($c->getFlags())];
         $type = isset(self::EXCHANGE_TYPES[$c->getType()]) ? new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ConstStub(self::EXCHANGE_TYPES[$c->getType()], $c->getType()) : $c->getType();
@@ -92,6 +96,8 @@ class AmqpCaster
      */
     public static function castEnvelope(\AMQPEnvelope $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $deliveryMode = new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ConstStub($c->getDeliveryMode() . (2 === $c->getDeliveryMode() ? ' (persistent)' : ' (non-persistent)'), $c->getDeliveryMode());
         // Recent version of the extension already expose private properties
@@ -111,6 +117,7 @@ class AmqpCaster
      */
     private static function extractFlags($flags)
     {
+        $flags = (int) $flags;
         $flagsArray = [];
         foreach (self::FLAGS as $value => $name) {
             if ($flags & $value) {

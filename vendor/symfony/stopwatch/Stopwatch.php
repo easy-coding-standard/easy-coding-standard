@@ -37,6 +37,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function __construct($morePrecision = \false)
     {
+        $morePrecision = (bool) $morePrecision;
         $this->morePrecision = $morePrecision;
         $this->reset();
     }
@@ -76,9 +77,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function stopSection($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->stop('__section__');
         if (1 == \count($this->activeSections)) {
             throw new \LogicException('There is no started section to stop.');
@@ -95,9 +94,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function start($name, $category = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return \end($this->activeSections)->startEvent($name, $category);
     }
     /**
@@ -108,9 +105,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function isStarted($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return \end($this->activeSections)->isEventStarted($name);
     }
     /**
@@ -121,9 +116,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function stop($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return \end($this->activeSections)->stopEvent($name);
     }
     /**
@@ -134,9 +127,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function lap($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return \end($this->activeSections)->stopEvent($name)->start();
     }
     /**
@@ -147,9 +138,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function getEvent($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return \end($this->activeSections)->getEvent($name);
     }
     /**
@@ -160,9 +149,7 @@ class Stopwatch implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInt
      */
     public function getSectionEvents($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return isset($this->sections[$id]) ? $this->sections[$id]->getEvents() : [];
     }
     /**

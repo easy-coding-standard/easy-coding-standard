@@ -57,6 +57,7 @@ final class TrimArraySpacesFixer extends \PhpCsFixer\AbstractFixer
      */
     private static function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $startIndex = $index;
         if ($tokens[$startIndex]->isGivenKind(\T_ARRAY)) {
             $startIndex = $tokens->getNextMeaningfulToken($startIndex);

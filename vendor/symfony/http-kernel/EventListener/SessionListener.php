@@ -32,6 +32,7 @@ class SessionListener extends \ECSPrefix20210508\Symfony\Component\HttpKernel\Ev
      */
     public function __construct(\ECSPrefix20210508\Psr\Container\ContainerInterface $container, $debug = \false)
     {
+        $debug = (bool) $debug;
         parent::__construct($container, $debug);
     }
     public function onKernelRequest(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\RequestEvent $event)

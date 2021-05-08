@@ -32,6 +32,7 @@ abstract class OutputStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function newLine($count = 1)
     {
+        $count = (int) $count;
         $this->output->write(\str_repeat(\PHP_EOL, $count));
     }
     /**
@@ -40,6 +41,7 @@ abstract class OutputStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function createProgressBar($max = 0)
     {
+        $max = (int) $max;
         return new \ECSPrefix20210508\Symfony\Component\Console\Helper\ProgressBar($this->output, $max);
     }
     /**
@@ -49,6 +51,8 @@ abstract class OutputStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function write($messages, $newline = \false, $type = self::OUTPUT_NORMAL)
     {
+        $newline = (bool) $newline;
+        $type = (int) $type;
         $this->output->write($messages, $newline, $type);
     }
     /**
@@ -57,6 +61,7 @@ abstract class OutputStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
+        $type = (int) $type;
         $this->output->writeln($messages, $type);
     }
     /**
@@ -65,6 +70,7 @@ abstract class OutputStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function setVerbosity($level)
     {
+        $level = (int) $level;
         $this->output->setVerbosity($level);
     }
     /**
@@ -80,6 +86,7 @@ abstract class OutputStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function setDecorated($decorated)
     {
+        $decorated = (bool) $decorated;
         $this->output->setDecorated($decorated);
     }
     /**

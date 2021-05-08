@@ -25,9 +25,7 @@ class AutoExpireFlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function __construct($storageKey = '_symfony_flashes')
     {
-        if (\is_object($storageKey)) {
-            $storageKey = (string) $storageKey;
-        }
+        $storageKey = (string) $storageKey;
         $this->storageKey = $storageKey;
     }
     /**
@@ -42,9 +40,7 @@ class AutoExpireFlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -65,9 +61,7 @@ class AutoExpireFlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function add($type, $message)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $this->flashes['new'][$type][] = $message;
     }
     /**
@@ -76,9 +70,7 @@ class AutoExpireFlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function peek($type, array $default = [])
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return $this->has($type) ? $this->flashes['display'][$type] : $default;
     }
     /**
@@ -94,9 +86,7 @@ class AutoExpireFlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function get($type, array $default = [])
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $return = $default;
         if (!$this->has($type)) {
             return $return;
@@ -129,9 +119,7 @@ class AutoExpireFlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function set($type, $messages)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $this->flashes['new'][$type] = (array) $messages;
     }
     /**
@@ -140,9 +128,7 @@ class AutoExpireFlashBag implements \ECSPrefix20210508\Symfony\Component\HttpFou
      */
     public function has($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return \array_key_exists($type, $this->flashes['display']) && $this->flashes['display'][$type];
     }
     /**

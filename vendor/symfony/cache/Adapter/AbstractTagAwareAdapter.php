@@ -39,9 +39,8 @@ abstract class AbstractTagAwareAdapter implements \ECSPrefix20210508\Symfony\Com
      */
     protected function __construct($namespace = '', $defaultLifetime = 0)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         $this->namespace = '' === $namespace ? '' : \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($namespace) . ':';
         if (null !== $this->maxIdLength && \strlen($namespace) > $this->maxIdLength - 24) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace must be %d chars max, %d given ("%s").', $this->maxIdLength - 24, \strlen($namespace), $namespace));

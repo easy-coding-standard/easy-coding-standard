@@ -36,9 +36,7 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
      */
     public function get($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (!$this->externalId) {
             return $this->doGet($id);
         }
@@ -61,9 +59,7 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
      */
     public function __invoke($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return isset($this->factories[$id]) ? $this->get($id) : null;
     }
     /**
@@ -74,9 +70,7 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
      */
     public function withContext($externalId, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Container $container)
     {
-        if (\is_object($externalId)) {
-            $externalId = (string) $externalId;
-        }
+        $externalId = (string) $externalId;
         $locator = clone $this;
         $locator->externalId = $externalId;
         $locator->container = $container;
@@ -88,9 +82,7 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
      */
     private function createNotFoundException($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($this->loading) {
             $msg = \sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', \end($this->loading), $id, $this->formatAlternatives());
             return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], $msg);
@@ -136,9 +128,7 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
      */
     private function createCircularReferenceException($id, array $path)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, $path);
     }
     /**
@@ -147,9 +137,7 @@ class ServiceLocator implements \ECSPrefix20210508\Symfony\Contracts\Service\Ser
      */
     private function formatAlternatives(array $alternatives = null, $separator = 'and')
     {
-        if (\is_object($separator)) {
-            $separator = (string) $separator;
-        }
+        $separator = (string) $separator;
         $format = '"%s"%s';
         if (null === $alternatives) {
             if (!($alternatives = \array_keys($this->factories))) {

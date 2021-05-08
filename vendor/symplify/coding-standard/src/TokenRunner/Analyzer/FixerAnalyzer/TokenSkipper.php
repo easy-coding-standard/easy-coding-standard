@@ -25,6 +25,7 @@ final class TokenSkipper
      */
     public function skipBlocks(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
@@ -52,6 +53,7 @@ final class TokenSkipper
      */
     public function skipBlocksReversed(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         /** @var Token $token */
         $token = $tokens[$position];
         if (!$token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE) && !$token->equals(')')) {

@@ -22,6 +22,7 @@ final class Json
      */
     public static function encode($value, $flags = 0)
     {
+        $flags = (int) $flags;
         $flags = ($flags & self::ESCAPE_UNICODE ? 0 : \JSON_UNESCAPED_UNICODE) | \JSON_UNESCAPED_SLASHES | ($flags & self::PRETTY ? \JSON_PRETTY_PRINT : 0) | (\defined('JSON_PRESERVE_ZERO_FRACTION') ? \JSON_PRESERVE_ZERO_FRACTION : 0);
         // since PHP 5.6.6 & PECL JSON-C 1.3.7
         $json = \json_encode($value, $flags);
@@ -39,9 +40,8 @@ final class Json
      */
     public static function decode($json, $flags = 0)
     {
-        if (\is_object($json)) {
-            $json = (string) $json;
-        }
+        $json = (string) $json;
+        $flags = (int) $flags;
         $forceArray = (bool) ($flags & self::FORCE_ARRAY);
         $value = \json_decode($json, $forceArray, 512, \JSON_BIGINT_AS_STRING);
         if ($error = \json_last_error()) {

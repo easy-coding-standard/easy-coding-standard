@@ -61,6 +61,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $counter = 0;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
@@ -89,6 +91,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     private function isSetupOrTearDownMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $isMethod = $tokens[$index]->isGivenKind(\T_FUNCTION) && !$tokensAnalyzer->isLambda($index);
         if (!$isMethod) {

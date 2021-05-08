@@ -106,6 +106,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      */
     private function hasReturnAnnotation(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         foreach ($this->findReturnAnnotations($tokens, $index) as $return) {
             if (['void'] !== $return->getTypes()) {
                 return \true;
@@ -121,6 +122,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      */
     private function hasVoidReturnAnnotation(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         foreach ($this->findReturnAnnotations($tokens, $index) as $return) {
             if (['void'] === $return->getTypes()) {
                 return \true;
@@ -136,6 +138,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      */
     private function hasReturnTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
         $nextIndex = $tokens->getNextMeaningfulToken($endFuncIndex);
         return $tokens[$nextIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON);
@@ -149,6 +152,8 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      */
     private function hasVoidReturn(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($i = $startIndex; $i < $endIndex; ++$i) {
             if ($tokens[$i]->isGivenKind(\T_CLASS) && $tokensAnalyzer->isAnonymousClass($i) || $tokens[$i]->isGivenKind(\T_FUNCTION) && $tokensAnalyzer->isLambda($i)) {
@@ -176,6 +181,7 @@ final class VoidReturnFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
         $tokens->insertAt($endFuncIndex + 1, [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON, ':']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'void'])]);
     }

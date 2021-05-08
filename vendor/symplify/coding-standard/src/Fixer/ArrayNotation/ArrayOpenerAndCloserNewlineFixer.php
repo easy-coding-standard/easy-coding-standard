@@ -126,6 +126,7 @@ CODE_SAMPLE
      */
     private function isNextTokenAlsoArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return \false;
@@ -139,6 +140,7 @@ CODE_SAMPLE
      */
     private function handleArrayCloser(\PhpCsFixer\Tokenizer\Tokens $tokens, $arrayCloserPosition)
     {
+        $arrayCloserPosition = (int) $arrayCloserPosition;
         $preArrayCloserPosition = $arrayCloserPosition - 1;
         $previousCloserToken = isset($tokens[$preArrayCloserPosition]) ? $tokens[$preArrayCloserPosition] : null;
         if (!$previousCloserToken instanceof \PhpCsFixer\Tokenizer\Token) {
@@ -157,6 +159,7 @@ CODE_SAMPLE
      */
     private function handleArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, $arrayOpenerPosition)
     {
+        $arrayOpenerPosition = (int) $arrayOpenerPosition;
         $postArrayOpenerPosition = $arrayOpenerPosition + 1;
         $nextToken = isset($tokens[$postArrayOpenerPosition]) ? $tokens[$postArrayOpenerPosition] : null;
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {

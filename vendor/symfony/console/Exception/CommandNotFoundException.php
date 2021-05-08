@@ -26,9 +26,8 @@ class CommandNotFoundException extends \InvalidArgumentException implements \ECS
      */
     public function __construct($message, array $alternatives = [], $code = 0, \Throwable $previous = null)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $code = (int) $code;
         parent::__construct($message, $code, $previous);
         $this->alternatives = $alternatives;
     }

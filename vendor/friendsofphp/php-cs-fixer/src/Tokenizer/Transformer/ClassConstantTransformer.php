@@ -39,6 +39,7 @@ final class ClassConstantTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$token->equalsAny([[\T_CLASS, 'class'], [\T_STRING, 'class']], \false)) {
             return;
         }

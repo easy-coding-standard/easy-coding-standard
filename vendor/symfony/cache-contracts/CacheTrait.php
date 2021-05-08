@@ -29,9 +29,8 @@ trait CacheTrait
      */
     public function get($key, callable $callback, $beta = null, array &$metadata = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $beta = (double) $beta;
         return $this->doGet($this, $key, $callback, $beta, $metadata);
     }
     /**
@@ -41,9 +40,7 @@ trait CacheTrait
      */
     public function delete($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return $this->deleteItem($key);
     }
     /**
@@ -52,9 +49,7 @@ trait CacheTrait
      */
     private function doGet(\ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $pool, $key, callable $callback, $beta, array &$metadata = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (0 > ($beta = isset($beta) ? $beta : 1.0)) {
             throw new \ECSPrefix20210508\Symfony\Contracts\Cache\Anonymous__50cd8e993d9370f0249c9d4487d12ea2__0(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
         }

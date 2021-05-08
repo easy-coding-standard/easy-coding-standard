@@ -33,6 +33,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
      */
     public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, $processedFilesCount)
     {
+        $processedFilesCount = (int) $processedFilesCount;
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
         if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
             if ($processedFilesCount !== 0) {
@@ -119,6 +120,8 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
      */
     private function printErrorMessageFromErrorCounts($errorCount, $fileDiffsCount)
     {
+        $errorCount = (int) $errorCount;
+        $fileDiffsCount = (int) $fileDiffsCount;
         if ($errorCount !== 0) {
             $errorMessage = \sprintf('Found %d error%s that need%s to be fixed manually.', $errorCount, $errorCount === 1 ? '' : 's', $errorCount === 1 ? 's' : '');
             $this->easyCodingStandardStyle->error($errorMessage);

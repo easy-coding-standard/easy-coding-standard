@@ -134,6 +134,8 @@ CODE_SAMPLE
      */
     private function processEndBracket($index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $previousTokenPosition)
     {
+        $index = (int) $index;
+        $previousTokenPosition = (int) $previousTokenPosition;
         /** @var Token $previousToken */
         $previousToken = $tokens->offsetGet($previousTokenPosition);
         // already a space → skip
@@ -160,6 +162,7 @@ CODE_SAMPLE
      */
     private function shouldSkip($index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, \PhpCsFixer\Doctrine\Annotation\Token $previousToken)
     {
+        $index = (int) $index;
         // docblock opener → skip it
         if ($this->isDocOpener($previousToken)) {
             return \true;

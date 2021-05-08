@@ -175,9 +175,7 @@ class QuestionHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper
      */
     protected function formatChoiceQuestionChoices(\ECSPrefix20210508\Symfony\Component\Console\Question\ChoiceQuestion $question, $tag)
     {
-        if (\is_object($tag)) {
-            $tag = (string) $tag;
-        }
+        $tag = (string) $tag;
         $messages = [];
         $maxWidth = \max(\array_map('self::strlen', \array_keys($choices = $question->getChoices())));
         foreach ($choices as $key => $value) {
@@ -317,9 +315,7 @@ class QuestionHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper
      */
     private function mostRecentlyEnteredValue($entered)
     {
-        if (\is_object($entered)) {
-            $entered = (string) $entered;
-        }
+        $entered = (string) $entered;
         // Determine the most recent value that the user entered
         if (\false === \strpos($entered, ',')) {
             return $entered;
@@ -341,6 +337,7 @@ class QuestionHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper
      */
     private function getHiddenResponse(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $inputStream, $trimmable = \true)
     {
+        $trimmable = (bool) $trimmable;
         if ('\\' === \DIRECTORY_SEPARATOR) {
             $exe = __DIR__ . '/../Resources/bin/hiddeninput.exe';
             // handle code running from a phar

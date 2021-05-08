@@ -39,9 +39,8 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function find($functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, $start = 0, $end = null)
     {
-        if (\is_object($functionNameToSearch)) {
-            $functionNameToSearch = (string) $functionNameToSearch;
-        }
+        $functionNameToSearch = (string) $functionNameToSearch;
+        $start = (int) $start;
         // make interface consistent with findSequence
         $end = null === $end ? $tokens->count() : $end;
         // find raw sequence which we can analyse for context

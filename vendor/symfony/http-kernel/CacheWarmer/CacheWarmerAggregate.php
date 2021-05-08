@@ -31,6 +31,7 @@ class CacheWarmerAggregate implements \ECSPrefix20210508\Symfony\Component\HttpK
      */
     public function __construct($warmers = [], $debug = \false, $deprecationLogsFilepath = null)
     {
+        $debug = (bool) $debug;
         $this->warmers = $warmers;
         $this->debug = $debug;
         $this->deprecationLogsFilepath = $deprecationLogsFilepath;
@@ -51,9 +52,7 @@ class CacheWarmerAggregate implements \ECSPrefix20210508\Symfony\Component\HttpK
      */
     public function warmUp($cacheDir)
     {
-        if (\is_object($cacheDir)) {
-            $cacheDir = (string) $cacheDir;
-        }
+        $cacheDir = (string) $cacheDir;
         if ($collectDeprecations = $this->debug && !\defined('PHPUNIT_COMPOSER_INSTALL')) {
             $collectedLogs = [];
             $previousHandler = \set_error_handler(function ($type, $message, $file, $line) use(&$collectedLogs, &$previousHandler) {

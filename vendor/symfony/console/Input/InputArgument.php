@@ -36,12 +36,8 @@ class InputArgument
      */
     public function __construct($name, $mode = null, $description = '', $default = null)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $description = (string) $description;
         if (null === $mode) {
             $mode = self::OPTIONAL;
         } elseif ($mode > 7 || $mode < 1) {

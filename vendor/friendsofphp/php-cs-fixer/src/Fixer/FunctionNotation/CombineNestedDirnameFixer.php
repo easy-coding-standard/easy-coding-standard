@@ -100,6 +100,7 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getDirnameInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $firstArgumentEndIndex = null)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->equals([\T_STRING, 'dirname'], \false)) {
             return \false;
         }

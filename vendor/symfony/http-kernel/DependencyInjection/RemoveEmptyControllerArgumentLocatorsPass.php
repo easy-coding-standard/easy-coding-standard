@@ -25,9 +25,7 @@ class RemoveEmptyControllerArgumentLocatorsPass implements \ECSPrefix20210508\Sy
      */
     public function __construct($controllerLocator = 'argument_resolver.controller_locator')
     {
-        if (\is_object($controllerLocator)) {
-            $controllerLocator = (string) $controllerLocator;
-        }
+        $controllerLocator = (string) $controllerLocator;
         $this->controllerLocator = $controllerLocator;
     }
     public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)

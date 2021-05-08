@@ -24,6 +24,7 @@ class EnumStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stu
      */
     public function __construct(array $values, $dumpKeys = \true)
     {
+        $dumpKeys = (bool) $dumpKeys;
         $this->value = $values;
         $this->dumpKeys = $dumpKeys;
     }

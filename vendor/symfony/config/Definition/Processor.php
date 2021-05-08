@@ -70,9 +70,7 @@ class Processor
      */
     public static function normalizeConfig(array $config, $key, $plural = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (null === $plural) {
             $plural = $key . 's';
         }

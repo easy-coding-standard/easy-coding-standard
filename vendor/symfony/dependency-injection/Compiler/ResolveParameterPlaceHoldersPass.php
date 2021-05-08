@@ -56,6 +56,7 @@ class ResolveParameterPlaceHoldersPass extends \ECSPrefix20210508\Symfony\Compon
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (\is_string($value)) {
             try {
                 $v = $this->bag->resolveValue($value);

@@ -51,6 +51,9 @@ class ArrayIndentSniff extends \PHP_CodeSniffer\Sniffs\AbstractArraySniff
      */
     public function processMultiLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices)
     {
+        $stackPtr = (int) $stackPtr;
+        $arrayStart = (int) $arrayStart;
+        $arrayEnd = (int) $arrayEnd;
         $tokens = $phpcsFile->getTokens();
         // Determine how far indented the entire array declaration should be.
         $ignore = \PHP_CodeSniffer\Util\Tokens::$emptyTokens;

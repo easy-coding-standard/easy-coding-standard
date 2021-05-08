@@ -27,9 +27,7 @@ abstract class AbstractSetProvider implements \Symplify\SetConfigResolver\Contra
      */
     public function provideByName($desiredSetName)
     {
-        if (\is_object($desiredSetName)) {
-            $desiredSetName = (string) $desiredSetName;
-        }
+        $desiredSetName = (string) $desiredSetName;
         // 1. name-based approach
         $sets = $this->provide();
         foreach ($sets as $set) {
@@ -62,9 +60,7 @@ abstract class AbstractSetProvider implements \Symplify\SetConfigResolver\Contra
      */
     private function resolveSetUniquePathId($setPath)
     {
-        if (\is_object($setPath)) {
-            $setPath = (string) $setPath;
-        }
+        $setPath = (string) $setPath;
         $setPath = \ECSPrefix20210508\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
         if ($setPath === null) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();

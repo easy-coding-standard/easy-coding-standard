@@ -108,12 +108,8 @@ class DocBlocks
      */
     private function fixDocBlock($content, $indent)
     {
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $indent = (string) $indent;
         return \ltrim(\PhpCsFixer\Preg::replace('/^\\h*\\*/m', $indent . ' *', $content));
     }
     /**
@@ -124,12 +120,8 @@ class DocBlocks
      */
     private function fixWhitespaceBeforeDocblock($content, $indent)
     {
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $indent = (string) $indent;
         return \rtrim($content, " \t") . $indent;
     }
 }

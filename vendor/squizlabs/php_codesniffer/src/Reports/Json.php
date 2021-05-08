@@ -29,6 +29,8 @@ class Json implements \PHP_CodeSniffer\Reports\Report
      */
     public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
     {
+        $showSources = (bool) $showSources;
+        $width = (int) $width;
         $filename = \str_replace('\\', '\\\\', $report['filename']);
         $filename = \str_replace('"', '\\"', $filename);
         $filename = \str_replace('/', '\\/', $filename);
@@ -77,9 +79,15 @@ class Json implements \PHP_CodeSniffer\Reports\Report
      */
     public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
     {
-        if (\is_object($cachedData)) {
-            $cachedData = (string) $cachedData;
-        }
+        $cachedData = (string) $cachedData;
+        $totalFiles = (int) $totalFiles;
+        $totalErrors = (int) $totalErrors;
+        $totalWarnings = (int) $totalWarnings;
+        $totalFixable = (int) $totalFixable;
+        $showSources = (bool) $showSources;
+        $width = (int) $width;
+        $interactive = (bool) $interactive;
+        $toScreen = (bool) $toScreen;
         echo '{"totals":{"errors":' . $totalErrors . ',"warnings":' . $totalWarnings . ',"fixable":' . $totalFixable . '},"files":{';
         echo \rtrim($cachedData, ',');
         echo "}}" . \PHP_EOL;

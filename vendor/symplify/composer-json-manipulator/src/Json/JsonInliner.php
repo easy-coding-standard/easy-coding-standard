@@ -26,9 +26,7 @@ final class JsonInliner
      */
     public function inlineSections($jsonContent)
     {
-        if (\is_object($jsonContent)) {
-            $jsonContent = (string) $jsonContent;
-        }
+        $jsonContent = (string) $jsonContent;
         if (!$this->parameterProvider->hasParameter(\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS)) {
             return $jsonContent;
         }

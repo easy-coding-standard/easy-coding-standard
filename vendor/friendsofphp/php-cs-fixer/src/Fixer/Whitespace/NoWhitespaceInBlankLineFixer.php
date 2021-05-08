@@ -69,6 +69,7 @@ final class NoWhitespaceInBlankLineFixer extends \PhpCsFixer\AbstractFixer imple
      */
     private function fixWhitespaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $content = $tokens[$index]->getContent();
         $lines = \PhpCsFixer\Preg::split("/(\r\n|\n)/", $content);
         $lineCount = \count($lines);

@@ -38,12 +38,8 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, $path, $file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $file = (string) $file;
         $this->container = $container;
         $this->loader = $loader;
         $this->instanceof =& $instanceof;
@@ -55,9 +51,7 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
      */
     public final function extension($namespace, array $config)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         if (!$this->container->hasExtension($namespace)) {
             $extensions = \array_filter(\array_map(function (\ECSPrefix20210508\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
                 return $ext->getAlias();
@@ -72,9 +66,7 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
      */
     public final function import($resource, $type = null, $ignoreErrors = \false)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
+        $resource = (string) $resource;
         $this->loader->setCurrentDir(\dirname($this->path));
         $this->loader->import($resource, $type, $ignoreErrors, $this->file);
     }
@@ -98,9 +90,7 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
      */
     public final function withPath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $clone = clone $this;
         $clone->path = $clone->file = $path;
         return $clone;
@@ -117,9 +107,7 @@ class ContainerConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
  */
 function param($name)
 {
-    if (\is_object($name)) {
-        $name = (string) $name;
-    }
+    $name = (string) $name;
     return '%' . $name . '%';
 }
 /**
@@ -131,9 +119,7 @@ function param($name)
  */
 function ref($id)
 {
-    if (\is_object($id)) {
-        $id = (string) $id;
-    }
+    $id = (string) $id;
     trigger_deprecation('symfony/dependency-injection', '5.1', '"%s()" is deprecated, use "service()" instead.', __FUNCTION__);
     return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator($id);
 }
@@ -144,9 +130,7 @@ function ref($id)
  */
 function service($serviceId)
 {
-    if (\is_object($serviceId)) {
-        $serviceId = (string) $serviceId;
-    }
+    $serviceId = (string) $serviceId;
     return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator($serviceId);
 }
 /**
@@ -158,9 +142,7 @@ function service($serviceId)
  */
 function inline($class = null)
 {
-    if (\is_object($class)) {
-        $class = (string) $class;
-    }
+    $class = (string) $class;
     trigger_deprecation('symfony/dependency-injection', '5.1', '"%s()" is deprecated, use "inline_service()" instead.', __FUNCTION__);
     return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator(new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition($class));
 }
@@ -171,9 +153,7 @@ function inline($class = null)
  */
 function inline_service($class = null)
 {
-    if (\is_object($class)) {
-        $class = (string) $class;
-    }
+    $class = (string) $class;
     return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator(new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition($class));
 }
 /**
@@ -206,18 +186,10 @@ function iterator(array $values)
  */
 function tagged_iterator($tag, $indexAttribute = null, $defaultIndexMethod = null, $defaultPriorityMethod = null)
 {
-    if (\is_object($defaultPriorityMethod)) {
-        $defaultPriorityMethod = (string) $defaultPriorityMethod;
-    }
-    if (\is_object($defaultIndexMethod)) {
-        $defaultIndexMethod = (string) $defaultIndexMethod;
-    }
-    if (\is_object($indexAttribute)) {
-        $indexAttribute = (string) $indexAttribute;
-    }
-    if (\is_object($tag)) {
-        $tag = (string) $tag;
-    }
+    $tag = (string) $tag;
+    $indexAttribute = (string) $indexAttribute;
+    $defaultIndexMethod = (string) $defaultIndexMethod;
+    $defaultPriorityMethod = (string) $defaultPriorityMethod;
     return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \false, $defaultPriorityMethod);
 }
 /**
@@ -229,15 +201,9 @@ function tagged_iterator($tag, $indexAttribute = null, $defaultIndexMethod = nul
  */
 function tagged_locator($tag, $indexAttribute = null, $defaultIndexMethod = null)
 {
-    if (\is_object($defaultIndexMethod)) {
-        $defaultIndexMethod = (string) $defaultIndexMethod;
-    }
-    if (\is_object($indexAttribute)) {
-        $indexAttribute = (string) $indexAttribute;
-    }
-    if (\is_object($tag)) {
-        $tag = (string) $tag;
-    }
+    $tag = (string) $tag;
+    $indexAttribute = (string) $indexAttribute;
+    $defaultIndexMethod = (string) $defaultIndexMethod;
     return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument(new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \true));
 }
 /**
@@ -247,9 +213,7 @@ function tagged_locator($tag, $indexAttribute = null, $defaultIndexMethod = null
  */
 function expr($expression)
 {
-    if (\is_object($expression)) {
-        $expression = (string) $expression;
-    }
+    $expression = (string) $expression;
     return new \ECSPrefix20210508\Symfony\Component\ExpressionLanguage\Expression($expression);
 }
 /**
@@ -259,8 +223,6 @@ function expr($expression)
  */
 function abstract_arg($description)
 {
-    if (\is_object($description)) {
-        $description = (string) $description;
-    }
+    $description = (string) $description;
     return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\AbstractArgument($description);
 }

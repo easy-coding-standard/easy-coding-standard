@@ -48,6 +48,7 @@ final class NamedArgumentTransformer extends \PhpCsFixer\Tokenizer\AbstractTrans
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->equals(':')) {
             return;
         }

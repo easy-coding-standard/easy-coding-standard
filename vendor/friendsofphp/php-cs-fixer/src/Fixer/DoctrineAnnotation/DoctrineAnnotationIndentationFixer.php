@@ -87,6 +87,7 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
      */
     private function getLineBracesCount(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $opening = 0;
         $closing = 0;
         while (isset($tokens[++$index])) {
@@ -115,6 +116,7 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
      */
     private function isClosingLineWithMeaningfulContent(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         while (isset($tokens[++$index])) {
             $token = $tokens[$index];
             if ($token->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
@@ -134,6 +136,7 @@ final class DoctrineAnnotationIndentationFixer extends \PhpCsFixer\AbstractDoctr
      */
     private function indentationCanBeFixed(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $newLineTokenIndex, array $annotationPositions)
     {
+        $newLineTokenIndex = (int) $newLineTokenIndex;
         foreach ($annotationPositions as $position) {
             if ($newLineTokenIndex >= $position[0] && $newLineTokenIndex <= $position[1]) {
                 return \true;

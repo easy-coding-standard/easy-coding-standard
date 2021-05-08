@@ -64,9 +64,7 @@ abstract class AbstractConfigResolver
      */
     private function createFileInfo($configValue)
     {
-        if (\is_object($configValue)) {
-            $configValue = (string) $configValue;
-        }
+        $configValue = (string) $configValue;
         return new \Symplify\SmartFileSystem\SmartFileInfo($configValue);
     }
 }

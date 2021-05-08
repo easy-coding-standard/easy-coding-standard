@@ -82,6 +82,8 @@ $className = Baz::class;
      */
     private function storeImports(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $this->imports = [];
         /** @var int $index */
@@ -129,9 +131,9 @@ $className = Baz::class;
      */
     private function replaceClassKeywordsSection(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, $startIndex, $endIndex)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         if ($endIndex - $startIndex < 3) {
             return;
         }
@@ -148,9 +150,8 @@ $className = Baz::class;
      */
     private function replaceClassKeyword(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespacePrefix, $classIndex)
     {
-        if (\is_object($namespacePrefix)) {
-            $namespacePrefix = (string) $namespacePrefix;
-        }
+        $namespacePrefix = (string) $namespacePrefix;
+        $classIndex = (int) $classIndex;
         $classEndIndex = $tokens->getPrevMeaningfulToken($classIndex);
         $classEndIndex = $tokens->getPrevMeaningfulToken($classEndIndex);
         if (!$tokens[$classEndIndex]->isGivenKind(\T_STRING)) {
@@ -200,12 +201,8 @@ $className = Baz::class;
      */
     private function makeClassFQN($namespacePrefix, $classImport, $classString)
     {
-        if (\is_object($classString)) {
-            $classString = (string) $classString;
-        }
-        if (\is_object($namespacePrefix)) {
-            $namespacePrefix = (string) $namespacePrefix;
-        }
+        $namespacePrefix = (string) $namespacePrefix;
+        $classString = (string) $classString;
         if (\false === $classImport) {
             return ('' !== $namespacePrefix ? $namespacePrefix . '\\' : '') . $classString;
         }

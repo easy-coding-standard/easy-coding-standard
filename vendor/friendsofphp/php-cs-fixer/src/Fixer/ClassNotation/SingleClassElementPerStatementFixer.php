@@ -105,9 +105,8 @@ final class Example
      */
     private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $index)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $index = (int) $index;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $repeatIndex = $index;
         while (\true) {
@@ -141,9 +140,9 @@ final class Example
      */
     private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $divisionContent = null;
         if ($tokens[$startIndex - 1]->isWhitespace()) {
             $divisionContent = $tokens[$startIndex - 1]->getContent();
@@ -185,9 +184,9 @@ final class Example
      */
     private function getModifiersSequences(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         if ('property' === $type) {
             $tokenKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_STATIC, \T_VAR, \T_STRING, \T_NS_SEPARATOR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT];
         } else {

@@ -27,9 +27,7 @@ final class DelegatingLoaderFactory
      */
     public function createContainerBuilderAndConfig(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $config)
     {
-        if (\is_object($config)) {
-            $config = (string) $config;
-        }
+        $config = (string) $config;
         $directory = \dirname($config);
         $fileLocator = new \ECSPrefix20210508\Symfony\Component\Config\FileLocator($directory);
         return $this->createFromContainerBuilderAndFileLocator($containerBuilder, $fileLocator);

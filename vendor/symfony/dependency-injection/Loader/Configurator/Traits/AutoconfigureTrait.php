@@ -23,6 +23,7 @@ trait AutoconfigureTrait
      */
     public final function autoconfigure($autoconfigured = \true)
     {
+        $autoconfigured = (bool) $autoconfigured;
         $this->definition->setAutoconfigured($autoconfigured);
         return $this;
     }

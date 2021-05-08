@@ -18,9 +18,7 @@ class Strings
      */
     public static function checkEncoding($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return $s === self::fixEncoding($s);
     }
     /**
@@ -30,9 +28,7 @@ class Strings
      */
     public static function fixEncoding($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         // removes xD800-xDFFF, x110000 and higher
         return \htmlspecialchars_decode(\htmlspecialchars($s, \ENT_NOQUOTES | \ENT_IGNORE, 'UTF-8'), \ENT_NOQUOTES);
     }
@@ -44,6 +40,7 @@ class Strings
      */
     public static function chr($code)
     {
+        $code = (int) $code;
         if ($code < 0 || $code >= 0xd800 && $code <= 0xdfff || $code > 0x10ffff) {
             throw new \ECSPrefix20210508\Nette\InvalidArgumentException('Code point must be in range 0x0 to 0xD7FF or 0xE000 to 0x10FFFF.');
         } elseif (!\extension_loaded('iconv')) {
@@ -59,12 +56,8 @@ class Strings
      */
     public static function startsWith($haystack, $needle)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
         return \strncmp($haystack, $needle, \strlen($needle)) === 0;
     }
     /**
@@ -75,12 +68,8 @@ class Strings
      */
     public static function endsWith($haystack, $needle)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
         return $needle === '' || \substr($haystack, -\strlen($needle)) === $needle;
     }
     /**
@@ -91,12 +80,8 @@ class Strings
      */
     public static function contains($haystack, $needle)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
         return \strpos($haystack, $needle) !== \false;
     }
     /**
@@ -109,9 +94,8 @@ class Strings
      */
     public static function substring($s, $start, $length = null)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $start = (int) $start;
         if (\function_exists('mb_substr')) {
             return \mb_substr($s, $start, $length, 'UTF-8');
             // MB is much faster
@@ -133,9 +117,7 @@ class Strings
      */
     public static function normalize($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         // convert to compressed normal form (NFC)
         if (\class_exists('Normalizer', \false) && ($n = \Normalizer::normalize($s, \Normalizer::FORM_C)) !== \false) {
             $s = $n;
@@ -156,9 +138,7 @@ class Strings
      */
     public static function normalizeNewLines($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return \str_replace(["\r\n", "\r"], "\n", $s);
     }
     /**
@@ -168,9 +148,7 @@ class Strings
      */
     public static function toAscii($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         $iconv = \defined('ICONV_IMPL') ? \trim(\ICONV_IMPL, '"\'') : null;
         static $transliterator = null;
         if ($transliterator === null) {
@@ -237,9 +215,8 @@ class Strings
      */
     public static function webalize($s, $charlist = null, $lower = \true)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $lower = (bool) $lower;
         $s = self::toAscii($s);
         if ($lower) {
             $s = \strtolower($s);
@@ -258,12 +235,9 @@ class Strings
      */
     public static function truncate($s, $maxLen, $append = "…")
     {
-        if (\is_object($append)) {
-            $append = (string) $append;
-        }
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $maxLen = (int) $maxLen;
+        $append = (string) $append;
         if (self::length($s) > $maxLen) {
             $maxLen -= self::length($append);
             if ($maxLen < 1) {
@@ -286,12 +260,9 @@ class Strings
      */
     public static function indent($s, $level = 1, $chars = "\t")
     {
-        if (\is_object($chars)) {
-            $chars = (string) $chars;
-        }
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $level = (int) $level;
+        $chars = (string) $chars;
         if ($level > 0) {
             $s = self::replace($s, '#(?:^|[\\r\\n]+)(?=[^\\r\\n])#', '$0' . \str_repeat($chars, $level));
         }
@@ -304,9 +275,7 @@ class Strings
      */
     public static function lower($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return \mb_strtolower($s, 'UTF-8');
     }
     /**
@@ -316,9 +285,7 @@ class Strings
      */
     public static function firstLower($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return self::lower(self::substring($s, 0, 1)) . self::substring($s, 1);
     }
     /**
@@ -328,9 +295,7 @@ class Strings
      */
     public static function upper($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return \mb_strtoupper($s, 'UTF-8');
     }
     /**
@@ -340,9 +305,7 @@ class Strings
      */
     public static function firstUpper($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return self::upper(self::substring($s, 0, 1)) . self::substring($s, 1);
     }
     /**
@@ -352,9 +315,7 @@ class Strings
      */
     public static function capitalize($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return \mb_convert_case($s, \MB_CASE_TITLE, 'UTF-8');
     }
     /**
@@ -368,12 +329,8 @@ class Strings
      */
     public static function compare($left, $right, $length = null)
     {
-        if (\is_object($right)) {
-            $right = (string) $right;
-        }
-        if (\is_object($left)) {
-            $left = (string) $left;
-        }
+        $left = (string) $left;
+        $right = (string) $right;
         if (\class_exists('Normalizer', \false)) {
             $left = \Normalizer::normalize($left, \Normalizer::FORM_D);
             // form NFD is faster
@@ -417,9 +374,7 @@ class Strings
      */
     public static function length($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         return \function_exists('mb_strlen') ? \mb_strlen($s, 'UTF-8') : \strlen(\utf8_decode($s));
     }
     /**
@@ -430,12 +385,8 @@ class Strings
      */
     public static function trim($s, $charlist = self::TRIM_CHARACTERS)
     {
-        if (\is_object($charlist)) {
-            $charlist = (string) $charlist;
-        }
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $charlist = (string) $charlist;
         $charlist = \preg_quote($charlist, '#');
         return self::replace($s, '#^[' . $charlist . ']+|[' . $charlist . ']+$#Du', '');
     }
@@ -448,12 +399,9 @@ class Strings
      */
     public static function padLeft($s, $length, $pad = ' ')
     {
-        if (\is_object($pad)) {
-            $pad = (string) $pad;
-        }
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $length = (int) $length;
+        $pad = (string) $pad;
         $length = \max(0, $length - self::length($s));
         $padLen = self::length($pad);
         return \str_repeat($pad, (int) ($length / $padLen)) . self::substring($pad, 0, $length % $padLen) . $s;
@@ -467,12 +415,9 @@ class Strings
      */
     public static function padRight($s, $length, $pad = ' ')
     {
-        if (\is_object($pad)) {
-            $pad = (string) $pad;
-        }
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $length = (int) $length;
+        $pad = (string) $pad;
         $length = \max(0, $length - self::length($s));
         $padLen = self::length($pad);
         return $s . \str_repeat($pad, (int) ($length / $padLen)) . self::substring($pad, 0, $length % $padLen);
@@ -484,9 +429,7 @@ class Strings
      */
     public static function reverse($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         if (!\extension_loaded('iconv')) {
             throw new \ECSPrefix20210508\Nette\NotSupportedException(__METHOD__ . '() requires ICONV extension that is not loaded.');
         }
@@ -502,12 +445,9 @@ class Strings
      */
     public static function before($haystack, $needle, $nth = 1)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
+        $nth = (int) $nth;
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, 0, $pos);
     }
@@ -521,12 +461,9 @@ class Strings
      */
     public static function after($haystack, $needle, $nth = 1)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
+        $nth = (int) $nth;
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : \substr($haystack, $pos + \strlen($needle));
     }
@@ -540,12 +477,9 @@ class Strings
      */
     public static function indexOf($haystack, $needle, $nth = 1)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
+        $nth = (int) $nth;
         $pos = self::pos($haystack, $needle, $nth);
         return $pos === null ? null : self::length(\substr($haystack, 0, $pos));
     }
@@ -558,12 +492,9 @@ class Strings
      */
     private static function pos($haystack, $needle, $nth = 1)
     {
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
+        $nth = (int) $nth;
         if (!$nth) {
             return null;
         } elseif ($nth > 0) {
@@ -596,12 +527,9 @@ class Strings
      */
     public static function split($subject, $pattern, $flags = 0)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
-        if (\is_object($subject)) {
-            $subject = (string) $subject;
-        }
+        $subject = (string) $subject;
+        $pattern = (string) $pattern;
+        $flags = (int) $flags;
         return self::pcre('preg_split', [$pattern, $subject, -1, $flags | \PREG_SPLIT_DELIM_CAPTURE]);
     }
     /**
@@ -615,12 +543,10 @@ class Strings
      */
     public static function match($subject, $pattern, $flags = 0, $offset = 0)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
-        if (\is_object($subject)) {
-            $subject = (string) $subject;
-        }
+        $subject = (string) $subject;
+        $pattern = (string) $pattern;
+        $flags = (int) $flags;
+        $offset = (int) $offset;
         if ($offset > \strlen($subject)) {
             return null;
         }
@@ -637,12 +563,10 @@ class Strings
      */
     public static function matchAll($subject, $pattern, $flags = 0, $offset = 0)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
-        if (\is_object($subject)) {
-            $subject = (string) $subject;
-        }
+        $subject = (string) $subject;
+        $pattern = (string) $pattern;
+        $flags = (int) $flags;
+        $offset = (int) $offset;
         if ($offset > \strlen($subject)) {
             return [];
         }
@@ -659,9 +583,8 @@ class Strings
      */
     public static function replace($subject, $pattern, $replacement = '', $limit = -1)
     {
-        if (\is_object($subject)) {
-            $subject = (string) $subject;
-        }
+        $subject = (string) $subject;
+        $limit = (int) $limit;
         if (\is_object($replacement) || \is_array($replacement)) {
             if (!\is_callable($replacement, \false, $textual)) {
                 throw new \ECSPrefix20210508\Nette\InvalidStateException("Callback '{$textual}' is not callable.");
@@ -677,9 +600,7 @@ class Strings
      * @param string $func */
     public static function pcre($func, array $args)
     {
-        if (\is_object($func)) {
-            $func = (string) $func;
-        }
+        $func = (string) $func;
         $res = \ECSPrefix20210508\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) {
             // compile-time error, not detectable by preg_last_error
             throw new \ECSPrefix20210508\Nette\Utils\RegexpException($message . ' in pattern: ' . \implode(' or ', (array) $args[0]));

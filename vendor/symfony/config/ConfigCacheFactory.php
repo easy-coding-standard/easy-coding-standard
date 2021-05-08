@@ -27,6 +27,7 @@ class ConfigCacheFactory implements \ECSPrefix20210508\Symfony\Component\Config\
      */
     public function __construct($debug)
     {
+        $debug = (bool) $debug;
         $this->debug = $debug;
     }
     /**
@@ -35,9 +36,7 @@ class ConfigCacheFactory implements \ECSPrefix20210508\Symfony\Component\Config\
      */
     public function cache($file, callable $callback)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $cache = new \ECSPrefix20210508\Symfony\Component\Config\ConfigCache($file, $this->debug);
         if (!$cache->isFresh()) {
             $callback($cache);

@@ -86,6 +86,9 @@ switch ($foo) {
      */
     private function doFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $depth, $isInSwitch)
     {
+        $index = (int) $index;
+        $depth = (int) $depth;
+        $isInSwitch = (bool) $isInSwitch;
         $token = $tokens[$index];
         if ($token->isGivenKind([\T_FOREACH, \T_FOR, \T_WHILE])) {
             // go to first `(`, go to its close ')', go to first of '{', ';', '? >'
@@ -115,6 +118,8 @@ switch ($foo) {
      */
     private function fixInSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex, $depth)
     {
+        $switchIndex = (int) $switchIndex;
+        $depth = (int) $depth;
         $this->switchLevels[] = $depth;
         // figure out where the switch starts
         $openIndex = $tokens->getNextTokenOfKind($switchIndex, ['{']);
@@ -133,6 +138,8 @@ switch ($foo) {
      */
     private function fixInLoop(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $depth)
     {
+        $openIndex = (int) $openIndex;
+        $depth = (int) $depth;
         $openCount = 1;
         do {
             ++$openIndex;
@@ -160,6 +167,9 @@ switch ($foo) {
      */
     private function fixContinueWhenActsAsBreak(\PhpCsFixer\Tokenizer\Tokens $tokens, $continueIndex, $isInSwitch, $depth)
     {
+        $continueIndex = (int) $continueIndex;
+        $isInSwitch = (bool) $isInSwitch;
+        $depth = (int) $depth;
         $followingContinueIndex = $tokens->getNextMeaningfulToken($continueIndex);
         $followingContinueToken = $tokens[$followingContinueIndex];
         if ($isInSwitch && $followingContinueToken->equals(';')) {
@@ -219,6 +229,7 @@ switch ($foo) {
      */
     private function replaceContinueWithBreakToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_BREAK, 'break']);
     }
 }

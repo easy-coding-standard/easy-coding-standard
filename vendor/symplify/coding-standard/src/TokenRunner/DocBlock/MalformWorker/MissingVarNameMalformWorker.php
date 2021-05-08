@@ -21,9 +21,8 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
      */
     public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $position = (int) $position;
         if (!\ECSPrefix20210508\Nette\Utils\Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
             return $docContent;
         }
@@ -42,6 +41,7 @@ final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\Toke
      */
     private function getNextVariableToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextMeaningfulTokenPosition === null) {
             return null;

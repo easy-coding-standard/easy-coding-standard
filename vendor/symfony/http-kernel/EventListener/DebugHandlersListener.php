@@ -49,6 +49,8 @@ class DebugHandlersListener implements \ECSPrefix20210508\Symfony\Component\Even
      */
     public function __construct(callable $exceptionHandler = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, $scream = \true, $fileLinkFormat = null, $scope = \true, \ECSPrefix20210508\Psr\Log\LoggerInterface $deprecationLogger = null)
     {
+        $scream = (bool) $scream;
+        $scope = (bool) $scope;
         $handler = \set_exception_handler('var_dump');
         $this->earlyHandler = \is_array($handler) ? $handler[0] : null;
         \restore_exception_handler();

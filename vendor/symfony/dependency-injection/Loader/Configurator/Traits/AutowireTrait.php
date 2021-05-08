@@ -20,6 +20,7 @@ trait AutowireTrait
      */
     public final function autowire($autowired = \true)
     {
+        $autowired = (bool) $autowired;
         $this->definition->setAutowired($autowired);
         return $this;
     }

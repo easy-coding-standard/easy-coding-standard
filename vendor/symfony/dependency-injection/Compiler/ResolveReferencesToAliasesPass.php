@@ -40,6 +40,7 @@ class ResolveReferencesToAliasesPass extends \ECSPrefix20210508\Symfony\Componen
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         }
@@ -52,9 +53,7 @@ class ResolveReferencesToAliasesPass extends \ECSPrefix20210508\Symfony\Componen
      */
     private function getDefinitionId($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (!$container->hasAlias($id)) {
             return $id;
         }

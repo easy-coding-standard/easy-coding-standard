@@ -22,9 +22,7 @@ final class AbstractArgument
      */
     public function __construct($text = '')
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         $this->text = \trim($text, '. ');
     }
     /**
@@ -33,9 +31,7 @@ final class AbstractArgument
      */
     public function setContext($context)
     {
-        if (\is_object($context)) {
-            $context = (string) $context;
-        }
+        $context = (string) $context;
         $this->context = $context . ' is abstract' . ('' === $this->text ? '' : ': ');
     }
     /**

@@ -204,9 +204,7 @@ final class Runner
      */
     private function processException($name, \Throwable $e)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->dispatchEvent(\PhpCsFixer\FixerFileProcessedEvent::NAME, new \PhpCsFixer\FixerFileProcessedEvent(\PhpCsFixer\FixerFileProcessedEvent::STATUS_EXCEPTION));
         $this->errorsManager->report(new \PhpCsFixer\Error\Error(\PhpCsFixer\Error\Error::TYPE_EXCEPTION, $name, $e));
     }
@@ -216,9 +214,7 @@ final class Runner
      */
     private function dispatchEvent($name, \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\Event $event)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (null === $this->eventDispatcher) {
             return;
         }

@@ -27,9 +27,7 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function __construct($string = '')
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         if ('' !== $string && !\preg_match('//u', $string)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
@@ -54,6 +52,7 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function chunk($length = 1)
     {
+        $length = (int) $length;
         if (1 > $length) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('The chunk length must be greater than zero.');
         }
@@ -80,6 +79,7 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function codePointsAt($offset)
     {
+        $offset = (int) $offset;
         $str = $offset ? $this->slice($offset, 1) : $this;
         return '' === $str->string ? [] : [\mb_ord($str->string, 'UTF-8')];
     }
@@ -126,6 +126,7 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function indexOf($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if ($needle instanceof \ECSPrefix20210508\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -145,6 +146,7 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function indexOfLast($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if ($needle instanceof \ECSPrefix20210508\Symfony\Component\String\AbstractString) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -185,12 +187,8 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function replace($from, $to)
     {
-        if (\is_object($to)) {
-            $to = (string) $to;
-        }
-        if (\is_object($from)) {
-            $from = (string) $from;
-        }
+        $from = (string) $from;
+        $to = (string) $to;
         $str = clone $this;
         if ('' === $from || !\preg_match('//u', $from)) {
             return $str;
@@ -212,6 +210,7 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function slice($start = 0, $length = null)
     {
+        $start = (int) $start;
         $str = clone $this;
         $str->string = \mb_substr($this->string, $start, $length, 'UTF-8');
         return $str;
@@ -224,9 +223,8 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function splice($replacement, $start = 0, $length = null)
     {
-        if (\is_object($replacement)) {
-            $replacement = (string) $replacement;
-        }
+        $replacement = (string) $replacement;
+        $start = (int) $start;
         if (!\preg_match('//u', $replacement)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Invalid UTF-8 string.');
         }
@@ -244,9 +242,7 @@ class CodePointString extends \ECSPrefix20210508\Symfony\Component\String\Abstra
      */
     public function split($delimiter, $limit = null, $flags = null)
     {
-        if (\is_object($delimiter)) {
-            $delimiter = (string) $delimiter;
-        }
+        $delimiter = (string) $delimiter;
         if (1 > ($limit = isset($limit) ? $limit : \PHP_INT_MAX)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Split limit must be a positive integer.');
         }

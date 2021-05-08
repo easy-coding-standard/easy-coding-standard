@@ -84,6 +84,7 @@ final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
      */
     private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $token = $tokens[$index];
         if ($token->isWhitespace() && \false === \strpos($token->getContent(), "\n")) {
             $tokens->clearAt($index);

@@ -84,6 +84,7 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
      */
     private function getIndexToEnsureBlankLineAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $indexToEnsureBlankLine = $index;
         $nextIndex = $tokens->getNonEmptySibling($indexToEnsureBlankLine, 1);
         while (null !== $nextIndex) {
@@ -112,9 +113,8 @@ final class BlankLineAfterNamespaceFixer extends \PhpCsFixer\AbstractFixer imple
      */
     private function getTokenToInsert($currentContent, $isLastIndex)
     {
-        if (\is_object($currentContent)) {
-            $currentContent = (string) $currentContent;
-        }
+        $currentContent = (string) $currentContent;
+        $isLastIndex = (bool) $isLastIndex;
         $ending = $this->whitespacesConfig->getLineEnding();
         $emptyLines = $isLastIndex ? $ending : $ending . $ending;
         $indent = 1 === \PhpCsFixer\Preg::match('/^.*\\R( *)$/s', $currentContent, $matches) ? $matches[1] : '';

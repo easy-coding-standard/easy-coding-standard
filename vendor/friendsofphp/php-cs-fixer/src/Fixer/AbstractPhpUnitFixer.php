@@ -60,6 +60,7 @@ abstract class AbstractPhpUnitFixer extends \PhpCsFixer\AbstractFixer
      */
     protected final function isPHPDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         return $tokens[$index]->isGivenKind(\T_DOC_COMMENT);
     }
 }

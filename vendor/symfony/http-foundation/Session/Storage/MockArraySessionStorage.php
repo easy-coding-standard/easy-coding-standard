@@ -58,9 +58,7 @@ class MockArraySessionStorage implements \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function __construct($name = 'MOCKSESSID', \ECSPrefix20210508\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
         $this->setMetadataBag($metaBag);
     }
@@ -89,6 +87,7 @@ class MockArraySessionStorage implements \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function regenerate($destroy = \false, $lifetime = null)
     {
+        $destroy = (bool) $destroy;
         if (!$this->started) {
             $this->start();
         }
@@ -109,9 +108,7 @@ class MockArraySessionStorage implements \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function setId($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($this->started) {
             throw new \LogicException('Cannot set session ID after the session has started.');
         }
@@ -130,9 +127,7 @@ class MockArraySessionStorage implements \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -174,9 +169,7 @@ class MockArraySessionStorage implements \ECSPrefix20210508\Symfony\Component\Ht
      */
     public function getBag($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->bags[$name])) {
             throw new \InvalidArgumentException(\sprintf('The SessionBagInterface "%s" is not registered.', $name));
         }

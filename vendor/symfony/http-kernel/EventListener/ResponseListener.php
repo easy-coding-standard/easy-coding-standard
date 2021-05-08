@@ -28,9 +28,7 @@ class ResponseListener implements \ECSPrefix20210508\Symfony\Component\EventDisp
      */
     public function __construct($charset)
     {
-        if (\is_object($charset)) {
-            $charset = (string) $charset;
-        }
+        $charset = (string) $charset;
         $this->charset = $charset;
     }
     /**

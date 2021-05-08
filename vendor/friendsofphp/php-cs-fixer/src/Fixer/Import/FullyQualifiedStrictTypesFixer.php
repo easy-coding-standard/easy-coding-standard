@@ -101,6 +101,7 @@ class SomeClass
      */
     private function fixFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $arguments = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionArguments($tokens, $index);
         foreach ($arguments as $argument) {
             if (!$argument->hasTypeAnalysis()) {
@@ -115,6 +116,7 @@ class SomeClass
      */
     private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (\PHP_VERSION_ID < 70000) {
             return;
         }

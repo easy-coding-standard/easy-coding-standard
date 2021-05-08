@@ -35,6 +35,7 @@ class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // If the close php tag is on the same line as the opening
         // then we have an inline embedded PHP block.
@@ -57,6 +58,7 @@ class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function validateMultilineEmbeddedPhp($phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $prevTag = $phpcsFile->findPrevious(\T_OPEN_TAG, $stackPtr - 1);
         if ($prevTag === \false) {
@@ -259,6 +261,7 @@ class EmbeddedPhpSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function validateInlineEmbeddedPhp($phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // We only want one line PHP sections, so return if the closing tag is
         // on the next line.

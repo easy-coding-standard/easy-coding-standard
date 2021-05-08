@@ -28,6 +28,8 @@ class TrimmedBufferOutput extends \ECSPrefix20210508\Symfony\Component\Console\O
      */
     public function __construct($maxLength, $verbosity = self::VERBOSITY_NORMAL, $decorated = \false, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
+        $maxLength = (int) $maxLength;
+        $decorated = (bool) $decorated;
         if ($maxLength <= 0) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('"%s()" expects a strictly positive maxLength. Got %d.', __METHOD__, $maxLength));
         }
@@ -50,9 +52,8 @@ class TrimmedBufferOutput extends \ECSPrefix20210508\Symfony\Component\Console\O
      */
     protected function doWrite($message, $newline)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $newline = (bool) $newline;
         $this->buffer .= $message;
         if ($newline) {
             $this->buffer .= \PHP_EOL;

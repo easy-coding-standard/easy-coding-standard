@@ -82,6 +82,7 @@ class ResolveBindingsPass extends \ECSPrefix20210508\Symfony\Component\Dependenc
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\TypedReference && $value->getType() === (string) $value) {
             // Already checked
             $bindings = $this->container->getDefinition($this->currentId)->getBindings();

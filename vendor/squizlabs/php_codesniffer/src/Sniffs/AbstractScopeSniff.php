@@ -64,6 +64,7 @@ abstract class AbstractScopeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function __construct(array $scopeTokens, array $tokens, $listenOutside = \false)
     {
+        $listenOutside = (bool) $listenOutside;
         if (empty($scopeTokens) === \true) {
             $error = 'The scope tokens list cannot be empty';
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException($error);
@@ -113,6 +114,7 @@ abstract class AbstractScopeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public final function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $foundScope = \false;
         $skipTokens = [];

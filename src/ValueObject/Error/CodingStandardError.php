@@ -28,12 +28,9 @@ final class CodingStandardError
      */
     public function __construct($line, $message, $checkerClass, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
-        if (\is_object($checkerClass)) {
-            $checkerClass = (string) $checkerClass;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $line = (int) $line;
+        $message = (string) $message;
+        $checkerClass = (string) $checkerClass;
         $this->line = $line;
         $this->message = $message;
         $this->checkerClass = $checkerClass;

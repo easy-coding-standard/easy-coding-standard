@@ -53,12 +53,8 @@ final class SnippetFormatterApplication
      */
     public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, array $fileInfos, $snippetPattern, $kind)
     {
-        if (\is_object($kind)) {
-            $kind = (string) $kind;
-        }
-        if (\is_object($snippetPattern)) {
-            $snippetPattern = (string) $snippetPattern;
-        }
+        $snippetPattern = (string) $snippetPattern;
+        $kind = (string) $kind;
         $sources = $configuration->getSources();
         $fileCount = \count($fileInfos);
         if ($fileCount === 0) {
@@ -79,12 +75,8 @@ final class SnippetFormatterApplication
      */
     private function processFileInfoWithPattern(\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, $snippetPattern, $kind)
     {
-        if (\is_object($kind)) {
-            $kind = (string) $kind;
-        }
-        if (\is_object($snippetPattern)) {
-            $snippetPattern = (string) $snippetPattern;
-        }
+        $snippetPattern = (string) $snippetPattern;
+        $kind = (string) $kind;
         $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind);
         if ($phpFileInfo->getContents() === $fixedContent) {
             // nothing has changed

@@ -90,9 +90,8 @@ final class JunitReporter implements \PhpCsFixer\Console\Report\FixReport\Report
      */
     private function createFailedTestCase(\DOMDocument $dom, $file, array $fixResult, $shouldAddAppliedFixers)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $shouldAddAppliedFixers = (bool) $shouldAddAppliedFixers;
         $appliedFixersCount = \count($fixResult['appliedFixers']);
         $testName = \str_replace('.', '_DOT_', \PhpCsFixer\Preg::replace('@\\.' . \pathinfo($file, \PATHINFO_EXTENSION) . '$@', '', $file));
         $testcase = $dom->createElement('testcase');

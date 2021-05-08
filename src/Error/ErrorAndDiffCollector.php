@@ -57,12 +57,9 @@ final class ErrorAndDiffCollector
      */
     public function addErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $line, $message, $sourceClass)
     {
-        if (\is_object($sourceClass)) {
-            $sourceClass = (string) $sourceClass;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $line = (int) $line;
+        $message = (string) $message;
+        $sourceClass = (string) $sourceClass;
         if ($this->currentParentFileInfoProvider->provide() !== null) {
             // skip sniff errors
             return;
@@ -79,9 +76,8 @@ final class ErrorAndDiffCollector
      */
     public function addSystemErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $line, $message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $line = (int) $line;
+        $message = (string) $message;
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         $this->systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($line, $message, $smartFileInfo);
     }
@@ -106,9 +102,7 @@ final class ErrorAndDiffCollector
      */
     public function addDiffForFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
     {
-        if (\is_object($diff)) {
-            $diff = (string) $diff;
-        }
+        $diff = (string) $diff;
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         foreach ($appliedCheckers as $appliedChecker) {
             $this->ensureIsFixerOrChecker($appliedChecker);
@@ -137,9 +131,7 @@ final class ErrorAndDiffCollector
      */
     private function ensureIsFixerOrChecker($sourceClass)
     {
-        if (\is_object($sourceClass)) {
-            $sourceClass = (string) $sourceClass;
-        }
+        $sourceClass = (string) $sourceClass;
         // remove dot suffix of "."
         if (\ECSPrefix20210508\Nette\Utils\Strings::contains($sourceClass, '.')) {
             $sourceClass = (string) \ECSPrefix20210508\Nette\Utils\Strings::before($sourceClass, '.', 1);

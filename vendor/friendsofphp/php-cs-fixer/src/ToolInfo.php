@@ -96,9 +96,7 @@ final class ToolInfo implements \PhpCsFixer\ToolInfoInterface
      */
     public function getPharDownloadUri($version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
+        $version = (string) $version;
         return \sprintf('https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/%s/php-cs-fixer.phar', $version);
     }
     /**

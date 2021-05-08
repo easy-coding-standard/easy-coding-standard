@@ -28,12 +28,8 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function open($savePath, $name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($savePath)) {
-            $savePath = (string) $savePath;
-        }
+        $savePath = (string) $savePath;
+        $name = (string) $name;
         return $this->handler->open($savePath, $name);
     }
     /**
@@ -48,9 +44,7 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function destroy($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return $this->handler->destroy($sessionId);
     }
     /**
@@ -58,6 +52,7 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function gc($maxlifetime)
     {
+        $maxlifetime = (int) $maxlifetime;
         return $this->handler->gc($maxlifetime);
     }
     /**
@@ -65,9 +60,7 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function read($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return $this->marshaller->unmarshall($this->handler->read($sessionId));
     }
     /**
@@ -75,12 +68,8 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function write($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         $failed = [];
         $marshalledData = $this->marshaller->marshall(['data' => $data], $failed);
         if (isset($failed['data'])) {
@@ -93,9 +82,7 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function validateId($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return $this->handler->validateId($sessionId);
     }
     /**
@@ -103,12 +90,8 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
      */
     public function updateTimestamp($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         return $this->handler->updateTimestamp($sessionId, $data);
     }
 }

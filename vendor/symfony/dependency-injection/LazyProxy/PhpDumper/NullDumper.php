@@ -36,12 +36,8 @@ class NullDumper implements \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     public function getProxyFactoryCode(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, $factoryCode)
     {
-        if (\is_object($factoryCode)) {
-            $factoryCode = (string) $factoryCode;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $factoryCode = (string) $factoryCode;
         return '';
     }
     /**

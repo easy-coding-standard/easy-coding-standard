@@ -23,6 +23,7 @@ final class WhitespacesAnalyzer
      */
     public static function detectIndent(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         while (\true) {
             $whitespaceIndex = $tokens->getPrevTokenOfKind($index, [[\T_WHITESPACE]]);
             if (null === $whitespaceIndex) {

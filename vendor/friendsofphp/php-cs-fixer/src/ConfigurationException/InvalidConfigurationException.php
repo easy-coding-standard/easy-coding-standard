@@ -29,9 +29,7 @@ class InvalidConfigurationException extends \InvalidArgumentException
      */
     public function __construct($message, $code = null, $previous = null)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         parent::__construct($message, null === $code ? \PhpCsFixer\Console\Command\FixCommandExitStatusCalculator::EXIT_STATUS_FLAG_HAS_INVALID_CONFIG : $code, $previous);
     }
 }

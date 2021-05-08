@@ -38,6 +38,7 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function __construct($output = null, $charset = null, $flags = 0)
     {
+        $flags = (int) $flags;
         \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\AbstractDumper::__construct($output, $charset, $flags);
         $this->dumpId = 'sf-dump-' . \mt_rand();
         $this->displayOptions['fileLinkFormat'] = \ini_get('xdebug.file_link_format') ?: \get_cfg_var('xdebug.file_link_format');
@@ -56,9 +57,7 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setTheme($themeName)
     {
-        if (\is_object($themeName)) {
-            $themeName = (string) $themeName;
-        }
+        $themeName = (string) $themeName;
         if (!isset(static::$themes[$themeName])) {
             throw new \InvalidArgumentException(\sprintf('Theme "%s" does not exist in class "%s".', $themeName, static::class));
         }
@@ -81,9 +80,7 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setDumpHeader($header)
     {
-        if (\is_object($header)) {
-            $header = (string) $header;
-        }
+        $header = (string) $header;
         $this->dumpHeader = $header;
     }
     /**
@@ -94,12 +91,8 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
      */
     public function setDumpBoundaries($prefix, $suffix)
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $suffix = (string) $suffix;
         $this->dumpPrefix = $prefix;
         $this->dumpSuffix = $suffix;
     }
@@ -755,9 +748,9 @@ EOHTML
      */
     public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut)
     {
-        if (\is_object($str)) {
-            $str = (string) $str;
-        }
+        $str = (string) $str;
+        $bin = (bool) $bin;
+        $cut = (int) $cut;
         if ('' === $str && isset($cursor->attr['img-data'], $cursor->attr['content-type'])) {
             $this->dumpKey($cursor);
             $this->line .= $this->style('default', isset($cursor->attr['img-size']) ? $cursor->attr['img-size'] : '', []);
@@ -777,6 +770,8 @@ EOHTML
      */
     public function enterHash(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild)
     {
+        $type = (int) $type;
+        $hasChild = (bool) $hasChild;
         if (\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT === $type) {
             $cursor->attr['depth'] = $cursor->depth;
         }
@@ -807,6 +802,9 @@ EOHTML
      */
     public function leaveHash(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild, $cut)
     {
+        $type = (int) $type;
+        $hasChild = (bool) $hasChild;
+        $cut = (int) $cut;
         $this->dumpEllipsis($cursor, $hasChild, $cut);
         if ($hasChild) {
             $this->line .= '</samp>';
@@ -818,12 +816,8 @@ EOHTML
      */
     protected function style($style, $value, $attr = [])
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
-        if (\is_object($style)) {
-            $style = (string) $style;
-        }
+        $style = (string) $style;
+        $value = (string) $value;
         if ('' === $value) {
             return '';
         }
@@ -905,6 +899,8 @@ EOHTML
      */
     protected function dumpLine($depth, $endOfValue = \false)
     {
+        $depth = (int) $depth;
+        $endOfValue = (bool) $endOfValue;
         if (-1 === $this->lastDepth) {
             $this->line = \sprintf($this->dumpPrefix, $this->dumpId, $this->indentPad) . $this->line;
         }
@@ -932,9 +928,8 @@ EOHTML
      */
     private function getSourceLink($file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $line = (int) $line;
         $options = $this->extraDisplayOptions + $this->displayOptions;
         if ($fmt = $options['fileLinkFormat']) {
             return \is_string($fmt) ? \strtr($fmt, ['%f' => $file, '%l' => $line]) : $fmt->format($file, $line);

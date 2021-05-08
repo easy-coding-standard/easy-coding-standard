@@ -37,6 +37,7 @@ final class StaticFixtureSplitter
      */
     public static function splitFileInfoToLocalInputAndExpectedFileInfos(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $autoloadTestFixture = \false)
     {
+        $autoloadTestFixture = (bool) $autoloadTestFixture;
         $inputAndExpected = self::splitFileInfoToInputAndExpected($smartFileInfo);
         $inputFileInfo = self::createTemporaryFileInfo($smartFileInfo, 'input', $inputAndExpected->getInput());
         // some files needs to be autoload to enable reflection
@@ -63,12 +64,8 @@ final class StaticFixtureSplitter
      */
     public static function createTemporaryFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fixtureSmartFileInfo, $prefix, $fileContent)
     {
-        if (\is_object($fileContent)) {
-            $fileContent = (string) $fileContent;
-        }
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $fileContent = (string) $fileContent;
         $temporaryFilePath = self::createTemporaryPathWithPrefix($fixtureSmartFileInfo, $prefix);
         $smartFileSystem = new \Symplify\SmartFileSystem\SmartFileSystem();
         $smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
@@ -80,6 +77,7 @@ final class StaticFixtureSplitter
      */
     public static function splitFileInfoToLocalInputAndExpected(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $autoloadTestFixture = \false)
     {
+        $autoloadTestFixture = (bool) $autoloadTestFixture;
         $inputAndExpected = self::splitFileInfoToInputAndExpected($smartFileInfo);
         $inputFileInfo = self::createTemporaryFileInfo($smartFileInfo, 'input', $inputAndExpected->getInput());
         // some files needs to be autoload to enable reflection
@@ -94,9 +92,7 @@ final class StaticFixtureSplitter
      */
     private static function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $prefix)
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
         $hash = \ECSPrefix20210508\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
         $fileBaseName = $smartFileInfo->getBasename('.inc');
         return self::getTemporaryPath() . \sprintf('/%s_%s_%s', $prefix, $hash, $fileBaseName);

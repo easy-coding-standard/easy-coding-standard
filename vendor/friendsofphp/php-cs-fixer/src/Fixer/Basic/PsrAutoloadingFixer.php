@@ -183,9 +183,7 @@ class InvalidName {}
      */
     private function calculateClassyName(\SplFileInfo $file, $namespace, $currentName)
     {
-        if (\is_object($currentName)) {
-            $currentName = (string) $currentName;
-        }
+        $currentName = (string) $currentName;
         $name = $file->getBasename('.php');
         $maxNamespace = $this->calculateMaxNamespace($file, $namespace);
         if (null !== $this->configuration['dir']) {

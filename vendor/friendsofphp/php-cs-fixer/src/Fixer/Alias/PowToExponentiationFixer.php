@@ -123,6 +123,9 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
      */
     private function fixPowToExponentiation(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, $openParenthesisIndex, $closeParenthesisIndex, array $arguments)
     {
+        $functionNameIndex = (int) $functionNameIndex;
+        $openParenthesisIndex = (int) $openParenthesisIndex;
+        $closeParenthesisIndex = (int) $closeParenthesisIndex;
         // find the argument separator ',' directly after the last token of the first argument;
         // replace it with T_POW '**'
         $tokens[$tokens->getNextTokenOfKind(\reset($arguments), [','])] = new \PhpCsFixer\Tokenizer\Token([\T_POW, '**']);
@@ -158,6 +161,8 @@ final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferen
      */
     private function isParenthesisNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
     {
+        $argumentStartIndex = (int) $argumentStartIndex;
+        $argumentEndIndex = (int) $argumentEndIndex;
         static $allowedKinds = null;
         if (null === $allowedKinds) {
             $allowedKinds = $this->getAllowedKinds();

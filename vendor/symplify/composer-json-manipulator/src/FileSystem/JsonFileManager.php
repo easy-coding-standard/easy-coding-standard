@@ -53,9 +53,7 @@ final class JsonFileManager
      */
     public function loadFromFilePath($filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $fileContent = $this->smartFileSystem->readFile($filePath);
         return \ECSPrefix20210508\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
     }
@@ -75,9 +73,7 @@ final class JsonFileManager
      */
     public function printComposerJsonToFilePath(\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $jsonString = $this->encodeJsonToFileContent($composerJson->getJsonArray());
         $this->smartFileSystem->dumpFile($filePath, $jsonString);
         return $jsonString;

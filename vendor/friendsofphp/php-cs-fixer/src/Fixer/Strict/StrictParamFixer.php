@@ -86,6 +86,7 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, array $functionParams)
     {
+        $functionIndex = (int) $functionIndex;
         $startBraceIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
         $endBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startBraceIndex);
         $paramsQuantity = 0;

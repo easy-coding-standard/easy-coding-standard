@@ -89,6 +89,7 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
      */
     private function clearOffsetTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $offset, array $indices)
     {
+        $offset = (int) $offset;
         foreach ($indices as $index) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index + $offset);
         }
@@ -109,6 +110,7 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getPreviousUnsetCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $previousUnsetSemicolon = $tokens->getPrevMeaningfulToken($index);
         if (null === $previousUnsetSemicolon) {
             return $index;
@@ -142,6 +144,9 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
      */
     private function moveTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end, $to)
     {
+        $start = (int) $start;
+        $end = (int) $end;
+        $to = (int) $to;
         $added = 0;
         for ($i = $start + 1; $i < $end; $i += 2) {
             if ($tokens[$i]->isWhitespace() && $tokens[$to + 1]->isWhitespace()) {

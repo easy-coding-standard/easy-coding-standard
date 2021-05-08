@@ -27,9 +27,7 @@ final class KernelBootAndApplicationRun
      */
     public function __construct($kernelClass, array $extraConfigs = [])
     {
-        if (\is_object($kernelClass)) {
-            $kernelClass = (string) $kernelClass;
-        }
+        $kernelClass = (string) $kernelClass;
         $this->setKernelClass($kernelClass);
         $this->extraConfigs = $extraConfigs;
     }
@@ -80,9 +78,7 @@ final class KernelBootAndApplicationRun
      */
     private function setExtraConfigs(\ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface $kernel, $kernelClass)
     {
-        if (\is_object($kernelClass)) {
-            $kernelClass = (string) $kernelClass;
-        }
+        $kernelClass = (string) $kernelClass;
         if ($this->extraConfigs === []) {
             return;
         }
@@ -100,9 +96,7 @@ final class KernelBootAndApplicationRun
      */
     private function setKernelClass($kernelClass)
     {
-        if (\is_object($kernelClass)) {
-            $kernelClass = (string) $kernelClass;
-        }
+        $kernelClass = (string) $kernelClass;
         if (!\is_a($kernelClass, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface::class, \true)) {
             $message = \sprintf('Class "%s" must by type of "%s"', $kernelClass, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface::class);
             throw new \Symplify\SymplifyKernel\Exception\BootException($message);

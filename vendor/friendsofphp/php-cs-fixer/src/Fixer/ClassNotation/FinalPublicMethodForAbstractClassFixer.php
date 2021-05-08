@@ -81,6 +81,8 @@ abstract class AbstractMachine
      */
     private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, $classCloseIndex)
     {
+        $classOpenIndex = (int) $classOpenIndex;
+        $classCloseIndex = (int) $classCloseIndex;
         for ($index = $classCloseIndex - 1; $index > $classOpenIndex; --$index) {
             // skip method contents
             if ($tokens[$index]->equals('}')) {

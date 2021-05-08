@@ -274,6 +274,7 @@ class Command
      */
     public function mergeApplicationDefinition($mergeArgs = \true)
     {
+        $mergeArgs = (bool) $mergeArgs;
         if (null === $this->application) {
             return;
         }
@@ -344,12 +345,8 @@ class Command
      */
     public function addArgument($name, $mode = null, $description = '', $default = null)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $description = (string) $description;
         $this->definition->addArgument(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
             $this->fullDefinition->addArgument(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
@@ -371,12 +368,8 @@ class Command
      */
     public function addOption($name, $shortcut = null, $mode = null, $description = '', $default = null)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $description = (string) $description;
         $this->definition->addOption(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
             $this->fullDefinition->addOption(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
@@ -398,9 +391,7 @@ class Command
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->validateName($name);
         $this->name = $name;
         return $this;
@@ -416,9 +407,7 @@ class Command
      */
     public function setProcessTitle($title)
     {
-        if (\is_object($title)) {
-            $title = (string) $title;
-        }
+        $title = (string) $title;
         $this->processTitle = $title;
         return $this;
     }
@@ -441,6 +430,7 @@ class Command
      */
     public function setHidden($hidden)
     {
+        $hidden = (bool) $hidden;
         $this->hidden = $hidden;
         return $this;
     }
@@ -459,9 +449,7 @@ class Command
      */
     public function setDescription($description)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
+        $description = (string) $description;
         $this->description = $description;
         return $this;
     }
@@ -482,9 +470,7 @@ class Command
      */
     public function setHelp($help)
     {
-        if (\is_object($help)) {
-            $help = (string) $help;
-        }
+        $help = (string) $help;
         $this->help = $help;
         return $this;
     }
@@ -546,6 +532,7 @@ class Command
      */
     public function getSynopsis($short = \false)
     {
+        $short = (bool) $short;
         $key = $short ? 'short' : 'long';
         if (!isset($this->synopsis[$key])) {
             $this->synopsis[$key] = \trim(\sprintf('%s %s', $this->name, $this->definition->getSynopsis($short)));
@@ -560,9 +547,7 @@ class Command
      */
     public function addUsage($usage)
     {
-        if (\is_object($usage)) {
-            $usage = (string) $usage;
-        }
+        $usage = (string) $usage;
         if (0 !== \strpos($usage, $this->name)) {
             $usage = \sprintf('%s %s', $this->name, $usage);
         }
@@ -589,9 +574,7 @@ class Command
      */
     public function getHelper($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (null === $this->helperSet) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException(\sprintf('Cannot retrieve helper "%s" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.', $name));
         }
@@ -607,9 +590,7 @@ class Command
      */
     private function validateName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!\preg_match('/^[^\\:]++(\\:[^\\:]++)*$/', $name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Command name "%s" is invalid.', $name));
         }

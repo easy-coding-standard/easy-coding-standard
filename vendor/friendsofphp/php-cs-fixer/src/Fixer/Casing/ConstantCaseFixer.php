@@ -99,6 +99,7 @@ final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpC
      */
     private function isNeighbourAccepted(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         static $forbiddenTokens = null;
         if (null === $forbiddenTokens) {
             $forbiddenTokens = \array_merge([\T_AS, \T_CLASS, \T_CONST, \T_EXTENDS, \T_IMPLEMENTS, \T_INSTANCEOF, \T_INSTEADOF, \T_INTERFACE, \T_NEW, \T_NS_SEPARATOR, \T_PAAMAYIM_NEKUDOTAYIM, \T_TRAIT, \T_USE, \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds());

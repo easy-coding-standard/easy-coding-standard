@@ -22,12 +22,8 @@ final class RequestAttributeValueSame extends \ECSPrefix20210508\PHPUnit\Framewo
      */
     public function __construct($name, $value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $value = (string) $value;
         $this->name = $name;
         $this->value = $value;
     }

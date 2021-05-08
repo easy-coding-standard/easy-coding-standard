@@ -66,9 +66,8 @@ class RedisTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Ad
      */
     public function __construct($redisClient, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         if ($redisClient instanceof \ECSPrefix20210508\Predis\ClientInterface && $redisClient->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\ClusterInterface && !$redisClient->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Unsupported Predis cluster connection: only "%s" is, "%s" given.', \ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster::class, \get_debug_type($redisClient->getConnection())));
         }
@@ -89,6 +88,7 @@ class RedisTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Ad
      */
     protected function doSave(array $values, $lifetime, array $addTagData = [], array $delTagData = [])
     {
+        $lifetime = (int) $lifetime;
         $eviction = $this->getRedisEvictionPolicy();
         if ('noeviction' !== $eviction && 0 !== \strpos($eviction, 'volatile-')) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\LogicException(\sprintf('Redis maxmemory-policy setting "%s" is *not* supported by RedisTagAwareAdapter, use "noeviction" or  "volatile-*" eviction policies.', $eviction));

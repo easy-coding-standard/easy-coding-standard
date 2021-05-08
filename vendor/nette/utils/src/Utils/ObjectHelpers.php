@@ -16,12 +16,8 @@ final class ObjectHelpers
      * @param string $name */
     public static function strictGet($class, $name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
+        $name = (string) $name;
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
@@ -34,12 +30,8 @@ final class ObjectHelpers
      * @param string $name */
     public static function strictSet($class, $name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
+        $name = (string) $name;
         $rc = new \ReflectionClass($class);
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
@@ -52,12 +44,8 @@ final class ObjectHelpers
      * @param string $method */
     public static function strictCall($class, $method, array $additionalMethods = [])
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
+        $method = (string) $method;
         $hint = self::getSuggestion(\array_merge(\get_class_methods($class), self::parseFullDoc(new \ReflectionClass($class), '~^[ \\t*]*@method[ \\t]+(?:\\S+[ \\t]+)??(\\w+)\\(~m'), $additionalMethods), $method);
         if (\method_exists($class, $method)) {
             // called parent::$method()
@@ -71,12 +59,8 @@ final class ObjectHelpers
      * @param string $method */
     public static function strictStaticCall($class, $method)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
+        $method = (string) $method;
         $hint = self::getSuggestion(\array_filter((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC), function ($m) {
             return $m->isStatic();
         }), $method);
@@ -90,9 +74,7 @@ final class ObjectHelpers
      */
     public static function getMagicProperties($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         static $cache;
         $props =& $cache[$class];
         if ($props !== null) {
@@ -126,9 +108,7 @@ final class ObjectHelpers
      */
     public static function getSuggestion(array $possibilities, $value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         $norm = \preg_replace($re = '#^(get|set|has|is|add)(?=[A-Z])#', '+', $value);
         $best = null;
         $min = (\strlen($value) / 4 + 1) * 10 + 0.1;
@@ -147,9 +127,7 @@ final class ObjectHelpers
      */
     private static function parseFullDoc(\ReflectionClass $rc, $pattern)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
         do {
             $doc[] = $rc->getDocComment();
             $traits = $rc->getTraits();
@@ -169,12 +147,8 @@ final class ObjectHelpers
      */
     public static function hasProperty($class, $name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
+        $name = (string) $name;
         static $cache;
         $prop =& $cache[$class][$name];
         if ($prop === null) {

@@ -30,6 +30,7 @@ final class ResponseEvent extends \ECSPrefix20210508\Symfony\Component\HttpKerne
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $requestType, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response)
     {
+        $requestType = (int) $requestType;
         parent::__construct($kernel, $request, $requestType);
         $this->setResponse($response);
     }

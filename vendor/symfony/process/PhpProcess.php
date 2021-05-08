@@ -32,9 +32,8 @@ class PhpProcess extends \ECSPrefix20210508\Symfony\Component\Process\Process
      */
     public function __construct($script, $cwd = null, array $env = null, $timeout = 60, array $php = null)
     {
-        if (\is_object($script)) {
-            $script = (string) $script;
-        }
+        $script = (string) $script;
+        $timeout = (int) $timeout;
         if (null === $php) {
             $executableFinder = new \ECSPrefix20210508\Symfony\Component\Process\PhpExecutableFinder();
             $php = $executableFinder->find(\false);
@@ -57,12 +56,8 @@ class PhpProcess extends \ECSPrefix20210508\Symfony\Component\Process\Process
      */
     public static function fromShellCommandline($command, $cwd = null, array $env = null, $input = null, $timeout = 60)
     {
-        if (\is_object($cwd)) {
-            $cwd = (string) $cwd;
-        }
-        if (\is_object($command)) {
-            $command = (string) $command;
-        }
+        $command = (string) $command;
+        $cwd = (string) $cwd;
         throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\LogicException(\sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
     }
     /**

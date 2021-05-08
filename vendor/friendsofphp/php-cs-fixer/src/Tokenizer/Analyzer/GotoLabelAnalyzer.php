@@ -23,6 +23,7 @@ final class GotoLabelAnalyzer
      */
     public function belongsToGoToLabel(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->equals(':')) {
             return \false;
         }

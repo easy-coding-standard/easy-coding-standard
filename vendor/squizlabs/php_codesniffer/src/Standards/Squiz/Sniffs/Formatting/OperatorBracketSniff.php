@@ -41,6 +41,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($phpcsFile->tokenizerType === 'JS' && $tokens[$stackPtr]['code'] === T_PLUS) {
             // JavaScript uses the plus operator for string concatenation as well
@@ -208,6 +209,7 @@ class OperatorBracketSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function addMissingBracketsError($phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $allowed = [\T_VARIABLE => \true, \T_LNUMBER => \true, \T_DNUMBER => \true, \T_STRING => \true, \T_CONSTANT_ENCAPSED_STRING => \true, T_DOUBLE_QUOTED_STRING => \true, \T_WHITESPACE => \true, \T_NS_SEPARATOR => \true, T_THIS => \true, T_SELF => \true, \T_STATIC => \true, \T_OBJECT_OPERATOR => \true, \T_NULLSAFE_OBJECT_OPERATOR => \true, \T_DOUBLE_COLON => \true, T_MODULUS => \true, \T_ISSET => \true, \T_ARRAY => \true, T_NONE => \true, T_BITWISE_NOT => \true];
         // Find the first token in the expression.

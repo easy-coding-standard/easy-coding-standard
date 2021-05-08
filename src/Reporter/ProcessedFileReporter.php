@@ -31,6 +31,7 @@ final class ProcessedFileReporter
      */
     public function report($processedFileCount)
     {
+        $processedFileCount = (int) $processedFileCount;
         $outputFormat = $this->configuration->getOutputFormat();
         $outputFormatter = $this->outputFormatterCollector->getByName($outputFormat);
         $errorAndDiffResult = $this->errorAndDiffResultFactory->create();

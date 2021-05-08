@@ -84,6 +84,8 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
      */
     private function clearRangeLeaveComments(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
     {
+        $indexStart = (int) $indexStart;
+        $indexEnd = (int) $indexEnd;
         for ($i = $indexStart; $i <= $indexEnd; ++$i) {
             $token = $tokens[$i];
             if ($token->isComment()) {

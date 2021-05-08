@@ -242,9 +242,7 @@ use Bar;
      */
     private function prepareNamespace($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         return \trim(\PhpCsFixer\Preg::replace('%/\\*(.*)\\*/%s', '', $namespace));
     }
     /**

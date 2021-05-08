@@ -265,9 +265,8 @@ class Ruleset
      */
     public function processRuleset($rulesetPath, $depth = 0)
     {
-        if (\is_object($rulesetPath)) {
-            $rulesetPath = (string) $rulesetPath;
-        }
+        $rulesetPath = (string) $rulesetPath;
+        $depth = (int) $depth;
         $rulesetPath = \PHP_CodeSniffer\Util\Common::realpath($rulesetPath);
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo \str_repeat("\t", $depth);
@@ -527,9 +526,8 @@ class Ruleset
      */
     private function expandSniffDirectory($directory, $depth = 0)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $depth = (int) $depth;
         $sniffs = [];
         $rdi = new \RecursiveDirectoryIterator($directory, \RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
         $di = new \RecursiveIteratorIterator($rdi, 0, \RecursiveIteratorIterator::CATCH_GET_CHILD);
@@ -581,12 +579,9 @@ class Ruleset
      */
     private function expandRulesetReference($ref, $rulesetDir, $depth = 0)
     {
-        if (\is_object($rulesetDir)) {
-            $rulesetDir = (string) $rulesetDir;
-        }
-        if (\is_object($ref)) {
-            $ref = (string) $ref;
-        }
+        $ref = (string) $ref;
+        $rulesetDir = (string) $rulesetDir;
+        $depth = (int) $depth;
         // Ignore internal sniffs codes as they are used to only
         // hide and change internal messages.
         if (\substr($ref, 0, 9) === 'Internal.') {
@@ -757,6 +752,7 @@ class Ruleset
      */
     private function processRule($rule, $newSniffs, $depth = 0)
     {
+        $depth = (int) $depth;
         $ref = (string) $rule['ref'];
         $todo = [$ref];
         $parts = \explode('.', $ref);
@@ -1092,15 +1088,9 @@ class Ruleset
      */
     public function setSniffProperty($sniffClass, $name, $value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($sniffClass)) {
-            $sniffClass = (string) $sniffClass;
-        }
+        $sniffClass = (string) $sniffClass;
+        $name = (string) $name;
+        $value = (string) $value;
         // Setting a property for a sniff we are not using.
         if (isset($this->sniffs[$sniffClass]) === \false) {
             return;

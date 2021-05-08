@@ -114,6 +114,7 @@ class FlattenException
      */
     public function setStatusCode($code)
     {
+        $code = (int) $code;
         $this->statusCode = $code;
         return $this;
     }
@@ -146,9 +147,7 @@ class FlattenException
      */
     public function setClass($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         $this->class = \false !== \strpos($class, "@anonymous\0") ? ((\get_parent_class($class) ?: \key(\class_implements($class))) ?: 'class') . '@anonymous' : $class;
         return $this;
     }
@@ -166,9 +165,7 @@ class FlattenException
      */
     public function setFile($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $this->file = $file;
         return $this;
     }
@@ -186,6 +183,7 @@ class FlattenException
      */
     public function setLine($line)
     {
+        $line = (int) $line;
         $this->line = $line;
         return $this;
     }
@@ -202,9 +200,7 @@ class FlattenException
      */
     public function setStatusText($statusText)
     {
-        if (\is_object($statusText)) {
-            $statusText = (string) $statusText;
-        }
+        $statusText = (string) $statusText;
         $this->statusText = $statusText;
         return $this;
     }
@@ -222,9 +218,7 @@ class FlattenException
      */
     public function setMessage($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if (\false !== \strpos($message, "@anonymous\0")) {
             $message = \preg_replace_callback('/[a-zA-Z_\\x7f-\\xff][\\\\a-zA-Z0-9_\\x7f-\\xff]*+@anonymous\\x00.*?\\.php(?:0x?|:[0-9]++\\$)[0-9a-fA-F]++/', function ($m) {
                 return \class_exists($m[0], \false) ? ((\get_parent_class($m[0]) ?: \key(\class_implements($m[0]))) ?: 'class') . '@anonymous' : $m[0];
@@ -323,6 +317,8 @@ class FlattenException
      */
     private function flattenArgs(array $args, $level = 0, &$count = 0)
     {
+        $level = (int) $level;
+        $count = (int) $count;
         $result = [];
         foreach ($args as $key => $value) {
             if (++$count > 10000.0) {

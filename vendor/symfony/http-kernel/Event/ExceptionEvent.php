@@ -37,6 +37,7 @@ final class ExceptionEvent extends \ECSPrefix20210508\Symfony\Component\HttpKern
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $requestType, \Throwable $e)
     {
+        $requestType = (int) $requestType;
         parent::__construct($kernel, $request, $requestType);
         $this->setThrowable($e);
     }

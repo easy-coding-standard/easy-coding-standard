@@ -33,9 +33,7 @@ class ClassExistenceResource implements \ECSPrefix20210508\Symfony\Component\Con
      */
     public function __construct($resource, $exists = null)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
+        $resource = (string) $resource;
         $this->resource = $resource;
         if (null !== $exists) {
             $this->exists = [(bool) $exists, null];
@@ -65,6 +63,7 @@ class ClassExistenceResource implements \ECSPrefix20210508\Symfony\Component\Con
      */
     public function isFresh($timestamp)
     {
+        $timestamp = (int) $timestamp;
         $loaded = \class_exists($this->resource, \false) || \interface_exists($this->resource, \false) || \trait_exists($this->resource, \false);
         if (null !== ($exists =& self::$existsCache[$this->resource])) {
             if ($loaded) {
@@ -143,9 +142,7 @@ class ClassExistenceResource implements \ECSPrefix20210508\Symfony\Component\Con
      */
     public static function throwOnRequiredClass($class, \Exception $previous = null)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         // If the passed class is the resource being checked, we shouldn't throw.
         if (null === $previous && self::$autoloadedClass === $class) {
             return;

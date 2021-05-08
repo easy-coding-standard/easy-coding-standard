@@ -11,9 +11,7 @@ final class ArrayStringAndFnMatcher
      */
     public function isMatchWithIsA($currentValue, array $matchingValues)
     {
-        if (\is_object($currentValue)) {
-            $currentValue = (string) $currentValue;
-        }
+        $currentValue = (string) $currentValue;
         if ($this->isMatch($currentValue, $matchingValues)) {
             return \true;
         }
@@ -31,9 +29,7 @@ final class ArrayStringAndFnMatcher
      */
     public function isMatch($currentValue, array $matchingValues)
     {
-        if (\is_object($currentValue)) {
-            $currentValue = (string) $currentValue;
-        }
+        $currentValue = (string) $currentValue;
         foreach ($matchingValues as $matchingValue) {
             if ($currentValue === $matchingValue) {
                 return \true;

@@ -113,6 +113,7 @@ $foo->__INVOKE(1);
      */
     private function isFunctionSignature(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_FUNCTION)) {
             return \false;
@@ -126,6 +127,7 @@ $foo->__INVOKE(1);
      */
     private function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isObjectOperator()) {
             return \false;
@@ -139,6 +141,7 @@ $foo->__INVOKE(1);
      */
     private function isStaticMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_DOUBLE_COLON)) {
             return \false;
@@ -152,9 +155,7 @@ $foo->__INVOKE(1);
      */
     private function isMagicMethodName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset(self::$magicNames[$name]);
     }
     /**
@@ -163,9 +164,7 @@ $foo->__INVOKE(1);
      */
     private function getMagicMethodNameInCorrectCasing($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return self::$magicNames[$name];
     }
     /**
@@ -175,9 +174,8 @@ $foo->__INVOKE(1);
      */
     private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $nameInCorrectCasing)
     {
-        if (\is_object($nameInCorrectCasing)) {
-            $nameInCorrectCasing = (string) $nameInCorrectCasing;
-        }
+        $index = (int) $index;
+        $nameInCorrectCasing = (string) $nameInCorrectCasing;
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $nameInCorrectCasing]);
     }
 }

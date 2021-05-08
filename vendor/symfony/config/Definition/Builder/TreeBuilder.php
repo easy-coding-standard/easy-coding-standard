@@ -26,12 +26,8 @@ class TreeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function __construct($name, $type = 'array', \ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $type = (string) $type;
         $builder = isset($builder) ? $builder : new \ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\NodeBuilder();
         $this->root = $builder->node($name, $type)->setParent($this);
     }
@@ -61,9 +57,7 @@ class TreeBuilder implements \ECSPrefix20210508\Symfony\Component\Config\Definit
      */
     public function setPathSeparator($separator)
     {
-        if (\is_object($separator)) {
-            $separator = (string) $separator;
-        }
+        $separator = (string) $separator;
         // unset last built as changing path separator changes all nodes
         $this->tree = null;
         $this->root->setPathSeparator($separator);

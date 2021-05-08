@@ -183,6 +183,7 @@ abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer
      */
     private function nextElementAcceptsDoctrineAnnotations(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         do {
             $index = $tokens->getNextMeaningfulToken($index);
             if (null === $index) {

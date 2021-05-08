@@ -23,9 +23,7 @@ class DirectoryLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function load($file, $type = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $file = \rtrim($file, '/');
         $path = $this->locator->locate($file);
         $this->container->fileExists($path, \false);

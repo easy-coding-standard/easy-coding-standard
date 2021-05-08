@@ -43,9 +43,7 @@ class XmlUtils
      */
     public static function parse($content, $schemaOrCallable = null)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         if (!\extension_loaded('dom')) {
             throw new \LogicException('Extension DOM is required.');
         }
@@ -115,9 +113,7 @@ class XmlUtils
      */
     public static function loadFile($file, $schemaOrCallable = null)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if (!\is_file($file)) {
             throw new \InvalidArgumentException(\sprintf('Resource "%s" is not a file.', $file));
         }
@@ -156,6 +152,7 @@ class XmlUtils
      */
     public static function convertDomElementToArray(\DOMElement $element, $checkPrefix = \true)
     {
+        $checkPrefix = (bool) $checkPrefix;
         $prefix = (string) $element->prefix;
         $empty = \true;
         $config = [];
@@ -242,6 +239,7 @@ class XmlUtils
      */
     protected static function getXmlErrors($internalErrors)
     {
+        $internalErrors = (bool) $internalErrors;
         $errors = [];
         foreach (\libxml_get_errors() as $error) {
             $errors[] = \sprintf('[%s %s] %s (in %s - line %d, column %d)', \LIBXML_ERR_WARNING == $error->level ? 'WARNING' : 'ERROR', $error->code, \trim($error->message), $error->file ?: 'n/a', $error->line, $error->column);

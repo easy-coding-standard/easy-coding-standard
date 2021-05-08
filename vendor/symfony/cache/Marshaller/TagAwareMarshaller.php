@@ -62,9 +62,7 @@ class TagAwareMarshaller implements \ECSPrefix20210508\Symfony\Component\Cache\M
      */
     public function unmarshall($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         // detect the compact format used in marshall() using magic numbers in the form 9D-..-..-..-..-00-..-..-..-5F
         if (13 >= \strlen($value) || "" !== $value[0] || "\0" !== $value[5] || "_" !== $value[9]) {
             return $this->marshaller->unmarshall($value);

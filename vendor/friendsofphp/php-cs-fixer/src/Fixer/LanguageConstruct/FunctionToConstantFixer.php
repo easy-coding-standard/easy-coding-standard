@@ -132,6 +132,9 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
      */
     private function fixFunctionCallToConstant(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $braceOpenIndex, $braceCloseIndex, array $replacements)
     {
+        $index = (int) $index;
+        $braceOpenIndex = (int) $braceOpenIndex;
+        $braceCloseIndex = (int) $braceCloseIndex;
         for ($i = $braceCloseIndex; $i >= $braceOpenIndex; --$i) {
             if ($tokens[$i]->isGivenKind([\T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT])) {
                 continue;
@@ -154,6 +157,7 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
      */
     private function getReplaceCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind(\T_STRING)) {
             return null;
         }
@@ -184,6 +188,7 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
      */
     private function fixGetClassCall(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer, $index)
     {
+        $index = (int) $index;
         if (!isset($this->functionsFixMap['get_class']) && !isset($this->functionsFixMap['get_class_this'])) {
             return null;
         }
@@ -227,9 +232,9 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
      */
     private function getReplacementTokenClones($lowerContent, $braceOpenIndex, $braceCloseIndex)
     {
-        if (\is_object($lowerContent)) {
-            $lowerContent = (string) $lowerContent;
-        }
+        $lowerContent = (string) $lowerContent;
+        $braceOpenIndex = (int) $braceOpenIndex;
+        $braceCloseIndex = (int) $braceCloseIndex;
         $clones = [];
         foreach ($this->functionsFixMap[$lowerContent] as $token) {
             $clones[] = clone $token;

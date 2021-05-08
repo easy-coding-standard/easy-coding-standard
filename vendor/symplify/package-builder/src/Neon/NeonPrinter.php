@@ -37,9 +37,7 @@ final class NeonPrinter
      */
     private function replaceTabsWithSpaces($neonContent)
     {
-        if (\is_object($neonContent)) {
-            $neonContent = (string) $neonContent;
-        }
+        $neonContent = (string) $neonContent;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($neonContent, '#\\t#', '    ');
     }
     /**
@@ -48,9 +46,7 @@ final class NeonPrinter
      */
     private function inlineSingleTags($neonContent)
     {
-        if (\is_object($neonContent)) {
-            $neonContent = (string) $neonContent;
-        }
+        $neonContent = (string) $neonContent;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($neonContent, self::TAGS_REGEX, 'tags: [$1]');
     }
     /**
@@ -59,9 +55,7 @@ final class NeonPrinter
      */
     private function fixDoubleSpaceInArguments($neonContent)
     {
-        if (\is_object($neonContent)) {
-            $neonContent = (string) $neonContent;
-        }
+        $neonContent = (string) $neonContent;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($neonContent, self::ARGUMENTS_DOUBLE_SPACE_REGEX, '$1');
     }
 }

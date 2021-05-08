@@ -22,9 +22,7 @@ final class Parser
      */
     public function parse($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         $lines = \preg_split('(\\r\\n|\\r|\\n)', $string);
         if (!empty($lines) && $lines[\count($lines) - 1] === '') {
             \array_pop($lines);

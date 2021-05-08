@@ -35,6 +35,7 @@ class ConstantVisibilitySniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Make sure this is a class constant.
         if ($phpcsFile->hasCondition($stackPtr, \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens) === \false) {

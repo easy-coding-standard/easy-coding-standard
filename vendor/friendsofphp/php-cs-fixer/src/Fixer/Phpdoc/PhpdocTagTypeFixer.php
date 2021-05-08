@@ -118,6 +118,7 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
      */
     private function tagIsSurroundedByText(array $parts, $index)
     {
+        $index = (int) $index;
         return \PhpCsFixer\Preg::match('/(^|\\R)\\h*[^@\\s]\\N*/', $this->cleanComment($parts[$index - 1])) || \PhpCsFixer\Preg::match('/^.*?\\R\\s*[^@\\s]/', $this->cleanComment($parts[$index + 1]));
     }
     /**
@@ -125,9 +126,7 @@ final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \Php
      */
     private function cleanComment($comment)
     {
-        if (\is_object($comment)) {
-            $comment = (string) $comment;
-        }
+        $comment = (string) $comment;
         $comment = \PhpCsFixer\Preg::replace('/^\\/\\*\\*|\\*\\/$/', '', $comment);
         return \PhpCsFixer\Preg::replace('/(\\R)(\\h*\\*)?\\h*/', '$1', $comment);
     }

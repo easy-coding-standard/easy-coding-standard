@@ -34,6 +34,7 @@ class ValidClassNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $className = $phpcsFile->findNext(\T_STRING, $stackPtr);
         $name = \trim($tokens[$className]['content']);

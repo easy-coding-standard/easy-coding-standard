@@ -35,6 +35,7 @@ class IncrementDecrementUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === \T_INC || $tokens[$stackPtr]['code'] === \T_DEC) {
             $this->processIncDec($phpcsFile, $stackPtr);
@@ -54,6 +55,7 @@ class IncrementDecrementUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processIncDec($phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Work out where the variable is so we know where to
         // start looking for other operators.
@@ -93,6 +95,7 @@ class IncrementDecrementUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processAssignment($phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $assignedVar = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
         // Not an assignment, return.

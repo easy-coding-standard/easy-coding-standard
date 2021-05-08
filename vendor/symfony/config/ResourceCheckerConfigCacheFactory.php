@@ -32,9 +32,7 @@ class ResourceCheckerConfigCacheFactory implements \ECSPrefix20210508\Symfony\Co
      */
     public function cache($file, callable $callable)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $cache = new \ECSPrefix20210508\Symfony\Component\Config\ResourceCheckerConfigCache($file, $this->resourceCheckers);
         if (!$cache->isFresh()) {
             $callable($cache);

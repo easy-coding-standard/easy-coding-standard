@@ -27,9 +27,7 @@ class SingleCommandApplication extends \ECSPrefix20210508\Symfony\Component\Cons
      */
     public function setVersion($version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
+        $version = (string) $version;
         $this->version = $version;
         return $this;
     }
@@ -40,6 +38,7 @@ class SingleCommandApplication extends \ECSPrefix20210508\Symfony\Component\Cons
      */
     public function setAutoExit($autoExit)
     {
+        $autoExit = (bool) $autoExit;
         $this->autoExit = $autoExit;
         return $this;
     }

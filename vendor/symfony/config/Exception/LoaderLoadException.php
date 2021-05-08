@@ -26,9 +26,7 @@ class LoaderLoadException extends \Exception
      */
     public function __construct($resource, $sourceResource = null, $code = 0, \Throwable $previous = null, $type = null)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
+        $resource = (string) $resource;
         $message = '';
         if ($previous) {
             // Include the previous exception, to help the user see what might be the underlying cause

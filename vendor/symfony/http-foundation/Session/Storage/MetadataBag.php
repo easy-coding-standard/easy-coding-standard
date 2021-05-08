@@ -51,9 +51,8 @@ class MetadataBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation
      */
     public function __construct($storageKey = '_sf2_meta', $updateThreshold = 0)
     {
-        if (\is_object($storageKey)) {
-            $storageKey = (string) $storageKey;
-        }
+        $storageKey = (string) $storageKey;
+        $updateThreshold = (int) $updateThreshold;
         $this->storageKey = $storageKey;
         $this->updateThreshold = $updateThreshold;
     }
@@ -139,9 +138,7 @@ class MetadataBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundation
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**

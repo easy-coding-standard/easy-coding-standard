@@ -20,6 +20,7 @@ final class ResponseStatusCodeSame extends \ECSPrefix20210508\PHPUnit\Framework\
      */
     public function __construct($statusCode)
     {
+        $statusCode = (int) $statusCode;
         $this->statusCode = $statusCode;
     }
     /**

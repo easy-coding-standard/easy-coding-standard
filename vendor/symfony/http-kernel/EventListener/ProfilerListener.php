@@ -41,6 +41,8 @@ class ProfilerListener implements \ECSPrefix20210508\Symfony\Component\EventDisp
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\Profiler\Profiler $profiler, \ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack, \ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestMatcherInterface $matcher = null, $onlyException = \false, $onlyMasterRequests = \false)
     {
+        $onlyException = (bool) $onlyException;
+        $onlyMasterRequests = (bool) $onlyMasterRequests;
         $this->profiler = $profiler;
         $this->matcher = $matcher;
         $this->onlyException = $onlyException;

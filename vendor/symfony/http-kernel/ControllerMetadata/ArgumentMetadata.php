@@ -35,9 +35,10 @@ class ArgumentMetadata
      */
     public function __construct($name, $type, $isVariadic, $hasDefaultValue, $defaultValue, $isNullable = \false, $attribute = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $isVariadic = (bool) $isVariadic;
+        $hasDefaultValue = (bool) $hasDefaultValue;
+        $isNullable = (bool) $isNullable;
         $this->name = $name;
         $this->type = $type;
         $this->isVariadic = $isVariadic;

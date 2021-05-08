@@ -196,6 +196,7 @@ CODE_SAMPLE
      */
     private function processMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $methodNamePosition = $this->functionCallNameMatcher->matchName($tokens, $position);
         if ($methodNamePosition === null) {
             return;
@@ -218,6 +219,7 @@ CODE_SAMPLE
      */
     private function processFunctionOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return;

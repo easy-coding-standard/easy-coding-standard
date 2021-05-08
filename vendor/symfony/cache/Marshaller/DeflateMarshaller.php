@@ -41,9 +41,7 @@ class DeflateMarshaller implements \ECSPrefix20210508\Symfony\Component\Cache\Ma
      */
     public function unmarshall($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         if (\false !== ($inflatedValue = @\gzinflate($value))) {
             $value = $inflatedValue;
         }

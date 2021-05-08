@@ -27,6 +27,7 @@ final class CaseAnalysis
      */
     public function __construct($colonIndex)
     {
+        $colonIndex = (int) $colonIndex;
         $this->colonIndex = $colonIndex;
     }
     /**

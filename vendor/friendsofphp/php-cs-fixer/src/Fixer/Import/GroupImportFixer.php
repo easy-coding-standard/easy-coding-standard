@@ -158,6 +158,7 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
      */
     private function insertToGroupUseWithAlias(\PhpCsFixer\Tokenizer\Tokens $tokens, $insertIndex, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration)
     {
+        $insertIndex = (int) $insertIndex;
         $newTokens = [new \PhpCsFixer\Tokenizer\Token([\T_STRING, \substr($useDeclaration->getFullName(), \strripos($useDeclaration->getFullName(), '\\') + 1)]), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_AS, 'as']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
         $tokens->insertAt($insertIndex, $newTokens);
         return \count($newTokens) + 1;
@@ -170,9 +171,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
      */
     private function createNewGroup(\PhpCsFixer\Tokenizer\Tokens $tokens, $insertIndex, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration, $currentNamespace)
     {
-        if (\is_object($currentNamespace)) {
-            $currentNamespace = (string) $currentNamespace;
-        }
+        $insertIndex = (int) $insertIndex;
+        $currentNamespace = (string) $currentNamespace;
         $insertedTokens = 0;
         if (\count($tokens) === $insertIndex) {
             $tokens->setSize($insertIndex + 1);

@@ -73,9 +73,7 @@ final class Tag
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $current = $this->getName();
         if ('other' === $current) {
             throw new \RuntimeException('Cannot set name on unknown tag.');

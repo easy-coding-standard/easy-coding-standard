@@ -157,6 +157,7 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public final function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $file = $phpcsFile->getFilename();
         if ($this->currFile !== $file) {
             // We have changed files, so clean up.
@@ -217,6 +218,7 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processPattern($patternInfo, \PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $pattern = $patternInfo['pattern'];
         $patternCode = $patternInfo['pattern_code'];
@@ -557,12 +559,8 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function prepareError($found, $patternCode)
     {
-        if (\is_object($patternCode)) {
-            $patternCode = (string) $patternCode;
-        }
-        if (\is_object($found)) {
-            $found = (string) $found;
-        }
+        $found = (string) $found;
+        $patternCode = (string) $patternCode;
         $found = \str_replace("\r\n", '\\n', $found);
         $found = \str_replace("\n", '\\n', $found);
         $found = \str_replace("\r", '\\n', $found);
@@ -620,9 +618,7 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function parse($pattern)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
         $patterns = [];
         $length = \strlen($pattern);
         $lastToken = 0;
@@ -711,12 +707,8 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function createSkipPattern($pattern, $from)
     {
-        if (\is_object($from)) {
-            $from = (string) $from;
-        }
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
+        $from = (string) $from;
         $skip = ['type' => 'skip'];
         $nestedParenthesis = 0;
         $nestedBraces = 0;
@@ -764,9 +756,7 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function createTokenPattern($str)
     {
-        if (\is_object($str)) {
-            $str = (string) $str;
-        }
+        $str = (string) $str;
         // Don't add a space after the closing php tag as it will add a new
         // whitespace token.
         $tokenizer = new \PHP_CodeSniffer\Tokenizers\PHP('<?php ' . $str . '?>', null);

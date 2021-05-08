@@ -66,6 +66,8 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
      */
     protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $classIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_CLASS]]);
         if (!$this->isAllowedByConfiguration($tokens, $classIndex)) {
             return;
@@ -83,6 +85,7 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
      */
     private function isAllowedByConfiguration(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
     {
+        $i = (int) $i;
         $typeIndex = $tokens->getPrevMeaningfulToken($i);
         if ($tokens[$typeIndex]->isGivenKind(\T_FINAL)) {
             return \in_array('final', $this->configuration['types'], \true);
@@ -98,6 +101,7 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
      */
     private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
+        $docBlockIndex = (int) $docBlockIndex;
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));
         $toInsert = [new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, '/**' . $lineEnd . "{$originalIndent} * @internal" . $lineEnd . "{$originalIndent} */"]), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $lineEnd . $originalIndent])];
@@ -110,6 +114,7 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
      */
     private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
+        $docBlockIndex = (int) $docBlockIndex;
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         if (!empty($doc->getAnnotationsOfType('internal'))) {
             return;
@@ -125,6 +130,7 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
      */
     private function addInternalAnnotation(\PhpCsFixer\DocBlock\DocBlock $docBlock, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
+        $docBlockIndex = (int) $docBlockIndex;
         $lines = $docBlock->getLines();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $docBlockIndex);
         $lineEnd = $this->whitespacesConfig->getLineEnding();
@@ -137,6 +143,7 @@ final class PhpUnitInternalClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitF
      */
     private function makeDocBlockMultiLineIfNeeded(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
+        $docBlockIndex = (int) $docBlockIndex;
         $lines = $doc->getLines();
         if (1 === \count($lines) && empty($doc->getAnnotationsOfType('internal'))) {
             $indent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));

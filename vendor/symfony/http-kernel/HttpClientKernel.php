@@ -43,6 +43,8 @@ final class HttpClientKernel implements \ECSPrefix20210508\Symfony\Component\Htt
      */
     public function handle(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
+        $type = (int) $type;
+        $catch = (bool) $catch;
         $headers = $this->getHeaders($request);
         $body = '';
         if (null !== ($part = $this->getBody($request))) {

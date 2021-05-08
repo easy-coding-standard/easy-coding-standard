@@ -43,9 +43,7 @@ final class FileReader
      */
     public function read($filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         if ('php://stdin' === $filePath) {
             if (null === $this->stdinContent) {
                 $this->stdinContent = $this->readRaw($filePath);
@@ -60,9 +58,7 @@ final class FileReader
      */
     private function readRaw($realPath)
     {
-        if (\is_object($realPath)) {
-            $realPath = (string) $realPath;
-        }
+        $realPath = (string) $realPath;
         $content = @\file_get_contents($realPath);
         if (\false === $content) {
             $error = \error_get_last();

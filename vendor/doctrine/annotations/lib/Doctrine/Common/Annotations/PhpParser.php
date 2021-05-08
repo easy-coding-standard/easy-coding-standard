@@ -63,9 +63,8 @@ final class PhpParser
      */
     private function getFileContent($filename, $lineNumber)
     {
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
+        $filename = (string) $filename;
+        $lineNumber = (int) $lineNumber;
         if (!\is_file($filename)) {
             return null;
         }

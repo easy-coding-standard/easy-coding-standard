@@ -42,6 +42,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool = null, $knownTagVersionsTtl = 0.15)
     {
+        $knownTagVersionsTtl = (double) $knownTagVersionsTtl;
         $this->pool = $itemsPool;
         $this->tags = $tagsPool ?: $itemsPool;
         $this->knownTagVersionsTtl = $knownTagVersionsTtl;
@@ -128,9 +129,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function hasItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if ($this->deferred) {
             $this->commit();
         }
@@ -156,9 +155,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function getItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         foreach ($this->getItems([$key]) as $item) {
             return $item;
         }
@@ -196,9 +193,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function clear($prefix = '')
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
         if ('' !== $prefix) {
             foreach ($this->deferred as $key => $item) {
                 if (0 === \strpos($key, $prefix)) {
@@ -220,9 +215,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function deleteItem($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return $this->deleteItems([$key]);
     }
     /**

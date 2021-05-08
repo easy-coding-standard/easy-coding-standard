@@ -217,6 +217,12 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210508\Sebasti
      */
     private function writeHunk(array $diff, $diffStartIndex, $diffEndIndex, $fromStart, $fromRange, $toStart, $toRange, $output)
     {
+        $diffStartIndex = (int) $diffStartIndex;
+        $diffEndIndex = (int) $diffEndIndex;
+        $fromStart = (int) $fromStart;
+        $fromRange = (int) $fromRange;
+        $toStart = (int) $toStart;
+        $toRange = (int) $toRange;
         \fwrite($output, '@@ -' . $fromStart);
         if (!$this->collapseRanges || 1 !== $fromRange) {
             \fwrite($output, ',' . $fromRange);
@@ -252,9 +258,7 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210508\Sebasti
      */
     private function assertString(array $options, $option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if (!\is_string($options[$option])) {
             throw new \ECSPrefix20210508\SebastianBergmann\Diff\ConfigurationException($option, 'a string', $options[$option]);
         }
@@ -265,9 +269,7 @@ final class StrictUnifiedDiffOutputBuilder implements \ECSPrefix20210508\Sebasti
      */
     private function assertStringOrNull(array $options, $option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if (null !== $options[$option] && !\is_string($options[$option])) {
             throw new \ECSPrefix20210508\SebastianBergmann\Diff\ConfigurationException($option, 'a string or <null>', $options[$option]);
         }

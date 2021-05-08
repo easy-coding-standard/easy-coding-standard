@@ -110,6 +110,7 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getArgumentIndices(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex)
     {
+        $functionNameIndex = (int) $functionNameIndex;
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $openParenthesis = $tokens->getNextTokenOfKind($functionNameIndex, ['(']);
         $closeParenthesis = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openParenthesis);

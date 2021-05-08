@@ -36,12 +36,9 @@ class Filesystem
      */
     public function copy($originFile, $targetFile, $overwriteNewerFiles = \false)
     {
-        if (\is_object($targetFile)) {
-            $targetFile = (string) $targetFile;
-        }
-        if (\is_object($originFile)) {
-            $originFile = (string) $originFile;
-        }
+        $originFile = (string) $originFile;
+        $targetFile = (string) $targetFile;
+        $overwriteNewerFiles = (bool) $overwriteNewerFiles;
         $originIsLocal = \stream_is_local($originFile) || 0 === \stripos($originFile, 'file://');
         if ($originIsLocal && !\is_file($originFile)) {
             throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\FileNotFoundException(\sprintf('Failed to copy "%s" because file does not exist.', $originFile), 0, null, $originFile);
@@ -86,6 +83,7 @@ class Filesystem
      */
     public function mkdir($dirs, $mode = 0777)
     {
+        $mode = (int) $mode;
         foreach ($this->toIterable($dirs) as $dir) {
             if (\is_dir($dir)) {
                 continue;
@@ -182,6 +180,9 @@ class Filesystem
      */
     public function chmod($files, $mode, $umask = 00, $recursive = \false)
     {
+        $mode = (int) $mode;
+        $umask = (int) $umask;
+        $recursive = (bool) $recursive;
         foreach ($this->toIterable($files) as $file) {
             if ((\PHP_VERSION_ID < 80000 || \is_int($mode)) && \true !== @\chmod($file, $mode & ~$umask)) {
                 throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to chmod file "%s".', $file), 0, null, $file);
@@ -202,6 +203,7 @@ class Filesystem
      */
     public function chown($files, $user, $recursive = \false)
     {
+        $recursive = (bool) $recursive;
         foreach ($this->toIterable($files) as $file) {
             if ($recursive && \is_dir($file) && !\is_link($file)) {
                 $this->chown(new \FilesystemIterator($file), $user, \true);
@@ -228,6 +230,7 @@ class Filesystem
      */
     public function chgrp($files, $group, $recursive = \false)
     {
+        $recursive = (bool) $recursive;
         foreach ($this->toIterable($files) as $file) {
             if ($recursive && \is_dir($file) && !\is_link($file)) {
                 $this->chgrp(new \FilesystemIterator($file), $group, \true);
@@ -254,12 +257,9 @@ class Filesystem
      */
     public function rename($origin, $target, $overwrite = \false)
     {
-        if (\is_object($target)) {
-            $target = (string) $target;
-        }
-        if (\is_object($origin)) {
-            $origin = (string) $origin;
-        }
+        $origin = (string) $origin;
+        $target = (string) $target;
+        $overwrite = (bool) $overwrite;
         // we check that target does not exist
         if (!$overwrite && $this->isReadable($target)) {
             throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot rename because the target "%s" already exists.', $target), 0, null, $target);
@@ -283,9 +283,7 @@ class Filesystem
      */
     private function isReadable($filename)
     {
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
+        $filename = (string) $filename;
         $maxPathLength = \PHP_MAXPATHLEN - 2;
         if (\strlen($filename) > $maxPathLength) {
             throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Could not check if file is readable because path length exceeds %d characters.', $maxPathLength), 0, null, $filename);
@@ -302,12 +300,9 @@ class Filesystem
      */
     public function symlink($originDir, $targetDir, $copyOnWindows = \false)
     {
-        if (\is_object($targetDir)) {
-            $targetDir = (string) $targetDir;
-        }
-        if (\is_object($originDir)) {
-            $originDir = (string) $originDir;
-        }
+        $originDir = (string) $originDir;
+        $targetDir = (string) $targetDir;
+        $copyOnWindows = (bool) $copyOnWindows;
         if ('\\' === \DIRECTORY_SEPARATOR) {
             $originDir = \strtr($originDir, '/', '\\');
             $targetDir = \strtr($targetDir, '/', '\\');
@@ -338,9 +333,7 @@ class Filesystem
      */
     public function hardlink($originFile, $targetFiles)
     {
-        if (\is_object($originFile)) {
-            $originFile = (string) $originFile;
-        }
+        $originFile = (string) $originFile;
         if (!$this->exists($originFile)) {
             throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\FileNotFoundException(null, 0, null, $originFile);
         }
@@ -366,15 +359,9 @@ class Filesystem
      */
     private function linkException($origin, $target, $linkType)
     {
-        if (\is_object($linkType)) {
-            $linkType = (string) $linkType;
-        }
-        if (\is_object($target)) {
-            $target = (string) $target;
-        }
-        if (\is_object($origin)) {
-            $origin = (string) $origin;
-        }
+        $origin = (string) $origin;
+        $target = (string) $target;
+        $linkType = (string) $linkType;
         if (self::$lastError) {
             if ('\\' === \DIRECTORY_SEPARATOR && \false !== \strpos(self::$lastError, 'error code(1314)')) {
                 throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Unable to create "%s" link due to error code 1314: \'A required privilege is not held by the client\'. Do you have the required Administrator-rights?', $linkType), 0, null, $target);
@@ -399,9 +386,8 @@ class Filesystem
      */
     public function readlink($path, $canonicalize = \false)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $canonicalize = (bool) $canonicalize;
         if (!$canonicalize && !\is_link($path)) {
             return null;
         }
@@ -428,12 +414,8 @@ class Filesystem
      */
     public function makePathRelative($endPath, $startPath)
     {
-        if (\is_object($startPath)) {
-            $startPath = (string) $startPath;
-        }
-        if (\is_object($endPath)) {
-            $endPath = (string) $endPath;
-        }
+        $endPath = (string) $endPath;
+        $startPath = (string) $startPath;
         if (!$this->isAbsolutePath($startPath)) {
             throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\InvalidArgumentException(\sprintf('The start path "%s" is not absolute.', $startPath));
         }
@@ -506,12 +488,8 @@ class Filesystem
      */
     public function mirror($originDir, $targetDir, \Traversable $iterator = null, array $options = [])
     {
-        if (\is_object($targetDir)) {
-            $targetDir = (string) $targetDir;
-        }
-        if (\is_object($originDir)) {
-            $originDir = (string) $originDir;
-        }
+        $originDir = (string) $originDir;
+        $targetDir = (string) $targetDir;
         $targetDir = \rtrim($targetDir, '/\\');
         $originDir = \rtrim($originDir, '/\\');
         $originDirLen = \strlen($originDir);
@@ -565,9 +543,7 @@ class Filesystem
      */
     public function isAbsolutePath($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         return '' !== $file && (\strspn($file, '/\\', 0, 1) || \strlen($file) > 3 && \ctype_alpha($file[0]) && ':' === $file[1] && \strspn($file, '/\\', 2, 1) || null !== \parse_url($file, \PHP_URL_SCHEME));
     }
     /**
@@ -582,12 +558,8 @@ class Filesystem
      */
     public function tempnam($dir, $prefix)
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
-        if (\is_object($dir)) {
-            $dir = (string) $dir;
-        }
+        $dir = (string) $dir;
+        $prefix = (string) $prefix;
         $suffix = \func_num_args() > 2 ? \func_get_arg(2) : '';
         list($scheme, $hierarchy) = $this->getSchemeAndHierarchy($dir);
         // If no scheme or scheme is "file" or "gs" (Google Cloud) create temp file in local filesystem
@@ -629,9 +601,7 @@ class Filesystem
      */
     public function dumpFile($filename, $content)
     {
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
+        $filename = (string) $filename;
         if (\is_array($content)) {
             throw new \TypeError(\sprintf('Argument 2 passed to "%s()" must be string or resource, array given.', __METHOD__));
         }
@@ -667,9 +637,7 @@ class Filesystem
      */
     public function appendToFile($filename, $content)
     {
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
+        $filename = (string) $filename;
         if (\is_array($content)) {
             throw new \TypeError(\sprintf('Argument 2 passed to "%s()" must be string or resource, array given.', __METHOD__));
         }
@@ -698,9 +666,7 @@ class Filesystem
      */
     private function getSchemeAndHierarchy($filename)
     {
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
+        $filename = (string) $filename;
         $components = \explode('://', $filename, 2);
         return 2 === \count($components) ? [$components[0], $components[1]] : [null, $components[0]];
     }

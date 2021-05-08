@@ -33,12 +33,9 @@ final class LineLengthCloserTransformer
      */
     public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, $kind, $newlineIndentWhitespace, $closingBracketNewlineIndentWhitespace)
     {
-        if (\is_object($closingBracketNewlineIndentWhitespace)) {
-            $closingBracketNewlineIndentWhitespace = (string) $closingBracketNewlineIndentWhitespace;
-        }
-        if (\is_object($newlineIndentWhitespace)) {
-            $newlineIndentWhitespace = (string) $newlineIndentWhitespace;
-        }
+        $kind = (int) $kind;
+        $newlineIndentWhitespace = (string) $newlineIndentWhitespace;
+        $closingBracketNewlineIndentWhitespace = (string) $closingBracketNewlineIndentWhitespace;
         $isMethodCall = $this->callAnalyzer->isMethodCall($tokens, $blockInfo->getStart());
         $endIndex = $blockInfo->getEnd();
         $previousToken = $this->tokenFinder->getPreviousMeaningfulToken($tokens, $endIndex);
@@ -57,6 +54,8 @@ final class LineLengthCloserTransformer
      */
     private function shouldAddNewlineEarlier(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $previousPreviousToken, $isMethodCall, $kind)
     {
+        $isMethodCall = (bool) $isMethodCall;
+        $kind = (int) $kind;
         if ($isMethodCall) {
             return \false;
         }

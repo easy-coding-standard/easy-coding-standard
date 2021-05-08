@@ -148,6 +148,7 @@ function foo() {
      */
     private function getCasesColonsForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex)
     {
+        $switchIndex = (int) $switchIndex;
         return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
             return $caseAnalysis->getColonIndex();
         }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
@@ -234,6 +235,7 @@ function foo() {
      */
     private function getReplacementsAndClear(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices, $direction)
     {
+        $direction = (int) $direction;
         return \array_map(static function (int $index) use($tokens, $direction) {
             $clone = $tokens[$index];
             if ($tokens[$index + $direction]->isWhitespace()) {
@@ -250,6 +252,8 @@ function foo() {
      */
     private function isMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
     {
+        $indexStart = (int) $indexStart;
+        $indexEnd = (int) $indexEnd;
         for ($index = $indexStart; $index <= $indexEnd; ++$index) {
             if (\false !== \strpos($tokens[$index]->getContent(), "\n")) {
                 return \true;

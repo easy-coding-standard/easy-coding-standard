@@ -176,9 +176,9 @@ class Sample
      */
     private function fixSpaceBelowClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $classEndIndex, $elementEndIndex, $spacing)
     {
-        if (\is_object($spacing)) {
-            $spacing = (string) $spacing;
-        }
+        $classEndIndex = (int) $classEndIndex;
+        $elementEndIndex = (int) $elementEndIndex;
+        $spacing = (string) $spacing;
         for ($nextNotWhite = $elementEndIndex + 1;; ++$nextNotWhite) {
             if (($tokens[$nextNotWhite]->isComment() || $tokens[$nextNotWhite]->isWhitespace()) && \false === \strpos($tokens[$nextNotWhite]->getContent(), "\n")) {
                 continue;
@@ -207,9 +207,9 @@ class Sample
      */
     private function fixSpaceBelowClassMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $classEndIndex, $elementEndIndex, $spacing)
     {
-        if (\is_object($spacing)) {
-            $spacing = (string) $spacing;
-        }
+        $classEndIndex = (int) $classEndIndex;
+        $elementEndIndex = (int) $elementEndIndex;
+        $spacing = (string) $spacing;
         $nextNotWhite = $tokens->getNextNonWhitespace($elementEndIndex);
         $this->correctLineBreaks($tokens, $elementEndIndex, $nextNotWhite, $nextNotWhite === $classEndIndex || self::SPACING_NONE === $spacing ? 1 : 2);
     }
@@ -226,9 +226,9 @@ class Sample
      */
     private function fixSpaceAboveClassElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $classStartIndex, $elementIndex, $spacing)
     {
-        if (\is_object($spacing)) {
-            $spacing = (string) $spacing;
-        }
+        $classStartIndex = (int) $classStartIndex;
+        $elementIndex = (int) $elementIndex;
+        $spacing = (string) $spacing;
         static $methodAttr = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_ABSTRACT, \T_FINAL, \T_STATIC, \T_STRING, \T_NS_SEPARATOR, \T_VAR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT, \PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION];
         $nonWhiteAbove = null;
         // find out where the element definition starts
@@ -299,6 +299,9 @@ class Sample
      */
     private function correctLineBreaks(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, $reqLineCount = 2)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
+        $reqLineCount = (int) $reqLineCount;
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         ++$startIndex;
         $numbOfWhiteTokens = $endIndex - $startIndex;
@@ -336,6 +339,8 @@ class Sample
      */
     private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, $whiteSpaceStartIndex, $whiteSpaceEndIndex)
     {
+        $whiteSpaceStartIndex = (int) $whiteSpaceStartIndex;
+        $whiteSpaceEndIndex = (int) $whiteSpaceEndIndex;
         $lineCount = 0;
         for ($i = $whiteSpaceStartIndex; $i < $whiteSpaceEndIndex; ++$i) {
             $lineCount += \substr_count($tokens[$i]->getContent(), "\n");
@@ -348,6 +353,7 @@ class Sample
      */
     private function findCommentBlockStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $commentIndex)
     {
+        $commentIndex = (int) $commentIndex;
         $start = $commentIndex;
         for ($i = $commentIndex - 1; $i > 0; --$i) {
             if ($tokens[$i]->isComment()) {
@@ -366,6 +372,7 @@ class Sample
      */
     private function findAttributeBlockStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $start = $index = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ATTRIBUTE, $index);
         for ($i = $index - 1; $i > 0; --$i) {
             if ($tokens[$i]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE)) {

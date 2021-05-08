@@ -31,6 +31,8 @@ final class ArgumentsAnalyzer
      */
     public function countArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $openParenthesis, $closeParenthesis)
     {
+        $openParenthesis = (int) $openParenthesis;
+        $closeParenthesis = (int) $closeParenthesis;
         return \count($this->getArguments($tokens, $openParenthesis, $closeParenthesis));
     }
     /**
@@ -47,6 +49,8 @@ final class ArgumentsAnalyzer
      */
     public function getArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $openParenthesis, $closeParenthesis)
     {
+        $openParenthesis = (int) $openParenthesis;
+        $closeParenthesis = (int) $closeParenthesis;
         $arguments = [];
         $firstSensibleToken = $tokens->getNextMeaningfulToken($openParenthesis);
         if ($tokens[$firstSensibleToken]->equals(')')) {
@@ -82,6 +86,8 @@ final class ArgumentsAnalyzer
      */
     public function getArgumentInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStart, $argumentEnd)
     {
+        $argumentStart = (int) $argumentStart;
+        $argumentEnd = (int) $argumentEnd;
         $info = ['default' => null, 'name' => null, 'name_index' => null, 'type' => null, 'type_index_start' => null, 'type_index_end' => null];
         $sawName = \false;
         for ($index = $argumentStart; $index <= $argumentEnd; ++$index) {

@@ -23,6 +23,7 @@ final class ImagineCaster
      */
     public static function castImage(\ECSPrefix20210508\Imagine\Image\ImageInterface $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $imgData = $c->get('png');
         if (\strlen($imgData) > 1 * 1000 * 1000) {
             $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'image' => new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ConstStub($c->getSize())];

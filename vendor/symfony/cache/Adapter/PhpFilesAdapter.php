@@ -40,9 +40,9 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $appendOnly = \false)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
+        $appendOnly = (bool) $appendOnly;
         $this->appendOnly = $appendOnly;
         self::$startTime = self::$startTime !== null ? self::$startTime : (isset($_SERVER['REQUEST_TIME']) ? $_SERVER['REQUEST_TIME'] : \time());
         parent::__construct('', $defaultLifetime);
@@ -155,9 +155,7 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doHave($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($this->appendOnly && isset($this->values[$id])) {
             return \true;
         }
@@ -194,6 +192,7 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doSave(array $values, $lifetime)
     {
+        $lifetime = (int) $lifetime;
         $ok = \true;
         $expiry = $lifetime ? \time() + $lifetime : 'PHP_INT_MAX';
         $allowCompile = self::isSupported();
@@ -249,9 +248,7 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doClear($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         $this->values = [];
         return $this->doCommonClear($namespace);
     }
@@ -279,9 +276,7 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     private function getFileKey($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if (!($h = @\fopen($file, 'r'))) {
             return '';
         }

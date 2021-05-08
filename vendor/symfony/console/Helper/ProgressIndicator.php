@@ -36,6 +36,7 @@ class ProgressIndicator
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $format = null, $indicatorChangeInterval = 100, array $indicatorValues = null)
     {
+        $indicatorChangeInterval = (int) $indicatorChangeInterval;
         $this->output = $output;
         if (null === $format) {
             $format = $this->determineBestFormat();
@@ -67,9 +68,7 @@ class ProgressIndicator
      */
     public function start($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if ($this->started) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('Progress indicator already started.');
         }
@@ -106,9 +105,7 @@ class ProgressIndicator
      */
     public function finish($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if (!$this->started) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('Progress indicator has not yet been started.');
         }
@@ -125,9 +122,7 @@ class ProgressIndicator
      */
     public static function getFormatDefinition($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!self::$formats) {
             self::$formats = self::initFormats();
         }
@@ -141,9 +136,7 @@ class ProgressIndicator
      */
     public static function setPlaceholderFormatterDefinition($name, callable $callable)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
@@ -157,9 +150,7 @@ class ProgressIndicator
      */
     public static function getPlaceholderFormatterDefinition($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
@@ -199,9 +190,7 @@ class ProgressIndicator
      */
     private function overwrite($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if ($this->output->isDecorated()) {
             $this->output->write("\r\33[2K");
             $this->output->write($message);

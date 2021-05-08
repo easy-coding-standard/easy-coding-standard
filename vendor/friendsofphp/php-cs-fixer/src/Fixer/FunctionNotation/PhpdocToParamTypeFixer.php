@@ -82,9 +82,7 @@ function bar($foo) {}
      */
     protected function isSkippedType($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return isset(self::SKIPPED_TYPES[$type]);
     }
     /**
@@ -136,6 +134,7 @@ function bar($foo) {}
      */
     private function findCorrectVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation)
     {
+        $startIndex = (int) $startIndex;
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
         for ($index = $startIndex + 1; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_VARIABLE)) {
@@ -156,6 +155,7 @@ function bar($foo) {}
      */
     private function hasParamTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         return !$tokens[$prevIndex]->equalsAny([',', '(']);
     }

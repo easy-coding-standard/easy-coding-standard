@@ -98,9 +98,7 @@ final class Foo {
      */
     protected function isSkippedType($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         return isset($this->skippedTypes[$type]);
     }
     /**
@@ -152,6 +150,7 @@ final class Foo {
      */
     private function hasReturnTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $endFuncIndex = $tokens->getPrevTokenOfKind($index, [')']);
         $nextIndex = $tokens->getNextMeaningfulToken($endFuncIndex);
         return $tokens[$nextIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON);

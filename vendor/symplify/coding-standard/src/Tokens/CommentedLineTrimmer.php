@@ -20,9 +20,7 @@ final class CommentedLineTrimmer
      */
     public function trim($tokenContent)
     {
-        if (\is_object($tokenContent)) {
-            $tokenContent = (string) $tokenContent;
-        }
+        $tokenContent = (string) $tokenContent;
         foreach (self::OPENING_LINE as $openingLine) {
             if (!\ECSPrefix20210508\Nette\Utils\Strings::startsWith($tokenContent, $openingLine)) {
                 continue;

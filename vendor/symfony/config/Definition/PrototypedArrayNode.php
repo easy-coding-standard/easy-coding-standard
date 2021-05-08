@@ -38,6 +38,7 @@ class PrototypedArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function setMinNumberOfElements($number)
     {
+        $number = (int) $number;
         $this->minNumberOfElements = $number;
     }
     /**
@@ -66,9 +67,8 @@ class PrototypedArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     public function setKeyAttribute($attribute, $remove = \true)
     {
-        if (\is_object($attribute)) {
-            $attribute = (string) $attribute;
-        }
+        $attribute = (string) $attribute;
+        $remove = (bool) $remove;
         $this->keyAttribute = $attribute;
         $this->removeKeyAttribute = $remove;
     }
@@ -327,9 +327,7 @@ class PrototypedArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\De
      */
     private function getPrototypeForChild($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         $prototype = isset($this->valuePrototypes[$key]) ? $this->valuePrototypes[$key] : $this->prototype;
         $prototype->setName($key);
         return $prototype;

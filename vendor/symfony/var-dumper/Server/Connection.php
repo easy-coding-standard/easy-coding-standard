@@ -28,9 +28,7 @@ class Connection
      */
     public function __construct($host, array $contextProviders = [])
     {
-        if (\is_object($host)) {
-            $host = (string) $host;
-        }
+        $host = (string) $host;
         if (\false === \strpos($host, '://')) {
             $host = 'tcp://' . $host;
         }

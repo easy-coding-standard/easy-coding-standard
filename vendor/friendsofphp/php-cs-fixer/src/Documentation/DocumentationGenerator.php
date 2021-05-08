@@ -334,9 +334,7 @@ RST;
      */
     public function getRuleSetsDocumentationFilePath($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->getRuleSetsDocumentationDirectoryPath() . '/' . \str_replace(':risky', 'Risky', \ucfirst(\substr($name, 1))) . '.rst';
     }
     /**
@@ -362,9 +360,8 @@ RST;
      */
     private function generateSampleDiff(\PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\FixerDefinition\CodeSampleInterface $sample, $sampleNumber, $ruleName)
     {
-        if (\is_object($ruleName)) {
-            $ruleName = (string) $ruleName;
-        }
+        $sampleNumber = (int) $sampleNumber;
+        $ruleName = (string) $ruleName;
         if ($sample instanceof \PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface && !$sample->isSuitableFor(\PHP_VERSION_ID)) {
             $existingFile = @\file_get_contents($this->getFixerDocumentationFilePath($fixer));
             if (\false !== $existingFile) {
@@ -411,9 +408,8 @@ RST;
      */
     private function toRst($string, $indent = 0)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $indent = (int) $indent;
         $string = \wordwrap(\PhpCsFixer\Preg::replace('/(?<!`)(`.*?`)(?!`)/', '`$1`', $string), 80 - $indent);
         if (0 !== $indent) {
             $string = $this->indent($string, $indent);
@@ -427,9 +423,8 @@ RST;
      */
     private function indent($string, $indent)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $indent = (int) $indent;
         return \PhpCsFixer\Preg::replace('/(\\n)(?!\\n|$)/', '$1' . \str_repeat(' ', $indent), $string);
     }
 }

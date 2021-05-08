@@ -78,6 +78,7 @@ final class NoLeadingImportSlashFixer extends \PhpCsFixer\AbstractFixer
      */
     private function removeLeadingImportSlash(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $previousIndex = $tokens->getPrevNonWhitespace($index);
         if ($previousIndex < $index - 1 || $tokens[$previousIndex]->isComment()) {
             $tokens->clearAt($index);

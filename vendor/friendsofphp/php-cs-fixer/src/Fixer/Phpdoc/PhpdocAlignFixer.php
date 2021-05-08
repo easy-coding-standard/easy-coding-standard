@@ -237,9 +237,8 @@ EOF;
      */
     private function getMatches($line, $matchCommentOnly = \false)
     {
-        if (\is_object($line)) {
-            $line = (string) $line;
-        }
+        $line = (string) $line;
+        $matchCommentOnly = (bool) $matchCommentOnly;
         if (\PhpCsFixer\Preg::match($this->regex, $line, $matches)) {
             if (!empty($matches['tag2'])) {
                 $matches['tag'] = $matches['tag2'];
@@ -271,6 +270,8 @@ EOF;
      */
     private function getIndent($verticalAlignIndent, $leftAlignIndent = 1)
     {
+        $verticalAlignIndent = (int) $verticalAlignIndent;
+        $leftAlignIndent = (int) $leftAlignIndent;
         $indent = self::ALIGN_VERTICAL === $this->align ? $verticalAlignIndent : $leftAlignIndent;
         return \str_repeat(' ', $indent);
     }
@@ -281,6 +282,7 @@ EOF;
      */
     private function getLeftAlignedDescriptionIndent(array $items, $index)
     {
+        $index = (int) $index;
         if (self::ALIGN_LEFT !== $this->align) {
             return 0;
         }

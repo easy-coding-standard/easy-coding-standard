@@ -23,15 +23,9 @@ final class TrioContent
      */
     public function __construct($firstValue, $secondValue, $expectedResult)
     {
-        if (\is_object($expectedResult)) {
-            $expectedResult = (string) $expectedResult;
-        }
-        if (\is_object($secondValue)) {
-            $secondValue = (string) $secondValue;
-        }
-        if (\is_object($firstValue)) {
-            $firstValue = (string) $firstValue;
-        }
+        $firstValue = (string) $firstValue;
+        $secondValue = (string) $secondValue;
+        $expectedResult = (string) $expectedResult;
         $this->firstValue = $firstValue;
         $this->secondValue = $secondValue;
         $this->expectedResult = $expectedResult;

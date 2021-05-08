@@ -35,9 +35,7 @@ class Question
      */
     public function __construct($question, $default = null)
     {
-        if (\is_object($question)) {
-            $question = (string) $question;
-        }
+        $question = (string) $question;
         $this->question = $question;
         $this->default = $default;
     }
@@ -75,6 +73,7 @@ class Question
      */
     public function setMultiline($multiline)
     {
+        $multiline = (bool) $multiline;
         $this->multiline = $multiline;
         return $this;
     }
@@ -98,6 +97,7 @@ class Question
      */
     public function setHidden($hidden)
     {
+        $hidden = (bool) $hidden;
         if ($this->autocompleterCallback) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
         }
@@ -122,6 +122,7 @@ class Question
      */
     public function setHiddenFallback($fallback)
     {
+        $fallback = (bool) $fallback;
         $this->hiddenFallback = (bool) $fallback;
         return $this;
     }
@@ -274,6 +275,7 @@ class Question
      */
     public function setTrimmable($trimmable)
     {
+        $trimmable = (bool) $trimmable;
         $this->trimmable = $trimmable;
         return $this;
     }

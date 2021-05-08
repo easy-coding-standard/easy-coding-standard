@@ -41,6 +41,7 @@ class SemicolonSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $prevType = $tokens[$stackPtr - 1]['code'];
         if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$prevType]) === \false) {

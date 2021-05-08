@@ -36,6 +36,7 @@ abstract class Output implements \ECSPrefix20210508\Symfony\Component\Console\Ou
      */
     public function __construct($verbosity = self::VERBOSITY_NORMAL, $decorated = \false, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
+        $decorated = (bool) $decorated;
         $this->verbosity = null === $verbosity ? self::VERBOSITY_NORMAL : $verbosity;
         $this->formatter = isset($formatter) ? $formatter : new \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter();
         $this->formatter->setDecorated($decorated);
@@ -60,6 +61,7 @@ abstract class Output implements \ECSPrefix20210508\Symfony\Component\Console\Ou
      */
     public function setDecorated($decorated)
     {
+        $decorated = (bool) $decorated;
         $this->formatter->setDecorated($decorated);
     }
     /**
@@ -75,6 +77,7 @@ abstract class Output implements \ECSPrefix20210508\Symfony\Component\Console\Ou
      */
     public function setVerbosity($level)
     {
+        $level = (int) $level;
         $this->verbosity = $level;
     }
     /**
@@ -118,6 +121,7 @@ abstract class Output implements \ECSPrefix20210508\Symfony\Component\Console\Ou
      */
     public function writeln($messages, $options = self::OUTPUT_NORMAL)
     {
+        $options = (int) $options;
         $this->write($messages, \true, $options);
     }
     /**
@@ -127,6 +131,8 @@ abstract class Output implements \ECSPrefix20210508\Symfony\Component\Console\Ou
      */
     public function write($messages, $newline = \false, $options = self::OUTPUT_NORMAL)
     {
+        $newline = (bool) $newline;
+        $options = (int) $options;
         if (!(\is_array($messages) || $messages instanceof \Traversable)) {
             $messages = [$messages];
         }

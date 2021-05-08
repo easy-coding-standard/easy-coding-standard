@@ -29,9 +29,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function __construct($string = '')
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         $this->string = $string;
     }
     /*
@@ -50,6 +48,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public static function fromRandom($length = 16, $alphabet = null)
     {
+        $length = (int) $length;
         if ($length <= 0) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException(\sprintf('A strictly positive length is expected, "%d" given.', $length));
         }
@@ -92,6 +91,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function bytesAt($offset)
     {
+        $offset = (int) $offset;
         $str = isset($this->string[$offset]) ? $this->string[$offset] : '';
         return '' === $str ? [] : [\ord($str)];
     }
@@ -116,6 +116,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function chunk($length = 1)
     {
+        $length = (int) $length;
         if (1 > $length) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('The chunk length must be greater than zero.');
         }
@@ -173,6 +174,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function indexOf($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if ($needle instanceof parent) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -192,6 +194,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function indexOfLast($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if ($needle instanceof parent) {
             $needle = $needle->string;
         } elseif (\is_array($needle) || $needle instanceof \Traversable) {
@@ -243,9 +246,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function match($regexp, $flags = 0, $offset = 0)
     {
-        if (\is_object($regexp)) {
-            $regexp = (string) $regexp;
-        }
+        $regexp = (string) $regexp;
+        $flags = (int) $flags;
+        $offset = (int) $offset;
         $match = (\PREG_PATTERN_ORDER | \PREG_SET_ORDER) & $flags ? 'preg_match_all' : 'preg_match';
         if ($this->ignoreCase) {
             $regexp .= 'i';
@@ -279,9 +282,8 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function padBoth($length, $padStr = ' ')
     {
-        if (\is_object($padStr)) {
-            $padStr = (string) $padStr;
-        }
+        $length = (int) $length;
+        $padStr = (string) $padStr;
         $str = clone $this;
         $str->string = \str_pad($this->string, $length, $padStr, \STR_PAD_BOTH);
         return $str;
@@ -292,9 +294,8 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function padEnd($length, $padStr = ' ')
     {
-        if (\is_object($padStr)) {
-            $padStr = (string) $padStr;
-        }
+        $length = (int) $length;
+        $padStr = (string) $padStr;
         $str = clone $this;
         $str->string = \str_pad($this->string, $length, $padStr, \STR_PAD_RIGHT);
         return $str;
@@ -305,9 +306,8 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function padStart($length, $padStr = ' ')
     {
-        if (\is_object($padStr)) {
-            $padStr = (string) $padStr;
-        }
+        $length = (int) $length;
+        $padStr = (string) $padStr;
         $str = clone $this;
         $str->string = \str_pad($this->string, $length, $padStr, \STR_PAD_LEFT);
         return $str;
@@ -327,12 +327,8 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function replace($from, $to)
     {
-        if (\is_object($to)) {
-            $to = (string) $to;
-        }
-        if (\is_object($from)) {
-            $from = (string) $from;
-        }
+        $from = (string) $from;
+        $to = (string) $to;
         $str = clone $this;
         if ('' !== $from) {
             $str->string = $this->ignoreCase ? \str_ireplace($from, $to, $this->string) : \str_replace($from, $to, $this->string);
@@ -344,9 +340,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function replaceMatches($fromRegexp, $to)
     {
-        if (\is_object($fromRegexp)) {
-            $fromRegexp = (string) $fromRegexp;
-        }
+        $fromRegexp = (string) $fromRegexp;
         if ($this->ignoreCase) {
             $fromRegexp .= 'i';
         }
@@ -390,6 +384,8 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function slice($start = 0, $length = null)
     {
+        $start = (int) $start;
+        $length = (int) $length;
         $str = clone $this;
         $str->string = (string) \substr($this->string, $start, isset($length) ? $length : \PHP_INT_MAX);
         return $str;
@@ -407,9 +403,9 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function splice($replacement, $start = 0, $length = null)
     {
-        if (\is_object($replacement)) {
-            $replacement = (string) $replacement;
-        }
+        $replacement = (string) $replacement;
+        $start = (int) $start;
+        $length = (int) $length;
         $str = clone $this;
         $str->string = \substr_replace($this->string, $replacement, $start, isset($length) ? $length : \PHP_INT_MAX);
         return $str;
@@ -422,9 +418,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function split($delimiter, $limit = null, $flags = null)
     {
-        if (\is_object($delimiter)) {
-            $delimiter = (string) $delimiter;
-        }
+        $delimiter = (string) $delimiter;
         if (1 > ($limit = isset($limit) ? $limit : \PHP_INT_MAX)) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException('Split limit must be a positive integer.');
         }
@@ -459,6 +453,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function title($allWords = \false)
     {
+        $allWords = (bool) $allWords;
         $str = clone $this;
         $str->string = $allWords ? \ucwords($str->string) : \ucfirst($str->string);
         return $str;
@@ -509,9 +504,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function trim($chars = " \t\n\r\0\v\f")
     {
-        if (\is_object($chars)) {
-            $chars = (string) $chars;
-        }
+        $chars = (string) $chars;
         $str = clone $this;
         $str->string = \trim($str->string, $chars);
         return $str;
@@ -521,9 +514,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function trimEnd($chars = " \t\n\r\0\v\f")
     {
-        if (\is_object($chars)) {
-            $chars = (string) $chars;
-        }
+        $chars = (string) $chars;
         $str = clone $this;
         $str->string = \rtrim($str->string, $chars);
         return $str;
@@ -533,9 +524,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function trimStart($chars = " \t\n\r\0\v\f")
     {
-        if (\is_object($chars)) {
-            $chars = (string) $chars;
-        }
+        $chars = (string) $chars;
         $str = clone $this;
         $str->string = \ltrim($str->string, $chars);
         return $str;
@@ -552,6 +541,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
      */
     public function width($ignoreAnsiDecoration = \true)
     {
+        $ignoreAnsiDecoration = (bool) $ignoreAnsiDecoration;
         $string = \preg_match('//u', $this->string) ? $this->string : \preg_replace('/[\\x80-\\xFF]/', '?', $this->string);
         return (new \ECSPrefix20210508\Symfony\Component\String\CodePointString($string))->width($ignoreAnsiDecoration);
     }

@@ -43,6 +43,7 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210508\Sy
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         }
@@ -83,9 +84,7 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210508\Sy
      */
     private function getAlternatives($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $alternatives = [];
         foreach ($this->container->getServiceIds() as $knownId) {
             if ('' === $knownId || '.' === $knownId[0]) {

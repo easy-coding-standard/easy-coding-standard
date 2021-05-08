@@ -31,9 +31,7 @@ class Variable
      */
     public function __construct($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**

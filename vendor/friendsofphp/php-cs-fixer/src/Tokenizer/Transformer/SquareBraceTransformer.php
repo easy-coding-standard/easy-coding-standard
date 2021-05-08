@@ -56,6 +56,7 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if ($this->isArrayDestructing($tokens, $index)) {
             $this->transformIntoDestructuringSquareBrace($tokens, $index);
             return;
@@ -78,6 +79,7 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
      */
     private function transformIntoArraySquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, '[']);
         $tokens[$endIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE, ']']);
@@ -88,6 +90,7 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
      */
     private function transformIntoDestructuringSquareBrace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_INDEX_SQUARE_BRACE, $index);
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN, '[']);
         $tokens[$endIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_CLOSE, ']']);
@@ -109,6 +112,7 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
      */
     private function isShortArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->equals('[')) {
             return \false;
         }
@@ -129,6 +133,7 @@ final class SquareBraceTransformer extends \PhpCsFixer\Tokenizer\AbstractTransfo
      */
     private function isArrayDestructing(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (\PHP_VERSION_ID < 70100 || !$tokens[$index]->equals('[')) {
             return \false;
         }

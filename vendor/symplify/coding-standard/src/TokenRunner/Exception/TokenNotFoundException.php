@@ -10,6 +10,7 @@ final class TokenNotFoundException extends \Exception
      */
     public function __construct($position)
     {
+        $position = (int) $position;
         $message = \sprintf('Token on position %d was not found', $position);
         parent::__construct($message);
     }

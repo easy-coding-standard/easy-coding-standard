@@ -33,6 +33,7 @@ final class CommentedContentResolver
      */
     public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
@@ -73,6 +74,8 @@ final class CommentedContentResolver
      */
     private function shouldBreak($lastLineSeen, $tokenLine, \PhpCsFixer\Tokenizer\Token $token)
     {
+        $lastLineSeen = (int) $lastLineSeen;
+        $tokenLine = (int) $tokenLine;
         if ($lastLineSeen + 1 <= $tokenLine && \ECSPrefix20210508\Nette\Utils\Strings::startsWith($token->getContent(), '/*')) {
             // First non-whitespace token on a new line is start of a different style comment.
             return \true;
@@ -90,6 +93,8 @@ final class CommentedContentResolver
      */
     private function isNextLineNotComment($lastLineSeen, $tokenLine, \PhpCsFixer\Tokenizer\Token $token)
     {
+        $lastLineSeen = (int) $lastLineSeen;
+        $tokenLine = (int) $tokenLine;
         if ($lastLineSeen >= $tokenLine) {
             return \false;
         }

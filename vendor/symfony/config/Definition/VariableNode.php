@@ -51,6 +51,7 @@ class VariableNode extends \ECSPrefix20210508\Symfony\Component\Config\Definitio
      */
     public function setAllowEmptyValue($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->allowEmptyValue = $boolean;
     }
     /**
@@ -59,9 +60,7 @@ class VariableNode extends \ECSPrefix20210508\Symfony\Component\Config\Definitio
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**

@@ -81,6 +81,8 @@ class Notifysend implements \PHP_CodeSniffer\Reports\Report
      */
     public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
     {
+        $showSources = (bool) $showSources;
+        $width = (int) $width;
         echo $report['filename'] . \PHP_EOL;
         // We want this file counted in the total number
         // of checked files even if it has no errors.
@@ -105,9 +107,15 @@ class Notifysend implements \PHP_CodeSniffer\Reports\Report
      */
     public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
     {
-        if (\is_object($cachedData)) {
-            $cachedData = (string) $cachedData;
-        }
+        $cachedData = (string) $cachedData;
+        $totalFiles = (int) $totalFiles;
+        $totalErrors = (int) $totalErrors;
+        $totalWarnings = (int) $totalWarnings;
+        $totalFixable = (int) $totalFixable;
+        $showSources = (bool) $showSources;
+        $width = (int) $width;
+        $interactive = (bool) $interactive;
+        $toScreen = (bool) $toScreen;
         $checkedFiles = \explode(\PHP_EOL, \trim($cachedData));
         $msg = $this->generateMessage($checkedFiles, $totalErrors, $totalWarnings);
         if ($msg === null) {
@@ -130,6 +138,8 @@ class Notifysend implements \PHP_CodeSniffer\Reports\Report
      */
     protected function generateMessage($checkedFiles, $totalErrors, $totalWarnings)
     {
+        $totalErrors = (int) $totalErrors;
+        $totalWarnings = (int) $totalWarnings;
         if ($totalErrors === 0 && $totalWarnings === 0) {
             // Nothing to print.
             return null;
@@ -173,9 +183,7 @@ class Notifysend implements \PHP_CodeSniffer\Reports\Report
      */
     protected function notifyErrors($msg)
     {
-        if (\is_object($msg)) {
-            $msg = (string) $msg;
-        }
+        $msg = (string) $msg;
         $cmd = $this->getBasicCommand();
         $cmd .= ' -i error';
         $cmd .= ' "PHP CodeSniffer: Error"';

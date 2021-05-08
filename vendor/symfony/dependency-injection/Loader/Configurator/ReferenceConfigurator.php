@@ -25,9 +25,7 @@ class ReferenceConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
      */
     public function __construct($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->id = $id;
     }
     /**

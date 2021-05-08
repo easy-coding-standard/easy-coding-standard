@@ -27,6 +27,7 @@ class ProcessTimedOutException extends \ECSPrefix20210508\Symfony\Component\Proc
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Process\Process $process, $timeoutType)
     {
+        $timeoutType = (int) $timeoutType;
         $this->process = $process;
         $this->timeoutType = $timeoutType;
         parent::__construct(\sprintf('The process "%s" exceeded the timeout of %s seconds.', $process->getCommandLine(), $this->getExceededTimeout()));

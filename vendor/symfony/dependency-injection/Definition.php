@@ -126,6 +126,8 @@ class Definition
      */
     public function setDecoratedService($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
+        $priority = (int) $priority;
+        $invalidBehavior = (int) $invalidBehavior;
         if ($renamedId && $id === $renamedId) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The decorated service inner name for "%s" must be different than the service name itself.', $id));
         }
@@ -209,9 +211,7 @@ class Definition
      */
     public function setProperty($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->properties[$name] = $value;
         return $this;
     }
@@ -315,9 +315,8 @@ class Definition
      */
     public function addMethodCall($method, array $arguments = [], $returnsClone = \false)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
+        $returnsClone = (bool) $returnsClone;
         if (empty($method)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Method name cannot be empty.');
         }
@@ -332,9 +331,7 @@ class Definition
      */
     public function removeMethodCall($method)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         foreach ($this->calls as $i => $call) {
             if ($call[0] === $method) {
                 unset($this->calls[$i]);
@@ -350,9 +347,7 @@ class Definition
      */
     public function hasMethodCall($method)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         foreach ($this->calls as $call) {
             if ($call[0] === $method) {
                 return \true;
@@ -398,6 +393,7 @@ class Definition
      */
     public function setAutoconfigured($autoconfigured)
     {
+        $autoconfigured = (bool) $autoconfigured;
         $this->changes['autoconfigured'] = \true;
         $this->autoconfigured = $autoconfigured;
         return $this;
@@ -436,9 +432,7 @@ class Definition
      */
     public function getTag($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->tags[$name]) ? $this->tags[$name] : [];
     }
     /**
@@ -449,9 +443,7 @@ class Definition
      */
     public function addTag($name, array $attributes = [])
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->tags[$name][] = $attributes;
         return $this;
     }
@@ -463,9 +455,7 @@ class Definition
      */
     public function hasTag($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->tags[$name]);
     }
     /**
@@ -476,9 +466,7 @@ class Definition
      */
     public function clearTag($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         unset($this->tags[$name]);
         return $this;
     }
@@ -521,6 +509,7 @@ class Definition
      */
     public function setShared($shared)
     {
+        $shared = (bool) $shared;
         $this->changes['shared'] = \true;
         $this->shared = $shared;
         return $this;
@@ -542,6 +531,7 @@ class Definition
      */
     public function setPublic($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->changes['public'] = \true;
         $this->public = $boolean;
         return $this;
@@ -565,6 +555,7 @@ class Definition
      */
     public function setPrivate($boolean)
     {
+        $boolean = (bool) $boolean;
         trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s()" method is deprecated, use "setPublic()" instead.', __METHOD__);
         return $this->setPublic(!$boolean);
     }
@@ -585,6 +576,7 @@ class Definition
      */
     public function setLazy($lazy)
     {
+        $lazy = (bool) $lazy;
         $this->changes['lazy'] = \true;
         $this->lazy = $lazy;
         return $this;
@@ -607,6 +599,7 @@ class Definition
      */
     public function setSynthetic($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->synthetic = $boolean;
         if (!isset($this->changes['public'])) {
             $this->setPublic(\true);
@@ -632,6 +625,7 @@ class Definition
      */
     public function setAbstract($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->abstract = $boolean;
         return $this;
     }
@@ -707,9 +701,7 @@ class Definition
      */
     public function getDeprecationMessage($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         trigger_deprecation('symfony/dependency-injection', '5.1', 'The "%s()" method is deprecated, use "getDeprecation()" instead.', __METHOD__);
         return $this->getDeprecation($id)['message'];
     }
@@ -719,9 +711,7 @@ class Definition
      */
     public function getDeprecation($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return ['package' => $this->deprecation['package'], 'version' => $this->deprecation['version'], 'message' => \str_replace('%service_id%', $id, $this->deprecation['message'])];
     }
     /**
@@ -768,6 +758,7 @@ class Definition
      */
     public function setAutowired($autowired)
     {
+        $autowired = (bool) $autowired;
         $this->changes['autowired'] = \true;
         $this->autowired = $autowired;
         return $this;

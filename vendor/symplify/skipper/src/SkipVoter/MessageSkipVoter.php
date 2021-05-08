@@ -38,9 +38,7 @@ final class MessageSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInte
      */
     public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
-        if (\is_object($element)) {
-            $element = (string) $element;
-        }
+        $element = (string) $element;
         $skippedMessages = $this->skippedMessagesResolver->resolve();
         if (!\array_key_exists($element, $skippedMessages)) {
             return \false;

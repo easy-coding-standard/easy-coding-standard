@@ -31,6 +31,7 @@ final class ServiceLocatorTagPass extends \ECSPrefix20210508\Symfony\Component\D
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
             if ($value->getTaggedIteratorArgument()) {
                 $value->setValues($this->findAndSortTaggedServices($value->getTaggedIteratorArgument(), $this->container));

@@ -93,6 +93,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     public static function isDebug(\ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack, $debug)
     {
+        $debug = (bool) $debug;
         return static function () use($requestStack, $debug) : bool {
             if (!($request = $requestStack->getCurrentRequest())) {
                 return $debug;
@@ -123,9 +124,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function renderException(\ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException $exception, $debugTemplate = 'views/exception_full.html.php')
     {
-        if (\is_object($debugTemplate)) {
-            $debugTemplate = (string) $debugTemplate;
-        }
+        $debugTemplate = (string) $debugTemplate;
         $debug = \is_bool($this->debug) ? $this->debug : ($this->debug)($exception);
         $statusText = $this->escape($exception->getStatusText());
         $statusCode = $this->escape($exception->getStatusCode());
@@ -170,9 +169,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function escape($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         return \htmlspecialchars($string, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset);
     }
     /**
@@ -181,9 +178,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function abbrClass($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         $parts = \explode('\\', $class);
         $short = \array_pop($parts);
         return \sprintf('<abbr title="%s">%s</abbr>', $class, $short);
@@ -194,9 +189,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function getFileRelative($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $file = \str_replace('\\', '/', $file);
         if (null !== $this->projectDir && 0 === \strpos($file, $this->projectDir)) {
             return \ltrim(\substr($file, \strlen($this->projectDir)), '/');
@@ -212,9 +205,8 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function getFileLink($file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $line = (int) $line;
         if ($fmt = $this->fileLinkFormat) {
             return \is_string($fmt) ? \strtr($fmt, ['%f' => $file, '%l' => $line]) : $fmt->format($file, $line);
         }
@@ -230,9 +222,8 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function formatFile($file, $line, $text = null)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $line = (int) $line;
         $file = \trim($file);
         if (null === $text) {
             $text = $file;
@@ -260,9 +251,9 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function fileExcerpt($file, $line, $srcContext = 3)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $line = (int) $line;
+        $srcContext = (int) $srcContext;
         if (\is_file($file) && \is_readable($file)) {
             // highlight_file could throw warnings
             // see https://bugs.php.net/25725
@@ -290,9 +281,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function fixCodeMarkup($line)
     {
-        if (\is_object($line)) {
-            $line = (string) $line;
-        }
+        $line = (string) $line;
         // </span> ending tag from previous line
         $opening = \strpos($line, '<span');
         $closing = \strpos($line, '</span>');
@@ -312,9 +301,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function formatFileFromText($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         return \preg_replace_callback('/in ("|&quot;)?(.+?)\\1(?: +(?:on|at))? +line (\\d+)/s', function ($match) {
             return 'in ' . $this->formatFile($match[2], $match[3]);
         }, $text);
@@ -324,9 +311,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function formatLogMessage($message, array $context)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if ($context && \false !== \strpos($message, '{')) {
             $replacements = [];
             foreach ($context as $key => $val) {
@@ -356,9 +341,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     private function include($name, array $context = [])
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         \extract($context, \EXTR_SKIP);
         \ob_start();
         include \is_file(\dirname(__DIR__) . '/Resources/' . $name) ? \dirname(__DIR__) . '/Resources/' . $name : $name;
@@ -372,9 +355,7 @@ class HtmlErrorRenderer implements \ECSPrefix20210508\Symfony\Component\ErrorHan
      */
     public static function setTemplate($template)
     {
-        if (\is_object($template)) {
-            $template = (string) $template;
-        }
+        $template = (string) $template;
         self::$template = $template;
     }
 }

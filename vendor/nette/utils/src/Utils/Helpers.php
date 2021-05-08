@@ -49,9 +49,7 @@ class Helpers
      */
     public static function getSuggestion(array $possibilities, $value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         $best = null;
         $min = (\strlen($value) / 4 + 1) * 10 + 0.1;
         foreach (\array_unique($possibilities) as $item) {

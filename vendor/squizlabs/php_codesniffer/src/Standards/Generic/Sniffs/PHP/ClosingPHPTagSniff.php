@@ -34,6 +34,7 @@ class ClosingPHPTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $closeTag = $phpcsFile->findNext(\T_CLOSE_TAG, $stackPtr);
         if ($closeTag === \false) {
             $error = 'The PHP open tag does not have a corresponding PHP close tag';

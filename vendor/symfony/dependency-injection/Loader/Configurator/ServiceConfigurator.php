@@ -47,6 +47,7 @@ class ServiceConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependenc
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, $allowParent, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, $path = null)
     {
+        $allowParent = (bool) $allowParent;
         $this->container = $container;
         $this->instanceof = $instanceof;
         $this->allowParent = $allowParent;

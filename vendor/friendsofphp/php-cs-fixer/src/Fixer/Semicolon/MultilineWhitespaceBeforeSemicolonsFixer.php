@@ -153,6 +153,7 @@ function foo () {
      */
     private function getNewLineIndex($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($index, $count = \count($tokens); $index < $count; ++$index) {
             if (\false !== \strstr($tokens[$index]->getContent(), $lineEnding)) {
@@ -174,6 +175,7 @@ function foo () {
      */
     private function findWhitespaceBeforeFirstCall($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         // semicolon followed by a closing bracket?
         if (!$tokens[$index]->equals(')')) {
             return null;
@@ -227,6 +229,7 @@ function foo () {
      */
     private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $content = '';
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         // find line ending token

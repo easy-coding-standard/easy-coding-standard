@@ -24,6 +24,7 @@ class IntlCaster
      */
     public static function castMessageFormatter(\MessageFormatter $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'locale' => $c->getLocale(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'pattern' => $c->getPattern()];
         return self::castError($c, $a);
     }
@@ -33,6 +34,8 @@ class IntlCaster
      */
     public static function castNumberFormatter(\NumberFormatter $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'locale' => $c->getLocale(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'pattern' => $c->getPattern()];
         if ($filter & \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE) {
             $stub->cut += 3;
@@ -46,6 +49,7 @@ class IntlCaster
      */
     public static function castIntlTimeZone(\IntlTimeZone $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'display_name' => $c->getDisplayName(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'id' => $c->getID(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'raw_offset' => $c->getRawOffset()];
         if ($c->useDaylightTime()) {
             $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'dst_savings' => $c->getDSTSavings()];
@@ -58,6 +62,8 @@ class IntlCaster
      */
     public static function castIntlCalendar(\IntlCalendar $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'type' => $c->getType(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'first_day_of_week' => $c->getFirstDayOfWeek(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'minimal_days_in_first_week' => $c->getMinimalDaysInFirstWeek(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'repeated_wall_time_option' => $c->getRepeatedWallTimeOption(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'skipped_wall_time_option' => $c->getSkippedWallTimeOption(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'time' => $c->getTime(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'in_daylight_time' => $c->inDaylightTime(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'is_lenient' => $c->isLenient(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'time_zone' => $filter & \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE ? new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\CutStub($c->getTimeZone()) : $c->getTimeZone()];
         return self::castError($c, $a);
     }
@@ -67,6 +73,8 @@ class IntlCaster
      */
     public static function castIntlDateFormatter(\IntlDateFormatter $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $a += [\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'locale' => $c->getLocale(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'pattern' => $c->getPattern(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'calendar' => $c->getCalendar(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'time_zone_id' => $c->getTimeZoneId(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'time_type' => $c->getTimeType(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'date_type' => $c->getDateType(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'calendar_object' => $filter & \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE ? new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\CutStub($c->getCalendarObject()) : $c->getCalendarObject(), \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'time_zone' => $filter & \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE ? new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\CutStub($c->getTimeZone()) : $c->getTimeZone()];
         return self::castError($c, $a);
     }

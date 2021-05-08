@@ -71,9 +71,7 @@ class PhpConfig
      */
     private function updateEnv($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         \ECSPrefix20210508\Composer\XdebugHandler\Process::setEnv($name, \false !== $value ? $value : null);
     }
 }

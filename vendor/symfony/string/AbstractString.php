@@ -89,6 +89,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function after($needle, $includeNeedle = \false, $offset = 0)
     {
+        $includeNeedle = (bool) $includeNeedle;
+        $offset = (int) $offset;
         $str = clone $this;
         $i = \PHP_INT_MAX;
         foreach ((array) $needle as $n) {
@@ -116,6 +118,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function afterLast($needle, $includeNeedle = \false, $offset = 0)
     {
+        $includeNeedle = (bool) $includeNeedle;
+        $offset = (int) $offset;
         $str = clone $this;
         $i = null;
         foreach ((array) $needle as $n) {
@@ -148,6 +152,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function before($needle, $includeNeedle = \false, $offset = 0)
     {
+        $includeNeedle = (bool) $includeNeedle;
+        $offset = (int) $offset;
         $str = clone $this;
         $i = \PHP_INT_MAX;
         foreach ((array) $needle as $n) {
@@ -175,6 +181,8 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function beforeLast($needle, $includeNeedle = \false, $offset = 0)
     {
+        $includeNeedle = (bool) $includeNeedle;
+        $offset = (int) $offset;
         $str = clone $this;
         $i = null;
         foreach ((array) $needle as $n) {
@@ -199,6 +207,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function bytesAt($offset)
     {
+        $offset = (int) $offset;
         $str = $this->slice($offset, 1);
         return '' === $str->string ? [] : \array_values(\unpack('C*', $str->string));
     }
@@ -250,9 +259,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function ensureEnd($suffix)
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
+        $suffix = (string) $suffix;
         if (!$this->endsWith($suffix)) {
             return $this->append($suffix);
         }
@@ -266,9 +273,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function ensureStart($prefix)
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
         $prefix = new static($prefix);
         if (!$this->startsWith($prefix)) {
             return $this->prepend($prefix);
@@ -317,6 +322,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function indexOf($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if (!\is_array($needle) && !$needle instanceof \Traversable) {
             throw new \TypeError(\sprintf('Method "%s()" must be overridden by class "%s" to deal with non-iterable values.', __FUNCTION__, static::class));
         }
@@ -336,6 +342,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function indexOfLast($needle, $offset = 0)
     {
+        $offset = (int) $offset;
         if (!\is_array($needle) && !$needle instanceof \Traversable) {
             throw new \TypeError(\sprintf('Method "%s()" must be overridden by class "%s" to deal with non-iterable values.', __FUNCTION__, static::class));
         }
@@ -415,6 +422,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function repeat($multiplier)
     {
+        $multiplier = (int) $multiplier;
         if (0 > $multiplier) {
             throw new \ECSPrefix20210508\Symfony\Component\String\Exception\InvalidArgumentException(\sprintf('Multiplier must be positive, %d given.', $multiplier));
         }
@@ -464,9 +472,7 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function split($delimiter, $limit = null, $flags = null)
     {
-        if (\is_object($delimiter)) {
-            $delimiter = (string) $delimiter;
-        }
+        $delimiter = (string) $delimiter;
         if (null === $flags) {
             throw new \TypeError('Split behavior when $flags is null must be implemented by child classes.');
         }
@@ -597,9 +603,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function truncate($length, $ellipsis = '', $cut = \true)
     {
-        if (\is_object($ellipsis)) {
-            $ellipsis = (string) $ellipsis;
-        }
+        $length = (int) $length;
+        $ellipsis = (string) $ellipsis;
+        $cut = (bool) $cut;
         $stringLength = $this->length();
         if ($stringLength <= $length) {
             return clone $this;
@@ -635,9 +641,9 @@ abstract class AbstractString implements \Stringable, \JsonSerializable
      */
     public function wordwrap($width = 75, $break = "\n", $cut = \false)
     {
-        if (\is_object($break)) {
-            $break = (string) $break;
-        }
+        $width = (int) $width;
+        $break = (string) $break;
+        $cut = (bool) $cut;
         $lines = '' !== $break ? $this->split($break) : [clone $this];
         $chars = [];
         $mask = '';

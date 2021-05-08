@@ -30,9 +30,7 @@ final class SmartFinder
      */
     public function findPaths(array $directoriesOrFiles, $path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {
@@ -50,9 +48,7 @@ final class SmartFinder
      */
     public function find(array $directoriesOrFiles, $name, array $excludedDirectories = [])
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {

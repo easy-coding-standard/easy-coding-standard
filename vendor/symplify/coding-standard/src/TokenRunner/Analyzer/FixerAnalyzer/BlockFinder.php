@@ -28,6 +28,7 @@ final class BlockFinder
      */
     public function findInTokensByEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $token = $tokens[$position];
         if (!$token instanceof \PhpCsFixer\Tokenizer\Token) {
             return null;
@@ -62,9 +63,8 @@ final class BlockFinder
      */
     public function findInTokensByPositionAndContent(\PhpCsFixer\Tokenizer\Tokens $tokens, $position, $content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $position = (int) $position;
+        $content = (string) $content;
         $blockStart = $tokens->getNextTokenOfKind($position, [$content]);
         if ($blockStart === null) {
             return null;
@@ -78,9 +78,7 @@ final class BlockFinder
      */
     public function getBlockTypeByContent($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         if (isset(self::CONTENT_TO_BLOCK_TYPE[$content])) {
             return self::CONTENT_TO_BLOCK_TYPE[$content];
         }
@@ -107,6 +105,8 @@ final class BlockFinder
      */
     private function createBlockInfo(\PhpCsFixer\Tokenizer\Token $token, $position, \PhpCsFixer\Tokenizer\Tokens $tokens, $blockType)
     {
+        $position = (int) $position;
+        $blockType = (int) $blockType;
         try {
             if (\in_array($token->getContent(), self::START_EDGES, \true)) {
                 $blockStart = $position;

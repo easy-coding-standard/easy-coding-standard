@@ -31,6 +31,7 @@ final class DocblockRelatedParamNamesResolver
      */
     public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $docTokenPosition)
     {
+        $docTokenPosition = (int) $docTokenPosition;
         $functionTokenPosition = $tokens->getNextTokenOfKind($docTokenPosition, $this->functionTokens);
         if ($functionTokenPosition === null) {
             return [];

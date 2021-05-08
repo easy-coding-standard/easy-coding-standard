@@ -17,6 +17,7 @@ final class LineLengthAndPositionFactory
      */
     public function createFromTokensAndLineStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, $currentPosition)
     {
+        $currentPosition = (int) $currentPosition;
         $length = 0;
         while (!$this->isNewLineOrOpenTag($tokens, $currentPosition)) {
             // in case of multiline string, we are interested in length of the part on current line only
@@ -47,6 +48,7 @@ final class LineLengthAndPositionFactory
      */
     private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }

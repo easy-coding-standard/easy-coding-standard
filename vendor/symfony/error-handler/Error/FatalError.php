@@ -24,9 +24,9 @@ class FatalError extends \Error
      */
     public function __construct($message, $code, array $error, $traceOffset = null, $traceArgs = \true, array $trace = null)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $code = (int) $code;
+        $traceArgs = (bool) $traceArgs;
         parent::__construct($message, $code);
         $this->error = $error;
         if (null !== $trace) {

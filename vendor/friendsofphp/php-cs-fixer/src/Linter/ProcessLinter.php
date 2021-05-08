@@ -105,9 +105,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      */
     public function lintFile($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         return new \PhpCsFixer\Linter\ProcessLintingResult($this->createProcessForFile($path), $path);
     }
     /**
@@ -117,9 +115,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      */
     public function lintSource($source)
     {
-        if (\is_object($source)) {
-            $source = (string) $source;
-        }
+        $source = (string) $source;
         return new \PhpCsFixer\Linter\ProcessLintingResult($this->createProcessForSource($source), $this->temporaryFile);
     }
     /**
@@ -128,9 +124,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      */
     private function createProcessForFile($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         // in case php://stdin
         if (!\is_file($path)) {
             return $this->createProcessForSource(\PhpCsFixer\FileReader::createSingleton()->read($path));
@@ -148,9 +142,7 @@ final class ProcessLinter implements \PhpCsFixer\Linter\LinterInterface
      */
     private function createProcessForSource($source)
     {
-        if (\is_object($source)) {
-            $source = (string) $source;
-        }
+        $source = (string) $source;
         if (null === $this->temporaryFile) {
             $this->temporaryFile = \tempnam(\sys_get_temp_dir(), 'cs_fixer_tmp_');
             $this->fileRemoval->observe($this->temporaryFile);

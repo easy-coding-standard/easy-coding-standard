@@ -91,6 +91,7 @@ class ArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\Definition\B
      */
     public function setAddIfNotSet($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->addIfNotSet = $boolean;
     }
     /**
@@ -99,6 +100,7 @@ class ArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\Definition\B
      */
     public function setAllowFalse($allow)
     {
+        $allow = (bool) $allow;
         $this->allowFalse = $allow;
     }
     /**
@@ -107,6 +109,7 @@ class ArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\Definition\B
      */
     public function setAllowNewKeys($allow)
     {
+        $allow = (bool) $allow;
         $this->allowNewKeys = $allow;
     }
     /**
@@ -115,6 +118,7 @@ class ArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\Definition\B
      */
     public function setPerformDeepMerging($boolean)
     {
+        $boolean = (bool) $boolean;
         $this->performDeepMerging = $boolean;
     }
     /**
@@ -125,6 +129,8 @@ class ArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\Definition\B
      */
     public function setIgnoreExtraKeys($boolean, $remove = \true)
     {
+        $boolean = (bool) $boolean;
+        $remove = (bool) $remove;
         $this->ignoreExtraKeys = $boolean;
         $this->removeExtraKeys = $this->ignoreExtraKeys && $remove;
     }
@@ -134,9 +140,7 @@ class ArrayNode extends \ECSPrefix20210508\Symfony\Component\Config\Definition\B
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**

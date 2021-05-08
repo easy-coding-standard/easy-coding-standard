@@ -85,6 +85,8 @@ function example($foo = "two words", $bar) {}
      */
     private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $lastArgumentIndex = $this->getLastNonDefaultArgumentIndex($tokens, $startIndex, $endIndex);
         if (!$lastArgumentIndex) {
             return;
@@ -110,6 +112,8 @@ function example($foo = "two words", $bar) {}
      */
     private function getLastNonDefaultArgumentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             $token = $tokens[$i];
             if ($token->equals('=')) {
@@ -128,6 +132,7 @@ function example($foo = "two words", $bar) {}
      */
     private function isEllipsis(\PhpCsFixer\Tokenizer\Tokens $tokens, $variableIndex)
     {
+        $variableIndex = (int) $variableIndex;
         return $tokens[$tokens->getPrevMeaningfulToken($variableIndex)]->isGivenKind(\T_ELLIPSIS);
     }
     /**
@@ -137,6 +142,8 @@ function example($foo = "two words", $bar) {}
      */
     private function removeDefaultArgument(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         for ($i = $startIndex; $i <= $endIndex;) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($i);
             $this->clearWhitespacesBeforeIndex($tokens, $i);
@@ -149,6 +156,7 @@ function example($foo = "two words", $bar) {}
      */
     private function isNonNullableTypehintedNullableVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $nextToken = $tokens[$tokens->getNextMeaningfulToken($index)];
         if (!$nextToken->equals([\T_STRING, 'null'], \false)) {
             return \false;
@@ -168,6 +176,7 @@ function example($foo = "two words", $bar) {}
      */
     private function clearWhitespacesBeforeIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevIndex = $tokens->getNonEmptySibling($index, -1);
         if (!$tokens[$prevIndex]->isWhitespace()) {
             return;

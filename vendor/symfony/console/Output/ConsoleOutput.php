@@ -36,6 +36,7 @@ class ConsoleOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\
      */
     public function __construct($verbosity = self::VERBOSITY_NORMAL, $decorated = null, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
+        $verbosity = (int) $verbosity;
         parent::__construct($this->openOutputStream(), $verbosity, $decorated, $formatter);
         if (null === $formatter) {
             // for BC reasons, stdErr has it own Formatter only when user don't inject a specific formatter.
@@ -62,6 +63,7 @@ class ConsoleOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\
      */
     public function setDecorated($decorated)
     {
+        $decorated = (bool) $decorated;
         parent::setDecorated($decorated);
         $this->stderr->setDecorated($decorated);
     }
@@ -79,6 +81,7 @@ class ConsoleOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\
      */
     public function setVerbosity($level)
     {
+        $level = (int) $level;
         parent::setVerbosity($level);
         $this->stderr->setVerbosity($level);
     }

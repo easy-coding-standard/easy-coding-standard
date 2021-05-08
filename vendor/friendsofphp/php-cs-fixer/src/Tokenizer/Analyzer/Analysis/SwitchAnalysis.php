@@ -37,6 +37,8 @@ final class SwitchAnalysis
      */
     public function __construct($casesStart, $casesEnd, array $cases)
     {
+        $casesStart = (int) $casesStart;
+        $casesEnd = (int) $casesEnd;
         $this->casesStart = $casesStart;
         $this->casesEnd = $casesEnd;
         $this->cases = $cases;

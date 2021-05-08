@@ -47,9 +47,7 @@ final class ColorConsoleDiffFormatter
      */
     public function format($diff)
     {
-        if (\is_object($diff)) {
-            $diff = (string) $diff;
-        }
+        $diff = (string) $diff;
         return $this->formatWithTemplate($diff, $this->template);
     }
     /**
@@ -59,12 +57,8 @@ final class ColorConsoleDiffFormatter
      */
     private function formatWithTemplate($diff, $template)
     {
-        if (\is_object($template)) {
-            $template = (string) $template;
-        }
-        if (\is_object($diff)) {
-            $diff = (string) $diff;
-        }
+        $diff = (string) $diff;
+        $template = (string) $template;
         $escapedDiff = \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escape(\rtrim($diff));
         $escapedDiffLines = \ECSPrefix20210508\Nette\Utils\Strings::split($escapedDiff, self::NEWLINES_REGEX);
         $coloredLines = \array_map(function (string $string) : string {
@@ -84,9 +78,7 @@ final class ColorConsoleDiffFormatter
      */
     private function makePlusLinesGreen($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::PLUS_START_REGEX, '<fg=green>$1</fg=green>');
     }
     /**
@@ -95,9 +87,7 @@ final class ColorConsoleDiffFormatter
      */
     private function makeMinusLinesRed($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::MINUT_START_REGEX, '<fg=red>$1</fg=red>');
     }
     /**
@@ -106,9 +96,7 @@ final class ColorConsoleDiffFormatter
      */
     private function makeAtNoteCyan($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::AT_START_REGEX, '<fg=cyan>$1</fg=cyan>');
     }
 }

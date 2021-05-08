@@ -34,6 +34,7 @@ class OneInterfacePerFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $nextInterface = $phpcsFile->findNext($this->register(), $stackPtr + 1);
         if ($nextInterface !== \false) {
             $error = 'Only one interface is allowed in a file';

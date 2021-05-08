@@ -174,9 +174,7 @@ class Exporter
      */
     public static function export($value, $indent = '')
     {
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
+        $indent = (string) $indent;
         switch (\true) {
             case \is_int($value) || \is_float($value):
                 return \var_export($value, \true);
@@ -256,12 +254,8 @@ class Exporter
      */
     private static function exportRegistry(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry $value, $indent, $subIndent)
     {
-        if (\is_object($subIndent)) {
-            $subIndent = (string) $subIndent;
-        }
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
+        $indent = (string) $indent;
+        $subIndent = (string) $subIndent;
         $code = '';
         $serializables = [];
         $seen = [];
@@ -333,12 +327,8 @@ class Exporter
      */
     private static function exportHydrator(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator $value, $indent, $subIndent)
     {
-        if (\is_object($subIndent)) {
-            $subIndent = (string) $subIndent;
-        }
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
+        $indent = (string) $indent;
+        $subIndent = (string) $subIndent;
         $code = '';
         foreach ($value->properties as $class => $properties) {
             $code .= $subIndent . '    ' . self::export($class) . ' => ' . self::export($properties, $subIndent . '    ') . ",\n";

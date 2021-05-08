@@ -79,9 +79,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     private function parseShortOption($token)
     {
-        if (\is_object($token)) {
-            $token = (string) $token;
-        }
+        $token = (string) $token;
         $name = \substr($token, 1);
         if (\strlen($name) > 1) {
             if ($this->definition->hasShortcut($name[0]) && $this->definition->getOptionForShortcut($name[0])->acceptValue()) {
@@ -102,9 +100,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     private function parseShortOptionSet($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $len = \strlen($name);
         for ($i = 0; $i < $len; ++$i) {
             if (!$this->definition->hasShortcut($name[$i])) {
@@ -126,9 +122,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     private function parseLongOption($token)
     {
-        if (\is_object($token)) {
-            $token = (string) $token;
-        }
+        $token = (string) $token;
         $name = \substr($token, 2);
         if (\false !== ($pos = \strpos($name, '='))) {
             if (0 === \strlen($value = \substr($name, $pos + 1))) {
@@ -147,9 +141,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     private function parseArgument($token)
     {
-        if (\is_object($token)) {
-            $token = (string) $token;
-        }
+        $token = (string) $token;
         $c = \count($this->arguments);
         // if input is expecting another argument, add it
         if ($this->definition->hasArgument($c)) {
@@ -190,9 +182,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     private function addShortOption($shortcut, $value)
     {
-        if (\is_object($shortcut)) {
-            $shortcut = (string) $shortcut;
-        }
+        $shortcut = (string) $shortcut;
         if (!$this->definition->hasShortcut($shortcut)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\RuntimeException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
@@ -206,9 +196,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     private function addLongOption($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!$this->definition->hasOption($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\RuntimeException(\sprintf('The "--%s" option does not exist.', $name));
         }
@@ -275,6 +263,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     public function hasParameterOption($values, $onlyParams = \false)
     {
+        $onlyParams = (bool) $onlyParams;
         $values = (array) $values;
         foreach ($this->tokens as $token) {
             if ($onlyParams && '--' === $token) {
@@ -298,6 +287,7 @@ class ArgvInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Input
      */
     public function getParameterOption($values, $default = \false, $onlyParams = \false)
     {
+        $onlyParams = (bool) $onlyParams;
         $values = (array) $values;
         $tokens = $this->tokens;
         while (0 < \count($tokens)) {

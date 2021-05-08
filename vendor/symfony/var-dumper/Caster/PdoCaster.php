@@ -26,6 +26,7 @@ class PdoCaster
      */
     public static function castPdo(\PDO $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $attr = [];
         $errmode = $c->getAttribute(\PDO::ATTR_ERRMODE);
         $c->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -66,6 +67,7 @@ class PdoCaster
      */
     public static function castPdoStatement(\PDOStatement $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $a[$prefix . 'errorInfo'] = $c->errorInfo();
         if (!isset($a[$prefix . 'errorInfo'][1], $a[$prefix . 'errorInfo'][2])) {

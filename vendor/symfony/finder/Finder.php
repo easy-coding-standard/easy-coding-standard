@@ -313,6 +313,7 @@ class Finder implements \IteratorAggregate, \Countable
      */
     public function ignoreDotFiles($ignoreDotFiles)
     {
+        $ignoreDotFiles = (bool) $ignoreDotFiles;
         if ($ignoreDotFiles) {
             $this->ignore |= static::IGNORE_DOT_FILES;
         } else {
@@ -332,6 +333,7 @@ class Finder implements \IteratorAggregate, \Countable
      */
     public function ignoreVCS($ignoreVCS)
     {
+        $ignoreVCS = (bool) $ignoreVCS;
         if ($ignoreVCS) {
             $this->ignore |= static::IGNORE_VCS_FILES;
         } else {
@@ -349,6 +351,7 @@ class Finder implements \IteratorAggregate, \Countable
      */
     public function ignoreVCSIgnored($ignoreVCSIgnored)
     {
+        $ignoreVCSIgnored = (bool) $ignoreVCSIgnored;
         if ($ignoreVCSIgnored) {
             $this->ignore |= static::IGNORE_VCS_IGNORED_FILES;
         } else {
@@ -398,6 +401,7 @@ class Finder implements \IteratorAggregate, \Countable
      */
     public function sortByName($useNaturalSort = \false)
     {
+        $useNaturalSort = (bool) $useNaturalSort;
         $this->sort = $useNaturalSort ? \ECSPrefix20210508\Symfony\Component\Finder\Iterator\SortableIterator::SORT_BY_NAME_NATURAL : \ECSPrefix20210508\Symfony\Component\Finder\Iterator\SortableIterator::SORT_BY_NAME;
         return $this;
     }
@@ -510,6 +514,7 @@ class Finder implements \IteratorAggregate, \Countable
      */
     public function ignoreUnreadableDirs($ignore = \true)
     {
+        $ignore = (bool) $ignore;
         $this->ignoreUnreadableDirs = $ignore;
         return $this;
     }
@@ -628,9 +633,7 @@ class Finder implements \IteratorAggregate, \Countable
      */
     private function searchInDirectory($dir)
     {
-        if (\is_object($dir)) {
-            $dir = (string) $dir;
-        }
+        $dir = (string) $dir;
         $exclude = $this->exclude;
         $notPaths = $this->notPaths;
         if (static::IGNORE_VCS_FILES === (static::IGNORE_VCS_FILES & $this->ignore)) {
@@ -710,9 +713,7 @@ class Finder implements \IteratorAggregate, \Countable
      */
     private function normalizeDir($dir)
     {
-        if (\is_object($dir)) {
-            $dir = (string) $dir;
-        }
+        $dir = (string) $dir;
         if ('/' === $dir) {
             return $dir;
         }

@@ -34,6 +34,7 @@ class UnusedSystemSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Check if this is a call to includeSystem, includeAsset or includeWidget.
         $methodName = \strtolower($tokens[$stackPtr + 1]['content']);

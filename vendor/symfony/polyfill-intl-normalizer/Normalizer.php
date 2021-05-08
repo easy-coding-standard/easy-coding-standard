@@ -45,9 +45,8 @@ class Normalizer
      */
     public static function isNormalized($s, $form = self::FORM_C)
     {
-        if (is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $form = (int) $form;
         if (!\in_array($form, [self::NFD, self::NFKD, self::NFC, self::NFKC])) {
             return false;
         }
@@ -67,9 +66,8 @@ class Normalizer
      */
     public static function normalize($s, $form = self::FORM_C)
     {
-        if (is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $form = (int) $form;
         if (!preg_match('//u', $s)) {
             return false;
         }

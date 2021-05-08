@@ -48,6 +48,7 @@ class ShorthandSizeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Some styles look like shorthand but are not actually a set of 4 sizes.
         $style = \strtolower($tokens[$stackPtr]['content']);

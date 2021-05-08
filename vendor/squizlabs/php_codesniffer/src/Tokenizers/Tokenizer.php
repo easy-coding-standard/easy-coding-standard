@@ -73,12 +73,8 @@ abstract class Tokenizer
      */
     public function __construct($content, $config, $eolChar = '\\n')
     {
-        if (\is_object($eolChar)) {
-            $eolChar = (string) $eolChar;
-        }
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $eolChar = (string) $eolChar;
         $this->eolChar = $eolChar;
         $this->config = $config;
         $this->tokens = $this->tokenize($content);
@@ -104,12 +100,8 @@ abstract class Tokenizer
      */
     protected function isMinifiedContent($content, $eolChar = '\\n')
     {
-        if (\is_object($eolChar)) {
-            $eolChar = (string) $eolChar;
-        }
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $eolChar = (string) $eolChar;
         // Minified files often have a very large number of characters per line
         // and cause issues when tokenizing.
         $numChars = \strlen($content);
@@ -499,12 +491,8 @@ abstract class Tokenizer
      */
     public function replaceTabsInToken(&$token, $prefix = ' ', $padding = ' ', $tabWidth = null)
     {
-        if (\is_object($padding)) {
-            $padding = (string) $padding;
-        }
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $padding = (string) $padding;
         $checkEncoding = \false;
         if (\function_exists('iconv_strlen') === \true) {
             $checkEncoding = \true;
@@ -838,6 +826,9 @@ abstract class Tokenizer
      */
     private function recurseScopeMap($stackPtr, $depth = 1, &$ignore = 0)
     {
+        $stackPtr = (int) $stackPtr;
+        $depth = (int) $depth;
+        $ignore = (int) $ignore;
         if (PHP_CODESNIFFER_VERBOSITY > 1) {
             echo \str_repeat("\t", $depth);
             echo "=> Begin scope map recursion at token {$stackPtr} with depth {$depth}" . \PHP_EOL;

@@ -53,6 +53,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210508\Symfony\Compo
      */
     protected function inExpression($reset = \true)
     {
+        $reset = (bool) $reset;
         $inExpression = $this->inExpression;
         if ($reset) {
             $this->inExpression = \false;
@@ -69,6 +70,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210508\Symfony\Compo
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
                 if ($isRoot) {
@@ -104,6 +106,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210508\Symfony\Compo
      */
     protected function getConstructor(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $required)
     {
+        $required = (bool) $required;
         if ($definition->isSynthetic()) {
             return null;
         }
@@ -156,9 +159,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210508\Symfony\Compo
      */
     protected function getReflectionMethod(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $method)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         if ('__construct' === $method) {
             return $this->getConstructor($definition, \true);
         }

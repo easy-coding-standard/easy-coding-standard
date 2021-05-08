@@ -27,6 +27,7 @@ class FunctionCommentSniff extends \PHP_CodeSniffer\Standards\Squiz\Sniffs\Comme
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         parent::process($phpcsFile, $stackPtr);
         $tokens = $phpcsFile->getTokens();
         $find = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;

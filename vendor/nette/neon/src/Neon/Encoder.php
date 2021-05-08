@@ -16,6 +16,7 @@ final class Encoder
      */
     public function encode($var, $flags = 0)
     {
+        $flags = (int) $flags;
         if ($var instanceof \DateTimeInterface) {
             return $var->format('Y-m-d H:i:s O');
         } elseif ($var instanceof \ECSPrefix20210508\Nette\Neon\Entity) {

@@ -31,6 +31,7 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210508\Symfony\Component\D
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition) {
             return parent::processValue($value, $isRoot);
         }

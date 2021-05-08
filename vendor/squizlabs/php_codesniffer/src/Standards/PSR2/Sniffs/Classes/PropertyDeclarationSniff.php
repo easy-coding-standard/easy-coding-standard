@@ -24,6 +24,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
      */
     protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['content'][1] === '_') {
             $error = 'Property name "%s" should not be prefixed with an underscore to indicate visibility';
@@ -140,6 +141,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
      */
     protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */
@@ -155,6 +157,7 @@ class PropertyDeclarationSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableS
      */
     protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */

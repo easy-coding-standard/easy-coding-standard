@@ -37,6 +37,7 @@ class Profiler implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInte
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface $storage, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null, $enable = \true)
     {
+        $enable = (bool) $enable;
         $this->storage = $storage;
         $this->logger = $logger;
         $this->initiallyEnabled = $this->enabled = $enable;
@@ -75,9 +76,7 @@ class Profiler implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInte
      */
     public function loadProfile($token)
     {
-        if (\is_object($token)) {
-            $token = (string) $token;
-        }
+        $token = (string) $token;
         return $this->storage->read($token);
     }
     /**
@@ -199,9 +198,7 @@ class Profiler implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInte
      */
     public function has($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->collectors[$name]);
     }
     /**
@@ -215,9 +212,7 @@ class Profiler implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInte
      */
     public function get($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->collectors[$name])) {
             throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));
         }

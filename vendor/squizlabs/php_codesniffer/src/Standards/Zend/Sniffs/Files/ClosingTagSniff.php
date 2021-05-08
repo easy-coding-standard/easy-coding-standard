@@ -35,6 +35,7 @@ class ClosingTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         // Find the last non-empty token.
         $tokens = $phpcsFile->getTokens();
         for ($last = $phpcsFile->numTokens - 1; $last > 0; $last--) {

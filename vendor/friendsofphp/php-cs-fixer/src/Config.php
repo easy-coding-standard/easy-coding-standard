@@ -36,9 +36,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function __construct($name = 'default')
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -158,9 +156,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function setCacheFile($cacheFile)
     {
-        if (\is_object($cacheFile)) {
-            $cacheFile = (string) $cacheFile;
-        }
+        $cacheFile = (string) $cacheFile;
         $this->cacheFile = $cacheFile;
         return $this;
     }
@@ -181,9 +177,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function setFormat($format)
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
         $this->format = $format;
         return $this;
     }
@@ -194,6 +188,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function setHideProgress($hideProgress)
     {
+        $hideProgress = (bool) $hideProgress;
         $this->hideProgress = $hideProgress;
         return $this;
     }
@@ -204,9 +199,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function setIndent($indent)
     {
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
+        $indent = (string) $indent;
         $this->indent = $indent;
         return $this;
     }
@@ -217,9 +210,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function setLineEnding($lineEnding)
     {
-        if (\is_object($lineEnding)) {
-            $lineEnding = (string) $lineEnding;
-        }
+        $lineEnding = (string) $lineEnding;
         $this->lineEnding = $lineEnding;
         return $this;
     }
@@ -240,6 +231,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function setRiskyAllowed($isRiskyAllowed)
     {
+        $isRiskyAllowed = (bool) $isRiskyAllowed;
         $this->isRiskyAllowed = $isRiskyAllowed;
         return $this;
     }
@@ -259,6 +251,7 @@ class Config implements \PhpCsFixer\ConfigInterface
      */
     public function setUsingCache($usingCache)
     {
+        $usingCache = (bool) $usingCache;
         $this->usingCache = $usingCache;
         return $this;
     }

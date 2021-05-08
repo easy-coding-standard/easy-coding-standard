@@ -32,6 +32,8 @@ class ExceptionCaster
      */
     public static function castError(\Error $e, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         return self::filterExceptionArray($stub->class, $a, "\0Error\0", $filter);
     }
     /**
@@ -40,6 +42,8 @@ class ExceptionCaster
      */
     public static function castException(\Exception $e, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         return self::filterExceptionArray($stub->class, $a, "\0Exception\0", $filter);
     }
     /**
@@ -47,6 +51,7 @@ class ExceptionCaster
      */
     public static function castErrorException(\ErrorException $e, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         if (isset($a[$s = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_PROTECTED . 'severity'], self::$errorTypes[$a[$s]])) {
             $a[$s] = new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ConstStub(self::$errorTypes[$a[$s]], $a[$s]);
         }
@@ -57,6 +62,7 @@ class ExceptionCaster
      */
     public static function castThrowingCasterException(\ECSPrefix20210508\Symfony\Component\VarDumper\Exception\ThrowingCasterException $e, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $trace = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'trace';
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_PROTECTED;
         $xPrefix = "\0Exception\0";
@@ -74,6 +80,7 @@ class ExceptionCaster
      */
     public static function castSilencedErrorContext(\ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext $e, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $sPrefix = "\0" . \ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext::class . "\0";
         if (!isset($a[$s = $sPrefix . 'severity'])) {
             return $a;
@@ -94,6 +101,7 @@ class ExceptionCaster
      */
     public static function castTraceStub(\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\TraceStub $trace, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         if (!$isNested) {
             return $a;
         }
@@ -156,6 +164,7 @@ class ExceptionCaster
      */
     public static function castFrameStub(\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\FrameStub $frame, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         if (!$isNested) {
             return $a;
         }
@@ -232,12 +241,9 @@ class ExceptionCaster
      */
     private static function filterExceptionArray($xClass, array $a, $xPrefix, $filter)
     {
-        if (\is_object($xPrefix)) {
-            $xPrefix = (string) $xPrefix;
-        }
-        if (\is_object($xClass)) {
-            $xClass = (string) $xClass;
-        }
+        $xClass = (string) $xClass;
+        $xPrefix = (string) $xPrefix;
+        $filter = (int) $filter;
         if (isset($a[$xPrefix . 'trace'])) {
             $trace = $a[$xPrefix . 'trace'];
             unset($a[$xPrefix . 'trace']);
@@ -273,9 +279,8 @@ class ExceptionCaster
      */
     private static function traceUnshift(array &$trace, $class, $file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $line = (int) $line;
         if (isset($trace[0]['file'], $trace[0]['line']) && $trace[0]['file'] === $file && $trace[0]['line'] === $line) {
             return;
         }
@@ -291,12 +296,10 @@ class ExceptionCaster
      */
     private static function extractSource($srcLines, $line, $srcContext, $lang, $file, array $frame)
     {
-        if (\is_object($lang)) {
-            $lang = (string) $lang;
-        }
-        if (\is_object($srcLines)) {
-            $srcLines = (string) $srcLines;
-        }
+        $srcLines = (string) $srcLines;
+        $line = (int) $line;
+        $srcContext = (int) $srcContext;
+        $lang = (string) $lang;
         $srcLines = \explode("\n", $srcLines);
         $src = [];
         for ($i = $line - 1 - $srcContext; $i <= $line - 1 + $srcContext; ++$i) {

@@ -37,9 +37,7 @@ class NullSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     protected function doRead($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return '';
     }
     /**
@@ -56,12 +54,8 @@ class NullSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     protected function doWrite($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         return \true;
     }
     /**
@@ -70,9 +64,7 @@ class NullSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     protected function doDestroy($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return \true;
     }
     /**

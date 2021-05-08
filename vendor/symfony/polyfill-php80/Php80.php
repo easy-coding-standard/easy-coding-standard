@@ -27,6 +27,8 @@ final class Php80
      */
     public static function fdiv($dividend, $divisor)
     {
+        $dividend = (double) $dividend;
+        $divisor = (double) $divisor;
         return @($dividend / $divisor);
     }
 
@@ -109,12 +111,8 @@ final class Php80
      */
     public static function str_contains($haystack, $needle)
     {
-        if (is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
         return '' === $needle || false !== strpos($haystack, $needle);
     }
 
@@ -125,12 +123,8 @@ final class Php80
      */
     public static function str_starts_with($haystack, $needle)
     {
-        if (is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
         return 0 === strncmp($haystack, $needle, \strlen($needle));
     }
 
@@ -141,12 +135,8 @@ final class Php80
      */
     public static function str_ends_with($haystack, $needle)
     {
-        if (is_object($needle)) {
-            $needle = (string) $needle;
-        }
-        if (is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
+        $haystack = (string) $haystack;
+        $needle = (string) $needle;
         return '' === $needle || ('' !== $haystack && 0 === substr_compare($haystack, $needle, -\strlen($needle)));
     }
 }

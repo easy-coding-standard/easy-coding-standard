@@ -21,12 +21,8 @@ final class StaticFixtureFinder
      */
     public static function yieldDirectory($directory, $suffix = '*.php.inc')
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $suffix = (string) $suffix;
         $fileInfos = self::findFilesInDirectory($directory, $suffix);
         return self::yieldFileInfos($fileInfos);
     }
@@ -37,12 +33,8 @@ final class StaticFixtureFinder
      */
     public static function yieldDirectoryExclusively($directory, $suffix = '*.php.inc')
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $suffix = (string) $suffix;
         $fileInfos = self::findFilesInDirectoryExclusively($directory, $suffix);
         return self::yieldFileInfos($fileInfos);
     }
@@ -53,12 +45,8 @@ final class StaticFixtureFinder
      */
     public static function yieldDirectoryWithRelativePathname($directory, $suffix = '*.php.inc')
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $suffix = (string) $suffix;
         $fileInfos = self::findFilesInDirectory($directory, $suffix);
         return self::yieldFileInfosWithRelativePathname($fileInfos);
     }
@@ -69,12 +57,8 @@ final class StaticFixtureFinder
      */
     public static function yieldDirectoryExclusivelyWithRelativePathname($directory, $suffix = '*.php.inc')
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $suffix = (string) $suffix;
         $fileInfos = self::findFilesInDirectoryExclusively($directory, $suffix);
         return self::yieldFileInfosWithRelativePathname($fileInfos);
     }
@@ -113,12 +97,8 @@ final class StaticFixtureFinder
      */
     private static function findFilesInDirectory($directory, $suffix)
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $suffix = (string) $suffix;
         $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->in($directory)->files()->name($suffix);
         $fileInfos = \iterator_to_array($finder);
         return \array_values($fileInfos);
@@ -130,12 +110,8 @@ final class StaticFixtureFinder
      */
     private static function findFilesInDirectoryExclusively($directory, $suffix)
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $suffix = (string) $suffix;
         self::ensureNoOtherFileName($directory, $suffix);
         $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->in($directory)->files()->name($suffix);
         $fileInfos = \iterator_to_array($finder->getIterator());
@@ -148,12 +124,8 @@ final class StaticFixtureFinder
      */
     private static function ensureNoOtherFileName($directory, $suffix)
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
+        $suffix = (string) $suffix;
         $iterator = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->in($directory)->files()->notName($suffix)->getIterator();
         $relativeFilePaths = [];
         foreach ($iterator as $fileInfo) {

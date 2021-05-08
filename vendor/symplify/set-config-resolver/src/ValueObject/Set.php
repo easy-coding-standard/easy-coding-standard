@@ -18,9 +18,7 @@ final class Set
      */
     public function __construct($name, \Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
         $this->setFileInfo = $setFileInfo;
     }

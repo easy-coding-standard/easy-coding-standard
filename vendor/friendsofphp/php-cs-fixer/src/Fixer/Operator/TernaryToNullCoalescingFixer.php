@@ -56,6 +56,7 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixIsset(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevTokenIndex = $tokens->getPrevMeaningfulToken($index);
         if ($this->isHigherPrecedenceAssociativityOperator($tokens[$prevTokenIndex])) {
             return;
@@ -107,6 +108,8 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getMeaningfulSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $sequence = [];
         $index = $start;
         while ($index < $end) {

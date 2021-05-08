@@ -40,6 +40,10 @@ final class Chunk
      */
     public function __construct($start = 0, $startRange = 1, $end = 0, $endRange = 1, array $lines = [])
     {
+        $start = (int) $start;
+        $startRange = (int) $startRange;
+        $end = (int) $end;
+        $endRange = (int) $endRange;
         $this->start = $start;
         $this->startRange = $startRange;
         $this->end = $end;

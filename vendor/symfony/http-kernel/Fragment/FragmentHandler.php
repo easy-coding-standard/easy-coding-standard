@@ -36,6 +36,7 @@ class FragmentHandler
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack, array $renderers = [], $debug = \false)
     {
+        $debug = (bool) $debug;
         $this->requestStack = $requestStack;
         foreach ($renderers as $renderer) {
             $this->addRenderer($renderer);
@@ -66,9 +67,7 @@ class FragmentHandler
      */
     public function render($uri, $renderer = 'inline', array $options = [])
     {
-        if (\is_object($renderer)) {
-            $renderer = (string) $renderer;
-        }
+        $renderer = (string) $renderer;
         if (!isset($options['ignore_errors'])) {
             $options['ignore_errors'] = !$this->debug;
         }

@@ -51,9 +51,8 @@ class TraceableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     public function addListener($eventName, $listener, $priority = 0)
     {
-        if (\is_object($eventName)) {
-            $eventName = (string) $eventName;
-        }
+        $eventName = (string) $eventName;
+        $priority = (int) $priority;
         $this->dispatcher->addListener($eventName, $listener, $priority);
     }
     /**
@@ -69,9 +68,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     public function removeListener($eventName, $listener)
     {
-        if (\is_object($eventName)) {
-            $eventName = (string) $eventName;
-        }
+        $eventName = (string) $eventName;
         if (isset($this->wrappedListeners[$eventName])) {
             foreach ($this->wrappedListeners[$eventName] as $index => $wrappedListener) {
                 if ($wrappedListener->getWrappedListener() === $listener) {
@@ -104,9 +101,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     public function getListenerPriority($eventName, $listener)
     {
-        if (\is_object($eventName)) {
-            $eventName = (string) $eventName;
-        }
+        $eventName = (string) $eventName;
         // we might have wrapped listeners for the event (if called while dispatching)
         // in that case get the priority by wrapper
         if (isset($this->wrappedListeners[$eventName])) {
@@ -248,9 +243,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     public function __call($method, array $arguments)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         return $this->dispatcher->{$method}(...$arguments);
     }
     /**
@@ -275,9 +268,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     private function preProcess($eventName)
     {
-        if (\is_object($eventName)) {
-            $eventName = (string) $eventName;
-        }
+        $eventName = (string) $eventName;
         if (!$this->dispatcher->hasListeners($eventName)) {
             $this->orphanedEvents[$this->currentRequestHash][] = $eventName;
             return;
@@ -297,9 +288,7 @@ class TraceableEventDispatcher implements \ECSPrefix20210508\Symfony\Component\E
      */
     private function postProcess($eventName)
     {
-        if (\is_object($eventName)) {
-            $eventName = (string) $eventName;
-        }
+        $eventName = (string) $eventName;
         unset($this->wrappedListeners[$eventName]);
         $skipped = \false;
         foreach ($this->dispatcher->getListeners($eventName) as $listener) {

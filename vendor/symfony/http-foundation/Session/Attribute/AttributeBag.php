@@ -23,9 +23,7 @@ class AttributeBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundatio
      */
     public function __construct($storageKey = '_sf2_attributes')
     {
-        if (\is_object($storageKey)) {
-            $storageKey = (string) $storageKey;
-        }
+        $storageKey = (string) $storageKey;
         $this->storageKey = $storageKey;
     }
     /**
@@ -40,9 +38,7 @@ class AttributeBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundatio
      */
     public function setName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->name = $name;
     }
     /**
@@ -65,9 +61,7 @@ class AttributeBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundatio
      */
     public function has($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return \array_key_exists($name, $this->attributes);
     }
     /**
@@ -76,9 +70,7 @@ class AttributeBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundatio
      */
     public function get($name, $default = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return \array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $default;
     }
     /**
@@ -87,9 +79,7 @@ class AttributeBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundatio
      */
     public function set($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->attributes[$name] = $value;
     }
     /**
@@ -115,9 +105,7 @@ class AttributeBag implements \ECSPrefix20210508\Symfony\Component\HttpFoundatio
      */
     public function remove($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $retval = null;
         if (\array_key_exists($name, $this->attributes)) {
             $retval = $this->attributes[$name];

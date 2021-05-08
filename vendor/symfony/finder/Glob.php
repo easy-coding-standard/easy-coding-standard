@@ -45,12 +45,10 @@ class Glob
      */
     public static function toRegex($glob, $strictLeadingDot = \true, $strictWildcardSlash = \true, $delimiter = '#')
     {
-        if (\is_object($delimiter)) {
-            $delimiter = (string) $delimiter;
-        }
-        if (\is_object($glob)) {
-            $glob = (string) $glob;
-        }
+        $glob = (string) $glob;
+        $strictLeadingDot = (bool) $strictLeadingDot;
+        $strictWildcardSlash = (bool) $strictWildcardSlash;
+        $delimiter = (string) $delimiter;
         $firstByte = \true;
         $escaping = \false;
         $inCurlies = 0;

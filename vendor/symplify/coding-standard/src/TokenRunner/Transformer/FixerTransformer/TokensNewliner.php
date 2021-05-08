@@ -48,6 +48,7 @@ final class TokensNewliner
      */
     public function breakItems(\Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \PhpCsFixer\Tokenizer\Tokens $tokens, $kind = \Symplify\CodingStandard\TokenRunner\ValueObject\LineKind::CALLS)
     {
+        $kind = (int) $kind;
         // from bottom top, to prevent skipping ids
         //  e.g when token is added in the middle, the end index does now point to earlier element!
         $currentNewlineIndentWhitespace = $this->indentResolver->resolveCurrentNewlineIndentWhitespace($tokens, $blockInfo->getStart());
@@ -82,6 +83,7 @@ final class TokensNewliner
      */
     private function isLastItem(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $nextPosition = $position + 1;
         if (!isset($tokens[$nextPosition])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($nextPosition);
@@ -96,6 +98,7 @@ final class TokensNewliner
      */
     private function isFollowedByComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
     {
+        $i = (int) $i;
         $nextToken = $tokens[$i + 1];
         $nextNextToken = $tokens[$i + 2];
         if ($nextNextToken->isComment()) {

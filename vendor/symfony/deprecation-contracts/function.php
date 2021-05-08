@@ -23,15 +23,9 @@ if (!function_exists('trigger_deprecation')) {
      */
     function trigger_deprecation($package, $version, $message, ...$args)
     {
-        if (is_object($message)) {
-            $message = (string) $message;
-        }
-        if (is_object($version)) {
-            $version = (string) $version;
-        }
-        if (is_object($package)) {
-            $package = (string) $package;
-        }
+        $package = (string) $package;
+        $version = (string) $version;
+        $message = (string) $message;
         @trigger_error(($package || $version ? "Since $package $version: " : '').($args ? vsprintf($message, $args) : $message), \E_USER_DEPRECATED);
     }
 }

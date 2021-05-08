@@ -42,6 +42,10 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     public function __construct($file, $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
+        $status = (int) $status;
+        $public = (bool) $public;
+        $autoEtag = (bool) $autoEtag;
+        $autoLastModified = (bool) $autoLastModified;
         parent::__construct(null, $status, $headers);
         $this->setFile($file, $contentDisposition, $autoEtag, $autoLastModified);
         if ($public) {
@@ -63,6 +67,10 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     public static function create($file = null, $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
+        $status = (int) $status;
+        $public = (bool) $public;
+        $autoEtag = (bool) $autoEtag;
+        $autoLastModified = (bool) $autoLastModified;
         trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
     }
@@ -80,6 +88,8 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     public function setFile($file, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
+        $autoEtag = (bool) $autoEtag;
+        $autoLastModified = (bool) $autoLastModified;
         if (!$file instanceof \ECSPrefix20210508\Symfony\Component\HttpFoundation\File\File) {
             if ($file instanceof \SplFileInfo) {
                 $file = new \ECSPrefix20210508\Symfony\Component\HttpFoundation\File\File($file->getPathname());
@@ -138,15 +148,9 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     public function setContentDisposition($disposition, $filename = '', $filenameFallback = '')
     {
-        if (\is_object($filenameFallback)) {
-            $filenameFallback = (string) $filenameFallback;
-        }
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
-        if (\is_object($disposition)) {
-            $disposition = (string) $disposition;
-        }
+        $disposition = (string) $disposition;
+        $filename = (string) $filename;
+        $filenameFallback = (string) $filenameFallback;
         if ('' === $filename) {
             $filename = $this->file->getFilename();
         }
@@ -318,6 +322,7 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      */
     public function deleteFileAfterSend($shouldDelete = \true)
     {
+        $shouldDelete = (bool) $shouldDelete;
         $this->deleteFileAfterSend = $shouldDelete;
         return $this;
     }

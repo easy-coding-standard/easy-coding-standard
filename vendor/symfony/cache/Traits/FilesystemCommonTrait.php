@@ -26,9 +26,7 @@ trait FilesystemCommonTrait
      */
     private function init($namespace, $directory)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         if (!isset($directory[0])) {
             $directory = \sys_get_temp_dir() . \DIRECTORY_SEPARATOR . 'symfony-cache';
         } else {
@@ -58,9 +56,7 @@ trait FilesystemCommonTrait
      */
     protected function doClear($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         $ok = \true;
         foreach ($this->scanHashDir($this->directory) as $file) {
             if ('' !== $namespace && 0 !== \strpos($this->getFileKey($file), $namespace)) {
@@ -93,12 +89,9 @@ trait FilesystemCommonTrait
      */
     private function write($file, $data, $expiresAt = null)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $data = (string) $data;
+        $expiresAt = (int) $expiresAt;
         \set_error_handler(__CLASS__ . '::throwError');
         try {
             if (null === $this->tmp) {
@@ -130,12 +123,9 @@ trait FilesystemCommonTrait
      */
     private function getFile($id, $mkdir = \false, $directory = null)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $mkdir = (bool) $mkdir;
+        $directory = (string) $directory;
         // Use MD5 to favor speed over security, which is not an issue here
         $hash = \str_replace('/', '-', \base64_encode(\hash('md5', static::class . $id, \true)));
         $dir = (isset($directory) ? $directory : $this->directory) . \strtoupper($hash[0] . \DIRECTORY_SEPARATOR . $hash[1] . \DIRECTORY_SEPARATOR);
@@ -150,9 +140,7 @@ trait FilesystemCommonTrait
      */
     private function getFileKey($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         return '';
     }
     /**
@@ -161,9 +149,7 @@ trait FilesystemCommonTrait
      */
     private function scanHashDir($directory)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
         if (!\is_dir($directory)) {
             return;
         }

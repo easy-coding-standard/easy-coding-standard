@@ -100,6 +100,7 @@ final class NoSpacesAfterFunctionNameFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         // remove space before opening brace
         if ($tokens[$index - 1]->isWhitespace()) {
             $tokens->clearAt($index - 1);

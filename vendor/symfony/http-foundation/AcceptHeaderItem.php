@@ -26,9 +26,7 @@ class AcceptHeaderItem
      */
     public function __construct($value, array $attributes = [])
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         $this->value = $value;
         foreach ($attributes as $name => $value) {
             $this->setAttribute($name, $value);
@@ -42,9 +40,7 @@ class AcceptHeaderItem
      */
     public static function fromString($itemValue)
     {
-        if (\is_object($itemValue)) {
-            $itemValue = (string) $itemValue;
-        }
+        $itemValue = (string) $itemValue;
         $parts = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::split(isset($itemValue) ? $itemValue : '', ';=');
         $part = \array_shift($parts);
         $attributes = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::combine($parts);
@@ -71,9 +67,7 @@ class AcceptHeaderItem
      */
     public function setValue($value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         $this->value = $value;
         return $this;
     }
@@ -94,6 +88,7 @@ class AcceptHeaderItem
      */
     public function setQuality($quality)
     {
+        $quality = (double) $quality;
         $this->quality = $quality;
         return $this;
     }
@@ -114,6 +109,7 @@ class AcceptHeaderItem
      */
     public function setIndex($index)
     {
+        $index = (int) $index;
         $this->index = $index;
         return $this;
     }
@@ -134,9 +130,7 @@ class AcceptHeaderItem
      */
     public function hasAttribute($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->attributes[$name]);
     }
     /**
@@ -149,9 +143,7 @@ class AcceptHeaderItem
      */
     public function getAttribute($name, $default = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->attributes[$name]) ? $this->attributes[$name] : $default;
     }
     /**
@@ -172,12 +164,8 @@ class AcceptHeaderItem
      */
     public function setAttribute($name, $value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $value = (string) $value;
         if ('q' === $name) {
             $this->quality = (float) $value;
         } else {

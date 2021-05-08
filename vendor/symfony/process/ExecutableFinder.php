@@ -32,9 +32,7 @@ class ExecutableFinder
      */
     public function addSuffix($suffix)
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
+        $suffix = (string) $suffix;
         $this->suffixes[] = $suffix;
     }
     /**
@@ -48,9 +46,7 @@ class ExecutableFinder
      */
     public function find($name, $default = null, array $extraDirs = [])
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (\ini_get('open_basedir')) {
             $searchPath = \array_merge(\explode(\PATH_SEPARATOR, \ini_get('open_basedir')), $extraDirs);
             $dirs = [];

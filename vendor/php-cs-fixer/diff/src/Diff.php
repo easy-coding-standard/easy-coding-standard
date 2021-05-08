@@ -31,12 +31,8 @@ final class Diff
      */
     public function __construct($from, $to, array $chunks = [])
     {
-        if (\is_object($to)) {
-            $to = (string) $to;
-        }
-        if (\is_object($from)) {
-            $from = (string) $from;
-        }
+        $from = (string) $from;
+        $to = (string) $to;
         $this->from = $from;
         $this->to = $to;
         $this->chunks = $chunks;

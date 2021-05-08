@@ -34,6 +34,7 @@ final class ViewEvent extends \ECSPrefix20210508\Symfony\Component\HttpKernel\Ev
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $requestType, $controllerResult)
     {
+        $requestType = (int) $requestType;
         parent::__construct($kernel, $request, $requestType);
         $this->controllerResult = $controllerResult;
     }

@@ -72,9 +72,7 @@ final class TypeExpression
      */
     public function __construct($value, $namespace, array $namespaceUses)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
+        $value = (string) $value;
         while ('' !== $value && \false !== $value) {
             \PhpCsFixer\Preg::match('{^' . self::REGEX_TYPES . '$}x', $value, $matches);
             $this->types[] = $matches['type'];
@@ -149,9 +147,7 @@ final class TypeExpression
      */
     private function normalize($type)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $aliases = ['true' => 'bool', 'false' => 'bool', 'boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'real' => 'float', 'callback' => 'callable'];
         if (isset($aliases[$type])) {
             return $aliases[$type];

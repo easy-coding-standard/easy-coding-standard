@@ -105,6 +105,7 @@ CODE_SAMPLE
      */
     private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
             return;
@@ -118,6 +119,7 @@ CODE_SAMPLE
      */
     private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $nextToken = $this->getNextMeaningfulToken($tokens, $position);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return null;

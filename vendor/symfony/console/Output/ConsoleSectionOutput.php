@@ -31,6 +31,8 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     public function __construct($stream, array &$sections, $verbosity, $decorated, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
+        $verbosity = (int) $verbosity;
+        $decorated = (bool) $decorated;
         parent::__construct($stream, $verbosity, $decorated, $formatter);
         \array_unshift($sections, $this);
         $this->sections =& $sections;
@@ -79,9 +81,7 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     public function addContent($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         foreach (\explode(\PHP_EOL, $input) as $lineContent) {
             $this->lines += \ceil($this->getDisplayLength($lineContent) / $this->terminal->getWidth()) ?: 1;
             $this->content[] = $lineContent;
@@ -93,9 +93,8 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     protected function doWrite($message, $newline)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $newline = (bool) $newline;
         if (!$this->isDecorated()) {
             parent::doWrite($message, $newline);
             return;
@@ -113,6 +112,7 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     private function popStreamContentUntilCurrentSection($numberOfLinesToClearFromCurrentSection = 0)
     {
+        $numberOfLinesToClearFromCurrentSection = (int) $numberOfLinesToClearFromCurrentSection;
         $numberOfLinesToClear = $numberOfLinesToClearFromCurrentSection;
         $erasedContent = [];
         foreach ($this->sections as $section) {
@@ -136,9 +136,7 @@ class ConsoleSectionOutput extends \ECSPrefix20210508\Symfony\Component\Console\
      */
     private function getDisplayLength($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         return \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), \str_replace("\t", '        ', $text));
     }
 }

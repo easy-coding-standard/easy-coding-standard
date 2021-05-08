@@ -83,6 +83,7 @@ class Bar {}
      */
     private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $content = $tokens[$index]->getContent();
         // if there is more than one new line in the whitespace, then we need to fix it
         if (\substr_count($content, "\n") > 1) {

@@ -13,6 +13,7 @@ final class CallAnalyzer
      */
     public function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $bracketPosition)
     {
+        $bracketPosition = (int) $bracketPosition;
         $objectToken = new \PhpCsFixer\Tokenizer\Token([\T_OBJECT_OPERATOR, '->']);
         $whitespaceToken = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
         $previousTokenOfKindPosition = $tokens->getPrevTokenOfKind($bracketPosition, [$objectToken, $whitespaceToken]);

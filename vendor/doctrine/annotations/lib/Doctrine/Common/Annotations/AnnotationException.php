@@ -22,9 +22,7 @@ class AnnotationException extends \Exception
      */
     public static function syntaxError($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         return new self('[Syntax Error] ' . $message);
     }
     /**
@@ -36,9 +34,7 @@ class AnnotationException extends \Exception
      */
     public static function semanticalError($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         return new self('[Semantical Error] ' . $message);
     }
     /**
@@ -51,9 +47,7 @@ class AnnotationException extends \Exception
      */
     public static function creationError($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         return new self('[Creation Error] ' . $message);
     }
     /**
@@ -65,9 +59,7 @@ class AnnotationException extends \Exception
      */
     public static function typeError($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         return new self('[Type Error] ' . $message);
     }
     /**
@@ -80,9 +72,7 @@ class AnnotationException extends \Exception
      */
     public static function semanticalErrorConstants($identifier, $context = null)
     {
-        if (\is_object($identifier)) {
-            $identifier = (string) $identifier;
-        }
+        $identifier = (string) $identifier;
         return self::semanticalError(\sprintf("Couldn't find constant %s%s.", $identifier, $context ? ', ' . $context : ''));
     }
     /**
@@ -98,18 +88,10 @@ class AnnotationException extends \Exception
      */
     public static function attributeTypeError($attributeName, $annotationName, $context, $expected, $actual)
     {
-        if (\is_object($expected)) {
-            $expected = (string) $expected;
-        }
-        if (\is_object($context)) {
-            $context = (string) $context;
-        }
-        if (\is_object($annotationName)) {
-            $annotationName = (string) $annotationName;
-        }
-        if (\is_object($attributeName)) {
-            $attributeName = (string) $attributeName;
-        }
+        $attributeName = (string) $attributeName;
+        $annotationName = (string) $annotationName;
+        $context = (string) $context;
+        $expected = (string) $expected;
         return self::typeError(\sprintf('Attribute "%s" of @%s declared on %s expects %s, but got %s.', $attributeName, $annotationName, $context, $expected, \is_object($actual) ? 'an instance of ' . \get_class($actual) : \gettype($actual)));
     }
     /**
@@ -124,18 +106,10 @@ class AnnotationException extends \Exception
      */
     public static function requiredError($attributeName, $annotationName, $context, $expected)
     {
-        if (\is_object($expected)) {
-            $expected = (string) $expected;
-        }
-        if (\is_object($context)) {
-            $context = (string) $context;
-        }
-        if (\is_object($annotationName)) {
-            $annotationName = (string) $annotationName;
-        }
-        if (\is_object($attributeName)) {
-            $attributeName = (string) $attributeName;
-        }
+        $attributeName = (string) $attributeName;
+        $annotationName = (string) $annotationName;
+        $context = (string) $context;
+        $expected = (string) $expected;
         return self::typeError(\sprintf('Attribute "%s" of @%s declared on %s expects %s. This value should not be null.', $attributeName, $annotationName, $context, $expected));
     }
     /**
@@ -152,15 +126,9 @@ class AnnotationException extends \Exception
      */
     public static function enumeratorError($attributeName, $annotationName, $context, $available, $given)
     {
-        if (\is_object($context)) {
-            $context = (string) $context;
-        }
-        if (\is_object($annotationName)) {
-            $annotationName = (string) $annotationName;
-        }
-        if (\is_object($attributeName)) {
-            $attributeName = (string) $attributeName;
-        }
+        $attributeName = (string) $attributeName;
+        $annotationName = (string) $annotationName;
+        $context = (string) $context;
         return new self(\sprintf('[Enum Error] Attribute "%s" of @%s declared on %s accepts only [%s], but got %s.', $attributeName, $annotationName, $context, \implode(', ', $available), \is_object($given) ? \get_class($given) : $given));
     }
     /**

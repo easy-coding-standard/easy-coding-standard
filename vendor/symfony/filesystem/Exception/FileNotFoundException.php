@@ -25,6 +25,7 @@ class FileNotFoundException extends \ECSPrefix20210508\Symfony\Component\Filesys
      */
     public function __construct($message = null, $code = 0, \Throwable $previous = null, $path = null)
     {
+        $code = (int) $code;
         if (null === $message) {
             if (null === $path) {
                 $message = 'File could not be found.';

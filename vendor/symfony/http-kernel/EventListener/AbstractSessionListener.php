@@ -45,6 +45,7 @@ abstract class AbstractSessionListener implements \ECSPrefix20210508\Symfony\Com
      */
     public function __construct(\ECSPrefix20210508\Psr\Container\ContainerInterface $container = null, $debug = \false)
     {
+        $debug = (bool) $debug;
         $this->container = $container;
         $this->debug = $debug;
     }

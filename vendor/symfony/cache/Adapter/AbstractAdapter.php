@@ -37,9 +37,8 @@ abstract class AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\C
      */
     protected function __construct($namespace = '', $defaultLifetime = 0)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         $this->namespace = '' === $namespace ? '' : \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($namespace) . static::NS_SEPARATOR;
         if (null !== $this->maxIdLength && \strlen($namespace) > $this->maxIdLength - 24) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Namespace must be %d chars max, %d given ("%s").', $this->maxIdLength - 24, \strlen($namespace), $namespace));
@@ -97,15 +96,10 @@ abstract class AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\C
      */
     public static function createSystemCache($namespace, $defaultLifetime, $version, $directory, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
+        $version = (string) $version;
+        $directory = (string) $directory;
         $opcache = new \ECSPrefix20210508\Symfony\Component\Cache\Adapter\PhpFilesAdapter($namespace, $defaultLifetime, $directory, \true);
         if (null !== $logger) {
             $opcache->setLogger($logger);
@@ -127,9 +121,7 @@ abstract class AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\C
      */
     public static function createConnection($dsn, array $options = [])
     {
-        if (\is_object($dsn)) {
-            $dsn = (string) $dsn;
-        }
+        $dsn = (string) $dsn;
         if (0 === \strpos($dsn, 'redis:') || 0 === \strpos($dsn, 'rediss:')) {
             return \ECSPrefix20210508\Symfony\Component\Cache\Adapter\RedisAdapter::createConnection($dsn, $options);
         }

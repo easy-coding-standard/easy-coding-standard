@@ -33,9 +33,7 @@ class Comparator
      */
     public function setTarget($target)
     {
-        if (\is_object($target)) {
-            $target = (string) $target;
-        }
+        $target = (string) $target;
         $this->target = $target;
     }
     /**
@@ -55,9 +53,7 @@ class Comparator
      */
     public function setOperator($operator)
     {
-        if (\is_object($operator)) {
-            $operator = (string) $operator;
-        }
+        $operator = (string) $operator;
         if ('' === $operator) {
             $operator = '==';
         }

@@ -18,6 +18,8 @@ final class LineLengthAndPosition
      */
     public function __construct($lineLength, $currentPosition)
     {
+        $lineLength = (int) $lineLength;
+        $currentPosition = (int) $currentPosition;
         $this->lineLength = $lineLength;
         $this->currentPosition = $currentPosition;
     }

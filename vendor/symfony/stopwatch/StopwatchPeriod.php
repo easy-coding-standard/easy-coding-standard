@@ -27,6 +27,7 @@ class StopwatchPeriod
      */
     public function __construct($start, $end, $morePrecision = \false)
     {
+        $morePrecision = (bool) $morePrecision;
         $this->start = $morePrecision ? (float) $start : (int) $start;
         $this->end = $morePrecision ? (float) $end : (int) $end;
         $this->memory = \memory_get_usage(\true);

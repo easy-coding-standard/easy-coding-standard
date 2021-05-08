@@ -40,6 +40,7 @@ class DuplicateClassNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $namespace = '';
         $findTokens = [\T_CLASS, \T_INTERFACE, \T_TRAIT, \T_NAMESPACE, \T_CLOSE_TAG];

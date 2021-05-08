@@ -51,6 +51,7 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210508\Symfony\Compone
      */
     public function __construct($autoload = \false, array $skippedIds = [])
     {
+        $autoload = (bool) $autoload;
         $this->autoload = $autoload;
         $this->skippedIds = $skippedIds;
     }
@@ -60,6 +61,7 @@ final class CheckTypeDeclarationsPass extends \ECSPrefix20210508\Symfony\Compone
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (isset($this->skippedIds[$this->currentId])) {
             return $value;
         }

@@ -41,6 +41,7 @@ class InlineCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // If this is a function/class/interface doc block comment, skip it.
         // We are only interested in inline doc block comments, which are

@@ -69,6 +69,8 @@ class HttpKernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel\Http
      */
     public function handle(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
+        $type = (int) $type;
+        $catch = (bool) $catch;
         $request->headers->set('X-Php-Ob-Level', (string) \ob_get_level());
         try {
             return $this->handleRaw($request, $type);
@@ -115,6 +117,7 @@ class HttpKernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel\Http
      */
     private function handleRaw(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST)
     {
+        $type = (int) $type;
         $this->requestStack->push($request);
         // request
         $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\RequestEvent($this, $request, $type);
@@ -163,6 +166,7 @@ class HttpKernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel\Http
      */
     private function filterResponse(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type)
     {
+        $type = (int) $type;
         $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ResponseEvent($this, $request, $type, $response);
         $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::RESPONSE);
         $this->finishRequest($request, $type);
@@ -178,6 +182,7 @@ class HttpKernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel\Http
      */
     private function finishRequest(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type)
     {
+        $type = (int) $type;
         $this->dispatcher->dispatch(new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\FinishRequestEvent($this, $request, $type), \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST);
         $this->requestStack->pop();
     }
@@ -190,6 +195,7 @@ class HttpKernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel\Http
      */
     private function handleThrowable(\Throwable $e, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type)
     {
+        $type = (int) $type;
         $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ExceptionEvent($this, $request, $type, $e);
         $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION);
         // a listener might have replaced the exception

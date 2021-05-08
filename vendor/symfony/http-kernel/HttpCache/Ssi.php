@@ -44,15 +44,10 @@ class Ssi extends \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\Abst
      */
     public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '')
     {
-        if (\is_object($comment)) {
-            $comment = (string) $comment;
-        }
-        if (\is_object($alt)) {
-            $alt = (string) $alt;
-        }
-        if (\is_object($uri)) {
-            $uri = (string) $uri;
-        }
+        $uri = (string) $uri;
+        $alt = (string) $alt;
+        $ignoreErrors = (bool) $ignoreErrors;
+        $comment = (string) $comment;
         return \sprintf('<!--#include virtual="%s" -->', $uri);
     }
     /**

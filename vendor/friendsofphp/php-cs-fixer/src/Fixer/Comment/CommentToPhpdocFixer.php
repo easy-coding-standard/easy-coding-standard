@@ -148,6 +148,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
      */
     private function fixCommentSingleLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $message = $this->getMessage($tokens[$index]->getContent());
         if ('' !== \trim(\substr($message, 0, 1))) {
             $message = ' ' . $message;
@@ -188,9 +189,7 @@ final class CommentToPhpdocFixer extends \PhpCsFixer\AbstractFixer implements \P
      */
     private function getMessage($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         if (0 === \strpos($content, '#')) {
             return \substr($content, 1);
         }

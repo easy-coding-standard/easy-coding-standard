@@ -21,15 +21,9 @@ class Version
      */
     public function __construct($packageName, $prettyVersion, $reference = null)
     {
-        if (\is_object($reference)) {
-            $reference = (string) $reference;
-        }
-        if (\is_object($prettyVersion)) {
-            $prettyVersion = (string) $prettyVersion;
-        }
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
+        $prettyVersion = (string) $prettyVersion;
+        $reference = (string) $reference;
         $this->packageName = $packageName;
         $this->prettyVersion = $prettyVersion;
         $this->reference = isset($reference) ? $reference : self::NO_REFERENCE_TEXT;

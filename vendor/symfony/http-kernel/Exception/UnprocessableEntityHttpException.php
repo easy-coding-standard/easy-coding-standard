@@ -22,6 +22,7 @@ class UnprocessableEntityHttpException extends \ECSPrefix20210508\Symfony\Compon
      */
     public function __construct($message = '', \Throwable $previous = null, $code = 0, array $headers = [])
     {
+        $code = (int) $code;
         parent::__construct(422, $message, $previous, $headers, $code);
     }
 }

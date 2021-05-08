@@ -17,9 +17,7 @@ class NotInstantiableTypeException extends \Exception implements \ECSPrefix20210
      */
     public function __construct($type, \Throwable $previous = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         parent::__construct(\sprintf('Type "%s" is not instantiable.', $type), 0, $previous);
     }
 }

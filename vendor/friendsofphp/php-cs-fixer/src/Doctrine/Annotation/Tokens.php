@@ -108,6 +108,7 @@ final class Tokens extends \SplFixedArray
      */
     public function getNextMeaningfulToken($index)
     {
+        $index = (int) $index;
         return $this->getMeaningfulTokenSibling($index, 1);
     }
     /**
@@ -117,6 +118,7 @@ final class Tokens extends \SplFixedArray
      */
     public function getPreviousMeaningfulToken($index)
     {
+        $index = (int) $index;
         return $this->getMeaningfulTokenSibling($index, -1);
     }
     /**
@@ -128,6 +130,7 @@ final class Tokens extends \SplFixedArray
      */
     public function getNextTokenOfType($type, $index)
     {
+        $index = (int) $index;
         return $this->getTokenOfTypeSibling($index, $type, 1);
     }
     /**
@@ -139,6 +142,7 @@ final class Tokens extends \SplFixedArray
      */
     public function getPreviousTokenOfType($type, $index)
     {
+        $index = (int) $index;
         return $this->getTokenOfTypeSibling($index, $type, -1);
     }
     /**
@@ -148,6 +152,7 @@ final class Tokens extends \SplFixedArray
      */
     public function getAnnotationEnd($index)
     {
+        $index = (int) $index;
         $currentIndex = null;
         if (isset($this[$index + 2])) {
             if ($this[$index + 2]->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
@@ -179,6 +184,7 @@ final class Tokens extends \SplFixedArray
      */
     public function getArrayEnd($index)
     {
+        $index = (int) $index;
         $level = 1;
         for (++$index, $max = \count($this); $index < $max; ++$index) {
             if ($this[$index]->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
@@ -211,6 +217,7 @@ final class Tokens extends \SplFixedArray
      */
     public function insertAt($index, \PhpCsFixer\Doctrine\Annotation\Token $token)
     {
+        $index = (int) $index;
         $this->setSize($this->getSize() + 1);
         for ($i = $this->getSize() - 1; $i > $index; --$i) {
             $this[$i] = isset($this[$i - 1]) ? $this[$i - 1] : new \PhpCsFixer\Doctrine\Annotation\Token();
@@ -246,6 +253,7 @@ final class Tokens extends \SplFixedArray
      */
     public function offsetUnset($index)
     {
+        $index = (int) $index;
         if (!isset($this[$index])) {
             throw new \OutOfBoundsException(\sprintf('Index %s is invalid or does not exist.', $index));
         }
@@ -264,6 +272,8 @@ final class Tokens extends \SplFixedArray
      */
     private function getMeaningfulTokenSibling($index, $direction)
     {
+        $index = (int) $index;
+        $direction = (int) $direction;
         while (\true) {
             $index += $direction;
             if (!$this->offsetExists($index)) {
@@ -283,6 +293,8 @@ final class Tokens extends \SplFixedArray
      */
     private function getTokenOfTypeSibling($index, $type, $direction)
     {
+        $index = (int) $index;
+        $direction = (int) $direction;
         while (\true) {
             $index += $direction;
             if (!$this->offsetExists($index)) {

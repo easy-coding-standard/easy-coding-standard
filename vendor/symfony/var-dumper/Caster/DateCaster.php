@@ -27,6 +27,8 @@ class DateCaster
      */
     public static function castDateTime(\DateTimeInterface $d, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $prefix = \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
         $location = $d->getTimezone()->getLocation();
         $fromNow = (new \DateTime())->diff($d);
@@ -42,6 +44,8 @@ class DateCaster
      */
     public static function castInterval(\DateInterval $interval, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $now = new \DateTimeImmutable();
         $numberOfSeconds = $now->add($interval)->getTimestamp() - $now->getTimestamp();
         $title = \number_format($numberOfSeconds, 0, '.', ' ') . 's';
@@ -71,6 +75,8 @@ class DateCaster
      */
     public static function castTimeZone(\DateTimeZone $timeZone, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $location = $timeZone->getLocation();
         $formatted = (new \DateTime('now', $timeZone))->format($location ? 'e (P)' : 'P');
         $title = $location && \extension_loaded('intl') ? \Locale::getDisplayRegion('-' . $location['country_code']) : '';
@@ -83,6 +89,8 @@ class DateCaster
      */
     public static function castPeriod(\DatePeriod $p, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
     {
+        $isNested = (bool) $isNested;
+        $filter = (int) $filter;
         $dates = [];
         foreach (clone $p as $i => $d) {
             if (self::PERIOD_LIMIT === $i) {
@@ -102,9 +110,7 @@ class DateCaster
      */
     private static function formatDateTime(\DateTimeInterface $d, $extra = '')
     {
-        if (\is_object($extra)) {
-            $extra = (string) $extra;
-        }
+        $extra = (string) $extra;
         return $d->format('Y-m-d H:i:' . self::formatSeconds($d->format('s'), $d->format('u')) . $extra);
     }
     /**
@@ -114,12 +120,8 @@ class DateCaster
      */
     private static function formatSeconds($s, $us)
     {
-        if (\is_object($us)) {
-            $us = (string) $us;
-        }
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
+        $us = (string) $us;
         return \sprintf('%02d.%s', $s, 0 === ($len = \strlen($t = \rtrim($us, '0'))) ? '0' : ($len <= 3 ? \str_pad($t, 3, '0') : $us));
     }
 }

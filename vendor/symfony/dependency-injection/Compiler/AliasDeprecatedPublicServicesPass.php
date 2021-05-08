@@ -22,9 +22,7 @@ final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20210508\Symfony
      */
     public function __construct($tagName = 'container.private')
     {
-        if (\is_object($tagName)) {
-            $tagName = (string) $tagName;
-        }
+        $tagName = (string) $tagName;
         $this->tagName = $tagName;
     }
     /**
@@ -33,6 +31,7 @@ final class AliasDeprecatedPublicServicesPass extends \ECSPrefix20210508\Symfony
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference && isset($this->aliases[$id = (string) $value])) {
             return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($this->aliases[$id], $value->getInvalidBehavior());
         }

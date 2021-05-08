@@ -25,12 +25,8 @@ final class ResponseHasCookie extends \ECSPrefix20210508\PHPUnit\Framework\Const
      */
     public function __construct($name, $path = '/', $domain = null)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $path = (string) $path;
         $this->name = $name;
         $this->path = $path;
         $this->domain = $domain;

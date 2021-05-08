@@ -21,6 +21,7 @@ trait SyntheticTrait
      */
     public final function synthetic($synthetic = \true)
     {
+        $synthetic = (bool) $synthetic;
         $this->definition->setSynthetic($synthetic);
         return $this;
     }

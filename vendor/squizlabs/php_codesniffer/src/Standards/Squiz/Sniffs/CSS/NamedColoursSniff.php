@@ -48,6 +48,7 @@ class NamedColoursSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr - 1]['code'] === T_HASH || $tokens[$stackPtr - 1]['code'] === T_STRING_CONCAT) {
             // Class name.

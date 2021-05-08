@@ -31,9 +31,7 @@ abstract class AbstractConfigurator
      */
     public function __call($method, array $args)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         if (\method_exists($this, 'set' . $method)) {
             return $this->{'set' . $method}(...$args);
         }
@@ -57,6 +55,7 @@ abstract class AbstractConfigurator
      */
     public static function processValue($value, $allowServices = \false)
     {
+        $allowServices = (bool) $allowServices;
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
                 $value[$k] = static::processValue($v, $allowServices);

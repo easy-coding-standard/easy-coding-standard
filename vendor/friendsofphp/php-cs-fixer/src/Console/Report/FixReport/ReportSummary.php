@@ -51,6 +51,11 @@ final class ReportSummary
      */
     public function __construct(array $changed, $time, $memory, $addAppliedFixers, $isDryRun, $isDecoratedOutput)
     {
+        $time = (int) $time;
+        $memory = (int) $memory;
+        $addAppliedFixers = (bool) $addAppliedFixers;
+        $isDryRun = (bool) $isDryRun;
+        $isDecoratedOutput = (bool) $isDecoratedOutput;
         $this->changed = $changed;
         $this->time = $time;
         $this->memory = $memory;

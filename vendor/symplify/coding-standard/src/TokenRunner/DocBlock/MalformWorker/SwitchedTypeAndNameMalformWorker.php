@@ -22,9 +22,8 @@ final class SwitchedTypeAndNameMalformWorker implements \Symplify\CodingStandard
      */
     public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $position = (int) $position;
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         $lines = $docBlock->getLines();
         foreach ($lines as $line) {

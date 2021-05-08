@@ -46,6 +46,7 @@ class ErrorController
      */
     public function preview(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $code)
     {
+        $code = (int) $code;
         /*
          * This Request mimics the parameters set by
          * \Symfony\Component\HttpKernel\EventListener\ErrorListener::duplicateRequest, with

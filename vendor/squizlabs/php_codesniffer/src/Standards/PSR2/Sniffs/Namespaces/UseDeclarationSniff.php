@@ -35,6 +35,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         if ($this->shouldIgnoreUse($phpcsFile, $stackPtr) === \true) {
             return;
         }
@@ -235,6 +236,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function shouldIgnoreUse($phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Ignore USE keywords inside closures and during live coding.
         $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr + 1, null, \true);

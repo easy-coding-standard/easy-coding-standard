@@ -87,6 +87,8 @@ final class Sample
      */
     private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, $classCloseIndex)
     {
+        $classOpenIndex = (int) $classOpenIndex;
+        $classCloseIndex = (int) $classCloseIndex;
         for ($index = $classOpenIndex + 1; $index < $classCloseIndex; ++$index) {
             if ($tokens[$index]->equals('{')) {
                 $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
@@ -107,6 +109,9 @@ final class Sample
      */
     private function skipClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $classIndex, $classOpenIndex, $classCloseIndex)
     {
+        $classIndex = (int) $classIndex;
+        $classOpenIndex = (int) $classOpenIndex;
+        $classCloseIndex = (int) $classCloseIndex;
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($classIndex)];
         if (!$prevToken->isGivenKind(\T_FINAL)) {
             return \true;

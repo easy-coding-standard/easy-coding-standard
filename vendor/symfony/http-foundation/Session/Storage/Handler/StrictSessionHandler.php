@@ -31,12 +31,8 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function open($savePath, $sessionName)
     {
-        if (\is_object($sessionName)) {
-            $sessionName = (string) $sessionName;
-        }
-        if (\is_object($savePath)) {
-            $savePath = (string) $savePath;
-        }
+        $savePath = (string) $savePath;
+        $sessionName = (string) $sessionName;
         parent::open($savePath, $sessionName);
         return $this->handler->open($savePath, $sessionName);
     }
@@ -46,9 +42,7 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     protected function doRead($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         return $this->handler->read($sessionId);
     }
     /**
@@ -56,12 +50,8 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function updateTimestamp($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         return $this->write($sessionId, $data);
     }
     /**
@@ -71,12 +61,8 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     protected function doWrite($sessionId, $data)
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
+        $data = (string) $data;
         return $this->handler->write($sessionId, $data);
     }
     /**
@@ -84,9 +70,7 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function destroy($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         $this->doDestroy = \true;
         $destroyed = parent::destroy($sessionId);
         return $this->doDestroy ? $this->doDestroy($sessionId) : $destroyed;
@@ -97,9 +81,7 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     protected function doDestroy($sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
+        $sessionId = (string) $sessionId;
         $this->doDestroy = \false;
         return $this->handler->destroy($sessionId);
     }
@@ -115,6 +97,7 @@ class StrictSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoun
      */
     public function gc($maxlifetime)
     {
+        $maxlifetime = (int) $maxlifetime;
         return $this->handler->gc($maxlifetime);
     }
 }

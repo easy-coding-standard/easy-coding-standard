@@ -26,15 +26,9 @@ class SplFileInfo extends \SplFileInfo
      */
     public function __construct($file, $relativePath, $relativePathname)
     {
-        if (\is_object($relativePathname)) {
-            $relativePathname = (string) $relativePathname;
-        }
-        if (\is_object($relativePath)) {
-            $relativePath = (string) $relativePath;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $relativePath = (string) $relativePath;
+        $relativePathname = (string) $relativePathname;
         parent::__construct($file);
         $this->relativePath = $relativePath;
         $this->relativePathname = $relativePathname;

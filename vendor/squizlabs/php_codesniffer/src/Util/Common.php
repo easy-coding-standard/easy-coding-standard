@@ -26,9 +26,7 @@ class Common
      */
     public static function isPharFile($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (\strpos($path, 'phar://') === 0) {
             return \true;
         }
@@ -47,9 +45,7 @@ class Common
      */
     public static function isReadable($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (\is_readable($path) === \true) {
             return \true;
         }
@@ -73,9 +69,7 @@ class Common
      */
     public static function realpath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         // Support the path replacement of ~ with the user's home directory.
         if (\substr($path, 0, 2) === '~/') {
             $homeDir = \getenv('HOME');
@@ -121,12 +115,8 @@ class Common
      */
     public static function stripBasepath($path, $basepath)
     {
-        if (\is_object($basepath)) {
-            $basepath = (string) $basepath;
-        }
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $basepath = (string) $basepath;
         if (empty($basepath) === \true) {
             return $path;
         }
@@ -150,9 +140,7 @@ class Common
      */
     public static function detectLineEndings($contents)
     {
-        if (\is_object($contents)) {
-            $contents = (string) $contents;
-        }
+        $contents = (string) $contents;
         if (\preg_match("/\r\n?|\n/", $contents, $matches) !== 1) {
             // Assume there are no newlines.
             $eolChar = "\n";
@@ -217,9 +205,7 @@ class Common
      */
     public static function escapeshellcmd($cmd)
     {
-        if (\is_object($cmd)) {
-            $cmd = (string) $cmd;
-        }
+        $cmd = (string) $cmd;
         $cmd = \escapeshellcmd($cmd);
         if (\strtoupper(\substr(\PHP_OS, 0, 3)) === 'WIN') {
             // Spaces are not escaped by escapeshellcmd on Windows, but need to be
@@ -243,9 +229,7 @@ class Common
      */
     public static function prepareForOutput($content, $exclude = [])
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         if (\strtoupper(\substr(\PHP_OS, 0, 3)) === 'WIN') {
             if (\in_array("\r", $exclude, \true) === \false) {
                 $content = \str_replace("\r", '\\r', $content);
@@ -296,9 +280,10 @@ class Common
      */
     public static function isCamelCaps($string, $classFormat = \false, $public = \true, $strict = \true)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $classFormat = (bool) $classFormat;
+        $public = (bool) $public;
+        $strict = (bool) $strict;
         // Check the first character first.
         if ($classFormat === \false) {
             $legalFirstChar = '';
@@ -358,9 +343,7 @@ class Common
      */
     public static function isUnderscoreName($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         // If there are space in the name, it can't be valid.
         if (\strpos($string, ' ') !== \false) {
             return \false;
@@ -396,9 +379,7 @@ class Common
      */
     public static function suggestType($varType)
     {
-        if (\is_object($varType)) {
-            $varType = (string) $varType;
-        }
+        $varType = (string) $varType;
         if ($varType === '') {
             return '';
         }
@@ -469,9 +450,7 @@ class Common
      */
     public static function getSniffCode($sniffClass)
     {
-        if (\is_object($sniffClass)) {
-            $sniffClass = (string) $sniffClass;
-        }
+        $sniffClass = (string) $sniffClass;
         $parts = \explode('\\', $sniffClass);
         $sniff = \array_pop($parts);
         if (\substr($sniff, -5) === 'Sniff') {
@@ -497,9 +476,7 @@ class Common
      */
     public static function cleanSniffClass($sniffClass)
     {
-        if (\is_object($sniffClass)) {
-            $sniffClass = (string) $sniffClass;
-        }
+        $sniffClass = (string) $sniffClass;
         $newName = \strtolower($sniffClass);
         $sniffPos = \strrpos($newName, '\\sniffs\\');
         if ($sniffPos === \false) {

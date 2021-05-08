@@ -33,6 +33,7 @@ class StreamedResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      */
     public function __construct(callable $callback = null, $status = 200, array $headers = [])
     {
+        $status = (int) $status;
         parent::__construct(null, $status, $headers);
         if (null !== $callback) {
             $this->setCallback($callback);
@@ -52,6 +53,7 @@ class StreamedResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundati
      */
     public static function create($callback = null, $status = 200, array $headers = [])
     {
+        $status = (int) $status;
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($callback, $status, $headers);
     }

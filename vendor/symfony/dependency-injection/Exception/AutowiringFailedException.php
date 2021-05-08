@@ -23,9 +23,8 @@ class AutowiringFailedException extends \ECSPrefix20210508\Symfony\Component\Dep
      */
     public function __construct($serviceId, $message = '', $code = 0, \Throwable $previous = null)
     {
-        if (\is_object($serviceId)) {
-            $serviceId = (string) $serviceId;
-        }
+        $serviceId = (string) $serviceId;
+        $code = (int) $code;
         $this->serviceId = $serviceId;
         if ($message instanceof \Closure && (\function_exists('xdebug_is_enabled') ? \xdebug_is_enabled() : \function_exists('xdebug_info'))) {
             $message = $message();

@@ -98,9 +98,7 @@ final class WrappedListener
      */
     public function getInfo($eventName)
     {
-        if (\is_object($eventName)) {
-            $eventName = (string) $eventName;
-        }
+        $eventName = (string) $eventName;
         if (null === $this->stub) {
             $this->stub = self::$hasClassStub ? new \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ClassStub($this->pretty . '()', $this->listener) : $this->pretty . '()';
         }
@@ -113,9 +111,7 @@ final class WrappedListener
      */
     public function __invoke($event, $eventName, \ECSPrefix20210508\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
     {
-        if (\is_object($eventName)) {
-            $eventName = (string) $eventName;
-        }
+        $eventName = (string) $eventName;
         $dispatcher = $this->dispatcher ?: $dispatcher;
         $this->called = \true;
         $this->priority = $dispatcher->getListenerPriority($eventName, $this->listener);

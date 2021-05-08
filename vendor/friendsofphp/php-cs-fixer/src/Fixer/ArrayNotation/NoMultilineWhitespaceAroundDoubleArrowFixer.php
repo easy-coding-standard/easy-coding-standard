@@ -73,6 +73,7 @@ final class NoMultilineWhitespaceAroundDoubleArrowFixer extends \PhpCsFixer\Abst
      */
     private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $token = $tokens[$index];
         if ($token->isWhitespace() && !$token->isWhitespace(" \t")) {
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \rtrim($token->getContent()) . ' ']);

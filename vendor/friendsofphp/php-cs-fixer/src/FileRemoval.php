@@ -62,9 +62,7 @@ final class FileRemoval
      */
     public function observe($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $this->files[$path] = \true;
     }
     /**
@@ -74,9 +72,7 @@ final class FileRemoval
      */
     public function delete($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (isset($this->files[$path])) {
             unset($this->files[$path]);
         }
@@ -99,9 +95,7 @@ final class FileRemoval
      */
     private function unlink($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         @\unlink($path);
     }
 }

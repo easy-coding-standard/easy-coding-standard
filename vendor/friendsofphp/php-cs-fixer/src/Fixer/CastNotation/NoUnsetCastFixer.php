@@ -66,6 +66,7 @@ final class NoUnsetCastFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixUnsetCast(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $assignmentIndex = $tokens->getPrevMeaningfulToken($index);
         if (null === $assignmentIndex || !$tokens[$assignmentIndex]->equals('=')) {
             return;

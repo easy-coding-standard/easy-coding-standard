@@ -56,12 +56,8 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
      */
     public final function alias($id, $referencedId)
     {
-        if (\is_object($referencedId)) {
-            $referencedId = (string) $referencedId;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $referencedId = (string) $referencedId;
         $this->__destruct();
         return $this->parent->alias($id, $referencedId);
     }
@@ -73,12 +69,8 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
      */
     public final function load($namespace, $resource)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $resource = (string) $resource;
         $this->__destruct();
         return $this->parent->load($namespace, $resource);
     }
@@ -91,9 +83,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
      */
     public final function get($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->__destruct();
         return $this->parent->get($id);
     }
@@ -106,9 +96,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
      */
     public final function stack($id, array $services)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->__destruct();
         return $this->parent->stack($id, $services);
     }
@@ -120,9 +108,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210508\Symfony\Co
      */
     public final function __invoke($id, $class = null)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->__destruct();
         return $this->parent->set($id, $class);
     }

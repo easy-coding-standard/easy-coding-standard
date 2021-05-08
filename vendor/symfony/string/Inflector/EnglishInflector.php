@@ -226,9 +226,7 @@ final class EnglishInflector implements \ECSPrefix20210508\Symfony\Component\Str
      */
     public function singularize($plural)
     {
-        if (\is_object($plural)) {
-            $plural = (string) $plural;
-        }
+        $plural = (string) $plural;
         $pluralRev = \strrev($plural);
         $lowerPluralRev = \strtolower($pluralRev);
         $pluralLength = \strlen($lowerPluralRev);
@@ -295,9 +293,7 @@ final class EnglishInflector implements \ECSPrefix20210508\Symfony\Component\Str
      */
     public function pluralize($singular)
     {
-        if (\is_object($singular)) {
-            $singular = (string) $singular;
-        }
+        $singular = (string) $singular;
         $singularRev = \strrev($singular);
         $lowerSingularRev = \strtolower($singularRev);
         $singularLength = \strlen($lowerSingularRev);

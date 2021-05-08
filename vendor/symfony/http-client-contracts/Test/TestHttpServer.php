@@ -20,6 +20,7 @@ class TestHttpServer
      */
     public static function start($port = 8057)
     {
+        $port = (int) $port;
         if (isset(self::$process[$port])) {
             self::$process[$port]->stop();
         } else {

@@ -44,12 +44,9 @@ class PrototypeConfigurator extends \ECSPrefix20210508\Symfony\Component\Depende
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $defaults, $namespace, $resource, $allowParent)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $resource = (string) $resource;
+        $allowParent = (bool) $allowParent;
         $definition = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition();
         if (!$defaults->isPublic() || !$defaults->isPrivate()) {
             $definition->setPublic($defaults->isPublic());

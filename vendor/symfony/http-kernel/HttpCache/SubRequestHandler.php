@@ -28,6 +28,8 @@ class SubRequestHandler
      */
     public static function handle(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type, $catch)
     {
+        $type = (int) $type;
+        $catch = (bool) $catch;
         // save global state related to trusted headers and proxies
         $trustedProxies = \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request::getTrustedProxies();
         $trustedHeaderSet = \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request::getTrustedHeaderSet();

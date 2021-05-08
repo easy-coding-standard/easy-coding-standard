@@ -29,9 +29,8 @@ final class Line
      */
     public function __construct($type = self::UNCHANGED, $content = '')
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $type = (int) $type;
+        $content = (string) $content;
         $this->type = $type;
         $this->content = $content;
     }

@@ -30,9 +30,8 @@ class ConfigCache extends \ECSPrefix20210508\Symfony\Component\Config\ResourceCh
      */
     public function __construct($file, $debug)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $debug = (bool) $debug;
         $this->debug = $debug;
         $checkers = [];
         if (\true === $this->debug) {

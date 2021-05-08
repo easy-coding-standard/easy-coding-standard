@@ -29,9 +29,7 @@ class StringInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Arg
      */
     public function __construct($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         parent::__construct([]);
         $this->setTokens($this->tokenize($input));
     }
@@ -44,9 +42,7 @@ class StringInput extends \ECSPrefix20210508\Symfony\Component\Console\Input\Arg
      */
     private function tokenize($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         $tokens = [];
         $length = \strlen($input);
         $cursor = 0;

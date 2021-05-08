@@ -177,6 +177,7 @@ echo 1;
      */
     private function findHeaderCommentCurrentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $headerNewIndex)
     {
+        $headerNewIndex = (int) $headerNewIndex;
         $index = $tokens->getNextNonWhitespace($headerNewIndex);
         if (null === $index || !$tokens[$index]->isComment()) {
             return null;
@@ -203,9 +204,7 @@ echo 1;
      */
     private function findHeaderCommentInsertionIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $location)
     {
-        if (\is_object($location)) {
-            $location = (string) $location;
-        }
+        $location = (string) $location;
         if ('after_open' === $location) {
             return 1;
         }
@@ -250,6 +249,7 @@ echo 1;
      */
     private function fixWhiteSpaceAroundHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, $headerIndex)
     {
+        $headerIndex = (int) $headerIndex;
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         // fix lines after header comment
         if (('both' === $this->configuration['separate'] || 'bottom' === $this->configuration['separate']) && null !== $tokens->getNextMeaningfulToken($headerIndex)) {
@@ -293,6 +293,8 @@ echo 1;
      */
     private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $direction)
     {
+        $index = (int) $index;
+        $direction = (int) $direction;
         $whitespace = '';
         for ($index += $direction; isset($tokens[$index]); $index += $direction) {
             $token = $tokens[$index];
@@ -315,6 +317,7 @@ echo 1;
      */
     private function removeHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevIndex = $index - 1;
         $prevToken = $tokens[$prevIndex];
         $newlineRemoved = \false;
@@ -348,6 +351,7 @@ echo 1;
      */
     private function insertHeader(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([self::HEADER_COMMENT === $this->configuration['comment_type'] ? \T_COMMENT : \T_DOC_COMMENT, $this->getHeaderAsComment()]));
         $this->fixWhiteSpaceAroundHeader($tokens, $index);
     }

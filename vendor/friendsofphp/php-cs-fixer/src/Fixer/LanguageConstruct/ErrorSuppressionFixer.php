@@ -123,6 +123,7 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
      */
     private function isDeprecationErrorCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if ('trigger_error' !== \strtolower($tokens[$index]->getContent())) {
             return \false;
         }

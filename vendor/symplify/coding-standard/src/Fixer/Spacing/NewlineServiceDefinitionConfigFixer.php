@@ -126,6 +126,7 @@ CODE_SAMPLE
      */
     private function isNextTokenMethodCallNamed(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $methodNames)
     {
+        $index = (int) $index;
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return \false;

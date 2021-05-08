@@ -50,9 +50,7 @@ trait ContractsTrait
      */
     private function doGet(\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $pool, $key, callable $callback, $beta, array &$metadata = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (0 > ($beta = isset($beta) ? $beta : 1.0)) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
         }

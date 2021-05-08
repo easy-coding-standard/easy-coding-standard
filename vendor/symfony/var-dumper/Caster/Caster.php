@@ -45,9 +45,8 @@ class Caster
      */
     public static function castObject($obj, $class, $hasDebugInfo = \false, $debugClass = null)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
+        $hasDebugInfo = (bool) $hasDebugInfo;
         if ($hasDebugInfo) {
             try {
                 $debugInfo = $obj->__debugInfo();
@@ -117,6 +116,7 @@ class Caster
      */
     public static function filter(array $a, $filter, array $listedProperties = [], &$count = 0)
     {
+        $filter = (int) $filter;
         $count = 0;
         foreach ($a as $k => $v) {
             $type = self::EXCLUDE_STRICT & $filter;
@@ -156,6 +156,7 @@ class Caster
      */
     public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         if (isset($a['__PHP_Incomplete_Class_Name'])) {
             $stub->class .= '(' . $a['__PHP_Incomplete_Class_Name'] . ')';
             unset($a['__PHP_Incomplete_Class_Name']);

@@ -35,6 +35,7 @@ class NonExecutableCodeSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // If this token is preceded with an "or", it only relates to one line
         // and should be ignored. For example: fopen() or die().

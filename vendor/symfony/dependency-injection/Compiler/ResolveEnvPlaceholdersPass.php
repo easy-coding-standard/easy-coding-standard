@@ -21,6 +21,7 @@ class ResolveEnvPlaceholdersPass extends \ECSPrefix20210508\Symfony\Component\De
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (\is_string($value)) {
             return $this->container->resolveEnvPlaceholders($value, \true);
         }

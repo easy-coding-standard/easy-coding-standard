@@ -24,9 +24,7 @@ class ServiceCircularReferenceException extends \ECSPrefix20210508\Symfony\Compo
      */
     public function __construct($serviceId, array $path, \Throwable $previous = null)
     {
-        if (\is_object($serviceId)) {
-            $serviceId = (string) $serviceId;
-        }
+        $serviceId = (string) $serviceId;
         parent::__construct(\sprintf('Circular reference detected for service "%s", path: "%s".', $serviceId, \implode(' -> ', $path)), 0, $previous);
         $this->serviceId = $serviceId;
         $this->path = $path;

@@ -89,6 +89,7 @@ SAMPLE
      */
     private function fixSpacing($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN)) {
             $startIndex = $index;
             $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $startIndex);
@@ -113,6 +114,7 @@ SAMPLE
      */
     private function skipNonArrayElements($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         if ($tokens[$index]->equals('}')) {
             return $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }

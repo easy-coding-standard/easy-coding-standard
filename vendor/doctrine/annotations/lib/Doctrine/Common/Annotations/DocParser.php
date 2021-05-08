@@ -180,6 +180,7 @@ final class DocParser
      */
     public function setIgnoreNotImportedAnnotations($bool)
     {
+        $bool = (bool) $bool;
         $this->ignoreNotImportedAnnotations = (bool) $bool;
     }
     /**
@@ -193,9 +194,7 @@ final class DocParser
      */
     public function addNamespace($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         if ($this->imports) {
             throw new \RuntimeException('You must either use addNamespace(), or setImports(), but not both.');
         }
@@ -226,6 +225,7 @@ final class DocParser
      */
     public function setTarget($target)
     {
+        $target = (int) $target;
         $this->target = $target;
     }
     /**
@@ -241,12 +241,8 @@ final class DocParser
      */
     public function parse($input, $context = '')
     {
-        if (\is_object($context)) {
-            $context = (string) $context;
-        }
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
+        $context = (string) $context;
         $pos = $this->findInitialTokenPosition($input);
         if ($pos === null) {
             return [];
@@ -264,9 +260,7 @@ final class DocParser
      */
     private function findInitialTokenPosition($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         $pos = 0;
         // search for first valid annotation
         while (($pos = \strpos($input, '@', $pos)) !== \false) {
@@ -291,6 +285,7 @@ final class DocParser
      */
     private function match($token)
     {
+        $token = (int) $token;
         if (!$this->lexer->isNextToken($token)) {
             throw $this->syntaxError($this->lexer->getLiteral($token));
         }
@@ -323,9 +318,7 @@ final class DocParser
      */
     private function syntaxError($expected, $token = null)
     {
-        if (\is_object($expected)) {
-            $expected = (string) $expected;
-        }
+        $expected = (string) $expected;
         if ($token === null) {
             $token = $this->lexer->lookahead;
         }
@@ -346,9 +339,7 @@ final class DocParser
      */
     private function classExists($fqcn)
     {
-        if (\is_object($fqcn)) {
-            $fqcn = (string) $fqcn;
-        }
+        $fqcn = (string) $fqcn;
         if (isset($this->classExists[$fqcn])) {
             return $this->classExists[$fqcn];
         }
@@ -370,9 +361,7 @@ final class DocParser
      */
     private function collectAnnotationMetadata($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (self::$metadataParser === null) {
             self::$metadataParser = new self();
             self::$metadataParser->setIgnoreNotImportedAnnotations(\true);
@@ -824,9 +813,7 @@ EXCEPTION
      */
     private function identifierStartsWithBackslash($identifier)
     {
-        if (\is_object($identifier)) {
-            $identifier = (string) $identifier;
-        }
+        $identifier = (string) $identifier;
         return $identifier[0] === '\\';
     }
     /**
@@ -835,9 +822,7 @@ EXCEPTION
      */
     private function identifierEndsWithClassConstant($identifier)
     {
-        if (\is_object($identifier)) {
-            $identifier = (string) $identifier;
-        }
+        $identifier = (string) $identifier;
         return $this->getClassConstantPositionInIdentifier($identifier) === \strlen($identifier) - \strlen('::class');
     }
     /**
@@ -846,9 +831,7 @@ EXCEPTION
      */
     private function getClassConstantPositionInIdentifier($identifier)
     {
-        if (\is_object($identifier)) {
-            $identifier = (string) $identifier;
-        }
+        $identifier = (string) $identifier;
         return \stripos($identifier, '::class');
     }
     /**
@@ -1018,9 +1001,7 @@ EXCEPTION
      */
     private function isIgnoredAnnotation($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if ($this->ignoreNotImportedAnnotations || isset($this->ignoredAnnotationNames[$name])) {
             return \true;
         }
@@ -1042,9 +1023,7 @@ EXCEPTION
      */
     private function resolvePositionalValues(array $arguments, $name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $positionalArguments = isset($arguments['positional_arguments']) ? $arguments['positional_arguments'] : [];
         $values = isset($arguments['named_arguments']) ? $arguments['named_arguments'] : [];
         if (self::$annotationMetadata[$name]['has_named_argument_constructor'] && self::$annotationMetadata[$name]['default_property'] !== null) {

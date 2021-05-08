@@ -31,6 +31,7 @@ class RegisterServiceSubscribersPass extends \ECSPrefix20210508\Symfony\Componen
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition || $value->isAbstract() || $value->isSynthetic() || !$value->hasTag('container.service_subscriber')) {
             return parent::processValue($value, $isRoot);
         }

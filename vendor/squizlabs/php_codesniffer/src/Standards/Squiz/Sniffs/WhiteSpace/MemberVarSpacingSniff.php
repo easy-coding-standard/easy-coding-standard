@@ -38,6 +38,7 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
      */
     protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $validPrefixes = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
         $validPrefixes[] = \T_VAR;
@@ -159,6 +160,7 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
      */
     protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */
@@ -174,6 +176,7 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
      */
     protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         /*
             We don't care about normal variables.
         */

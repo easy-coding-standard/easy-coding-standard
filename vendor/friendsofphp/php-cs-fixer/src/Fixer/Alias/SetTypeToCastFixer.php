@@ -134,6 +134,12 @@ settype($bar, "null");
      */
     private function removeSettypeCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, $openParenthesisIndex, $firstArgumentStart, $commaIndex, $secondArgumentStart, $closeParenthesisIndex)
     {
+        $functionNameIndex = (int) $functionNameIndex;
+        $openParenthesisIndex = (int) $openParenthesisIndex;
+        $firstArgumentStart = (int) $firstArgumentStart;
+        $commaIndex = (int) $commaIndex;
+        $secondArgumentStart = (int) $secondArgumentStart;
+        $closeParenthesisIndex = (int) $closeParenthesisIndex;
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeParenthesisIndex);
         $prevIndex = $tokens->getPrevMeaningfulToken($closeParenthesisIndex);
         if ($tokens[$prevIndex]->equals(',')) {
@@ -153,6 +159,7 @@ settype($bar, "null");
      */
     private function fixSettypeCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, \PhpCsFixer\Tokenizer\Token $argumentToken, \PhpCsFixer\Tokenizer\Token $castToken)
     {
+        $functionNameIndex = (int) $functionNameIndex;
         $tokens->insertAt($functionNameIndex, [clone $argumentToken, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token('='), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), $castToken, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), clone $argumentToken]);
         $tokens->removeTrailingWhitespace($functionNameIndex + 6);
         // 6 = number of inserted tokens -1 for offset correction
@@ -163,6 +170,7 @@ settype($bar, "null");
      */
     private function findSettypeNullCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, \PhpCsFixer\Tokenizer\Token $argumentToken)
     {
+        $functionNameIndex = (int) $functionNameIndex;
         $tokens->insertAt($functionNameIndex, [clone $argumentToken, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token('='), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'null'])]);
         $tokens->removeTrailingWhitespace($functionNameIndex + 4);
         // 4 = number of inserted tokens -1 for offset correction

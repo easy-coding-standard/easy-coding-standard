@@ -31,6 +31,8 @@ final class BoundArgument implements \ECSPrefix20210508\Symfony\Component\Depend
      */
     public function __construct($value, $trackUsage = \true, $type = 0, $file = null)
     {
+        $trackUsage = (bool) $trackUsage;
+        $type = (int) $type;
         $this->value = $value;
         if ($trackUsage) {
             $this->identifier = ++self::$sequence;

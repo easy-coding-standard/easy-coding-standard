@@ -147,9 +147,7 @@ class Config
      */
     public function __get($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (\array_key_exists($name, $this->settings) === \false) {
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException("ERROR: unable to get value of property \"{$name}\"");
         }
@@ -167,9 +165,7 @@ class Config
      */
     public function __set($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (\array_key_exists($name, $this->settings) === \false) {
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException("Can't __set() {$name}; setting doesn't exist");
         }
@@ -214,9 +210,7 @@ class Config
      */
     public function __isset($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->settings[$name]);
     }
     //end __isset()
@@ -229,9 +223,7 @@ class Config
      */
     public function __unset($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->settings[$name] = null;
     }
     //end __unset()
@@ -268,6 +260,7 @@ class Config
      */
     public function __construct(array $cliArgs = [], $dieOnUnknownArg = \true)
     {
+        $dieOnUnknownArg = (bool) $dieOnUnknownArg;
         if (\defined('PHP_CODESNIFFER_IN_TESTS') === \true) {
             // Let everything through during testing so that we can
             // make use of PHPUnit command line arguments as well.
@@ -489,9 +482,8 @@ class Config
      */
     public function processShortArgument($arg, $pos)
     {
-        if (\is_object($arg)) {
-            $arg = (string) $arg;
-        }
+        $arg = (string) $arg;
+        $pos = (int) $pos;
         switch ($arg) {
             case 'h':
             case '?':
@@ -593,9 +585,8 @@ class Config
      */
     public function processLongArgument($arg, $pos)
     {
-        if (\is_object($arg)) {
-            $arg = (string) $arg;
-        }
+        $arg = (string) $arg;
+        $pos = (int) $pos;
         switch ($arg) {
             case 'help':
                 \ob_start();
@@ -1097,9 +1088,8 @@ class Config
      */
     public function processUnknownArgument($arg, $pos)
     {
-        if (\is_object($arg)) {
-            $arg = (string) $arg;
-        }
+        $arg = (string) $arg;
+        $pos = (int) $pos;
         // We don't know about any additional switches; just files.
         if ($arg[0] === '-') {
             if ($this->dieOnUnknownArg === \false) {
@@ -1122,9 +1112,7 @@ class Config
      */
     public function processFilePath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         // If we are processing STDIN, don't record any files to check.
         if ($this->stdin === \true) {
             return;
@@ -1173,6 +1161,7 @@ class Config
      */
     public function printShortUsage($return = \false)
     {
+        $return = (bool) $return;
         if (PHP_CODESNIFFER_CBF === \true) {
             $usage = 'Run "phpcbf --help" for usage information';
         } else {
@@ -1322,9 +1311,7 @@ class Config
      */
     public static function getConfigData($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         $phpCodeSnifferConfig = self::getAllConfigData();
         if ($phpCodeSnifferConfig === null) {
             return null;
@@ -1345,9 +1332,7 @@ class Config
      */
     public static function getExecutablePath($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $data = self::getConfigData($name . '_path');
         if ($data !== null) {
             return $data;
@@ -1389,9 +1374,8 @@ class Config
      */
     public static function setConfigData($key, $value, $temp = \false)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
+        $temp = (bool) $temp;
         if (isset(self::$overriddenDefaults['runtime-set']) === \true && isset(self::$overriddenDefaults['runtime-set'][$key]) === \true) {
             return \false;
         }

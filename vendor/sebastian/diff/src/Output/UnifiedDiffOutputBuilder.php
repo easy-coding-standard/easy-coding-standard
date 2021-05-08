@@ -52,9 +52,8 @@ final class UnifiedDiffOutputBuilder extends \ECSPrefix20210508\SebastianBergman
      */
     public function __construct($header = "--- Original\n+++ New\n", $addLineNumbers = \false)
     {
-        if (\is_object($header)) {
-            $header = (string) $header;
-        }
+        $header = (string) $header;
+        $addLineNumbers = (bool) $addLineNumbers;
         $this->header = $header;
         $this->addLineNumbers = $addLineNumbers;
     }
@@ -185,6 +184,12 @@ final class UnifiedDiffOutputBuilder extends \ECSPrefix20210508\SebastianBergman
      */
     private function writeHunk(array $diff, $diffStartIndex, $diffEndIndex, $fromStart, $fromRange, $toStart, $toRange, $output)
     {
+        $diffStartIndex = (int) $diffStartIndex;
+        $diffEndIndex = (int) $diffEndIndex;
+        $fromStart = (int) $fromStart;
+        $fromRange = (int) $fromRange;
+        $toStart = (int) $toStart;
+        $toRange = (int) $toRange;
         if ($this->addLineNumbers) {
             \fwrite($output, '@@ -' . $fromStart);
             if (!$this->collapseRanges || 1 !== $fromRange) {

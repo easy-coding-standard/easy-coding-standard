@@ -33,6 +33,7 @@ class TraitNameSuffixSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $traitName = $phpcsFile->getDeclarationName($stackPtr);
         if ($traitName === null) {
             return;

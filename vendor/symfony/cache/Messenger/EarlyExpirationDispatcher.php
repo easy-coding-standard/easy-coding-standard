@@ -35,6 +35,7 @@ class EarlyExpirationDispatcher
      */
     public function __invoke(callable $callback, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item, &$save, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $pool, \Closure $setMetadata, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
+        $save = (bool) $save;
         if (!$item->isHit() || null === ($message = \ECSPrefix20210508\Symfony\Component\Cache\Messenger\EarlyExpirationMessage::create($this->reverseContainer, $callback, $item, $pool))) {
             // The item is stale or the callback cannot be reversed: we must compute the value now
             $logger && $logger->info('Computing item "{key}" online: ' . ($item->isHit() ? 'callback cannot be reversed' : 'item is stale'), ['key' => $item->getKey()]);

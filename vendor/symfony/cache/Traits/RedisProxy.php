@@ -30,9 +30,7 @@ class RedisProxy
      */
     public function __call($method, array $args)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         $this->ready ?: ($this->ready = $this->initializer->__invoke($this->redis));
         return $this->redis->{$method}(...$args);
     }

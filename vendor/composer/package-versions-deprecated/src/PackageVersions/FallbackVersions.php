@@ -37,9 +37,7 @@ final class FallbackVersions
      */
     public static function getVersion($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         $versions = \iterator_to_array(self::getVersions(self::getPackageData()));
         if (!\array_key_exists($packageName, $versions)) {
             throw new \OutOfBoundsException('Required package "' . $packageName . '" is not installed: check your ./vendor/composer/installed.json and/or ./composer.lock files');

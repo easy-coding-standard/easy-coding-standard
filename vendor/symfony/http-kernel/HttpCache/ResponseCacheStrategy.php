@@ -155,9 +155,8 @@ class ResponseCacheStrategy implements \ECSPrefix20210508\Symfony\Component\Http
      */
     private function storeRelativeAgeDirective($directive, $value, $age)
     {
-        if (\is_object($directive)) {
-            $directive = (string) $directive;
-        }
+        $directive = (string) $directive;
+        $age = (int) $age;
         if (null === $value) {
             $this->ageDirectives[$directive] = \false;
         }

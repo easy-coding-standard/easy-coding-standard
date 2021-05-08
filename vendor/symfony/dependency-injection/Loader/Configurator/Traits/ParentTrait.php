@@ -24,9 +24,7 @@ trait ParentTrait
      */
     public final function parent($parent)
     {
-        if (\is_object($parent)) {
-            $parent = (string) $parent;
-        }
+        $parent = (string) $parent;
         if (!$this->allowParent) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A parent cannot be defined when either "_instanceof" or "_defaults" are also defined for service prototype "%s".', $this->id));
         }

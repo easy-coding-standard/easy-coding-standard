@@ -40,12 +40,8 @@ final class ParamTypeDocBlockResolver
      */
     public function resolve($docBlock, $parameterName)
     {
-        if (\is_object($parameterName)) {
-            $parameterName = (string) $parameterName;
-        }
-        if (\is_object($docBlock)) {
-            $docBlock = (string) $docBlock;
-        }
+        $docBlock = (string) $docBlock;
+        $parameterName = (string) $parameterName;
         foreach (self::ARRAY_REGEXES as $arrayRegexWithPlaceholder) {
             $arrayRegex = \str_replace(self::NAME_PLACEHOLDER, $parameterName, $arrayRegexWithPlaceholder);
             $result = \ECSPrefix20210508\Nette\Utils\Strings::match($docBlock, $arrayRegex);

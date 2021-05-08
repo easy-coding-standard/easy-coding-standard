@@ -97,6 +97,7 @@ final class StaticLambdaFixer extends \PhpCsFixer\AbstractFixer
      */
     private function findExpressionEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         while (null !== $nextIndex) {
             /** @var Token $nextToken */
@@ -122,6 +123,8 @@ final class StaticLambdaFixer extends \PhpCsFixer\AbstractFixer
      */
     private function hasPossibleReferenceToThis(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         for ($i = $startIndex; $i < $endIndex; ++$i) {
             if ($tokens[$i]->isGivenKind(\T_VARIABLE) && '$this' === \strtolower($tokens[$i]->getContent())) {
                 return \true;

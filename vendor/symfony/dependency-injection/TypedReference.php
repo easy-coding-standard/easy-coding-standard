@@ -27,12 +27,9 @@ class TypedReference extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     public function __construct($id, $type, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $type = (string) $type;
+        $invalidBehavior = (int) $invalidBehavior;
         $this->name = $type === $id ? $name : null;
         parent::__construct($id, $invalidBehavior);
         $this->type = $type;

@@ -60,6 +60,7 @@ final class CT
      */
     public static function getName($value)
     {
+        $value = (int) $value;
         if (!self::has($value)) {
             throw new \InvalidArgumentException(\sprintf('No custom token was found for "%s".', $value));
         }
@@ -74,6 +75,7 @@ final class CT
      */
     public static function has($value)
     {
+        $value = (int) $value;
         $tokens = self::getMapById();
         return isset($tokens[$value]);
     }

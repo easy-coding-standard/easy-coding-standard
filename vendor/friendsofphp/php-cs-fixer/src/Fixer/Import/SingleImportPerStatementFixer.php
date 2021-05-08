@@ -79,6 +79,7 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
      */
     private function getGroupDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $groupPrefix = '';
         $comment = '';
         $groupOpenIndex = null;
@@ -111,12 +112,10 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
      */
     private function getGroupStatements(\PhpCsFixer\Tokenizer\Tokens $tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment)
     {
-        if (\is_object($comment)) {
-            $comment = (string) $comment;
-        }
-        if (\is_object($groupPrefix)) {
-            $groupPrefix = (string) $groupPrefix;
-        }
+        $groupPrefix = (string) $groupPrefix;
+        $groupOpenIndex = (int) $groupOpenIndex;
+        $groupCloseIndex = (int) $groupCloseIndex;
+        $comment = (string) $comment;
         $statements = [];
         $statement = $groupPrefix;
         for ($i = $groupOpenIndex + 1; $i <= $groupCloseIndex; ++$i) {
@@ -159,6 +158,8 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
      */
     private function fixGroupUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
     {
+        $index = (int) $index;
+        $endIndex = (int) $endIndex;
         list($groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment) = $this->getGroupDeclaration($tokens, $index);
         $statements = $this->getGroupStatements($tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment);
         if (\count($statements) < 2) {
@@ -181,6 +182,8 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
      */
     private function fixMultipleUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
     {
+        $index = (int) $index;
+        $endIndex = (int) $endIndex;
         $ending = $this->whitespacesConfig->getLineEnding();
         for ($i = $endIndex - 1; $i > $index; --$i) {
             if (!$tokens[$i]->equals(',')) {

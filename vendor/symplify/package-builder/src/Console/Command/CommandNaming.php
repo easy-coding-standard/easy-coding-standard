@@ -34,9 +34,7 @@ final class CommandNaming
      */
     public static function classToName($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         /** @var string $shortClassName */
         $shortClassName = self::resolveShortName($class);
         $rawCommandName = \ECSPrefix20210508\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen('Command'));
@@ -59,9 +57,7 @@ final class CommandNaming
      */
     private static function resolveShortName($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         $classParts = \explode('\\', $class);
         return \array_pop($classParts);
     }
@@ -72,9 +68,8 @@ final class CommandNaming
      */
     private static function isFollowedByUpperCaseLetterOrNothing($string, $position)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $position = (int) $position;
         // this is the last letter
         if (!isset($string[$position + 1])) {
             return \true;

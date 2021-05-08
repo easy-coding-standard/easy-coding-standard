@@ -35,9 +35,7 @@ class ResourceCheckerConfigCache implements \ECSPrefix20210508\Symfony\Component
      */
     public function __construct($file, $resourceCheckers = [])
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $this->file = $file;
         $this->resourceCheckers = $resourceCheckers;
     }
@@ -108,9 +106,7 @@ class ResourceCheckerConfigCache implements \ECSPrefix20210508\Symfony\Component
      */
     public function write($content, array $metadata = null)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         $mode = 0666;
         $umask = \umask();
         $filesystem = new \ECSPrefix20210508\Symfony\Component\Filesystem\Filesystem();
@@ -145,9 +141,7 @@ class ResourceCheckerConfigCache implements \ECSPrefix20210508\Symfony\Component
      */
     private function safelyUnserialize($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $meta = \false;
         $content = \file_get_contents($file);
         $signalingException = new \UnexpectedValueException();

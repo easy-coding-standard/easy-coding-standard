@@ -23,9 +23,7 @@ class Parameter
      */
     public function __construct($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->id = $id;
     }
     /**

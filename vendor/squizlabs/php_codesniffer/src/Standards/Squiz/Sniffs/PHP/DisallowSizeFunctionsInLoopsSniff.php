@@ -46,6 +46,7 @@ class DisallowSizeFunctionsInLoopsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $tokenizer = $phpcsFile->tokenizerType;
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];

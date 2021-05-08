@@ -36,6 +36,7 @@ class ProcessHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper\
      */
     public function run(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE)
     {
+        $verbosity = (int) $verbosity;
         if (!\class_exists(\ECSPrefix20210508\Symfony\Component\Process\Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
         }
@@ -122,9 +123,7 @@ class ProcessHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper\
      */
     private function escapeString($str)
     {
-        if (\is_object($str)) {
-            $str = (string) $str;
-        }
+        $str = (string) $str;
         return \str_replace('<', '\\<', $str);
     }
     /**

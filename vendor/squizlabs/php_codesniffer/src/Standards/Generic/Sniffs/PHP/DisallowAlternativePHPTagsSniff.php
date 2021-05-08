@@ -58,6 +58,7 @@ class DisallowAlternativePHPTagsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $openTag = $tokens[$stackPtr];
         $content = $openTag['content'];
@@ -143,12 +144,9 @@ class DisallowAlternativePHPTagsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function getSnippet($content, $start = '', $length = 40)
     {
-        if (\is_object($start)) {
-            $start = (string) $start;
-        }
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $start = (string) $start;
+        $length = (int) $length;
         $startPos = 0;
         if ($start !== '') {
             $startPos = \strpos($content, $start);
@@ -176,9 +174,8 @@ class DisallowAlternativePHPTagsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function findClosingTag(\PHP_CodeSniffer\Files\File $phpcsFile, $tokens, $stackPtr, $content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $stackPtr = (int) $stackPtr;
+        $content = (string) $content;
         $closer = $phpcsFile->findNext(\T_CLOSE_TAG, $stackPtr + 1);
         if ($closer !== \false && $content === \trim($tokens[$closer]['content'])) {
             return $closer;
@@ -199,6 +196,9 @@ class DisallowAlternativePHPTagsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function addChangeset(\PHP_CodeSniffer\Files\File $phpcsFile, $tokens, $openTagPointer, $closeTagPointer, $echo = \false)
     {
+        $openTagPointer = (int) $openTagPointer;
+        $closeTagPointer = (int) $closeTagPointer;
+        $echo = (bool) $echo;
         // Build up the open tag replacement and make sure there's always whitespace behind it.
         $openReplacement = '<?php';
         if ($echo === \true) {

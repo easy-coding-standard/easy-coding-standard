@@ -144,9 +144,7 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     private function generateReplacement($originalClassName)
     {
-        if (\is_object($originalClassName)) {
-            $originalClassName = (string) $originalClassName;
-        }
+        $originalClassName = (string) $originalClassName;
         $delimiter = '_';
         $string = $originalClassName;
         if (isset($this->classMap[$originalClassName])) {

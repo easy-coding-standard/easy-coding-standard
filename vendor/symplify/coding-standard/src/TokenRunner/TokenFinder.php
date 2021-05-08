@@ -27,6 +27,7 @@ final class TokenFinder
      */
     public function getNextMeaninfulToken(array $tokens, $position)
     {
+        $position = (int) $position;
         $tokens = $this->getNextMeaninfulTokens($tokens, $position, 1);
         return isset($tokens[0]) ? $tokens[0] : null;
     }
@@ -38,6 +39,8 @@ final class TokenFinder
      */
     public function getNextMeaninfulTokens(array $tokens, $position, $count)
     {
+        $position = (int) $position;
+        $count = (int) $count;
         $foundTokens = [];
         $tokensCount = \count($tokens);
         for ($i = $position; $i < $tokensCount; ++$i) {
@@ -59,6 +62,7 @@ final class TokenFinder
      */
     public function getSameRowLastToken(array $rawTokens, $position)
     {
+        $position = (int) $position;
         $lastToken = null;
         $rawTokensCount = \count($rawTokens);
         for ($i = $position; $i < $rawTokensCount; ++$i) {
@@ -77,6 +81,7 @@ final class TokenFinder
      */
     private function findPreviousTokenByPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $previousPosition = $position - 1;
         if (!isset($tokens[$previousPosition])) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();

@@ -53,9 +53,7 @@ class TableStyle
      */
     public function setPaddingChar($paddingChar)
     {
-        if (\is_object($paddingChar)) {
-            $paddingChar = (string) $paddingChar;
-        }
+        $paddingChar = (string) $paddingChar;
         if (!$paddingChar) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('The padding char must not be empty.');
         }
@@ -90,12 +88,8 @@ class TableStyle
      */
     public function setHorizontalBorderChars($outside, $inside = null)
     {
-        if (\is_object($inside)) {
-            $inside = (string) $inside;
-        }
-        if (\is_object($outside)) {
-            $outside = (string) $outside;
-        }
+        $outside = (string) $outside;
+        $inside = (string) $inside;
         $this->horizontalOutsideBorderChar = $outside;
         $this->horizontalInsideBorderChar = isset($inside) ? $inside : $outside;
         return $this;
@@ -120,12 +114,8 @@ class TableStyle
      */
     public function setVerticalBorderChars($outside, $inside = null)
     {
-        if (\is_object($inside)) {
-            $inside = (string) $inside;
-        }
-        if (\is_object($outside)) {
-            $outside = (string) $outside;
-        }
+        $outside = (string) $outside;
+        $inside = (string) $inside;
         $this->verticalOutsideBorderChar = $outside;
         $this->verticalInsideBorderChar = isset($inside) ? $inside : $outside;
         return $this;
@@ -172,42 +162,18 @@ class TableStyle
      */
     public function setCrossingChars($cross, $topLeft, $topMid, $topRight, $midRight, $bottomRight, $bottomMid, $bottomLeft, $midLeft, $topLeftBottom = null, $topMidBottom = null, $topRightBottom = null)
     {
-        if (\is_object($topRightBottom)) {
-            $topRightBottom = (string) $topRightBottom;
-        }
-        if (\is_object($topMidBottom)) {
-            $topMidBottom = (string) $topMidBottom;
-        }
-        if (\is_object($topLeftBottom)) {
-            $topLeftBottom = (string) $topLeftBottom;
-        }
-        if (\is_object($midLeft)) {
-            $midLeft = (string) $midLeft;
-        }
-        if (\is_object($bottomLeft)) {
-            $bottomLeft = (string) $bottomLeft;
-        }
-        if (\is_object($bottomMid)) {
-            $bottomMid = (string) $bottomMid;
-        }
-        if (\is_object($bottomRight)) {
-            $bottomRight = (string) $bottomRight;
-        }
-        if (\is_object($midRight)) {
-            $midRight = (string) $midRight;
-        }
-        if (\is_object($topRight)) {
-            $topRight = (string) $topRight;
-        }
-        if (\is_object($topMid)) {
-            $topMid = (string) $topMid;
-        }
-        if (\is_object($topLeft)) {
-            $topLeft = (string) $topLeft;
-        }
-        if (\is_object($cross)) {
-            $cross = (string) $cross;
-        }
+        $cross = (string) $cross;
+        $topLeft = (string) $topLeft;
+        $topMid = (string) $topMid;
+        $topRight = (string) $topRight;
+        $midRight = (string) $midRight;
+        $bottomRight = (string) $bottomRight;
+        $bottomMid = (string) $bottomMid;
+        $bottomLeft = (string) $bottomLeft;
+        $midLeft = (string) $midLeft;
+        $topLeftBottom = (string) $topLeftBottom;
+        $topMidBottom = (string) $topMidBottom;
+        $topRightBottom = (string) $topRightBottom;
         $this->crossingChar = $cross;
         $this->crossingTopLeftChar = $topLeft;
         $this->crossingTopMidChar = $topMid;
@@ -231,9 +197,7 @@ class TableStyle
      */
     public function setDefaultCrossingChar($char)
     {
-        if (\is_object($char)) {
-            $char = (string) $char;
-        }
+        $char = (string) $char;
         return $this->setCrossingChars($char, $char, $char, $char, $char, $char, $char, $char, $char);
     }
     /**
@@ -263,9 +227,7 @@ class TableStyle
      */
     public function setCellHeaderFormat($cellHeaderFormat)
     {
-        if (\is_object($cellHeaderFormat)) {
-            $cellHeaderFormat = (string) $cellHeaderFormat;
-        }
+        $cellHeaderFormat = (string) $cellHeaderFormat;
         $this->cellHeaderFormat = $cellHeaderFormat;
         return $this;
     }
@@ -286,9 +248,7 @@ class TableStyle
      */
     public function setCellRowFormat($cellRowFormat)
     {
-        if (\is_object($cellRowFormat)) {
-            $cellRowFormat = (string) $cellRowFormat;
-        }
+        $cellRowFormat = (string) $cellRowFormat;
         $this->cellRowFormat = $cellRowFormat;
         return $this;
     }
@@ -309,9 +269,7 @@ class TableStyle
      */
     public function setCellRowContentFormat($cellRowContentFormat)
     {
-        if (\is_object($cellRowContentFormat)) {
-            $cellRowContentFormat = (string) $cellRowContentFormat;
-        }
+        $cellRowContentFormat = (string) $cellRowContentFormat;
         $this->cellRowContentFormat = $cellRowContentFormat;
         return $this;
     }
@@ -332,9 +290,7 @@ class TableStyle
      */
     public function setBorderFormat($borderFormat)
     {
-        if (\is_object($borderFormat)) {
-            $borderFormat = (string) $borderFormat;
-        }
+        $borderFormat = (string) $borderFormat;
         $this->borderFormat = $borderFormat;
         return $this;
     }
@@ -355,6 +311,7 @@ class TableStyle
      */
     public function setPadType($padType)
     {
+        $padType = (int) $padType;
         if (!\in_array($padType, [\STR_PAD_LEFT, \STR_PAD_RIGHT, \STR_PAD_BOTH], \true)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException('Invalid padding type. Expected one of (STR_PAD_LEFT, STR_PAD_RIGHT, STR_PAD_BOTH).');
         }
@@ -383,9 +340,7 @@ class TableStyle
      */
     public function setHeaderTitleFormat($format)
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
         $this->headerTitleFormat = $format;
         return $this;
     }
@@ -402,9 +357,7 @@ class TableStyle
      */
     public function setFooterTitleFormat($format)
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
         $this->footerTitleFormat = $format;
         return $this;
     }

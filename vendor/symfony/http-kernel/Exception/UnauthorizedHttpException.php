@@ -23,9 +23,7 @@ class UnauthorizedHttpException extends \ECSPrefix20210508\Symfony\Component\Htt
      */
     public function __construct($challenge, $message = '', \Throwable $previous = null, $code = 0, array $headers = [])
     {
-        if (\is_object($challenge)) {
-            $challenge = (string) $challenge;
-        }
+        $challenge = (string) $challenge;
         $headers['WWW-Authenticate'] = $challenge;
         parent::__construct(401, $message, $previous, $headers, $code);
     }

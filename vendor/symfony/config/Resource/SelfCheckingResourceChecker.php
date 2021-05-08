@@ -30,6 +30,7 @@ class SelfCheckingResourceChecker implements \ECSPrefix20210508\Symfony\Componen
      */
     public function isFresh(\ECSPrefix20210508\Symfony\Component\Config\Resource\ResourceInterface $resource, $timestamp)
     {
+        $timestamp = (int) $timestamp;
         /* @var SelfCheckingResourceInterface $resource */
         return $resource->isFresh($timestamp);
     }

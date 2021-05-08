@@ -88,6 +88,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
      */
     private function getExpectedIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $index = $tokens->getPrevMeaningfulToken($index);
         $indent = $this->whitespacesConfig->getIndent();
         for ($i = $index; $i >= 0; --$i) {
@@ -111,6 +112,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
      */
     private function canBeMovedToNextLine($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
+        $index = (int) $index;
         $prevMeaningful = $tokens->getPrevMeaningfulToken($index);
         $hasCommentBefore = \false;
         for ($i = $index - 1; $i > $prevMeaningful; --$i) {
@@ -130,6 +132,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
      */
     private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (1 === \PhpCsFixer\Preg::match('/\\R{1}(\\h*)$/', $this->getIndentContentAt($tokens, $index), $matches)) {
             return $matches[1];
         }
@@ -141,6 +144,7 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
      */
     private function getIndentContentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind([\T_WHITESPACE, \T_INLINE_HTML])) {
             return '';
         }
@@ -160,6 +164,8 @@ final class MethodChainingIndentationFixer extends \PhpCsFixer\AbstractFixer imp
      */
     private function currentLineRequiresExtraIndentLevel(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         if ($tokens[$start + 1]->isObjectOperator()) {
             return \false;
         }

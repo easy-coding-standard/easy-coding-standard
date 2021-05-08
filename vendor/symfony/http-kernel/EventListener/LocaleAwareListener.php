@@ -68,12 +68,8 @@ class LocaleAwareListener implements \ECSPrefix20210508\Symfony\Component\EventD
      */
     private function setLocale($locale, $defaultLocale)
     {
-        if (\is_object($defaultLocale)) {
-            $defaultLocale = (string) $defaultLocale;
-        }
-        if (\is_object($locale)) {
-            $locale = (string) $locale;
-        }
+        $locale = (string) $locale;
+        $defaultLocale = (string) $defaultLocale;
         foreach ($this->localeAwareServices as $service) {
             try {
                 $service->setLocale($locale);

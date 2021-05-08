@@ -97,6 +97,7 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      */
     private function fixToLongArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $index);
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token('(');
         $tokens[$closeIndex] = new \PhpCsFixer\Tokenizer\Token(')');
@@ -108,6 +109,7 @@ final class ArraySyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      */
     private function fixToShortArraySyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
         $closeIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openIndex);
         $tokens[$openIndex] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, '[']);

@@ -29,12 +29,8 @@ class CachePoolPrunerPass implements \ECSPrefix20210508\Symfony\Component\Depend
      */
     public function __construct($cacheCommandServiceId = 'console.command.cache_pool_prune', $cachePoolTag = 'cache.pool')
     {
-        if (\is_object($cachePoolTag)) {
-            $cachePoolTag = (string) $cachePoolTag;
-        }
-        if (\is_object($cacheCommandServiceId)) {
-            $cacheCommandServiceId = (string) $cacheCommandServiceId;
-        }
+        $cacheCommandServiceId = (string) $cacheCommandServiceId;
+        $cachePoolTag = (string) $cachePoolTag;
         $this->cacheCommandServiceId = $cacheCommandServiceId;
         $this->cachePoolTag = $cachePoolTag;
     }

@@ -159,9 +159,8 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20210508\Sym
      */
     public function addCompilerPass(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface $pass, $type = \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\PassConfig::TYPE_BEFORE_OPTIMIZATION, $priority = 0)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $priority = (int) $priority;
         throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', \get_debug_type($pass), $this->extensionClass));
     }
     /**
@@ -177,6 +176,7 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20210508\Sym
      */
     public function compile($resolveEnvPlaceholders = \false)
     {
+        $resolveEnvPlaceholders = (bool) $resolveEnvPlaceholders;
         throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Cannot compile the container in extension "%s".', $this->extensionClass));
     }
     /**

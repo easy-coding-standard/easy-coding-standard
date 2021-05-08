@@ -117,9 +117,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function __get($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (null !== ($data = $this->seek($key))) {
             $item = $this->getStub($data->data[$data->position][$data->key]);
             return $item instanceof \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub || [] === $item ? $data : $item;
@@ -132,9 +130,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function __isset($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return null !== $this->seek($key);
     }
     /**
@@ -175,6 +171,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function withMaxDepth($maxDepth)
     {
+        $maxDepth = (int) $maxDepth;
         $data = clone $this;
         $data->maxDepth = (int) $maxDepth;
         return $data;
@@ -187,6 +184,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function withMaxItemsPerDepth($maxItemsPerDepth)
     {
+        $maxItemsPerDepth = (int) $maxItemsPerDepth;
         $data = clone $this;
         $data->maxItemsPerDepth = (int) $maxItemsPerDepth;
         return $data;
@@ -200,6 +198,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function withRefHandles($useRefHandles)
     {
+        $useRefHandles = (bool) $useRefHandles;
         $data = clone $this;
         $data->useRefHandles = $useRefHandles ? -1 : 0;
         return $data;
@@ -376,6 +375,9 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     private function dumpChildren(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\DumperInterface $dumper, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $parentCursor, array &$refs, array $children, $hashCut, $hashType, $dumpKeys)
     {
+        $hashCut = (int) $hashCut;
+        $hashType = (int) $hashType;
+        $dumpKeys = (bool) $dumpKeys;
         $cursor = clone $parentCursor;
         ++$cursor->depth;
         $cursor->hashType = $hashType;

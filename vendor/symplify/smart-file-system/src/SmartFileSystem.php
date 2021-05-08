@@ -22,9 +22,7 @@ final class SmartFileSystem extends \ECSPrefix20210508\Symfony\Component\Filesys
      */
     public function readFile($filename)
     {
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
+        $filename = (string) $filename;
         $source = @\file_get_contents($filename);
         if (!$source) {
             $message = \sprintf('Failed to read "%s" file: "%s"', $filename, $this->getLastError());
@@ -38,9 +36,7 @@ final class SmartFileSystem extends \ECSPrefix20210508\Symfony\Component\Filesys
      */
     public function readFileToSmartFileInfo($filename)
     {
-        if (\is_object($filename)) {
-            $filename = (string) $filename;
-        }
+        $filename = (string) $filename;
         return new \Symplify\SmartFileSystem\SmartFileInfo($filename);
     }
     /**
@@ -52,9 +48,7 @@ final class SmartFileSystem extends \ECSPrefix20210508\Symfony\Component\Filesys
      */
     public function htmlToText($html)
     {
-        if (\is_object($html)) {
-            $html = (string) $html;
-        }
+        $html = (string) $html;
         $content = \strip_tags($html);
         return \html_entity_decode($content, \ENT_QUOTES | \ENT_HTML5, 'UTF-8');
     }

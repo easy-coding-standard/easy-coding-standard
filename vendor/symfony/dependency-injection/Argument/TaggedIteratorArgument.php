@@ -31,9 +31,8 @@ class TaggedIteratorArgument extends \ECSPrefix20210508\Symfony\Component\Depend
      */
     public function __construct($tag, $indexAttribute = null, $defaultIndexMethod = null, $needsIndexes = \false, $defaultPriorityMethod = null)
     {
-        if (\is_object($tag)) {
-            $tag = (string) $tag;
-        }
+        $tag = (string) $tag;
+        $needsIndexes = (bool) $needsIndexes;
         parent::__construct([]);
         if (null === $indexAttribute && $needsIndexes) {
             $indexAttribute = \preg_match('/[^.]++$/', $tag, $m) ? $m[0] : $tag;

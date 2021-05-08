@@ -25,9 +25,7 @@ class ArgsStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Enu
      */
     public function __construct(array $args, $function, $class)
     {
-        if (\is_object($function)) {
-            $function = (string) $function;
-        }
+        $function = (string) $function;
         list($variadic, $params) = self::getParameters($function, $class);
         $values = [];
         foreach ($args as $k => $v) {
@@ -57,9 +55,7 @@ class ArgsStub extends \ECSPrefix20210508\Symfony\Component\VarDumper\Caster\Enu
      */
     private static function getParameters($function, $class)
     {
-        if (\is_object($function)) {
-            $function = (string) $function;
-        }
+        $function = (string) $function;
         if (isset(self::$parameters[$k = $class . '::' . $function])) {
             return self::$parameters[$k];
         }

@@ -38,6 +38,7 @@ class ReflectionClassResource implements \ECSPrefix20210508\Symfony\Component\Co
      */
     public function isFresh($timestamp)
     {
+        $timestamp = (int) $timestamp;
         if (null === $this->hash) {
             $this->hash = $this->computeHash();
             $this->loadFiles($this->classReflector);

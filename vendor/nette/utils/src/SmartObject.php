@@ -18,9 +18,7 @@ trait SmartObject
      */
     public function __call($name, array $args)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $class = static::class;
         if (\ECSPrefix20210508\Nette\Utils\ObjectHelpers::hasProperty($class, $name) === 'event') {
             // calling event handlers
@@ -42,9 +40,7 @@ trait SmartObject
      */
     public static function __callStatic($name, array $args)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         \ECSPrefix20210508\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
     /**
@@ -54,9 +50,7 @@ trait SmartObject
      */
     public function &__get($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $class = static::class;
         if ($prop = isset(\ECSPrefix20210508\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name]) ? \ECSPrefix20210508\Nette\Utils\ObjectHelpers::getMagicProperties($class)[$name] : null) {
             // property getter
@@ -83,9 +77,7 @@ trait SmartObject
      */
     public function __set($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $class = static::class;
         if (\ECSPrefix20210508\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
             // unsetted property
@@ -107,9 +99,7 @@ trait SmartObject
      */
     public function __unset($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $class = static::class;
         if (!\ECSPrefix20210508\Nette\Utils\ObjectHelpers::hasProperty($class, $name)) {
             throw new \ECSPrefix20210508\Nette\MemberAccessException("Cannot unset the property {$class}::\${$name}.");
@@ -121,9 +111,7 @@ trait SmartObject
      */
     public function __isset($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset(\ECSPrefix20210508\Nette\Utils\ObjectHelpers::getMagicProperties(static::class)[$name]);
     }
 }

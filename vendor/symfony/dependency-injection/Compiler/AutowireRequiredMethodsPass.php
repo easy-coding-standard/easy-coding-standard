@@ -25,6 +25,7 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210508\Symfony\Component\D
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         $value = parent::processValue($value, $isRoot);
         if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
@@ -88,9 +89,7 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210508\Symfony\Component\D
      */
     private function isWither(\ReflectionMethod $reflectionMethod, $doc)
     {
-        if (\is_object($doc)) {
-            $doc = (string) $doc;
-        }
+        $doc = (string) $doc;
         $match = \preg_match('#(?:^/\\*\\*|\\n\\s*+\\*)\\s*+@return\\s++(static|\\$this)[\\s\\*]#i', $doc, $matches);
         if ($match && 'static' === $matches[1]) {
             return \true;

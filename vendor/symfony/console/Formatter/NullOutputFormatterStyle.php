@@ -22,9 +22,7 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
      */
     public function apply($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         return $text;
     }
     /**
@@ -34,9 +32,7 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
      */
     public function setBackground($color = null)
     {
-        if (\is_object($color)) {
-            $color = (string) $color;
-        }
+        $color = (string) $color;
         // do nothing
     }
     /**
@@ -46,9 +42,7 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
      */
     public function setForeground($color = null)
     {
-        if (\is_object($color)) {
-            $color = (string) $color;
-        }
+        $color = (string) $color;
         // do nothing
     }
     /**
@@ -58,9 +52,7 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
      */
     public function setOption($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         // do nothing
     }
     /**
@@ -78,9 +70,7 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
      */
     public function unsetOption($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         // do nothing
     }
 }

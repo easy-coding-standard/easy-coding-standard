@@ -108,6 +108,7 @@ switch ($foo) {
      */
     private function fixCase(\PhpCsFixer\Tokenizer\Tokens $tokens, $casePosition)
     {
+        $casePosition = (int) $casePosition;
         $empty = \true;
         $fallThrough = \true;
         $commentPosition = null;
@@ -179,6 +180,7 @@ switch ($foo) {
      */
     private function insertCommentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $casePosition)
     {
+        $casePosition = (int) $casePosition;
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         $newlinePosition = $this->ensureNewLineAt($tokens, $casePosition);
         $newlineToken = $tokens[$newlinePosition];
@@ -206,6 +208,7 @@ switch ($foo) {
      */
     private function ensureNewLineAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         $content = $lineEnding . \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $position);
         $whitespaceToken = $tokens[$position - 1];
@@ -236,6 +239,7 @@ switch ($foo) {
      */
     private function removeComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $commentPosition)
     {
+        $commentPosition = (int) $commentPosition;
         if ($tokens[$tokens->getPrevNonWhitespace($commentPosition)]->isGivenKind(\T_OPEN_TAG)) {
             $whitespacePosition = $commentPosition + 1;
             $regex = '/^\\R\\h*/';
@@ -260,6 +264,7 @@ switch ($foo) {
      */
     private function getStructureEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $initialToken = $tokens[$position];
         if ($initialToken->isGivenKind([\T_FOR, \T_FOREACH, \T_WHILE, \T_IF, \T_ELSEIF, \T_SWITCH, \T_FUNCTION])) {
             $position = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $tokens->getNextTokenOfKind($position, ['(']));

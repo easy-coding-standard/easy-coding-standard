@@ -46,6 +46,7 @@ final class AttributeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind(\T_ATTRIBUTE)) {
             return;
         }

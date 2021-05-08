@@ -30,9 +30,7 @@ class DumpServer
      */
     public function __construct($host, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
-        if (\is_object($host)) {
-            $host = (string) $host;
-        }
+        $host = (string) $host;
         if (\false === \strpos($host, '://')) {
             $host = 'tcp://' . $host;
         }

@@ -37,9 +37,8 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
      */
     public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         $this->marshaller = new \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\TagAwareMarshaller($marshaller);
         parent::__construct('', $defaultLifetime);
         $this->init($namespace, $directory);
@@ -50,9 +49,7 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
      */
     protected function doClear($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         $ok = $this->doClearCache($namespace);
         if ('' !== $namespace) {
             return $ok;
@@ -99,6 +96,7 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
      */
     protected function doSave(array $values, $lifetime, array $addTagData = [], array $removeTagData = [])
     {
+        $lifetime = (int) $lifetime;
         $failed = $this->doSaveCache($values, $lifetime);
         // Add Tags as symlinks
         foreach ($addTagData as $tagId => $ids) {
@@ -221,9 +219,7 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
      */
     private function getTagFolder($tagId)
     {
-        if (\is_object($tagId)) {
-            $tagId = (string) $tagId;
-        }
+        $tagId = (string) $tagId;
         return $this->getFile($tagId, \false, $this->directory . self::TAG_FOLDER . \DIRECTORY_SEPARATOR) . \DIRECTORY_SEPARATOR;
     }
 }

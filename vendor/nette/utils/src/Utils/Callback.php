@@ -54,9 +54,7 @@ final class Callback
      */
     public static function invokeSafe($function, array $args, callable $onError)
     {
-        if (\is_object($function)) {
-            $function = (string) $function;
-        }
+        $function = (string) $function;
         $prev = \set_error_handler(function ($severity, $message, $file) use($onError, &$prev, $function) {
             if ($file === __FILE__) {
                 $msg = \ini_get('html_errors') ? \ECSPrefix20210508\Nette\Utils\Html::htmlToText($message) : $message;
@@ -83,6 +81,7 @@ final class Callback
      */
     public static function check($callable, $syntax = \false)
     {
+        $syntax = (bool) $syntax;
         if (!\is_callable($callable, $syntax)) {
             throw new \ECSPrefix20210508\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
         }

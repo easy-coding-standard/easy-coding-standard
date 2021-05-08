@@ -26,9 +26,7 @@ class LocalFile extends \PHP_CodeSniffer\Files\File
      */
     public function __construct($path, \PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $this->path = \trim($path);
         if (\PHP_CodeSniffer\Util\Common::isReadable($this->path) === \false) {
             parent::__construct($this->path, $ruleset, $config);

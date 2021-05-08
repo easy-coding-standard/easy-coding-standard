@@ -34,6 +34,7 @@ class ArrayBracketSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr]['code'] === T_OPEN_SQUARE_BRACKET && isset($tokens[$stackPtr]['bracket_closer']) === \false || $tokens[$stackPtr]['code'] === T_CLOSE_SQUARE_BRACKET && isset($tokens[$stackPtr]['bracket_opener']) === \false) {
             // Bow out for parse error/during live coding.

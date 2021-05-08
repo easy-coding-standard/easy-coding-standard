@@ -15,12 +15,8 @@ final class AutowiredConsoleApplication extends \Symplify\SymplifyKernel\Console
      */
     public function __construct(array $commands, $name = 'UNKNOWN', $version = 'UNKNOWN')
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $version = (string) $version;
         parent::__construct($commands, $name, $version);
     }
 }

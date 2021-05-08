@@ -100,6 +100,7 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210508\Symfony\Component\
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             // Reference found in ArgumentInterface::getValues() are not inlineable
             return $value;
@@ -145,9 +146,7 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210508\Symfony\Component\
      */
     private function isInlineableDefinition($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if ($definition->hasErrors() || $definition->isDeprecated() || $definition->isLazy() || $definition->isSynthetic()) {
             return \false;
         }

@@ -35,6 +35,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
      */
     public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, $processedFilesCount)
     {
+        $processedFilesCount = (int) $processedFilesCount;
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
         $errorCount = $errorAndDiffResult->getErrorCount();

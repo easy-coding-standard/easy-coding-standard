@@ -62,6 +62,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             if (!$tokens[$index]->isObjectOperator()) {

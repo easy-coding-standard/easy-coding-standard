@@ -38,6 +38,7 @@ final class WhitespacyCommentTransformer extends \PhpCsFixer\Tokenizer\AbstractT
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$token->isComment()) {
             return;
         }

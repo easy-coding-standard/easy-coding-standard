@@ -21,9 +21,8 @@ final class InlineVarMalformWorker implements \Symplify\CodingStandard\TokenRunn
      */
     public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $position = (int) $position;
         /** @var Token $token */
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {

@@ -17,6 +17,7 @@ final class Neon
      */
     public static function encode($value, $flags = 0)
     {
+        $flags = (int) $flags;
         $encoder = new \ECSPrefix20210508\Nette\Neon\Encoder();
         return $encoder->encode($value, $flags);
     }
@@ -28,9 +29,7 @@ final class Neon
      */
     public static function decode($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         $decoder = new \ECSPrefix20210508\Nette\Neon\Decoder();
         return $decoder->decode($input);
     }

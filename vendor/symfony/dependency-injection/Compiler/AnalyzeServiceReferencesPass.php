@@ -43,6 +43,8 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20210508\Symfony\Component\
      */
     public function __construct($onlyConstructorArguments = \false, $hasProxyDumper = \true)
     {
+        $onlyConstructorArguments = (bool) $onlyConstructorArguments;
+        $hasProxyDumper = (bool) $hasProxyDumper;
         $this->onlyConstructorArguments = $onlyConstructorArguments;
         $this->hasProxyDumper = $hasProxyDumper;
         $this->enableExpressionProcessing();
@@ -75,6 +77,7 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20210508\Symfony\Component\
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         $lazy = $this->lazy;
         $inExpression = $this->inExpression();
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
@@ -149,9 +152,7 @@ class AnalyzeServiceReferencesPass extends \ECSPrefix20210508\Symfony\Component\
      */
     private function getDefinitionId($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         while (isset($this->aliases[$id])) {
             $id = (string) $this->aliases[$id];
         }

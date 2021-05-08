@@ -106,9 +106,7 @@ trait AbstractAdapterTrait
      */
     public function clear($prefix = '')
     {
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
         $this->deferred = [];
         if ($cleared = $this->versioningIsEnabled) {
             if ('' === ($namespaceVersionToClear = $this->namespaceVersion)) {
@@ -263,6 +261,7 @@ trait AbstractAdapterTrait
      */
     public function enableVersioning($enable = \true)
     {
+        $enable = (bool) $enable;
         $wasEnabled = $this->versioningIsEnabled;
         $this->versioningIsEnabled = (bool) $enable;
         $this->namespaceVersion = '';

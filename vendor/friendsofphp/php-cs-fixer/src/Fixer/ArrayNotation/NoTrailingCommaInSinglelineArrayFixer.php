@@ -59,6 +59,7 @@ final class NoTrailingCommaInSinglelineArrayFixer extends \PhpCsFixer\AbstractFi
      */
     private function fixArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         if ($tokensAnalyzer->isArrayMultiLine($index)) {
             return;

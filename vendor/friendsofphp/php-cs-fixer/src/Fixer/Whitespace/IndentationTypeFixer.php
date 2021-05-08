@@ -81,6 +81,7 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
      */
     private function fixIndentInComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $content = \PhpCsFixer\Preg::replace('/^(?:(?<! ) {1,3})?\\t/m', '\\1    ', $tokens[$index]->getContent(), -1, $count);
         // Also check for more tabs.
         while (0 !== $count) {
@@ -99,6 +100,7 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
      */
     private function fixIndentToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $content = $tokens[$index]->getContent();
         $previousTokenHasTrailingLinebreak = \false;
         // @TODO this can be removed when we have a transformer for "T_OPEN_TAG" to "T_OPEN_TAG + T_WHITESPACE"
@@ -130,12 +132,8 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
      */
     private function getExpectedIndent($content, $indent)
     {
-        if (\is_object($indent)) {
-            $indent = (string) $indent;
-        }
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $indent = (string) $indent;
         if ("\t" === $indent) {
             $content = \str_replace('    ', $indent, $content);
         }

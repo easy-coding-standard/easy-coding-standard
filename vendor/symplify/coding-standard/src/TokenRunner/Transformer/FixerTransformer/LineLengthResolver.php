@@ -40,6 +40,7 @@ final class LineLengthResolver
      */
     private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         /** @var Token $currentToken */
         $currentToken = $tokens[$position];
         if (\ECSPrefix20210508\Nette\Utils\Strings::startsWith($currentToken->getContent(), \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {

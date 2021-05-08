@@ -92,6 +92,9 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, $functionOpenIndex, $functionCloseIndex)
     {
+        $functionIndex = (int) $functionIndex;
+        $functionOpenIndex = (int) $functionOpenIndex;
+        $functionCloseIndex = (int) $functionCloseIndex;
         static $riskyKinds = [
             \PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN,
             // "$h = ${$g};" case
@@ -227,6 +230,10 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
      */
     private function simplifyReturnStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $assignVarIndex, $assignVarOperatorIndex, $returnIndex, $returnVarEndIndex)
     {
+        $assignVarIndex = (int) $assignVarIndex;
+        $assignVarOperatorIndex = (int) $assignVarOperatorIndex;
+        $returnIndex = (int) $returnIndex;
+        $returnVarEndIndex = (int) $returnVarEndIndex;
         $inserted = 0;
         $originalIndent = $tokens[$assignVarIndex - 1]->isWhitespace() ? $tokens[$assignVarIndex - 1]->getContent() : null;
         // remove the return statement
@@ -269,6 +276,7 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
      */
     private function clearIfSave(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if ($tokens[$index]->isComment()) {
             return;
         }

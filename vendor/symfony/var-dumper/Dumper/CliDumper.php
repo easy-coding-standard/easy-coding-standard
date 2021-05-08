@@ -51,6 +51,7 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     public function __construct($output = null, $charset = null, $flags = 0)
     {
+        $flags = (int) $flags;
         parent::__construct($output, $charset, $flags);
         if ('\\' === \DIRECTORY_SEPARATOR && !$this->isWindowsTrueColor()) {
             // Use only the base 16 xterm colors when using ANSICON or standard Windows 10 CLI
@@ -64,6 +65,7 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     public function setColors($colors)
     {
+        $colors = (bool) $colors;
         $this->colors = $colors;
     }
     /**
@@ -72,6 +74,7 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     public function setMaxStringWidth($maxStringWidth)
     {
+        $maxStringWidth = (int) $maxStringWidth;
         $this->maxStringWidth = $maxStringWidth;
     }
     /**
@@ -98,9 +101,7 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     public function dumpScalar(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $value)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $this->dumpKey($cursor);
         $style = 'const';
         $attr = $cursor->attr;
@@ -153,9 +154,9 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut)
     {
-        if (\is_object($str)) {
-            $str = (string) $str;
-        }
+        $str = (string) $str;
+        $bin = (bool) $bin;
+        $cut = (int) $cut;
         $this->dumpKey($cursor);
         $attr = $cursor->attr;
         if ($bin) {
@@ -237,6 +238,8 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     public function enterHash(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild)
     {
+        $type = (int) $type;
+        $hasChild = (bool) $hasChild;
         if (null === $this->colors) {
             $this->colors = $this->supportsColors();
         }
@@ -274,6 +277,9 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     public function leaveHash(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild, $cut)
     {
+        $type = (int) $type;
+        $hasChild = (bool) $hasChild;
+        $cut = (int) $cut;
         if (empty($cursor->attr['cut_hash'])) {
             $this->dumpEllipsis($cursor, $hasChild, $cut);
             $this->line .= \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT === $type ? '}' : (\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor::HASH_RESOURCE !== $type ? ']' : ($hasChild ? '}' : ''));
@@ -288,6 +294,8 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     protected function dumpEllipsis(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $hasChild, $cut)
     {
+        $hasChild = (bool) $hasChild;
+        $cut = (int) $cut;
         if ($cut) {
             $this->line .= ' …';
             if (0 < $cut) {
@@ -386,12 +394,8 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     protected function style($style, $value, $attr = [])
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
-        if (\is_object($style)) {
-            $style = (string) $style;
-        }
+        $style = (string) $style;
+        $value = (string) $value;
         if (null === $this->colors) {
             $this->colors = $this->supportsColors();
         }
@@ -497,6 +501,8 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     protected function dumpLine($depth, $endOfValue = \false)
     {
+        $depth = (int) $depth;
+        $endOfValue = (bool) $endOfValue;
         if ($this->colors) {
             $this->line = \sprintf("\33[%sm%s\33[m", $this->styles['default'], $this->line);
         }
@@ -572,9 +578,8 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
      */
     private function getSourceLink($file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $line = (int) $line;
         if ($fmt = $this->displayOptions['fileLinkFormat']) {
             return \is_string($fmt) ? \strtr($fmt, ['%f' => $file, '%l' => $line]) : ($fmt->format($file, $line) ?: 'file://' . $file . '#L' . $line);
         }

@@ -81,9 +81,8 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public function __construct($environment, $debug)
     {
-        if (\is_object($environment)) {
-            $environment = (string) $environment;
-        }
+        $environment = (string) $environment;
+        $debug = (bool) $debug;
         $this->environment = $environment;
         $this->debug = $debug;
     }
@@ -166,6 +165,8 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public function handle(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
+        $type = (int) $type;
+        $catch = (bool) $catch;
         if (!$this->booted) {
             $container = $this->container !== null ? $this->container : $this->preBoot();
             if ($container->has('http_cache')) {
@@ -203,9 +204,7 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public function getBundle($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!isset($this->bundles[$name])) {
             throw new \InvalidArgumentException(\sprintf('Bundle "%s" does not exist or it is not enabled. Maybe you forgot to add it in the "registerBundles()" method of your "%s.php" file?', $name, \get_debug_type($this)));
         }
@@ -217,9 +216,7 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public function locateResource($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if ('@' !== $name[0]) {
             throw new \InvalidArgumentException(\sprintf('A resource name must start with @ ("%s" given).', $name));
         }
@@ -607,12 +604,8 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     protected function dumpContainer(\ECSPrefix20210508\Symfony\Component\Config\ConfigCache $cache, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $class, $baseClass)
     {
-        if (\is_object($baseClass)) {
-            $baseClass = (string) $baseClass;
-        }
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
+        $baseClass = (string) $baseClass;
         // cache the container
         $dumper = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
         if (\class_exists(\ECSPrefix20210508\ProxyManager\Configuration::class) && \class_exists(\ECSPrefix20210508\Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper::class)) {
@@ -678,9 +671,7 @@ abstract class Kernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel
      */
     public static function stripComments($source)
     {
-        if (\is_object($source)) {
-            $source = (string) $source;
-        }
+        $source = (string) $source;
         if (!\function_exists('token_get_all')) {
             return $source;
         }

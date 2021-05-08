@@ -51,12 +51,8 @@ final class FixerOptionBuilder
      */
     public function __construct($name, $description)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $description = (string) $description;
         $this->name = $name;
         $this->description = $description;
     }

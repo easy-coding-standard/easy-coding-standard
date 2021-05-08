@@ -41,6 +41,7 @@ final class FixerFileProcessedEvent extends \ECSPrefix20210508\Symfony\Contracts
      */
     public function __construct($status)
     {
+        $status = (int) $status;
         $this->status = $status;
     }
     /**

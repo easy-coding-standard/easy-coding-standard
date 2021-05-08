@@ -182,9 +182,7 @@ class DebugClassLoader
      */
     public function findFile($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         return $this->isFinder ? $this->classLoader[0]->findFile($class) ?: null : null;
     }
     /**
@@ -196,9 +194,7 @@ class DebugClassLoader
      */
     public function loadClass($class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         $e = \error_reporting(\error_reporting() | \E_PARSE | \E_ERROR | \E_CORE_ERROR | \E_COMPILE_ERROR);
         try {
             if ($this->isFinder && !isset($this->loaded[$class])) {
@@ -227,9 +223,7 @@ class DebugClassLoader
      */
     private function checkClass($class, $file = null)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         $exists = null === $file || \class_exists($class, \false) || \interface_exists($class, \false) || \trait_exists($class, \false);
         if (null !== $file && $class && '\\' === $class[0]) {
             $class = \substr($class, 1);
@@ -271,9 +265,7 @@ class DebugClassLoader
      */
     public function checkAnnotations(\ReflectionClass $refl, $class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         if ('Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV7' === $class || 'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV6' === $class) {
             return [];
         }
@@ -503,12 +495,8 @@ class DebugClassLoader
      */
     public function checkCase(\ReflectionClass $refl, $file, $class)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $class = (string) $class;
         $real = \explode('\\', $class . \strrchr($file, '.'));
         $tail = \explode(\DIRECTORY_SEPARATOR, \str_replace('/', \DIRECTORY_SEPARATOR, $file));
         $i = \count($tail) - 1;
@@ -539,9 +527,7 @@ class DebugClassLoader
      */
     private function darwinRealpath($real)
     {
-        if (\is_object($real)) {
-            $real = (string) $real;
-        }
+        $real = (string) $real;
         $i = 1 + \strrpos($real, '/');
         $file = \substr($real, $i);
         $real = \substr($real, 0, $i);
@@ -604,9 +590,7 @@ class DebugClassLoader
      */
     private function getOwnInterfaces($class, $parent)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
+        $class = (string) $class;
         $ownInterfaces = \class_implements($class, \false);
         if ($parent) {
             foreach (\class_implements($parent, \false) as $interface) {
@@ -627,9 +611,7 @@ class DebugClassLoader
      */
     private function setReturnType($types, \ReflectionMethod $method, $parent)
     {
-        if (\is_object($types)) {
-            $types = (string) $types;
-        }
+        $types = (string) $types;
         $nullable = \false;
         $typesMap = [];
         foreach (\explode('|', $types) as $t) {
@@ -695,12 +677,8 @@ class DebugClassLoader
      */
     private function normalizeType($type, $class, $parent)
     {
-        if (\is_object($class)) {
-            $class = (string) $class;
-        }
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $class = (string) $class;
         if (isset(self::SPECIAL_RETURN_TYPES[$lcType = \strtolower($type)])) {
             if ('parent' === ($lcType = self::SPECIAL_RETURN_TYPES[$lcType])) {
                 $lcType = null !== $parent ? '\\' . $parent : 'parent';
@@ -727,15 +705,9 @@ class DebugClassLoader
      */
     private function patchMethod(\ReflectionMethod $method, $returnType, $declaringFile, $normalizedType)
     {
-        if (\is_object($normalizedType)) {
-            $normalizedType = (string) $normalizedType;
-        }
-        if (\is_object($declaringFile)) {
-            $declaringFile = (string) $declaringFile;
-        }
-        if (\is_object($returnType)) {
-            $returnType = (string) $returnType;
-        }
+        $returnType = (string) $returnType;
+        $declaringFile = (string) $declaringFile;
+        $normalizedType = (string) $normalizedType;
         static $patchedMethods = [];
         static $useStatements = [];
         if (!\is_file($file = $method->getFileName()) || isset($patchedMethods[$file][$startLine = $method->getStartLine()])) {
@@ -817,9 +789,7 @@ EOTXT;
      */
     private static function getUseStatements($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $namespace = '';
         $useMap = [];
         $useOffset = 0;
@@ -856,9 +826,7 @@ EOTXT;
      */
     private function fixReturnStatements(\ReflectionMethod $method, $returnType)
     {
-        if (\is_object($returnType)) {
-            $returnType = (string) $returnType;
-        }
+        $returnType = (string) $returnType;
         if ('7.1' === $this->patchTypes['php'] && 'object' === \ltrim($returnType, '?') && 'docblock' !== $this->patchTypes['force']) {
             return;
         }

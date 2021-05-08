@@ -21,6 +21,7 @@ trait AbstractTrait
      */
     public final function abstract($abstract = \true)
     {
+        $abstract = (bool) $abstract;
         $this->definition->setAbstract($abstract);
         return $this;
     }

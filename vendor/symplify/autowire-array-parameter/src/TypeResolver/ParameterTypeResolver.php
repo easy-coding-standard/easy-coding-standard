@@ -25,9 +25,7 @@ final class ParameterTypeResolver
      */
     public function resolveParameterType($parameterName, \ReflectionMethod $reflectionMethod)
     {
-        if (\is_object($parameterName)) {
-            $parameterName = (string) $parameterName;
-        }
+        $parameterName = (string) $parameterName;
         $docComment = $reflectionMethod->getDocComment();
         if ($docComment === \false) {
             return null;

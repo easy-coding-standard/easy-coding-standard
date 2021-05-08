@@ -27,12 +27,8 @@ final class Color
      */
     public function __construct($foreground = '', $background = '', array $options = [])
     {
-        if (\is_object($background)) {
-            $background = (string) $background;
-        }
-        if (\is_object($foreground)) {
-            $foreground = (string) $foreground;
-        }
+        $foreground = (string) $foreground;
+        $background = (string) $background;
         $this->foreground = $this->parseColor($foreground);
         $this->background = $this->parseColor($background);
         foreach ($options as $option) {
@@ -48,9 +44,7 @@ final class Color
      */
     public function apply($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         return $this->set() . $text . $this->unset();
     }
     /**
@@ -99,9 +93,7 @@ final class Color
      */
     private function parseColor($color)
     {
-        if (\is_object($color)) {
-            $color = (string) $color;
-        }
+        $color = (string) $color;
         if ('' === $color) {
             return '';
         }
@@ -126,6 +118,7 @@ final class Color
      */
     private function convertHexColorToAnsi($color)
     {
+        $color = (int) $color;
         $r = $color >> 16 & 255;
         $g = $color >> 8 & 255;
         $b = $color & 255;
@@ -143,6 +136,9 @@ final class Color
      */
     private function degradeHexColorToAnsi($r, $g, $b)
     {
+        $r = (int) $r;
+        $g = (int) $g;
+        $b = (int) $b;
         if (0 === \round($this->getSaturation($r, $g, $b) / 50)) {
             return 0;
         }
@@ -156,6 +152,9 @@ final class Color
      */
     private function getSaturation($r, $g, $b)
     {
+        $r = (int) $r;
+        $g = (int) $g;
+        $b = (int) $b;
         $r = $r / 255;
         $g = $g / 255;
         $b = $b / 255;

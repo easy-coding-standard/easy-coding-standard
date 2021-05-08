@@ -43,12 +43,8 @@ class EnvVarProcessor implements \ECSPrefix20210508\Symfony\Component\Dependency
      */
     public function getEnv($prefix, $name, \Closure $getEnv)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $name = (string) $name;
         $i = \strpos($name, ':');
         if ('key' === $prefix) {
             if (\false === $i) {

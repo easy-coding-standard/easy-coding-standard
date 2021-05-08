@@ -34,6 +34,7 @@ class IncludeOwnSystemSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $fileName = $phpcsFile->getFilename();
         $matches = [];
         if (\preg_match('|/systems/(.*)/([^/]+)?actions.inc$|i', $fileName, $matches) === 0) {
@@ -76,6 +77,7 @@ class IncludeOwnSystemSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function getIncludedClassFromToken($phpcsFile, array $tokens, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         return \false;
     }
     //end getIncludedClassFromToken()

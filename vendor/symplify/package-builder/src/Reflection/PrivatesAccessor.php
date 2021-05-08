@@ -16,9 +16,7 @@ final class PrivatesAccessor
      */
     public function getPrivateProperty($object, $propertyName)
     {
-        if (\is_object($propertyName)) {
-            $propertyName = (string) $propertyName;
-        }
+        $propertyName = (string) $propertyName;
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         return $propertyReflection->getValue($object);
@@ -30,9 +28,7 @@ final class PrivatesAccessor
      */
     public function setPrivateProperty($object, $propertyName, $value)
     {
-        if (\is_object($propertyName)) {
-            $propertyName = (string) $propertyName;
-        }
+        $propertyName = (string) $propertyName;
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
         $propertyReflection->setAccessible(\true);
         $propertyReflection->setValue($object, $value);
@@ -44,9 +40,7 @@ final class PrivatesAccessor
      */
     private function resolvePropertyReflection($object, $propertyName)
     {
-        if (\is_object($propertyName)) {
-            $propertyName = (string) $propertyName;
-        }
+        $propertyName = (string) $propertyName;
         if (\property_exists($object, $propertyName)) {
             return new \ReflectionProperty($object, $propertyName);
         }

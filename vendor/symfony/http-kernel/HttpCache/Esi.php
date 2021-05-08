@@ -47,12 +47,9 @@ class Esi extends \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\Abst
      */
     public function renderIncludeTag($uri, $alt = null, $ignoreErrors = \true, $comment = '')
     {
-        if (\is_object($comment)) {
-            $comment = (string) $comment;
-        }
-        if (\is_object($uri)) {
-            $uri = (string) $uri;
-        }
+        $uri = (string) $uri;
+        $ignoreErrors = (bool) $ignoreErrors;
+        $comment = (string) $comment;
         $html = \sprintf('<esi:include src="%s"%s%s />', $uri, $ignoreErrors ? ' onerror="continue"' : '', $alt ? \sprintf(' alt="%s"', $alt) : '');
         if (!empty($comment)) {
             return \sprintf("<esi:comment text=\"%s\" />\n%s", $comment, $html);

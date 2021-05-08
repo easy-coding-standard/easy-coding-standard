@@ -28,12 +28,8 @@ final class UnifiedDiffer implements \PhpCsFixer\Differ\DifferInterface
      */
     public function diff($old, $new, $file = null)
     {
-        if (\is_object($new)) {
-            $new = (string) $new;
-        }
-        if (\is_object($old)) {
-            $old = (string) $old;
-        }
+        $old = (string) $old;
+        $new = (string) $new;
         if (null === $file) {
             $options = ['fromFile' => 'Original', 'toFile' => 'New'];
         } else {

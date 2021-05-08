@@ -55,6 +55,8 @@ final class ProgressBar
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $max = 0, $minSecondsBetweenRedraws = 1 / 25)
     {
+        $max = (int) $max;
+        $minSecondsBetweenRedraws = (double) $minSecondsBetweenRedraws;
         if ($output instanceof \ECSPrefix20210508\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
@@ -85,9 +87,7 @@ final class ProgressBar
      */
     public static function setPlaceholderFormatterDefinition($name, callable $callable)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
@@ -102,9 +102,7 @@ final class ProgressBar
      */
     public static function getPlaceholderFormatterDefinition($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!self::$formatters) {
             self::$formatters = self::initPlaceholderFormatters();
         }
@@ -121,12 +119,8 @@ final class ProgressBar
      */
     public static function setFormatDefinition($name, $format)
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $format = (string) $format;
         if (!self::$formats) {
             self::$formats = self::initFormats();
         }
@@ -141,9 +135,7 @@ final class ProgressBar
      */
     public static function getFormatDefinition($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!self::$formats) {
             self::$formats = self::initFormats();
         }
@@ -161,12 +153,8 @@ final class ProgressBar
      */
     public function setMessage($message, $name = 'message')
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $name = (string) $name;
         $this->messages[$name] = $message;
     }
     /**
@@ -174,9 +162,7 @@ final class ProgressBar
      */
     public function getMessage($name = 'message')
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->messages[$name];
     }
     /**
@@ -246,6 +232,7 @@ final class ProgressBar
      */
     public function setBarWidth($size)
     {
+        $size = (int) $size;
         $this->barWidth = \max(1, $size);
     }
     /**
@@ -260,9 +247,7 @@ final class ProgressBar
      */
     public function setBarCharacter($char)
     {
-        if (\is_object($char)) {
-            $char = (string) $char;
-        }
+        $char = (string) $char;
         $this->barChar = $char;
     }
     /**
@@ -280,9 +265,7 @@ final class ProgressBar
      */
     public function setEmptyBarCharacter($char)
     {
-        if (\is_object($char)) {
-            $char = (string) $char;
-        }
+        $char = (string) $char;
         $this->emptyBarChar = $char;
     }
     /**
@@ -297,9 +280,7 @@ final class ProgressBar
      */
     public function setProgressCharacter($char)
     {
-        if (\is_object($char)) {
-            $char = (string) $char;
-        }
+        $char = (string) $char;
         $this->progressChar = $char;
     }
     /**
@@ -314,9 +295,7 @@ final class ProgressBar
      */
     public function setFormat($format)
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
         $this->format = null;
         $this->internalFormat = $format;
     }
@@ -335,6 +314,7 @@ final class ProgressBar
      */
     public function minSecondsBetweenRedraws($seconds)
     {
+        $seconds = (double) $seconds;
         $this->minSecondsBetweenRedraws = $seconds;
     }
     /**
@@ -343,6 +323,7 @@ final class ProgressBar
      */
     public function maxSecondsBetweenRedraws($seconds)
     {
+        $seconds = (double) $seconds;
         $this->maxSecondsBetweenRedraws = $seconds;
     }
     /**
@@ -354,6 +335,7 @@ final class ProgressBar
      */
     public function iterate($iterable, $max = null)
     {
+        $max = (int) $max;
         $this->start(isset($max) ? $max : (\is_countable($iterable) ? \count($iterable) : 0));
         foreach ($iterable as $key => $value) {
             (yield $key => $value);
@@ -383,6 +365,7 @@ final class ProgressBar
      */
     public function advance($step = 1)
     {
+        $step = (int) $step;
         $this->setProgress($this->step + $step);
     }
     /**
@@ -391,6 +374,7 @@ final class ProgressBar
      */
     public function setOverwrite($overwrite)
     {
+        $overwrite = (bool) $overwrite;
         $this->overwrite = $overwrite;
     }
     /**
@@ -398,6 +382,7 @@ final class ProgressBar
      */
     public function setProgress($step)
     {
+        $step = (int) $step;
         if ($this->max && $step > $this->max) {
             $this->max = $step;
         } elseif ($step < 0) {
@@ -428,6 +413,7 @@ final class ProgressBar
      */
     public function setMaxSteps($max)
     {
+        $max = (int) $max;
         $this->format = null;
         $this->max = \max(0, $max);
         $this->stepWidth = $this->max ? \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper::strlen((string) $this->max) : 4;
@@ -484,9 +470,7 @@ final class ProgressBar
      */
     private function setRealFormat($format)
     {
-        if (\is_object($format)) {
-            $format = (string) $format;
-        }
+        $format = (string) $format;
         // try to use the _nomax variant if available
         if (!$this->max && null !== self::getFormatDefinition($format . '_nomax')) {
             $this->format = self::getFormatDefinition($format . '_nomax');
@@ -504,9 +488,7 @@ final class ProgressBar
      */
     private function overwrite($message)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if ($this->previousMessage === $message) {
             return;
         }

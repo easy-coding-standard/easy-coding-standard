@@ -65,6 +65,8 @@ final class NamespaceUsesAnalyzer
      */
     private function parseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $fullName = $shortName = '';
         $aliased = \false;
         $type = \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis::TYPE_CLASS;

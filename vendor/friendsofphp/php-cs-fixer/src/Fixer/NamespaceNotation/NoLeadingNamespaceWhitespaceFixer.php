@@ -81,9 +81,7 @@ final class NoLeadingNamespaceWhitespaceFixer extends \PhpCsFixer\AbstractFixer 
      */
     private static function endsWithWhitespace($str)
     {
-        if (\is_object($str)) {
-            $str = (string) $str;
-        }
+        $str = (string) $str;
         if ('' === $str) {
             return \false;
         }

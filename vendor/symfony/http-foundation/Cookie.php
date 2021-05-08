@@ -42,9 +42,8 @@ class Cookie
      */
     public static function fromString($cookie, $decode = \false)
     {
-        if (\is_object($cookie)) {
-            $cookie = (string) $cookie;
-        }
+        $cookie = (string) $cookie;
+        $decode = (bool) $decode;
         $data = ['expires' => 0, 'path' => '/', 'domain' => null, 'secure' => \false, 'httponly' => \false, 'raw' => !$decode, 'samesite' => null];
         $parts = \ECSPrefix20210508\Symfony\Component\HttpFoundation\HeaderUtils::split($cookie, ';=');
         $part = \array_shift($parts);
@@ -70,9 +69,9 @@ class Cookie
      */
     public static function create($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = null, $httpOnly = \true, $raw = \false, $sameSite = self::SAMESITE_LAX)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $httpOnly = (bool) $httpOnly;
+        $raw = (bool) $raw;
         return new self($name, $value, $expire, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
     }
     /**
@@ -90,12 +89,10 @@ class Cookie
      */
     public function __construct($name, $value = null, $expire = 0, $path = '/', $domain = null, $secure = null, $httpOnly = \true, $raw = \false, $sameSite = 'lax')
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $path = (string) $path;
+        $httpOnly = (bool) $httpOnly;
+        $raw = (bool) $raw;
         // from PHP source code
         if ($raw && \false !== \strpbrk($name, self::$reservedCharsList)) {
             throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $name));
@@ -178,9 +175,7 @@ class Cookie
      */
     public function withPath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $cookie = clone $this;
         $cookie->path = '' === $path ? '/' : $path;
         return $cookie;
@@ -193,6 +188,7 @@ class Cookie
      */
     public function withSecure($secure = \true)
     {
+        $secure = (bool) $secure;
         $cookie = clone $this;
         $cookie->secure = $secure;
         return $cookie;
@@ -205,6 +201,7 @@ class Cookie
      */
     public function withHttpOnly($httpOnly = \true)
     {
+        $httpOnly = (bool) $httpOnly;
         $cookie = clone $this;
         $cookie->httpOnly = $httpOnly;
         return $cookie;
@@ -217,6 +214,7 @@ class Cookie
      */
     public function withRaw($raw = \true)
     {
+        $raw = (bool) $raw;
         if ($raw && \false !== \strpbrk($this->name, self::$reservedCharsList)) {
             throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $this->name));
         }
@@ -388,6 +386,7 @@ class Cookie
      */
     public function setSecureDefault($default)
     {
+        $default = (bool) $default;
         $this->secureDefault = $default;
     }
 }

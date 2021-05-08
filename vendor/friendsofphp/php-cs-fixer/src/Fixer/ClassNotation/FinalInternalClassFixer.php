@@ -124,6 +124,7 @@ final class FinalInternalClassFixer extends \PhpCsFixer\AbstractFixer implements
      */
     private function isClassCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if ($tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind([\T_ABSTRACT, \T_FINAL, \T_NEW])) {
             return \false;
             // ignore class; it is abstract or already final

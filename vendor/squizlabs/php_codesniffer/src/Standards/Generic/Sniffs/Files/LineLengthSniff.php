@@ -62,6 +62,7 @@ class LineLengthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         for ($i = 1; $i < $phpcsFile->numTokens; $i++) {
             if ($tokens[$i]['column'] === 1) {
@@ -84,6 +85,7 @@ class LineLengthSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function checkLineLength($phpcsFile, $tokens, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         // The passed token is the first on the line.
         $stackPtr--;
         if ($tokens[$stackPtr]['column'] === 1 && $tokens[$stackPtr]['length'] === 0) {

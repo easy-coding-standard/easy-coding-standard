@@ -510,6 +510,7 @@ class Foo
      */
     private function findParenthesisEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $structureTokenIndex)
     {
+        $structureTokenIndex = (int) $structureTokenIndex;
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
         // return if next token is not opening parenthesis
@@ -524,6 +525,7 @@ class Foo
      */
     private function findStatementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $parenthesisEndIndex)
     {
+        $parenthesisEndIndex = (int) $parenthesisEndIndex;
         $nextIndex = $tokens->getNextMeaningfulToken($parenthesisEndIndex);
         $nextToken = $tokens[$nextIndex];
         if (!$nextToken) {
@@ -595,6 +597,7 @@ class Foo
      */
     private function getControlContinuationTokensForOpeningToken($openingTokenKind)
     {
+        $openingTokenKind = (int) $openingTokenKind;
         if (\T_IF === $openingTokenKind) {
             return [\T_ELSE, \T_ELSEIF];
         }
@@ -612,6 +615,7 @@ class Foo
      */
     private function getFinalControlContinuationTokensForOpeningToken($openingTokenKind)
     {
+        $openingTokenKind = (int) $openingTokenKind;
         if (\T_IF === $openingTokenKind) {
             return [\T_ELSE];
         }
@@ -626,6 +630,7 @@ class Foo
      */
     private function fixDeclareStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokens->removeTrailingWhitespace($index);
         $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
         $tokens->removeTrailingWhitespace($startParenthesisIndex);
@@ -643,6 +648,7 @@ class Foo
      */
     private function fixSingleLineWhitespaceForDeclare(\PhpCsFixer\Tokenizer\Tokens $tokens, $startBraceIndex)
     {
+        $startBraceIndex = (int) $startBraceIndex;
         // fix single-line whitespace before {
         // eg: `declare(ticks=1){` => `declare(ticks=1) {`
         // eg: `declare(ticks=1)   {` => `declare(ticks=1) {`
@@ -657,9 +663,8 @@ class Foo
      */
     private function ensureWhitespaceAtIndexAndIndentMultilineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $whitespace)
     {
-        if (\is_object($whitespace)) {
-            $whitespace = (string) $whitespace;
-        }
+        $index = (int) $index;
+        $whitespace = (string) $whitespace;
         if ($tokens[$index]->isWhitespace()) {
             $nextTokenIndex = $tokens->getNextNonWhitespace($index);
         } else {
@@ -684,6 +689,8 @@ class Foo
      */
     private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, $startParenthesisIndex, $endParenthesisIndex)
     {
+        $startParenthesisIndex = (int) $startParenthesisIndex;
+        $endParenthesisIndex = (int) $endParenthesisIndex;
         for ($i = $startParenthesisIndex; $i < $endParenthesisIndex; ++$i) {
             if (\false !== \strpos($tokens[$i]->getContent(), "\n")) {
                 return \true;
@@ -703,6 +710,7 @@ class Foo
      */
     private function isCommentWithFixableIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isComment()) {
             return \false;
         }
@@ -742,6 +750,8 @@ class Foo
      */
     private function getSiblingContinuousSingleLineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $after)
     {
+        $index = (int) $index;
+        $after = (bool) $after;
         $siblingIndex = $index;
         do {
             $siblingIndex = $tokens->getTokenOfKindSibling($siblingIndex, $after ? 1 : -1, [[\T_COMMENT]]);

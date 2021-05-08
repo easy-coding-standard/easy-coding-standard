@@ -49,6 +49,7 @@ final class BraceClassInstantiationTransformer extends \PhpCsFixer\Tokenizer\Abs
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->equals('(') || !$tokens[$tokens->getNextMeaningfulToken($index)]->equals([\T_NEW])) {
             return;
         }

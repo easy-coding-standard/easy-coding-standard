@@ -122,9 +122,7 @@ final class ConfigurationResolver
      */
     public function __construct(\PhpCsFixer\ConfigInterface $config, array $options, $cwd, \PhpCsFixer\ToolInfoInterface $toolInfo)
     {
-        if (\is_object($cwd)) {
-            $cwd = (string) $cwd;
-        }
+        $cwd = (string) $cwd;
         $this->cwd = $cwd;
         $this->defaultConfig = $config;
         $this->toolInfo = $toolInfo;
@@ -656,9 +654,7 @@ final class ConfigurationResolver
      */
     private function setOption($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!\array_key_exists($name, $this->options)) {
             throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException(\sprintf('Unknown option name: "%s".', $name));
         }
@@ -670,9 +666,7 @@ final class ConfigurationResolver
      */
     private function resolveOptionBooleanValue($optionName)
     {
-        if (\is_object($optionName)) {
-            $optionName = (string) $optionName;
-        }
+        $optionName = (string) $optionName;
         $value = $this->options[$optionName];
         if (!\is_string($value)) {
             throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException(\sprintf('Expected boolean or string value for option "%s".', $optionName));
@@ -691,9 +685,7 @@ final class ConfigurationResolver
      */
     private static function separatedContextLessInclude($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $config = (include $path);
         // verify that the config has an instance of Config
         if (!$config instanceof \PhpCsFixer\ConfigInterface) {

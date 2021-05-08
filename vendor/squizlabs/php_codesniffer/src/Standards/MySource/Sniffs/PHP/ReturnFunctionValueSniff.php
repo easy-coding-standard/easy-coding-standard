@@ -34,6 +34,7 @@ class ReturnFunctionValueSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $functionName = $phpcsFile->findNext(\T_STRING, $stackPtr + 1, null, \false, null, \true);
         while ($functionName !== \false) {

@@ -41,6 +41,7 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // We can't process SWITCH statements unless we know where they start and end.
         if (isset($tokens[$stackPtr]['scope_opener']) === \false || isset($tokens[$stackPtr]['scope_closer']) === \false) {
@@ -181,6 +182,8 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function findNextCase($phpcsFile, $stackPtr, $end)
     {
+        $stackPtr = (int) $stackPtr;
+        $end = (int) $end;
         $tokens = $phpcsFile->getTokens();
         while (($stackPtr = $phpcsFile->findNext([\T_CASE, \T_DEFAULT, \T_SWITCH], $stackPtr, $end)) !== \false) {
             // Skip nested SWITCH statements; they are handled on their own.
@@ -206,6 +209,8 @@ class SwitchDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     private function findNestedTerminator($phpcsFile, $stackPtr, $end)
     {
+        $stackPtr = (int) $stackPtr;
+        $end = (int) $end;
         $tokens = $phpcsFile->getTokens();
         $lastToken = $phpcsFile->findPrevious(\T_WHITESPACE, $end - 1, $stackPtr, \true);
         if ($lastToken === \false) {

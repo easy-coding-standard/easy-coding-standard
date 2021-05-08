@@ -43,6 +43,7 @@ class ClassCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $find = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
         $find[\T_WHITESPACE] = \T_WHITESPACE;

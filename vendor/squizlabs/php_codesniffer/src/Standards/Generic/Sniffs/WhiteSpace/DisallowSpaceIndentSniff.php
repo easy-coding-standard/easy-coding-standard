@@ -46,6 +46,7 @@ class DisallowSpaceIndentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tabsReplaced = \false;
         if ($this->tabWidth === null) {
             if (isset($phpcsFile->config->tabWidth) === \false || $phpcsFile->config->tabWidth === 0) {

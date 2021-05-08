@@ -33,9 +33,7 @@ class ServiceReferenceGraph
      */
     public function hasNode($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return isset($this->nodes[$id]);
     }
     /**
@@ -47,9 +45,7 @@ class ServiceReferenceGraph
      */
     public function getNode($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (!isset($this->nodes[$id])) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no node with id "%s".', $id));
         }
@@ -84,6 +80,9 @@ class ServiceReferenceGraph
      */
     public function connect($sourceId, $sourceValue, $destId, $destValue = null, $reference = null, $lazy = \false, $weak = \false, $byConstructor = \false)
     {
+        $lazy = (bool) $lazy;
+        $weak = (bool) $weak;
+        $byConstructor = (bool) $byConstructor;
         if (null === $sourceId || null === $destId) {
             return;
         }
@@ -99,9 +98,7 @@ class ServiceReferenceGraph
      */
     private function createNode($id, $value)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (isset($this->nodes[$id]) && $this->nodes[$id]->getValue() === $value) {
             return $this->nodes[$id];
         }

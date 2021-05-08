@@ -25,9 +25,7 @@ final class NamespacedStringTokenGenerator
      */
     public function generate($input)
     {
-        if (\is_object($input)) {
-            $input = (string) $input;
-        }
+        $input = (string) $input;
         $tokens = [];
         $parts = \explode('\\', $input);
         foreach ($parts as $index => $part) {

@@ -48,9 +48,8 @@ class FileLinkFormatter
      */
     public function format($file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $line = (int) $line;
         if ($fmt = $this->getFileLinkFormat()) {
             for ($i = 1; isset($fmt[$i]); ++$i) {
                 if (0 === \strpos($file, $k = $fmt[$i++])) {
@@ -79,12 +78,8 @@ class FileLinkFormatter
      */
     public static function generateUrlFormat(\ECSPrefix20210508\Symfony\Component\Routing\Generator\UrlGeneratorInterface $router, $routeName, $queryString)
     {
-        if (\is_object($queryString)) {
-            $queryString = (string) $queryString;
-        }
-        if (\is_object($routeName)) {
-            $routeName = (string) $routeName;
-        }
+        $routeName = (string) $routeName;
+        $queryString = (string) $queryString;
         try {
             return $router->generate($routeName) . $queryString;
         } catch (\Throwable $e) {

@@ -57,9 +57,7 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
      */
     private function addService($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $code = "    {$id}:\n";
         if ($class = $definition->getClass()) {
             if ('\\' === \substr($class, 0, 1)) {
@@ -151,9 +149,7 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
      */
     private function addServiceAlias($alias, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias $id)
     {
-        if (\is_object($alias)) {
-            $alias = (string) $alias;
-        }
+        $alias = (string) $alias;
         $deprecated = '';
         if ($id->isDeprecated()) {
             $deprecated = "        deprecated:\n";
@@ -285,9 +281,7 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
      */
     private function getServiceCall($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference $reference = null)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         if (null !== $reference) {
             switch ($reference->getInvalidBehavior()) {
                 case \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE:
@@ -308,9 +302,7 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
      */
     private function getParameterCall($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return \sprintf('%%%s%%', $id);
     }
     /**
@@ -319,9 +311,7 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
      */
     private function getExpressionCall($expression)
     {
-        if (\is_object($expression)) {
-            $expression = (string) $expression;
-        }
+        $expression = (string) $expression;
         return \sprintf('@=%s', $expression);
     }
     /**
@@ -330,6 +320,7 @@ class YamlDumper extends \ECSPrefix20210508\Symfony\Component\DependencyInjectio
      */
     private function prepareParameters(array $parameters, $escape = \true)
     {
+        $escape = (bool) $escape;
         $filtered = [];
         foreach ($parameters as $key => $value) {
             if (\is_array($value)) {

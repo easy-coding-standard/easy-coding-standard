@@ -111,6 +111,8 @@ final class NoEmptyStatementFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixSemicolonAfterCurlyBraceClose(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $curlyCloseIndex)
     {
+        $index = (int) $index;
+        $curlyCloseIndex = (int) $curlyCloseIndex;
         static $beforeCurlyOpeningKinds = null;
         if (null === $beforeCurlyOpeningKinds) {
             $beforeCurlyOpeningKinds = [\T_ELSE, \T_FINALLY, \T_NAMESPACE, \T_OPEN_TAG];

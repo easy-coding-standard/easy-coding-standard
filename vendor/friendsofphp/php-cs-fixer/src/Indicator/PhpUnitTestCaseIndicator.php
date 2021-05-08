@@ -24,6 +24,7 @@ final class PhpUnitTestCaseIndicator
      */
     public function isPhpUnitClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind(\T_CLASS)) {
             throw new \LogicException(\sprintf('No "T_CLASS" at given index %d, got "%s".', $index, $tokens[$index]->getName()));
         }

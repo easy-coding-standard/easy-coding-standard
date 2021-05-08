@@ -94,6 +94,7 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      */
     private function fixConcatenationToNoSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $prevNonWhitespaceToken = $tokens[$tokens->getPrevNonWhitespace($index)];
         if (!$prevNonWhitespaceToken->isGivenKind([\T_LNUMBER, \T_COMMENT, \T_DOC_COMMENT]) || '/*' === \substr($prevNonWhitespaceToken->getContent(), 0, 2)) {
             $tokens->removeLeadingWhitespace($index, " \t");
@@ -108,6 +109,7 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      */
     private function fixConcatenationToSingleSpace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $this->fixWhiteSpaceAroundConcatToken($tokens, $index, 1);
         $this->fixWhiteSpaceAroundConcatToken($tokens, $index, -1);
     }
@@ -118,6 +120,8 @@ final class ConcatSpaceFixer extends \PhpCsFixer\AbstractFixer implements \PhpCs
      */
     private function fixWhiteSpaceAroundConcatToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $offset)
     {
+        $index = (int) $index;
+        $offset = (int) $offset;
         $offsetIndex = $index + $offset;
         if (!$tokens[$offsetIndex]->isWhitespace()) {
             $tokens->insertAt($index + (1 === $offset ?: 0), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));

@@ -158,9 +158,8 @@ class Arrays
      */
     public static function grep(array $array, $pattern, $flags = 0)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
+        $flags = (int) $flags;
         return \ECSPrefix20210508\Nette\Utils\Strings::pcre('preg_grep', [$pattern, $array, $flags]);
     }
     /**
@@ -170,6 +169,7 @@ class Arrays
      */
     public static function flatten(array $array, $preserveKeys = \false)
     {
+        $preserveKeys = (bool) $preserveKeys;
         $res = [];
         $cb = $preserveKeys ? function ($v, $k) use(&$res) {
             $res[$k] = $v;
@@ -329,9 +329,7 @@ class Arrays
      */
     public static function invokeMethod($objects, $method, ...$args)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         $res = [];
         foreach ($objects as $k => $obj) {
             $res[$k] = $obj->{$method}(...$args);
@@ -369,12 +367,8 @@ class Arrays
      */
     public static function wrap(array $array, $prefix = '', $suffix = '')
     {
-        if (\is_object($suffix)) {
-            $suffix = (string) $suffix;
-        }
-        if (\is_object($prefix)) {
-            $prefix = (string) $prefix;
-        }
+        $prefix = (string) $prefix;
+        $suffix = (string) $suffix;
         $res = [];
         foreach ($array as $k => $v) {
             $res[$k] = $prefix . $v . $suffix;

@@ -29,9 +29,7 @@ class FileExistenceResource implements \ECSPrefix20210508\Symfony\Component\Conf
      */
     public function __construct($resource)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
+        $resource = (string) $resource;
         $this->resource = $resource;
         $this->exists = \file_exists($resource);
     }
@@ -57,6 +55,7 @@ class FileExistenceResource implements \ECSPrefix20210508\Symfony\Component\Conf
      */
     public function isFresh($timestamp)
     {
+        $timestamp = (int) $timestamp;
         return \file_exists($this->resource) === $this->exists;
     }
 }

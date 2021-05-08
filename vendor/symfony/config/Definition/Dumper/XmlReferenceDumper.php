@@ -49,6 +49,8 @@ class XmlReferenceDumper
      */
     private function writeNode(\ECSPrefix20210508\Symfony\Component\Config\Definition\NodeInterface $node, $depth = 0, $root = \false, $namespace = null)
     {
+        $depth = (int) $depth;
+        $root = (bool) $root;
         $rootName = $root ? 'config' : $node->getName();
         $rootNamespace = $namespace ?: ($root ? 'http://example.org/schema/dic/' . $node->getName() : null);
         // xml remapping
@@ -225,9 +227,8 @@ class XmlReferenceDumper
      */
     private function writeLine($text, $indent = 0)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
+        $indent = (int) $indent;
         $indent = \strlen($text) + $indent;
         $format = '%' . $indent . 's';
         $this->reference .= \sprintf($format, $text) . \PHP_EOL;

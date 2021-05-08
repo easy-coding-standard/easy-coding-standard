@@ -37,9 +37,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public static function escape($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         $text = \preg_replace('/([^\\\\]?)</', '$1\\<', $text);
         return self::escapeTrailingBackslash($text);
     }
@@ -52,9 +50,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public static function escapeTrailingBackslash($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         if ('\\' === \substr($text, -1)) {
             $len = \strlen($text);
             $text = \rtrim($text, '\\');
@@ -71,6 +67,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function __construct($decorated = \false, array $styles = [])
     {
+        $decorated = (bool) $decorated;
         $this->decorated = $decorated;
         $this->setStyle('error', new \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyle('white', 'red'));
         $this->setStyle('info', new \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyle('green'));
@@ -87,6 +84,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function setDecorated($decorated)
     {
+        $decorated = (bool) $decorated;
         $this->decorated = $decorated;
     }
     /**
@@ -102,9 +100,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function setStyle($name, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->styles[\strtolower($name)] = $style;
     }
     /**
@@ -113,9 +109,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function hasStyle($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->styles[\strtolower($name)]);
     }
     /**
@@ -124,9 +118,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function getStyle($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (!$this->hasStyle($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
         }
@@ -147,6 +139,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function formatAndWrap($message, $width)
     {
+        $width = (int) $width;
         $offset = 0;
         $output = '';
         $tagRegex = '[a-z][^<>]*+';
@@ -198,9 +191,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     private function createStyleFromString($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         if (isset($this->styles[$string])) {
             return $this->styles[$string];
         }
@@ -239,12 +230,10 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     private function applyCurrentStyle($text, $current, $width, &$currentLineLength)
     {
-        if (\is_object($current)) {
-            $current = (string) $current;
-        }
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
+        $current = (string) $current;
+        $width = (int) $width;
+        $currentLineLength = (int) $currentLineLength;
         if ('' === $text) {
             return '';
         }

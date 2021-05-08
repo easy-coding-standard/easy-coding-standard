@@ -79,9 +79,8 @@ final class HelpCommand extends \ECSPrefix20210508\Symfony\Component\Console\Com
      */
     private static function wordwrap($string, $width)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
+        $width = (int) $width;
         $result = [];
         $currentLine = 0;
         $lineLength = 0;

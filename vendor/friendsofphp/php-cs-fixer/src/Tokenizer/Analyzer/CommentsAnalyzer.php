@@ -32,6 +32,7 @@ final class CommentsAnalyzer
      */
     public function isHeaderComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind([\T_COMMENT, \T_DOC_COMMENT])) {
             throw new \InvalidArgumentException('Given index must point to a comment.');
         }
@@ -62,6 +63,7 @@ final class CommentsAnalyzer
      */
     public function isBeforeStructuralElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $token = $tokens[$index];
         if (!$token->isGivenKind([\T_COMMENT, \T_DOC_COMMENT])) {
             throw new \InvalidArgumentException('Given index must point to a comment.');
@@ -103,6 +105,7 @@ final class CommentsAnalyzer
      */
     public function getCommentBlockIndices(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind(\T_COMMENT)) {
             throw new \InvalidArgumentException('Given index must point to a comment.');
         }
@@ -145,6 +148,7 @@ final class CommentsAnalyzer
      */
     private function isValidControl(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $docsToken, $controlIndex)
     {
+        $controlIndex = (int) $controlIndex;
         static $controlStructures = [\T_FOR, \T_FOREACH, \T_IF, \T_SWITCH, \T_WHILE];
         if (!$tokens[$controlIndex]->isGivenKind($controlStructures)) {
             return \false;
@@ -169,6 +173,7 @@ final class CommentsAnalyzer
      */
     private function isValidLanguageConstruct(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $docsToken, $languageConstructIndex)
     {
+        $languageConstructIndex = (int) $languageConstructIndex;
         static $languageStructures = [\T_LIST, \T_PRINT, \T_ECHO, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN];
         if (!$tokens[$languageConstructIndex]->isGivenKind($languageStructures)) {
             return \false;
@@ -192,6 +197,7 @@ final class CommentsAnalyzer
      */
     private function isValidVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->isGivenKind(\T_VARIABLE)) {
             return \false;
         }
@@ -204,9 +210,7 @@ final class CommentsAnalyzer
      */
     private function getCommentType($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         if ('#' === $content[0]) {
             return self::TYPE_HASH;
         }
@@ -222,6 +226,8 @@ final class CommentsAnalyzer
      */
     private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, $whiteStart, $whiteEnd)
     {
+        $whiteStart = (int) $whiteStart;
+        $whiteEnd = (int) $whiteEnd;
         $lineCount = 0;
         for ($i = $whiteStart; $i < $whiteEnd; ++$i) {
             $lineCount += \PhpCsFixer\Preg::matchAll('/\\R/u', $tokens[$i]->getContent());

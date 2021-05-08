@@ -65,6 +65,7 @@ final class TokensAnalyzer
      */
     public function getImportUseIndexes($perNamespace = \false)
     {
+        $perNamespace = (bool) $perNamespace;
         $tokens = $this->tokens;
         $uses = [];
         $namespaceIndex = 0;
@@ -97,6 +98,7 @@ final class TokensAnalyzer
      */
     public function isArray($index)
     {
+        $index = (int) $index;
         return $this->tokens[$index]->isGivenKind([\T_ARRAY, \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]);
     }
     /**
@@ -108,6 +110,7 @@ final class TokensAnalyzer
      */
     public function isArrayMultiLine($index)
     {
+        $index = (int) $index;
         if (!$this->isArray($index)) {
             throw new \InvalidArgumentException(\sprintf('Not an array at given index %d.', $index));
         }
@@ -126,6 +129,7 @@ final class TokensAnalyzer
      */
     public function isBlockMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
         if (null === $blockType || !$blockType['isStart']) {
             throw new \InvalidArgumentException(\sprintf('Not an block start at given index %d.', $index));
@@ -158,6 +162,7 @@ final class TokensAnalyzer
      */
     public function getMethodAttributes($index)
     {
+        $index = (int) $index;
         $tokens = $this->tokens;
         $token = $tokens[$index];
         if (!$token->isGivenKind(\T_FUNCTION)) {
@@ -206,6 +211,7 @@ final class TokensAnalyzer
      */
     public function isAnonymousClass($index)
     {
+        $index = (int) $index;
         if (!$this->tokens[$index]->isClassy()) {
             throw new \LogicException(\sprintf('No classy token at given index %d.', $index));
         }
@@ -221,6 +227,7 @@ final class TokensAnalyzer
      */
     public function isLambda($index)
     {
+        $index = (int) $index;
         if (!$this->tokens[$index]->isGivenKind(\T_FUNCTION) && (\PHP_VERSION_ID < 70400 || !$this->tokens[$index]->isGivenKind(\T_FN))) {
             throw new \LogicException(\sprintf('No T_FUNCTION or T_FN at given index %d, got "%s".', $index, $this->tokens[$index]->getName()));
         }
@@ -240,6 +247,7 @@ final class TokensAnalyzer
      */
     public function isConstantInvocation($index)
     {
+        $index = (int) $index;
         if (!$this->tokens[$index]->isGivenKind(\T_STRING)) {
             throw new \LogicException(\sprintf('No T_STRING at given index %d, got "%s".', $index, $this->tokens[$index]->getName()));
         }
@@ -301,6 +309,7 @@ final class TokensAnalyzer
      */
     public function isUnarySuccessorOperator($index)
     {
+        $index = (int) $index;
         static $allowedPrevToken = [']', [\T_STRING], [\T_VARIABLE], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_INDEX_CURLY_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_PROP_BRACE_CLOSE], [\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_CLOSE]];
         $tokens = $this->tokens;
         $token = $tokens[$index];
@@ -317,6 +326,7 @@ final class TokensAnalyzer
      */
     public function isUnaryPredecessorOperator($index)
     {
+        $index = (int) $index;
         static $potentialSuccessorOperator = [\T_INC, \T_DEC];
         static $potentialBinaryOperator = ['+', '-', '&', [\PhpCsFixer\Tokenizer\CT::T_RETURN_REF]];
         static $otherOperators;
@@ -356,6 +366,7 @@ final class TokensAnalyzer
      */
     public function isBinaryOperator($index)
     {
+        $index = (int) $index;
         static $nonArrayOperators = ['=' => \true, '*' => \true, '/' => \true, '%' => \true, '<' => \true, '>' => \true, '|' => \true, '^' => \true, '.' => \true];
         static $potentialUnaryNonArrayOperators = ['+' => \true, '-' => \true, '&' => \true];
         static $arrayOperators;
@@ -448,6 +459,7 @@ final class TokensAnalyzer
      */
     public function isWhilePartOfDoWhile($index)
     {
+        $index = (int) $index;
         $tokens = $this->tokens;
         $token = $tokens[$index];
         if (!$token->isGivenKind(\T_WHILE)) {
@@ -467,6 +479,7 @@ final class TokensAnalyzer
      */
     public function isSuperGlobal($index)
     {
+        $index = (int) $index;
         static $superNames = ['$_COOKIE' => \true, '$_ENV' => \true, '$_FILES' => \true, '$_GET' => \true, '$_POST' => \true, '$_REQUEST' => \true, '$_SERVER' => \true, '$_SESSION' => \true, '$GLOBALS' => \true];
         $token = $this->tokens[$index];
         if (!$token->isGivenKind(\T_VARIABLE)) {
@@ -486,6 +499,8 @@ final class TokensAnalyzer
      */
     private function findClassyElements($classIndex, $index)
     {
+        $classIndex = (int) $classIndex;
+        $index = (int) $index;
         $elements = [];
         $curlyBracesLevel = 0;
         $bracesLevel = 0;

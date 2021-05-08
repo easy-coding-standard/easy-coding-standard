@@ -51,12 +51,8 @@ class InputOption
      */
     public function __construct($name, $shortcut = null, $mode = null, $description = '', $default = null)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $description = (string) $description;
         if (0 === \strpos($name, '--')) {
             $name = \substr($name, 2);
         }

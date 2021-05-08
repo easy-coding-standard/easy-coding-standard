@@ -25,6 +25,7 @@ class ResolveTaggedIteratorArgumentPass extends \ECSPrefix20210508\Symfony\Compo
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
             return parent::processValue($value, $isRoot);
         }

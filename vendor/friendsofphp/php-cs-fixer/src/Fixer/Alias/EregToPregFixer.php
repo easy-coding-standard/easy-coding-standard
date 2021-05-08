@@ -116,9 +116,7 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
      */
     private function checkPreg($pattern)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
         try {
             \PhpCsFixer\Preg::match($pattern, '');
             return \true;
@@ -135,9 +133,7 @@ final class EregToPregFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getBestDelimiter($pattern)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
+        $pattern = (string) $pattern;
         // try do find something that's not used
         $delimiters = [];
         foreach (self::$delimiters as $k => $d) {

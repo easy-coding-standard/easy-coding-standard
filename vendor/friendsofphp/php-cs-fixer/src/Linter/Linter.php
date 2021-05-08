@@ -50,9 +50,7 @@ final class Linter implements \PhpCsFixer\Linter\LinterInterface
      */
     public function lintFile($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         return $this->sublinter->lintFile($path);
     }
     /**
@@ -62,9 +60,7 @@ final class Linter implements \PhpCsFixer\Linter\LinterInterface
      */
     public function lintSource($source)
     {
-        if (\is_object($source)) {
-            $source = (string) $source;
-        }
+        $source = (string) $source;
         return $this->sublinter->lintSource($source);
     }
 }

@@ -34,9 +34,7 @@ class NormalizationBuilder
      */
     public function remap($key, $plural = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         $this->remappings[] = [$key, null === $plural ? $key . 's' : $plural];
         return $this;
     }

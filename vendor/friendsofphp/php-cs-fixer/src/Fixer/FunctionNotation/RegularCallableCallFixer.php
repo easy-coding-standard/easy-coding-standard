@@ -91,6 +91,7 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
      */
     private function processCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $arguments)
     {
+        $index = (int) $index;
         $firstArgIndex = $tokens->getNextMeaningfulToken($tokens->getNextMeaningfulToken($index));
         /** @var Token $firstArgToken */
         $firstArgToken = $tokens[$firstArgIndex];
@@ -160,6 +161,9 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
      */
     private function replaceCallUserFuncWithCallback(\PhpCsFixer\Tokenizer\Tokens $tokens, $callIndex, \PhpCsFixer\Tokenizer\Tokens $newCallTokens, $firstArgStartIndex, $firstArgEndIndex)
     {
+        $callIndex = (int) $callIndex;
+        $firstArgStartIndex = (int) $firstArgStartIndex;
+        $firstArgEndIndex = (int) $firstArgEndIndex;
         $tokens->clearRange($firstArgStartIndex, $firstArgEndIndex);
         $afterFirstArgIndex = $tokens->getNextMeaningfulToken($firstArgEndIndex);
         $afterFirstArgToken = $tokens[$afterFirstArgIndex];
@@ -185,6 +189,8 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
      */
     private function getTokensSubcollection(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
     {
+        $indexStart = (int) $indexStart;
+        $indexEnd = (int) $indexEnd;
         $size = $indexEnd - $indexStart + 1;
         $subcollection = new \PhpCsFixer\Tokenizer\Tokens($size);
         for ($i = 0; $i < $size; ++$i) {

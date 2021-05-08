@@ -38,9 +38,7 @@ final class ChangedFilesDetector
      */
     public function changeConfigurationFile($configurationFile)
     {
-        if (\is_object($configurationFile)) {
-            $configurationFile = (string) $configurationFile;
-        }
+        $configurationFile = (string) $configurationFile;
         $this->storeConfigurationDataHash($this->fileHashComputer->computeConfig($configurationFile));
     }
     /**
@@ -101,9 +99,7 @@ final class ChangedFilesDetector
      */
     private function storeConfigurationDataHash($configurationHash)
     {
-        if (\is_object($configurationHash)) {
-            $configurationHash = (string) $configurationHash;
-        }
+        $configurationHash = (string) $configurationHash;
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
         $cacheItem = $this->tagAwareAdapter->getItem(self::CONFIGURATION_HASH_KEY);
         $cacheItem->set($configurationHash);
@@ -122,9 +118,7 @@ final class ChangedFilesDetector
      */
     private function invalidateCacheIfConfigurationChanged($configurationHash)
     {
-        if (\is_object($configurationHash)) {
-            $configurationHash = (string) $configurationHash;
-        }
+        $configurationHash = (string) $configurationHash;
         $cacheItem = $this->tagAwareAdapter->getItem(self::CONFIGURATION_HASH_KEY);
         $oldConfigurationHash = $cacheItem->get();
         if ($configurationHash !== $oldConfigurationHash) {

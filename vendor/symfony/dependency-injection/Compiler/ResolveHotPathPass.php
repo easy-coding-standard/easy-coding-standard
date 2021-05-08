@@ -28,9 +28,7 @@ class ResolveHotPathPass extends \ECSPrefix20210508\Symfony\Component\Dependency
      */
     public function __construct($tagName = 'container.hot_path')
     {
-        if (\is_object($tagName)) {
-            $tagName = (string) $tagName;
-        }
+        $tagName = (string) $tagName;
         $this->tagName = $tagName;
     }
     /**
@@ -51,6 +49,7 @@ class ResolveHotPathPass extends \ECSPrefix20210508\Symfony\Component\Dependency
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             return $value;
         }

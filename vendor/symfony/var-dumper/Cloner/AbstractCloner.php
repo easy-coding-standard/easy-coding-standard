@@ -61,6 +61,7 @@ abstract class AbstractCloner implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function setMaxItems($maxItems)
     {
+        $maxItems = (int) $maxItems;
         $this->maxItems = $maxItems;
     }
     /**
@@ -69,6 +70,7 @@ abstract class AbstractCloner implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function setMaxString($maxString)
     {
+        $maxString = (int) $maxString;
         $this->maxString = $maxString;
     }
     /**
@@ -78,6 +80,7 @@ abstract class AbstractCloner implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function setMinDepth($minDepth)
     {
+        $minDepth = (int) $minDepth;
         $this->minDepth = $minDepth;
     }
     /**
@@ -90,6 +93,7 @@ abstract class AbstractCloner implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function cloneVar($var, $filter = 0)
     {
+        $filter = (int) $filter;
         $this->prevErrorHandler = \set_error_handler(function ($type, $msg, $file, $line, $context = []) {
             if (\E_RECOVERABLE_ERROR === $type || \E_USER_ERROR === $type) {
                 // Cloner never dies
@@ -131,6 +135,7 @@ abstract class AbstractCloner implements \ECSPrefix20210508\Symfony\Component\Va
      */
     protected function castObject(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $obj = $stub->value;
         $class = $stub->class;
         if (\PHP_VERSION_ID < 80000 ? "\0" === (isset($class[15]) ? $class[15] : null) : \false !== \strpos($class, "@anonymous\0")) {
@@ -179,6 +184,7 @@ abstract class AbstractCloner implements \ECSPrefix20210508\Symfony\Component\Va
      */
     protected function castResource(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a = [];
         $res = $stub->value;
         $type = $stub->class;

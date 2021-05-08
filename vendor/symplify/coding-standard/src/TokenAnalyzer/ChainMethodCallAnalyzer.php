@@ -28,6 +28,7 @@ final class ChainMethodCallAnalyzer
      */
     public function isPreceededByFuncCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         for ($i = $position; $i >= 0; --$i) {
             /** @var Token $currentToken */
             $currentToken = $tokens[$i];
@@ -52,6 +53,7 @@ final class ChainMethodCallAnalyzer
      */
     public function isPartOfMethodCallOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $this->bracketNesting = 0;
         for ($i = $position; $i >= 0; --$i) {
             /** @var Token $currentToken */

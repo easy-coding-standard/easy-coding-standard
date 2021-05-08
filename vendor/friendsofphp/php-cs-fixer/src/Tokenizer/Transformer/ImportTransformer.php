@@ -43,6 +43,7 @@ final class ImportTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
      */
     public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
+        $index = (int) $index;
         if (!$token->isGivenKind([\T_CONST, \T_FUNCTION])) {
             return;
         }

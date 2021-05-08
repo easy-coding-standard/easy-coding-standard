@@ -28,9 +28,7 @@ class ResolveDecoratorStackPass implements \ECSPrefix20210508\Symfony\Component\
      */
     public function __construct($tag = 'container.stack')
     {
-        if (\is_object($tag)) {
-            $tag = (string) $tag;
-        }
+        $tag = (string) $tag;
         $this->tag = $tag;
     }
     public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)

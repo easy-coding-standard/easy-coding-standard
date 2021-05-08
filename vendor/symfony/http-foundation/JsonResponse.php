@@ -37,6 +37,8 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      */
     public function __construct($data = null, $status = 200, array $headers = [], $json = \false)
     {
+        $status = (int) $status;
+        $json = (bool) $json;
         parent::__construct('', $status, $headers);
         if ($json && !\is_string($data) && !\is_numeric($data) && !\is_callable([$data, '__toString'])) {
             throw new \TypeError(\sprintf('"%s": If $json is set to true, argument $data must be a string or object implementing __toString(), "%s" given.', __METHOD__, \get_debug_type($data)));
@@ -64,6 +66,7 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      */
     public static function create($data = null, $status = 200, array $headers = [])
     {
+        $status = (int) $status;
         trigger_deprecation('symfony/http-foundation', '5.1', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($data, $status, $headers);
     }
@@ -83,9 +86,8 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      */
     public static function fromJsonString($data, $status = 200, array $headers = [])
     {
-        if (\is_object($data)) {
-            $data = (string) $data;
-        }
+        $data = (string) $data;
+        $status = (int) $status;
         return new static($data, $status, $headers, \true);
     }
     /**
@@ -124,9 +126,7 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      */
     public function setJson($json)
     {
-        if (\is_object($json)) {
-            $json = (string) $json;
-        }
+        $json = (string) $json;
         $this->data = $json;
         return $this->update();
     }
@@ -174,6 +174,7 @@ class JsonResponse extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\R
      */
     public function setEncodingOptions($encodingOptions)
     {
+        $encodingOptions = (int) $encodingOptions;
         $this->encodingOptions = $encodingOptions;
         return $this->setData(\json_decode($this->data));
     }

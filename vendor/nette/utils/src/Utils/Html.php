@@ -267,9 +267,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public static function fromHtml($html)
     {
-        if (\is_object($html)) {
-            $html = (string) $html;
-        }
+        $html = (string) $html;
         return (new static())->setHtml($html);
     }
     /**
@@ -279,9 +277,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public static function fromText($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         return (new static())->setText($text);
     }
     /**
@@ -307,9 +303,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public static function htmlToText($html)
     {
-        if (\is_object($html)) {
-            $html = (string) $html;
-        }
+        $html = (string) $html;
         return \html_entity_decode(\strip_tags($html), \ENT_QUOTES | \ENT_HTML5, 'UTF-8');
     }
     /**
@@ -320,9 +314,8 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function setName($name, $isEmpty = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $isEmpty = (bool) $isEmpty;
         $this->name = $name;
         $this->isEmpty = isset($isEmpty) ? $isEmpty : isset(static::$emptyElements[$name]);
         return $this;
@@ -361,9 +354,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function appendAttribute($name, $value, $option = \true)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (\is_array($value)) {
             $prev = isset($this->attrs[$name]) ? (array) $this->attrs[$name] : [];
             $this->attrs[$name] = $value + $prev;
@@ -386,9 +377,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function setAttribute($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->attrs[$name] = $value;
         return $this;
     }
@@ -399,9 +388,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function getAttribute($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->attrs[$name]) ? $this->attrs[$name] : null;
     }
     /**
@@ -411,9 +398,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function removeAttribute($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         unset($this->attrs[$name]);
         return $this;
     }
@@ -436,9 +421,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function __set($name, $value)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->attrs[$name] = $value;
     }
     /**
@@ -448,9 +431,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function &__get($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return $this->attrs[$name];
     }
     /**
@@ -460,9 +441,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function __isset($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         return isset($this->attrs[$name]);
     }
     /**
@@ -472,9 +451,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function __unset($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         unset($this->attrs[$name]);
     }
     /**
@@ -484,9 +461,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function __call($m, array $args)
     {
-        if (\is_object($m)) {
-            $m = (string) $m;
-        }
+        $m = (string) $m;
         $p = \substr($m, 0, 3);
         if ($p === 'get' || $p === 'set' || $p === 'add') {
             $m = \substr($m, 3);
@@ -515,9 +490,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function href($path, array $query = null)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if ($query) {
             $query = \http_build_query($query, '', '&');
             if ($query !== '') {
@@ -535,9 +508,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function data($name, $value = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (\func_num_args() === 1) {
             $this->attrs['data'] = $name;
         } else {
@@ -613,9 +584,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function create($name, $attrs = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $this->insert(null, $child = static::el($name, $attrs));
         return $child;
     }
@@ -628,6 +597,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function insert($index, $child, $replace = \false)
     {
+        $replace = (bool) $replace;
         $child = $child instanceof self ? $child : (string) $child;
         if ($index === null) {
             // append
@@ -655,6 +625,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function offsetGet($index)
     {
+        $index = (int) $index;
         return $this->children[$index];
     }
     /**
@@ -664,6 +635,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public final function offsetExists($index)
     {
+        $index = (int) $index;
         return isset($this->children[$index]);
     }
     /**
@@ -673,6 +645,7 @@ class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20
      */
     public function offsetUnset($index)
     {
+        $index = (int) $index;
         if (isset($this->children[$index])) {
             \array_splice($this->children, $index, 1);
         }

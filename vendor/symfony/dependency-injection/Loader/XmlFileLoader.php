@@ -41,9 +41,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     public function load($resource, $type = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         $path = $this->locator->locate($resource);
         $xml = $this->parseFileToDOM($path);
         $this->container->fileExists($path);
@@ -83,9 +81,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function parseParameters(\DOMDocument $xml, $file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if ($parameters = $this->getChildren($xml->documentElement, 'parameters')) {
             $this->container->getParameterBag()->add($this->getArgumentsAsPhp($parameters[0], 'parameter', $file));
         }
@@ -95,9 +91,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function parseImports(\DOMDocument $xml, $file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $xpath = new \DOMXPath($xml);
         $xpath->registerNamespace('container', self::NS);
         if (\false === ($imports = $xpath->query('//container:imports/container:import'))) {
@@ -114,9 +108,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function parseDefinitions(\DOMDocument $xml, $file, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $defaults)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $xpath = new \DOMXPath($xml);
         $xpath->registerNamespace('container', self::NS);
         if (\false === ($services = $xpath->query('//container:services/container:service|//container:services/container:prototype|//container:services/container:stack'))) {
@@ -169,9 +161,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function getServiceDefaults(\DOMDocument $xml, $file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $xpath = new \DOMXPath($xml);
         $xpath->registerNamespace('container', self::NS);
         if (null === ($defaultsNode = $xpath->query('//container:services/container:defaults')->item(0))) {
@@ -187,9 +177,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function parseDefinition(\DOMElement $service, $file, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $defaults)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         if ($alias = $service->getAttribute('alias')) {
             $this->validateAlias($service, $file);
             $this->container->setAlias((string) $service->getAttribute('id'), $alias = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias($alias));
@@ -345,9 +333,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function parseFileToDOM($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         try {
             $dom = \ECSPrefix20210508\Symfony\Component\Config\Util\XmlUtils::loadFile($file, [$this, 'validateSchema']);
         } catch (\InvalidArgumentException $e) {
@@ -362,9 +348,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function processAnonymousServices(\DOMDocument $xml, $file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $definitions = [];
         $count = 0;
         $suffix = '~' . \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder::hash($file);
@@ -408,12 +392,9 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function getArgumentsAsPhp(\DOMElement $node, $name, $file, $isChildDefinition = \false)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $file = (string) $file;
+        $isChildDefinition = (bool) $isChildDefinition;
         $arguments = [];
         foreach ($this->getChildren($node, $name) as $arg) {
             if ($arg->hasAttribute('name')) {
@@ -514,9 +495,7 @@ class XmlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
      */
     private function getChildren(\DOMNode $node, $name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $children = [];
         foreach ($node->childNodes as $child) {
             if ($child instanceof \DOMElement && $child->localName === $name && self::NS === $child->namespaceURI) {
@@ -630,9 +609,7 @@ EOF;
      */
     private function validateAlias(\DOMElement $alias, $file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         foreach ($alias->attributes as $name => $node) {
             if (!\in_array($name, ['alias', 'id', 'public'])) {
                 throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid attribute "%s" defined for alias "%s" in "%s".', $name, $alias->getAttribute('id'), $file));
@@ -655,9 +632,7 @@ EOF;
      */
     private function validateExtensions(\DOMDocument $dom, $file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         foreach ($dom->documentElement->childNodes as $node) {
             if (!$node instanceof \DOMElement || 'http://symfony.com/schema/dic/services' === $node->namespaceURI) {
                 continue;

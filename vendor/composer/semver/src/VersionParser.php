@@ -46,9 +46,7 @@ class VersionParser
      */
     public static function parseStability($version)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
+        $version = (string) $version;
         $version = \preg_replace('{#.+$}', '', $version);
         if (\strpos($version, 'dev-') === 0 || '-dev' === \substr($version, -4)) {
             return 'dev';
@@ -77,9 +75,7 @@ class VersionParser
      */
     public static function normalizeStability($stability)
     {
-        if (\is_object($stability)) {
-            $stability = (string) $stability;
-        }
+        $stability = (string) $stability;
         $stability = \strtolower($stability);
         return $stability === 'rc' ? 'RC' : $stability;
     }
@@ -95,9 +91,7 @@ class VersionParser
      */
     public function normalize($version, $fullVersion = null)
     {
-        if (\is_object($version)) {
-            $version = (string) $version;
-        }
+        $version = (string) $version;
         $version = \trim($version);
         $origVersion = $version;
         if (null === $fullVersion) {
@@ -175,9 +169,7 @@ class VersionParser
      */
     public function parseNumericAliasPrefix($branch)
     {
-        if (\is_object($branch)) {
-            $branch = (string) $branch;
-        }
+        $branch = (string) $branch;
         if (\preg_match('{^(?P<version>(\\d++\\.)*\\d++)(?:\\.x)?-dev$}i', $branch, $matches)) {
             return $matches['version'] . '.';
         }
@@ -192,9 +184,7 @@ class VersionParser
      */
     public function normalizeBranch($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $name = \trim($name);
         if (\preg_match('{^v?(\\d++)(\\.(?:\\d++|[xX*]))?(\\.(?:\\d++|[xX*]))?(\\.(?:\\d++|[xX*]))?$}i', $name, $matches)) {
             $version = '';
@@ -214,9 +204,7 @@ class VersionParser
      */
     public function normalizeDefaultBranch($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if ($name === 'dev-master' || $name === 'dev-default' || $name === 'dev-trunk') {
             return '9999999-dev';
         }
@@ -231,9 +219,7 @@ class VersionParser
      */
     public function parseConstraints($constraints)
     {
-        if (\is_object($constraints)) {
-            $constraints = (string) $constraints;
-        }
+        $constraints = (string) $constraints;
         $prettyConstraint = $constraints;
         $orConstraints = \preg_split('{\\s*\\|\\|?\\s*}', \trim($constraints));
         $orGroups = array();
@@ -269,9 +255,7 @@ class VersionParser
      */
     private function parseConstraint($constraint)
     {
-        if (\is_object($constraint)) {
-            $constraint = (string) $constraint;
-        }
+        $constraint = (string) $constraint;
         // strip off aliasing
         if (\preg_match('{^([^,\\s]++) ++as ++([^,\\s]++)$}', $constraint, $match)) {
             $constraint = $match[1];
@@ -454,9 +438,9 @@ class VersionParser
      */
     private function manipulateVersionString($matches, $position, $increment = 0, $pad = '0')
     {
-        if (\is_object($pad)) {
-            $pad = (string) $pad;
-        }
+        $position = (int) $position;
+        $increment = (int) $increment;
+        $pad = (string) $pad;
         for ($i = 4; $i > 0; --$i) {
             if ($i > $position) {
                 $matches[$i] = $pad;
@@ -484,9 +468,7 @@ class VersionParser
      */
     private function expandStability($stability)
     {
-        if (\is_object($stability)) {
-            $stability = (string) $stability;
-        }
+        $stability = (string) $stability;
         $stability = \strtolower($stability);
         switch ($stability) {
             case 'a':

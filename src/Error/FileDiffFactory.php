@@ -22,9 +22,7 @@ final class FileDiffFactory
      */
     public function createFromDiffAndAppliedCheckers(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
     {
-        if (\is_object($diff)) {
-            $diff = (string) $diff;
-        }
+        $diff = (string) $diff;
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);
         return new \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff($smartFileInfo, $diff, $consoleFormattedDiff, $appliedCheckers);
     }

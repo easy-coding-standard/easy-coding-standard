@@ -28,6 +28,7 @@ class AutowireRequiredPropertiesPass extends \ECSPrefix20210508\Symfony\Componen
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if (\PHP_VERSION_ID < 70400) {
             return $value;
         }

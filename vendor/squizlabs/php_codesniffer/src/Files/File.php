@@ -203,9 +203,7 @@ class File
      */
     public function __construct($path, \PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $this->path = $path;
         $this->ruleset = $ruleset;
         $this->config = $config;
@@ -239,9 +237,7 @@ class File
      */
     public function setContent($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         $this->content = $content;
         $this->tokens = [];
         try {
@@ -575,12 +571,11 @@ class File
      */
     public function addError($error, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
-        if (\is_object($error)) {
-            $error = (string) $error;
-        }
+        $error = (string) $error;
+        $stackPtr = (int) $stackPtr;
+        $code = (string) $code;
+        $severity = (int) $severity;
+        $fixable = (bool) $fixable;
         if ($stackPtr === null) {
             $line = 1;
             $column = 1;
@@ -606,12 +601,11 @@ class File
      */
     public function addWarning($warning, $stackPtr, $code, $data = [], $severity = 0, $fixable = \false)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
-        if (\is_object($warning)) {
-            $warning = (string) $warning;
-        }
+        $warning = (string) $warning;
+        $stackPtr = (int) $stackPtr;
+        $code = (string) $code;
+        $severity = (int) $severity;
+        $fixable = (bool) $fixable;
         if ($stackPtr === null) {
             $line = 1;
             $column = 1;
@@ -636,12 +630,10 @@ class File
      */
     public function addErrorOnLine($error, $line, $code, $data = [], $severity = 0)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
-        if (\is_object($error)) {
-            $error = (string) $error;
-        }
+        $error = (string) $error;
+        $line = (int) $line;
+        $code = (string) $code;
+        $severity = (int) $severity;
         return $this->addMessage(\true, $error, $line, 1, $code, $data, $severity, \false);
     }
     //end addErrorOnLine()
@@ -659,12 +651,10 @@ class File
      */
     public function addWarningOnLine($warning, $line, $code, $data = [], $severity = 0)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
-        if (\is_object($warning)) {
-            $warning = (string) $warning;
-        }
+        $warning = (string) $warning;
+        $line = (int) $line;
+        $code = (string) $code;
+        $severity = (int) $severity;
         return $this->addMessage(\false, $warning, $line, 1, $code, $data, $severity, \false);
     }
     //end addWarningOnLine()
@@ -684,12 +674,10 @@ class File
      */
     public function addFixableError($error, $stackPtr, $code, $data = [], $severity = 0)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
-        if (\is_object($error)) {
-            $error = (string) $error;
-        }
+        $error = (string) $error;
+        $stackPtr = (int) $stackPtr;
+        $code = (string) $code;
+        $severity = (int) $severity;
         $recorded = $this->addError($error, $stackPtr, $code, $data, $severity, \true);
         if ($recorded === \true && $this->fixer->enabled === \true) {
             return \true;
@@ -713,12 +701,10 @@ class File
      */
     public function addFixableWarning($warning, $stackPtr, $code, $data = [], $severity = 0)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
-        if (\is_object($warning)) {
-            $warning = (string) $warning;
-        }
+        $warning = (string) $warning;
+        $stackPtr = (int) $stackPtr;
+        $code = (string) $code;
+        $severity = (int) $severity;
         $recorded = $this->addWarning($warning, $stackPtr, $code, $data, $severity, \true);
         if ($recorded === \true && $this->fixer->enabled === \true) {
             return \true;
@@ -743,12 +729,13 @@ class File
      */
     protected function addMessage($error, $message, $line, $column, $code, $data, $severity, $fixable)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $error = (bool) $error;
+        $message = (string) $message;
+        $line = (int) $line;
+        $column = (int) $column;
+        $code = (string) $code;
+        $severity = (int) $severity;
+        $fixable = (bool) $fixable;
         // Check if this line is ignoring all message codes.
         if (isset($this->tokenizer->ignoredLines[$line]['.all']) === \true) {
             return \false;
@@ -949,12 +936,9 @@ class File
      */
     public function recordMetric($stackPtr, $metric, $value)
     {
-        if (\is_object($value)) {
-            $value = (string) $value;
-        }
-        if (\is_object($metric)) {
-            $metric = (string) $metric;
-        }
+        $stackPtr = (int) $stackPtr;
+        $metric = (string) $metric;
+        $value = (string) $value;
         if (isset($this->metrics[$metric]) === \false) {
             $this->metrics[$metric] = ['values' => [$value => 1]];
             $this->metricTokens[$metric][$stackPtr] = \true;
@@ -1075,6 +1059,7 @@ class File
      */
     public function getDeclarationName($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokenCode = $this->tokens[$stackPtr]['code'];
         if ($tokenCode === T_ANON_CLASS || $tokenCode === T_CLOSURE) {
             return null;
@@ -1146,6 +1131,7 @@ class File
      */
     public function getMethodParameters($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         if ($this->tokens[$stackPtr]['code'] !== \T_FUNCTION && $this->tokens[$stackPtr]['code'] !== T_CLOSURE && $this->tokens[$stackPtr]['code'] !== \T_USE && $this->tokens[$stackPtr]['code'] !== \T_FN) {
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_USE or T_FN');
         }
@@ -1380,6 +1366,7 @@ class File
      */
     public function getMethodProperties($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         if ($this->tokens[$stackPtr]['code'] !== \T_FUNCTION && $this->tokens[$stackPtr]['code'] !== T_CLOSURE && $this->tokens[$stackPtr]['code'] !== \T_FN) {
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException('$stackPtr must be of type T_FUNCTION or T_CLOSURE or T_FN');
         }
@@ -1496,6 +1483,7 @@ class File
      */
     public function getMemberProperties($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         if ($this->tokens[$stackPtr]['code'] !== \T_VARIABLE) {
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException('$stackPtr must be of type T_VARIABLE');
         }
@@ -1604,6 +1592,7 @@ class File
      */
     public function getClassProperties($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         if ($this->tokens[$stackPtr]['code'] !== \T_CLASS) {
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException('$stackPtr must be of type T_CLASS');
         }
@@ -1639,6 +1628,7 @@ class File
      */
     public function isReference($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         if ($this->tokens[$stackPtr]['code'] !== T_BITWISE_AND) {
             return \false;
         }
@@ -1733,6 +1723,9 @@ class File
      */
     public function getTokensAsString($start, $length, $origContent = \false)
     {
+        $start = (int) $start;
+        $length = (int) $length;
+        $origContent = (bool) $origContent;
         if (\is_int($start) === \false || isset($this->tokens[$start]) === \false) {
             throw new \PHP_CodeSniffer\Exceptions\RuntimeException('The $start position for getTokensAsString() must exist in the token stack');
         }
@@ -1784,6 +1777,9 @@ class File
      */
     public function findPrevious($types, $start, $end = null, $exclude = \false, $value = null, $local = \false)
     {
+        $start = (int) $start;
+        $exclude = (bool) $exclude;
+        $local = (bool) $local;
         $types = (array) $types;
         if ($end === null) {
             $end = 0;
@@ -1855,6 +1851,9 @@ class File
      */
     public function findNext($types, $start, $end = null, $exclude = \false, $value = null, $local = \false)
     {
+        $start = (int) $start;
+        $exclude = (bool) $exclude;
+        $local = (bool) $local;
         $types = (array) $types;
         if ($end === null || $end > $this->numTokens) {
             $end = $this->numTokens;
@@ -1894,6 +1893,7 @@ class File
      */
     public function findStartOfStatement($start, $ignore = null)
     {
+        $start = (int) $start;
         $startTokens = \PHP_CodeSniffer\Util\Tokens::$blockOpeners;
         $startTokens[T_OPEN_SHORT_ARRAY] = \true;
         $startTokens[\T_OPEN_TAG] = \true;
@@ -2004,6 +2004,7 @@ class File
      */
     public function findEndOfStatement($start, $ignore = null)
     {
+        $start = (int) $start;
         $endTokens = [T_COLON => \true, T_COMMA => \true, \T_DOUBLE_ARROW => \true, T_SEMICOLON => \true, T_CLOSE_PARENTHESIS => \true, T_CLOSE_SQUARE_BRACKET => \true, T_CLOSE_CURLY_BRACKET => \true, T_CLOSE_SHORT_ARRAY => \true, \T_OPEN_TAG => \true, \T_CLOSE_TAG => \true];
         if ($ignore !== null) {
             $ignore = (array) $ignore;
@@ -2102,6 +2103,8 @@ class File
      */
     public function findFirstOnLine($types, $start, $exclude = \false, $value = null)
     {
+        $start = (int) $start;
+        $exclude = (bool) $exclude;
         if (\is_array($types) === \false) {
             $types = [$types];
         }
@@ -2148,6 +2151,7 @@ class File
      */
     public function hasCondition($stackPtr, $types)
     {
+        $stackPtr = (int) $stackPtr;
         // Check for the existence of the token.
         if (isset($this->tokens[$stackPtr]) === \false) {
             return \false;
@@ -2183,6 +2187,8 @@ class File
      */
     public function getCondition($stackPtr, $type, $first = \true)
     {
+        $stackPtr = (int) $stackPtr;
+        $first = (bool) $first;
         // Check for the existence of the token.
         if (isset($this->tokens[$stackPtr]) === \false) {
             return \false;
@@ -2215,6 +2221,7 @@ class File
      */
     public function findExtendedClassName($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         // Check for the existence of the token.
         if (isset($this->tokens[$stackPtr]) === \false) {
             return \false;
@@ -2251,6 +2258,7 @@ class File
      */
     public function findImplementedInterfaceNames($stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         // Check for the existence of the token.
         if (isset($this->tokens[$stackPtr]) === \false) {
             return \false;

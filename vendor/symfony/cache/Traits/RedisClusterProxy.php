@@ -28,9 +28,7 @@ class RedisClusterProxy
      */
     public function __call($method, array $args)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         $this->redis ?: ($this->redis = $this->initializer->__invoke());
         return $this->redis->{$method}(...$args);
     }

@@ -96,6 +96,9 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixClassUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $isInNamespace, $isImported)
     {
+        $index = (int) $index;
+        $isInNamespace = (bool) $isInNamespace;
+        $isImported = (bool) $isImported;
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$nextIndex]->isGivenKind(\T_DOUBLE_COLON)) {
             $nextNextIndex = $tokens->getNextMeaningfulToken($nextIndex);
@@ -133,9 +136,8 @@ final class DateTimeImmutableFixer extends \PhpCsFixer\AbstractFixer
      */
     private function fixFunctionUsage(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $replacement)
     {
-        if (\is_object($replacement)) {
-            $replacement = (string) $replacement;
-        }
+        $index = (int) $index;
+        $replacement = (string) $replacement;
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if ($tokens[$prevIndex]->isGivenKind([\T_DOUBLE_COLON, \T_NEW]) || $tokens[$prevIndex]->isObjectOperator()) {
             return;

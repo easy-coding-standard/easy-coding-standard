@@ -52,12 +52,9 @@ final class FixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInt
      */
     public function __construct($name, $description, $isRequired = \true, $default = null, $allowedTypes = null, $allowedValues = null, $normalizer = null)
     {
-        if (\is_object($description)) {
-            $description = (string) $description;
-        }
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $description = (string) $description;
+        $isRequired = (bool) $isRequired;
         if ($isRequired && null !== $default) {
             throw new \LogicException('Required options cannot have a default value.');
         }

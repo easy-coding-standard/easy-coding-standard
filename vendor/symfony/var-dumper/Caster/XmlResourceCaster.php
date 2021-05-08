@@ -26,6 +26,7 @@ class XmlResourceCaster
      */
     public static function castXml($h, array $a, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
+        $isNested = (bool) $isNested;
         $a['current_byte_index'] = \xml_get_current_byte_index($h);
         $a['current_column_number'] = \xml_get_current_column_number($h);
         $a['current_line_number'] = \xml_get_current_line_number($h);

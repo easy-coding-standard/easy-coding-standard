@@ -24,9 +24,8 @@ class FileLocatorFileNotFoundException extends \InvalidArgumentException
      */
     public function __construct($message = '', $code = 0, \Throwable $previous = null, array $paths = [])
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
+        $code = (int) $code;
         parent::__construct($message, $code, $previous);
         $this->paths = $paths;
     }

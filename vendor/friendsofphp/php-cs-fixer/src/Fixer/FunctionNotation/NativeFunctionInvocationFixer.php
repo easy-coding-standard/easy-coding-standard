@@ -194,6 +194,9 @@ $c = get_class($d);
      */
     private function fixFunctionCalls(\PhpCsFixer\Tokenizer\Tokens $tokens, callable $functionFilter, $start, $end, $tryToRemove)
     {
+        $start = (int) $start;
+        $end = (int) $end;
+        $tryToRemove = (bool) $tryToRemove;
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $tokensToInsert = [];
         for ($index = $start; $index < $end; ++$index) {

@@ -36,6 +36,7 @@ class ServicesConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, $path = null, &$anonymousCount = 0)
     {
+        $anonymousCount = (int) $anonymousCount;
         $this->defaults = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition();
         $this->container = $container;
         $this->loader = $loader;
@@ -60,9 +61,7 @@ class ServicesConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function instanceof($fqcn)
     {
-        if (\is_object($fqcn)) {
-            $fqcn = (string) $fqcn;
-        }
+        $fqcn = (string) $fqcn;
         $this->instanceof[$fqcn] = $definition = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition('');
         return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InstanceofConfigurator($this, $definition, $fqcn, $this->path);
     }
@@ -101,12 +100,8 @@ class ServicesConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function alias($id, $referencedId)
     {
-        if (\is_object($referencedId)) {
-            $referencedId = (string) $referencedId;
-        }
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
+        $referencedId = (string) $referencedId;
         $ref = static::processValue($referencedId, \true);
         $alias = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Alias((string) $ref);
         if (!$this->defaults->isPublic() || !$this->defaults->isPrivate()) {
@@ -123,12 +118,8 @@ class ServicesConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function load($namespace, $resource)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $resource = (string) $resource;
         return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\PrototypeConfigurator($this, $this->loader, $this->defaults, $namespace, $resource, \true);
     }
     /**
@@ -140,9 +131,7 @@ class ServicesConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function get($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $definition = $this->container->getDefinition($id);
         return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ServiceConfigurator($this->container, $definition->getInstanceofConditionals(), \true, $this, $definition, $id, []);
     }
@@ -155,9 +144,7 @@ class ServicesConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function stack($id, array $services)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         foreach ($services as $i => $service) {
             if ($service instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator) {
                 $definition = $service->definition->setInstanceofConditionals($this->instanceof);
@@ -183,9 +170,7 @@ class ServicesConfigurator extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     public final function __invoke($id, $class = null)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return $this->set($id, $class);
     }
     public function __destruct()

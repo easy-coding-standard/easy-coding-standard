@@ -41,6 +41,7 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Find the next non whitespace token.
         $commentStart = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
@@ -131,6 +132,8 @@ class FileCommentSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processTags($phpcsFile, $stackPtr, $commentStart)
     {
+        $stackPtr = (int) $stackPtr;
+        $commentStart = (int) $commentStart;
         $tokens = $phpcsFile->getTokens();
         if (\get_class($this) === 'PHP_CodeSniffer\\Standards\\PEAR\\Sniffs\\Commenting\\FileCommentSniff') {
             $docBlock = 'file';

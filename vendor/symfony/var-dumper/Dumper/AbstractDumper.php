@@ -39,6 +39,7 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function __construct($output = null, $charset = null, $flags = 0)
     {
+        $flags = (int) $flags;
         $this->flags = $flags;
         $this->setCharset((($charset ?: \ini_get('php.output_encoding')) ?: \ini_get('default_charset')) ?: 'UTF-8');
         $this->decimalPoint = \localeconv();
@@ -78,9 +79,7 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function setCharset($charset)
     {
-        if (\is_object($charset)) {
-            $charset = (string) $charset;
-        }
+        $charset = (string) $charset;
         $prev = $this->charset;
         $charset = \strtoupper($charset);
         $charset = null === $charset || 'UTF-8' === $charset || 'UTF8' === $charset ? 'CP1252' : $charset;
@@ -96,9 +95,7 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
      */
     public function setIndentPad($pad)
     {
-        if (\is_object($pad)) {
-            $pad = (string) $pad;
-        }
+        $pad = (string) $pad;
         $prev = $this->indentPad;
         $this->indentPad = $pad;
         return $prev;
@@ -149,6 +146,7 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
      */
     protected function dumpLine($depth)
     {
+        $depth = (int) $depth;
         ($this->lineDumper)($this->line, $depth, $this->indentPad);
         $this->line = '';
     }
@@ -160,12 +158,9 @@ abstract class AbstractDumper implements \ECSPrefix20210508\Symfony\Component\Va
      */
     protected function echoLine($line, $depth, $indentPad)
     {
-        if (\is_object($indentPad)) {
-            $indentPad = (string) $indentPad;
-        }
-        if (\is_object($line)) {
-            $line = (string) $line;
-        }
+        $line = (string) $line;
+        $depth = (int) $depth;
+        $indentPad = (string) $indentPad;
         if (-1 !== $depth) {
             \fwrite($this->outputStream, \str_repeat($indentPad, $depth) . $line . "\n");
         }

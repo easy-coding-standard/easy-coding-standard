@@ -35,6 +35,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         // Needs to be a use statement directly inside a class.
         $conditions = $tokens[$stackPtr]['conditions'];
@@ -249,6 +250,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processUseGroup(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $opener = $tokens[$stackPtr]['scope_opener'];
         $closer = $tokens[$stackPtr]['scope_closer'];
@@ -602,6 +604,7 @@ class UseDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function processUseStatement(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $error = 'Expected 1 space after USE in trait import statement; %s found';
         if ($tokens[$stackPtr + 1]['code'] !== \T_WHITESPACE) {

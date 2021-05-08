@@ -318,6 +318,7 @@ if (count($x)) {
      */
     private function prepareImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes, array $global, array $other, $caseSensitive)
     {
+        $caseSensitive = (bool) $caseSensitive;
         $imports = [];
         foreach ($indexes as $index) {
             $name = $tokens[$index]->getContent();
@@ -486,6 +487,7 @@ if (count($x)) {
      */
     private function filterUseDeclarations(array $declarations, callable $callback, $caseSensitive)
     {
+        $caseSensitive = (bool) $caseSensitive;
         $global = [];
         $other = [];
         foreach ($declarations as $declaration) {
@@ -511,6 +513,8 @@ if (count($x)) {
      */
     private function findFunctionDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         for ($index = $start; $index <= $end; ++$index) {
             $token = $tokens[$index];
             if ($token->isClassy()) {

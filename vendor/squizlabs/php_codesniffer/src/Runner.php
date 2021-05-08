@@ -498,12 +498,10 @@ class Runner
      */
     public function handleErrors($code, $message, $file, $line)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $code = (int) $code;
+        $message = (string) $message;
+        $file = (string) $file;
+        $line = (int) $line;
         if ((\error_reporting() & $code) === 0) {
             // This type of error is being muted.
             return \true;
@@ -666,6 +664,8 @@ class Runner
      */
     public function printProgress(\PHP_CodeSniffer\Files\File $file, $numFiles, $numProcessed)
     {
+        $numFiles = (int) $numFiles;
+        $numProcessed = (int) $numProcessed;
         if (PHP_CODESNIFFER_VERBOSITY > 0 || $this->config->showProgress === \false) {
             return;
         }

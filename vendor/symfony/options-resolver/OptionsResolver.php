@@ -150,9 +150,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function setDefault($option, $value)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         // Setting is not possible once resolving starts, because then lazy
         // options could manipulate the state of the object, leading to
         // inconsistent results.
@@ -231,9 +229,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function hasDefault($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return \array_key_exists($option, $this->defaults);
     }
     /**
@@ -267,9 +263,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function isRequired($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return isset($this->required[$option]);
     }
     /**
@@ -296,9 +290,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function isMissing($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return isset($this->required[$option]) && !\array_key_exists($option, $this->defaults);
     }
     /**
@@ -347,9 +339,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function isDefined($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return isset($this->defined[$option]);
     }
     /**
@@ -369,9 +359,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function isNested($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return isset($this->nested[$option]);
     }
     /**
@@ -399,9 +387,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function setDeprecated($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Options cannot be deprecated from a lazy option or normalizer.');
         }
@@ -436,9 +422,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function isDeprecated($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         return isset($this->deprecated[$option]);
     }
     /**
@@ -469,9 +453,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function setNormalizer($option, \Closure $normalizer)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Normalizers cannot be set from a lazy option or normalizer.');
         }
@@ -512,9 +494,8 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function addNormalizer($option, \Closure $normalizer, $forcePrepend = \false)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
+        $forcePrepend = (bool) $forcePrepend;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Normalizers cannot be set from a lazy option or normalizer.');
         }
@@ -554,9 +535,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function setAllowedValues($option, $allowedValues)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Allowed values cannot be set from a lazy option or normalizer.');
         }
@@ -593,9 +572,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function addAllowedValues($option, $allowedValues)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Allowed values cannot be added from a lazy option or normalizer.');
         }
@@ -631,9 +608,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function setAllowedTypes($option, $allowedTypes)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Allowed types cannot be set from a lazy option or normalizer.');
         }
@@ -664,9 +639,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function addAllowedTypes($option, $allowedTypes)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Allowed types cannot be added from a lazy option or normalizer.');
         }
@@ -689,9 +662,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function define($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if (isset($this->defined[$option])) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\OptionDefinitionException(\sprintf('The option "%s" is already defined.', $option));
         }
@@ -709,12 +680,8 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function setInfo($option, $info)
     {
-        if (\is_object($info)) {
-            $info = (string) $info;
-        }
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
+        $info = (string) $info;
         if ($this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('The Info message cannot be set from a lazy option or normalizer.');
         }
@@ -731,9 +698,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function getInfo($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if (!isset($this->defined[$option])) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException(\sprintf('The option "%s" does not exist. Defined options are: "%s".', $this->formatOptions([$option]), \implode('", "', \array_keys($this->defined))));
         }
@@ -863,9 +828,8 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function offsetGet($option, $triggerDeprecation = \true)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
+        $triggerDeprecation = (bool) $triggerDeprecation;
         if (!$this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Array access is only supported within closures of lazy options and normalizers.');
         }
@@ -1035,9 +999,8 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     private function verifyTypes($type, $value, array &$invalidTypes, $level = 0)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
+        $level = (int) $level;
         if (\is_array($value) && '[]' === \substr($type, -2)) {
             $type = \substr($type, 0, -2);
             $valid = \true;
@@ -1069,9 +1032,7 @@ class OptionsResolver implements \ECSPrefix20210508\Symfony\Component\OptionsRes
      */
     public function offsetExists($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         if (!$this->locked) {
             throw new \ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException('Array access is only supported within closures of lazy options and normalizers.');
         }

@@ -22,6 +22,7 @@ class LengthRequiredHttpException extends \ECSPrefix20210508\Symfony\Component\H
      */
     public function __construct($message = '', \Throwable $previous = null, $code = 0, array $headers = [])
     {
+        $code = (int) $code;
         parent::__construct(411, $message, $previous, $headers, $code);
     }
 }

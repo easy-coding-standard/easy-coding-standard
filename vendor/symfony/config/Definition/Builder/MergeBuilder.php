@@ -32,6 +32,7 @@ class MergeBuilder
      */
     public function allowUnset($allow = \true)
     {
+        $allow = (bool) $allow;
         $this->allowFalse = $allow;
         return $this;
     }
@@ -43,6 +44,7 @@ class MergeBuilder
      */
     public function denyOverwrite($deny = \true)
     {
+        $deny = (bool) $deny;
         $this->allowOverwrite = !$deny;
         return $this;
     }

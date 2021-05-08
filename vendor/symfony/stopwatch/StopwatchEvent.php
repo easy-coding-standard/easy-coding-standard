@@ -51,9 +51,9 @@ class StopwatchEvent
      */
     public function __construct($origin, $category = null, $morePrecision = \false, $name = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $origin = (double) $origin;
+        $morePrecision = (bool) $morePrecision;
+        $name = (string) $name;
         $this->origin = $this->formatTime($origin);
         $this->category = \is_string($category) ? $category : 'default';
         $this->morePrecision = $morePrecision;
@@ -214,6 +214,7 @@ class StopwatchEvent
      */
     private function formatTime($time)
     {
+        $time = (double) $time;
         return \round($time, 1);
     }
     /**

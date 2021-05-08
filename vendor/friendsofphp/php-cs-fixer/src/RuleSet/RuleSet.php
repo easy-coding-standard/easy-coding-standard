@@ -57,9 +57,7 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      */
     public function hasRule($rule)
     {
-        if (\is_object($rule)) {
-            $rule = (string) $rule;
-        }
+        $rule = (string) $rule;
         return \array_key_exists($rule, $this->rules);
     }
     /**
@@ -69,9 +67,7 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      */
     public function getRuleConfiguration($rule)
     {
-        if (\is_object($rule)) {
-            $rule = (string) $rule;
-        }
+        $rule = (string) $rule;
         if (!$this->hasRule($rule)) {
             throw new \InvalidArgumentException(\sprintf('Rule "%s" is not in the set.', $rule));
         }
@@ -124,9 +120,8 @@ final class RuleSet implements \PhpCsFixer\RuleSet\RuleSetInterface
      */
     private function resolveSubset($setName, $setValue)
     {
-        if (\is_object($setName)) {
-            $setName = (string) $setName;
-        }
+        $setName = (string) $setName;
+        $setValue = (bool) $setValue;
         $rules = \PhpCsFixer\RuleSet\RuleSets::getSetDefinition($setName)->getRules();
         foreach ($rules as $name => $value) {
             if ('@' === $name[0]) {

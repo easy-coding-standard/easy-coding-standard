@@ -150,6 +150,7 @@ class Foo {
      */
     private function findDocumentedElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $docCommentIndex)
     {
+        $docCommentIndex = (int) $docCommentIndex;
         $index = $docCommentIndex;
         do {
             $index = $tokens->getNextMeaningfulToken($index);
@@ -177,9 +178,8 @@ class Foo {
      */
     private function fixFunctionDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, array $shortNames)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
+        $functionIndex = (int) $functionIndex;
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
         $openingParenthesisIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
         $closingParenthesisIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $openingParenthesisIndex);
@@ -211,9 +211,7 @@ class Foo {
      */
     private function fixPropertyDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $shortNames)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
         do {
             $index = $tokens->getNextMeaningfulToken($index);
@@ -233,6 +231,8 @@ class Foo {
      */
     private function getArgumentsInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
+        $start = (int) $start;
+        $end = (int) $end;
         $argumentsInfo = [];
         for ($index = $start; $index <= $end; ++$index) {
             $token = $tokens[$index];
@@ -262,6 +262,7 @@ class Foo {
      */
     private function getReturnTypeInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $closingParenthesisIndex)
     {
+        $closingParenthesisIndex = (int) $closingParenthesisIndex;
         $colonIndex = $tokens->getNextMeaningfulToken($closingParenthesisIndex);
         if ($tokens[$colonIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON)) {
             return $this->parseTypeHint($tokens, $tokens->getNextMeaningfulToken($colonIndex));
@@ -274,6 +275,7 @@ class Foo {
      */
     private function getPropertyTypeInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if ($tokens[$index]->isGivenKind(\T_VARIABLE)) {
             return ['type' => null, 'allows_null' => \true];
         }
@@ -285,6 +287,7 @@ class Foo {
      */
     private function parseTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $allowsNull = \false;
         if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE)) {
             $allowsNull = \true;
@@ -355,9 +358,7 @@ class Foo {
      */
     private function removeSuperfluousInheritDoc($docComment)
     {
-        if (\is_object($docComment)) {
-            $docComment = (string) $docComment;
-        }
+        $docComment = (string) $docComment;
         return \PhpCsFixer\Preg::replace('~
             # $1: before @inheritDoc tag
             (

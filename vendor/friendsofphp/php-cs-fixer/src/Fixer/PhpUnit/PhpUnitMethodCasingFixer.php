@@ -83,6 +83,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
      */
     protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         for ($index = $endIndex - 1; $index > $startIndex; --$index) {
             if (!$this->isTestMethod($tokens, $index)) {
                 continue;
@@ -105,9 +107,7 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
      */
     private function updateMethodCasing($functionName)
     {
-        if (\is_object($functionName)) {
-            $functionName = (string) $functionName;
-        }
+        $functionName = (string) $functionName;
         $parts = \explode('::', $functionName);
         $functionNamePart = \array_pop($parts);
         if (self::CAMEL_CASE === $this->configuration['case']) {
@@ -127,6 +127,7 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
      */
     private function isTestMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         // Check if we are dealing with a (non abstract, non lambda) function
         if (!$this->isMethod($tokens, $index)) {
             return \false;
@@ -146,6 +147,7 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
      */
     private function isMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         return $tokens[$index]->isGivenKind(\T_FUNCTION) && !$tokensAnalyzer->isLambda($index);
     }
@@ -156,12 +158,8 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
      */
     private function startsWith($needle, $haystack)
     {
-        if (\is_object($haystack)) {
-            $haystack = (string) $haystack;
-        }
-        if (\is_object($needle)) {
-            $needle = (string) $needle;
-        }
+        $needle = (string) $needle;
+        $haystack = (string) $haystack;
         return \substr($haystack, 0, \strlen($needle)) === $needle;
     }
     /**
@@ -170,6 +168,7 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
      */
     private function updateDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
+        $docBlockIndex = (int) $docBlockIndex;
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         $lines = $doc->getLines();
         $docBlockNeedsUpdate = \false;

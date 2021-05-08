@@ -24,9 +24,7 @@ class DateComparator extends \ECSPrefix20210508\Symfony\Component\Finder\Compara
      */
     public function __construct($test)
     {
-        if (\is_object($test)) {
-            $test = (string) $test;
-        }
+        $test = (string) $test;
         if (!\preg_match('#^\\s*(==|!=|[<>]=?|after|since|before|until)?\\s*(.+?)\\s*$#i', $test, $matches)) {
             throw new \InvalidArgumentException(\sprintf('Don\'t understand "%s" as a date test.', $test));
         }

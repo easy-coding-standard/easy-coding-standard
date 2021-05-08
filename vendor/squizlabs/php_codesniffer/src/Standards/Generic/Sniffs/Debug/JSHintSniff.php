@@ -44,6 +44,7 @@ class JSHintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $rhinoPath = \PHP_CodeSniffer\Config::getExecutablePath('rhino');
         $jshintPath = \PHP_CodeSniffer\Config::getExecutablePath('jshint');
         if ($rhinoPath === null && $jshintPath === null) {

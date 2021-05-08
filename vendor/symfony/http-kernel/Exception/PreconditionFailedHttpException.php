@@ -22,6 +22,7 @@ class PreconditionFailedHttpException extends \ECSPrefix20210508\Symfony\Compone
      */
     public function __construct($message = '', \Throwable $previous = null, $code = 0, array $headers = [])
     {
+        $code = (int) $code;
         parent::__construct(412, $message, $previous, $headers, $code);
     }
 }

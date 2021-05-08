@@ -29,12 +29,8 @@ final class SessionUtils
      */
     public static function popSessionCookie($sessionName, $sessionId)
     {
-        if (\is_object($sessionId)) {
-            $sessionId = (string) $sessionId;
-        }
-        if (\is_object($sessionName)) {
-            $sessionName = (string) $sessionName;
-        }
+        $sessionName = (string) $sessionName;
+        $sessionId = (string) $sessionId;
         $sessionCookie = null;
         $sessionCookiePrefix = \sprintf(' %s=', \urlencode($sessionName));
         $sessionCookieWithId = \sprintf('%s%s;', $sessionCookiePrefix, \urlencode($sessionId));

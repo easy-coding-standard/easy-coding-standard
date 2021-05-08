@@ -28,12 +28,8 @@ final class FileDiff
      */
     public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, $consoleFormattedDiff, array $appliedCheckers)
     {
-        if (\is_object($consoleFormattedDiff)) {
-            $consoleFormattedDiff = (string) $consoleFormattedDiff;
-        }
-        if (\is_object($diff)) {
-            $diff = (string) $diff;
-        }
+        $diff = (string) $diff;
+        $consoleFormattedDiff = (string) $consoleFormattedDiff;
         $this->diff = $diff;
         $this->appliedCheckers = $appliedCheckers;
         $this->consoleFormattedDiff = $consoleFormattedDiff;

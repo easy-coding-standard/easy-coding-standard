@@ -25,7 +25,9 @@ if (!function_exists('fdiv')) {
      * @param float $num2
      * @return float
      */
-    function fdiv($num1, $num2) { return p\Php80::fdiv($num1, $num2); }
+    function fdiv($num1, $num2) { $num1 = (double) $num1;
+    $num2 = (double) $num2;
+    return p\Php80::fdiv($num1, $num2); }
 }
 if (!function_exists('preg_last_error_msg')) {
     /**
@@ -39,12 +41,8 @@ if (!function_exists('str_contains')) {
      * @param string $needle
      * @return bool
      */
-    function str_contains($haystack, $needle) { if (is_object($needle)) {
-        $needle = (string) $needle;
-    }
-    if (is_object($haystack)) {
-        $haystack = (string) $haystack;
-    }
+    function str_contains($haystack, $needle) { $haystack = (string) $haystack;
+    $needle = (string) $needle;
     return p\Php80::str_contains($haystack, $needle); }
 }
 if (!function_exists('str_starts_with')) {
@@ -53,12 +51,8 @@ if (!function_exists('str_starts_with')) {
      * @param string $needle
      * @return bool
      */
-    function str_starts_with($haystack, $needle) { if (is_object($needle)) {
-        $needle = (string) $needle;
-    }
-    if (is_object($haystack)) {
-        $haystack = (string) $haystack;
-    }
+    function str_starts_with($haystack, $needle) { $haystack = (string) $haystack;
+    $needle = (string) $needle;
     return p\Php80::str_starts_with($haystack, $needle); }
 }
 if (!function_exists('str_ends_with')) {
@@ -67,12 +61,8 @@ if (!function_exists('str_ends_with')) {
      * @param string $needle
      * @return bool
      */
-    function str_ends_with($haystack, $needle) { if (is_object($needle)) {
-        $needle = (string) $needle;
-    }
-    if (is_object($haystack)) {
-        $haystack = (string) $haystack;
-    }
+    function str_ends_with($haystack, $needle) { $haystack = (string) $haystack;
+    $needle = (string) $needle;
     return p\Php80::str_ends_with($haystack, $needle); }
 }
 if (!function_exists('get_debug_type')) {

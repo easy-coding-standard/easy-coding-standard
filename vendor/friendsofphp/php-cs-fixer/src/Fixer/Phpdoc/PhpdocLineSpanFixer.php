@@ -94,6 +94,7 @@ final class PhpdocLineSpanFixer extends \PhpCsFixer\AbstractFixer implements \Ph
      */
     private function hasDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $docBlockIndex = $this->getDocBlockIndex($tokens, $index);
         return $tokens[$docBlockIndex]->isGivenKind(\T_DOC_COMMENT);
     }

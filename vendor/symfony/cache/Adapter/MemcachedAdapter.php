@@ -47,9 +47,8 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     public function __construct(\Memcached $client, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $defaultLifetime = (int) $defaultLifetime;
         if (!static::isSupported()) {
             throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('Memcached >= 2.2.0 is required.');
         }
@@ -222,6 +221,7 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doSave(array $values, $lifetime)
     {
+        $lifetime = (int) $lifetime;
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
         }
@@ -257,9 +257,7 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doHave($id)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         return \false !== $this->getClient()->get(self::encodeKey($id)) || $this->checkResultCode(\Memcached::RES_SUCCESS === $this->client->getResultCode());
     }
     /**
@@ -282,9 +280,7 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doClear($namespace)
     {
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
         return '' === $namespace && $this->getClient()->flush();
     }
     private function checkResultCode($result)
@@ -318,9 +314,7 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     private static function encodeKey($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \strtr($key, self::RESERVED_MEMCACHED, self::RESERVED_PSR6);
     }
     /**
@@ -329,9 +323,7 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     private static function decodeKey($key)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         return \strtr($key, self::RESERVED_PSR6, self::RESERVED_MEMCACHED);
     }
 }

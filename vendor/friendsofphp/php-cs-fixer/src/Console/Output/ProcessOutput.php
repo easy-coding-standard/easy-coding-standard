@@ -53,6 +53,8 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
      */
     public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210508\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher, $width, $nbFiles)
     {
+        $width = (int) $width;
+        $nbFiles = (int) $nbFiles;
         $this->output = $output;
         $this->eventDispatcher = $dispatcher;
         $this->eventDispatcher->addListener(\PhpCsFixer\FixerFileProcessedEvent::NAME, [$this, 'onFixerFileProcessed']);

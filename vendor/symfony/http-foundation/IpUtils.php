@@ -56,9 +56,7 @@ class IpUtils
      */
     public static function checkIp4($requestIp, $ip)
     {
-        if (\is_object($ip)) {
-            $ip = (string) $ip;
-        }
+        $ip = (string) $ip;
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
@@ -100,9 +98,7 @@ class IpUtils
      */
     public static function checkIp6($requestIp, $ip)
     {
-        if (\is_object($ip)) {
-            $ip = (string) $ip;
-        }
+        $ip = (string) $ip;
         $cacheKey = $requestIp . '-' . $ip;
         if (isset(self::$checkedIps[$cacheKey])) {
             return self::$checkedIps[$cacheKey];
@@ -146,9 +142,7 @@ class IpUtils
      */
     public static function anonymize($ip)
     {
-        if (\is_object($ip)) {
-            $ip = (string) $ip;
-        }
+        $ip = (string) $ip;
         $wrappedIPv6 = \false;
         if ('[' === \substr($ip, 0, 1) && ']' === \substr($ip, -1, 1)) {
             $wrappedIPv6 = \true;

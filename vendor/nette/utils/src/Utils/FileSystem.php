@@ -18,9 +18,8 @@ final class FileSystem
      */
     public static function createDir($dir, $mode = 0777)
     {
-        if (\is_object($dir)) {
-            $dir = (string) $dir;
-        }
+        $dir = (string) $dir;
+        $mode = (int) $mode;
         if (!\is_dir($dir) && !@\mkdir($dir, $mode, \true) && !\is_dir($dir)) {
             // @ - dir may already exist
             throw new \ECSPrefix20210508\Nette\IOException("Unable to create directory '{$dir}' with mode " . \decoct($mode) . '. ' . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
@@ -37,12 +36,9 @@ final class FileSystem
      */
     public static function copy($origin, $target, $overwrite = \true)
     {
-        if (\is_object($target)) {
-            $target = (string) $target;
-        }
-        if (\is_object($origin)) {
-            $origin = (string) $origin;
-        }
+        $origin = (string) $origin;
+        $target = (string) $target;
+        $overwrite = (bool) $overwrite;
         if (\stream_is_local($origin) && !\file_exists($origin)) {
             throw new \ECSPrefix20210508\Nette\IOException("File or directory '{$origin}' not found.");
         } elseif (!$overwrite && \file_exists($target)) {
@@ -75,9 +71,7 @@ final class FileSystem
      */
     public static function delete($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         if (\is_file($path) || \is_link($path)) {
             $func = \DIRECTORY_SEPARATOR === '\\' && \is_dir($path) ? 'rmdir' : 'unlink';
             if (!@$func($path)) {
@@ -105,12 +99,9 @@ final class FileSystem
      */
     public static function rename($origin, $target, $overwrite = \true)
     {
-        if (\is_object($target)) {
-            $target = (string) $target;
-        }
-        if (\is_object($origin)) {
-            $origin = (string) $origin;
-        }
+        $origin = (string) $origin;
+        $target = (string) $target;
+        $overwrite = (bool) $overwrite;
         if (!$overwrite && \file_exists($target)) {
             throw new \ECSPrefix20210508\Nette\InvalidStateException("File or directory '{$target}' already exists.");
         } elseif (!\file_exists($origin)) {
@@ -134,9 +125,7 @@ final class FileSystem
      */
     public static function read($file)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
         $content = @\file_get_contents($file);
         // @ is escalated to exception
         if ($content === \false) {
@@ -154,12 +143,8 @@ final class FileSystem
      */
     public static function write($file, $content, $mode = 0666)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $content = (string) $content;
         static::createDir(\dirname($file));
         if (@\file_put_contents($file, $content) === \false) {
             // @ is escalated to exception
@@ -177,9 +162,7 @@ final class FileSystem
      */
     public static function isAbsolute($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         return (bool) \preg_match('#([a-z]:)?[/\\\\]|[a-z][a-z0-9+.-]*://#Ai', $path);
     }
     /**
@@ -189,9 +172,7 @@ final class FileSystem
      */
     public static function normalizePath($path)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
         $parts = $path === '' ? [] : \preg_split('~[/\\\\]+~', $path);
         $res = [];
         foreach ($parts as $part) {

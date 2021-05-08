@@ -96,6 +96,7 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
      */
     private function ensureWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if ($tokens[$index + 1]->isWhitespace()) {
             if (' ' !== $tokens[$index + 1]->getContent()) {
                 $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
@@ -117,6 +118,7 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
      */
     private function removeWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$tokens->getPrevNonWhitespace($index)]->isComment()) {
             $tokens->removeLeadingWhitespace($index);
         }

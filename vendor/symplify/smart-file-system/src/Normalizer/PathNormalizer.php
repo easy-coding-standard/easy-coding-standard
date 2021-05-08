@@ -33,12 +33,8 @@ final class PathNormalizer
      */
     public function normalizePath($originalPath, $directorySeparator = \DIRECTORY_SEPARATOR)
     {
-        if (\is_object($directorySeparator)) {
-            $directorySeparator = (string) $directorySeparator;
-        }
-        if (\is_object($originalPath)) {
-            $originalPath = (string) $originalPath;
-        }
+        $originalPath = (string) $originalPath;
+        $directorySeparator = (string) $directorySeparator;
         $matches = \ECSPrefix20210508\Nette\Utils\Strings::match($originalPath, self::SCHEME_PATH_REGEX);
         if ($matches !== null) {
             list(, $scheme, $path) = $matches;
@@ -61,9 +57,7 @@ final class PathNormalizer
      */
     private function normalizePathParts(array $pathParts, $scheme)
     {
-        if (\is_object($scheme)) {
-            $scheme = (string) $scheme;
-        }
+        $scheme = (string) $scheme;
         $normalizedPathParts = [];
         foreach ($pathParts as $pathPart) {
             if ($pathPart === '.') {

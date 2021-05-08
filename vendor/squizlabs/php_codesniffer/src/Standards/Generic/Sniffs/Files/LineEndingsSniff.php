@@ -46,6 +46,7 @@ class LineEndingsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $found = $phpcsFile->eolChar;
         $found = \str_replace("\n", '\\n', $found);
         $found = \str_replace("\r", '\\r', $found);

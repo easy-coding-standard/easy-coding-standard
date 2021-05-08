@@ -20,9 +20,7 @@ trait StaticClass
      */
     public static function __callStatic($name, array $args)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         \ECSPrefix20210508\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
 }

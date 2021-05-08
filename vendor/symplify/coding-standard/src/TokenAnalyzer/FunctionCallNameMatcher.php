@@ -16,6 +16,7 @@ final class FunctionCallNameMatcher
      */
     public function matchName(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         try {
             $blockStart = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $position);
         } catch (\Throwable $throwable) {

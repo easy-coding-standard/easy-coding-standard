@@ -49,6 +49,7 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['parenthesis_opener']) === \false || isset($tokens[$stackPtr]['parenthesis_closer']) === \false || $tokens[$stackPtr]['parenthesis_opener'] === null || $tokens[$stackPtr]['parenthesis_closer'] === null) {
             return;
@@ -198,6 +199,8 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function isMultiLineDeclaration($phpcsFile, $stackPtr, $openBracket, $tokens)
     {
+        $stackPtr = (int) $stackPtr;
+        $openBracket = (int) $openBracket;
         $closeBracket = $tokens[$openBracket]['parenthesis_closer'];
         if ($tokens[$openBracket]['line'] !== $tokens[$closeBracket]['line']) {
             return \true;
@@ -233,6 +236,7 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processSingleLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
+        $stackPtr = (int) $stackPtr;
         if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
             $sniff = new \PHP_CodeSniffer\Standards\Generic\Sniffs\Functions\OpeningFunctionBraceKernighanRitchieSniff();
         } else {
@@ -255,6 +259,7 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processMultiLineDeclaration($phpcsFile, $stackPtr, $tokens)
     {
+        $stackPtr = (int) $stackPtr;
         $this->processArgumentList($phpcsFile, $stackPtr, $this->indent);
         $closeBracket = $tokens[$stackPtr]['parenthesis_closer'];
         if ($tokens[$stackPtr]['code'] === T_CLOSURE) {
@@ -335,9 +340,9 @@ class FunctionDeclarationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function processArgumentList($phpcsFile, $stackPtr, $indent, $type = 'function')
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $stackPtr = (int) $stackPtr;
+        $indent = (int) $indent;
+        $type = (string) $type;
         $tokens = $phpcsFile->getTokens();
         // We need to work out how far indented the function
         // declaration itself is, so we can work out how far to

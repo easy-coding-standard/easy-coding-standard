@@ -30,9 +30,8 @@ class File extends \SplFileInfo
      */
     public function __construct($path, $checkPath = \true)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $checkPath = (bool) $checkPath;
         if ($checkPath && !\is_file($path)) {
             throw new \ECSPrefix20210508\Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException($path);
         }
@@ -87,9 +86,7 @@ class File extends \SplFileInfo
      */
     public function move($directory, $name = null)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
         $target = $this->getTargetFile($directory, $name);
         \set_error_handler(function ($type, $msg) use(&$error) {
             $error = $msg;
@@ -120,9 +117,7 @@ class File extends \SplFileInfo
      */
     protected function getTargetFile($directory, $name = null)
     {
-        if (\is_object($directory)) {
-            $directory = (string) $directory;
-        }
+        $directory = (string) $directory;
         if (!\is_dir($directory)) {
             if (\false === @\mkdir($directory, 0777, \true) && !\is_dir($directory)) {
                 throw new \ECSPrefix20210508\Symfony\Component\HttpFoundation\File\Exception\FileException(\sprintf('Unable to create the "%s" directory.', $directory));
@@ -141,9 +136,7 @@ class File extends \SplFileInfo
      */
     protected function getName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         $originalName = \str_replace('\\', '/', $name);
         $pos = \strrpos($originalName, '/');
         $originalName = \false === $pos ? $originalName : \substr($originalName, $pos + 1);

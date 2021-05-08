@@ -38,9 +38,7 @@ class RedisClusterNodeProxy
      */
     public function __call($method, array $args)
     {
-        if (\is_object($method)) {
-            $method = (string) $method;
-        }
+        $method = (string) $method;
         return $this->redis->{$method}($this->host, ...$args);
     }
     public function scan(&$iIterator, $strPattern = null, $iCount = null)

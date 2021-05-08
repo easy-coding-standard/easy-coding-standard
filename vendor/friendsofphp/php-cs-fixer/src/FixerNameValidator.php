@@ -25,9 +25,8 @@ final class FixerNameValidator
      */
     public function isValid($name, $isCustom)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
+        $isCustom = (bool) $isCustom;
         if (!$isCustom) {
             return 1 === \PhpCsFixer\Preg::match('/^[a-z][a-z0-9_]*$/', $name);
         }

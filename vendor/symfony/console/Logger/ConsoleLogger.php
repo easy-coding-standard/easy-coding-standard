@@ -43,9 +43,7 @@ class ConsoleLogger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
      */
     public function log($level, $message, array $context = [])
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if (!isset($this->verbosityLevelMap[$level])) {
             throw new \ECSPrefix20210508\Psr\Log\InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
         }
@@ -81,9 +79,7 @@ class ConsoleLogger extends \ECSPrefix20210508\Psr\Log\AbstractLogger
      */
     private function interpolate($message, array $context)
     {
-        if (\is_object($message)) {
-            $message = (string) $message;
-        }
+        $message = (string) $message;
         if (\false === \strpos($message, '{')) {
             return $message;
         }

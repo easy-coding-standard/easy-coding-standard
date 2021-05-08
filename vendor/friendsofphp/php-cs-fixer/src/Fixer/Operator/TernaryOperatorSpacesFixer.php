@@ -111,6 +111,7 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
      */
     private function belongsToAlternativeSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         if (!$tokens[$index]->equals(':')) {
             return \false;
         }
@@ -131,6 +132,7 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getColonIndicesForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex)
     {
+        $switchIndex = (int) $switchIndex;
         return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
             return $caseAnalysis->getColonIndex();
         }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
@@ -142,6 +144,8 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
      */
     private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $after)
     {
+        $index = (int) $index;
+        $after = (bool) $after;
         if ($tokens[$index]->isWhitespace()) {
             if (\false === \strpos($tokens[$index]->getContent(), "\n") && !$tokens[$index - 1]->isComment()) {
                 $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);

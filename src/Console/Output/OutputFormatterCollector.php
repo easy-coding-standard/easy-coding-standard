@@ -25,9 +25,7 @@ final class OutputFormatterCollector
      */
     public function getByName($name)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (isset($this->outputFormatters[$name])) {
             return $this->outputFormatters[$name];
         }

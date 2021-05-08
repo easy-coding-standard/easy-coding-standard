@@ -23,9 +23,7 @@ class GlobFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
      */
     public function load($resource, $type = null)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
+        $type = (string) $type;
         foreach ($this->glob($resource, \false, $globResource) as $path => $info) {
             $this->import($path);
         }

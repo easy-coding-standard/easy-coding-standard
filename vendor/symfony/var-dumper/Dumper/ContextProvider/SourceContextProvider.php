@@ -34,6 +34,7 @@ final class SourceContextProvider implements \ECSPrefix20210508\Symfony\Componen
      */
     public function __construct($charset = null, $projectDir = null, \ECSPrefix20210508\Symfony\Component\HttpKernel\Debug\FileLinkFormatter $fileLinkFormatter = null, $limit = 9)
     {
+        $limit = (int) $limit;
         $this->charset = $charset;
         $this->projectDir = $projectDir;
         $this->fileLinkFormatter = $fileLinkFormatter;
@@ -104,9 +105,7 @@ final class SourceContextProvider implements \ECSPrefix20210508\Symfony\Componen
      */
     private function htmlEncode($s)
     {
-        if (\is_object($s)) {
-            $s = (string) $s;
-        }
+        $s = (string) $s;
         $html = '';
         $dumper = new \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\HtmlDumper(function ($line) use(&$html) {
             $html .= $line;

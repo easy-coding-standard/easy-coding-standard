@@ -24,12 +24,8 @@ class InvalidParameterTypeException extends \ECSPrefix20210508\Symfony\Component
      */
     public function __construct($serviceId, $type, \ReflectionParameter $parameter)
     {
-        if (\is_object($type)) {
-            $type = (string) $type;
-        }
-        if (\is_object($serviceId)) {
-            $serviceId = (string) $serviceId;
-        }
+        $serviceId = (string) $serviceId;
+        $type = (string) $type;
         $acceptedType = $parameter->getType();
         $acceptedType = $acceptedType instanceof \ReflectionNamedType ? $acceptedType->getName() : (string) $acceptedType;
         $this->code = $type;

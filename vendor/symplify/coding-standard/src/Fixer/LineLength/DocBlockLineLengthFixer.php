@@ -156,9 +156,7 @@ CODE_SAMPLE
      */
     private function resolveIndentationStringFor($docBlock)
     {
-        if (\is_object($docBlock)) {
-            $docBlock = (string) $docBlock;
-        }
+        $docBlock = (string) $docBlock;
         $matches = \ECSPrefix20210508\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
         return isset($matches[self::INDENTATION_PART]) ? $matches[self::INDENTATION_PART] : '';
     }
@@ -168,9 +166,7 @@ CODE_SAMPLE
      */
     private function formatLinesAsDocBlockContent(array $docBlockLines, $indentationString)
     {
-        if (\is_object($indentationString)) {
-            $indentationString = (string) $indentationString;
-        }
+        $indentationString = (string) $indentationString;
         foreach ($docBlockLines as $index => $docBlockLine) {
             $docBlockLines[$index] = $indentationString . ' *' . ($docBlockLine !== '' ? ' ' : '') . $docBlockLine;
         }
@@ -206,9 +202,7 @@ CODE_SAMPLE
      */
     private function getLines($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         return \explode(\PHP_EOL, $string);
     }
     /**
@@ -218,6 +212,7 @@ CODE_SAMPLE
      */
     private function wrapParagraphs(array $lines, $maximumLineLength)
     {
+        $maximumLineLength = (int) $maximumLineLength;
         $wrappedLines = [];
         foreach ($lines as $line) {
             $wrappedLines[] = \wordwrap($line, $maximumLineLength);

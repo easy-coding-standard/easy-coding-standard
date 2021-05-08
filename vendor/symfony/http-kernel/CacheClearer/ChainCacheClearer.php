@@ -33,9 +33,7 @@ class ChainCacheClearer implements \ECSPrefix20210508\Symfony\Component\HttpKern
      */
     public function clear($cacheDir)
     {
-        if (\is_object($cacheDir)) {
-            $cacheDir = (string) $cacheDir;
-        }
+        $cacheDir = (string) $cacheDir;
         foreach ($this->clearers as $clearer) {
             $clearer->clear($cacheDir);
         }

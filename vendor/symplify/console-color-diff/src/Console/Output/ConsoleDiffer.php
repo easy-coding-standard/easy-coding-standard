@@ -32,12 +32,8 @@ final class ConsoleDiffer
      */
     public function diff($old, $new)
     {
-        if (\is_object($new)) {
-            $new = (string) $new;
-        }
-        if (\is_object($old)) {
-            $old = (string) $old;
-        }
+        $old = (string) $old;
+        $new = (string) $new;
         $diff = $this->differ->diff($old, $new);
         return $this->colorConsoleDiffFormatter->format($diff);
     }
@@ -48,12 +44,8 @@ final class ConsoleDiffer
      */
     public function diffAndPrint($old, $new)
     {
-        if (\is_object($new)) {
-            $new = (string) $new;
-        }
-        if (\is_object($old)) {
-            $old = (string) $old;
-        }
+        $old = (string) $old;
+        $new = (string) $new;
         $formattedDiff = $this->diff($old, $new);
         $this->symfonyStyle->writeln($formattedDiff);
     }

@@ -96,6 +96,7 @@ function fnc($foo) {}
      */
     private function fixSummary(\PhpCsFixer\DocBlock\DocBlock $doc, $summaryEnd)
     {
+        $summaryEnd = (int) $summaryEnd;
         $nonBlankLineAfterSummary = $this->findNonBlankLine($doc, $summaryEnd);
         $this->removeExtraBlankLinesBetween($doc, $summaryEnd, $nonBlankLineAfterSummary);
     }
@@ -105,6 +106,7 @@ function fnc($foo) {}
      */
     private function fixDescription(\PhpCsFixer\DocBlock\DocBlock $doc, $summaryEnd)
     {
+        $summaryEnd = (int) $summaryEnd;
         $annotationStart = $this->findFirstAnnotationOrEnd($doc);
         // assuming the end of the Description appears before the first Annotation
         $descriptionEnd = $this->reverseFindLastUsefulContent($doc, $annotationStart);
@@ -136,6 +138,8 @@ function fnc($foo) {}
      */
     private function removeExtraBlankLinesBetween(\PhpCsFixer\DocBlock\DocBlock $doc, $from, $to)
     {
+        $from = (int) $from;
+        $to = (int) $to;
         for ($index = $from + 1; $index < $to; ++$index) {
             $line = $doc->getLine($index);
             $next = $doc->getLine($index + 1);
@@ -157,6 +161,7 @@ function fnc($foo) {}
      */
     private function findNonBlankLine(\PhpCsFixer\DocBlock\DocBlock $doc, $after)
     {
+        $after = (int) $after;
         foreach ($doc->getLines() as $index => $line) {
             if ($index <= $after) {
                 continue;
@@ -187,6 +192,7 @@ function fnc($foo) {}
      */
     private function reverseFindLastUsefulContent(\PhpCsFixer\DocBlock\DocBlock $doc, $from)
     {
+        $from = (int) $from;
         for ($index = $from - 1; $index >= 0; --$index) {
             if ($doc->getLine($index)->containsUsefulContent()) {
                 return $index;

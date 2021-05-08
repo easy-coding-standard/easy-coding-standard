@@ -32,6 +32,7 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function isSuperfluousElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $previousBlockStart = $index;
         do {
             // Check if all 'if', 'else if ' and 'elseif' blocks above this 'else' always end,
@@ -74,6 +75,7 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
      */
     private function getPreviousBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $close = $previous = $tokens->getPrevMeaningfulToken($index);
         // short 'if' detection
         if ($tokens[$close]->equals('}')) {
@@ -95,6 +97,8 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
      */
     private function isInConditional(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $lowerLimitIndex)
     {
+        $index = (int) $index;
+        $lowerLimitIndex = (int) $lowerLimitIndex;
         $candidateIndex = $tokens->getPrevTokenOfKind($index, [')', ';', ':']);
         if ($tokens[$candidateIndex]->equals(':')) {
             return \true;
@@ -122,6 +126,7 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
      */
     private function isInConditionWithoutBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $lowerLimitIndex)
     {
+        $lowerLimitIndex = (int) $lowerLimitIndex;
         do {
             if ($tokens[$index]->isComment() || $tokens[$index]->isWhitespace()) {
                 $index = $tokens->getPrevMeaningfulToken($index);

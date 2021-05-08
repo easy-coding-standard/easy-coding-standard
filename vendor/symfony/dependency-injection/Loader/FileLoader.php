@@ -78,12 +78,8 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     public function registerClasses(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $prototype, $namespace, $resource, $exclude = null)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $resource = (string) $resource;
         if ('\\' !== \substr($namespace, -1)) {
             throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Namespace prefix must end with a "\\": "%s".', $namespace));
         }
@@ -127,9 +123,7 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     protected function setDefinition($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
-        if (\is_object($id)) {
-            $id = (string) $id;
-        }
+        $id = (string) $id;
         $this->container->removeBindings($id);
         if ($this->isLoadingInstanceof) {
             if (!$definition instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition) {
@@ -147,12 +141,8 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     private function findClasses($namespace, $pattern, array $excludePatterns)
     {
-        if (\is_object($pattern)) {
-            $pattern = (string) $pattern;
-        }
-        if (\is_object($namespace)) {
-            $namespace = (string) $namespace;
-        }
+        $namespace = (string) $namespace;
+        $pattern = (string) $pattern;
         $parameterBag = $this->container->getParameterBag();
         $excludePaths = [];
         $excludePrefix = null;

@@ -30,9 +30,7 @@ class MockFileSessionStorage extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     public function __construct($savePath = null, $name = 'MOCKSESSID', \ECSPrefix20210508\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
-        if (\is_object($name)) {
-            $name = (string) $name;
-        }
+        $name = (string) $name;
         if (null === $savePath) {
             $savePath = \sys_get_temp_dir();
         }
@@ -64,6 +62,7 @@ class MockFileSessionStorage extends \ECSPrefix20210508\Symfony\Component\HttpFo
      */
     public function regenerate($destroy = \false, $lifetime = null)
     {
+        $destroy = (bool) $destroy;
         if (!$this->started) {
             $this->start();
         }

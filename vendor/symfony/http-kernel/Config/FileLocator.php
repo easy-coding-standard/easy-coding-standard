@@ -33,9 +33,8 @@ class FileLocator extends \ECSPrefix20210508\Symfony\Component\Config\FileLocato
      */
     public function locate($file, $currentPath = null, $first = \true)
     {
-        if (\is_object($file)) {
-            $file = (string) $file;
-        }
+        $file = (string) $file;
+        $first = (bool) $first;
         if (isset($file[0]) && '@' === $file[0]) {
             $resource = $this->kernel->locateResource($file);
             return $first ? $resource : [$resource];

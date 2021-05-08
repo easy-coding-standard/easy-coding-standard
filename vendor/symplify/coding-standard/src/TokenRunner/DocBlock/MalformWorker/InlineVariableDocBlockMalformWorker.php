@@ -32,9 +32,8 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
      */
     public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $position = (int) $position;
         if (!$this->isVariableComment($tokens, $position)) {
             return $docContent;
         }
@@ -56,6 +55,7 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
      */
     private function isVariableComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
+        $position = (int) $position;
         $nextPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextPosition === null) {
             return \false;

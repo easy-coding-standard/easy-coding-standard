@@ -39,9 +39,9 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
      */
     public function __construct($path, $flags, $ignoreUnreadableDirs = \false)
     {
-        if (\is_object($path)) {
-            $path = (string) $path;
-        }
+        $path = (string) $path;
+        $flags = (int) $flags;
+        $ignoreUnreadableDirs = (bool) $ignoreUnreadableDirs;
         if ($flags & (self::CURRENT_AS_PATHNAME | self::CURRENT_AS_SELF)) {
             throw new \RuntimeException('This iterator only support returning current as fileinfo.');
         }

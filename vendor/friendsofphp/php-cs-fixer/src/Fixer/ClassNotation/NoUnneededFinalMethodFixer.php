@@ -102,6 +102,8 @@ class Bar
      */
     private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, $classIsFinal)
     {
+        $classOpenIndex = (int) $classOpenIndex;
+        $classIsFinal = (bool) $classIsFinal;
         $tokensCount = \count($tokens);
         for ($index = $classOpenIndex + 1; $index < $tokensCount; ++$index) {
             // Class end
@@ -133,6 +135,8 @@ class Bar
      */
     private function isPrivateMethodOtherThanConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $classOpenIndex)
     {
+        $index = (int) $index;
+        $classOpenIndex = (int) $classOpenIndex;
         $index = \max($classOpenIndex + 1, $tokens->getPrevTokenOfKind($index, [';', '{', '}']));
         $private = \false;
         while (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {

@@ -99,6 +99,7 @@ class DecoratorServicePass extends \ECSPrefix20210508\Symfony\Component\Dependen
      */
     protected function processValue($value, $isRoot = \false)
     {
+        $isRoot = (bool) $isRoot;
         if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference && $this->innerId === (string) $value) {
             return new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($this->currentId, $value->getInvalidBehavior());
         }

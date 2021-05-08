@@ -73,6 +73,7 @@ class ForbiddenStylesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
+        $stackPtr = (int) $stackPtr;
         $tokens = $phpcsFile->getTokens();
         $style = \strtolower($tokens[$stackPtr]['content']);
         $pattern = null;
@@ -106,9 +107,8 @@ class ForbiddenStylesSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     protected function addError($phpcsFile, $stackPtr, $style, $pattern = null)
     {
-        if (\is_object($style)) {
-            $style = (string) $style;
-        }
+        $stackPtr = (int) $stackPtr;
+        $style = (string) $style;
         $data = [$style];
         $error = 'The use of style %s is ';
         if ($this->error === \true) {

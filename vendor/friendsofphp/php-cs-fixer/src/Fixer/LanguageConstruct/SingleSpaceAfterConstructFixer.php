@@ -161,6 +161,7 @@ yield  from  baz();
      */
     private function isMultiLineReturn(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         ++$index;
         $tokenFollowingReturn = $tokens[$index];
         if (!$tokenFollowingReturn->isGivenKind(\T_WHITESPACE) || \false === \strpos($tokenFollowingReturn->getContent(), "\n")) {
@@ -187,6 +188,7 @@ yield  from  baz();
      */
     private function isMultilineExtendsOrImplementsWithMoreThanOneAncestor(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $hasMoreThanOneAncestor = \false;
         while (++$index) {
             $token = $tokens[$index];

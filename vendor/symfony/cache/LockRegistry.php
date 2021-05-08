@@ -53,6 +53,7 @@ final class LockRegistry
      */
     public static function compute(callable $callback, \ECSPrefix20210508\Symfony\Contracts\Cache\ItemInterface $item, &$save, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface $pool, \Closure $setMetadata = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
+        $save = (bool) $save;
         $key = self::$files ? \abs(\crc32($item->getKey())) % \count(self::$files) : -1;
         if ($key < 0 || (isset(self::$lockedFiles[$key]) ? self::$lockedFiles[$key] : \false) || !($lock = self::open($key))) {
             return $callback($item, $save);
@@ -105,6 +106,7 @@ final class LockRegistry
      */
     private static function open($key)
     {
+        $key = (int) $key;
         if (null !== ($h = isset(self::$openedFiles[$key]) ? self::$openedFiles[$key] : null)) {
             return $h;
         }

@@ -29,9 +29,7 @@ final class CodeHasher
      */
     public static function calculateCodeHash($code)
     {
-        if (\is_object($code)) {
-            $code = (string) $code;
-        }
+        $code = (string) $code;
         return (string) \crc32($code);
     }
 }

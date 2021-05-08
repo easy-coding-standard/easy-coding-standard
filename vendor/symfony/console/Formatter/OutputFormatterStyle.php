@@ -56,9 +56,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function setHref($url)
     {
-        if (\is_object($url)) {
-            $url = (string) $url;
-        }
+        $url = (string) $url;
         $this->href = $url;
     }
     /**
@@ -67,9 +65,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function setOption($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         $this->options[] = $option;
         $this->color = new \ECSPrefix20210508\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
@@ -79,9 +75,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function unsetOption($option)
     {
-        if (\is_object($option)) {
-            $option = (string) $option;
-        }
+        $option = (string) $option;
         $pos = \array_search($option, $this->options);
         if (\false !== $pos) {
             unset($this->options[$pos]);
@@ -101,9 +95,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function apply($text)
     {
-        if (\is_object($text)) {
-            $text = (string) $text;
-        }
+        $text = (string) $text;
         if (null === $this->handlesHrefGracefully) {
             $this->handlesHrefGracefully = 'JetBrains-JediTerm' !== \getenv('TERMINAL_EMULATOR') && (!\getenv('KONSOLE_VERSION') || (int) \getenv('KONSOLE_VERSION') > 201100);
         }

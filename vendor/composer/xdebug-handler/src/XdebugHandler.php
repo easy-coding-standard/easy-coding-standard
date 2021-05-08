@@ -49,9 +49,7 @@ class XdebugHandler
      */
     public function __construct($envPrefix)
     {
-        if (\is_object($envPrefix)) {
-            $envPrefix = (string) $envPrefix;
-        }
+        $envPrefix = (string) $envPrefix;
         if (!\is_string($envPrefix) || empty($envPrefix)) {
             throw new \RuntimeException('Invalid constructor parameter');
         }
@@ -94,9 +92,7 @@ class XdebugHandler
      */
     public function setMainScript($script)
     {
-        if (\is_object($script)) {
-            $script = (string) $script;
-        }
+        $script = (string) $script;
         $this->script = $script;
         return $this;
     }
@@ -221,6 +217,7 @@ class XdebugHandler
      */
     protected function requiresRestart($default)
     {
+        $default = (bool) $default;
         return $default;
     }
     /**
@@ -317,12 +314,8 @@ class XdebugHandler
      */
     private function writeTmpIni(array $iniFiles, $tmpDir, &$error)
     {
-        if (\is_object($error)) {
-            $error = (string) $error;
-        }
-        if (\is_object($tmpDir)) {
-            $tmpDir = (string) $tmpDir;
-        }
+        $tmpDir = (string) $tmpDir;
+        $error = (string) $error;
         if (!($this->tmpIni = @\tempnam($tmpDir, ''))) {
             return \false;
         }
@@ -376,6 +369,7 @@ class XdebugHandler
      */
     private function setEnvironment($scannedInis, array $iniFiles)
     {
+        $scannedInis = (bool) $scannedInis;
         $scanDir = \getenv('PHP_INI_SCAN_DIR');
         $phprc = \getenv('PHPRC');
         // Make original inis available to restarted process
@@ -400,9 +394,7 @@ class XdebugHandler
      */
     private function notify($op, $data = null)
     {
-        if (\is_object($op)) {
-            $op = (string) $op;
-        }
+        $op = (string) $op;
         $this->statusWriter->report($op, $data);
     }
     /**
@@ -494,9 +486,7 @@ class XdebugHandler
      */
     private function checkConfiguration(&$info)
     {
-        if (\is_object($info)) {
-            $info = (string) $info;
-        }
+        $info = (string) $info;
         if (!\function_exists('proc_open')) {
             $info = 'proc_open function is disabled';
             return \false;

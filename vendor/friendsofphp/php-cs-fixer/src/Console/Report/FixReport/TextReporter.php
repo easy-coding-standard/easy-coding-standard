@@ -52,6 +52,7 @@ final class TextReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
      */
     private function getAppliedFixers($isDecoratedOutput, array $fixResult)
     {
+        $isDecoratedOutput = (bool) $isDecoratedOutput;
         return \sprintf($isDecoratedOutput ? ' (<comment>%s</comment>)' : ' (%s)', \implode(', ', $fixResult['appliedFixers']));
     }
     /**
@@ -60,6 +61,7 @@ final class TextReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
      */
     private function getDiff($isDecoratedOutput, array $fixResult)
     {
+        $isDecoratedOutput = (bool) $isDecoratedOutput;
         if (empty($fixResult['diff'])) {
             return '';
         }
@@ -74,6 +76,9 @@ final class TextReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
      */
     private function getFooter($time, $memory, $isDryRun)
     {
+        $time = (int) $time;
+        $memory = (int) $memory;
+        $isDryRun = (bool) $isDryRun;
         if (0 === $time || 0 === $memory) {
             return '';
         }

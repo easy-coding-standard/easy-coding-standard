@@ -20,6 +20,7 @@ trait ShareTrait
      */
     public final function share($shared = \true)
     {
+        $shared = (bool) $shared;
         $this->definition->setShared($shared);
         return $this;
     }

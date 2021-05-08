@@ -19,9 +19,7 @@ final class ClassLikeExistenceChecker
      */
     public function doesClassLikeExist($classLike)
     {
-        if (\is_object($classLike)) {
-            $classLike = (string) $classLike;
-        }
+        $classLike = (string) $classLike;
         if (\class_exists($classLike)) {
             return \true;
         }
@@ -36,9 +34,7 @@ final class ClassLikeExistenceChecker
      */
     public function doesClassLikeInsensitiveExists($classLikeName)
     {
-        if (\is_object($classLikeName)) {
-            $classLikeName = (string) $classLikeName;
-        }
+        $classLikeName = (string) $classLikeName;
         if (!$this->doesClassLikeExist($classLikeName)) {
             return \false;
         }

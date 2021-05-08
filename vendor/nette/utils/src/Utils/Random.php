@@ -18,9 +18,8 @@ final class Random
      */
     public static function generate($length = 10, $charlist = '0-9a-z')
     {
-        if (\is_object($charlist)) {
-            $charlist = (string) $charlist;
-        }
+        $length = (int) $length;
+        $charlist = (string) $charlist;
         $charlist = \count_chars(\preg_replace_callback('#.-.#', function (array $m) : string {
             return \implode('', \range($m[0][0], $m[0][2]));
         }, $charlist), 3);

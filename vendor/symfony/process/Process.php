@@ -175,9 +175,7 @@ class Process implements \IteratorAggregate
      */
     public static function fromShellCommandline($command, $cwd = null, array $env = null, $input = null, $timeout = 60)
     {
-        if (\is_object($command)) {
-            $command = (string) $command;
-        }
+        $command = (string) $command;
         $process = new static([], $cwd, $env, $input, $timeout);
         $process->commandline = $command;
         return $process;
@@ -456,6 +454,7 @@ class Process implements \IteratorAggregate
      */
     public function signal($signal)
     {
+        $signal = (int) $signal;
         $this->doSignal($signal, \true);
         return $this;
     }
@@ -551,6 +550,7 @@ class Process implements \IteratorAggregate
      */
     public function getIterator($flags = 0)
     {
+        $flags = (int) $flags;
         $this->readPipesForOutput(__FUNCTION__, \false);
         $clearOutput = !(self::ITER_KEEP_OUTPUT & $flags);
         $blocking = !(self::ITER_NON_BLOCKING & $flags);
@@ -799,6 +799,7 @@ class Process implements \IteratorAggregate
      */
     public function stop($timeout = 10, $signal = null)
     {
+        $timeout = (double) $timeout;
         $timeoutMicro = \microtime(\true) + $timeout;
         if ($this->isRunning()) {
             // given SIGTERM may not be defined and that "proc_terminate" uses the constant value and not the constant itself, we use the same here
@@ -829,9 +830,7 @@ class Process implements \IteratorAggregate
      */
     public function addOutput($line)
     {
-        if (\is_object($line)) {
-            $line = (string) $line;
-        }
+        $line = (string) $line;
         $this->lastOutputTime = \microtime(\true);
         \fseek($this->stdout, 0, \SEEK_END);
         \fwrite($this->stdout, $line);
@@ -845,9 +844,7 @@ class Process implements \IteratorAggregate
      */
     public function addErrorOutput($line)
     {
-        if (\is_object($line)) {
-            $line = (string) $line;
-        }
+        $line = (string) $line;
         $this->lastOutputTime = \microtime(\true);
         \fseek($this->stderr, 0, \SEEK_END);
         \fwrite($this->stderr, $line);
@@ -933,6 +930,7 @@ class Process implements \IteratorAggregate
      */
     public function setTty($tty)
     {
+        $tty = (bool) $tty;
         if ('\\' === \DIRECTORY_SEPARATOR && $tty) {
             throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\RuntimeException('TTY mode is not supported on Windows platform.');
         }
@@ -959,6 +957,7 @@ class Process implements \IteratorAggregate
      */
     public function setPty($bool)
     {
+        $bool = (bool) $bool;
         $this->pty = $bool;
         return $this;
     }
@@ -993,9 +992,7 @@ class Process implements \IteratorAggregate
      */
     public function setWorkingDirectory($cwd)
     {
-        if (\is_object($cwd)) {
-            $cwd = (string) $cwd;
-        }
+        $cwd = (string) $cwd;
         $this->cwd = $cwd;
         return $this;
     }
@@ -1194,6 +1191,7 @@ class Process implements \IteratorAggregate
      */
     protected function updateStatus($blocking)
     {
+        $blocking = (bool) $blocking;
         if (self::STATUS_STARTED !== $this->status) {
             return;
         }
@@ -1234,9 +1232,8 @@ class Process implements \IteratorAggregate
      */
     private function readPipesForOutput($caller, $blocking = \false)
     {
-        if (\is_object($caller)) {
-            $caller = (string) $caller;
-        }
+        $caller = (string) $caller;
+        $blocking = (bool) $blocking;
         if ($this->outputDisabled) {
             throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\LogicException('Output has been disabled.');
         }
@@ -1268,6 +1265,8 @@ class Process implements \IteratorAggregate
      */
     private function readPipes($blocking, $close)
     {
+        $blocking = (bool) $blocking;
+        $close = (bool) $close;
         $result = $this->processPipes->readAndWrite($blocking, $close);
         $callback = $this->callback;
         foreach ($result as $type => $data) {
@@ -1338,6 +1337,8 @@ class Process implements \IteratorAggregate
      */
     private function doSignal($signal, $throwException)
     {
+        $signal = (int) $signal;
+        $throwException = (bool) $throwException;
         if (null === ($pid = $this->getPid())) {
             if ($throwException) {
                 throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\LogicException('Can not send signal on a non running process.');
@@ -1379,9 +1380,7 @@ class Process implements \IteratorAggregate
      */
     private function prepareWindowsCommandLine($cmd, array &$env)
     {
-        if (\is_object($cmd)) {
-            $cmd = (string) $cmd;
-        }
+        $cmd = (string) $cmd;
         $uid = \uniqid('', \true);
         $varCount = 0;
         $varCache = [];
@@ -1424,9 +1423,7 @@ class Process implements \IteratorAggregate
      */
     private function requireProcessIsStarted($functionName)
     {
-        if (\is_object($functionName)) {
-            $functionName = (string) $functionName;
-        }
+        $functionName = (string) $functionName;
         if (!$this->isStarted()) {
             throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\LogicException(\sprintf('Process must be started before calling "%s()".', $functionName));
         }
@@ -1439,9 +1436,7 @@ class Process implements \IteratorAggregate
      */
     private function requireProcessIsTerminated($functionName)
     {
-        if (\is_object($functionName)) {
-            $functionName = (string) $functionName;
-        }
+        $functionName = (string) $functionName;
         if (!$this->isTerminated()) {
             throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\LogicException(\sprintf('Process must be terminated before calling "%s()".', $functionName));
         }
@@ -1473,9 +1468,7 @@ class Process implements \IteratorAggregate
      */
     private function replacePlaceholders($commandline, array $env)
     {
-        if (\is_object($commandline)) {
-            $commandline = (string) $commandline;
-        }
+        $commandline = (string) $commandline;
         return \preg_replace_callback('/"\\$\\{:([_a-zA-Z]++[_a-zA-Z0-9]*+)\\}"/', function ($matches) use($commandline, $env) {
             if (!isset($env[$matches[1]]) || \false === $env[$matches[1]]) {
                 throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\InvalidArgumentException(\sprintf('Command line is missing a value for parameter "%s": ', $matches[1]) . $commandline);

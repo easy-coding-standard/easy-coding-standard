@@ -41,9 +41,7 @@ class FileBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\Parame
      */
     public function set($key, $value)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         if (!\is_array($value) && !$value instanceof \ECSPrefix20210508\Symfony\Component\HttpFoundation\File\UploadedFile) {
             throw new \InvalidArgumentException('An uploaded file must be an array or an instance of UploadedFile.');
         }

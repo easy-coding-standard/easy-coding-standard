@@ -24,9 +24,7 @@ final class ConstantReflectionSetFactory
      */
     public function createSetsFromClass($setClassName)
     {
-        if (\is_object($setClassName)) {
-            $setClassName = (string) $setClassName;
-        }
+        $setClassName = (string) $setClassName;
         $setListReflectionClass = new \ReflectionClass($setClassName);
         $sets = [];
         // new kind of paths sets
@@ -50,9 +48,7 @@ final class ConstantReflectionSetFactory
      */
     private function constantToDashes($string)
     {
-        if (\is_object($string)) {
-            $string = (string) $string;
-        }
+        $string = (string) $string;
         $string = \strtolower($string);
         return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }

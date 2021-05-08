@@ -28,9 +28,7 @@ final class PhpContentAnalyzer
      */
     public function isPhpContent($content)
     {
-        if (\is_object($content)) {
-            $content = (string) $content;
-        }
+        $content = (string) $content;
         // is content commented PHP code?
         $rawTokens = $this->parseCodeToTokens($content);
         $tokenCount = \count($rawTokens);
@@ -135,6 +133,7 @@ final class PhpContentAnalyzer
      */
     private function isFunctionStart(array $tokens, $i)
     {
+        $i = (int) $i;
         $twoNextTokens = $this->tokenFinder->getNextMeaninfulTokens($tokens, $i + 1, 2);
         if (\count($twoNextTokens) !== 2) {
             return \false;
@@ -152,6 +151,7 @@ final class PhpContentAnalyzer
      */
     private function hasTwoStringsTokensInRow($tokenCount, array $rawTokens)
     {
+        $tokenCount = (int) $tokenCount;
         for ($i = 0; $i < $tokenCount; ++$i) {
             $token = $rawTokens[$i];
             if ($token[0] !== \T_STRING) {

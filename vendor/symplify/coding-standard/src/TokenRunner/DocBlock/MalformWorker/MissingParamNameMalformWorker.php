@@ -43,9 +43,8 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
      */
     public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
+        $position = (int) $position;
         $argumentNames = $this->docblockRelatedParamNamesResolver->resolve($tokens, $position);
         if ($argumentNames === []) {
             return $docContent;
@@ -65,9 +64,7 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
      */
     private function filterOutExistingParamNames($docContent, array $functionArgumentNames)
     {
-        if (\is_object($docContent)) {
-            $docContent = (string) $docContent;
-        }
+        $docContent = (string) $docContent;
         foreach ($functionArgumentNames as $key => $functionArgumentName) {
             $pattern = '# ' . \preg_quote($functionArgumentName, '#') . '\\b#';
             if (\ECSPrefix20210508\Nette\Utils\Strings::match($docContent, $pattern)) {
@@ -104,9 +101,8 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
      */
     private function resolveNewArgumentName(array $argumentNames, $missingArgumentName, $key)
     {
-        if (\is_object($missingArgumentName)) {
-            $missingArgumentName = (string) $missingArgumentName;
-        }
+        $missingArgumentName = (string) $missingArgumentName;
+        $key = (int) $key;
         if (\array_search($missingArgumentName, $argumentNames, \true)) {
             return $missingArgumentName;
         }
@@ -133,9 +129,7 @@ final class MissingParamNameMalformWorker implements \Symplify\CodingStandard\To
      */
     private function createNewLineContent($newArgumentName, \PhpCsFixer\DocBlock\Line $line)
     {
-        if (\is_object($newArgumentName)) {
-            $newArgumentName = (string) $newArgumentName;
-        }
+        $newArgumentName = (string) $newArgumentName;
         // @see https://regex101.com/r/4FL49H/1
         $missingDollarSignPattern = '#(@param\\s+([\\w\\|\\[\\]\\\\]+\\s)?)(' . \ltrim($newArgumentName, '$') . ')#';
         // missing \$ case - possibly own worker

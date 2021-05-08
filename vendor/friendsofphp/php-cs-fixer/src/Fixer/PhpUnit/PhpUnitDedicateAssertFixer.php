@@ -109,6 +109,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         foreach ($this->getPreviousAssertCall($tokens, $startIndex, $endIndex) as $assertCall) {
             // test and fix for assertTrue/False to dedicated asserts
             if ('asserttrue' === $assertCall['loweredName'] || 'assertfalse' === $assertCall['loweredName']) {
@@ -235,6 +237,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     private function getPreviousAssertCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
+        $startIndex = (int) $startIndex;
+        $endIndex = (int) $endIndex;
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $endIndex; $index > $startIndex; --$index) {
             $index = $tokens->getPrevTokenOfKind($index, [[\T_STRING]]);
@@ -266,6 +270,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
      */
     private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $callNSIndex, $callIndex, $openIndex, $closeIndex)
     {
+        $callIndex = (int) $callIndex;
+        $openIndex = (int) $openIndex;
+        $closeIndex = (int) $closeIndex;
         $tokens->clearTokenAndMergeSurroundingWhitespace($callIndex);
         if (\false !== $callNSIndex) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($callNSIndex);

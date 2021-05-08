@@ -33,9 +33,7 @@ class ParameterNotFoundException extends \ECSPrefix20210508\Symfony\Component\De
      */
     public function __construct($key, $sourceId = null, $sourceKey = null, \Throwable $previous = null, array $alternatives = [], $nonNestedAlternative = null)
     {
-        if (\is_object($key)) {
-            $key = (string) $key;
-        }
+        $key = (string) $key;
         $this->key = $key;
         $this->sourceId = $sourceId;
         $this->sourceKey = $sourceKey;

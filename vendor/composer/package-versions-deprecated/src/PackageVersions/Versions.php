@@ -58,9 +58,7 @@ final class Versions
      */
     public static function getVersion($packageName)
     {
-        if (\is_object($packageName)) {
-            $packageName = (string) $packageName;
-        }
+        $packageName = (string) $packageName;
         if (\class_exists(\ECSPrefix20210508\Composer\InstalledVersions::class, \false) && \ECSPrefix20210508\Composer\InstalledVersions::getRawData()) {
             return \ECSPrefix20210508\Composer\InstalledVersions::getPrettyVersion($packageName) . '@' . \ECSPrefix20210508\Composer\InstalledVersions::getReference($packageName);
         }

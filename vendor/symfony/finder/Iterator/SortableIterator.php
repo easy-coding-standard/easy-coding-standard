@@ -35,6 +35,7 @@ class SortableIterator implements \IteratorAggregate
      */
     public function __construct(\Traversable $iterator, $sort, $reverseOrder = \false)
     {
+        $reverseOrder = (bool) $reverseOrder;
         $this->iterator = $iterator;
         $order = $reverseOrder ? -1 : 1;
         if (self::SORT_BY_NAME === $sort) {

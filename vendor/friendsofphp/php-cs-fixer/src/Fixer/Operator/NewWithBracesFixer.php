@@ -86,6 +86,7 @@ final class NewWithBracesFixer extends \PhpCsFixer\AbstractFixer
      */
     private function insertBracesAfter(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $tokens->insertAt(++$index, [new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token(')')]);
     }
 }

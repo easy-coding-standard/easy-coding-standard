@@ -30,9 +30,7 @@ final class JsonFileSystem
      */
     public function loadFilePathToJson($filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $this->fileSystemGuard->ensureFileExists($filePath, __METHOD__);
         $fileContent = $this->smartFileSystem->readFile($filePath);
         return \ECSPrefix20210508\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
@@ -44,9 +42,7 @@ final class JsonFileSystem
      */
     public function writeJsonToFilePath(array $jsonArray, $filePath)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $jsonContent = \ECSPrefix20210508\Nette\Utils\Json::encode($jsonArray, \ECSPrefix20210508\Nette\Utils\Json::PRETTY) . \PHP_EOL;
         $this->smartFileSystem->dumpFile($filePath, $jsonContent);
     }
@@ -57,9 +53,7 @@ final class JsonFileSystem
      */
     public function mergeArrayToJsonFile($filePath, array $newJsonArray)
     {
-        if (\is_object($filePath)) {
-            $filePath = (string) $filePath;
-        }
+        $filePath = (string) $filePath;
         $jsonArray = $this->loadFilePathToJson($filePath);
         $newComposerJsonArray = \ECSPrefix20210508\Nette\Utils\Arrays::mergeTree($jsonArray, $newJsonArray);
         $this->writeJsonToFilePath($newComposerJsonArray, $filePath);

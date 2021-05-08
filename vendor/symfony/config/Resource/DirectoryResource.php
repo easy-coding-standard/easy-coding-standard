@@ -29,9 +29,7 @@ class DirectoryResource implements \ECSPrefix20210508\Symfony\Component\Config\R
      */
     public function __construct($resource, $pattern = null)
     {
-        if (\is_object($resource)) {
-            $resource = (string) $resource;
-        }
+        $resource = (string) $resource;
         $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         $this->pattern = $pattern;
         if (\false === $this->resource || !\is_dir($this->resource)) {
@@ -68,6 +66,7 @@ class DirectoryResource implements \ECSPrefix20210508\Symfony\Component\Config\R
      */
     public function isFresh($timestamp)
     {
+        $timestamp = (int) $timestamp;
         if (!\is_dir($this->resource)) {
             return \false;
         }

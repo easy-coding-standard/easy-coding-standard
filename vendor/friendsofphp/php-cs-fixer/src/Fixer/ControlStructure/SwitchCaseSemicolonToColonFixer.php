@@ -78,6 +78,7 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function fixSwitchCase(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         $ternariesCount = 0;
         do {
             if ($tokens[$index]->equalsAny(['(', '{'])) {
@@ -107,6 +108,7 @@ final class SwitchCaseSemicolonToColonFixer extends \PhpCsFixer\AbstractFixer
      */
     protected function fixSwitchDefault(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
+        $index = (int) $index;
         do {
             if ($tokens[$index]->equalsAny([':', ';', [\T_DOUBLE_ARROW]])) {
                 break;
