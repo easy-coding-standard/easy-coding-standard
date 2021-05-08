@@ -12,8 +12,8 @@ if (!class_exists('AutoloadIncluder', false) && !interface_exists('AutoloadInclu
 if (!class_exists('Composer\InstalledVersions', false) && !interface_exists('Composer\InstalledVersions', false) && !trait_exists('Composer\InstalledVersions', false)) {
     spl_autoload_call('ECSPrefix20210508\Composer\InstalledVersions');
 }
-if (!class_exists('ComposerAutoloaderInit98fc15111497d7618b931ce15bf44660', false) && !interface_exists('ComposerAutoloaderInit98fc15111497d7618b931ce15bf44660', false) && !trait_exists('ComposerAutoloaderInit98fc15111497d7618b931ce15bf44660', false)) {
-    spl_autoload_call('ECSPrefix20210508\ComposerAutoloaderInit98fc15111497d7618b931ce15bf44660');
+if (!class_exists('ComposerAutoloaderInitfd337b33be69ddd725a4de0dbce00e6e', false) && !interface_exists('ComposerAutoloaderInitfd337b33be69ddd725a4de0dbce00e6e', false) && !trait_exists('ComposerAutoloaderInitfd337b33be69ddd725a4de0dbce00e6e', false)) {
+    spl_autoload_call('ECSPrefix20210508\ComposerAutoloaderInitfd337b33be69ddd725a4de0dbce00e6e');
 }
 if (!class_exists('Symfony\Component\DependencyInjection\Extension\ExtensionInterface', false) && !interface_exists('Symfony\Component\DependencyInjection\Extension\ExtensionInterface', false) && !trait_exists('Symfony\Component\DependencyInjection\Extension\ExtensionInterface', false)) {
     spl_autoload_call('ECSPrefix20210508\Symfony\Component\DependencyInjection\Extension\ExtensionInterface');
@@ -21,12 +21,30 @@ if (!class_exists('Symfony\Component\DependencyInjection\Extension\ExtensionInte
 if (!class_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !interface_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false) && !trait_exists('Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator', false)) {
     spl_autoload_call('ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator');
 }
+if (!class_exists('Normalizer', false) && !interface_exists('Normalizer', false) && !trait_exists('Normalizer', false)) {
+    spl_autoload_call('ECSPrefix20210508\Normalizer');
+}
+if (!class_exists('JsonException', false) && !interface_exists('JsonException', false) && !trait_exists('JsonException', false)) {
+    spl_autoload_call('ECSPrefix20210508\JsonException');
+}
+if (!class_exists('Attribute', false) && !interface_exists('Attribute', false) && !trait_exists('Attribute', false)) {
+    spl_autoload_call('ECSPrefix20210508\Attribute');
+}
+if (!class_exists('Stringable', false) && !interface_exists('Stringable', false) && !trait_exists('Stringable', false)) {
+    spl_autoload_call('ECSPrefix20210508\Stringable');
+}
+if (!class_exists('UnhandledMatchError', false) && !interface_exists('UnhandledMatchError', false) && !trait_exists('UnhandledMatchError', false)) {
+    spl_autoload_call('ECSPrefix20210508\UnhandledMatchError');
+}
+if (!class_exists('ValueError', false) && !interface_exists('ValueError', false) && !trait_exists('ValueError', false)) {
+    spl_autoload_call('ECSPrefix20210508\ValueError');
+}
 
 // Functions whitelisting. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/README.md#functions-whitelisting
-if (!function_exists('composerRequire98fc15111497d7618b931ce15bf44660')) {
-    function composerRequire98fc15111497d7618b931ce15bf44660() {
-        return \ECSPrefix20210508\composerRequire98fc15111497d7618b931ce15bf44660(...func_get_args());
+if (!function_exists('composerRequirefd337b33be69ddd725a4de0dbce00e6e')) {
+    function composerRequirefd337b33be69ddd725a4de0dbce00e6e() {
+        return \ECSPrefix20210508\composerRequirefd337b33be69ddd725a4de0dbce00e6e(...func_get_args());
     }
 }
 if (!function_exists('sample')) {

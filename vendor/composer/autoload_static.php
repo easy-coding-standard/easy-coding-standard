@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit98fc15111497d7618b931ce15bf44660
+class ComposerStaticInitfd337b33be69ddd725a4de0dbce00e6e
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -290,8 +290,8 @@ class ComposerStaticInit98fc15111497d7618b931ce15bf44660
     );
 
     public static $classMap = array (
-        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'ECSPrefix20210508\\Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'ECSPrefix20210508\\Composer\\Semver\\Comparator' => __DIR__ . '/..' . '/composer/semver/src/Comparator.php',
         'ECSPrefix20210508\\Composer\\Semver\\CompilingMatcher' => __DIR__ . '/..' . '/composer/semver/src/CompilingMatcher.php',
         'ECSPrefix20210508\\Composer\\Semver\\Constraint\\Bound' => __DIR__ . '/..' . '/composer/semver/src/Constraint/Bound.php',
@@ -336,6 +336,7 @@ class ComposerStaticInit98fc15111497d7618b931ce15bf44660
         'ECSPrefix20210508\\Jean85\\Exception\\VersionMissingExceptionInterface' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Exception/VersionMissingExceptionInterface.php',
         'ECSPrefix20210508\\Jean85\\PrettyVersions' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/PrettyVersions.php',
         'ECSPrefix20210508\\Jean85\\Version' => __DIR__ . '/..' . '/jean85/pretty-package-versions/src/Version.php',
+        'ECSPrefix20210508\\JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'ECSPrefix20210508\\Nette\\ArgumentOutOfRangeException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20210508\\Nette\\DeprecatedException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'ECSPrefix20210508\\Nette\\DirectoryNotFoundException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -384,6 +385,7 @@ class ComposerStaticInit98fc15111497d7618b931ce15bf44660
         'ECSPrefix20210508\\Nette\\Utils\\Strings' => __DIR__ . '/..' . '/nette/utils/src/Utils/Strings.php',
         'ECSPrefix20210508\\Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'ECSPrefix20210508\\Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
+        'ECSPrefix20210508\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'ECSPrefix20210508\\PackageVersions\\FallbackVersions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/FallbackVersions.php',
         'ECSPrefix20210508\\PackageVersions\\Installer' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Installer.php',
         'ECSPrefix20210508\\PackageVersions\\Versions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Versions.php',
@@ -427,6 +429,7 @@ class ComposerStaticInit98fc15111497d7618b931ce15bf44660
         'ECSPrefix20210508\\SebastianBergmann\\Diff\\Output\\UnifiedDiffOutputBuilder' => __DIR__ . '/..' . '/sebastian/diff/src/Output/UnifiedDiffOutputBuilder.php',
         'ECSPrefix20210508\\SebastianBergmann\\Diff\\Parser' => __DIR__ . '/..' . '/sebastian/diff/src/Parser.php',
         'ECSPrefix20210508\\SebastianBergmann\\Diff\\TimeEfficientLongestCommonSubsequenceCalculator' => __DIR__ . '/..' . '/sebastian/diff/src/TimeEfficientLongestCommonSubsequenceCalculator.php',
+        'ECSPrefix20210508\\Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'ECSPrefix20210508\\Symfony\\Component\\Cache\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractAdapter.php',
         'ECSPrefix20210508\\Symfony\\Component\\Cache\\Adapter\\AbstractTagAwareAdapter' => __DIR__ . '/..' . '/symfony/cache/Adapter/AbstractTagAwareAdapter.php',
         'ECSPrefix20210508\\Symfony\\Component\\Cache\\Adapter\\AdapterInterface' => __DIR__ . '/..' . '/symfony/cache/Adapter/AdapterInterface.php',
@@ -1235,8 +1238,14 @@ class ComposerStaticInit98fc15111497d7618b931ce15bf44660
         'ECSPrefix20210508\\Symfony\\Contracts\\Service\\ServiceSubscriberInterface' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberInterface.php',
         'ECSPrefix20210508\\Symfony\\Contracts\\Service\\ServiceSubscriberTrait' => __DIR__ . '/..' . '/symfony/service-contracts/ServiceSubscriberTrait.php',
         'ECSPrefix20210508\\Symfony\\Contracts\\Service\\Test\\ServiceLocatorTest' => __DIR__ . '/..' . '/symfony/service-contracts/Test/ServiceLocatorTest.php',
-        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
-        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'ECSPrefix20210508\\Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
+        'ECSPrefix20210508\\Symfony\\Polyfill\\Intl\\Grapheme\\Grapheme' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/Grapheme.php',
+        'ECSPrefix20210508\\Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
+        'ECSPrefix20210508\\Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
+        'ECSPrefix20210508\\Symfony\\Polyfill\\Php73\\Php73' => __DIR__ . '/..' . '/symfony/polyfill-php73/Php73.php',
+        'ECSPrefix20210508\\Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
+        'ECSPrefix20210508\\UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ECSPrefix20210508\\ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'PhpCsFixer\\AbstractDoctrineAnnotationFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractDoctrineAnnotationFixer.php',
         'PhpCsFixer\\AbstractFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFixer.php',
         'PhpCsFixer\\AbstractFopenFlagFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/AbstractFopenFlagFixer.php',
@@ -1703,7 +1712,6 @@ class ComposerStaticInit98fc15111497d7618b931ce15bf44660
         'PhpCsFixer\\Utils' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Utils.php',
         'PhpCsFixer\\WhitespacesFixerConfig' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/WhitespacesFixerConfig.php',
         'PhpCsFixer\\WordMatcher' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/WordMatcher.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symplify\\AutowireArrayParameter\\DependencyInjection\\CompilerPass\\AutowireArrayParameterCompilerPass' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DependencyInjection/CompilerPass/AutowireArrayParameterCompilerPass.php',
         'Symplify\\AutowireArrayParameter\\DocBlock\\ParamTypeDocBlockResolver' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/DocBlock/ParamTypeDocBlockResolver.php',
         'Symplify\\AutowireArrayParameter\\Skipper\\ParameterSkipper' => __DIR__ . '/..' . '/symplify/autowire-array-parameter/src/Skipper/ParameterSkipper.php',
@@ -1995,16 +2003,14 @@ class ComposerStaticInit98fc15111497d7618b931ce15bf44660
         'Symplify\\SymplifyKernel\\Strings\\KernelUniqueHasher' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/KernelUniqueHasher.php',
         'Symplify\\SymplifyKernel\\Strings\\StringsConverter' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/Strings/StringsConverter.php',
         'Symplify\\SymplifyKernel\\ValueObject\\KernelBootAndApplicationRun' => __DIR__ . '/..' . '/symplify/symplify-kernel/src/ValueObject/KernelBootAndApplicationRun.php',
-        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
-        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit98fc15111497d7618b931ce15bf44660::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit98fc15111497d7618b931ce15bf44660::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit98fc15111497d7618b931ce15bf44660::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitfd337b33be69ddd725a4de0dbce00e6e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitfd337b33be69ddd725a4de0dbce00e6e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitfd337b33be69ddd725a4de0dbce00e6e::$classMap;
 
         }, null, ClassLoader::class);
     }
