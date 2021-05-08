@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -74,12 +74,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
      * @var FunctionCallNameMatcher
      */
     private $functionCallNameMatcher;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer $lineLengthTransformer
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder
-     * @param \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher $functionCallNameMatcher
-     */
-    public function __construct($lineLengthTransformer, $blockFinder, $functionCallNameMatcher)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer $lineLengthTransformer, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher $functionCallNameMatcher)
     {
         $this->lineLengthTransformer = $lineLengthTransformer;
         $this->blockFinder = $blockFinder;
@@ -96,7 +91,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([
             // "["
@@ -116,9 +111,8 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $file
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -200,7 +194,7 @@ CODE_SAMPLE
      * @return void
      * @param int $position
      */
-    private function processMethodCall($tokens, $position)
+    private function processMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $methodNamePosition = $this->functionCallNameMatcher->matchName($tokens, $position);
         if ($methodNamePosition === null) {
@@ -222,7 +216,7 @@ CODE_SAMPLE
      * @return void
      * @param int $position
      */
-    private function processFunctionOrArray($tokens, $position)
+    private function processFunctionOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
@@ -235,10 +229,9 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      * @return bool
      */
-    private function shouldSkip($tokens, $blockInfo)
+    private function shouldSkip(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         // no items inside => skip
         if ($blockInfo->getEnd() - $blockInfo->getStart() <= 1) {
@@ -257,16 +250,15 @@ CODE_SAMPLE
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      * @return bool
      */
-    private function isHerenowDoc($tokens, $blockInfo)
+    private function isHerenowDoc(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         // heredoc/nowdoc => skip
         $nextToken = $this->getNextMeaningfulToken($tokens, $blockInfo->getStart());
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return \false;
         }
-        return \ECSPrefix20210507\Nette\Utils\Strings::contains($nextToken->getContent(), '<<<');
+        return \ECSPrefix20210508\Nette\Utils\Strings::contains($nextToken->getContent(), '<<<');
     }
 }

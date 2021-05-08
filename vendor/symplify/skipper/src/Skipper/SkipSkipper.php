@@ -13,20 +13,16 @@ final class SkipSkipper
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    /**
-     * @param \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher
-     */
-    public function __construct($fileInfoMatcher)
+    public function __construct(\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
     /**
      * @param object|string $checker
      * @param array<string, string[]|null> $skippedClasses
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function doesMatchSkip($checker, $smartFileInfo, array $skippedClasses)
+    public function doesMatchSkip($checker, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $skippedClasses)
     {
         foreach ($skippedClasses as $skippedClass => $skippedFiles) {
             if (!\is_a($checker, $skippedClass, \true)) {

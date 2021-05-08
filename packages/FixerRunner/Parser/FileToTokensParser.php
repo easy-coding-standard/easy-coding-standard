@@ -10,10 +10,7 @@ final class FileToTokensParser
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
-     */
-    public function __construct($smartFileSystem)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->smartFileSystem = $smartFileSystem;
     }

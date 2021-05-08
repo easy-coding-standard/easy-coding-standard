@@ -36,20 +36,17 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_USE);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $useWithSameNamespaces = $this->getSameNamespaces($tokens);
         if ([] === $useWithSameNamespaces) {
@@ -62,9 +59,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
      * Gets namespace use analyzers with same namespaces.
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function getSameNamespaces($tokens)
+    private function getSameNamespaces(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $useDeclarations = (new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens);
         if (0 === \count($useDeclarations)) {
@@ -91,9 +87,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param NamespaceUseAnalysis[] $statements
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function removeSingleUseStatements(array $statements, $tokens)
+    private function removeSingleUseStatements(array $statements, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($statements as $useDeclaration) {
             $index = $useDeclaration->getStartIndex();
@@ -117,9 +112,8 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param NamespaceUseAnalysis[] $statements
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function addGroupUseStatements(array $statements, $tokens)
+    private function addGroupUseStatements(array $statements, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $currentUseDeclaration = null;
         $insertIndex = \array_slice($statements, -1)[0]->getEndIndex() + 1;
@@ -147,10 +141,9 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration
      * @return string
      */
-    private function getNamespaceNameWithSlash($useDeclaration)
+    private function getNamespaceNameWithSlash(\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration)
     {
         $position = \strrpos($useDeclaration->getFullName(), '\\');
         if (\false === $position || 0 === $position) {
@@ -160,12 +153,10 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Insert use with alias to the group.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $insertIndex
-     * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration
      * @return int
      */
-    private function insertToGroupUseWithAlias($tokens, $insertIndex, $useDeclaration)
+    private function insertToGroupUseWithAlias(\PhpCsFixer\Tokenizer\Tokens $tokens, $insertIndex, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration)
     {
         $newTokens = [new \PhpCsFixer\Tokenizer\Token([\T_STRING, \substr($useDeclaration->getFullName(), \strripos($useDeclaration->getFullName(), '\\') + 1)]), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_AS, 'as']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
         $tokens->insertAt($insertIndex, $newTokens);
@@ -173,13 +164,11 @@ final class GroupImportFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Creates new use statement group.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $insertIndex
-     * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration
      * @param string $currentNamespace
      * @return int
      */
-    private function createNewGroup($tokens, $insertIndex, $useDeclaration, $currentNamespace)
+    private function createNewGroup(\PhpCsFixer\Tokenizer\Tokens $tokens, $insertIndex, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $useDeclaration, $currentNamespace)
     {
         $insertedTokens = 0;
         if (\count($tokens) === $insertIndex) {

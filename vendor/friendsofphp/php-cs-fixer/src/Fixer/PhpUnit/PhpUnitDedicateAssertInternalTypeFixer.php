@@ -86,11 +86,10 @@ final class MyTest extends \\PHPUnit\\Framework\\TestCase
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         $anonymousClassIndexes = [];
         $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);

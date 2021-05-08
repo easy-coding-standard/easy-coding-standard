@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\DocBlock;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use Symplify\CodingStandard\Tokens\CommentedLineTrimmer;
 /**
  * Heavily inspired by
@@ -20,10 +20,7 @@ final class Decommenter
      * @var CommentedLineTrimmer
      */
     private $commentedLineTrimmer;
-    /**
-     * @param \Symplify\CodingStandard\Tokens\CommentedLineTrimmer $commentedLineTrimmer
-     */
-    public function __construct($commentedLineTrimmer)
+    public function __construct(\Symplify\CodingStandard\Tokens\CommentedLineTrimmer $commentedLineTrimmer)
     {
         $this->commentedLineTrimmer = $commentedLineTrimmer;
     }
@@ -48,6 +45,6 @@ final class Decommenter
      */
     private function clearContent($content)
     {
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
     }
 }

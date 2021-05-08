@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
@@ -19,13 +19,13 @@ final class InlineVarMalformWorker implements \Symplify\CodingStandard\TokenRunn
      * @param int $position
      * @return string
      */
-    public function work($docContent, $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         /** @var Token $token */
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {
             return $docContent;
         }
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
     }
 }

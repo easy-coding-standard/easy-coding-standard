@@ -26,10 +26,9 @@ final class PhpdocNoEmptyReturnFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -65,10 +64,8 @@ function foo() {}
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -96,10 +93,8 @@ function foo() {}
     /**
      * Remove return void or return null annotations..
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
-     * @param \PhpCsFixer\DocBlock\Annotation $annotation
      */
-    private function fixAnnotation($doc, $annotation)
+    private function fixAnnotation(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $annotation)
     {
         $types = $annotation->getNormalizedTypes();
         if (1 === \count($types) && ('null' === $types[0] || 'void' === $types[0])) {

@@ -170,7 +170,7 @@ class HTML extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    public function processSniff($doc)
+    public function processSniff(\DOMNode $doc)
     {
         $title = $this->getTitle($doc);
         echo '  <a name="' . \str_replace(' ', '-', $title) . '" />' . \PHP_EOL;
@@ -193,7 +193,7 @@ class HTML extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function printTextBlock($node)
+    protected function printTextBlock(\DOMNode $node)
     {
         $content = \trim($node->nodeValue);
         $content = \htmlspecialchars($content);
@@ -210,7 +210,7 @@ class HTML extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function printCodeComparisonBlock($node)
+    protected function printCodeComparisonBlock(\DOMNode $node)
     {
         $codeBlocks = $node->getElementsByTagName('code');
         $firstTitle = $codeBlocks->item(0)->getAttribute('title');

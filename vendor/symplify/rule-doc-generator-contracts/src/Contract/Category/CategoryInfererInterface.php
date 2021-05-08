@@ -7,7 +7,6 @@ interface CategoryInfererInterface
 {
     /**
      * @return string|null
-     * @param \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition
      */
-    public function infer($ruleDefinition);
+    public function infer(\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
 }

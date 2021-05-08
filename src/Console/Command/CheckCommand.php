@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
@@ -11,10 +11,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
      * @var ProcessedFileReporter
      */
     private $processedFileReporter;
-    /**
-     * @param \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter
-     */
-    public function __construct($processedFileReporter)
+    public function __construct(\Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter)
     {
         $this->processedFileReporter = $processedFileReporter;
         parent::__construct();
@@ -28,11 +25,9 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
         parent::configure();
     }
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
-    protected function execute($input, $output)
+    protected function execute(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->configuration->resolveFromInput($input);
         // CLI paths override parameter paths

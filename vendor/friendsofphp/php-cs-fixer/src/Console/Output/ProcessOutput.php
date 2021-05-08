@@ -12,8 +12,8 @@
 namespace PhpCsFixer\Console\Output;
 
 use PhpCsFixer\FixerFileProcessedEvent;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Output writer to show the process of a FixCommand.
  *
@@ -48,12 +48,10 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
      */
     private $symbolsPerLine;
     /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
      * @param int $width
      * @param int $nbFiles
      */
-    public function __construct($output, $dispatcher, $width, $nbFiles)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210508\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher, $width, $nbFiles)
     {
         $this->output = $output;
         $this->eventDispatcher = $dispatcher;
@@ -90,9 +88,8 @@ final class ProcessOutput implements \PhpCsFixer\Console\Output\ProcessOutputInt
     }
     /**
      * @return void
-     * @param \PhpCsFixer\FixerFileProcessedEvent $event
      */
-    public function onFixerFileProcessed($event)
+    public function onFixerFileProcessed(\PhpCsFixer\FixerFileProcessedEvent $event)
     {
         $status = self::$eventStatusMap[$event->getStatus()];
         $this->output->write($this->output->isDecorated() ? \sprintf($status['format'], $status['symbol']) : $status['symbol']);

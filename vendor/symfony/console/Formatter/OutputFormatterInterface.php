@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20210508\Symfony\Component\Console\Formatter;
 
 /**
  * Formatter interface for console output.
@@ -31,9 +31,8 @@ interface OutputFormatterInterface
     /**
      * Sets a new style.
      * @param string $name
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
-    public function setStyle($name, $style);
+    public function setStyle($name, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style);
     /**
      * Checks if output formatter has style with specified name.
      *

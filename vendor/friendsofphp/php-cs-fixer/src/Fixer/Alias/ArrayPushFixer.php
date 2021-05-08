@@ -35,10 +35,9 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_STRING) && $tokens->count() > 7;
     }
@@ -52,10 +51,8 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $tokens->count() - 7; $index > 0; --$index) {
@@ -118,11 +115,10 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return int
      */
-    private function getFirstArgumentEnd($tokens, $index)
+    private function getFirstArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $nextIndex = $tokens->getNextMeaningfulToken($index);
         $nextToken = $tokens[$nextIndex];
@@ -146,10 +142,9 @@ final class ArrayPushFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int $endIndex boundary, i.e. tokens index of `)`
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function getSecondArgumentEnd($tokens, $index, $endIndex)
+    private function getSecondArgumentEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
     {
         if ($tokens[$index]->isGivenKind(\T_ELLIPSIS)) {
             return null;

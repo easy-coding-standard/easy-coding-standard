@@ -46,10 +46,9 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -63,10 +62,8 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
@@ -90,10 +87,9 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function processCall($tokens, $index, array $arguments)
+    private function processCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $arguments)
     {
         $firstArgIndex = $tokens->getNextMeaningfulToken($tokens->getNextMeaningfulToken($index));
         /** @var Token $firstArgToken */
@@ -158,13 +154,11 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $callIndex
-     * @param \PhpCsFixer\Tokenizer\Tokens $newCallTokens
      * @param int $firstArgStartIndex
      * @param int $firstArgEndIndex
      */
-    private function replaceCallUserFuncWithCallback($tokens, $callIndex, $newCallTokens, $firstArgStartIndex, $firstArgEndIndex)
+    private function replaceCallUserFuncWithCallback(\PhpCsFixer\Tokenizer\Tokens $tokens, $callIndex, \PhpCsFixer\Tokenizer\Tokens $newCallTokens, $firstArgStartIndex, $firstArgEndIndex)
     {
         $tokens->clearRange($firstArgStartIndex, $firstArgEndIndex);
         $afterFirstArgIndex = $tokens->getNextMeaningfulToken($firstArgEndIndex);
@@ -185,12 +179,11 @@ call_user_func(static function ($a, $b) { var_dump($a, $b); }, 1, 2);
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $indexStart
      * @param int $indexEnd
      * @return \PhpCsFixer\Tokenizer\Tokens
      */
-    private function getTokensSubcollection($tokens, $indexStart, $indexEnd)
+    private function getTokensSubcollection(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
     {
         $size = $indexEnd - $indexStart + 1;
         $subcollection = new \PhpCsFixer\Tokenizer\Tokens($size);

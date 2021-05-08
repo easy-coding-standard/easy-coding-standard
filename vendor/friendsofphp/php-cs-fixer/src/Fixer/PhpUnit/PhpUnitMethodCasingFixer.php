@@ -78,11 +78,10 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         for ($index = $endIndex - 1; $index > $startIndex; --$index) {
             if (!$this->isTestMethod($tokens, $index)) {
@@ -120,11 +119,10 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
         return \implode('::', $parts);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isTestMethod($tokens, $index)
+    private function isTestMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         // Check if we are dealing with a (non abstract, non lambda) function
         if (!$this->isMethod($tokens, $index)) {
@@ -140,11 +138,10 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
         return $this->isPHPDoc($tokens, $docBlockIndex) && \false !== \strpos($tokens[$docBlockIndex]->getContent(), '@test');
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isMethod($tokens, $index)
+    private function isMethod(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         return $tokens[$index]->isGivenKind(\T_FUNCTION) && !$tokensAnalyzer->isLambda($index);
@@ -160,10 +157,9 @@ class MyTest extends \\PhpUnit\\FrameWork\\TestCase
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docBlockIndex
      */
-    private function updateDocBlock($tokens, $docBlockIndex)
+    private function updateDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         $lines = $doc->getLines();

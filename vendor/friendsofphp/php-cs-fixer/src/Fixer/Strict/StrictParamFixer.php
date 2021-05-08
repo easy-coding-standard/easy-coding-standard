@@ -33,10 +33,9 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -61,10 +60,8 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         static $map = null;
         if (null === $map) {
@@ -85,10 +82,9 @@ final class StrictParamFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $functionIndex
      */
-    private function fixFunction($tokens, $functionIndex, array $functionParams)
+    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, array $functionParams)
     {
         $startBraceIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
         $endBraceIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startBraceIndex);

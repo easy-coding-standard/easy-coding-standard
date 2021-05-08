@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Controller;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
 /**
  * An ArgumentResolverInterface instance knows how to determine the
  * arguments for a specific action.
@@ -25,7 +25,6 @@ interface ArgumentResolverInterface
      * @return array An array of arguments to pass to the controller
      *
      * @throws \RuntimeException When no value could be provided for a required argument
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getArguments($request, callable $controller);
+    public function getArguments(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, callable $controller);
 }

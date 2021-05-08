@@ -155,7 +155,7 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @see    register()
      */
-    public final function process($phpcsFile, $stackPtr)
+    public final function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $file = $phpcsFile->getFilename();
         if ($this->currFile !== $file) {
@@ -215,7 +215,7 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return array
      */
-    protected function processPattern($patternInfo, $phpcsFile, $stackPtr)
+    protected function processPattern($patternInfo, \PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $pattern = $patternInfo['pattern'];
@@ -599,7 +599,7 @@ abstract class AbstractPatternSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @see    registerSupplementary()
      */
-    protected function processSupplementary($phpcsFile, $stackPtr)
+    protected function processSupplementary(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
     }
     //end processSupplementary()

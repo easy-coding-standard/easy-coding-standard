@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\Annotation;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
@@ -20,10 +20,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      * @var DocblockRelatedParamNamesResolver
      */
     private $docblockRelatedParamNamesResolver;
-    /**
-     * @param \Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver $docblockRelatedParamNamesResolver
-     */
-    public function __construct($docblockRelatedParamNamesResolver)
+    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver $docblockRelatedParamNamesResolver)
     {
         $this->docblockRelatedParamNamesResolver = $docblockRelatedParamNamesResolver;
     }
@@ -33,7 +30,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
      * @param int $position
      * @return string
      */
-    public function work($docContent, $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $argumentNames = $this->docblockRelatedParamNamesResolver->resolve($tokens, $position);
         if ($argumentNames === []) {
@@ -66,7 +63,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
         $paramAnnotations = $this->getAnnotationsOfType($docContent, 'param');
         $paramNames = [];
         foreach ($paramAnnotations as $paramAnnotation) {
-            $match = \ECSPrefix20210507\Nette\Utils\Strings::match($paramAnnotation->getContent(), self::PARAM_NAME_REGEX);
+            $match = \ECSPrefix20210508\Nette\Utils\Strings::match($paramAnnotation->getContent(), self::PARAM_NAME_REGEX);
             if (isset($match['paramName'])) {
                 $paramNames[] = $match['paramName'];
             }
@@ -98,7 +95,7 @@ final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\Token
             }
             $typoName = $paramNames[$key];
             $replacePattern = '#@param(.*?)' . \preg_quote($typoName, '#') . '#';
-            $docContent = \ECSPrefix20210507\Nette\Utils\Strings::replace($docContent, $replacePattern, '@param$1' . $argumentName);
+            $docContent = \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, $replacePattern, '@param$1' . $argumentName);
         }
         return $docContent;
     }

@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
@@ -19,9 +19,9 @@ final class ParamNameReferenceMalformWorker implements \Symplify\CodingStandard\
      * @param int $position
      * @return string
      */
-    public function work($docContent, $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($docContent, self::PARAM_NAME_REGEX, function ($match) : string {
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, self::PARAM_NAME_REGEX, function ($match) : string {
             return $match['param'] . $match['paramName'];
         });
     }

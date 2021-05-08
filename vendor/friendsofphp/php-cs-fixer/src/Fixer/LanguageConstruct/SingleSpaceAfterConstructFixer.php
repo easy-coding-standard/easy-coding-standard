@@ -93,20 +93,17 @@ yield  from  baz();
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound(\array_values($this->fixTokenMap)) && !$tokens->hasAlternativeSyntax();
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokenKinds = \array_values($this->fixTokenMap);
         for ($index = $tokens->count() - 2; $index >= 0; --$index) {
@@ -159,11 +156,10 @@ yield  from  baz();
         return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('constructs', 'List of constructs which must be followed by a single space.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(self::$tokenMap))])->setDefault(\array_keys(self::$tokenMap))->getOption()]);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isMultiLineReturn($tokens, $index)
+    private function isMultiLineReturn(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         ++$index;
         $tokenFollowingReturn = $tokens[$index];
@@ -186,11 +182,10 @@ yield  from  baz();
         return \false;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isMultilineExtendsOrImplementsWithMoreThanOneAncestor($tokens, $index)
+    private function isMultilineExtendsOrImplementsWithMoreThanOneAncestor(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $hasMoreThanOneAncestor = \false;
         while (++$index) {

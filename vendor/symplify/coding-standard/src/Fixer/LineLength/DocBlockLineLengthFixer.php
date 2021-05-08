@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -52,10 +52,7 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
      * @var DocBlockLinesFactory
      */
     private $docBlockLinesFactory;
-    /**
-     * @param \Symplify\CodingStandard\ValueObjectFactory\DocBlockLinesFactory $docBlockLinesFactory
-     */
-    public function __construct($docBlockLinesFactory)
+    public function __construct(\Symplify\CodingStandard\ValueObjectFactory\DocBlockLinesFactory $docBlockLinesFactory)
     {
         $this->docBlockLinesFactory = $docBlockLinesFactory;
     }
@@ -70,16 +67,15 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $file
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -160,7 +156,7 @@ CODE_SAMPLE
      */
     private function resolveIndentationStringFor($docBlock)
     {
-        $matches = \ECSPrefix20210507\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
+        $matches = \ECSPrefix20210508\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
         return isset($matches[self::INDENTATION_PART]) ? $matches[self::INDENTATION_PART] : '';
     }
     /**

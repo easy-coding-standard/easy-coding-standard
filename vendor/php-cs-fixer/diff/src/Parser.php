@@ -52,10 +52,7 @@ final class Parser
         }
         return $diffs;
     }
-    /**
-     * @param \PhpCsFixer\Diff\Diff $diff
-     */
-    private function parseFileDiff($diff, array $lines)
+    private function parseFileDiff(\PhpCsFixer\Diff\Diff $diff, array $lines)
     {
         $chunks = [];
         $chunk = null;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Psr\EventDispatcher;
+namespace ECSPrefix20210508\Psr\EventDispatcher;
 
 /**
  * An Event whose processing may be interrupted when the event has been handled.

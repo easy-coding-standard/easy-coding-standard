@@ -49,20 +49,17 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_RETURN, \T_VARIABLE]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokenCount = \count($tokens);
         $this->tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
@@ -92,9 +89,8 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
      * @param int $functionCloseIndex token index of the closing brace token of the function
      *
      * @return int >= 0 number of tokens inserted into the Tokens collection
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixFunction($tokens, $functionIndex, $functionOpenIndex, $functionCloseIndex)
+    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, $functionOpenIndex, $functionCloseIndex)
     {
         static $riskyKinds = [
             \PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN,
@@ -224,13 +220,12 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return int >= 0 number of tokens inserted into the Tokens collection
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $assignVarIndex
      * @param int $assignVarOperatorIndex
      * @param int $returnIndex
      * @param int $returnVarEndIndex
      */
-    private function simplifyReturnStatement($tokens, $assignVarIndex, $assignVarOperatorIndex, $returnIndex, $returnVarEndIndex)
+    private function simplifyReturnStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $assignVarIndex, $assignVarOperatorIndex, $returnIndex, $returnVarEndIndex)
     {
         $inserted = 0;
         $originalIndent = $tokens[$assignVarIndex - 1]->isWhitespace() ? $tokens[$assignVarIndex - 1]->getContent() : null;
@@ -270,10 +265,9 @@ final class ReturnAssignmentFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function clearIfSave($tokens, $index)
+    private function clearIfSave(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if ($tokens[$index]->isComment()) {
             return;

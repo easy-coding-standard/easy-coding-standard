@@ -219,10 +219,9 @@ final class DocBlock
         return $index - $start;
     }
     /**
-     * @param \PhpCsFixer\DocBlock\Line $line
      * @return string
      */
-    private function getSingleLineDocBlockEntry($line)
+    private function getSingleLineDocBlockEntry(\PhpCsFixer\DocBlock\Line $line)
     {
         $lineString = $line->getContent();
         if (0 === \strlen($lineString)) {

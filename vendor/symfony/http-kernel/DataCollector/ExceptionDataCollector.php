@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\DataCollector;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\FlattenException;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
 /**
  * ExceptionDataCollector.
  *
@@ -20,18 +20,16 @@ use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
  *
  * @final
  */
-class ExceptionDataCollector extends \ECSPrefix20210507\Symfony\Component\HttpKernel\DataCollector\DataCollector
+class ExceptionDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel\DataCollector\DataCollector
 {
     /**
      * {@inheritdoc}
      * @param \Throwable|null $exception
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function collect($request, $response, $exception = null)
+    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         if (null !== $exception) {
-            $this->data = ['exception' => \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)];
+            $this->data = ['exception' => \ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)];
         }
     }
     /**

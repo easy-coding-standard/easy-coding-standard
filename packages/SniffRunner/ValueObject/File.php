@@ -69,13 +69,8 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @param string $path
      * @param string $content
-     * @param \PHP_CodeSniffer\Fixer $fixer
-     * @param \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector
-     * @param \Symplify\Skipper\Skipper\Skipper $skipper
-     * @param \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector
-     * @param \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle
      */
-    public function __construct($path, $content, $fixer, $errorAndDiffCollector, $skipper, $appliedCheckersCollector, $easyCodingStandardStyle)
+    public function __construct($path, $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->path = $path;
         $this->content = $content;
@@ -169,9 +164,8 @@ final class File extends \PHP_CodeSniffer\Files\File
     /**
      * @param Sniff[][] $tokenListeners
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      */
-    public function processWithTokenListenersAndFileInfo(array $tokenListeners, $fileInfo)
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;
@@ -202,9 +196,8 @@ final class File extends \PHP_CodeSniffer\Files\File
     }
     /**
      * @return void
-     * @param \PHP_CodeSniffer\Sniffs\Sniff $sniff
      */
-    private function reportActiveSniffClass($sniff)
+    private function reportActiveSniffClass(\PHP_CodeSniffer\Sniffs\Sniff $sniff)
     {
         // used in other places later
         $this->activeSniffClass = \get_class($sniff);

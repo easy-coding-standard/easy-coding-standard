@@ -50,10 +50,9 @@ class Foo
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_CLASS);
     }
@@ -68,10 +67,8 @@ class Foo
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $classes = \array_keys($tokens->findGivenKind(\T_CLASS));
@@ -125,7 +122,7 @@ class Foo
      * @param int    $classEnd   the class end index
      * @return void
      */
-    private function fixConstructor($tokens, $className, $classStart, $classEnd)
+    private function fixConstructor(\PhpCsFixer\Tokenizer\Tokens $tokens, $className, $classStart, $classEnd)
     {
         $php4 = $this->findFunction($tokens, $className, $classStart, $classEnd);
         if (null === $php4) {
@@ -177,7 +174,7 @@ class Foo
      * @param int    $classEnd   the class end index
      * @return void
      */
-    private function fixParent($tokens, $classStart, $classEnd)
+    private function fixParent(\PhpCsFixer\Tokenizer\Tokens $tokens, $classStart, $classEnd)
     {
         // check calls to the parent constructor
         foreach ($tokens->findGivenKind(\T_EXTENDS) as $index => $token) {
@@ -218,7 +215,7 @@ class Foo
      * @param int    $end    the PHP4 constructor body end
      * @return void
      */
-    private function fixInfiniteRecursion($tokens, $start, $end)
+    private function fixInfiniteRecursion(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
             $seq = [[\T_VARIABLE, '$this'], [$objectOperatorKind], [\T_STRING, '__construct']];
@@ -244,7 +241,7 @@ class Foo
      *
      * @return array an array containing the sequence and case sensitiveness [ 0 => $seq, 1 => $case ]
      */
-    private function getWrapperMethodSequence($tokens, $method, $startIndex, $bodyIndex)
+    private function getWrapperMethodSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $method, $startIndex, $bodyIndex)
     {
         $sequences = [];
         foreach (\PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds() as $objectOperatorKind) {
@@ -291,7 +288,7 @@ class Foo
      *     - modifiers (array): The modifiers as array keys and their index as
      *       the values, e.g. array(T_PUBLIC => 10)
      */
-    private function findFunction($tokens, $name, $startIndex, $endIndex)
+    private function findFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $name, $startIndex, $endIndex)
     {
         $function = $tokens->findSequence([[\T_FUNCTION], [\T_STRING, $name], '('], $startIndex, $endIndex, \false);
         if (null === $function) {

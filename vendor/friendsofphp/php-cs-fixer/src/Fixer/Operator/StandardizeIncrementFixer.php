@@ -44,20 +44,17 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\T_PLUS_EQUAL, \T_MINUS_EQUAL]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
             $expressionEnd = $tokens[$index];
@@ -82,11 +79,10 @@ final class StandardizeIncrementFixer extends \PhpCsFixer\Fixer\AbstractIncremen
     /**
      * Clear tokens in the given range unless they are comments.
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $indexStart
      * @param int $indexEnd
      */
-    private function clearRangeLeaveComments($tokens, $indexStart, $indexEnd)
+    private function clearRangeLeaveComments(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
     {
         for ($i = $indexStart; $i <= $indexEnd; ++$i) {
             $token = $tokens[$i];

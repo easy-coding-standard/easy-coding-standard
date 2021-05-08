@@ -19,11 +19,7 @@ final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVote
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    /**
-     * @param \Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver
-     * @param \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher
-     */
-    public function __construct($skippedClassAndCodesResolver, $fileInfoMatcher)
+    public function __construct(\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -41,10 +37,9 @@ final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVote
     }
     /**
      * @param string $element
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function shouldSkip($element, $smartFileInfo)
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {

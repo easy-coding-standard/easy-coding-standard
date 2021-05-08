@@ -35,7 +35,7 @@ abstract class Generator
      *
      * @see generate()
      */
-    public function __construct($ruleset)
+    public function __construct(\PHP_CodeSniffer\Ruleset $ruleset)
     {
         $this->ruleset = $ruleset;
         foreach ($ruleset->sniffs as $className => $sniffClass) {
@@ -57,7 +57,7 @@ abstract class Generator
      *
      * @return string
      */
-    protected function getTitle($doc)
+    protected function getTitle(\DOMNode $doc)
     {
         return $doc->getAttribute('title');
     }
@@ -94,6 +94,6 @@ abstract class Generator
      * @return void
      * @see    generate()
      */
-    protected abstract function processSniff($doc);
+    protected abstract function processSniff(\DOMNode $doc);
 }
 //end class

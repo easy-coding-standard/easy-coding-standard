@@ -42,20 +42,17 @@ $foo->__INVOKE(1);
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_STRING) && $tokens->isAnyTokenKindsFound(\array_merge([\T_FUNCTION, \T_DOUBLE_COLON], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds()));
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $inClass = 0;
         $tokenCount = \count($tokens);
@@ -111,11 +108,10 @@ $foo->__INVOKE(1);
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isFunctionSignature($tokens, $index)
+    private function isFunctionSignature(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_FUNCTION)) {
@@ -125,11 +121,10 @@ $foo->__INVOKE(1);
         return $tokens[$tokens->getNextMeaningfulToken($index)]->equals('(');
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isMethodCall($tokens, $index)
+    private function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isObjectOperator()) {
@@ -139,11 +134,10 @@ $foo->__INVOKE(1);
         return $tokens[$tokens->getNextMeaningfulToken($index)]->equals('(');
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isStaticMethodCall($tokens, $index)
+    private function isStaticMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         if (!$tokens[$prevIndex]->isGivenKind(\T_DOUBLE_COLON)) {
@@ -170,11 +164,10 @@ $foo->__INVOKE(1);
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param string $nameInCorrectCasing
      */
-    private function setTokenToCorrectCasing($tokens, $index, $nameInCorrectCasing)
+    private function setTokenToCorrectCasing(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $nameInCorrectCasing)
     {
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_STRING, $nameInCorrectCasing]);
     }

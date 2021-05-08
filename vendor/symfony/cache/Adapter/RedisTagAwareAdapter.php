@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210507\Predis\Connection\Aggregate\ClusterInterface;
-use ECSPrefix20210507\Predis\Connection\Aggregate\PredisCluster;
-use ECSPrefix20210507\Predis\Connection\Aggregate\ReplicationInterface;
-use ECSPrefix20210507\Predis\Response\Status;
-use ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\Cache\Exception\LogicException;
-use ECSPrefix20210507\Symfony\Component\Cache\Marshaller\DeflateMarshaller;
-use ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\Marshaller\TagAwareMarshaller;
-use ECSPrefix20210507\Symfony\Component\Cache\Traits\RedisTrait;
+use ECSPrefix20210508\Predis\Connection\Aggregate\ClusterInterface;
+use ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster;
+use ECSPrefix20210508\Predis\Connection\Aggregate\ReplicationInterface;
+use ECSPrefix20210508\Predis\Response\Status;
+use ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Cache\Exception\LogicException;
+use ECSPrefix20210508\Symfony\Component\Cache\Marshaller\DeflateMarshaller;
+use ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\Marshaller\TagAwareMarshaller;
+use ECSPrefix20210508\Symfony\Component\Cache\Traits\RedisTrait;
 /**
  * Stores tag id <> cache id relationship as a Redis Set, lookup on invalidation using RENAME+SMEMBERS.
  *
@@ -43,7 +43,7 @@ use ECSPrefix20210507\Symfony\Component\Cache\Traits\RedisTrait;
  * @author Nicolas Grekas <p@tchwork.com>
  * @author André Rømcke <andre.romcke+symfony@gmail.com>
  */
-class RedisTagAwareAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AbstractTagAwareAdapter
+class RedisTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractTagAwareAdapter
 {
     use RedisTrait;
     /**
@@ -63,22 +63,21 @@ class RedisTagAwareAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Ad
      * @param \Redis|\RedisArray|\RedisCluster|\Predis\ClientInterface $redisClient     The redis client
      * @param string                                                   $namespace       The default namespace
      * @param int                                                      $defaultLifetime The default lifetime
-     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
-    public function __construct($redisClient, $namespace = '', $defaultLifetime = 0, $marshaller = null)
+    public function __construct($redisClient, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
-        if ($redisClient instanceof \ECSPrefix20210507\Predis\ClientInterface && $redisClient->getConnection() instanceof \ECSPrefix20210507\Predis\Connection\Aggregate\ClusterInterface && !$redisClient->getConnection() instanceof \ECSPrefix20210507\Predis\Connection\Aggregate\PredisCluster) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Unsupported Predis cluster connection: only "%s" is, "%s" given.', \ECSPrefix20210507\Predis\Connection\Aggregate\PredisCluster::class, \get_debug_type($redisClient->getConnection())));
+        if ($redisClient instanceof \ECSPrefix20210508\Predis\ClientInterface && $redisClient->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\ClusterInterface && !$redisClient->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster) {
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Unsupported Predis cluster connection: only "%s" is, "%s" given.', \ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster::class, \get_debug_type($redisClient->getConnection())));
         }
         if (\defined('Redis::OPT_COMPRESSION') && ($redisClient instanceof \Redis || $redisClient instanceof \RedisArray || $redisClient instanceof \RedisCluster)) {
             $compression = $redisClient->getOption(\Redis::OPT_COMPRESSION);
             foreach (\is_array($compression) ? $compression : [$compression] as $c) {
                 if (\Redis::COMPRESSION_NONE !== $c) {
-                    throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('phpredis compression must be disabled when using "%s", use "%s" instead.', static::class, \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\DeflateMarshaller::class));
+                    throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('phpredis compression must be disabled when using "%s", use "%s" instead.', static::class, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\DeflateMarshaller::class));
                 }
             }
         }
-        $this->init($redisClient, $namespace, $defaultLifetime, new \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\TagAwareMarshaller($marshaller));
+        $this->init($redisClient, $namespace, $defaultLifetime, new \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\TagAwareMarshaller($marshaller));
     }
     /**
      * {@inheritdoc}
@@ -91,7 +90,7 @@ class RedisTagAwareAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Ad
     {
         $eviction = $this->getRedisEvictionPolicy();
         if ('noeviction' !== $eviction && 0 !== \strpos($eviction, 'volatile-')) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\LogicException(\sprintf('Redis maxmemory-policy setting "%s" is *not* supported by RedisTagAwareAdapter, use "noeviction" or  "volatile-*" eviction policies.', $eviction));
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\LogicException(\sprintf('Redis maxmemory-policy setting "%s" is *not* supported by RedisTagAwareAdapter, use "noeviction" or  "volatile-*" eviction policies.', $eviction));
         }
         // serialize values
         if (!($serialized = $this->marshaller->marshall($values, $failed))) {
@@ -121,7 +120,7 @@ class RedisTagAwareAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Ad
                 continue;
             }
             // setEx results
-            if (\true !== $result && (!$result instanceof \ECSPrefix20210507\Predis\Response\Status || \ECSPrefix20210507\Predis\Response\Status::get('OK') !== $result)) {
+            if (\true !== $result && (!$result instanceof \ECSPrefix20210508\Predis\Response\Status || \ECSPrefix20210508\Predis\Response\Status::get('OK') !== $result)) {
                 $failed[] = $id;
             }
         }
@@ -147,7 +146,7 @@ class RedisTagAwareAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Ad
 
             return v:sub(14, 13 + v:byte(13) + v:byte(12) * 256 + v:byte(11) * 65536)
 EOLUA;
-        if ($this->redis instanceof \ECSPrefix20210507\Predis\ClientInterface) {
+        if ($this->redis instanceof \ECSPrefix20210508\Predis\ClientInterface) {
             $evalArgs = [$lua, 1, &$id];
         } else {
             $evalArgs = [$lua, [&$id], 1];
@@ -185,7 +184,7 @@ EOLUA;
      */
     protected function doInvalidate(array $tagIds)
     {
-        if (!$this->redis instanceof \ECSPrefix20210507\Predis\ClientInterface || !$this->redis->getConnection() instanceof \ECSPrefix20210507\Predis\Connection\Aggregate\PredisCluster) {
+        if (!$this->redis instanceof \ECSPrefix20210508\Predis\ClientInterface || !$this->redis->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\PredisCluster) {
             $movedTagSetIds = $this->renameKeys($this->redis, $tagIds);
         } else {
             $clusterConnection = $this->redis->getConnection();
@@ -239,7 +238,7 @@ EOLUA;
             }
         }, $redis);
         foreach ($results as $id => $result) {
-            if (\true === $result || $result instanceof \ECSPrefix20210507\Predis\Response\Status && \ECSPrefix20210507\Predis\Response\Status::get('OK') === $result) {
+            if (\true === $result || $result instanceof \ECSPrefix20210508\Predis\Response\Status && \ECSPrefix20210508\Predis\Response\Status::get('OK') === $result) {
                 // Only take into account if ok (key existed), will be false on phpredis if it did not exist
                 $newIds[] = '{' . $id . '}' . $uniqueToken;
             }
@@ -256,7 +255,7 @@ EOLUA;
         }
         $hosts = $this->getHosts();
         $host = \reset($hosts);
-        if ($host instanceof \ECSPrefix20210507\Predis\Client && $host->getConnection() instanceof \ECSPrefix20210507\Predis\Connection\Aggregate\ReplicationInterface) {
+        if ($host instanceof \ECSPrefix20210508\Predis\Client && $host->getConnection() instanceof \ECSPrefix20210508\Predis\Connection\Aggregate\ReplicationInterface) {
             // Predis supports info command only on the master in replication environments
             $hosts = [$host->getClientFor('master')];
         }

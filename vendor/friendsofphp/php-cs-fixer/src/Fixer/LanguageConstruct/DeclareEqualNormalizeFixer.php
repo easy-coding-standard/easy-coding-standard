@@ -60,20 +60,17 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DECLARE);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $callback = $this->callback;
         for ($index = 0, $count = $tokens->count(); $index < $count - 6; ++$index) {
@@ -96,9 +93,8 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * @param int $index of `=` token
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function ensureWhitespaceAroundToken($tokens, $index)
+    private function ensureWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if ($tokens[$index + 1]->isWhitespace()) {
             if (' ' !== $tokens[$index + 1]->getContent()) {
@@ -118,9 +114,8 @@ final class DeclareEqualNormalizeFixer extends \PhpCsFixer\AbstractFixer impleme
     /**
      * @param int $index of `=` token
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function removeWhitespaceAroundToken($tokens, $index)
+    private function removeWhitespaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if (!$tokens[$tokens->getPrevNonWhitespace($index)]->isComment()) {
             $tokens->removeLeadingWhitespace($index);

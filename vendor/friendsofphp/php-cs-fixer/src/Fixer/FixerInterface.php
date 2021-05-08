@@ -27,10 +27,9 @@ interface FixerInterface
      * When this method returns true then to the Tokens collection may or may not
      * need a fixing, but when this method returns false then the Tokens collection
      * need no fixing for sure.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens);
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens);
     /**
      * Check if fixer is risky or not.
      *
@@ -45,7 +44,7 @@ interface FixerInterface
      * @param Tokens       $tokens Tokens collection
      * @return void
      */
-    public function fix($file, $tokens);
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens);
     /**
      * Returns the definition of the fixer.
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
@@ -70,7 +69,6 @@ interface FixerInterface
      * Returns true if the file is supported by this fixer.
      *
      * @return bool true if the file is supported by this fixer, false otherwise
-     * @param \SplFileInfo $file
      */
-    public function supports($file);
+    public function supports(\SplFileInfo $file);
 }

@@ -12,8 +12,6 @@ interface RuleCodeSamplePrinterInterface
     public function isMatch($class);
     /**
      * @return mixed[]
-     * @param \Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample
-     * @param \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition
      */
-    public function print($codeSample, $ruleDefinition);
+    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
 }

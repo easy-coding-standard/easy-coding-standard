@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
@@ -28,13 +28,7 @@ final class ShowCommand extends \Symplify\PackageBuilder\Console\Command\Abstrac
      * @var CheckerListReporter
      */
     private $checkerListReporter;
-    /**
-     * @param \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor
-     * @param \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor
-     * @param \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle
-     * @param \Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter $checkerListReporter
-     */
-    public function __construct($sniffFileProcessor, $fixerFileProcessor, $easyCodingStandardStyle, $checkerListReporter)
+    public function __construct(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor, \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Console\Reporter\CheckerListReporter $checkerListReporter)
     {
         parent::__construct();
         $this->sniffFileProcessor = $sniffFileProcessor;
@@ -50,11 +44,9 @@ final class ShowCommand extends \Symplify\PackageBuilder\Console\Command\Abstrac
         $this->setDescription('Show loaded checkers');
     }
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
-    protected function execute($input, $output)
+    protected function execute(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $totalCheckerCount = \count($this->sniffFileProcessor->getCheckers()) + \count($this->fixerFileProcessor->getCheckers());
         $this->checkerListReporter->report($this->sniffFileProcessor->getCheckers(), 'PHP_CodeSniffer');

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20210508\Symfony\Component\Finder\Iterator;
 
 /**
  * CustomFilterIterator filters files by applying anonymous functions.
@@ -27,7 +27,7 @@ class CustomFilterIterator extends \FilterIterator
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($iterator, array $filters)
+    public function __construct(\Iterator $iterator, array $filters)
     {
         foreach ($filters as $filter) {
             if (!\is_callable($filter)) {

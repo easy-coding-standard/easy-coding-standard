@@ -17,9 +17,9 @@ final class ConfigurationException extends \PhpCsFixer\Diff\InvalidArgumentExcep
      * @param string          $expected
      * @param mixed           $value
      * @param int             $code
-     * @param \Exception $previous
+     * @param null|\Exception $previous
      */
-    public function __construct($option, $expected, $value, $code = 0, $previous = null)
+    public function __construct($option, $expected, $value, $code = 0, \Exception $previous = null)
     {
         parent::__construct(\sprintf('Option "%s" must be %s, got "%s".', $option, $expected, \is_object($value) ? \get_class($value) : (null === $value ? '<null>' : \gettype($value) . '#' . $value)), $code, $previous);
     }

@@ -8,21 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache;
+namespace ECSPrefix20210508\Symfony\Component\Cache;
 
-use ECSPrefix20210507\Doctrine\Common\Cache\CacheProvider;
-use ECSPrefix20210507\Psr\Cache\CacheItemPoolInterface;
-use ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210508\Doctrine\Common\Cache\CacheProvider;
+use ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface;
+use ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DoctrineProvider extends \ECSPrefix20210507\Doctrine\Common\Cache\CacheProvider implements \ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210507\Symfony\Component\Cache\ResettableInterface
+class DoctrineProvider extends \ECSPrefix20210508\Doctrine\Common\Cache\CacheProvider implements \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface
 {
     private $pool;
-    /**
-     * @param \Psr\Cache\CacheItemPoolInterface $pool
-     */
-    public function __construct($pool)
+    public function __construct(\ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $pool)
     {
         $this->pool = $pool;
     }
@@ -31,14 +28,14 @@ class DoctrineProvider extends \ECSPrefix20210507\Doctrine\Common\Cache\CachePro
      */
     public function prune()
     {
-        return $this->pool instanceof \ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
+        return $this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
     }
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        if ($this->pool instanceof \ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface) {
+        if ($this->pool instanceof \ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface) {
             $this->pool->reset();
         }
         $this->setNamespace($this->getNamespace());

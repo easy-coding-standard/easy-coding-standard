@@ -84,10 +84,9 @@ final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implemen
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
@@ -157,10 +156,8 @@ class Example
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($i = 1, $count = $tokens->count(); $i < $count; ++$i) {
             if (!$tokens[$i]->isClassy()) {
@@ -189,10 +186,9 @@ class Example
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      */
-    private function getElements($tokens, $startIndex)
+    private function getElements(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
     {
         static $elementTokenKinds = [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \T_CONST, \T_VARIABLE, \T_FUNCTION];
         ++$startIndex;
@@ -241,10 +237,9 @@ class Example
     }
     /**
      * @return array|string type or array of type and name
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function detectElementType($tokens, $index)
+    private function detectElementType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $token = $tokens[$index];
         if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
@@ -272,11 +267,10 @@ class Example
         return 'method';
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return int
      */
-    private function findElementEnd($tokens, $index)
+    private function findElementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = $tokens->getNextTokenOfKind($index, ['{', ';']);
         if ($tokens[$index]->equals('{')) {
@@ -341,11 +335,10 @@ class Example
     /**
      * @param array[] $elements
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function sortTokens($tokens, $startIndex, $endIndex, array $elements)
+    private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, array $elements)
     {
         $replaceTokens = [];
         foreach ($elements as $element) {

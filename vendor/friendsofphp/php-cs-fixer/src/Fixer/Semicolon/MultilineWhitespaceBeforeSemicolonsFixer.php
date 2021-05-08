@@ -68,10 +68,9 @@ function foo () {
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(';');
     }
@@ -86,10 +85,8 @@ function foo () {
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::STRATEGY_NEW_LINE_FOR_CHAINED_CALLS === $this->configuration['strategy']) {
             $this->applyChainedCallsFix($tokens);
@@ -101,9 +98,8 @@ function foo () {
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function applyNoMultiLineFix($tokens)
+    private function applyNoMultiLineFix(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         foreach ($tokens as $index => $token) {
@@ -125,9 +121,8 @@ function foo () {
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function applyChainedCallsFix($tokens)
+    private function applyChainedCallsFix(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = \count($tokens) - 1; $index >= 0; --$index) {
             // continue if token is not a semicolon
@@ -154,10 +149,9 @@ function foo () {
     /**
      * Find the index for the new line. Return the given index when there's no new line.
      * @param int $index
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return int
      */
-    private function getNewLineIndex($index, $tokens)
+    private function getNewLineIndex($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $lineEnding = $this->whitespacesConfig->getLineEnding();
         for ($index, $count = \count($tokens); $index < $count; ++$index) {
@@ -177,9 +171,8 @@ function foo () {
      * ..
      * @return string|null
      * @param int $index
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function findWhitespaceBeforeFirstCall($index, $tokens)
+    private function findWhitespaceBeforeFirstCall($index, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // semicolon followed by a closing bracket?
         if (!$tokens[$index]->equals(')')) {
@@ -230,10 +223,9 @@ function foo () {
     }
     /**
      * @return string|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function getIndentAt($tokens, $index)
+    private function getIndentAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $content = '';
         $lineEnding = $this->whitespacesConfig->getLineEnding();

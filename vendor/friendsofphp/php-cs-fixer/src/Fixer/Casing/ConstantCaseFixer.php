@@ -63,10 +63,9 @@ final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpC
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -81,10 +80,8 @@ final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpC
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $fixFunction = $this->fixFunction;
         foreach ($tokens as $index => $token) {
@@ -97,11 +94,10 @@ final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpC
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isNeighbourAccepted($tokens, $index)
+    private function isNeighbourAccepted(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         static $forbiddenTokens = null;
         if (null === $forbiddenTokens) {

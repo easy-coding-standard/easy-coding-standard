@@ -51,11 +51,11 @@ final class Differ
      *
      * @param array|string                            $from
      * @param array|string                            $to
-     * @param \PhpCsFixer\Diff\LongestCommonSubsequenceCalculator $lcs
+     * @param null|LongestCommonSubsequenceCalculator $lcs
      *
      * @return string
      */
-    public function diff($from, $to, $lcs = null)
+    public function diff($from, $to, \PhpCsFixer\Diff\LongestCommonSubsequenceCalculator $lcs = null)
     {
         $diff = $this->diffToArray($this->normalizeDiffInput($from), $this->normalizeDiffInput($to), $lcs);
         return $this->outputBuilder->getDiff($diff);
@@ -77,7 +77,7 @@ final class Differ
      *
      * @return array
      */
-    public function diffToArray($from, $to, $lcs = null)
+    public function diffToArray($from, $to, \PhpCsFixer\Diff\LongestCommonSubsequenceCalculator $lcs = null)
     {
         if (\is_string($from)) {
             $from = $this->splitStringByLines($from);

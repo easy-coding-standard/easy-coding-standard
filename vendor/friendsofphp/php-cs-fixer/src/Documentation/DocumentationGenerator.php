@@ -110,28 +110,25 @@ RST;
         return "{$documentation}\n";
     }
     /**
-     * @param \PhpCsFixer\Fixer\FixerInterface $fixer
      * @return string
      */
-    public function getFixerDocumentationFilePath($fixer)
+    public function getFixerDocumentationFilePath(\PhpCsFixer\Fixer\FixerInterface $fixer)
     {
         return $this->getFixersDocumentationDirectoryPath() . '/' . \PhpCsFixer\Preg::replaceCallback('/^.*\\\\(.+)\\\\(.+)Fixer$/', function (array $matches) {
             return \PhpCsFixer\Utils::camelCaseToUnderscore($matches[1]) . '/' . \PhpCsFixer\Utils::camelCaseToUnderscore($matches[2]);
         }, \get_class($fixer)) . '.rst';
     }
     /**
-     * @param \PhpCsFixer\Fixer\FixerInterface $fixer
      * @return string
      */
-    public function getFixerDocumentationFileRelativePath($fixer)
+    public function getFixerDocumentationFileRelativePath(\PhpCsFixer\Fixer\FixerInterface $fixer)
     {
         return \PhpCsFixer\Preg::replace('#^' . \preg_quote($this->getFixersDocumentationDirectoryPath(), '#') . '/#', '', $this->getFixerDocumentationFilePath($fixer));
     }
     /**
-     * @param \PhpCsFixer\Fixer\FixerInterface $fixer
      * @return string
      */
-    public function generateFixerDocumentation($fixer)
+    public function generateFixerDocumentation(\PhpCsFixer\Fixer\FixerInterface $fixer)
     {
         $name = $fixer->getName();
         $title = "Rule ``{$name}``";
@@ -295,10 +292,9 @@ RST;
     }
     /**
      * @param AbstractFixer[] $fixers
-     * @param \PhpCsFixer\RuleSet\RuleSetDescriptionInterface $definition
      * @return string
      */
-    public function generateRuleSetsDocumentation($definition, array $fixers)
+    public function generateRuleSetsDocumentation(\PhpCsFixer\RuleSet\RuleSetDescriptionInterface $definition, array $fixers)
     {
         $fixerNames = [];
         foreach ($fixers as $fixer) {
@@ -357,13 +353,11 @@ RST;
         return $documentation . "\n";
     }
     /**
-     * @param \PhpCsFixer\Fixer\FixerInterface $fixer
-     * @param \PhpCsFixer\FixerDefinition\CodeSampleInterface $sample
      * @param int $sampleNumber
      * @param string $ruleName
      * @return string
      */
-    private function generateSampleDiff($fixer, $sample, $sampleNumber, $ruleName)
+    private function generateSampleDiff(\PhpCsFixer\Fixer\FixerInterface $fixer, \PhpCsFixer\FixerDefinition\CodeSampleInterface $sample, $sampleNumber, $ruleName)
     {
         if ($sample instanceof \PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface && !$sample->isSuitableFor(\PHP_VERSION_ID)) {
             $existingFile = @\file_get_contents($this->getFixerDocumentationFilePath($fixer));

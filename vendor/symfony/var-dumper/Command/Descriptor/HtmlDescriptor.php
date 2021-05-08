@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\VarDumper\Command\Descriptor;
+namespace ECSPrefix20210508\Symfony\Component\VarDumper\Command\Descriptor;
 
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\Data;
-use ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\HtmlDumper;
 /**
  * Describe collected data clones for html output.
  *
@@ -20,24 +20,19 @@ use ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\HtmlDumper;
  *
  * @final
  */
-class HtmlDescriptor implements \ECSPrefix20210507\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
+class HtmlDescriptor implements \ECSPrefix20210508\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
 {
     private $dumper;
     private $initialized = \false;
-    /**
-     * @param \Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper
-     */
-    public function __construct($dumper)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper)
     {
         $this->dumper = $dumper;
     }
     /**
      * @return void
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Symfony\Component\VarDumper\Cloner\Data $data
      * @param int $clientId
      */
-    public function describe($output, $data, array $context, $clientId)
+    public function describe(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
     {
         if (!$this->initialized) {
             $styles = \file_get_contents(__DIR__ . '/../../Resources/css/htmlDescriptor.css');

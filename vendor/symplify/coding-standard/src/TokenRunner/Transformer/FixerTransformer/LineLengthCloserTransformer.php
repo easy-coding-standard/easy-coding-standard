@@ -19,11 +19,7 @@ final class LineLengthCloserTransformer
      * @var TokenFinder
      */
     private $tokenFinder;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer
-     * @param \Symplify\CodingStandard\TokenRunner\TokenFinder $tokenFinder
-     */
-    public function __construct($callAnalyzer, $tokenFinder)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer, \Symplify\CodingStandard\TokenRunner\TokenFinder $tokenFinder)
     {
         $this->callAnalyzer = $callAnalyzer;
         $this->tokenFinder = $tokenFinder;
@@ -31,12 +27,11 @@ final class LineLengthCloserTransformer
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      * @param int $kind
      * @param string $newlineIndentWhitespace
      * @param string $closingBracketNewlineIndentWhitespace
      */
-    public function insertNewlineBeforeClosingIfNeeded($tokens, $blockInfo, $kind, $newlineIndentWhitespace, $closingBracketNewlineIndentWhitespace)
+    public function insertNewlineBeforeClosingIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, $kind, $newlineIndentWhitespace, $closingBracketNewlineIndentWhitespace)
     {
         $isMethodCall = $this->callAnalyzer->isMethodCall($tokens, $blockInfo->getStart());
         $endIndex = $blockInfo->getEnd();
@@ -50,13 +45,11 @@ final class LineLengthCloserTransformer
         $tokens->ensureWhitespaceAtIndex($endIndex - 1, 1, $closingBracketNewlineIndentWhitespace);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Token $previousToken
-     * @param \PhpCsFixer\Tokenizer\Token $previousPreviousToken
      * @param bool $isMethodCall
      * @param int $kind
      * @return bool
      */
-    private function shouldAddNewlineEarlier($previousToken, $previousPreviousToken, $isMethodCall, $kind)
+    private function shouldAddNewlineEarlier(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $previousPreviousToken, $isMethodCall, $kind)
     {
         if ($isMethodCall) {
             return \false;

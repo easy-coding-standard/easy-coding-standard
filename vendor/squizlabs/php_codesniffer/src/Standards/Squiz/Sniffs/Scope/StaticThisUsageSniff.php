@@ -32,7 +32,7 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    public function processTokenWithinScope($phpcsFile, $stackPtr, $currScope)
+    public function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a function which needs to be examined.
@@ -69,7 +69,7 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    private function checkThisUsage($phpcsFile, $next, $end)
+    private function checkThisUsage(\PHP_CodeSniffer\Files\File $phpcsFile, $next, $end)
     {
         $tokens = $phpcsFile->getTokens();
         do {
@@ -100,7 +100,7 @@ class StaticThisUsageSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
      *
      * @return void
      */
-    protected function processTokenOutsideScope($phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()

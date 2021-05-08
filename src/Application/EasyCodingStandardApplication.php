@@ -34,15 +34,7 @@ final class EasyCodingStandardApplication
      * @var SingleFileProcessor
      */
     private $singleFileProcessor;
-    /**
-     * @param \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle
-     * @param \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder
-     * @param \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector
-     * @param \Symplify\EasyCodingStandard\Configuration\Configuration $configuration
-     * @param \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter
-     * @param \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor
-     */
-    public function __construct($easyCodingStandardStyle, $sourceFinder, $changedFilesDetector, $configuration, $fileFilter, $singleFileProcessor)
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Finder\SourceFinder $sourceFinder, \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\FileSystem\FileFilter $fileFilter, \Symplify\EasyCodingStandard\Application\SingleFileProcessor $singleFileProcessor)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->sourceFinder = $sourceFinder;

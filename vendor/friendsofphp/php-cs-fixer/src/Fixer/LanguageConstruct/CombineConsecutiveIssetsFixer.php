@@ -42,20 +42,17 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAllTokenKindsFound([\T_ISSET, \T_BOOLEAN_AND]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokenCount = $tokens->count();
         for ($index = 1; $index < $tokenCount; ++$index) {
@@ -101,9 +98,8 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int[] $indexes
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function clearTokens($tokens, array $indexes)
+    private function clearTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes)
     {
         foreach ($indexes as $index) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);
@@ -113,9 +109,8 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
      * @param int $index of T_ISSET
      *
      * @return mixed[] indexes of meaningful tokens belonging to the isset statement
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function getIssetInfo($tokens, $index)
+    private function getIssetInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $openIndex = $tokens->getNextMeaningfulToken($index);
         $braceOpenCount = 1;
@@ -140,9 +135,8 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
      * @param int[] $indexes
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function getTokenClones($tokens, array $indexes)
+    private function getTokenClones(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes)
     {
         $clones = [];
         foreach ($indexes as $i) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Nette;
+namespace ECSPrefix20210508\Nette;
 
 /**
  * Static class.
@@ -20,6 +20,6 @@ trait StaticClass
      */
     public static function __callStatic($name, array $args)
     {
-        \ECSPrefix20210507\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
+        \ECSPrefix20210508\Nette\Utils\ObjectHelpers::strictStaticCall(static::class, $name);
     }
 }

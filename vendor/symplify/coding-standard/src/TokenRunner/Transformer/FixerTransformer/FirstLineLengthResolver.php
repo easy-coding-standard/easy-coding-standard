@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -16,19 +16,15 @@ final class FirstLineLengthResolver
      * @var LineLengthAndPositionFactory
      */
     private $lineLengthAndPositionFactory;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory $lineLengthAndPositionFactory
-     */
-    public function __construct($lineLengthAndPositionFactory)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\ValueObjectFactory\LineLengthAndPositionFactory $lineLengthAndPositionFactory)
     {
         $this->lineLengthAndPositionFactory = $lineLengthAndPositionFactory;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
+     * @param Tokens|Token[] $tokens
      * @return int
      */
-    public function resolveFromTokensAndStartPosition($tokens, $blockInfo)
+    public function resolveFromTokensAndStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         // compute from here to start of line
         $currentPosition = $blockInfo->getStart();
@@ -65,16 +61,16 @@ final class FirstLineLengthResolver
         return $lineLength;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param Tokens|Token[] $tokens
      * @param int $position
      * @return bool
      */
-    private function isEndOFArgumentsLine($tokens, $position)
+    private function isEndOFArgumentsLine(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\ECSPrefix20210507\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
+        if (\ECSPrefix20210508\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA);

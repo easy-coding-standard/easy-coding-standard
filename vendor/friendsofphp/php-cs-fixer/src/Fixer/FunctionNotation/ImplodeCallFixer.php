@@ -42,10 +42,9 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -63,10 +62,8 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
@@ -109,10 +106,9 @@ final class ImplodeCallFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return mixed[] In the format: startIndex => endIndex
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $functionNameIndex
      */
-    private function getArgumentIndices($tokens, $functionNameIndex)
+    private function getArgumentIndices(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex)
     {
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $openParenthesis = $tokens->getNextTokenOfKind($functionNameIndex, ['(']);

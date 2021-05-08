@@ -59,20 +59,17 @@ namespace Foo {
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound('}');
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($this->findCurlyBraceOpen($tokens) as $index) {
             if ($this->isOverComplete($tokens, $index)) {
@@ -95,18 +92,16 @@ namespace Foo {
      * @param int $openIndex  index of `{` token
      * @param int $closeIndex index of `}` token
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function clearOverCompleteBraces($tokens, $openIndex, $closeIndex)
+    private function clearOverCompleteBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $closeIndex)
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeIndex);
         $tokens->clearTokenAndMergeSurroundingWhitespace($openIndex);
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function findCurlyBraceOpen($tokens)
+    private function findCurlyBraceOpen(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($i = \count($tokens) - 1; $i > 0; --$i) {
             if ($tokens[$i]->equals('{')) {
@@ -116,19 +111,17 @@ namespace Foo {
     }
     /**
      * @param int $index index of `{` token
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function isOverComplete($tokens, $index)
+    private function isOverComplete(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         static $include = ['{', '}', [\T_OPEN_TAG], ':', ';'];
         return $tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny($include);
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function clearIfIsOverCompleteNamespaceBlock($tokens)
+    private function clearIfIsOverCompleteNamespaceBlock(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (1 !== $tokens->countTokenKind(\T_NAMESPACE)) {
             return;

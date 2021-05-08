@@ -25,9 +25,9 @@ use PhpCsFixer\Linter\LinterInterface;
 use PhpCsFixer\Linter\LintingException;
 use PhpCsFixer\Linter\LintingResultInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20210507\Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use ECSPrefix20210507\Symfony\Component\Filesystem\Exception\IOException;
-use ECSPrefix20210507\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20210508\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix20210508\Symfony\Contracts\EventDispatcher\Event;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
@@ -76,12 +76,8 @@ final class Runner
     /**
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface|null $eventDispatcher
      * @param \PhpCsFixer\Cache\DirectoryInterface|null $directory
-     * @param \PhpCsFixer\Differ\DifferInterface $differ
-     * @param \PhpCsFixer\Error\ErrorsManager $errorsManager
-     * @param \PhpCsFixer\Linter\LinterInterface $linter
-     * @param \PhpCsFixer\Cache\CacheManagerInterface $cacheManager
      */
-    public function __construct($finder, array $fixers, $differ, $eventDispatcher, $errorsManager, $linter, $isDryRun, $cacheManager, $directory = null, $stopOnViolation = \false)
+    public function __construct($finder, array $fixers, \PhpCsFixer\Differ\DifferInterface $differ, $eventDispatcher, \PhpCsFixer\Error\ErrorsManager $errorsManager, \PhpCsFixer\Linter\LinterInterface $linter, $isDryRun, \PhpCsFixer\Cache\CacheManagerInterface $cacheManager, $directory = null, $stopOnViolation = \false)
     {
         $this->finder = $finder;
         $this->fixers = $fixers;
@@ -120,10 +116,8 @@ final class Runner
     }
     /**
      * @return mixed[]|null
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Linter\LintingResultInterface $lintingResult
      */
-    private function fixFile($file, $lintingResult)
+    private function fixFile(\SplFileInfo $file, \PhpCsFixer\Linter\LintingResultInterface $lintingResult)
     {
         $name = $file->getPathname();
         try {
@@ -185,17 +179,17 @@ final class Runner
             if (!$this->isDryRun) {
                 $fileName = $file->getRealPath();
                 if (!\file_exists($fileName)) {
-                    throw new \ECSPrefix20210507\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s" (no longer) exists.', $file->getPathname()), 0, null, $file->getPathname());
+                    throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s" (no longer) exists.', $file->getPathname()), 0, null, $file->getPathname());
                 }
                 if (\is_dir($fileName)) {
-                    throw new \ECSPrefix20210507\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write file "%s" as the location exists as directory.', $fileName), 0, null, $fileName);
+                    throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write file "%s" as the location exists as directory.', $fileName), 0, null, $fileName);
                 }
                 if (!\is_writable($fileName)) {
-                    throw new \ECSPrefix20210507\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write to file "%s" as it is not writable.', $fileName), 0, null, $fileName);
+                    throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write to file "%s" as it is not writable.', $fileName), 0, null, $fileName);
                 }
                 if (\false === @\file_put_contents($fileName, $new)) {
                     $error = \error_get_last();
-                    throw new \ECSPrefix20210507\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s", "%s".', $fileName, $error ? $error['message'] : 'no reason available'), 0, null, $fileName);
+                    throw new \ECSPrefix20210508\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s", "%s".', $fileName, $error ? $error['message'] : 'no reason available'), 0, null, $fileName);
                 }
             }
         }
@@ -207,9 +201,8 @@ final class Runner
      * Process an exception that occurred.
      * @return void
      * @param string $name
-     * @param \Throwable $e
      */
-    private function processException($name, $e)
+    private function processException($name, \Throwable $e)
     {
         $this->dispatchEvent(\PhpCsFixer\FixerFileProcessedEvent::NAME, new \PhpCsFixer\FixerFileProcessedEvent(\PhpCsFixer\FixerFileProcessedEvent::STATUS_EXCEPTION));
         $this->errorsManager->report(new \PhpCsFixer\Error\Error(\PhpCsFixer\Error\Error::TYPE_EXCEPTION, $name, $e));
@@ -217,15 +210,14 @@ final class Runner
     /**
      * @return void
      * @param string $name
-     * @param \Symfony\Contracts\EventDispatcher\Event $event
      */
-    private function dispatchEvent($name, $event)
+    private function dispatchEvent($name, \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\Event $event)
     {
         if (null === $this->eventDispatcher) {
             return;
         }
         // BC compatibility < Sf 4.3
-        if (!$this->eventDispatcher instanceof \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\EventDispatcherInterface) {
+        if (!$this->eventDispatcher instanceof \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\EventDispatcherInterface) {
             $this->eventDispatcher->dispatch($name, $event);
             return;
         }

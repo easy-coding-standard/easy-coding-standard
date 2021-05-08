@@ -45,10 +45,9 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID >= 70000 && isset($tokens[0]) && $tokens[0]->isGivenKind(\T_OPEN_TAG);
     }
@@ -63,10 +62,8 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // check if the declaration is already done
         $searchIndex = $tokens->getNextMeaningfulToken(0);
@@ -86,9 +83,8 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * @param array<int, Token> $sequence
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixStrictTypesCasingAndValue($tokens, array $sequence)
+    private function fixStrictTypesCasingAndValue(\PhpCsFixer\Tokenizer\Tokens $tokens, array $sequence)
     {
         /** @var int $index */
         /** @var Token $token */
@@ -105,9 +101,8 @@ final class DeclareStrictTypesFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function insertSequence($tokens)
+    private function insertSequence(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $sequence = [new \PhpCsFixer\Tokenizer\Token([\T_DECLARE, 'declare']), new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'strict_types']), new \PhpCsFixer\Tokenizer\Token('='), new \PhpCsFixer\Tokenizer\Token([\T_LNUMBER, '1']), new \PhpCsFixer\Tokenizer\Token(')'), new \PhpCsFixer\Tokenizer\Token(';')];
         $endIndex = \count($sequence);

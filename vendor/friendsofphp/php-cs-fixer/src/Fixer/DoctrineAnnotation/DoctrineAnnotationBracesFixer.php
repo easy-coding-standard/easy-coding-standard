@@ -11,7 +11,7 @@
  */
 namespace PhpCsFixer\Fixer\DoctrineAnnotation;
 
-use ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\AbstractDoctrineAnnotationFixer;
 use PhpCsFixer\Doctrine\Annotation\Token;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
@@ -45,9 +45,8 @@ final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAn
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Doctrine\Annotation\Tokens $tokens
      */
-    protected function fixAnnotations($tokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
     {
         if ('without_braces' === $this->configuration['syntax']) {
             $this->removesBracesFromAnnotations($tokens);
@@ -57,44 +56,42 @@ final class DoctrineAnnotationBracesFixer extends \PhpCsFixer\AbstractDoctrineAn
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Doctrine\Annotation\Tokens $tokens
      */
-    private function addBracesToAnnotations($tokens)
+    private function addBracesToAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if (!$tokens[$index]->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$tokens[$index]->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 continue;
             }
             $braceIndex = $tokens->getNextMeaningfulToken($index + 1);
-            if (null !== $braceIndex && $tokens[$braceIndex]->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+            if (null !== $braceIndex && $tokens[$braceIndex]->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
                 continue;
             }
-            $tokens->insertAt($index + 2, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, '('));
-            $tokens->insertAt($index + 3, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, ')'));
+            $tokens->insertAt($index + 2, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS, '('));
+            $tokens->insertAt($index + 3, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, ')'));
         }
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Doctrine\Annotation\Tokens $tokens
      */
-    private function removesBracesFromAnnotations($tokens)
+    private function removesBracesFromAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
     {
         for ($index = 0, $max = \count($tokens); $index < $max; ++$index) {
-            if (!$tokens[$index]->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$tokens[$index]->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 continue;
             }
             $openBraceIndex = $tokens->getNextMeaningfulToken($index + 1);
             if (null === $openBraceIndex) {
                 continue;
             }
-            if (!$tokens[$openBraceIndex]->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+            if (!$tokens[$openBraceIndex]->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
                 continue;
             }
             $closeBraceIndex = $tokens->getNextMeaningfulToken($openBraceIndex);
             if (null === $closeBraceIndex) {
                 continue;
             }
-            if (!$tokens[$closeBraceIndex]->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
+            if (!$tokens[$closeBraceIndex]->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS)) {
                 continue;
             }
             for ($currentIndex = $index + 2; $currentIndex <= $closeBraceIndex; ++$currentIndex) {

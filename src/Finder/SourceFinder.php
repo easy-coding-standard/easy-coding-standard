@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Finder;
 
-use ECSPrefix20210507\Symfony\Component\Finder\Finder;
+use ECSPrefix20210508\Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Git\GitDiffProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -25,12 +25,7 @@ final class SourceFinder
      * @var GitDiffProvider
      */
     private $gitDiffProvider;
-    /**
-     * @param \Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer
-     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
-     * @param \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider
-     */
-    public function __construct($finderSanitizer, $parameterProvider, $gitDiffProvider)
+    public function __construct(\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileExtensions = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS);
@@ -63,7 +58,7 @@ final class SourceFinder
     private function processDirectory($directory)
     {
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
-        $finder = \ECSPrefix20210507\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
+        $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);
     }
     /**

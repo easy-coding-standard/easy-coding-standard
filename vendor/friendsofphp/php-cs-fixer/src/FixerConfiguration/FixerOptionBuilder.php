@@ -85,9 +85,8 @@ final class FixerOptionBuilder
     }
     /**
      * @return $this
-     * @param \Closure $normalizer
      */
-    public function setNormalizer($normalizer)
+    public function setNormalizer(\Closure $normalizer)
     {
         $this->normalizer = $normalizer;
         return $this;

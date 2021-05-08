@@ -144,10 +144,9 @@ final class FixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInt
      * all elements are still referenced.
      *
      * See {@see https://bugs.php.net/bug.php?id=69639 Bug #69639} for details.
-     * @param \Closure $closure
      * @return \Closure
      */
-    private function unbind($closure)
+    private function unbind(\Closure $closure)
     {
         return $closure->bindTo(null);
     }

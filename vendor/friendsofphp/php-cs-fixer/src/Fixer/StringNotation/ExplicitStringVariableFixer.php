@@ -32,7 +32,7 @@ final class ExplicitStringVariableFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts implicit variables into explicit ones in double-quoted strings or heredoc syntax.', [new \PhpCsFixer\FixerDefinition\CodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20210507;
+namespace ECSPrefix20210508;
 
 $a = "My name is {$name} !";
 $b = "I live in {$state->country} !";
@@ -54,20 +54,17 @@ EOT
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_VARIABLE);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $backtickStarted = \false;
         for ($index = \count($tokens) - 1; $index > 0; --$index) {
@@ -130,7 +127,7 @@ EOT
      * @param Token $token The token to check
      * @return bool
      */
-    private function isStringPartToken($token)
+    private function isStringPartToken(\PhpCsFixer\Tokenizer\Token $token)
     {
         return $token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE) || $token->isGivenKind(\T_START_HEREDOC) || '"' === $token->getContent() || 'b"' === \strtolower($token->getContent());
     }

@@ -36,7 +36,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      *
      * @return void
      */
-    protected function processTokenWithinScope($phpcsFile, $stackPtr, $currScope)
+    protected function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
         // Determine if this is a double colon which needs to be examined.
@@ -148,7 +148,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      *
      * @return void
      */
-    protected function processTokenOutsideScope($phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
     }
     //end processTokenOutsideScope()
@@ -185,7 +185,7 @@ class SelfMemberReferenceSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSnif
      *
      * @return string
      */
-    protected function getNamespaceOfScope($phpcsFile, $stackPtr)
+    protected function getNamespaceOfScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $namespace = '\\';
         $namespaceDeclaration = $phpcsFile->findPrevious(\T_NAMESPACE, $stackPtr);

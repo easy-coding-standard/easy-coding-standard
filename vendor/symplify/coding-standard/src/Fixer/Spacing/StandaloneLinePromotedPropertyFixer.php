@@ -33,11 +33,7 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
      * @var TokensNewliner
      */
     private $tokensNewliner;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder
-     * @param \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner
-     */
-    public function __construct($blockFinder, $tokensNewliner)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner)
     {
         $this->blockFinder = $blockFinder;
         $this->tokensNewliner = $tokensNewliner;
@@ -53,16 +49,15 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE]);
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $splFileInfo
      */
-    public function fix($splFileInfo, $tokens)
+    public function fix(\SplFileInfo $splFileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($position = \count($tokens) - 1; $position >= 0; --$position) {
@@ -108,7 +103,7 @@ CODE_SAMPLE
      * @return void
      * @param int $position
      */
-    private function processFunction($tokens, $position)
+    private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
@@ -121,7 +116,7 @@ CODE_SAMPLE
      * @return string|null
      * @param int $position
      */
-    private function getFunctionName($tokens, $position)
+    private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $nextToken = $this->getNextMeaningfulToken($tokens, $position);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {

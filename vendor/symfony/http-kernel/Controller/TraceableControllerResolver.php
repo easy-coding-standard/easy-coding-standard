@@ -8,31 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Controller;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\Stopwatch\Stopwatch;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\Stopwatch\Stopwatch;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TraceableControllerResolver implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
+class TraceableControllerResolver implements \ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface
 {
     private $resolver;
     private $stopwatch;
-    /**
-     * @param \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver
-     * @param \Symfony\Component\Stopwatch\Stopwatch $stopwatch
-     */
-    public function __construct($resolver, $stopwatch)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver, \ECSPrefix20210508\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
     {
         $this->resolver = $resolver;
         $this->stopwatch = $stopwatch;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getController($request)
+    public function getController(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request)
     {
         $e = $this->stopwatch->start('controller.get_callable');
         $ret = $this->resolver->getController($request);

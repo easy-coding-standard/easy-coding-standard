@@ -76,11 +76,10 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         // no assertions to be fixed - fast return
         if (empty($this->configuration['assertions'])) {
@@ -106,22 +105,20 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param string $method
      */
-    private function fixAssertNegative($tokens, $index, $method)
+    private function fixAssertNegative(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $method)
     {
         static $map = ['false' => 'assertNotFalse', 'null' => 'assertNotNull', 'true' => 'assertNotTrue'];
         return $this->fixAssert($map, $tokens, $index, $method);
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param string $method
      */
-    private function fixAssertPositive($tokens, $index, $method)
+    private function fixAssertPositive(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $method)
     {
         static $map = ['false' => 'assertFalse', 'null' => 'assertNull', 'true' => 'assertTrue'];
         return $this->fixAssert($map, $tokens, $index, $method);
@@ -129,11 +126,10 @@ final class FooTest extends \\PHPUnit_Framework_TestCase {
     /**
      * @param array<string, string> $map
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param string $method
      */
-    private function fixAssert(array $map, $tokens, $index, $method)
+    private function fixAssert(array $map, \PhpCsFixer\Tokenizer\Tokens $tokens, $index, $method)
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $sequence = $tokens->findSequence([[\T_STRING, $method], '('], $index);

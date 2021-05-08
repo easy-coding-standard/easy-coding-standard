@@ -8,29 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\ContextProvider;
+namespace ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\ContextProvider;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210507\Symfony\Component\VarDumper\Caster\ReflectionCaster;
-use ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ReflectionCaster;
+use ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\VarCloner;
 /**
  * Tries to provide context from a request.
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-final class RequestContextProvider implements \ECSPrefix20210507\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
+final class RequestContextProvider implements \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
 {
     private $requestStack;
     private $cloner;
-    /**
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     */
-    public function __construct($requestStack)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
-        $this->cloner = new \ECSPrefix20210507\Symfony\Component\VarDumper\Cloner\VarCloner();
+        $this->cloner = new \ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\VarCloner();
         $this->cloner->setMaxItems(0);
-        $this->cloner->addCasters(\ECSPrefix20210507\Symfony\Component\VarDumper\Caster\ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
+        $this->cloner->addCasters(\ECSPrefix20210508\Symfony\Component\VarDumper\Caster\ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
     }
     /**
      * @return mixed[]|null

@@ -64,20 +64,17 @@ function fnc($foo) {}
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -95,20 +92,18 @@ function fnc($foo) {}
     }
     /**
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @param int $summaryEnd
      */
-    private function fixSummary($doc, $summaryEnd)
+    private function fixSummary(\PhpCsFixer\DocBlock\DocBlock $doc, $summaryEnd)
     {
         $nonBlankLineAfterSummary = $this->findNonBlankLine($doc, $summaryEnd);
         $this->removeExtraBlankLinesBetween($doc, $summaryEnd, $nonBlankLineAfterSummary);
     }
     /**
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @param int $summaryEnd
      */
-    private function fixDescription($doc, $summaryEnd)
+    private function fixDescription(\PhpCsFixer\DocBlock\DocBlock $doc, $summaryEnd)
     {
         $annotationStart = $this->findFirstAnnotationOrEnd($doc);
         // assuming the end of the Description appears before the first Annotation
@@ -125,9 +120,8 @@ function fnc($foo) {}
     }
     /**
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      */
-    private function fixAllTheRest($doc)
+    private function fixAllTheRest(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         $annotationStart = $this->findFirstAnnotationOrEnd($doc);
         $lastLine = $this->reverseFindLastUsefulContent($doc, \count($doc->getLines()) - 1);
@@ -137,11 +131,10 @@ function fnc($foo) {}
     }
     /**
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @param int $from
      * @param int $to
      */
-    private function removeExtraBlankLinesBetween($doc, $from, $to)
+    private function removeExtraBlankLinesBetween(\PhpCsFixer\DocBlock\DocBlock $doc, $from, $to)
     {
         for ($index = $from + 1; $index < $to; ++$index) {
             $line = $doc->getLine($index);
@@ -151,10 +144,8 @@ function fnc($foo) {}
     }
     /**
      * @return void
-     * @param \PhpCsFixer\DocBlock\Line $current
-     * @param \PhpCsFixer\DocBlock\Line $next
      */
-    private function removeExtraBlankLine($current, $next)
+    private function removeExtraBlankLine(\PhpCsFixer\DocBlock\Line $current, \PhpCsFixer\DocBlock\Line $next)
     {
         if (!$current->isTheEnd() && !$current->containsUsefulContent() && !$next->isTheEnd() && !$next->containsUsefulContent()) {
             $current->remove();
@@ -162,10 +153,9 @@ function fnc($foo) {}
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @param int $after
      */
-    private function findNonBlankLine($doc, $after)
+    private function findNonBlankLine(\PhpCsFixer\DocBlock\DocBlock $doc, $after)
     {
         foreach ($doc->getLines() as $index => $line) {
             if ($index <= $after) {
@@ -178,10 +168,9 @@ function fnc($foo) {}
         return null;
     }
     /**
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @return int
      */
-    private function findFirstAnnotationOrEnd($doc)
+    private function findFirstAnnotationOrEnd(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         $index = null;
         foreach ($doc->getLines() as $index => $line) {
@@ -194,10 +183,9 @@ function fnc($foo) {}
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @param int $from
      */
-    private function reverseFindLastUsefulContent($doc, $from)
+    private function reverseFindLastUsefulContent(\PhpCsFixer\DocBlock\DocBlock $doc, $from)
     {
         for ($index = $from - 1; $index >= 0; --$index) {
             if ($doc->getLine($index)->containsUsefulContent()) {

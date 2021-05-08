@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Contracts\Service;
+namespace ECSPrefix20210508\Symfony\Contracts\Service;
 
-use ECSPrefix20210507\Psr\Container\ContainerInterface;
+use ECSPrefix20210508\Psr\Container\ContainerInterface;
 /**
  * Implementation of ServiceSubscriberInterface that determines subscribed services from
  * private method return types. Service ids are available as "ClassName::methodName".
@@ -44,9 +44,8 @@ trait ServiceSubscriberTrait
     }
     /**
      * @required
-     * @param \Psr\Container\ContainerInterface $container
      */
-    public function setContainer($container)
+    public function setContainer(\ECSPrefix20210508\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
         if (\is_callable(['parent', __FUNCTION__])) {

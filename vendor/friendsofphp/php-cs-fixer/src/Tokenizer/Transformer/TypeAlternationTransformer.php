@@ -45,11 +45,9 @@ final class TypeAlternationTransformer extends \PhpCsFixer\Tokenizer\AbstractTra
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $index
      */
-    public function process($tokens, $token, $index)
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
         if (!$token->equals('|')) {
             return;
@@ -118,10 +116,9 @@ final class TypeAlternationTransformer extends \PhpCsFixer\Tokenizer\AbstractTra
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function replaceToken($tokens, $index)
+    private function replaceToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_TYPE_ALTERNATION, '|']);
     }

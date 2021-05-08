@@ -11,7 +11,7 @@
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -29,10 +29,9 @@ final class JsonReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary
      * @return string
      */
-    public function generate($reportSummary)
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary)
     {
         $jFiles = [];
         foreach ($reportSummary->getChanged() as $file => $fixResult) {
@@ -53,6 +52,6 @@ final class JsonReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
             $json['memory'] = \round($reportSummary->getMemory() / 1024 / 1024, 3);
         }
         $json = \json_encode($json);
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter::escape($json) : $json;
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escape($json) : $json;
     }
 }

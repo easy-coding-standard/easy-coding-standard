@@ -13,10 +13,7 @@ final class ArrayBlockInfoFinder
      * @var BlockFinder
      */
     private $blockFinder;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder
-     */
-    public function __construct($blockFinder)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder)
     {
         $this->blockFinder = $blockFinder;
     }
@@ -24,7 +21,7 @@ final class ArrayBlockInfoFinder
      * @param Tokens<Token> $tokens
      * @return mixed[]
      */
-    public function findArrayOpenerBlockInfos($tokens)
+    public function findArrayOpenerBlockInfos(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $reversedTokens = $this->reverseTokens($tokens);
         $blockInfos = [];
@@ -44,7 +41,7 @@ final class ArrayBlockInfoFinder
      * @param Tokens<Token> $tokens
      * @return mixed[]
      */
-    private function reverseTokens($tokens)
+    private function reverseTokens(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \array_reverse($tokens->toArray(), \true);
     }

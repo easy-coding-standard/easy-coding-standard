@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210507\\PackageVersions\\": "src\/PackageVersions"
+            "ECSPrefix20210508\\PackageVersions\\": "src\/PackageVersions"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ECSPrefix20210507\\PackageVersionsTest\\": "test\/PackageVersionsTest"
+            "ECSPrefix20210508\\PackageVersionsTest\\": "test\/PackageVersionsTest"
         }
     },
     "extra": {

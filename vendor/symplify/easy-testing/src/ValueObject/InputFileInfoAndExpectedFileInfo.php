@@ -13,11 +13,7 @@ final class InputFileInfoAndExpectedFileInfo
      * @var SmartFileInfo
      */
     private $expectedFileInfo;
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo
-     */
-    public function __construct($inputFileInfo, $expectedFileInfo)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expectedFileInfo = $expectedFileInfo;

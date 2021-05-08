@@ -32,10 +32,9 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->hasAlternativeSyntax();
     }
@@ -52,10 +51,8 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = \count($tokens) - 1; 0 <= $index; --$index) {
             $token = $tokens[$index];
@@ -65,11 +62,10 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $structureTokenIndex
      * @return int
      */
-    private function findParenthesisEnd($tokens, $structureTokenIndex)
+    private function findParenthesisEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $structureTokenIndex)
     {
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
@@ -88,7 +84,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      * @param Tokens $tokens the collection of tokens
      * @return void
      */
-    private function fixOpenCloseControls($index, $token, $tokens)
+    private function fixOpenCloseControls($index, \PhpCsFixer\Tokenizer\Token $token, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if ($token->isGivenKind([\T_IF, \T_FOREACH, \T_WHILE, \T_FOR, \T_SWITCH, \T_DECLARE])) {
             $openIndex = $tokens->getNextTokenOfKind($index, ['(']);
@@ -127,7 +123,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      * @param Tokens $tokens the collection of tokens
      * @return void
      */
-    private function fixElse($index, $token, $tokens)
+    private function fixElse($index, \PhpCsFixer\Tokenizer\Token $token, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (!$token->isGivenKind(\T_ELSE)) {
             return;
@@ -147,7 +143,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      * @param Tokens $tokens the collection of tokens
      * @return void
      */
-    private function fixElseif($index, $token, $tokens)
+    private function fixElseif($index, \PhpCsFixer\Tokenizer\Token $token, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (!$token->isGivenKind(\T_ELSEIF)) {
             return;
@@ -169,7 +165,7 @@ final class NoAlternativeSyntaxFixer extends \PhpCsFixer\AbstractFixer
      * @param int    $colonIndex the index of the colon
      * @return void
      */
-    private function addBraces($tokens, $token, $index, $colonIndex)
+    private function addBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index, $colonIndex)
     {
         $items = [new \PhpCsFixer\Tokenizer\Token('}'), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), $token];
         if (!$tokens[$index + 1]->isWhitespace()) {

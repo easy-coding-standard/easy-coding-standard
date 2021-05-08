@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache;
+namespace ECSPrefix20210508\Symfony\Component\Cache;
 
-use ECSPrefix20210507\Psr\Log\LoggerInterface;
-use ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface;
-use ECSPrefix20210507\Symfony\Contracts\Cache\ItemInterface;
+use ECSPrefix20210508\Psr\Log\LoggerInterface;
+use ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface;
+use ECSPrefix20210508\Symfony\Contracts\Cache\ItemInterface;
 /**
  * LockRegistry is used internally by existing adapters to protect against cache stampede.
  *
@@ -49,13 +49,9 @@ final class LockRegistry
         return $previousFiles;
     }
     /**
-     * @param \Symfony\Contracts\Cache\ItemInterface $item
      * @param bool $save
-     * @param \Symfony\Contracts\Cache\CacheInterface $pool
-     * @param \Closure $setMetadata
-     * @param \Psr\Log\LoggerInterface $logger
      */
-    public static function compute(callable $callback, $item, &$save, $pool, $setMetadata = null, $logger = null)
+    public static function compute(callable $callback, \ECSPrefix20210508\Symfony\Contracts\Cache\ItemInterface $item, &$save, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface $pool, \Closure $setMetadata = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
     {
         $key = self::$files ? \abs(\crc32($item->getKey())) % \count(self::$files) : -1;
         if ($key < 0 || (isset(self::$lockedFiles[$key]) ? self::$lockedFiles[$key] : \false) || !($lock = self::open($key))) {

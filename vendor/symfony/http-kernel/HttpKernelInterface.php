@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
 /**
  * HttpKernelInterface handles a Request to convert it to a Response.
  *
@@ -34,7 +34,6 @@ interface HttpKernelInterface
      * @return Response A Response instance
      *
      * @throws \Exception When an Exception occurs during processing
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function handle($request, $type = self::MASTER_REQUEST, $catch = \true);
+    public function handle(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST, $catch = \true);
 }

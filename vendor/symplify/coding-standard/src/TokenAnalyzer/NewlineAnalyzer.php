@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenAnalyzer;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 final class NewlineAnalyzer
@@ -12,7 +12,7 @@ final class NewlineAnalyzer
      * @param int $i
      * @return bool
      */
-    public function doesContentBeforeBracketRequireNewline($tokens, $i)
+    public function doesContentBeforeBracketRequireNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
     {
         $previousMeaningfulTokenPosition = $tokens->getPrevNonWhitespace($i);
         if ($previousMeaningfulTokenPosition === null) {
@@ -34,14 +34,13 @@ final class NewlineAnalyzer
         return $previousPreviousToken->isGivenKind([\T_RETURN, \T_DOUBLE_COLON, T_OPEN_CURLY_BRACKET]);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Token $currentToken
      * @return bool
      */
-    public function isNewlineToken($currentToken)
+    public function isNewlineToken(\PhpCsFixer\Tokenizer\Token $currentToken)
     {
         if (!$currentToken->isWhitespace()) {
             return \false;
         }
-        return \ECSPrefix20210507\Nette\Utils\Strings::contains($currentToken->getContent(), "\n");
+        return \ECSPrefix20210508\Nette\Utils\Strings::contains($currentToken->getContent(), "\n");
     }
 }

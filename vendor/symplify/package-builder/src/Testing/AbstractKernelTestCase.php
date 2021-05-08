@@ -2,14 +2,14 @@
 
 namespace Symplify\PackageBuilder\Testing;
 
-use ECSPrefix20210507\PHPUnit\Framework\TestCase;
+use ECSPrefix20210508\PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\KernelInterface;
-use ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -19,7 +19,7 @@ use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
  *
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Test/KernelTestCase.php
  */
-abstract class AbstractKernelTestCase extends \ECSPrefix20210507\PHPUnit\Framework\TestCase
+abstract class AbstractKernelTestCase extends \ECSPrefix20210508\PHPUnit\Framework\TestCase
 {
     /**
      * @var KernelInterface
@@ -90,7 +90,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210507\PHPUnit\Framewo
     {
         $this->ensureKernelShutdown();
         $kernel = new $kernelClass('test', \true);
-        if (!$kernel instanceof \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelInterface) {
+        if (!$kernel instanceof \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         static::$kernel = $this->bootAndReturnKernel($kernel);
@@ -111,7 +111,7 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210507\PHPUnit\Framewo
             if ($kernel !== null) {
                 $container = static::$kernel->getContainer();
                 static::$kernel->shutdown();
-                if ($container instanceof \ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface) {
+                if ($container instanceof \ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface) {
                     $container->reset();
                 }
             }
@@ -144,9 +144,8 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210507\PHPUnit\Framewo
     }
     /**
      * @return void
-     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
      */
-    private function ensureIsConfigAwareKernel($kernel)
+    private function ensureIsConfigAwareKernel(\ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         if ($kernel instanceof \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface) {
             return;
@@ -154,10 +153,9 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210507\PHPUnit\Framewo
         throw new \Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException(\sprintf('"%s" is missing an "%s" interface', \get_class($kernel), \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface::class));
     }
     /**
-     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
      * @return \Symfony\Component\HttpKernel\KernelInterface
      */
-    private function bootAndReturnKernel($kernel)
+    private function bootAndReturnKernel(\ECSPrefix20210508\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         $kernel->boot();
         $container = $kernel->getContainer();
@@ -165,13 +163,13 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210507\PHPUnit\Framewo
         if ($container->has('test.service_container')) {
             $container = $container->get('test.service_container');
         }
-        if (!$container instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerInterface) {
+        if (!$container instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         // has output? keep it silent out of tests
-        if ($container->has(\ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle::class)) {
-            $symfonyStyle = $container->get(\ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle::class);
-            $symfonyStyle->setVerbosity(\ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
+        if ($container->has(\ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle::class)) {
+            $symfonyStyle = $container->get(\ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle::class);
+            $symfonyStyle->setVerbosity(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
         static::$container = $container;
         return $kernel;

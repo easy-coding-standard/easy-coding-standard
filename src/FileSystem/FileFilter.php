@@ -10,10 +10,7 @@ final class FileFilter
      * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
-    /**
-     * @param \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector
-     */
-    public function __construct($changedFilesDetector)
+    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector)
     {
         $this->changedFilesDetector = $changedFilesDetector;
     }

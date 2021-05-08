@@ -12,9 +12,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
 /**
  * ResponseCacheStrategyInterface implementations know how to compute the
  * Response cache HTTP header based on the different response cache headers.
@@ -25,12 +25,10 @@ interface ResponseCacheStrategyInterface
 {
     /**
      * Adds a Response.
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function add($response);
+    public function add(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response);
     /**
      * Updates the Response HTTP headers based on the embedded Responses.
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function update($response);
+    public function update(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response);
 }

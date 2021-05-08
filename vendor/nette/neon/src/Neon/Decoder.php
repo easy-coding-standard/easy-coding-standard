@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Nette\Neon;
+namespace ECSPrefix20210508\Nette\Neon;
 
 /**
  * Parser for Nette Object Notation.
@@ -64,7 +64,7 @@ final class Decoder
         $pattern = '~(' . \implode(')|(', self::PATTERNS) . ')~Amixu';
         $this->tokens = \preg_split($pattern, $this->input, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_OFFSET_CAPTURE | \PREG_SPLIT_DELIM_CAPTURE);
         if ($this->tokens === \false) {
-            throw new \ECSPrefix20210507\Nette\Neon\Exception('Invalid UTF-8 sequence.');
+            throw new \ECSPrefix20210508\Nette\Neon\Exception('Invalid UTF-8 sequence.');
         }
         $last = \end($this->tokens);
         if ($this->tokens && !\preg_match($pattern, $last[0])) {
@@ -143,10 +143,10 @@ final class Decoder
                         $this->error();
                     }
                     $n++;
-                    if ($value instanceof \ECSPrefix20210507\Nette\Neon\Entity && $value->value === \ECSPrefix20210507\Nette\Neon\Neon::CHAIN) {
+                    if ($value instanceof \ECSPrefix20210508\Nette\Neon\Entity && $value->value === \ECSPrefix20210508\Nette\Neon\Neon::CHAIN) {
                         \end($value->attributes)->attributes = $this->parse(\false, []);
                     } else {
-                        $value = new \ECSPrefix20210507\Nette\Neon\Entity($value, $this->parse(\false, []));
+                        $value = new \ECSPrefix20210508\Nette\Neon\Entity($value, $this->parse(\false, []));
                     }
                 } else {
                     $n++;
@@ -255,12 +255,12 @@ final class Decoder
                     $converted = $t;
                 }
                 if ($hasValue) {
-                    if ($value instanceof \ECSPrefix20210507\Nette\Neon\Entity) {
+                    if ($value instanceof \ECSPrefix20210508\Nette\Neon\Entity) {
                         // Entity chaining
-                        if ($value->value !== \ECSPrefix20210507\Nette\Neon\Neon::CHAIN) {
-                            $value = new \ECSPrefix20210507\Nette\Neon\Entity(\ECSPrefix20210507\Nette\Neon\Neon::CHAIN, [$value]);
+                        if ($value->value !== \ECSPrefix20210508\Nette\Neon\Neon::CHAIN) {
+                            $value = new \ECSPrefix20210508\Nette\Neon\Entity(\ECSPrefix20210508\Nette\Neon\Neon::CHAIN, [$value]);
                         }
-                        $value->attributes[] = new \ECSPrefix20210507\Nette\Neon\Entity($converted);
+                        $value->attributes[] = new \ECSPrefix20210508\Nette\Neon\Entity($converted);
                     } else {
                         $this->error();
                     }
@@ -333,6 +333,6 @@ final class Decoder
         $line = \substr_count($text, "\n");
         $col = $offset - \strrpos("\n" . $text, "\n") + 1;
         $token = $last ? \str_replace("\n", '<new line>', \substr($last[0], 0, 40)) : 'end';
-        throw new \ECSPrefix20210507\Nette\Neon\Exception(\str_replace('%s', $token, $message) . " on line {$line}, column {$col}.");
+        throw new \ECSPrefix20210508\Nette\Neon\Exception(\str_replace('%s', $token, $message) . " on line {$line}, column {$col}.");
     }
 }

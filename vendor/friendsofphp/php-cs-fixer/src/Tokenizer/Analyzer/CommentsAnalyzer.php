@@ -27,11 +27,10 @@ final class CommentsAnalyzer
     const TYPE_DOUBLE_SLASH = 2;
     const TYPE_SLASH_ASTERISK = 3;
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    public function isHeaderComment($tokens, $index)
+    public function isHeaderComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if (!$tokens[$index]->isGivenKind([\T_COMMENT, \T_DOC_COMMENT])) {
             throw new \InvalidArgumentException('Given index must point to a comment.');
@@ -58,11 +57,10 @@ final class CommentsAnalyzer
      * Check if comment at given index precedes structural element.
      *
      * @see https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc.md#3-definitions
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    public function isBeforeStructuralElement($tokens, $index)
+    public function isBeforeStructuralElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $token = $tokens[$index];
         if (!$token->isGivenKind([\T_COMMENT, \T_DOC_COMMENT])) {
@@ -102,9 +100,8 @@ final class CommentsAnalyzer
      *
      * @param int $index T_COMMENT index
      * @return mixed[]|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function getCommentBlockIndices($tokens, $index)
+    public function getCommentBlockIndices(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if (!$tokens[$index]->isGivenKind(\T_COMMENT)) {
             throw new \InvalidArgumentException('Given index must point to a comment.');
@@ -132,10 +129,9 @@ final class CommentsAnalyzer
     }
     /**
      * @see https://github.com/phpDocumentor/fig-standards/blob/master/proposed/phpdoc.md#3-definitions
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @return bool
      */
-    private function isStructuralElement($token)
+    private function isStructuralElement(\PhpCsFixer\Tokenizer\Token $token)
     {
         static $skip = [\T_PRIVATE, \T_PROTECTED, \T_PUBLIC, \T_VAR, \T_FUNCTION, \T_ABSTRACT, \T_CONST, \T_NAMESPACE, \T_REQUIRE, \T_REQUIRE_ONCE, \T_INCLUDE, \T_INCLUDE_ONCE, \T_FINAL, \T_STATIC];
         return $token->isClassy() || $token->isGivenKind($skip);
@@ -145,10 +141,9 @@ final class CommentsAnalyzer
      *
      * @param Token $docsToken    docs Token
      * @param int   $controlIndex index of control structure Token
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function isValidControl($tokens, $docsToken, $controlIndex)
+    private function isValidControl(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $docsToken, $controlIndex)
     {
         static $controlStructures = [\T_FOR, \T_FOREACH, \T_IF, \T_SWITCH, \T_WHILE];
         if (!$tokens[$controlIndex]->isGivenKind($controlStructures)) {
@@ -170,10 +165,9 @@ final class CommentsAnalyzer
      *
      * @param Token $docsToken              docs Token
      * @param int   $languageConstructIndex index of variable Token
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function isValidLanguageConstruct($tokens, $docsToken, $languageConstructIndex)
+    private function isValidLanguageConstruct(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $docsToken, $languageConstructIndex)
     {
         static $languageStructures = [\T_LIST, \T_PRINT, \T_ECHO, \PhpCsFixer\Tokenizer\CT::T_DESTRUCTURING_SQUARE_BRACE_OPEN];
         if (!$tokens[$languageConstructIndex]->isGivenKind($languageStructures)) {
@@ -194,10 +188,9 @@ final class CommentsAnalyzer
      * Checks variable assignments for correct docblock usage.
      *
      * @param int $index index of variable Token
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function isValidVariable($tokens, $index)
+    private function isValidVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if (!$tokens[$index]->isGivenKind(\T_VARIABLE)) {
             return \false;
@@ -220,12 +213,11 @@ final class CommentsAnalyzer
         return self::TYPE_DOUBLE_SLASH;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $whiteStart
      * @param int $whiteEnd
      * @return int
      */
-    private function getLineBreakCount($tokens, $whiteStart, $whiteEnd)
+    private function getLineBreakCount(\PhpCsFixer\Tokenizer\Tokens $tokens, $whiteStart, $whiteEnd)
     {
         $lineCount = 0;
         for ($i = $whiteStart; $i < $whiteEnd; ++$i) {

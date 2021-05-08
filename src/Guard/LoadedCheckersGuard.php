@@ -10,10 +10,7 @@ final class LoadedCheckersGuard
      * @var FileProcessorCollector
      */
     private $fileProcessorCollector;
-    /**
-     * @param \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector
-     */
-    public function __construct($fileProcessorCollector)
+    public function __construct(\Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
     {
         $this->fileProcessorCollector = $fileProcessorCollector;
     }

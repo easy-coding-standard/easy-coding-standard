@@ -24,8 +24,7 @@ interface ReporterInterface
     public function getFormat();
     /**
      * Process changed files array. Returns generated report.
-     * @param \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary
      * @return string
      */
-    public function generate($reportSummary);
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary);
 }

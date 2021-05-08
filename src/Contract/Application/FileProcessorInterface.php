@@ -6,10 +6,9 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 interface FileProcessorInterface
 {
     /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return string
      */
-    public function processFile($smartFileInfo);
+    public function processFile(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo);
     /**
      * @return mixed[]
      */

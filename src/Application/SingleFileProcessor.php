@@ -25,13 +25,7 @@ final class SingleFileProcessor
      * @var FileProcessorCollector
      */
     private $fileProcessorCollector;
-    /**
-     * @param \Symplify\Skipper\Skipper\Skipper $skipper
-     * @param \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector
-     * @param \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector
-     * @param \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector
-     */
-    public function __construct($skipper, $changedFilesDetector, $errorAndDiffCollector, $fileProcessorCollector)
+    public function __construct(\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
     {
         $this->skipper = $skipper;
         $this->changedFilesDetector = $changedFilesDetector;
@@ -40,9 +34,8 @@ final class SingleFileProcessor
     }
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function processFileInfo($smartFileInfo)
+    public function processFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
             return;

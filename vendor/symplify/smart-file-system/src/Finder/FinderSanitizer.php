@@ -2,10 +2,10 @@
 
 namespace Symplify\SmartFileSystem\Finder;
 
-use ECSPrefix20210507\Nette\Utils\Finder as NetteFinder;
+use ECSPrefix20210508\Nette\Utils\Finder as NetteFinder;
 use SplFileInfo;
-use ECSPrefix20210507\Symfony\Component\Finder\Finder as SymfonyFinder;
-use ECSPrefix20210507\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
+use ECSPrefix20210508\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20210508\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Finder\FinderSanitizer\FinderSanitizerTest
@@ -31,10 +31,9 @@ final class FinderSanitizer
         return $smartFileInfos;
     }
     /**
-     * @param \SplFileInfo $fileInfo
      * @return bool
      */
-    private function isFileInfoValid($fileInfo)
+    private function isFileInfoValid(\SplFileInfo $fileInfo)
     {
         return (bool) $fileInfo->getRealPath();
     }

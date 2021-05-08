@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
@@ -30,7 +30,7 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
      * @param int $position
      * @return string
      */
-    public function work($docContent, $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (!$this->isVariableComment($tokens, $position)) {
             return $docContent;
@@ -40,18 +40,18 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
             return $docContent;
         }
         // asterisk start
-        $docContent = \ECSPrefix20210507\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
+        $docContent = \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, self::SINGLE_ASTERISK_START_REGEX, '/**$1');
         // inline
-        $docContent = \ECSPrefix20210507\Nette\Utils\Strings::replace($docContent, self::SPACE_REGEX, ' ');
+        $docContent = \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, self::SPACE_REGEX, ' ');
         // remove asterisk leftover
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($docContent, self::ASTERISK_LEFTOVERS_REGEX, '$1');
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($docContent, self::ASTERISK_LEFTOVERS_REGEX, '$1');
     }
     /**
      * @param Tokens<Token> $tokens
      * @param int $position
      * @return bool
      */
-    private function isVariableComment($tokens, $position)
+    private function isVariableComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $nextPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextPosition === null) {

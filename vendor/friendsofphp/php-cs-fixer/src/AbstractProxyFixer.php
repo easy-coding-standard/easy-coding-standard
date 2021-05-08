@@ -34,10 +34,9 @@ abstract class AbstractProxyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($this->proxyFixers as $fixer) {
             if ($fixer->isCandidate($tokens)) {
@@ -72,10 +71,9 @@ abstract class AbstractProxyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
      * @return bool
      */
-    public function supports($file)
+    public function supports(\SplFileInfo $file)
     {
         foreach ($this->proxyFixers as $fixer) {
             if ($fixer->supports($file)) {
@@ -87,9 +85,8 @@ abstract class AbstractProxyFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\WhitespacesFixerConfig $config
      */
-    public function setWhitespacesConfig($config)
+    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config)
     {
         parent::setWhitespacesConfig($config);
         foreach ($this->proxyFixers as $fixer) {
@@ -101,10 +98,8 @@ abstract class AbstractProxyFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($this->proxyFixers as $fixer) {
             $fixer->fix($file, $tokens);

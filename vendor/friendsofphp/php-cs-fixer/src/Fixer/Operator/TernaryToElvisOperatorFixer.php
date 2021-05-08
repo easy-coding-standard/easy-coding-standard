@@ -84,10 +84,9 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound('?');
     }
@@ -102,10 +101,8 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $blockEdgeDefinitions = \PhpCsFixer\Tokenizer\Tokens::getBlockEdgeDefinitions();
         for ($index = \count($tokens) - 5; $index > 1; --$index) {
@@ -133,10 +130,9 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return null|array null if contains ++/-- operator
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function getBeforeOperator($tokens, $index, array $blockEdgeDefinitions)
+    private function getBeforeOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $blockEdgeDefinitions)
     {
         $index = $tokens->getPrevMeaningfulToken($index);
         $before = ['end' => $index];
@@ -174,11 +170,10 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
         return $before;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return mixed[]
      */
-    private function getAfterOperator($tokens, $index)
+    private function getAfterOperator(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = $tokens->getNextMeaningfulToken($index);
         $after = ['start' => $index];
@@ -194,10 +189,9 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * Meaningful compare of tokens within ranges.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function rangeEqualsRange($tokens, array $range1, array $range2)
+    private function rangeEqualsRange(\PhpCsFixer\Tokenizer\Tokens $tokens, array $range1, array $range2)
     {
         $leftStart = $range1['start'];
         $leftEnd = $range1['end'];
@@ -222,9 +216,8 @@ final class TernaryToElvisOperatorFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function clearMeaningfulFromRange($tokens, array $range)
+    private function clearMeaningfulFromRange(\PhpCsFixer\Tokenizer\Tokens $tokens, array $range)
     {
         // $range['end'] must be meaningful!
         for ($i = $range['end']; $i >= $range['start']; $i = $tokens->getPrevMeaningfulToken($i)) {

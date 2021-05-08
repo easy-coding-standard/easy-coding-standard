@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Doctrine\Common\Annotations;
+namespace ECSPrefix20210508\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionMethod;
@@ -10,22 +10,18 @@ use function get_class;
 /**
  * Allows the reader to be used in-place of Doctrine's reader.
  */
-class IndexedReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\Reader
+class IndexedReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
-    /**
-     * @param \Doctrine\Common\Annotations\Reader $reader
-     */
-    public function __construct($reader)
+    public function __construct(\ECSPrefix20210508\Doctrine\Common\Annotations\Reader $reader)
     {
         $this->delegate = $reader;
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations($class)
+    public function getClassAnnotations(\ReflectionClass $class)
     {
         $annotations = [];
         foreach ($this->delegate->getClassAnnotations($class) as $annot) {
@@ -35,17 +31,15 @@ class IndexedReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\Re
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation($class, $annotation)
+    public function getClassAnnotation(\ReflectionClass $class, $annotation)
     {
         return $this->delegate->getClassAnnotation($class, $annotation);
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations($method)
+    public function getMethodAnnotations(\ReflectionMethod $method)
     {
         $annotations = [];
         foreach ($this->delegate->getMethodAnnotations($method) as $annot) {
@@ -55,17 +49,15 @@ class IndexedReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\Re
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation($method, $annotation)
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotation)
     {
         return $this->delegate->getMethodAnnotation($method, $annotation);
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations($property)
+    public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         $annotations = [];
         foreach ($this->delegate->getPropertyAnnotations($property) as $annot) {
@@ -75,9 +67,8 @@ class IndexedReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\Re
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation($property, $annotation)
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotation)
     {
         return $this->delegate->getPropertyAnnotation($property, $annotation);
     }

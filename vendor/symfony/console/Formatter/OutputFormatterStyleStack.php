@@ -8,26 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20210508\Symfony\Component\Console\Formatter;
 
-use ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface;
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface
+class OutputFormatterStyleStack implements \ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface
 {
     /**
      * @var OutputFormatterStyleInterface[]
      */
     private $styles;
     private $emptyStyle;
-    /**
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
-     */
-    public function __construct($emptyStyle = null)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle = null)
     {
-        $this->emptyStyle = isset($emptyStyle) ? $emptyStyle : new \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterStyle();
+        $this->emptyStyle = isset($emptyStyle) ? $emptyStyle : new \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyle();
         $this->reset();
     }
     /**
@@ -39,9 +36,8 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
     }
     /**
      * Pushes a style in the stack.
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
-    public function push($style)
+    public function push(\ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
         $this->styles[] = $style;
     }
@@ -51,9 +47,8 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
      * @return OutputFormatterStyleInterface
      *
      * @throws InvalidArgumentException When style tags incorrectly nested
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style
      */
-    public function pop($style = null)
+    public function pop(\ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style = null)
     {
         if (empty($this->styles)) {
             return $this->emptyStyle;
@@ -67,7 +62,7 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
                 return $stackedStyle;
             }
         }
-        throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException('Incorrectly nested style tag found.');
+        throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException('Incorrectly nested style tag found.');
     }
     /**
      * Computes current style with stacks top codes.
@@ -83,9 +78,8 @@ class OutputFormatterStyleStack implements \ECSPrefix20210507\Symfony\Contracts\
     }
     /**
      * @return $this
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle
      */
-    public function setEmptyStyle($emptyStyle)
+    public function setEmptyStyle(\ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $emptyStyle)
     {
         $this->emptyStyle = $emptyStyle;
         return $this;

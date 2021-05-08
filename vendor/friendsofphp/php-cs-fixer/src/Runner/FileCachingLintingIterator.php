@@ -32,11 +32,7 @@ final class FileCachingLintingIterator extends \CachingIterator
      * @var LintingResultInterface
      */
     private $nextResult;
-    /**
-     * @param \Iterator $iterator
-     * @param \PhpCsFixer\Linter\LinterInterface $linter
-     */
-    public function __construct($iterator, $linter)
+    public function __construct(\Iterator $iterator, \PhpCsFixer\Linter\LinterInterface $linter)
     {
         parent::__construct($iterator);
         $this->linter = $linter;
@@ -73,10 +69,9 @@ final class FileCachingLintingIterator extends \CachingIterator
         }
     }
     /**
-     * @param \SplFileInfo $file
      * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    private function handleItem($file)
+    private function handleItem(\SplFileInfo $file)
     {
         return $this->linter->lintFile($file->getRealPath());
     }

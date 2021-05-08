@@ -12,8 +12,8 @@
 namespace PhpCsFixer\Tokenizer;
 
 use PhpCsFixer\Utils;
-use ECSPrefix20210507\Symfony\Component\Finder\Finder;
-use ECSPrefix20210507\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210508\Symfony\Component\Finder\Finder;
+use ECSPrefix20210508\Symfony\Component\Finder\SplFileInfo;
 /**
  * Collection of Transformer classes.
  *
@@ -57,7 +57,7 @@ final class Transformers
      * @param Tokens $tokens Tokens collection
      * @return void
      */
-    public function transform($tokens)
+    public function transform(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($this->items as $transformer) {
             foreach ($tokens as $index => $token) {
@@ -69,7 +69,7 @@ final class Transformers
      * @param TransformerInterface $transformer Transformer
      * @return void
      */
-    private function registerTransformer($transformer)
+    private function registerTransformer(\PhpCsFixer\Tokenizer\TransformerInterface $transformer)
     {
         if (\PHP_VERSION_ID >= $transformer->getRequiredPhpVersionId()) {
             $this->items[] = $transformer;
@@ -95,7 +95,7 @@ final class Transformers
     private function findBuiltInTransformers()
     {
         /** @var SplFileInfo $file */
-        foreach (\ECSPrefix20210507\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Transformer') as $file) {
+        foreach (\ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->files()->in(__DIR__ . '/Transformer') as $file) {
             $relativeNamespace = $file->getRelativePath();
             $class = __NAMESPACE__ . '\\Transformer\\' . ($relativeNamespace ? $relativeNamespace . '\\' : '') . $file->getBasename('.php');
             (yield new $class());

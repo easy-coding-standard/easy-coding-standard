@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\DependencyInjection;
+namespace ECSPrefix20210508\Symfony\Component\Cache\DependencyInjection;
 
-use ECSPrefix20210507\Symfony\Component\Cache\Adapter\AbstractAdapter;
-use ECSPrefix20210507\Symfony\Component\Cache\Adapter\ArrayAdapter;
-use ECSPrefix20210507\Symfony\Component\Cache\Adapter\ChainAdapter;
-use ECSPrefix20210507\Symfony\Component\Cache\Adapter\ParameterNormalizer;
-use ECSPrefix20210507\Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter;
+use ECSPrefix20210508\Symfony\Component\Cache\Adapter\ArrayAdapter;
+use ECSPrefix20210508\Symfony\Component\Cache\Adapter\ChainAdapter;
+use ECSPrefix20210508\Symfony\Component\Cache\Adapter\ParameterNormalizer;
+use ECSPrefix20210508\Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class CachePoolPass implements \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $cachePoolTag;
     private $kernelResetTag;
@@ -60,9 +60,8 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if ($container->hasParameter('cache.prefix.seed')) {
             $seed = $container->getParameterBag()->resolveValue($container->getParameter('cache.prefix.seed'));
@@ -80,7 +79,7 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
                 continue;
             }
             $class = $adapter->getClass();
-            while ($adapter instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition) {
+            while ($adapter instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition) {
                 $adapter = $container->findDefinition($adapter->getParent());
                 $class = $class ?: $adapter->getClass();
                 if ($t = $adapter->getTag($this->cachePoolTag)) {
@@ -105,33 +104,33 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
             }
             unset($tags[0]['clearer'], $tags[0]['name']);
             if (isset($tags[0]['provider'])) {
-                $tags[0]['provider'] = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $tags[0]['provider']));
+                $tags[0]['provider'] = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $tags[0]['provider']));
             }
-            if (\ECSPrefix20210507\Symfony\Component\Cache\Adapter\ChainAdapter::class === $class) {
+            if (\ECSPrefix20210508\Symfony\Component\Cache\Adapter\ChainAdapter::class === $class) {
                 $adapters = [];
                 foreach ($adapter->getArgument(0) as $provider => $adapter) {
-                    if ($adapter instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition) {
+                    if ($adapter instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition) {
                         $chainedPool = $adapter;
                     } else {
-                        $chainedPool = $adapter = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition($adapter);
+                        $chainedPool = $adapter = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition($adapter);
                     }
                     $chainedTags = [\is_int($provider) ? [] : ['provider' => $provider]];
                     $chainedClass = '';
-                    while ($adapter instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition) {
+                    while ($adapter instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition) {
                         $adapter = $container->findDefinition($adapter->getParent());
                         $chainedClass = $chainedClass ?: $adapter->getClass();
                         if ($t = $adapter->getTag($this->cachePoolTag)) {
                             $chainedTags[0] += $t[0];
                         }
                     }
-                    if (\ECSPrefix20210507\Symfony\Component\Cache\Adapter\ChainAdapter::class === $chainedClass) {
-                        throw new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": chain of adapters cannot reference another chain, found "%s".', $id, $chainedPool->getParent()));
+                    if (\ECSPrefix20210508\Symfony\Component\Cache\Adapter\ChainAdapter::class === $chainedClass) {
+                        throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": chain of adapters cannot reference another chain, found "%s".', $id, $chainedPool->getParent()));
                     }
                     $i = 0;
                     if (isset($chainedTags[0]['provider'])) {
-                        $chainedPool->replaceArgument($i++, new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $chainedTags[0]['provider'])));
+                        $chainedPool->replaceArgument($i++, new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference(static::getServiceProvider($container, $chainedTags[0]['provider'])));
                     }
-                    if (isset($tags[0]['namespace']) && \ECSPrefix20210507\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $adapter->getClass()) {
+                    if (isset($tags[0]['namespace']) && \ECSPrefix20210508\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $adapter->getClass()) {
                         $chainedPool->replaceArgument($i++, $tags[0]['namespace']);
                     }
                     if (isset($tags[0]['default_lifetime'])) {
@@ -154,24 +153,24 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
                     }
                 } elseif ('early_expiration_message_bus' === $attr) {
                     $needsMessageHandler = \true;
-                    $pool->addMethodCall('setCallbackWrapper', [(new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition(\ECSPrefix20210507\Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher::class))->addArgument(new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference($tags[0]['early_expiration_message_bus']))->addArgument(new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference($this->reverseContainerId))->addArgument((new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition('callable'))->setFactory([new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference($id), 'setCallbackWrapper'])->addArgument(null))]);
+                    $pool->addMethodCall('setCallbackWrapper', [(new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition(\ECSPrefix20210508\Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher::class))->addArgument(new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($tags[0]['early_expiration_message_bus']))->addArgument(new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($this->reverseContainerId))->addArgument((new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition('callable'))->setFactory([new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($id), 'setCallbackWrapper'])->addArgument(null))]);
                     $pool->addTag($this->reversibleTag);
-                } elseif ('namespace' !== $attr || \ECSPrefix20210507\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $class) {
+                } elseif ('namespace' !== $attr || \ECSPrefix20210508\Symfony\Component\Cache\Adapter\ArrayAdapter::class !== $class) {
                     $argument = $tags[0][$attr];
                     if ('default_lifetime' === $attr && !\is_numeric($argument)) {
-                        $argument = (new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition('int', [$argument]))->setFactory([\ECSPrefix20210507\Symfony\Component\Cache\Adapter\ParameterNormalizer::class, 'normalizeDuration']);
+                        $argument = (new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition('int', [$argument]))->setFactory([\ECSPrefix20210508\Symfony\Component\Cache\Adapter\ParameterNormalizer::class, 'normalizeDuration']);
                     }
                     $pool->replaceArgument($i++, $argument);
                 }
                 unset($tags[0][$attr]);
             }
             if (!empty($tags[0])) {
-                throw new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "%s" tag for service "%s": accepted attributes are "clearer", "provider", "name", "namespace", "default_lifetime", "early_expiration_message_bus" and "reset", found "%s".', $this->cachePoolTag, $id, \implode('", "', \array_keys($tags[0]))));
+                throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid "%s" tag for service "%s": accepted attributes are "clearer", "provider", "name", "namespace", "default_lifetime", "early_expiration_message_bus" and "reset", found "%s".', $this->cachePoolTag, $id, \implode('", "', \array_keys($tags[0]))));
             }
             if (null !== $clearer) {
-                $clearers[$clearer][$name] = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
+                $clearers[$clearer][$name] = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
             }
-            $allPools[$name] = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
+            $allPools[$name] = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
         }
         if (!$needsMessageHandler) {
             $container->removeDefinition($this->messageHandlerId);
@@ -185,7 +184,7 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
         }
         foreach ($clearers as $id => $pools) {
             $clearer = $container->getDefinition($id);
-            if ($clearer instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition) {
+            if ($clearer instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition) {
                 $clearer->replaceArgument(0, $pools);
             } else {
                 $clearer->setArgument(0, $pools);
@@ -209,17 +208,16 @@ class CachePoolPass implements \ECSPrefix20210507\Symfony\Component\DependencyIn
     }
     /**
      * @internal
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public static function getServiceProvider($container, $name)
+    public static function getServiceProvider(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $name)
     {
         $container->resolveEnvPlaceholders($name, null, $usedEnvs);
         if ($usedEnvs || \preg_match('#^[a-z]++:#', $name)) {
             $dsn = $name;
-            if (!$container->hasDefinition($name = '.cache_connection.' . \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder::hash($dsn))) {
-                $definition = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition(\ECSPrefix20210507\Symfony\Component\Cache\Adapter\AbstractAdapter::class);
+            if (!$container->hasDefinition($name = '.cache_connection.' . \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder::hash($dsn))) {
+                $definition = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition(\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter::class);
                 $definition->setPublic(\false);
-                $definition->setFactory([\ECSPrefix20210507\Symfony\Component\Cache\Adapter\AbstractAdapter::class, 'createConnection']);
+                $definition->setFactory([\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter::class, 'createConnection']);
                 $definition->setArguments([$dsn, ['lazy' => \true]]);
                 $container->setDefinition($name, $definition);
             }

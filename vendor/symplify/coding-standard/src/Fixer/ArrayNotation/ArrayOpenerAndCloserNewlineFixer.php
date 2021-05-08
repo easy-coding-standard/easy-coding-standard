@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -38,12 +38,7 @@ final class ArrayOpenerAndCloserNewlineFixer extends \Symplify\CodingStandard\Fi
      * @var ArrayAnalyzer
      */
     private $arrayAnalyzer;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder $arrayBlockInfoFinder
-     * @param \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer $arrayAnalyzer
-     */
-    public function __construct($arrayBlockInfoFinder, $whitespacesFixerConfig, $arrayAnalyzer)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder $arrayBlockInfoFinder, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer $arrayAnalyzer)
     {
         $this->arrayBlockInfoFinder = $arrayBlockInfoFinder;
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
@@ -85,7 +80,7 @@ CODE_SAMPLE
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (!$tokens->isAnyTokenKindsFound(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {
             return \false;
@@ -95,9 +90,8 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $fileInfo
      */
-    public function fix($fileInfo, $tokens)
+    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $blockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($blockInfos as $blockInfo) {
@@ -107,9 +101,8 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      */
-    private function fixArrayOpener($tokens, $blockInfo)
+    private function fixArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         if ($this->isNextTokenAlsoArrayOpener($tokens, $blockInfo->getStart())) {
             return;
@@ -131,7 +124,7 @@ CODE_SAMPLE
      * @param int $index
      * @return bool
      */
-    private function isNextTokenAlsoArrayOpener($tokens, $index)
+    private function isNextTokenAlsoArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
@@ -144,7 +137,7 @@ CODE_SAMPLE
      * @return void
      * @param int $arrayCloserPosition
      */
-    private function handleArrayCloser($tokens, $arrayCloserPosition)
+    private function handleArrayCloser(\PhpCsFixer\Tokenizer\Tokens $tokens, $arrayCloserPosition)
     {
         $preArrayCloserPosition = $arrayCloserPosition - 1;
         $previousCloserToken = isset($tokens[$preArrayCloserPosition]) ? $tokens[$preArrayCloserPosition] : null;
@@ -152,7 +145,7 @@ CODE_SAMPLE
             return;
         }
         // already whitespace
-        if (\ECSPrefix20210507\Nette\Utils\Strings::contains($previousCloserToken->getContent(), "\n")) {
+        if (\ECSPrefix20210508\Nette\Utils\Strings::contains($previousCloserToken->getContent(), "\n")) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($preArrayCloserPosition, 1, $this->whitespacesFixerConfig->getLineEnding());
@@ -162,7 +155,7 @@ CODE_SAMPLE
      * @return void
      * @param int $arrayOpenerPosition
      */
-    private function handleArrayOpener($tokens, $arrayOpenerPosition)
+    private function handleArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, $arrayOpenerPosition)
     {
         $postArrayOpenerPosition = $arrayOpenerPosition + 1;
         $nextToken = isset($tokens[$postArrayOpenerPosition]) ? $tokens[$postArrayOpenerPosition] : null;
@@ -170,7 +163,7 @@ CODE_SAMPLE
             return;
         }
         // already is whitespace
-        if (\ECSPrefix20210507\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
+        if (\ECSPrefix20210508\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($postArrayOpenerPosition, 0, $this->whitespacesFixerConfig->getLineEnding());

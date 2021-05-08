@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference;
 /**
  * Propagate "container.hot_path" tags to referenced services.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveHotPathPass extends \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveHotPathPass extends \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $tagName;
     private $resolvedIds = [];
@@ -32,9 +32,8 @@ class ResolveHotPathPass extends \ECSPrefix20210507\Symfony\Component\Dependency
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         try {
             parent::process($container);
@@ -49,10 +48,10 @@ class ResolveHotPathPass extends \ECSPrefix20210507\Symfony\Component\Dependency
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+        if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             return $value;
         }
-        if ($value instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition && $isRoot) {
+        if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition && $isRoot) {
             if ($value->isDeprecated()) {
                 return $value->clearTag($this->tagName);
             }
@@ -61,7 +60,7 @@ class ResolveHotPathPass extends \ECSPrefix20210507\Symfony\Component\Dependency
                 return $value;
             }
         }
-        if ($value instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
+        if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference && \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior() && $this->container->hasDefinition($id = (string) $value)) {
             $definition = $this->container->getDefinition($id);
             if ($definition->isDeprecated() || $definition->hasTag($this->tagName)) {
                 return $value;

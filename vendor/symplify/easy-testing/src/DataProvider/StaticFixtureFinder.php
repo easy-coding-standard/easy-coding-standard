@@ -3,9 +3,9 @@
 namespace Symplify\EasyTesting\DataProvider;
 
 use Iterator;
-use ECSPrefix20210507\Nette\Utils\Strings;
-use ECSPrefix20210507\Symfony\Component\Finder\Finder;
-use ECSPrefix20210507\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210508\Nette\Utils\Strings;
+use ECSPrefix20210508\Symfony\Component\Finder\Finder;
+use ECSPrefix20210508\Symfony\Component\Finder\SplFileInfo;
 use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
@@ -89,7 +89,7 @@ final class StaticFixtureFinder
      */
     private static function findFilesInDirectory($directory, $suffix)
     {
-        $finder = \ECSPrefix20210507\Symfony\Component\Finder\Finder::create()->in($directory)->files()->name($suffix);
+        $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->in($directory)->files()->name($suffix);
         $fileInfos = \iterator_to_array($finder);
         return \array_values($fileInfos);
     }
@@ -101,7 +101,7 @@ final class StaticFixtureFinder
     private static function findFilesInDirectoryExclusively($directory, $suffix)
     {
         self::ensureNoOtherFileName($directory, $suffix);
-        $finder = \ECSPrefix20210507\Symfony\Component\Finder\Finder::create()->in($directory)->files()->name($suffix);
+        $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->in($directory)->files()->name($suffix);
         $fileInfos = \iterator_to_array($finder->getIterator());
         return \array_values($fileInfos);
     }
@@ -112,10 +112,10 @@ final class StaticFixtureFinder
      */
     private static function ensureNoOtherFileName($directory, $suffix)
     {
-        $iterator = \ECSPrefix20210507\Symfony\Component\Finder\Finder::create()->in($directory)->files()->notName($suffix)->getIterator();
+        $iterator = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->in($directory)->files()->notName($suffix)->getIterator();
         $relativeFilePaths = [];
         foreach ($iterator as $fileInfo) {
-            $relativeFilePaths[] = \ECSPrefix20210507\Nette\Utils\Strings::substring($fileInfo->getRealPath(), \strlen(\getcwd()) + 1);
+            $relativeFilePaths[] = \ECSPrefix20210508\Nette\Utils\Strings::substring($fileInfo->getRealPath(), \strlen(\getcwd()) + 1);
         }
         if ($relativeFilePaths === []) {
             return;

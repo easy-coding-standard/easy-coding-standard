@@ -50,11 +50,10 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         $classIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_CLASS]]);
         if ($this->isAbstractClass($tokens, $classIndex)) {
@@ -68,21 +67,19 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $i
      * @return bool
      */
-    private function isAbstractClass($tokens, $i)
+    private function isAbstractClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
     {
         $typeIndex = $tokens->getPrevMeaningfulToken($i);
         return $tokens[$typeIndex]->isGivenKind(\T_ABSTRACT);
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docBlockIndex
      */
-    private function createDocBlock($tokens, $docBlockIndex)
+    private function createDocBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
         $lineEnd = $this->whitespacesConfig->getLineEnding();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $tokens->getNextNonWhitespace($docBlockIndex));
@@ -93,10 +90,9 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docBlockIndex
      */
-    private function updateDocBlockIfNeeded($tokens, $docBlockIndex)
+    private function updateDocBlockIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
         $doc = new \PhpCsFixer\DocBlock\DocBlock($tokens[$docBlockIndex]->getContent());
         if (!empty($this->filterDocBlock($doc))) {
@@ -109,11 +105,9 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docBlockIndex
      */
-    private function addSizeAnnotation($docBlock, $tokens, $docBlockIndex)
+    private function addSizeAnnotation(\PhpCsFixer\DocBlock\DocBlock $docBlock, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
         $lines = $docBlock->getLines();
         $originalIndent = \PhpCsFixer\Tokenizer\Analyzer\WhitespacesAnalyzer::detectIndent($tokens, $docBlockIndex);
@@ -123,12 +117,10 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
         return $lines;
     }
     /**
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docBlockIndex
      * @return \PhpCsFixer\DocBlock\DocBlock
      */
-    private function makeDocBlockMultiLineIfNeeded($doc, $tokens, $docBlockIndex)
+    private function makeDocBlockMultiLineIfNeeded(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
         $lines = $doc->getLines();
         if (1 === \count($lines) && empty($this->filterDocBlock($doc))) {
@@ -143,10 +135,9 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
      * @param Line[] $lines
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docBlockIndex
      */
-    private function splitUpDocBlock(array $lines, $tokens, $docBlockIndex)
+    private function splitUpDocBlock(array $lines, \PhpCsFixer\Tokenizer\Tokens $tokens, $docBlockIndex)
     {
         $lineContent = $this->getSingleLineDocBlockEntry($lines);
         $lineEnd = $this->whitespacesConfig->getLineEnding();
@@ -177,9 +168,8 @@ final class PhpUnitSizeClassFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      */
-    private function filterDocBlock($doc)
+    private function filterDocBlock(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         return \array_filter([$doc->getAnnotationsOfType('small'), $doc->getAnnotationsOfType('large'), $doc->getAnnotationsOfType('medium')]);
     }

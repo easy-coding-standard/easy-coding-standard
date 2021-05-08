@@ -43,20 +43,17 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_UNSET);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_UNSET)) {
@@ -88,10 +85,9 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int[] $indices
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $offset
      */
-    private function clearOffsetTokens($tokens, $offset, array $indices)
+    private function clearOffsetTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $offset, array $indices)
     {
         foreach ($indices as $index) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index + $offset);
@@ -109,10 +105,9 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
      * Or the index to where the method looked for an call.
      *
      * @return int|int[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function getPreviousUnsetCall($tokens, $index)
+    private function getPreviousUnsetCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $previousUnsetSemicolon = $tokens->getPrevMeaningfulToken($index);
         if (null === $previousUnsetSemicolon) {
@@ -144,9 +139,8 @@ final class CombineConsecutiveUnsetsFixer extends \PhpCsFixer\AbstractFixer
      * @param int $to    Upper boundary index
      *
      * @return int Number of tokens inserted
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function moveTokens($tokens, $start, $end, $to)
+    private function moveTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end, $to)
     {
         $added = 0;
         for ($i = $start + 1; $i < $end; $i += 2) {

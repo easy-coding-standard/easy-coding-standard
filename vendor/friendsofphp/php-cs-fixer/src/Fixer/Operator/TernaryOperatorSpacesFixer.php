@@ -45,20 +45,17 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAllTokenKindsFound(['?', ':']);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
         $ternaryOperatorIndices = [];
@@ -109,11 +106,10 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function belongsToAlternativeSyntax($tokens, $index)
+    private function belongsToAlternativeSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if (!$tokens[$index]->equals(':')) {
             return \false;
@@ -131,10 +127,9 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $switchIndex
      */
-    private function getColonIndicesForSwitch($tokens, $switchIndex)
+    private function getColonIndicesForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex)
     {
         return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
             return $caseAnalysis->getColonIndex();
@@ -142,11 +137,10 @@ final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param bool $after
      */
-    private function ensureWhitespaceExistence($tokens, $index, $after)
+    private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $after)
     {
         if ($tokens[$index]->isWhitespace()) {
             if (\false === \strpos($tokens[$index]->getContent(), "\n") && !$tokens[$index - 1]->isComment()) {

@@ -2,10 +2,10 @@
 
 namespace Symplify\SymplifyKernel\Console;
 
-use ECSPrefix20210507\Symfony\Component\Console\Application;
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Application;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-abstract class AbstractSymplifyConsoleApplication extends \ECSPrefix20210507\Symfony\Component\Console\Application
+abstract class AbstractSymplifyConsoleApplication extends \ECSPrefix20210508\Symfony\Component\Console\Application
 {
     /**
      * @var CommandNaming

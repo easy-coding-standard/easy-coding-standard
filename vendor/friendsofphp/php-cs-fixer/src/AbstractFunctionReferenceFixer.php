@@ -35,10 +35,9 @@ abstract class AbstractFunctionReferenceFixer extends \PhpCsFixer\AbstractFixer
      * @return mixed[]|null returns $functionName, $openParenthesis, $closeParenthesis packed into array
      * @param int|null $end
      * @param string $functionNameToSearch
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $start
      */
-    protected function find($functionNameToSearch, $tokens, $start = 0, $end = null)
+    protected function find($functionNameToSearch, \PhpCsFixer\Tokenizer\Tokens $tokens, $start = 0, $end = null)
     {
         // make interface consistent with findSequence
         $end = null === $end ? $tokens->count() : $end;

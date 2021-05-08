@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210507\Symfony\Contracts\Service\Attribute\Required;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210508\Symfony\Contracts\Service\Attribute\Required;
 /**
  * Looks for definitions with autowiring enabled and registers their corresponding "@required" methods as setters.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class AutowireRequiredMethodsPass extends \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class AutowireRequiredMethodsPass extends \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210507\Symfony\Component\D
     protected function processValue($value, $isRoot = \false)
     {
         $value = parent::processValue($value, $isRoot);
-        if (!$value instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
+        if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition || !$value->isAutowired() || $value->isAbstract() || !$value->getClass()) {
             return $value;
         }
         if (!($reflectionClass = $this->container->getReflectionClass($value->getClass(), \false))) {
@@ -43,7 +43,7 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210507\Symfony\Component\D
                 continue;
             }
             while (\true) {
-                if (\PHP_VERSION_ID >= 80000 && $r->getAttributes(\ECSPrefix20210507\Symfony\Contracts\Service\Attribute\Required::class)) {
+                if (\PHP_VERSION_ID >= 80000 && $r->getAttributes(\ECSPrefix20210508\Symfony\Contracts\Service\Attribute\Required::class)) {
                     if ($this->isWither($r, $r->getDocComment() ?: '')) {
                         $withers[] = [$r->name, [], \true];
                     } else {
@@ -83,11 +83,10 @@ class AutowireRequiredMethodsPass extends \ECSPrefix20210507\Symfony\Component\D
         return $value;
     }
     /**
-     * @param \ReflectionMethod $reflectionMethod
      * @param string $doc
      * @return bool
      */
-    private function isWither($reflectionMethod, $doc)
+    private function isWither(\ReflectionMethod $reflectionMethod, $doc)
     {
         $match = \preg_match('#(?:^/\\*\\*|\\n\\s*+\\*)\\s*+@return\\s++(static|\\$this)[\\s\\*]#i', $doc, $matches);
         if ($match && 'static' === $matches[1]) {

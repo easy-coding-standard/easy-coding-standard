@@ -2,17 +2,16 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @return void
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      */
-    public function process($containerBuilder)
+    public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $excludedCheckers = $this->getExcludedCheckersFromParameterBag($containerBuilder->getParameterBag());
         $definitions = $containerBuilder->getDefinitions();
@@ -25,9 +24,8 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210507\Sym
     }
     /**
      * @return mixed[]
-     * @param \Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag
      */
-    private function getExcludedCheckersFromParameterBag($parameterBag)
+    private function getExcludedCheckersFromParameterBag(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag)
     {
         // parts of "skip" parameter
         if (!$parameterBag->has(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP)) {

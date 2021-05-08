@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
@@ -42,13 +42,7 @@ final class ErrorAndDiffCollector
      * @var CurrentParentFileInfoProvider
      */
     private $currentParentFileInfoProvider;
-    /**
-     * @param \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector
-     * @param \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory
-     * @param \Symplify\EasyCodingStandard\Error\ErrorFactory $errorFactory
-     * @param \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider
-     */
-    public function __construct($changedFilesDetector, $fileDiffFactory, $errorFactory, $currentParentFileInfoProvider)
+    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, \Symplify\EasyCodingStandard\Error\ErrorFactory $errorFactory, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
     {
         $this->changedFilesDetector = $changedFilesDetector;
         $this->fileDiffFactory = $fileDiffFactory;
@@ -58,11 +52,10 @@ final class ErrorAndDiffCollector
     /**
      * @param class-string $sourceClass
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      * @param int $line
      * @param string $message
      */
-    public function addErrorMessage($fileInfo, $line, $message, $sourceClass)
+    public function addErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $line, $message, $sourceClass)
     {
         if ($this->currentParentFileInfoProvider->provide() !== null) {
             // skip sniff errors
@@ -75,11 +68,10 @@ final class ErrorAndDiffCollector
     }
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @param int $line
      * @param string $message
      */
-    public function addSystemErrorMessage($smartFileInfo, $line, $message)
+    public function addSystemErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $line, $message)
     {
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         $this->systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($line, $message, $smartFileInfo);
@@ -101,10 +93,9 @@ final class ErrorAndDiffCollector
     /**
      * @param class-string[] $appliedCheckers
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @param string $diff
      */
-    public function addDiffForFileInfo($smartFileInfo, $diff, array $appliedCheckers)
+    public function addDiffForFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
     {
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
         foreach ($appliedCheckers as $appliedChecker) {
@@ -135,8 +126,8 @@ final class ErrorAndDiffCollector
     private function ensureIsFixerOrChecker($sourceClass)
     {
         // remove dot suffix of "."
-        if (\ECSPrefix20210507\Nette\Utils\Strings::contains($sourceClass, '.')) {
-            $sourceClass = (string) \ECSPrefix20210507\Nette\Utils\Strings::before($sourceClass, '.', 1);
+        if (\ECSPrefix20210508\Nette\Utils\Strings::contains($sourceClass, '.')) {
+            $sourceClass = (string) \ECSPrefix20210508\Nette\Utils\Strings::before($sourceClass, '.', 1);
         }
         if (\is_a($sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
             return;

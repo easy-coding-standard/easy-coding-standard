@@ -3,13 +3,13 @@
 declare (strict_types=1);
 namespace Symplify\AutowireArrayParameter\Tests\HttpKernel;
 
-use ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Kernel;
+use ECSPrefix20210508\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Kernel;
 use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
-final class AutowireArrayParameterHttpKernel extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Kernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+final class AutowireArrayParameterHttpKernel extends \ECSPrefix20210508\Symfony\Component\HttpKernel\Kernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
@@ -20,7 +20,7 @@ final class AutowireArrayParameterHttpKernel extends \ECSPrefix20210507\Symfony\
         // to invoke container override for test re-run
         parent::__construct('dev' . \random_int(0, 10000), \true);
     }
-    public function registerContainerConfiguration(\ECSPrefix20210507\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
+    public function registerContainerConfiguration(\ECSPrefix20210508\Symfony\Component\Config\Loader\LoaderInterface $loader) : void
     {
         $loader->load(__DIR__ . '/../config/autowire_array_parameter.php');
         foreach ($this->configs as $config) {
@@ -49,7 +49,7 @@ final class AutowireArrayParameterHttpKernel extends \ECSPrefix20210507\Symfony\
     {
         $this->configs = $configs;
     }
-    protected function build(\ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
+    protected function build(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder) : void
     {
         $containerBuilder->addCompilerPass(new \Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }

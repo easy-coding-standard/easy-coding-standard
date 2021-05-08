@@ -2,8 +2,8 @@
 
 namespace Symplify\CodingStandard\Fixer\Annotation;
 
-use ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer;
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\AbstractDoctrineAnnotationFixer;
 use PhpCsFixer\Doctrine\Annotation\Token;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
@@ -31,10 +31,7 @@ final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer
      * @var BlockInfo|null
      */
     private $currentBlockInfo;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\DoctrineBlockFinder $doctrineBlockFinder
-     */
-    public function __construct($doctrineBlockFinder)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\DoctrineBlockFinder $doctrineBlockFinder)
     {
         $this->doctrineBlockFinder = $doctrineBlockFinder;
         parent::__construct();
@@ -90,7 +87,7 @@ CODE_SAMPLE
      * @param iterable<Token>&Tokens $tokens
      * @return void
      */
-    protected function fixAnnotations($tokens)
+    protected function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $tokens)
     {
         $this->currentBlockInfo = null;
         $tokenCount = $tokens->count();
@@ -98,7 +95,7 @@ CODE_SAMPLE
         for ($index = 0; $index < $tokenCount; ++$index) {
             /** @var Token $currentToken */
             $currentToken = $tokens[$index];
-            if (!$currentToken->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_AT)) {
+            if (!$currentToken->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_AT)) {
                 continue;
             }
             $previousTokenPosition = $index - 1;
@@ -109,9 +106,9 @@ CODE_SAMPLE
             if ($this->shouldSkip($index, $tokens, $previousToken)) {
                 continue;
             }
-            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
-            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
-            $tNone = $previousToken->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_NONE);
+            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
+            $tokens->insertAt($index, new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
+            $tNone = $previousToken->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE);
             // remove redundant space
             if ($tNone) {
                 $tokens->offsetUnset($previousTokenPosition);
@@ -120,13 +117,12 @@ CODE_SAMPLE
         }
     }
     /**
-     * @param \PhpCsFixer\Doctrine\Annotation\Token $token
      * @return bool
      */
-    private function isDocOpener($token)
+    private function isDocOpener(\PhpCsFixer\Doctrine\Annotation\Token $token)
     {
-        if ($token->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
-            return \ECSPrefix20210507\Nette\Utils\Strings::contains($token->getContent(), '*');
+        if ($token->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+            return \ECSPrefix20210508\Nette\Utils\Strings::contains($token->getContent(), '*');
         }
         return \false;
     }
@@ -136,12 +132,12 @@ CODE_SAMPLE
      * @param int $index
      * @param int $previousTokenPosition
      */
-    private function processEndBracket($index, $tokens, $previousTokenPosition)
+    private function processEndBracket($index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, $previousTokenPosition)
     {
         /** @var Token $previousToken */
         $previousToken = $tokens->offsetGet($previousTokenPosition);
         // already a space → skip
-        if ($previousToken->isType(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
+        if ($previousToken->isType(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE)) {
             return;
         }
         // reset
@@ -153,17 +149,16 @@ CODE_SAMPLE
             $this->currentBlockInfo = $this->doctrineBlockFinder->findInTokensByEdge($tokens, $previousTokenPosition);
         }
         if ($this->currentBlockInfo !== null) {
-            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
-            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210507\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
+            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE, ' * '));
+            $tokens->insertAt($this->currentBlockInfo->getEnd(), new \PhpCsFixer\Doctrine\Annotation\Token(\ECSPrefix20210508\Doctrine\Common\Annotations\DocLexer::T_NONE, "\n"));
         }
     }
     /**
      * @param Tokens<Token> $tokens
      * @param int $index
-     * @param \PhpCsFixer\Doctrine\Annotation\Token $previousToken
      * @return bool
      */
-    private function shouldSkip($index, $tokens, $previousToken)
+    private function shouldSkip($index, \PhpCsFixer\Doctrine\Annotation\Tokens $tokens, \PhpCsFixer\Doctrine\Annotation\Token $previousToken)
     {
         // docblock opener → skip it
         if ($this->isDocOpener($previousToken)) {
@@ -174,7 +169,7 @@ CODE_SAMPLE
         if (!$nextToken instanceof \PhpCsFixer\Doctrine\Annotation\Token) {
             return \true;
         }
-        if (!\ECSPrefix20210507\Nette\Utils\Strings::startsWith($nextToken->getContent(), 'ORM')) {
+        if (!\ECSPrefix20210508\Nette\Utils\Strings::startsWith($nextToken->getContent(), 'ORM')) {
             return \true;
         }
         // not an entity annotation, just some comment

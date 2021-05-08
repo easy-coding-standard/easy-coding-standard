@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache\HttpCache;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210508\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\HttpCache;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * SurrogateListener adds a Surrogate-Control HTTP header when the Response needs to be parsed for Surrogates.
  *
@@ -22,28 +22,24 @@ use ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class SurrogateListener implements \ECSPrefix20210507\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class SurrogateListener implements \ECSPrefix20210508\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $surrogate;
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate
-     */
-    public function __construct($surrogate = null)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\SurrogateInterface $surrogate = null)
     {
         $this->surrogate = $surrogate;
     }
     /**
      * Filters the Response.
-     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse($event)
+    public function onKernelResponse(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
         $kernel = $event->getKernel();
         $surrogate = $this->surrogate;
-        if ($kernel instanceof \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpCache\HttpCache) {
+        if ($kernel instanceof \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpCache\HttpCache) {
             $surrogate = $kernel->getSurrogate();
             if (null !== $this->surrogate && $this->surrogate->getName() !== $surrogate->getName()) {
                 $surrogate = $this->surrogate;
@@ -59,6 +55,6 @@ class SurrogateListener implements \ECSPrefix20210507\Symfony\Component\EventDis
      */
     public static function getSubscribedEvents()
     {
-        return [\ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
+        return [\ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }
 }

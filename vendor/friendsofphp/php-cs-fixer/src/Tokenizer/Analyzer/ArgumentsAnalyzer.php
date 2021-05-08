@@ -25,12 +25,11 @@ final class ArgumentsAnalyzer
 {
     /**
      * Count amount of parameters in a function/method reference.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $openParenthesis
      * @param int $closeParenthesis
      * @return int
      */
-    public function countArguments($tokens, $openParenthesis, $closeParenthesis)
+    public function countArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $openParenthesis, $closeParenthesis)
     {
         return \count($this->getArguments($tokens, $openParenthesis, $closeParenthesis));
     }
@@ -43,11 +42,10 @@ final class ArgumentsAnalyzer
      * tokens like '(', ',' and ')'.
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $openParenthesis
      * @param int $closeParenthesis
      */
-    public function getArguments($tokens, $openParenthesis, $closeParenthesis)
+    public function getArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $openParenthesis, $closeParenthesis)
     {
         $arguments = [];
         $firstSensibleToken = $tokens->getNextMeaningfulToken($openParenthesis);
@@ -78,12 +76,11 @@ final class ArgumentsAnalyzer
         return $arguments;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $argumentStart
      * @param int $argumentEnd
      * @return \PhpCsFixer\Tokenizer\Analyzer\Analysis\ArgumentAnalysis
      */
-    public function getArgumentInfo($tokens, $argumentStart, $argumentEnd)
+    public function getArgumentInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStart, $argumentEnd)
     {
         $info = ['default' => null, 'name' => null, 'name_index' => null, 'type' => null, 'type_index_start' => null, 'type_index_end' => null];
         $sawName = \false;

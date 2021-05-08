@@ -14,10 +14,7 @@ final class TokenSkipper
      * @var BlockFinder
      */
     private $blockFinder;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder
-     */
-    public function __construct($blockFinder)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder)
     {
         $this->blockFinder = $blockFinder;
     }
@@ -26,7 +23,7 @@ final class TokenSkipper
      * @param int $position
      * @return int
      */
-    public function skipBlocks($tokens, $position)
+    public function skipBlocks(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
@@ -53,7 +50,7 @@ final class TokenSkipper
      * @param int $position
      * @return int
      */
-    public function skipBlocksReversed($tokens, $position)
+    public function skipBlocksReversed(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         /** @var Token $token */
         $token = $tokens[$position];

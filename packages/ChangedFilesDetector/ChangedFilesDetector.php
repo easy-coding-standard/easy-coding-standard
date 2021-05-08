@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
-use ECSPrefix20210507\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210508\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
@@ -26,11 +26,7 @@ final class ChangedFilesDetector
      * @var TagAwareAdapterInterface
      */
     private $tagAwareAdapter;
-    /**
-     * @param \Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer
-     * @param \Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter
-     */
-    public function __construct($fileHashComputer, $tagAwareAdapter)
+    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
     {
         $this->fileHashComputer = $fileHashComputer;
         $this->tagAwareAdapter = $tagAwareAdapter;
@@ -46,9 +42,8 @@ final class ChangedFilesDetector
     }
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function addFileInfo($smartFileInfo)
+    public function addFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         /** @var CacheItem $cacheItem */
         $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
@@ -58,17 +53,15 @@ final class ChangedFilesDetector
     }
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function invalidateFileInfo($smartFileInfo)
+    public function invalidateFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $this->tagAwareAdapter->deleteItem($this->fileInfoToKey($smartFileInfo));
     }
     /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function hasFileInfoChanged($smartFileInfo)
+    public function hasFileInfoChanged(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
         $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
@@ -111,10 +104,9 @@ final class ChangedFilesDetector
         $this->tagAwareAdapter->save($cacheItem);
     }
     /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return string
      */
-    private function fileInfoToKey($smartFileInfo)
+    private function fileInfoToKey(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         return \sha1($smartFileInfo->getRelativeFilePathFromCwd());
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Nette\Neon;
+namespace ECSPrefix20210508\Nette\Neon;
 
 /**
  * Simple parser & generator for Nette Object Notation.
@@ -8,7 +8,7 @@ namespace ECSPrefix20210507\Nette\Neon;
  */
 final class Neon
 {
-    const BLOCK = \ECSPrefix20210507\Nette\Neon\Encoder::BLOCK;
+    const BLOCK = \ECSPrefix20210508\Nette\Neon\Encoder::BLOCK;
     const CHAIN = '!!chain';
     /**
      * Returns value converted to NEON. The flag can be Neon::BLOCK, which will create multiline output.
@@ -17,7 +17,7 @@ final class Neon
      */
     public static function encode($value, $flags = 0)
     {
-        $encoder = new \ECSPrefix20210507\Nette\Neon\Encoder();
+        $encoder = new \ECSPrefix20210508\Nette\Neon\Encoder();
         return $encoder->encode($value, $flags);
     }
     /**
@@ -28,7 +28,7 @@ final class Neon
      */
     public static function decode($input)
     {
-        $decoder = new \ECSPrefix20210507\Nette\Neon\Decoder();
+        $decoder = new \ECSPrefix20210508\Nette\Neon\Decoder();
         return $decoder->decode($input);
     }
 }

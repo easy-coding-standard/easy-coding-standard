@@ -51,20 +51,17 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\T_COMMENT, \T_DOC_COMMENT, \T_WHITESPACE]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $this->indent = $this->whitespacesConfig->getIndent();
         foreach ($tokens as $index => $token) {
@@ -79,11 +76,10 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function fixIndentInComment($tokens, $index)
+    private function fixIndentInComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $content = \PhpCsFixer\Preg::replace('/^(?:(?<! ) {1,3})?\\t/m', '\\1    ', $tokens[$index]->getContent(), -1, $count);
         // Also check for more tabs.
@@ -98,11 +94,10 @@ final class IndentationTypeFixer extends \PhpCsFixer\AbstractFixer implements \P
         return new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), $content]);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function fixIndentToken($tokens, $index)
+    private function fixIndentToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $content = $tokens[$index]->getContent();
         $previousTokenHasTrailingLinebreak = \false;

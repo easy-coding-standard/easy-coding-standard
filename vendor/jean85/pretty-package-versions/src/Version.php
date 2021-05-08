@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Jean85;
+namespace ECSPrefix20210508\Jean85;
 
 class Version
 {

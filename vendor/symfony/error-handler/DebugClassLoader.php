@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210508\Symfony\Component\ErrorHandler;
 
-use ECSPrefix20210507\Doctrine\Common\Persistence\Proxy as LegacyProxy;
-use ECSPrefix20210507\Doctrine\Persistence\Proxy;
-use ECSPrefix20210507\Mockery\MockInterface;
-use ECSPrefix20210507\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
-use ECSPrefix20210507\PHPUnit\Framework\MockObject\MockObject;
-use ECSPrefix20210507\Prophecy\Prophecy\ProphecySubjectInterface;
-use ECSPrefix20210507\ProxyManager\Proxy\ProxyInterface;
+use ECSPrefix20210508\Doctrine\Common\Persistence\Proxy as LegacyProxy;
+use ECSPrefix20210508\Doctrine\Persistence\Proxy;
+use ECSPrefix20210508\Mockery\MockInterface;
+use ECSPrefix20210508\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
+use ECSPrefix20210508\PHPUnit\Framework\MockObject\MockObject;
+use ECSPrefix20210508\Prophecy\Prophecy\ProphecySubjectInterface;
+use ECSPrefix20210508\ProxyManager\Proxy\ProxyInterface;
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
@@ -112,8 +112,8 @@ class DebugClassLoader
     public static function enable()
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists(\ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorHandler::class);
-        \class_exists(\ECSPrefix20210507\Psr\Log\LogLevel::class);
+        \class_exists(\ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorHandler::class);
+        \class_exists(\ECSPrefix20210508\Psr\Log\LogLevel::class);
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }
@@ -168,7 +168,7 @@ class DebugClassLoader
         foreach ($offsets as $getSymbols => $i) {
             $symbols = $getSymbols();
             for (; $i < \count($symbols); ++$i) {
-                if (!\is_subclass_of($symbols[$i], \ECSPrefix20210507\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210507\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210507\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210507\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210507\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210507\Mockery\MockInterface::class)) {
+                if (!\is_subclass_of($symbols[$i], \ECSPrefix20210508\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210508\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210508\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210508\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210508\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210508\Mockery\MockInterface::class)) {
                     $loader->checkClass($symbols[$i]);
                 }
             }
@@ -257,11 +257,10 @@ class DebugClassLoader
         }
     }
     /**
-     * @param \ReflectionClass $refl
      * @param string $class
      * @return mixed[]
      */
-    public function checkAnnotations($refl, $class)
+    public function checkAnnotations(\ReflectionClass $refl, $class)
     {
         if ('Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV7' === $class || 'Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV6' === $class) {
             return [];
@@ -464,7 +463,7 @@ class DebugClassLoader
                     $finalOrInternal = \true;
                 }
             }
-            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \ECSPrefix20210507\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
+            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \ECSPrefix20210508\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
                 continue;
             }
             if (!\preg_match_all('#\\n\\s+\\* @param +((?(?!callable *\\().*?|callable *\\(.*\\).*?))(?<= )\\$([a-zA-Z0-9_\\x7f-\\xff]++)#', $doc, $matches, \PREG_SET_ORDER)) {
@@ -487,11 +486,10 @@ class DebugClassLoader
     }
     /**
      * @return mixed[]|null
-     * @param \ReflectionClass $refl
      * @param string $file
      * @param string $class
      */
-    public function checkCase($refl, $file, $class)
+    public function checkCase(\ReflectionClass $refl, $file, $class)
     {
         $real = \explode('\\', $class . \strrchr($file, '.'));
         $tail = \explode(\DIRECTORY_SEPARATOR, \str_replace('/', \DIRECTORY_SEPARATOR, $file));
@@ -602,9 +600,8 @@ class DebugClassLoader
      * @param string|null $parent
      * @return void
      * @param string $types
-     * @param \ReflectionMethod $method
      */
-    private function setReturnType($types, $method, $parent)
+    private function setReturnType($types, \ReflectionMethod $method, $parent)
     {
         $nullable = \false;
         $typesMap = [];
@@ -691,12 +688,11 @@ class DebugClassLoader
     }
     /**
      * Utility method to add @return annotations to the Symfony code-base where it triggers a self-deprecations.
-     * @param \ReflectionMethod $method
      * @param string $returnType
      * @param string $declaringFile
      * @param string $normalizedType
      */
-    private function patchMethod($method, $returnType, $declaringFile, $normalizedType)
+    private function patchMethod(\ReflectionMethod $method, $returnType, $declaringFile, $normalizedType)
     {
         static $patchedMethods = [];
         static $useStatements = [];
@@ -811,10 +807,9 @@ EOTXT;
         return [$namespace, $useOffset, $useMap];
     }
     /**
-     * @param \ReflectionMethod $method
      * @param string $returnType
      */
-    private function fixReturnStatements($method, $returnType)
+    private function fixReturnStatements(\ReflectionMethod $method, $returnType)
     {
         if ('7.1' === $this->patchTypes['php'] && 'object' === \ltrim($returnType, '?') && 'docblock' !== $this->patchTypes['force']) {
             return;

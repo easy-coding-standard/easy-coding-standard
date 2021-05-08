@@ -184,20 +184,17 @@ switch($a) {
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \true;
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $this->tokens = $tokens;
         $this->tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($this->tokens);
@@ -215,10 +212,9 @@ switch($a) {
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $index
      */
-    private function fixByToken($token, $index)
+    private function fixByToken(\PhpCsFixer\Tokenizer\Token $token, $index)
     {
         foreach ($this->tokenKindCallbackMap as $kind => $callback) {
             if (!$token->isGivenKind($kind)) {

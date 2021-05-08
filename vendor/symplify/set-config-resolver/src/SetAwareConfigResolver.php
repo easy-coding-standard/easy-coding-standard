@@ -14,10 +14,7 @@ final class SetAwareConfigResolver extends \Symplify\SetConfigResolver\AbstractC
      * @var SetsParameterResolver
      */
     private $setsParameterResolver;
-    /**
-     * @param \Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider
-     */
-    public function __construct($setProvider)
+    public function __construct(\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
         $setResolver = new \Symplify\SetConfigResolver\SetResolver($setProvider);
         $this->setsParameterResolver = new \Symplify\SetConfigResolver\Config\SetsParameterResolver($setResolver);

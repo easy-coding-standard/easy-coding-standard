@@ -11,9 +11,8 @@ final class CurrentParentFileInfoProvider
     private $smartFileInfo;
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function setParentFileInfo($smartFileInfo)
+    public function setParentFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $this->smartFileInfo = $smartFileInfo;
     }

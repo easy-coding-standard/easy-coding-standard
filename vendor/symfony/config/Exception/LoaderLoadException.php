@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Config\Exception;
+namespace ECSPrefix20210508\Symfony\Component\Config\Exception;
 
 /**
  * Exception class for when a resource cannot be loaded or imported.
@@ -21,10 +21,10 @@ class LoaderLoadException extends \Exception
      * @param string          $resource       The resource that could not be imported
      * @param string $sourceResource The original resource importing the new resource
      * @param int|null        $code           The error code
-     * @param \Throwable $previous A previous exception
+     * @param \Throwable|null $previous       A previous exception
      * @param string $type The type of resource
      */
-    public function __construct($resource, $sourceResource = null, $code = 0, $previous = null, $type = null)
+    public function __construct($resource, $sourceResource = null, $code = 0, \Throwable $previous = null, $type = null)
     {
         $message = '';
         if ($previous) {

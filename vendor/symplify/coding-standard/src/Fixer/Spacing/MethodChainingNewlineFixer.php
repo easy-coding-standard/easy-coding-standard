@@ -36,12 +36,7 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
      * @var ChainMethodCallAnalyzer
      */
     private $chainMethodCallAnalyzer;
-    /**
-     * @param \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder
-     * @param \Symplify\CodingStandard\TokenAnalyzer\ChainMethodCallAnalyzer $chainMethodCallAnalyzer
-     */
-    public function __construct($whitespacesFixerConfig, $blockFinder, $chainMethodCallAnalyzer)
+    public function __construct(\PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenAnalyzer\ChainMethodCallAnalyzer $chainMethodCallAnalyzer)
     {
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->blockFinder = $blockFinder;
@@ -68,16 +63,15 @@ final class MethodChainingNewlineFixer extends \Symplify\CodingStandard\Fixer\Ab
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\T_OBJECT_OPERATOR]);
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $file
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {
@@ -111,7 +105,7 @@ CODE_SAMPLE
      * @param int $objectOperatorIndex
      * @return bool
      */
-    private function shouldPrefixNewline($tokens, $objectOperatorIndex)
+    private function shouldPrefixNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $objectOperatorIndex)
     {
         for ($i = $objectOperatorIndex; $i >= 0; --$i) {
             /** @var Token $currentToken */
@@ -133,7 +127,7 @@ CODE_SAMPLE
      * @param int $position
      * @return bool
      */
-    private function isDoubleBracket($tokens, $position)
+    private function isDoubleBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         /** @var int $nextTokenPosition */
         $nextTokenPosition = $tokens->getNextNonWhitespace($position);
@@ -148,7 +142,7 @@ CODE_SAMPLE
      * @param int $position
      * @return bool
      */
-    private function isPreceededByOpenedCallInAnotherBracket($tokens, $position)
+    private function isPreceededByOpenedCallInAnotherBracket(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
         if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
@@ -162,7 +156,7 @@ CODE_SAMPLE
      * @param int $objectOperatorIndex
      * @return bool
      */
-    private function shouldBracketPrefix($tokens, $position, $objectOperatorIndex)
+    private function shouldBracketPrefix(\PhpCsFixer\Tokenizer\Tokens $tokens, $position, $objectOperatorIndex)
     {
         if ($this->isDoubleBracket($tokens, $position)) {
             return \false;

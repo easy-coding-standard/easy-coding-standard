@@ -15,9 +15,8 @@ final class Set
     private $setFileInfo;
     /**
      * @param string $name
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $setFileInfo
      */
-    public function __construct($name, $setFileInfo)
+    public function __construct($name, \Symplify\SmartFileSystem\SmartFileInfo $setFileInfo)
     {
         $this->name = $name;
         $this->setFileInfo = $setFileInfo;

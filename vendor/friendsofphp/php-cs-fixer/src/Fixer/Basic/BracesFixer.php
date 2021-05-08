@@ -118,20 +118,17 @@ class Foo
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \true;
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $this->fixCommentBeforeBrace($tokens);
         $this->fixMissingControlBraces($tokens);
@@ -150,9 +147,8 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixCommentBeforeBrace($tokens)
+    private function fixCommentBeforeBrace(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $controlTokens = $this->getControlTokens();
@@ -199,9 +195,8 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixControlContinuationBraces($tokens)
+    private function fixControlContinuationBraces(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $controlContinuationTokens = $this->getControlContinuationTokens();
         for ($index = \count($tokens) - 1; 0 <= $index; --$index) {
@@ -219,9 +214,8 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixDoWhile($tokens)
+    private function fixDoWhile(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = \count($tokens) - 1; 0 <= $index; --$index) {
             $token = $tokens[$index];
@@ -241,9 +235,8 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixIndents($tokens)
+    private function fixIndents(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $classyTokens = \PhpCsFixer\Tokenizer\Token::getClassyTokenKinds();
         $classyAndFunctionTokens = \array_merge([\T_FUNCTION], $classyTokens);
@@ -441,9 +434,8 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixMissingControlBraces($tokens)
+    private function fixMissingControlBraces(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $controlTokens = $this->getControlTokens();
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
@@ -491,9 +483,8 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixSpaceAroundToken($tokens)
+    private function fixSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $controlTokens = $this->getControlTokens();
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
@@ -514,11 +505,10 @@ class Foo
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $structureTokenIndex
      * @return int
      */
-    private function findParenthesisEnd($tokens, $structureTokenIndex)
+    private function findParenthesisEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $structureTokenIndex)
     {
         $nextIndex = $tokens->getNextMeaningfulToken($structureTokenIndex);
         $nextToken = $tokens[$nextIndex];
@@ -529,11 +519,10 @@ class Foo
         return $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $nextIndex);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $parenthesisEndIndex
      * @return int
      */
-    private function findStatementEnd($tokens, $parenthesisEndIndex)
+    private function findStatementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $parenthesisEndIndex)
     {
         $nextIndex = $tokens->getNextMeaningfulToken($parenthesisEndIndex);
         $nextToken = $tokens[$nextIndex];
@@ -633,10 +622,9 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function fixDeclareStatement($tokens, $index)
+    private function fixDeclareStatement(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $tokens->removeTrailingWhitespace($index);
         $startParenthesisIndex = $tokens->getNextTokenOfKind($index, ['(']);
@@ -651,10 +639,9 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startBraceIndex
      */
-    private function fixSingleLineWhitespaceForDeclare($tokens, $startBraceIndex)
+    private function fixSingleLineWhitespaceForDeclare(\PhpCsFixer\Tokenizer\Tokens $tokens, $startBraceIndex)
     {
         // fix single-line whitespace before {
         // eg: `declare(ticks=1){` => `declare(ticks=1) {`
@@ -665,11 +652,10 @@ class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param string $whitespace
      */
-    private function ensureWhitespaceAtIndexAndIndentMultilineComment($tokens, $index, $whitespace)
+    private function ensureWhitespaceAtIndexAndIndentMultilineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $whitespace)
     {
         if ($tokens[$index]->isWhitespace()) {
             $nextTokenIndex = $tokens->getNextNonWhitespace($index);
@@ -689,12 +675,11 @@ class Foo
         $tokens->ensureWhitespaceAtIndex($index, 0, $whitespace);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startParenthesisIndex
      * @param int $endParenthesisIndex
      * @return bool
      */
-    private function isMultilined($tokens, $startParenthesisIndex, $endParenthesisIndex)
+    private function isMultilined(\PhpCsFixer\Tokenizer\Tokens $tokens, $startParenthesisIndex, $endParenthesisIndex)
     {
         for ($i = $startParenthesisIndex; $i < $endParenthesisIndex; ++$i) {
             if (\false !== \strpos($tokens[$i]->getContent(), "\n")) {
@@ -710,11 +695,10 @@ class Foo
      * Indentation of a comment is not changed when the comment is part of a
      * multi-line message whose lines are all single-line comments and at least
      * one line has meaningful content.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isCommentWithFixableIndentation($tokens, $index)
+    private function isCommentWithFixableIndentation(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if (!$tokens[$index]->isComment()) {
             return \false;
@@ -750,11 +734,10 @@ class Foo
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param bool $after
      */
-    private function getSiblingContinuousSingleLineComment($tokens, $index, $after)
+    private function getSiblingContinuousSingleLineComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $after)
     {
         $siblingIndex = $index;
         do {

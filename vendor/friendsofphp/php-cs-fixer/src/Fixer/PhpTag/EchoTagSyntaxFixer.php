@@ -69,10 +69,9 @@ EOT;
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
             return $tokens->isAnyTokenKindsFound([\T_ECHO, \T_PRINT]);
@@ -90,10 +89,8 @@ EOT;
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
             $this->longToShort($tokens);
@@ -103,9 +100,8 @@ EOT;
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function longToShort($tokens)
+    private function longToShort(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $skipWhenComplexCode = $this->configuration[self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY];
         $count = $tokens->count();
@@ -132,9 +128,8 @@ EOT;
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function shortToLong($tokens)
+    private function shortToLong(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::LONG_FUNCTION_PRINT === $this->configuration[self::OPTION_LONG_FUNCTION]) {
             $echoToken = [\T_PRINT, 'print'];
@@ -165,11 +160,10 @@ EOT;
      * @example `<?php echo 1 ?>` is false (not complex)
      * @example `<?php echo 'hello' . 'world'; ?>` is false (not "complex")
      * @example `<?php echo 2; $set = 3 ?>` is true ("complex")
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isComplexCode($tokens, $index)
+    private function isComplexCode(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $semicolonFound = \false;
         for ($count = $tokens->count(); $index < $count; ++$index) {
@@ -189,11 +183,10 @@ EOT;
      * Builds the list of tokens that replace a long echo sequence.
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $openTagIndex
      * @param int $echoTagIndex
      */
-    private function buildLongToShortTokens($tokens, $openTagIndex, $echoTagIndex)
+    private function buildLongToShortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $openTagIndex, $echoTagIndex)
     {
         $result = [new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG_WITH_ECHO, '<?='])];
         $start = $tokens->getNextNonWhitespace($openTagIndex);

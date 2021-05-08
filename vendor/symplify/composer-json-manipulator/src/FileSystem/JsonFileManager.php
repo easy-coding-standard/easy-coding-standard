@@ -2,7 +2,7 @@
 
 namespace Symplify\ComposerJsonManipulator\FileSystem;
 
-use ECSPrefix20210507\Nette\Utils\Json;
+use ECSPrefix20210508\Nette\Utils\Json;
 use Symplify\ComposerJsonManipulator\Json\JsonCleaner;
 use Symplify\ComposerJsonManipulator\Json\JsonInliner;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
@@ -30,12 +30,7 @@ final class JsonFileManager
      * @var mixed[]
      */
     private $cachedJSONFiles = [];
-    /**
-     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
-     * @param \Symplify\ComposerJsonManipulator\Json\JsonCleaner $jsonCleaner
-     * @param \Symplify\ComposerJsonManipulator\Json\JsonInliner $jsonInliner
-     */
-    public function __construct($smartFileSystem, $jsonCleaner, $jsonInliner)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\ComposerJsonManipulator\Json\JsonCleaner $jsonCleaner, \Symplify\ComposerJsonManipulator\Json\JsonInliner $jsonInliner)
     {
         $this->smartFileSystem = $smartFileSystem;
         $this->jsonCleaner = $jsonCleaner;
@@ -43,13 +38,12 @@ final class JsonFileManager
     }
     /**
      * @return mixed[]
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function loadFromFileInfo($smartFileInfo)
+    public function loadFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $realPath = $smartFileInfo->getRealPath();
         if (!isset($this->cachedJSONFiles[$realPath])) {
-            $this->cachedJSONFiles[$realPath] = \ECSPrefix20210507\Nette\Utils\Json::decode($smartFileInfo->getContents(), \ECSPrefix20210507\Nette\Utils\Json::FORCE_ARRAY);
+            $this->cachedJSONFiles[$realPath] = \ECSPrefix20210508\Nette\Utils\Json::decode($smartFileInfo->getContents(), \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
         }
         return $this->cachedJSONFiles[$realPath];
     }
@@ -60,25 +54,23 @@ final class JsonFileManager
     public function loadFromFilePath($filePath)
     {
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \ECSPrefix20210507\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210507\Nette\Utils\Json::FORCE_ARRAY);
+        return \ECSPrefix20210508\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param mixed[] $json
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return string
      */
-    public function printJsonToFileInfo(array $json, $smartFileInfo)
+    public function printJsonToFileInfo(array $json, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $jsonString = $this->encodeJsonToFileContent($json);
         $this->smartFileSystem->dumpFile($smartFileInfo->getPathname(), $jsonString);
         return $jsonString;
     }
     /**
-     * @param \Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson
      * @param string $filePath
      * @return string
      */
-    public function printComposerJsonToFilePath($composerJson, $filePath)
+    public function printComposerJsonToFilePath(\Symplify\ComposerJsonManipulator\ValueObject\ComposerJson $composerJson, $filePath)
     {
         $jsonString = $this->encodeJsonToFileContent($composerJson->getJsonArray());
         $this->smartFileSystem->dumpFile($filePath, $jsonString);
@@ -92,7 +84,7 @@ final class JsonFileManager
     {
         // Empty arrays may lead to bad encoding since we can't be sure whether they need to be arrays or objects.
         $json = $this->jsonCleaner->removeEmptyKeysFromJsonArray($json);
-        $jsonContent = \ECSPrefix20210507\Nette\Utils\Json::encode($json, \ECSPrefix20210507\Nette\Utils\Json::PRETTY) . \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
+        $jsonContent = \ECSPrefix20210508\Nette\Utils\Json::encode($json, \ECSPrefix20210508\Nette\Utils\Json::PRETTY) . \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
         return $this->jsonInliner->inlineSections($jsonContent);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Doctrine\Common\Annotations;
+namespace ECSPrefix20210508\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionMethod;
@@ -18,7 +18,7 @@ interface Reader
      *
      * @return array<object> An array of Annotations.
      */
-    public function getClassAnnotations($class);
+    public function getClassAnnotations(\ReflectionClass $class);
     /**
      * Gets a class annotation.
      *
@@ -30,7 +30,7 @@ interface Reader
      *
      * @template T
      */
-    public function getClassAnnotation($class, $annotationName);
+    public function getClassAnnotation(\ReflectionClass $class, $annotationName);
     /**
      * Gets the annotations applied to a method.
      *
@@ -39,7 +39,7 @@ interface Reader
      *
      * @return array<object> An array of Annotations.
      */
-    public function getMethodAnnotations($method);
+    public function getMethodAnnotations(\ReflectionMethod $method);
     /**
      * Gets a method annotation.
      *
@@ -50,7 +50,7 @@ interface Reader
      *
      * @template T
      */
-    public function getMethodAnnotation($method, $annotationName);
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName);
     /**
      * Gets the annotations applied to a property.
      *
@@ -59,7 +59,7 @@ interface Reader
      *
      * @return array<object> An array of Annotations.
      */
-    public function getPropertyAnnotations($property);
+    public function getPropertyAnnotations(\ReflectionProperty $property);
     /**
      * Gets a property annotation.
      *
@@ -70,5 +70,5 @@ interface Reader
      *
      * @template T
      */
-    public function getPropertyAnnotation($property, $annotationName);
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName);
 }

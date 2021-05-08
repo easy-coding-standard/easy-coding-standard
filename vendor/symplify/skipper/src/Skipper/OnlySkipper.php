@@ -13,10 +13,7 @@ final class OnlySkipper
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    /**
-     * @param \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher
-     */
-    public function __construct($fileInfoMatcher)
+    public function __construct(\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->fileInfoMatcher = $fileInfoMatcher;
     }
@@ -24,9 +21,8 @@ final class OnlySkipper
      * @param object|string $checker
      * @param mixed[] $only
      * @return bool|null
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function doesMatchOnly($checker, $smartFileInfo, array $only)
+    public function doesMatchOnly($checker, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, array $only)
     {
         foreach ($only as $onlyClass => $onlyFiles) {
             if (\is_int($onlyClass)) {

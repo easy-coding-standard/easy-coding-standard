@@ -26,7 +26,7 @@ class CSS extends \PHP_CodeSniffer\Tokenizers\PHP
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\TokenizerException If the file appears to be minified.
      */
-    public function __construct($content, $config, $eolChar = '\\n')
+    public function __construct($content, \PHP_CodeSniffer\Config $config, $eolChar = '\\n')
     {
         if ($this->isMinifiedContent($content, $eolChar) === \true) {
             throw new \PHP_CodeSniffer\Exceptions\TokenizerException('File appears to be minified and cannot be processed');

@@ -11,10 +11,7 @@ final class EasyCodingStandardSetProvider extends \Symplify\SetConfigResolver\Pr
      * @var Set[]
      */
     private $sets = [];
-    /**
-     * @param \Symplify\EasyCodingStandard\Set\ConstantReflectionSetFactory $constantReflectionSetFactory
-     */
-    public function __construct($constantReflectionSetFactory)
+    public function __construct(\Symplify\EasyCodingStandard\Set\ConstantReflectionSetFactory $constantReflectionSetFactory)
     {
         $this->sets = $constantReflectionSetFactory->createSetsFromClass(\Symplify\EasyCodingStandard\ValueObject\Set\SetList::class);
     }

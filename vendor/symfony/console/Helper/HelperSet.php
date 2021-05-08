@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Helper;
+namespace ECSPrefix20210508\Symfony\Component\Console\Helper;
 
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *
@@ -34,10 +34,9 @@ class HelperSet implements \IteratorAggregate
         }
     }
     /**
-     * @param \Symfony\Component\Console\Helper\HelperInterface $helper
      * @param string $alias
      */
-    public function set($helper, $alias = null)
+    public function set(\ECSPrefix20210508\Symfony\Component\Console\Helper\HelperInterface $helper, $alias = null)
     {
         $this->helpers[$helper->getName()] = $helper;
         if (null !== $alias) {
@@ -66,14 +65,11 @@ class HelperSet implements \IteratorAggregate
     public function get($name)
     {
         if (!$this->has($name)) {
-            throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
+            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
         }
         return $this->helpers[$name];
     }
-    /**
-     * @param \Symfony\Component\Console\Command\Command $command
-     */
-    public function setCommand($command = null)
+    public function setCommand(\ECSPrefix20210508\Symfony\Component\Console\Command\Command $command = null)
     {
         $this->command = $command;
     }

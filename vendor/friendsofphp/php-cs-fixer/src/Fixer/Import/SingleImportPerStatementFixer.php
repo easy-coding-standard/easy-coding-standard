@@ -49,20 +49,17 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_USE);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $uses = \array_reverse($tokensAnalyzer->getImportUseIndexes());
@@ -77,11 +74,10 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return mixed[]
      */
-    private function getGroupDeclaration($tokens, $index)
+    private function getGroupDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $groupPrefix = '';
         $comment = '';
@@ -108,13 +104,12 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param string $groupPrefix
      * @param int $groupOpenIndex
      * @param int $groupCloseIndex
      * @param string $comment
      */
-    private function getGroupStatements($tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment)
+    private function getGroupStatements(\PhpCsFixer\Tokenizer\Tokens $tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment)
     {
         $statements = [];
         $statement = $groupPrefix;
@@ -153,11 +148,10 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param int $endIndex
      */
-    private function fixGroupUse($tokens, $index, $endIndex)
+    private function fixGroupUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
     {
         list($groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment) = $this->getGroupDeclaration($tokens, $index);
         $statements = $this->getGroupStatements($tokens, $groupPrefix, $groupOpenIndex, $groupCloseIndex, $comment);
@@ -176,11 +170,10 @@ final class SingleImportPerStatementFixer extends \PhpCsFixer\AbstractFixer impl
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param int $endIndex
      */
-    private function fixMultipleUse($tokens, $index, $endIndex)
+    private function fixMultipleUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
     {
         $ending = $this->whitespacesConfig->getLineEnding();
         for ($i = $endIndex - 1; $i > $index; --$i) {

@@ -2,8 +2,8 @@
 
 namespace Symplify\PackageBuilder\Console\Command;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Nette\Utils\Strings;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
 /**
  * @see \Symplify\PackageBuilder\Tests\Console\Command\CommandNamingTest
  */
@@ -18,10 +18,9 @@ final class CommandNaming
      * Converts:
      * - "SomeClass\SomeSuperCommand" → "some-super"
      * - "SomeClass\SOMESuperCommand" → "some-super"
-     * @param \Symfony\Component\Console\Command\Command $command
      * @return string
      */
-    public function resolveFromCommand($command)
+    public function resolveFromCommand(\ECSPrefix20210508\Symfony\Component\Console\Command\Command $command)
     {
         $commandClass = \get_class($command);
         return self::classToName($commandClass);
@@ -37,7 +36,7 @@ final class CommandNaming
     {
         /** @var string $shortClassName */
         $shortClassName = self::resolveShortName($class);
-        $rawCommandName = \ECSPrefix20210507\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen('Command'));
+        $rawCommandName = \ECSPrefix20210508\Nette\Utils\Strings::substring($shortClassName, 0, -\strlen('Command'));
         // ECSCommand => ecs
         for ($i = 0; $i < \strlen($rawCommandName); ++$i) {
             if (\ctype_upper($rawCommandName[$i]) && self::isFollowedByUpperCaseLetterOrNothing($rawCommandName, $i)) {
@@ -47,7 +46,7 @@ final class CommandNaming
             }
         }
         $rawCommandName = \lcfirst($rawCommandName);
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($rawCommandName, self::BIG_LETTER_REGEX, function (array $matches) : string {
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($rawCommandName, self::BIG_LETTER_REGEX, function (array $matches) : string {
             return '-' . \strtolower($matches[0]);
         });
     }

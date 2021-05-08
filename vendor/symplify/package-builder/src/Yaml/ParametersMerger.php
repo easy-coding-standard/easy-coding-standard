@@ -52,9 +52,8 @@ final class ParametersMerger
     }
     /**
      * @return mixed[]
-     * @param \Closure $mergeCallback
      */
-    private function mergeLeftToRightWithCallable(array $left, array $right, $mergeCallback)
+    private function mergeLeftToRightWithCallable(array $left, array $right, \Closure $mergeCallback)
     {
         foreach ($left as $key => $val) {
             if (\is_int($key)) {

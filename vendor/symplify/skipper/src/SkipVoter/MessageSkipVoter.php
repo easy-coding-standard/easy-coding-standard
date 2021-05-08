@@ -16,11 +16,7 @@ final class MessageSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInte
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    /**
-     * @param \Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver
-     * @param \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher
-     */
-    public function __construct($skippedMessagesResolver, $fileInfoMatcher)
+    public function __construct(\Symplify\Skipper\SkipCriteriaResolver\SkippedMessagesResolver $skippedMessagesResolver, \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedMessagesResolver = $skippedMessagesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -38,10 +34,9 @@ final class MessageSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInte
     }
     /**
      * @param string $element
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function shouldSkip($element, $smartFileInfo)
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $skippedMessages = $this->skippedMessagesResolver->resolve();
         if (!\array_key_exists($element, $skippedMessages)) {

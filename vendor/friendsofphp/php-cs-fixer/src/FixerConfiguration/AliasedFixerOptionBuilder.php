@@ -27,10 +27,9 @@ final class AliasedFixerOptionBuilder
      */
     private $alias;
     /**
-     * @param \PhpCsFixer\FixerConfiguration\FixerOptionBuilder $optionBuilder
      * @param string $alias
      */
-    public function __construct($optionBuilder, $alias)
+    public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionBuilder $optionBuilder, $alias)
     {
         $this->optionBuilder = $optionBuilder;
         $this->alias = $alias;
@@ -65,9 +64,8 @@ final class AliasedFixerOptionBuilder
     }
     /**
      * @return $this
-     * @param \Closure $normalizer
      */
-    public function setNormalizer($normalizer)
+    public function setNormalizer(\Closure $normalizer)
     {
         $this->optionBuilder->setNormalizer($normalizer);
         return $this;

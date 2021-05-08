@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Nette\Iterators;
+namespace ECSPrefix20210508\Nette\Iterators;
 
 /**
  * Applies the callback to the elements of the inner iterator.
@@ -9,10 +9,7 @@ class Mapper extends \IteratorIterator
 {
     /** @var callable */
     private $callback;
-    /**
-     * @param \Traversable $iterator
-     */
-    public function __construct($iterator, callable $callback)
+    public function __construct(\Traversable $iterator, callable $callback)
     {
         parent::__construct($iterator);
         $this->callback = $callback;

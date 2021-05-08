@@ -83,7 +83,7 @@ class Reporter
      * @throws \PHP_CodeSniffer\Exceptions\DeepExitException If a custom report class could not be found.
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException  If a report class is incorrectly set up.
      */
-    public function __construct($config)
+    public function __construct(\PHP_CodeSniffer\Config $config)
     {
         $this->config = $config;
         foreach ($config->reports as $type => $output) {
@@ -224,7 +224,7 @@ class Reporter
      *
      * @return void
      */
-    public function cacheFileReport($phpcsFile)
+    public function cacheFileReport(\PHP_CodeSniffer\Files\File $phpcsFile)
     {
         if (isset($this->config->reports) === \false) {
             // This happens during unit testing, or any time someone just wants
@@ -280,7 +280,7 @@ class Reporter
      *
      * @return array
      */
-    public function prepareFileReport($phpcsFile)
+    public function prepareFileReport(\PHP_CodeSniffer\Files\File $phpcsFile)
     {
         $report = ['filename' => \PHP_CodeSniffer\Util\Common::stripBasepath($phpcsFile->getFilename(), $this->config->basepath), 'errors' => $phpcsFile->getErrorCount(), 'warnings' => $phpcsFile->getWarningCount(), 'fixable' => $phpcsFile->getFixableCount(), 'messages' => []];
         if ($report['errors'] === 0 && $report['warnings'] === 0) {

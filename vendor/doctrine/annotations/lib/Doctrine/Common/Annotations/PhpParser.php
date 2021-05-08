@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210507\Doctrine\Common\Annotations;
+namespace ECSPrefix20210508\Doctrine\Common\Annotations;
 
 use ReflectionClass;
 use ReflectionFunction;
@@ -23,7 +23,7 @@ final class PhpParser
      *
      * @return array<string, class-string> A list with use statements in the form (Alias => FQN).
      */
-    public function parseClass($class)
+    public function parseClass(\ReflectionClass $class)
     {
         return $this->parseUseStatements($class);
     }
@@ -50,7 +50,7 @@ final class PhpParser
         }
         $namespace = \preg_quote($reflection->getNamespaceName());
         $content = \preg_replace('/^.*?(\\bnamespace\\s+' . $namespace . '\\s*[;{].*)$/s', '\\1', $content);
-        $tokenizer = new \ECSPrefix20210507\Doctrine\Common\Annotations\TokenParser('<?php ' . $content);
+        $tokenizer = new \ECSPrefix20210508\Doctrine\Common\Annotations\TokenParser('<?php ' . $content);
         return $tokenizer->parseUseStatements($reflection->getNamespaceName());
     }
     /**

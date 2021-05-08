@@ -52,10 +52,9 @@ final class Utils
      * Calculate the trailing whitespace.
      *
      * What we're doing here is grabbing everything after the final newline.
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @return string
      */
-    public static function calculateTrailingWhitespaceIndent($token)
+    public static function calculateTrailingWhitespaceIndent(\PhpCsFixer\Tokenizer\Token $token)
     {
         if (!$token->isWhitespace()) {
             throw new \InvalidArgumentException(\sprintf('The given token must be whitespace, got "%s".', $token->getName()));

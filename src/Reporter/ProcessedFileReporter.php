@@ -19,12 +19,7 @@ final class ProcessedFileReporter
      * @var ErrorAndDiffResultFactory
      */
     private $errorAndDiffResultFactory;
-    /**
-     * @param \Symplify\EasyCodingStandard\Configuration\Configuration $configuration
-     * @param \Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector $outputFormatterCollector
-     * @param \Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory $errorAndDiffResultFactory
-     */
-    public function __construct($configuration, $outputFormatterCollector, $errorAndDiffResultFactory)
+    public function __construct(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\Console\Output\OutputFormatterCollector $outputFormatterCollector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffResultFactory $errorAndDiffResultFactory)
     {
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;

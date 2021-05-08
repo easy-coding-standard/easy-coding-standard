@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Config\Resource;
+namespace ECSPrefix20210508\Symfony\Component\Config\Resource;
 
 /**
  * ClassExistenceResource represents a class existence.
@@ -20,7 +20,7 @@ namespace ECSPrefix20210507\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class ClassExistenceResource implements \ECSPrefix20210507\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class ClassExistenceResource implements \ECSPrefix20210508\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $resource;
     private $exists;
@@ -137,9 +137,8 @@ class ClassExistenceResource implements \ECSPrefix20210507\Symfony\Component\Con
      *
      * @internal
      * @param string $class
-     * @param \Exception $previous
      */
-    public static function throwOnRequiredClass($class, $previous = null)
+    public static function throwOnRequiredClass($class, \Exception $previous = null)
     {
         // If the passed class is the resource being checked, we shouldn't throw.
         if (null === $previous && self::$autoloadedClass === $class) {

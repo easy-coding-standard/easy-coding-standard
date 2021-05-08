@@ -24,10 +24,7 @@ final class ShortDescription
      * @var DocBlock
      */
     private $doc;
-    /**
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
-     */
-    public function __construct($doc)
+    public function __construct(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         $this->doc = $doc;
     }

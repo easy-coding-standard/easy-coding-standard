@@ -67,9 +67,8 @@ final class ErrorsManager
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Error\Error $error
      */
-    public function report($error)
+    public function report(\PhpCsFixer\Error\Error $error)
     {
         $this->errors[] = $error;
     }

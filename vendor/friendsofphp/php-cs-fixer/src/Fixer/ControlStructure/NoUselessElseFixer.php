@@ -23,10 +23,9 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
 {
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_ELSE);
     }
@@ -52,10 +51,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_ELSE)) {
@@ -81,9 +78,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
      *
      * @param int $index T_ELSE index
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixEmptyElse($tokens, $index)
+    private function fixEmptyElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $next = $tokens->getNextMeaningfulToken($index);
         if ($tokens[$next]->equals('{')) {
@@ -106,9 +102,8 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
     /**
      * @param int $index index of T_ELSE
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function clearElse($tokens, $index)
+    private function clearElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         // clear T_ELSE and the '{' '}' if there are any

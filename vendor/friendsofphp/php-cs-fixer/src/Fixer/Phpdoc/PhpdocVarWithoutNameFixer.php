@@ -60,20 +60,17 @@ final class Foo
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT) && $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -104,9 +101,8 @@ final class Foo
     }
     /**
      * @return void
-     * @param \PhpCsFixer\DocBlock\Line $line
      */
-    private function fixLine($line)
+    private function fixLine(\PhpCsFixer\DocBlock\Line $line)
     {
         $content = $line->getContent();
         \PhpCsFixer\Preg::matchAll('/ \\$[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*/', $content, $matches);
@@ -116,9 +112,8 @@ final class Foo
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\DocBlock\DocBlock $docBlock
      */
-    private function getFirstLevelLines($docBlock)
+    private function getFirstLevelLines(\PhpCsFixer\DocBlock\DocBlock $docBlock)
     {
         $nested = 0;
         $lines = $docBlock->getLines();

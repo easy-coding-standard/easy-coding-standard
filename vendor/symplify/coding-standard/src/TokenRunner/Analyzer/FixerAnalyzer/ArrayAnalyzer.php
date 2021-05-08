@@ -12,19 +12,15 @@ final class ArrayAnalyzer
      * @var TokenSkipper
      */
     private $tokenSkipper;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper
-     */
-    public function __construct($tokenSkipper)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper)
     {
         $this->tokenSkipper = $tokenSkipper;
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      * @return int
      */
-    public function getItemCount($tokens, $blockInfo)
+    public function getItemCount(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         $nextMeanninfulPosition = $tokens->getNextMeaningfulToken($blockInfo->getStart());
         if ($nextMeanninfulPosition === null) {
@@ -46,10 +42,9 @@ final class ArrayAnalyzer
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      * @return bool
      */
-    public function isIndexedList($tokens, $blockInfo)
+    public function isIndexedList(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         $isIndexedList = \false;
         $this->traverseArrayWithoutNesting($tokens, $blockInfo, function (\PhpCsFixer\Tokenizer\Token $token) use(&$isIndexedList) {
@@ -62,9 +57,8 @@ final class ArrayAnalyzer
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      */
-    public function traverseArrayWithoutNesting($tokens, $blockInfo, callable $callable)
+    public function traverseArrayWithoutNesting(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, callable $callable)
     {
         for ($i = $blockInfo->getEnd() - 1; $i >= $blockInfo->getStart() + 1; --$i) {
             $i = $this->tokenSkipper->skipBlocksReversed($tokens, $i);
@@ -74,10 +68,9 @@ final class ArrayAnalyzer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @return bool
      */
-    private function isArrayCloser($token)
+    private function isArrayCloser(\PhpCsFixer\Tokenizer\Token $token)
     {
         if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
             return \true;

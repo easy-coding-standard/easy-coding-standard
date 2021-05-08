@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210507\Symfony\Component\Cache\Exception\CacheException;
-use ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\Traits\FilesystemCommonTrait;
-use ECSPrefix20210507\Symfony\Component\VarExporter\VarExporter;
+use ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException;
+use ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\Traits\FilesystemCommonTrait;
+use ECSPrefix20210508\Symfony\Component\VarExporter\VarExporter;
 /**
  * @author Piotr Stankowski <git@trakos.pl>
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Rob Frawley 2nd <rmf@src.run>
  */
-class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AbstractAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface
+class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface
 {
     use FilesystemCommonTrait {
         doClear as private doCommonClear;
@@ -103,7 +103,7 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
                 $values[$id] = null;
             } elseif (!\is_object($value)) {
                 $values[$id] = $value;
-            } elseif (!$value instanceof \ECSPrefix20210507\Symfony\Component\Cache\Adapter\LazyValue) {
+            } elseif (!$value instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\LazyValue) {
                 $values[$id] = $value();
             } elseif (\false === ($values[$id] = (include $value->file))) {
                 unset($values[$id], $this->values[$id]);
@@ -130,7 +130,7 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
                         }
                         list($expiresAt, $this->values[$id]) = $expiresAt;
                     } elseif ($now < $expiresAt) {
-                        $this->values[$id] = new \ECSPrefix20210507\Symfony\Component\Cache\Adapter\LazyValue($file);
+                        $this->values[$id] = new \ECSPrefix20210508\Symfony\Component\Cache\Adapter\LazyValue($file);
                     }
                     if ($now >= $expiresAt) {
                         unset($this->values[$id], $missingIds[$k], self::$valuesCache[$file]);
@@ -167,7 +167,7 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
                 }
                 list($expiresAt, $value) = $expiresAt;
             } elseif ($this->appendOnly) {
-                $value = new \ECSPrefix20210507\Symfony\Component\Cache\Adapter\LazyValue($file);
+                $value = new \ECSPrefix20210508\Symfony\Component\Cache\Adapter\LazyValue($file);
             }
         } catch (\ErrorException $e) {
             return \false;
@@ -198,9 +198,9 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
                 $value = "'N;'";
             } elseif (\is_object($value) || \is_array($value)) {
                 try {
-                    $value = \ECSPrefix20210507\Symfony\Component\VarExporter\VarExporter::export($value, $isStaticValue);
+                    $value = \ECSPrefix20210508\Symfony\Component\VarExporter\VarExporter::export($value, $isStaticValue);
                 } catch (\Exception $e) {
-                    throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)), 0, $e);
+                    throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)), 0, $e);
                 }
             } elseif (\is_string($value)) {
                 // Wrap "N;" in a closure to not confuse it with an encoded `null`
@@ -209,7 +209,7 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
                 }
                 $value = \var_export($value, \true);
             } elseif (!\is_scalar($value)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)));
             } else {
                 $value = \var_export($value, \true);
             }
@@ -233,7 +233,7 @@ class PhpFilesAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter
             unset(self::$valuesCache[$file]);
         }
         if (!$ok && !\is_writable($this->directory)) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\CacheException(\sprintf('Cache directory is not writable (%s).', $this->directory));
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException(\sprintf('Cache directory is not writable (%s).', $this->directory));
         }
         return $ok;
     }

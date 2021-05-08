@@ -12,27 +12,24 @@ final class AppliedCheckersCollector
     private $appliedCheckersByFile = [];
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @param string $checker
      */
-    public function addFileInfoAndChecker($smartFileInfo, $checker)
+    public function addFileInfoAndChecker(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $checker)
     {
         $this->appliedCheckersByFile[$smartFileInfo->getRealPath()][] = $checker;
     }
     /**
      * @return mixed[]
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    public function getAppliedCheckersPerFileInfo($smartFileInfo)
+    public function getAppliedCheckersPerFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $this->ensureFileHasAppliedCheckers($smartFileInfo);
         return $this->appliedCheckersByFile[$smartFileInfo->getRealPath()];
     }
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      */
-    private function ensureFileHasAppliedCheckers($smartFileInfo)
+    private function ensureFileHasAppliedCheckers(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         if (isset($this->appliedCheckersByFile[$smartFileInfo->getRealPath()])) {
             return;

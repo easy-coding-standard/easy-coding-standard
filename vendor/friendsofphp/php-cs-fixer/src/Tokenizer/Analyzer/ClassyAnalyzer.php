@@ -19,11 +19,10 @@ use PhpCsFixer\Tokenizer\Tokens;
 final class ClassyAnalyzer
 {
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    public function isClassyInvocation($tokens, $index)
+    public function isClassyInvocation(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $token = $tokens[$index];
         if (!$token->isGivenKind(\T_STRING)) {

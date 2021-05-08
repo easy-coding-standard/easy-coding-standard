@@ -18,10 +18,7 @@ final class PhpContentAnalyzer
      * @var TokenFinder
      */
     private $tokenFinder;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\TokenFinder $tokenFinder
-     */
-    public function __construct($tokenFinder)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\TokenFinder $tokenFinder)
     {
         $this->tokenFinder = $tokenFinder;
     }

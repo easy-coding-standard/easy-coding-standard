@@ -8,80 +8,73 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\TerminateEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ViewEvent;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use ECSPrefix20210507\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ControllerEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\TerminateEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ViewEvent;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use ECSPrefix20210508\Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\LegacyEventDispatcherProxy::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\TerminateEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ViewEvent::class);
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\LegacyEventDispatcherProxy::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ControllerEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ExceptionEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\FinishRequestEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\RequestEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ResponseEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\TerminateEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ViewEvent::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::class);
 /**
  * HttpKernel notifies events to convert a Request object to a Response one.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface, \ECSPrefix20210507\Symfony\Component\HttpKernel\TerminableInterface
+class HttpKernel implements \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface, \ECSPrefix20210508\Symfony\Component\HttpKernel\TerminableInterface
 {
     protected $dispatcher;
     protected $resolver;
     protected $requestStack;
     private $argumentResolver;
-    /**
-     * @param \Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher
-     * @param \Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $argumentResolver
-     */
-    public function __construct($dispatcher, $resolver, $requestStack = null, $argumentResolver = null)
+    public function __construct(\ECSPrefix20210508\Symfony\Contracts\EventDispatcher\EventDispatcherInterface $dispatcher, \ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerResolverInterface $resolver, \ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, \ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $argumentResolver = null)
     {
         $this->dispatcher = $dispatcher;
         $this->resolver = $resolver;
-        $this->requestStack = isset($requestStack) ? $requestStack : new \ECSPrefix20210507\Symfony\Component\HttpFoundation\RequestStack();
+        $this->requestStack = isset($requestStack) ? $requestStack : new \ECSPrefix20210508\Symfony\Component\HttpFoundation\RequestStack();
         $this->argumentResolver = $argumentResolver;
         if (null === $this->argumentResolver) {
-            $this->argumentResolver = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ArgumentResolver();
+            $this->argumentResolver = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ArgumentResolver();
         }
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @param bool $catch
      */
-    public function handle($request, $type = \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
+    public function handle(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST, $catch = \true)
     {
         $request->headers->set('X-Php-Ob-Level', (string) \ob_get_level());
         try {
             return $this->handleRaw($request, $type);
         } catch (\Exception $e) {
-            if ($e instanceof \ECSPrefix20210507\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
-                $e = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\BadRequestHttpException($e->getMessage(), $e);
+            if ($e instanceof \ECSPrefix20210508\Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface) {
+                $e = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\BadRequestHttpException($e->getMessage(), $e);
             }
             if (\false === $catch) {
                 $this->finishRequest($request, $type);
@@ -92,19 +85,15 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function terminate($request, $response)
+    public function terminate(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response)
     {
-        $this->dispatcher->dispatch(new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\TerminateEvent($this, $request, $response), \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::TERMINATE);
+        $this->dispatcher->dispatch(new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\TerminateEvent($this, $request, $response), \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::TERMINATE);
     }
     /**
      * @internal
-     * @param \Throwable $exception
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function terminateWithException($exception, $request = null)
+    public function terminateWithException(\Throwable $exception, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request = null)
     {
         if (!($request = $request ?: $this->requestStack->getMasterRequest())) {
             throw $exception;
@@ -121,38 +110,37 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
      *
      * @throws \LogicException       If one of the listener does not behave as expected
      * @throws NotFoundHttpException When controller cannot be found
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function handleRaw($request, $type = self::MASTER_REQUEST)
+    private function handleRaw(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type = self::MASTER_REQUEST)
     {
         $this->requestStack->push($request);
         // request
-        $event = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\RequestEvent($this, $request, $type);
-        $this->dispatcher->dispatch($event, \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::REQUEST);
+        $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\RequestEvent($this, $request, $type);
+        $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::REQUEST);
         if ($event->hasResponse()) {
             return $this->filterResponse($event->getResponse(), $request, $type);
         }
         // load controller
         if (\false === ($controller = $this->resolver->getController($request))) {
-            throw new \ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\NotFoundHttpException(\sprintf('Unable to find the controller for path "%s". The route is wrongly configured.', $request->getPathInfo()));
+            throw new \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\NotFoundHttpException(\sprintf('Unable to find the controller for path "%s". The route is wrongly configured.', $request->getPathInfo()));
         }
-        $event = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerEvent($this, $controller, $request, $type);
-        $this->dispatcher->dispatch($event, \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER);
+        $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ControllerEvent($this, $controller, $request, $type);
+        $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER);
         $controller = $event->getController();
         // controller arguments
         $arguments = $this->argumentResolver->getArguments($request, $controller);
-        $event = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent($this, $controller, $arguments, $request, $type);
-        $this->dispatcher->dispatch($event, \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS);
+        $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent($this, $controller, $arguments, $request, $type);
+        $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER_ARGUMENTS);
         $controller = $event->getController();
         $arguments = $event->getArguments();
         // call controller
         $response = $controller(...$arguments);
         // view
-        if (!$response instanceof \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response) {
-            $event = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ViewEvent($this, $request, $type, $response);
-            $this->dispatcher->dispatch($event, \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::VIEW);
+        if (!$response instanceof \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response) {
+            $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ViewEvent($this, $request, $type, $response);
+            $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::VIEW);
             if ($event->hasResponse()) {
                 $response = $event->getResponse();
             } else {
@@ -161,7 +149,7 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
                 if (null === $response) {
                     $msg .= ' Did you forget to add a return statement somewhere in your controller?';
                 }
-                throw new \ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException($msg, $controller, __FILE__, __LINE__ - 17);
+                throw new \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\ControllerDoesNotReturnResponseException($msg, $controller, __FILE__, __LINE__ - 17);
             }
         }
         return $this->filterResponse($response, $request, $type);
@@ -170,15 +158,13 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
      * Filters a response object.
      *
      * @throws \RuntimeException if the passed object is not a Response instance
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function filterResponse($response, $request, $type)
+    private function filterResponse(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type)
     {
-        $event = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ResponseEvent($this, $request, $type, $response);
-        $this->dispatcher->dispatch($event, \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::RESPONSE);
+        $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ResponseEvent($this, $request, $type, $response);
+        $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::RESPONSE);
         $this->finishRequest($request, $type);
         return $event->getResponse();
     }
@@ -188,27 +174,24 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
      * Note that the order of the operations is important here, otherwise
      * operations such as {@link RequestStack::getParentRequest()} can lead to
      * weird results.
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      */
-    private function finishRequest($request, $type)
+    private function finishRequest(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type)
     {
-        $this->dispatcher->dispatch(new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\FinishRequestEvent($this, $request, $type), \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST);
+        $this->dispatcher->dispatch(new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\FinishRequestEvent($this, $request, $type), \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST);
         $this->requestStack->pop();
     }
     /**
      * Handles a throwable by trying to convert it to a Response.
      *
      * @throws \Exception
-     * @param \Throwable $e
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $type
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    private function handleThrowable($e, $request, $type)
+    private function handleThrowable(\Throwable $e, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $type)
     {
-        $event = new \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\ExceptionEvent($this, $request, $type, $e);
-        $this->dispatcher->dispatch($event, \ECSPrefix20210507\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION);
+        $event = new \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\ExceptionEvent($this, $request, $type, $e);
+        $this->dispatcher->dispatch($event, \ECSPrefix20210508\Symfony\Component\HttpKernel\KernelEvents::EXCEPTION);
         // a listener might have replaced the exception
         $e = $event->getThrowable();
         if (!$event->hasResponse()) {
@@ -219,7 +202,7 @@ class HttpKernel implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Http
         // the developer asked for a specific status code
         if (!$event->isAllowingCustomResponseCode() && !$response->isClientError() && !$response->isServerError() && !$response->isRedirect()) {
             // ensure that we actually have an error response
-            if ($e instanceof \ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
+            if ($e instanceof \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
                 // keep the HTTP status code and headers
                 $response->setStatusCode($e->getStatusCode());
                 $response->headers->add($e->getHeaders());

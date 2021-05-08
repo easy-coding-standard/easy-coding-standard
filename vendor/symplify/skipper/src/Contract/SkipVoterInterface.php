@@ -12,8 +12,7 @@ interface SkipVoterInterface
     public function match($element);
     /**
      * @param string|object $element
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function shouldSkip($element, $smartFileInfo);
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo);
 }

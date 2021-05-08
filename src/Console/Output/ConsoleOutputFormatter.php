@@ -22,21 +22,16 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
      * @var Configuration
      */
     private $configuration;
-    /**
-     * @param \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle
-     * @param \Symplify\EasyCodingStandard\Configuration\Configuration $configuration
-     */
-    public function __construct($easyCodingStandardStyle, $configuration)
+    public function __construct(\Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle, \Symplify\EasyCodingStandard\Configuration\Configuration $configuration)
     {
         $this->easyCodingStandardStyle = $easyCodingStandardStyle;
         $this->configuration = $configuration;
     }
     /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
      * @param int $processedFilesCount
      * @return int
      */
-    public function report($errorAndDiffResult, $processedFilesCount)
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, $processedFilesCount)
     {
         $this->reportFileDiffs($errorAndDiffResult->getFileDiffs());
         if ($errorAndDiffResult->getErrorCount() === 0 && $errorAndDiffResult->getFileDiffsCount() === 0) {
@@ -81,10 +76,9 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         }
     }
     /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
      * @return int
      */
-    private function printAfterFixerStatus($errorAndDiffResult)
+    private function printAfterFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult)
     {
         if ($this->configuration->shouldShowErrorTable()) {
             $this->easyCodingStandardStyle->printErrors($errorAndDiffResult->getErrors());
@@ -98,10 +92,9 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         return \Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
      * @return int
      */
-    private function printNoFixerStatus($errorAndDiffResult)
+    private function printNoFixerStatus(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult)
     {
         if ($this->configuration->shouldShowErrorTable()) {
             $errors = $errorAndDiffResult->getErrors();

@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception;
 
-use ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface;
+use ECSPrefix20210508\Psr\Container\NotFoundExceptionInterface;
 /**
  * This exception is thrown when a non-existent parameter is used.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ParameterNotFoundException extends \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException implements \ECSPrefix20210507\Psr\Container\NotFoundExceptionInterface
+class ParameterNotFoundException extends \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException implements \ECSPrefix20210508\Psr\Container\NotFoundExceptionInterface
 {
     private $key;
     private $sourceId;
@@ -31,7 +31,7 @@ class ParameterNotFoundException extends \ECSPrefix20210507\Symfony\Component\De
      * @param string[]    $alternatives         Some parameter name alternatives
      * @param string $nonNestedAlternative The alternative parameter name when the user expected dot notation for nested parameters
      */
-    public function __construct($key, $sourceId = null, $sourceKey = null, $previous = null, array $alternatives = [], $nonNestedAlternative = null)
+    public function __construct($key, $sourceId = null, $sourceKey = null, \Throwable $previous = null, array $alternatives = [], $nonNestedAlternative = null)
     {
         $this->key = $key;
         $this->sourceId = $sourceId;

@@ -20,9 +20,8 @@ final class SystemError
     /**
      * @param int $line
      * @param string $message
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      */
-    public function __construct($line, $message, $fileInfo)
+    public function __construct($line, $message, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $this->line = $line;
         $this->message = $message;

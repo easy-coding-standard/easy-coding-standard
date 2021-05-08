@@ -77,10 +77,9 @@ function foo() {
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \true;
     }
@@ -95,10 +94,8 @@ function foo() {
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $referenceAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ReferenceAnalyzer();
         $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
@@ -134,9 +131,8 @@ function foo() {
      * Currently only colons from "switch".
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function getExcludedIndices($tokens)
+    private function getExcludedIndices(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $indices = [];
         for ($index = $tokens->count() - 1; $index > 0; --$index) {
@@ -148,10 +144,9 @@ function foo() {
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $switchIndex
      */
-    private function getCasesColonsForSwitch($tokens, $switchIndex)
+    private function getCasesColonsForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex)
     {
         return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
             return $caseAnalysis->getColonIndex();
@@ -160,9 +155,8 @@ function foo() {
     /**
      * @param int[] $operatorIndices
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixOperatorLinebreak($tokens, array $operatorIndices)
+    private function fixOperatorLinebreak(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices)
     {
         /** @var int $prevIndex */
         $prevIndex = $tokens->getPrevMeaningfulToken(\min($operatorIndices));
@@ -191,9 +185,8 @@ function foo() {
     /**
      * @param int[] $operatorIndices
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixMoveToTheBeginning($tokens, array $operatorIndices)
+    private function fixMoveToTheBeginning(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices)
     {
         /** @var int $prevIndex */
         $prevIndex = $tokens->getNonEmptySibling(\min($operatorIndices), -1);
@@ -214,9 +207,8 @@ function foo() {
     /**
      * @param int[] $operatorIndices
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixMoveToTheEnd($tokens, array $operatorIndices)
+    private function fixMoveToTheEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, array $operatorIndices)
     {
         /** @var int $prevIndex */
         $prevIndex = $tokens->getPrevMeaningfulToken(\min($operatorIndices));
@@ -238,10 +230,9 @@ function foo() {
      * @param int[] $indices
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $direction
      */
-    private function getReplacementsAndClear($tokens, array $indices, $direction)
+    private function getReplacementsAndClear(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indices, $direction)
     {
         return \array_map(static function (int $index) use($tokens, $direction) {
             $clone = $tokens[$index];
@@ -253,12 +244,11 @@ function foo() {
         }, $indices);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $indexStart
      * @param int $indexEnd
      * @return bool
      */
-    private function isMultiline($tokens, $indexStart, $indexEnd)
+    private function isMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $indexStart, $indexEnd)
     {
         for ($index = $indexStart; $index <= $indexEnd; ++$index) {
             if (\false !== \strpos($tokens[$index]->getContent(), "\n")) {

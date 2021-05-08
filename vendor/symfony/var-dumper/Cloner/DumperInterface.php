@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\VarDumper\Cloner;
+namespace ECSPrefix20210508\Symfony\Component\VarDumper\Cloner;
 
 /**
  * DumperInterface used by Data objects.
@@ -22,27 +22,24 @@ interface DumperInterface
      *
      * @param string                $type  The PHP type of the value being dumped
      * @param string|int|float|bool $value The scalar value being dumped
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
-    public function dumpScalar($cursor, $type, $value);
+    public function dumpScalar(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $value);
     /**
      * Dumps a string.
      *
      * @param string $str The string being dumped
      * @param bool   $bin Whether $str is UTF-8 or binary encoded
      * @param int    $cut The number of characters $str has been cut by
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
-    public function dumpString($cursor, $str, $bin, $cut);
+    public function dumpString(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut);
     /**
      * Dumps while entering an hash.
      *
      * @param int        $type     A Cursor::HASH_* const for the type of hash
      * @param string|int $class    The object class, resource type or array count
      * @param bool       $hasChild When the dump of the hash has child item
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
-    public function enterHash($cursor, $type, $class, $hasChild);
+    public function enterHash(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild);
     /**
      * Dumps while leaving an hash.
      *
@@ -50,7 +47,6 @@ interface DumperInterface
      * @param string|int $class    The object class, resource type or array count
      * @param bool       $hasChild When the dump of the hash has child item
      * @param int        $cut      The number of items the hash has been cut by
-     * @param \Symfony\Component\VarDumper\Cloner\Cursor $cursor
      */
-    public function leaveHash($cursor, $type, $class, $hasChild, $cut);
+    public function leaveHash(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild, $cut);
 }

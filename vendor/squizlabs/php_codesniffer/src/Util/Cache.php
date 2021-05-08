@@ -34,7 +34,7 @@ class Cache
      *
      * @return void
      */
-    public static function load($ruleset, $config)
+    public static function load(\PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
     {
         // Look at every loaded sniff class so far and use their file contents
         // to generate a hash for the code used during the run.

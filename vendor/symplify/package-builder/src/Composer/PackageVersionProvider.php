@@ -2,11 +2,11 @@
 
 namespace Symplify\PackageBuilder\Composer;
 
-use ECSPrefix20210507\Jean85\Exception\ReplacedPackageException;
-use ECSPrefix20210507\Jean85\PrettyVersions;
-use ECSPrefix20210507\Jean85\Version;
+use ECSPrefix20210508\Jean85\Exception\ReplacedPackageException;
+use ECSPrefix20210508\Jean85\PrettyVersions;
+use ECSPrefix20210508\Jean85\Version;
 use OutOfBoundsException;
-use ECSPrefix20210507\PharIo\Version\InvalidVersionException;
+use ECSPrefix20210508\PharIo\Version\InvalidVersionException;
 final class PackageVersionProvider
 {
     /**
@@ -21,7 +21,7 @@ final class PackageVersionProvider
             return $version->getPrettyVersion() ?: 'Unknown';
         } catch (\OutOfBoundsException $exceptoin) {
             return 'Unknown';
-        } catch (\ECSPrefix20210507\PharIo\Version\InvalidVersionException $exceptoin) {
+        } catch (\ECSPrefix20210508\PharIo\Version\InvalidVersionException $exceptoin) {
             return 'Unknown';
         }
     }
@@ -37,11 +37,11 @@ final class PackageVersionProvider
     private function getVersion($packageName, $replacingPackageName)
     {
         try {
-            return \ECSPrefix20210507\Jean85\PrettyVersions::getVersion($packageName);
+            return \ECSPrefix20210508\Jean85\PrettyVersions::getVersion($packageName);
         } catch (\OutOfBoundsException $exception) {
-            return \ECSPrefix20210507\Jean85\PrettyVersions::getVersion($replacingPackageName);
-        } catch (\ECSPrefix20210507\Jean85\Exception\ReplacedPackageException $exception) {
-            return \ECSPrefix20210507\Jean85\PrettyVersions::getVersion($replacingPackageName);
+            return \ECSPrefix20210508\Jean85\PrettyVersions::getVersion($replacingPackageName);
+        } catch (\ECSPrefix20210508\Jean85\Exception\ReplacedPackageException $exception) {
+            return \ECSPrefix20210508\Jean85\PrettyVersions::getVersion($replacingPackageName);
         }
     }
 }

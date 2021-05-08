@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Exception;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Christophe Coevoet <stof@notk.org>
  */
-class AccessDeniedHttpException extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\HttpException
+class AccessDeniedHttpException extends \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\HttpException
 {
     /**
      * @param string|null     $message  The internal exception message
-     * @param \Throwable $previous The previous exception
+     * @param \Throwable|null $previous The previous exception
      * @param int             $code     The internal exception code
      */
-    public function __construct($message = '', $previous = null, $code = 0, array $headers = [])
+    public function __construct($message = '', \Throwable $previous = null, $code = 0, array $headers = [])
     {
         parent::__construct(403, $message, $previous, $headers, $code);
     }

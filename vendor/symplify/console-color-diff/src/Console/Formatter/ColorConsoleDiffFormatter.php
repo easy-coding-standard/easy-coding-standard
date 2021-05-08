@@ -2,8 +2,8 @@
 
 namespace Symplify\ConsoleColorDiff\Console\Formatter;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
-use ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210508\Nette\Utils\Strings;
+use ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * Most is copy-pasted from https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/src/Differ/DiffConsoleFormatter.php
  * to be used as standalone class, without need to require whole package.
@@ -56,8 +56,8 @@ final class ColorConsoleDiffFormatter
      */
     private function formatWithTemplate($diff, $template)
     {
-        $escapedDiff = \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter::escape(\rtrim($diff));
-        $escapedDiffLines = \ECSPrefix20210507\Nette\Utils\Strings::split($escapedDiff, self::NEWLINES_REGEX);
+        $escapedDiff = \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escape(\rtrim($diff));
+        $escapedDiffLines = \ECSPrefix20210508\Nette\Utils\Strings::split($escapedDiff, self::NEWLINES_REGEX);
         $coloredLines = \array_map(function (string $string) : string {
             $string = $this->makePlusLinesGreen($string);
             $string = $this->makeMinusLinesRed($string);
@@ -75,7 +75,7 @@ final class ColorConsoleDiffFormatter
      */
     private function makePlusLinesGreen($string)
     {
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($string, self::PLUS_START_REGEX, '<fg=green>$1</fg=green>');
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::PLUS_START_REGEX, '<fg=green>$1</fg=green>');
     }
     /**
      * @param string $string
@@ -83,7 +83,7 @@ final class ColorConsoleDiffFormatter
      */
     private function makeMinusLinesRed($string)
     {
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($string, self::MINUT_START_REGEX, '<fg=red>$1</fg=red>');
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::MINUT_START_REGEX, '<fg=red>$1</fg=red>');
     }
     /**
      * @param string $string
@@ -91,6 +91,6 @@ final class ColorConsoleDiffFormatter
      */
     private function makeAtNoteCyan($string)
     {
-        return \ECSPrefix20210507\Nette\Utils\Strings::replace($string, self::AT_START_REGEX, '<fg=cyan>$1</fg=cyan>');
+        return \ECSPrefix20210508\Nette\Utils\Strings::replace($string, self::AT_START_REGEX, '<fg=cyan>$1</fg=cyan>');
     }
 }

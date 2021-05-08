@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210507\Psr\Cache\CacheItemInterface;
-use ECSPrefix20210507\Psr\Log\LoggerAwareInterface;
-use ECSPrefix20210507\Psr\Log\LoggerAwareTrait;
-use ECSPrefix20210507\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\Cache\ResettableInterface;
-use ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface;
+use ECSPrefix20210508\Psr\Cache\CacheItemInterface;
+use ECSPrefix20210508\Psr\Log\LoggerAwareInterface;
+use ECSPrefix20210508\Psr\Log\LoggerAwareTrait;
+use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface;
+use ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface;
 /**
  * An in-memory cache storage.
  *
@@ -24,7 +24,7 @@ use ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface, \ECSPrefix20210507\Psr\Log\LoggerAwareInterface, \ECSPrefix20210507\Symfony\Component\Cache\ResettableInterface
+class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface, \ECSPrefix20210508\Psr\Log\LoggerAwareInterface, \ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface
 {
     use LoggerAwareTrait;
     private $storeSerialized;
@@ -43,22 +43,22 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
     public function __construct($defaultLifetime = 0, $storeSerialized = \true, $maxLifetime = 0, $maxItems = 0)
     {
         if (0 > $maxLifetime) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxLifetime must be positive, %F passed.', $maxLifetime));
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxLifetime must be positive, %F passed.', $maxLifetime));
         }
         if (0 > $maxItems) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxItems must be a positive integer, %d passed.', $maxItems));
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument $maxItems must be a positive integer, %d passed.', $maxItems));
         }
         $this->defaultLifetime = $defaultLifetime;
         $this->storeSerialized = $storeSerialized;
         $this->maxLifetime = $maxLifetime;
         $this->maxItems = $maxItems;
         $this->createCacheItem = \Closure::bind(static function ($key, $value, $isHit) {
-            $item = new \ECSPrefix20210507\Symfony\Component\Cache\CacheItem();
+            $item = new \ECSPrefix20210508\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->value = $value;
             $item->isHit = $isHit;
             return $item;
-        }, null, \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::class);
+        }, null, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}
@@ -101,7 +101,7 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
             }
             return \true;
         }
-        \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::validateKey($key);
+        \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($key);
         return isset($this->expiries[$key]) && !$this->deleteItem($key);
     }
     /**
@@ -128,7 +128,7 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
     {
         foreach ($keys as $key) {
             if (!\is_string($key) || !isset($this->expiries[$key])) {
-                \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::validateKey($key);
+                \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($key);
             }
         }
         return $this->generateItems($keys, \microtime(\true), $this->createCacheItem);
@@ -141,7 +141,7 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
     public function deleteItem($key)
     {
         if (!\is_string($key) || !isset($this->expiries[$key])) {
-            \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::validateKey($key);
+            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($key);
         }
         unset($this->values[$key], $this->expiries[$key]);
         return \true;
@@ -162,11 +162,10 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save($item)
+    public function save(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \ECSPrefix20210507\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \ECSPrefix20210508\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $item = (array) $item;
@@ -208,9 +207,8 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred($item)
+    public function saveDeferred(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
     {
         return $this->save($item);
     }
@@ -315,7 +313,7 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
                 unset($this->values[$key]);
                 $type = \get_debug_type($value);
                 $message = \sprintf('Failed to save key "{key}" of type %s: %s', $type, $e->getMessage());
-                \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::log($this->logger, $message, ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+                \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, $message, ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
                 return;
             }
             // Keep value serialized if it contains any objects or any internal references
@@ -338,7 +336,7 @@ class ArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter
             try {
                 $value = \unserialize($value);
             } catch (\Exception $e) {
-                \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to unserialize key "{key}": ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+                \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to unserialize key "{key}": ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
                 $value = \false;
             }
             if (\false === $value) {

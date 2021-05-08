@@ -56,7 +56,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return void
      */
-    public function __construct($config, $ruleset)
+    public function __construct(\PHP_CodeSniffer\Config $config, \PHP_CodeSniffer\Ruleset $ruleset)
     {
         $this->ruleset = $ruleset;
         $this->config = $config;

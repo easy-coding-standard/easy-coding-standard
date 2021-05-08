@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Traits;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Traits;
 
 /**
  * @author Alessandro Chitolina <alekitto@gmail.com>
@@ -19,10 +19,7 @@ class RedisClusterProxy
 {
     private $redis;
     private $initializer;
-    /**
-     * @param \Closure $initializer
-     */
-    public function __construct($initializer)
+    public function __construct(\Closure $initializer)
     {
         $this->initializer = $initializer;
     }

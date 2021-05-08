@@ -46,11 +46,9 @@ final class UseTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $index
      */
-    public function process($tokens, $token, $index)
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
         if ($token->isGivenKind(\T_USE) && $this->isUseForLambda($tokens, $index)) {
             $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA, $token->getContent()]);
@@ -88,11 +86,10 @@ final class UseTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
     }
     /**
      * Check if token under given index is `use` statement for lambda function.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isUseForLambda($tokens, $index)
+    private function isUseForLambda(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $nextToken = $tokens[$tokens->getNextMeaningfulToken($index)];
         // test `function () use ($foo) {}` case

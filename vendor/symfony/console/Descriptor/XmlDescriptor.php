@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20210508\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210507\Symfony\Component\Console\Application;
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210508\Symfony\Component\Console\Application;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputOption;
 /**
  * XML descriptor.
  *
@@ -22,13 +22,12 @@ use ECSPrefix20210507\Symfony\Component\Console\Input\InputOption;
  *
  * @internal
  */
-class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descriptor\Descriptor
+class XmlDescriptor extends \ECSPrefix20210508\Symfony\Component\Console\Descriptor\Descriptor
 {
     /**
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      * @return \DOMDocument
      */
-    public function getInputDefinitionDocument($definition)
+    public function getInputDefinitionDocument(\ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition $definition)
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($definitionXML = $dom->createElement('definition'));
@@ -43,10 +42,9 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
         return $dom;
     }
     /**
-     * @param \Symfony\Component\Console\Command\Command $command
      * @return \DOMDocument
      */
-    public function getCommandDocument($command)
+    public function getCommandDocument(\ECSPrefix20210508\Symfony\Component\Console\Command\Command $command)
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($commandXML = $dom->createElement('command'));
@@ -67,11 +65,10 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
         return $dom;
     }
     /**
-     * @param \Symfony\Component\Console\Application $application
      * @param string $namespace
      * @return \DOMDocument
      */
-    public function getApplicationDocument($application, $namespace = null)
+    public function getApplicationDocument(\ECSPrefix20210508\Symfony\Component\Console\Application $application, $namespace = null)
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($rootXml = $dom->createElement('symfony'));
@@ -82,7 +79,7 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
             }
         }
         $rootXml->appendChild($commandsXML = $dom->createElement('commands'));
-        $description = new \ECSPrefix20210507\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
+        $description = new \ECSPrefix20210508\Symfony\Component\Console\Descriptor\ApplicationDescription($application, $namespace, \true);
         if ($namespace) {
             $commandsXML->setAttribute('namespace', $namespace);
         }
@@ -104,50 +101,43 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputArgument $argument
      */
-    protected function describeInputArgument($argument, array $options = [])
+    protected function describeInputArgument(\ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument $argument, array $options = [])
     {
         $this->writeDocument($this->getInputArgumentDocument($argument));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputOption $option
      */
-    protected function describeInputOption($option, array $options = [])
+    protected function describeInputOption(\ECSPrefix20210508\Symfony\Component\Console\Input\InputOption $option, array $options = [])
     {
         $this->writeDocument($this->getInputOptionDocument($option));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
-    protected function describeInputDefinition($definition, array $options = [])
+    protected function describeInputDefinition(\ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition $definition, array $options = [])
     {
         $this->writeDocument($this->getInputDefinitionDocument($definition));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Command\Command $command
      */
-    protected function describeCommand($command, array $options = [])
+    protected function describeCommand(\ECSPrefix20210508\Symfony\Component\Console\Command\Command $command, array $options = [])
     {
         $this->writeDocument($this->getCommandDocument($command));
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Application $application
      */
-    protected function describeApplication($application, array $options = [])
+    protected function describeApplication(\ECSPrefix20210508\Symfony\Component\Console\Application $application, array $options = [])
     {
         $this->writeDocument($this->getApplicationDocument($application, isset($options['namespace']) ? $options['namespace'] : null));
     }
     /**
      * Appends document children to parent node.
-     * @param \DOMNode $parentNode
-     * @param \DOMNode $importedParent
      */
-    private function appendDocument($parentNode, $importedParent)
+    private function appendDocument(\DOMNode $parentNode, \DOMNode $importedParent)
     {
         foreach ($importedParent->childNodes as $childNode) {
             $parentNode->appendChild($parentNode->ownerDocument->importNode($childNode, \true));
@@ -155,18 +145,16 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
     }
     /**
      * Writes DOM document.
-     * @param \DOMDocument $dom
      */
-    private function writeDocument($dom)
+    private function writeDocument(\DOMDocument $dom)
     {
         $dom->formatOutput = \true;
         $this->write($dom->saveXML());
     }
     /**
-     * @param \Symfony\Component\Console\Input\InputArgument $argument
      * @return \DOMDocument
      */
-    private function getInputArgumentDocument($argument)
+    private function getInputArgumentDocument(\ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument $argument)
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('argument'));
@@ -184,10 +172,9 @@ class XmlDescriptor extends \ECSPrefix20210507\Symfony\Component\Console\Descrip
         return $dom;
     }
     /**
-     * @param \Symfony\Component\Console\Input\InputOption $option
      * @return \DOMDocument
      */
-    private function getInputOptionDocument($option)
+    private function getInputOptionDocument(\ECSPrefix20210508\Symfony\Component\Console\Input\InputOption $option)
     {
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->appendChild($objectXML = $dom->createElement('option'));

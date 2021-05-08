@@ -2,7 +2,7 @@
 
 namespace Symplify\SymplifyKernel\Strings;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use Symplify\SymplifyKernel\Exception\HttpKernel\TooGenericKernelClassException;
 use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
 final class KernelUniqueHasher
@@ -22,7 +22,7 @@ final class KernelUniqueHasher
     public function hashKernelClass($kernelClass)
     {
         $this->ensureIsNotGenericKernelClass($kernelClass);
-        $shortClassName = (string) \ECSPrefix20210507\Nette\Utils\Strings::after($kernelClass, '\\', -1);
+        $shortClassName = (string) \ECSPrefix20210508\Nette\Utils\Strings::after($kernelClass, '\\', -1);
         return $this->stringsConverter->camelCaseToGlue($shortClassName, '_');
     }
     /**

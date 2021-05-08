@@ -12,19 +12,15 @@ final class TokensInliner
      * @var TokenSkipper
      */
     private $tokenSkipper;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper
-     */
-    public function __construct($tokenSkipper)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper)
     {
         $this->tokenSkipper = $tokenSkipper;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param Tokens|Token[] $tokens
      * @return void
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      */
-    public function inlineItems($tokens, $blockInfo)
+    public function inlineItems(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         // replace line feeds with " "
         for ($i = $blockInfo->getStart() + 1; $i < $blockInfo->getEnd(); ++$i) {
@@ -51,11 +47,9 @@ final class TokensInliner
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Token $previousToken
-     * @param \PhpCsFixer\Tokenizer\Token $nextToken
      * @return bool
      */
-    private function isBlockStartOrEnd($previousToken, $nextToken)
+    private function isBlockStartOrEnd(\PhpCsFixer\Tokenizer\Token $previousToken, \PhpCsFixer\Tokenizer\Token $nextToken)
     {
         if (\in_array($previousToken->getContent(), ['(', '['], \true)) {
             return \true;

@@ -249,9 +249,8 @@ class Config implements \PhpCsFixer\ConfigInterface
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Fixer\FixerInterface $fixer
      */
-    private function addCustomFixer($fixer)
+    private function addCustomFixer(\PhpCsFixer\Fixer\FixerInterface $fixer)
     {
         $this->customFixers[] = $fixer;
     }

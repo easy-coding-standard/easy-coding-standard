@@ -44,11 +44,10 @@ final class FopenFlagsFixer extends \PhpCsFixer\AbstractFopenFlagFixer implement
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $argumentStartIndex
      * @param int $argumentEndIndex
      */
-    protected function fixFopenFlagToken($tokens, $argumentStartIndex, $argumentEndIndex)
+    protected function fixFopenFlagToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
     {
         $argumentFlagIndex = null;
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {

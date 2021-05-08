@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Traits;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Traits;
 
-use ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -25,14 +25,14 @@ trait ProxyTrait
      */
     public function prune()
     {
-        return $this->pool instanceof \ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
+        return $this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface && $this->pool->prune();
     }
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        if ($this->pool instanceof \ECSPrefix20210507\Symfony\Contracts\Service\ResetInterface) {
+        if ($this->pool instanceof \ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface) {
             $this->pool->reset();
         }
     }

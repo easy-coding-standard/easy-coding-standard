@@ -41,10 +41,9 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_UNSET) && $tokens->isAnyTokenKindsFound([\T_OBJECT_OPERATOR, \T_PAAMAYIM_NEKUDOTAYIM]);
     }
@@ -60,10 +59,8 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_UNSET)) {
@@ -83,10 +80,9 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function getUnsetsInfo($tokens, $index)
+    private function getUnsetsInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $unsetStart = $tokens->getNextTokenOfKind($index, ['(']);
@@ -102,12 +98,11 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
         return $unsets;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param int $endIndex
      * @return bool
      */
-    private function isProperty($tokens, $index, $endIndex)
+    private function isProperty(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $endIndex)
     {
         if ($tokens[$index]->isGivenKind(\T_VARIABLE)) {
             $nextIndex = $tokens->getNextMeaningfulToken($index);
@@ -147,10 +142,9 @@ final class NoUnsetOnPropertyFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param array<string, bool|int> $unsetInfo
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param bool $isLastUnset
      */
-    private function updateTokens($tokens, array $unsetInfo, $isLastUnset)
+    private function updateTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $unsetInfo, $isLastUnset)
     {
         // if entry is first and to be transform we remove leading "unset("
         if ($unsetInfo['isFirst'] && $unsetInfo['isToTransform']) {

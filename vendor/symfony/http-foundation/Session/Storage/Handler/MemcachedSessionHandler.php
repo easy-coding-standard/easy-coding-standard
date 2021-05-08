@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+namespace ECSPrefix20210508\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Memcached based session storage handler based on the Memcached class
@@ -18,7 +18,7 @@ namespace ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\Han
  *
  * @author Drak <drak@zikula.org>
  */
-class MemcachedSessionHandler extends \ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class MemcachedSessionHandler extends \ECSPrefix20210508\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
 {
     private $memcached;
     /**
@@ -37,9 +37,8 @@ class MemcachedSessionHandler extends \ECSPrefix20210507\Symfony\Component\HttpF
      *  * expiretime: The time to live in seconds.
      *
      * @throws \InvalidArgumentException When unsupported options are passed
-     * @param \Memcached $memcached
      */
-    public function __construct($memcached, array $options = [])
+    public function __construct(\Memcached $memcached, array $options = [])
     {
         $this->memcached = $memcached;
         if ($diff = \array_diff(\array_keys($options), ['prefix', 'expiretime'])) {

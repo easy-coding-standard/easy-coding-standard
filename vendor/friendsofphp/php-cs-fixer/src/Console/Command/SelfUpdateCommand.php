@@ -15,11 +15,11 @@ use PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface;
 use PhpCsFixer\PharCheckerInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\ToolInfoInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210508\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Igor Wiedler <igor@wiedler.ch>
  * @author Stephane PY <py.stephane1@gmail.com>
@@ -29,7 +29,7 @@ use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-final class SelfUpdateCommand extends \ECSPrefix20210507\Symfony\Component\Console\Command\Command
+final class SelfUpdateCommand extends \ECSPrefix20210508\Symfony\Component\Console\Command\Command
 {
     protected static $defaultName = 'self-update';
     /**
@@ -44,12 +44,7 @@ final class SelfUpdateCommand extends \ECSPrefix20210507\Symfony\Component\Conso
      * @var PharCheckerInterface
      */
     private $pharChecker;
-    /**
-     * @param \PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface $versionChecker
-     * @param \PhpCsFixer\ToolInfoInterface $toolInfo
-     * @param \PhpCsFixer\PharCheckerInterface $pharChecker
-     */
-    public function __construct($versionChecker, $toolInfo, $pharChecker)
+    public function __construct(\PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface $versionChecker, \PhpCsFixer\ToolInfoInterface $toolInfo, \PhpCsFixer\PharCheckerInterface $pharChecker)
     {
         parent::__construct();
         $this->versionChecker = $versionChecker;
@@ -62,7 +57,7 @@ final class SelfUpdateCommand extends \ECSPrefix20210507\Symfony\Component\Conso
      */
     protected function configure()
     {
-        $this->setAliases(['selfupdate'])->setDefinition([new \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption('--force', '-f', \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Force update to next major version if available.')])->setDescription('Update php-cs-fixer.phar to the latest stable version.')->setHelp(<<<'EOT'
+        $this->setAliases(['selfupdate'])->setDefinition([new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption('--force', '-f', \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Force update to next major version if available.')])->setDescription('Update php-cs-fixer.phar to the latest stable version.')->setHelp(<<<'EOT'
 The <info>%command.name%</info> command replace your php-cs-fixer.phar by the
 latest version released on:
 <comment>https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases</comment>
@@ -74,13 +69,11 @@ EOT
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
-    protected function execute($input, $output)
+    protected function execute(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
-        if (\ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if (\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity() && $output instanceof \ECSPrefix20210508\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $stdErr = $output->getErrorOutput();
             $stdErr->writeln($this->getApplication()->getLongVersion());
             $stdErr->writeln(\sprintf('Runtime: <info>PHP %s</info>', \PHP_VERSION));

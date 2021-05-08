@@ -71,20 +71,17 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound($this->candidateTokenType);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $callBack = $this->callBack;
         foreach ($tokens as $index => $token) {
@@ -103,10 +100,9 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function fixEchoToPrint($tokens, $index)
+    private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $nextTokenIndex = $tokens->getNextMeaningfulToken($index);
         $endTokenIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
@@ -128,10 +124,9 @@ final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function fixPrintToEcho($tokens, $index)
+    private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
         if (!$prevToken->equalsAny([';', '{', '}', ')', [\T_OPEN_TAG], [\T_ELSE]])) {

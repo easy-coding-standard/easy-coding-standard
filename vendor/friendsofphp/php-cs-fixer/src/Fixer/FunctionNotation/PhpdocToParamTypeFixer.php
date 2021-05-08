@@ -59,10 +59,9 @@ function bar($foo) {}
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID >= self::MINIMUM_PHP_VERSION && $tokens->isTokenKindFound(\T_FUNCTION);
     }
@@ -88,10 +87,8 @@ function bar($foo) {}
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
@@ -132,11 +129,9 @@ function bar($foo) {}
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
-     * @param \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation
      */
-    private function findCorrectVariable($tokens, $startIndex, $paramTypeAnnotation)
+    private function findCorrectVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, \PhpCsFixer\DocBlock\Annotation $paramTypeAnnotation)
     {
         $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $startIndex);
         for ($index = $startIndex + 1; $index < $endIndex; ++$index) {
@@ -154,10 +149,9 @@ function bar($foo) {}
      * Determine whether the function already has a param type hint.
      *
      * @param int $index The index of the end of the function definition line, EG at { or ;
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function hasParamTypeHint($tokens, $index)
+    private function hasParamTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $prevIndex = $tokens->getPrevMeaningfulToken($index);
         return !$tokens[$prevIndex]->equalsAny([',', '(']);

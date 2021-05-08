@@ -50,10 +50,9 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound(['@', \T_STRING]);
     }
@@ -76,10 +75,8 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         $excludedFunctions = \array_map(static function (string $function) {
@@ -121,11 +118,10 @@ final class ErrorSuppressionFixer extends \PhpCsFixer\AbstractFixer implements \
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function isDeprecationErrorCall($tokens, $index)
+    private function isDeprecationErrorCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if ('trigger_error' !== \strtolower($tokens[$index]->getContent())) {
             return \false;

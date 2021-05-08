@@ -14,10 +14,7 @@ final class SkippedMessagesResolver
      * @var ParameterProvider
      */
     private $parameterProvider;
-    /**
-     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
-     */
-    public function __construct($parameterProvider)
+    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }

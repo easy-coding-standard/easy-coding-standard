@@ -12,10 +12,7 @@ final class SetResolver
      * @var SetProviderInterface
      */
     private $setProvider;
-    /**
-     * @param \Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider
-     */
-    public function __construct($setProvider)
+    public function __construct(\Symplify\SetConfigResolver\Contract\SetProviderInterface $setProvider)
     {
         $this->setProvider = $setProvider;
     }

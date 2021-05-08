@@ -26,7 +26,7 @@ final class BlockFinder
      * @return \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo|null
      * @param int $position
      */
-    public function findInTokensByEdge($tokens, $position)
+    public function findInTokensByEdge(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $token = $tokens[$position];
         if (!$token instanceof \PhpCsFixer\Tokenizer\Token) {
@@ -60,7 +60,7 @@ final class BlockFinder
      * @param int $position
      * @param string $content
      */
-    public function findInTokensByPositionAndContent($tokens, $position, $content)
+    public function findInTokensByPositionAndContent(\PhpCsFixer\Tokenizer\Tokens $tokens, $position, $content)
     {
         $blockStart = $tokens->getNextTokenOfKind($position, [$content]);
         if ($blockStart === null) {
@@ -81,10 +81,9 @@ final class BlockFinder
         throw new \Symplify\CodingStandard\TokenRunner\Exception\MissingImplementationException(\sprintf('Implementation is missing for "%s" in "%s". Just add it to "%s" property with proper block type', $content, __METHOD__, '$contentToBlockType'));
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @return int
      */
-    private function getBlockTypeByToken($token)
+    private function getBlockTypeByToken(\PhpCsFixer\Tokenizer\Token $token)
     {
         if ($token->isArray()) {
             if (\in_array($token->getContent(), ['[', ']'], \true)) {
@@ -97,11 +96,10 @@ final class BlockFinder
     /**
      * @param Tokens<Token> $tokens
      * @return \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo|null
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $position
      * @param int $blockType
      */
-    private function createBlockInfo($token, $position, $tokens, $blockType)
+    private function createBlockInfo(\PhpCsFixer\Tokenizer\Token $token, $position, \PhpCsFixer\Tokenizer\Tokens $tokens, $blockType)
     {
         try {
             if (\in_array($token->getContent(), self::START_EDGES, \true)) {

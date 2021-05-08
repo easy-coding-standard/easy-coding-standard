@@ -15,10 +15,7 @@ final class ChainMethodCallAnalyzer
      * @var int
      */
     private $bracketNesting = 0;
-    /**
-     * @param \Symplify\CodingStandard\TokenAnalyzer\NewlineAnalyzer $newlineAnalyzer
-     */
-    public function __construct($newlineAnalyzer)
+    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\NewlineAnalyzer $newlineAnalyzer)
     {
         $this->newlineAnalyzer = $newlineAnalyzer;
     }
@@ -29,7 +26,7 @@ final class ChainMethodCallAnalyzer
      * @param int $position
      * @return bool
      */
-    public function isPreceededByFuncCall($tokens, $position)
+    public function isPreceededByFuncCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         for ($i = $position; $i >= 0; --$i) {
             /** @var Token $currentToken */
@@ -53,7 +50,7 @@ final class ChainMethodCallAnalyzer
      * @param int $position
      * @return bool
      */
-    public function isPartOfMethodCallOrArray($tokens, $position)
+    public function isPartOfMethodCallOrArray(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $this->bracketNesting = 0;
         for ($i = $position; $i >= 0; --$i) {
@@ -73,10 +70,9 @@ final class ChainMethodCallAnalyzer
         return \false;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Token $currentToken
      * @return bool
      */
-    private function isBreakingChar($currentToken)
+    private function isBreakingChar(\PhpCsFixer\Tokenizer\Token $currentToken)
     {
         if ($currentToken->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, \T_ARRAY, \T_DOUBLE_COLON])) {
             return \true;
@@ -87,10 +83,9 @@ final class ChainMethodCallAnalyzer
         return $currentToken->getContent() === '.';
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @return bool
      */
-    private function shouldBreakOnBracket($token)
+    private function shouldBreakOnBracket(\PhpCsFixer\Tokenizer\Token $token)
     {
         if ($token->getContent() === ')') {
             --$this->bracketNesting;

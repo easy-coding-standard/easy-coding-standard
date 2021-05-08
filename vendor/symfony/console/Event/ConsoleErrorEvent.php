@@ -8,27 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Event;
+namespace ECSPrefix20210508\Symfony\Component\Console\Event;
 
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Allows to handle throwables thrown while running a command.
  *
  * @author Wouter de Jong <wouter@wouterj.nl>
  */
-final class ConsoleErrorEvent extends \ECSPrefix20210507\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleErrorEvent extends \ECSPrefix20210508\Symfony\Component\Console\Event\ConsoleEvent
 {
     private $error;
     private $exitCode;
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Throwable $error
-     * @param \Symfony\Component\Console\Command\Command $command
-     */
-    public function __construct($input, $output, $error, $command = null)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \Throwable $error, \ECSPrefix20210508\Symfony\Component\Console\Command\Command $command = null)
     {
         parent::__construct($command, $input, $output);
         $this->error = $error;
@@ -42,9 +36,8 @@ final class ConsoleErrorEvent extends \ECSPrefix20210507\Symfony\Component\Conso
     }
     /**
      * @return void
-     * @param \Throwable $error
      */
-    public function setError($error)
+    public function setError(\Throwable $error)
     {
         $this->error = $error;
     }

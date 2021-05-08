@@ -33,20 +33,17 @@ final class CleanNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespace
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID < 80000 && $tokens->isTokenKindFound(\T_NS_SEPARATOR);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $count = $tokens->count();
         for ($index = 0; $index < $count; ++$index) {
@@ -58,10 +55,9 @@ final class CleanNamespaceFixer extends \PhpCsFixer\AbstractLinesBeforeNamespace
     }
     /**
      * @param int $index start of namespace
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return int
      */
-    private function fixNamespace($tokens, $index)
+    private function fixNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $tillIndex = $index;
         // go to the end of the namespace

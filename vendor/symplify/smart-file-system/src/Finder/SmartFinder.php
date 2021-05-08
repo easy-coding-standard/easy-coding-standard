@@ -2,7 +2,7 @@
 
 namespace Symplify\SmartFileSystem\Finder;
 
-use ECSPrefix20210507\Symfony\Component\Finder\Finder;
+use ECSPrefix20210508\Symfony\Component\Finder\Finder;
 use Symplify\SmartFileSystem\FileSystemFilter;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
@@ -18,11 +18,7 @@ final class SmartFinder
      * @var FileSystemFilter
      */
     private $fileSystemFilter;
-    /**
-     * @param \Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer
-     * @param \Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter
-     */
-    public function __construct($finderSanitizer, $fileSystemFilter)
+    public function __construct(\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileSystemFilter = $fileSystemFilter;
@@ -37,7 +33,7 @@ final class SmartFinder
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {
-            $finder = new \ECSPrefix20210507\Symfony\Component\Finder\Finder();
+            $finder = new \ECSPrefix20210508\Symfony\Component\Finder\Finder();
             $finder->name('*')->in($directories)->path($path)->files()->sortByName();
             $fileInfos = $this->finderSanitizer->sanitize($finder);
         }
@@ -54,7 +50,7 @@ final class SmartFinder
         $directories = $this->fileSystemFilter->filterDirectories($directoriesOrFiles);
         $fileInfos = [];
         if ($directories !== []) {
-            $finder = new \ECSPrefix20210507\Symfony\Component\Finder\Finder();
+            $finder = new \ECSPrefix20210508\Symfony\Component\Finder\Finder();
             $finder->name($name)->in($directories)->files()->sortByName();
             if ($excludedDirectories !== []) {
                 $finder->exclude($excludedDirectories);

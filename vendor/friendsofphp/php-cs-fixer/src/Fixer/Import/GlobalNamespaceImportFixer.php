@@ -85,20 +85,17 @@ if (count($x)) {
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_NS_SEPARATOR, \T_USE]) && $tokens->isTokenKindFound(\T_NAMESPACE) && 1 === $tokens->countTokenKind(\T_NAMESPACE) && $tokens->isMonolithicPhp();
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $namespaceAnalyses = (new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens);
         if (1 !== \count($namespaceAnalyses) || '' === $namespaceAnalyses[0]->getFullName()) {
@@ -135,10 +132,9 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return mixed[]
      */
-    private function importConstants($tokens, array $useDeclarations)
+    private function importConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
     {
         list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isConstant();
@@ -191,10 +187,9 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return mixed[]
      */
-    private function importFunctions($tokens, array $useDeclarations)
+    private function importFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
     {
         list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isFunction();
@@ -231,10 +226,9 @@ if (count($x)) {
     }
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return mixed[]
      */
-    private function importClasses($tokens, array $useDeclarations)
+    private function importClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
     {
         list($global, $other) = $this->filterUseDeclarations($useDeclarations, static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis $declaration) {
             return $declaration->isClass();
@@ -320,10 +314,9 @@ if (count($x)) {
      * @param int[] $indexes
      *
      * @return array array keys contain the names that must be imported
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param bool $caseSensitive
      */
-    private function prepareImports($tokens, array $indexes, array $global, array $other, $caseSensitive)
+    private function prepareImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes, array $global, array $other, $caseSensitive)
     {
         $imports = [];
         foreach ($indexes as $index) {
@@ -344,9 +337,8 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function insertImports($tokens, array $imports, array $useDeclarations)
+    private function insertImports(\PhpCsFixer\Tokenizer\Tokens $tokens, array $imports, array $useDeclarations)
     {
         if ($useDeclarations) {
             $useDeclaration = \end($useDeclarations);
@@ -378,9 +370,8 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fullyQualifyConstants($tokens, array $useDeclarations)
+    private function fullyQualifyConstants(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
     {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT)) {
             return;
@@ -412,9 +403,8 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fullyQualifyFunctions($tokens, array $useDeclarations)
+    private function fullyQualifyFunctions(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
     {
         if (!$tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT)) {
             return;
@@ -446,9 +436,8 @@ if (count($x)) {
     /**
      * @param NamespaceUseAnalysis[] $useDeclarations
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fullyQualifyClasses($tokens, array $useDeclarations)
+    private function fullyQualifyClasses(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useDeclarations)
     {
         if (!$tokens->isTokenKindFound(\T_USE)) {
             return;
@@ -517,11 +506,10 @@ if (count($x)) {
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $start
      * @param int $end
      */
-    private function findFunctionDeclarations($tokens, $start, $end)
+    private function findFunctionDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
         for ($index = $start; $index <= $end; ++$index) {
             $token = $tokens[$index];
@@ -558,10 +546,9 @@ if (count($x)) {
         }
     }
     /**
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @return bool
      */
-    private function traverseDocBlockTypes($doc, callable $callback)
+    private function traverseDocBlockTypes(\PhpCsFixer\DocBlock\DocBlock $doc, callable $callback)
     {
         $annotations = $doc->getAnnotationsOfType(\PhpCsFixer\DocBlock\Annotation::getTagsWithTypes());
         if (!$annotations) {

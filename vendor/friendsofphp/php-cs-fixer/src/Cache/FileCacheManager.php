@@ -51,11 +51,9 @@ final class FileCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
     private $cacheDirectory;
     /**
      * @param \PhpCsFixer\Cache\DirectoryInterface|null $cacheDirectory
-     * @param \PhpCsFixer\Cache\FileHandlerInterface $handler
-     * @param \PhpCsFixer\Cache\SignatureInterface $signature
      * @param bool $isDryRun
      */
-    public function __construct($handler, $signature, $isDryRun = \false, $cacheDirectory = null)
+    public function __construct(\PhpCsFixer\Cache\FileHandlerInterface $handler, \PhpCsFixer\Cache\SignatureInterface $signature, $isDryRun = \false, $cacheDirectory = null)
     {
         $this->handler = $handler;
         $this->signature = $signature;

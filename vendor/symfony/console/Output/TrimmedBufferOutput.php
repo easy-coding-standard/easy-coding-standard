@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Output;
+namespace ECSPrefix20210508\Symfony\Component\Console\Output;
 
-use ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * A BufferedOutput that keeps only the last N chars.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class TrimmedBufferOutput extends \ECSPrefix20210507\Symfony\Component\Console\Output\Output
+class TrimmedBufferOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\Output
 {
     private $maxLength;
     private $buffer = '';
@@ -25,12 +25,11 @@ class TrimmedBufferOutput extends \ECSPrefix20210507\Symfony\Component\Console\O
      * @param int|null $verbosity
      * @param int $maxLength
      * @param bool $decorated
-     * @param \Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter
      */
-    public function __construct($maxLength, $verbosity = self::VERBOSITY_NORMAL, $decorated = \false, $formatter = null)
+    public function __construct($maxLength, $verbosity = self::VERBOSITY_NORMAL, $decorated = \false, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
     {
         if ($maxLength <= 0) {
-            throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('"%s()" expects a strictly positive maxLength. Got %d.', __METHOD__, $maxLength));
+            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('"%s()" expects a strictly positive maxLength. Got %d.', __METHOD__, $maxLength));
         }
         parent::__construct($verbosity, $decorated, $formatter);
         $this->maxLength = $maxLength;

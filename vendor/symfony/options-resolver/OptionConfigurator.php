@@ -8,18 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\OptionsResolver;
+namespace ECSPrefix20210508\Symfony\Component\OptionsResolver;
 
-use ECSPrefix20210507\Symfony\Component\OptionsResolver\Exception\AccessException;
+use ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\AccessException;
 final class OptionConfigurator
 {
     private $name;
     private $resolver;
     /**
      * @param string $name
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
      */
-    public function __construct($name, $resolver)
+    public function __construct($name, \ECSPrefix20210508\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
     {
         $this->name = $name;
         $this->resolver = $resolver;
@@ -99,7 +98,7 @@ final class OptionConfigurator
      *
      * @throws AccessException If called from a lazy option or normalizer
      */
-    public function normalize($normalizer)
+    public function normalize(\Closure $normalizer)
     {
         $this->resolver->setNormalizer($this->name, $normalizer);
         return $this;

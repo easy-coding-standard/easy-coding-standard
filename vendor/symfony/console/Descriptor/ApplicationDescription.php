@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Descriptor;
+namespace ECSPrefix20210508\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210507\Symfony\Component\Console\Application;
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210507\Symfony\Component\Console\Exception\CommandNotFoundException;
+use ECSPrefix20210508\Symfony\Component\Console\Application;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * @author Jean-François Simon <jeanfrancois.simon@sensiolabs.com>
  *
@@ -37,11 +37,10 @@ class ApplicationDescription
      */
     private $aliases;
     /**
-     * @param \Symfony\Component\Console\Application $application
      * @param string $namespace
      * @param bool $showHidden
      */
-    public function __construct($application, $namespace = null, $showHidden = \false)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Application $application, $namespace = null, $showHidden = \false)
     {
         $this->application = $application;
         $this->namespace = $namespace;
@@ -75,7 +74,7 @@ class ApplicationDescription
     public function getCommand($name)
     {
         if (!isset($this->commands[$name]) && !isset($this->aliases[$name])) {
-            throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
         return isset($this->commands[$name]) ? $this->commands[$name] : $this->aliases[$name];
     }

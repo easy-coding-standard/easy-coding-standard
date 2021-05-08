@@ -658,7 +658,7 @@ class Runner
      *
      * @return void
      */
-    public function printProgress($file, $numFiles, $numProcessed)
+    public function printProgress(\PHP_CodeSniffer\Files\File $file, $numFiles, $numProcessed)
     {
         if (PHP_CODESNIFFER_VERBOSITY > 0 || $this->config->showProgress === \false) {
             return;

@@ -25,12 +25,7 @@ final class ArrayWrapper
      * @var BlockInfo
      */
     private $blockInfo;
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper
-     */
-    public function __construct($tokens, $blockInfo, $tokenSkipper)
+    public function __construct(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo, \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\TokenSkipper $tokenSkipper)
     {
         $this->tokens = $tokens;
         $this->tokenSkipper = $tokenSkipper;

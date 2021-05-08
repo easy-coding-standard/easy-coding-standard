@@ -49,10 +49,9 @@ class Foo {
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
@@ -78,10 +77,8 @@ class Foo {
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; 0 < $index; --$index) {
             if ($tokens[$index]->isGivenKind([\T_CLASS, \T_TRAIT])) {
@@ -91,10 +88,9 @@ class Foo {
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function fixClass($tokens, $index)
+    private function fixClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = $tokens->getNextTokenOfKind($index, ['{']);
         $classEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
@@ -130,10 +126,9 @@ class Foo {
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function findNextUntypedPropertiesDeclaration($tokens, $index)
+    private function findNextUntypedPropertiesDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         do {
             $index = $tokens->getNextMeaningfulToken($index);

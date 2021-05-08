@@ -25,10 +25,9 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\T_CONSTANT_ENCAPSED_STRING, \T_ENCAPSED_AND_WHITESPACE, \T_INLINE_HTML]);
     }
@@ -51,10 +50,8 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1, $last = \true; $index >= 0; --$index, $last = \false) {
             /** @var Token $token */
@@ -84,11 +81,10 @@ final class NoTrailingWhitespaceInStringFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param string $content
      */
-    private function updateContent($tokens, $index, $content)
+    private function updateContent(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $content)
     {
         if ('' === $content) {
             $tokens->clearAt($index);

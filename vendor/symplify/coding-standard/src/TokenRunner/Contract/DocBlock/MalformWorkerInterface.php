@@ -12,5 +12,5 @@ interface MalformWorkerInterface
      * @param int $position
      * @return string
      */
-    public function work($docContent, $tokens, $position);
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position);
 }

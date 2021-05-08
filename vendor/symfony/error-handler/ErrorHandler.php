@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210508\Symfony\Component\ErrorHandler;
 
-use ECSPrefix20210507\Psr\Log\LoggerInterface;
-use ECSPrefix20210507\Psr\Log\LogLevel;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\FatalError;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\OutOfMemoryError;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\ClassNotFoundErrorEnhancer;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedFunctionErrorEnhancer;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedMethodErrorEnhancer;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
+use ECSPrefix20210508\Psr\Log\LoggerInterface;
+use ECSPrefix20210508\Psr\Log\LogLevel;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\FatalError;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\OutOfMemoryError;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\ClassNotFoundErrorEnhancer;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedFunctionErrorEnhancer;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedMethodErrorEnhancer;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
 /**
  * A generic ErrorHandler for the PHP engine.
  *
@@ -49,7 +49,7 @@ use ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\SilencedErrorCont
 class ErrorHandler
 {
     private $levels = [\E_DEPRECATED => 'Deprecated', \E_USER_DEPRECATED => 'User Deprecated', \E_NOTICE => 'Notice', \E_USER_NOTICE => 'User Notice', \E_STRICT => 'Runtime Notice', \E_WARNING => 'Warning', \E_USER_WARNING => 'User Warning', \E_COMPILE_WARNING => 'Compile Warning', \E_CORE_WARNING => 'Core Warning', \E_USER_ERROR => 'User Error', \E_RECOVERABLE_ERROR => 'Catchable Fatal Error', \E_COMPILE_ERROR => 'Compile Error', \E_PARSE => 'Parse Error', \E_ERROR => 'Error', \E_CORE_ERROR => 'Core Error'];
-    private $loggers = [\E_DEPRECATED => [null, \ECSPrefix20210507\Psr\Log\LogLevel::INFO], \E_USER_DEPRECATED => [null, \ECSPrefix20210507\Psr\Log\LogLevel::INFO], \E_NOTICE => [null, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING], \E_USER_NOTICE => [null, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING], \E_STRICT => [null, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING], \E_WARNING => [null, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING], \E_USER_WARNING => [null, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING], \E_COMPILE_WARNING => [null, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING], \E_CORE_WARNING => [null, \ECSPrefix20210507\Psr\Log\LogLevel::WARNING], \E_USER_ERROR => [null, \ECSPrefix20210507\Psr\Log\LogLevel::CRITICAL], \E_RECOVERABLE_ERROR => [null, \ECSPrefix20210507\Psr\Log\LogLevel::CRITICAL], \E_COMPILE_ERROR => [null, \ECSPrefix20210507\Psr\Log\LogLevel::CRITICAL], \E_PARSE => [null, \ECSPrefix20210507\Psr\Log\LogLevel::CRITICAL], \E_ERROR => [null, \ECSPrefix20210507\Psr\Log\LogLevel::CRITICAL], \E_CORE_ERROR => [null, \ECSPrefix20210507\Psr\Log\LogLevel::CRITICAL]];
+    private $loggers = [\E_DEPRECATED => [null, \ECSPrefix20210508\Psr\Log\LogLevel::INFO], \E_USER_DEPRECATED => [null, \ECSPrefix20210508\Psr\Log\LogLevel::INFO], \E_NOTICE => [null, \ECSPrefix20210508\Psr\Log\LogLevel::WARNING], \E_USER_NOTICE => [null, \ECSPrefix20210508\Psr\Log\LogLevel::WARNING], \E_STRICT => [null, \ECSPrefix20210508\Psr\Log\LogLevel::WARNING], \E_WARNING => [null, \ECSPrefix20210508\Psr\Log\LogLevel::WARNING], \E_USER_WARNING => [null, \ECSPrefix20210508\Psr\Log\LogLevel::WARNING], \E_COMPILE_WARNING => [null, \ECSPrefix20210508\Psr\Log\LogLevel::WARNING], \E_CORE_WARNING => [null, \ECSPrefix20210508\Psr\Log\LogLevel::WARNING], \E_USER_ERROR => [null, \ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL], \E_RECOVERABLE_ERROR => [null, \ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL], \E_COMPILE_ERROR => [null, \ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL], \E_PARSE => [null, \ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL], \E_ERROR => [null, \ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL], \E_CORE_ERROR => [null, \ECSPrefix20210508\Psr\Log\LogLevel::CRITICAL]];
     private $thrownErrors = 0x1fff;
     // E_ALL - E_DEPRECATED - E_USER_DEPRECATED
     private $scopedErrors = 0x1fff;
@@ -141,10 +141,9 @@ class ErrorHandler
         }
     }
     /**
-     * @param \Symfony\Component\ErrorHandler\BufferingLogger $bootstrappingLogger
      * @param bool $debug
      */
-    public function __construct($bootstrappingLogger = null, $debug = \false)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\ErrorHandler\BufferingLogger $bootstrappingLogger = null, $debug = \false)
     {
         if ($bootstrappingLogger) {
             $this->bootstrappingLogger = $bootstrappingLogger;
@@ -156,7 +155,7 @@ class ErrorHandler
             $traceReflector->setValue($e, $trace);
             $e->file = isset($file) ? $file : $e->file;
             $e->line = isset($line) ? $line : $e->line;
-        }, null, new \ECSPrefix20210507\Symfony\Component\ErrorHandler\Anonymous__2bfbc307e7c0b459d50bc27a0405b12d__0());
+        }, null, new \ECSPrefix20210508\Symfony\Component\ErrorHandler\Anonymous__2bfbc307e7c0b459d50bc27a0405b12d__0());
         $this->debug = $debug;
     }
     /**
@@ -167,7 +166,7 @@ class ErrorHandler
      * @param bool            $replace Whether to replace or not any existing logger
      * @return void
      */
-    public function setDefaultLogger($logger, $levels = \E_ALL, $replace = \false)
+    public function setDefaultLogger(\ECSPrefix20210508\Psr\Log\LoggerInterface $logger, $levels = \E_ALL, $replace = \false)
     {
         $loggers = [];
         if (\is_array($levels)) {
@@ -214,7 +213,7 @@ class ErrorHandler
             }
             if (null === $log[0]) {
                 $this->loggedErrors &= ~$type;
-            } elseif ($log[0] instanceof \ECSPrefix20210507\Psr\Log\LoggerInterface) {
+            } elseif ($log[0] instanceof \ECSPrefix20210508\Psr\Log\LoggerInterface) {
                 $this->loggedErrors |= $type;
             } else {
                 throw new \InvalidArgumentException('Invalid logger provided.');
@@ -227,7 +226,7 @@ class ErrorHandler
         $this->reRegister($prevLogged | $this->thrownErrors);
         if ($flush) {
             foreach ($this->bootstrappingLogger->cleanLogs() as $log) {
-                $type = \ECSPrefix20210507\Symfony\Component\ErrorHandler\ThrowableUtils::getSeverity($log[2]['exception']);
+                $type = \ECSPrefix20210508\Symfony\Component\ErrorHandler\ThrowableUtils::getSeverity($log[2]['exception']);
                 if (!isset($flush[$type])) {
                     $this->bootstrappingLogger->log($log[0], $log[1], $log[2]);
                 } elseif ($this->loggers[$type][0]) {
@@ -380,7 +379,7 @@ class ErrorHandler
         } elseif (!$throw && !($type & $level)) {
             if (!isset(self::$silencedErrorCache[$id = $file . ':' . $line])) {
                 $lightTrace = $this->tracedErrors & $type ? $this->cleanTrace(\debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 5), $type, $file, $line, \false) : [];
-                $errorAsException = new \ECSPrefix20210507\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext($type, $file, $line, isset($lightTrace[1]) ? [$lightTrace[0]] : $lightTrace);
+                $errorAsException = new \ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext($type, $file, $line, isset($lightTrace[1]) ? [$lightTrace[0]] : $lightTrace);
             } elseif (isset(self::$silencedErrorCache[$id][$message])) {
                 $lightTrace = null;
                 $errorAsException = self::$silencedErrorCache[$id][$message];
@@ -457,7 +456,7 @@ class ErrorHandler
             }
             try {
                 $this->isRecursive = \true;
-                $level = $type & $level ? $this->loggers[$type][1] : \ECSPrefix20210507\Psr\Log\LogLevel::DEBUG;
+                $level = $type & $level ? $this->loggers[$type][1] : \ECSPrefix20210508\Psr\Log\LogLevel::DEBUG;
                 $this->loggers[$type][0]->log($level, $logMessage, $errorAsException ? ['exception' => $errorAsException] : []);
             } finally {
                 $this->isRecursive = \false;
@@ -472,14 +471,13 @@ class ErrorHandler
      * Handles an exception by logging then forwarding it to another handler.
      *
      * @internal
-     * @param \Throwable $exception
      */
-    public function handleException($exception)
+    public function handleException(\Throwable $exception)
     {
         $handlerException = null;
-        if (!$exception instanceof \ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\FatalError) {
+        if (!$exception instanceof \ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\FatalError) {
             self::$exitCode = 255;
-            $type = \ECSPrefix20210507\Symfony\Component\ErrorHandler\ThrowableUtils::getSeverity($exception);
+            $type = \ECSPrefix20210508\Symfony\Component\ErrorHandler\ThrowableUtils::getSeverity($exception);
         } else {
             $type = $exception->getError()['type'];
         }
@@ -487,7 +485,7 @@ class ErrorHandler
             if (\false !== \strpos($message = $exception->getMessage(), "@anonymous\0")) {
                 $message = $this->parseAnonymousClass($message);
             }
-            if ($exception instanceof \ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\FatalError) {
+            if ($exception instanceof \ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\FatalError) {
                 $message = 'Fatal ' . $message;
             } elseif ($exception instanceof \Error) {
                 $message = 'Uncaught Error: ' . $message;
@@ -501,7 +499,7 @@ class ErrorHandler
             } catch (\Throwable $handlerException) {
             }
         }
-        if (!$exception instanceof \ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\OutOfMemoryError) {
+        if (!$exception instanceof \ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\OutOfMemoryError) {
             foreach ($this->getErrorEnhancers() as $errorEnhancer) {
                 if ($e = $errorEnhancer->enhance($exception)) {
                     $exception = $e;
@@ -586,9 +584,9 @@ class ErrorHandler
             $handler->throwAt(0, \true);
             $trace = isset($error['backtrace']) ? $error['backtrace'] : null;
             if (0 === \strpos($error['message'], 'Allowed memory') || 0 === \strpos($error['message'], 'Out of memory')) {
-                $fatalError = new \ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\OutOfMemoryError($handler->levels[$error['type']] . ': ' . $error['message'], 0, $error, 2, \false, $trace);
+                $fatalError = new \ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\OutOfMemoryError($handler->levels[$error['type']] . ': ' . $error['message'], 0, $error, 2, \false, $trace);
             } else {
-                $fatalError = new \ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\FatalError($handler->levels[$error['type']] . ': ' . $error['message'], 0, $error, 2, \true, $trace);
+                $fatalError = new \ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\FatalError($handler->levels[$error['type']] . ': ' . $error['message'], 0, $error, 2, \true, $trace);
             }
         } else {
             $fatalError = null;
@@ -598,7 +596,7 @@ class ErrorHandler
                 self::$exitCode = 255;
                 $handler->handleException($fatalError);
             }
-        } catch (\ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\FatalError $e) {
+        } catch (\ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\FatalError $e) {
             // Ignore this re-throw
         }
         if ($exit && self::$exitCode) {
@@ -614,11 +612,10 @@ class ErrorHandler
      * As this method is mainly called during boot where nothing is yet available,
      * the output is always either HTML or CLI depending where PHP runs.
      * @return void
-     * @param \Throwable $exception
      */
-    private function renderException($exception)
+    private function renderException(\Throwable $exception)
     {
-        $renderer = \in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) ? new \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer() : new \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer($this->debug);
+        $renderer = \in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) ? new \ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorRenderer\CliErrorRenderer() : new \ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer($this->debug);
         $exception = $renderer->render($exception);
         if (!\headers_sent()) {
             \http_response_code($exception->getStatusCode());
@@ -635,7 +632,7 @@ class ErrorHandler
      */
     protected function getErrorEnhancers()
     {
-        return [new \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedFunctionErrorEnhancer(), new \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedMethodErrorEnhancer(), new \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\ClassNotFoundErrorEnhancer()];
+        return [new \ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedFunctionErrorEnhancer(), new \ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\UndefinedMethodErrorEnhancer(), new \ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\ClassNotFoundErrorEnhancer()];
     }
     /**
      * Cleans the trace by removing function arguments and the frames added by the error handler and DebugClassLoader.
@@ -667,9 +664,9 @@ class ErrorHandler
                 }
             }
         }
-        if (\class_exists(\ECSPrefix20210507\Symfony\Component\ErrorHandler\DebugClassLoader::class, \false)) {
+        if (\class_exists(\ECSPrefix20210508\Symfony\Component\ErrorHandler\DebugClassLoader::class, \false)) {
             for ($i = \count($lightTrace) - 2; 0 < $i; --$i) {
-                if (\ECSPrefix20210507\Symfony\Component\ErrorHandler\DebugClassLoader::class === (isset($lightTrace[$i]['class']) ? $lightTrace[$i]['class'] : null)) {
+                if (\ECSPrefix20210508\Symfony\Component\ErrorHandler\DebugClassLoader::class === (isset($lightTrace[$i]['class']) ? $lightTrace[$i]['class'] : null)) {
                     \array_splice($lightTrace, --$i, 2);
                 }
             }

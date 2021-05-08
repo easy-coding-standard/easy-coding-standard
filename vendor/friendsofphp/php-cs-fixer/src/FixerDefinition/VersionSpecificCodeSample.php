@@ -27,9 +27,8 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
     /**
      * @param mixed[]|null $configuration
      * @param string $code
-     * @param \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification
      */
-    public function __construct($code, $versionSpecification, $configuration = null)
+    public function __construct($code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, $configuration = null)
     {
         $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->versionSpecification = $versionSpecification;

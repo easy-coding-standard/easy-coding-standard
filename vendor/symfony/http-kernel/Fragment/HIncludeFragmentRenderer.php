@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Fragment;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Fragment;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerReference;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\UriSigner;
-use ECSPrefix20210507\Twig\Environment;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\UriSigner;
+use ECSPrefix20210508\Twig\Environment;
 /**
  * Implements the Hinclude rendering strategy.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HIncludeFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Fragment\RoutableFragmentRenderer
+class HIncludeFragmentRenderer extends \ECSPrefix20210508\Symfony\Component\HttpKernel\Fragment\RoutableFragmentRenderer
 {
     private $globalDefaultTemplate;
     private $signer;
@@ -28,11 +28,9 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\Http
     private $charset;
     /**
      * @param string $globalDefaultTemplate The global default content (it can be a template name or the content)
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Component\HttpKernel\UriSigner $signer
      * @param string $charset
      */
-    public function __construct($twig = null, $signer = null, $globalDefaultTemplate = null, $charset = 'utf-8')
+    public function __construct(\ECSPrefix20210508\Twig\Environment $twig = null, \ECSPrefix20210508\Symfony\Component\HttpKernel\UriSigner $signer = null, $globalDefaultTemplate = null, $charset = 'utf-8')
     {
         $this->twig = $twig;
         $this->globalDefaultTemplate = $globalDefaultTemplate;
@@ -56,11 +54,10 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\Http
      *  * default:    The default content (it can be a template name or the content)
      *  * id:         An optional hx:include tag id attribute
      *  * attributes: An optional array of hx:include tag attributes
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function render($uri, $request, array $options = [])
+    public function render($uri, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, array $options = [])
     {
-        if ($uri instanceof \ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerReference) {
+        if ($uri instanceof \ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerReference) {
             if (null === $this->signer) {
                 throw new \LogicException('You must use a proper URI when using the Hinclude rendering strategy or set a URL signer.');
             }
@@ -86,7 +83,7 @@ class HIncludeFragmentRenderer extends \ECSPrefix20210507\Symfony\Component\Http
                 $renderedAttributes .= \sprintf(' %s="%s"', \htmlspecialchars($attribute, $flags, $this->charset, \false), \htmlspecialchars($value, $flags, $this->charset, \false));
             }
         }
-        return new \ECSPrefix20210507\Symfony\Component\HttpFoundation\Response(\sprintf('<hx:include src="%s"%s>%s</hx:include>', $uri, $renderedAttributes, $content));
+        return new \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response(\sprintf('<hx:include src="%s"%s>%s</hx:include>', $uri, $renderedAttributes, $content));
     }
     /**
      * {@inheritdoc}

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\LazyProxy;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\LazyProxy;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -19,11 +19,9 @@ class ProxyHelper
 {
     /**
      * @return string|null The FQCN or builtin name of the type hint, or null when the type hint references an invalid self|parent context
-     * @param \ReflectionFunctionAbstract $r
-     * @param \ReflectionParameter $p
      * @param bool $noBuiltin
      */
-    public static function getTypeHint($r, $p = null, $noBuiltin = \false)
+    public static function getTypeHint(\ReflectionFunctionAbstract $r, \ReflectionParameter $p = null, $noBuiltin = \false)
     {
         if ($p instanceof \ReflectionParameter) {
             $type = $p->getType();

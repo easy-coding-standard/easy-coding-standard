@@ -59,10 +59,9 @@ class InvalidName {}
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
@@ -84,10 +83,9 @@ class InvalidName {}
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
      * @return bool
      */
-    public function supports($file)
+    public function supports(\SplFileInfo $file)
     {
         if ($file instanceof \PhpCsFixer\StdinFileInfo) {
             return \false;
@@ -119,10 +117,8 @@ class InvalidName {}
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (null !== $this->configuration['dir'] && 0 !== \strpos($file->getRealPath(), $this->configuration['dir'])) {
             return;
@@ -182,11 +178,10 @@ class InvalidName {}
     }
     /**
      * @param string|null $namespace
-     * @param \SplFileInfo $file
      * @param string $currentName
      * @return string
      */
-    private function calculateClassyName($file, $namespace, $currentName)
+    private function calculateClassyName(\SplFileInfo $file, $namespace, $currentName)
     {
         $name = $file->getBasename('.php');
         $maxNamespace = $this->calculateMaxNamespace($file, $namespace);
@@ -205,10 +200,9 @@ class InvalidName {}
     }
     /**
      * @param string|null $namespace
-     * @param \SplFileInfo $file
      * @return string
      */
-    private function calculateMaxNamespace($file, $namespace)
+    private function calculateMaxNamespace(\SplFileInfo $file, $namespace)
     {
         if (null === $this->configuration['dir']) {
             $root = \dirname($file->getRealPath());

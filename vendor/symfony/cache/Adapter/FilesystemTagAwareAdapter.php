@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210507\Symfony\Component\Cache\Marshaller\MarshallerInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\Marshaller\TagAwareMarshaller;
-use ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\Traits\FilesystemTrait;
+use ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\Marshaller\TagAwareMarshaller;
+use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\Traits\FilesystemTrait;
 /**
  * Stores tag id <> cache id relationship as a symlink, and lookup on invalidation calls.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  * @author André Rømcke <andre.romcke+symfony@gmail.com>
  */
-class FilesystemTagAwareAdapter extends \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AbstractTagAwareAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface
+class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractTagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface
 {
     use FilesystemTrait {
         doClear as private doClearCache;
@@ -34,11 +34,10 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210507\Symfony\Component\Cac
      * @param string $namespace
      * @param int $defaultLifetime
      * @param string $directory
-     * @param \Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller
      */
-    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, $marshaller = null)
+    public function __construct($namespace = '', $defaultLifetime = 0, $directory = null, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
-        $this->marshaller = new \ECSPrefix20210507\Symfony\Component\Cache\Marshaller\TagAwareMarshaller($marshaller);
+        $this->marshaller = new \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\TagAwareMarshaller($marshaller);
         parent::__construct('', $defaultLifetime);
         $this->init($namespace, $directory);
     }

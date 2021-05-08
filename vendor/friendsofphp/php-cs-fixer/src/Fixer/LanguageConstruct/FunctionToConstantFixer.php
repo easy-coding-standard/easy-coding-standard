@@ -77,10 +77,9 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_STRING);
     }
@@ -95,10 +94,8 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $functionAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $tokens->count() - 4; $index > 0; --$index) {
@@ -129,12 +126,11 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     /**
      * @param Token[] $replacements
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param int $braceOpenIndex
      * @param int $braceCloseIndex
      */
-    private function fixFunctionCallToConstant($tokens, $index, $braceOpenIndex, $braceCloseIndex, array $replacements)
+    private function fixFunctionCallToConstant(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $braceOpenIndex, $braceCloseIndex, array $replacements)
     {
         for ($i = $braceCloseIndex; $i >= $braceOpenIndex; --$i) {
             if ($tokens[$i]->isGivenKind([\T_WHITESPACE, \T_COMMENT, \T_DOC_COMMENT])) {
@@ -154,11 +150,9 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * @return mixed[]|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer
      * @param int $index
      */
-    private function getReplaceCandidate($tokens, $functionAnalyzer, $index)
+    private function getReplaceCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer, $index)
     {
         if (!$tokens[$index]->isGivenKind(\T_STRING)) {
             return null;
@@ -186,11 +180,9 @@ final class FunctionToConstantFixer extends \PhpCsFixer\AbstractFixer implements
     }
     /**
      * @return mixed[]|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer
      * @param int $index
      */
-    private function fixGetClassCall($tokens, $functionAnalyzer, $index)
+    private function fixGetClassCall(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionAnalyzer, $index)
     {
         if (!isset($this->functionsFixMap['get_class']) && !isset($this->functionsFixMap['get_class_this'])) {
             return null;

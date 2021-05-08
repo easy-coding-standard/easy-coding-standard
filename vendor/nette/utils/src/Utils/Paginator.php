@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210507\Nette\Utils;
+namespace ECSPrefix20210508\Nette\Utils;
 
-use ECSPrefix20210507\Nette;
+use ECSPrefix20210508\Nette;
 /**
  * Paginating math.
  *

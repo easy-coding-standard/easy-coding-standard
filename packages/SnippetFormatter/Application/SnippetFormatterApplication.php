@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Application;
 
-use ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\EasyCodingStandard\Configuration\Configuration;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 use Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter;
@@ -36,15 +36,7 @@ final class SnippetFormatterApplication
      * @var ProcessedFileReporter
      */
     private $processedFileReporter;
-    /**
-     * @param \Symplify\EasyCodingStandard\Configuration\Configuration $configuration
-     * @param \Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter $snippetReporter
-     * @param \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter $snippetFormatter
-     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
-     * @param \Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle
-     * @param \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter
-     */
-    public function __construct($configuration, $snippetReporter, $snippetFormatter, $smartFileSystem, $symfonyStyle, $processedFileReporter)
+    public function __construct(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, \Symplify\EasyCodingStandard\SnippetFormatter\Reporter\SnippetReporter $snippetReporter, \Symplify\EasyCodingStandard\SnippetFormatter\Formatter\SnippetFormatter $snippetFormatter, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter $processedFileReporter)
     {
         $this->configuration = $configuration;
         $this->snippetReporter = $snippetReporter;
@@ -55,12 +47,11 @@ final class SnippetFormatterApplication
     }
     /**
      * @param SmartFileInfo[] $fileInfos
-     * @param \Symplify\EasyCodingStandard\Configuration\Configuration $configuration
      * @param string $snippetPattern
      * @param string $kind
      * @return int
      */
-    public function processFileInfosWithSnippetPattern($configuration, array $fileInfos, $snippetPattern, $kind)
+    public function processFileInfosWithSnippetPattern(\Symplify\EasyCodingStandard\Configuration\Configuration $configuration, array $fileInfos, $snippetPattern, $kind)
     {
         $sources = $configuration->getSources();
         $fileCount = \count($fileInfos);
@@ -77,11 +68,10 @@ final class SnippetFormatterApplication
     }
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo
      * @param string $snippetPattern
      * @param string $kind
      */
-    private function processFileInfoWithPattern($phpFileInfo, $snippetPattern, $kind)
+    private function processFileInfoWithPattern(\Symplify\SmartFileSystem\SmartFileInfo $phpFileInfo, $snippetPattern, $kind)
     {
         $fixedContent = $this->snippetFormatter->format($phpFileInfo, $snippetPattern, $kind);
         if ($phpFileInfo->getContents() === $fixedContent) {

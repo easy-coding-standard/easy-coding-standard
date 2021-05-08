@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20210508\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class builds normalization conditions.
@@ -20,10 +20,7 @@ class NormalizationBuilder
     protected $node;
     public $before = [];
     public $remappings = [];
-    /**
-     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
-     */
-    public function __construct($node)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
@@ -44,14 +41,13 @@ class NormalizationBuilder
      * Registers a closure to run before the normalization or an expression builder to build it if null is provided.
      *
      * @return ExprBuilder|$this
-     * @param \Closure $closure
      */
-    public function before($closure = null)
+    public function before(\Closure $closure = null)
     {
         if (null !== $closure) {
             $this->before[] = $closure;
             return $this;
         }
-        return $this->before[] = new \ECSPrefix20210507\Symfony\Component\Config\Definition\Builder\ExprBuilder($this->node);
+        return $this->before[] = new \ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\ExprBuilder($this->node);
     }
 }

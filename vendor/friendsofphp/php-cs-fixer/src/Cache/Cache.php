@@ -26,10 +26,7 @@ final class Cache implements \PhpCsFixer\Cache\CacheInterface
      * @var array
      */
     private $hashes = [];
-    /**
-     * @param \PhpCsFixer\Cache\SignatureInterface $signature
-     */
-    public function __construct($signature)
+    public function __construct(\PhpCsFixer\Cache\SignatureInterface $signature)
     {
         $this->signature = $signature;
     }

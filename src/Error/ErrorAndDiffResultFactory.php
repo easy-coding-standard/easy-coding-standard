@@ -9,10 +9,7 @@ final class ErrorAndDiffResultFactory
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
-    /**
-     * @param \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector
-     */
-    public function __construct($errorAndDiffCollector)
+    public function __construct(\Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector)
     {
         $this->errorAndDiffCollector = $errorAndDiffCollector;
     }

@@ -26,10 +26,7 @@ final class CachingLinter implements \PhpCsFixer\Linter\LinterInterface
      * @var array<int, LintingResultInterface>
      */
     private $cache = [];
-    /**
-     * @param \PhpCsFixer\Linter\LinterInterface $linter
-     */
-    public function __construct($linter)
+    public function __construct(\PhpCsFixer\Linter\LinterInterface $linter)
     {
         $this->sublinter = $linter;
     }

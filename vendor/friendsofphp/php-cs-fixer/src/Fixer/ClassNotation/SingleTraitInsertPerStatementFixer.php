@@ -47,19 +47,16 @@ final class Example
         return 36;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT);
     }
     /**
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = \count($tokens) - 1; 1 < $index; --$index) {
             if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
@@ -73,10 +70,9 @@ final class Example
     /**
      * @param int[] $candidates ',' indexes to fix
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $useTraitIndex
      */
-    private function fixTraitUse($tokens, $useTraitIndex, array $candidates)
+    private function fixTraitUse(\PhpCsFixer\Tokenizer\Tokens $tokens, $useTraitIndex, array $candidates)
     {
         foreach ($candidates as $commaIndex) {
             $inserts = [new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, 'use']), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
@@ -93,10 +89,9 @@ final class Example
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function getCandidates($tokens, $index)
+    private function getCandidates(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $indexes = [];
         $index = $tokens->getNextTokenOfKind($index, [',', ';', '{']);

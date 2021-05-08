@@ -46,10 +46,9 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
             return \true;
@@ -67,10 +66,8 @@ function example($foo = "two words", $bar) {}
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($i = 0, $l = $tokens->count(); $i < $l; ++$i) {
             if (!$tokens[$i]->isGivenKind(\T_FUNCTION) && (\PHP_VERSION_ID < 70400 || !$tokens[$i]->isGivenKind(\T_FN))) {
@@ -83,11 +80,10 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function fixFunctionDefinition($tokens, $startIndex, $endIndex)
+    private function fixFunctionDefinition(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         $lastArgumentIndex = $this->getLastNonDefaultArgumentIndex($tokens, $startIndex, $endIndex);
         if (!$lastArgumentIndex) {
@@ -109,11 +105,10 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function getLastNonDefaultArgumentIndex($tokens, $startIndex, $endIndex)
+    private function getLastNonDefaultArgumentIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             $token = $tokens[$i];
@@ -128,21 +123,19 @@ function example($foo = "two words", $bar) {}
         return null;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $variableIndex
      * @return bool
      */
-    private function isEllipsis($tokens, $variableIndex)
+    private function isEllipsis(\PhpCsFixer\Tokenizer\Tokens $tokens, $variableIndex)
     {
         return $tokens[$tokens->getPrevMeaningfulToken($variableIndex)]->isGivenKind(\T_ELLIPSIS);
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function removeDefaultArgument($tokens, $startIndex, $endIndex)
+    private function removeDefaultArgument(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         for ($i = $startIndex; $i <= $endIndex;) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($i);
@@ -152,10 +145,9 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @param int $index Index of "="
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function isNonNullableTypehintedNullableVariable($tokens, $index)
+    private function isNonNullableTypehintedNullableVariable(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $nextToken = $tokens[$tokens->getNextMeaningfulToken($index)];
         if (!$nextToken->equals([\T_STRING, 'null'], \false)) {
@@ -172,10 +164,9 @@ function example($foo = "two words", $bar) {}
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function clearWhitespacesBeforeIndex($tokens, $index)
+    private function clearWhitespacesBeforeIndex(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $prevIndex = $tokens->getNonEmptySibling($index, -1);
         if (!$tokens[$prevIndex]->isWhitespace()) {

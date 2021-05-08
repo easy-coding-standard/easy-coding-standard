@@ -68,7 +68,7 @@ class Markdown extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function processSniff($doc)
+    protected function processSniff(\DOMNode $doc)
     {
         $title = $this->getTitle($doc);
         echo \PHP_EOL . "## {$title}" . \PHP_EOL;
@@ -90,7 +90,7 @@ class Markdown extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function printTextBlock($node)
+    protected function printTextBlock(\DOMNode $node)
     {
         $content = \trim($node->nodeValue);
         $content = \htmlspecialchars($content);
@@ -106,7 +106,7 @@ class Markdown extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function printCodeComparisonBlock($node)
+    protected function printCodeComparisonBlock(\DOMNode $node)
     {
         $codeBlocks = $node->getElementsByTagName('code');
         $firstTitle = $codeBlocks->item(0)->getAttribute('title');

@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Helper;
+namespace ECSPrefix20210508\Symfony\Component\Console\Helper;
 
-use ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210507\Symfony\Component\Process\Exception\ProcessFailedException;
-use ECSPrefix20210507\Symfony\Component\Process\Process;
+use ECSPrefix20210508\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Process\Exception\ProcessFailedException;
+use ECSPrefix20210508\Symfony\Component\Process\Process;
 /**
  * The ProcessHelper class provides helpers to run external processes.
  *
@@ -21,7 +21,7 @@ use ECSPrefix20210507\Symfony\Component\Process\Process;
  *
  * @final
  */
-class ProcessHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper\Helper
+class ProcessHelper extends \ECSPrefix20210508\Symfony\Component\Console\Helper\Helper
 {
     /**
      * Runs an external process.
@@ -31,29 +31,28 @@ class ProcessHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper\
      *                                output available on STDOUT or STDERR
      *
      * @return Process The process that ran
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $error
      * @param int $verbosity
      */
-    public function run($output, $cmd, $error = null, callable $callback = null, $verbosity = \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE)
+    public function run(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE)
     {
-        if (!\class_exists(\ECSPrefix20210507\Symfony\Component\Process\Process::class)) {
+        if (!\class_exists(\ECSPrefix20210508\Symfony\Component\Process\Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
         }
-        if ($output instanceof \ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \ECSPrefix20210508\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         $formatter = $this->getHelperSet()->get('debug_formatter');
-        if ($cmd instanceof \ECSPrefix20210507\Symfony\Component\Process\Process) {
+        if ($cmd instanceof \ECSPrefix20210508\Symfony\Component\Process\Process) {
             $cmd = [$cmd];
         }
         if (!\is_array($cmd)) {
-            throw new \TypeError(\sprintf('The "command" argument of "%s()" must be an array or a "%s" instance, "%s" given.', __METHOD__, \ECSPrefix20210507\Symfony\Component\Process\Process::class, \get_debug_type($cmd)));
+            throw new \TypeError(\sprintf('The "command" argument of "%s()" must be an array or a "%s" instance, "%s" given.', __METHOD__, \ECSPrefix20210508\Symfony\Component\Process\Process::class, \get_debug_type($cmd)));
         }
         if (\is_string(isset($cmd[0]) ? $cmd[0] : null)) {
-            $process = new \ECSPrefix20210507\Symfony\Component\Process\Process($cmd);
+            $process = new \ECSPrefix20210508\Symfony\Component\Process\Process($cmd);
             $cmd = [];
-        } elseif ((isset($cmd[0]) ? $cmd[0] : null) instanceof \ECSPrefix20210507\Symfony\Component\Process\Process) {
+        } elseif ((isset($cmd[0]) ? $cmd[0] : null) instanceof \ECSPrefix20210508\Symfony\Component\Process\Process) {
             $process = $cmd[0];
             unset($cmd[0]);
         } else {
@@ -90,31 +89,28 @@ class ProcessHelper extends \ECSPrefix20210507\Symfony\Component\Console\Helper\
      * @throws ProcessFailedException
      *
      * @see run()
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $error
      */
-    public function mustRun($output, $cmd, $error = null, callable $callback = null)
+    public function mustRun(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null)
     {
         $process = $this->run($output, $cmd, $error, $callback);
         if (!$process->isSuccessful()) {
-            throw new \ECSPrefix20210507\Symfony\Component\Process\Exception\ProcessFailedException($process);
+            throw new \ECSPrefix20210508\Symfony\Component\Process\Exception\ProcessFailedException($process);
         }
         return $process;
     }
     /**
      * Wraps a Process callback to add debugging output.
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Symfony\Component\Process\Process $process
      * @return callable
      */
-    public function wrapCallback($output, $process, callable $callback = null)
+    public function wrapCallback(\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210508\Symfony\Component\Process\Process $process, callable $callback = null)
     {
-        if ($output instanceof \ECSPrefix20210507\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof \ECSPrefix20210508\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
         $formatter = $this->getHelperSet()->get('debug_formatter');
         return function ($type, $buffer) use($output, $process, $callback, $formatter) {
-            $output->write($formatter->progress(\spl_object_hash($process), $this->escapeString($buffer), \ECSPrefix20210507\Symfony\Component\Process\Process::ERR === $type));
+            $output->write($formatter->progress(\spl_object_hash($process), $this->escapeString($buffer), \ECSPrefix20210508\Symfony\Component\Process\Process::ERR === $type));
             if (null !== $callback) {
                 $callback($type, $buffer);
             }

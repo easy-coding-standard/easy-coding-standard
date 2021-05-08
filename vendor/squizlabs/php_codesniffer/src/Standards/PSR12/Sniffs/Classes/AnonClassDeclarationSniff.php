@@ -47,7 +47,7 @@ class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\C
      *
      * @return void
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if (isset($tokens[$stackPtr]['scope_opener']) === \false) {
@@ -118,7 +118,7 @@ class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\C
      *
      * @return void
      */
-    public function processSingleLineArgumentList($phpcsFile, $stackPtr)
+    public function processSingleLineArgumentList(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];
@@ -194,7 +194,7 @@ class AnonClassDeclarationSniff extends \PHP_CodeSniffer\Standards\PSR2\Sniffs\C
      *
      * @return void
      */
-    public function processMultiLineArgumentList($phpcsFile, $stackPtr)
+    public function processMultiLineArgumentList(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $openBracket = $tokens[$stackPtr]['parenthesis_opener'];

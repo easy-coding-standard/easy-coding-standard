@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Command;
 
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
@@ -13,10 +13,7 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
      * @var SnippetFormatterApplication
      */
     private $snippetFormatterApplication;
-    /**
-     * @param \Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication $snippetFormatterApplication
-     */
-    public function __construct($snippetFormatterApplication)
+    public function __construct(\Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication $snippetFormatterApplication)
     {
         $this->snippetFormatterApplication = $snippetFormatterApplication;
         parent::__construct();
@@ -30,11 +27,9 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
         parent::configure();
     }
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
      */
-    protected function execute($input, $output)
+    protected function execute(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->configuration->resolveFromInput($input);
         $sources = $this->configuration->getSources();

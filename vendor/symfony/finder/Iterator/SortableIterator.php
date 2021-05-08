@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Finder\Iterator;
+namespace ECSPrefix20210508\Symfony\Component\Finder\Iterator;
 
 /**
  * SortableIterator applies a sort on a given Iterator.
@@ -33,7 +33,7 @@ class SortableIterator implements \IteratorAggregate
      * @throws \InvalidArgumentException
      * @param bool $reverseOrder
      */
-    public function __construct($iterator, $sort, $reverseOrder = \false)
+    public function __construct(\Traversable $iterator, $sort, $reverseOrder = \false)
     {
         $this->iterator = $iterator;
         $order = $reverseOrder ? -1 : 1;

@@ -34,10 +34,9 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_STRING);
     }
@@ -63,10 +62,8 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; 0 <= $index; --$index) {
             $dirnameInfo = $this->getDirnameInfo($tokens, $index);
@@ -100,9 +97,8 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
      * @param null|int $firstArgumentEndIndex Index of last token of first argument of `dirname` call
      *
      * @return array|bool `false` when it is not a (supported) `dirname` call, an array with info about the dirname call otherwise
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function getDirnameInfo($tokens, $index, $firstArgumentEndIndex = null)
+    private function getDirnameInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $firstArgumentEndIndex = null)
     {
         if (!$tokens[$index]->equals([\T_STRING, 'dirname'], \false)) {
             return \false;
@@ -163,9 +159,8 @@ final class CombineNestedDirnameFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function combineDirnames($tokens, array $dirnameInfoArray)
+    private function combineDirnames(\PhpCsFixer\Tokenizer\Tokens $tokens, array $dirnameInfoArray)
     {
         $outerDirnameInfo = \array_pop($dirnameInfoArray);
         $levels = $outerDirnameInfo['levels'];

@@ -37,10 +37,9 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_THROW);
     }
@@ -58,10 +57,8 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             if (!$tokens[$index]->isGivenKind(\T_THROW)) {
@@ -78,11 +75,10 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function trimNewLines($tokens, $startIndex, $endIndex)
+    private function trimNewLines(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         for ($index = $startIndex; $index < $endIndex; ++$index) {
             $content = $tokens[$index]->getContent();
@@ -120,9 +116,8 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return bool
-     * @param \PhpCsFixer\Tokenizer\Token $token
      */
-    private function isPreviousTokenToClear($token)
+    private function isPreviousTokenToClear(\PhpCsFixer\Tokenizer\Token $token)
     {
         static $tokens = null;
         if (null === $tokens) {
@@ -132,9 +127,8 @@ final class SingleLineThrowFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return bool
-     * @param \PhpCsFixer\Tokenizer\Token $token
      */
-    private function isNextTokenToClear($token)
+    private function isNextTokenToClear(\PhpCsFixer\Tokenizer\Token $token)
     {
         static $tokens = null;
         if (null === $tokens) {

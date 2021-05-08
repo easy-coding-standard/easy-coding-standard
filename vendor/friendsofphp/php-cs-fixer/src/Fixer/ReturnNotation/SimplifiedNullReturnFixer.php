@@ -33,7 +33,7 @@ final class SimplifiedNullReturnFixer extends \PhpCsFixer\AbstractFixer
         return new \PhpCsFixer\FixerDefinition\FixerDefinition('A return statement wishing to return `void` should not return `null`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php return null;\n"), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample(<<<'EOT'
 <?php
 
-namespace ECSPrefix20210507;
+namespace ECSPrefix20210508;
 
 function foo()
 {
@@ -67,20 +67,17 @@ EOT
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_RETURN);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_RETURN)) {
@@ -94,10 +91,9 @@ EOT
     /**
      * Clear the return statement located at a given index.
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      */
-    private function clear($tokens, $index)
+    private function clear(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         while (!$tokens[++$index]->equals(';')) {
             if ($this->shouldClearToken($tokens, $index)) {
@@ -107,11 +103,10 @@ EOT
     }
     /**
      * Does the return statement located at a given index need fixing?
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function needFixing($tokens, $index)
+    private function needFixing(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if ($this->isStrictOrNullableReturnTypeFunction($tokens, $index)) {
             return \false;
@@ -129,10 +124,9 @@ EOT
      * Is the return within a function with a non-void or nullable return type?
      *
      * @param int $returnIndex Current return token index
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function isStrictOrNullableReturnTypeFunction($tokens, $returnIndex)
+    private function isStrictOrNullableReturnTypeFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $returnIndex)
     {
         $functionIndex = $returnIndex;
         do {
@@ -154,11 +148,10 @@ EOT
      *
      * If the token is a comment, or is whitespace that is immediately before a
      * comment, then we'll leave it alone.
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    private function shouldClearToken($tokens, $index)
+    private function shouldClearToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $token = $tokens[$index];
         return !$token->isComment() && !($token->isWhitespace() && $tokens[$index + 1]->isComment());

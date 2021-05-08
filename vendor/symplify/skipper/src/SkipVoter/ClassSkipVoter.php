@@ -32,14 +32,7 @@ final class ClassSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInterf
      * @var SkippedClassResolver
      */
     private $skippedClassResolver;
-    /**
-     * @param \Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker
-     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
-     * @param \Symplify\Skipper\Skipper\SkipSkipper $skipSkipper
-     * @param \Symplify\Skipper\Skipper\OnlySkipper $onlySkipper
-     * @param \Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver $skippedClassResolver
-     */
-    public function __construct($classLikeExistenceChecker, $parameterProvider, $skipSkipper, $onlySkipper, $skippedClassResolver)
+    public function __construct(\Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker $classLikeExistenceChecker, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\Skipper\Skipper\SkipSkipper $skipSkipper, \Symplify\Skipper\Skipper\OnlySkipper $onlySkipper, \Symplify\Skipper\SkipCriteriaResolver\SkippedClassResolver $skippedClassResolver)
     {
         $this->classLikeExistenceChecker = $classLikeExistenceChecker;
         $this->parameterProvider = $parameterProvider;
@@ -60,10 +53,9 @@ final class ClassSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInterf
     }
     /**
      * @param string|object $element
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function shouldSkip($element, $smartFileInfo)
+    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $only = $this->parameterProvider->provideArrayParameter(\Symplify\Skipper\ValueObject\Option::ONLY);
         $doesMatchOnly = $this->onlySkipper->doesMatchOnly($element, $smartFileInfo, $only);

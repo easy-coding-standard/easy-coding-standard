@@ -2,14 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210507\Symfony\Component\Console\Terminal;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210508\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
-final class EasyCodingStandardStyle extends \ECSPrefix20210507\Symfony\Component\Console\Style\SymfonyStyle
+final class EasyCodingStandardStyle extends \ECSPrefix20210508\Symfony\Component\Console\Style\SymfonyStyle
 {
     /**
      * To fit in Linux/Windows terminal windows to prevent overflow.
@@ -21,12 +21,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210507\Symfony\Component
      * @var Terminal
      */
     private $terminal;
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param \Symfony\Component\Console\Terminal $terminal
-     */
-    public function __construct($input, $output, $terminal)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210508\Symfony\Component\Console\Terminal $terminal)
     {
         parent::__construct($input, $output);
         $this->terminal = $terminal;
@@ -67,10 +62,9 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210507\Symfony\Component
         $this->writeln(' ' . $separator);
     }
     /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $codingStandardError
      * @return string
      */
-    private function createMessageFromFileError($codingStandardError)
+    private function createMessageFromFileError(\Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError $codingStandardError)
     {
         $message = \sprintf('%s%s Reported by: "%s"', $codingStandardError->getMessage(), \PHP_EOL . \PHP_EOL, $codingStandardError->getCheckerClass());
         $message = $this->clearCrLfFromMessage($message);

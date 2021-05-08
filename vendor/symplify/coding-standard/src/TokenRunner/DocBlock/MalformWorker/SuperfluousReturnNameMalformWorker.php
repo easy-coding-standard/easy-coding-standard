@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -33,19 +33,19 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
      * @param int $position
      * @return string
      */
-    public function work($docContent, $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         $lines = $docBlock->getLines();
         foreach ($lines as $line) {
-            $match = \ECSPrefix20210507\Nette\Utils\Strings::match($line->getContent(), self::RETURN_VARIABLE_NAME_REGEX);
+            $match = \ECSPrefix20210508\Nette\Utils\Strings::match($line->getContent(), self::RETURN_VARIABLE_NAME_REGEX);
             if ($match === null) {
                 continue;
             }
             if ($this->shouldSkip($match, $line->getContent())) {
                 continue;
             }
-            $newLineContent = \ECSPrefix20210507\Nette\Utils\Strings::replace($line->getContent(), self::RETURN_VARIABLE_NAME_REGEX, function (array $match) {
+            $newLineContent = \ECSPrefix20210508\Nette\Utils\Strings::replace($line->getContent(), self::RETURN_VARIABLE_NAME_REGEX, function (array $match) {
                 $replacement = $match['tag'];
                 if ($match['type'] !== []) {
                     $replacement .= $match['type'];
@@ -67,6 +67,6 @@ final class SuperfluousReturnNameMalformWorker implements \Symplify\CodingStanda
             return \true;
         }
         // has multiple return values? "@return array $one, $two"
-        return \count(\ECSPrefix20210507\Nette\Utils\Strings::matchAll($content, self::VARIABLE_NAME_REGEX)) >= 2;
+        return \count(\ECSPrefix20210508\Nette\Utils\Strings::matchAll($content, self::VARIABLE_NAME_REGEX)) >= 2;
     }
 }

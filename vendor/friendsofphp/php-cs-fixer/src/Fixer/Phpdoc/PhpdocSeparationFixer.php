@@ -57,20 +57,17 @@ function fnc($foo, $bar) {}
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -85,9 +82,8 @@ function fnc($foo, $bar) {}
     /**
      * Make sure the description is separated from the annotations.
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      */
-    private function fixDescription($doc)
+    private function fixDescription(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         foreach ($doc->getLines() as $index => $line) {
             if ($line->containsATag()) {
@@ -104,10 +100,9 @@ function fnc($foo, $bar) {}
     }
     /**
      * Make sure the annotations are correctly separated.
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
      * @return string
      */
-    private function fixAnnotations($doc)
+    private function fixAnnotations(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         foreach ($doc->getAnnotations() as $index => $annotation) {
             $next = $doc->getAnnotation($index + 1);
@@ -127,11 +122,8 @@ function fnc($foo, $bar) {}
     /**
      * Force the given annotations to immediately follow each other.
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
-     * @param \PhpCsFixer\DocBlock\Annotation $first
-     * @param \PhpCsFixer\DocBlock\Annotation $second
      */
-    private function ensureAreTogether($doc, $first, $second)
+    private function ensureAreTogether(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second)
     {
         $pos = $first->getEnd();
         $final = $second->getStart();
@@ -142,11 +134,8 @@ function fnc($foo, $bar) {}
     /**
      * Force the given annotations to have one empty line between each other.
      * @return void
-     * @param \PhpCsFixer\DocBlock\DocBlock $doc
-     * @param \PhpCsFixer\DocBlock\Annotation $first
-     * @param \PhpCsFixer\DocBlock\Annotation $second
      */
-    private function ensureAreSeparate($doc, $first, $second)
+    private function ensureAreSeparate(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second)
     {
         $pos = $first->getEnd();
         $final = $second->getStart() - 1;

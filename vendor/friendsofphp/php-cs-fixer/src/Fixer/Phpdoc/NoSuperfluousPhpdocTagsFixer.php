@@ -93,20 +93,17 @@ class Foo {
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $namespaceUseAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer();
         $shortNames = [];
@@ -149,10 +146,9 @@ class Foo {
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docCommentIndex
      */
-    private function findDocumentedElement($tokens, $docCommentIndex)
+    private function findDocumentedElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $docCommentIndex)
     {
         $index = $docCommentIndex;
         do {
@@ -176,11 +172,10 @@ class Foo {
     }
     /**
      * @param string $content
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $functionIndex
      * @return string
      */
-    private function fixFunctionDocComment($content, $tokens, $functionIndex, array $shortNames)
+    private function fixFunctionDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $functionIndex, array $shortNames)
     {
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
         $openingParenthesisIndex = $tokens->getNextTokenOfKind($functionIndex, ['(']);
@@ -209,10 +204,9 @@ class Foo {
     /**
      * @param int $index Index of the DocComment token
      * @param string $content
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return string
      */
-    private function fixPropertyDocComment($content, $tokens, $index, array $shortNames)
+    private function fixPropertyDocComment($content, \PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $shortNames)
     {
         $docBlock = new \PhpCsFixer\DocBlock\DocBlock($content);
         do {
@@ -228,11 +222,10 @@ class Foo {
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $start
      * @param int $end
      */
-    private function getArgumentsInfo($tokens, $start, $end)
+    private function getArgumentsInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
         $argumentsInfo = [];
         for ($index = $start; $index <= $end; ++$index) {
@@ -258,11 +251,10 @@ class Foo {
         return $argumentsInfo;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $closingParenthesisIndex
      * @return mixed[]
      */
-    private function getReturnTypeInfo($tokens, $closingParenthesisIndex)
+    private function getReturnTypeInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $closingParenthesisIndex)
     {
         $colonIndex = $tokens->getNextMeaningfulToken($closingParenthesisIndex);
         if ($tokens[$colonIndex]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_TYPE_COLON)) {
@@ -272,10 +264,9 @@ class Foo {
     }
     /**
      * @param int $index The index of the first token of the type hint
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return mixed[]
      */
-    private function getPropertyTypeInfo($tokens, $index)
+    private function getPropertyTypeInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if ($tokens[$index]->isGivenKind(\T_VARIABLE)) {
             return ['type' => null, 'allows_null' => \true];
@@ -284,10 +275,9 @@ class Foo {
     }
     /**
      * @param int $index The index of the first token of the type hint
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return mixed[]
      */
-    private function parseTypeHint($tokens, $index)
+    private function parseTypeHint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $allowsNull = \false;
         if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE)) {
@@ -303,10 +293,9 @@ class Foo {
     }
     /**
      * @param array<string, string> $symbolShortNames
-     * @param \PhpCsFixer\DocBlock\Annotation $annotation
      * @return bool
      */
-    private function annotationIsSuperfluous($annotation, array $info, array $symbolShortNames)
+    private function annotationIsSuperfluous(\PhpCsFixer\DocBlock\Annotation $annotation, array $info, array $symbolShortNames)
     {
         if ('param' === $annotation->getTag()->getName()) {
             $regex = '/@param\\s+(?:\\S|\\s(?!\\$))++\\s\\$\\S+\\s+\\S/';

@@ -62,7 +62,7 @@ class Filter extends \RecursiveFilterIterator
      *
      * @return void
      */
-    public function __construct($iterator, $basedir, $config, $ruleset)
+    public function __construct($iterator, $basedir, \PHP_CodeSniffer\Config $config, \PHP_CodeSniffer\Ruleset $ruleset)
     {
         parent::__construct($iterator);
         $this->basedir = $basedir;

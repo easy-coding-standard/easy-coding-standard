@@ -28,10 +28,7 @@ final class WarningsDetector
      * @var string[]
      */
     private $warnings = [];
-    /**
-     * @param \PhpCsFixer\ToolInfoInterface $toolInfo
-     */
-    public function __construct($toolInfo)
+    public function __construct(\PhpCsFixer\ToolInfoInterface $toolInfo)
     {
         $this->toolInfo = $toolInfo;
     }

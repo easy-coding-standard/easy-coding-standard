@@ -47,20 +47,17 @@ echo "Hello!";
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \true;
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokensOrg
      */
-    protected function applyFix($file, $tokensOrg)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokensOrg)
     {
         $content = $tokensOrg->generateCode();
         // replace all <? with <?php to replace all short open tags even without short_open_tag option enabled

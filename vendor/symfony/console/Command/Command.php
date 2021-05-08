@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Command;
+namespace ECSPrefix20210508\Symfony\Component\Console\Command;
 
-use ECSPrefix20210507\Symfony\Component\Console\Application;
-use ECSPrefix20210507\Symfony\Component\Console\Exception\ExceptionInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\Console\Exception\LogicException;
-use ECSPrefix20210507\Symfony\Component\Console\Helper\HelperSet;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Application;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\ExceptionInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix20210508\Symfony\Component\Console\Helper\HelperSet;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Base class for all commands.
  *
@@ -64,7 +64,7 @@ class Command
      */
     public function __construct($name = null)
     {
-        $this->definition = new \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition();
+        $this->definition = new \ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition();
         if (null !== $name || null !== ($name = static::getDefaultName())) {
             $this->setName($name);
         }
@@ -80,7 +80,7 @@ class Command
         $this->ignoreValidationErrors = \true;
     }
     /**
-     * @param \Symfony\Component\Console\Application $application
+     * @param \Symfony\Component\Console\Application|null $application
      */
     public function setApplication($application = null)
     {
@@ -92,10 +92,7 @@ class Command
         }
         $this->fullDefinition = null;
     }
-    /**
-     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
-     */
-    public function setHelperSet($helperSet)
+    public function setHelperSet(\ECSPrefix20210508\Symfony\Component\Console\Helper\HelperSet $helperSet)
     {
         $this->helperSet = $helperSet;
     }
@@ -148,12 +145,10 @@ class Command
      * @throws LogicException When this abstract method is not implemented
      *
      * @see setCode()
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function execute($input, $output)
+    protected function execute(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
-        throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\LogicException('You must override the execute() method in the concrete command class.');
+        throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('You must override the execute() method in the concrete command class.');
     }
     /**
      * Interacts with the user.
@@ -161,10 +156,8 @@ class Command
      * This method is executed before the InputDefinition is validated.
      * This means that this is the only place where the command can
      * interactively ask for values of missing required arguments.
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function interact($input, $output)
+    protected function interact(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
     }
     /**
@@ -176,10 +169,8 @@ class Command
      *
      * @see InputInterface::bind()
      * @see InputInterface::validate()
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    protected function initialize($input, $output)
+    protected function initialize(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
     }
     /**
@@ -195,17 +186,15 @@ class Command
      *
      * @see setCode()
      * @see execute()
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    public function run($input, $output)
+    public function run(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
         // add the application arguments and options
         $this->mergeApplicationDefinition();
         // bind the input against the command specific arguments/options
         try {
             $input->bind($this->getDefinition());
-        } catch (\ECSPrefix20210507\Symfony\Component\Console\Exception\ExceptionInterface $e) {
+        } catch (\ECSPrefix20210508\Symfony\Component\Console\Exception\ExceptionInterface $e) {
             if (!$this->ignoreValidationErrors) {
                 throw $e;
             }
@@ -215,14 +204,14 @@ class Command
             if (\function_exists('cli_set_process_title')) {
                 if (!@\cli_set_process_title($this->processTitle)) {
                     if ('Darwin' === \PHP_OS) {
-                        $output->writeln('<comment>Running "cli_set_process_title" as an unprivileged user is not supported on MacOS.</comment>', \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE);
+                        $output->writeln('<comment>Running "cli_set_process_title" as an unprivileged user is not supported on MacOS.</comment>', \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE);
                     } else {
                         \cli_set_process_title($this->processTitle);
                     }
                 }
-            } elseif (\function_exists('ECSPrefix20210507\\setproctitle')) {
+            } elseif (\function_exists('ECSPrefix20210508\\setproctitle')) {
                 setproctitle($this->processTitle);
-            } elseif (\ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE === $output->getVerbosity()) {
+            } elseif (\ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE === $output->getVerbosity()) {
                 $output->writeln('<comment>Install the proctitle PECL to be able to change the process title.</comment>');
             }
         }
@@ -291,7 +280,7 @@ class Command
         if (null === $this->application) {
             return;
         }
-        $this->fullDefinition = new \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition();
+        $this->fullDefinition = new \ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition();
         $this->fullDefinition->setOptions($this->definition->getOptions());
         $this->fullDefinition->addOptions($this->application->getDefinition()->getOptions());
         if ($mergeArgs) {
@@ -310,7 +299,7 @@ class Command
      */
     public function setDefinition($definition)
     {
-        if ($definition instanceof \ECSPrefix20210507\Symfony\Component\Console\Input\InputDefinition) {
+        if ($definition instanceof \ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition) {
             $this->definition = $definition;
         } else {
             $this->definition->setDefinition($definition);
@@ -340,7 +329,7 @@ class Command
     public function getNativeDefinition()
     {
         if (null === $this->definition) {
-            throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\LogicException(\sprintf('Command class "%s" is not correctly initialized. You probably forgot to call the parent constructor.', static::class));
+            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException(\sprintf('Command class "%s" is not correctly initialized. You probably forgot to call the parent constructor.', static::class));
         }
         return $this->definition;
     }
@@ -358,9 +347,9 @@ class Command
      */
     public function addArgument($name, $mode = null, $description = '', $default = null)
     {
-        $this->definition->addArgument(new \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
+        $this->definition->addArgument(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
-            $this->fullDefinition->addArgument(new \ECSPrefix20210507\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
+            $this->fullDefinition->addArgument(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument($name, $mode, $description, $default));
         }
         return $this;
     }
@@ -379,9 +368,9 @@ class Command
      */
     public function addOption($name, $shortcut = null, $mode = null, $description = '', $default = null)
     {
-        $this->definition->addOption(new \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
+        $this->definition->addOption(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
         if (null !== $this->fullDefinition) {
-            $this->fullDefinition->addOption(new \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
+            $this->fullDefinition->addOption(new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption($name, $shortcut, $mode, $description, $default));
         }
         return $this;
     }
@@ -577,7 +566,7 @@ class Command
     public function getHelper($name)
     {
         if (null === $this->helperSet) {
-            throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\LogicException(\sprintf('Cannot retrieve helper "%s" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.', $name));
+            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException(\sprintf('Cannot retrieve helper "%s" because there is no HelperSet defined. Did you forget to add your command to the application or to set the application on the command using the setApplication() method? You can also set the HelperSet directly using the setHelperSet() method.', $name));
         }
         return $this->helperSet->get($name);
     }
@@ -592,7 +581,7 @@ class Command
     private function validateName($name)
     {
         if (!\preg_match('/^[^\\:]++(\\:[^\\:]++)*$/', $name)) {
-            throw new \ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Command name "%s" is invalid.', $name));
+            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Command name "%s" is invalid.', $name));
         }
     }
 }

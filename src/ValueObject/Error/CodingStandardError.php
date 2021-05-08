@@ -25,9 +25,8 @@ final class CodingStandardError
      * @param int $line
      * @param string $message
      * @param string $checkerClass
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      */
-    public function __construct($line, $message, $checkerClass, $fileInfo)
+    public function __construct($line, $message, $checkerClass, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $this->line = $line;
         $this->message = $message;

@@ -16,17 +16,17 @@ use PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory;
 use PhpCsFixer\Console\Report\ListSetsReport\ReportSummary;
 use PhpCsFixer\Console\Report\ListSetsReport\TextReporter;
 use PhpCsFixer\RuleSet\RuleSets;
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210507\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210508\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @internal
  */
-final class ListSetsCommand extends \ECSPrefix20210507\Symfony\Component\Console\Command\Command
+final class ListSetsCommand extends \ECSPrefix20210508\Symfony\Component\Console\Command\Command
 {
     protected static $defaultName = 'list-sets';
     /**
@@ -35,25 +35,20 @@ final class ListSetsCommand extends \ECSPrefix20210507\Symfony\Component\Console
      */
     protected function configure()
     {
-        $this->setDefinition([new \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption('format', '', \ECSPrefix20210507\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'To output results in other formats.', (new \PhpCsFixer\Console\Report\ListSetsReport\TextReporter())->getFormat())])->setDescription('List all available RuleSets.');
+        $this->setDefinition([new \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption('format', '', \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'To output results in other formats.', (new \PhpCsFixer\Console\Report\ListSetsReport\TextReporter())->getFormat())])->setDescription('List all available RuleSets.');
     }
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function execute($input, $output)
+    protected function execute(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $reporter = $this->resolveReporterWithFactory($input->getOption('format'), new \PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory());
         $reportSummary = new \PhpCsFixer\Console\Report\ListSetsReport\ReportSummary(\array_values(\PhpCsFixer\RuleSet\RuleSets::getSetDefinitions()));
         $report = $reporter->generate($reportSummary);
-        $output->isDecorated() ? $output->write(\ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter::escape($report)) : $output->write($report, \false, \ECSPrefix20210507\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
+        $output->isDecorated() ? $output->write(\ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escape($report)) : $output->write($report, \false, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
         return 0;
     }
     /**
      * @param string $format
-     * @param \PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory $factory
      */
-    private function resolveReporterWithFactory($format, $factory)
+    private function resolveReporterWithFactory($format, \PhpCsFixer\Console\Report\ListSetsReport\ReporterFactory $factory)
     {
         try {
             $factory->registerBuiltInReporters();

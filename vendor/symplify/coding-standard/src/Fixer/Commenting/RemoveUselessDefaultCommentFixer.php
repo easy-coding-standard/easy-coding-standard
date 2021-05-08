@@ -25,10 +25,7 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
      * @var UselessDocBlockCleaner
      */
     private $uselessDocBlockCleaner;
-    /**
-     * @param \Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner $uselessDocBlockCleaner
-     */
-    public function __construct($uselessDocBlockCleaner)
+    public function __construct(\Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner $uselessDocBlockCleaner)
     {
         $this->uselessDocBlockCleaner = $uselessDocBlockCleaner;
     }
@@ -43,16 +40,15 @@ final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fi
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT]);
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $file
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {

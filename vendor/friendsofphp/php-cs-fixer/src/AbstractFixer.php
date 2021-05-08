@@ -22,8 +22,8 @@ use PhpCsFixer\FixerConfiguration\DeprecatedFixerOption;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20210507\Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
-use ECSPrefix20210507\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
+use ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -58,10 +58,8 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public final function fix($file, $tokens)
+    public final function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if ($this instanceof \PhpCsFixer\Fixer\ConfigurableFixerInterface && null === $this->configuration) {
             throw new \PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException($this->getName(), 'Configuration is required.');
@@ -98,10 +96,9 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * {@inheritdoc}
-     * @param \SplFileInfo $file
      * @return bool
      */
-    public function supports($file)
+    public function supports(\SplFileInfo $file)
     {
         return \true;
     }
@@ -124,11 +121,11 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
         }
         try {
             $this->configuration = $this->getConfigurationDefinition()->resolve($configuration);
-        } catch (\ECSPrefix20210507\Symfony\Component\OptionsResolver\Exception\MissingOptionsException $exception) {
+        } catch (\ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\MissingOptionsException $exception) {
             throw new \PhpCsFixer\ConfigurationException\RequiredFixerConfigurationException($this->getName(), \sprintf('Missing required configuration: %s', $exception->getMessage()), $exception);
         } catch (\PhpCsFixer\FixerConfiguration\InvalidOptionsForEnvException $exception) {
             throw new \PhpCsFixer\ConfigurationException\InvalidForEnvFixerConfigurationException($this->getName(), \sprintf('Invalid configuration for env: %s', $exception->getMessage()), $exception);
-        } catch (\ECSPrefix20210507\Symfony\Component\OptionsResolver\Exception\ExceptionInterface $exception) {
+        } catch (\ECSPrefix20210508\Symfony\Component\OptionsResolver\Exception\ExceptionInterface $exception) {
             throw new \PhpCsFixer\ConfigurationException\InvalidFixerConfigurationException($this->getName(), \sprintf('Invalid configuration: %s', $exception->getMessage()), $exception);
         }
     }
@@ -147,9 +144,8 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * @return void
-     * @param \PhpCsFixer\WhitespacesFixerConfig $config
      */
-    public function setWhitespacesConfig($config)
+    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config)
     {
         if (!$this instanceof \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface) {
             throw new \LogicException('Cannot run method for class not implementing "PhpCsFixer\\Fixer\\WhitespacesAwareFixerInterface".');
@@ -158,10 +154,8 @@ abstract class AbstractFixer implements \PhpCsFixer\Fixer\FixerInterface
     }
     /**
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected abstract function applyFix($file, $tokens);
+    protected abstract function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens);
     /**
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */

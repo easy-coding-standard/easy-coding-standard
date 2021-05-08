@@ -37,20 +37,17 @@ settype($bar, "null");
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAllTokenKindsFound([\T_CONSTANT_ENCAPSED_STRING, \T_STRING, \T_VARIABLE]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $map = ['array' => [\T_ARRAY_CAST, '(array)'], 'bool' => [\T_BOOL_CAST, '(bool)'], 'boolean' => [\T_BOOL_CAST, '(bool)'], 'double' => [\T_DOUBLE_CAST, '(float)'], 'float' => [\T_DOUBLE_CAST, '(float)'], 'int' => [\T_INT_CAST, '(int)'], 'integer' => [\T_INT_CAST, '(int)'], 'object' => [\T_OBJECT_CAST, '(object)'], 'string' => [\T_STRING_CAST, '(string)']];
         $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
@@ -109,10 +106,9 @@ settype($bar, "null");
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return mixed[]
      */
-    private function findSettypeCalls($tokens)
+    private function findSettypeCalls(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $candidates = [];
         $end = \count($tokens);
@@ -129,7 +125,6 @@ settype($bar, "null");
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $functionNameIndex
      * @param int $openParenthesisIndex
      * @param int $firstArgumentStart
@@ -137,7 +132,7 @@ settype($bar, "null");
      * @param int $secondArgumentStart
      * @param int $closeParenthesisIndex
      */
-    private function removeSettypeCall($tokens, $functionNameIndex, $openParenthesisIndex, $firstArgumentStart, $commaIndex, $secondArgumentStart, $closeParenthesisIndex)
+    private function removeSettypeCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, $openParenthesisIndex, $firstArgumentStart, $commaIndex, $secondArgumentStart, $closeParenthesisIndex)
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($closeParenthesisIndex);
         $prevIndex = $tokens->getPrevMeaningfulToken($closeParenthesisIndex);
@@ -154,12 +149,9 @@ settype($bar, "null");
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $functionNameIndex
-     * @param \PhpCsFixer\Tokenizer\Token $argumentToken
-     * @param \PhpCsFixer\Tokenizer\Token $castToken
      */
-    private function fixSettypeCall($tokens, $functionNameIndex, $argumentToken, $castToken)
+    private function fixSettypeCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, \PhpCsFixer\Tokenizer\Token $argumentToken, \PhpCsFixer\Tokenizer\Token $castToken)
     {
         $tokens->insertAt($functionNameIndex, [clone $argumentToken, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token('='), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), $castToken, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), clone $argumentToken]);
         $tokens->removeTrailingWhitespace($functionNameIndex + 6);
@@ -167,11 +159,9 @@ settype($bar, "null");
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $functionNameIndex
-     * @param \PhpCsFixer\Tokenizer\Token $argumentToken
      */
-    private function findSettypeNullCall($tokens, $functionNameIndex, $argumentToken)
+    private function findSettypeNullCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, \PhpCsFixer\Tokenizer\Token $argumentToken)
     {
         $tokens->insertAt($functionNameIndex, [clone $argumentToken, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token('='), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'null'])]);
         $tokens->removeTrailingWhitespace($functionNameIndex + 4);

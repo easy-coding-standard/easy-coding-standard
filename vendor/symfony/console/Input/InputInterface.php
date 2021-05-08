@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Console\Input;
+namespace ECSPrefix20210508\Symfony\Component\Console\Input;
 
-use ECSPrefix20210507\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\Console\Exception\RuntimeException;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Console\Exception\RuntimeException;
 /**
  * InputInterface is the interface implemented by all input classes.
  *
@@ -58,9 +58,8 @@ interface InputInterface
      * Binds the current Input instance with the given arguments and options.
      *
      * @throws RuntimeException
-     * @param \Symfony\Component\Console\Input\InputDefinition $definition
      */
-    public function bind($definition);
+    public function bind(\ECSPrefix20210508\Symfony\Component\Console\Input\InputDefinition $definition);
     /**
      * Validates the input.
      *

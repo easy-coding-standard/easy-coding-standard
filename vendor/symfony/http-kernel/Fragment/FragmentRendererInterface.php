@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Fragment;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Fragment;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\Controller\ControllerReference;
 /**
  * Interface implemented by all rendering strategies.
  *
@@ -26,9 +26,8 @@ interface FragmentRendererInterface
      * @param string|ControllerReference $uri A URI as a string or a ControllerReference instance
      *
      * @return Response A Response instance
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function render($uri, $request, array $options = []);
+    public function render($uri, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, array $options = []);
     /**
      * Gets the name of the strategy.
      *

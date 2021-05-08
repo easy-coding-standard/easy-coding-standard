@@ -47,7 +47,7 @@ class ESLintSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If jshint.js could not be run
      */
-    public function process($phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $eslintPath = \PHP_CodeSniffer\Config::getExecutablePath('eslint');
         if ($eslintPath === null) {

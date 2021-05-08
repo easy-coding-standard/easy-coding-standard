@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210507\PackageVersions;
+namespace ECSPrefix20210508\PackageVersions;
 
-use ECSPrefix20210507\Composer\Composer;
-use ECSPrefix20210507\Composer\Config;
-use ECSPrefix20210507\Composer\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210507\Composer\IO\IOInterface;
-use ECSPrefix20210507\Composer\Package\AliasPackage;
-use ECSPrefix20210507\Composer\Package\Locker;
-use ECSPrefix20210507\Composer\Package\PackageInterface;
-use ECSPrefix20210507\Composer\Package\RootPackageInterface;
-use ECSPrefix20210507\Composer\Plugin\PluginInterface;
-use ECSPrefix20210507\Composer\Script\Event;
-use ECSPrefix20210507\Composer\Script\ScriptEvents;
+use ECSPrefix20210508\Composer\Composer;
+use ECSPrefix20210508\Composer\Config;
+use ECSPrefix20210508\Composer\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210508\Composer\IO\IOInterface;
+use ECSPrefix20210508\Composer\Package\AliasPackage;
+use ECSPrefix20210508\Composer\Package\Locker;
+use ECSPrefix20210508\Composer\Package\PackageInterface;
+use ECSPrefix20210508\Composer\Package\RootPackageInterface;
+use ECSPrefix20210508\Composer\Plugin\PluginInterface;
+use ECSPrefix20210508\Composer\Script\Event;
+use ECSPrefix20210508\Composer\Script\ScriptEvents;
 use Generator;
 use RuntimeException;
 use function array_key_exists;
@@ -28,7 +28,7 @@ use function rename;
 use function sprintf;
 use function uniqid;
 use function var_export;
-final class Installer implements \ECSPrefix20210507\Composer\Plugin\PluginInterface, \ECSPrefix20210507\Composer\EventDispatcher\EventSubscriberInterface
+final class Installer implements \ECSPrefix20210508\Composer\Plugin\PluginInterface, \ECSPrefix20210508\Composer\EventDispatcher\EventSubscriberInterface
 {
     private static $generatedClassTemplate = <<<'PHP'
 <?php
@@ -113,15 +113,15 @@ class_exists(InstalledVersions::class);
 }
 
 PHP;
-    public function activate(\ECSPrefix20210507\Composer\Composer $composer, \ECSPrefix20210507\Composer\IO\IOInterface $io)
+    public function activate(\ECSPrefix20210508\Composer\Composer $composer, \ECSPrefix20210508\Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
-    public function deactivate(\ECSPrefix20210507\Composer\Composer $composer, \ECSPrefix20210507\Composer\IO\IOInterface $io)
+    public function deactivate(\ECSPrefix20210508\Composer\Composer $composer, \ECSPrefix20210508\Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
-    public function uninstall(\ECSPrefix20210507\Composer\Composer $composer, \ECSPrefix20210507\Composer\IO\IOInterface $io)
+    public function uninstall(\ECSPrefix20210508\Composer\Composer $composer, \ECSPrefix20210508\Composer\IO\IOInterface $io)
     {
         // Nothing to do here, as all features are provided through event listeners
     }
@@ -130,12 +130,12 @@ PHP;
      */
     public static function getSubscribedEvents() : array
     {
-        return [\ECSPrefix20210507\Composer\Script\ScriptEvents::POST_AUTOLOAD_DUMP => 'dumpVersionsClass'];
+        return [\ECSPrefix20210508\Composer\Script\ScriptEvents::POST_AUTOLOAD_DUMP => 'dumpVersionsClass'];
     }
     /**
      * @throws RuntimeException
      */
-    public static function dumpVersionsClass(\ECSPrefix20210507\Composer\Script\Event $composerEvent)
+    public static function dumpVersionsClass(\ECSPrefix20210508\Composer\Script\Event $composerEvent)
     {
         $composer = $composerEvent->getComposer();
         $rootPackage = $composer->getPackage();
@@ -164,7 +164,7 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function writeVersionClassToFile(string $versionClassSource, \ECSPrefix20210507\Composer\Composer $composer, \ECSPrefix20210507\Composer\IO\IOInterface $io)
+    private static function writeVersionClassToFile(string $versionClassSource, \ECSPrefix20210508\Composer\Composer $composer, \ECSPrefix20210508\Composer\IO\IOInterface $io)
     {
         $installPath = self::locateRootPackageInstallPath($composer->getConfig(), $composer->getPackage()) . '/src/PackageVersions/Versions.php';
         $installDir = \dirname($installPath);
@@ -186,17 +186,17 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function locateRootPackageInstallPath(\ECSPrefix20210507\Composer\Config $composerConfig, \ECSPrefix20210507\Composer\Package\RootPackageInterface $rootPackage) : string
+    private static function locateRootPackageInstallPath(\ECSPrefix20210508\Composer\Config $composerConfig, \ECSPrefix20210508\Composer\Package\RootPackageInterface $rootPackage) : string
     {
         if (self::getRootPackageAlias($rootPackage)->getName() === 'composer/package-versions-deprecated') {
             return \dirname($composerConfig->get('vendor-dir'));
         }
         return $composerConfig->get('vendor-dir') . '/composer/package-versions-deprecated';
     }
-    private static function getRootPackageAlias(\ECSPrefix20210507\Composer\Package\RootPackageInterface $rootPackage) : \ECSPrefix20210507\Composer\Package\PackageInterface
+    private static function getRootPackageAlias(\ECSPrefix20210508\Composer\Package\RootPackageInterface $rootPackage) : \ECSPrefix20210508\Composer\Package\PackageInterface
     {
         $package = $rootPackage;
-        while ($package instanceof \ECSPrefix20210507\Composer\Package\AliasPackage) {
+        while ($package instanceof \ECSPrefix20210508\Composer\Package\AliasPackage) {
             $package = $package->getAliasOf();
         }
         return $package;
@@ -206,7 +206,7 @@ PHP;
      *
      * @psalm-return Generator<string, string>
      */
-    private static function getVersions(\ECSPrefix20210507\Composer\Package\Locker $locker, \ECSPrefix20210507\Composer\Package\RootPackageInterface $rootPackage) : \Generator
+    private static function getVersions(\ECSPrefix20210508\Composer\Package\Locker $locker, \ECSPrefix20210508\Composer\Package\RootPackageInterface $rootPackage) : \Generator
     {
         $lockData = $locker->getLockData();
         $lockData['packages-dev'] = $lockData['packages-dev'] ?? [];

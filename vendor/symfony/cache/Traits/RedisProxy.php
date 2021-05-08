@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Traits;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Traits;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -20,11 +20,7 @@ class RedisProxy
     private $redis;
     private $initializer;
     private $ready = \false;
-    /**
-     * @param \Redis $redis
-     * @param \Closure $initializer
-     */
-    public function __construct($redis, $initializer)
+    public function __construct(\Redis $redis, \Closure $initializer)
     {
         $this->redis = $redis;
         $this->initializer = $initializer;

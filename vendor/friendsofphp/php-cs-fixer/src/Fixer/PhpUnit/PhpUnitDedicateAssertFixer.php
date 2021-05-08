@@ -104,11 +104,10 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         foreach ($this->getPreviousAssertCall($tokens, $startIndex, $endIndex) as $assertCall) {
             // test and fix for assertTrue/False to dedicated asserts
@@ -132,9 +131,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixAssertTrueFalse($tokens, array $assertCall)
+    private function fixAssertTrueFalse(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall)
     {
         $testDefaultNamespaceTokenIndex = \false;
         $testIndex = $tokens->getNextMeaningfulToken($assertCall['openBraceIndex']);
@@ -185,9 +183,8 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixAssertSameEquals($tokens, array $assertCall)
+    private function fixAssertSameEquals(\PhpCsFixer\Tokenizer\Tokens $tokens, array $assertCall)
     {
         // @ $this->/self::assertEquals/Same([$nextIndex])
         $expectedIndex = $tokens->getNextMeaningfulToken($assertCall['openBraceIndex']);
@@ -233,11 +230,10 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function getPreviousAssertCall($tokens, $startIndex, $endIndex)
+    private function getPreviousAssertCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
         for ($index = $endIndex; $index > $startIndex; --$index) {
@@ -264,12 +260,11 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * @param false|int $callNSIndex
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $callIndex
      * @param int $openIndex
      * @param int $closeIndex
      */
-    private function removeFunctionCall($tokens, $callNSIndex, $callIndex, $openIndex, $closeIndex)
+    private function removeFunctionCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $callNSIndex, $callIndex, $openIndex, $closeIndex)
     {
         $tokens->clearTokenAndMergeSurroundingWhitespace($callIndex);
         if (\false !== $callNSIndex) {

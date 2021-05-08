@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Exception;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Exception;
 
 /**
  * HttpException.
  *
  * @author Kris Wallsmith <kris@symfony.com>
  */
-class HttpException extends \RuntimeException implements \ECSPrefix20210507\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
+class HttpException extends \RuntimeException implements \ECSPrefix20210508\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface
 {
     private $statusCode;
     private $headers;
@@ -23,9 +23,8 @@ class HttpException extends \RuntimeException implements \ECSPrefix20210507\Symf
      * @param string|null $message
      * @param int|null $code
      * @param int $statusCode
-     * @param \Throwable $previous
      */
-    public function __construct($statusCode, $message = '', $previous = null, array $headers = [], $code = 0)
+    public function __construct($statusCode, $message = '', \Throwable $previous = null, array $headers = [], $code = 0)
     {
         $this->statusCode = $statusCode;
         $this->headers = $headers;

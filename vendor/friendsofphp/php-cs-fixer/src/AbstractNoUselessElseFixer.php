@@ -27,11 +27,10 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
         return 39;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return bool
      */
-    protected function isSuperfluousElse($tokens, $index)
+    protected function isSuperfluousElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $previousBlockStart = $index;
         do {
@@ -72,9 +71,8 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
      * @param int $index T_IF, T_ELSE, T_ELSEIF
      *
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function getPreviousBlock($tokens, $index)
+    private function getPreviousBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $close = $previous = $tokens->getPrevMeaningfulToken($index);
         // short 'if' detection
@@ -93,10 +91,9 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int $index           Index of the token to check
      * @param int $lowerLimitIndex Lower limit index. Since the token to check will always be in a conditional we must stop checking at this index
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    private function isInConditional($tokens, $index, $lowerLimitIndex)
+    private function isInConditional(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $lowerLimitIndex)
     {
         $candidateIndex = $tokens->getPrevTokenOfKind($index, [')', ';', ':']);
         if ($tokens[$candidateIndex]->equals(':')) {
@@ -120,11 +117,10 @@ abstract class AbstractNoUselessElseFixer extends \PhpCsFixer\AbstractFixer
      * out of range index, etc.
      *
      * @param int $index Index of the token to check
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $lowerLimitIndex
      * @return bool
      */
-    private function isInConditionWithoutBraces($tokens, $index, $lowerLimitIndex)
+    private function isInConditionWithoutBraces(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $lowerLimitIndex)
     {
         do {
             if ($tokens[$index]->isComment() || $tokens[$index]->isWhitespace()) {

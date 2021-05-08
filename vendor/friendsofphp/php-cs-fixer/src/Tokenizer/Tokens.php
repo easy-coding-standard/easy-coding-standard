@@ -112,7 +112,7 @@ class Tokens extends \SplFixedArray
      *
      * @return null|array array with 'type' and 'isStart' keys or null if not found
      */
-    public static function detectBlockType($token)
+    public static function detectBlockType(\PhpCsFixer\Tokenizer\Token $token)
     {
         foreach (self::getBlockEdgeDefinitions() as $type => $definition) {
             if ($token->equals($definition['start'])) {

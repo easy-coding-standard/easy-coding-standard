@@ -47,10 +47,9 @@ class Sample
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAnyTokenKindsFound([\T_CLASS, \T_INTERFACE]);
     }
@@ -65,10 +64,8 @@ class Sample
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         foreach ((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens) as $namespace) {
@@ -88,13 +85,12 @@ class Sample
     /**
      * Replace occurrences of the name of the classy element by "self" (if possible).
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param string $namespace
      * @param string $name
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function replaceNameOccurrences($tokens, $namespace, $name, $startIndex, $endIndex)
+    private function replaceNameOccurrences(\PhpCsFixer\Tokenizer\Tokens $tokens, $namespace, $name, $startIndex, $endIndex)
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $insideMethodSignatureUntil = null;
@@ -143,11 +139,10 @@ class Sample
     }
     /**
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @param string $namespace
      */
-    private function getClassStart($tokens, $index, $namespace)
+    private function getClassStart(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $namespace)
     {
         $namespace = ('' !== $namespace ? '\\' . $namespace : '') . '\\';
         foreach (\array_reverse(\PhpCsFixer\Preg::split('/(\\\\)/', $namespace, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE)) as $piece) {

@@ -2,8 +2,8 @@
 
 namespace Symplify\ComposerJsonManipulator\ValueObject;
 
-use ECSPrefix20210507\Nette\Utils\Arrays;
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Arrays;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use Symplify\ComposerJsonManipulator\Sorter\ComposerPackageSorter;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
@@ -127,9 +127,8 @@ final class ComposerJson
     }
     /**
      * @return void
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $fileInfo
      */
-    public function setOriginalFileInfo($fileInfo)
+    public function setOriginalFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $this->fileInfo = $fileInfo;
     }
@@ -375,7 +374,7 @@ final class ComposerJson
         if ($this->name === null) {
             return null;
         }
-        return \ECSPrefix20210507\Nette\Utils\Strings::after($this->name, '/', -1);
+        return \ECSPrefix20210508\Nette\Utils\Strings::after($this->name, '/', -1);
     }
     /**
      * @return mixed[]
@@ -723,7 +722,7 @@ final class ComposerJson
     public function getAutoloadDirectories()
     {
         $autoloadDirectories = \array_merge($this->getPsr4AndClassmapDirectories(), $this->getPsr4AndClassmapDevDirectories());
-        return \ECSPrefix20210507\Nette\Utils\Arrays::flatten($autoloadDirectories);
+        return \ECSPrefix20210508\Nette\Utils\Arrays::flatten($autoloadDirectories);
     }
     /**
      * @return mixed[]

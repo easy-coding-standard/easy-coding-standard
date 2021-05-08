@@ -13,10 +13,7 @@ final class LineLengthOpenerTransformer
      * @var CallAnalyzer
      */
     private $callAnalyzer;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer
-     */
-    public function __construct($callAnalyzer)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\CallAnalyzer $callAnalyzer)
     {
         $this->callAnalyzer = $callAnalyzer;
     }
@@ -26,7 +23,7 @@ final class LineLengthOpenerTransformer
      * @param int $blockStartIndex
      * @param string $newlineIndentWhitespace
      */
-    public function insertNewlineAfterOpeningIfNeeded($tokens, $blockStartIndex, $newlineIndentWhitespace)
+    public function insertNewlineAfterOpeningIfNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $blockStartIndex, $newlineIndentWhitespace)
     {
         if (!isset($tokens[$blockStartIndex + 1])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($blockStartIndex + 1);

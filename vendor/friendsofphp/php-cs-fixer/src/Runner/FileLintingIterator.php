@@ -28,11 +28,7 @@ final class FileLintingIterator extends \IteratorIterator
      * @var null|LinterInterface
      */
     private $linter;
-    /**
-     * @param \Iterator $iterator
-     * @param \PhpCsFixer\Linter\LinterInterface $linter
-     */
-    public function __construct($iterator, $linter)
+    public function __construct(\Iterator $iterator, \PhpCsFixer\Linter\LinterInterface $linter)
     {
         parent::__construct($iterator);
         $this->linter = $linter;
@@ -61,10 +57,9 @@ final class FileLintingIterator extends \IteratorIterator
         $this->currentResult = $this->valid() ? $this->handleItem($this->current()) : null;
     }
     /**
-     * @param \SplFileInfo $file
      * @return \PhpCsFixer\Linter\LintingResultInterface
      */
-    private function handleItem($file)
+    private function handleItem(\SplFileInfo $file)
     {
         return $this->linter->lintFile($file->getRealPath());
     }

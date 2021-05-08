@@ -34,19 +34,17 @@ final class Skipper
         return $this->shouldSkipElementAndFileInfo($element, $fileInfo);
     }
     /**
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function shouldSkipFileInfo($smartFileInfo)
+    public function shouldSkipFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         return $this->shouldSkipElementAndFileInfo(self::FILE_ELEMENT, $smartFileInfo);
     }
     /**
      * @param string|object $element
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo
      * @return bool
      */
-    public function shouldSkipElementAndFileInfo($element, $smartFileInfo)
+    public function shouldSkipElementAndFileInfo($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         foreach ($this->skipVoters as $skipVoter) {
             if ($skipVoter->match($element)) {

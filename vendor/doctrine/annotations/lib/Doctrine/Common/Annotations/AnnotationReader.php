@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20210507\Doctrine\Common\Annotations;
+namespace ECSPrefix20210508\Doctrine\Common\Annotations;
 
-use ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
-use ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\Target;
+use ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\Target;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
@@ -15,14 +15,14 @@ use function ini_get;
 /**
  * A reader for docblock annotations.
  */
-class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\Reader
+class AnnotationReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\Reader
 {
     /**
      * Global map for imports.
      *
      * @var array<string, class-string>
      */
-    private static $globalImports = ['ignoreannotation' => \ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class];
+    private static $globalImports = ['ignoreannotation' => \ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class];
     /**
      * A list with annotations that are not causing exceptions when not resolved to an annotation class.
      *
@@ -30,7 +30,7 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
      *
      * @var array<string, true>
      */
-    private static $globalIgnoredNames = \ECSPrefix20210507\Doctrine\Common\Annotations\ImplicitlyIgnoredAnnotationNames::LIST;
+    private static $globalIgnoredNames = \ECSPrefix20210508\Doctrine\Common\Annotations\ImplicitlyIgnoredAnnotationNames::LIST;
     /**
      * A list with annotations that are not causing exceptions when not resolved to an annotation class.
      *
@@ -96,27 +96,26 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
     public function __construct($parser = null)
     {
         if (\extension_loaded('Zend Optimizer+') && (\ini_get('zend_optimizerplus.save_comments') === '0' || \ini_get('opcache.save_comments') === '0')) {
-            throw \ECSPrefix20210507\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
+            throw \ECSPrefix20210508\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
         }
         if (\extension_loaded('Zend OPcache') && \ini_get('opcache.save_comments') === 0) {
-            throw \ECSPrefix20210507\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
+            throw \ECSPrefix20210508\Doctrine\Common\Annotations\AnnotationException::optimizerPlusSaveComments();
         }
         // Make sure that the IgnoreAnnotation annotation is loaded
-        \class_exists(\ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class);
-        $this->parser = $parser ?: new \ECSPrefix20210507\Doctrine\Common\Annotations\DocParser();
-        $this->preParser = new \ECSPrefix20210507\Doctrine\Common\Annotations\DocParser();
+        \class_exists(\ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation::class);
+        $this->parser = $parser ?: new \ECSPrefix20210508\Doctrine\Common\Annotations\DocParser();
+        $this->preParser = new \ECSPrefix20210508\Doctrine\Common\Annotations\DocParser();
         $this->preParser->setImports(self::$globalImports);
         $this->preParser->setIgnoreNotImportedAnnotations(\true);
         $this->preParser->setIgnoredAnnotationNames(self::$globalIgnoredNames);
-        $this->phpParser = new \ECSPrefix20210507\Doctrine\Common\Annotations\PhpParser();
+        $this->phpParser = new \ECSPrefix20210508\Doctrine\Common\Annotations\PhpParser();
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations($class)
+    public function getClassAnnotations(\ReflectionClass $class)
     {
-        $this->parser->setTarget(\ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
+        $this->parser->setTarget(\ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\Target::TARGET_CLASS);
         $this->parser->setImports($this->getImports($class));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -124,9 +123,8 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation($class, $annotationName)
+    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
         $annotations = $this->getClassAnnotations($class);
         foreach ($annotations as $annotation) {
@@ -138,13 +136,12 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations($property)
+    public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
         $context = 'property ' . $class->getName() . '::$' . $property->getName();
-        $this->parser->setTarget(\ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
+        $this->parser->setTarget(\ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\Target::TARGET_PROPERTY);
         $this->parser->setImports($this->getPropertyImports($property));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -152,9 +149,8 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation($property, $annotationName)
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
         $annotations = $this->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {
@@ -166,13 +162,12 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations($method)
+    public function getMethodAnnotations(\ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
         $context = 'method ' . $class->getName() . '::' . $method->getName() . '()';
-        $this->parser->setTarget(\ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\Target::TARGET_METHOD);
+        $this->parser->setTarget(\ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\Target::TARGET_METHOD);
         $this->parser->setImports($this->getMethodImports($method));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -180,9 +175,8 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation($method, $annotationName)
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
         $annotations = $this->getMethodAnnotations($method);
         foreach ($annotations as $annotation) {
@@ -196,13 +190,12 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
      * Gets the annotations applied to a function.
      *
      * @phpstan-return list<object> An array of Annotations.
-     * @param \ReflectionFunction $function
      * @return mixed[]
      */
-    public function getFunctionAnnotations($function)
+    public function getFunctionAnnotations(\ReflectionFunction $function)
     {
         $context = 'function ' . $function->getName();
-        $this->parser->setTarget(\ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\Target::TARGET_FUNCTION);
+        $this->parser->setTarget(\ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\Target::TARGET_FUNCTION);
         $this->parser->setImports($this->getImports($function));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($function));
         $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
@@ -212,10 +205,9 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
      * Gets a function annotation.
      *
      * @return object|null The Annotation or NULL, if the requested annotation does not exist.
-     * @param \ReflectionFunction $function
      * @param string $annotationName
      */
-    public function getFunctionAnnotation($function, $annotationName)
+    public function getFunctionAnnotation(\ReflectionFunction $function, $annotationName)
     {
         $annotations = $this->getFunctionAnnotations($function);
         foreach ($annotations as $annotation) {
@@ -263,9 +255,8 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
      * Retrieves imports for methods.
      *
      * @return array<string, class-string>
-     * @param \ReflectionMethod $method
      */
-    private function getMethodImports($method)
+    private function getMethodImports(\ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
         $classImports = $this->getImports($class);
@@ -282,9 +273,8 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
      * Retrieves imports for properties.
      *
      * @return array<string, class-string>
-     * @param \ReflectionProperty $property
      */
-    private function getPropertyImports($property)
+    private function getPropertyImports(\ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
         $classImports = $this->getImports($class);
@@ -310,7 +300,7 @@ class AnnotationReader implements \ECSPrefix20210507\Doctrine\Common\Annotations
         $ignoredAnnotationNames = self::$globalIgnoredNames;
         $annotations = $this->preParser->parse($reflection->getDocComment(), $type . ' ' . $name);
         foreach ($annotations as $annotation) {
-            if (!$annotation instanceof \ECSPrefix20210507\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation) {
+            if (!$annotation instanceof \ECSPrefix20210508\Doctrine\Common\Annotations\Annotation\IgnoreAnnotation) {
                 continue;
             }
             foreach ($annotation->names as $annot) {

@@ -41,9 +41,8 @@ final class Tag
     private $name;
     /**
      * Create a new tag instance.
-     * @param \PhpCsFixer\DocBlock\Line $line
      */
-    public function __construct($line)
+    public function __construct(\PhpCsFixer\DocBlock\Line $line)
     {
         $this->line = $line;
     }

@@ -40,20 +40,17 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_DOC_COMMENT)) {
@@ -83,9 +80,8 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
      *
      * This will be nicely handled behind the scenes for us by the annotation class.
      * @return void
-     * @param \PhpCsFixer\DocBlock\Annotation $annotation
      */
-    private function fixTypes($annotation)
+    private function fixTypes(\PhpCsFixer\DocBlock\Annotation $annotation)
     {
         $types = $annotation->getTypes();
         $new = $this->normalizeTypes($types);

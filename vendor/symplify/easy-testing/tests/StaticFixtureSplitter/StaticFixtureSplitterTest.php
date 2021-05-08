@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyTesting\Tests\StaticFixtureSplitter;
 
-use ECSPrefix20210507\PHPUnit\Framework\TestCase;
+use ECSPrefix20210508\PHPUnit\Framework\TestCase;
 use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\SmartFileSystem\SmartFileInfo;
-final class StaticFixtureSplitterTest extends \ECSPrefix20210507\PHPUnit\Framework\TestCase
+final class StaticFixtureSplitterTest extends \ECSPrefix20210508\PHPUnit\Framework\TestCase
 {
     public function test() : void
     {

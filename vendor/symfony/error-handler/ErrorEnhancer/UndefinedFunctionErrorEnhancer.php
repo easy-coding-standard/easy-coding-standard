@@ -8,23 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer;
+namespace ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer;
 
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\FatalError;
-use ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\FatalError;
+use ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class UndefinedFunctionErrorEnhancer implements \ECSPrefix20210507\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
+class UndefinedFunctionErrorEnhancer implements \ECSPrefix20210508\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
 {
     /**
      * {@inheritdoc}
      * @return \Throwable|null
-     * @param \Throwable $error
      */
-    public function enhance($error)
+    public function enhance(\Throwable $error)
     {
-        if ($error instanceof \ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\FatalError) {
+        if ($error instanceof \ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\FatalError) {
             return null;
         }
         $message = $error->getMessage();
@@ -74,6 +73,6 @@ class UndefinedFunctionErrorEnhancer implements \ECSPrefix20210507\Symfony\Compo
             }
             $message .= "\nDid you mean to call " . $candidates;
         }
-        return new \ECSPrefix20210507\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError($message, $error);
+        return new \ECSPrefix20210508\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError($message, $error);
     }
 }

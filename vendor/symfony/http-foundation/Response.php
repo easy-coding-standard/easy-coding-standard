@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210508\Symfony\Component\HttpFoundation;
 
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210507\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
+\class_exists(\ECSPrefix20210508\Symfony\Component\HttpFoundation\ResponseHeaderBag::class);
 /**
  * Response represents an HTTP response.
  *
@@ -233,7 +233,7 @@ class Response
      */
     public function __construct($content = '', $status = 200, array $headers = [])
     {
-        $this->headers = new \ECSPrefix20210507\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
+        $this->headers = new \ECSPrefix20210508\Symfony\Component\HttpFoundation\ResponseHeaderBag($headers);
         $this->setContent($content);
         $this->setStatusCode($status);
         $this->setProtocolVersion('1.0');
@@ -287,9 +287,8 @@ class Response
      * the Request that is "associated" with this Response.
      *
      * @return $this
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function prepare($request)
+    public function prepare(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request)
     {
         $headers = $this->headers;
         if ($this->isInformational() || $this->isEmpty()) {
@@ -647,9 +646,8 @@ class Response
      * @return object
      *
      * @final
-     * @param \DateTimeInterface $date
      */
-    public function setDate($date)
+    public function setDate(\DateTimeInterface $date)
     {
         if ($date instanceof \DateTime) {
             $date = \DateTimeImmutable::createFromMutable($date);
@@ -707,9 +705,8 @@ class Response
      * @return object
      *
      * @final
-     * @param \DateTimeInterface $date
      */
-    public function setExpires($date = null)
+    public function setExpires(\DateTimeInterface $date = null)
     {
         if (null === $date) {
             $this->headers->remove('Expires');
@@ -842,9 +839,8 @@ class Response
      * @return object
      *
      * @final
-     * @param \DateTimeInterface $date
      */
-    public function setLastModified($date = null)
+    public function setLastModified(\DateTimeInterface $date = null)
     {
         if (null === $date) {
             $this->headers->remove('Last-Modified');
@@ -1016,9 +1012,8 @@ class Response
      * @return bool true if the Response validators match the Request, false otherwise
      *
      * @final
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function isNotModified($request)
+    public function isNotModified(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request)
     {
         if (!$request->isMethodCacheable()) {
             return \false;
@@ -1196,9 +1191,8 @@ class Response
      *
      * @final
      * @return void
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    protected function ensureIEOverSSLCompatibility($request)
+    protected function ensureIEOverSSLCompatibility(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request)
     {
         if (\false !== \stripos($this->headers->get('Content-Disposition') !== null ? $this->headers->get('Content-Disposition') : '', 'attachment') && 1 == \preg_match('/MSIE (.*?);/i', $request->server->get('HTTP_USER_AGENT') !== null ? $request->server->get('HTTP_USER_AGENT') : '', $match) && \true === $request->isSecure()) {
             if ((int) \preg_replace('/(MSIE )(.*?);/', '$2', $match[0]) < 9) {

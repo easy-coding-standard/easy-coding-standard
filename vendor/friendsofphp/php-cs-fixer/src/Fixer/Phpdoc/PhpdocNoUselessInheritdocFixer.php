@@ -47,20 +47,17 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_DOC_COMMENT) && $tokens->isAnyTokenKindsFound([\T_CLASS, \T_INTERFACE]);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // min. offset 4 as minimal candidate is @: <?php\n/** @inheritdoc */class min{}
         for ($index = 1, $count = \count($tokens) - 4; $index < $count; ++$index) {
@@ -70,11 +67,10 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $index
      * @return int
      */
-    private function fixClassy($tokens, $index)
+    private function fixClassy(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         // figure out where the classy starts
         $classOpenIndex = $tokens->getNextTokenOfKind($index, ['{']);
@@ -95,12 +91,11 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $classOpenIndex
      * @param int $classEndIndex
      * @param bool $fixThisLevel
      */
-    private function fixClassyInside($tokens, $classOpenIndex, $classEndIndex, $fixThisLevel)
+    private function fixClassyInside(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, $classEndIndex, $fixThisLevel)
     {
         for ($i = $classOpenIndex; $i < $classEndIndex; ++$i) {
             if ($tokens[$i]->isGivenKind(\T_CLASS)) {
@@ -112,10 +107,9 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $classIndex
      */
-    private function fixClassyOutside($tokens, $classIndex)
+    private function fixClassyOutside(\PhpCsFixer\Tokenizer\Tokens $tokens, $classIndex)
     {
         $previousIndex = $tokens->getPrevNonWhitespace($classIndex);
         if ($tokens[$previousIndex]->isGivenKind(\T_DOC_COMMENT)) {
@@ -124,10 +118,9 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $tokenIndex
      */
-    private function fixToken($tokens, $tokenIndex)
+    private function fixToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $tokenIndex)
     {
         $count = 0;
         $content = \PhpCsFixer\Preg::replaceCallback('#(\\h*(?:@{*|{*\\h*@)\\h*inheritdoc\\h*)([^}]*)((?:}*)\\h*)#i', static function (array $matches) {
@@ -138,12 +131,11 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
         }
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $classIndex
      * @param int $classOpenIndex
      * @return bool
      */
-    private function isExtendingOrImplementing($tokens, $classIndex, $classOpenIndex)
+    private function isExtendingOrImplementing(\PhpCsFixer\Tokenizer\Tokens $tokens, $classIndex, $classOpenIndex)
     {
         for ($index = $classIndex; $index < $classOpenIndex; ++$index) {
             if ($tokens[$index]->isGivenKind([\T_EXTENDS, \T_IMPLEMENTS])) {
@@ -153,13 +145,12 @@ final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
         return \false;
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $classIndex
      * @param int $classOpenIndex
      * @param int $classCloseIndex
      * @return bool
      */
-    private function isUsingTrait($tokens, $classIndex, $classOpenIndex, $classCloseIndex)
+    private function isUsingTrait(\PhpCsFixer\Tokenizer\Tokens $tokens, $classIndex, $classOpenIndex, $classCloseIndex)
     {
         if ($tokens[$classIndex]->isGivenKind(\T_INTERFACE)) {
             // cannot use Trait inside an interface

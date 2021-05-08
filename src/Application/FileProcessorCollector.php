@@ -13,10 +13,8 @@ final class FileProcessorCollector
     private $fileProcessors = [];
     /**
      * orders matters, so Fixer can cleanup after Sniffer
-     * @param \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor
-     * @param \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor
      */
-    public function __construct($sniffFileProcessor, $fixerFileProcessor)
+    public function __construct(\Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor, \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor)
     {
         $this->fileProcessors[] = $sniffFileProcessor;
         $this->fileProcessors[] = $fixerFileProcessor;

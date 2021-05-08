@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Controller;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
 /**
  * A ControllerResolverInterface implementation knows how to determine the
  * controller to execute based on a Request object.
@@ -34,7 +34,6 @@ interface ControllerResolverInterface
      *                        or false if this resolver is not able to determine the controller
      *
      * @throws \LogicException If a controller was found based on the request but it is not callable
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function getController($request);
+    public function getController(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request);
 }

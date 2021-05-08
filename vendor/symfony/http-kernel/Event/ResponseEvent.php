@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to filter a Response object.
  *
@@ -22,16 +22,13 @@ use ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ResponseEvent extends \ECSPrefix20210507\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ResponseEvent extends \ECSPrefix20210508\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
     /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $requestType
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function __construct($kernel, $request, $requestType, $response)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $requestType, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response)
     {
         parent::__construct($kernel, $request, $requestType);
         $this->setResponse($response);
@@ -45,9 +42,8 @@ final class ResponseEvent extends \ECSPrefix20210507\Symfony\Component\HttpKerne
     }
     /**
      * @return void
-     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    public function setResponse($response)
+    public function setResponse(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response)
     {
         $this->response = $response;
     }

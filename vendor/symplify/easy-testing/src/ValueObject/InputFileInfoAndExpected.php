@@ -15,9 +15,8 @@ final class InputFileInfoAndExpected
     private $expected;
     /**
      * @param mixed $expected
-     * @param \Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo
      */
-    public function __construct($inputFileInfo, $expected)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, $expected)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expected = $expected;

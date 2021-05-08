@@ -11,7 +11,7 @@
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Kévin Gomez <contact@kevingomez.fr>
  *
@@ -29,10 +29,9 @@ final class CheckstyleReporter implements \PhpCsFixer\Console\Report\FixReport\R
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary
      * @return string
      */
-    public function generate($reportSummary)
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary)
     {
         if (!\extension_loaded('dom')) {
             throw new \RuntimeException('Cannot generate report! `ext-dom` is not available!');
@@ -49,14 +48,13 @@ final class CheckstyleReporter implements \PhpCsFixer\Console\Report\FixReport\R
             }
         }
         $dom->formatOutput = \true;
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210507\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
     }
     /**
-     * @param \DOMDocument $dom
      * @param string $appliedFixer
      * @return \DOMElement
      */
-    private function createError($dom, $appliedFixer)
+    private function createError(\DOMDocument $dom, $appliedFixer)
     {
         $error = $dom->createElement('error');
         $error->setAttribute('severity', 'warning');

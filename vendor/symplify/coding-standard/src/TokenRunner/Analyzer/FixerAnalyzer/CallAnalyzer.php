@@ -11,7 +11,7 @@ final class CallAnalyzer
      * @param int $bracketPosition
      * @return bool
      */
-    public function isMethodCall($tokens, $bracketPosition)
+    public function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $bracketPosition)
     {
         $objectToken = new \PhpCsFixer\Tokenizer\Token([\T_OBJECT_OPERATOR, '->']);
         $whitespaceToken = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);

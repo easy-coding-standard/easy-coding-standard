@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210507\Doctrine\Common\Annotations;
+namespace ECSPrefix20210508\Doctrine\Common\Annotations;
 
-use ECSPrefix20210507\Doctrine\Common\Cache\Cache;
+use ECSPrefix20210508\Doctrine\Common\Cache\Cache;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -15,7 +15,7 @@ use function time;
 /**
  * A cache aware annotation reader.
  */
-final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotations\Reader
+final class CachedReader implements \ECSPrefix20210508\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
@@ -29,10 +29,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     private $loadedFilemtimes = [];
     /**
      * @param bool $debug
-     * @param \Doctrine\Common\Annotations\Reader $reader
-     * @param \Doctrine\Common\Cache\Cache $cache
      */
-    public function __construct($reader, $cache, $debug = \false)
+    public function __construct(\ECSPrefix20210508\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210508\Doctrine\Common\Cache\Cache $cache, $debug = \false)
     {
         $this->delegate = $reader;
         $this->cache = $cache;
@@ -40,9 +38,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotations($class)
+    public function getClassAnnotations(\ReflectionClass $class)
     {
         $cacheKey = $class->getName();
         if (isset($this->loadedAnnotations[$cacheKey])) {
@@ -57,9 +54,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionClass $class
      */
-    public function getClassAnnotation($class, $annotationName)
+    public function getClassAnnotation(\ReflectionClass $class, $annotationName)
     {
         foreach ($this->getClassAnnotations($class) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -70,9 +66,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotations($property)
+    public function getPropertyAnnotations(\ReflectionProperty $property)
     {
         $class = $property->getDeclaringClass();
         $cacheKey = $class->getName() . '$' . $property->getName();
@@ -88,9 +83,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionProperty $property
      */
-    public function getPropertyAnnotation($property, $annotationName)
+    public function getPropertyAnnotation(\ReflectionProperty $property, $annotationName)
     {
         foreach ($this->getPropertyAnnotations($property) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -101,9 +95,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotations($method)
+    public function getMethodAnnotations(\ReflectionMethod $method)
     {
         $class = $method->getDeclaringClass();
         $cacheKey = $class->getName() . '#' . $method->getName();
@@ -119,9 +112,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     }
     /**
      * {@inheritDoc}
-     * @param \ReflectionMethod $method
      */
-    public function getMethodAnnotation($method, $annotationName)
+    public function getMethodAnnotation(\ReflectionMethod $method, $annotationName)
     {
         foreach ($this->getMethodAnnotations($method) as $annot) {
             if ($annot instanceof $annotationName) {
@@ -146,9 +138,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
      * @param string $cacheKey The cache key.
      *
      * @return mixed The cached value or false when the value is not in cache.
-     * @param \ReflectionClass $class
      */
-    private function fetchFromCache($cacheKey, $class)
+    private function fetchFromCache($cacheKey, \ReflectionClass $class)
     {
         $data = $this->cache->fetch($cacheKey);
         if ($data !== \false) {
@@ -180,9 +171,8 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
      * @param string $cacheKey
      *
      * @return bool
-     * @param \ReflectionClass $class
      */
-    private function isCacheFresh($cacheKey, $class)
+    private function isCacheFresh($cacheKey, \ReflectionClass $class)
     {
         $lastModification = $this->getLastModification($class);
         if ($lastModification === 0) {
@@ -192,10 +182,9 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
     }
     /**
      * Returns the time the class was last modified, testing traits and parents
-     * @param \ReflectionClass $class
      * @return int
      */
-    private function getLastModification($class)
+    private function getLastModification(\ReflectionClass $class)
     {
         $filename = $class->getFileName();
         if (isset($this->loadedFilemtimes[$filename])) {
@@ -211,10 +200,9 @@ final class CachedReader implements \ECSPrefix20210507\Doctrine\Common\Annotatio
         return $this->loadedFilemtimes[$filename] = $lastModification;
     }
     /**
-     * @param \ReflectionClass $reflectionTrait
      * @return int
      */
-    private function getTraitLastModificationTime($reflectionTrait)
+    private function getTraitLastModificationTime(\ReflectionClass $reflectionTrait)
     {
         $fileName = $reflectionTrait->getFileName();
         if (isset($this->loadedFilemtimes[$fileName])) {

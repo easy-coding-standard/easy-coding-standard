@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210508\Symfony\Component\ErrorHandler;
 
 /**
  * @internal
@@ -16,10 +16,9 @@ namespace ECSPrefix20210507\Symfony\Component\ErrorHandler;
 class ThrowableUtils
 {
     /**
-     * @param \Throwable $throwable
      * @return int
      */
-    public static function getSeverity($throwable)
+    public static function getSeverity(\Throwable $throwable)
     {
         if ($throwable instanceof \ErrorException) {
             return $throwable->getSeverity();

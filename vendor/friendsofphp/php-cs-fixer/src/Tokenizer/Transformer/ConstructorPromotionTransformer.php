@@ -35,11 +35,9 @@ final class ConstructorPromotionTransformer extends \PhpCsFixer\Tokenizer\Abstra
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @param int $index
      */
-    public function process($tokens, $token, $index)
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
         if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
             return;

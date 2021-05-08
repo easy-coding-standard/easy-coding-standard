@@ -15,10 +15,7 @@ final class DocblockRelatedParamNamesResolver
      * @var Token[]
      */
     private $functionTokens = [];
-    /**
-     * @param \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionsAnalyzer
-     */
-    public function __construct($functionsAnalyzer)
+    public function __construct(\PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer $functionsAnalyzer)
     {
         $this->functionsAnalyzer = $functionsAnalyzer;
         $this->functionTokens[] = new \PhpCsFixer\Tokenizer\Token([\T_FUNCTION, 'function']);
@@ -32,7 +29,7 @@ final class DocblockRelatedParamNamesResolver
      * @param Tokens<Token> $tokens
      * @param int $docTokenPosition
      */
-    public function resolve($tokens, $docTokenPosition)
+    public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $docTokenPosition)
     {
         $functionTokenPosition = $tokens->getNextTokenOfKind($docTokenPosition, $this->functionTokens);
         if ($functionTokenPosition === null) {

@@ -23,9 +23,8 @@ final class NamespaceUsesAnalyzer
 {
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function getDeclarationsFromTokens($tokens)
+    public function getDeclarationsFromTokens(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $tokenAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $useIndexes = $tokenAnalyzer->getImportUseIndexes();
@@ -33,10 +32,8 @@ final class NamespaceUsesAnalyzer
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace
      */
-    public function getDeclarationsInNamespace($tokens, $namespace)
+    public function getDeclarationsInNamespace(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis $namespace)
     {
         $namespaceUses = [];
         foreach ($this->getDeclarationsFromTokens($tokens) as $namespaceUse) {
@@ -48,9 +45,8 @@ final class NamespaceUsesAnalyzer
     }
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function getDeclarations($tokens, array $useIndexes)
+    private function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens, array $useIndexes)
     {
         $uses = [];
         foreach ($useIndexes as $index) {
@@ -64,11 +60,10 @@ final class NamespaceUsesAnalyzer
     }
     /**
      * @return \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function parseDeclaration($tokens, $startIndex, $endIndex)
+    private function parseDeclaration(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         $fullName = $shortName = '';
         $aliased = \false;

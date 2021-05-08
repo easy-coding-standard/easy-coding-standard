@@ -22,10 +22,9 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
      */
     private $deprecationMessage;
     /**
-     * @param \PhpCsFixer\FixerConfiguration\FixerOptionInterface $option
      * @param string $deprecationMessage
      */
-    public function __construct($option, $deprecationMessage)
+    public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionInterface $option, $deprecationMessage)
     {
         $this->option = $option;
         $this->deprecationMessage = $deprecationMessage;

@@ -116,11 +116,10 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     /**
      * {@inheritdoc}
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $startIndex
      * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix($tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
     {
         $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
@@ -172,10 +171,9 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
         }
     }
     /**
-     * @param \PhpCsFixer\DocBlock\Annotation $annotation
      * @return string
      */
-    private function extractContentFromAnnotation($annotation)
+    private function extractContentFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation)
     {
         $tag = $annotation->getTag()->getName();
         if (1 !== \PhpCsFixer\Preg::match('/@' . $tag . '\\s+(.+)$/s', $annotation->getContent(), $matches)) {

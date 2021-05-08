@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception;
 
 /**
  * Thrown when trying to inject a parameter into a constructor/method with an incompatible type.
@@ -16,14 +16,13 @@ namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception;
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Julien Maulny <jmaulny@darkmira.fr>
  */
-class InvalidParameterTypeException extends \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
+class InvalidParameterTypeException extends \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
 {
     /**
      * @param string $serviceId
      * @param string $type
-     * @param \ReflectionParameter $parameter
      */
-    public function __construct($serviceId, $type, $parameter)
+    public function __construct($serviceId, $type, \ReflectionParameter $parameter)
     {
         $acceptedType = $parameter->getType();
         $acceptedType = $acceptedType instanceof \ReflectionNamedType ? $acceptedType->getName() : (string) $acceptedType;

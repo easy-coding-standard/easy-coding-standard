@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
@@ -13,7 +13,7 @@ final class TokenFinder
      * @param Tokens<Token> $tokens
      * @return \PhpCsFixer\Tokenizer\Token
      */
-    public function getPreviousMeaningfulToken($tokens, $position)
+    public function getPreviousMeaningfulToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (\is_int($position)) {
             return $this->findPreviousTokenByPosition($tokens, $position);
@@ -63,7 +63,7 @@ final class TokenFinder
         $rawTokensCount = \count($rawTokens);
         for ($i = $position; $i < $rawTokensCount; ++$i) {
             $token = $rawTokens[$i];
-            if (\is_array($token) && \ECSPrefix20210507\Nette\Utils\Strings::contains($token[1], \PHP_EOL)) {
+            if (\is_array($token) && \ECSPrefix20210508\Nette\Utils\Strings::contains($token[1], \PHP_EOL)) {
                 break;
             }
             $lastToken = $token;
@@ -75,7 +75,7 @@ final class TokenFinder
      * @param int $position
      * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function findPreviousTokenByPosition($tokens, $position)
+    private function findPreviousTokenByPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $previousPosition = $position - 1;
         if (!isset($tokens[$previousPosition])) {
@@ -85,20 +85,18 @@ final class TokenFinder
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $positionToken
      * @return \PhpCsFixer\Tokenizer\Token
      */
-    private function findPreviousTokenByToken($tokens, $positionToken)
+    private function findPreviousTokenByToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $positionToken)
     {
         $position = $this->resolvePositionByToken($tokens, $positionToken);
         return $this->findPreviousTokenByPosition($tokens, $position - 1);
     }
     /**
      * @param Tokens<Token> $tokens
-     * @param \PhpCsFixer\Tokenizer\Token $positionToken
      * @return int
      */
-    private function resolvePositionByToken($tokens, $positionToken)
+    private function resolvePositionByToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $positionToken)
     {
         foreach ($tokens as $position => $token) {
             if ($token === $positionToken) {

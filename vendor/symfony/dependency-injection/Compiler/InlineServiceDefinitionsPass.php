@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference;
 /**
  * Inline service definitions where this is possible.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class InlineServiceDefinitionsPass extends \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $analyzingPass;
     private $cloningIds = [];
@@ -29,21 +29,15 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\
     private $inlinedIds = [];
     private $notInlinableIds = [];
     private $graph;
-    /**
-     * @param \Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass $analyzingPass
-     */
-    public function __construct($analyzingPass = null)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass $analyzingPass = null)
     {
         $this->analyzingPass = $analyzingPass;
     }
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    public function process($container)
+    public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         if ($this->analyzingPass) {
-            $analyzedContainer = new \ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder();
+            $analyzedContainer = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder();
             $analyzedContainer->setAliases($container->getAliases());
             $analyzedContainer->setDefinitions($container->getDefinitions());
             foreach ($container->getExpressionLanguageProviders() as $provider) {
@@ -106,17 +100,17 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\
      */
     protected function processValue($value, $isRoot = \false)
     {
-        if ($value instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+        if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             // Reference found in ArgumentInterface::getValues() are not inlineable
             return $value;
         }
-        if ($value instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition && $this->cloningIds) {
+        if ($value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition && $this->cloningIds) {
             if ($value->isShared()) {
                 return $value;
             }
             $value = clone $value;
         }
-        if (!$value instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference) {
+        if (!$value instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         } elseif (!$this->container->hasDefinition($id = (string) $value)) {
             return $value;
@@ -135,7 +129,7 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\
         if (isset($this->cloningIds[$id])) {
             $ids = \array_keys($this->cloningIds);
             $ids[] = $id;
-            throw new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_slice($ids, \array_search($id, $ids)));
+            throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_slice($ids, \array_search($id, $ids)));
         }
         $this->cloningIds[$id] = \true;
         try {
@@ -147,10 +141,9 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\
     /**
      * Checks if the definition is inlineable.
      * @param string $id
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return bool
      */
-    private function isInlineableDefinition($id, $definition)
+    private function isInlineableDefinition($id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
         if ($definition->hasErrors() || $definition->isDeprecated() || $definition->isLazy() || $definition->isSynthetic()) {
             return \false;
@@ -195,7 +188,7 @@ class InlineServiceDefinitionsPass extends \ECSPrefix20210507\Symfony\Component\
             $this->notInlinedIds[$id] = \true;
             return \false;
         }
-        if ($srcCount > 1 && \is_array($factory = $definition->getFactory()) && ($factory[0] instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Reference || $factory[0] instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition)) {
+        if ($srcCount > 1 && \is_array($factory = $definition->getFactory()) && ($factory[0] instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference || $factory[0] instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition)) {
             return \false;
         }
         return $this->container->getDefinition($srcId)->isShared();

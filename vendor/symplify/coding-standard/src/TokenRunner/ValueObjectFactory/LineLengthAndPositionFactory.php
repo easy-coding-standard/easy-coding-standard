@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenRunner\ValueObjectFactory;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException;
@@ -15,7 +15,7 @@ final class LineLengthAndPositionFactory
      * @param int $currentPosition
      * @return \Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition
      */
-    public function createFromTokensAndLineStartPosition($tokens, $currentPosition)
+    public function createFromTokensAndLineStartPosition(\PhpCsFixer\Tokenizer\Tokens $tokens, $currentPosition)
     {
         $length = 0;
         while (!$this->isNewLineOrOpenTag($tokens, $currentPosition)) {
@@ -41,16 +41,16 @@ final class LineLengthAndPositionFactory
         return new \Symplify\CodingStandard\TokenRunner\ValueObject\LineLengthAndPosition($length, $currentPosition);
     }
     /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
+     * @param Tokens|Token[] $tokens
      * @param int $position
      * @return bool
      */
-    private function isNewLineOrOpenTag($tokens, $position)
+    private function isNewLineOrOpenTag(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         if (!isset($tokens[$position])) {
             throw new \Symplify\CodingStandard\TokenRunner\Exception\TokenNotFoundException($position);
         }
-        if (\ECSPrefix20210507\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
+        if (\ECSPrefix20210508\Nette\Utils\Strings::startsWith($tokens[$position]->getContent(), \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar())) {
             return \true;
         }
         return $tokens[$position]->isGivenKind(\T_OPEN_TAG);

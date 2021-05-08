@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpKernel\Event;
+namespace ECSPrefix20210508\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface;
-use ECSPrefix20210507\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210508\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Base class for events thrown in the HttpKernel component.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class KernelEvent extends \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\Event
+class KernelEvent extends \ECSPrefix20210508\Symfony\Contracts\EventDispatcher\Event
 {
     private $kernel;
     private $request;
@@ -26,10 +26,8 @@ class KernelEvent extends \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\E
     /**
      * @param int $requestType The request type the kernel is currently processing; one of
      *                         HttpKernelInterface::MASTER_REQUEST or HttpKernelInterface::SUB_REQUEST
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $kernel
-     * @param \Symfony\Component\HttpFoundation\Request $request
      */
-    public function __construct($kernel, $request, $requestType)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         $this->kernel = $kernel;
         $this->request = $request;
@@ -70,6 +68,6 @@ class KernelEvent extends \ECSPrefix20210507\Symfony\Contracts\EventDispatcher\E
      */
     public function isMasterRequest()
     {
-        return \ECSPrefix20210507\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $this->requestType;
+        return \ECSPrefix20210508\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $this->requestType;
     }
 }

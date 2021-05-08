@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210507\Nette\Utils;
+namespace ECSPrefix20210508\Nette\Utils;
 
-use ECSPrefix20210507\Nette;
+use ECSPrefix20210508\Nette;
 use function is_array, is_object, is_string;
 /**
  * PHP callable tools.
@@ -22,7 +22,7 @@ final class Callback
         try {
             return \Closure::fromCallable($method === null ? $callable : [$callable, $method]);
         } catch (\TypeError $e) {
-            throw new \ECSPrefix20210507\Nette\InvalidArgumentException($e->getMessage());
+            throw new \ECSPrefix20210508\Nette\InvalidArgumentException($e->getMessage());
         }
     }
     /**
@@ -56,7 +56,7 @@ final class Callback
     {
         $prev = \set_error_handler(function ($severity, $message, $file) use($onError, &$prev, $function) {
             if ($file === __FILE__) {
-                $msg = \ini_get('html_errors') ? \ECSPrefix20210507\Nette\Utils\Html::htmlToText($message) : $message;
+                $msg = \ini_get('html_errors') ? \ECSPrefix20210508\Nette\Utils\Html::htmlToText($message) : $message;
                 $msg = \preg_replace("#^{$function}\\(.*?\\): #", '', $msg);
                 if ($onError($msg, $severity) !== \false) {
                     return null;
@@ -81,7 +81,7 @@ final class Callback
     public static function check($callable, $syntax = \false)
     {
         if (!\is_callable($callable, $syntax)) {
-            throw new \ECSPrefix20210507\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
+            throw new \ECSPrefix20210508\Nette\InvalidArgumentException($syntax ? 'Given value is not a callable type.' : \sprintf("Callback '%s' is not callable.", self::toString($callable)));
         }
         return $callable;
     }
@@ -133,10 +133,9 @@ final class Callback
     }
     /**
      * Unwraps closure created by Closure::fromCallable().
-     * @param \Closure $closure
      * @return callable
      */
-    public static function unwrap($closure)
+    public static function unwrap(\Closure $closure)
     {
         $r = new \ReflectionFunction($closure);
         if (\substr($r->name, -1) === '}') {

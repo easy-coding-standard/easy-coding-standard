@@ -19,7 +19,6 @@ interface WhitespacesAwareFixerInterface extends \PhpCsFixer\Fixer\FixerInterfac
 {
     /**
      * @return void
-     * @param \PhpCsFixer\WhitespacesFixerConfig $config
      */
-    public function setWhitespacesConfig($config);
+    public function setWhitespacesConfig(\PhpCsFixer\WhitespacesFixerConfig $config);
 }

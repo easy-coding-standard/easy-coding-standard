@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\HttpFoundation\Session;
+namespace ECSPrefix20210508\Symfony\Component\HttpFoundation\Session;
 
-use ECSPrefix20210507\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
+use ECSPrefix20210508\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 /**
  * Interface for the session.
  *
@@ -135,9 +135,8 @@ interface SessionInterface
     public function isStarted();
     /**
      * Registers a SessionBagInterface with the session.
-     * @param \Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag
      */
-    public function registerBag($bag);
+    public function registerBag(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag);
     /**
      * Gets a bag instance by name.
      *

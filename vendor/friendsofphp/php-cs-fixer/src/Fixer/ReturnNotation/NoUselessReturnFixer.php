@@ -23,10 +23,9 @@ final class NoUselessReturnFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAllTokenKindsFound([\T_FUNCTION, \T_RETURN]);
     }
@@ -59,10 +58,8 @@ function example($b) {
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isGivenKind(\T_FUNCTION)) {
@@ -78,9 +75,8 @@ function example($b) {
      * @param int $start Token index of the opening brace token of the function
      * @param int $end   Token index of the closing brace token of the function
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixFunction($tokens, $start, $end)
+    private function fixFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
         for ($index = $end; $index > $start; --$index) {
             if (!$tokens[$index]->isGivenKind(\T_RETURN)) {

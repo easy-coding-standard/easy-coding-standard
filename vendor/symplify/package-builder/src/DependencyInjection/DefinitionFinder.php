@@ -2,8 +2,8 @@
 
 namespace Symplify\PackageBuilder\DependencyInjection;
 
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition;
 use Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
 use Throwable;
 /**
@@ -13,10 +13,9 @@ final class DefinitionFinder
 {
     /**
      * @return mixed[]
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      * @param string $type
      */
-    public function findAllByType($containerBuilder, $type)
+    public function findAllByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         $definitions = [];
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
@@ -32,11 +31,10 @@ final class DefinitionFinder
         return $definitions;
     }
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      * @param string $type
      * @return \Symfony\Component\DependencyInjection\Definition
      */
-    public function getByType($containerBuilder, $type)
+    public function getByType(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         $definition = $this->getByTypeIfExists($containerBuilder, $type);
         if ($definition !== null) {
@@ -46,10 +44,9 @@ final class DefinitionFinder
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Definition|null
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder
      * @param string $type
      */
-    private function getByTypeIfExists($containerBuilder, $type)
+    private function getByTypeIfExists(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $name => $definition) {

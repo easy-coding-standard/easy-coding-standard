@@ -67,9 +67,8 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     /**
      * @param int $index The index of the function token
      * @return int|null
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function findFunctionDocComment($tokens, $index)
+    protected function findFunctionDocComment(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         do {
             $index = $tokens->getPrevNonWhitespace($index);
@@ -82,10 +81,9 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     /**
      * @return mixed[]
      * @param string $name
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @param int $docCommentIndex
      */
-    protected function getAnnotationsFromDocComment($name, $tokens, $docCommentIndex)
+    protected function getAnnotationsFromDocComment($name, \PhpCsFixer\Tokenizer\Tokens $tokens, $docCommentIndex)
     {
         $namespacesAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer();
         $namespace = $namespacesAnalyzer->getNamespaceAt($tokens, $docCommentIndex);
@@ -129,10 +127,9 @@ abstract class AbstractPhpdocToTypeDeclarationFixer extends \PhpCsFixer\Abstract
     }
     /**
      * @return mixed[]|null
-     * @param \PhpCsFixer\DocBlock\Annotation $annotation
      * @param bool $isReturnType
      */
-    protected function getCommonTypeFromAnnotation($annotation, $isReturnType)
+    protected function getCommonTypeFromAnnotation(\PhpCsFixer\DocBlock\Annotation $annotation, $isReturnType)
     {
         $typesExpression = $annotation->getTypeExpression();
         $commonType = $typesExpression->getCommonType();

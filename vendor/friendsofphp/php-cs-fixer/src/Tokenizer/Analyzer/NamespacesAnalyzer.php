@@ -20,9 +20,8 @@ final class NamespacesAnalyzer
 {
     /**
      * @return mixed[]
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function getDeclarations($tokens)
+    public function getDeclarations(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $namespaces = [];
         for ($index = 1, $count = \count($tokens); $index < $count; ++$index) {
@@ -56,9 +55,8 @@ final class NamespacesAnalyzer
      * @param int $index
      *
      * @return NamespaceAnalysis
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function getNamespaceAt($tokens, $index)
+    public function getNamespaceAt(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         if (!$tokens->offsetExists($index)) {
             throw new \InvalidArgumentException("Token index {$index} does not exist.");

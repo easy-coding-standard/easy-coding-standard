@@ -47,10 +47,9 @@ final class SpaceAfterSemicolonFixer extends \PhpCsFixer\AbstractFixer implement
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(';');
     }
@@ -65,10 +64,8 @@ final class SpaceAfterSemicolonFixer extends \PhpCsFixer\AbstractFixer implement
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $insideForParenthesesUntil = null;
         for ($index = 0, $max = \count($tokens) - 1; $index < $max; ++$index) {

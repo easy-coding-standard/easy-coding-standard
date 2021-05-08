@@ -22,7 +22,7 @@ class Text extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    public function processSniff($doc)
+    public function processSniff(\DOMNode $doc)
     {
         $this->printTitle($doc);
         foreach ($doc->childNodes as $node) {
@@ -45,7 +45,7 @@ class Text extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function printTitle($doc)
+    protected function printTitle(\DOMNode $doc)
     {
         $title = $this->getTitle($doc);
         $standard = $this->ruleset->name;
@@ -63,7 +63,7 @@ class Text extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function printTextBlock($node)
+    protected function printTextBlock(\DOMNode $node)
     {
         $text = \trim($node->nodeValue);
         $text = \str_replace('<em>', '*', $text);
@@ -110,7 +110,7 @@ class Text extends \PHP_CodeSniffer\Generators\Generator
      *
      * @return void
      */
-    protected function printCodeComparisonBlock($node)
+    protected function printCodeComparisonBlock(\DOMNode $node)
     {
         $codeBlocks = $node->getElementsByTagName('code');
         $first = \trim($codeBlocks->item(0)->nodeValue);

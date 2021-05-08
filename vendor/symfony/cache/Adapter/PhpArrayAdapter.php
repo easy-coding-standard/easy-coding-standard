@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210507\Psr\Cache\CacheItemInterface;
-use ECSPrefix20210507\Psr\Cache\CacheItemPoolInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\ResettableInterface;
-use ECSPrefix20210507\Symfony\Component\Cache\Traits\ContractsTrait;
-use ECSPrefix20210507\Symfony\Component\Cache\Traits\ProxyTrait;
-use ECSPrefix20210507\Symfony\Component\VarExporter\VarExporter;
-use ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface;
+use ECSPrefix20210508\Psr\Cache\CacheItemInterface;
+use ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface;
+use ECSPrefix20210508\Symfony\Component\Cache\Traits\ContractsTrait;
+use ECSPrefix20210508\Symfony\Component\Cache\Traits\ProxyTrait;
+use ECSPrefix20210508\Symfony\Component\VarExporter\VarExporter;
+use ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface;
 /**
  * Caches items at warm up time using a PHP array that is stored in shared memory by OPCache since PHP 7.0.
  * Warmed up items are read-only and run-time discovered items are cached using a fallback adapter.
@@ -27,7 +27,7 @@ use ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface;
  * @author Titouan Galopin <galopintitouan@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface, \ECSPrefix20210507\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210507\Symfony\Component\Cache\ResettableInterface
+class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface, \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface
 {
     use ContractsTrait;
     use ProxyTrait;
@@ -40,17 +40,17 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
      * @param string           $file         The PHP file were values are cached
      * @param AdapterInterface $fallbackPool A pool to fallback on when an item is not hit
      */
-    public function __construct($file, $fallbackPool)
+    public function __construct($file, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $fallbackPool)
     {
         $this->file = $file;
         $this->pool = $fallbackPool;
         $this->createCacheItem = \Closure::bind(static function ($key, $value, $isHit) {
-            $item = new \ECSPrefix20210507\Symfony\Component\Cache\CacheItem();
+            $item = new \ECSPrefix20210508\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->value = $value;
             $item->isHit = $isHit;
             return $item;
-        }, null, \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::class);
+        }, null, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * This adapter takes advantage of how PHP stores arrays in its latest versions.
@@ -60,10 +60,10 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
      *
      * @return CacheItemPoolInterface
      */
-    public static function create($file, $fallbackPool)
+    public static function create($file, \ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $fallbackPool)
     {
-        if (!$fallbackPool instanceof \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface) {
-            $fallbackPool = new \ECSPrefix20210507\Symfony\Component\Cache\Adapter\ProxyAdapter($fallbackPool);
+        if (!$fallbackPool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
+            $fallbackPool = new \ECSPrefix20210508\Symfony\Component\Cache\Adapter\ProxyAdapter($fallbackPool);
         }
         return new static($file, $fallbackPool);
     }
@@ -79,7 +79,7 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
         }
         if (!isset($this->keys[$key])) {
             get_from_pool:
-            if ($this->pool instanceof \ECSPrefix20210507\Symfony\Contracts\Cache\CacheInterface) {
+            if ($this->pool instanceof \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface) {
                 return $this->pool->get($key, $callback, $beta, $metadata);
             }
             return $this->doGet($this->pool, $key, $callback, $beta, $metadata);
@@ -104,7 +104,7 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
     public function getItem($key)
     {
         if (!\is_string($key)) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
         if (null === $this->values) {
             $this->initialize();
@@ -134,7 +134,7 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
     {
         foreach ($keys as $key) {
             if (!\is_string($key)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
             }
         }
         if (null === $this->values) {
@@ -150,7 +150,7 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
     public function hasItem($key)
     {
         if (!\is_string($key)) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
         if (null === $this->values) {
             $this->initialize();
@@ -165,7 +165,7 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
     public function deleteItem($key)
     {
         if (!\is_string($key)) {
-            throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
+            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
         }
         if (null === $this->values) {
             $this->initialize();
@@ -183,7 +183,7 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
         $fallbackKeys = [];
         foreach ($keys as $key) {
             if (!\is_string($key)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', \get_debug_type($key)));
             }
             if (isset($this->keys[$key])) {
                 $deleted = \false;
@@ -203,9 +203,8 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function save($item)
+    public function save(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
     {
         if (null === $this->values) {
             $this->initialize();
@@ -216,9 +215,8 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
      * {@inheritdoc}
      *
      * @return bool
-     * @param \Psr\Cache\CacheItemInterface $item
      */
-    public function saveDeferred($item)
+    public function saveDeferred(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
     {
         if (null === $this->values) {
             $this->initialize();
@@ -245,7 +243,7 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
         $this->keys = $this->values = [];
         $cleared = @\unlink($this->file) || !\file_exists($this->file);
         unset(self::$valuesCache[$this->file]);
-        if ($this->pool instanceof \ECSPrefix20210507\Symfony\Component\Cache\Adapter\AdapterInterface) {
+        if ($this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
             return $this->pool->clear($prefix) && $cleared;
         }
         return $this->pool->clear() && $cleared;
@@ -261,18 +259,18 @@ class PhpArrayAdapter implements \ECSPrefix20210507\Symfony\Component\Cache\Adap
     {
         if (\file_exists($this->file)) {
             if (!\is_file($this->file)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache path exists and is not a file: "%s".', $this->file));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache path exists and is not a file: "%s".', $this->file));
             }
             if (!\is_writable($this->file)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache file is not writable: "%s".', $this->file));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache file is not writable: "%s".', $this->file));
             }
         } else {
             $directory = \dirname($this->file);
             if (!\is_dir($directory) && !@\mkdir($directory, 0777, \true)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache directory does not exist and cannot be created: "%s".', $directory));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache directory does not exist and cannot be created: "%s".', $directory));
             }
             if (!\is_writable($directory)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache directory is not writable: "%s".', $directory));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache directory is not writable: "%s".', $directory));
             }
         }
         $preload = [];
@@ -288,15 +286,15 @@ return [[
 
 EOF;
         foreach ($values as $key => $value) {
-            \ECSPrefix20210507\Symfony\Component\Cache\CacheItem::validateKey(\is_int($key) ? (string) $key : $key);
+            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey(\is_int($key) ? (string) $key : $key);
             $isStaticValue = \true;
             if (null === $value) {
                 $value = "'N;'";
             } elseif (\is_object($value) || \is_array($value)) {
                 try {
-                    $value = \ECSPrefix20210507\Symfony\Component\VarExporter\VarExporter::export($value, $isStaticValue, $preload);
+                    $value = \ECSPrefix20210508\Symfony\Component\VarExporter\VarExporter::export($value, $isStaticValue, $preload);
                 } catch (\Exception $e) {
-                    throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)), 0, $e);
+                    throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)), 0, $e);
                 }
             } elseif (\is_string($value)) {
                 // Wrap "N;" in a closure to not confuse it with an encoded `null`
@@ -305,7 +303,7 @@ EOF;
                 }
                 $value = \var_export($value, \true);
             } elseif (!\is_scalar($value)) {
-                throw new \ECSPrefix20210507\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)));
+                throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, \get_debug_type($value)));
             } else {
                 $value = \var_export($value, \true);
             }

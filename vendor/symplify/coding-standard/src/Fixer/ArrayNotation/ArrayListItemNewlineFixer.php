@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -38,12 +38,7 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
      * @var ArrayBlockInfoFinder
      */
     private $arrayBlockInfoFinder;
-    /**
-     * @param \Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer $arrayAnalyzer
-     * @param \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig
-     * @param \Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder $arrayBlockInfoFinder
-     */
-    public function __construct($arrayAnalyzer, $whitespacesFixerConfig, $arrayBlockInfoFinder)
+    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\ArrayAnalyzer $arrayAnalyzer, \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenRunner\Traverser\ArrayBlockInfoFinder $arrayBlockInfoFinder)
     {
         $this->arrayAnalyzer = $arrayAnalyzer;
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
@@ -67,7 +62,7 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (!$tokens->isAnyTokenKindsFound(\Symplify\CodingStandard\TokenRunner\ValueObject\TokenKinds::ARRAY_OPEN_TOKENS)) {
             return \false;
@@ -77,9 +72,8 @@ final class ArrayListItemNewlineFixer extends \Symplify\CodingStandard\Fixer\Abs
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $fileInfo
      */
-    public function fix($fileInfo, $tokens)
+    public function fix(\SplFileInfo $fileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $arrayBlockInfos = $this->arrayBlockInfoFinder->findArrayOpenerBlockInfos($tokens);
         foreach ($arrayBlockInfos as $arrayBlockInfo) {
@@ -103,9 +97,8 @@ CODE_SAMPLE
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo
      */
-    private function fixArrayOpener($tokens, $blockInfo)
+    private function fixArrayOpener(\PhpCsFixer\Tokenizer\Tokens $tokens, \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo $blockInfo)
     {
         if (!$this->arrayAnalyzer->isIndexedList($tokens, $blockInfo)) {
             return;
@@ -119,7 +112,7 @@ CODE_SAMPLE
             if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
                 return;
             }
-            if (\ECSPrefix20210507\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
+            if (\ECSPrefix20210508\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
                 return;
             }
             $tokens->ensureWhitespaceAtIndex($nextTokenPosition, 0, $this->whitespacesFixerConfig->getLineEnding());

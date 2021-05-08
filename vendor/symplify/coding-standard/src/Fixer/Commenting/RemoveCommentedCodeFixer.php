@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -39,12 +39,7 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
      * @var Decommenter
      */
     private $decommenter;
-    /**
-     * @param \Symplify\CodingStandard\Tokens\CommentedContentResolver $commentedContentResolver
-     * @param \Symplify\CodingStandard\Php\PhpContentAnalyzer $phpContentAnalyzer
-     * @param \Symplify\CodingStandard\DocBlock\Decommenter $decommenter
-     */
-    public function __construct($commentedContentResolver, $phpContentAnalyzer, $decommenter)
+    public function __construct(\Symplify\CodingStandard\Tokens\CommentedContentResolver $commentedContentResolver, \Symplify\CodingStandard\Php\PhpContentAnalyzer $phpContentAnalyzer, \Symplify\CodingStandard\DocBlock\Decommenter $decommenter)
     {
         $this->commentedContentResolver = $commentedContentResolver;
         $this->phpContentAnalyzer = $phpContentAnalyzer;
@@ -61,16 +56,15 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound(\T_COMMENT);
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $file
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $contentWithPositions = [];
         for ($i = 0; $i < $tokens->count(); ++$i) {
@@ -78,7 +72,7 @@ final class RemoveCommentedCodeFixer extends \Symplify\CodingStandard\Fixer\Abst
             if (!$token->isGivenKind(\T_COMMENT)) {
                 continue;
             }
-            if (!\ECSPrefix20210507\Nette\Utils\Strings::startsWith($token->getContent(), '//')) {
+            if (!\ECSPrefix20210508\Nette\Utils\Strings::startsWith($token->getContent(), '//')) {
                 continue;
             }
             $startAndEnd = $this->commentedContentResolver->resolve($tokens, $i);
@@ -117,10 +111,9 @@ CODE_SAMPLE
      * Remove the indent space ahead of comments
      *
      * @param Tokens<Token> $tokens
-     * @param \Symplify\CodingStandard\ValueObject\StartAndEnd $startAndEnd
      * @return int
      */
-    private function resolveRealStart($startAndEnd, $tokens)
+    private function resolveRealStart(\Symplify\CodingStandard\ValueObject\StartAndEnd $startAndEnd, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $preStartPosition = $startAndEnd->getStart() - 1;
         /** @var Token $preStartToken */
@@ -129,7 +122,7 @@ CODE_SAMPLE
         if ($preStartToken->getContent() === \PHP_EOL) {
             return $realStart - 1;
         }
-        if (\ECSPrefix20210507\Nette\Utils\Strings::endsWith($preStartToken->getContent(), '    ')) {
+        if (\ECSPrefix20210508\Nette\Utils\Strings::endsWith($preStartToken->getContent(), '    ')) {
             return $realStart - 1;
         }
         return $realStart;

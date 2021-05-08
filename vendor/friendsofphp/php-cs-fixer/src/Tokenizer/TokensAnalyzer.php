@@ -35,10 +35,7 @@ final class TokensAnalyzer
      * @var ?GotoLabelAnalyzer
      */
     private $gotoLabelAnalyzer;
-    /**
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
-     */
-    public function __construct($tokens)
+    public function __construct(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $this->tokens = $tokens;
     }
@@ -126,9 +123,8 @@ final class TokensAnalyzer
      * @param int $index
      *
      * @return bool
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    public function isBlockMultiline($tokens, $index)
+    public function isBlockMultiline(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$index]);
         if (null === $blockType || !$blockType['isStart']) {

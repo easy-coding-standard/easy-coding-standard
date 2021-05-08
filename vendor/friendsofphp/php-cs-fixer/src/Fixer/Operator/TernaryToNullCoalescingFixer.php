@@ -33,20 +33,17 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return \PHP_VERSION_ID >= 70000 && $tokens->isTokenKindFound(\T_ISSET);
     }
     /**
      * {@inheritdoc}
      * @return void
-     * @param \SplFileInfo $file
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    protected function applyFix($file, $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $issetIndexes = \array_keys($tokens->findGivenKind(\T_ISSET));
         while ($issetIndex = \array_pop($issetIndexes)) {
@@ -56,9 +53,8 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
     /**
      * @param int $index of `T_ISSET` token
      * @return void
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      */
-    private function fixIsset($tokens, $index)
+    private function fixIsset(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $prevTokenIndex = $tokens->getPrevMeaningfulToken($index);
         if ($this->isHigherPrecedenceAssociativityOperator($tokens[$prevTokenIndex])) {
@@ -107,10 +103,9 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
      *
      * @param int $start start index
      * @param int $end   end index
-     * @param \PhpCsFixer\Tokenizer\Tokens $tokens
      * @return \PhpCsFixer\Tokenizer\Tokens
      */
-    private function getMeaningfulSequence($tokens, $start, $end)
+    private function getMeaningfulSequence(\PhpCsFixer\Tokenizer\Tokens $tokens, $start, $end)
     {
         $sequence = [];
         $index = $start;
@@ -126,10 +121,9 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
     /**
      * Check if the requested token is an operator computed
      * before the ternary operator along with the `isset()`.
-     * @param \PhpCsFixer\Tokenizer\Token $token
      * @return bool
      */
-    private function isHigherPrecedenceAssociativityOperator($token)
+    private function isHigherPrecedenceAssociativityOperator(\PhpCsFixer\Tokenizer\Token $token)
     {
         static $operatorsPerId = [\T_ARRAY_CAST => \true, \T_BOOLEAN_AND => \true, \T_BOOLEAN_OR => \true, \T_BOOL_CAST => \true, \T_COALESCE => \true, \T_DEC => \true, \T_DOUBLE_CAST => \true, \T_INC => \true, \T_INT_CAST => \true, \T_IS_EQUAL => \true, \T_IS_GREATER_OR_EQUAL => \true, \T_IS_IDENTICAL => \true, \T_IS_NOT_EQUAL => \true, \T_IS_NOT_IDENTICAL => \true, \T_IS_SMALLER_OR_EQUAL => \true, \T_OBJECT_CAST => \true, \T_POW => \true, \T_SL => \true, \T_SPACESHIP => \true, \T_SR => \true, \T_STRING_CAST => \true, \T_UNSET_CAST => \true];
         static $operatorsPerContent = ['!', '%', '&', '*', '+', '-', '/', ':', '^', '|', '~', '.'];
@@ -141,7 +135,7 @@ final class TernaryToNullCoalescingFixer extends \PhpCsFixer\AbstractFixer
      * @param Tokens $tokens The original token list
      * @return bool
      */
-    private function hasChangingContent($tokens)
+    private function hasChangingContent(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         static $operatorsPerId = [\T_DEC, \T_INC, \T_YIELD, \T_YIELD_FROM];
         foreach ($tokens as $token) {

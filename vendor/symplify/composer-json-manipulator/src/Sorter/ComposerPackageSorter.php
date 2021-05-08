@@ -2,7 +2,7 @@
 
 namespace Symplify\ComposerJsonManipulator\Sorter;
 
-use ECSPrefix20210507\Nette\Utils\Strings;
+use ECSPrefix20210508\Nette\Utils\Strings;
 /**
  * Mostly inspired by https://github.com/composer/composer/blob/master/src/Composer/Json/JsonManipulator.php
  *
@@ -48,7 +48,7 @@ final class ComposerPackageSorter
     private function createNameWithPriority($requirementName)
     {
         if ($this->isPlatformPackage($requirementName)) {
-            return \ECSPrefix20210507\Nette\Utils\Strings::replace($requirementName, self::REQUIREMENT_TYPE_REGEX, function (array $match) : string {
+            return \ECSPrefix20210508\Nette\Utils\Strings::replace($requirementName, self::REQUIREMENT_TYPE_REGEX, function (array $match) : string {
                 $name = $match['name'];
                 if ($name === 'php') {
                     return '0-' . $name;
@@ -73,6 +73,6 @@ final class ComposerPackageSorter
      */
     private function isPlatformPackage($name)
     {
-        return (bool) \ECSPrefix20210507\Nette\Utils\Strings::match($name, self::PLATFORM_PACKAGE_REGEX);
+        return (bool) \ECSPrefix20210508\Nette\Utils\Strings::match($name, self::PLATFORM_PACKAGE_REGEX);
     }
 }

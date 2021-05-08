@@ -6,11 +6,10 @@ use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 interface OutputFormatterInterface
 {
     /**
-     * @param \Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult
      * @param int $processedFilesCount
      * @return int
      */
-    public function report($errorAndDiffResult, $processedFilesCount);
+    public function report(\Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult $errorAndDiffResult, $processedFilesCount);
     /**
      * @return string
      */

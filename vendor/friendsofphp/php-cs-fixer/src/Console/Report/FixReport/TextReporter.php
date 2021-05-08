@@ -29,10 +29,9 @@ final class TextReporter implements \PhpCsFixer\Console\Report\FixReport\Reporte
     }
     /**
      * {@inheritdoc}
-     * @param \PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary
      * @return string
      */
-    public function generate($reportSummary)
+    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary)
     {
         $output = '';
         $i = 0;

@@ -8,29 +8,28 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\RuntimeException;
 /**
  * Applies instanceof conditionals to definitions.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ResolveInstanceofConditionalsPass implements \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function process($container)
+    public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->getAutoconfiguredInstanceof() as $interface => $definition) {
             if ($definition->getArguments()) {
-                throw new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Autoconfigured instanceof for type "%s" defines arguments but these are not supported and should be removed.', $interface));
+                throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Autoconfigured instanceof for type "%s" defines arguments but these are not supported and should be removed.', $interface));
             }
         }
         $tagsToKeep = [];
@@ -45,12 +44,10 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
         }
     }
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $id
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return \Symfony\Component\DependencyInjection\Definition
      */
-    private function processDefinition($container, $id, $definition, array $tagsToKeep)
+    private function processDefinition(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container, $id, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, array $tagsToKeep)
     {
         $instanceofConditionals = $definition->getInstanceofConditionals();
         $autoconfiguredInstanceof = $definition->isAutoconfigured() ? $container->getAutoconfiguredInstanceof() : [];
@@ -67,7 +64,7 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
         $instanceofCalls = [];
         $instanceofBindings = [];
         $reflectionClass = null;
-        $parent = $definition instanceof \ECSPrefix20210507\Symfony\Component\DependencyInjection\ChildDefinition ? $definition->getParent() : null;
+        $parent = $definition instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\ChildDefinition ? $definition->getParent() : null;
         foreach ($conditionals as $interface => $instanceofDefs) {
             if ($interface !== $class && !(isset($reflectionClass) ? $reflectionClass : ($reflectionClass = $container->getReflectionClass($class, \false) ?: \false))) {
                 continue;
@@ -99,7 +96,7 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
             $abstract = $container->setDefinition('.abstract.instanceof.' . $id, $definition);
             $definition->setBindings([]);
             $definition = \serialize($definition);
-            if (\ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition::class === \get_class($abstract)) {
+            if (\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition::class === \get_class($abstract)) {
                 // cast Definition to ChildDefinition
                 $definition = \substr_replace($definition, '53', 2, 2);
                 $definition = \substr_replace($definition, 'Child', 44, 0);
@@ -132,10 +129,9 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
         return $definition;
     }
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @return mixed[]
      */
-    private function mergeConditionals(array $autoconfiguredInstanceof, array $instanceofConditionals, $container)
+    private function mergeConditionals(array $autoconfiguredInstanceof, array $instanceofConditionals, \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         // make each value an array of ChildDefinition
         $conditionals = \array_map(function ($childDef) {
@@ -144,7 +140,7 @@ class ResolveInstanceofConditionalsPass implements \ECSPrefix20210507\Symfony\Co
         foreach ($instanceofConditionals as $interface => $instanceofDef) {
             // make sure the interface/class exists (but don't validate automaticInstanceofConditionals)
             if (!$container->getReflectionClass($interface)) {
-                throw new \ECSPrefix20210507\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('"%s" is set as an "instanceof" conditional, but it does not exist.', $interface));
+                throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('"%s" is set as an "instanceof" conditional, but it does not exist.', $interface));
             }
             if (!isset($autoconfiguredInstanceof[$interface])) {
                 $conditionals[$interface] = [];

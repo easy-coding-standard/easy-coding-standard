@@ -34,11 +34,7 @@ final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard
      * @var SymfonyClosureAnalyzer
      */
     private $symfonyClosureAnalyzer;
-    /**
-     * @param \PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig
-     * @param \Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer $symfonyClosureAnalyzer
-     */
-    public function __construct($whitespacesFixerConfig, $symfonyClosureAnalyzer)
+    public function __construct(\PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer $symfonyClosureAnalyzer)
     {
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->symfonyClosureAnalyzer = $symfonyClosureAnalyzer;
@@ -54,16 +50,15 @@ final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate($tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAllTokenKindsFound([\T_RETURN, \T_STATIC, \T_FUNCTION, \T_VARIABLE, \T_STRING, \T_OBJECT_OPERATOR]);
     }
     /**
      * @param Tokens<Token> $tokens
      * @return void
-     * @param \SplFileInfo $file
      */
-    public function fix($file, $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (!$this->symfonyClosureAnalyzer->isContainerConfiguratorClosure($tokens)) {
             return;
@@ -129,7 +124,7 @@ CODE_SAMPLE
      * @param int $index
      * @return bool
      */
-    private function isNextTokenMethodCallNamed($tokens, $index, array $methodNames)
+    private function isNextTokenMethodCallNamed(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $methodNames)
     {
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {

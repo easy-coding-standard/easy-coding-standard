@@ -2,7 +2,7 @@
 
 namespace Symplify\SymplifyKernel\Console;
 
-use ECSPrefix20210507\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\PackageBuilder\Composer\PackageVersionProvider;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -32,11 +32,8 @@ final class ConsoleApplicationFactory
     private $smartFileSystem;
     /**
      * @param Command[] $commands
-     * @param \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider
-     * @param \Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory
-     * @param \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem
      */
-    public function __construct(array $commands, $parameterProvider, $composerJsonFactory, $smartFileSystem)
+    public function __construct(array $commands, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\ComposerJsonManipulator\ComposerJsonFactory $composerJsonFactory, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->commands = $commands;
         $this->stringsConverter = new \Symplify\SymplifyKernel\Strings\StringsConverter();
@@ -55,9 +52,8 @@ final class ConsoleApplicationFactory
     }
     /**
      * @return void
-     * @param \Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication
      */
-    private function decorateApplicationWithNameAndVersion($autowiredConsoleApplication)
+    private function decorateApplicationWithNameAndVersion(\Symplify\SymplifyKernel\Console\AutowiredConsoleApplication $autowiredConsoleApplication)
     {
         $projectDir = $this->parameterProvider->provideStringParameter('kernel.project_dir');
         $packageComposerJsonFilePath = $projectDir . \DIRECTORY_SEPARATOR . 'composer.json';

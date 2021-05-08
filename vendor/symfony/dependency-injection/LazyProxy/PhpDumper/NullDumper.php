@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
+namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
 
-use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition;
 /**
  * Null dumper, negates any proxy code generation for any given service definition.
  *
@@ -18,34 +18,31 @@ use ECSPrefix20210507\Symfony\Component\DependencyInjection\Definition;
  *
  * @final
  */
-class NullDumper implements \ECSPrefix20210507\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface
+class NullDumper implements \ECSPrefix20210508\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface
 {
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return bool
      */
-    public function isProxyCandidate($definition)
+    public function isProxyCandidate(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
         return \false;
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @param string $id
      * @param string $factoryCode
      * @return string
      */
-    public function getProxyFactoryCode($definition, $id, $factoryCode)
+    public function getProxyFactoryCode(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition, $id, $factoryCode)
     {
         return '';
     }
     /**
      * {@inheritdoc}
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
      * @return string
      */
-    public function getProxyCode($definition)
+    public function getProxyCode(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Definition $definition)
     {
         return '';
     }

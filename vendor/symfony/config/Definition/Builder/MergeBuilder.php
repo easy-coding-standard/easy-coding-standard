@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210507\Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20210508\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class builds merge conditions.
@@ -20,10 +20,7 @@ class MergeBuilder
     protected $node;
     public $allowFalse = \false;
     public $allowOverwrite = \true;
-    /**
-     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition $node
-     */
-    public function __construct($node)
+    public function __construct(\ECSPrefix20210508\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
