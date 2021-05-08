@@ -66,7 +66,6 @@ class DoctrineAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         return $this->provider->contains($id);
     }
     /**
@@ -75,7 +74,6 @@ class DoctrineAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         $namespace = $this->provider->getNamespace();
         return isset($namespace[0]) ? $this->provider->deleteAll() : $this->provider->flushAll();
     }
@@ -96,7 +94,6 @@ class DoctrineAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         return $this->provider->saveMultiple($values, $lifetime);
     }
 }

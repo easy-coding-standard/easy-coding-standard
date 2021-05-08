@@ -167,7 +167,6 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function clear($prefix = '')
     {
-        $prefix = (string) $prefix;
         $event = $this->start(__FUNCTION__);
         try {
             if ($this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {

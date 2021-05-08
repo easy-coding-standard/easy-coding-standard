@@ -92,9 +92,10 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
         return $this->rules;
     }
     /**
+     * @param \PhpCsFixer\Cache\SignatureInterface $signature
      * @return bool
      */
-    public function equals(\PhpCsFixer\Cache\SignatureInterface $signature)
+    public function equals($signature)
     {
         return $this->phpVersion === $signature->getPhpVersion() && $this->fixerVersion === $signature->getFixerVersion() && $this->indent === $signature->getIndent() && $this->lineEnding === $signature->getLineEnding() && $this->rules === $signature->getRules();
     }

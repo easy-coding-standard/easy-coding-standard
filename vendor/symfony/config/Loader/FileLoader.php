@@ -52,9 +52,9 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      * Imports a resource.
      *
      * @param mixed                $resource       A Resource
-     * @param string $type The resource type or null if unknown
+     * @param string|null          $type           The resource type or null if unknown
      * @param bool                 $ignoreErrors   Whether to ignore import errors or not
-     * @param string $sourceResource The original resource importing the new resource
+     * @param string|null          $sourceResource The original resource importing the new resource
      * @param string|string[]|null $exclude        Glob patterns to exclude from the import
      *
      * @return mixed
@@ -65,7 +65,6 @@ abstract class FileLoader extends \ECSPrefix20210508\Symfony\Component\Config\Lo
      */
     public function import($resource, $type = null, $ignoreErrors = \false, $sourceResource = null, $exclude = null)
     {
-        $ignoreErrors = (bool) $ignoreErrors;
         if (\is_string($resource) && \strlen($resource) !== ($i = \strcspn($resource, '*?{[')) && \false === \strpos($resource, "\n")) {
             $excluded = [];
             foreach ((array) $exclude as $pattern) {

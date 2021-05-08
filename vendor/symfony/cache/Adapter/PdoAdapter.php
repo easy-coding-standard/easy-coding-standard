@@ -240,7 +240,6 @@ class PdoAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abst
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         $sql = "SELECT 1 FROM {$this->table} WHERE {$this->idCol} = :id AND ({$this->lifetimeCol} IS NULL OR {$this->lifetimeCol} + {$this->timeCol} > :time)";
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->bindValue(':id', $id);
@@ -254,7 +253,6 @@ class PdoAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abst
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         $conn = $this->getConnection();
         if ('' === $namespace) {
             if ('sqlite' === $this->driver) {
@@ -297,7 +295,6 @@ class PdoAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abst
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
         }

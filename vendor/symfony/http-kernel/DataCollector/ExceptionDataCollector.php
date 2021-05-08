@@ -24,8 +24,9 @@ class ExceptionDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKe
 {
     /**
      * {@inheritdoc}
+     * @param \Throwable|null $exception
      */
-    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         if (null !== $exception) {
             $this->data = ['exception' => \ECSPrefix20210508\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)];

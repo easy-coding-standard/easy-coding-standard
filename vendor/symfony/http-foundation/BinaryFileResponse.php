@@ -57,7 +57,7 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
      * @param int                 $status             The response status code
      * @param array               $headers            An array of response headers
      * @param bool                $public             Files are public by default
-     * @param string $contentDisposition The type of Content-Disposition to set automatically with the filename
+     * @param string|null         $contentDisposition The type of Content-Disposition to set automatically with the filename
      * @param bool                $autoEtag           Whether the ETag header should be automatically set
      * @param bool                $autoLastModified   Whether the Last-Modified header should be automatically set
      *
@@ -68,9 +68,6 @@ class BinaryFileResponse extends \ECSPrefix20210508\Symfony\Component\HttpFounda
     public static function create($file = null, $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
     {
         $status = (int) $status;
-        $public = (bool) $public;
-        $autoEtag = (bool) $autoEtag;
-        $autoLastModified = (bool) $autoLastModified;
         trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
     }

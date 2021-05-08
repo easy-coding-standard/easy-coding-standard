@@ -56,7 +56,6 @@ trait FilesystemCommonTrait
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         $ok = \true;
         foreach ($this->scanHashDir($this->directory) as $file) {
             if ('' !== $namespace && 0 !== \strpos($this->getFileKey($file), $namespace)) {

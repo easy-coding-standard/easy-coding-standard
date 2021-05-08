@@ -165,7 +165,6 @@ abstract class AbstractUnicodeString extends \ECSPrefix20210508\Symfony\Componen
      */
     public function folded($compat = \true)
     {
-        $compat = (bool) $compat;
         $str = clone $this;
         if (!$compat || \PHP_VERSION_ID < 70300 || !\defined('Normalizer::NFKC_CF')) {
             $str->string = \normalizer_normalize($str->string, $compat ? \Normalizer::NFKC : \Normalizer::NFC);

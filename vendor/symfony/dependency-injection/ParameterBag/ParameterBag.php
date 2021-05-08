@@ -60,7 +60,6 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function get($name)
     {
-        $name = (string) $name;
         if (!\array_key_exists($name, $this->parameters)) {
             if (!$name) {
                 throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
@@ -107,7 +106,6 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      */
     public function has($name)
     {
-        $name = (string) $name;
         return \array_key_exists((string) $name, $this->parameters);
     }
     /**
@@ -153,7 +151,7 @@ class ParameterBag implements \ECSPrefix20210508\Symfony\Component\DependencyInj
      * @throws ParameterCircularReferenceException if a circular reference if detected
      * @throws RuntimeException                    when a given parameter has a type problem
      */
-    public function resolveValue($value, array $resolving = [])
+    public function resolveValue($value, $resolving = [])
     {
         if (\is_array($value)) {
             $args = [];

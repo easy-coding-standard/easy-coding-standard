@@ -41,7 +41,6 @@ trait ServiceLocatorTrait
      */
     public function has($id)
     {
-        $id = (string) $id;
         return isset($this->factories[$id]);
     }
     /**
@@ -52,7 +51,6 @@ trait ServiceLocatorTrait
      */
     public function get($id)
     {
-        $id = (string) $id;
         if (!isset($this->factories[$id])) {
             throw $this->createNotFoundException($id);
         }

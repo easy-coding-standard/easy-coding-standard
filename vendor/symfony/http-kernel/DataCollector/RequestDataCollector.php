@@ -41,8 +41,9 @@ class RequestDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKern
     }
     /**
      * {@inheritdoc}
+     * @param \Throwable|null $exception
      */
-    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         // attributes are serialized and as they can be anything, they need to be converted to strings.
         $attributes = [];

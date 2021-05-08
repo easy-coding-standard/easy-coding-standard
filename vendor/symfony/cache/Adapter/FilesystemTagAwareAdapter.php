@@ -91,10 +91,12 @@ class FilesystemTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cac
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $addTagData
+     * @param mixed[] $removeTagData
      * @param int $lifetime
      * @return mixed[]
      */
-    protected function doSave(array $values, $lifetime, array $addTagData = [], array $removeTagData = [])
+    protected function doSave(array $values, $lifetime, $addTagData = [], $removeTagData = [])
     {
         $lifetime = (int) $lifetime;
         $failed = $this->doSaveCache($values, $lifetime);

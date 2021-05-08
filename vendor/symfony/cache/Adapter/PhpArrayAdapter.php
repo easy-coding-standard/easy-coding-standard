@@ -243,7 +243,6 @@ class PhpArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function clear($prefix = '')
     {
-        $prefix = (string) $prefix;
         $this->keys = $this->values = [];
         $cleared = @\unlink($this->file) || !\file_exists($this->file);
         unset(self::$valuesCache[$this->file]);

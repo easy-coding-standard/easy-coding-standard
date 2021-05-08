@@ -56,7 +56,6 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         return $this->pool->has($id);
     }
     /**
@@ -65,7 +64,6 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         return $this->pool->clear();
     }
     /**
@@ -81,7 +79,6 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         return $this->pool->setMultiple($values, 0 === $lifetime ? null : $lifetime);
     }
 }

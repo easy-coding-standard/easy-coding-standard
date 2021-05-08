@@ -206,7 +206,6 @@ class Container implements \ECSPrefix20210508\Symfony\Component\DependencyInject
      */
     public function get($id, $invalidBehavior = 1)
     {
-        $invalidBehavior = (int) $invalidBehavior;
         return isset($this->services[$id]) ? $this->services[$id] : (isset($this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id]) ? $this->services[$id = isset($this->aliases[$id]) ? $this->aliases[$id] : $id] : ('service_container' === $id ? $this : (isset($this->factories[$id]) ? $this->factories[$id] : [$this, 'make'])($id, $invalidBehavior)));
     }
     /**

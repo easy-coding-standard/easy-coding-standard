@@ -95,8 +95,9 @@ class HtmlDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\C
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $extraDisplayOptions
      */
-    public function dump(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, array $extraDisplayOptions = [])
+    public function dump(\ECSPrefix20210508\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, $extraDisplayOptions = [])
     {
         $this->extraDisplayOptions = $extraDisplayOptions;
         $result = parent::dump($data, $output);
@@ -889,13 +890,12 @@ EOHTML
     }
     /**
      * {@inheritdoc}
-     * @param int $depth
      * @param bool $endOfValue
+     * @param int $depth
      */
     protected function dumpLine($depth, $endOfValue = \false)
     {
         $depth = (int) $depth;
-        $endOfValue = (bool) $endOfValue;
         if (-1 === $this->lastDepth) {
             $this->line = \sprintf($this->dumpPrefix, $this->dumpId, $this->indentPad) . $this->line;
         }

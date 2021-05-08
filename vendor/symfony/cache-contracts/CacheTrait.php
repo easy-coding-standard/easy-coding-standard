@@ -46,8 +46,10 @@ trait CacheTrait
     /**
      * @param float|null $beta
      * @param string $key
+     * @param \Psr\Cache\CacheItemPoolInterface $pool
+     * @param \Psr\Log\LoggerInterface|null $logger
      */
-    private function doGet(\ECSPrefix20210508\Psr\Cache\CacheItemPoolInterface $pool, $key, callable $callback, $beta, array &$metadata = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
+    private function doGet($pool, $key, callable $callback, $beta, array &$metadata = null, $logger = null)
     {
         $key = (string) $key;
         if (0 > ($beta = isset($beta) ? $beta : 1.0)) {

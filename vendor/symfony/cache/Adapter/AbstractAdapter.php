@@ -121,7 +121,6 @@ abstract class AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\C
      */
     public static function createConnection($dsn, array $options = [])
     {
-        $dsn = (string) $dsn;
         if (0 === \strpos($dsn, 'redis:') || 0 === \strpos($dsn, 'rediss:')) {
             return \ECSPrefix20210508\Symfony\Component\Cache\Adapter\RedisAdapter::createConnection($dsn, $options);
         }

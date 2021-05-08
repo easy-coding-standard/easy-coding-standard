@@ -73,7 +73,6 @@ trait FilesystemTrait
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         $file = $this->getFile($id);
         return \is_file($file) && (@\filemtime($file) > \time() || $this->doFetch([$id]));
     }
@@ -83,7 +82,6 @@ trait FilesystemTrait
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         $expiresAt = $lifetime ? \time() + $lifetime : 0;
         $values = $this->marshaller->marshall($values, $failed);
         foreach ($values as $id => $value) {

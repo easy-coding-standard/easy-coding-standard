@@ -550,7 +550,6 @@ class Process implements \IteratorAggregate
      */
     public function getIterator($flags = 0)
     {
-        $flags = (int) $flags;
         $this->readPipesForOutput(__FUNCTION__, \false);
         $clearOutput = !(self::ITER_KEEP_OUTPUT & $flags);
         $blocking = !(self::ITER_NON_BLOCKING & $flags);

@@ -21,11 +21,10 @@ class IniFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInjec
 {
     /**
      * {@inheritdoc}
-     * @param string $type
+     * @param string|null $type
      */
     public function load($resource, $type = null)
     {
-        $type = (string) $type;
         $path = $this->locator->locate($resource);
         $this->container->fileExists($path);
         // first pass to catch parsing errors

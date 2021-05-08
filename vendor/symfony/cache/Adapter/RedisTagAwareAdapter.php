@@ -83,10 +83,12 @@ class RedisTagAwareAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Ad
     }
     /**
      * {@inheritdoc}
+     * @param mixed[] $addTagData
+     * @param mixed[] $delTagData
      * @param int $lifetime
      * @return mixed[]
      */
-    protected function doSave(array $values, $lifetime, array $addTagData = [], array $delTagData = [])
+    protected function doSave(array $values, $lifetime, $addTagData = [], $delTagData = [])
     {
         $lifetime = (int) $lifetime;
         $eviction = $this->getRedisEvictionPolicy();

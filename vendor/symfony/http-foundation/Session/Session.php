@@ -160,7 +160,7 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
-     * @param int $lifetime
+     * @param int|null $lifetime
      */
     public function invalidate($lifetime = null)
     {
@@ -169,8 +169,8 @@ class Session implements \ECSPrefix20210508\Symfony\Component\HttpFoundation\Ses
     }
     /**
      * {@inheritdoc}
+     * @param int|null $lifetime
      * @param bool $destroy
-     * @param int $lifetime
      */
     public function migrate($destroy = \false, $lifetime = null)
     {

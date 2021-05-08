@@ -459,7 +459,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
         return $str;
     }
     /**
-     * @param string $fromEncoding
+     * @param string|null $fromEncoding
      * @return \Symfony\Component\String\UnicodeString
      */
     public function toUnicodeString($fromEncoding = null)
@@ -467,7 +467,7 @@ class ByteString extends \ECSPrefix20210508\Symfony\Component\String\AbstractStr
         return new \ECSPrefix20210508\Symfony\Component\String\UnicodeString($this->toCodePointString($fromEncoding)->string);
     }
     /**
-     * @param string $fromEncoding
+     * @param string|null $fromEncoding
      * @return \Symfony\Component\String\CodePointString
      */
     public function toCodePointString($fromEncoding = null)

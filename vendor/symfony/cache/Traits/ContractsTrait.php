@@ -45,10 +45,11 @@ trait ContractsTrait
         return $previousWrapper;
     }
     /**
+     * @param \Symfony\Component\Cache\Adapter\AdapterInterface $pool
      * @param float|null $beta
      * @param string $key
      */
-    private function doGet(\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $pool, $key, callable $callback, $beta, array &$metadata = null)
+    private function doGet($pool, $key, callable $callback, $beta, array &$metadata = null)
     {
         $key = (string) $key;
         if (0 > ($beta = isset($beta) ? $beta : 1.0)) {

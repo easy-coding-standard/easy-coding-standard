@@ -221,7 +221,6 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
         }
@@ -257,7 +256,6 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         return \false !== $this->getClient()->get(self::encodeKey($id)) || $this->checkResultCode(\Memcached::RES_SUCCESS === $this->client->getResultCode());
     }
     /**
@@ -280,7 +278,6 @@ class MemcachedAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapte
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         return '' === $namespace && $this->getClient()->flush();
     }
     private function checkResultCode($result)

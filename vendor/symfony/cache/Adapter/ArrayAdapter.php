@@ -235,7 +235,6 @@ class ArrayAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function clear($prefix = '')
     {
-        $prefix = (string) $prefix;
         if ('' !== $prefix) {
             $now = \microtime(\true);
             foreach ($this->values as $key => $value) {

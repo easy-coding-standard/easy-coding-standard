@@ -22,37 +22,33 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
      */
     public function apply($text)
     {
-        $text = (string) $text;
         return $text;
     }
     /**
      * {@inheritdoc}
+     * @param string|null $color
      * @return void
-     * @param string $color
      */
     public function setBackground($color = null)
     {
-        $color = (string) $color;
         // do nothing
     }
     /**
      * {@inheritdoc}
+     * @param string|null $color
      * @return void
-     * @param string $color
      */
     public function setForeground($color = null)
     {
-        $color = (string) $color;
         // do nothing
     }
     /**
      * {@inheritdoc}
-     * @return void
      * @param string $option
+     * @return void
      */
     public function setOption($option)
     {
-        $option = (string) $option;
         // do nothing
     }
     /**
@@ -65,12 +61,11 @@ final class NullOutputFormatterStyle implements \ECSPrefix20210508\Symfony\Compo
     }
     /**
      * {@inheritdoc}
-     * @return void
      * @param string $option
+     * @return void
      */
     public function unsetOption($option)
     {
-        $option = (string) $option;
         // do nothing
     }
 }

@@ -176,7 +176,6 @@ class MergeExtensionConfigurationContainerBuilder extends \ECSPrefix20210508\Sym
      */
     public function compile($resolveEnvPlaceholders = \false)
     {
-        $resolveEnvPlaceholders = (bool) $resolveEnvPlaceholders;
         throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('Cannot compile the container in extension "%s".', $this->extensionClass));
     }
     /**

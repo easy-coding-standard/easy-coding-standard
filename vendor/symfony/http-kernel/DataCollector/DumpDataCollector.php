@@ -84,7 +84,10 @@ class DumpDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel\
             $this->stopwatch->stop('dump');
         }
     }
-    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    /**
+     * @param \Throwable|null $exception
+     */
+    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         if (!$this->dataCount) {
             $this->data = [];

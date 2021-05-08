@@ -492,13 +492,12 @@ class CliDumper extends \ECSPrefix20210508\Symfony\Component\VarDumper\Dumper\Ab
     }
     /**
      * {@inheritdoc}
-     * @param int $depth
      * @param bool $endOfValue
+     * @param int $depth
      */
     protected function dumpLine($depth, $endOfValue = \false)
     {
         $depth = (int) $depth;
-        $endOfValue = (bool) $endOfValue;
         if ($this->colors) {
             $this->line = \sprintf("\33[%sm%s\33[m", $this->styles['default'], $this->line);
         }

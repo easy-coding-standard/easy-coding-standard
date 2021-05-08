@@ -47,11 +47,10 @@ class YamlFileLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInje
     protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
     /**
      * {@inheritdoc}
-     * @param string $type
+     * @param string|null $type
      */
     public function load($resource, $type = null)
     {
-        $type = (string) $type;
         $path = $this->locator->locate($resource);
         $content = $this->loadFile($path);
         $this->container->fileExists($path);

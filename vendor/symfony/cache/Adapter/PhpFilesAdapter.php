@@ -155,7 +155,6 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         if ($this->appendOnly && isset($this->values[$id])) {
             return \true;
         }
@@ -192,7 +191,6 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         $ok = \true;
         $expiry = $lifetime ? \time() + $lifetime : 'PHP_INT_MAX';
         $allowCompile = self::isSupported();
@@ -248,7 +246,6 @@ class PhpFilesAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         $this->values = [];
         return $this->doCommonClear($namespace);
     }

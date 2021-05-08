@@ -72,7 +72,6 @@ class ApcuAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abs
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         return \apcu_exists($id);
     }
     /**
@@ -81,7 +80,6 @@ class ApcuAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abs
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         return isset($namespace[0]) && \class_exists(\APCuIterator::class, \false) && ('cli' !== \PHP_SAPI || \filter_var(\ini_get('apc.enable_cli'), \FILTER_VALIDATE_BOOLEAN)) ? \apcu_delete(new \APCuIterator(\sprintf('/^%s/', \preg_quote($namespace, '/')), \APC_ITER_KEY)) : \apcu_clear_cache();
     }
     /**
@@ -100,7 +98,6 @@ class ApcuAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abs
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         try {
             if (\false === ($failures = \apcu_store($values, null, $lifetime))) {
                 $failures = $values;

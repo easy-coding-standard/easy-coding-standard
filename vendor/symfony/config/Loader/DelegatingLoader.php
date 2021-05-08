@@ -27,7 +27,7 @@ class DelegatingLoader extends \ECSPrefix20210508\Symfony\Component\Config\Loade
     }
     /**
      * {@inheritdoc}
-     * @param string $type
+     * @param string|null $type
      */
     public function load($resource, $type = null)
     {

@@ -40,7 +40,7 @@ final class InputBag extends \ECSPrefix20210508\Symfony\Component\HttpFoundation
     }
     /**
      * {@inheritdoc}
-     * @param string $key
+     * @param string|null $key
      * @return mixed[]
      */
     public function all($key = null)

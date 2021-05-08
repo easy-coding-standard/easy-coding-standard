@@ -312,7 +312,6 @@ trait RedisTrait
      */
     protected function doHave($id)
     {
-        $id = (string) $id;
         return (bool) $this->redis->exists($id);
     }
     /**
@@ -321,7 +320,6 @@ trait RedisTrait
      */
     protected function doClear($namespace)
     {
-        $namespace = (string) $namespace;
         $cleared = \true;
         if ($this->redis instanceof \ECSPrefix20210508\Predis\ClientInterface) {
             $evalArgs = [0, $namespace];
@@ -400,7 +398,6 @@ trait RedisTrait
      */
     protected function doSave(array $values, $lifetime)
     {
-        $lifetime = (int) $lifetime;
         if (!($values = $this->marshaller->marshall($values, $failed))) {
             return $failed;
         }

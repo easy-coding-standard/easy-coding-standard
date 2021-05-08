@@ -117,7 +117,7 @@ abstract class AbstractTagAwareAdapter implements \ECSPrefix20210508\Symfony\Com
      *
      * @return array The identifiers that failed to be cached or a boolean stating if caching succeeded or not
      */
-    protected abstract function doSave(array $values, $lifetime, array $addTagData = [], array $removeTagData = []);
+    protected abstract function doSave(array $values, $lifetime, $addTagData = [], $removeTagData = []);
     /**
      * Removes multiple items from the pool and their corresponding tags.
      *

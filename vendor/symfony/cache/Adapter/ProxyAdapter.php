@@ -144,7 +144,6 @@ class ProxyAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter
      */
     public function clear($prefix = '')
     {
-        $prefix = (string) $prefix;
         if ($this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
             return $this->pool->clear($this->namespace . $prefix);
         }

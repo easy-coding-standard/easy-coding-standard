@@ -19,11 +19,10 @@ class DirectoryLoader extends \ECSPrefix20210508\Symfony\Component\DependencyInj
 {
     /**
      * {@inheritdoc}
-     * @param string $type
+     * @param string|null $type
      */
     public function load($file, $type = null)
     {
-        $type = (string) $type;
         $file = \rtrim($file, '/');
         $path = $this->locator->locate($file);
         $this->container->fileExists($path, \false);

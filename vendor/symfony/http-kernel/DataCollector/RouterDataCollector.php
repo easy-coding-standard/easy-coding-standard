@@ -31,8 +31,9 @@ class RouterDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKerne
      * {@inheritdoc}
      *
      * @final
+     * @param \Throwable|null $exception
      */
-    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, $exception = null)
     {
         if ($response instanceof \ECSPrefix20210508\Symfony\Component\HttpFoundation\RedirectResponse) {
             $this->data['redirect'] = \true;

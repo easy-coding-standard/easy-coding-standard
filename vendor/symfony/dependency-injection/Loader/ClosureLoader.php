@@ -28,11 +28,10 @@ class ClosureLoader extends \ECSPrefix20210508\Symfony\Component\Config\Loader\L
     }
     /**
      * {@inheritdoc}
-     * @param string $type
+     * @param string|null $type
      */
     public function load($resource, $type = null)
     {
-        $type = (string) $type;
         $resource($this->container);
     }
     /**

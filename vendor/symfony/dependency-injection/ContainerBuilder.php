@@ -468,7 +468,6 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function get($id, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        $invalidBehavior = (int) $invalidBehavior;
         if ($this->isCompiled() && isset($this->removedIds[$id = (string) $id]) && \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
         }
@@ -643,7 +642,6 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      */
     public function compile($resolveEnvPlaceholders = \false)
     {
-        $resolveEnvPlaceholders = (bool) $resolveEnvPlaceholders;
         $compiler = $this->getCompiler();
         if ($this->trackResources) {
             foreach ($compiler->getPassConfig()->getPasses() as $pass) {
@@ -1116,13 +1114,12 @@ class ContainerBuilder extends \ECSPrefix20210508\Symfony\Component\DependencyIn
      *     }
      *
      * @return array An array of tags with the tagged service as key, holding a list of attribute arrays
-     * @param string $name
      * @param bool $throwOnAbstract
+     * @param string $name
      */
     public function findTaggedServiceIds($name, $throwOnAbstract = \false)
     {
         $name = (string) $name;
-        $throwOnAbstract = (bool) $throwOnAbstract;
         $this->usedTags[] = $name;
         $tags = [];
         foreach ($this->getDefinitions() as $id => $definition) {

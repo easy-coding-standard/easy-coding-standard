@@ -191,7 +191,6 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      */
     public function clear($prefix = '')
     {
-        $prefix = (string) $prefix;
         if ('' !== $prefix) {
             foreach ($this->deferred as $key => $item) {
                 if (0 === \strpos($key, $prefix)) {

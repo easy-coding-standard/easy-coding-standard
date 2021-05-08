@@ -72,7 +72,6 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
      */
     public function clear($prefix = '')
     {
-        $prefix = (string) $prefix;
         return \true;
     }
     /**

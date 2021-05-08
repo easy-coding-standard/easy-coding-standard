@@ -28,7 +28,6 @@ class EnvPlaceholderParameterBag extends \ECSPrefix20210508\Symfony\Component\De
      */
     public function get($name)
     {
-        $name = (string) $name;
         if (0 === \strpos($name, 'env(') && ')' === \substr($name, -1) && 'env()' !== $name) {
             $env = \substr($name, 4, -1);
             if (isset($this->envPlaceholders[$env])) {

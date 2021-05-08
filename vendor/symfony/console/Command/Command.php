@@ -79,7 +79,10 @@ class Command
     {
         $this->ignoreValidationErrors = \true;
     }
-    public function setApplication(\ECSPrefix20210508\Symfony\Component\Console\Application $application = null)
+    /**
+     * @param \Symfony\Component\Console\Application|null $application
+     */
+    public function setApplication($application = null)
     {
         $this->application = $application;
         if ($application) {
