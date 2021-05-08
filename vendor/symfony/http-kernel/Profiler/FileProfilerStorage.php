@@ -44,13 +44,13 @@ class FileProfilerStorage implements \ECSPrefix20210508\Symfony\Component\HttpKe
     }
     /**
      * {@inheritdoc}
+     * @param string|null $statusCode
      * @param string|null $ip
      * @param string|null $url
      * @param int|null $limit
      * @param string|null $method
      * @param int $start
      * @param int $end
-     * @param string $statusCode
      * @return mixed[]
      */
     public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null)

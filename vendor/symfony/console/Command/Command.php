@@ -79,10 +79,7 @@ class Command
     {
         $this->ignoreValidationErrors = \true;
     }
-    /**
-     * @param \Symfony\Component\Console\Application|null $application
-     */
-    public function setApplication($application = null)
+    public function setApplication(\ECSPrefix20210508\Symfony\Component\Console\Application $application = null)
     {
         $this->application = $application;
         if ($application) {
@@ -186,8 +183,10 @@ class Command
      *
      * @see setCode()
      * @see execute()
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      */
-    public function run(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output)
+    public function run($input, $output)
     {
         // add the application arguments and options
         $this->mergeApplicationDefinition();

@@ -43,9 +43,11 @@ class SingleCommandApplication extends \ECSPrefix20210508\Symfony\Component\Cons
         return $this;
     }
     /**
+     * @param \Symfony\Component\Console\Input\InputInterface|null $input
+     * @param \Symfony\Component\Console\Output\OutputInterface|null $output
      * @return int
      */
-    public function run(\ECSPrefix20210508\Symfony\Component\Console\Input\InputInterface $input = null, \ECSPrefix20210508\Symfony\Component\Console\Output\OutputInterface $output = null)
+    public function run($input = null, $output = null)
     {
         if ($this->running) {
             return parent::run($input, $output);

@@ -84,6 +84,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function setDecorated($decorated)
     {
+        $decorated = (bool) $decorated;
         $this->decorated = $decorated;
     }
     /**
@@ -99,6 +100,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function setStyle($name, \ECSPrefix20210508\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
+        $name = (string) $name;
         $this->styles[\strtolower($name)] = $style;
     }
     /**
@@ -107,6 +109,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function hasStyle($name)
     {
+        $name = (string) $name;
         return isset($this->styles[\strtolower($name)]);
     }
     /**
@@ -115,6 +118,7 @@ class OutputFormatter implements \ECSPrefix20210508\Symfony\Component\Console\Fo
      */
     public function getStyle($name)
     {
+        $name = (string) $name;
         if (!$this->hasStyle($name)) {
             throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('Undefined style: "%s".', $name));
         }

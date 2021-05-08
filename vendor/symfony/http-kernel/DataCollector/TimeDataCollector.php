@@ -31,9 +31,8 @@ class TimeDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel\
     }
     /**
      * {@inheritdoc}
-     * @param \Throwable|null $exception
      */
-    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, $exception = null)
+    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         if (null !== $this->kernel) {
             $startTime = $this->kernel->getStartTime();

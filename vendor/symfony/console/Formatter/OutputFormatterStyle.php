@@ -36,7 +36,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param string|null $color
+     * @param string $color
      */
     public function setForeground($color = null)
     {
@@ -44,7 +44,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
     }
     /**
      * {@inheritdoc}
-     * @param string|null $color
+     * @param string $color
      */
     public function setBackground($color = null)
     {
@@ -65,6 +65,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function setOption($option)
     {
+        $option = (string) $option;
         $this->options[] = $option;
         $this->color = new \ECSPrefix20210508\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
     }
@@ -74,6 +75,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function unsetOption($option)
     {
+        $option = (string) $option;
         $pos = \array_search($option, $this->options);
         if (\false !== $pos) {
             unset($this->options[$pos]);
@@ -93,6 +95,7 @@ class OutputFormatterStyle implements \ECSPrefix20210508\Symfony\Component\Conso
      */
     public function apply($text)
     {
+        $text = (string) $text;
         if (null === $this->handlesHrefGracefully) {
             $this->handlesHrefGracefully = 'JetBrains-JediTerm' !== \getenv('TERMINAL_EMULATOR') && (!\getenv('KONSOLE_VERSION') || (int) \getenv('KONSOLE_VERSION') > 201100);
         }

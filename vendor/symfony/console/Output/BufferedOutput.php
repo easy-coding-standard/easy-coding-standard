@@ -34,8 +34,6 @@ class BufferedOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output
      */
     protected function doWrite($message, $newline)
     {
-        $message = (string) $message;
-        $newline = (bool) $newline;
         $this->buffer .= $message;
         if ($newline) {
             $this->buffer .= \PHP_EOL;

@@ -64,8 +64,6 @@ class StreamOutput extends \ECSPrefix20210508\Symfony\Component\Console\Output\O
      */
     protected function doWrite($message, $newline)
     {
-        $message = (string) $message;
-        $newline = (bool) $newline;
         if ($newline) {
             $message .= \PHP_EOL;
         }
