@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9e8553f348ea956a085f5057b551298f
+class ComposerStaticInit08c12a5c684494b2092c8aa3ce65f736
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -31,6 +31,7 @@ class ComposerStaticInit9e8553f348ea956a085f5057b551298f
             'Symplify\\EasyCodingStandard\\' => 28,
             'Symplify\\ConsolePackageBuilder\\' => 31,
             'Symplify\\ConsoleColorDiff\\' => 26,
+            'Symplify\\ComposerJsonManipulator\\' => 33,
             'Symplify\\CodingStandard\\' => 24,
             'Symplify\\AutowireArrayParameter\\' => 32,
         ),
@@ -121,6 +122,10 @@ class ComposerStaticInit9e8553f348ea956a085f5057b551298f
         'Symplify\\ConsoleColorDiff\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/console-color-diff/src',
+        ),
+        'Symplify\\ComposerJsonManipulator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src',
         ),
         'Symplify\\CodingStandard\\' => 
         array (
@@ -1781,6 +1786,18 @@ class ComposerStaticInit9e8553f348ea956a085f5057b551298f
         'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
         'Symplify\\CodingStandard\\ValueObject\\DocBlockLines' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/DocBlockLines.php',
         'Symplify\\CodingStandard\\ValueObject\\StartAndEnd' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/StartAndEnd.php',
+        'Symplify\\ComposerJsonManipulator\\Bundle\\ComposerJsonManipulatorBundle' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Bundle/ComposerJsonManipulatorBundle.php',
+        'Symplify\\ComposerJsonManipulator\\ComposerJsonFactory' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ComposerJsonFactory.php',
+        'Symplify\\ComposerJsonManipulator\\DependencyInjection\\Extension\\ComposerJsonManipulatorExtension' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/DependencyInjection/Extension/ComposerJsonManipulatorExtension.php',
+        'Symplify\\ComposerJsonManipulator\\FileSystem\\JsonFileManager' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/FileSystem/JsonFileManager.php',
+        'Symplify\\ComposerJsonManipulator\\Json\\JsonCleaner' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Json/JsonCleaner.php',
+        'Symplify\\ComposerJsonManipulator\\Json\\JsonInliner' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Json/JsonInliner.php',
+        'Symplify\\ComposerJsonManipulator\\Printer\\ComposerJsonPrinter' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Printer/ComposerJsonPrinter.php',
+        'Symplify\\ComposerJsonManipulator\\Sorter\\ComposerPackageSorter' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Sorter/ComposerPackageSorter.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJson' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJson.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJsonSection' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJsonSection.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerValues' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerValues.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/Option.php',
         'Symplify\\ConsoleColorDiff\\Bundle\\ConsoleColorDiffBundle' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Bundle/ConsoleColorDiffBundle.php',
         'Symplify\\ConsoleColorDiff\\Console\\Formatter\\ColorConsoleDiffFormatter' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Console/Formatter/ColorConsoleDiffFormatter.php',
         'Symplify\\ConsoleColorDiff\\Console\\Output\\ConsoleDiffer' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Console/Output/ConsoleDiffer.php',
@@ -1887,6 +1904,7 @@ class ComposerStaticInit9e8553f348ea956a085f5057b551298f
         'Symplify\\EasyTesting\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Option.php',
         'Symplify\\EasyTesting\\ValueObject\\Prefix' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/Prefix.php',
         'Symplify\\EasyTesting\\ValueObject\\SplitLine' => __DIR__ . '/..' . '/symplify/easy-testing/src/ValueObject/SplitLine.php',
+        'Symplify\\PackageBuilder\\Composer\\PackageVersionProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Composer/PackageVersionProvider.php',
         'Symplify\\PackageBuilder\\Composer\\VendorDirProvider' => __DIR__ . '/..' . '/symplify/package-builder/src/Composer/VendorDirProvider.php',
         'Symplify\\PackageBuilder\\Configuration\\StaticEolConfiguration' => __DIR__ . '/..' . '/symplify/package-builder/src/Configuration/StaticEolConfiguration.php',
         'Symplify\\PackageBuilder\\Console\\Command\\AbstractSymplifyCommand' => __DIR__ . '/..' . '/symplify/package-builder/src/Console/Command/AbstractSymplifyCommand.php',
@@ -1990,9 +2008,9 @@ class ComposerStaticInit9e8553f348ea956a085f5057b551298f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9e8553f348ea956a085f5057b551298f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9e8553f348ea956a085f5057b551298f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9e8553f348ea956a085f5057b551298f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit08c12a5c684494b2092c8aa3ce65f736::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit08c12a5c684494b2092c8aa3ce65f736::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit08c12a5c684494b2092c8aa3ce65f736::$classMap;
 
         }, null, ClassLoader::class);
     }

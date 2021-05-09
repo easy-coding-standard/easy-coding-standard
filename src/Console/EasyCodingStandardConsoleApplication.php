@@ -2,9 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Console;
 
-use ECSPrefix20210509\Composer\InstalledVersions;
 use ECSPrefix20210509\Composer\XdebugHandler\XdebugHandler;
-use ECSPrefix20210509\Nette\Utils\Strings;
 use ECSPrefix20210509\Symfony\Component\Console\Command\Command;
 use ECSPrefix20210509\Symfony\Component\Console\Input\InputDefinition;
 use ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface;
@@ -15,6 +13,7 @@ use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedExceptio
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\PackageBuilder\Composer\PackageVersionProvider;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\SymplifyKernel\Console\AbstractSymplifyConsoleApplication;
 use Throwable;
@@ -29,7 +28,8 @@ final class EasyCodingStandardConsoleApplication extends \Symplify\SymplifyKerne
      */
     public function __construct(\Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter $noCheckersLoaderReporter, array $commands)
     {
-        $version = $this->resolveEasyCodingStandardVersion();
+        $packageVersionProvider = new \Symplify\PackageBuilder\Composer\PackageVersionProvider();
+        $version = $packageVersionProvider->provide('symplify/easy-coding-standard');
         parent::__construct($commands, 'EasyCodingStandard', $version);
         $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
         $this->setDefaultCommand(\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class));
@@ -95,23 +95,5 @@ final class EasyCodingStandardConsoleApplication extends \Symplify\SymplifyKerne
     {
         $inputDefinition->addOption(new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::XDEBUG, null, \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
         $inputDefinition->addOption(new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG, null, \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")'));
-    }
-    /**
-     * @return string
-     */
-    private function resolveEasyCodingStandardVersion()
-    {
-        $installedRawData = \ECSPrefix20210509\Composer\InstalledVersions::getRawData();
-        $ecsPackageData = isset($installedRawData['versions']['symplify/easy-coding-standard']) ? $installedRawData['versions']['symplify/easy-coding-standard'] : null;
-        if ($ecsPackageData === null) {
-            return 'Unknown';
-        }
-        if (isset($ecsPackageData['replaced'])) {
-            return 'replaced@' . $ecsPackageData['replaced'][0];
-        }
-        if ($ecsPackageData['version'] === 'dev-main') {
-            return 'dev-main@' . \ECSPrefix20210509\Nette\Utils\Strings::substring($ecsPackageData['reference'], 0, 7);
-        }
-        return $ecsPackageData['version'];
     }
 }

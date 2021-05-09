@@ -3446,6 +3446,55 @@
             "install-path": "..\/symplify\/coding-standard"
         },
         {
+            "name": "symplify\/composer-json-manipulator",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "..\/..\/packages\/composer-json-manipulator",
+                "reference": "a58d9f73bb7f756b720428566761854a44d86641"
+            },
+            "require": {
+                "nette\/utils": "^3.2",
+                "php": ">=7.3",
+                "symfony\/config": "^4.4|^5.2",
+                "symfony\/dependency-injection": "^5.2",
+                "symfony\/filesystem": "^4.4|^5.2",
+                "symfony\/http-kernel": "^4.4|^5.2",
+                "symplify\/package-builder": "dev-main",
+                "symplify\/smart-file-system": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "9.4-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Symplify\\ComposerJsonManipulator\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Package to load, merge and save composer.json file(s)",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/symplify\/composer-json-manipulator"
+        },
+        {
             "name": "symplify\/console-color-diff",
             "version": "dev-main",
             "version_normalized": "dev-main",
@@ -3833,7 +3882,7 @@
             "dist": {
                 "type": "path",
                 "url": "..\/..\/packages\/symplify-kernel",
-                "reference": "32e32718ab53af554b16c0fd971fa2575d521080"
+                "reference": "6ce79f29218bd8b90f70b6ed993c227b8d8bd57f"
             },
             "require": {
                 "jean85\/pretty-package-versions": "^1.6|^2.0.1",
@@ -3842,6 +3891,7 @@
                 "symfony\/dependency-injection": "^5.2",
                 "symfony\/http-kernel": "^4.4|^5.2",
                 "symplify\/autowire-array-parameter": "dev-main",
+                "symplify\/composer-json-manipulator": "dev-main",
                 "symplify\/package-builder": "dev-main",
                 "symplify\/smart-file-system": "dev-main"
             },

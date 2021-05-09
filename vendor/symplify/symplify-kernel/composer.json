@@ -10,6 +10,7 @@
         "symfony\/dependency-injection": "^5.2",
         "symplify\/smart-file-system": "dev-main",
         "symplify\/autowire-array-parameter": "dev-main",
+        "symplify\/composer-json-manipulator": "dev-main",
         "symplify\/package-builder": "dev-main"
     },
     "require-dev": {
