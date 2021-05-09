@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Traits;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Traits;
 
-use ECSPrefix20210508\Psr\Cache\CacheItemInterface;
-use ECSPrefix20210508\Psr\Log\LoggerAwareTrait;
-use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Psr\Cache\CacheItemInterface;
+use ECSPrefix20210509\Psr\Log\LoggerAwareTrait;
+use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Symfony\Component\Cache\Exception\InvalidArgumentException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -94,7 +94,7 @@ trait AbstractAdapterTrait
         try {
             return $this->doHave($id);
         } catch (\Exception $e) {
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to check if key "{key}" is cached: ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to check if key "{key}" is cached: ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
             return \false;
         }
     }
@@ -130,7 +130,7 @@ trait AbstractAdapterTrait
         try {
             return $this->doClear($namespaceToClear) || $cleared;
         } catch (\Exception $e) {
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to clear the cache: ' . $e->getMessage(), ['exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to clear the cache: ' . $e->getMessage(), ['exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
             return \false;
         }
     }
@@ -172,7 +172,7 @@ trait AbstractAdapterTrait
             } catch (\Exception $e) {
             }
             $message = 'Failed to delete key "{key}"' . ($e instanceof \Exception ? ': ' . $e->getMessage() : '.');
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, $message, ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::log($this->logger, $message, ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
             $ok = \false;
         }
         return $ok;
@@ -195,7 +195,7 @@ trait AbstractAdapterTrait
             }
             return $f($key, $value, $isHit);
         } catch (\Exception $e) {
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to fetch key "{key}": ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to fetch key "{key}": ' . $e->getMessage(), ['key' => $key, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
         }
         return $f($key, null, \false);
     }
@@ -214,7 +214,7 @@ trait AbstractAdapterTrait
         try {
             $items = $this->doFetch($ids);
         } catch (\Exception $e) {
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to fetch items: ' . $e->getMessage(), ['keys' => $keys, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to fetch items: ' . $e->getMessage(), ['keys' => $keys, 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
             $items = [];
         }
         $ids = \array_combine($ids, $keys);
@@ -225,9 +225,9 @@ trait AbstractAdapterTrait
      *
      * @return bool
      */
-    public function save(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function save(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \ECSPrefix20210508\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \ECSPrefix20210509\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $this->deferred[$item->getKey()] = $item;
@@ -238,9 +238,9 @@ trait AbstractAdapterTrait
      *
      * @return bool
      */
-    public function saveDeferred(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \ECSPrefix20210508\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \ECSPrefix20210509\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $this->deferred[$item->getKey()] = $item;
@@ -301,14 +301,14 @@ trait AbstractAdapterTrait
         try {
             foreach ($items as $id => $value) {
                 if (!isset($keys[$id])) {
-                    throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Could not match value id "%s" to keys "%s".', $id, \implode('", "', $keys)));
+                    throw new \ECSPrefix20210509\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Could not match value id "%s" to keys "%s".', $id, \implode('", "', $keys)));
                 }
                 $key = $keys[$id];
                 unset($keys[$id]);
                 (yield $key => $f($key, $value, \true));
             }
         } catch (\Exception $e) {
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to fetch items: ' . $e->getMessage(), ['keys' => \array_values($keys), 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::log($this->logger, 'Failed to fetch items: ' . $e->getMessage(), ['keys' => \array_values($keys), 'exception' => $e, 'cache-adapter' => \get_debug_type($this)]);
         }
         foreach ($keys as $key) {
             (yield $key => $f($key, null, \false));
@@ -333,7 +333,7 @@ trait AbstractAdapterTrait
         if (\is_string($key) && isset($this->ids[$key])) {
             return $this->namespace . $this->namespaceVersion . $this->ids[$key];
         }
-        \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($key);
+        \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::validateKey($key);
         $this->ids[$key] = $key;
         if (null === $this->maxIdLength) {
             return $this->namespace . $this->namespaceVersion . $key;

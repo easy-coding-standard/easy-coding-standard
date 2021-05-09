@@ -2,7 +2,7 @@
 
 namespace Symplify\PackageBuilder\Console\Input;
 
-use ECSPrefix20210508\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix20210509\Symfony\Component\Console\Input\ArgvInput;
 final class StaticInputDetector
 {
     /**
@@ -10,7 +10,7 @@ final class StaticInputDetector
      */
     public static function isDebug()
     {
-        $argvInput = new \ECSPrefix20210508\Symfony\Component\Console\Input\ArgvInput();
+        $argvInput = new \ECSPrefix20210509\Symfony\Component\Console\Input\ArgvInput();
         return $argvInput->hasParameterOption(['--debug', '-v', '-vv', '-vvv']);
     }
 }

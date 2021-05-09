@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Psr\Cache\CacheItemInterface;
-use ECSPrefix20210508\Psr\Cache\InvalidArgumentException;
-use ECSPrefix20210508\Psr\Log\LoggerAwareInterface;
-use ECSPrefix20210508\Psr\Log\LoggerAwareTrait;
-use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\Traits\ContractsTrait;
-use ECSPrefix20210508\Symfony\Component\Cache\Traits\ProxyTrait;
-use ECSPrefix20210508\Symfony\Contracts\Cache\TagAwareCacheInterface;
+use ECSPrefix20210509\Psr\Cache\CacheItemInterface;
+use ECSPrefix20210509\Psr\Cache\InvalidArgumentException;
+use ECSPrefix20210509\Psr\Log\LoggerAwareInterface;
+use ECSPrefix20210509\Psr\Log\LoggerAwareTrait;
+use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\ResettableInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\Traits\ContractsTrait;
+use ECSPrefix20210509\Symfony\Component\Cache\Traits\ProxyTrait;
+use ECSPrefix20210509\Symfony\Contracts\Cache\TagAwareCacheInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface, \ECSPrefix20210508\Symfony\Contracts\Cache\TagAwareCacheInterface, \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface, \ECSPrefix20210508\Psr\Log\LoggerAwareInterface
+class TagAwareAdapter implements \ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface, \ECSPrefix20210509\Symfony\Contracts\Cache\TagAwareCacheInterface, \ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210509\Symfony\Component\Cache\ResettableInterface, \ECSPrefix20210509\Psr\Log\LoggerAwareInterface
 {
     const TAGS_PREFIX = "\0tags\0";
     use ContractsTrait;
@@ -40,28 +40,28 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
     /**
      * @param float $knownTagVersionsTtl
      */
-    public function __construct(\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool = null, $knownTagVersionsTtl = 0.15)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface $itemsPool, \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface $tagsPool = null, $knownTagVersionsTtl = 0.15)
     {
         $knownTagVersionsTtl = (double) $knownTagVersionsTtl;
         $this->pool = $itemsPool;
         $this->tags = $tagsPool ?: $itemsPool;
         $this->knownTagVersionsTtl = $knownTagVersionsTtl;
-        $this->createCacheItem = \Closure::bind(static function ($key, $value, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem $protoItem) {
-            $item = new \ECSPrefix20210508\Symfony\Component\Cache\CacheItem();
+        $this->createCacheItem = \Closure::bind(static function ($key, $value, \ECSPrefix20210509\Symfony\Component\Cache\CacheItem $protoItem) {
+            $item = new \ECSPrefix20210509\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->value = $value;
             $item->expiry = $protoItem->expiry;
             $item->poolHash = $protoItem->poolHash;
             return $item;
-        }, null, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
-        $this->setCacheItemTags = \Closure::bind(static function (\ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item, $key, array &$itemTags) {
+        }, null, \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::class);
+        $this->setCacheItemTags = \Closure::bind(static function (\ECSPrefix20210509\Symfony\Component\Cache\CacheItem $item, $key, array &$itemTags) {
             $item->isTaggable = \true;
             if (!$item->isHit) {
                 return $item;
             }
             if (isset($itemTags[$key])) {
                 foreach ($itemTags[$key] as $tag => $version) {
-                    $item->metadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_TAGS][$tag] = $tag;
+                    $item->metadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_TAGS][$tag] = $tag;
                 }
                 unset($itemTags[$key]);
             } else {
@@ -69,22 +69,22 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
                 $item->isHit = \false;
             }
             return $item;
-        }, null, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
+        }, null, \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::class);
         $this->getTagsByKey = \Closure::bind(static function ($deferred) {
             $tagsByKey = [];
             foreach ($deferred as $key => $item) {
-                $tagsByKey[$key] = isset($item->newMetadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_TAGS]) ? $item->newMetadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_TAGS] : [];
+                $tagsByKey[$key] = isset($item->newMetadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_TAGS]) ? $item->newMetadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_TAGS] : [];
                 $item->metadata = $item->newMetadata;
             }
             return $tagsByKey;
-        }, null, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
-        $this->invalidateTags = \Closure::bind(static function (\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $tagsAdapter, array $tags) {
+        }, null, \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::class);
+        $this->invalidateTags = \Closure::bind(static function (\ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface $tagsAdapter, array $tags) {
             foreach ($tags as $v) {
                 $v->expiry = 0;
                 $tagsAdapter->saveDeferred($v);
             }
             return $tagsAdapter->commit();
-        }, null, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
+        }, null, \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}
@@ -95,7 +95,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
         $tagsByKey = [];
         $invalidatedTags = [];
         foreach ($tags as $tag) {
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($tag);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::validateKey($tag);
             $invalidatedTags[$tag] = 0;
         }
         if ($this->deferred) {
@@ -176,7 +176,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
         }
         try {
             $items = $this->pool->getItems($tagKeys + $keys);
-        } catch (\ECSPrefix20210508\Psr\Cache\InvalidArgumentException $e) {
+        } catch (\ECSPrefix20210509\Psr\Cache\InvalidArgumentException $e) {
             $this->pool->getItems($keys);
             // Should throw an exception
             throw $e;
@@ -200,7 +200,7 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
         } else {
             $this->deferred = [];
         }
-        if ($this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
+        if ($this->pool instanceof \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface) {
             return $this->pool->clear($prefix);
         }
         return $this->pool->clear();
@@ -233,9 +233,9 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      *
      * @return bool
      */
-    public function save(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function save(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \ECSPrefix20210508\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \ECSPrefix20210509\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $this->deferred[$item->getKey()] = $item;
@@ -246,9 +246,9 @@ class TagAwareAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adap
      *
      * @return bool
      */
-    public function saveDeferred(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
-        if (!$item instanceof \ECSPrefix20210508\Symfony\Component\Cache\CacheItem) {
+        if (!$item instanceof \ECSPrefix20210509\Symfony\Component\Cache\CacheItem) {
             return \false;
         }
         $this->deferred[$item->getKey()] = $item;

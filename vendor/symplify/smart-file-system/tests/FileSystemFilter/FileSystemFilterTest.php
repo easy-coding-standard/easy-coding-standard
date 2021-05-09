@@ -3,9 +3,9 @@
 declare (strict_types=1);
 namespace Symplify\SmartFileSystem\Tests\FileSystemFilter;
 
-use ECSPrefix20210508\PHPUnit\Framework\TestCase;
+use ECSPrefix20210509\PHPUnit\Framework\TestCase;
 use Symplify\SmartFileSystem\FileSystemFilter;
-final class FileSystemFilterTest extends \ECSPrefix20210508\PHPUnit\Framework\TestCase
+final class FileSystemFilterTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
 {
     /**
      * @var FileSystemFilter

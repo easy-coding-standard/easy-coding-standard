@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Psr\Cache\InvalidArgumentException;
+use ECSPrefix20210509\Psr\Cache\InvalidArgumentException;
 /**
  * Interface for invalidating cached items using tags.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface TagAwareAdapterInterface extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface
+interface TagAwareAdapterInterface extends \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface
 {
     /**
      * Invalidates cached items using tags.

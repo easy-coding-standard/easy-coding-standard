@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache;
+namespace ECSPrefix20210509\Symfony\Component\Cache;
 
-use ECSPrefix20210508\Psr\Log\LoggerInterface;
-use ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface;
-use ECSPrefix20210508\Symfony\Contracts\Cache\ItemInterface;
+use ECSPrefix20210509\Psr\Log\LoggerInterface;
+use ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface;
+use ECSPrefix20210509\Symfony\Contracts\Cache\ItemInterface;
 /**
  * LockRegistry is used internally by existing adapters to protect against cache stampede.
  *
@@ -51,7 +51,7 @@ final class LockRegistry
     /**
      * @param bool $save
      */
-    public static function compute(callable $callback, \ECSPrefix20210508\Symfony\Contracts\Cache\ItemInterface $item, &$save, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface $pool, \Closure $setMetadata = null, \ECSPrefix20210508\Psr\Log\LoggerInterface $logger = null)
+    public static function compute(callable $callback, \ECSPrefix20210509\Symfony\Contracts\Cache\ItemInterface $item, &$save, \ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface $pool, \Closure $setMetadata = null, \ECSPrefix20210509\Psr\Log\LoggerInterface $logger = null)
     {
         $save = (bool) $save;
         $key = self::$files ? \abs(\crc32($item->getKey())) % \count(self::$files) : -1;

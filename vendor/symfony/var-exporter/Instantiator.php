@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\VarExporter;
+namespace ECSPrefix20210509\Symfony\Component\VarExporter;
 
-use ECSPrefix20210508\Symfony\Component\VarExporter\Exception\ExceptionInterface;
-use ECSPrefix20210508\Symfony\Component\VarExporter\Exception\NotInstantiableTypeException;
-use ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator;
-use ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Exception\ExceptionInterface;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Exception\NotInstantiableTypeException;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Hydrator;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry;
 /**
  * A utility class to create objects without calling their constructor.
  *
@@ -58,13 +58,13 @@ final class Instantiator
     public static function instantiate($class, array $properties = [], array $privateProperties = [])
     {
         $class = (string) $class;
-        $reflector = isset(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$reflectors[$class]) ? \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$reflectors[$class] : \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::getClassReflector($class);
-        if (\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$cloneable[$class]) {
-            $wrappedInstance = [clone \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$prototypes[$class]];
-        } elseif (\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$instantiableWithoutConstructor[$class]) {
+        $reflector = isset(\ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry::$reflectors[$class]) ? \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry::$reflectors[$class] : \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry::getClassReflector($class);
+        if (\ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry::$cloneable[$class]) {
+            $wrappedInstance = [clone \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry::$prototypes[$class]];
+        } elseif (\ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry::$instantiableWithoutConstructor[$class]) {
             $wrappedInstance = [$reflector->newInstanceWithoutConstructor()];
-        } elseif (null === \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry::$prototypes[$class]) {
-            throw new \ECSPrefix20210508\Symfony\Component\VarExporter\Exception\NotInstantiableTypeException($class);
+        } elseif (null === \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry::$prototypes[$class]) {
+            throw new \ECSPrefix20210509\Symfony\Component\VarExporter\Exception\NotInstantiableTypeException($class);
         } elseif ($reflector->implementsInterface('Serializable') && (\PHP_VERSION_ID < 70400 || !\method_exists($class, '__unserialize'))) {
             $wrappedInstance = [\unserialize('C:' . \strlen($class) . ':"' . $class . '":0:{}')];
         } else {
@@ -82,7 +82,7 @@ final class Instantiator
                 // deal with array of instances, so we need to wrap values
                 $properties[$name] = [$value];
             }
-            (isset(\ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator::$hydrators[$class]) ? \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator::$hydrators[$class] : \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator::getHydrator($class))($properties, $wrappedInstance);
+            (isset(\ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Hydrator::$hydrators[$class]) ? \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Hydrator::$hydrators[$class] : \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Hydrator::getHydrator($class))($properties, $wrappedInstance);
         }
         return $wrappedInstance[0];
     }

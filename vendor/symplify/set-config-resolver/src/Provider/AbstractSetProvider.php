@@ -2,7 +2,7 @@
 
 namespace Symplify\SetConfigResolver\Provider;
 
-use ECSPrefix20210508\Nette\Utils\Strings;
+use ECSPrefix20210509\Nette\Utils\Strings;
 use Symplify\SetConfigResolver\Contract\SetProviderInterface;
 use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 use Symplify\SetConfigResolver\ValueObject\Set;
@@ -61,7 +61,7 @@ abstract class AbstractSetProvider implements \Symplify\SetConfigResolver\Contra
     private function resolveSetUniquePathId($setPath)
     {
         $setPath = (string) $setPath;
-        $setPath = \ECSPrefix20210508\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
+        $setPath = \ECSPrefix20210509\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
         if ($setPath === null) {
             throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }

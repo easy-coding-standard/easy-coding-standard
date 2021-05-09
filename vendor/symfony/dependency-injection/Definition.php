@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\BoundArgument;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\BoundArgument;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 /**
  * Definition represents a service definition.
  *
@@ -97,7 +97,7 @@ class Definition
         $this->changes['factory'] = \true;
         if (\is_string($factory) && \false !== \strpos($factory, '::')) {
             $factory = \explode('::', $factory, 2);
-        } elseif ($factory instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference) {
+        } elseif ($factory instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference) {
             $factory = [$factory, '__invoke'];
         }
         $this->factory = $factory;
@@ -124,19 +124,19 @@ class Definition
      * @param int $priority
      * @param int $invalidBehavior
      */
-    public function setDecoratedService($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function setDecoratedService($id, $renamedId = null, $priority = 0, $invalidBehavior = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         $priority = (int) $priority;
         $invalidBehavior = (int) $invalidBehavior;
         if ($renamedId && $id === $renamedId) {
-            throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The decorated service inner name for "%s" must be different than the service name itself.', $id));
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('The decorated service inner name for "%s" must be different than the service name itself.', $id));
         }
         $this->changes['decorated_service'] = \true;
         if (null === $id) {
             $this->decoratedService = null;
         } else {
             $this->decoratedService = [$id, $renamedId, (int) $priority];
-            if (\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE !== $invalidBehavior) {
+            if (\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE !== $invalidBehavior) {
                 $this->decoratedService[] = $invalidBehavior;
             }
         }
@@ -240,13 +240,13 @@ class Definition
     public function replaceArgument($index, $argument)
     {
         if (0 === \count($this->arguments)) {
-            throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException('Cannot replace arguments if none have been configured yet.');
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException('Cannot replace arguments if none have been configured yet.');
         }
         if (\is_int($index) && ($index < 0 || $index > \count($this->arguments) - 1)) {
-            throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The index "%d" is not in the range [0, %d].', $index, \count($this->arguments) - 1));
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The index "%d" is not in the range [0, %d].', $index, \count($this->arguments) - 1));
         }
         if (!\array_key_exists($index, $this->arguments)) {
-            throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
         }
         $this->arguments[$index] = $argument;
         return $this;
@@ -285,7 +285,7 @@ class Definition
     public function getArgument($index)
     {
         if (!\array_key_exists($index, $this->arguments)) {
-            throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\OutOfBoundsException(\sprintf('The argument "%s" doesn\'t exist.', $index));
         }
         return $this->arguments[$index];
     }
@@ -318,7 +318,7 @@ class Definition
         $method = (string) $method;
         $returnsClone = (bool) $returnsClone;
         if (empty($method)) {
-            throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Method name cannot be empty.');
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Method name cannot be empty.');
         }
         $this->calls[] = $returnsClone ? [$method, $arguments, \true] : [$method, $arguments];
         return $this;
@@ -670,10 +670,10 @@ class Definition
         }
         if ('' !== $message) {
             if (\preg_match('#[\\r\\n]|\\*/#', $message)) {
-                throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
+                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('Invalid characters found in deprecation template.');
             }
             if (\false === \strpos($message, '%service_id%')) {
-                throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%service_id%" placeholder.');
+                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException('The deprecation template must contain the "%service_id%" placeholder.');
             }
         }
         $this->changes['deprecated'] = \true;
@@ -726,7 +726,7 @@ class Definition
         $this->changes['configurator'] = \true;
         if (\is_string($configurator) && \false !== \strpos($configurator, '::')) {
             $configurator = \explode('::', $configurator, 2);
-        } elseif ($configurator instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference) {
+        } elseif ($configurator instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference) {
             $configurator = [$configurator, '__invoke'];
         }
         $this->configurator = $configurator;
@@ -788,8 +788,8 @@ class Definition
                 unset($bindings[$key]);
                 $bindings[$key = $k] = $binding;
             }
-            if (!$binding instanceof \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\BoundArgument) {
-                $bindings[$key] = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\BoundArgument($binding);
+            if (!$binding instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\BoundArgument) {
+                $bindings[$key] = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\BoundArgument($binding);
             }
         }
         $this->bindings = $bindings;

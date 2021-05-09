@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Finder;
 
-use ECSPrefix20210508\Symfony\Component\Finder\Finder;
+use ECSPrefix20210509\Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Git\GitDiffProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -60,7 +60,7 @@ final class SourceFinder
     {
         $directory = (string) $directory;
         $normalizedFileExtensions = $this->normalizeFileExtensions($this->fileExtensions);
-        $finder = \ECSPrefix20210508\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
+        $finder = \ECSPrefix20210509\Symfony\Component\Finder\Finder::create()->files()->name($normalizedFileExtensions)->in($directory)->exclude('vendor')->size('> 0')->sortByName();
         return $this->finderSanitizer->sanitize($finder);
     }
     /**

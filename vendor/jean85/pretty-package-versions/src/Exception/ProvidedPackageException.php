@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210508\Jean85\Exception;
+namespace ECSPrefix20210509\Jean85\Exception;
 
-class ProvidedPackageException extends \Exception implements \ECSPrefix20210508\Jean85\Exception\VersionMissingExceptionInterface
+class ProvidedPackageException extends \Exception implements \ECSPrefix20210509\Jean85\Exception\VersionMissingExceptionInterface
 {
     /**
      * @param string $packageName

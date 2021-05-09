@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\DependencyInjection;
+namespace ECSPrefix20210509\Symfony\Component\Cache\DependencyInjection;
 
-use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Rob Frawley 2nd <rmf@src.run>
  */
-class CachePoolPrunerPass implements \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class CachePoolPrunerPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $cacheCommandServiceId;
     private $cachePoolTag;
@@ -37,7 +37,7 @@ class CachePoolPrunerPass implements \ECSPrefix20210508\Symfony\Component\Depend
     /**
      * {@inheritdoc}
      */
-    public function process(\ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->cacheCommandServiceId)) {
             return;
@@ -46,12 +46,12 @@ class CachePoolPrunerPass implements \ECSPrefix20210508\Symfony\Component\Depend
         foreach ($container->findTaggedServiceIds($this->cachePoolTag) as $id => $tags) {
             $class = $container->getParameterBag()->resolveValue($container->getDefinition($id)->getClass());
             if (!($reflection = $container->getReflectionClass($class))) {
-                throw new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
             }
-            if ($reflection->implementsInterface(\ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface::class)) {
-                $services[$id] = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Reference($id);
+            if ($reflection->implementsInterface(\ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface::class)) {
+                $services[$id] = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference($id);
             }
         }
-        $container->getDefinition($this->cacheCommandServiceId)->replaceArgument(0, new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Argument\IteratorArgument($services));
+        $container->getDefinition($this->cacheCommandServiceId)->replaceArgument(0, new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\IteratorArgument($services));
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Symplify\SetConfigResolver\Config;
 
-use ECSPrefix20210508\Symfony\Component\Config\FileLocator;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix20210509\Symfony\Component\Config\FileLocator;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symplify\Astral\Exception\ShouldNotHappenException;
 use Symplify\SetConfigResolver\SetResolver;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -53,8 +53,8 @@ final class SetsParameterResolver
     private function resolveSetsParameterFromPhpFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo)
     {
         // php file loader
-        $containerBuilder = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\ContainerBuilder();
-        $phpFileLoader = new \ECSPrefix20210508\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210508\Symfony\Component\Config\FileLocator());
+        $containerBuilder = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder();
+        $phpFileLoader = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\PhpFileLoader($containerBuilder, new \ECSPrefix20210509\Symfony\Component\Config\FileLocator());
         $phpFileLoader->load($configFileInfo->getRealPath());
         if (!$containerBuilder->hasParameter(self::SETS)) {
             return [];

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210508\Psr\SimpleCache;
+namespace ECSPrefix20210509\Psr\SimpleCache;
 
 /**
  * Exception interface for invalid cache arguments.
@@ -8,6 +8,6 @@ namespace ECSPrefix20210508\Psr\SimpleCache;
  * When an invalid argument is passed it must throw an exception which implements
  * this interface
  */
-interface InvalidArgumentException extends \ECSPrefix20210508\Psr\SimpleCache\CacheException
+interface InvalidArgumentException extends \ECSPrefix20210509\Psr\SimpleCache\CacheException
 {
 }

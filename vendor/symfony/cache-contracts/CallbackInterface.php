@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Contracts\Cache;
+namespace ECSPrefix20210509\Symfony\Contracts\Cache;
 
-use ECSPrefix20210508\Psr\Cache\CacheItemInterface;
+use ECSPrefix20210509\Psr\Cache\CacheItemInterface;
 /**
  * Computes and returns the cached value of an item.
  *
@@ -24,5 +24,5 @@ interface CallbackInterface
      *
      * @return mixed The computed value for the passed item
      */
-    public function __invoke(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item, &$save);
+    public function __invoke(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item, &$save);
 }

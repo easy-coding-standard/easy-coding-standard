@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\VarExporter\Internal;
+namespace ECSPrefix20210509\Symfony\Component\VarExporter\Internal;
 
-use ECSPrefix20210508\Symfony\Component\VarExporter\Exception\ClassNotFoundException;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Exception\ClassNotFoundException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -62,7 +62,7 @@ class Hydrator
             };
         }
         if (!\class_exists($class) && !\interface_exists($class, \false) && !\trait_exists($class, \false)) {
-            throw new \ECSPrefix20210508\Symfony\Component\VarExporter\Exception\ClassNotFoundException($class);
+            throw new \ECSPrefix20210509\Symfony\Component\VarExporter\Exception\ClassNotFoundException($class);
         }
         $classReflector = new \ReflectionClass($class);
         if (!$classReflector->isInternal()) {
@@ -88,9 +88,9 @@ class Hydrator
                     }
                 };
             case 'ErrorException':
-                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__0());
+                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__0());
             case 'TypeError':
-                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__1());
+                return self::$hydrators[$class] = (isset(self::$hydrators['stdClass']) ? self::$hydrators['stdClass'] : self::getHydrator('stdClass'))->bindTo(null, new \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Anonymous__b3dd2147f1529ab4e7eddc492e2855ce__1());
             case 'SplObjectStorage':
                 return self::$hydrators[$class] = static function ($properties, $objects) {
                     foreach ($properties as $name => $values) {

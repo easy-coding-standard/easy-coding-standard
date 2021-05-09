@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Exception;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Exception;
 
-use ECSPrefix20210508\Psr\Cache\InvalidArgumentException as Psr6CacheInterface;
-use ECSPrefix20210508\Psr\SimpleCache\InvalidArgumentException as SimpleCacheInterface;
-if (\interface_exists(\ECSPrefix20210508\Psr\SimpleCache\InvalidArgumentException::class)) {
-    class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210508\Psr\Cache\InvalidArgumentException, \ECSPrefix20210508\Psr\SimpleCache\InvalidArgumentException
+use ECSPrefix20210509\Psr\Cache\InvalidArgumentException as Psr6CacheInterface;
+use ECSPrefix20210509\Psr\SimpleCache\InvalidArgumentException as SimpleCacheInterface;
+if (\interface_exists(\ECSPrefix20210509\Psr\SimpleCache\InvalidArgumentException::class)) {
+    class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210509\Psr\Cache\InvalidArgumentException, \ECSPrefix20210509\Psr\SimpleCache\InvalidArgumentException
     {
     }
 } else {
-    class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210508\Psr\Cache\InvalidArgumentException
+    class InvalidArgumentException extends \InvalidArgumentException implements \ECSPrefix20210509\Psr\Cache\InvalidArgumentException
     {
     }
 }

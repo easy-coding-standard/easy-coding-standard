@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
-use ECSPrefix20210508\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
@@ -26,7 +26,7 @@ final class ChangedFilesDetector
      * @var TagAwareAdapterInterface
      */
     private $tagAwareAdapter;
-    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
+    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer, \ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
     {
         $this->fileHashComputer = $fileHashComputer;
         $this->tagAwareAdapter = $tagAwareAdapter;

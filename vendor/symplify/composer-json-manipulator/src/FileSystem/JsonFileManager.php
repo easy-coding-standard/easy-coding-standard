@@ -2,7 +2,7 @@
 
 namespace Symplify\ComposerJsonManipulator\FileSystem;
 
-use ECSPrefix20210508\Nette\Utils\Json;
+use ECSPrefix20210509\Nette\Utils\Json;
 use Symplify\ComposerJsonManipulator\Json\JsonCleaner;
 use Symplify\ComposerJsonManipulator\Json\JsonInliner;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
@@ -43,7 +43,7 @@ final class JsonFileManager
     {
         $realPath = $smartFileInfo->getRealPath();
         if (!isset($this->cachedJSONFiles[$realPath])) {
-            $this->cachedJSONFiles[$realPath] = \ECSPrefix20210508\Nette\Utils\Json::decode($smartFileInfo->getContents(), \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
+            $this->cachedJSONFiles[$realPath] = \ECSPrefix20210509\Nette\Utils\Json::decode($smartFileInfo->getContents(), \ECSPrefix20210509\Nette\Utils\Json::FORCE_ARRAY);
         }
         return $this->cachedJSONFiles[$realPath];
     }
@@ -55,7 +55,7 @@ final class JsonFileManager
     {
         $filePath = (string) $filePath;
         $fileContent = $this->smartFileSystem->readFile($filePath);
-        return \ECSPrefix20210508\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210508\Nette\Utils\Json::FORCE_ARRAY);
+        return \ECSPrefix20210509\Nette\Utils\Json::decode($fileContent, \ECSPrefix20210509\Nette\Utils\Json::FORCE_ARRAY);
     }
     /**
      * @param mixed[] $json
@@ -86,7 +86,7 @@ final class JsonFileManager
     {
         // Empty arrays may lead to bad encoding since we can't be sure whether they need to be arrays or objects.
         $json = $this->jsonCleaner->removeEmptyKeysFromJsonArray($json);
-        $jsonContent = \ECSPrefix20210508\Nette\Utils\Json::encode($json, \ECSPrefix20210508\Nette\Utils\Json::PRETTY) . \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
+        $jsonContent = \ECSPrefix20210509\Nette\Utils\Json::encode($json, \ECSPrefix20210509\Nette\Utils\Json::PRETTY) . \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar();
         return $this->jsonInliner->inlineSections($jsonContent);
     }
 }

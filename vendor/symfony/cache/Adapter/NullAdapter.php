@@ -8,25 +8,25 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Psr\Cache\CacheItemInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface;
+use ECSPrefix20210509\Psr\Cache\CacheItemInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface;
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
-class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface
+class NullAdapter implements \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface
 {
     private $createCacheItem;
     public function __construct()
     {
         $this->createCacheItem = \Closure::bind(function ($key) {
-            $item = new \ECSPrefix20210508\Symfony\Component\Cache\CacheItem();
+            $item = new \ECSPrefix20210509\Symfony\Component\Cache\CacheItem();
             $item->key = $key;
             $item->isHit = \false;
             return $item;
-        }, $this, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
+        }, $this, \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::class);
     }
     /**
      * {@inheritdoc}
@@ -97,7 +97,7 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
      *
      * @return bool
      */
-    public function save(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function save(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
         return \true;
     }
@@ -106,7 +106,7 @@ class NullAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\
      *
      * @return bool
      */
-    public function saveDeferred(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
         return \true;
     }

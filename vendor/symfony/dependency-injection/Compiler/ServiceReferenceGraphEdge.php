@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
 /**
  * Represents an edge in your service graph.
@@ -30,7 +30,7 @@ class ServiceReferenceGraphEdge
      * @param bool $weak
      * @param bool $byConstructor
      */
-    public function __construct(\ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20210508\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, $lazy = \false, $weak = \false, $byConstructor = \false)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, $lazy = \false, $weak = \false, $byConstructor = \false)
     {
         $lazy = (bool) $lazy;
         $weak = (bool) $weak;

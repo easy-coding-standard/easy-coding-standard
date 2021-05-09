@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
-use ECSPrefix20210508\Nette\Utils\Strings;
+use ECSPrefix20210509\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -261,6 +261,6 @@ CODE_SAMPLE
         if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
             return \false;
         }
-        return \ECSPrefix20210508\Nette\Utils\Strings::contains($nextToken->getContent(), '<<<');
+        return \ECSPrefix20210509\Nette\Utils\Strings::contains($nextToken->getContent(), '<<<');
     }
 }

@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\VarExporter;
+namespace ECSPrefix20210509\Symfony\Component\VarExporter;
 
-use ECSPrefix20210508\Symfony\Component\VarExporter\Exception\ExceptionInterface;
-use ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Exporter;
-use ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator;
-use ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry;
-use ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Values;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Exception\ExceptionInterface;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Exporter;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Hydrator;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry;
+use ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Values;
 /**
  * Exports serializable PHP values to PHP code.
  *
@@ -42,13 +42,13 @@ final class VarExporter
     {
         $isStaticValue = \true;
         if (!\is_object($value) && !(\is_array($value) && $value) && !$value instanceof \__PHP_Incomplete_Class && !\is_resource($value)) {
-            return \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Exporter::export($value);
+            return \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Exporter::export($value);
         }
         $objectsPool = new \SplObjectStorage();
         $refsPool = [];
         $objectsCount = 0;
         try {
-            $value = \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Exporter::prepare([$value], $objectsPool, $refsPool, $objectsCount, $isStaticValue)[0];
+            $value = \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Exporter::prepare([$value], $objectsPool, $refsPool, $objectsCount, $isStaticValue)[0];
         } finally {
             $references = [];
             foreach ($refsPool as $i => $v) {
@@ -59,7 +59,7 @@ final class VarExporter
             }
         }
         if ($isStaticValue) {
-            return \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Exporter::export($value);
+            return \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Exporter::export($value);
         }
         $classes = [];
         $values = [];
@@ -95,10 +95,10 @@ final class VarExporter
             }
         }
         if ($classes || $references) {
-            $value = new \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Hydrator(new \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Registry($classes), $references ? new \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Values($references) : null, $properties, $value, $wakeups);
+            $value = new \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Hydrator(new \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Registry($classes), $references ? new \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Values($references) : null, $properties, $value, $wakeups);
         } else {
             $isStaticValue = \true;
         }
-        return \ECSPrefix20210508\Symfony\Component\VarExporter\Internal\Exporter::export($value);
+        return \ECSPrefix20210509\Symfony\Component\VarExporter\Internal\Exporter::export($value);
     }
 }

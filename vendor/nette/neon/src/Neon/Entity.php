@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210508\Nette\Neon;
+namespace ECSPrefix20210509\Nette\Neon;
 
 /**
  * Representation of NEON entity 'foo(bar=1)'

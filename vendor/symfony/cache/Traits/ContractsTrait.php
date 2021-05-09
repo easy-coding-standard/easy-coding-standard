@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Traits;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Traits;
 
-use ECSPrefix20210508\Psr\Log\LoggerInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use ECSPrefix20210508\Symfony\Component\Cache\LockRegistry;
-use ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface;
-use ECSPrefix20210508\Symfony\Contracts\Cache\CacheTrait;
-use ECSPrefix20210508\Symfony\Contracts\Cache\ItemInterface;
+use ECSPrefix20210509\Psr\Log\LoggerInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Symfony\Component\Cache\LockRegistry;
+use ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface;
+use ECSPrefix20210509\Symfony\Contracts\Cache\CacheTrait;
+use ECSPrefix20210509\Symfony\Contracts\Cache\ItemInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -28,7 +28,7 @@ trait ContractsTrait
     use CacheTrait {
         doGet as private contractsGet;
     }
-    private $callbackWrapper = [\ECSPrefix20210508\Symfony\Component\Cache\LockRegistry::class, 'compute'];
+    private $callbackWrapper = [\ECSPrefix20210509\Symfony\Component\Cache\LockRegistry::class, 'compute'];
     private $computing = [];
     /**
      * Wraps the callback passed to ->get() in a callable.
@@ -39,7 +39,7 @@ trait ContractsTrait
     public function setCallbackWrapper($callbackWrapper)
     {
         $previousWrapper = $this->callbackWrapper;
-        $this->callbackWrapper = isset($callbackWrapper) ? $callbackWrapper : function (callable $callback, \ECSPrefix20210508\Symfony\Contracts\Cache\ItemInterface $item, bool &$save, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface $pool, \Closure $setMetadata, $logger) {
+        $this->callbackWrapper = isset($callbackWrapper) ? $callbackWrapper : function (callable $callback, \ECSPrefix20210509\Symfony\Contracts\Cache\ItemInterface $item, bool &$save, \ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface $pool, \Closure $setMetadata, $logger) {
             return $callback($item, $save);
         };
         return $previousWrapper;
@@ -53,18 +53,18 @@ trait ContractsTrait
     {
         $key = (string) $key;
         if (0 > ($beta = isset($beta) ? $beta : 1.0)) {
-            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
+            throw new \ECSPrefix20210509\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
         }
         static $setMetadata;
-        $setMetadata = isset($setMetadata) ? $setMetadata : \Closure::bind(static function (\ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item, float $startTime, &$metadata) {
+        $setMetadata = isset($setMetadata) ? $setMetadata : \Closure::bind(static function (\ECSPrefix20210509\Symfony\Component\Cache\CacheItem $item, float $startTime, &$metadata) {
             if ($item->expiry > ($endTime = \microtime(\true))) {
-                $item->newMetadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $metadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $item->expiry;
-                $item->newMetadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = $metadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = (int) \ceil(1000 * ($endTime - $startTime));
+                $item->newMetadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $metadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY] = $item->expiry;
+                $item->newMetadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = $metadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_CTIME] = (int) \ceil(1000 * ($endTime - $startTime));
             } else {
-                unset($metadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY], $metadata[\ECSPrefix20210508\Symfony\Component\Cache\CacheItem::METADATA_CTIME]);
+                unset($metadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_EXPIRY], $metadata[\ECSPrefix20210509\Symfony\Component\Cache\CacheItem::METADATA_CTIME]);
             }
-        }, null, \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::class);
-        return $this->contractsGet($pool, $key, function (\ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item, bool &$save) use($pool, $callback, $setMetadata, &$metadata, $key) {
+        }, null, \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::class);
+        return $this->contractsGet($pool, $key, function (\ECSPrefix20210509\Symfony\Component\Cache\CacheItem $item, bool &$save) use($pool, $callback, $setMetadata, &$metadata, $key) {
             // don't wrap nor save recursive calls
             if (isset($this->computing[$key])) {
                 $value = $callback($item, $save);
@@ -74,7 +74,7 @@ trait ContractsTrait
             $this->computing[$key] = $key;
             $startTime = \microtime(\true);
             try {
-                $value = ($this->callbackWrapper)($callback, $item, $save, $pool, function (\ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item) use($setMetadata, $startTime, &$metadata) {
+                $value = ($this->callbackWrapper)($callback, $item, $save, $pool, function (\ECSPrefix20210509\Symfony\Component\Cache\CacheItem $item) use($setMetadata, $startTime, &$metadata) {
                     $setMetadata($item, $startTime, $metadata);
                 }, $this->logger !== null ? $this->logger : null);
                 $setMetadata($item, $startTime, $metadata);

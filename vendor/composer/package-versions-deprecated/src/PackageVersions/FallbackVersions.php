@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210508\PackageVersions;
+namespace ECSPrefix20210509\PackageVersions;
 
 use Generator;
 use OutOfBoundsException;

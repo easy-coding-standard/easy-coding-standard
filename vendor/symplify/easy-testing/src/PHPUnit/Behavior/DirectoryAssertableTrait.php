@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyTesting\PHPUnit\Behavior;
 
-use ECSPrefix20210508\Symfony\Component\Finder\Finder;
+use ECSPrefix20210509\Symfony\Component\Finder\Finder;
 use Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -44,7 +44,7 @@ trait DirectoryAssertableTrait
     private function findFileInfosInDirectory($directory)
     {
         $directory = (string) $directory;
-        $firstDirectoryFinder = new \ECSPrefix20210508\Symfony\Component\Finder\Finder();
+        $firstDirectoryFinder = new \ECSPrefix20210509\Symfony\Component\Finder\Finder();
         $firstDirectoryFinder->files()->in($directory);
         $finderSanitizer = new \Symplify\SmartFileSystem\Finder\FinderSanitizer();
         return $finderSanitizer->sanitize($firstDirectoryFinder);

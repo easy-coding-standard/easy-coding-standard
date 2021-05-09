@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException;
-use ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException;
-use ECSPrefix20210508\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
-use ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\Exception\CacheException;
+use ECSPrefix20210509\Symfony\Component\Cache\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Symfony\Component\Cache\Marshaller\DefaultMarshaller;
+use ECSPrefix20210509\Symfony\Component\Cache\Marshaller\MarshallerInterface;
 /**
  * @author Antonio Jose Cerezo Aranda <aj.cerezo@gmail.com>
  */
-class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter
+class CouchbaseBucketAdapter extends \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AbstractAdapter
 {
     const THIRTY_DAYS_IN_SECONDS = 2592000;
     const MAX_KEY_LENGTH = 250;
@@ -29,18 +29,18 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
      * @param string $namespace
      * @param int $defaultLifetime
      */
-    public function __construct(\ECSPrefix20210508\CouchbaseBucket $bucket, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
+    public function __construct(\ECSPrefix20210509\CouchbaseBucket $bucket, $namespace = '', $defaultLifetime = 0, \ECSPrefix20210509\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller = null)
     {
         $namespace = (string) $namespace;
         $defaultLifetime = (int) $defaultLifetime;
         if (!static::isSupported()) {
-            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
+            throw new \ECSPrefix20210509\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
         }
         $this->maxIdLength = static::MAX_KEY_LENGTH;
         $this->bucket = $bucket;
         parent::__construct($namespace, $defaultLifetime);
         $this->enableVersioning();
-        $this->marshaller = isset($marshaller) ? $marshaller : new \ECSPrefix20210508\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
+        $this->marshaller = isset($marshaller) ? $marshaller : new \ECSPrefix20210509\Symfony\Component\Cache\Marshaller\DefaultMarshaller();
     }
     /**
      * @param array|string $servers
@@ -54,7 +54,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
             throw new \TypeError(\sprintf('Argument 1 passed to "%s()" must be array or string, "%s" given.', __METHOD__, \get_debug_type($servers)));
         }
         if (!static::isSupported()) {
-            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
+            throw new \ECSPrefix20210509\Symfony\Component\Cache\Exception\CacheException('Couchbase >= 2.6.0 < 3.0.0 is required.');
         }
         \set_error_handler(function ($type, $msg, $file, $line) {
             throw new \ErrorException($msg, 0, $type, $file, $line);
@@ -68,7 +68,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
             $password = $options['password'];
             foreach ($servers as $dsn) {
                 if (0 !== \strpos($dsn, 'couchbase:')) {
-                    throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Invalid Couchbase DSN: "%s" does not start with "couchbase:".', $dsn));
+                    throw new \ECSPrefix20210509\Symfony\Component\Cache\Exception\InvalidArgumentException(\sprintf('Invalid Couchbase DSN: "%s" does not start with "couchbase:".', $dsn));
                 }
                 \preg_match($dsnPattern, $dsn, $matches);
                 $username = $matches['username'] ?: $username;
@@ -83,7 +83,7 @@ class CouchbaseBucketAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\
                 $newServers[] = $matches['host'];
             }
             $connectionString = $protocol . '://' . \implode(',', $newServers);
-            $client = new \ECSPrefix20210508\CouchbaseCluster($connectionString);
+            $client = new \ECSPrefix20210509\CouchbaseCluster($connectionString);
             $client->authenticateAs($username, $password);
             $bucket = $client->openBucket($matches['bucketName']);
             unset($options['username'], $options['password']);

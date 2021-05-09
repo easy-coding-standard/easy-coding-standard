@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Psr\SimpleCache\CacheInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\Traits\ProxyTrait;
+use ECSPrefix20210509\Psr\SimpleCache\CacheInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\ResettableInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\Traits\ProxyTrait;
 /**
  * Turns a PSR-16 cache into a PSR-6 one.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface
+class Psr16Adapter extends \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AbstractAdapter implements \ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210509\Symfony\Component\Cache\ResettableInterface
 {
     /**
      * @internal
@@ -31,7 +31,7 @@ class Psr16Adapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Ab
      * @param string $namespace
      * @param int $defaultLifetime
      */
-    public function __construct(\ECSPrefix20210508\Psr\SimpleCache\CacheInterface $pool, $namespace = '', $defaultLifetime = 0)
+    public function __construct(\ECSPrefix20210509\Psr\SimpleCache\CacheInterface $pool, $namespace = '', $defaultLifetime = 0)
     {
         $namespace = (string) $namespace;
         $defaultLifetime = (int) $defaultLifetime;

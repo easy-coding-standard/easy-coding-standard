@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210508\Nette\Utils;
+namespace ECSPrefix20210509\Nette\Utils;
 
-use ECSPrefix20210508\Nette;
+use ECSPrefix20210509\Nette;
 use function is_array, is_int, is_object, count;
 /**
  * Array tools library.
@@ -24,7 +24,7 @@ class Arrays
                 $array = $array[$k];
             } else {
                 if (\func_num_args() < 3) {
-                    throw new \ECSPrefix20210508\Nette\InvalidArgumentException("Missing item '{$k}'.");
+                    throw new \ECSPrefix20210509\Nette\InvalidArgumentException("Missing item '{$k}'.");
                 }
                 return $default;
             }
@@ -43,7 +43,7 @@ class Arrays
             if (\is_array($array) || $array === null) {
                 $array =& $array[$k];
             } else {
-                throw new \ECSPrefix20210508\Nette\InvalidArgumentException('Traversed item is not an array.');
+                throw new \ECSPrefix20210509\Nette\InvalidArgumentException('Traversed item is not an array.');
             }
         }
         return $array;
@@ -71,7 +71,7 @@ class Arrays
      */
     public static function getKeyOffset(array $array, $key)
     {
-        return \ECSPrefix20210508\Nette\Utils\Helpers::falseToNull(\array_search(self::toKey($key), \array_keys($array), \true));
+        return \ECSPrefix20210509\Nette\Utils\Helpers::falseToNull(\array_search(self::toKey($key), \array_keys($array), \true));
     }
     /**
      * @deprecated  use  getKeyOffset()
@@ -160,7 +160,7 @@ class Arrays
     {
         $pattern = (string) $pattern;
         $flags = (int) $flags;
-        return \ECSPrefix20210508\Nette\Utils\Strings::pcre('preg_grep', [$pattern, $array, $flags]);
+        return \ECSPrefix20210509\Nette\Utils\Strings::pcre('preg_grep', [$pattern, $array, $flags]);
     }
     /**
      * Transforms multidimensional array to flat array.
@@ -197,7 +197,7 @@ class Arrays
     {
         $parts = \is_array($path) ? $path : \preg_split('#(\\[\\]|->|=|\\|)#', $path, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
         if (!$parts || $parts === ['->'] || $parts[0] === '=' || $parts[0] === '|') {
-            throw new \ECSPrefix20210508\Nette\InvalidArgumentException("Invalid path '{$path}'.");
+            throw new \ECSPrefix20210509\Nette\InvalidArgumentException("Invalid path '{$path}'.");
         }
         $res = $parts[0] === '->' ? new \stdClass() : [];
         foreach ($array as $rowOrig) {
@@ -259,7 +259,7 @@ class Arrays
             unset($array[$key]);
             return $value;
         } elseif (\func_num_args() < 3) {
-            throw new \ECSPrefix20210508\Nette\InvalidArgumentException("Missing item '{$key}'.");
+            throw new \ECSPrefix20210509\Nette\InvalidArgumentException("Missing item '{$key}'.");
         } else {
             return $default;
         }

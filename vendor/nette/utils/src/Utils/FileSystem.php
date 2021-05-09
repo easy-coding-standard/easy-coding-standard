@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210508\Nette\Utils;
+namespace ECSPrefix20210509\Nette\Utils;
 
-use ECSPrefix20210508\Nette;
+use ECSPrefix20210509\Nette;
 /**
  * File system tool.
  */
@@ -22,7 +22,7 @@ final class FileSystem
         $mode = (int) $mode;
         if (!\is_dir($dir) && !@\mkdir($dir, $mode, \true) && !\is_dir($dir)) {
             // @ - dir may already exist
-            throw new \ECSPrefix20210508\Nette\IOException("Unable to create directory '{$dir}' with mode " . \decoct($mode) . '. ' . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+            throw new \ECSPrefix20210509\Nette\IOException("Unable to create directory '{$dir}' with mode " . \decoct($mode) . '. ' . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
         }
     }
     /**
@@ -40,9 +40,9 @@ final class FileSystem
         $target = (string) $target;
         $overwrite = (bool) $overwrite;
         if (\stream_is_local($origin) && !\file_exists($origin)) {
-            throw new \ECSPrefix20210508\Nette\IOException("File or directory '{$origin}' not found.");
+            throw new \ECSPrefix20210509\Nette\IOException("File or directory '{$origin}' not found.");
         } elseif (!$overwrite && \file_exists($target)) {
-            throw new \ECSPrefix20210508\Nette\InvalidStateException("File or directory '{$target}' already exists.");
+            throw new \ECSPrefix20210509\Nette\InvalidStateException("File or directory '{$target}' already exists.");
         } elseif (\is_dir($origin)) {
             static::createDir($target);
             foreach (new \FilesystemIterator($target) as $item) {
@@ -59,7 +59,7 @@ final class FileSystem
             static::createDir(\dirname($target));
             if (($s = @\fopen($origin, 'rb')) && ($d = @\fopen($target, 'wb')) && @\stream_copy_to_stream($s, $d) === \false) {
                 // @ is escalated to exception
-                throw new \ECSPrefix20210508\Nette\IOException("Unable to copy file '{$origin}' to '{$target}'. " . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+                throw new \ECSPrefix20210509\Nette\IOException("Unable to copy file '{$origin}' to '{$target}'. " . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
             }
         }
     }
@@ -76,7 +76,7 @@ final class FileSystem
             $func = \DIRECTORY_SEPARATOR === '\\' && \is_dir($path) ? 'rmdir' : 'unlink';
             if (!@$func($path)) {
                 // @ is escalated to exception
-                throw new \ECSPrefix20210508\Nette\IOException("Unable to delete '{$path}'. " . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+                throw new \ECSPrefix20210509\Nette\IOException("Unable to delete '{$path}'. " . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
             }
         } elseif (\is_dir($path)) {
             foreach (new \FilesystemIterator($path) as $item) {
@@ -84,7 +84,7 @@ final class FileSystem
             }
             if (!@\rmdir($path)) {
                 // @ is escalated to exception
-                throw new \ECSPrefix20210508\Nette\IOException("Unable to delete directory '{$path}'. " . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+                throw new \ECSPrefix20210509\Nette\IOException("Unable to delete directory '{$path}'. " . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
             }
         }
     }
@@ -103,9 +103,9 @@ final class FileSystem
         $target = (string) $target;
         $overwrite = (bool) $overwrite;
         if (!$overwrite && \file_exists($target)) {
-            throw new \ECSPrefix20210508\Nette\InvalidStateException("File or directory '{$target}' already exists.");
+            throw new \ECSPrefix20210509\Nette\InvalidStateException("File or directory '{$target}' already exists.");
         } elseif (!\file_exists($origin)) {
-            throw new \ECSPrefix20210508\Nette\IOException("File or directory '{$origin}' not found.");
+            throw new \ECSPrefix20210509\Nette\IOException("File or directory '{$origin}' not found.");
         } else {
             static::createDir(\dirname($target));
             if (\realpath($origin) !== \realpath($target)) {
@@ -113,7 +113,7 @@ final class FileSystem
             }
             if (!@\rename($origin, $target)) {
                 // @ is escalated to exception
-                throw new \ECSPrefix20210508\Nette\IOException("Unable to rename file or directory '{$origin}' to '{$target}'. " . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+                throw new \ECSPrefix20210509\Nette\IOException("Unable to rename file or directory '{$origin}' to '{$target}'. " . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
             }
         }
     }
@@ -129,7 +129,7 @@ final class FileSystem
         $content = @\file_get_contents($file);
         // @ is escalated to exception
         if ($content === \false) {
-            throw new \ECSPrefix20210508\Nette\IOException("Unable to read file '{$file}'. " . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+            throw new \ECSPrefix20210509\Nette\IOException("Unable to read file '{$file}'. " . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
         }
         return $content;
     }
@@ -148,11 +148,11 @@ final class FileSystem
         static::createDir(\dirname($file));
         if (@\file_put_contents($file, $content) === \false) {
             // @ is escalated to exception
-            throw new \ECSPrefix20210508\Nette\IOException("Unable to write file '{$file}'. " . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+            throw new \ECSPrefix20210509\Nette\IOException("Unable to write file '{$file}'. " . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
         }
         if ($mode !== null && !@\chmod($file, $mode)) {
             // @ is escalated to exception
-            throw new \ECSPrefix20210508\Nette\IOException("Unable to chmod file '{$file}' to mode " . \decoct($mode) . '. ' . \ECSPrefix20210508\Nette\Utils\Helpers::getLastError());
+            throw new \ECSPrefix20210509\Nette\IOException("Unable to chmod file '{$file}' to mode " . \decoct($mode) . '. ' . \ECSPrefix20210509\Nette\Utils\Helpers::getLastError());
         }
     }
     /**

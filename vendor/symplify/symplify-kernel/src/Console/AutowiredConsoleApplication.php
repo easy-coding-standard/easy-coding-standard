@@ -2,7 +2,7 @@
 
 namespace Symplify\SymplifyKernel\Console;
 
-use ECSPrefix20210508\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210509\Symfony\Component\Console\Command\Command;
 /**
  * @see \Symplify\SymplifyKernel\Tests\Console\AbstractSymplifyConsoleApplication\AutowiredConsoleApplicationTest
  */

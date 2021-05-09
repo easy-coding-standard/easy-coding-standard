@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210508\Nette\Utils;
+namespace ECSPrefix20210509\Nette\Utils;
 
 class Helpers
 {
@@ -28,7 +28,7 @@ class Helpers
     public static function getLastError()
     {
         $message = isset(\error_get_last()['message']) ? \error_get_last()['message'] : '';
-        $message = \ini_get('html_errors') ? \ECSPrefix20210508\Nette\Utils\Html::htmlToText($message) : $message;
+        $message = \ini_get('html_errors') ? \ECSPrefix20210509\Nette\Utils\Html::htmlToText($message) : $message;
         $message = \preg_replace('#^\\w+\\(.*?\\): #', '', $message);
         return $message;
     }

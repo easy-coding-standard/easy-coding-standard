@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Psr\Cache\CacheItemInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface;
-use ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface;
-use ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface;
-use ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface;
+use ECSPrefix20210509\Psr\Cache\CacheItemInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\ResettableInterface;
+use ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface;
+use ECSPrefix20210509\Symfony\Contracts\Service\ResetInterface;
 /**
  * An adapter that collects data about all cache calls.
  *
@@ -23,11 +23,11 @@ use ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface;
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface, \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210508\Symfony\Component\Cache\ResettableInterface
+class TraceableAdapter implements \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface, \ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface, \ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface, \ECSPrefix20210509\Symfony\Component\Cache\ResettableInterface
 {
     protected $pool;
     private $calls = [];
-    public function __construct(\ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface $pool)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface $pool)
     {
         $this->pool = $pool;
     }
@@ -39,11 +39,11 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
     public function get($key, callable $callback, $beta = null, array &$metadata = null)
     {
         $key = (string) $key;
-        if (!$this->pool instanceof \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface) {
-            throw new \BadMethodCallException(\sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', \get_debug_type($this->pool), \ECSPrefix20210508\Symfony\Contracts\Cache\CacheInterface::class));
+        if (!$this->pool instanceof \ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface) {
+            throw new \BadMethodCallException(\sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', \get_debug_type($this->pool), \ECSPrefix20210509\Symfony\Contracts\Cache\CacheInterface::class));
         }
         $isHit = \true;
-        $callback = function (\ECSPrefix20210508\Symfony\Component\Cache\CacheItem $item, bool &$save) use($callback, &$isHit) {
+        $callback = function (\ECSPrefix20210509\Symfony\Component\Cache\CacheItem $item, bool &$save) use($callback, &$isHit) {
             $isHit = $item->isHit();
             return $callback($item, $save);
         };
@@ -112,7 +112,7 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      *
      * @return bool
      */
-    public function save(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function save(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -126,7 +126,7 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      *
      * @return bool
      */
-    public function saveDeferred(\ECSPrefix20210508\Psr\Cache\CacheItemInterface $item)
+    public function saveDeferred(\ECSPrefix20210509\Psr\Cache\CacheItemInterface $item)
     {
         $event = $this->start(__FUNCTION__);
         try {
@@ -169,7 +169,7 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
     {
         $event = $this->start(__FUNCTION__);
         try {
-            if ($this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AdapterInterface) {
+            if ($this->pool instanceof \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AdapterInterface) {
                 return $event->result = $this->pool->clear($prefix);
             }
             return $event->result = $this->pool->clear();
@@ -211,7 +211,7 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function prune()
     {
-        if (!$this->pool instanceof \ECSPrefix20210508\Symfony\Component\Cache\PruneableInterface) {
+        if (!$this->pool instanceof \ECSPrefix20210509\Symfony\Component\Cache\PruneableInterface) {
             return \false;
         }
         $event = $this->start(__FUNCTION__);
@@ -226,7 +226,7 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
      */
     public function reset()
     {
-        if ($this->pool instanceof \ECSPrefix20210508\Symfony\Contracts\Service\ResetInterface) {
+        if ($this->pool instanceof \ECSPrefix20210509\Symfony\Contracts\Service\ResetInterface) {
             $this->pool->reset();
         }
         $this->clearCalls();
@@ -256,7 +256,7 @@ class TraceableAdapter implements \ECSPrefix20210508\Symfony\Component\Cache\Ada
     }
     protected function start($name)
     {
-        $this->calls[] = $event = new \ECSPrefix20210508\Symfony\Component\Cache\Adapter\TraceableAdapterEvent();
+        $this->calls[] = $event = new \ECSPrefix20210509\Symfony\Component\Cache\Adapter\TraceableAdapterEvent();
         $event->name = $name;
         $event->start = \microtime(\true);
         return $event;

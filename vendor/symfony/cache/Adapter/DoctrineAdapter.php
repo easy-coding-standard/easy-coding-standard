@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Doctrine\Common\Cache\CacheProvider;
+use ECSPrefix20210509\Doctrine\Common\Cache\CacheProvider;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class DoctrineAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter
+class DoctrineAdapter extends \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AbstractAdapter
 {
     private $provider;
     /**
      * @param string $namespace
      * @param int $defaultLifetime
      */
-    public function __construct(\ECSPrefix20210508\Doctrine\Common\Cache\CacheProvider $provider, $namespace = '', $defaultLifetime = 0)
+    public function __construct(\ECSPrefix20210509\Doctrine\Common\Cache\CacheProvider $provider, $namespace = '', $defaultLifetime = 0)
     {
         $namespace = (string) $namespace;
         $defaultLifetime = (int) $defaultLifetime;

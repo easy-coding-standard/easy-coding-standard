@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\SetConfigResolver\Tests\Bootstrap;
 
-use ECSPrefix20210508\PHPUnit\Framework\TestCase;
+use ECSPrefix20210509\PHPUnit\Framework\TestCase;
 use Symplify\SetConfigResolver\Bootstrap\InvalidSetReporter;
 use Symplify\SetConfigResolver\Exception\SetNotFoundException;
-final class InvalidSetReporterTest extends \ECSPrefix20210508\PHPUnit\Framework\TestCase
+final class InvalidSetReporterTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
 {
     /**
      * @var InvalidSetReporter

@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\Adapter;
+namespace ECSPrefix20210509\Symfony\Component\Cache\Adapter;
 
-use ECSPrefix20210508\Symfony\Component\Cache\CacheItem;
-use ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException;
+use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Symfony\Component\Cache\Exception\CacheException;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ApcuAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\AbstractAdapter
+class ApcuAdapter extends \ECSPrefix20210509\Symfony\Component\Cache\Adapter\AbstractAdapter
 {
     /**
      * @throws CacheException if APCu is not enabled
@@ -28,14 +28,14 @@ class ApcuAdapter extends \ECSPrefix20210508\Symfony\Component\Cache\Adapter\Abs
         $namespace = (string) $namespace;
         $defaultLifetime = (int) $defaultLifetime;
         if (!static::isSupported()) {
-            throw new \ECSPrefix20210508\Symfony\Component\Cache\Exception\CacheException('APCu is not enabled.');
+            throw new \ECSPrefix20210509\Symfony\Component\Cache\Exception\CacheException('APCu is not enabled.');
         }
         if ('cli' === \PHP_SAPI) {
             \ini_set('apc.use_request_time', 0);
         }
         parent::__construct($namespace, $defaultLifetime);
         if (null !== $version) {
-            \ECSPrefix20210508\Symfony\Component\Cache\CacheItem::validateKey($version);
+            \ECSPrefix20210509\Symfony\Component\Cache\CacheItem::validateKey($version);
             if (!\apcu_exists($version . '@' . $namespace)) {
                 $this->doClear($namespace);
                 \apcu_add($version . '@' . $namespace, null);

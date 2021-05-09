@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210508\Nette\Utils;
+namespace ECSPrefix20210509\Nette\Utils;
 
-use ECSPrefix20210508\Nette;
+use ECSPrefix20210509\Nette;
 use function is_array, is_object, strlen;
 /**
  * String tools library.
@@ -42,9 +42,9 @@ class Strings
     {
         $code = (int) $code;
         if ($code < 0 || $code >= 0xd800 && $code <= 0xdfff || $code > 0x10ffff) {
-            throw new \ECSPrefix20210508\Nette\InvalidArgumentException('Code point must be in range 0x0 to 0xD7FF or 0xE000 to 0x10FFFF.');
+            throw new \ECSPrefix20210509\Nette\InvalidArgumentException('Code point must be in range 0x0 to 0xD7FF or 0xE000 to 0x10FFFF.');
         } elseif (!\extension_loaded('iconv')) {
-            throw new \ECSPrefix20210508\Nette\NotSupportedException(__METHOD__ . '() requires ICONV extension that is not loaded.');
+            throw new \ECSPrefix20210509\Nette\NotSupportedException(__METHOD__ . '() requires ICONV extension that is not loaded.');
         }
         return \iconv('UTF-32BE', 'UTF-8//IGNORE', \pack('N', $code));
     }
@@ -100,7 +100,7 @@ class Strings
             return \mb_substr($s, $start, $length, 'UTF-8');
             // MB is much faster
         } elseif (!\extension_loaded('iconv')) {
-            throw new \ECSPrefix20210508\Nette\NotSupportedException(__METHOD__ . '() requires extension ICONV or MBSTRING, neither is loaded.');
+            throw new \ECSPrefix20210509\Nette\NotSupportedException(__METHOD__ . '() requires extension ICONV or MBSTRING, neither is loaded.');
         } elseif ($length === null) {
             $length = self::length($s);
         } elseif ($start < 0 && $length < 0) {
@@ -431,7 +431,7 @@ class Strings
     {
         $s = (string) $s;
         if (!\extension_loaded('iconv')) {
-            throw new \ECSPrefix20210508\Nette\NotSupportedException(__METHOD__ . '() requires ICONV extension that is not loaded.');
+            throw new \ECSPrefix20210509\Nette\NotSupportedException(__METHOD__ . '() requires ICONV extension that is not loaded.');
         }
         return \iconv('UTF-32LE', 'UTF-8', \strrev(\iconv('UTF-8', 'UTF-32BE', $s)));
     }
@@ -515,7 +515,7 @@ class Strings
                 $pos--;
             }
         }
-        return \ECSPrefix20210508\Nette\Utils\Helpers::falseToNull($pos);
+        return \ECSPrefix20210509\Nette\Utils\Helpers::falseToNull($pos);
     }
     /**
      * Splits a string into array by the regular expression.
@@ -587,7 +587,7 @@ class Strings
         $limit = (int) $limit;
         if (\is_object($replacement) || \is_array($replacement)) {
             if (!\is_callable($replacement, \false, $textual)) {
-                throw new \ECSPrefix20210508\Nette\InvalidStateException("Callback '{$textual}' is not callable.");
+                throw new \ECSPrefix20210509\Nette\InvalidStateException("Callback '{$textual}' is not callable.");
             }
             return self::pcre('preg_replace_callback', [$pattern, $replacement, $subject, $limit]);
         } elseif (\is_array($pattern) && \is_string(\key($pattern))) {
@@ -601,12 +601,12 @@ class Strings
     public static function pcre($func, array $args)
     {
         $func = (string) $func;
-        $res = \ECSPrefix20210508\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) {
+        $res = \ECSPrefix20210509\Nette\Utils\Callback::invokeSafe($func, $args, function (string $message) use($args) {
             // compile-time error, not detectable by preg_last_error
-            throw new \ECSPrefix20210508\Nette\Utils\RegexpException($message . ' in pattern: ' . \implode(' or ', (array) $args[0]));
+            throw new \ECSPrefix20210509\Nette\Utils\RegexpException($message . ' in pattern: ' . \implode(' or ', (array) $args[0]));
         });
         if (($code = \preg_last_error()) && ($res === null || !\in_array($func, ['preg_filter', 'preg_replace_callback', 'preg_replace'], \true))) {
-            throw new \ECSPrefix20210508\Nette\Utils\RegexpException((isset(\ECSPrefix20210508\Nette\Utils\RegexpException::MESSAGES[$code]) ? \ECSPrefix20210508\Nette\Utils\RegexpException::MESSAGES[$code] : 'Unknown error') . ' (pattern: ' . \implode(' or ', (array) $args[0]) . ')', $code);
+            throw new \ECSPrefix20210509\Nette\Utils\RegexpException((isset(\ECSPrefix20210509\Nette\Utils\RegexpException::MESSAGES[$code]) ? \ECSPrefix20210509\Nette\Utils\RegexpException::MESSAGES[$code] : 'Unknown error') . ' (pattern: ' . \implode(' or ', (array) $args[0]) . ')', $code);
         }
         return $res;
     }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\SebastianBergmann\Diff;
+namespace ECSPrefix20210509\SebastianBergmann\Diff;
 
 use function array_pop;
 use function count;
@@ -42,7 +42,7 @@ final class Parser
                     $diffs[] = $diff;
                     $collected = [];
                 }
-                $diff = new \ECSPrefix20210508\SebastianBergmann\Diff\Diff($fromMatch['file'], $toMatch['file']);
+                $diff = new \ECSPrefix20210509\SebastianBergmann\Diff\Diff($fromMatch['file'], $toMatch['file']);
                 ++$i;
             } else {
                 if (\preg_match('/^(?:diff --git |index [\\da-f\\.]+|[+-]{3} [ab])/', $lines[$i])) {
@@ -60,26 +60,26 @@ final class Parser
     /**
      * @return void
      */
-    private function parseFileDiff(\ECSPrefix20210508\SebastianBergmann\Diff\Diff $diff, array $lines)
+    private function parseFileDiff(\ECSPrefix20210509\SebastianBergmann\Diff\Diff $diff, array $lines)
     {
         $chunks = [];
         $chunk = null;
         $diffLines = [];
         foreach ($lines as $line) {
             if (\preg_match('/^@@\\s+-(?P<start>\\d+)(?:,\\s*(?P<startrange>\\d+))?\\s+\\+(?P<end>\\d+)(?:,\\s*(?P<endrange>\\d+))?\\s+@@/', $line, $match)) {
-                $chunk = new \ECSPrefix20210508\SebastianBergmann\Diff\Chunk((int) $match['start'], isset($match['startrange']) ? \max(1, (int) $match['startrange']) : 1, (int) $match['end'], isset($match['endrange']) ? \max(1, (int) $match['endrange']) : 1);
+                $chunk = new \ECSPrefix20210509\SebastianBergmann\Diff\Chunk((int) $match['start'], isset($match['startrange']) ? \max(1, (int) $match['startrange']) : 1, (int) $match['end'], isset($match['endrange']) ? \max(1, (int) $match['endrange']) : 1);
                 $chunks[] = $chunk;
                 $diffLines = [];
                 continue;
             }
             if (\preg_match('/^(?P<type>[+ -])?(?P<line>.*)/', $line, $match)) {
-                $type = \ECSPrefix20210508\SebastianBergmann\Diff\Line::UNCHANGED;
+                $type = \ECSPrefix20210509\SebastianBergmann\Diff\Line::UNCHANGED;
                 if ($match['type'] === '+') {
-                    $type = \ECSPrefix20210508\SebastianBergmann\Diff\Line::ADDED;
+                    $type = \ECSPrefix20210509\SebastianBergmann\Diff\Line::ADDED;
                 } elseif ($match['type'] === '-') {
-                    $type = \ECSPrefix20210508\SebastianBergmann\Diff\Line::REMOVED;
+                    $type = \ECSPrefix20210509\SebastianBergmann\Diff\Line::REMOVED;
                 }
-                $diffLines[] = new \ECSPrefix20210508\SebastianBergmann\Diff\Line($type, $match['line']);
+                $diffLines[] = new \ECSPrefix20210509\SebastianBergmann\Diff\Line($type, $match['line']);
                 if (null !== $chunk) {
                     $chunk->setLines($diffLines);
                 }

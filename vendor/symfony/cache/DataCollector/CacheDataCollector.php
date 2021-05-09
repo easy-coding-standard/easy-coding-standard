@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Cache\DataCollector;
+namespace ECSPrefix20210509\Symfony\Component\Cache\DataCollector;
 
-use ECSPrefix20210508\Symfony\Component\Cache\Adapter\TraceableAdapter;
-use ECSPrefix20210508\Symfony\Component\Cache\Adapter\TraceableAdapterEvent;
-use ECSPrefix20210508\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210508\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210508\Symfony\Component\HttpKernel\DataCollector\DataCollector;
-use ECSPrefix20210508\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
+use ECSPrefix20210509\Symfony\Component\Cache\Adapter\TraceableAdapter;
+use ECSPrefix20210509\Symfony\Component\Cache\Adapter\TraceableAdapterEvent;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface;
 /**
  * @author Aaron Scherer <aequasi@gmail.com>
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  *
  * @final
  */
-class CacheDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210508\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class CacheDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
 {
     /**
      * @var TraceableAdapter[]
@@ -31,7 +31,7 @@ class CacheDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel
     /**
      * @param string $name
      */
-    public function addInstance($name, \ECSPrefix20210508\Symfony\Component\Cache\Adapter\TraceableAdapter $instance)
+    public function addInstance($name, \ECSPrefix20210509\Symfony\Component\Cache\Adapter\TraceableAdapter $instance)
     {
         $name = (string) $name;
         $this->instances[$name] = $instance;
@@ -39,7 +39,7 @@ class CacheDataCollector extends \ECSPrefix20210508\Symfony\Component\HttpKernel
     /**
      * {@inheritdoc}
      */
-    public function collect(\ECSPrefix20210508\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210508\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         $empty = ['calls' => [], 'config' => [], 'options' => [], 'statistics' => []];
         $this->data = ['instances' => $empty, 'total' => $empty];

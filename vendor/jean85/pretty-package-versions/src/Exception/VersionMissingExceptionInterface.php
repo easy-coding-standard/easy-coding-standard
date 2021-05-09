@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210508\Jean85\Exception;
+namespace ECSPrefix20210509\Jean85\Exception;
 
 interface VersionMissingExceptionInterface extends \Throwable
 {

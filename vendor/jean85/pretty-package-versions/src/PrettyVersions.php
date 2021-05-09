@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20210508\Jean85;
+namespace ECSPrefix20210509\Jean85;
 
 use Composer\InstalledVersions;
-use ECSPrefix20210508\Jean85\Exception\ProvidedPackageException;
-use ECSPrefix20210508\Jean85\Exception\ReplacedPackageException;
-use ECSPrefix20210508\Jean85\Exception\VersionMissingExceptionInterface;
+use ECSPrefix20210509\Jean85\Exception\ProvidedPackageException;
+use ECSPrefix20210509\Jean85\Exception\ReplacedPackageException;
+use ECSPrefix20210509\Jean85\Exception\VersionMissingExceptionInterface;
 class PrettyVersions
 {
     /**
@@ -17,12 +17,12 @@ class PrettyVersions
     {
         $packageName = (string) $packageName;
         if (isset(\Composer\InstalledVersions::getRawData()['versions'][$packageName]['provided'])) {
-            throw \ECSPrefix20210508\Jean85\Exception\ProvidedPackageException::create($packageName);
+            throw \ECSPrefix20210509\Jean85\Exception\ProvidedPackageException::create($packageName);
         }
         if (isset(\Composer\InstalledVersions::getRawData()['versions'][$packageName]['replaced'])) {
-            throw \ECSPrefix20210508\Jean85\Exception\ReplacedPackageException::create($packageName);
+            throw \ECSPrefix20210509\Jean85\Exception\ReplacedPackageException::create($packageName);
         }
-        return new \ECSPrefix20210508\Jean85\Version($packageName, \Composer\InstalledVersions::getPrettyVersion($packageName), \Composer\InstalledVersions::getReference($packageName));
+        return new \ECSPrefix20210509\Jean85\Version($packageName, \Composer\InstalledVersions::getPrettyVersion($packageName), \Composer\InstalledVersions::getReference($packageName));
     }
     /**
      * @return string
@@ -36,6 +36,6 @@ class PrettyVersions
      */
     public static function getRootPackageVersion()
     {
-        return new \ECSPrefix20210508\Jean85\Version(self::getRootPackageName(), \Composer\InstalledVersions::getRootPackage()['pretty_version'], \Composer\InstalledVersions::getRootPackage()['reference']);
+        return new \ECSPrefix20210509\Jean85\Version(self::getRootPackageName(), \Composer\InstalledVersions::getRootPackage()['pretty_version'], \Composer\InstalledVersions::getRootPackage()['reference']);
     }
 }

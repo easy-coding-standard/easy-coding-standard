@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210508\Symfony\Component\Console\Input;
+namespace ECSPrefix20210509\Symfony\Component\Console\Input;
 
-use ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException;
+use ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException;
 /**
  * A InputDefinition represents a set of valid command line arguments and options.
  *
@@ -47,7 +47,7 @@ class InputDefinition
         $arguments = [];
         $options = [];
         foreach ($definition as $item) {
-            if ($item instanceof \ECSPrefix20210508\Symfony\Component\Console\Input\InputOption) {
+            if ($item instanceof \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption) {
                 $options[] = $item;
             } else {
                 $arguments[] = $item;
@@ -85,16 +85,16 @@ class InputDefinition
     /**
      * @throws LogicException When incorrect argument is given
      */
-    public function addArgument(\ECSPrefix20210508\Symfony\Component\Console\Input\InputArgument $argument)
+    public function addArgument(\ECSPrefix20210509\Symfony\Component\Console\Input\InputArgument $argument)
     {
         if (isset($this->arguments[$argument->getName()])) {
-            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException(\sprintf('An argument with name "%s" already exists.', $argument->getName()));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException(\sprintf('An argument with name "%s" already exists.', $argument->getName()));
         }
         if ($this->hasAnArrayArgument) {
-            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('Cannot add an argument after an array argument.');
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException('Cannot add an argument after an array argument.');
         }
         if ($argument->isRequired() && $this->hasOptional) {
-            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException('Cannot add a required argument after an optional one.');
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException('Cannot add a required argument after an optional one.');
         }
         if ($argument->isArray()) {
             $this->hasAnArrayArgument = \true;
@@ -118,7 +118,7 @@ class InputDefinition
     public function getArgument($name)
     {
         if (!$this->hasArgument($name)) {
-            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
         }
         $arguments = \is_int($name) ? \array_values($this->arguments) : $this->arguments;
         return $arguments[$name];
@@ -200,15 +200,15 @@ class InputDefinition
     /**
      * @throws LogicException When option given already exist
      */
-    public function addOption(\ECSPrefix20210508\Symfony\Component\Console\Input\InputOption $option)
+    public function addOption(\ECSPrefix20210509\Symfony\Component\Console\Input\InputOption $option)
     {
         if (isset($this->options[$option->getName()]) && !$option->equals($this->options[$option->getName()])) {
-            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException(\sprintf('An option named "%s" already exists.', $option->getName()));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException(\sprintf('An option named "%s" already exists.', $option->getName()));
         }
         if ($option->getShortcut()) {
             foreach (\explode('|', $option->getShortcut()) as $shortcut) {
                 if (isset($this->shortcuts[$shortcut]) && !$option->equals($this->options[$this->shortcuts[$shortcut]])) {
-                    throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\LogicException(\sprintf('An option with shortcut "%s" already exists.', $shortcut));
+                    throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException(\sprintf('An option with shortcut "%s" already exists.', $shortcut));
                 }
             }
         }
@@ -231,7 +231,7 @@ class InputDefinition
     {
         $name = (string) $name;
         if (!$this->hasOption($name)) {
-            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
         }
         return $this->options[$name];
     }
@@ -306,7 +306,7 @@ class InputDefinition
     {
         $shortcut = (string) $shortcut;
         if (!isset($this->shortcuts[$shortcut])) {
-            throw new \ECSPrefix20210508\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
         }
         return $this->shortcuts[$shortcut];
     }
