@@ -6,6 +6,8 @@ use PHP_CodeSniffer\Fixer;
 use PhpCsFixer\Differ\DifferInterface;
 use PhpCsFixer\Differ\UnifiedDiffer;
 use PhpCsFixer\WhitespacesFixerConfig;
+use ECSPrefix20210509\Symfony\Component\Cache\Adapter\Psr16Adapter;
+use ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210509\Symfony\Component\Console\Terminal;
 use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -51,4 +53,7 @@ return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection
     $services->set(\PhpCsFixer\Differ\UnifiedDiffer::class);
     $services->alias(\PhpCsFixer\Differ\DifferInterface::class, \PhpCsFixer\Differ\UnifiedDiffer::class);
     $services->set(\Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor::class);
+    // cache
+    $services->set(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\Psr16Adapter::class);
+    $services->set(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapter::class)->args(['$itemsPool' => \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\Psr16Adapter::class), '$tagsPool' => \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\Psr16Adapter::class)]);
 };
