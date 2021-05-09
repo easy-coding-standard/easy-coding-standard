@@ -2,8 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\ChangedFilesDetector;
 
-use ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
-use ECSPrefix20210509\Symfony\Component\Cache\CacheItem;
+use ECSPrefix20210509\Nette\Caching\Cache;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\ChangedFilesDetector\ChangedFilesDetectorTest
@@ -23,13 +22,13 @@ final class ChangedFilesDetector
      */
     private $fileHashComputer;
     /**
-     * @var TagAwareAdapterInterface
+     * @var Cache
      */
-    private $tagAwareAdapter;
-    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer, \ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface $tagAwareAdapter)
+    private $cache;
+    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\FileHashComputer $fileHashComputer, \ECSPrefix20210509\Nette\Caching\Cache $cache)
     {
         $this->fileHashComputer = $fileHashComputer;
-        $this->tagAwareAdapter = $tagAwareAdapter;
+        $this->cache = $cache;
     }
     /**
      * For tests
@@ -46,18 +45,17 @@ final class ChangedFilesDetector
      */
     public function addFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
-        /** @var CacheItem $cacheItem */
-        $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
-        $cacheItem->set($this->fileHashComputer->compute($smartFileInfo->getRealPath()));
-        $cacheItem->tag(self::CHANGED_FILES_CACHE_TAG);
-        $this->tagAwareAdapter->save($cacheItem);
+        $cacheKey = $this->fileInfoToKey($smartFileInfo);
+        $currentValue = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
+        $this->cache->save($cacheKey, $currentValue, [\ECSPrefix20210509\Nette\Caching\Cache::TAGS => [self::CHANGED_FILES_CACHE_TAG]]);
     }
     /**
      * @return void
      */
     public function invalidateFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
-        $this->tagAwareAdapter->deleteItem($this->fileInfoToKey($smartFileInfo));
+        $cacheKey = $this->fileInfoToKey($smartFileInfo);
+        $this->cache->remove($cacheKey);
     }
     /**
      * @return bool
@@ -65,9 +63,9 @@ final class ChangedFilesDetector
     public function hasFileInfoChanged(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $newFileHash = $this->fileHashComputer->compute($smartFileInfo->getRealPath());
-        $cacheItem = $this->tagAwareAdapter->getItem($this->fileInfoToKey($smartFileInfo));
-        $oldFileHash = $cacheItem->get();
-        return $newFileHash !== $oldFileHash;
+        $cacheKey = $this->fileInfoToKey($smartFileInfo);
+        $cachedValue = $this->cache->load($cacheKey);
+        return $newFileHash !== $cachedValue;
     }
     /**
      * @return void
@@ -75,7 +73,7 @@ final class ChangedFilesDetector
     public function clearCache()
     {
         // clear cache only for changed files group
-        $this->tagAwareAdapter->invalidateTags([self::CHANGED_FILES_CACHE_TAG]);
+        $this->cache->clean([\ECSPrefix20210509\Nette\Caching\Cache::TAGS => [self::CHANGED_FILES_CACHE_TAG]]);
     }
     /**
      * For cache invalidation
@@ -101,9 +99,7 @@ final class ChangedFilesDetector
     {
         $configurationHash = (string) $configurationHash;
         $this->invalidateCacheIfConfigurationChanged($configurationHash);
-        $cacheItem = $this->tagAwareAdapter->getItem(self::CONFIGURATION_HASH_KEY);
-        $cacheItem->set($configurationHash);
-        $this->tagAwareAdapter->save($cacheItem);
+        $this->cache->save(self::CONFIGURATION_HASH_KEY, $configurationHash);
     }
     /**
      * @return string
@@ -119,10 +115,10 @@ final class ChangedFilesDetector
     private function invalidateCacheIfConfigurationChanged($configurationHash)
     {
         $configurationHash = (string) $configurationHash;
-        $cacheItem = $this->tagAwareAdapter->getItem(self::CONFIGURATION_HASH_KEY);
-        $oldConfigurationHash = $cacheItem->get();
-        if ($configurationHash !== $oldConfigurationHash) {
-            $this->clearCache();
+        $cachedValue = $this->cache->load(self::CONFIGURATION_HASH_KEY);
+        if ($configurationHash === $cachedValue) {
+            return;
         }
+        $this->clearCache();
     }
 }
