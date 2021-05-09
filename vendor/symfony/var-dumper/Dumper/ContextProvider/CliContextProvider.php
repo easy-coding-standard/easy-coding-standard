@@ -8,15 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\VarDumper\Dumper\ContextProvider;
+namespace ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\ContextProvider;
 
 /**
  * Tries to provide context on CLI.
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-final class CliContextProvider implements ContextProviderInterface
+final class CliContextProvider implements \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\ContextProvider\ContextProviderInterface
 {
     /**
      * @return mixed[]|null
@@ -26,10 +25,6 @@ final class CliContextProvider implements ContextProviderInterface
         if ('cli' !== \PHP_SAPI) {
             return null;
         }
-
-        return [
-            'command_line' => $commandLine = implode(' ', isset($_SERVER['argv']) ? $_SERVER['argv'] : []),
-            'identifier' => hash('crc32b', $commandLine.$_SERVER['REQUEST_TIME_FLOAT']),
-        ];
+        return ['command_line' => $commandLine = \implode(' ', isset($_SERVER['argv']) ? $_SERVER['argv'] : []), 'identifier' => \hash('crc32b', $commandLine . $_SERVER['REQUEST_TIME_FLOAT'])];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the ESLint sniff.
  *
@@ -6,15 +7,12 @@
  * @copyright 2019 Juliette Reinders Folmer. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Debug;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 use PHP_CodeSniffer\Config;
-
-class ESLintUnitTest extends AbstractSniffUnitTest
+class ESLintUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
     /**
      * Basic ESLint config to use for testing the sniff.
      *
@@ -31,8 +29,6 @@ class ESLintUnitTest extends AbstractSniffUnitTest
         "no-unused-vars": 2
     }
 }';
-
-
     /**
      * Sets up this unit test.
      *
@@ -41,13 +37,10 @@ class ESLintUnitTest extends AbstractSniffUnitTest
     protected function setUp()
     {
         parent::setUp();
-
-        $cwd = getcwd();
-        file_put_contents($cwd.'/.eslintrc.json', self::ESLINT_CONFIG);
-
-    }//end setUp()
-
-
+        $cwd = \getcwd();
+        \file_put_contents($cwd . '/.eslintrc.json', self::ESLINT_CONFIG);
+    }
+    //end setUp()
     /**
      * Remove artifact.
      *
@@ -56,13 +49,10 @@ class ESLintUnitTest extends AbstractSniffUnitTest
     protected function tearDown()
     {
         parent::tearDown();
-
-        $cwd = getcwd();
-        unlink($cwd.'/.eslintrc.json');
-
-    }//end tearDown()
-
-
+        $cwd = \getcwd();
+        \unlink($cwd . '/.eslintrc.json');
+    }
+    //end tearDown()
     /**
      * Should this test be skipped for some reason.
      *
@@ -70,16 +60,13 @@ class ESLintUnitTest extends AbstractSniffUnitTest
      */
     protected function shouldSkipTest()
     {
-        $eslintPath = Config::getExecutablePath('eslint');
+        $eslintPath = \PHP_CodeSniffer\Config::getExecutablePath('eslint');
         if ($eslintPath === null) {
-            return true;
+            return \true;
         }
-
-        return false;
-
-    }//end shouldSkipTest()
-
-
+        return \false;
+    }
+    //end shouldSkipTest()
     /**
      * Returns the lines where errors should occur.
      *
@@ -91,10 +78,8 @@ class ESLintUnitTest extends AbstractSniffUnitTest
     public function getErrorList()
     {
         return [1 => 2];
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -106,8 +91,7 @@ class ESLintUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

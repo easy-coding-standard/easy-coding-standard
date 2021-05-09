@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bans the use of the PHP short array syntax.
  *
@@ -6,16 +7,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class DisallowShortArraySyntaxSniff implements Sniff
+class DisallowShortArraySyntaxSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -24,10 +21,8 @@ class DisallowShortArraySyntaxSniff implements Sniff
     public function register()
     {
         return [T_OPEN_SHORT_ARRAY];
-
-    }//end register()
-
-
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -37,25 +32,21 @@ class DisallowShortArraySyntaxSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'yes');
-
         $error = 'Short array syntax is not allowed';
-        $fix   = $phpcsFile->addFixableError($error, $stackPtr, 'Found');
-
-        if ($fix === true) {
+        $fix = $phpcsFile->addFixableError($error, $stackPtr, 'Found');
+        if ($fix === \true) {
             $tokens = $phpcsFile->getTokens();
             $opener = $tokens[$stackPtr]['bracket_opener'];
             $closer = $tokens[$stackPtr]['bracket_closer'];
-
             $phpcsFile->fixer->beginChangeset();
             $phpcsFile->fixer->replaceToken($opener, 'array(');
             $phpcsFile->fixer->replaceToken($closer, ')');
             $phpcsFile->fixer->endChangeset();
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

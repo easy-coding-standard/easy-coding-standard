@@ -2,20 +2,17 @@
 
 namespace Symplify\CodingStandard\ValueObject;
 
-use Nette\Utils\Strings;
-
+use ECSPrefix20210509\Nette\Utils\Strings;
 final class DocBlockLines
 {
     /**
      * @var array<string>
      */
     private $descriptionLines = [];
-
     /**
      * @var array<string>
      */
     private $otherLines = [];
-
     /**
      * @param array<string> $descriptionLines
      * @param array<string> $otherLines
@@ -25,7 +22,6 @@ final class DocBlockLines
         $this->descriptionLines = $descriptionLines;
         $this->otherLines = $otherLines;
     }
-
     /**
      * @return mixed[]
      */
@@ -33,7 +29,6 @@ final class DocBlockLines
     {
         return $this->descriptionLines;
     }
-
     /**
      * @return mixed[]
      */
@@ -41,18 +36,16 @@ final class DocBlockLines
     {
         return $this->otherLines;
     }
-
     /**
      * @return bool
      */
     public function hasListDescriptionLines()
     {
         foreach ($this->descriptionLines as $descriptionLine) {
-            if (Strings::startsWith($descriptionLine, '-')) {
-                return true;
+            if (\ECSPrefix20210509\Nette\Utils\Strings::startsWith($descriptionLine, '-')) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

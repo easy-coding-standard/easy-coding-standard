@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -20,13 +19,12 @@ use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * Remove inheritdoc tags from classy that does not inherit.
  *
  * @author SpacePossum
  */
-final class PhpdocNoUselessInheritdocFixer extends AbstractFixer
+final class PhpdocNoUselessInheritdocFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -34,15 +32,8 @@ final class PhpdocNoUselessInheritdocFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Classy that does not inherit must not have `@inheritdoc` tags.',
-            [
-                new CodeSample("<?php\n/** {@inheritdoc} */\nclass Sample\n{\n}\n"),
-                new CodeSample("<?php\nclass Sample\n{\n    /**\n     * @inheritdoc\n     */\n    public function Test()\n    {\n    }\n}\n"),
-            ]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Classy that does not inherit must not have `@inheritdoc` tags.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/** {@inheritdoc} */\nclass Sample\n{\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nclass Sample\n{\n    /**\n     * @inheritdoc\n     */\n    public function Test()\n    {\n    }\n}\n")]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -54,153 +45,129 @@ final class PhpdocNoUselessInheritdocFixer extends AbstractFixer
     {
         return 6;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_DOC_COMMENT) && $tokens->isAnyTokenKindsFound([T_CLASS, T_INTERFACE]);
+        return $tokens->isTokenKindFound(\T_DOC_COMMENT) && $tokens->isAnyTokenKindsFound([\T_CLASS, \T_INTERFACE]);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // min. offset 4 as minimal candidate is @: <?php\n/** @inheritdoc */class min{}
         for ($index = 1, $count = \count($tokens) - 4; $index < $count; ++$index) {
-            if ($tokens[$index]->isGivenKind([T_CLASS, T_INTERFACE])) {
+            if ($tokens[$index]->isGivenKind([\T_CLASS, \T_INTERFACE])) {
                 $index = $this->fixClassy($tokens, $index);
             }
         }
     }
-
     /**
      * @param int $index
      * @return int
      */
-    private function fixClassy(Tokens $tokens, $index)
+    private function fixClassy(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         // figure out where the classy starts
         $classOpenIndex = $tokens->getNextTokenOfKind($index, ['{']);
-
         // figure out where the classy ends
-        $classEndIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpenIndex);
-
+        $classEndIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $classOpenIndex);
         // is classy extending or implementing some interface
         $extendingOrImplementing = $this->isExtendingOrImplementing($tokens, $index, $classOpenIndex);
-
         if (!$extendingOrImplementing) {
             // PHPDoc of classy should not have inherit tag even when using traits as Traits cannot provide this information
             $this->fixClassyOutside($tokens, $index);
         }
-
         // figure out if the classy uses a trait
         if (!$extendingOrImplementing && $this->isUsingTrait($tokens, $index, $classOpenIndex, $classEndIndex)) {
-            $extendingOrImplementing = true;
+            $extendingOrImplementing = \true;
         }
-
         $this->fixClassyInside($tokens, $classOpenIndex, $classEndIndex, !$extendingOrImplementing);
-
         return $classEndIndex;
     }
-
     /**
      * @return void
      * @param int $classOpenIndex
      * @param int $classEndIndex
      * @param bool $fixThisLevel
      */
-    private function fixClassyInside(Tokens $tokens, $classOpenIndex, $classEndIndex, $fixThisLevel)
+    private function fixClassyInside(\PhpCsFixer\Tokenizer\Tokens $tokens, $classOpenIndex, $classEndIndex, $fixThisLevel)
     {
         $classOpenIndex = (int) $classOpenIndex;
         $classEndIndex = (int) $classEndIndex;
         $fixThisLevel = (bool) $fixThisLevel;
         for ($i = $classOpenIndex; $i < $classEndIndex; ++$i) {
-            if ($tokens[$i]->isGivenKind(T_CLASS)) {
+            if ($tokens[$i]->isGivenKind(\T_CLASS)) {
                 $i = $this->fixClassy($tokens, $i);
-            } elseif ($fixThisLevel && $tokens[$i]->isGivenKind(T_DOC_COMMENT)) {
+            } elseif ($fixThisLevel && $tokens[$i]->isGivenKind(\T_DOC_COMMENT)) {
                 $this->fixToken($tokens, $i);
             }
         }
     }
-
     /**
      * @return void
      * @param int $classIndex
      */
-    private function fixClassyOutside(Tokens $tokens, $classIndex)
+    private function fixClassyOutside(\PhpCsFixer\Tokenizer\Tokens $tokens, $classIndex)
     {
         $classIndex = (int) $classIndex;
         $previousIndex = $tokens->getPrevNonWhitespace($classIndex);
-        if ($tokens[$previousIndex]->isGivenKind(T_DOC_COMMENT)) {
+        if ($tokens[$previousIndex]->isGivenKind(\T_DOC_COMMENT)) {
             $this->fixToken($tokens, $previousIndex);
         }
     }
-
     /**
      * @return void
      * @param int $tokenIndex
      */
-    private function fixToken(Tokens $tokens, $tokenIndex)
+    private function fixToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $tokenIndex)
     {
         $tokenIndex = (int) $tokenIndex;
         $count = 0;
-        $content = Preg::replaceCallback(
-            '#(\h*(?:@{*|{*\h*@)\h*inheritdoc\h*)([^}]*)((?:}*)\h*)#i',
-            static function (array $matches) {
-                return ' '.$matches[2];
-            },
-            $tokens[$tokenIndex]->getContent(),
-            -1,
-            $count
-        );
-
+        $content = \PhpCsFixer\Preg::replaceCallback('#(\\h*(?:@{*|{*\\h*@)\\h*inheritdoc\\h*)([^}]*)((?:}*)\\h*)#i', static function (array $matches) {
+            return ' ' . $matches[2];
+        }, $tokens[$tokenIndex]->getContent(), -1, $count);
         if ($count) {
-            $tokens[$tokenIndex] = new Token([T_DOC_COMMENT, $content]);
+            $tokens[$tokenIndex] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $content]);
         }
     }
-
     /**
      * @param int $classIndex
      * @param int $classOpenIndex
      * @return bool
      */
-    private function isExtendingOrImplementing(Tokens $tokens, $classIndex, $classOpenIndex)
+    private function isExtendingOrImplementing(\PhpCsFixer\Tokenizer\Tokens $tokens, $classIndex, $classOpenIndex)
     {
         $classIndex = (int) $classIndex;
         $classOpenIndex = (int) $classOpenIndex;
         for ($index = $classIndex; $index < $classOpenIndex; ++$index) {
-            if ($tokens[$index]->isGivenKind([T_EXTENDS, T_IMPLEMENTS])) {
-                return true;
+            if ($tokens[$index]->isGivenKind([\T_EXTENDS, \T_IMPLEMENTS])) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @param int $classIndex
      * @param int $classOpenIndex
      * @param int $classCloseIndex
      * @return bool
      */
-    private function isUsingTrait(Tokens $tokens, $classIndex, $classOpenIndex, $classCloseIndex)
+    private function isUsingTrait(\PhpCsFixer\Tokenizer\Tokens $tokens, $classIndex, $classOpenIndex, $classCloseIndex)
     {
         $classIndex = (int) $classIndex;
         $classOpenIndex = (int) $classOpenIndex;
         $classCloseIndex = (int) $classCloseIndex;
-        if ($tokens[$classIndex]->isGivenKind(T_INTERFACE)) {
+        if ($tokens[$classIndex]->isGivenKind(\T_INTERFACE)) {
             // cannot use Trait inside an interface
-            return false;
+            return \false;
         }
-
-        $useIndex = $tokens->getNextTokenOfKind($classOpenIndex, [[CT::T_USE_TRAIT]]);
-
+        $useIndex = $tokens->getNextTokenOfKind($classOpenIndex, [[\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT]]);
         return null !== $useIndex && $useIndex < $classCloseIndex;
     }
 }

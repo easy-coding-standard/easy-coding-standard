@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Contracts\HttpClient;
 
-namespace Symfony\Contracts\HttpClient;
-
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-
+use ECSPrefix20210509\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * The interface of chunks returned by ResponseStreamInterface::current().
  *
@@ -31,7 +29,6 @@ interface ChunkInterface
      * @return bool
      */
     public function isTimeout();
-
     /**
      * Tells when headers just arrived.
      *
@@ -39,7 +36,6 @@ interface ChunkInterface
      * @return bool
      */
     public function isFirst();
-
     /**
      * Tells when the body just completed.
      *
@@ -47,7 +43,6 @@ interface ChunkInterface
      * @return bool
      */
     public function isLast();
-
     /**
      * Returns a [status code, headers] tuple when a 1xx status code was just received.
      *
@@ -55,7 +50,6 @@ interface ChunkInterface
      * @return mixed[]|null
      */
     public function getInformationalStatus();
-
     /**
      * Returns the content of the response chunk.
      *
@@ -63,13 +57,11 @@ interface ChunkInterface
      * @return string
      */
     public function getContent();
-
     /**
      * Returns the offset of the chunk in the response body.
      * @return int
      */
     public function getOffset();
-
     /**
      * In case of error, returns the message that describes it.
      * @return string|null

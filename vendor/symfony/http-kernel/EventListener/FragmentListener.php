@@ -8,16 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\EventListener;
 
-namespace Symfony\Component\HttpKernel\EventListener;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\UriSigner;
-
+use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\RequestEvent;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\UriSigner;
 /**
  * Handles content fragments represented by special URIs.
  *
@@ -31,73 +29,60 @@ use Symfony\Component\HttpKernel\UriSigner;
  *
  * @final
  */
-class FragmentListener implements EventSubscriberInterface
+class FragmentListener implements \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $signer;
     private $fragmentPath;
-
     /**
      * @param string $fragmentPath The path that triggers this listener
      */
-    public function __construct(UriSigner $signer, $fragmentPath = '/_fragment')
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\UriSigner $signer, $fragmentPath = '/_fragment')
     {
         $fragmentPath = (string) $fragmentPath;
         $this->signer = $signer;
         $this->fragmentPath = $fragmentPath;
     }
-
     /**
      * Fixes request attributes when the path is '/_fragment'.
      *
      * @throws AccessDeniedHttpException if the request does not come from a trusted IP
      */
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\RequestEvent $event)
     {
         $request = $event->getRequest();
-
-        if ($this->fragmentPath !== rawurldecode($request->getPathInfo())) {
+        if ($this->fragmentPath !== \rawurldecode($request->getPathInfo())) {
             return;
         }
-
         if ($request->attributes->has('_controller')) {
             // Is a sub-request: no need to parse _path but it should still be removed from query parameters as below.
             $request->query->remove('_path');
-
             return;
         }
-
         if ($event->isMasterRequest()) {
             $this->validateRequest($request);
         }
-
-        parse_str($request->query->get('_path', ''), $attributes);
+        \parse_str($request->query->get('_path', ''), $attributes);
         $request->attributes->add($attributes);
-        $request->attributes->set('_route_params', array_replace($request->attributes->get('_route_params', []), $attributes));
+        $request->attributes->set('_route_params', \array_replace($request->attributes->get('_route_params', []), $attributes));
         $request->query->remove('_path');
     }
-
-    protected function validateRequest(Request $request)
+    protected function validateRequest(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request)
     {
         // is the Request safe?
         if (!$request->isMethodSafe()) {
-            throw new AccessDeniedHttpException();
+            throw new \ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
         }
-
         // is the Request signed?
         if ($this->signer->checkRequest($request)) {
             return;
         }
-
-        throw new AccessDeniedHttpException();
+        throw new \ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
     }
-
     /**
      * @return mixed[]
      */
     public static function getSubscribedEvents()
     {
-        return [
-            KernelEvents::REQUEST => [['onKernelRequest', 48]],
-        ];
+        return [\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::REQUEST => [['onKernelRequest', 48]]];
     }
 }

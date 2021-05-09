@@ -9,12 +9,10 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Tokenizer\Analyzer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  *
@@ -27,40 +25,33 @@ final class BlocksAnalyzer
      * @param int|null $closeIndex
      * @return bool
      */
-    public function isBlock(Tokens $tokens, $openIndex, $closeIndex)
+    public function isBlock(\PhpCsFixer\Tokenizer\Tokens $tokens, $openIndex, $closeIndex)
     {
         if (null === $openIndex || null === $closeIndex) {
-            return false;
+            return \false;
         }
-
         if (!$tokens->offsetExists($openIndex)) {
-            return false;
+            return \false;
         }
-
         if (!$tokens->offsetExists($closeIndex)) {
-            return false;
+            return \false;
         }
-
         $blockType = $this->getBlockType($tokens[$openIndex]);
-
         if (null === $blockType) {
-            return false;
+            return \false;
         }
-
         return $closeIndex === $tokens->findBlockEnd($blockType, $openIndex);
     }
-
     /**
      * @return int|null
      */
-    private function getBlockType(Token $token)
+    private function getBlockType(\PhpCsFixer\Tokenizer\Token $token)
     {
-        foreach (Tokens::getBlockEdgeDefinitions() as $blockType => $definition) {
+        foreach (\PhpCsFixer\Tokenizer\Tokens::getBlockEdgeDefinitions() as $blockType => $definition) {
             if ($token->equals($definition['start'])) {
                 return $blockType;
             }
         }
-
         return null;
     }
 }

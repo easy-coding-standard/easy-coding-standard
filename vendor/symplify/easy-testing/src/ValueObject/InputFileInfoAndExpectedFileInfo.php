@@ -3,25 +3,21 @@
 namespace Symplify\EasyTesting\ValueObject;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
-
 final class InputFileInfoAndExpectedFileInfo
 {
     /**
      * @var SmartFileInfo
      */
     private $inputFileInfo;
-
     /**
      * @var SmartFileInfo
      */
     private $expectedFileInfo;
-
-    public function __construct(SmartFileInfo $inputFileInfo, SmartFileInfo $expectedFileInfo)
+    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $inputFileInfo, \Symplify\SmartFileSystem\SmartFileInfo $expectedFileInfo)
     {
         $this->inputFileInfo = $inputFileInfo;
         $this->expectedFileInfo = $expectedFileInfo;
     }
-
     /**
      * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
@@ -29,7 +25,6 @@ final class InputFileInfoAndExpectedFileInfo
     {
         return $this->inputFileInfo;
     }
-
     /**
      * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
@@ -37,7 +32,6 @@ final class InputFileInfoAndExpectedFileInfo
     {
         return $this->expectedFileInfo;
     }
-
     /**
      * @return string
      */
@@ -45,7 +39,6 @@ final class InputFileInfoAndExpectedFileInfo
     {
         return $this->expectedFileInfo->getContents();
     }
-
     /**
      * @return string
      */

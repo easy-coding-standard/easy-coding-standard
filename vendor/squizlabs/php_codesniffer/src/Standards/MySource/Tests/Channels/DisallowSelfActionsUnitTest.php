@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the DisallowSelfActions sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\MySource\Tests\Channels;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class DisallowSelfActionsUnitTest extends AbstractSniffUnitTest
+class DisallowSelfActionsUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,16 +22,9 @@ class DisallowSelfActionsUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            12 => 1,
-            13 => 1,
-            28 => 1,
-            29 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [12 => 1, 13 => 1, 28 => 1, 29 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -46,8 +36,7 @@ class DisallowSelfActionsUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

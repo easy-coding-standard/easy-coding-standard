@@ -9,12 +9,10 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use Symfony\Component\Finder\Finder as SymfonyFinder;
-use Symfony\Component\Finder\SplFileInfo;
-
+use ECSPrefix20210509\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20210509\Symfony\Component\Finder\SplFileInfo;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -24,7 +22,6 @@ final class ReporterFactory
 {
     /** @var ReporterInterface[] */
     private $reporters = [];
-
     /**
      * @return $this
      */
@@ -32,56 +29,40 @@ final class ReporterFactory
     {
         /** @var null|string[] $builtInReporters */
         static $builtInReporters;
-
         if (null === $builtInReporters) {
             $builtInReporters = [];
-
             /** @var SplFileInfo $file */
-            foreach (SymfonyFinder::create()->files()->name('*Reporter.php')->in(__DIR__) as $file) {
+            foreach (\ECSPrefix20210509\Symfony\Component\Finder\Finder::create()->files()->name('*Reporter.php')->in(__DIR__) as $file) {
                 $relativeNamespace = $file->getRelativePath();
-                $builtInReporters[] = sprintf(
-                    '%s\\%s%s',
-                    __NAMESPACE__,
-                    $relativeNamespace ? $relativeNamespace.'\\' : '',
-                    $file->getBasename('.php')
-                );
+                $builtInReporters[] = \sprintf('%s\\%s%s', __NAMESPACE__, $relativeNamespace ? $relativeNamespace . '\\' : '', $file->getBasename('.php'));
             }
         }
-
         foreach ($builtInReporters as $reporterClass) {
             $this->registerReporter(new $reporterClass());
         }
-
         return $this;
     }
-
     /**
      * @return $this
      */
-    public function registerReporter(ReporterInterface $reporter)
+    public function registerReporter(\PhpCsFixer\Console\Report\FixReport\ReporterInterface $reporter)
     {
         $format = $reporter->getFormat();
-
         if (isset($this->reporters[$format])) {
-            throw new \UnexpectedValueException(sprintf('Reporter for format "%s" is already registered.', $format));
+            throw new \UnexpectedValueException(\sprintf('Reporter for format "%s" is already registered.', $format));
         }
-
         $this->reporters[$format] = $reporter;
-
         return $this;
     }
-
     /**
      * @return mixed[]
      */
     public function getFormats()
     {
-        $formats = array_keys($this->reporters);
-        sort($formats);
-
+        $formats = \array_keys($this->reporters);
+        \sort($formats);
         return $formats;
     }
-
     /**
      * @param string $format
      * @return \PhpCsFixer\Console\Report\FixReport\ReporterInterface
@@ -90,9 +71,8 @@ final class ReporterFactory
     {
         $format = (string) $format;
         if (!isset($this->reporters[$format])) {
-            throw new \UnexpectedValueException(sprintf('Reporter for format "%s" is not registered.', $format));
+            throw new \UnexpectedValueException(\sprintf('Reporter for format "%s" is not registered.', $format));
         }
-
         return $this->reporters[$format];
     }
 }

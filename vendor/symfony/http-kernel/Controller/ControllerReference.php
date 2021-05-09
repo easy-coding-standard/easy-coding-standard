@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Controller;
 
-namespace Symfony\Component\HttpKernel\Controller;
-
-use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
-
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
 /**
  * Acts as a marker and a data holder for a Controller.
  *
@@ -29,7 +27,6 @@ class ControllerReference
     public $controller;
     public $attributes = [];
     public $query = [];
-
     /**
      * @param string $controller The controller name
      * @param array  $attributes An array of parameters to add to the Request attributes

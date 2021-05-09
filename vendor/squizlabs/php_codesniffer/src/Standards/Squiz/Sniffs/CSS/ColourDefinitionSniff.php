@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensure colours are defined in upper-case and use shortcuts where possible.
  *
@@ -6,23 +7,18 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class ColourDefinitionSniff implements Sniff
+class ColourDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['CSS'];
-
-
     /**
      * Returns the token types that this sniff is interested in.
      *
@@ -31,10 +27,8 @@ class ColourDefinitionSniff implements Sniff
     public function register()
     {
         return [T_COLOUR];
-
-    }//end register()
-
-
+    }
+    //end register()
     /**
      * Processes the tokens that this sniff is interested in.
      *
@@ -44,45 +38,33 @@ class ColourDefinitionSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         $colour = $tokens[$stackPtr]['content'];
-
-        $expected = strtoupper($colour);
+        $expected = \strtoupper($colour);
         if ($colour !== $expected) {
             $error = 'CSS colours must be defined in uppercase; expected %s but found %s';
-            $data  = [
-                $expected,
-                $colour,
-            ];
-
+            $data = [$expected, $colour];
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'NotUpper', $data);
-            if ($fix === true) {
+            if ($fix === \true) {
                 $phpcsFile->fixer->replaceToken($stackPtr, $expected);
             }
         }
-
         // Now check if shorthand can be used.
-        if (strlen($colour) !== 7) {
+        if (\strlen($colour) !== 7) {
             return;
         }
-
         if ($colour[1] === $colour[2] && $colour[3] === $colour[4] && $colour[5] === $colour[6]) {
-            $expected = '#'.$colour[1].$colour[3].$colour[5];
-            $error    = 'CSS colours must use shorthand if available; expected %s but found %s';
-            $data     = [
-                $expected,
-                $colour,
-            ];
-
+            $expected = '#' . $colour[1] . $colour[3] . $colour[5];
+            $error = 'CSS colours must use shorthand if available; expected %s but found %s';
+            $data = [$expected, $colour];
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'Shorthand', $data);
-            if ($fix === true) {
+            if ($fix === \true) {
                 $phpcsFile->fixer->replaceToken($stackPtr, $expected);
             }
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

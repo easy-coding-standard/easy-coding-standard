@@ -8,25 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
-use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException;
-use Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\ExpressionLanguage;
-use Symfony\Component\DependencyInjection\Parameter;
-use Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\ServiceLocator;
-use Symfony\Component\ExpressionLanguage\Expression;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Container;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ExpressionLanguage;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ServiceLocator;
+use ECSPrefix20210509\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * Checks whether injected parameters are compatible with type declarations.
  *
@@ -39,181 +37,133 @@ use Symfony\Component\ExpressionLanguage\Expression;
  * @author Nicolas Grekas <p@tchwork.com>
  * @author Julien Maulny <jmaulny@darkmira.fr>
  */
-final class CheckTypeDeclarationsPass extends AbstractRecursivePass
+final class CheckTypeDeclarationsPass extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
-    const SCALAR_TYPES = [
-        'int' => true,
-        'float' => true,
-        'bool' => true,
-        'string' => true,
-    ];
-
-    const BUILTIN_TYPES = [
-        'array' => true,
-        'bool' => true,
-        'callable' => true,
-        'float' => true,
-        'int' => true,
-        'iterable' => true,
-        'object' => true,
-        'string' => true,
-    ];
-
+    const SCALAR_TYPES = ['int' => \true, 'float' => \true, 'bool' => \true, 'string' => \true];
+    const BUILTIN_TYPES = ['array' => \true, 'bool' => \true, 'callable' => \true, 'float' => \true, 'int' => \true, 'iterable' => \true, 'object' => \true, 'string' => \true];
     private $autoload;
     private $skippedIds;
-
     private $expressionLanguage;
-
     /**
      * @param bool  $autoload   Whether services who's class in not loaded should be checked or not.
      *                          Defaults to false to save loading code during compilation.
      * @param array $skippedIds An array indexed by the service ids to skip
      */
-    public function __construct($autoload = false, array $skippedIds = [])
+    public function __construct($autoload = \false, array $skippedIds = [])
     {
         $autoload = (bool) $autoload;
         $this->autoload = $autoload;
         $this->skippedIds = $skippedIds;
     }
-
     /**
      * {@inheritdoc}
      * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, $isRoot = \false)
     {
         $isRoot = (bool) $isRoot;
         if (isset($this->skippedIds[$this->currentId])) {
             return $value;
         }
-
-        if (!$value instanceof Definition || $value->hasErrors() || $value->isDeprecated()) {
+        if (!$value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition || $value->hasErrors() || $value->isDeprecated()) {
             return parent::processValue($value, $isRoot);
         }
-
-        if (!$this->autoload && !class_exists($class = $value->getClass(), false) && !interface_exists($class, false)) {
+        if (!$this->autoload && !\class_exists($class = $value->getClass(), \false) && !\interface_exists($class, \false)) {
             return parent::processValue($value, $isRoot);
         }
-
-        if (ServiceLocator::class === $value->getClass()) {
+        if (\ECSPrefix20210509\Symfony\Component\DependencyInjection\ServiceLocator::class === $value->getClass()) {
             return parent::processValue($value, $isRoot);
         }
-
-        if ($constructor = $this->getConstructor($value, false)) {
+        if ($constructor = $this->getConstructor($value, \false)) {
             $this->checkTypeDeclarations($value, $constructor, $value->getArguments());
         }
-
         foreach ($value->getMethodCalls() as $methodCall) {
             try {
                 $reflectionMethod = $this->getReflectionMethod($value, $methodCall[0]);
-            } catch (RuntimeException $e) {
+            } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
                 if ($value->getFactory()) {
                     continue;
                 }
-
                 throw $e;
             }
-
             $this->checkTypeDeclarations($value, $reflectionMethod, $methodCall[1]);
         }
-
         return parent::processValue($value, $isRoot);
     }
-
     /**
      * @throws InvalidArgumentException When not enough parameters are defined for the method
      * @return void
      */
-    private function checkTypeDeclarations(Definition $checkedDefinition, \ReflectionFunctionAbstract $reflectionFunction, array $values)
+    private function checkTypeDeclarations(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition $checkedDefinition, \ReflectionFunctionAbstract $reflectionFunction, array $values)
     {
         $numberOfRequiredParameters = $reflectionFunction->getNumberOfRequiredParameters();
-
         if (\count($values) < $numberOfRequiredParameters) {
-            throw new InvalidArgumentException(sprintf('Invalid definition for service "%s": "%s::%s()" requires %d arguments, %d passed.', $this->currentId, $reflectionFunction->class, $reflectionFunction->name, $numberOfRequiredParameters, \count($values)));
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid definition for service "%s": "%s::%s()" requires %d arguments, %d passed.', $this->currentId, $reflectionFunction->class, $reflectionFunction->name, $numberOfRequiredParameters, \count($values)));
         }
-
         $reflectionParameters = $reflectionFunction->getParameters();
-        $checksCount = min($reflectionFunction->getNumberOfParameters(), \count($values));
-
-        $envPlaceholderUniquePrefix = $this->container->getParameterBag() instanceof EnvPlaceholderParameterBag ? $this->container->getParameterBag()->getEnvPlaceholderUniquePrefix() : null;
-
+        $checksCount = \min($reflectionFunction->getNumberOfParameters(), \count($values));
+        $envPlaceholderUniquePrefix = $this->container->getParameterBag() instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag ? $this->container->getParameterBag()->getEnvPlaceholderUniquePrefix() : null;
         for ($i = 0; $i < $checksCount; ++$i) {
             if (!$reflectionParameters[$i]->hasType() || $reflectionParameters[$i]->isVariadic()) {
                 continue;
             }
-
             $this->checkType($checkedDefinition, $values[$i], $reflectionParameters[$i], $envPlaceholderUniquePrefix);
         }
-
-        if ($reflectionFunction->isVariadic() && ($lastParameter = end($reflectionParameters))->hasType()) {
+        if ($reflectionFunction->isVariadic() && ($lastParameter = \end($reflectionParameters))->hasType()) {
             $variadicParameters = \array_slice($values, $lastParameter->getPosition());
-
             foreach ($variadicParameters as $variadicParameter) {
                 $this->checkType($checkedDefinition, $variadicParameter, $lastParameter, $envPlaceholderUniquePrefix);
             }
         }
     }
-
     /**
      * @throws InvalidParameterTypeException When a parameter is not compatible with the declared type
      * @param string|null $envPlaceholderUniquePrefix
      * @return void
      */
-    private function checkType(Definition $checkedDefinition, $value, \ReflectionParameter $parameter, $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null)
+    private function checkType(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition $checkedDefinition, $value, \ReflectionParameter $parameter, $envPlaceholderUniquePrefix, \ReflectionType $reflectionType = null)
     {
         $reflectionType = isset($reflectionType) ? $reflectionType : $parameter->getType();
-
         if ($reflectionType instanceof \ReflectionUnionType) {
             foreach ($reflectionType->getTypes() as $t) {
                 try {
                     $this->checkType($checkedDefinition, $value, $parameter, $envPlaceholderUniquePrefix, $t);
-
                     return;
-                } catch (InvalidParameterTypeException $e) {
+                } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException $e) {
                 }
             }
-
-            throw new InvalidParameterTypeException($this->currentId, $e->getCode(), $parameter);
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException($this->currentId, $e->getCode(), $parameter);
         }
         if (!$reflectionType instanceof \ReflectionNamedType) {
             return;
         }
-
         $type = $reflectionType->getName();
-
-        if ($value instanceof Reference) {
+        if ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference) {
             if (!$this->container->has($value = (string) $value)) {
                 return;
             }
-
-            if ('service_container' === $value && is_a($type, Container::class, true)) {
+            if ('service_container' === $value && \is_a($type, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Container::class, \true)) {
                 return;
             }
-
             $value = $this->container->findDefinition($value);
         }
-
         if ('self' === $type) {
             $type = $parameter->getDeclaringClass()->getName();
         }
-
         if ('static' === $type) {
             $type = $checkedDefinition->getClass();
         }
-
         $class = null;
-
-        if ($value instanceof Definition) {
+        if ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition) {
             $class = $value->getClass();
-
-            if (isset(self::BUILTIN_TYPES[strtolower($class)])) {
-                $class = strtolower($class);
-            } elseif (!$class || (!$this->autoload && !class_exists($class, false) && !interface_exists($class, false))) {
+            if (isset(self::BUILTIN_TYPES[\strtolower($class)])) {
+                $class = \strtolower($class);
+            } elseif (!$class || !$this->autoload && !\class_exists($class, \false) && !\interface_exists($class, \false)) {
                 return;
             }
-        } elseif ($value instanceof Parameter) {
+        } elseif ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Parameter) {
             $value = $this->container->getParameter($value);
-        } elseif ($value instanceof Expression) {
+        } elseif ($value instanceof \ECSPrefix20210509\Symfony\Component\ExpressionLanguage\Expression) {
             try {
                 $value = $this->getExpressionLanguage()->evaluate($value, ['container' => $this->container]);
             } catch (\Exception $e) {
@@ -221,16 +171,15 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
                 return;
             }
         } elseif (\is_string($value)) {
-            if ('%' === (isset($value[0]) ? $value[0] : '') && preg_match('/^%([^%]+)%$/', $value, $match)) {
-                $value = $this->container->getParameter(substr($value, 1, -1));
+            if ('%' === (isset($value[0]) ? $value[0] : '') && \preg_match('/^%([^%]+)%$/', $value, $match)) {
+                $value = $this->container->getParameter(\substr($value, 1, -1));
             }
-
-            if ($envPlaceholderUniquePrefix && \is_string($value) && false !== strpos($value, 'env_')) {
+            if ($envPlaceholderUniquePrefix && \is_string($value) && \false !== \strpos($value, 'env_')) {
                 // If the value is an env placeholder that is either mixed with a string or with another env placeholder, then its resolved value will always be a string, so we don't need to resolve it.
                 // We don't need to change the value because it is already a string.
-                if ('' === preg_replace('/'.$envPlaceholderUniquePrefix.'_\w+_[a-f0-9]{32}/U', '', $value, -1, $c) && 1 === $c) {
+                if ('' === \preg_replace('/' . $envPlaceholderUniquePrefix . '_\\w+_[a-f0-9]{32}/U', '', $value, -1, $c) && 1 === $c) {
                     try {
-                        $value = $this->container->resolveEnvPlaceholders($value, true);
+                        $value = $this->container->resolveEnvPlaceholders($value, \true);
                     } catch (\Exception $e) {
                         // If an env placeholder cannot be resolved, we skip the validation.
                         return;
@@ -238,18 +187,16 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
                 }
             }
         }
-
         if (null === $value && $parameter->allowsNull()) {
             return;
         }
-
         if (null === $class) {
-            if ($value instanceof IteratorArgument) {
-                $class = RewindableGenerator::class;
-            } elseif ($value instanceof ServiceClosureArgument) {
+            if ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\IteratorArgument) {
+                $class = \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\RewindableGenerator::class;
+            } elseif ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
                 $class = \Closure::class;
-            } elseif ($value instanceof ServiceLocatorArgument) {
-                $class = ServiceLocator::class;
+            } elseif ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
+                $class = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ServiceLocator::class;
             } elseif (\is_object($value)) {
                 $class = \get_class($value);
             } else {
@@ -257,66 +204,53 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
                 $class = isset(['integer' => 'int', 'double' => 'float', 'boolean' => 'bool'][$class]) ? ['integer' => 'int', 'double' => 'float', 'boolean' => 'bool'][$class] : $class;
             }
         }
-
         if (isset(self::SCALAR_TYPES[$type]) && isset(self::SCALAR_TYPES[$class])) {
             return;
         }
-
-        if ('string' === $type && method_exists($class, '__toString')) {
+        if ('string' === $type && \method_exists($class, '__toString')) {
             return;
         }
-
-        if ('callable' === $type && (\Closure::class === $class || method_exists($class, '__invoke'))) {
+        if ('callable' === $type && (\Closure::class === $class || \method_exists($class, '__invoke'))) {
             return;
         }
-
-        if ('callable' === $type && \is_array($value) && isset($value[0]) && ($value[0] instanceof Reference || $value[0] instanceof Definition || \is_string($value[0]))) {
+        if ('callable' === $type && \is_array($value) && isset($value[0]) && ($value[0] instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference || $value[0] instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition || \is_string($value[0]))) {
             return;
         }
-
-        if ('iterable' === $type && (\is_array($value) || 'array' === $class || is_subclass_of($class, \Traversable::class))) {
+        if ('iterable' === $type && (\is_array($value) || 'array' === $class || \is_subclass_of($class, \Traversable::class))) {
             return;
         }
-
         if ($type === $class) {
             return;
         }
-
         if ('object' === $type && !isset(self::BUILTIN_TYPES[$class])) {
             return;
         }
-
         if ('mixed' === $type) {
             return;
         }
-
-        if (is_a($class, $type, true)) {
+        if (\is_a($class, $type, \true)) {
             return;
         }
-
         if ('false' === $type) {
-            if (false === $value) {
+            if (\false === $value) {
                 return;
             }
         } elseif ($reflectionType->isBuiltin()) {
-            $checkFunction = sprintf('is_%s', $type);
+            $checkFunction = \sprintf('is_%s', $type);
             if ($checkFunction($value)) {
                 return;
             }
         }
-
-        throw new InvalidParameterTypeException($this->currentId, \is_object($value) ? $class : get_debug_type($value), $parameter);
+        throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidParameterTypeException($this->currentId, \is_object($value) ? $class : \get_debug_type($value), $parameter);
     }
-
     /**
      * @return \Symfony\Component\DependencyInjection\ExpressionLanguage
      */
     private function getExpressionLanguage()
     {
         if (null === $this->expressionLanguage) {
-            $this->expressionLanguage = new ExpressionLanguage(null, $this->container->getExpressionLanguageProviders());
+            $this->expressionLanguage = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\ExpressionLanguage(null, $this->container->getExpressionLanguageProviders());
         }
-
         return $this->expressionLanguage;
     }
 }

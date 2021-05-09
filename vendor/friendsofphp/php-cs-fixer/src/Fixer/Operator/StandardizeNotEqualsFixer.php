@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Operator;
 
 use PhpCsFixer\AbstractFixer;
@@ -18,11 +17,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class StandardizeNotEqualsFixer extends AbstractFixer
+final class StandardizeNotEqualsFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -30,12 +28,8 @@ final class StandardizeNotEqualsFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Replace all `<>` with `!=`.',
-            [new CodeSample("<?php\n\$a = \$b <> \$c;\n")]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replace all `<>` with `!=`.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = \$b <> \$c;\n")]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -46,25 +40,23 @@ final class StandardizeNotEqualsFixer extends AbstractFixer
     {
         return 0;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_IS_NOT_EQUAL);
+        return $tokens->isTokenKindFound(\T_IS_NOT_EQUAL);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if ($token->isGivenKind(T_IS_NOT_EQUAL)) {
-                $tokens[$index] = new Token([T_IS_NOT_EQUAL, '!=']);
+            if ($token->isGivenKind(\T_IS_NOT_EQUAL)) {
+                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_IS_NOT_EQUAL, '!=']);
             }
         }
     }

@@ -8,13 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Event;
 
-namespace Symfony\Component\HttpKernel\Event;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to filter a Response object.
  *
@@ -24,21 +22,18 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ResponseEvent extends KernelEvent
+final class ResponseEvent extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
-
     /**
      * @param int $requestType
      */
-    public function __construct(HttpKernelInterface $kernel, Request $request, $requestType, Response $response)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, $requestType, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response)
     {
         $requestType = (int) $requestType;
         parent::__construct($kernel, $request, $requestType);
-
         $this->setResponse($response);
     }
-
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -46,11 +41,10 @@ final class ResponseEvent extends KernelEvent
     {
         return $this->response;
     }
-
     /**
      * @return void
      */
-    public function setResponse(Response $response)
+    public function setResponse(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response)
     {
         $this->response = $response;
     }

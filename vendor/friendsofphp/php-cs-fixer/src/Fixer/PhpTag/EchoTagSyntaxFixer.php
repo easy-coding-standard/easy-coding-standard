@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\PhpTag;
 
 use PhpCsFixer\AbstractFixer;
@@ -22,43 +21,27 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Michele Locati <michele@locati.it>
  */
-final class EchoTagSyntaxFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class EchoTagSyntaxFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /** @internal */
     const OPTION_FORMAT = 'format';
-
     /** @internal */
     const OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY = 'shorten_simple_statements_only';
-
     /** @internal */
     const OPTION_LONG_FUNCTION = 'long_function';
-
     /** @internal */
     const FORMAT_SHORT = 'short';
-
     /** @internal */
     const FORMAT_LONG = 'long';
-
     /** @internal */
     const LONG_FUNCTION_ECHO = 'echo';
-
     /** @internal */
     const LONG_FUNCTION_PRINT = 'print';
-
-    const SUPPORTED_FORMAT_OPTIONS = [
-        self::FORMAT_LONG,
-        self::FORMAT_SHORT,
-    ];
-
-    const SUPPORTED_LONGFUNCTION_OPTIONS = [
-        self::LONG_FUNCTION_ECHO,
-        self::LONG_FUNCTION_PRINT,
-    ];
-
+    const SUPPORTED_FORMAT_OPTIONS = [self::FORMAT_LONG, self::FORMAT_SHORT];
+    const SUPPORTED_LONGFUNCTION_OPTIONS = [self::LONG_FUNCTION_ECHO, self::LONG_FUNCTION_PRINT];
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
@@ -71,22 +54,9 @@ final class EchoTagSyntaxFixer extends AbstractFixer implements ConfigurableFixe
 <?php /* comment */ echo '2' . '3'; ?>
 <?php print '2' . '3'; someFunction(); ?>
 
-EOT
-        ;
-
-        return new FixerDefinition(
-            'Replaces short-echo `<?=` with long format `<?php echo`/`<?php print` syntax, or vice-versa.',
-            [
-                new CodeSample($sample),
-                new CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_LONG]),
-                new CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_LONG, self::OPTION_LONG_FUNCTION => self::LONG_FUNCTION_PRINT]),
-                new CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_SHORT]),
-                new CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_SHORT, self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY => false]),
-            ],
-            null
-        );
+EOT;
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces short-echo `<?=` with long format `<?php echo`/`<?php print` syntax, or vice-versa.', [new \PhpCsFixer\FixerDefinition\CodeSample($sample), new \PhpCsFixer\FixerDefinition\CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_LONG]), new \PhpCsFixer\FixerDefinition\CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_LONG, self::OPTION_LONG_FUNCTION => self::LONG_FUNCTION_PRINT]), new \PhpCsFixer\FixerDefinition\CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_SHORT]), new \PhpCsFixer\FixerDefinition\CodeSample($sample, [self::OPTION_FORMAT => self::FORMAT_SHORT, self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY => \false])], null);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -97,47 +67,30 @@ EOT
     {
         return 0;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
-            return $tokens->isAnyTokenKindsFound([T_ECHO, T_PRINT]);
+            return $tokens->isAnyTokenKindsFound([\T_ECHO, \T_PRINT]);
         }
-
-        return $tokens->isTokenKindFound(T_OPEN_TAG_WITH_ECHO);
+        return $tokens->isTokenKindFound(\T_OPEN_TAG_WITH_ECHO);
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder(self::OPTION_FORMAT, 'The desired language construct.'))
-                ->setAllowedValues(self::SUPPORTED_FORMAT_OPTIONS)
-                ->setDefault(self::FORMAT_LONG)
-                ->getOption(),
-            (new FixerOptionBuilder(self::OPTION_LONG_FUNCTION, 'The function to be used to expand the short echo tags'))
-                ->setAllowedValues(self::SUPPORTED_LONGFUNCTION_OPTIONS)
-                ->setDefault(self::LONG_FUNCTION_ECHO)
-                ->getOption(),
-            (new FixerOptionBuilder(self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY, 'Render short-echo tags only in case of simple code'))
-                ->setAllowedTypes(['bool'])
-                ->setDefault(true)
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_FORMAT, 'The desired language construct.'))->setAllowedValues(self::SUPPORTED_FORMAT_OPTIONS)->setDefault(self::FORMAT_LONG)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_LONG_FUNCTION, 'The function to be used to expand the short echo tags'))->setAllowedValues(self::SUPPORTED_LONGFUNCTION_OPTIONS)->setDefault(self::LONG_FUNCTION_ECHO)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder(self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY, 'Render short-echo tags only in case of simple code'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::FORMAT_SHORT === $this->configuration[self::OPTION_FORMAT]) {
             $this->longToShort($tokens);
@@ -145,75 +98,58 @@ EOT
             $this->shortToLong($tokens);
         }
     }
-
     /**
      * @return void
      */
-    private function longToShort(Tokens $tokens)
+    private function longToShort(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $skipWhenComplexCode = $this->configuration[self::OPTION_SHORTEN_SIMPLE_STATEMENTS_ONLY];
         $count = $tokens->count();
-
         for ($index = 0; $index < $count; ++$index) {
-            if (!$tokens[$index]->isGivenKind(T_OPEN_TAG)) {
+            if (!$tokens[$index]->isGivenKind(\T_OPEN_TAG)) {
                 continue;
             }
-
             $nextMeaningful = $tokens->getNextMeaningfulToken($index);
-
             if (null === $nextMeaningful) {
                 return;
             }
-
-            if (!$tokens[$nextMeaningful]->isGivenKind([T_ECHO, T_PRINT])) {
+            if (!$tokens[$nextMeaningful]->isGivenKind([\T_ECHO, \T_PRINT])) {
                 $index = $nextMeaningful;
-
                 continue;
             }
-
             if ($skipWhenComplexCode && $this->isComplexCode($tokens, $nextMeaningful + 1)) {
                 $index = $nextMeaningful;
-
                 continue;
             }
-
             $newTokens = $this->buildLongToShortTokens($tokens, $index, $nextMeaningful);
             $tokens->overrideRange($index, $nextMeaningful, $newTokens);
             $count = $tokens->count();
         }
     }
-
     /**
      * @return void
      */
-    private function shortToLong(Tokens $tokens)
+    private function shortToLong(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (self::LONG_FUNCTION_PRINT === $this->configuration[self::OPTION_LONG_FUNCTION]) {
-            $echoToken = [T_PRINT, 'print'];
+            $echoToken = [\T_PRINT, 'print'];
         } else {
-            $echoToken = [T_ECHO, 'echo'];
+            $echoToken = [\T_ECHO, 'echo'];
         }
-
         $index = -1;
-
-        while (true) {
-            $index = $tokens->getNextTokenOfKind($index, [[T_OPEN_TAG_WITH_ECHO]]);
-
+        while (\true) {
+            $index = $tokens->getNextTokenOfKind($index, [[\T_OPEN_TAG_WITH_ECHO]]);
             if (null === $index) {
                 return;
             }
-
-            $replace = [new Token([T_OPEN_TAG, '<?php ']), new Token($echoToken)];
-
+            $replace = [new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG, '<?php ']), new \PhpCsFixer\Tokenizer\Token($echoToken)];
             if (!$tokens[$index + 1]->isWhitespace()) {
-                $replace[] = new Token([T_WHITESPACE, ' ']);
+                $replace[] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
             }
-
             $tokens->overrideRange($index, $index, $replace);
             ++$index;
         }
     }
-
     /**
      * Check if $tokens, starting at $index, contains "complex code", that is, the content
      * of the echo tag contains more than a simple "echo something".
@@ -227,28 +163,23 @@ EOT
      * @param int $index
      * @return bool
      */
-    private function isComplexCode(Tokens $tokens, $index)
+    private function isComplexCode(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
-        $semicolonFound = false;
-
+        $semicolonFound = \false;
         for ($count = $tokens->count(); $index < $count; ++$index) {
             $token = $tokens[$index];
-
-            if ($token->isGivenKind(T_CLOSE_TAG)) {
-                return false;
+            if ($token->isGivenKind(\T_CLOSE_TAG)) {
+                return \false;
             }
-
             if (';' === $token->getContent()) {
-                $semicolonFound = true;
+                $semicolonFound = \true;
             } elseif ($semicolonFound && !$token->isWhitespace()) {
-                return true;
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * Builds the list of tokens that replace a long echo sequence.
      *
@@ -256,31 +187,25 @@ EOT
      * @param int $openTagIndex
      * @param int $echoTagIndex
      */
-    private function buildLongToShortTokens(Tokens $tokens, $openTagIndex, $echoTagIndex)
+    private function buildLongToShortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $openTagIndex, $echoTagIndex)
     {
         $openTagIndex = (int) $openTagIndex;
         $echoTagIndex = (int) $echoTagIndex;
-        $result = [new Token([T_OPEN_TAG_WITH_ECHO, '<?='])];
-
+        $result = [new \PhpCsFixer\Tokenizer\Token([\T_OPEN_TAG_WITH_ECHO, '<?='])];
         $start = $tokens->getNextNonWhitespace($openTagIndex);
-
         if ($start === $echoTagIndex) {
             // No non-whitespace tokens between $openTagIndex and $echoTagIndex
             return $result;
         }
-
         // Find the last non-whitespace index before $echoTagIndex
         $end = $echoTagIndex - 1;
-
         while ($tokens[$end]->isWhitespace()) {
             --$end;
         }
-
         // Copy the non-whitespace tokens between $openTagIndex and $echoTagIndex
         for ($index = $start; $index <= $end; ++$index) {
             $result[] = clone $tokens[$index];
         }
-
         return $result;
     }
 }

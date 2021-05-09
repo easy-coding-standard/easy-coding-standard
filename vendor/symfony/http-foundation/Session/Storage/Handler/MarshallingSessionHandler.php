@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
-namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
-
-use Symfony\Component\Cache\Marshaller\MarshallerInterface;
-
+use ECSPrefix20210509\Symfony\Component\Cache\Marshaller\MarshallerInterface;
 /**
  * @author Ahmed TAILOULOUTE <ahmed.tailouloute@gmail.com>
  */
@@ -20,13 +18,11 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
 {
     private $handler;
     private $marshaller;
-
-    public function __construct(AbstractSessionHandler $handler, MarshallerInterface $marshaller)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler $handler, \ECSPrefix20210509\Symfony\Component\Cache\Marshaller\MarshallerInterface $marshaller)
     {
         $this->handler = $handler;
         $this->marshaller = $marshaller;
     }
-
     /**
      * @return bool
      */
@@ -34,7 +30,6 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     {
         return $this->handler->open($savePath, $name);
     }
-
     /**
      * @return bool
      */
@@ -42,7 +37,6 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     {
         return $this->handler->close();
     }
-
     /**
      * @return bool
      */
@@ -50,7 +44,6 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     {
         return $this->handler->destroy($sessionId);
     }
-
     /**
      * @return bool
      */
@@ -58,7 +51,6 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     {
         return $this->handler->gc($maxlifetime);
     }
-
     /**
      * @return string
      */
@@ -66,7 +58,6 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     {
         return $this->marshaller->unmarshall($this->handler->read($sessionId));
     }
-
     /**
      * @return bool
      */
@@ -74,14 +65,11 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     {
         $failed = [];
         $marshalledData = $this->marshaller->marshall(['data' => $data], $failed);
-
         if (isset($failed['data'])) {
-            return false;
+            return \false;
         }
-
         return $this->handler->write($sessionId, $marshalledData['data']);
     }
-
     /**
      * @return bool
      */
@@ -89,7 +77,6 @@ class MarshallingSessionHandler implements \SessionHandlerInterface, \SessionUpd
     {
         return $this->handler->validateId($sessionId);
     }
-
     /**
      * @return bool
      */

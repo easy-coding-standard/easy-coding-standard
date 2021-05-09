@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection;
 
 /**
  * Reference represents a service reference.
@@ -20,19 +19,17 @@ class Reference
 {
     private $id;
     private $invalidBehavior;
-
     /**
      * @param string $id
      * @param int $invalidBehavior
      */
-    public function __construct($id, $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function __construct($id, $invalidBehavior = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
         $id = (string) $id;
         $invalidBehavior = (int) $invalidBehavior;
         $this->id = $id;
         $this->invalidBehavior = $invalidBehavior;
     }
-
     /**
      * @return string The service identifier
      */
@@ -40,7 +37,6 @@ class Reference
     {
         return $this->id;
     }
-
     /**
      * Returns the behavior to be used when the service does not exist.
      *

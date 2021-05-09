@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Whitespace;
 
 use PhpCsFixer\AbstractFixer;
@@ -27,52 +26,32 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author SpacePossum
  */
-final class NoExtraBlankLinesFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
+final class NoExtraBlankLinesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
     /**
      * @var string[]
      */
-    private static $availableTokens = [
-        'break',
-        'case',
-        'continue',
-        'curly_brace_block',
-        'default',
-        'extra',
-        'parenthesis_brace_block',
-        'return',
-        'square_brace_block',
-        'switch',
-        'throw',
-        'use',
-        'use_trait',
-    ];
-
+    private static $availableTokens = ['break', 'case', 'continue', 'curly_brace_block', 'default', 'extra', 'parenthesis_brace_block', 'return', 'square_brace_block', 'switch', 'throw', 'use', 'use_trait'];
     /**
      * @var array<int, string> key is token id, value is name of callback
      */
     private $tokenKindCallbackMap;
-
     /**
      * @var array<string, string> token prototype, value is name of callback
      */
     private $tokenEqualsMap;
-
     /**
      * @var Tokens
      */
     private $tokens;
-
     /**
      * @var TokensAnalyzer
      */
     private $tokensAnalyzer;
-
     /**
      * {@inheritdoc}
      * @return void
@@ -80,68 +59,30 @@ final class NoExtraBlankLinesFixer extends AbstractFixer implements Configurable
     public function configure(array $configuration)
     {
         parent::configure($configuration);
-
-        static $reprToTokenMap = [
-            'break' => T_BREAK,
-            'case' => T_CASE,
-            'continue' => T_CONTINUE,
-            'curly_brace_block' => '{',
-            'default' => T_DEFAULT,
-            'extra' => T_WHITESPACE,
-            'parenthesis_brace_block' => '(',
-            'return' => T_RETURN,
-            'square_brace_block' => CT::T_ARRAY_SQUARE_BRACE_OPEN,
-            'switch' => T_SWITCH,
-            'throw' => T_THROW,
-            'use' => T_USE,
-            'use_trait' => CT::T_USE_TRAIT,
-        ];
-
-        static $tokenKindCallbackMap = [
-            T_BREAK => 'fixAfterToken',
-            T_CASE => 'fixAfterToken',
-            T_CONTINUE => 'fixAfterToken',
-            T_DEFAULT => 'fixAfterToken',
-            T_RETURN => 'fixAfterToken',
-            T_SWITCH => 'fixAfterToken',
-            T_THROW => 'fixAfterThrowToken',
-            T_USE => 'removeBetweenUse',
-            T_WHITESPACE => 'removeMultipleBlankLines',
-            CT::T_USE_TRAIT => 'removeBetweenUse',
-            CT::T_ARRAY_SQUARE_BRACE_OPEN => 'fixStructureOpenCloseIfMultiLine', // typeless '[' tokens should not be fixed (too rare)
-        ];
-
+        static $reprToTokenMap = ['break' => \T_BREAK, 'case' => \T_CASE, 'continue' => \T_CONTINUE, 'curly_brace_block' => '{', 'default' => \T_DEFAULT, 'extra' => \T_WHITESPACE, 'parenthesis_brace_block' => '(', 'return' => \T_RETURN, 'square_brace_block' => \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN, 'switch' => \T_SWITCH, 'throw' => \T_THROW, 'use' => \T_USE, 'use_trait' => \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT];
+        static $tokenKindCallbackMap = [\T_BREAK => 'fixAfterToken', \T_CASE => 'fixAfterToken', \T_CONTINUE => 'fixAfterToken', \T_DEFAULT => 'fixAfterToken', \T_RETURN => 'fixAfterToken', \T_SWITCH => 'fixAfterToken', \T_THROW => 'fixAfterThrowToken', \T_USE => 'removeBetweenUse', \T_WHITESPACE => 'removeMultipleBlankLines', \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT => 'removeBetweenUse', \PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN => 'fixStructureOpenCloseIfMultiLine'];
         static $tokenEqualsMap = [
-            '{' => 'fixStructureOpenCloseIfMultiLine', // i.e. not: CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN
-            '(' => 'fixStructureOpenCloseIfMultiLine', // i.e. not: CT::T_BRACE_CLASS_INSTANTIATION_OPEN
+            '{' => 'fixStructureOpenCloseIfMultiLine',
+            // i.e. not: CT::T_ARRAY_INDEX_CURLY_BRACE_OPEN
+            '(' => 'fixStructureOpenCloseIfMultiLine',
         ];
-
-        $tokensAssoc = array_flip(array_intersect_key($reprToTokenMap, array_flip($this->configuration['tokens'])));
-
-        $this->tokenKindCallbackMap = array_intersect_key($tokenKindCallbackMap, $tokensAssoc);
-        $this->tokenEqualsMap = array_intersect_key($tokenEqualsMap, $tokensAssoc);
+        $tokensAssoc = \array_flip(\array_intersect_key($reprToTokenMap, \array_flip($this->configuration['tokens'])));
+        $this->tokenKindCallbackMap = \array_intersect_key($tokenKindCallbackMap, $tokensAssoc);
+        $this->tokenEqualsMap = \array_intersect_key($tokenEqualsMap, $tokensAssoc);
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Removes extra blank lines and/or blank lines following configuration.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Removes extra blank lines and/or blank lines following configuration.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 $foo = array("foo");
 
 
 $bar = "bar";
-'
-                ),
-                new CodeSample(
-                    '<?php
+'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 switch ($foo) {
     case 41:
@@ -151,11 +92,7 @@ switch ($foo) {
     case 42:
         break;
 }
-',
-                    ['tokens' => ['break']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['break']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 for ($i = 0; $i < 9000; ++$i) {
     if (true) {
@@ -163,91 +100,59 @@ for ($i = 0; $i < 9000; ++$i) {
 
     }
 }
-',
-                    ['tokens' => ['continue']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['continue']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 for ($i = 0; $i < 9000; ++$i) {
 
     echo $i;
 
 }
-',
-                    ['tokens' => ['curly_brace_block']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['curly_brace_block']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 $foo = array("foo");
 
 
 $bar = "bar";
-',
-                    ['tokens' => ['extra']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['extra']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 $foo = array(
 
     "foo"
 
 );
-',
-                    ['tokens' => ['parenthesis_brace_block']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['parenthesis_brace_block']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 function foo($bar)
 {
     return $bar;
 
 }
-',
-                    ['tokens' => ['return']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['return']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 $foo = [
 
     "foo"
 
 ];
-',
-                    ['tokens' => ['square_brace_block']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['square_brace_block']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 function foo($bar)
 {
-    throw new \Exception("Hello!");
+    throw new \\Exception("Hello!");
 
 }
-',
-                    ['tokens' => ['throw']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['throw']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 namespace Foo;
 
-use Bar\Baz;
+use Bar\\Baz;
 
-use Baz\Bar;
+use Baz\\Bar;
 
 class Bar
 {
 }
-',
-                    ['tokens' => ['use']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['use']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 class Foo
 {
@@ -255,11 +160,7 @@ class Foo
 
     use Baz;
 }
-',
-                    ['tokens' => ['use_trait']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['tokens' => ['use_trait']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 switch($a) {
 
     case 1:
@@ -268,13 +169,8 @@ switch($a) {
 
         echo 3;
 }
-',
-                    ['tokens' => ['switch', 'case', 'default']]
-                ),
-            ]
-        );
+', ['tokens' => ['switch', 'case', 'default']])]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -286,72 +182,56 @@ switch($a) {
     {
         return -20;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return true;
+        return \true;
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $this->tokens = $tokens;
-        $this->tokensAnalyzer = new TokensAnalyzer($this->tokens);
+        $this->tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($this->tokens);
         for ($index = $tokens->getSize() - 1; $index > 0; --$index) {
             $this->fixByToken($tokens[$index], $index);
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('tokens', 'List of tokens to fix.'))
-                ->setAllowedTypes(['array'])
-                ->setAllowedValues([new AllowedValueSubset(self::$availableTokens)])
-                ->setDefault(['extra'])
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('tokens', 'List of tokens to fix.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(self::$availableTokens)])->setDefault(['extra'])->getOption()]);
     }
-
     /**
      * @return void
      * @param int $index
      */
-    private function fixByToken(Token $token, $index)
+    private function fixByToken(\PhpCsFixer\Tokenizer\Token $token, $index)
     {
         $index = (int) $index;
         foreach ($this->tokenKindCallbackMap as $kind => $callback) {
             if (!$token->isGivenKind($kind)) {
                 continue;
             }
-
             $this->{$callback}($index);
-
             return;
         }
-
         foreach ($this->tokenEqualsMap as $equals => $callback) {
             if (!$token->equals($equals)) {
                 continue;
             }
-
             $this->{$callback}($index);
-
             return;
         }
     }
-
     /**
      * @return void
      * @param int $index
@@ -359,19 +239,16 @@ switch($a) {
     private function removeBetweenUse($index)
     {
         $index = (int) $index;
-        $next = $this->tokens->getNextTokenOfKind($index, [';', [T_CLOSE_TAG]]);
-        if (null === $next || $this->tokens[$next]->isGivenKind(T_CLOSE_TAG)) {
+        $next = $this->tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
+        if (null === $next || $this->tokens[$next]->isGivenKind(\T_CLOSE_TAG)) {
             return;
         }
-
         $nextUseCandidate = $this->tokens->getNextMeaningfulToken($next);
         if (null === $nextUseCandidate || !$this->tokens[$nextUseCandidate]->isGivenKind($this->tokens[$index]->getId()) || !$this->containsLinebreak($index, $nextUseCandidate)) {
             return;
         }
-
         $this->removeEmptyLinesAfterLineWithTokenAt($next);
     }
-
     /**
      * @return void
      * @param int $index
@@ -379,16 +256,13 @@ switch($a) {
     private function removeMultipleBlankLines($index)
     {
         $index = (int) $index;
-        $expected = $this->tokens[$index - 1]->isGivenKind(T_OPEN_TAG) && 1 === Preg::match('/\R$/', $this->tokens[$index - 1]->getContent()) ? 1 : 2;
-
-        $parts = Preg::split('/(.*\R)/', $this->tokens[$index]->getContent(), -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        $expected = $this->tokens[$index - 1]->isGivenKind(\T_OPEN_TAG) && 1 === \PhpCsFixer\Preg::match('/\\R$/', $this->tokens[$index - 1]->getContent()) ? 1 : 2;
+        $parts = \PhpCsFixer\Preg::split('/(.*\\R)/', $this->tokens[$index]->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY);
         $count = \count($parts);
-
         if ($count > $expected) {
-            $this->tokens[$index] = new Token([T_WHITESPACE, implode('', \array_slice($parts, 0, $expected)).rtrim($parts[$count - 1], "\r\n")]);
+            $this->tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, \implode('', \array_slice($parts, 0, $expected)) . \rtrim($parts[$count - 1], "\r\n")]);
         }
     }
-
     /**
      * @return void
      * @param int $index
@@ -397,22 +271,18 @@ switch($a) {
     {
         $index = (int) $index;
         for ($i = $index - 1; $i > 0; --$i) {
-            if ($this->tokens[$i]->isGivenKind(T_FUNCTION) && $this->tokensAnalyzer->isLambda($i)) {
+            if ($this->tokens[$i]->isGivenKind(\T_FUNCTION) && $this->tokensAnalyzer->isLambda($i)) {
                 return;
             }
-
-            if ($this->tokens[$i]->isGivenKind(T_CLASS) && $this->tokensAnalyzer->isAnonymousClass($i)) {
+            if ($this->tokens[$i]->isGivenKind(\T_CLASS) && $this->tokensAnalyzer->isAnonymousClass($i)) {
                 return;
             }
-
-            if ($this->tokens[$i]->isWhitespace() && false !== strpos($this->tokens[$i]->getContent(), "\n")) {
+            if ($this->tokens[$i]->isWhitespace() && \false !== \strpos($this->tokens[$i]->getContent(), "\n")) {
                 break;
             }
         }
-
         $this->removeEmptyLinesAfterLineWithTokenAt($index);
     }
-
     /**
      * @return void
      * @param int $index
@@ -420,11 +290,10 @@ switch($a) {
     private function fixAfterThrowToken($index)
     {
         $index = (int) $index;
-        if ($this->tokens[$this->tokens->getPrevMeaningfulToken($index)]->equalsAny([';', '{', '}', ':', [T_OPEN_TAG]])) {
+        if ($this->tokens[$this->tokens->getPrevMeaningfulToken($index)]->equalsAny([';', '{', '}', ':', [\T_OPEN_TAG]])) {
             $this->fixAfterToken($index);
         }
     }
-
     /**
      * Remove white line(s) after the index of a block type,
      * but only if the block is not on one line.
@@ -435,19 +304,16 @@ switch($a) {
     private function fixStructureOpenCloseIfMultiLine($index)
     {
         $index = (int) $index;
-        $blockTypeInfo = Tokens::detectBlockType($this->tokens[$index]);
+        $blockTypeInfo = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($this->tokens[$index]);
         $bodyEnd = $this->tokens->findBlockEnd($blockTypeInfo['type'], $index);
-
         for ($i = $bodyEnd - 1; $i >= $index; --$i) {
-            if (false !== strpos($this->tokens[$i]->getContent(), "\n")) {
+            if (\false !== \strpos($this->tokens[$i]->getContent(), "\n")) {
                 $this->removeEmptyLinesAfterLineWithTokenAt($i);
                 $this->removeEmptyLinesAfterLineWithTokenAt($index);
-
                 break;
             }
         }
     }
-
     /**
      * @return void
      * @param int $index
@@ -458,37 +324,30 @@ switch($a) {
         // find the line break
         $tokenCount = \count($this->tokens);
         for ($end = $index; $end < $tokenCount; ++$end) {
-            if (
-                $this->tokens[$end]->equals('}')
-                || false !== strpos($this->tokens[$end]->getContent(), "\n")
-            ) {
+            if ($this->tokens[$end]->equals('}') || \false !== \strpos($this->tokens[$end]->getContent(), "\n")) {
                 break;
             }
         }
-
         if ($end === $tokenCount) {
-            return; // not found, early return
+            return;
+            // not found, early return
         }
-
         $ending = $this->whitespacesConfig->getLineEnding();
-
         for ($i = $end; $i < $tokenCount && $this->tokens[$i]->isWhitespace(); ++$i) {
             $content = $this->tokens[$i]->getContent();
-            if (substr_count($content, "\n") < 1) {
+            if (\substr_count($content, "\n") < 1) {
                 continue;
             }
-
-            $pos = strrpos($content, "\n");
-            if ($pos + 2 <= \strlen($content)) { // preserve indenting where possible
-                $newContent = $ending.substr($content, $pos + 1);
+            $pos = \strrpos($content, "\n");
+            if ($pos + 2 <= \strlen($content)) {
+                // preserve indenting where possible
+                $newContent = $ending . \substr($content, $pos + 1);
             } else {
                 $newContent = $ending;
             }
-
-            $this->tokens[$i] = new Token([T_WHITESPACE, $newContent]);
+            $this->tokens[$i] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $newContent]);
         }
     }
-
     /**
      * @param int $startIndex
      * @param int $endIndex
@@ -499,11 +358,10 @@ switch($a) {
         $startIndex = (int) $startIndex;
         $endIndex = (int) $endIndex;
         for ($i = $endIndex; $i > $startIndex; --$i) {
-            if (Preg::match('/\R/', $this->tokens[$i]->getContent())) {
-                return true;
+            if (\PhpCsFixer\Preg::match('/\\R/', $this->tokens[$i]->getContent())) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensure cast statements don't contain whitespace.
  *
@@ -6,17 +7,13 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\WhiteSpace;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-
-class CastSpacingSniff implements Sniff
+class CastSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -24,11 +21,9 @@ class CastSpacingSniff implements Sniff
      */
     public function register()
     {
-        return Tokens::$castTokens;
-
-    }//end register()
-
-
+        return \PHP_CodeSniffer\Util\Tokens::$castTokens;
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -38,28 +33,21 @@ class CastSpacingSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        $content  = $tokens[$stackPtr]['content'];
-        $expected = str_replace(' ', '', $content);
-        $expected = str_replace("\t", '', $expected);
-
+        $content = $tokens[$stackPtr]['content'];
+        $expected = \str_replace(' ', '', $content);
+        $expected = \str_replace("\t", '', $expected);
         if ($content !== $expected) {
             $error = 'Cast statements must not contain whitespace; expected "%s" but found "%s"';
-            $data  = [
-                $expected,
-                $content,
-            ];
-
+            $data = [$expected, $content];
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'ContainsWhiteSpace', $data);
-            if ($fix === true) {
+            if ($fix === \true) {
                 $phpcsFile->fixer->replaceToken($stackPtr, $expected);
             }
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

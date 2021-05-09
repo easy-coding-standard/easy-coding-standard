@@ -1,16 +1,14 @@
 <?php
 
+namespace ECSPrefix20210509;
+
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer;
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator) {
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-
-    $services->set(PhpUnitStrictFixer::class);
-
-    $services->set(PhpUnitTestAnnotationFixer::class);
-
-    $services->set(PhpUnitSetUpTearDownVisibilityFixer::class);
+    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer::class);
+    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer::class);
+    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer::class);
 };

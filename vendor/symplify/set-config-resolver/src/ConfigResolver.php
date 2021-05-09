@@ -2,6 +2,6 @@
 
 namespace Symplify\SetConfigResolver;
 
-final class ConfigResolver extends AbstractConfigResolver
+final class ConfigResolver extends \Symplify\SetConfigResolver\AbstractConfigResolver
 {
 }

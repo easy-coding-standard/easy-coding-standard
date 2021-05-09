@@ -8,15 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
-namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
-
-use Symfony\Component\Cache\Marshaller\MarshallerInterface;
-
+use ECSPrefix20210509\Symfony\Component\Cache\Marshaller\MarshallerInterface;
 /**
  * @author Ahmed TAILOULOUTE <ahmed.tailouloute@gmail.com>
  */
-class IdentityMarshaller implements MarshallerInterface
+class IdentityMarshaller implements \ECSPrefix20210509\Symfony\Component\Cache\Marshaller\MarshallerInterface
 {
     /**
      * {@inheritdoc}
@@ -27,13 +25,11 @@ class IdentityMarshaller implements MarshallerInterface
     {
         foreach ($values as $key => $value) {
             if (!\is_string($value)) {
-                throw new \LogicException(sprintf('%s accepts only string as data.', __METHOD__));
+                throw new \LogicException(\sprintf('%s accepts only string as data.', __METHOD__));
             }
         }
-
         return $values;
     }
-
     /**
      * {@inheritdoc}
      * @param string $value

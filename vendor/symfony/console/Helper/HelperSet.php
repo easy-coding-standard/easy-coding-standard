@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Console\Helper;
 
-namespace Symfony\Component\Console\Helper;
-
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
-
+use ECSPrefix20210509\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException;
 /**
  * HelperSet represents a set of helpers to be used with a command.
  *
@@ -26,7 +24,6 @@ class HelperSet implements \IteratorAggregate
      */
     private $helpers = [];
     private $command;
-
     /**
      * @param Helper[] $helpers An array of helper
      */
@@ -36,20 +33,17 @@ class HelperSet implements \IteratorAggregate
             $this->set($helper, \is_int($alias) ? null : $alias);
         }
     }
-
     /**
      * @param string $alias
      */
-    public function set(HelperInterface $helper, $alias = null)
+    public function set(\ECSPrefix20210509\Symfony\Component\Console\Helper\HelperInterface $helper, $alias = null)
     {
         $this->helpers[$helper->getName()] = $helper;
         if (null !== $alias) {
             $this->helpers[$alias] = $helper;
         }
-
         $helper->setHelperSet($this);
     }
-
     /**
      * Returns true if the helper if defined.
      *
@@ -61,7 +55,6 @@ class HelperSet implements \IteratorAggregate
         $name = (string) $name;
         return isset($this->helpers[$name]);
     }
-
     /**
      * Gets a helper value.
      *
@@ -74,17 +67,14 @@ class HelperSet implements \IteratorAggregate
     {
         $name = (string) $name;
         if (!$this->has($name)) {
-            throw new InvalidArgumentException(sprintf('The helper "%s" is not defined.', $name));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('The helper "%s" is not defined.', $name));
         }
-
         return $this->helpers[$name];
     }
-
-    public function setCommand(Command $command = null)
+    public function setCommand(\ECSPrefix20210509\Symfony\Component\Console\Command\Command $command = null)
     {
         $this->command = $command;
     }
-
     /**
      * Gets the command associated with this helper set.
      *
@@ -94,7 +84,6 @@ class HelperSet implements \IteratorAggregate
     {
         return $this->command;
     }
-
     /**
      * @return Helper[]
      */

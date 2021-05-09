@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Finder;
+namespace ECSPrefix20210509\Symfony\Component\Finder;
 
 /**
  * Glob matches globbing patterns against text.
@@ -44,45 +43,39 @@ class Glob
      * @param bool $strictWildcardSlash
      * @param string $delimiter
      */
-    public static function toRegex($glob, $strictLeadingDot = true, $strictWildcardSlash = true, $delimiter = '#')
+    public static function toRegex($glob, $strictLeadingDot = \true, $strictWildcardSlash = \true, $delimiter = '#')
     {
         $glob = (string) $glob;
         $strictLeadingDot = (bool) $strictLeadingDot;
         $strictWildcardSlash = (bool) $strictWildcardSlash;
         $delimiter = (string) $delimiter;
-        $firstByte = true;
-        $escaping = false;
+        $firstByte = \true;
+        $escaping = \false;
         $inCurlies = 0;
         $regex = '';
         $sizeGlob = \strlen($glob);
         for ($i = 0; $i < $sizeGlob; ++$i) {
             $car = $glob[$i];
             if ($firstByte && $strictLeadingDot && '.' !== $car) {
-                $regex .= '(?=[^\.])';
+                $regex .= '(?=[^\\.])';
             }
-
             $firstByte = '/' === $car;
-
-            if ($firstByte && $strictWildcardSlash && isset($glob[$i + 2]) && '**' === $glob[$i + 1].$glob[$i + 2] && (!isset($glob[$i + 3]) || '/' === $glob[$i + 3])) {
+            if ($firstByte && $strictWildcardSlash && isset($glob[$i + 2]) && '**' === $glob[$i + 1] . $glob[$i + 2] && (!isset($glob[$i + 3]) || '/' === $glob[$i + 3])) {
                 $car = '[^/]++/';
                 if (!isset($glob[$i + 3])) {
                     $car .= '?';
                 }
-
                 if ($strictLeadingDot) {
-                    $car = '(?=[^\.])'.$car;
+                    $car = '(?=[^\\.])' . $car;
                 }
-
-                $car = '/(?:'.$car.')*';
+                $car = '/(?:' . $car . ')*';
                 $i += 2 + isset($glob[$i + 3]);
-
                 if ('/' === $delimiter) {
-                    $car = str_replace('/', '\\/', $car);
+                    $car = \str_replace('/', '\\/', $car);
                 }
             }
-
             if ($delimiter === $car || '.' === $car || '(' === $car || ')' === $car || '|' === $car || '+' === $car || '^' === $car || '$' === $car) {
-                $regex .= "\\$car";
+                $regex .= "\\{$car}";
             } elseif ('*' === $car) {
                 $regex .= $escaping ? '\\*' : ($strictWildcardSlash ? '[^/]*' : '.*');
             } elseif ('?' === $car) {
@@ -102,18 +95,16 @@ class Glob
             } elseif ('\\' === $car) {
                 if ($escaping) {
                     $regex .= '\\\\';
-                    $escaping = false;
+                    $escaping = \false;
                 } else {
-                    $escaping = true;
+                    $escaping = \true;
                 }
-
                 continue;
             } else {
                 $regex .= $car;
             }
-            $escaping = false;
+            $escaping = \false;
         }
-
-        return $delimiter.'^'.$regex.'$'.$delimiter;
+        return $delimiter . '^' . $regex . '$' . $delimiter;
     }
 }

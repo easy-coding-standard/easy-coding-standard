@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\FixerConfiguration;
 
 /**
@@ -17,28 +16,25 @@ namespace PhpCsFixer\FixerConfiguration;
  *
  * @internal
  */
-final class AliasedFixerOption implements FixerOptionInterface
+final class AliasedFixerOption implements \PhpCsFixer\FixerConfiguration\FixerOptionInterface
 {
     /**
      * @var FixerOptionInterface
      */
     private $fixerOption;
-
     /**
      * @var string
      */
     private $alias;
-
     /**
      * @param string $alias
      */
-    public function __construct(FixerOptionInterface $fixerOption, $alias)
+    public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionInterface $fixerOption, $alias)
     {
         $alias = (string) $alias;
         $this->fixerOption = $fixerOption;
         $this->alias = $alias;
     }
-
     /**
      * @return string
      */
@@ -46,7 +42,6 @@ final class AliasedFixerOption implements FixerOptionInterface
     {
         return $this->alias;
     }
-
     /**
      * {@inheritdoc}
      * @return string
@@ -55,7 +50,6 @@ final class AliasedFixerOption implements FixerOptionInterface
     {
         return $this->fixerOption->getName();
     }
-
     /**
      * {@inheritdoc}
      * @return string
@@ -64,7 +58,6 @@ final class AliasedFixerOption implements FixerOptionInterface
     {
         return $this->fixerOption->getDescription();
     }
-
     /**
      * {@inheritdoc}
      * @return bool
@@ -73,7 +66,6 @@ final class AliasedFixerOption implements FixerOptionInterface
     {
         return $this->fixerOption->hasDefault();
     }
-
     /**
      * {@inheritdoc}
      */
@@ -81,7 +73,6 @@ final class AliasedFixerOption implements FixerOptionInterface
     {
         return $this->fixerOption->getDefault();
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]|null
@@ -90,7 +81,6 @@ final class AliasedFixerOption implements FixerOptionInterface
     {
         return $this->fixerOption->getAllowedTypes();
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]|null
@@ -99,7 +89,6 @@ final class AliasedFixerOption implements FixerOptionInterface
     {
         return $this->fixerOption->getAllowedValues();
     }
-
     /**
      * {@inheritdoc}
      * @return \Closure|null

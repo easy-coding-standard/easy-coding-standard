@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Semicolon;
 
 use PhpCsFixer\AbstractFixer;
@@ -18,11 +17,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author SpacePossum
  */
-final class SemicolonAfterInstructionFixer extends AbstractFixer
+final class SemicolonAfterInstructionFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -30,12 +28,8 @@ final class SemicolonAfterInstructionFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Instructions must be terminated with a semicolon.',
-            [new CodeSample("<?php echo 1 ?>\n")]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Instructions must be terminated with a semicolon.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php echo 1 ?>\n")]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -46,33 +40,29 @@ final class SemicolonAfterInstructionFixer extends AbstractFixer
     {
         return 2;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_CLOSE_TAG);
+        return $tokens->isTokenKindFound(\T_CLOSE_TAG);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = \count($tokens) - 1; $index > 1; --$index) {
-            if (!$tokens[$index]->isGivenKind(T_CLOSE_TAG)) {
+            if (!$tokens[$index]->isGivenKind(\T_CLOSE_TAG)) {
                 continue;
             }
-
             $prev = $tokens->getPrevMeaningfulToken($index);
-            if ($tokens[$prev]->equalsAny([';', '{', '}', ':', [T_OPEN_TAG]])) {
+            if ($tokens[$prev]->equalsAny([';', '{', '}', ':', [\T_OPEN_TAG]])) {
                 continue;
             }
-
-            $tokens->insertAt($prev + 1, new Token(';'));
+            $tokens->insertAt($prev + 1, new \PhpCsFixer\Tokenizer\Token(';'));
         }
     }
 }

@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Casing;
 
 use PhpCsFixer\AbstractFixer;
@@ -23,13 +22,12 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * Fixer for constants case.
  *
  * @author Pol Dellaiera <pol.dellaiera@protonmail.com>
  */
-final class ConstantCaseFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class ConstantCaseFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * Hold the function that will be used to convert the constants.
@@ -37,7 +35,6 @@ final class ConstantCaseFixer extends AbstractFixer implements ConfigurableFixer
      * @var callable
      */
     private $fixFunction;
-
     /**
      * {@inheritdoc}
      * @return void
@@ -45,118 +42,72 @@ final class ConstantCaseFixer extends AbstractFixer implements ConfigurableFixer
     public function configure(array $configuration)
     {
         parent::configure($configuration);
-
         if ('lower' === $this->configuration['case']) {
             $this->fixFunction = static function (string $content) {
-                return strtolower($content);
+                return \strtolower($content);
             };
         }
-
         if ('upper' === $this->configuration['case']) {
             $this->fixFunction = static function (string $content) {
-                return strtoupper($content);
+                return \strtoupper($content);
             };
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'The PHP constants `true`, `false`, and `null` MUST be written using the correct casing.',
-            [
-                new CodeSample("<?php\n\$a = FALSE;\n\$b = True;\n\$c = nuLL;\n"),
-                new CodeSample("<?php\n\$a = FALSE;\n\$b = True;\n\$c = nuLL;\n", ['case' => 'upper']),
-            ]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('The PHP constants `true`, `false`, and `null` MUST be written using the correct casing.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = FALSE;\n\$b = True;\n\$c = nuLL;\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = FALSE;\n\$b = True;\n\$c = nuLL;\n", ['case' => 'upper'])]);
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_STRING);
+        return $tokens->isTokenKindFound(\T_STRING);
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('case', 'Whether to use the `upper` or `lower` case syntax.'))
-                ->setAllowedValues(['upper', 'lower'])
-                ->setDefault('lower')
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('case', 'Whether to use the `upper` or `lower` case syntax.'))->setAllowedValues(['upper', 'lower'])->setDefault('lower')->getOption()]);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $fixFunction = $this->fixFunction;
-
         foreach ($tokens as $index => $token) {
             if (!$token->isNativeConstant()) {
                 continue;
             }
-
-            if (
-                $this->isNeighbourAccepted($tokens, $tokens->getPrevMeaningfulToken($index))
-                && $this->isNeighbourAccepted($tokens, $tokens->getNextMeaningfulToken($index))
-            ) {
-                $tokens[$index] = new Token([$token->getId(), $fixFunction($token->getContent())]);
+            if ($this->isNeighbourAccepted($tokens, $tokens->getPrevMeaningfulToken($index)) && $this->isNeighbourAccepted($tokens, $tokens->getNextMeaningfulToken($index))) {
+                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $fixFunction($token->getContent())]);
             }
         }
     }
-
     /**
      * @param int $index
      * @return bool
      */
-    private function isNeighbourAccepted(Tokens $tokens, $index)
+    private function isNeighbourAccepted(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         static $forbiddenTokens = null;
-
         if (null === $forbiddenTokens) {
-            $forbiddenTokens = array_merge(
-                [
-                    T_AS,
-                    T_CLASS,
-                    T_CONST,
-                    T_EXTENDS,
-                    T_IMPLEMENTS,
-                    T_INSTANCEOF,
-                    T_INSTEADOF,
-                    T_INTERFACE,
-                    T_NEW,
-                    T_NS_SEPARATOR,
-                    T_PAAMAYIM_NEKUDOTAYIM,
-                    T_TRAIT,
-                    T_USE,
-                    CT::T_USE_TRAIT,
-                    CT::T_USE_LAMBDA,
-                ],
-                Token::getObjectOperatorKinds()
-            );
+            $forbiddenTokens = \array_merge([\T_AS, \T_CLASS, \T_CONST, \T_EXTENDS, \T_IMPLEMENTS, \T_INSTANCEOF, \T_INSTEADOF, \T_INTERFACE, \T_NEW, \T_NS_SEPARATOR, \T_PAAMAYIM_NEKUDOTAYIM, \T_TRAIT, \T_USE, \PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \PhpCsFixer\Tokenizer\CT::T_USE_LAMBDA], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds());
         }
-
         $token = $tokens[$index];
-
         if ($token->equalsAny(['{', '}'])) {
-            return false;
+            return \false;
         }
-
         return !$token->isGivenKind($forbiddenTokens);
     }
 }

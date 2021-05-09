@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Config\Resource;
 
-namespace Symfony\Component\Config\Resource;
-
-use Symfony\Component\Config\ResourceCheckerInterface;
-
+use ECSPrefix20210509\Symfony\Component\Config\ResourceCheckerInterface;
 /**
  * Resource checker for instances of SelfCheckingResourceInterface.
  *
@@ -21,17 +19,16 @@ use Symfony\Component\Config\ResourceCheckerInterface;
  *
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class SelfCheckingResourceChecker implements ResourceCheckerInterface
+class SelfCheckingResourceChecker implements \ECSPrefix20210509\Symfony\Component\Config\ResourceCheckerInterface
 {
-    public function supports(ResourceInterface $metadata)
+    public function supports(\ECSPrefix20210509\Symfony\Component\Config\Resource\ResourceInterface $metadata)
     {
-        return $metadata instanceof SelfCheckingResourceInterface;
+        return $metadata instanceof \ECSPrefix20210509\Symfony\Component\Config\Resource\SelfCheckingResourceInterface;
     }
-
     /**
      * @param int $timestamp
      */
-    public function isFresh(ResourceInterface $resource, $timestamp)
+    public function isFresh(\ECSPrefix20210509\Symfony\Component\Config\Resource\ResourceInterface $resource, $timestamp)
     {
         $timestamp = (int) $timestamp;
         /* @var SelfCheckingResourceInterface $resource */

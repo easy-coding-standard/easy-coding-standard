@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Console\Output;
 
-namespace Symfony\Component\Console\Output;
-
-use Symfony\Component\Console\Formatter\NullOutputFormatter;
-use Symfony\Component\Console\Formatter\OutputFormatterInterface;
-
+use ECSPrefix20210509\Symfony\Component\Console\Formatter\NullOutputFormatter;
+use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * NullOutput suppresses all output.
  *
@@ -22,18 +20,16 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-class NullOutput implements OutputInterface
+class NullOutput implements \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface
 {
     private $formatter;
-
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(OutputFormatterInterface $formatter)
+    public function setFormatter(\ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      */
@@ -43,9 +39,8 @@ class NullOutput implements OutputInterface
             return $this->formatter;
         }
         // to comply with the interface we must return a OutputFormatterInterface
-        return $this->formatter = new NullOutputFormatter();
+        return $this->formatter = new \ECSPrefix20210509\Symfony\Component\Console\Formatter\NullOutputFormatter();
     }
-
     /**
      * {@inheritdoc}
      * @param bool $decorated
@@ -55,15 +50,13 @@ class NullOutput implements OutputInterface
         $decorated = (bool) $decorated;
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      */
     public function isDecorated()
     {
-        return false;
+        return \false;
     }
-
     /**
      * {@inheritdoc}
      * @param int $level
@@ -73,7 +66,6 @@ class NullOutput implements OutputInterface
         $level = (int) $level;
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      */
@@ -81,39 +73,34 @@ class NullOutput implements OutputInterface
     {
         return self::VERBOSITY_QUIET;
     }
-
     /**
      * {@inheritdoc}
      */
     public function isQuiet()
     {
-        return true;
+        return \true;
     }
-
     /**
      * {@inheritdoc}
      */
     public function isVerbose()
     {
-        return false;
+        return \false;
     }
-
     /**
      * {@inheritdoc}
      */
     public function isVeryVerbose()
     {
-        return false;
+        return \false;
     }
-
     /**
      * {@inheritdoc}
      */
     public function isDebug()
     {
-        return false;
+        return \false;
     }
-
     /**
      * {@inheritdoc}
      * @param int $options
@@ -123,13 +110,12 @@ class NullOutput implements OutputInterface
         $options = (int) $options;
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      * @param bool $newline
      * @param int $options
      */
-    public function write($messages, $newline = false, $options = self::OUTPUT_NORMAL)
+    public function write($messages, $newline = \false, $options = self::OUTPUT_NORMAL)
     {
         $newline = (bool) $newline;
         $options = (int) $options;

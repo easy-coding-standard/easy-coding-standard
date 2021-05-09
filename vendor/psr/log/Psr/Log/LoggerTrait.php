@@ -1,6 +1,6 @@
 <?php
 
-namespace Psr\Log;
+namespace ECSPrefix20210509\Psr\Log;
 
 /**
  * This is a simple Logger trait that classes unable to extend AbstractLogger
@@ -22,9 +22,8 @@ trait LoggerTrait
      */
     public function emergency($message, array $context = array())
     {
-        $this->log(LogLevel::EMERGENCY, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::EMERGENCY, $message, $context);
     }
-
     /**
      * Action must be taken immediately.
      *
@@ -38,9 +37,8 @@ trait LoggerTrait
      */
     public function alert($message, array $context = array())
     {
-        $this->log(LogLevel::ALERT, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::ALERT, $message, $context);
     }
-
     /**
      * Critical conditions.
      *
@@ -53,9 +51,8 @@ trait LoggerTrait
      */
     public function critical($message, array $context = array())
     {
-        $this->log(LogLevel::CRITICAL, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::CRITICAL, $message, $context);
     }
-
     /**
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
@@ -67,9 +64,8 @@ trait LoggerTrait
      */
     public function error($message, array $context = array())
     {
-        $this->log(LogLevel::ERROR, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::ERROR, $message, $context);
     }
-
     /**
      * Exceptional occurrences that are not errors.
      *
@@ -83,9 +79,8 @@ trait LoggerTrait
      */
     public function warning($message, array $context = array())
     {
-        $this->log(LogLevel::WARNING, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::WARNING, $message, $context);
     }
-
     /**
      * Normal but significant events.
      *
@@ -96,9 +91,8 @@ trait LoggerTrait
      */
     public function notice($message, array $context = array())
     {
-        $this->log(LogLevel::NOTICE, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::NOTICE, $message, $context);
     }
-
     /**
      * Interesting events.
      *
@@ -111,9 +105,8 @@ trait LoggerTrait
      */
     public function info($message, array $context = array())
     {
-        $this->log(LogLevel::INFO, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::INFO, $message, $context);
     }
-
     /**
      * Detailed debug information.
      *
@@ -124,9 +117,8 @@ trait LoggerTrait
      */
     public function debug($message, array $context = array())
     {
-        $this->log(LogLevel::DEBUG, $message, $context);
+        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::DEBUG, $message, $context);
     }
-
     /**
      * Logs with an arbitrary level.
      *
@@ -138,5 +130,5 @@ trait LoggerTrait
      *
      * @throws \Psr\Log\InvalidArgumentException
      */
-    abstract public function log($level, $message, array $context = array());
+    public abstract function log($level, $message, array $context = array());
 }

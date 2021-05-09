@@ -13,18 +13,15 @@ final class ArrayStringAndFnMatcher
     {
         $currentValue = (string) $currentValue;
         if ($this->isMatch($currentValue, $matchingValues)) {
-            return true;
+            return \true;
         }
-
         foreach ($matchingValues as $matchingValue) {
-            if (is_a($currentValue, $matchingValue, true)) {
-                return true;
+            if (\is_a($currentValue, $matchingValue, \true)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @param string[] $matchingValues
      * @param string $currentValue
@@ -35,18 +32,15 @@ final class ArrayStringAndFnMatcher
         $currentValue = (string) $currentValue;
         foreach ($matchingValues as $matchingValue) {
             if ($currentValue === $matchingValue) {
-                return true;
+                return \true;
             }
-
-            if (fnmatch($matchingValue, $currentValue)) {
-                return true;
+            if (\fnmatch($matchingValue, $currentValue)) {
+                return \true;
             }
-
-            if (fnmatch($matchingValue, $currentValue, FNM_NOESCAPE)) {
-                return true;
+            if (\fnmatch($matchingValue, $currentValue, \FNM_NOESCAPE)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

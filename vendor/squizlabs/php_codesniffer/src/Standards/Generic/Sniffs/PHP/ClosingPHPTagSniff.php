@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Checks that open PHP tags are paired with closing tags.
  *
@@ -6,16 +7,12 @@
  * @copyright 2010-2014 Stefano Kowalke
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\PHP;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class ClosingPHPTagSniff implements Sniff
+class ClosingPHPTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -23,11 +20,9 @@ class ClosingPHPTagSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_TAG];
-
-    }//end register()
-
-
+        return [\T_OPEN_TAG];
+    }
+    //end register()
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -37,15 +32,14 @@ class ClosingPHPTagSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $closeTag = $phpcsFile->findNext(T_CLOSE_TAG, $stackPtr);
-        if ($closeTag === false) {
+        $closeTag = $phpcsFile->findNext(\T_CLOSE_TAG, $stackPtr);
+        if ($closeTag === \false) {
             $error = 'The PHP open tag does not have a corresponding PHP close tag';
             $phpcsFile->addError($error, $stackPtr, 'NotFound');
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

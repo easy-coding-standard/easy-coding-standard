@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Alias;
 
 use PhpCsFixer\AbstractFunctionReferenceFixer;
@@ -20,40 +19,28 @@ use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author SpacePossum
  */
-final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
+final class PowToExponentiationFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // minimal candidate to fix is seven tokens: pow(x,y);
-        return $tokens->count() > 7 && $tokens->isTokenKindFound(T_STRING);
+        return $tokens->count() > 7 && $tokens->isTokenKindFound(\T_STRING);
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Converts `pow` to the `**` operator.',
-            [
-                new CodeSample(
-                    "<?php\n pow(\$a, 1);\n"
-                ),
-            ],
-            null,
-            'Risky when the function `pow` is overridden.'
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Converts `pow` to the `**` operator.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n pow(\$a, 1);\n")], null, 'Risky when the function `pow` is overridden.');
     }
-
     /**
      * {@inheritdoc}
      *
@@ -64,19 +51,17 @@ final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
     {
         return 32;
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $candidates = $this->findPowCalls($tokens);
-        $argumentsAnalyzer = new ArgumentsAnalyzer();
+        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         $numberOfTokensAdded = 0;
         $previousCloseParenthesisIndex = \count($tokens);
-
-        foreach (array_reverse($candidates) as $candidate) {
+        foreach (\array_reverse($candidates) as $candidate) {
             // if in the previous iteration(s) tokens were added to the collection and this is done within the tokens
             // indexes of the current candidate than the index of the close ')' of the candidate has moved and so
             // the index needs to be updated
@@ -87,54 +72,47 @@ final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
                 $previousCloseParenthesisIndex = $candidate[2];
                 $numberOfTokensAdded = 0;
             }
-
             $arguments = $argumentsAnalyzer->getArguments($tokens, $candidate[1], $candidate[2]);
-
             if (2 !== \count($arguments)) {
                 continue;
             }
-
             for ($i = $candidate[1]; $i < $candidate[2]; ++$i) {
-                if ($tokens[$i]->isGivenKind(T_ELLIPSIS)) {
+                if ($tokens[$i]->isGivenKind(\T_ELLIPSIS)) {
                     continue 2;
                 }
             }
-
             $numberOfTokensAdded += $this->fixPowToExponentiation(
                 $tokens,
-                $candidate[0], // functionNameIndex,
-                $candidate[1], // openParenthesisIndex,
-                $candidate[2], // closeParenthesisIndex,
+                $candidate[0],
+                // functionNameIndex,
+                $candidate[1],
+                // openParenthesisIndex,
+                $candidate[2],
+                // closeParenthesisIndex,
                 $arguments
             );
         }
     }
-
     /**
      * @return mixed[]
      */
-    private function findPowCalls(Tokens $tokens)
+    private function findPowCalls(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $candidates = [];
-
         // Minimal candidate to fix is seven tokens: pow(x,y);
         $end = \count($tokens) - 6;
-
         // First possible location is after the open token: 1
         for ($i = 1; $i < $end; ++$i) {
             $candidate = $this->find('pow', $tokens, $i, $end);
-
             if (null === $candidate) {
                 break;
             }
-
-            $i = $candidate[1]; // proceed to openParenthesisIndex
+            $i = $candidate[1];
+            // proceed to openParenthesisIndex
             $candidates[] = $candidate;
         }
-
         return $candidates;
     }
-
     /**
      * @param array<int, int> $arguments
      *
@@ -143,106 +121,80 @@ final class PowToExponentiationFixer extends AbstractFunctionReferenceFixer
      * @param int $openParenthesisIndex
      * @param int $closeParenthesisIndex
      */
-    private function fixPowToExponentiation(Tokens $tokens, $functionNameIndex, $openParenthesisIndex, $closeParenthesisIndex, array $arguments)
+    private function fixPowToExponentiation(\PhpCsFixer\Tokenizer\Tokens $tokens, $functionNameIndex, $openParenthesisIndex, $closeParenthesisIndex, array $arguments)
     {
         $functionNameIndex = (int) $functionNameIndex;
         $openParenthesisIndex = (int) $openParenthesisIndex;
         $closeParenthesisIndex = (int) $closeParenthesisIndex;
         // find the argument separator ',' directly after the last token of the first argument;
         // replace it with T_POW '**'
-        $tokens[$tokens->getNextTokenOfKind(reset($arguments), [','])] = new Token([T_POW, '**']);
-
+        $tokens[$tokens->getNextTokenOfKind(\reset($arguments), [','])] = new \PhpCsFixer\Tokenizer\Token([\T_POW, '**']);
         // clean up the function call tokens prt. I
         $tokens->clearAt($closeParenthesisIndex);
         $previousIndex = $tokens->getPrevMeaningfulToken($closeParenthesisIndex);
-
         if ($tokens[$previousIndex]->equals(',')) {
-            $tokens->clearAt($previousIndex); // trailing ',' in function call (PHP 7.3)
+            $tokens->clearAt($previousIndex);
+            // trailing ',' in function call (PHP 7.3)
         }
-
         $added = 0;
-
         // check if the arguments need to be wrapped in parenthesis
-        foreach (array_reverse($arguments, true) as $argumentStartIndex => $argumentEndIndex) {
+        foreach (\array_reverse($arguments, \true) as $argumentStartIndex => $argumentEndIndex) {
             if ($this->isParenthesisNeeded($tokens, $argumentStartIndex, $argumentEndIndex)) {
-                $tokens->insertAt($argumentEndIndex + 1, new Token(')'));
-                $tokens->insertAt($argumentStartIndex, new Token('('));
+                $tokens->insertAt($argumentEndIndex + 1, new \PhpCsFixer\Tokenizer\Token(')'));
+                $tokens->insertAt($argumentStartIndex, new \PhpCsFixer\Tokenizer\Token('('));
                 $added += 2;
             }
         }
-
         // clean up the function call tokens prt. II
         $tokens->clearAt($openParenthesisIndex);
         $tokens->clearAt($functionNameIndex);
-
         $prevMeaningfulTokenIndex = $tokens->getPrevMeaningfulToken($functionNameIndex);
-
-        if ($tokens[$prevMeaningfulTokenIndex]->isGivenKind(T_NS_SEPARATOR)) {
+        if ($tokens[$prevMeaningfulTokenIndex]->isGivenKind(\T_NS_SEPARATOR)) {
             $tokens->clearAt($prevMeaningfulTokenIndex);
         }
-
         return $added;
     }
-
     /**
      * @param int $argumentStartIndex
      * @param int $argumentEndIndex
      * @return bool
      */
-    private function isParenthesisNeeded(Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
+    private function isParenthesisNeeded(\PhpCsFixer\Tokenizer\Tokens $tokens, $argumentStartIndex, $argumentEndIndex)
     {
         $argumentStartIndex = (int) $argumentStartIndex;
         $argumentEndIndex = (int) $argumentEndIndex;
         static $allowedKinds = null;
-
         if (null === $allowedKinds) {
             $allowedKinds = $this->getAllowedKinds();
         }
-
         for ($i = $argumentStartIndex; $i <= $argumentEndIndex; ++$i) {
             if ($tokens[$i]->isGivenKind($allowedKinds) || $tokens->isEmptyAt($i)) {
                 continue;
             }
-
-            $blockType = Tokens::detectBlockType($tokens[$i]);
-
+            $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$i]);
             if (null !== $blockType) {
                 $i = $tokens->findBlockEnd($blockType['type'], $i);
-
                 continue;
             }
-
             if ($tokens[$i]->equals('$')) {
                 $i = $tokens->getNextMeaningfulToken($i);
-                if ($tokens[$i]->isGivenKind(CT::T_DYNAMIC_VAR_BRACE_OPEN)) {
-                    $i = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_DYNAMIC_VAR_BRACE, $i);
-
+                if ($tokens[$i]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_DYNAMIC_VAR_BRACE_OPEN)) {
+                    $i = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_DYNAMIC_VAR_BRACE, $i);
                     continue;
                 }
             }
-
             if ($tokens[$i]->equals('+') && $tokens->getPrevMeaningfulToken($i) < $argumentStartIndex) {
                 continue;
             }
-
-            return true;
+            return \true;
         }
-
-        return false;
+        return \false;
     }
-
     /**
      * @return int[]
      */
     private function getAllowedKinds()
     {
-        return array_merge(
-            [
-                T_DNUMBER, T_LNUMBER, T_VARIABLE, T_STRING, T_CONSTANT_ENCAPSED_STRING, T_DOUBLE_CAST,
-                T_INT_CAST, T_INC, T_DEC, T_NS_SEPARATOR, T_WHITESPACE, T_DOUBLE_COLON, T_LINE, T_COMMENT, T_DOC_COMMENT,
-                CT::T_NAMESPACE_OPERATOR,
-            ],
-            Token::getObjectOperatorKinds()
-        );
+        return \array_merge([\T_DNUMBER, \T_LNUMBER, \T_VARIABLE, \T_STRING, \T_CONSTANT_ENCAPSED_STRING, \T_DOUBLE_CAST, \T_INT_CAST, \T_INC, \T_DEC, \T_NS_SEPARATOR, \T_WHITESPACE, \T_DOUBLE_COLON, \T_LINE, \T_COMMENT, \T_DOC_COMMENT, \PhpCsFixer\Tokenizer\CT::T_NAMESPACE_OPERATOR], \PhpCsFixer\Tokenizer\Token::getObjectOperatorKinds());
     }
 }

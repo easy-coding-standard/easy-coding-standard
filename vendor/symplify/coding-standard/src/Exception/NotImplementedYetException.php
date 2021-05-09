@@ -3,7 +3,6 @@
 namespace Symplify\CodingStandard\Exception;
 
 use Exception;
-
-final class NotImplementedYetException extends Exception
+final class NotImplementedYetException extends \Exception
 {
 }

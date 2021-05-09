@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Config\Resource;
+namespace ECSPrefix20210509\Symfony\Component\Config\Resource;
 
 /**
  * DirectoryResource represents a resources stored in a subdirectory tree.
@@ -18,11 +17,10 @@ namespace Symfony\Component\Config\Resource;
  *
  * @final
  */
-class DirectoryResource implements SelfCheckingResourceInterface
+class DirectoryResource implements \ECSPrefix20210509\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $resource;
     private $pattern;
-
     /**
      * @param string      $resource The file path to the resource
      * @param string $pattern A pattern to restrict monitored files
@@ -32,23 +30,20 @@ class DirectoryResource implements SelfCheckingResourceInterface
     public function __construct($resource, $pattern = null)
     {
         $resource = (string) $resource;
-        $this->resource = realpath($resource) ?: (file_exists($resource) ? $resource : false);
+        $this->resource = \realpath($resource) ?: (\file_exists($resource) ? $resource : \false);
         $this->pattern = $pattern;
-
-        if (false === $this->resource || !is_dir($this->resource)) {
-            throw new \InvalidArgumentException(sprintf('The directory "%s" does not exist.', $resource));
+        if (\false === $this->resource || !\is_dir($this->resource)) {
+            throw new \InvalidArgumentException(\sprintf('The directory "%s" does not exist.', $resource));
         }
     }
-
     /**
      * {@inheritdoc}
      * @return string
      */
     public function __toString()
     {
-        return md5(serialize([$this->resource, $this->pattern]));
+        return \md5(\serialize([$this->resource, $this->pattern]));
     }
-
     /**
      * @return string The file path to the resource
      */
@@ -56,7 +51,6 @@ class DirectoryResource implements SelfCheckingResourceInterface
     {
         return $this->resource;
     }
-
     /**
      * Returns the pattern to restrict monitored files.
      * @return string|null
@@ -65,7 +59,6 @@ class DirectoryResource implements SelfCheckingResourceInterface
     {
         return $this->pattern;
     }
-
     /**
      * {@inheritdoc}
      * @param int $timestamp
@@ -74,39 +67,33 @@ class DirectoryResource implements SelfCheckingResourceInterface
     public function isFresh($timestamp)
     {
         $timestamp = (int) $timestamp;
-        if (!is_dir($this->resource)) {
-            return false;
+        if (!\is_dir($this->resource)) {
+            return \false;
         }
-
-        if ($timestamp < filemtime($this->resource)) {
-            return false;
+        if ($timestamp < \filemtime($this->resource)) {
+            return \false;
         }
-
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->resource), \RecursiveIteratorIterator::SELF_FIRST) as $file) {
             // if regex filtering is enabled only check matching files
-            if ($this->pattern && $file->isFile() && !preg_match($this->pattern, $file->getBasename())) {
+            if ($this->pattern && $file->isFile() && !\preg_match($this->pattern, $file->getBasename())) {
                 continue;
             }
-
             // always monitor directories for changes, except the .. entries
             // (otherwise deleted files wouldn't get detected)
-            if ($file->isDir() && '/..' === substr($file, -3)) {
+            if ($file->isDir() && '/..' === \substr($file, -3)) {
                 continue;
             }
-
             // for broken links
             try {
                 $fileMTime = $file->getMTime();
             } catch (\RuntimeException $e) {
                 continue;
             }
-
             // early return if a file's mtime exceeds the passed timestamp
             if ($timestamp < $fileMTime) {
-                return false;
+                return \false;
             }
         }
-
-        return true;
+        return \true;
     }
 }

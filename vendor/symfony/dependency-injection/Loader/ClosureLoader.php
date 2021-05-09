@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader;
 
-namespace Symfony\Component\DependencyInjection\Loader;
-
-use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
+use ECSPrefix20210509\Symfony\Component\Config\Loader\Loader;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * ClosureLoader loads service definitions from a PHP closure.
  *
@@ -21,15 +19,13 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ClosureLoader extends Loader
+class ClosureLoader extends \ECSPrefix20210509\Symfony\Component\Config\Loader\Loader
 {
     private $container;
-
-    public function __construct(ContainerBuilder $container)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
     }
-
     /**
      * {@inheritdoc}
      * @param string|null $type
@@ -38,7 +34,6 @@ class ClosureLoader extends Loader
     {
         $resource($this->container);
     }
-
     /**
      * {@inheritdoc}
      * @param string $type

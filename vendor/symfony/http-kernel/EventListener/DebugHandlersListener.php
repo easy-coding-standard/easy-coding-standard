@@ -8,19 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\EventListener;
 
-namespace Symfony\Component\HttpKernel\EventListener;
-
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\ConsoleEvents;
-use Symfony\Component\Console\Event\ConsoleEvent;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
-use Symfony\Component\ErrorHandler\ErrorHandler;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
-use Symfony\Component\HttpKernel\Event\KernelEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-
+use ECSPrefix20210509\Psr\Log\LoggerInterface;
+use ECSPrefix20210509\Symfony\Component\Console\ConsoleEvents;
+use ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleEvent;
+use ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorHandler;
+use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\KernelEvent;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Configures errors and exceptions handlers.
  *
@@ -28,7 +26,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class DebugHandlersListener implements EventSubscriberInterface
+class DebugHandlersListener implements \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $earlyHandler;
     private $exceptionHandler;
@@ -39,9 +37,8 @@ class DebugHandlersListener implements EventSubscriberInterface
     private $scream;
     private $fileLinkFormat;
     private $scope;
-    private $firstCall = true;
+    private $firstCall = \true;
     private $hasTerminatedWithException;
-
     /**
      * @param callable|null                 $exceptionHandler A handler that must support \Throwable instances that will be called on Exception
      * @param array|int                     $levels           An array map of E_* to LogLevel::* or an integer bit field of E_* constants
@@ -50,14 +47,13 @@ class DebugHandlersListener implements EventSubscriberInterface
      * @param string|FileLinkFormatter|null $fileLinkFormat   The format for links to source files
      * @param bool                          $scope            Enables/disables scoping mode
      */
-    public function __construct(callable $exceptionHandler = null, LoggerInterface $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, $scream = true, $fileLinkFormat = null, $scope = true, LoggerInterface $deprecationLogger = null)
+    public function __construct(callable $exceptionHandler = null, \ECSPrefix20210509\Psr\Log\LoggerInterface $logger = null, $levels = \E_ALL, $throwAt = \E_ALL, $scream = \true, $fileLinkFormat = null, $scope = \true, \ECSPrefix20210509\Psr\Log\LoggerInterface $deprecationLogger = null)
     {
         $scream = (bool) $scream;
         $scope = (bool) $scope;
-        $handler = set_exception_handler('var_dump');
+        $handler = \set_exception_handler('var_dump');
         $this->earlyHandler = \is_array($handler) ? $handler[0] : null;
-        restore_exception_handler();
-
+        \restore_exception_handler();
         $this->exceptionHandler = $exceptionHandler;
         $this->logger = $logger;
         $this->levels = null === $levels ? \E_ALL : $levels;
@@ -67,30 +63,26 @@ class DebugHandlersListener implements EventSubscriberInterface
         $this->scope = $scope;
         $this->deprecationLogger = $deprecationLogger;
     }
-
     /**
      * Configures the error handler.
      * @param object $event
      */
     public function configure($event = null)
     {
-        if ($event instanceof ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], true)) {
+        if ($event instanceof \ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleEvent && !\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true)) {
             return;
         }
-        if (!$event instanceof KernelEvent ? !$this->firstCall : !$event->isMasterRequest()) {
+        if (!$event instanceof \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\KernelEvent ? !$this->firstCall : !$event->isMasterRequest()) {
             return;
         }
-        $this->firstCall = $this->hasTerminatedWithException = false;
-
-        $handler = set_exception_handler('var_dump');
+        $this->firstCall = $this->hasTerminatedWithException = \false;
+        $handler = \set_exception_handler('var_dump');
         $handler = \is_array($handler) ? $handler[0] : null;
-        restore_exception_handler();
-
-        if (!$handler instanceof ErrorHandler) {
+        \restore_exception_handler();
+        if (!$handler instanceof \ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorHandler) {
             $handler = $this->earlyHandler;
         }
-
-        if ($handler instanceof ErrorHandler) {
+        if ($handler instanceof \ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorHandler) {
             if ($this->logger || $this->deprecationLogger) {
                 $this->setDefaultLoggers($handler);
                 if (\is_array($this->levels)) {
@@ -101,57 +93,54 @@ class DebugHandlersListener implements EventSubscriberInterface
                 } else {
                     $levels = $this->levels;
                 }
-
                 if ($this->scream) {
                     $handler->screamAt($levels);
                 }
                 if ($this->scope) {
                     $handler->scopeAt($levels & ~\E_USER_DEPRECATED & ~\E_DEPRECATED);
                 } else {
-                    $handler->scopeAt(0, true);
+                    $handler->scopeAt(0, \true);
                 }
                 $this->logger = $this->deprecationLogger = $this->levels = null;
             }
             if (null !== $this->throwAt) {
-                $handler->throwAt($this->throwAt, true);
+                $handler->throwAt($this->throwAt, \true);
             }
         }
         if (!$this->exceptionHandler) {
-            if ($event instanceof KernelEvent) {
-                if (method_exists($kernel = $event->getKernel(), 'terminateWithException')) {
+            if ($event instanceof \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\KernelEvent) {
+                if (\method_exists($kernel = $event->getKernel(), 'terminateWithException')) {
                     $request = $event->getRequest();
-                    $hasRun = &$this->hasTerminatedWithException;
-                    $this->exceptionHandler = static function (\Throwable $e) use ($kernel, $request, &$hasRun) {
+                    $hasRun =& $this->hasTerminatedWithException;
+                    $this->exceptionHandler = static function (\Throwable $e) use($kernel, $request, &$hasRun) {
                         if ($hasRun) {
                             throw $e;
                         }
-
-                        $hasRun = true;
+                        $hasRun = \true;
                         $kernel->terminateWithException($e, $request);
                     };
                 }
-            } elseif ($event instanceof ConsoleEvent && $app = $event->getCommand()->getApplication()) {
+            } elseif ($event instanceof \ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleEvent && ($app = $event->getCommand()->getApplication())) {
                 $output = $event->getOutput();
-                if ($output instanceof ConsoleOutputInterface) {
+                if ($output instanceof \ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface) {
                     $output = $output->getErrorOutput();
                 }
-                $this->exceptionHandler = static function (\Throwable $e) use ($app, $output) {
+                $this->exceptionHandler = static function (\Throwable $e) use($app, $output) {
                     $app->renderThrowable($e, $output);
                 };
             }
         }
         if ($this->exceptionHandler) {
-            if ($handler instanceof ErrorHandler) {
+            if ($handler instanceof \ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorHandler) {
                 $handler->setExceptionHandler($this->exceptionHandler);
             }
             $this->exceptionHandler = null;
         }
     }
-
     /**
      * @return void
      */
-    private function setDefaultLoggers(ErrorHandler $handler)
+    private function setDefaultLoggers(\ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorHandler $handler)
     {
         if (\is_array($this->levels)) {
             $levelsDeprecatedOnly = [];
@@ -167,29 +156,24 @@ class DebugHandlersListener implements EventSubscriberInterface
             $levelsDeprecatedOnly = $this->levels & (\E_DEPRECATED | \E_USER_DEPRECATED);
             $levelsWithoutDeprecated = $this->levels & ~\E_DEPRECATED & ~\E_USER_DEPRECATED;
         }
-
         $defaultLoggerLevels = $this->levels;
         if ($this->deprecationLogger && $levelsDeprecatedOnly) {
             $handler->setDefaultLogger($this->deprecationLogger, $levelsDeprecatedOnly);
             $defaultLoggerLevels = $levelsWithoutDeprecated;
         }
-
         if ($this->logger && $defaultLoggerLevels) {
             $handler->setDefaultLogger($this->logger, $defaultLoggerLevels);
         }
     }
-
     /**
      * @return mixed[]
      */
     public static function getSubscribedEvents()
     {
-        $events = [KernelEvents::REQUEST => ['configure', 2048]];
-
-        if (\defined('Symfony\Component\Console\ConsoleEvents::COMMAND')) {
-            $events[ConsoleEvents::COMMAND] = ['configure', 2048];
+        $events = [\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['configure', 2048]];
+        if (\defined('Symfony\\Component\\Console\\ConsoleEvents::COMMAND')) {
+            $events[\ECSPrefix20210509\Symfony\Component\Console\ConsoleEvents::COMMAND] = ['configure', 2048];
         }
-
         return $events;
     }
 }

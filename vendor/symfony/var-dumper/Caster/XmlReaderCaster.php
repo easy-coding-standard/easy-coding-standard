@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Symfony package.
  *
@@ -7,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-namespace Symfony\Component\VarDumper\Caster;
-
-use Symfony\Component\VarDumper\Cloner\Stub;
-
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts XmlReader class to array representation.
  *
@@ -21,63 +20,22 @@ use Symfony\Component\VarDumper\Cloner\Stub;
  */
 class XmlReaderCaster
 {
-    const NODE_TYPES = [
-        \XMLReader::NONE => 'NONE',
-        \XMLReader::ELEMENT => 'ELEMENT',
-        \XMLReader::ATTRIBUTE => 'ATTRIBUTE',
-        \XMLReader::TEXT => 'TEXT',
-        \XMLReader::CDATA => 'CDATA',
-        \XMLReader::ENTITY_REF => 'ENTITY_REF',
-        \XMLReader::ENTITY => 'ENTITY',
-        \XMLReader::PI => 'PI (Processing Instruction)',
-        \XMLReader::COMMENT => 'COMMENT',
-        \XMLReader::DOC => 'DOC',
-        \XMLReader::DOC_TYPE => 'DOC_TYPE',
-        \XMLReader::DOC_FRAGMENT => 'DOC_FRAGMENT',
-        \XMLReader::NOTATION => 'NOTATION',
-        \XMLReader::WHITESPACE => 'WHITESPACE',
-        \XMLReader::SIGNIFICANT_WHITESPACE => 'SIGNIFICANT_WHITESPACE',
-        \XMLReader::END_ELEMENT => 'END_ELEMENT',
-        \XMLReader::END_ENTITY => 'END_ENTITY',
-        \XMLReader::XML_DECLARATION => 'XML_DECLARATION',
-    ];
-
+    const NODE_TYPES = [\XMLReader::NONE => 'NONE', \XMLReader::ELEMENT => 'ELEMENT', \XMLReader::ATTRIBUTE => 'ATTRIBUTE', \XMLReader::TEXT => 'TEXT', \XMLReader::CDATA => 'CDATA', \XMLReader::ENTITY_REF => 'ENTITY_REF', \XMLReader::ENTITY => 'ENTITY', \XMLReader::PI => 'PI (Processing Instruction)', \XMLReader::COMMENT => 'COMMENT', \XMLReader::DOC => 'DOC', \XMLReader::DOC_TYPE => 'DOC_TYPE', \XMLReader::DOC_FRAGMENT => 'DOC_FRAGMENT', \XMLReader::NOTATION => 'NOTATION', \XMLReader::WHITESPACE => 'WHITESPACE', \XMLReader::SIGNIFICANT_WHITESPACE => 'SIGNIFICANT_WHITESPACE', \XMLReader::END_ELEMENT => 'END_ELEMENT', \XMLReader::END_ENTITY => 'END_ENTITY', \XMLReader::XML_DECLARATION => 'XML_DECLARATION'];
     /**
      * @param bool $isNested
      */
-    public static function castXmlReader(\XMLReader $reader, array $a, Stub $stub, $isNested)
+    public static function castXmlReader(\XMLReader $reader, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $props = Caster::PREFIX_VIRTUAL.'parserProperties';
-        $info = [
-            'localName' => $reader->localName,
-            'prefix' => $reader->prefix,
-            'nodeType' => new ConstStub(self::NODE_TYPES[$reader->nodeType], $reader->nodeType),
-            'depth' => $reader->depth,
-            'isDefault' => $reader->isDefault,
-            'isEmptyElement' => \XMLReader::NONE === $reader->nodeType ? null : $reader->isEmptyElement,
-            'xmlLang' => $reader->xmlLang,
-            'attributeCount' => $reader->attributeCount,
-            'value' => $reader->value,
-            'namespaceURI' => $reader->namespaceURI,
-            'baseURI' => $reader->baseURI ? new LinkStub($reader->baseURI) : $reader->baseURI,
-            $props => [
-                'LOADDTD' => $reader->getParserProperty(\XMLReader::LOADDTD),
-                'DEFAULTATTRS' => $reader->getParserProperty(\XMLReader::DEFAULTATTRS),
-                'VALIDATE' => $reader->getParserProperty(\XMLReader::VALIDATE),
-                'SUBST_ENTITIES' => $reader->getParserProperty(\XMLReader::SUBST_ENTITIES),
-            ],
-        ];
-
-        if ($info[$props] = Caster::filter($info[$props], Caster::EXCLUDE_EMPTY, [], $count)) {
-            $info[$props] = new EnumStub($info[$props]);
+        $props = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'parserProperties';
+        $info = ['localName' => $reader->localName, 'prefix' => $reader->prefix, 'nodeType' => new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ConstStub(self::NODE_TYPES[$reader->nodeType], $reader->nodeType), 'depth' => $reader->depth, 'isDefault' => $reader->isDefault, 'isEmptyElement' => \XMLReader::NONE === $reader->nodeType ? null : $reader->isEmptyElement, 'xmlLang' => $reader->xmlLang, 'attributeCount' => $reader->attributeCount, 'value' => $reader->value, 'namespaceURI' => $reader->namespaceURI, 'baseURI' => $reader->baseURI ? new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\LinkStub($reader->baseURI) : $reader->baseURI, $props => ['LOADDTD' => $reader->getParserProperty(\XMLReader::LOADDTD), 'DEFAULTATTRS' => $reader->getParserProperty(\XMLReader::DEFAULTATTRS), 'VALIDATE' => $reader->getParserProperty(\XMLReader::VALIDATE), 'SUBST_ENTITIES' => $reader->getParserProperty(\XMLReader::SUBST_ENTITIES)]];
+        if ($info[$props] = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::filter($info[$props], \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_EMPTY, [], $count)) {
+            $info[$props] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\EnumStub($info[$props]);
             $info[$props]->cut = $count;
         }
-
-        $info = Caster::filter($info, Caster::EXCLUDE_EMPTY, [], $count);
+        $info = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::filter($info, \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_EMPTY, [], $count);
         // +2 because hasValue and hasAttributes are always filtered
         $stub->cut += $count + 2;
-
         return $a + $info;
     }
 }

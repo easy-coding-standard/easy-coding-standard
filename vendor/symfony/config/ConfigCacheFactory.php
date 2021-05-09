@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Config;
+namespace ECSPrefix20210509\Symfony\Component\Config;
 
 /**
  * Basic implementation of ConfigCacheFactoryInterface that
@@ -20,10 +19,9 @@ namespace Symfony\Component\Config;
  *
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class ConfigCacheFactory implements ConfigCacheFactoryInterface
+class ConfigCacheFactory implements \ECSPrefix20210509\Symfony\Component\Config\ConfigCacheFactoryInterface
 {
     private $debug;
-
     /**
      * @param bool $debug The debug flag to pass to ConfigCache
      */
@@ -32,7 +30,6 @@ class ConfigCacheFactory implements ConfigCacheFactoryInterface
         $debug = (bool) $debug;
         $this->debug = $debug;
     }
-
     /**
      * {@inheritdoc}
      * @param string $file
@@ -40,11 +37,10 @@ class ConfigCacheFactory implements ConfigCacheFactoryInterface
     public function cache($file, callable $callback)
     {
         $file = (string) $file;
-        $cache = new ConfigCache($file, $this->debug);
+        $cache = new \ECSPrefix20210509\Symfony\Component\Config\ConfigCache($file, $this->debug);
         if (!$cache->isFresh()) {
             $callback($cache);
         }
-
         return $cache;
     }
 }

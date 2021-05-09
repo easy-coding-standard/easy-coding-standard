@@ -8,91 +8,75 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\Config\Definition\BaseNode;
-use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-
+use ECSPrefix20210509\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix20210509\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix20210509\Symfony\Component\Config\Definition\Processor;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 /**
  * Validates environment variable placeholders used in extension configuration with dummy values.
  *
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-class ValidateEnvPlaceholdersPass implements CompilerPassInterface
+class ValidateEnvPlaceholdersPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
-    const TYPE_FIXTURES = ['array' => [], 'bool' => false, 'float' => 0.0, 'int' => 0, 'string' => ''];
-
+    const TYPE_FIXTURES = ['array' => [], 'bool' => \false, 'float' => 0.0, 'int' => 0, 'string' => ''];
     private $extensionConfig = [];
-
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->extensionConfig = [];
-
-        if (!class_exists(BaseNode::class) || !$extensions = $container->getExtensions()) {
+        if (!\class_exists(\ECSPrefix20210509\Symfony\Component\Config\Definition\BaseNode::class) || !($extensions = $container->getExtensions())) {
             return;
         }
-
         $resolvingBag = $container->getParameterBag();
-        if (!$resolvingBag instanceof EnvPlaceholderParameterBag) {
+        if (!$resolvingBag instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag) {
             return;
         }
-
-        $defaultBag = new ParameterBag($resolvingBag->all());
+        $defaultBag = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag($resolvingBag->all());
         $envTypes = $resolvingBag->getProvidedTypes();
         try {
             foreach ($resolvingBag->getEnvPlaceholders() + $resolvingBag->getUnusedEnvPlaceholders() as $env => $placeholders) {
                 $values = [];
-                if (false === $i = strpos($env, ':')) {
-                    $default = $defaultBag->has("env($env)") ? $defaultBag->get("env($env)") : self::TYPE_FIXTURES['string'];
-                    $defaultType = null !== $default ? get_debug_type($default) : 'string';
+                if (\false === ($i = \strpos($env, ':'))) {
+                    $default = $defaultBag->has("env({$env})") ? $defaultBag->get("env({$env})") : self::TYPE_FIXTURES['string'];
+                    $defaultType = null !== $default ? \get_debug_type($default) : 'string';
                     $values[$defaultType] = $default;
                 } else {
-                    $prefix = substr($env, 0, $i);
+                    $prefix = \substr($env, 0, $i);
                     foreach (isset($envTypes[$prefix]) ? $envTypes[$prefix] : ['string'] as $type) {
                         $values[$type] = isset(self::TYPE_FIXTURES[$type]) ? self::TYPE_FIXTURES[$type] : null;
                     }
                 }
                 foreach ($placeholders as $placeholder) {
-                    BaseNode::setPlaceholder($placeholder, $values);
+                    \ECSPrefix20210509\Symfony\Component\Config\Definition\BaseNode::setPlaceholder($placeholder, $values);
                 }
             }
-
-            $processor = new Processor();
-
+            $processor = new \ECSPrefix20210509\Symfony\Component\Config\Definition\Processor();
             foreach ($extensions as $name => $extension) {
-                if (!($extension instanceof ConfigurationExtensionInterface || $extension instanceof ConfigurationInterface)
-                    || !$config = array_filter($container->getExtensionConfig($name))
-                ) {
+                if (!($extension instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface || $extension instanceof \ECSPrefix20210509\Symfony\Component\Config\Definition\ConfigurationInterface) || !($config = \array_filter($container->getExtensionConfig($name)))) {
                     // this extension has no semantic configuration or was not called
                     continue;
                 }
-
                 $config = $resolvingBag->resolveValue($config);
-
-                if ($extension instanceof ConfigurationInterface) {
+                if ($extension instanceof \ECSPrefix20210509\Symfony\Component\Config\Definition\ConfigurationInterface) {
                     $configuration = $extension;
-                } elseif (null === $configuration = $extension->getConfiguration($config, $container)) {
+                } elseif (null === ($configuration = $extension->getConfiguration($config, $container))) {
                     continue;
                 }
-
                 $this->extensionConfig[$name] = $processor->processConfiguration($configuration, $config);
             }
         } finally {
-            BaseNode::resetPlaceholders();
+            \ECSPrefix20210509\Symfony\Component\Config\Definition\BaseNode::resetPlaceholders();
         }
-
         $resolvingBag->clearUnusedEnvPlaceholders();
     }
-
     /**
      * @internal
      * @return mixed[]

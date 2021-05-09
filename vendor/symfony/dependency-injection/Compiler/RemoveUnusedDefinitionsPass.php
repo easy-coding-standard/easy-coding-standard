@@ -8,62 +8,55 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
 /**
  * Removes unused service definitions from the container.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class RemoveUnusedDefinitionsPass extends AbstractRecursivePass
+class RemoveUnusedDefinitionsPass extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $connectedIds = [];
-
     /**
      * Processes the ContainerBuilder to remove unused definitions.
      */
-    public function process(ContainerBuilder $container)
+    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         try {
             $this->enableExpressionProcessing();
             $this->container = $container;
             $connectedIds = [];
             $aliases = $container->getAliases();
-
             foreach ($aliases as $id => $alias) {
                 if ($alias->isPublic()) {
                     $this->connectedIds[] = (string) $aliases[$id];
                 }
             }
-
             foreach ($container->getDefinitions() as $id => $definition) {
                 if ($definition->isPublic()) {
-                    $connectedIds[$id] = true;
+                    $connectedIds[$id] = \true;
                     $this->processValue($definition);
                 }
             }
-
             while ($this->connectedIds) {
                 $ids = $this->connectedIds;
                 $this->connectedIds = [];
                 foreach ($ids as $id) {
                     if (!isset($connectedIds[$id]) && $container->hasDefinition($id)) {
-                        $connectedIds[$id] = true;
+                        $connectedIds[$id] = \true;
                         $this->processValue($container->getDefinition($id));
                     }
                 }
             }
-
             foreach ($container->getDefinitions() as $id => $definition) {
                 if (!isset($connectedIds[$id])) {
                     $container->removeDefinition($id);
-                    $container->resolveEnvPlaceholders(!$definition->hasErrors() ? serialize($definition) : $definition);
-                    $container->log($this, sprintf('Removed service "%s"; reason: unused.', $id));
+                    $container->resolveEnvPlaceholders(!$definition->hasErrors() ? \serialize($definition) : $definition);
+                    $container->log($this, \sprintf('Removed service "%s"; reason: unused.', $id));
                 }
             }
         } finally {
@@ -71,22 +64,19 @@ class RemoveUnusedDefinitionsPass extends AbstractRecursivePass
             $this->connectedIds = [];
         }
     }
-
     /**
      * {@inheritdoc}
      * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, $isRoot = \false)
     {
         $isRoot = (bool) $isRoot;
-        if (!$value instanceof Reference) {
+        if (!$value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         }
-
-        if (ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior()) {
+        if (\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE !== $value->getInvalidBehavior()) {
             $this->connectedIds[] = (string) $value;
         }
-
         return $value;
     }
 }

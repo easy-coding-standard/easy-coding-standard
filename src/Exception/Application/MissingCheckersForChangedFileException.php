@@ -3,7 +3,6 @@
 namespace Symplify\EasyCodingStandard\Exception\Application;
 
 use Exception;
-
-final class MissingCheckersForChangedFileException extends Exception
+final class MissingCheckersForChangedFileException extends \Exception
 {
 }

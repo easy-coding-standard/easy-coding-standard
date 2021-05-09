@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Event;
 
-namespace Symfony\Component\HttpKernel\Event;
-
-use Symfony\Component\HttpFoundation\Response;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
 /**
  * Allows to create a response for a request.
  *
@@ -22,10 +20,9 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class RequestEvent extends KernelEvent
+class RequestEvent extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $response;
-
     /**
      * Returns the response object.
      *
@@ -35,17 +32,14 @@ class RequestEvent extends KernelEvent
     {
         return $this->response;
     }
-
     /**
      * Sets a response and stops event propagation.
      */
-    public function setResponse(Response $response)
+    public function setResponse(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response)
     {
         $this->response = $response;
-
         $this->stopPropagation();
     }
-
     /**
      * Returns whether a response was set.
      *

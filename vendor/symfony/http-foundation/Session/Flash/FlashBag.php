@@ -8,20 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpFoundation\Session\Flash;
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Flash;
 
 /**
  * FlashBag flash message container.
  *
  * @author Drak <drak@zikula.org>
  */
-class FlashBag implements FlashBagInterface
+class FlashBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface
 {
     private $name = 'flashes';
     private $flashes = [];
     private $storageKey;
-
     /**
      * @param string $storageKey The key used to store flashes in the session
      */
@@ -30,7 +28,6 @@ class FlashBag implements FlashBagInterface
         $storageKey = (string) $storageKey;
         $this->storageKey = $storageKey;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -38,7 +35,6 @@ class FlashBag implements FlashBagInterface
     {
         return $this->name;
     }
-
     /**
      * @param string $name
      */
@@ -47,15 +43,13 @@ class FlashBag implements FlashBagInterface
         $name = (string) $name;
         $this->name = $name;
     }
-
     /**
      * {@inheritdoc}
      */
     public function initialize(array &$flashes)
     {
-        $this->flashes = &$flashes;
+        $this->flashes =& $flashes;
     }
-
     /**
      * {@inheritdoc}
      * @param string $type
@@ -65,7 +59,6 @@ class FlashBag implements FlashBagInterface
         $type = (string) $type;
         $this->flashes[$type][] = $message;
     }
-
     /**
      * {@inheritdoc}
      * @param string $type
@@ -75,7 +68,6 @@ class FlashBag implements FlashBagInterface
         $type = (string) $type;
         return $this->has($type) ? $this->flashes[$type] : $default;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -83,7 +75,6 @@ class FlashBag implements FlashBagInterface
     {
         return $this->flashes;
     }
-
     /**
      * {@inheritdoc}
      * @param string $type
@@ -94,14 +85,10 @@ class FlashBag implements FlashBagInterface
         if (!$this->has($type)) {
             return $default;
         }
-
         $return = $this->flashes[$type];
-
         unset($this->flashes[$type]);
-
         return $return;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -109,10 +96,8 @@ class FlashBag implements FlashBagInterface
     {
         $return = $this->peekAll();
         $this->flashes = [];
-
         return $return;
     }
-
     /**
      * {@inheritdoc}
      * @param string $type
@@ -122,7 +107,6 @@ class FlashBag implements FlashBagInterface
         $type = (string) $type;
         $this->flashes[$type] = (array) $messages;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -130,7 +114,6 @@ class FlashBag implements FlashBagInterface
     {
         $this->flashes = $messages;
     }
-
     /**
      * {@inheritdoc}
      * @param string $type
@@ -140,15 +123,13 @@ class FlashBag implements FlashBagInterface
         $type = (string) $type;
         return \array_key_exists($type, $this->flashes) && $this->flashes[$type];
     }
-
     /**
      * {@inheritdoc}
      */
     public function keys()
     {
-        return array_keys($this->flashes);
+        return \array_keys($this->flashes);
     }
-
     /**
      * {@inheritdoc}
      */
@@ -156,7 +137,6 @@ class FlashBag implements FlashBagInterface
     {
         return $this->storageKey;
     }
-
     /**
      * {@inheritdoc}
      */

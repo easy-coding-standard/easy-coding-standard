@@ -8,34 +8,30 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-
-namespace Composer\Semver\Constraint;
+namespace ECSPrefix20210509\Composer\Semver\Constraint;
 
 /**
  * Defines the absence of a constraint.
  *
  * This constraint matches everything.
  */
-class MatchAllConstraint implements ConstraintInterface
+class MatchAllConstraint implements \ECSPrefix20210509\Composer\Semver\Constraint\ConstraintInterface
 {
     /** @var string|null */
     protected $prettyString;
-
     /**
      * @param ConstraintInterface $provider
      *
      * @return bool
      */
-    public function matches(ConstraintInterface $provider)
+    public function matches(\ECSPrefix20210509\Composer\Semver\Constraint\ConstraintInterface $provider)
     {
-        return true;
+        return \true;
     }
-
     public function compile($operator)
     {
         return 'true';
     }
-
     /**
      * @param string|null $prettyString
      */
@@ -43,7 +39,6 @@ class MatchAllConstraint implements ConstraintInterface
     {
         $this->prettyString = $prettyString;
     }
-
     /**
      * @return string
      */
@@ -52,10 +47,8 @@ class MatchAllConstraint implements ConstraintInterface
         if ($this->prettyString) {
             return $this->prettyString;
         }
-
         return (string) $this;
     }
-
     /**
      * @return string
      */
@@ -63,20 +56,18 @@ class MatchAllConstraint implements ConstraintInterface
     {
         return '*';
     }
-
     /**
      * {@inheritDoc}
      */
     public function getUpperBound()
     {
-        return Bound::positiveInfinity();
+        return \ECSPrefix20210509\Composer\Semver\Constraint\Bound::positiveInfinity();
     }
-
     /**
      * {@inheritDoc}
      */
     public function getLowerBound()
     {
-        return Bound::zero();
+        return \ECSPrefix20210509\Composer\Semver\Constraint\Bound::zero();
     }
 }

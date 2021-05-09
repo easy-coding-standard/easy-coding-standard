@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Process;
+namespace ECSPrefix20210509\Symfony\Component\Process;
 
 /**
  * Generic executable finder.
@@ -20,7 +19,6 @@ namespace Symfony\Component\Process;
 class ExecutableFinder
 {
     private $suffixes = ['.exe', '.bat', '.cmd', '.com'];
-
     /**
      * Replaces default suffixes of executable.
      */
@@ -28,7 +26,6 @@ class ExecutableFinder
     {
         $this->suffixes = $suffixes;
     }
-
     /**
      * Adds new possible suffix to check for executable.
      * @param string $suffix
@@ -38,7 +35,6 @@ class ExecutableFinder
         $suffix = (string) $suffix;
         $this->suffixes[] = $suffix;
     }
-
     /**
      * Finds an executable by name.
      *
@@ -51,39 +47,34 @@ class ExecutableFinder
     public function find($name, $default = null, array $extraDirs = [])
     {
         $name = (string) $name;
-        if (ini_get('open_basedir')) {
-            $searchPath = array_merge(explode(\PATH_SEPARATOR, ini_get('open_basedir')), $extraDirs);
+        if (\ini_get('open_basedir')) {
+            $searchPath = \array_merge(\explode(\PATH_SEPARATOR, \ini_get('open_basedir')), $extraDirs);
             $dirs = [];
             foreach ($searchPath as $path) {
                 // Silencing against https://bugs.php.net/69240
-                if (@is_dir($path)) {
+                if (@\is_dir($path)) {
                     $dirs[] = $path;
                 } else {
-                    if (basename($path) == $name && @is_executable($path)) {
+                    if (\basename($path) == $name && @\is_executable($path)) {
                         return $path;
                     }
                 }
             }
         } else {
-            $dirs = array_merge(
-                explode(\PATH_SEPARATOR, getenv('PATH') ?: getenv('Path')),
-                $extraDirs
-            );
+            $dirs = \array_merge(\explode(\PATH_SEPARATOR, \getenv('PATH') ?: \getenv('Path')), $extraDirs);
         }
-
         $suffixes = [''];
         if ('\\' === \DIRECTORY_SEPARATOR) {
-            $pathExt = getenv('PATHEXT');
-            $suffixes = array_merge($pathExt ? explode(\PATH_SEPARATOR, $pathExt) : $this->suffixes, $suffixes);
+            $pathExt = \getenv('PATHEXT');
+            $suffixes = \array_merge($pathExt ? \explode(\PATH_SEPARATOR, $pathExt) : $this->suffixes, $suffixes);
         }
         foreach ($suffixes as $suffix) {
             foreach ($dirs as $dir) {
-                if (@is_file($file = $dir.\DIRECTORY_SEPARATOR.$name.$suffix) && ('\\' === \DIRECTORY_SEPARATOR || @is_executable($file))) {
+                if (@\is_file($file = $dir . \DIRECTORY_SEPARATOR . $name . $suffix) && ('\\' === \DIRECTORY_SEPARATOR || @\is_executable($file))) {
                     return $file;
                 }
             }
         }
-
         return $default;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the ArrayIndent sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Arrays;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class ArrayIndentUnitTest extends AbstractSniffUnitTest
+class ArrayIndentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,30 +22,9 @@ class ArrayIndentUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            14 => 1,
-            15 => 1,
-            17 => 1,
-            30 => 1,
-            31 => 1,
-            33 => 1,
-            41 => 1,
-            62 => 1,
-            63 => 1,
-            69 => 1,
-            77 => 1,
-            78 => 1,
-            79 => 1,
-            85 => 1,
-            86 => 1,
-            87 => 1,
-            88 => 1,
-            98 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [14 => 1, 15 => 1, 17 => 1, 30 => 1, 31 => 1, 33 => 1, 41 => 1, 62 => 1, 63 => 1, 69 => 1, 77 => 1, 78 => 1, 79 => 1, 85 => 1, 86 => 1, 87 => 1, 88 => 1, 98 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -60,8 +36,7 @@ class ArrayIndentUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

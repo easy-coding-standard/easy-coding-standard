@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\FunctionNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -26,11 +25,10 @@ use PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author HypeMC
  */
-final class NullableTypeDeclarationForDefaultNullValueFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class NullableTypeDeclarationForDefaultNullValueFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
@@ -38,44 +36,25 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends AbstractFixe
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Adds or removes `?` before type declarations for parameters with a default `null` value.',
-            [
-                new VersionSpecificCodeSample(
-                    "<?php\nfunction sample(string \$str = null)\n{}\n",
-                    new VersionSpecification(70100)
-                ),
-                new VersionSpecificCodeSample(
-                    "<?php\nfunction sample(?string \$str = null)\n{}\n",
-                    new VersionSpecification(70100),
-                    ['use_nullable_type_declaration' => false]
-                ),
-            ],
-            'Rule is applied only in a PHP 7.1+ environment.'
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Adds or removes `?` before type declarations for parameters with a default `null` value.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction sample(string \$str = null)\n{}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70100)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\nfunction sample(?string \$str = null)\n{}\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70100), ['use_nullable_type_declaration' => \false])], 'Rule is applied only in a PHP 7.1+ environment.');
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (\PHP_VERSION_ID < 70100) {
-            return false;
+            return \false;
         }
-
-        if (!$tokens->isTokenKindFound(T_VARIABLE)) {
-            return false;
+        if (!$tokens->isTokenKindFound(\T_VARIABLE)) {
+            return \false;
         }
-
-        if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(T_FN)) {
-            return true;
+        if (\PHP_VERSION_ID >= 70400 && $tokens->isTokenKindFound(\T_FN)) {
+            return \true;
         }
-
-        return $tokens->isTokenKindFound(T_FUNCTION);
+        return $tokens->isTokenKindFound(\T_FUNCTION);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -86,86 +65,54 @@ final class NullableTypeDeclarationForDefaultNullValueFixer extends AbstractFixe
     {
         return 1;
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('use_nullable_type_declaration', 'Whether to add or remove `?` before type declarations for parameters with a default `null` value.'))
-                ->setAllowedTypes(['bool'])
-                ->setDefault(true)
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use_nullable_type_declaration', 'Whether to add or remove `?` before type declarations for parameters with a default `null` value.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        $functionsAnalyzer = new FunctionsAnalyzer();
-
-        $tokenKinds = [T_FUNCTION];
+        $functionsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer();
+        $tokenKinds = [\T_FUNCTION];
         if (\PHP_VERSION_ID >= 70400) {
-            $tokenKinds[] = T_FN;
+            $tokenKinds[] = \T_FN;
         }
-
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
-
             if (!$token->isGivenKind($tokenKinds)) {
                 continue;
             }
-
             $arguments = $functionsAnalyzer->getFunctionArguments($tokens, $index);
-
             $this->fixFunctionParameters($tokens, $arguments);
         }
     }
-
     /**
      * @param ArgumentAnalysis[] $arguments
      * @return void
      */
-    private function fixFunctionParameters(Tokens $tokens, array $arguments)
+    private function fixFunctionParameters(\PhpCsFixer\Tokenizer\Tokens $tokens, array $arguments)
     {
-        foreach (array_reverse($arguments) as $argumentInfo) {
-            if (
-                // Skip, if the parameter
-                // - doesn't have a type declaration
-                !$argumentInfo->hasTypeAnalysis()
-                // type is a union
-                || false !== strpos($argumentInfo->getTypeAnalysis()->getName(), '|')
-                // - a default value is not null we can continue
-                || !$argumentInfo->hasDefault() || 'null' !== strtolower($argumentInfo->getDefault())
-            ) {
+        foreach (\array_reverse($arguments) as $argumentInfo) {
+            if (!$argumentInfo->hasTypeAnalysis() || \false !== \strpos($argumentInfo->getTypeAnalysis()->getName(), '|') || !$argumentInfo->hasDefault() || 'null' !== \strtolower($argumentInfo->getDefault())) {
                 continue;
             }
-
             $argumentTypeInfo = $argumentInfo->getTypeAnalysis();
-
-            if (
-                \PHP_VERSION_ID >= 80000
-                && false === $this->configuration['use_nullable_type_declaration']
-            ) {
+            if (\PHP_VERSION_ID >= 80000 && \false === $this->configuration['use_nullable_type_declaration']) {
                 $visibility = $tokens[$tokens->getPrevMeaningfulToken($argumentTypeInfo->getStartIndex())];
-
-                if ($visibility->isGivenKind([
-                    CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC,
-                    CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED,
-                    CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE,
-                ])) {
+                if ($visibility->isGivenKind([\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE])) {
                     continue;
                 }
             }
-
-            if (true === $this->configuration['use_nullable_type_declaration']) {
+            if (\true === $this->configuration['use_nullable_type_declaration']) {
                 if (!$argumentTypeInfo->isNullable() && 'mixed' !== $argumentTypeInfo->getName()) {
-                    $tokens->insertAt($argumentTypeInfo->getStartIndex(), new Token([CT::T_NULLABLE_TYPE, '?']));
+                    $tokens->insertAt($argumentTypeInfo->getStartIndex(), new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, '?']));
                 }
             } else {
                 if ($argumentTypeInfo->isNullable()) {

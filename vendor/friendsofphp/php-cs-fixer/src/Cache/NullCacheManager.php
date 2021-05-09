@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Cache;
 
 /**
@@ -17,7 +16,7 @@ namespace PhpCsFixer\Cache;
  *
  * @internal
  */
-final class NullCacheManager implements CacheManagerInterface
+final class NullCacheManager implements \PhpCsFixer\Cache\CacheManagerInterface
 {
     /**
      * @param string $file
@@ -28,9 +27,8 @@ final class NullCacheManager implements CacheManagerInterface
     {
         $file = (string) $file;
         $fileContent = (string) $fileContent;
-        return true;
+        return \true;
     }
-
     /**
      * @return void
      * @param string $file

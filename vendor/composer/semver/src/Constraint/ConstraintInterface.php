@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-
-namespace Composer\Semver\Constraint;
+namespace ECSPrefix20210509\Composer\Semver\Constraint;
 
 /**
  * DO NOT IMPLEMENT this interface. It is only meant for usage as a type hint
@@ -26,8 +25,7 @@ interface ConstraintInterface
      *
      * @return bool
      */
-    public function matches(ConstraintInterface $provider);
-
+    public function matches(\ECSPrefix20210509\Composer\Semver\Constraint\ConstraintInterface $provider);
     /**
      * Provides a compiled version of the constraint for the given operator
      * The compiled version must be a PHP expression.
@@ -43,27 +41,22 @@ interface ConstraintInterface
      * @return string
      */
     public function compile($operator);
-
     /**
      * @return Bound
      */
     public function getUpperBound();
-
     /**
      * @return Bound
      */
     public function getLowerBound();
-
     /**
      * @return string
      */
     public function getPrettyString();
-
     /**
      * @param string|null $prettyString
      */
     public function setPrettyString($prettyString);
-
     /**
      * @return string
      */

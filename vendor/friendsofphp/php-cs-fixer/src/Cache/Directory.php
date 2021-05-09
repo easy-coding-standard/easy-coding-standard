@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Cache;
 
 /**
@@ -17,13 +16,12 @@ namespace PhpCsFixer\Cache;
  *
  * @internal
  */
-final class Directory implements DirectoryInterface
+final class Directory implements \PhpCsFixer\Cache\DirectoryInterface
 {
     /**
      * @var string
      */
     private $directoryName;
-
     /**
      * @param string $directoryName
      */
@@ -32,7 +30,6 @@ final class Directory implements DirectoryInterface
         $directoryName = (string) $directoryName;
         $this->directoryName = $directoryName;
     }
-
     /**
      * @param string $file
      * @return string
@@ -41,17 +38,11 @@ final class Directory implements DirectoryInterface
     {
         $file = (string) $file;
         $file = $this->normalizePath($file);
-
-        if (
-            '' === $this->directoryName
-            || 0 !== stripos($file, $this->directoryName.\DIRECTORY_SEPARATOR)
-        ) {
+        if ('' === $this->directoryName || 0 !== \stripos($file, $this->directoryName . \DIRECTORY_SEPARATOR)) {
             return $file;
         }
-
-        return substr($file, \strlen($this->directoryName) + 1);
+        return \substr($file, \strlen($this->directoryName) + 1);
     }
-
     /**
      * @param string $path
      * @return string
@@ -59,6 +50,6 @@ final class Directory implements DirectoryInterface
     private function normalizePath($path)
     {
         $path = (string) $path;
-        return str_replace(['\\', '/'], \DIRECTORY_SEPARATOR, $path);
+        return \str_replace(['\\', '/'], \DIRECTORY_SEPARATOR, $path);
     }
 }

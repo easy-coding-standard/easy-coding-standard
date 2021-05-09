@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the ClassDeclaration sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\PEAR\Tests\Classes;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class ClassDeclarationUnitTest extends AbstractSniffUnitTest
+class ClassDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Get a list of CLI values to set before the file is tested.
      *
@@ -28,12 +25,9 @@ class ClassDeclarationUnitTest extends AbstractSniffUnitTest
         if ($testFile === 'ClassDeclarationUnitTest.1.inc') {
             return;
         }
-
         $config->tabWidth = 4;
-
-    }//end setCliValues()
-
-
+    }
+    //end setCliValues()
     /**
      * Returns the lines where errors should occur.
      *
@@ -44,32 +38,17 @@ class ClassDeclarationUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile='')
+    public function getErrorList($testFile = '')
     {
         switch ($testFile) {
-        case 'ClassDeclarationUnitTest.1.inc':
-            return [
-                21  => 1,
-                22  => 1,
-                23  => 1,
-                27  => 1,
-                33  => 1,
-                38  => 1,
-                49  => 1,
-                84  => 1,
-                94  => 1,
-                99  => 1,
-                104 => 1,
-                110 => 1,
-            ];
-
-        default:
-            return [];
-        }//end switch
-
-    }//end getErrorList()
-
-
+            case 'ClassDeclarationUnitTest.1.inc':
+                return [21 => 1, 22 => 1, 23 => 1, 27 => 1, 33 => 1, 38 => 1, 49 => 1, 84 => 1, 94 => 1, 99 => 1, 104 => 1, 110 => 1];
+            default:
+                return [];
+        }
+        //end switch
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -80,15 +59,13 @@ class ClassDeclarationUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getWarningList($testFile='')
+    public function getWarningList($testFile = '')
     {
         if ($testFile === 'ClassDeclarationUnitTest.2.inc') {
             return [11 => 1];
         }
-
-        return[];
-
-    }//end getWarningList()
-
-
-}//end class
+        return [];
+    }
+    //end getWarningList()
+}
+//end class

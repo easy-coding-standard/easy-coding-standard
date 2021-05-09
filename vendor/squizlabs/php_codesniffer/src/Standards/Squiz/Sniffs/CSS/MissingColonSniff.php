@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensure that all style definitions have a colon.
  *
@@ -6,23 +7,18 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class MissingColonSniff implements Sniff
+class MissingColonSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['CSS'];
-
-
     /**
      * Returns the token types that this sniff is interested in.
      *
@@ -31,10 +27,8 @@ class MissingColonSniff implements Sniff
     public function register()
     {
         return [T_OPEN_CURLY_BRACKET];
-
-    }//end register()
-
-
+    }
+    //end register()
     /**
      * Processes the tokens that this sniff is interested in.
      *
@@ -44,48 +38,44 @@ class MissingColonSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        if (isset($tokens[$stackPtr]['bracket_closer']) === false) {
+        if (isset($tokens[$stackPtr]['bracket_closer']) === \false) {
             // Syntax error or live coding, bow out.
             return;
         }
-
         $lastLine = $tokens[$stackPtr]['line'];
-        $end      = $tokens[$stackPtr]['bracket_closer'];
-
+        $end = $tokens[$stackPtr]['bracket_closer'];
         // Do not check nested style definitions as, for example, in @media style rules.
-        $nested = $phpcsFile->findNext(T_OPEN_CURLY_BRACKET, ($stackPtr + 1), $end);
-        if ($nested !== false) {
+        $nested = $phpcsFile->findNext(T_OPEN_CURLY_BRACKET, $stackPtr + 1, $end);
+        if ($nested !== \false) {
             return;
         }
-
-        $foundColon  = false;
-        $foundString = false;
-        for ($i = ($stackPtr + 1); $i <= $end; $i++) {
+        $foundColon = \false;
+        $foundString = \false;
+        for ($i = $stackPtr + 1; $i <= $end; $i++) {
             if ($tokens[$i]['line'] !== $lastLine) {
                 // We changed lines.
-                if ($foundColon === false && $foundString !== false) {
+                if ($foundColon === \false && $foundString !== \false) {
                     // We didn't find a colon on the previous line.
                     $error = 'No style definition found on line; check for missing colon';
                     $phpcsFile->addError($error, $foundString, 'Found');
                 }
-
-                $foundColon  = false;
-                $foundString = false;
-                $lastLine    = $tokens[$i]['line'];
+                $foundColon = \false;
+                $foundString = \false;
+                $lastLine = $tokens[$i]['line'];
             }
-
-            if ($tokens[$i]['code'] === T_STRING) {
+            if ($tokens[$i]['code'] === \T_STRING) {
                 $foundString = $i;
-            } else if ($tokens[$i]['code'] === T_COLON) {
-                $foundColon = $i;
+            } else {
+                if ($tokens[$i]['code'] === T_COLON) {
+                    $foundColon = $i;
+                }
             }
-        }//end for
-
-    }//end process()
-
-
-}//end class
+        }
+        //end for
+    }
+    //end process()
+}
+//end class

@@ -8,24 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Reference;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class RegisterReverseContainerPass implements CompilerPassInterface
+class RegisterReverseContainerPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     private $beforeRemoving;
     private $serviceId;
     private $tagName;
-
     /**
      * @param bool $beforeRemoving
      * @param string $serviceId
@@ -40,31 +37,27 @@ class RegisterReverseContainerPass implements CompilerPassInterface
         $this->serviceId = $serviceId;
         $this->tagName = $tagName;
     }
-
-    public function process(ContainerBuilder $container)
+    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         if (!$container->hasDefinition($this->serviceId)) {
             return;
         }
-
-        $refType = $this->beforeRemoving ? ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE : ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+        $refType = $this->beforeRemoving ? \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE : \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
         $services = [];
         foreach ($container->findTaggedServiceIds($this->tagName) as $id => $tags) {
-            $services[$id] = new Reference($id, $refType);
+            $services[$id] = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference($id, $refType);
         }
-
         if ($this->beforeRemoving) {
             // prevent inlining of the reverse container
-            $services[$this->serviceId] = new Reference($this->serviceId, $refType);
+            $services[$this->serviceId] = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference($this->serviceId, $refType);
         }
         $locator = $container->getDefinition($this->serviceId)->getArgument(1);
-
-        if ($locator instanceof Reference) {
+        if ($locator instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference) {
             $locator = $container->getDefinition((string) $locator);
         }
-        if ($locator instanceof Definition) {
+        if ($locator instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition) {
             foreach ($services as $id => $ref) {
-                $services[$id] = new ServiceClosureArgument($ref);
+                $services[$id] = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($ref);
             }
             $locator->replaceArgument(0, $services);
         } else {

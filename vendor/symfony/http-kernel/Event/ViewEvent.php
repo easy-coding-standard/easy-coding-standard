@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Event;
 
-namespace Symfony\Component\HttpKernel\Event;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows to create a response for the return value of a controller.
  *
@@ -23,7 +21,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ViewEvent extends RequestEvent
+final class ViewEvent extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\RequestEvent
 {
     /**
      * The return value of the controller.
@@ -31,18 +29,15 @@ final class ViewEvent extends RequestEvent
      * @var mixed
      */
     private $controllerResult;
-
     /**
      * @param int $requestType
      */
-    public function __construct(HttpKernelInterface $kernel, Request $request, $requestType, $controllerResult)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, $requestType, $controllerResult)
     {
         $requestType = (int) $requestType;
         parent::__construct($kernel, $request, $requestType);
-
         $this->controllerResult = $controllerResult;
     }
-
     /**
      * Returns the return value of the controller.
      *
@@ -52,7 +47,6 @@ final class ViewEvent extends RequestEvent
     {
         return $this->controllerResult;
     }
-
     /**
      * Assigns the return value of the controller.
      *

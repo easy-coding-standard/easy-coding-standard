@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer;
 
 /**
@@ -27,21 +26,17 @@ final class FileReader
      * @var null|string
      */
     private $stdinContent;
-
     /**
      * @return $this
      */
     public static function createSingleton()
     {
         static $instance = null;
-
         if (!$instance) {
             $instance = new self();
         }
-
         return $instance;
     }
-
     /**
      * @param string $filePath
      * @return string
@@ -53,13 +48,10 @@ final class FileReader
             if (null === $this->stdinContent) {
                 $this->stdinContent = $this->readRaw($filePath);
             }
-
             return $this->stdinContent;
         }
-
         return $this->readRaw($filePath);
     }
-
     /**
      * @param string $realPath
      * @return string
@@ -67,18 +59,11 @@ final class FileReader
     private function readRaw($realPath)
     {
         $realPath = (string) $realPath;
-        $content = @file_get_contents($realPath);
-
-        if (false === $content) {
-            $error = error_get_last();
-
-            throw new \RuntimeException(sprintf(
-                'Failed to read content from "%s".%s',
-                $realPath,
-                $error ? ' '.$error['message'] : ''
-            ));
+        $content = @\file_get_contents($realPath);
+        if (\false === $content) {
+            $error = \error_get_last();
+            throw new \RuntimeException(\sprintf('Failed to read content from "%s".%s', $realPath, $error ? ' ' . $error['message'] : ''));
         }
-
         return $content;
     }
 }

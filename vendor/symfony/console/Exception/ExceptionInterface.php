@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Console\Exception;
+namespace ECSPrefix20210509\Symfony\Component\Console\Exception;
 
 /**
  * ExceptionInterface.

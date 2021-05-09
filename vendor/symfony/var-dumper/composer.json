@@ -1,9 +1,12 @@
 {
-    "name": "symfony/var-dumper",
+    "name": "symfony\/var-dumper",
     "type": "library",
     "description": "Provides mechanisms for walking through any arbitrary PHP variable",
-    "keywords": ["dump", "debug"],
-    "homepage": "https://symfony.com",
+    "keywords": [
+        "dump",
+        "debug"
+    ],
+    "homepage": "https:\/\/symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,38 +15,42 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https://symfony.com/contributors"
+            "homepage": "https:\/\/symfony.com\/contributors"
         }
     ],
     "require": {
         "php": ">=7.2.5",
-        "symfony/polyfill-mbstring": "~1.0",
-        "symfony/polyfill-php80": "^1.15"
+        "symfony\/polyfill-mbstring": "~1.0",
+        "symfony\/polyfill-php80": "^1.15"
     },
     "require-dev": {
         "ext-iconv": "*",
-        "symfony/console": "^4.4|^5.0",
-        "symfony/process": "^4.4|^5.0",
-        "twig/twig": "^2.13|^3.0.4"
+        "symfony\/console": "^4.4|^5.0",
+        "symfony\/process": "^4.4|^5.0",
+        "twig\/twig": "^2.13|^3.0.4"
     },
     "conflict": {
-        "phpunit/phpunit": "<5.4.3",
-        "symfony/console": "<4.4"
+        "phpunit\/phpunit": "<5.4.3",
+        "symfony\/console": "<4.4"
     },
     "suggest": {
-        "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
+        "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony\/polyfill-iconv in case ext-iconv cannot be used).",
         "ext-intl": "To show region name in time zone dump",
-        "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
+        "symfony\/console": "To use the ServerDumpCommand and\/or the bin\/var-dump-server script"
     },
     "autoload": {
-        "files": [ "Resources/functions/dump.php" ],
-        "psr-4": { "Symfony\\Component\\VarDumper\\": "" },
+        "files": [
+            "Resources\/functions\/dump.php"
+        ],
+        "psr-4": {
+            "ECSPrefix20210509\\Symfony\\Component\\VarDumper\\": ""
+        },
         "exclude-from-classmap": [
-            "/Tests/"
+            "\/Tests\/"
         ]
     },
     "bin": [
-        "Resources/bin/var-dump-server"
+        "Resources\/bin\/var-dump-server"
     ],
     "minimum-stability": "dev"
 }

@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\FixerDefinition;
 
 /**
@@ -17,32 +16,26 @@ namespace PhpCsFixer\FixerDefinition;
  *
  * @internal
  */
-final class FileSpecificCodeSample implements FileSpecificCodeSampleInterface
+final class FileSpecificCodeSample implements \PhpCsFixer\FixerDefinition\FileSpecificCodeSampleInterface
 {
     /**
      * @var CodeSampleInterface
      */
     private $codeSample;
-
     /**
      * @var \SplFileInfo
      */
     private $splFileInfo;
-
     /**
      * @param mixed[]|null $configuration
      * @param string $code
      */
-    public function __construct(
-        $code,
-        \SplFileInfo $splFileInfo,
-        $configuration = null
-    ) {
+    public function __construct($code, \SplFileInfo $splFileInfo, $configuration = null)
+    {
         $code = (string) $code;
-        $this->codeSample = new CodeSample($code, $configuration);
+        $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
         $this->splFileInfo = $splFileInfo;
     }
-
     /**
      * {@inheritdoc}
      * @return string
@@ -51,7 +44,6 @@ final class FileSpecificCodeSample implements FileSpecificCodeSampleInterface
     {
         return $this->codeSample->getCode();
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]|null
@@ -60,7 +52,6 @@ final class FileSpecificCodeSample implements FileSpecificCodeSampleInterface
     {
         return $this->codeSample->getConfiguration();
     }
-
     /**
      * {@inheritdoc}
      * @return \SplFileInfo

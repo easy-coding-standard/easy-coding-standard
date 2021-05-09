@@ -8,35 +8,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Event;
 
-namespace Symfony\Component\HttpKernel\Event;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Contracts\EventDispatcher\Event;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
+use ECSPrefix20210509\Symfony\Contracts\EventDispatcher\Event;
 /**
  * Base class for events thrown in the HttpKernel component.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class KernelEvent extends Event
+class KernelEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\Event
 {
     private $kernel;
     private $request;
     private $requestType;
-
     /**
      * @param int $requestType The request type the kernel is currently processing; one of
      *                         HttpKernelInterface::MASTER_REQUEST or HttpKernelInterface::SUB_REQUEST
      */
-    public function __construct(HttpKernelInterface $kernel, Request $request, $requestType)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         $this->kernel = $kernel;
         $this->request = $request;
         $this->requestType = $requestType;
     }
-
     /**
      * Returns the kernel in which this event was thrown.
      *
@@ -46,7 +42,6 @@ class KernelEvent extends Event
     {
         return $this->kernel;
     }
-
     /**
      * Returns the request the kernel is currently processing.
      *
@@ -56,7 +51,6 @@ class KernelEvent extends Event
     {
         return $this->request;
     }
-
     /**
      * Returns the request type the kernel is currently processing.
      *
@@ -67,7 +61,6 @@ class KernelEvent extends Event
     {
         return $this->requestType;
     }
-
     /**
      * Checks if this is a master request.
      *
@@ -75,6 +68,6 @@ class KernelEvent extends Event
      */
     public function isMasterRequest()
     {
-        return HttpKernelInterface::MASTER_REQUEST === $this->requestType;
+        return \ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface::MASTER_REQUEST === $this->requestType;
     }
 }

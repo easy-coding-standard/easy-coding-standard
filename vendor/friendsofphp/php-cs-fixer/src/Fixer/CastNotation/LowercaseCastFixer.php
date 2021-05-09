@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\CastNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -19,11 +18,10 @@ use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author SpacePossum
  */
-final class LowercaseCastFixer extends AbstractFixer
+final class LowercaseCastFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -31,11 +29,7 @@ final class LowercaseCastFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Cast should be written in lower case.',
-            [
-                new VersionSpecificCodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Cast should be written in lower case.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
     $a = (BOOLEAN) $b;
     $a = (BOOL) $b;
     $a = (INTEGER) $b;
@@ -49,11 +43,7 @@ final class LowercaseCastFixer extends AbstractFixer
     $a = (OBJect) $b;
     $a = (UNset) $b;
     $a = (Binary) $b;
-',
-                    new VersionSpecification(null, 70399)
-                ),
-                new VersionSpecificCodeSample(
-                    '<?php
+', new \PhpCsFixer\FixerDefinition\VersionSpecification(null, 70399)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
     $a = (BOOLEAN) $b;
     $a = (BOOL) $b;
     $a = (INTEGER) $b;
@@ -66,34 +56,27 @@ final class LowercaseCastFixer extends AbstractFixer
     $a = (OBJect) $b;
     $a = (UNset) $b;
     $a = (Binary) $b;
-',
-                    new VersionSpecification(70400)
-                ),
-            ]
-        );
+', new \PhpCsFixer\FixerDefinition\VersionSpecification(70400))]);
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound(Token::getCastTokenKinds());
+        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getCastTokenKinds());
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             if (!$tokens[$index]->isCast()) {
                 continue;
             }
-
-            $tokens[$index] = new Token([$tokens[$index]->getId(), strtolower($tokens[$index]->getContent())]);
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), \strtolower($tokens[$index]->getContent())]);
         }
     }
 }

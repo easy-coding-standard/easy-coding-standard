@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the SideEffects sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\PSR1\Tests\Files;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class SideEffectsUnitTest extends AbstractSniffUnitTest
+class SideEffectsUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Set CLI values before the file is tested.
      *
@@ -26,12 +23,10 @@ class SideEffectsUnitTest extends AbstractSniffUnitTest
     public function setCliValues($testFile, $config)
     {
         if ($testFile === 'SideEffectsUnitTest.12.inc') {
-            $config->annotations = false;
+            $config->annotations = \false;
         }
-
-    }//end setCliValues()
-
-
+    }
+    //end setCliValues()
     /**
      * Returns the lines where errors should occur.
      *
@@ -42,13 +37,11 @@ class SideEffectsUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile='')
+    public function getErrorList($testFile = '')
     {
         return [];
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -59,22 +52,22 @@ class SideEffectsUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getWarningList($testFile='')
+    public function getWarningList($testFile = '')
     {
         switch ($testFile) {
-        case 'SideEffectsUnitTest.3.inc':
-        case 'SideEffectsUnitTest.4.inc':
-        case 'SideEffectsUnitTest.5.inc':
-        case 'SideEffectsUnitTest.10.inc':
-        case 'SideEffectsUnitTest.12.inc':
-        case 'SideEffectsUnitTest.15.inc':
-        case 'SideEffectsUnitTest.16.inc':
-            return [1 => 1];
-        default:
-            return [];
-        }//end switch
-
-    }//end getWarningList()
-
-
-}//end class
+            case 'SideEffectsUnitTest.3.inc':
+            case 'SideEffectsUnitTest.4.inc':
+            case 'SideEffectsUnitTest.5.inc':
+            case 'SideEffectsUnitTest.10.inc':
+            case 'SideEffectsUnitTest.12.inc':
+            case 'SideEffectsUnitTest.15.inc':
+            case 'SideEffectsUnitTest.16.inc':
+                return [1 => 1];
+            default:
+                return [];
+        }
+        //end switch
+    }
+    //end getWarningList()
+}
+//end class

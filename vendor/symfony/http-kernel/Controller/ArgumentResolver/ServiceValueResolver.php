@@ -8,87 +8,72 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-namespace Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-
-use Psr\Container\ContainerInterface;
-use Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-
+use ECSPrefix20210509\Psr\Container\ContainerInterface;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Yields a service keyed by _controller and argument name.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-final class ServiceValueResolver implements ArgumentValueResolverInterface
+final class ServiceValueResolver implements \ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     private $container;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(\ECSPrefix20210509\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function supports(Request $request, ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
         $controller = $request->attributes->get('_controller');
-
-        if (\is_array($controller) && \is_callable($controller, true) && \is_string($controller[0])) {
-            $controller = $controller[0].'::'.$controller[1];
+        if (\is_array($controller) && \is_callable($controller, \true) && \is_string($controller[0])) {
+            $controller = $controller[0] . '::' . $controller[1];
         } elseif (!\is_string($controller) || '' === $controller) {
-            return false;
+            return \false;
         }
-
         if ('\\' === $controller[0]) {
-            $controller = ltrim($controller, '\\');
+            $controller = \ltrim($controller, '\\');
         }
-
-        if (!$this->container->has($controller) && false !== $i = strrpos($controller, ':')) {
-            $controller = substr($controller, 0, $i).strtolower(substr($controller, $i));
+        if (!$this->container->has($controller) && \false !== ($i = \strrpos($controller, ':'))) {
+            $controller = \substr($controller, 0, $i) . \strtolower(\substr($controller, $i));
         }
-
         return $this->container->has($controller) && $this->container->get($controller)->has($argument->getName());
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
-    public function resolve(Request $request, ArgumentMetadata $argument)
+    public function resolve(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
         if (\is_array($controller = $request->attributes->get('_controller'))) {
-            $controller = $controller[0].'::'.$controller[1];
+            $controller = $controller[0] . '::' . $controller[1];
         }
-
         if ('\\' === $controller[0]) {
-            $controller = ltrim($controller, '\\');
+            $controller = \ltrim($controller, '\\');
         }
-
         if (!$this->container->has($controller)) {
-            $i = strrpos($controller, ':');
-            $controller = substr($controller, 0, $i).strtolower(substr($controller, $i));
+            $i = \strrpos($controller, ':');
+            $controller = \substr($controller, 0, $i) . \strtolower(\substr($controller, $i));
         }
-
         try {
-            yield $this->container->get($controller)->get($argument->getName());
-        } catch (RuntimeException $e) {
-            $what = sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
-            $message = preg_replace('/service "\.service_locator\.[^"]++"/', $what, $e->getMessage());
-
+            (yield $this->container->get($controller)->get($argument->getName()));
+        } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+            $what = \sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
+            $message = \preg_replace('/service "\\.service_locator\\.[^"]++"/', $what, $e->getMessage());
             if ($e->getMessage() === $message) {
-                $message = sprintf('Cannot resolve %s: %s', $what, $message);
+                $message = \sprintf('Cannot resolve %s: %s', $what, $message);
             }
-
             $r = new \ReflectionProperty($e, 'message');
-            $r->setAccessible(true);
+            $r->setAccessible(\true);
             $r->setValue($e, $message);
-
             throw $e;
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the EmbeddedPhp sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class EmbeddedPhpUnitTest extends AbstractSniffUnitTest
+class EmbeddedPhpUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,41 +22,9 @@ class EmbeddedPhpUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            7   => 1,
-            12  => 1,
-            18  => 1,
-            19  => 2,
-            20  => 1,
-            21  => 1,
-            22  => 3,
-            24  => 1,
-            26  => 1,
-            29  => 1,
-            30  => 1,
-            31  => 1,
-            34  => 1,
-            36  => 1,
-            40  => 1,
-            41  => 1,
-            44  => 1,
-            45  => 1,
-            49  => 1,
-            59  => 1,
-            63  => 1,
-            93  => 1,
-            94  => 2,
-            100 => 1,
-            102 => 1,
-            112 => 1,
-            113 => 1,
-            116 => 1,
-            117 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [7 => 1, 12 => 1, 18 => 1, 19 => 2, 20 => 1, 21 => 1, 22 => 3, 24 => 1, 26 => 1, 29 => 1, 30 => 1, 31 => 1, 34 => 1, 36 => 1, 40 => 1, 41 => 1, 44 => 1, 45 => 1, 49 => 1, 59 => 1, 63 => 1, 93 => 1, 94 => 2, 100 => 1, 102 => 1, 112 => 1, 113 => 1, 116 => 1, 117 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -71,8 +36,7 @@ class EmbeddedPhpUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

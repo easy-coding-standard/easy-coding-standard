@@ -8,13 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\EventListener;
 
-namespace Symfony\Component\HttpKernel\EventListener;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-
+use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * ResponseListener fixes the Response headers based on the Request.
  *
@@ -22,10 +20,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ResponseListener implements EventSubscriberInterface
+class ResponseListener implements \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $charset;
-
     /**
      * @param string $charset
      */
@@ -34,32 +31,25 @@ class ResponseListener implements EventSubscriberInterface
         $charset = (string) $charset;
         $this->charset = $charset;
     }
-
     /**
      * Filters the Response.
      */
-    public function onKernelResponse(ResponseEvent $event)
+    public function onKernelResponse(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
-
         $response = $event->getResponse();
-
         if (null === $response->getCharset()) {
             $response->setCharset($this->charset);
         }
-
         $response->prepare($event->getRequest());
     }
-
     /**
      * @return mixed[]
      */
     public static function getSubscribedEvents()
     {
-        return [
-            KernelEvents::RESPONSE => 'onKernelResponse',
-        ];
+        return [\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }
 }

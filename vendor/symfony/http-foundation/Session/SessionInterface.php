@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session;
 
-namespace Symfony\Component\HttpFoundation\Session;
-
-use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 /**
  * Interface for the session.
  *
@@ -28,33 +26,28 @@ interface SessionInterface
      * @throws \RuntimeException if session fails to start
      */
     public function start();
-
     /**
      * Returns the session ID.
      *
      * @return string
      */
     public function getId();
-
     /**
      * Sets the session ID.
      * @param string $id
      */
     public function setId($id);
-
     /**
      * Returns the session name.
      *
      * @return string
      */
     public function getName();
-
     /**
      * Sets the session name.
      * @param string $name
      */
     public function setName($name);
-
     /**
      * Invalidates the current session.
      *
@@ -69,7 +62,6 @@ interface SessionInterface
      * @return bool
      */
     public function invalidate($lifetime = null);
-
     /**
      * Migrates the current session to a new session id while maintaining all
      * session attributes.
@@ -82,8 +74,7 @@ interface SessionInterface
      *
      * @return bool
      */
-    public function migrate($destroy = false, $lifetime = null);
-
+    public function migrate($destroy = \false, $lifetime = null);
     /**
      * Force the session to be saved and closed.
      *
@@ -92,7 +83,6 @@ interface SessionInterface
      * code execution.
      */
     public function save();
-
     /**
      * Checks if an attribute is defined.
      *
@@ -100,7 +90,6 @@ interface SessionInterface
      * @param string $name
      */
     public function has($name);
-
     /**
      * Returns an attribute.
      *
@@ -110,7 +99,6 @@ interface SessionInterface
      * @param string $name
      */
     public function get($name, $default = null);
-
     /**
      * Sets an attribute.
      *
@@ -118,19 +106,16 @@ interface SessionInterface
      * @param string $name
      */
     public function set($name, $value);
-
     /**
      * Returns attributes.
      *
      * @return array
      */
     public function all();
-
     /**
      * Sets attributes.
      */
     public function replace(array $attributes);
-
     /**
      * Removes an attribute.
      *
@@ -138,24 +123,20 @@ interface SessionInterface
      * @param string $name
      */
     public function remove($name);
-
     /**
      * Clears all attributes.
      */
     public function clear();
-
     /**
      * Checks if the session was started.
      *
      * @return bool
      */
     public function isStarted();
-
     /**
      * Registers a SessionBagInterface with the session.
      */
-    public function registerBag(SessionBagInterface $bag);
-
+    public function registerBag(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag);
     /**
      * Gets a bag instance by name.
      *
@@ -163,7 +144,6 @@ interface SessionInterface
      * @param string $name
      */
     public function getBag($name);
-
     /**
      * Gets session meta.
      *

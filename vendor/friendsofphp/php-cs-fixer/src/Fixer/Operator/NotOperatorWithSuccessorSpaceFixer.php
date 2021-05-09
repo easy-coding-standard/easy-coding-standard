@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Operator;
 
 use PhpCsFixer\AbstractFixer;
@@ -18,11 +17,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Javier Spagnoletti <phansys@gmail.com>
  */
-final class NotOperatorWithSuccessorSpaceFixer extends AbstractFixer
+final class NotOperatorWithSuccessorSpaceFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -30,19 +28,13 @@ final class NotOperatorWithSuccessorSpaceFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Logical NOT operators (`!`) should have one trailing whitespace.',
-            [new CodeSample(
-                '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Logical NOT operators (`!`) should have one trailing whitespace.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
 if (!$bar) {
     echo "Help!";
 }
-'
-            )]
-        );
+')]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -53,30 +45,27 @@ if (!$bar) {
     {
         return -10;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound('!');
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             $token = $tokens[$index];
-
             if ($token->equals('!')) {
                 if (!$tokens[$index + 1]->isWhitespace()) {
-                    $tokens->insertAt($index + 1, new Token([T_WHITESPACE, ' ']));
+                    $tokens->insertAt($index + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
                 } else {
-                    $tokens[$index + 1] = new Token([T_WHITESPACE, ' ']);
+                    $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
                 }
             }
         }

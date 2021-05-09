@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the DisallowTabIndent sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class DisallowTabIndentUnitTest extends AbstractSniffUnitTest
+class DisallowTabIndentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Get a list of CLI values to set before the file is tested.
      *
@@ -26,10 +23,8 @@ class DisallowTabIndentUnitTest extends AbstractSniffUnitTest
     public function setCliValues($testFile, $config)
     {
         $config->tabWidth = 4;
-
-    }//end setCliValues()
-
-
+    }
+    //end setCliValues()
     /**
      * Returns the lines where errors should occur.
      *
@@ -40,71 +35,25 @@ class DisallowTabIndentUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile='DisallowTabIndentUnitTest.inc')
+    public function getErrorList($testFile = 'DisallowTabIndentUnitTest.inc')
     {
         switch ($testFile) {
-        case 'DisallowTabIndentUnitTest.inc':
-            return [
-                5  => 2,
-                9  => 1,
-                15 => 1,
-                20 => 2,
-                21 => 1,
-                22 => 2,
-                23 => 1,
-                24 => 2,
-                31 => 1,
-                32 => 2,
-                33 => 2,
-                41 => 1,
-                42 => 1,
-                43 => 1,
-                44 => 1,
-                45 => 1,
-                46 => 1,
-                47 => 1,
-                48 => 1,
-                54 => 1,
-                55 => 1,
-                56 => 1,
-                57 => 1,
-                58 => 1,
-                59 => 1,
-                79 => 1,
-                80 => 1,
-                81 => 1,
-                82 => 1,
-                83 => 1,
-                85 => 1,
-                86 => 1,
-                87 => 1,
-                89 => 1,
-                90 => 1,
-                92 => 1,
-                93 => 1,
-            ];
-            break;
-        case 'DisallowTabIndentUnitTest.js':
-            return [
-                3 => 1,
-                5 => 1,
-                6 => 1,
-            ];
-            break;
-        case 'DisallowTabIndentUnitTest.css':
-            return [
-                1 => 1,
-                2 => 1,
-            ];
-            break;
-        default:
-            return [];
-            break;
-        }//end switch
-
-    }//end getErrorList()
-
-
+            case 'DisallowTabIndentUnitTest.inc':
+                return [5 => 2, 9 => 1, 15 => 1, 20 => 2, 21 => 1, 22 => 2, 23 => 1, 24 => 2, 31 => 1, 32 => 2, 33 => 2, 41 => 1, 42 => 1, 43 => 1, 44 => 1, 45 => 1, 46 => 1, 47 => 1, 48 => 1, 54 => 1, 55 => 1, 56 => 1, 57 => 1, 58 => 1, 59 => 1, 79 => 1, 80 => 1, 81 => 1, 82 => 1, 83 => 1, 85 => 1, 86 => 1, 87 => 1, 89 => 1, 90 => 1, 92 => 1, 93 => 1];
+                break;
+            case 'DisallowTabIndentUnitTest.js':
+                return [3 => 1, 5 => 1, 6 => 1];
+                break;
+            case 'DisallowTabIndentUnitTest.css':
+                return [1 => 1, 2 => 1];
+                break;
+            default:
+                return [];
+                break;
+        }
+        //end switch
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -116,8 +65,7 @@ class DisallowTabIndentUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

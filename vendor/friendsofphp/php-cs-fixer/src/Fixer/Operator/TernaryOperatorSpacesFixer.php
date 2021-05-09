@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Operator;
 
 use PhpCsFixer\AbstractFixer;
@@ -21,11 +20,10 @@ use PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer;
 use PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class TernaryOperatorSpacesFixer extends AbstractFixer
+final class TernaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -33,12 +31,8 @@ final class TernaryOperatorSpacesFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Standardize spaces around ternary operator.',
-            [new CodeSample("<?php \$a = \$a   ?1 :0;\n")]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Standardize spaces around ternary operator.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = \$a   ?1 :0;\n")]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -49,148 +43,116 @@ final class TernaryOperatorSpacesFixer extends AbstractFixer
     {
         return 0;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isAllTokenKindsFound(['?', ':']);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        $gotoLabelAnalyzer = new GotoLabelAnalyzer();
+        $gotoLabelAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\GotoLabelAnalyzer();
         $ternaryOperatorIndices = [];
         $excludedIndices = [];
-
         foreach ($tokens as $index => $token) {
-            if ($token->isGivenKind(T_SWITCH)) {
-                $excludedIndices = array_merge($excludedIndices, $this->getColonIndicesForSwitch($tokens, $index));
-
+            if ($token->isGivenKind(\T_SWITCH)) {
+                $excludedIndices = \array_merge($excludedIndices, $this->getColonIndicesForSwitch($tokens, $index));
                 continue;
             }
-
             if (!$token->equalsAny(['?', ':'])) {
                 continue;
             }
-
-            if (\in_array($index, $excludedIndices, true)) {
+            if (\in_array($index, $excludedIndices, \true)) {
                 continue;
             }
-
             if ($this->belongsToAlternativeSyntax($tokens, $index)) {
                 continue;
             }
-
             if ($gotoLabelAnalyzer->belongsToGoToLabel($tokens, $index)) {
                 continue;
             }
-
             $ternaryOperatorIndices[] = $index;
         }
-
-        foreach (array_reverse($ternaryOperatorIndices) as $index) {
+        foreach (\array_reverse($ternaryOperatorIndices) as $index) {
             $token = $tokens[$index];
-
             if ($token->equals('?')) {
                 $nextNonWhitespaceIndex = $tokens->getNextNonWhitespace($index);
-
                 if ($tokens[$nextNonWhitespaceIndex]->equals(':')) {
                     // for `$a ?: $b` remove spaces between `?` and `:`
                     $tokens->ensureWhitespaceAtIndex($index + 1, 0, '');
                 } else {
                     // for `$a ? $b : $c` ensure space after `?`
-                    $this->ensureWhitespaceExistence($tokens, $index + 1, true);
+                    $this->ensureWhitespaceExistence($tokens, $index + 1, \true);
                 }
-
                 // for `$a ? $b : $c` ensure space before `?`
-                $this->ensureWhitespaceExistence($tokens, $index - 1, false);
-
+                $this->ensureWhitespaceExistence($tokens, $index - 1, \false);
                 continue;
             }
-
             if ($token->equals(':')) {
                 // for `$a ? $b : $c` ensure space after `:`
-                $this->ensureWhitespaceExistence($tokens, $index + 1, true);
-
+                $this->ensureWhitespaceExistence($tokens, $index + 1, \true);
                 $prevNonWhitespaceToken = $tokens[$tokens->getPrevNonWhitespace($index)];
-
                 if (!$prevNonWhitespaceToken->equals('?')) {
                     // for `$a ? $b : $c` ensure space before `:`
-                    $this->ensureWhitespaceExistence($tokens, $index - 1, false);
+                    $this->ensureWhitespaceExistence($tokens, $index - 1, \false);
                 }
             }
         }
     }
-
     /**
      * @param int $index
      * @return bool
      */
-    private function belongsToAlternativeSyntax(Tokens $tokens, $index)
+    private function belongsToAlternativeSyntax(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         if (!$tokens[$index]->equals(':')) {
-            return false;
+            return \false;
         }
-
         $closeParenthesisIndex = $tokens->getPrevMeaningfulToken($index);
-        if ($tokens[$closeParenthesisIndex]->isGivenKind(T_ELSE)) {
-            return true;
+        if ($tokens[$closeParenthesisIndex]->isGivenKind(\T_ELSE)) {
+            return \true;
         }
         if (!$tokens[$closeParenthesisIndex]->equals(')')) {
-            return false;
+            return \false;
         }
-
-        $openParenthesisIndex = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $closeParenthesisIndex);
-
+        $openParenthesisIndex = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $closeParenthesisIndex);
         $alternativeControlStructureIndex = $tokens->getPrevMeaningfulToken($openParenthesisIndex);
-
-        return $tokens[$alternativeControlStructureIndex]->isGivenKind([T_DECLARE, T_ELSEIF, T_FOR, T_FOREACH, T_IF, T_SWITCH, T_WHILE]);
+        return $tokens[$alternativeControlStructureIndex]->isGivenKind([\T_DECLARE, \T_ELSEIF, \T_FOR, \T_FOREACH, \T_IF, \T_SWITCH, \T_WHILE]);
     }
-
     /**
      * @return mixed[]
      * @param int $switchIndex
      */
-    private function getColonIndicesForSwitch(Tokens $tokens, $switchIndex)
+    private function getColonIndicesForSwitch(\PhpCsFixer\Tokenizer\Tokens $tokens, $switchIndex)
     {
         $switchIndex = (int) $switchIndex;
-        return array_map(
-            static function (CaseAnalysis $caseAnalysis) {
-                return $caseAnalysis->getColonIndex();
-            },
-            (new SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases()
-        );
+        return \array_map(static function (\PhpCsFixer\Tokenizer\Analyzer\Analysis\CaseAnalysis $caseAnalysis) {
+            return $caseAnalysis->getColonIndex();
+        }, (new \PhpCsFixer\Tokenizer\Analyzer\SwitchAnalyzer())->getSwitchAnalysis($tokens, $switchIndex)->getCases());
     }
-
     /**
      * @return void
      * @param int $index
      * @param bool $after
      */
-    private function ensureWhitespaceExistence(Tokens $tokens, $index, $after)
+    private function ensureWhitespaceExistence(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, $after)
     {
         $index = (int) $index;
         $after = (bool) $after;
         if ($tokens[$index]->isWhitespace()) {
-            if (
-                false === strpos($tokens[$index]->getContent(), "\n")
-                && !$tokens[$index - 1]->isComment()
-            ) {
-                $tokens[$index] = new Token([T_WHITESPACE, ' ']);
+            if (\false === \strpos($tokens[$index]->getContent(), "\n") && !$tokens[$index - 1]->isComment()) {
+                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
             }
-
             return;
         }
-
         $index += $after ? 0 : 1;
-        $tokens->insertAt($index, new Token([T_WHITESPACE, ' ']));
+        $tokens->insertAt($index, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
     }
 }

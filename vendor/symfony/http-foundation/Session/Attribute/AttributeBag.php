@@ -8,19 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpFoundation\Session\Attribute;
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Attribute;
 
 /**
  * This class relates to session attribute storage.
  */
-class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Countable
+class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface, \IteratorAggregate, \Countable
 {
     private $name = 'attributes';
     private $storageKey;
-
     protected $attributes = [];
-
     /**
      * @param string $storageKey The key used to store attributes in the session
      */
@@ -29,7 +26,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
         $storageKey = (string) $storageKey;
         $this->storageKey = $storageKey;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -37,7 +33,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
     {
         return $this->name;
     }
-
     /**
      * @param string $name
      */
@@ -46,15 +41,13 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
         $name = (string) $name;
         $this->name = $name;
     }
-
     /**
      * {@inheritdoc}
      */
     public function initialize(array &$attributes)
     {
-        $this->attributes = &$attributes;
+        $this->attributes =& $attributes;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -62,7 +55,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
     {
         return $this->storageKey;
     }
-
     /**
      * {@inheritdoc}
      * @param string $name
@@ -72,7 +64,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
         $name = (string) $name;
         return \array_key_exists($name, $this->attributes);
     }
-
     /**
      * {@inheritdoc}
      * @param string $name
@@ -82,7 +73,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
         $name = (string) $name;
         return \array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $default;
     }
-
     /**
      * {@inheritdoc}
      * @param string $name
@@ -92,7 +82,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
         $name = (string) $name;
         $this->attributes[$name] = $value;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -100,7 +89,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
     {
         return $this->attributes;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -111,7 +99,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
             $this->set($key, $value);
         }
     }
-
     /**
      * {@inheritdoc}
      * @param string $name
@@ -124,10 +111,8 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
             $retval = $this->attributes[$name];
             unset($this->attributes[$name]);
         }
-
         return $retval;
     }
-
     /**
      * {@inheritdoc}
      */
@@ -135,10 +120,8 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
     {
         $return = $this->attributes;
         $this->attributes = [];
-
         return $return;
     }
-
     /**
      * Returns an iterator for attributes.
      *
@@ -148,7 +131,6 @@ class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Counta
     {
         return new \ArrayIterator($this->attributes);
     }
-
     /**
      * Returns the number of attributes.
      *

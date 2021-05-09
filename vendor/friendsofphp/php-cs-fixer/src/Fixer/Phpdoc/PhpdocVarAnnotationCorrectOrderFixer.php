@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -19,26 +18,21 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  */
-final class PhpdocVarAnnotationCorrectOrderFixer extends AbstractFixer
+final class PhpdocVarAnnotationCorrectOrderFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            '`@var` and `@type` annotations must have type and name in the correct order.',
-            [new CodeSample('<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('`@var` and `@type` annotations must have type and name in the correct order.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /** @var $foo int */
 $foo = 2 + 2;
-')]
-        );
+')]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -50,40 +44,30 @@ $foo = 2 + 2;
     {
         return 0;
     }
-
     /**
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
-
     /**
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-
-            if (false === stripos($token->getContent(), '@var') && false === stripos($token->getContent(), '@type')) {
+            if (\false === \stripos($token->getContent(), '@var') && \false === \stripos($token->getContent(), '@type')) {
                 continue;
             }
-
-            $newContent = Preg::replace(
-                '/(@(?:type|var)\s*)(\$\S+)(\h+)([^\$](?:[^<\s]|<[^>]*>)*)(\s|\*)/i',
-                '$1$4$3$2$5',
-                $token->getContent()
-            );
-
+            $newContent = \PhpCsFixer\Preg::replace('/(@(?:type|var)\\s*)(\\$\\S+)(\\h+)([^\\$](?:[^<\\s]|<[^>]*>)*)(\\s|\\*)/i', '$1$4$3$2$5', $token->getContent());
             if ($newContent === $token->getContent()) {
                 continue;
             }
-
-            $tokens[$index] = new Token([$token->getId(), $newContent]);
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
         }
     }
 }

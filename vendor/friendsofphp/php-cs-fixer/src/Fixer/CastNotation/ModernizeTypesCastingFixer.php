@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\CastNotation;
 
 use PhpCsFixer\AbstractFunctionReferenceFixer;
@@ -19,11 +18,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Vladimir Reznichenko <kalessil@gmail.com>
  */
-final class ModernizeTypesCastingFixer extends AbstractFunctionReferenceFixer
+final class ModernizeTypesCastingFixer extends \PhpCsFixer\AbstractFunctionReferenceFixer
 {
     /**
      * {@inheritdoc}
@@ -31,50 +29,31 @@ final class ModernizeTypesCastingFixer extends AbstractFunctionReferenceFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Replaces `intval`, `floatval`, `doubleval`, `strval` and `boolval` function calls with according type casting operator.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Replaces `intval`, `floatval`, `doubleval`, `strval` and `boolval` function calls with according type casting operator.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
     $a = intval($b);
     $a = floatval($b);
     $a = doubleval($b);
     $a = strval ($b);
     $a = boolval($b);
-'
-                ),
-            ],
-            null,
-            'Risky if any of the functions `intval`, `floatval`, `doubleval`, `strval` or `boolval` are overridden.'
-        );
+')], null, 'Risky if any of the functions `intval`, `floatval`, `doubleval`, `strval` or `boolval` are overridden.');
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_STRING);
+        return $tokens->isTokenKindFound(\T_STRING);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // replacement patterns
-        static $replacement = [
-            'intval' => [T_INT_CAST, '(int)'],
-            'floatval' => [T_DOUBLE_CAST, '(float)'],
-            'doubleval' => [T_DOUBLE_CAST, '(float)'],
-            'strval' => [T_STRING_CAST, '(string)'],
-            'boolval' => [T_BOOL_CAST, '(bool)'],
-        ];
-
-        $argumentsAnalyzer = new ArgumentsAnalyzer();
-
+        static $replacement = ['intval' => [\T_INT_CAST, '(int)'], 'floatval' => [\T_DOUBLE_CAST, '(float)'], 'doubleval' => [\T_DOUBLE_CAST, '(float)'], 'strval' => [\T_STRING_CAST, '(string)'], 'boolval' => [\T_BOOL_CAST, '(bool)']];
+        $argumentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\ArgumentsAnalyzer();
         foreach ($replacement as $functionIdentity => $newToken) {
             $currIndex = 0;
             while (null !== $currIndex) {
@@ -84,17 +63,13 @@ final class ModernizeTypesCastingFixer extends AbstractFunctionReferenceFixer
                     // next function search, as current one not found
                     continue 2;
                 }
-
                 list($functionName, $openParenthesis, $closeParenthesis) = $boundaries;
-
                 // analysing cursor shift
                 $currIndex = $openParenthesis;
-
                 // indicator that the function is overridden
                 if (1 !== $argumentsAnalyzer->countArguments($tokens, $openParenthesis, $closeParenthesis)) {
                     continue;
                 }
-
                 $paramContentEnd = $closeParenthesis;
                 $commaCandidate = $tokens->getPrevMeaningfulToken($paramContentEnd);
                 if ($tokens[$commaCandidate]->equals(',')) {
@@ -102,44 +77,34 @@ final class ModernizeTypesCastingFixer extends AbstractFunctionReferenceFixer
                     $tokens->clearAt($commaCandidate);
                     $paramContentEnd = $commaCandidate;
                 }
-
                 // check if something complex passed as an argument and preserve parenthesises then
                 $countParamTokens = 0;
                 for ($paramContentIndex = $openParenthesis + 1; $paramContentIndex < $paramContentEnd; ++$paramContentIndex) {
                     //not a space, means some sensible token
-                    if (!$tokens[$paramContentIndex]->isGivenKind(T_WHITESPACE)) {
+                    if (!$tokens[$paramContentIndex]->isGivenKind(\T_WHITESPACE)) {
                         ++$countParamTokens;
                     }
                 }
-
                 $preserveParenthesises = $countParamTokens > 1;
-
                 $afterCloseParenthesisIndex = $tokens->getNextMeaningfulToken($closeParenthesis);
                 $afterCloseParenthesisToken = $tokens[$afterCloseParenthesisIndex];
-                $wrapInParenthesises = $afterCloseParenthesisToken->equalsAny(['[', '{']) || $afterCloseParenthesisToken->isGivenKind(T_POW);
-
+                $wrapInParenthesises = $afterCloseParenthesisToken->equalsAny(['[', '{']) || $afterCloseParenthesisToken->isGivenKind(\T_POW);
                 // analyse namespace specification (root one or none) and decide what to do
                 $prevTokenIndex = $tokens->getPrevMeaningfulToken($functionName);
-                if ($tokens[$prevTokenIndex]->isGivenKind(T_NS_SEPARATOR)) {
+                if ($tokens[$prevTokenIndex]->isGivenKind(\T_NS_SEPARATOR)) {
                     // get rid of root namespace when it used
                     $tokens->removeTrailingWhitespace($prevTokenIndex);
                     $tokens->clearAt($prevTokenIndex);
                 }
-
                 // perform transformation
-                $replacementSequence = [
-                    new Token($newToken),
-                    new Token([T_WHITESPACE, ' ']),
-                ];
+                $replacementSequence = [new \PhpCsFixer\Tokenizer\Token($newToken), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' '])];
                 if ($wrapInParenthesises) {
-                    array_unshift($replacementSequence, new Token('('));
+                    \array_unshift($replacementSequence, new \PhpCsFixer\Tokenizer\Token('('));
                 }
-
                 if (!$preserveParenthesises) {
                     // closing parenthesis removed with leading spaces
                     $tokens->removeLeadingWhitespace($closeParenthesis);
                     $tokens->clearAt($closeParenthesis);
-
                     // opening parenthesis removed with trailing spaces
                     $tokens->removeLeadingWhitespace($openParenthesis);
                     $tokens->removeTrailingWhitespace($openParenthesis);
@@ -148,13 +113,10 @@ final class ModernizeTypesCastingFixer extends AbstractFunctionReferenceFixer
                     // we'll need to provide a space after a casting operator
                     $tokens->removeTrailingWhitespace($functionName);
                 }
-
                 if ($wrapInParenthesises) {
-                    $tokens->insertAt($closeParenthesis, new Token(')'));
+                    $tokens->insertAt($closeParenthesis, new \PhpCsFixer\Tokenizer\Token(')'));
                 }
-
                 $tokens->overrideRange($functionName, $functionName, $replacementSequence);
-
                 // nested transformations support
                 $currIndex = $functionName;
             }

@@ -1,17 +1,17 @@
 {
-    "name": "symplify/console-package-builder",
+    "name": "symplify\/console-package-builder",
     "description": "Package to speed up building command line applications",
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "symfony/dependency-injection": "^5.2",
-        "symfony/console": "^4.4|^5.2",
-        "symplify/symplify-kernel": "dev-main"
+        "symfony\/dependency-injection": "^5.2",
+        "symfony\/console": "^4.4|^5.2",
+        "symplify\/symplify-kernel": "dev-main"
     },
     "require-dev": {
-        "symfony/http-kernel": "^4.4|^5.2",
-        "symplify/package-builder": "dev-main",
-        "phpunit/phpunit": "^9.5"
+        "symfony\/http-kernel": "^4.4|^5.2",
+        "symplify\/package-builder": "dev-main",
+        "phpunit\/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {

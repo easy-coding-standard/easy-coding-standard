@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Config;
+namespace ECSPrefix20210509\Symfony\Component\Config;
 
 /**
  * A ConfigCacheFactory implementation that validates the
@@ -17,10 +16,9 @@ namespace Symfony\Component\Config;
  *
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class ResourceCheckerConfigCacheFactory implements ConfigCacheFactoryInterface
+class ResourceCheckerConfigCacheFactory implements \ECSPrefix20210509\Symfony\Component\Config\ConfigCacheFactoryInterface
 {
     private $resourceCheckers = [];
-
     /**
      * @param iterable|ResourceCheckerInterface[] $resourceCheckers
      */
@@ -28,7 +26,6 @@ class ResourceCheckerConfigCacheFactory implements ConfigCacheFactoryInterface
     {
         $this->resourceCheckers = $resourceCheckers;
     }
-
     /**
      * {@inheritdoc}
      * @param string $file
@@ -36,11 +33,10 @@ class ResourceCheckerConfigCacheFactory implements ConfigCacheFactoryInterface
     public function cache($file, callable $callable)
     {
         $file = (string) $file;
-        $cache = new ResourceCheckerConfigCache($file, $this->resourceCheckers);
+        $cache = new \ECSPrefix20210509\Symfony\Component\Config\ResourceCheckerConfigCache($file, $this->resourceCheckers);
         if (!$cache->isFresh()) {
             $callable($cache);
         }
-
         return $cache;
     }
 }

@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\DocBlock;
 
 /**
@@ -25,12 +24,10 @@ final class ShortDescription
      * @var DocBlock
      */
     private $doc;
-
-    public function __construct(DocBlock $doc)
+    public function __construct(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         $this->doc = $doc;
     }
-
     /**
      * Get the line index of the line containing the end of the short
      * description, if present.
@@ -38,27 +35,23 @@ final class ShortDescription
      */
     public function getEnd()
     {
-        $reachedContent = false;
-
+        $reachedContent = \false;
         foreach ($this->doc->getLines() as $index => $line) {
             // we went past a description, then hit a tag or blank line, so
             // the last line of the description must be the one before this one
             if ($reachedContent && ($line->containsATag() || !$line->containsUsefulContent())) {
                 return $index - 1;
             }
-
             // no short description was found
             if ($line->containsATag()) {
                 return null;
             }
-
             // we've reached content, but need to check the next lines too
             // in case the short description is multi-line
             if ($line->containsUsefulContent()) {
-                $reachedContent = true;
+                $reachedContent = \true;
             }
         }
-
         return null;
     }
 }

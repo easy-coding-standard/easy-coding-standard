@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensures that strings are not joined using array.join().
  *
@@ -6,24 +7,19 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\MySource\Sniffs\Strings;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-
-class JoinStringsSniff implements Sniff
+class JoinStringsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['JS'];
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -31,11 +27,9 @@ class JoinStringsSniff implements Sniff
      */
     public function register()
     {
-        return [T_STRING];
-
-    }//end register()
-
-
+        return [\T_STRING];
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -45,23 +39,20 @@ class JoinStringsSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
         if ($tokens[$stackPtr]['content'] !== 'join') {
             return;
         }
-
-        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
-        if ($tokens[$prev]['code'] !== T_OBJECT_OPERATOR) {
+        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        if ($tokens[$prev]['code'] !== \T_OBJECT_OPERATOR) {
             return;
         }
-
-        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($prev - 1), null, true);
+        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prev - 1, null, \true);
         if ($tokens[$prev]['code'] === T_CLOSE_SQUARE_BRACKET) {
             $opener = $tokens[$prev]['bracket_opener'];
-            if ($tokens[($opener - 1)]['code'] !== T_STRING) {
+            if ($tokens[$opener - 1]['code'] !== \T_STRING) {
                 // This means the array is declared inline, like x = [a,b,c].join()
                 // and not elsewhere, like x = y[a].join()
                 // The first is not allowed while the second is.
@@ -69,8 +60,7 @@ class JoinStringsSniff implements Sniff
                 $phpcsFile->addError($error, $stackPtr, 'ArrayNotAllowed');
             }
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

@@ -9,13 +9,12 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Console\Output;
 
 /**
  * @internal
  */
-final class NullOutput implements ProcessOutputInterface
+final class NullOutput implements \PhpCsFixer\Console\Output\ProcessOutputInterface
 {
     /**
      * @return void

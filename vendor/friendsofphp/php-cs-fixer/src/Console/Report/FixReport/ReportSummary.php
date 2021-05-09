@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Console\Report\FixReport;
 
 /**
@@ -23,32 +22,26 @@ final class ReportSummary
      * @var bool
      */
     private $addAppliedFixers;
-
     /**
      * @var array
      */
     private $changed;
-
     /**
      * @var bool
      */
     private $isDecoratedOutput;
-
     /**
      * @var bool
      */
     private $isDryRun;
-
     /**
      * @var int
      */
     private $memory;
-
     /**
      * @var int
      */
     private $time;
-
     /**
      * @param int $time   duration in milliseconds
      * @param int $memory memory usage in bytes
@@ -56,14 +49,8 @@ final class ReportSummary
      * @param bool $isDryRun
      * @param bool $isDecoratedOutput
      */
-    public function __construct(
-        array $changed,
-        $time,
-        $memory,
-        $addAppliedFixers,
-        $isDryRun,
-        $isDecoratedOutput
-    ) {
+    public function __construct(array $changed, $time, $memory, $addAppliedFixers, $isDryRun, $isDecoratedOutput)
+    {
         $time = (int) $time;
         $memory = (int) $memory;
         $addAppliedFixers = (bool) $addAppliedFixers;
@@ -76,7 +63,6 @@ final class ReportSummary
         $this->isDryRun = $isDryRun;
         $this->isDecoratedOutput = $isDecoratedOutput;
     }
-
     /**
      * @return bool
      */
@@ -84,7 +70,6 @@ final class ReportSummary
     {
         return $this->isDecoratedOutput;
     }
-
     /**
      * @return bool
      */
@@ -92,7 +77,6 @@ final class ReportSummary
     {
         return $this->isDryRun;
     }
-
     /**
      * @return mixed[]
      */
@@ -100,7 +84,6 @@ final class ReportSummary
     {
         return $this->changed;
     }
-
     /**
      * @return int
      */
@@ -108,7 +91,6 @@ final class ReportSummary
     {
         return $this->memory;
     }
-
     /**
      * @return int
      */
@@ -116,7 +98,6 @@ final class ReportSummary
     {
         return $this->time;
     }
-
     /**
      * @return bool
      */

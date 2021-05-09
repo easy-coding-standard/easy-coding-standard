@@ -2,39 +2,35 @@
 
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use Nette\Utils\Strings;
+use ECSPrefix20210509\Nette\Utils\Strings;
 use PhpCsFixer\DocBlock\Annotation;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-
-final class ParamNameTypoMalformWorker implements MalformWorkerInterface
+final class ParamNameTypoMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
 {
     /**
      * @var string
      * @see https://regex101.com/r/5szHlw/1
      */
-    const PARAM_NAME_REGEX = '#@param(.*?)(?<paramName>\$\w+)#';
-
+    const PARAM_NAME_REGEX = '#@param(.*?)(?<paramName>\\$\\w+)#';
     /**
      * @var DocblockRelatedParamNamesResolver
      */
     private $docblockRelatedParamNamesResolver;
-
-    public function __construct(DocblockRelatedParamNamesResolver $docblockRelatedParamNamesResolver)
+    public function __construct(\Symplify\CodingStandard\TokenAnalyzer\DocblockRelatedParamNamesResolver $docblockRelatedParamNamesResolver)
     {
         $this->docblockRelatedParamNamesResolver = $docblockRelatedParamNamesResolver;
     }
-
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
      * @param int $position
      * @return string
      */
-    public function work($docContent, Tokens $tokens, $position)
+    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
     {
         $docContent = (string) $docContent;
         $position = (int) $position;
@@ -42,18 +38,15 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
         if ($argumentNames === []) {
             return $docContent;
         }
-
         $paramNames = $this->getParamNames($docContent);
-
         // remove correct params
         foreach ($argumentNames as $key => $argumentName) {
-            if (in_array($argumentName, $paramNames, true)) {
-                $paramPosition = array_search($argumentName, $paramNames, true);
+            if (\in_array($argumentName, $paramNames, \true)) {
+                $paramPosition = \array_search($argumentName, $paramNames, \true);
                 unset($paramNames[$paramPosition]);
                 unset($argumentNames[$key]);
             }
         }
-
         // nothing to edit, all arguments are correct or there are no more @param annotations
         if ($argumentNames === []) {
             return $docContent;
@@ -61,10 +54,8 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
         if ($paramNames === []) {
             return $docContent;
         }
-
         return $this->fixTypos($argumentNames, $paramNames, $docContent);
     }
-
     /**
      * @return mixed[]
      * @param string $docContent
@@ -73,18 +64,15 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
     {
         $docContent = (string) $docContent;
         $paramAnnotations = $this->getAnnotationsOfType($docContent, 'param');
-
         $paramNames = [];
         foreach ($paramAnnotations as $paramAnnotation) {
-            $match = Strings::match($paramAnnotation->getContent(), self::PARAM_NAME_REGEX);
+            $match = \ECSPrefix20210509\Nette\Utils\Strings::match($paramAnnotation->getContent(), self::PARAM_NAME_REGEX);
             if (isset($match['paramName'])) {
                 $paramNames[] = $match['paramName'];
             }
         }
-
         return $paramNames;
     }
-
     /**
      * @return mixed[]
      * @param string $docContent
@@ -94,11 +82,9 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
     {
         $docContent = (string) $docContent;
         $type = (string) $type;
-        $docBlock = new DocBlock($docContent);
-
+        $docBlock = new \PhpCsFixer\DocBlock\DocBlock($docContent);
         return $docBlock->getAnnotationsOfType($type);
     }
-
     /**
      * @param string[] $argumentNames
      * @param string[] $paramNames
@@ -110,16 +96,13 @@ final class ParamNameTypoMalformWorker implements MalformWorkerInterface
         $docContent = (string) $docContent;
         foreach ($argumentNames as $key => $argumentName) {
             // 1. the same position
-            if (! isset($paramNames[$key])) {
+            if (!isset($paramNames[$key])) {
                 continue;
             }
-
             $typoName = $paramNames[$key];
-            $replacePattern = '#@param(.*?)' . preg_quote($typoName, '#') . '#';
-
-            $docContent = Strings::replace($docContent, $replacePattern, '@param$1' . $argumentName);
+            $replacePattern = '#@param(.*?)' . \preg_quote($typoName, '#') . '#';
+            $docContent = \ECSPrefix20210509\Nette\Utils\Strings::replace($docContent, $replacePattern, '@param$1' . $argumentName);
         }
-
         return $docContent;
     }
 }

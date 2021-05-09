@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Verifies that all class constants have their visibility set.
  *
@@ -6,17 +7,13 @@
  * @copyright 2006-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Properties;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-
-class ConstantVisibilitySniff implements Sniff
+class ConstantVisibilitySniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -24,11 +21,9 @@ class ConstantVisibilitySniff implements Sniff
      */
     public function register()
     {
-        return [T_CONST];
-
-    }//end register()
-
-
+        return [\T_CONST];
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -38,24 +33,20 @@ class ConstantVisibilitySniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
         // Make sure this is a class constant.
-        if ($phpcsFile->hasCondition($stackPtr, Tokens::$ooScopeTokens) === false) {
+        if ($phpcsFile->hasCondition($stackPtr, \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens) === \false) {
             return;
         }
-
-        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
-        if (isset(Tokens::$scopeModifiers[$tokens[$prev]['code']]) === true) {
+        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        if (isset(\PHP_CodeSniffer\Util\Tokens::$scopeModifiers[$tokens[$prev]['code']]) === \true) {
             return;
         }
-
         $error = 'Visibility must be declared on all constants if your project supports PHP 7.1 or later';
         $phpcsFile->addWarning($error, $stackPtr, 'NotFound');
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

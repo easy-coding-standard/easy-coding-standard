@@ -8,51 +8,43 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation;
 
 /**
  * RequestMatcher compares a pre-defined set of checks against a Request instance.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class RequestMatcher implements RequestMatcherInterface
+class RequestMatcher implements \ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestMatcherInterface
 {
     /**
      * @var string|null
      */
     private $path;
-
     /**
      * @var string|null
      */
     private $host;
-
     /**
      * @var int|null
      */
     private $port;
-
     /**
      * @var string[]
      */
     private $methods = [];
-
     /**
      * @var string[]
      */
     private $ips = [];
-
     /**
      * @var array
      */
     private $attributes = [];
-
     /**
      * @var string[]
      */
     private $schemes = [];
-
     /**
      * @param string|string[]|null $methods
      * @param string|string[]|null $ips
@@ -69,12 +61,10 @@ class RequestMatcher implements RequestMatcherInterface
         $this->matchIps($ips);
         $this->matchScheme($schemes);
         $this->matchPort($port);
-
         foreach ($attributes as $k => $v) {
             $this->matchAttribute($k, $v);
         }
     }
-
     /**
      * Adds a check for the HTTP scheme.
      *
@@ -82,9 +72,8 @@ class RequestMatcher implements RequestMatcherInterface
      */
     public function matchScheme($scheme)
     {
-        $this->schemes = null !== $scheme ? array_map('strtolower', (array) $scheme) : [];
+        $this->schemes = null !== $scheme ? \array_map('strtolower', (array) $scheme) : [];
     }
-
     /**
      * Adds a check for the URL host name.
      * @param string|null $regexp
@@ -93,7 +82,6 @@ class RequestMatcher implements RequestMatcherInterface
     {
         $this->host = $regexp;
     }
-
     /**
      * Adds a check for the the URL port.
      *
@@ -103,7 +91,6 @@ class RequestMatcher implements RequestMatcherInterface
     {
         $this->port = $port;
     }
-
     /**
      * Adds a check for the URL path info.
      * @param string|null $regexp
@@ -112,7 +99,6 @@ class RequestMatcher implements RequestMatcherInterface
     {
         $this->path = $regexp;
     }
-
     /**
      * Adds a check for the client IP.
      *
@@ -123,7 +109,6 @@ class RequestMatcher implements RequestMatcherInterface
         $ip = (string) $ip;
         $this->matchIps($ip);
     }
-
     /**
      * Adds a check for the client IP.
      *
@@ -132,12 +117,10 @@ class RequestMatcher implements RequestMatcherInterface
     public function matchIps($ips)
     {
         $ips = null !== $ips ? (array) $ips : [];
-
-        $this->ips = array_reduce($ips, static function (array $ips, string $ip) {
-            return array_merge($ips, preg_split('/\s*,\s*/', $ip));
+        $this->ips = \array_reduce($ips, static function (array $ips, string $ip) {
+            return \array_merge($ips, \preg_split('/\\s*,\\s*/', $ip));
         }, []);
     }
-
     /**
      * Adds a check for the HTTP method.
      *
@@ -145,9 +128,8 @@ class RequestMatcher implements RequestMatcherInterface
      */
     public function matchMethod($method)
     {
-        $this->methods = null !== $method ? array_map('strtoupper', (array) $method) : [];
+        $this->methods = null !== $method ? \array_map('strtoupper', (array) $method) : [];
     }
-
     /**
      * Adds a check for request attribute.
      * @param string $key
@@ -159,46 +141,38 @@ class RequestMatcher implements RequestMatcherInterface
         $regexp = (string) $regexp;
         $this->attributes[$key] = $regexp;
     }
-
     /**
      * {@inheritdoc}
      */
-    public function matches(Request $request)
+    public function matches(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request)
     {
-        if ($this->schemes && !\in_array($request->getScheme(), $this->schemes, true)) {
-            return false;
+        if ($this->schemes && !\in_array($request->getScheme(), $this->schemes, \true)) {
+            return \false;
         }
-
-        if ($this->methods && !\in_array($request->getMethod(), $this->methods, true)) {
-            return false;
+        if ($this->methods && !\in_array($request->getMethod(), $this->methods, \true)) {
+            return \false;
         }
-
         foreach ($this->attributes as $key => $pattern) {
             $requestAttribute = $request->attributes->get($key);
             if (!\is_string($requestAttribute)) {
-                return false;
+                return \false;
             }
-            if (!preg_match('{'.$pattern.'}', $requestAttribute)) {
-                return false;
+            if (!\preg_match('{' . $pattern . '}', $requestAttribute)) {
+                return \false;
             }
         }
-
-        if (null !== $this->path && !preg_match('{'.$this->path.'}', rawurldecode($request->getPathInfo()))) {
-            return false;
+        if (null !== $this->path && !\preg_match('{' . $this->path . '}', \rawurldecode($request->getPathInfo()))) {
+            return \false;
         }
-
-        if (null !== $this->host && !preg_match('{'.$this->host.'}i', $request->getHost())) {
-            return false;
+        if (null !== $this->host && !\preg_match('{' . $this->host . '}i', $request->getHost())) {
+            return \false;
         }
-
         if (null !== $this->port && 0 < $this->port && $request->getPort() !== $this->port) {
-            return false;
+            return \false;
         }
-
-        if (IpUtils::checkIp($request->getClientIp(), $this->ips)) {
-            return true;
+        if (\ECSPrefix20210509\Symfony\Component\HttpFoundation\IpUtils::checkIp($request->getClientIp(), $this->ips)) {
+            return \true;
         }
-
         // Note to future implementors: add additional checks above the
         // foreach above or else your check might not be run!
         return 0 === \count($this->ips);

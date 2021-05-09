@@ -8,17 +8,14 @@ final class DocBlockEdgeDefinition
      * @var int
      */
     private $kind;
-
     /**
      * @var string
      */
     private $startChar;
-
     /**
      * @var string
      */
     private $endChar;
-
     /**
      * @param int $kind
      * @param string $startChar
@@ -33,7 +30,6 @@ final class DocBlockEdgeDefinition
         $this->startChar = $startChar;
         $this->endChar = $endChar;
     }
-
     /**
      * @return int
      */
@@ -41,7 +37,6 @@ final class DocBlockEdgeDefinition
     {
         return $this->kind;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ final class DocBlockEdgeDefinition
     {
         return $this->startChar;
     }
-
     /**
      * @return string
      */

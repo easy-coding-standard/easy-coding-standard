@@ -3,7 +3,6 @@
 namespace Symplify\RuleDocGenerator\Contract;
 
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 interface RuleCodeSamplePrinterInterface
 {
     /**
@@ -11,9 +10,8 @@ interface RuleCodeSamplePrinterInterface
      * @return bool
      */
     public function isMatch($class);
-
     /**
      * @return mixed[]
      */
-    public function print(CodeSampleInterface $codeSample, RuleDefinition $ruleDefinition);
+    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
 }

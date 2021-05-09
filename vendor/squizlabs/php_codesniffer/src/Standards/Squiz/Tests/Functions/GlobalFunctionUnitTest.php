@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the GlobalFunction sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\Functions;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class GlobalFunctionUnitTest extends AbstractSniffUnitTest
+class GlobalFunctionUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -26,10 +23,8 @@ class GlobalFunctionUnitTest extends AbstractSniffUnitTest
     public function getErrorList()
     {
         return [];
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -41,8 +36,7 @@ class GlobalFunctionUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [2 => 1];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

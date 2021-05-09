@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the SemicolonSpacing sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\CSS;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class SemicolonSpacingUnitTest extends AbstractSniffUnitTest
+class SemicolonSpacingUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,21 +22,9 @@ class SemicolonSpacingUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            2  => 1,
-            7  => 1,
-            30 => 1,
-            34 => 1,
-            36 => 1,
-            39 => 1,
-            43 => 1,
-            45 => 1,
-            48 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [2 => 1, 7 => 1, 30 => 1, 34 => 1, 36 => 1, 39 => 1, 43 => 1, 45 => 1, 48 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -51,8 +36,7 @@ class SemicolonSpacingUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

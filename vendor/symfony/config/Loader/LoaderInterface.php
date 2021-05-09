@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Config\Loader;
+namespace ECSPrefix20210509\Symfony\Component\Config\Loader;
 
 /**
  * LoaderInterface is the interface implemented by all loader classes.
@@ -29,7 +28,6 @@ interface LoaderInterface
      * @param string|null $type
      */
     public function load($resource, $type = null);
-
     /**
      * Returns whether this class supports the given resource.
      *
@@ -39,16 +37,14 @@ interface LoaderInterface
      * @param string $type
      */
     public function supports($resource, $type = null);
-
     /**
      * Gets the loader resolver.
      *
      * @return LoaderResolverInterface A LoaderResolverInterface instance
      */
     public function getResolver();
-
     /**
      * Sets the loader resolver.
      */
-    public function setResolver(LoaderResolverInterface $resolver);
+    public function setResolver(\ECSPrefix20210509\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver);
 }

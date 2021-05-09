@@ -8,16 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorEnhancer;
 
-namespace Symfony\Component\ErrorHandler\ErrorEnhancer;
-
-use Symfony\Component\ErrorHandler\Error\FatalError;
-use Symfony\Component\ErrorHandler\Error\UndefinedFunctionError;
-
+use ECSPrefix20210509\Symfony\Component\ErrorHandler\Error\FatalError;
+use ECSPrefix20210509\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class UndefinedFunctionErrorEnhancer implements ErrorEnhancerInterface
+class UndefinedFunctionErrorEnhancer implements \ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorEnhancer\ErrorEnhancerInterface
 {
     /**
      * {@inheritdoc}
@@ -25,10 +23,9 @@ class UndefinedFunctionErrorEnhancer implements ErrorEnhancerInterface
      */
     public function enhance(\Throwable $error)
     {
-        if ($error instanceof FatalError) {
+        if ($error instanceof \ECSPrefix20210509\Symfony\Component\ErrorHandler\Error\FatalError) {
             return null;
         }
-
         $message = $error->getMessage();
         $messageLen = \strlen($message);
         $notFoundSuffix = '()';
@@ -36,53 +33,46 @@ class UndefinedFunctionErrorEnhancer implements ErrorEnhancerInterface
         if ($notFoundSuffixLen > $messageLen) {
             return null;
         }
-
-        if (0 !== substr_compare($message, $notFoundSuffix, -$notFoundSuffixLen)) {
+        if (0 !== \substr_compare($message, $notFoundSuffix, -$notFoundSuffixLen)) {
             return null;
         }
-
         $prefix = 'Call to undefined function ';
         $prefixLen = \strlen($prefix);
-        if (0 !== strpos($message, $prefix)) {
+        if (0 !== \strpos($message, $prefix)) {
             return null;
         }
-
-        $fullyQualifiedFunctionName = substr($message, $prefixLen, -$notFoundSuffixLen);
-        if (false !== $namespaceSeparatorIndex = strrpos($fullyQualifiedFunctionName, '\\')) {
-            $functionName = substr($fullyQualifiedFunctionName, $namespaceSeparatorIndex + 1);
-            $namespacePrefix = substr($fullyQualifiedFunctionName, 0, $namespaceSeparatorIndex);
-            $message = sprintf('Attempted to call function "%s" from namespace "%s".', $functionName, $namespacePrefix);
+        $fullyQualifiedFunctionName = \substr($message, $prefixLen, -$notFoundSuffixLen);
+        if (\false !== ($namespaceSeparatorIndex = \strrpos($fullyQualifiedFunctionName, '\\'))) {
+            $functionName = \substr($fullyQualifiedFunctionName, $namespaceSeparatorIndex + 1);
+            $namespacePrefix = \substr($fullyQualifiedFunctionName, 0, $namespaceSeparatorIndex);
+            $message = \sprintf('Attempted to call function "%s" from namespace "%s".', $functionName, $namespacePrefix);
         } else {
             $functionName = $fullyQualifiedFunctionName;
-            $message = sprintf('Attempted to call function "%s" from the global namespace.', $functionName);
+            $message = \sprintf('Attempted to call function "%s" from the global namespace.', $functionName);
         }
-
         $candidates = [];
-        foreach (get_defined_functions() as $type => $definedFunctionNames) {
+        foreach (\get_defined_functions() as $type => $definedFunctionNames) {
             foreach ($definedFunctionNames as $definedFunctionName) {
-                if (false !== $namespaceSeparatorIndex = strrpos($definedFunctionName, '\\')) {
-                    $definedFunctionNameBasename = substr($definedFunctionName, $namespaceSeparatorIndex + 1);
+                if (\false !== ($namespaceSeparatorIndex = \strrpos($definedFunctionName, '\\'))) {
+                    $definedFunctionNameBasename = \substr($definedFunctionName, $namespaceSeparatorIndex + 1);
                 } else {
                     $definedFunctionNameBasename = $definedFunctionName;
                 }
-
                 if ($definedFunctionNameBasename === $functionName) {
-                    $candidates[] = '\\'.$definedFunctionName;
+                    $candidates[] = '\\' . $definedFunctionName;
                 }
             }
         }
-
         if ($candidates) {
-            sort($candidates);
-            $last = array_pop($candidates).'"?';
+            \sort($candidates);
+            $last = \array_pop($candidates) . '"?';
             if ($candidates) {
-                $candidates = 'e.g. "'.implode('", "', $candidates).'" or "'.$last;
+                $candidates = 'e.g. "' . \implode('", "', $candidates) . '" or "' . $last;
             } else {
-                $candidates = '"'.$last;
+                $candidates = '"' . $last;
             }
-            $message .= "\nDid you mean to call ".$candidates;
+            $message .= "\nDid you mean to call " . $candidates;
         }
-
-        return new UndefinedFunctionError($message, $error);
+        return new \ECSPrefix20210509\Symfony\Component\ErrorHandler\Error\UndefinedFunctionError($message, $error);
     }
 }

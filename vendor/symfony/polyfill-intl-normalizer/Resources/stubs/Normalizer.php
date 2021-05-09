@@ -1,6 +1,8 @@
 <?php
 
-class Normalizer extends Symfony\Polyfill\Intl\Normalizer\Normalizer
+
+
+class Normalizer extends \ECSPrefix20210509\Symfony\Polyfill\Intl\Normalizer\Normalizer
 {
     /**
      * @deprecated since ICU 56 and removed in PHP 8
@@ -15,3 +17,4 @@ class Normalizer extends Symfony\Polyfill\Intl\Normalizer\Normalizer
     const NFC = 16;
     const NFKC = 32;
 }
+

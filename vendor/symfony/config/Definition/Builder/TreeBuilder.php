@@ -8,33 +8,29 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Config\Definition\Builder;
 
-namespace Symfony\Component\Config\Definition\Builder;
-
-use Symfony\Component\Config\Definition\NodeInterface;
-
+use ECSPrefix20210509\Symfony\Component\Config\Definition\NodeInterface;
 /**
  * This is the entry class for building a config tree.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class TreeBuilder implements NodeParentInterface
+class TreeBuilder implements \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NodeParentInterface
 {
     protected $tree;
     protected $root;
-
     /**
      * @param string $name
      * @param string $type
      */
-    public function __construct($name, $type = 'array', NodeBuilder $builder = null)
+    public function __construct($name, $type = 'array', \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NodeBuilder $builder = null)
     {
         $name = (string) $name;
         $type = (string) $type;
-        $builder = isset($builder) ? $builder : new NodeBuilder();
+        $builder = isset($builder) ? $builder : new \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NodeBuilder();
         $this->root = $builder->node($name, $type)->setParent($this);
     }
-
     /**
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
      */
@@ -42,7 +38,6 @@ class TreeBuilder implements NodeParentInterface
     {
         return $this->root;
     }
-
     /**
      * Builds the tree.
      *
@@ -55,10 +50,8 @@ class TreeBuilder implements NodeParentInterface
         if (null !== $this->tree) {
             return $this->tree;
         }
-
-        return $this->tree = $this->root->getNode(true);
+        return $this->tree = $this->root->getNode(\true);
     }
-
     /**
      * @param string $separator
      */
@@ -67,7 +60,6 @@ class TreeBuilder implements NodeParentInterface
         $separator = (string) $separator;
         // unset last built as changing path separator changes all nodes
         $this->tree = null;
-
         $this->root->setPathSeparator($separator);
     }
 }

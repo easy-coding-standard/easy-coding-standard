@@ -8,33 +8,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector;
 
-namespace Symfony\Component\HttpKernel\DataCollector;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
-use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\VarDumper\Cloner\Data;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\CliDumper;
-use Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider;
-use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
-use Symfony\Component\VarDumper\Dumper\HtmlDumper;
-use Symfony\Component\VarDumper\Server\Connection;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Debug\FileLinkFormatter;
+use ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\DataDumperInterface;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Server\Connection;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @final
  */
-class DumpDataCollector extends DataCollector implements DataDumperInterface
+class DumpDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\DataDumperInterface
 {
     private $stopwatch;
     private $fileLinkFormat;
     private $dataCount = 0;
-    private $isCollected = true;
+    private $isCollected = \true;
     private $clonesCount = 0;
     private $clonesIndex = 0;
     private $rootRefs;
@@ -42,100 +40,75 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
     private $requestStack;
     private $dumper;
     private $sourceContextProvider;
-
     /**
      * @param string|FileLinkFormatter|null       $fileLinkFormat
      * @param DataDumperInterface|Connection|null $dumper
      * @param string $charset
      */
-    public function __construct(Stopwatch $stopwatch = null, $fileLinkFormat = null, $charset = null, RequestStack $requestStack = null, $dumper = null)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch $stopwatch = null, $fileLinkFormat = null, $charset = null, \ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestStack $requestStack = null, $dumper = null)
     {
         $this->stopwatch = $stopwatch;
-        $this->fileLinkFormat = $fileLinkFormat ?: ini_get('xdebug.file_link_format') ?: get_cfg_var('xdebug.file_link_format');
-        $this->charset = $charset ?: ini_get('php.output_encoding') ?: ini_get('default_charset') ?: 'UTF-8';
+        $this->fileLinkFormat = ($fileLinkFormat ?: \ini_get('xdebug.file_link_format')) ?: \get_cfg_var('xdebug.file_link_format');
+        $this->charset = (($charset ?: \ini_get('php.output_encoding')) ?: \ini_get('default_charset')) ?: 'UTF-8';
         $this->requestStack = $requestStack;
         $this->dumper = $dumper;
-
         // All clones share these properties by reference:
-        $this->rootRefs = [
-            &$this->data,
-            &$this->dataCount,
-            &$this->isCollected,
-            &$this->clonesCount,
-        ];
-
-        $this->sourceContextProvider = $dumper instanceof Connection && isset($dumper->getContextProviders()['source']) ? $dumper->getContextProviders()['source'] : new SourceContextProvider($this->charset);
+        $this->rootRefs = [&$this->data, &$this->dataCount, &$this->isCollected, &$this->clonesCount];
+        $this->sourceContextProvider = $dumper instanceof \ECSPrefix20210509\Symfony\Component\VarDumper\Server\Connection && isset($dumper->getContextProviders()['source']) ? $dumper->getContextProviders()['source'] : new \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider($this->charset);
     }
-
     public function __clone()
     {
         $this->clonesIndex = ++$this->clonesCount;
     }
-
-    public function dump(Data $data)
+    public function dump(\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data $data)
     {
         if ($this->stopwatch) {
             $this->stopwatch->start('dump');
         }
-
         list($name, $file, $line, $fileExcerpt) = $this->sourceContextProvider->getContext();
-
-        if ($this->dumper instanceof Connection) {
+        if ($this->dumper instanceof \ECSPrefix20210509\Symfony\Component\VarDumper\Server\Connection) {
             if (!$this->dumper->write($data)) {
-                $this->isCollected = false;
+                $this->isCollected = \false;
             }
         } elseif ($this->dumper) {
             $this->doDump($this->dumper, $data, $name, $file, $line);
         } else {
-            $this->isCollected = false;
+            $this->isCollected = \false;
         }
-
         if (!$this->dataCount) {
             $this->data = [];
         }
-        $this->data[] = compact('data', 'name', 'file', 'line', 'fileExcerpt');
+        $this->data[] = \compact('data', 'name', 'file', 'line', 'fileExcerpt');
         ++$this->dataCount;
-
         if ($this->stopwatch) {
             $this->stopwatch->stop('dump');
         }
     }
-
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
     {
         if (!$this->dataCount) {
             $this->data = [];
         }
-
         // Sub-requests and programmatic calls stay in the collected profile.
-        if ($this->dumper || ($this->requestStack && $this->requestStack->getMasterRequest() !== $request) || $request->isXmlHttpRequest() || $request->headers->has('Origin')) {
+        if ($this->dumper || $this->requestStack && $this->requestStack->getMasterRequest() !== $request || $request->isXmlHttpRequest() || $request->headers->has('Origin')) {
             return;
         }
-
         // In all other conditions that remove the web debug toolbar, dumps are written on the output.
-        if (!$this->requestStack
-            || !$response->headers->has('X-Debug-Token')
-            || $response->isRedirection()
-            || ($response->headers->has('Content-Type') && false === strpos($response->headers->get('Content-Type'), 'html'))
-            || 'html' !== $request->getRequestFormat()
-            || false === strripos($response->getContent(), '</body>')
-        ) {
-            if ($response->headers->has('Content-Type') && false !== strpos($response->headers->get('Content-Type'), 'html')) {
-                $dumper = new HtmlDumper('php://output', $this->charset);
+        if (!$this->requestStack || !$response->headers->has('X-Debug-Token') || $response->isRedirection() || $response->headers->has('Content-Type') && \false === \strpos($response->headers->get('Content-Type'), 'html') || 'html' !== $request->getRequestFormat() || \false === \strripos($response->getContent(), '</body>')) {
+            if ($response->headers->has('Content-Type') && \false !== \strpos($response->headers->get('Content-Type'), 'html')) {
+                $dumper = new \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\HtmlDumper('php://output', $this->charset);
                 $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
             } else {
-                $dumper = new CliDumper('php://output', $this->charset);
-                if (method_exists($dumper, 'setDisplayOptions')) {
+                $dumper = new \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper('php://output', $this->charset);
+                if (\method_exists($dumper, 'setDisplayOptions')) {
                     $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
                 }
             }
-
             foreach ($this->data as $dump) {
                 $this->doDump($dumper, $dump['data'], $dump['name'], $dump['file'], $dump['line']);
             }
         }
     }
-
     public function reset()
     {
         if ($this->stopwatch) {
@@ -143,11 +116,10 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
         }
         $this->data = [];
         $this->dataCount = 0;
-        $this->isCollected = true;
+        $this->isCollected = \true;
         $this->clonesCount = 0;
         $this->clonesIndex = 0;
     }
-
     /**
      * @internal
      * @return mixed[]
@@ -157,38 +129,31 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
         if (!$this->dataCount) {
             $this->data = [];
         }
-
         if ($this->clonesCount !== $this->clonesIndex) {
             return [];
         }
-
         $this->data[] = $this->fileLinkFormat;
         $this->data[] = $this->charset;
         $this->dataCount = 0;
-        $this->isCollected = true;
-
+        $this->isCollected = \true;
         return parent::__sleep();
     }
-
     /**
      * @internal
      */
     public function __wakeup()
     {
         parent::__wakeup();
-
-        $charset = array_pop($this->data);
-        $fileLinkFormat = array_pop($this->data);
+        $charset = \array_pop($this->data);
+        $fileLinkFormat = \array_pop($this->data);
         $this->dataCount = \count($this->data);
         foreach ($this->data as $dump) {
             if (!\is_string($dump['name']) || !\is_string($dump['file']) || !\is_int($dump['line'])) {
-                throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
+                throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
             }
         }
-
-        self::__construct($this->stopwatch, \is_string($fileLinkFormat) || $fileLinkFormat instanceof FileLinkFormatter ? $fileLinkFormat : null, \is_string($charset) ? $charset : null);
+        self::__construct($this->stopwatch, \is_string($fileLinkFormat) || $fileLinkFormat instanceof \ECSPrefix20210509\Symfony\Component\HttpKernel\Debug\FileLinkFormatter ? $fileLinkFormat : null, \is_string($charset) ? $charset : null);
     }
-
     /**
      * @return int
      */
@@ -196,37 +161,31 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
     {
         return $this->dataCount;
     }
-
     /**
      * @return mixed[]
      */
     public function getDumps($format, $maxDepthLimit = -1, $maxItemsPerDepth = -1)
     {
-        $data = fopen('php://memory', 'r+');
-
+        $data = \fopen('php://memory', 'r+');
         if ('html' === $format) {
-            $dumper = new HtmlDumper($data, $this->charset);
+            $dumper = new \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\HtmlDumper($data, $this->charset);
             $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
         } else {
-            throw new \InvalidArgumentException(sprintf('Invalid dump format: "%s".', $format));
+            throw new \InvalidArgumentException(\sprintf('Invalid dump format: "%s".', $format));
         }
         $dumps = [];
-
         if (!$this->dataCount) {
             return $this->data = [];
         }
-
         foreach ($this->data as $dump) {
             $dumper->dump($dump['data']->withMaxDepth($maxDepthLimit)->withMaxItemsPerDepth($maxItemsPerDepth));
-            $dump['data'] = stream_get_contents($data, -1, 0);
-            ftruncate($data, 0);
-            rewind($data);
+            $dump['data'] = \stream_get_contents($data, -1, 0);
+            \ftruncate($data, 0);
+            \rewind($data);
             $dumps[] = $dump;
         }
-
         return $dumps;
     }
-
     /**
      * @return string
      */
@@ -234,76 +193,70 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
     {
         return 'dump';
     }
-
     public function __destruct()
     {
         if (0 === $this->clonesCount-- && !$this->isCollected && $this->dataCount) {
             $this->clonesCount = 0;
-            $this->isCollected = true;
-
-            $h = headers_list();
+            $this->isCollected = \true;
+            $h = \headers_list();
             $i = \count($h);
-            array_unshift($h, 'Content-Type: '.ini_get('default_mimetype'));
-            while (0 !== stripos($h[$i], 'Content-Type:')) {
+            \array_unshift($h, 'Content-Type: ' . \ini_get('default_mimetype'));
+            while (0 !== \stripos($h[$i], 'Content-Type:')) {
                 --$i;
             }
-
-            if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], true) && stripos($h[$i], 'html')) {
-                $dumper = new HtmlDumper('php://output', $this->charset);
+            if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg'], \true) && \stripos($h[$i], 'html')) {
+                $dumper = new \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\HtmlDumper('php://output', $this->charset);
                 $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
             } else {
-                $dumper = new CliDumper('php://output', $this->charset);
-                if (method_exists($dumper, 'setDisplayOptions')) {
+                $dumper = new \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper('php://output', $this->charset);
+                if (\method_exists($dumper, 'setDisplayOptions')) {
                     $dumper->setDisplayOptions(['fileLinkFormat' => $this->fileLinkFormat]);
                 }
             }
-
             foreach ($this->data as $i => $dump) {
                 $this->data[$i] = null;
                 $this->doDump($dumper, $dump['data'], $dump['name'], $dump['file'], $dump['line']);
             }
-
             $this->data = [];
             $this->dataCount = 0;
         }
     }
-
     /**
      * @param string $name
      * @param string $file
      * @param int $line
      */
-    private function doDump(DataDumperInterface $dumper, Data $data, $name, $file, $line)
+    private function doDump(\ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\DataDumperInterface $dumper, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data $data, $name, $file, $line)
     {
         $name = (string) $name;
         $file = (string) $file;
         $line = (int) $line;
-        if ($dumper instanceof CliDumper) {
+        if ($dumper instanceof \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper) {
             $contextDumper = function ($name, $file, $line, $fmt) {
-                if ($this instanceof HtmlDumper) {
+                if ($this instanceof \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\HtmlDumper) {
                     if ($file) {
                         $s = $this->style('meta', '%s');
-                        $f = strip_tags($this->style('', $file));
-                        $name = strip_tags($this->style('', $name));
-                        if ($fmt && $link = \is_string($fmt) ? strtr($fmt, ['%f' => $file, '%l' => $line]) : $fmt->format($file, $line)) {
-                            $name = sprintf('<a href="%s" title="%s">'.$s.'</a>', strip_tags($this->style('', $link)), $f, $name);
+                        $f = \strip_tags($this->style('', $file));
+                        $name = \strip_tags($this->style('', $name));
+                        if ($fmt && ($link = \is_string($fmt) ? \strtr($fmt, ['%f' => $file, '%l' => $line]) : $fmt->format($file, $line))) {
+                            $name = \sprintf('<a href="%s" title="%s">' . $s . '</a>', \strip_tags($this->style('', $link)), $f, $name);
                         } else {
-                            $name = sprintf('<abbr title="%s">'.$s.'</abbr>', $f, $name);
+                            $name = \sprintf('<abbr title="%s">' . $s . '</abbr>', $f, $name);
                         }
                     } else {
                         $name = $this->style('meta', $name);
                     }
-                    $this->line = $name.' on line '.$this->style('meta', $line).':';
+                    $this->line = $name . ' on line ' . $this->style('meta', $line) . ':';
                 } else {
-                    $this->line = $this->style('meta', $name).' on line '.$this->style('meta', $line).':';
+                    $this->line = $this->style('meta', $name) . ' on line ' . $this->style('meta', $line) . ':';
                 }
                 $this->dumpLine(0);
             };
             $contextDumper = $contextDumper->bindTo($dumper, $dumper);
             $contextDumper($name, $file, $line, $this->fileLinkFormat);
         } else {
-            $cloner = new VarCloner();
-            $dumper->dump($cloner->cloneVar($name.' on line '.$line.':'));
+            $cloner = new \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner();
+            $dumper->dump($cloner->cloneVar($name . ' on line ' . $line . ':'));
         }
         $dumper->dump($data);
     }

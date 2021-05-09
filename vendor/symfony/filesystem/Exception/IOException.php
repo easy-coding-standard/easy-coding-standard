@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Filesystem\Exception;
+namespace ECSPrefix20210509\Symfony\Component\Filesystem\Exception;
 
 /**
  * Exception class thrown when a filesystem operation failure happens.
@@ -18,10 +17,9 @@ namespace Symfony\Component\Filesystem\Exception;
  * @author Christian Gärtner <christiangaertner.film@googlemail.com>
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class IOException extends \RuntimeException implements IOExceptionInterface
+class IOException extends \RuntimeException implements \ECSPrefix20210509\Symfony\Component\Filesystem\Exception\IOExceptionInterface
 {
     private $path;
-
     /**
      * @param string $message
      * @param int $code
@@ -32,10 +30,8 @@ class IOException extends \RuntimeException implements IOExceptionInterface
         $message = (string) $message;
         $code = (int) $code;
         $this->path = $path;
-
         parent::__construct($message, $code, $previous);
     }
-
     /**
      * {@inheritdoc}
      */

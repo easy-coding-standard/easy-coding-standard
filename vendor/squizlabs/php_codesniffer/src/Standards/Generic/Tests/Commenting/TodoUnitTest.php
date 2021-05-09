@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the Todo sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Commenting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class TodoUnitTest extends AbstractSniffUnitTest
+class TodoUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,13 +22,11 @@ class TodoUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile='TodoUnitTest.inc')
+    public function getErrorList($testFile = 'TodoUnitTest.inc')
     {
         return [];
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -42,20 +37,10 @@ class TodoUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getWarningList($testFile='TodoUnitTest.inc')
+    public function getWarningList($testFile = 'TodoUnitTest.inc')
     {
-        return [
-            3  => 1,
-            4  => 1,
-            7  => 1,
-            10 => 1,
-            13 => 1,
-            16 => 1,
-            18 => 1,
-            21 => 1,
-        ];
-
-    }//end getWarningList()
-
-
-}//end class
+        return [3 => 1, 4 => 1, 7 => 1, 10 => 1, 13 => 1, 16 => 1, 18 => 1, 21 => 1];
+    }
+    //end getWarningList()
+}
+//end class

@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\DependencyInjection\Argument;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument;
 
 /**
  * @internal
@@ -18,7 +17,6 @@ class RewindableGenerator implements \IteratorAggregate, \Countable
 {
     private $generator;
     private $count;
-
     /**
      * @param int|callable $count
      */
@@ -27,17 +25,14 @@ class RewindableGenerator implements \IteratorAggregate, \Countable
         $this->generator = $generator;
         $this->count = $count;
     }
-
     /**
      * @return \Traversable
      */
     public function getIterator()
     {
         $g = $this->generator;
-
         return $g();
     }
-
     /**
      * @return int
      */
@@ -46,7 +41,6 @@ class RewindableGenerator implements \IteratorAggregate, \Countable
         if (\is_callable($count = $this->count)) {
             $this->count = $count();
         }
-
         return $this->count;
     }
 }

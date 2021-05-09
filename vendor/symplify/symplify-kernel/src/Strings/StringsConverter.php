@@ -2,8 +2,7 @@
 
 namespace Symplify\SymplifyKernel\Strings;
 
-use Nette\Utils\Strings;
-
+use ECSPrefix20210509\Nette\Utils\Strings;
 final class StringsConverter
 {
     /**
@@ -11,7 +10,6 @@ final class StringsConverter
      * @var string
      */
     const CAMEL_CASE_BY_WORD_REGEX = '#([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)#';
-
     /**
      * @param string $input
      * @param string $glue
@@ -21,19 +19,16 @@ final class StringsConverter
     {
         $input = (string) $input;
         $glue = (string) $glue;
-        if ($input === strtolower($input)) {
+        if ($input === \strtolower($input)) {
             return $input;
         }
-
-        $matches = Strings::matchAll($input, self::CAMEL_CASE_BY_WORD_REGEX);
+        $matches = \ECSPrefix20210509\Nette\Utils\Strings::matchAll($input, self::CAMEL_CASE_BY_WORD_REGEX);
         $parts = [];
         foreach ($matches as $match) {
-            $parts[] = $match[0] === strtoupper($match[0]) ? strtolower($match[0]) : lcfirst($match[0]);
+            $parts[] = $match[0] === \strtoupper($match[0]) ? \strtolower($match[0]) : \lcfirst($match[0]);
         }
-
-        return implode($glue, $parts);
+        return \implode($glue, $parts);
     }
-
     /**
      * @param string $content
      * @param string $glue
@@ -43,7 +38,7 @@ final class StringsConverter
     {
         $content = (string) $content;
         $glue = (string) $glue;
-        $parts = explode('-', $content);
+        $parts = \explode('-', $content);
         $casedParts = [];
         foreach ($parts as $part) {
             // special names
@@ -51,10 +46,8 @@ final class StringsConverter
                 $casedParts[] = 'PHPStan';
                 continue;
             }
-
-            $casedParts[] = ucfirst($part);
+            $casedParts[] = \ucfirst($part);
         }
-
-        return implode($glue, $casedParts);
+        return \implode($glue, $casedParts);
     }
 }

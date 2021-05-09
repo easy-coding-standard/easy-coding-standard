@@ -8,26 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection;
 
 /**
  * Represents a PHP type-hinted service reference.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class TypedReference extends Reference
+class TypedReference extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference
 {
     private $type;
     private $name;
-
     /**
      * @param string $id              The service identifier
      * @param string $type            The PHP type of the identified service
      * @param int    $invalidBehavior The behavior when the service does not exist
      * @param string $name            The name of the argument targeting the service
      */
-    public function __construct($id, $type, $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name = null)
+    public function __construct($id, $type, $invalidBehavior = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $name = null)
     {
         $id = (string) $id;
         $type = (string) $type;
@@ -36,12 +34,10 @@ class TypedReference extends Reference
         parent::__construct($id, $invalidBehavior);
         $this->type = $type;
     }
-
     public function getType()
     {
         return $this->type;
     }
-
     /**
      * @return string|null
      */

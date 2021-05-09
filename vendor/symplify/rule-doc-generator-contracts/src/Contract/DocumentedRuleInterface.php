@@ -3,7 +3,6 @@
 namespace Symplify\RuleDocGenerator\Contract;
 
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 interface DocumentedRuleInterface
 {
     /**

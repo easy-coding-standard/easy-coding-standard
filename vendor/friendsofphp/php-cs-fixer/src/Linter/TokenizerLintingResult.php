@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Linter;
 
 /**
@@ -17,13 +16,12 @@ namespace PhpCsFixer\Linter;
  *
  * @internal
  */
-final class TokenizerLintingResult implements LintingResultInterface
+final class TokenizerLintingResult implements \PhpCsFixer\Linter\LintingResultInterface
 {
     /**
      * @var null|\Error
      */
     private $error;
-
     /**
      * @param \Error|null $error
      */
@@ -31,7 +29,6 @@ final class TokenizerLintingResult implements LintingResultInterface
     {
         $this->error = $error;
     }
-
     /**
      * {@inheritdoc}
      * @return void
@@ -39,14 +36,9 @@ final class TokenizerLintingResult implements LintingResultInterface
     public function check()
     {
         if (null !== $this->error) {
-            throw new LintingException(
-                sprintf('%s: %s on line %d.', $this->getMessagePrefix(), $this->error->getMessage(), $this->error->getLine()),
-                $this->error->getCode(),
-                $this->error
-            );
+            throw new \PhpCsFixer\Linter\LintingException(\sprintf('%s: %s on line %d.', $this->getMessagePrefix(), $this->error->getMessage(), $this->error->getLine()), $this->error->getCode(), $this->error);
         }
     }
-
     /**
      * @return string
      */

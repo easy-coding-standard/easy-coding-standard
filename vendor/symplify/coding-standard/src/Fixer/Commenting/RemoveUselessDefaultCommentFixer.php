@@ -12,78 +12,63 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\RemoveUselessDefaultCommentFixer\RemoveUselessDefaultCommentFixerTest
  */
-final class RemoveUselessDefaultCommentFixer extends AbstractSymplifyFixer implements DocumentedRuleInterface
+final class RemoveUselessDefaultCommentFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
      */
     const ERROR_MESSAGE = 'Remove useless PHPStorm-generated @todo comments, redundant "Class XY" or "gets service" comments etc.';
-
     /**
      * @var UselessDocBlockCleaner
      */
     private $uselessDocBlockCleaner;
-
-    public function __construct(UselessDocBlockCleaner $uselessDocBlockCleaner)
+    public function __construct(\Symplify\CodingStandard\DocBlock\UselessDocBlockCleaner $uselessDocBlockCleaner)
     {
         $this->uselessDocBlockCleaner = $uselessDocBlockCleaner;
     }
-
     /**
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(self::ERROR_MESSAGE, []);
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
-
     /**
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound([T_DOC_COMMENT, T_COMMENT]);
+        return $tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT]);
     }
-
     /**
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(SplFileInfo $file, Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {
-            if (! $token->isGivenKind([T_DOC_COMMENT, T_COMMENT])) {
+            if (!$token->isGivenKind([\T_DOC_COMMENT, \T_COMMENT])) {
                 continue;
             }
-
-            $cleanedDocContent = $this->uselessDocBlockCleaner->clearDocTokenContent(
-                $reversedTokens,
-                $index,
-                $token->getContent()
-            );
+            $cleanedDocContent = $this->uselessDocBlockCleaner->clearDocTokenContent($reversedTokens, $index, $token->getContent());
             if ($cleanedDocContent !== '') {
                 continue;
             }
-
             // remove token
             $tokens->clearAt($index);
         }
     }
-
     /**
      * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
      */
     public function getRuleDefinition()
     {
-        return new RuleDefinition(self::ERROR_MESSAGE, [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * class SomeClass
  */
@@ -99,8 +84,7 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 class SomeClass
 {
     public function __construct()
@@ -108,7 +92,6 @@ class SomeClass
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
 }

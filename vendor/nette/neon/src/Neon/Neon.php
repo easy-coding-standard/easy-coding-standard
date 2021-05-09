@@ -1,7 +1,6 @@
 <?php
 
-namespace Nette\Neon;
-
+namespace ECSPrefix20210509\Nette\Neon;
 
 /**
  * Simple parser & generator for Nette Object Notation.
@@ -9,34 +8,29 @@ namespace Nette\Neon;
  */
 final class Neon
 {
-	const BLOCK = Encoder::BLOCK;
-
-	const CHAIN = '!!chain';
-
-
-	/**
-	 * Returns value converted to NEON. The flag can be Neon::BLOCK, which will create multiline output.
-	 * @param int $flags
-	 * @return string
-	 */
-	public static function encode($value, $flags = 0)
-	{
-		$flags = (int) $flags;
-		$encoder = new Encoder;
-		return $encoder->encode($value, $flags);
-	}
-
-
-	/**
-	 * Converts given NEON to PHP value.
-	 * Returns scalars, arrays, DateTimeImmutable and Entity objects.
-	 * @return mixed
-	 * @param string $input
-	 */
-	public static function decode($input)
-	{
-		$input = (string) $input;
-		$decoder = new Decoder;
-		return $decoder->decode($input);
-	}
+    const BLOCK = \ECSPrefix20210509\Nette\Neon\Encoder::BLOCK;
+    const CHAIN = '!!chain';
+    /**
+     * Returns value converted to NEON. The flag can be Neon::BLOCK, which will create multiline output.
+     * @param int $flags
+     * @return string
+     */
+    public static function encode($value, $flags = 0)
+    {
+        $flags = (int) $flags;
+        $encoder = new \ECSPrefix20210509\Nette\Neon\Encoder();
+        return $encoder->encode($value, $flags);
+    }
+    /**
+     * Converts given NEON to PHP value.
+     * Returns scalars, arrays, DateTimeImmutable and Entity objects.
+     * @return mixed
+     * @param string $input
+     */
+    public static function decode($input)
+    {
+        $input = (string) $input;
+        $decoder = new \ECSPrefix20210509\Nette\Neon\Decoder();
+        return $decoder->decode($input);
+    }
 }

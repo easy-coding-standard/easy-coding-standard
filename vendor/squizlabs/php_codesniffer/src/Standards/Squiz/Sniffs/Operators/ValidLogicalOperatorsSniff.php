@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensures logical operators 'and' and 'or' are not used.
  *
@@ -6,16 +7,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Operators;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class ValidLogicalOperatorsSniff implements Sniff
+class ValidLogicalOperatorsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -23,14 +20,9 @@ class ValidLogicalOperatorsSniff implements Sniff
      */
     public function register()
     {
-        return [
-            T_LOGICAL_AND,
-            T_LOGICAL_OR,
-        ];
-
-    }//end register()
-
-
+        return [\T_LOGICAL_AND, \T_LOGICAL_OR];
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -40,28 +32,18 @@ class ValidLogicalOperatorsSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        $replacements = [
-            'and' => '&&',
-            'or'  => '||',
-        ];
-
-        $operator = strtolower($tokens[$stackPtr]['content']);
-        if (isset($replacements[$operator]) === false) {
+        $replacements = ['and' => '&&', 'or' => '||'];
+        $operator = \strtolower($tokens[$stackPtr]['content']);
+        if (isset($replacements[$operator]) === \false) {
             return;
         }
-
         $error = 'Logical operator "%s" is prohibited; use "%s" instead';
-        $data  = [
-            $operator,
-            $replacements[$operator],
-        ];
+        $data = [$operator, $replacements[$operator]];
         $phpcsFile->addError($error, $stackPtr, 'NotAllowed', $data);
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

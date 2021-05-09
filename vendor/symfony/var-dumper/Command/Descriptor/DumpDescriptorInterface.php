@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\VarDumper\Command\Descriptor;
 
-namespace Symfony\Component\VarDumper\Command\Descriptor;
-
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\VarDumper\Cloner\Data;
-
+use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
@@ -23,5 +21,5 @@ interface DumpDescriptorInterface
      * @return void
      * @param int $clientId
      */
-    public function describe(OutputInterface $output, Data $data, array $context, $clientId);
+    public function describe(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId);
 }

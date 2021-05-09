@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the ClassDefinitionOpeningBraceSpace sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\CSS;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class ClassDefinitionOpeningBraceSpaceUnitTest extends AbstractSniffUnitTest
+class ClassDefinitionOpeningBraceSpaceUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,27 +22,9 @@ class ClassDefinitionOpeningBraceSpaceUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            4  => 1,
-            7  => 1,
-            10 => 1,
-            26 => 1,
-            33 => 1,
-            43 => 1,
-            45 => 1,
-            50 => 1,
-            57 => 2,
-            59 => 2,
-            62 => 1,
-            73 => 1,
-            77 => 1,
-            84 => 1,
-            97 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [4 => 1, 7 => 1, 10 => 1, 26 => 1, 33 => 1, 43 => 1, 45 => 1, 50 => 1, 57 => 2, 59 => 2, 62 => 1, 73 => 1, 77 => 1, 84 => 1, 97 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -57,8 +36,7 @@ class ClassDefinitionOpeningBraceSpaceUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

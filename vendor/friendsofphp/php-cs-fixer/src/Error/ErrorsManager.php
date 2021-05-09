@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Error;
 
 /**
@@ -25,7 +24,6 @@ final class ErrorsManager
      * @var Error[]
      */
     private $errors = [];
-
     /**
      * Returns errors reported during linting before fixing.
      *
@@ -33,11 +31,10 @@ final class ErrorsManager
      */
     public function getInvalidErrors()
     {
-        return array_filter($this->errors, static function (Error $error) {
-            return Error::TYPE_INVALID === $error->getType();
+        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) {
+            return \PhpCsFixer\Error\Error::TYPE_INVALID === $error->getType();
         });
     }
-
     /**
      * Returns errors reported during fixing.
      *
@@ -45,11 +42,10 @@ final class ErrorsManager
      */
     public function getExceptionErrors()
     {
-        return array_filter($this->errors, static function (Error $error) {
-            return Error::TYPE_EXCEPTION === $error->getType();
+        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) {
+            return \PhpCsFixer\Error\Error::TYPE_EXCEPTION === $error->getType();
         });
     }
-
     /**
      * Returns errors reported during linting after fixing.
      *
@@ -57,11 +53,10 @@ final class ErrorsManager
      */
     public function getLintErrors()
     {
-        return array_filter($this->errors, static function (Error $error) {
-            return Error::TYPE_LINT === $error->getType();
+        return \array_filter($this->errors, static function (\PhpCsFixer\Error\Error $error) {
+            return \PhpCsFixer\Error\Error::TYPE_LINT === $error->getType();
         });
     }
-
     /**
      * Returns true if no errors were reported.
      * @return bool
@@ -70,11 +65,10 @@ final class ErrorsManager
     {
         return empty($this->errors);
     }
-
     /**
      * @return void
      */
-    public function report(Error $error)
+    public function report(\PhpCsFixer\Error\Error $error)
     {
         $this->errors[] = $error;
     }

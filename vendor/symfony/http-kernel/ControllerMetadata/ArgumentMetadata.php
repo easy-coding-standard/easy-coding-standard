@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata;
 
-namespace Symfony\Component\HttpKernel\ControllerMetadata;
-
-use Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
-
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Attribute\ArgumentInterface;
 /**
  * Responsible for storing metadata of an argument.
  *
@@ -27,7 +25,6 @@ class ArgumentMetadata
     private $defaultValue;
     private $isNullable;
     private $attribute;
-
     /**
      * @param string|null $type
      * @param \Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null $attribute
@@ -36,7 +33,7 @@ class ArgumentMetadata
      * @param bool $hasDefaultValue
      * @param bool $isNullable
      */
-    public function __construct($name, $type, $isVariadic, $hasDefaultValue, $defaultValue, $isNullable = false, $attribute = null)
+    public function __construct($name, $type, $isVariadic, $hasDefaultValue, $defaultValue, $isNullable = \false, $attribute = null)
     {
         $name = (string) $name;
         $isVariadic = (bool) $isVariadic;
@@ -47,10 +44,9 @@ class ArgumentMetadata
         $this->isVariadic = $isVariadic;
         $this->hasDefaultValue = $hasDefaultValue;
         $this->defaultValue = $defaultValue;
-        $this->isNullable = $isNullable || null === $type || ($hasDefaultValue && null === $defaultValue);
+        $this->isNullable = $isNullable || null === $type || $hasDefaultValue && null === $defaultValue;
         $this->attribute = $attribute;
     }
-
     /**
      * Returns the name as given in PHP, $foo would yield "foo".
      *
@@ -60,7 +56,6 @@ class ArgumentMetadata
     {
         return $this->name;
     }
-
     /**
      * Returns the type of the argument.
      *
@@ -72,7 +67,6 @@ class ArgumentMetadata
     {
         return $this->type;
     }
-
     /**
      * Returns whether the argument is defined as "...$variadic".
      *
@@ -82,7 +76,6 @@ class ArgumentMetadata
     {
         return $this->isVariadic;
     }
-
     /**
      * Returns whether the argument has a default value.
      *
@@ -94,7 +87,6 @@ class ArgumentMetadata
     {
         return $this->hasDefaultValue;
     }
-
     /**
      * Returns whether the argument accepts null values.
      *
@@ -104,7 +96,6 @@ class ArgumentMetadata
     {
         return $this->isNullable;
     }
-
     /**
      * Returns the default value of the argument.
      *
@@ -115,12 +106,10 @@ class ArgumentMetadata
     public function getDefaultValue()
     {
         if (!$this->hasDefaultValue) {
-            throw new \LogicException(sprintf('Argument $%s does not have a default value. Use "%s::hasDefaultValue()" to avoid this exception.', $this->name, __CLASS__));
+            throw new \LogicException(\sprintf('Argument $%s does not have a default value. Use "%s::hasDefaultValue()" to avoid this exception.', $this->name, __CLASS__));
         }
-
         return $this->defaultValue;
     }
-
     /**
      * Returns the attribute (if any) that was set on the argument.
      * @return \Symfony\Component\HttpKernel\Attribute\ArgumentInterface|null

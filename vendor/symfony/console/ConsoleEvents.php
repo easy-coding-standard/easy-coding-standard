@@ -8,14 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Console;
 
-namespace Symfony\Component\Console;
-
-use Symfony\Component\Console\Event\ConsoleCommandEvent;
-use Symfony\Component\Console\Event\ConsoleErrorEvent;
-use Symfony\Component\Console\Event\ConsoleSignalEvent;
-use Symfony\Component\Console\Event\ConsoleTerminateEvent;
-
+use ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleCommandEvent;
+use ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleErrorEvent;
+use ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleSignalEvent;
+use ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleTerminateEvent;
 /**
  * Contains all events dispatched by an Application.
  *
@@ -31,7 +29,6 @@ final class ConsoleEvents
      * @Event("Symfony\Component\Console\Event\ConsoleCommandEvent")
      */
     const COMMAND = 'console.command';
-
     /**
      * The SIGNAL event allows you to perform some actions
      * after the command execution was interrupted.
@@ -39,7 +36,6 @@ final class ConsoleEvents
      * @Event("Symfony\Component\Console\Event\ConsoleSignalEvent")
      */
     const SIGNAL = 'console.signal';
-
     /**
      * The TERMINATE event allows you to attach listeners after a command is
      * executed by the console.
@@ -47,7 +43,6 @@ final class ConsoleEvents
      * @Event("Symfony\Component\Console\Event\ConsoleTerminateEvent")
      */
     const TERMINATE = 'console.terminate';
-
     /**
      * The ERROR event occurs when an uncaught exception or error appears.
      *
@@ -57,16 +52,10 @@ final class ConsoleEvents
      * @Event("Symfony\Component\Console\Event\ConsoleErrorEvent")
      */
     const ERROR = 'console.error';
-
     /**
      * Event aliases.
      *
      * These aliases can be consumed by RegisterListenersPass.
      */
-    const ALIASES = [
-        ConsoleCommandEvent::class => self::COMMAND,
-        ConsoleErrorEvent::class => self::ERROR,
-        ConsoleSignalEvent::class => self::SIGNAL,
-        ConsoleTerminateEvent::class => self::TERMINATE,
-    ];
+    const ALIASES = [\ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleCommandEvent::class => self::COMMAND, \ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleErrorEvent::class => self::ERROR, \ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleSignalEvent::class => self::SIGNAL, \ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleTerminateEvent::class => self::TERMINATE];
 }

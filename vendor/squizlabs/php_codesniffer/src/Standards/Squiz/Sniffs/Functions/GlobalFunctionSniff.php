@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tests for functions outside of classes.
  *
@@ -6,16 +7,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Functions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class GlobalFunctionSniff implements Sniff
+class GlobalFunctionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -23,11 +20,9 @@ class GlobalFunctionSniff implements Sniff
      */
     public function register()
     {
-        return [T_FUNCTION];
-
-    }//end register()
-
-
+        return [\T_FUNCTION];
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -37,25 +32,22 @@ class GlobalFunctionSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        if (empty($tokens[$stackPtr]['conditions']) === true) {
+        if (empty($tokens[$stackPtr]['conditions']) === \true) {
             $functionName = $phpcsFile->getDeclarationName($stackPtr);
             if ($functionName === null) {
                 return;
             }
-
             // Special exception for __autoload as it needs to be global.
             if ($functionName !== '__autoload') {
                 $error = 'Consider putting global function "%s" in a static class';
-                $data  = [$functionName];
+                $data = [$functionName];
                 $phpcsFile->addWarning($error, $stackPtr, 'Found', $data);
             }
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

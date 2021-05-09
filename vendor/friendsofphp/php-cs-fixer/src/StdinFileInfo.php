@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer;
 
 /**
@@ -22,7 +21,6 @@ final class StdinFileInfo extends \SplFileInfo
     public function __construct()
     {
     }
-
     /**
      * @return string
      */
@@ -30,7 +28,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return $this->getRealPath();
     }
-
     /**
      * @return string
      */
@@ -40,7 +37,6 @@ final class StdinFileInfo extends \SplFileInfo
         // Warning - this stream is not seekable, so `file_get_contents` will work only once! Consider using `FileReader`.
         return 'php://stdin';
     }
-
     /**
      * @return int
      */
@@ -48,7 +44,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return string
      */
@@ -56,7 +51,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return $this->getFilename();
     }
-
     /**
      * @return int
      */
@@ -64,7 +58,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return string
      */
@@ -72,15 +65,13 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return '.php';
     }
-
     /**
      * @return \SplFileInfo
      */
     public function getFileInfo($className = null)
     {
-        throw new \BadMethodCallException(sprintf('Method "%s" is not implemented.', __METHOD__));
+        throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
     }
-
     /**
      * @return string
      */
@@ -92,10 +83,8 @@ final class StdinFileInfo extends \SplFileInfo
          * The idea to use STDIN is to parse PHP-only files, so we can
          * assume that there will be always a PHP file out there.
          */
-
         return 'stdin.php';
     }
-
     /**
      * @return int
      */
@@ -103,7 +92,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return int
      */
@@ -111,7 +99,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return string
      */
@@ -119,7 +106,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return '';
     }
-
     /**
      * @return int
      */
@@ -127,7 +113,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return int
      */
@@ -135,7 +120,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return string
      */
@@ -143,15 +127,13 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return '';
     }
-
     /**
      * @return \SplFileInfo
      */
     public function getPathInfo($className = null)
     {
-        throw new \BadMethodCallException(sprintf('Method "%s" is not implemented.', __METHOD__));
+        throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
     }
-
     /**
      * @return string
      */
@@ -159,7 +141,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return $this->getFilename();
     }
-
     /**
      * @return int
      */
@@ -167,7 +148,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return int
      */
@@ -175,7 +155,6 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 0;
     }
-
     /**
      * @return string
      */
@@ -183,70 +162,61 @@ final class StdinFileInfo extends \SplFileInfo
     {
         return 'file';
     }
-
     /**
      * @return bool
      */
     public function isDir()
     {
-        return false;
+        return \false;
     }
-
     /**
      * @return bool
      */
     public function isExecutable()
     {
-        return false;
+        return \false;
     }
-
     /**
      * @return bool
      */
     public function isFile()
     {
-        return true;
+        return \true;
     }
-
     /**
      * @return bool
      */
     public function isLink()
     {
-        return false;
+        return \false;
     }
-
     /**
      * @return bool
      */
     public function isReadable()
     {
-        return true;
+        return \true;
     }
-
     /**
      * @return bool
      */
     public function isWritable()
     {
-        return false;
+        return \false;
     }
-
     /**
      * @return \SplFileObject
      */
-    public function openFile($openMode = 'r', $useIncludePath = false, $context = null)
+    public function openFile($openMode = 'r', $useIncludePath = \false, $context = null)
     {
-        throw new \BadMethodCallException(sprintf('Method "%s" is not implemented.', __METHOD__));
+        throw new \BadMethodCallException(\sprintf('Method "%s" is not implemented.', __METHOD__));
     }
-
     /**
      * @return void
      */
     public function setFileClass($className = null)
     {
     }
-
     /**
      * @return void
      */

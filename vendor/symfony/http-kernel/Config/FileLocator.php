@@ -8,44 +8,37 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Config;
 
-namespace Symfony\Component\HttpKernel\Config;
-
-use Symfony\Component\Config\FileLocator as BaseFileLocator;
-use Symfony\Component\HttpKernel\KernelInterface;
-
+use ECSPrefix20210509\Symfony\Component\Config\FileLocator as BaseFileLocator;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface;
 /**
  * FileLocator uses the KernelInterface to locate resources in bundles.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FileLocator extends BaseFileLocator
+class FileLocator extends \ECSPrefix20210509\Symfony\Component\Config\FileLocator
 {
     private $kernel;
-
-    public function __construct(KernelInterface $kernel)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         $this->kernel = $kernel;
-
         parent::__construct();
     }
-
     /**
      * {@inheritdoc}
      * @param string $file
      * @param string $currentPath
      * @param bool $first
      */
-    public function locate($file, $currentPath = null, $first = true)
+    public function locate($file, $currentPath = null, $first = \true)
     {
         $file = (string) $file;
         $first = (bool) $first;
         if (isset($file[0]) && '@' === $file[0]) {
             $resource = $this->kernel->locateResource($file);
-
             return $first ? $resource : [$resource];
         }
-
         return parent::locate($file, $currentPath, $first);
     }
 }

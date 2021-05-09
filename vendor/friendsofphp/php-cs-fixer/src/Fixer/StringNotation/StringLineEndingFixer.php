@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\StringNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -20,71 +19,49 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * Fixes the line endings in multi-line strings.
  *
  * @author Ilija Tovilo <ilija.tovilo@me.com>
  */
-final class StringLineEndingFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
+final class StringLineEndingFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound([T_CONSTANT_ENCAPSED_STRING, T_ENCAPSED_AND_WHITESPACE, T_INLINE_HTML]);
+        return $tokens->isAnyTokenKindsFound([\T_CONSTANT_ENCAPSED_STRING, \T_ENCAPSED_AND_WHITESPACE, \T_INLINE_HTML]);
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
     public function isRisky()
     {
-        return true;
+        return \true;
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'All multi-line strings must use correct line ending.',
-            [
-                new CodeSample(
-                    "<?php \$a = 'my\r\nmulti\nline\r\nstring';\r\n"
-                ),
-            ],
-            null,
-            'Changing the line endings of multi-line strings might affect string comparisons and outputs.'
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('All multi-line strings must use correct line ending.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php \$a = 'my\r\nmulti\nline\r\nstring';\r\n")], null, 'Changing the line endings of multi-line strings might affect string comparisons and outputs.');
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $ending = $this->whitespacesConfig->getLineEnding();
-
         foreach ($tokens as $tokenIndex => $token) {
-            if (!$token->isGivenKind([T_CONSTANT_ENCAPSED_STRING, T_ENCAPSED_AND_WHITESPACE, T_INLINE_HTML])) {
+            if (!$token->isGivenKind([\T_CONSTANT_ENCAPSED_STRING, \T_ENCAPSED_AND_WHITESPACE, \T_INLINE_HTML])) {
                 continue;
             }
-
-            $tokens[$tokenIndex] = new Token([
-                $token->getId(),
-                Preg::replace(
-                    '#\R#u',
-                    $ending,
-                    $token->getContent()
-                ),
-            ]);
+            $tokens[$tokenIndex] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), \PhpCsFixer\Preg::replace('#\\R#u', $ending, $token->getContent())]);
         }
     }
 }

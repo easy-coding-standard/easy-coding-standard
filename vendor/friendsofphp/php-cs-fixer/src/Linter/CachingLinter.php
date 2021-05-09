@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Linter;
 
 /**
@@ -17,23 +16,20 @@ namespace PhpCsFixer\Linter;
  *
  * @internal
  */
-final class CachingLinter implements LinterInterface
+final class CachingLinter implements \PhpCsFixer\Linter\LinterInterface
 {
     /**
      * @var LinterInterface
      */
     private $sublinter;
-
     /**
      * @var array<int, LintingResultInterface>
      */
     private $cache = [];
-
-    public function __construct(LinterInterface $linter)
+    public function __construct(\PhpCsFixer\Linter\LinterInterface $linter)
     {
         $this->sublinter = $linter;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
@@ -42,7 +38,6 @@ final class CachingLinter implements LinterInterface
     {
         return $this->sublinter->isAsync();
     }
-
     /**
      * {@inheritdoc}
      * @param string $path
@@ -51,15 +46,12 @@ final class CachingLinter implements LinterInterface
     public function lintFile($path)
     {
         $path = (string) $path;
-        $checksum = crc32(file_get_contents($path));
-
+        $checksum = \crc32(\file_get_contents($path));
         if (!isset($this->cache[$checksum])) {
             $this->cache[$checksum] = $this->sublinter->lintFile($path);
         }
-
         return $this->cache[$checksum];
     }
-
     /**
      * {@inheritdoc}
      * @param string $source
@@ -68,12 +60,10 @@ final class CachingLinter implements LinterInterface
     public function lintSource($source)
     {
         $source = (string) $source;
-        $checksum = crc32($source);
-
+        $checksum = \crc32($source);
         if (!isset($this->cache[$checksum])) {
             $this->cache[$checksum] = $this->sublinter->lintSource($source);
         }
-
         return $this->cache[$checksum];
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the ClosingPHPTag sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2010-2014 Andy Grunwald
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class ClosingPHPTagUnitTest extends AbstractSniffUnitTest
+class ClosingPHPTagUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -26,10 +23,8 @@ class ClosingPHPTagUnitTest extends AbstractSniffUnitTest
     public function getErrorList()
     {
         return [9 => 1];
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -41,8 +36,7 @@ class ClosingPHPTagUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

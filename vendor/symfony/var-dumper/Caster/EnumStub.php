@@ -8,24 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-namespace Symfony\Component\VarDumper\Caster;
-
-use Symfony\Component\VarDumper\Cloner\Stub;
-
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Represents an enumeration of values.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class EnumStub extends Stub
+class EnumStub extends \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub
 {
-    public $dumpKeys = true;
-
+    public $dumpKeys = \true;
     /**
      * @param bool $dumpKeys
      */
-    public function __construct(array $values, $dumpKeys = true)
+    public function __construct(array $values, $dumpKeys = \true)
     {
         $dumpKeys = (bool) $dumpKeys;
         $this->value = $values;

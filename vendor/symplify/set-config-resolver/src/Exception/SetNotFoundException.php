@@ -3,19 +3,16 @@
 namespace Symplify\SetConfigResolver\Exception;
 
 use Exception;
-
-final class SetNotFoundException extends Exception
+final class SetNotFoundException extends \Exception
 {
     /**
      * @var string
      */
     private $setName;
-
     /**
      * @var string[]
      */
     private $availableSetNames = [];
-
     /**
      * @param string[] $availableSetNames
      * @param string $message
@@ -27,10 +24,8 @@ final class SetNotFoundException extends Exception
         $setName = (string) $setName;
         $this->setName = $setName;
         $this->availableSetNames = $availableSetNames;
-
         parent::__construct($message);
     }
-
     /**
      * @return string
      */
@@ -38,7 +33,6 @@ final class SetNotFoundException extends Exception
     {
         return $this->setName;
     }
-
     /**
      * @return mixed[]
      */

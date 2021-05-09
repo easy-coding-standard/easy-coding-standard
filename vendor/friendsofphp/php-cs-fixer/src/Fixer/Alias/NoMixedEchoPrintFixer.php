@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Alias;
 
 use PhpCsFixer\AbstractFixer;
@@ -23,23 +22,20 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Sullivan Senechal <soullivaneuh@gmail.com>
  * @author SpacePossum
  */
-final class NoMixedEchoPrintFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class NoMixedEchoPrintFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * @var string
      */
     private $callBack;
-
     /**
      * @var int T_ECHO or T_PRINT
      */
     private $candidateTokenType;
-
     /**
      * {@inheritdoc}
      * @return void
@@ -47,31 +43,22 @@ final class NoMixedEchoPrintFixer extends AbstractFixer implements ConfigurableF
     public function configure(array $configuration)
     {
         parent::configure($configuration);
-
         if ('echo' === $this->configuration['use']) {
-            $this->candidateTokenType = T_PRINT;
+            $this->candidateTokenType = \T_PRINT;
             $this->callBack = 'fixPrintToEcho';
         } else {
-            $this->candidateTokenType = T_ECHO;
+            $this->candidateTokenType = \T_ECHO;
             $this->callBack = 'fixEchoToPrint';
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Either language construct `print` or `echo` should be used.',
-            [
-                new CodeSample("<?php print 'example';\n"),
-                new CodeSample("<?php echo('example');\n", ['use' => 'print']),
-            ]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Either language construct `print` or `echo` should be used.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php print 'example';\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php echo('example');\n", ['use' => 'print'])]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -82,21 +69,19 @@ final class NoMixedEchoPrintFixer extends AbstractFixer implements ConfigurableF
     {
         return -10;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound($this->candidateTokenType);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $callBack = $this->callBack;
         foreach ($tokens as $index => $token) {
@@ -105,65 +90,50 @@ final class NoMixedEchoPrintFixer extends AbstractFixer implements ConfigurableF
             }
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('use', 'The desired language construct.'))
-                ->setAllowedValues(['print', 'echo'])
-                ->setDefault('echo')
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('use', 'The desired language construct.'))->setAllowedValues(['print', 'echo'])->setDefault('echo')->getOption()]);
     }
-
     /**
      * @return void
      * @param int $index
      */
-    private function fixEchoToPrint(Tokens $tokens, $index)
+    private function fixEchoToPrint(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         $nextTokenIndex = $tokens->getNextMeaningfulToken($index);
-        $endTokenIndex = $tokens->getNextTokenOfKind($index, [';', [T_CLOSE_TAG]]);
-        $canBeConverted = true;
-
+        $endTokenIndex = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
+        $canBeConverted = \true;
         for ($i = $nextTokenIndex; $i < $endTokenIndex; ++$i) {
-            if ($tokens[$i]->equalsAny(['(', [CT::T_ARRAY_SQUARE_BRACE_OPEN]])) {
-                $blockType = Tokens::detectBlockType($tokens[$i]);
+            if ($tokens[$i]->equalsAny(['(', [\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_OPEN]])) {
+                $blockType = \PhpCsFixer\Tokenizer\Tokens::detectBlockType($tokens[$i]);
                 $i = $tokens->findBlockEnd($blockType['type'], $i);
             }
-
             if ($tokens[$i]->equals(',')) {
-                $canBeConverted = false;
-
+                $canBeConverted = \false;
                 break;
             }
         }
-
-        if (false === $canBeConverted) {
+        if (\false === $canBeConverted) {
             return;
         }
-
-        $tokens[$index] = new Token([T_PRINT, 'print']);
+        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_PRINT, 'print']);
     }
-
     /**
      * @return void
      * @param int $index
      */
-    private function fixPrintToEcho(Tokens $tokens, $index)
+    private function fixPrintToEcho(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
-
-        if (!$prevToken->equalsAny([';', '{', '}', ')', [T_OPEN_TAG], [T_ELSE]])) {
+        if (!$prevToken->equalsAny([';', '{', '}', ')', [\T_OPEN_TAG], [\T_ELSE]])) {
             return;
         }
-
-        $tokens[$index] = new Token([T_ECHO, 'echo']);
+        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_ECHO, 'echo']);
     }
 }

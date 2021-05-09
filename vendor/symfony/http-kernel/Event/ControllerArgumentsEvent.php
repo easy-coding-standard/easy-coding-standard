@@ -8,12 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Event;
 
-namespace Symfony\Component\HttpKernel\Event;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Allows filtering of controller arguments.
  *
@@ -26,22 +24,19 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-final class ControllerArgumentsEvent extends KernelEvent
+final class ControllerArgumentsEvent extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\KernelEvent
 {
     private $controller;
     private $arguments;
-
     /**
      * @param int|null $requestType
      */
-    public function __construct(HttpKernelInterface $kernel, callable $controller, array $arguments, Request $request, $requestType)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, array $arguments, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
-
         $this->controller = $controller;
         $this->arguments = $arguments;
     }
-
     /**
      * @return callable
      */
@@ -49,12 +44,10 @@ final class ControllerArgumentsEvent extends KernelEvent
     {
         return $this->controller;
     }
-
     public function setController(callable $controller)
     {
         $this->controller = $controller;
     }
-
     /**
      * @return mixed[]
      */
@@ -62,7 +55,6 @@ final class ControllerArgumentsEvent extends KernelEvent
     {
         return $this->arguments;
     }
-
     public function setArguments(array $arguments)
     {
         $this->arguments = $arguments;

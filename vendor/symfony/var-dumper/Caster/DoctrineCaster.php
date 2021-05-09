@@ -8,14 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-namespace Symfony\Component\VarDumper\Caster;
-
-use Doctrine\Common\Proxy\Proxy as CommonProxy;
-use Doctrine\ORM\PersistentCollection;
-use Doctrine\ORM\Proxy\Proxy as OrmProxy;
-use Symfony\Component\VarDumper\Cloner\Stub;
-
+use ECSPrefix20210509\Doctrine\Common\Proxy\Proxy as CommonProxy;
+use ECSPrefix20210509\Doctrine\ORM\PersistentCollection;
+use ECSPrefix20210509\Doctrine\ORM\Proxy\Proxy as OrmProxy;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts Doctrine related classes to array representation.
  *
@@ -28,7 +26,7 @@ class DoctrineCaster
     /**
      * @param bool $isNested
      */
-    public static function castCommonProxy(CommonProxy $proxy, array $a, Stub $stub, $isNested)
+    public static function castCommonProxy(\ECSPrefix20210509\Doctrine\Common\Proxy\Proxy $proxy, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         foreach (['__cloner__', '__initializer__'] as $k) {
@@ -37,38 +35,33 @@ class DoctrineCaster
                 ++$stub->cut;
             }
         }
-
         return $a;
     }
-
     /**
      * @param bool $isNested
      */
-    public static function castOrmProxy(OrmProxy $proxy, array $a, Stub $stub, $isNested)
+    public static function castOrmProxy(\ECSPrefix20210509\Doctrine\ORM\Proxy\Proxy $proxy, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         foreach (['_entityPersister', '_identifier'] as $k) {
-            if (\array_key_exists($k = "\0Doctrine\\ORM\\Proxy\\Proxy\0".$k, $a)) {
+            if (\array_key_exists($k = "\0Doctrine\\ORM\\Proxy\\Proxy\0" . $k, $a)) {
                 unset($a[$k]);
                 ++$stub->cut;
             }
         }
-
         return $a;
     }
-
     /**
      * @param bool $isNested
      */
-    public static function castPersistentCollection(PersistentCollection $coll, array $a, Stub $stub, $isNested)
+    public static function castPersistentCollection(\ECSPrefix20210509\Doctrine\ORM\PersistentCollection $coll, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         foreach (['snapshot', 'association', 'typeClass'] as $k) {
-            if (\array_key_exists($k = "\0Doctrine\\ORM\\PersistentCollection\0".$k, $a)) {
-                $a[$k] = new CutStub($a[$k]);
+            if (\array_key_exists($k = "\0Doctrine\\ORM\\PersistentCollection\0" . $k, $a)) {
+                $a[$k] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\CutStub($a[$k]);
             }
         }
-
         return $a;
     }
 }

@@ -8,22 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ReferenceConfigurator extends AbstractConfigurator
+class ReferenceConfigurator extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     /** @internal */
     protected $id;
-
     /** @internal */
-    protected $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
-
+    protected $invalidBehavior = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
     /**
      * @param string $id
      */
@@ -32,37 +28,30 @@ class ReferenceConfigurator extends AbstractConfigurator
         $id = (string) $id;
         $this->id = $id;
     }
-
     /**
      * @return $this
      */
-    final public function ignoreOnInvalid()
+    public final function ignoreOnInvalid()
     {
-        $this->invalidBehavior = ContainerInterface::IGNORE_ON_INVALID_REFERENCE;
-
+        $this->invalidBehavior = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE;
         return $this;
     }
-
     /**
      * @return $this
      */
-    final public function nullOnInvalid()
+    public final function nullOnInvalid()
     {
-        $this->invalidBehavior = ContainerInterface::NULL_ON_INVALID_REFERENCE;
-
+        $this->invalidBehavior = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE;
         return $this;
     }
-
     /**
      * @return $this
      */
-    final public function ignoreOnUninitialized()
+    public final function ignoreOnUninitialized()
     {
-        $this->invalidBehavior = ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE;
-
+        $this->invalidBehavior = \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE;
         return $this;
     }
-
     /**
      * @return string
      */

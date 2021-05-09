@@ -9,27 +9,21 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\RuleSet\Sets;
 
 use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
-
 /**
  * @internal
  */
-final class PSR1Set extends AbstractRuleSetDescription
+final class PSR1Set extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
 {
     /**
      * @return mixed[]
      */
     public function getRules()
     {
-        return [
-            'encoding' => true,
-            'full_opening_tag' => true,
-        ];
+        return ['encoding' => \true, 'full_opening_tag' => \true];
     }
-
     /**
      * @return string
      */

@@ -8,17 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Test\Constraint;
 
-namespace Symfony\Component\HttpFoundation\Test\Constraint;
-
-use PHPUnit\Framework\Constraint\Constraint;
-use Symfony\Component\HttpFoundation\Request;
-
-final class RequestAttributeValueSame extends Constraint
+use ECSPrefix20210509\PHPUnit\Framework\Constraint\Constraint;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+final class RequestAttributeValueSame extends \ECSPrefix20210509\PHPUnit\Framework\Constraint\Constraint
 {
     private $name;
     private $value;
-
     /**
      * @param string $name
      * @param string $value
@@ -30,16 +27,14 @@ final class RequestAttributeValueSame extends Constraint
         $this->name = $name;
         $this->value = $value;
     }
-
     /**
      * {@inheritdoc}
      * @return string
      */
     public function toString()
     {
-        return sprintf('has attribute "%s" with value "%s"', $this->name, $this->value);
+        return \sprintf('has attribute "%s" with value "%s"', $this->name, $this->value);
     }
-
     /**
      * @param Request $request
      *
@@ -50,7 +45,6 @@ final class RequestAttributeValueSame extends Constraint
     {
         return $this->value === $request->attributes->get($this->name);
     }
-
     /**
      * @param Request $request
      *
@@ -59,6 +53,6 @@ final class RequestAttributeValueSame extends Constraint
      */
     protected function failureDescription($request)
     {
-        return 'the Request '.$this->toString();
+        return 'the Request ' . $this->toString();
     }
 }

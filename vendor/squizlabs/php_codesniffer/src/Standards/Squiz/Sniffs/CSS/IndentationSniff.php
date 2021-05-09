@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensures styles are indented 4 spaces.
  *
@@ -6,31 +7,25 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-
-class IndentationSniff implements Sniff
+class IndentationSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['CSS'];
-
     /**
      * The number of spaces code should be indented.
      *
      * @var integer
      */
     public $indent = 4;
-
-
     /**
      * Returns the token types that this sniff is interested in.
      *
@@ -38,11 +33,9 @@ class IndentationSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_TAG];
-
-    }//end register()
-
-
+        return [\T_OPEN_TAG];
+    }
+    //end register()
     /**
      * Processes the tokens that this sniff is interested in.
      *
@@ -52,99 +45,74 @@ class IndentationSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        $numTokens    = (count($tokens) - 2);
-        $indentLevel  = 0;
+        $numTokens = \count($tokens) - 2;
+        $indentLevel = 0;
         $nestingLevel = 0;
         for ($i = 1; $i < $numTokens; $i++) {
-            if ($tokens[$i]['code'] === T_COMMENT
-                || isset(Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === true
-            ) {
+            if ($tokens[$i]['code'] === \T_COMMENT || isset(\PHP_CodeSniffer\Util\Tokens::$phpcsCommentTokens[$tokens[$i]['code']]) === \true) {
                 // Don't check the indent of comments.
                 continue;
             }
-
             if ($tokens[$i]['code'] === T_OPEN_CURLY_BRACKET) {
                 $indentLevel++;
-
-                if (isset($tokens[$i]['bracket_closer']) === false) {
+                if (isset($tokens[$i]['bracket_closer']) === \false) {
                     // Syntax error or live coding.
                     // Anything after this would receive incorrect fixes, so bow out.
                     return;
                 }
-
                 // Check for nested class definitions.
-                $found = $phpcsFile->findNext(
-                    T_OPEN_CURLY_BRACKET,
-                    ($i + 1),
-                    $tokens[$i]['bracket_closer']
-                );
-
-                if ($found !== false) {
+                $found = $phpcsFile->findNext(T_OPEN_CURLY_BRACKET, $i + 1, $tokens[$i]['bracket_closer']);
+                if ($found !== \false) {
                     $nestingLevel = $indentLevel;
                 }
             }
-
-            if (($tokens[$i]['code'] === T_CLOSE_CURLY_BRACKET
-                && $tokens[$i]['line'] !== $tokens[($i - 1)]['line'])
-                || ($tokens[($i + 1)]['code'] === T_CLOSE_CURLY_BRACKET
-                && $tokens[$i]['line'] === $tokens[($i + 1)]['line'])
-            ) {
+            if ($tokens[$i]['code'] === T_CLOSE_CURLY_BRACKET && $tokens[$i]['line'] !== $tokens[$i - 1]['line'] || $tokens[$i + 1]['code'] === T_CLOSE_CURLY_BRACKET && $tokens[$i]['line'] === $tokens[$i + 1]['line']) {
                 $indentLevel--;
                 if ($indentLevel === 0) {
                     $nestingLevel = 0;
                 }
             }
-
-            if ($tokens[$i]['column'] !== 1
-                || $tokens[$i]['code'] === T_OPEN_CURLY_BRACKET
-                || $tokens[$i]['code'] === T_CLOSE_CURLY_BRACKET
-            ) {
+            if ($tokens[$i]['column'] !== 1 || $tokens[$i]['code'] === T_OPEN_CURLY_BRACKET || $tokens[$i]['code'] === T_CLOSE_CURLY_BRACKET) {
                 continue;
             }
-
             // We started a new line, so check indent.
-            if ($tokens[$i]['code'] === T_WHITESPACE) {
-                $content     = str_replace($phpcsFile->eolChar, '', $tokens[$i]['content']);
-                $foundIndent = strlen($content);
+            if ($tokens[$i]['code'] === \T_WHITESPACE) {
+                $content = \str_replace($phpcsFile->eolChar, '', $tokens[$i]['content']);
+                $foundIndent = \strlen($content);
             } else {
                 $foundIndent = 0;
             }
-
-            $expectedIndent = ($indentLevel * $this->indent);
-            if ($expectedIndent > 0
-                && strpos($tokens[$i]['content'], $phpcsFile->eolChar) !== false
-            ) {
+            $expectedIndent = $indentLevel * $this->indent;
+            if ($expectedIndent > 0 && \strpos($tokens[$i]['content'], $phpcsFile->eolChar) !== \false) {
                 if ($nestingLevel !== $indentLevel) {
                     $error = 'Blank lines are not allowed in class definitions';
-                    $fix   = $phpcsFile->addFixableError($error, $i, 'BlankLine');
-                    if ($fix === true) {
+                    $fix = $phpcsFile->addFixableError($error, $i, 'BlankLine');
+                    if ($fix === \true) {
                         $phpcsFile->fixer->replaceToken($i, '');
                     }
                 }
-            } else if ($foundIndent !== $expectedIndent) {
-                $error = 'Line indented incorrectly; expected %s spaces, found %s';
-                $data  = [
-                    $expectedIndent,
-                    $foundIndent,
-                ];
-
-                $fix = $phpcsFile->addFixableError($error, $i, 'Incorrect', $data);
-                if ($fix === true) {
-                    $indent = str_repeat(' ', $expectedIndent);
-                    if ($foundIndent === 0) {
-                        $phpcsFile->fixer->addContentBefore($i, $indent);
-                    } else {
-                        $phpcsFile->fixer->replaceToken($i, $indent);
+            } else {
+                if ($foundIndent !== $expectedIndent) {
+                    $error = 'Line indented incorrectly; expected %s spaces, found %s';
+                    $data = [$expectedIndent, $foundIndent];
+                    $fix = $phpcsFile->addFixableError($error, $i, 'Incorrect', $data);
+                    if ($fix === \true) {
+                        $indent = \str_repeat(' ', $expectedIndent);
+                        if ($foundIndent === 0) {
+                            $phpcsFile->fixer->addContentBefore($i, $indent);
+                        } else {
+                            $phpcsFile->fixer->replaceToken($i, $indent);
+                        }
                     }
                 }
-            }//end if
-        }//end for
-
-    }//end process()
-
-
-}//end class
+            }
+            //end if
+        }
+        //end for
+    }
+    //end process()
+}
+//end class

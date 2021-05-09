@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the JumbledIncrementer sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2007-2014 Manuel Pichler. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class JumbledIncrementerUnitTest extends AbstractSniffUnitTest
+class JumbledIncrementerUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -26,10 +23,8 @@ class JumbledIncrementerUnitTest extends AbstractSniffUnitTest
     public function getErrorList()
     {
         return [];
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -40,13 +35,8 @@ class JumbledIncrementerUnitTest extends AbstractSniffUnitTest
      */
     public function getWarningList()
     {
-        return [
-            3  => 2,
-            4  => 1,
-            20 => 1,
-        ];
-
-    }//end getWarningList()
-
-
-}//end class
+        return [3 => 2, 4 => 1, 20 => 1];
+    }
+    //end getWarningList()
+}
+//end class

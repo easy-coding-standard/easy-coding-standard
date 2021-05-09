@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpKernel\CacheClearer;
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\CacheClearer;
 
 /**
  * ChainCacheClearer.
@@ -18,10 +17,9 @@ namespace Symfony\Component\HttpKernel\CacheClearer;
  *
  * @final
  */
-class ChainCacheClearer implements CacheClearerInterface
+class ChainCacheClearer implements \ECSPrefix20210509\Symfony\Component\HttpKernel\CacheClearer\CacheClearerInterface
 {
     private $clearers;
-
     /**
      * @param mixed[] $clearers
      */
@@ -29,7 +27,6 @@ class ChainCacheClearer implements CacheClearerInterface
     {
         $this->clearers = $clearers;
     }
-
     /**
      * {@inheritdoc}
      * @param string $cacheDir

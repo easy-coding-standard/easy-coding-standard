@@ -8,20 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DependencyInjection;
 
-namespace Symfony\Component\HttpKernel\DependencyInjection;
-
-use Symfony\Component\DependencyInjection\Extension\Extension as BaseExtension;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension\Extension as BaseExtension;
 /**
  * Allow adding classes to the class cache.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Extension extends BaseExtension
+abstract class Extension extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension\Extension
 {
     private $annotatedClasses = [];
-
     /**
      * Gets the annotated classes to cache.
      *
@@ -31,7 +28,6 @@ abstract class Extension extends BaseExtension
     {
         return $this->annotatedClasses;
     }
-
     /**
      * Adds annotated classes to the class cache.
      *
@@ -39,6 +35,6 @@ abstract class Extension extends BaseExtension
      */
     public function addAnnotatedClassesToCompile(array $annotatedClasses)
     {
-        $this->annotatedClasses = array_merge($this->annotatedClasses, $annotatedClasses);
+        $this->annotatedClasses = \array_merge($this->annotatedClasses, $annotatedClasses);
     }
 }

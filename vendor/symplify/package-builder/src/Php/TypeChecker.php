@@ -11,11 +11,10 @@ final class TypeChecker
     public function isInstanceOf($object, array $types)
     {
         foreach ($types as $type) {
-            if (is_a($object, $type, true)) {
-                return true;
+            if (\is_a($object, $type, \true)) {
+                return \true;
             }
         }
-
-        return false;
+        return \false;
     }
 }

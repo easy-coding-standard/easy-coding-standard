@@ -1,5 +1,8 @@
 <?php
 
-class ValueError extends Error
+
+
+class ValueError extends \Error
 {
 }
+

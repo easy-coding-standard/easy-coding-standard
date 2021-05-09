@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A class to find T_VARIABLE tokens.
  *
@@ -12,15 +13,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Sniffs;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-
-abstract class AbstractVariableSniff extends AbstractScopeSniff
+abstract class AbstractVariableSniff extends \PHP_CodeSniffer\Sniffs\AbstractScopeSniff
 {
-
     /**
      * List of PHP Reserved variables.
      *
@@ -28,40 +26,17 @@ abstract class AbstractVariableSniff extends AbstractScopeSniff
      *
      * @var array
      */
-    protected $phpReservedVars = [
-        '_SERVER'              => true,
-        '_GET'                 => true,
-        '_POST'                => true,
-        '_REQUEST'             => true,
-        '_SESSION'             => true,
-        '_ENV'                 => true,
-        '_COOKIE'              => true,
-        '_FILES'               => true,
-        'GLOBALS'              => true,
-        'http_response_header' => true,
-        'HTTP_RAW_POST_DATA'   => true,
-        'php_errormsg'         => true,
-    ];
-
-
+    protected $phpReservedVars = ['_SERVER' => \true, '_GET' => \true, '_POST' => \true, '_REQUEST' => \true, '_SESSION' => \true, '_ENV' => \true, '_COOKIE' => \true, '_FILES' => \true, 'GLOBALS' => \true, 'http_response_header' => \true, 'HTTP_RAW_POST_DATA' => \true, 'php_errormsg' => \true];
     /**
      * Constructs an AbstractVariableTest.
      */
     public function __construct()
     {
-        $scopes = Tokens::$ooScopeTokens;
-
-        $listen = [
-            T_VARIABLE,
-            T_DOUBLE_QUOTED_STRING,
-            T_HEREDOC,
-        ];
-
-        parent::__construct($scopes, $listen, true);
-
-    }//end __construct()
-
-
+        $scopes = \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens;
+        $listen = [\T_VARIABLE, T_DOUBLE_QUOTED_STRING, T_HEREDOC];
+        parent::__construct($scopes, $listen, \true);
+    }
+    //end __construct()
     /**
      * Processes the token in the specified PHP_CodeSniffer\Files\File.
      *
@@ -75,37 +50,30 @@ abstract class AbstractVariableSniff extends AbstractScopeSniff
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    final protected function processTokenWithinScope(File $phpcsFile, $stackPtr, $currScope)
+    protected final function processTokenWithinScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, $currScope)
     {
         $tokens = $phpcsFile->getTokens();
-
-        if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING
-            || $tokens[$stackPtr]['code'] === T_HEREDOC
-        ) {
+        if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === T_HEREDOC) {
             // Check to see if this string has a variable in it.
-            $pattern = '|(?<!\\\\)(?:\\\\{2})*\${?[a-zA-Z0-9_]+}?|';
-            if (preg_match($pattern, $tokens[$stackPtr]['content']) !== 0) {
+            $pattern = '|(?<!\\\\)(?:\\\\{2})*\\${?[a-zA-Z0-9_]+}?|';
+            if (\preg_match($pattern, $tokens[$stackPtr]['content']) !== 0) {
                 return $this->processVariableInString($phpcsFile, $stackPtr);
             }
-
             return;
         }
-
         // If this token is nested inside a function at a deeper
         // level than the current OO scope that was found, it's a normal
         // variable and not a member var.
-        $conditions = array_reverse($tokens[$stackPtr]['conditions'], true);
-        $inFunction = false;
+        $conditions = \array_reverse($tokens[$stackPtr]['conditions'], \true);
+        $inFunction = \false;
         foreach ($conditions as $scope => $code) {
-            if (isset(Tokens::$ooScopeTokens[$code]) === true) {
+            if (isset(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens[$code]) === \true) {
                 break;
             }
-
-            if ($code === T_FUNCTION || $code === T_CLOSURE) {
-                $inFunction = true;
+            if ($code === \T_FUNCTION || $code === T_CLOSURE) {
+                $inFunction = \true;
             }
         }
-
         if ($scope !== $currScope) {
             // We found a closer scope to this token, so ignore
             // this particular time through the sniff. We will process
@@ -113,40 +81,33 @@ abstract class AbstractVariableSniff extends AbstractScopeSniff
             // duplicate checks.
             return;
         }
-
         // Just make sure this isn't a variable in a function declaration.
-        if ($inFunction === false && isset($tokens[$stackPtr]['nested_parenthesis']) === true) {
+        if ($inFunction === \false && isset($tokens[$stackPtr]['nested_parenthesis']) === \true) {
             foreach ($tokens[$stackPtr]['nested_parenthesis'] as $opener => $closer) {
-                if (isset($tokens[$opener]['parenthesis_owner']) === false) {
+                if (isset($tokens[$opener]['parenthesis_owner']) === \false) {
                     // Check if this is a USE statement for a closure.
-                    $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($opener - 1), null, true);
-                    if ($tokens[$prev]['code'] === T_USE) {
-                        $inFunction = true;
+                    $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $opener - 1, null, \true);
+                    if ($tokens[$prev]['code'] === \T_USE) {
+                        $inFunction = \true;
                         break;
                     }
-
                     continue;
                 }
-
                 $owner = $tokens[$opener]['parenthesis_owner'];
-                if ($tokens[$owner]['code'] === T_FUNCTION
-                    || $tokens[$owner]['code'] === T_CLOSURE
-                ) {
-                    $inFunction = true;
+                if ($tokens[$owner]['code'] === \T_FUNCTION || $tokens[$owner]['code'] === T_CLOSURE) {
+                    $inFunction = \true;
                     break;
                 }
             }
-        }//end if
-
-        if ($inFunction === true) {
+        }
+        //end if
+        if ($inFunction === \true) {
             return $this->processVariable($phpcsFile, $stackPtr);
         } else {
             return $this->processMemberVar($phpcsFile, $stackPtr);
         }
-
-    }//end processTokenWithinScope()
-
-
+    }
+    //end processTokenWithinScope()
     /**
      * Processes the token outside the scope in the file.
      *
@@ -159,25 +120,23 @@ abstract class AbstractVariableSniff extends AbstractScopeSniff
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    final protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
+    protected final function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         // These variables are not member vars.
-        if ($tokens[$stackPtr]['code'] === T_VARIABLE) {
+        if ($tokens[$stackPtr]['code'] === \T_VARIABLE) {
             return $this->processVariable($phpcsFile, $stackPtr);
-        } else if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING
-            || $tokens[$stackPtr]['code'] === T_HEREDOC
-        ) {
-            // Check to see if this string has a variable in it.
-            $pattern = '|(?<!\\\\)(?:\\\\{2})*\${?[a-zA-Z0-9_]+}?|';
-            if (preg_match($pattern, $tokens[$stackPtr]['content']) !== 0) {
-                return $this->processVariableInString($phpcsFile, $stackPtr);
+        } else {
+            if ($tokens[$stackPtr]['code'] === T_DOUBLE_QUOTED_STRING || $tokens[$stackPtr]['code'] === T_HEREDOC) {
+                // Check to see if this string has a variable in it.
+                $pattern = '|(?<!\\\\)(?:\\\\{2})*\\${?[a-zA-Z0-9_]+}?|';
+                if (\preg_match($pattern, $tokens[$stackPtr]['content']) !== 0) {
+                    return $this->processVariableInString($phpcsFile, $stackPtr);
+                }
             }
         }
-
-    }//end processTokenOutsideScope()
-
-
+    }
+    //end processTokenOutsideScope()
     /**
      * Called to process class member vars.
      *
@@ -190,9 +149,7 @@ abstract class AbstractVariableSniff extends AbstractScopeSniff
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    abstract protected function processMemberVar(File $phpcsFile, $stackPtr);
-
-
+    protected abstract function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
     /**
      * Called to process normal member vars.
      *
@@ -205,9 +162,7 @@ abstract class AbstractVariableSniff extends AbstractScopeSniff
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    abstract protected function processVariable(File $phpcsFile, $stackPtr);
-
-
+    protected abstract function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
     /**
      * Called to process variables found in double quoted strings or heredocs.
      *
@@ -224,7 +179,6 @@ abstract class AbstractVariableSniff extends AbstractScopeSniff
      *                  pointer is reached. Return ($phpcsFile->numTokens + 1) to skip
      *                  the rest of the file.
      */
-    abstract protected function processVariableInString(File $phpcsFile, $stackPtr);
-
-
-}//end class
+    protected abstract function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr);
+}
+//end class

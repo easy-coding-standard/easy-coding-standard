@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Tokenizer;
 
 /**
@@ -50,11 +49,9 @@ final class CT
     const T_ATTRIBUTE_CLOSE = 10031;
     const T_NAMED_ARGUMENT_NAME = 10032;
     const T_NAMED_ARGUMENT_COLON = 10033;
-
     private function __construct()
     {
     }
-
     /**
      * Get name for custom token.
      *
@@ -65,14 +62,11 @@ final class CT
     {
         $value = (int) $value;
         if (!self::has($value)) {
-            throw new \InvalidArgumentException(sprintf('No custom token was found for "%s".', $value));
+            throw new \InvalidArgumentException(\sprintf('No custom token was found for "%s".', $value));
         }
-
         $tokens = self::getMapById();
-
-        return 'CT::'.$tokens[$value];
+        return 'CT::' . $tokens[$value];
     }
-
     /**
      * Check if given custom token exists.
      *
@@ -83,22 +77,18 @@ final class CT
     {
         $value = (int) $value;
         $tokens = self::getMapById();
-
         return isset($tokens[$value]);
     }
-
     /**
      * @return mixed[]
      */
     private static function getMapById()
     {
         static $constants;
-
         if (null === $constants) {
             $reflection = new \ReflectionClass(__CLASS__);
-            $constants = array_flip($reflection->getConstants());
+            $constants = \array_flip($reflection->getConstants());
         }
-
         return $constants;
     }
 }

@@ -3,8 +3,7 @@
 namespace Symplify\CodingStandard\TokenRunner\Exception;
 
 use Exception;
-
-final class TokenNotFoundException extends Exception
+final class TokenNotFoundException extends \Exception
 {
     /**
      * @param int $position
@@ -12,8 +11,7 @@ final class TokenNotFoundException extends Exception
     public function __construct($position)
     {
         $position = (int) $position;
-        $message = sprintf('Token on position %d was not found', $position);
-
+        $message = \sprintf('Token on position %d was not found', $position);
         parent::__construct($message);
     }
 }

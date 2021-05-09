@@ -8,15 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpKernel\CacheWarmer;
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\CacheWarmer;
 
 /**
  * Abstract cache warmer that knows how to write a file to the cache.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class CacheWarmer implements CacheWarmerInterface
+abstract class CacheWarmer implements \ECSPrefix20210509\Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface
 {
     /**
      * @param string $file
@@ -24,13 +23,11 @@ abstract class CacheWarmer implements CacheWarmerInterface
     protected function writeCacheFile($file, $content)
     {
         $file = (string) $file;
-        $tmpFile = @tempnam(\dirname($file), basename($file));
-        if (false !== @file_put_contents($tmpFile, $content) && @rename($tmpFile, $file)) {
-            @chmod($file, 0666 & ~umask());
-
+        $tmpFile = @\tempnam(\dirname($file), \basename($file));
+        if (\false !== @\file_put_contents($tmpFile, $content) && @\rename($tmpFile, $file)) {
+            @\chmod($file, 0666 & ~\umask());
             return;
         }
-
-        throw new \RuntimeException(sprintf('Failed to write cache file "%s".', $file));
+        throw new \RuntimeException(\sprintf('Failed to write cache file "%s".', $file));
     }
 }

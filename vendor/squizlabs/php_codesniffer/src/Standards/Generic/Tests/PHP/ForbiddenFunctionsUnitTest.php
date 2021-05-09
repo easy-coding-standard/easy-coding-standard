@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the ForbiddenFunctions sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class ForbiddenFunctionsUnitTest extends AbstractSniffUnitTest
+class ForbiddenFunctionsUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,17 +22,10 @@ class ForbiddenFunctionsUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        $errors = [
-            2 => 1,
-            4 => 1,
-            6 => 1,
-        ];
-
+        $errors = [2 => 1, 4 => 1, 6 => 1];
         return $errors;
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -47,8 +37,7 @@ class ForbiddenFunctionsUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Config\Definition\Builder;
 
-namespace Symfony\Component\Config\Definition\Builder;
-
-use Symfony\Component\Config\Definition\Exception\UnsetKeyException;
-
+use ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\UnsetKeyException;
 /**
  * This class builds an if expression.
  *
@@ -24,12 +22,10 @@ class ExprBuilder
     protected $node;
     public $ifPart;
     public $thenPart;
-
-    public function __construct(NodeDefinition $node)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
         $this->node = $node;
     }
-
     /**
      * Marks the expression as being always used.
      *
@@ -37,15 +33,14 @@ class ExprBuilder
      */
     public function always(\Closure $then = null)
     {
-        $this->ifPart = function ($v) { return true; };
-
+        $this->ifPart = function ($v) {
+            return \true;
+        };
         if (null !== $then) {
             $this->thenPart = $then;
         }
-
         return $this;
     }
-
     /**
      * Sets a closure to use as tests.
      *
@@ -56,14 +51,13 @@ class ExprBuilder
     public function ifTrue(\Closure $closure = null)
     {
         if (null === $closure) {
-            $closure = function ($v) { return true === $v; };
+            $closure = function ($v) {
+                return \true === $v;
+            };
         }
-
         $this->ifPart = $closure;
-
         return $this;
     }
-
     /**
      * Tests if the value is a string.
      *
@@ -71,11 +65,11 @@ class ExprBuilder
      */
     public function ifString()
     {
-        $this->ifPart = function ($v) { return \is_string($v); };
-
+        $this->ifPart = function ($v) {
+            return \is_string($v);
+        };
         return $this;
     }
-
     /**
      * Tests if the value is null.
      *
@@ -83,11 +77,11 @@ class ExprBuilder
      */
     public function ifNull()
     {
-        $this->ifPart = function ($v) { return null === $v; };
-
+        $this->ifPart = function ($v) {
+            return null === $v;
+        };
         return $this;
     }
-
     /**
      * Tests if the value is empty.
      *
@@ -95,11 +89,11 @@ class ExprBuilder
      */
     public function ifEmpty()
     {
-        $this->ifPart = function ($v) { return empty($v); };
-
+        $this->ifPart = function ($v) {
+            return empty($v);
+        };
         return $this;
     }
-
     /**
      * Tests if the value is an array.
      *
@@ -107,11 +101,11 @@ class ExprBuilder
      */
     public function ifArray()
     {
-        $this->ifPart = function ($v) { return \is_array($v); };
-
+        $this->ifPart = function ($v) {
+            return \is_array($v);
+        };
         return $this;
     }
-
     /**
      * Tests if the value is in an array.
      *
@@ -119,11 +113,11 @@ class ExprBuilder
      */
     public function ifInArray(array $array)
     {
-        $this->ifPart = function ($v) use ($array) { return \in_array($v, $array, true); };
-
+        $this->ifPart = function ($v) use($array) {
+            return \in_array($v, $array, \true);
+        };
         return $this;
     }
-
     /**
      * Tests if the value is not in an array.
      *
@@ -131,11 +125,11 @@ class ExprBuilder
      */
     public function ifNotInArray(array $array)
     {
-        $this->ifPart = function ($v) use ($array) { return !\in_array($v, $array, true); };
-
+        $this->ifPart = function ($v) use($array) {
+            return !\in_array($v, $array, \true);
+        };
         return $this;
     }
-
     /**
      * Transforms variables of any type into an array.
      *
@@ -143,12 +137,14 @@ class ExprBuilder
      */
     public function castToArray()
     {
-        $this->ifPart = function ($v) { return !\is_array($v); };
-        $this->thenPart = function ($v) { return [$v]; };
-
+        $this->ifPart = function ($v) {
+            return !\is_array($v);
+        };
+        $this->thenPart = function ($v) {
+            return [$v];
+        };
         return $this;
     }
-
     /**
      * Sets the closure to run if the test pass.
      *
@@ -157,10 +153,8 @@ class ExprBuilder
     public function then(\Closure $closure)
     {
         $this->thenPart = $closure;
-
         return $this;
     }
-
     /**
      * Sets a closure returning an empty array.
      *
@@ -168,11 +162,11 @@ class ExprBuilder
      */
     public function thenEmptyArray()
     {
-        $this->thenPart = function ($v) { return []; };
-
+        $this->thenPart = function ($v) {
+            return [];
+        };
         return $this;
     }
-
     /**
      * Sets a closure marking the value as invalid at processing time.
      *
@@ -186,11 +180,11 @@ class ExprBuilder
     public function thenInvalid($message)
     {
         $message = (string) $message;
-        $this->thenPart = function ($v) use ($message) { throw new \InvalidArgumentException(sprintf($message, json_encode($v))); };
-
+        $this->thenPart = function ($v) use($message) {
+            throw new \InvalidArgumentException(\sprintf($message, \json_encode($v)));
+        };
         return $this;
     }
-
     /**
      * Sets a closure unsetting this key of the array at processing time.
      *
@@ -200,11 +194,11 @@ class ExprBuilder
      */
     public function thenUnset()
     {
-        $this->thenPart = function ($v) { throw new UnsetKeyException('Unsetting key.'); };
-
+        $this->thenPart = function ($v) {
+            throw new \ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\UnsetKeyException('Unsetting key.');
+        };
         return $this;
     }
-
     /**
      * Returns the related node.
      *
@@ -220,10 +214,8 @@ class ExprBuilder
         if (null === $this->thenPart) {
             throw new \RuntimeException('You must specify a then part.');
         }
-
         return $this->node;
     }
-
     /**
      * Builds the expressions.
      *
@@ -237,12 +229,11 @@ class ExprBuilder
             if ($expr instanceof self) {
                 $if = $expr->ifPart;
                 $then = $expr->thenPart;
-                $expressions[$k] = function ($v) use ($if, $then) {
+                $expressions[$k] = function ($v) use($if, $then) {
                     return $if($v) ? $then($v) : $v;
                 };
             }
         }
-
         return $expressions;
     }
 }

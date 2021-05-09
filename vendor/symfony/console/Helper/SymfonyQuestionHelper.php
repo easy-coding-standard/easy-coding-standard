@@ -8,105 +8,81 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Console\Helper;
 
-namespace Symfony\Component\Console\Helper;
-
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Style\SymfonyStyle;
-
+use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210509\Symfony\Component\Console\Question\ChoiceQuestion;
+use ECSPrefix20210509\Symfony\Component\Console\Question\ConfirmationQuestion;
+use ECSPrefix20210509\Symfony\Component\Console\Question\Question;
+use ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * Symfony Style Guide compliant question helper.
  *
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-class SymfonyQuestionHelper extends QuestionHelper
+class SymfonyQuestionHelper extends \ECSPrefix20210509\Symfony\Component\Console\Helper\QuestionHelper
 {
     /**
      * {@inheritdoc}
      */
-    protected function writePrompt(OutputInterface $output, Question $question)
+    protected function writePrompt(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210509\Symfony\Component\Console\Question\Question $question)
     {
-        $text = OutputFormatter::escapeTrailingBackslash($question->getQuestion());
+        $text = \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter::escapeTrailingBackslash($question->getQuestion());
         $default = $question->getDefault();
-
         if ($question->isMultiline()) {
-            $text .= sprintf(' (press %s to continue)', $this->getEofShortcut());
+            $text .= \sprintf(' (press %s to continue)', $this->getEofShortcut());
         }
-
-        switch (true) {
+        switch (\true) {
             case null === $default:
-                $text = sprintf(' <info>%s</info>:', $text);
-
+                $text = \sprintf(' <info>%s</info>:', $text);
                 break;
-
-            case $question instanceof ConfirmationQuestion:
-                $text = sprintf(' <info>%s (yes/no)</info> [<comment>%s</comment>]:', $text, $default ? 'yes' : 'no');
-
+            case $question instanceof \ECSPrefix20210509\Symfony\Component\Console\Question\ConfirmationQuestion:
+                $text = \sprintf(' <info>%s (yes/no)</info> [<comment>%s</comment>]:', $text, $default ? 'yes' : 'no');
                 break;
-
-            case $question instanceof ChoiceQuestion && $question->isMultiselect():
+            case $question instanceof \ECSPrefix20210509\Symfony\Component\Console\Question\ChoiceQuestion && $question->isMultiselect():
                 $choices = $question->getChoices();
-                $default = explode(',', $default);
-
+                $default = \explode(',', $default);
                 foreach ($default as $key => $value) {
-                    $default[$key] = $choices[trim($value)];
+                    $default[$key] = $choices[\trim($value)];
                 }
-
-                $text = sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, OutputFormatter::escape(implode(', ', $default)));
-
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter::escape(\implode(', ', $default)));
                 break;
-
-            case $question instanceof ChoiceQuestion:
+            case $question instanceof \ECSPrefix20210509\Symfony\Component\Console\Question\ChoiceQuestion:
                 $choices = $question->getChoices();
-                $text = sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, OutputFormatter::escape(isset($choices[$default]) ? $choices[$default] : $default));
-
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter::escape(isset($choices[$default]) ? $choices[$default] : $default));
                 break;
-
             default:
-                $text = sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, OutputFormatter::escape($default));
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter::escape($default));
         }
-
         $output->writeln($text);
-
         $prompt = ' > ';
-
-        if ($question instanceof ChoiceQuestion) {
+        if ($question instanceof \ECSPrefix20210509\Symfony\Component\Console\Question\ChoiceQuestion) {
             $output->writeln($this->formatChoiceQuestionChoices($question, 'comment'));
-
             $prompt = $question->getPrompt();
         }
-
         $output->write($prompt);
     }
-
     /**
      * {@inheritdoc}
      */
-    protected function writeError(OutputInterface $output, \Exception $error)
+    protected function writeError(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, \Exception $error)
     {
-        if ($output instanceof SymfonyStyle) {
+        if ($output instanceof \ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle) {
             $output->newLine();
             $output->error($error->getMessage());
-
             return;
         }
-
         parent::writeError($output, $error);
     }
-
     /**
      * @return string
      */
     private function getEofShortcut()
     {
-        if (false !== strpos(\PHP_OS, 'WIN')) {
+        if (\false !== \strpos(\PHP_OS, 'WIN')) {
             return '<comment>Ctrl+Z</comment> then <comment>Enter</comment>';
         }
-
         return '<comment>Ctrl+D</comment>';
     }
 }

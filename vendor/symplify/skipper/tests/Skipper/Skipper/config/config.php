@@ -1,21 +1,19 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace ECSPrefix20210509;
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement;
 use Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense;
 use Symplify\Skipper\ValueObject\Option;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
-
-    $parameters->set(Option::SKIP, [
+    $parameters->set(\Symplify\Skipper\ValueObject\Option::SKIP, [
         // windows like path
-        '*\SomeSkipped\*',
-
+        '*\\SomeSkipped\\*',
         // elements
-        FifthElement::class,
-        SixthSense::class,
+        \Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\FifthElement::class,
+        \Symplify\Skipper\Tests\Skipper\Skipper\Fixture\Element\SixthSense::class,
     ]);
 };

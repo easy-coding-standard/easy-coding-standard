@@ -8,18 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
-
-use Symfony\Component\DependencyInjection\Definition;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class InstanceofConfigurator extends AbstractServiceConfigurator
+class InstanceofConfigurator extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     const FACTORY = 'instanceof';
-
     use Traits\AutowireTrait;
     use Traits\BindTrait;
     use Traits\CallTrait;
@@ -29,27 +26,23 @@ class InstanceofConfigurator extends AbstractServiceConfigurator
     use Traits\PublicTrait;
     use Traits\ShareTrait;
     use Traits\TagTrait;
-
     private $path;
-
     /**
      * @param string $id
      * @param string $path
      */
-    public function __construct(ServicesConfigurator $parent, Definition $definition, $id, $path = null)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition $definition, $id, $path = null)
     {
         $id = (string) $id;
         parent::__construct($parent, $definition, $id, []);
-
         $this->path = $path;
     }
-
     /**
      * Defines an instanceof-conditional to be applied to following service definitions.
      * @return $this
      * @param string $fqcn
      */
-    final public function instanceof($fqcn)
+    public final function instanceof($fqcn)
     {
         $fqcn = (string) $fqcn;
         return $this->parent->instanceof($fqcn);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the CompoundNamespaceDepth sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\PSR12\Tests\Namespaces;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class CompoundNamespaceDepthUnitTest extends AbstractSniffUnitTest
+class CompoundNamespaceDepthUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,15 +22,9 @@ class CompoundNamespaceDepthUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            10 => 1,
-            18 => 1,
-            21 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [10 => 1, 18 => 1, 21 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -45,8 +36,7 @@ class CompoundNamespaceDepthUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

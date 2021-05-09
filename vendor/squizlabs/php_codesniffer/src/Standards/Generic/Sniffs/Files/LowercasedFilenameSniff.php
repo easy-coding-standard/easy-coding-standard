@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Checks that all file names are lowercased.
  *
@@ -6,16 +7,12 @@
  * @copyright 2010-2014 Andy Grunwald
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class LowercasedFilenameSniff implements Sniff
+class LowercasedFilenameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -23,11 +20,9 @@ class LowercasedFilenameSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_TAG];
-
-    }//end register()
-
-
+        return [\T_OPEN_TAG];
+    }
+    //end register()
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -37,31 +32,25 @@ class LowercasedFilenameSniff implements Sniff
      *
      * @return int
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $filename = $phpcsFile->getFilename();
         if ($filename === 'STDIN') {
             return;
         }
-
-        $filename          = basename($filename);
-        $lowercaseFilename = strtolower($filename);
+        $filename = \basename($filename);
+        $lowercaseFilename = \strtolower($filename);
         if ($filename !== $lowercaseFilename) {
-            $data  = [
-                $filename,
-                $lowercaseFilename,
-            ];
+            $data = [$filename, $lowercaseFilename];
             $error = 'Filename "%s" doesn\'t match the expected filename "%s"';
             $phpcsFile->addError($error, $stackPtr, 'NotFound', $data);
             $phpcsFile->recordMetric($stackPtr, 'Lowercase filename', 'no');
         } else {
             $phpcsFile->recordMetric($stackPtr, 'Lowercase filename', 'yes');
         }
-
         // Ignore the rest of the file.
-        return ($phpcsFile->numTokens + 1);
-
-    }//end process()
-
-
-}//end class
+        return $phpcsFile->numTokens + 1;
+    }
+    //end process()
+}
+//end class

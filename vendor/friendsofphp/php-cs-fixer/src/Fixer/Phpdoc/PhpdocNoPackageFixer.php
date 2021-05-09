@@ -9,19 +9,17 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractProxyFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-
 /**
  * @author Graham Campbell <graham@alt-three.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocNoPackageFixer extends AbstractProxyFixer
+final class PhpdocNoPackageFixer extends \PhpCsFixer\AbstractProxyFixer
 {
     /**
      * {@inheritdoc}
@@ -29,11 +27,7 @@ final class PhpdocNoPackageFixer extends AbstractProxyFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            '`@package` and `@subpackage` annotations should be omitted from PHPDoc.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('`@package` and `@subpackage` annotations should be omitted from PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
  * @internal
  * @package Foo
@@ -42,12 +36,8 @@ final class PhpdocNoPackageFixer extends AbstractProxyFixer
 class Baz
 {
 }
-'
-                ),
-            ]
-        );
+')]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -59,16 +49,14 @@ class Baz
     {
         return parent::getPriority();
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
     protected function createProxyFixers()
     {
-        $fixer = new GeneralPhpdocAnnotationRemoveFixer();
+        $fixer = new \PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer();
         $fixer->configure(['annotations' => ['package', 'subpackage']]);
-
         return [$fixer];
     }
 }

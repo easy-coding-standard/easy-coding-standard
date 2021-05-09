@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Checks the naming of member variables.
  *
@@ -6,16 +7,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\AbstractVariableSniff;
-
-class ValidVariableNameSniff extends AbstractVariableSniff
+class ValidVariableNameSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
 {
-
-
     /**
      * Processes class member variables.
      *
@@ -25,47 +22,37 @@ class ValidVariableNameSniff extends AbstractVariableSniff
      *
      * @return void
      */
-    protected function processMemberVar(File $phpcsFile, $stackPtr)
+    protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
         $memberProps = $phpcsFile->getMemberProperties($stackPtr);
-        if (empty($memberProps) === true) {
+        if (empty($memberProps) === \true) {
             return;
         }
-
-        $memberName     = ltrim($tokens[$stackPtr]['content'], '$');
-        $scope          = $memberProps['scope'];
+        $memberName = \ltrim($tokens[$stackPtr]['content'], '$');
+        $scope = $memberProps['scope'];
         $scopeSpecified = $memberProps['scope_specified'];
-
         if ($memberProps['scope'] === 'private') {
-            $isPublic = false;
+            $isPublic = \false;
         } else {
-            $isPublic = true;
+            $isPublic = \true;
         }
-
         // If it's a private member, it must have an underscore on the front.
-        if ($isPublic === false && $memberName[0] !== '_') {
+        if ($isPublic === \false && $memberName[0] !== '_') {
             $error = 'Private member variable "%s" must be prefixed with an underscore';
-            $data  = [$memberName];
+            $data = [$memberName];
             $phpcsFile->addError($error, $stackPtr, 'PrivateNoUnderscore', $data);
             return;
         }
-
         // If it's not a private member, it must not have an underscore on the front.
-        if ($isPublic === true && $scopeSpecified === true && $memberName[0] === '_') {
+        if ($isPublic === \true && $scopeSpecified === \true && $memberName[0] === '_') {
             $error = '%s member variable "%s" must not be prefixed with an underscore';
-            $data  = [
-                ucfirst($scope),
-                $memberName,
-            ];
+            $data = [\ucfirst($scope), $memberName];
             $phpcsFile->addError($error, $stackPtr, 'PublicUnderscore', $data);
             return;
         }
-
-    }//end processMemberVar()
-
-
+    }
+    //end processMemberVar()
     /**
      * Processes normal variables.
      *
@@ -74,15 +61,13 @@ class ValidVariableNameSniff extends AbstractVariableSniff
      *
      * @return void
      */
-    protected function processVariable(File $phpcsFile, $stackPtr)
+    protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         /*
             We don't care about normal variables.
         */
-
-    }//end processVariable()
-
-
+    }
+    //end processVariable()
     /**
      * Processes variables in double quoted strings.
      *
@@ -91,13 +76,12 @@ class ValidVariableNameSniff extends AbstractVariableSniff
      *
      * @return void
      */
-    protected function processVariableInString(File $phpcsFile, $stackPtr)
+    protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         /*
             We don't care about normal variables.
         */
-
-    }//end processVariableInString()
-
-
-}//end class
+    }
+    //end processVariableInString()
+}
+//end class

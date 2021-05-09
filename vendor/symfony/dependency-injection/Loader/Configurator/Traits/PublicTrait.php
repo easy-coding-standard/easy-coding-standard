@@ -8,28 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait PublicTrait
 {
     /**
      * @return $this
      */
-    final public function public()
+    public final function public()
     {
-        $this->definition->setPublic(true);
-
+        $this->definition->setPublic(\true);
         return $this;
     }
-
     /**
      * @return $this
      */
-    final public function private()
+    public final function private()
     {
-        $this->definition->setPublic(false);
-
+        $this->definition->setPublic(\false);
         return $this;
     }
 }

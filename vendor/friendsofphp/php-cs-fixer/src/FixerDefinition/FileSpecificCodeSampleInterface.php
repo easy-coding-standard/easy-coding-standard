@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\FixerDefinition;
 
 /**
@@ -17,7 +16,7 @@ namespace PhpCsFixer\FixerDefinition;
  *
  * @internal
  */
-interface FileSpecificCodeSampleInterface extends CodeSampleInterface
+interface FileSpecificCodeSampleInterface extends \PhpCsFixer\FixerDefinition\CodeSampleInterface
 {
     /**
      * @return \SplFileInfo

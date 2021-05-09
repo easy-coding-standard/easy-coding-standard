@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer;
 
 use PhpCsFixer\Doctrine\Annotation\Tokens as DoctrineAnnotationTokens;
@@ -21,213 +20,182 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-
 /**
  * @internal
  */
-abstract class AbstractDoctrineAnnotationFixer extends AbstractFixer implements ConfigurableFixerInterface
+abstract class AbstractDoctrineAnnotationFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * @var array
      */
     private $classyElements;
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         // fetch indexes one time, this is safe as we never add or remove a token during fixing
-        $analyzer = new TokensAnalyzer($tokens);
+        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $this->classyElements = $analyzer->getClassyElements();
-
         /** @var Token $docCommentToken */
-        foreach ($tokens->findGivenKind(T_DOC_COMMENT) as $index => $docCommentToken) {
+        foreach ($tokens->findGivenKind(\T_DOC_COMMENT) as $index => $docCommentToken) {
             if (!$this->nextElementAcceptsDoctrineAnnotations($tokens, $index)) {
                 continue;
             }
-
-            $doctrineAnnotationTokens = DoctrineAnnotationTokens::createFromDocComment(
-                $docCommentToken,
-                $this->configuration['ignored_tags']
-            );
+            $doctrineAnnotationTokens = \PhpCsFixer\Doctrine\Annotation\Tokens::createFromDocComment($docCommentToken, $this->configuration['ignored_tags']);
             $this->fixAnnotations($doctrineAnnotationTokens);
-            $tokens[$index] = new Token([T_DOC_COMMENT, $doctrineAnnotationTokens->getCode()]);
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doctrineAnnotationTokens->getCode()]);
         }
     }
-
     /**
      * Fixes Doctrine annotations from the given PHPDoc style comment.
      * @return void
      */
-    abstract protected function fixAnnotations(DoctrineAnnotationTokens $doctrineAnnotationTokens);
-
+    protected abstract function fixAnnotations(\PhpCsFixer\Doctrine\Annotation\Tokens $doctrineAnnotationTokens);
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('ignored_tags', 'List of tags that must not be treated as Doctrine Annotations.'))
-                ->setAllowedTypes(['array'])
-                ->setAllowedValues([static function (array $values) {
-                    foreach ($values as $value) {
-                        if (!\is_string($value)) {
-                            return false;
-                        }
-                    }
-
-                    return true;
-                }])
-                ->setDefault([
-                    // PHPDocumentor 1
-                    'abstract',
-                    'access',
-                    'code',
-                    'deprec',
-                    'encode',
-                    'exception',
-                    'final',
-                    'ingroup',
-                    'inheritdoc',
-                    'inheritDoc',
-                    'magic',
-                    'name',
-                    'toc',
-                    'tutorial',
-                    'private',
-                    'static',
-                    'staticvar',
-                    'staticVar',
-                    'throw',
-
-                    // PHPDocumentor 2
-                    'api',
-                    'author',
-                    'category',
-                    'copyright',
-                    'deprecated',
-                    'example',
-                    'filesource',
-                    'global',
-                    'ignore',
-                    'internal',
-                    'license',
-                    'link',
-                    'method',
-                    'package',
-                    'param',
-                    'property',
-                    'property-read',
-                    'property-write',
-                    'return',
-                    'see',
-                    'since',
-                    'source',
-                    'subpackage',
-                    'throws',
-                    'todo',
-                    'TODO',
-                    'usedBy',
-                    'uses',
-                    'var',
-                    'version',
-
-                    // PHPUnit
-                    'after',
-                    'afterClass',
-                    'backupGlobals',
-                    'backupStaticAttributes',
-                    'before',
-                    'beforeClass',
-                    'codeCoverageIgnore',
-                    'codeCoverageIgnoreStart',
-                    'codeCoverageIgnoreEnd',
-                    'covers',
-                    'coversDefaultClass',
-                    'coversNothing',
-                    'dataProvider',
-                    'depends',
-                    'expectedException',
-                    'expectedExceptionCode',
-                    'expectedExceptionMessage',
-                    'expectedExceptionMessageRegExp',
-                    'group',
-                    'large',
-                    'medium',
-                    'preserveGlobalState',
-                    'requires',
-                    'runTestsInSeparateProcesses',
-                    'runInSeparateProcess',
-                    'small',
-                    'test',
-                    'testdox',
-                    'ticket',
-                    'uses',
-
-                    // PHPCheckStyle
-                    'SuppressWarnings',
-
-                    // PHPStorm
-                    'noinspection',
-
-                    // PEAR
-                    'package_version',
-
-                    // PlantUML
-                    'enduml',
-                    'startuml',
-
-                    // Psalm
-                    'psalm',
-
-                    // PHPStan
-                    'phpstan',
-
-                    // other
-                    'fix',
-                    'FIXME',
-                    'fixme',
-                    'override',
-                ])
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('ignored_tags', 'List of tags that must not be treated as Doctrine Annotations.'))->setAllowedTypes(['array'])->setAllowedValues([static function (array $values) {
+            foreach ($values as $value) {
+                if (!\is_string($value)) {
+                    return \false;
+                }
+            }
+            return \true;
+        }])->setDefault([
+            // PHPDocumentor 1
+            'abstract',
+            'access',
+            'code',
+            'deprec',
+            'encode',
+            'exception',
+            'final',
+            'ingroup',
+            'inheritdoc',
+            'inheritDoc',
+            'magic',
+            'name',
+            'toc',
+            'tutorial',
+            'private',
+            'static',
+            'staticvar',
+            'staticVar',
+            'throw',
+            // PHPDocumentor 2
+            'api',
+            'author',
+            'category',
+            'copyright',
+            'deprecated',
+            'example',
+            'filesource',
+            'global',
+            'ignore',
+            'internal',
+            'license',
+            'link',
+            'method',
+            'package',
+            'param',
+            'property',
+            'property-read',
+            'property-write',
+            'return',
+            'see',
+            'since',
+            'source',
+            'subpackage',
+            'throws',
+            'todo',
+            'TODO',
+            'usedBy',
+            'uses',
+            'var',
+            'version',
+            // PHPUnit
+            'after',
+            'afterClass',
+            'backupGlobals',
+            'backupStaticAttributes',
+            'before',
+            'beforeClass',
+            'codeCoverageIgnore',
+            'codeCoverageIgnoreStart',
+            'codeCoverageIgnoreEnd',
+            'covers',
+            'coversDefaultClass',
+            'coversNothing',
+            'dataProvider',
+            'depends',
+            'expectedException',
+            'expectedExceptionCode',
+            'expectedExceptionMessage',
+            'expectedExceptionMessageRegExp',
+            'group',
+            'large',
+            'medium',
+            'preserveGlobalState',
+            'requires',
+            'runTestsInSeparateProcesses',
+            'runInSeparateProcess',
+            'small',
+            'test',
+            'testdox',
+            'ticket',
+            'uses',
+            // PHPCheckStyle
+            'SuppressWarnings',
+            // PHPStorm
+            'noinspection',
+            // PEAR
+            'package_version',
+            // PlantUML
+            'enduml',
+            'startuml',
+            // Psalm
+            'psalm',
+            // PHPStan
+            'phpstan',
+            // other
+            'fix',
+            'FIXME',
+            'fixme',
+            'override',
+        ])->getOption()]);
     }
-
     /**
      * @param int $index
      * @return bool
      */
-    private function nextElementAcceptsDoctrineAnnotations(Tokens $tokens, $index)
+    private function nextElementAcceptsDoctrineAnnotations(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         do {
             $index = $tokens->getNextMeaningfulToken($index);
-
             if (null === $index) {
-                return false;
+                return \false;
             }
-        } while ($tokens[$index]->isGivenKind([T_ABSTRACT, T_FINAL]));
-
+        } while ($tokens[$index]->isGivenKind([\T_ABSTRACT, \T_FINAL]));
         if ($tokens[$index]->isClassy()) {
-            return true;
+            return \true;
         }
-
-        while ($tokens[$index]->isGivenKind([T_PUBLIC, T_PROTECTED, T_PRIVATE, T_FINAL, T_ABSTRACT, T_NS_SEPARATOR, T_STRING, CT::T_NULLABLE_TYPE])) {
+        while ($tokens[$index]->isGivenKind([\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_FINAL, \T_ABSTRACT, \T_NS_SEPARATOR, \T_STRING, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE])) {
             $index = $tokens->getNextMeaningfulToken($index);
         }
-
         return isset($this->classyElements[$index]);
     }
 }

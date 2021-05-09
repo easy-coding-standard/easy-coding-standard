@@ -9,13 +9,11 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Linter;
 
 use PhpCsFixer\FileReader;
 use PhpCsFixer\Tokenizer\CodeHasher;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * Handle PHP code linting.
  *
@@ -23,27 +21,22 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class TokenizerLinter implements LinterInterface
+final class TokenizerLinter implements \PhpCsFixer\Linter\LinterInterface
 {
     public function __construct()
     {
-        if (
-            // @TODO: drop condition when PHP 7.3+ is required
-            false === class_exists(\CompileError::class)
-        ) {
-            throw new UnavailableLinterException('Cannot use tokenizer as linter.');
+        if (\false === \class_exists(\CompileError::class)) {
+            throw new \PhpCsFixer\Linter\UnavailableLinterException('Cannot use tokenizer as linter.');
         }
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
     public function isAsync()
     {
-        return false;
+        return \false;
     }
-
     /**
      * {@inheritdoc}
      * @param string $path
@@ -52,9 +45,8 @@ final class TokenizerLinter implements LinterInterface
     public function lintFile($path)
     {
         $path = (string) $path;
-        return $this->lintSource(FileReader::createSingleton()->read($path));
+        return $this->lintSource(\PhpCsFixer\FileReader::createSingleton()->read($path));
     }
-
     /**
      * {@inheritdoc}
      * @param string $source
@@ -68,15 +60,14 @@ final class TokenizerLinter implements LinterInterface
             // During that process, it might throw a ParseError or CompileError.
             // If it won't, cache of tokenized version of source will be kept, which is great for Runner.
             // Yet, first we need to clear already existing cache to not hit it and lint the code indeed.
-            $codeHash = CodeHasher::calculateCodeHash($source);
-            Tokens::clearCache($codeHash);
-            Tokens::fromCode($source);
-
-            return new TokenizerLintingResult();
+            $codeHash = \PhpCsFixer\Tokenizer\CodeHasher::calculateCodeHash($source);
+            \PhpCsFixer\Tokenizer\Tokens::clearCache($codeHash);
+            \PhpCsFixer\Tokenizer\Tokens::fromCode($source);
+            return new \PhpCsFixer\Linter\TokenizerLintingResult();
         } catch (\ParseError $e) {
-            return new TokenizerLintingResult($e);
+            return new \PhpCsFixer\Linter\TokenizerLintingResult($e);
         } catch (\CompileError $e) {
-            return new TokenizerLintingResult($e);
+            return new \PhpCsFixer\Linter\TokenizerLintingResult($e);
         }
     }
 }

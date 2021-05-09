@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -21,11 +20,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-final class PhpdocSeparationFixer extends AbstractFixer
+final class PhpdocSeparationFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -33,11 +31,7 @@ final class PhpdocSeparationFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Annotations in PHPDoc should be grouped together so that annotations of the same type immediately follow each other, and annotations of a different type are separated by a single blank line.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Annotations in PHPDoc should be grouped together so that annotations of the same type immediately follow each other, and annotations of a different type are separated by a single blank line.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
  * Description.
  * @param string $foo
@@ -48,12 +42,8 @@ final class PhpdocSeparationFixer extends AbstractFixer
  * @return bool
  */
 function fnc($foo, $bar) {}
-'
-                ),
-            ]
-        );
+')]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -65,113 +55,95 @@ function fnc($foo, $bar) {}
     {
         return -3;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-
-            $doc = new DocBlock($token->getContent());
+            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
             $this->fixDescription($doc);
             $this->fixAnnotations($doc);
-
-            $tokens[$index] = new Token([T_DOC_COMMENT, $doc->getContent()]);
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
         }
     }
-
     /**
      * Make sure the description is separated from the annotations.
      * @return void
      */
-    private function fixDescription(DocBlock $doc)
+    private function fixDescription(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         foreach ($doc->getLines() as $index => $line) {
             if ($line->containsATag()) {
                 break;
             }
-
             if ($line->containsUsefulContent()) {
                 $next = $doc->getLine($index + 1);
-
                 if (null !== $next && $next->containsATag()) {
                     $line->addBlank();
-
                     break;
                 }
             }
         }
     }
-
     /**
      * Make sure the annotations are correctly separated.
      * @return string
      */
-    private function fixAnnotations(DocBlock $doc)
+    private function fixAnnotations(\PhpCsFixer\DocBlock\DocBlock $doc)
     {
         foreach ($doc->getAnnotations() as $index => $annotation) {
             $next = $doc->getAnnotation($index + 1);
-
             if (null === $next) {
                 break;
             }
-
-            if (true === $next->getTag()->valid()) {
-                if (TagComparator::shouldBeTogether($annotation->getTag(), $next->getTag())) {
+            if (\true === $next->getTag()->valid()) {
+                if (\PhpCsFixer\DocBlock\TagComparator::shouldBeTogether($annotation->getTag(), $next->getTag())) {
                     $this->ensureAreTogether($doc, $annotation, $next);
                 } else {
                     $this->ensureAreSeparate($doc, $annotation, $next);
                 }
             }
         }
-
         return $doc->getContent();
     }
-
     /**
      * Force the given annotations to immediately follow each other.
      * @return void
      */
-    private function ensureAreTogether(DocBlock $doc, Annotation $first, Annotation $second)
+    private function ensureAreTogether(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second)
     {
         $pos = $first->getEnd();
         $final = $second->getStart();
-
         for ($pos = $pos + 1; $pos < $final; ++$pos) {
             $doc->getLine($pos)->remove();
         }
     }
-
     /**
      * Force the given annotations to have one empty line between each other.
      * @return void
      */
-    private function ensureAreSeparate(DocBlock $doc, Annotation $first, Annotation $second)
+    private function ensureAreSeparate(\PhpCsFixer\DocBlock\DocBlock $doc, \PhpCsFixer\DocBlock\Annotation $first, \PhpCsFixer\DocBlock\Annotation $second)
     {
         $pos = $first->getEnd();
         $final = $second->getStart() - 1;
-
         // check if we need to add a line, or need to remove one or more lines
         if ($pos === $final) {
             $doc->getLine($pos)->addBlank();
-
             return;
         }
-
         for ($pos = $pos + 1; $pos < $final; ++$pos) {
             $doc->getLine($pos)->remove();
         }

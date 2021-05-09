@@ -8,23 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\EventDispatcher;
+namespace ECSPrefix20210509\Symfony\Component\EventDispatcher;
 
 /**
  * A read-only proxy for an event dispatcher.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class ImmutableEventDispatcher implements EventDispatcherInterface
+class ImmutableEventDispatcher implements \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventDispatcherInterface
 {
     private $dispatcher;
-
-    public function __construct(EventDispatcherInterface $dispatcher)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
-
     /**
      * {@inheritdoc}
      * @param string|null $eventName
@@ -35,7 +32,6 @@ class ImmutableEventDispatcher implements EventDispatcherInterface
     {
         return $this->dispatcher->dispatch($event, $eventName);
     }
-
     /**
      * {@inheritdoc}
      * @param string $eventName
@@ -47,15 +43,13 @@ class ImmutableEventDispatcher implements EventDispatcherInterface
         $priority = (int) $priority;
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
-
     /**
      * {@inheritdoc}
      */
-    public function addSubscriber(EventSubscriberInterface $subscriber)
+    public function addSubscriber(\ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
-
     /**
      * {@inheritdoc}
      * @param string $eventName
@@ -65,15 +59,13 @@ class ImmutableEventDispatcher implements EventDispatcherInterface
         $eventName = (string) $eventName;
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
-
     /**
      * {@inheritdoc}
      */
-    public function removeSubscriber(EventSubscriberInterface $subscriber)
+    public function removeSubscriber(\ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
     {
         throw new \BadMethodCallException('Unmodifiable event dispatchers must not be modified.');
     }
-
     /**
      * {@inheritdoc}
      * @param string $eventName
@@ -82,7 +74,6 @@ class ImmutableEventDispatcher implements EventDispatcherInterface
     {
         return $this->dispatcher->getListeners($eventName);
     }
-
     /**
      * {@inheritdoc}
      * @param string $eventName
@@ -92,7 +83,6 @@ class ImmutableEventDispatcher implements EventDispatcherInterface
         $eventName = (string) $eventName;
         return $this->dispatcher->getListenerPriority($eventName, $listener);
     }
-
     /**
      * {@inheritdoc}
      * @param string $eventName

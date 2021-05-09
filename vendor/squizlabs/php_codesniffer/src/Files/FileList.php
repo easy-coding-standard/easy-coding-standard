@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Represents a list of files on the file system that are to be checked during the run.
  *
@@ -8,7 +9,6 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Files;
 
 use PHP_CodeSniffer\Autoload;
@@ -16,46 +16,38 @@ use PHP_CodeSniffer\Util;
 use PHP_CodeSniffer\Ruleset;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Exceptions\DeepExitException;
-
 class FileList implements \Iterator, \Countable
 {
-
     /**
      * A list of file paths that are included in the list.
      *
      * @var array
      */
     private $files = [];
-
     /**
      * The number of files in the list.
      *
      * @var integer
      */
     private $numFiles = 0;
-
     /**
      * The config data for the run.
      *
      * @var \PHP_CodeSniffer\Config
      */
     public $config = null;
-
     /**
      * The ruleset used for the run.
      *
      * @var \PHP_CodeSniffer\Ruleset
      */
     public $ruleset = null;
-
     /**
      * An array of patterns to use for skipping files.
      *
      * @var array
      */
     protected $ignorePatterns = [];
-
-
     /**
      * Constructs a file list and loads in an array of file paths to process.
      *
@@ -64,39 +56,34 @@ class FileList implements \Iterator, \Countable
      *
      * @return void
      */
-    public function __construct(Config $config, Ruleset $ruleset)
+    public function __construct(\PHP_CodeSniffer\Config $config, \PHP_CodeSniffer\Ruleset $ruleset)
     {
         $this->ruleset = $ruleset;
-        $this->config  = $config;
-
+        $this->config = $config;
         $paths = $config->files;
         foreach ($paths as $path) {
-            $isPharFile = Util\Common::isPharFile($path);
-            if (is_dir($path) === true || $isPharFile === true) {
-                if ($isPharFile === true) {
-                    $path = 'phar://'.$path;
+            $isPharFile = \PHP_CodeSniffer\Util\Common::isPharFile($path);
+            if (\is_dir($path) === \true || $isPharFile === \true) {
+                if ($isPharFile === \true) {
+                    $path = 'phar://' . $path;
                 }
-
                 $filterClass = $this->getFilterClass();
-
-                $di       = new \RecursiveDirectoryIterator($path, (\RecursiveDirectoryIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS));
-                $filter   = new $filterClass($di, $path, $config, $ruleset);
+                $di = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS);
+                $filter = new $filterClass($di, $path, $config, $ruleset);
                 $iterator = new \RecursiveIteratorIterator($filter);
-
                 foreach ($iterator as $file) {
                     $this->files[$file->getPathname()] = null;
                     $this->numFiles++;
                 }
             } else {
                 $this->addFile($path);
-            }//end if
-        }//end foreach
-
-        reset($this->files);
-
-    }//end __construct()
-
-
+            }
+            //end if
+        }
+        //end foreach
+        \reset($this->files);
+    }
+    //end __construct()
     /**
      * Add a file to the list.
      *
@@ -108,7 +95,7 @@ class FileList implements \Iterator, \Countable
      *
      * @return void
      */
-    public function addFile($path, $file=null)
+    public function addFile($path, $file = null)
     {
         // No filtering is done for STDIN when the filename
         // has not been specified.
@@ -117,21 +104,16 @@ class FileList implements \Iterator, \Countable
             $this->numFiles++;
             return;
         }
-
         $filterClass = $this->getFilterClass();
-
-        $di       = new \RecursiveArrayIterator([$path]);
-        $filter   = new $filterClass($di, $path, $this->config, $this->ruleset);
+        $di = new \RecursiveArrayIterator([$path]);
+        $filter = new $filterClass($di, $path, $this->config, $this->ruleset);
         $iterator = new \RecursiveIteratorIterator($filter);
-
         foreach ($iterator as $path) {
             $this->files[$path] = $file;
             $this->numFiles++;
         }
-
-    }//end addFile()
-
-
+    }
+    //end addFile()
     /**
      * Get the class name of the filter being used for the run.
      *
@@ -141,29 +123,24 @@ class FileList implements \Iterator, \Countable
     private function getFilterClass()
     {
         $filterType = $this->config->filter;
-
         if ($filterType === null) {
-            $filterClass = '\PHP_CodeSniffer\Filters\Filter';
+            $filterClass = '\\PHP_CodeSniffer\\Filters\\Filter';
         } else {
-            if (strpos($filterType, '.') !== false) {
+            if (\strpos($filterType, '.') !== \false) {
                 // This is a path to a custom filter class.
-                $filename = realpath($filterType);
-                if ($filename === false) {
-                    $error = "ERROR: Custom filter \"$filterType\" not found".PHP_EOL;
-                    throw new DeepExitException($error, 3);
+                $filename = \realpath($filterType);
+                if ($filename === \false) {
+                    $error = "ERROR: Custom filter \"{$filterType}\" not found" . \PHP_EOL;
+                    throw new \PHP_CodeSniffer\Exceptions\DeepExitException($error, 3);
                 }
-
-                $filterClass = Autoload::loadFile($filename);
+                $filterClass = \PHP_CodeSniffer\Autoload::loadFile($filename);
             } else {
-                $filterClass = '\PHP_CodeSniffer\Filters\\'.$filterType;
+                $filterClass = '\\PHP_CodeSniffer\\Filters\\' . $filterType;
             }
         }
-
         return $filterClass;
-
-    }//end getFilterClass()
-
-
+    }
+    //end getFilterClass()
     /**
      * Rewind the iterator to the first file.
      *
@@ -171,11 +148,9 @@ class FileList implements \Iterator, \Countable
      */
     public function rewind()
     {
-        reset($this->files);
-
-    }//end rewind()
-
-
+        \reset($this->files);
+    }
+    //end rewind()
     /**
      * Get the file that is currently being processed.
      *
@@ -183,16 +158,13 @@ class FileList implements \Iterator, \Countable
      */
     public function current()
     {
-        $path = key($this->files);
-        if (isset($this->files[$path]) === false) {
-            $this->files[$path] = new LocalFile($path, $this->ruleset, $this->config);
+        $path = \key($this->files);
+        if (isset($this->files[$path]) === \false) {
+            $this->files[$path] = new \PHP_CodeSniffer\Files\LocalFile($path, $this->ruleset, $this->config);
         }
-
         return $this->files[$path];
-
-    }//end current()
-
-
+    }
+    //end current()
     /**
      * Return the file path of the current file being processed.
      *
@@ -200,11 +172,9 @@ class FileList implements \Iterator, \Countable
      */
     public function key()
     {
-        return key($this->files);
-
-    }//end key()
-
-
+        return \key($this->files);
+    }
+    //end key()
     /**
      * Move forward to the next file.
      *
@@ -212,11 +182,9 @@ class FileList implements \Iterator, \Countable
      */
     public function next()
     {
-        next($this->files);
-
-    }//end next()
-
-
+        \next($this->files);
+    }
+    //end next()
     /**
      * Checks if current position is valid.
      *
@@ -224,15 +192,12 @@ class FileList implements \Iterator, \Countable
      */
     public function valid()
     {
-        if (current($this->files) === false) {
-            return false;
+        if (\current($this->files) === \false) {
+            return \false;
         }
-
-        return true;
-
-    }//end valid()
-
-
+        return \true;
+    }
+    //end valid()
     /**
      * Return the number of files in the list.
      *
@@ -241,8 +206,7 @@ class FileList implements \Iterator, \Countable
     public function count()
     {
         return $this->numFiles;
-
-    }//end count()
-
-
-}//end class
+    }
+    //end count()
+}
+//end class

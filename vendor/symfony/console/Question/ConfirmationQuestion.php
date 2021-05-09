@@ -8,34 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Console\Question;
+namespace ECSPrefix20210509\Symfony\Component\Console\Question;
 
 /**
  * Represents a yes/no question.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ConfirmationQuestion extends Question
+class ConfirmationQuestion extends \ECSPrefix20210509\Symfony\Component\Console\Question\Question
 {
     private $trueAnswerRegex;
-
     /**
      * @param string $question        The question to ask to the user
      * @param bool   $default         The default answer to return, true or false
      * @param string $trueAnswerRegex A regex to match the "yes" answer
      */
-    public function __construct($question, $default = true, $trueAnswerRegex = '/^y/i')
+    public function __construct($question, $default = \true, $trueAnswerRegex = '/^y/i')
     {
         $question = (string) $question;
         $default = (bool) $default;
         $trueAnswerRegex = (string) $trueAnswerRegex;
         parent::__construct($question, $default);
-
         $this->trueAnswerRegex = $trueAnswerRegex;
         $this->setNormalizer($this->getDefaultNormalizer());
     }
-
     /**
      * Returns the default answer normalizer.
      * @return callable
@@ -44,17 +40,14 @@ class ConfirmationQuestion extends Question
     {
         $default = $this->getDefault();
         $regex = $this->trueAnswerRegex;
-
-        return function ($answer) use ($default, $regex) {
+        return function ($answer) use($default, $regex) {
             if (\is_bool($answer)) {
                 return $answer;
             }
-
-            $answerIsTrue = (bool) preg_match($regex, $answer);
-            if (false === $default) {
+            $answerIsTrue = (bool) \preg_match($regex, $answer);
+            if (\false === $default) {
                 return $answer && $answerIsTrue;
             }
-
             return '' === $answer || $answerIsTrue;
         };
     }

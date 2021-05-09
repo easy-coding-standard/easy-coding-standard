@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensures that object indexes are written in dot notation.
  *
@@ -6,23 +7,18 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class DisallowObjectStringIndexSniff implements Sniff
+class DisallowObjectStringIndexSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['JS'];
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -31,10 +27,8 @@ class DisallowObjectStringIndexSniff implements Sniff
     public function register()
     {
         return [T_OPEN_SQUARE_BRACKET];
-
-    }//end register()
-
-
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -44,42 +38,36 @@ class DisallowObjectStringIndexSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
         // Check if the next non whitespace token is a string.
-        $index = $phpcsFile->findNext(T_WHITESPACE, ($stackPtr + 1), null, true);
-        if ($tokens[$index]['code'] !== T_CONSTANT_ENCAPSED_STRING) {
+        $index = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
+        if ($tokens[$index]['code'] !== \T_CONSTANT_ENCAPSED_STRING) {
             return;
         }
-
         // Make sure it is the only thing in the square brackets.
-        $next = $phpcsFile->findNext(T_WHITESPACE, ($index + 1), null, true);
+        $next = $phpcsFile->findNext(\T_WHITESPACE, $index + 1, null, \true);
         if ($tokens[$next]['code'] !== T_CLOSE_SQUARE_BRACKET) {
             return;
         }
-
         // Allow indexes that have dots in them because we can't write
         // them in dot notation.
-        $content = trim($tokens[$index]['content'], '"\' ');
-        if (strpos($content, '.') !== false) {
+        $content = \trim($tokens[$index]['content'], '"\' ');
+        if (\strpos($content, '.') !== \false) {
             return;
         }
-
         // Also ignore reserved words.
         if ($content === 'super') {
             return;
         }
-
         // Token before the opening square bracket cannot be a var name.
-        $prev = $phpcsFile->findPrevious(T_WHITESPACE, ($stackPtr - 1), null, true);
-        if ($tokens[$prev]['code'] === T_STRING) {
+        $prev = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
+        if ($tokens[$prev]['code'] === \T_STRING) {
             $error = 'Object indexes must be written in dot notation';
             $phpcsFile->addError($error, $prev, 'Found');
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

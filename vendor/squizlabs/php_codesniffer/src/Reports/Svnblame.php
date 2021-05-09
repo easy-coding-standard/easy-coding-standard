@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SVN blame report for PHP_CodeSniffer.
  *
@@ -6,22 +7,17 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Reports;
 
 use PHP_CodeSniffer\Exceptions\DeepExitException;
-
-class Svnblame extends VersionControl
+class Svnblame extends \PHP_CodeSniffer\Reports\VersionControl
 {
-
     /**
      * The name of the report we want in the output
      *
      * @var string
      */
     protected $reportName = 'SVN';
-
-
     /**
      * Extract the author from a blame line.
      *
@@ -32,17 +28,13 @@ class Svnblame extends VersionControl
     protected function getAuthor($line)
     {
         $blameParts = [];
-        preg_match('|\s*([^\s]+)\s+([^\s]+)|', $line, $blameParts);
-
-        if (isset($blameParts[2]) === false) {
-            return false;
+        \preg_match('|\\s*([^\\s]+)\\s+([^\\s]+)|', $line, $blameParts);
+        if (isset($blameParts[2]) === \false) {
+            return \false;
         }
-
         return $blameParts[2];
-
-    }//end getAuthor()
-
-
+    }
+    //end getAuthor()
     /**
      * Gets the blame output.
      *
@@ -53,21 +45,17 @@ class Svnblame extends VersionControl
      */
     protected function getBlameContent($filename)
     {
-        $command = 'svn blame "'.$filename.'" 2>&1';
-        $handle  = popen($command, 'r');
-        if ($handle === false) {
-            $error = 'ERROR: Could not execute "'.$command.'"'.PHP_EOL.PHP_EOL;
-            throw new DeepExitException($error, 3);
+        $command = 'svn blame "' . $filename . '" 2>&1';
+        $handle = \popen($command, 'r');
+        if ($handle === \false) {
+            $error = 'ERROR: Could not execute "' . $command . '"' . \PHP_EOL . \PHP_EOL;
+            throw new \PHP_CodeSniffer\Exceptions\DeepExitException($error, 3);
         }
-
-        $rawContent = stream_get_contents($handle);
-        fclose($handle);
-
-        $blames = explode("\n", $rawContent);
-
+        $rawContent = \stream_get_contents($handle);
+        \fclose($handle);
+        $blames = \explode("\n", $rawContent);
         return $blames;
-
-    }//end getBlameContent()
-
-
-}//end class
+    }
+    //end getBlameContent()
+}
+//end class

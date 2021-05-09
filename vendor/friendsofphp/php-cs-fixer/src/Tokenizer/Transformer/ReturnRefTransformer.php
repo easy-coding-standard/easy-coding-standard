@@ -9,14 +9,12 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Tokenizer\Transformer;
 
 use PhpCsFixer\Tokenizer\AbstractTransformer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * Transform `&` operator into CT::T_RETURN_REF in `function & foo() {}`.
  *
@@ -24,7 +22,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class ReturnRefTransformer extends AbstractTransformer
+final class ReturnRefTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -34,34 +32,28 @@ final class ReturnRefTransformer extends AbstractTransformer
     {
         return 50000;
     }
-
     /**
      * {@inheritdoc}
      * @return void
      * @param int $index
      */
-    public function process(Tokens $tokens, Token $token, $index)
+    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
     {
         $index = (int) $index;
-        $prevKinds = [T_FUNCTION];
+        $prevKinds = [\T_FUNCTION];
         if (\PHP_VERSION_ID >= 70400) {
-            $prevKinds[] = T_FN;
+            $prevKinds[] = \T_FN;
         }
-
-        if (
-            $token->equals('&')
-            && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind($prevKinds)
-        ) {
-            $tokens[$index] = new Token([CT::T_RETURN_REF, '&']);
+        if ($token->equals('&') && $tokens[$tokens->getPrevMeaningfulToken($index)]->isGivenKind($prevKinds)) {
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_RETURN_REF, '&']);
         }
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
     public function getCustomTokens()
     {
-        return [CT::T_RETURN_REF];
+        return [\PhpCsFixer\Tokenizer\CT::T_RETURN_REF];
     }
 }

@@ -1,9 +1,16 @@
 {
-    "name": "symfony/http-client-contracts",
+    "name": "symfony\/http-client-contracts",
     "type": "library",
     "description": "Generic abstractions related to HTTP clients",
-    "keywords": ["abstractions", "contracts", "decoupling", "interfaces", "interoperability", "standards"],
-    "homepage": "https://symfony.com",
+    "keywords": [
+        "abstractions",
+        "contracts",
+        "decoupling",
+        "interfaces",
+        "interoperability",
+        "standards"
+    ],
+    "homepage": "https:\/\/symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,17 +19,19 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https://symfony.com/contributors"
+            "homepage": "https:\/\/symfony.com\/contributors"
         }
     ],
     "require": {
         "php": ">=7.2.5"
     },
     "suggest": {
-        "symfony/http-client-implementation": ""
+        "symfony\/http-client-implementation": ""
     },
     "autoload": {
-        "psr-4": { "Symfony\\Contracts\\HttpClient\\": "" }
+        "psr-4": {
+            "ECSPrefix20210509\\Symfony\\Contracts\\HttpClient\\": ""
+        }
     },
     "minimum-stability": "dev",
     "extra": {
@@ -30,8 +39,8 @@
             "dev-main": "2.4-dev"
         },
         "thanks": {
-            "name": "symfony/contracts",
-            "url": "https://github.com/symfony/contracts"
+            "name": "symfony\/contracts",
+            "url": "https:\/\/github.com\/symfony\/contracts"
         }
     }
 }

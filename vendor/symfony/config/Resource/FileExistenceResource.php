@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Config\Resource;
+namespace ECSPrefix20210509\Symfony\Component\Config\Resource;
 
 /**
  * FileExistenceResource represents a resource stored on the filesystem.
@@ -21,12 +20,10 @@ namespace Symfony\Component\Config\Resource;
  *
  * @final
  */
-class FileExistenceResource implements SelfCheckingResourceInterface
+class FileExistenceResource implements \ECSPrefix20210509\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
 {
     private $resource;
-
     private $exists;
-
     /**
      * @param string $resource The file path to the resource
      */
@@ -34,9 +31,8 @@ class FileExistenceResource implements SelfCheckingResourceInterface
     {
         $resource = (string) $resource;
         $this->resource = $resource;
-        $this->exists = file_exists($resource);
+        $this->exists = \file_exists($resource);
     }
-
     /**
      * {@inheritdoc}
      * @return string
@@ -45,7 +41,6 @@ class FileExistenceResource implements SelfCheckingResourceInterface
     {
         return $this->resource;
     }
-
     /**
      * @return string The file path to the resource
      */
@@ -53,7 +48,6 @@ class FileExistenceResource implements SelfCheckingResourceInterface
     {
         return $this->resource;
     }
-
     /**
      * {@inheritdoc}
      * @param int $timestamp
@@ -62,6 +56,6 @@ class FileExistenceResource implements SelfCheckingResourceInterface
     public function isFresh($timestamp)
     {
         $timestamp = (int) $timestamp;
-        return file_exists($this->resource) === $this->exists;
+        return \file_exists($this->resource) === $this->exists;
     }
 }

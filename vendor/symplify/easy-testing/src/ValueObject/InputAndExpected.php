@@ -8,12 +8,10 @@ final class InputAndExpected
      * @var string
      */
     private $input;
-
     /**
      * @var mixed
      */
     private $expected;
-
     /**
      * @param mixed $expected
      * @param string $original
@@ -24,7 +22,6 @@ final class InputAndExpected
         $this->input = $original;
         $this->expected = $expected;
     }
-
     /**
      * @return string
      */
@@ -32,7 +29,6 @@ final class InputAndExpected
     {
         return $this->input;
     }
-
     /**
      * @return mixed
      */

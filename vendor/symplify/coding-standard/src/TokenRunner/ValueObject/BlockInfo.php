@@ -8,12 +8,10 @@ final class BlockInfo
      * @var int
      */
     private $start;
-
     /**
      * @var int
      */
     private $end;
-
     /**
      * @param int $start
      * @param int $end
@@ -25,7 +23,6 @@ final class BlockInfo
         $this->start = $start;
         $this->end = $end;
     }
-
     /**
      * @return int
      */
@@ -33,7 +30,6 @@ final class BlockInfo
     {
         return $this->start;
     }
-
     /**
      * @return int
      */
@@ -41,7 +37,6 @@ final class BlockInfo
     {
         return $this->end;
     }
-
     /**
      * @param int $position
      * @return bool
@@ -50,7 +45,7 @@ final class BlockInfo
     {
         $position = (int) $position;
         if ($position < $this->start) {
-            return false;
+            return \false;
         }
         return $position <= $this->end;
     }

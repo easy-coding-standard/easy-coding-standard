@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage;
 
-namespace Symfony\Component\HttpFoundation\Session\Storage;
-
-use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
 /**
  * StorageInterface.
  *
@@ -29,40 +27,34 @@ interface SessionStorageInterface
      * @throws \RuntimeException if something goes wrong starting the session
      */
     public function start();
-
     /**
      * Checks if the session is started.
      *
      * @return bool True if started, false otherwise
      */
     public function isStarted();
-
     /**
      * Returns the session ID.
      *
      * @return string The session ID or empty
      */
     public function getId();
-
     /**
      * Sets the session ID.
      * @param string $id
      */
     public function setId($id);
-
     /**
      * Returns the session name.
      *
      * @return string The session name
      */
     public function getName();
-
     /**
      * Sets the session name.
      * @param string $name
      */
     public function setName($name);
-
     /**
      * Regenerates id that represents this storage.
      *
@@ -92,8 +84,7 @@ interface SessionStorageInterface
      *
      * @throws \RuntimeException If an error occurs while regenerating this storage
      */
-    public function regenerate($destroy = false, $lifetime = null);
-
+    public function regenerate($destroy = \false, $lifetime = null);
     /**
      * Force the session to be saved and closed.
      *
@@ -106,12 +97,10 @@ interface SessionStorageInterface
      *                           is already closed
      */
     public function save();
-
     /**
      * Clear all session data in memory.
      */
     public function clear();
-
     /**
      * Gets a SessionBagInterface by name.
      *
@@ -121,12 +110,10 @@ interface SessionStorageInterface
      * @param string $name
      */
     public function getBag($name);
-
     /**
      * Registers a SessionBagInterface for use.
      */
-    public function registerBag(SessionBagInterface $bag);
-
+    public function registerBag(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag);
     /**
      * @return MetadataBag
      */

@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -23,43 +22,29 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use Symfony\Component\OptionsResolver\Options;
-
+use ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use ECSPrefix20210509\Symfony\Component\OptionsResolver\Options;
 /**
  * @author SpacePossum
  */
-final class PhpdocTagTypeFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class PhpdocTagTypeFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Forces PHPDoc tags to be either regular annotations or inline.',
-            [
-                new CodeSample(
-                    "<?php\n/**\n * {@api}\n */\n"
-                ),
-                new CodeSample(
-                    "<?php\n/**\n * @inheritdoc\n */\n",
-                    ['tags' => ['inheritdoc' => 'inline']]
-                ),
-            ]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Forces PHPDoc tags to be either regular annotations or inline.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * {@api}\n */\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @inheritdoc\n */\n", ['tags' => ['inheritdoc' => 'inline']])]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -71,115 +56,62 @@ final class PhpdocTagTypeFixer extends AbstractFixer implements ConfigurableFixe
     {
         return 0;
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (!$this->configuration['tags']) {
             return;
         }
-
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-
-            $parts = Preg::split(
-                sprintf(
-                    '/({?@(?:%s)(?:}|\h.*?(?:}|(?=\R)|(?=\h+\*\/)))?)/i',
-                    implode('|', array_map(
-                        function (string $tag) {
-                            return preg_quote($tag, '/');
-                        },
-                        array_keys($this->configuration['tags'])
-                    ))
-                ),
-                $token->getContent(),
-                -1,
-                PREG_SPLIT_DELIM_CAPTURE
-            );
-
+            $parts = \PhpCsFixer\Preg::split(\sprintf('/({?@(?:%s)(?:}|\\h.*?(?:}|(?=\\R)|(?=\\h+\\*\\/)))?)/i', \implode('|', \array_map(function (string $tag) {
+                return \preg_quote($tag, '/');
+            }, \array_keys($this->configuration['tags'])))), $token->getContent(), -1, \PREG_SPLIT_DELIM_CAPTURE);
             for ($i = 1, $max = \count($parts) - 1; $i < $max; $i += 2) {
-                if (!Preg::match('/^{?(@(.*?)(?:\s[^}]*)?)}?$/', $parts[$i], $matches)) {
+                if (!\PhpCsFixer\Preg::match('/^{?(@(.*?)(?:\\s[^}]*)?)}?$/', $parts[$i], $matches)) {
                     continue;
                 }
-
-                $tag = strtolower($matches[2]);
+                $tag = \strtolower($matches[2]);
                 if (!isset($this->configuration['tags'][$tag])) {
                     continue;
                 }
-
                 if ('inline' === $this->configuration['tags'][$tag]) {
-                    $parts[$i] = '{'.$matches[1].'}';
-
+                    $parts[$i] = '{' . $matches[1] . '}';
                     continue;
                 }
-
                 if (!$this->tagIsSurroundedByText($parts, $i)) {
                     $parts[$i] = $matches[1];
                 }
             }
-
-            $tokens[$index] = new Token([T_DOC_COMMENT, implode('', $parts)]);
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, \implode('', $parts)]);
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('tags', 'The list of tags to fix'))
-                ->setAllowedTypes(['array'])
-                ->setAllowedValues([function ($value) {
-                    foreach ($value as $type) {
-                        if (!\in_array($type, ['annotation', 'inline'], true)) {
-                            throw new InvalidOptionsException("Unknown tag type \"{$type}\".");
-                        }
-                    }
-
-                    return true;
-                }])
-                ->setDefault([
-                    'api' => 'annotation',
-                    'author' => 'annotation',
-                    'copyright' => 'annotation',
-                    'deprecated' => 'annotation',
-                    'example' => 'annotation',
-                    'global' => 'annotation',
-                    'inheritDoc' => 'annotation',
-                    'internal' => 'annotation',
-                    'license' => 'annotation',
-                    'method' => 'annotation',
-                    'package' => 'annotation',
-                    'param' => 'annotation',
-                    'property' => 'annotation',
-                    'return' => 'annotation',
-                    'see' => 'annotation',
-                    'since' => 'annotation',
-                    'throws' => 'annotation',
-                    'todo' => 'annotation',
-                    'uses' => 'annotation',
-                    'var' => 'annotation',
-                    'version' => 'annotation',
-                ])
-                ->setNormalizer(function (Options $options, $value) {
-                    $normalized = [];
-                    foreach ($value as $tag => $type) {
-                        $normalized[strtolower($tag)] = $type;
-                    }
-
-                    return $normalized;
-                })
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('tags', 'The list of tags to fix'))->setAllowedTypes(['array'])->setAllowedValues([function ($value) {
+            foreach ($value as $type) {
+                if (!\in_array($type, ['annotation', 'inline'], \true)) {
+                    throw new \ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException("Unknown tag type \"{$type}\".");
+                }
+            }
+            return \true;
+        }])->setDefault(['api' => 'annotation', 'author' => 'annotation', 'copyright' => 'annotation', 'deprecated' => 'annotation', 'example' => 'annotation', 'global' => 'annotation', 'inheritDoc' => 'annotation', 'internal' => 'annotation', 'license' => 'annotation', 'method' => 'annotation', 'package' => 'annotation', 'param' => 'annotation', 'property' => 'annotation', 'return' => 'annotation', 'see' => 'annotation', 'since' => 'annotation', 'throws' => 'annotation', 'todo' => 'annotation', 'uses' => 'annotation', 'var' => 'annotation', 'version' => 'annotation'])->setNormalizer(function (\ECSPrefix20210509\Symfony\Component\OptionsResolver\Options $options, $value) {
+            $normalized = [];
+            foreach ($value as $tag => $type) {
+                $normalized[\strtolower($tag)] = $type;
+            }
+            return $normalized;
+        })->getOption()]);
     }
-
     /**
      * @param int $index
      * @return bool
@@ -187,20 +119,15 @@ final class PhpdocTagTypeFixer extends AbstractFixer implements ConfigurableFixe
     private function tagIsSurroundedByText(array $parts, $index)
     {
         $index = (int) $index;
-        return
-            Preg::match('/(^|\R)\h*[^@\s]\N*/', $this->cleanComment($parts[$index - 1]))
-            || Preg::match('/^.*?\R\s*[^@\s]/', $this->cleanComment($parts[$index + 1]))
-        ;
+        return \PhpCsFixer\Preg::match('/(^|\\R)\\h*[^@\\s]\\N*/', $this->cleanComment($parts[$index - 1])) || \PhpCsFixer\Preg::match('/^.*?\\R\\s*[^@\\s]/', $this->cleanComment($parts[$index + 1]));
     }
-
     /**
      * @param string $comment
      */
     private function cleanComment($comment)
     {
         $comment = (string) $comment;
-        $comment = Preg::replace('/^\/\*\*|\*\/$/', '', $comment);
-
-        return Preg::replace('/(\R)(\h*\*)?\h*/', '$1', $comment);
+        $comment = \PhpCsFixer\Preg::replace('/^\\/\\*\\*|\\*\\/$/', '', $comment);
+        return \PhpCsFixer\Preg::replace('/(\\R)(\\h*\\*)?\\h*/', '$1', $comment);
     }
 }

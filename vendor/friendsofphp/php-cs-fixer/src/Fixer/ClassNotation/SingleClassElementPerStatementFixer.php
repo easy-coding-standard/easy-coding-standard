@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\ClassNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -27,7 +26,6 @@ use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
-
 /**
  * Fixer for rules defined in PSR2 ¶4.2.
  *
@@ -35,17 +33,16 @@ use PhpCsFixer\Tokenizer\TokensAnalyzer;
  * @author SpacePossum
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class SingleClassElementPerStatementFixer extends AbstractFixer implements ConfigurableFixerInterface, WhitespacesAwareFixerInterface
+final class SingleClassElementPerStatementFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface, \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound(Token::getClassyTokenKinds());
+        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
-
     /**
      * {@inheritdoc}
      *
@@ -56,57 +53,42 @@ final class SingleClassElementPerStatementFixer extends AbstractFixer implements
     {
         return 56;
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'There MUST NOT be more than one property or constant declared per statement.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There MUST NOT be more than one property or constant declared per statement.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Example
 {
     const FOO_1 = 1, FOO_2 = 2;
     private static $bar1 = array(1,2,3), $bar2 = [1,2,3];
 }
-'
-                ),
-                new CodeSample(
-                    '<?php
+'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Example
 {
     const FOO_1 = 1, FOO_2 = 2;
     private static $bar1 = array(1,2,3), $bar2 = [1,2,3];
 }
-',
-                    ['elements' => ['property']]
-                ),
-            ]
-        );
+', ['elements' => ['property']])]);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        $analyzer = new TokensAnalyzer($tokens);
-        $elements = array_reverse($analyzer->getClassyElements(), true);
-
+        $analyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $elements = \array_reverse($analyzer->getClassyElements(), \true);
         foreach ($elements as $index => $element) {
-            if (!\in_array($element['type'], $this->configuration['elements'], true)) {
-                continue; // not in configuration
+            if (!\in_array($element['type'], $this->configuration['elements'], \true)) {
+                continue;
+                // not in configuration
             }
-
             $this->fixElement($tokens, $element['type'], $index);
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
@@ -114,68 +96,49 @@ final class Example
     protected function createConfigurationDefinition()
     {
         $values = ['const', 'property'];
-
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('elements', 'List of strings which element should be modified.'))
-                ->setDefault($values)
-                ->setAllowedTypes(['array'])
-                ->setAllowedValues([new AllowedValueSubset($values)])
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('elements', 'List of strings which element should be modified.'))->setDefault($values)->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($values)])->getOption()]);
     }
-
     /**
      * @return void
      * @param string $type
      * @param int $index
      */
-    private function fixElement(Tokens $tokens, $type, $index)
+    private function fixElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $index)
     {
         $type = (string) $type;
         $index = (int) $index;
-        $tokensAnalyzer = new TokensAnalyzer($tokens);
+        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
         $repeatIndex = $index;
-
-        while (true) {
+        while (\true) {
             $repeatIndex = $tokens->getNextMeaningfulToken($repeatIndex);
             $repeatToken = $tokens[$repeatIndex];
-
             if ($tokensAnalyzer->isArray($repeatIndex)) {
-                if ($repeatToken->isGivenKind(T_ARRAY)) {
+                if ($repeatToken->isGivenKind(\T_ARRAY)) {
                     $repeatIndex = $tokens->getNextTokenOfKind($repeatIndex, ['(']);
-                    $repeatIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $repeatIndex);
+                    $repeatIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $repeatIndex);
                 } else {
-                    $repeatIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $repeatIndex);
+                    $repeatIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $repeatIndex);
                 }
-
                 continue;
             }
-
             if ($repeatToken->equals(';')) {
-                return; // no repeating found, no fixing needed
+                return;
+                // no repeating found, no fixing needed
             }
-
             if ($repeatToken->equals(',')) {
                 break;
             }
         }
-
         $start = $tokens->getPrevTokenOfKind($index, [';', '{', '}']);
-        $this->expandElement(
-            $tokens,
-            $type,
-            $tokens->getNextMeaningfulToken($start),
-            $tokens->getNextTokenOfKind($index, [';'])
-        );
+        $this->expandElement($tokens, $type, $tokens->getNextMeaningfulToken($start), $tokens->getNextTokenOfKind($index, [';']));
     }
-
     /**
      * @return void
      * @param string $type
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function expandElement(Tokens $tokens, $type, $startIndex, $endIndex)
+    private function expandElement(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
     {
         $type = (string) $type;
         $startIndex = (int) $startIndex;
@@ -183,76 +146,62 @@ final class Example
         $divisionContent = null;
         if ($tokens[$startIndex - 1]->isWhitespace()) {
             $divisionContent = $tokens[$startIndex - 1]->getContent();
-            if (Preg::match('#(\n|\r\n)#', $divisionContent, $matches)) {
-                $divisionContent = $matches[0].trim($divisionContent, "\r\n");
+            if (\PhpCsFixer\Preg::match('#(\\n|\\r\\n)#', $divisionContent, $matches)) {
+                $divisionContent = $matches[0] . \trim($divisionContent, "\r\n");
             }
         }
-
         // iterate variables to split up
         for ($i = $endIndex - 1; $i > $startIndex; --$i) {
             $token = $tokens[$i];
-
             if ($token->equals(')')) {
-                $i = $tokens->findBlockStart(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $i);
-
+                $i = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $i);
                 continue;
             }
-
-            if ($token->isGivenKind(CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
-                $i = $tokens->findBlockStart(Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $i);
-
+            if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_ARRAY_SQUARE_BRACE_CLOSE)) {
+                $i = $tokens->findBlockStart(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_ARRAY_SQUARE_BRACE, $i);
                 continue;
             }
-
             if (!$tokens[$i]->equals(',')) {
                 continue;
             }
-
-            $tokens[$i] = new Token(';');
+            $tokens[$i] = new \PhpCsFixer\Tokenizer\Token(';');
             if ($tokens[$i + 1]->isWhitespace()) {
                 $tokens->clearAt($i + 1);
             }
-
             if (null !== $divisionContent && '' !== $divisionContent) {
-                $tokens->insertAt($i + 1, new Token([T_WHITESPACE, $divisionContent]));
+                $tokens->insertAt($i + 1, new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $divisionContent]));
             }
-
             // collect modifiers
             $sequence = $this->getModifiersSequences($tokens, $type, $startIndex, $endIndex);
             $tokens->insertAt($i + 2, $sequence);
         }
     }
-
     /**
      * @return mixed[]
      * @param string $type
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function getModifiersSequences(Tokens $tokens, $type, $startIndex, $endIndex)
+    private function getModifiersSequences(\PhpCsFixer\Tokenizer\Tokens $tokens, $type, $startIndex, $endIndex)
     {
         $type = (string) $type;
         $startIndex = (int) $startIndex;
         $endIndex = (int) $endIndex;
         if ('property' === $type) {
-            $tokenKinds = [T_PUBLIC, T_PROTECTED, T_PRIVATE, T_STATIC, T_VAR, T_STRING, T_NS_SEPARATOR, CT::T_NULLABLE_TYPE, CT::T_ARRAY_TYPEHINT];
+            $tokenKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_STATIC, \T_VAR, \T_STRING, \T_NS_SEPARATOR, \PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, \PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT];
         } else {
-            $tokenKinds = [T_PUBLIC, T_PROTECTED, T_PRIVATE, T_CONST];
+            $tokenKinds = [\T_PUBLIC, \T_PROTECTED, \T_PRIVATE, \T_CONST];
         }
-
         $sequence = [];
         for ($i = $startIndex; $i < $endIndex - 1; ++$i) {
             if ($tokens[$i]->isComment()) {
                 continue;
             }
-
             if (!$tokens[$i]->isWhitespace() && !$tokens[$i]->isGivenKind($tokenKinds)) {
                 break;
             }
-
             $sequence[] = clone $tokens[$i];
         }
-
         return $sequence;
     }
 }

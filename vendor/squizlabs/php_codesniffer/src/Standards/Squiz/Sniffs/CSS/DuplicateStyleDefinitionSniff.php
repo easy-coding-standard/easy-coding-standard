@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Check for duplicate style definitions in the same class.
  *
@@ -6,23 +7,18 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class DuplicateStyleDefinitionSniff implements Sniff
+class DuplicateStyleDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['CSS'];
-
-
     /**
      * Returns the token types that this sniff is interested in.
      *
@@ -31,10 +27,8 @@ class DuplicateStyleDefinitionSniff implements Sniff
     public function register()
     {
         return [T_OPEN_CURLY_BRACKET];
-
-    }//end register()
-
-
+    }
+    //end register()
     /**
      * Processes the tokens that this sniff is interested in.
      *
@@ -44,45 +38,38 @@ class DuplicateStyleDefinitionSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        if (isset($tokens[$stackPtr]['bracket_closer']) === false) {
+        if (isset($tokens[$stackPtr]['bracket_closer']) === \false) {
             // Syntax error or live coding, bow out.
             return;
         }
-
         // Find the content of each style definition name.
         $styleNames = [];
-
         $next = $stackPtr;
-        $end  = $tokens[$stackPtr]['bracket_closer'];
-
+        $end = $tokens[$stackPtr]['bracket_closer'];
         do {
-            $next = $phpcsFile->findNext([T_STYLE, T_OPEN_CURLY_BRACKET], ($next + 1), $end);
-            if ($next === false) {
+            $next = $phpcsFile->findNext([T_STYLE, T_OPEN_CURLY_BRACKET], $next + 1, $end);
+            if ($next === \false) {
                 // Class definition is empty.
                 break;
             }
-
             if ($tokens[$next]['code'] === T_OPEN_CURLY_BRACKET) {
                 $next = $tokens[$next]['bracket_closer'];
                 continue;
             }
-
             $name = $tokens[$next]['content'];
-            if (isset($styleNames[$name]) === true) {
+            if (isset($styleNames[$name]) === \true) {
                 $first = $styleNames[$name];
                 $error = 'Duplicate style definition found; first defined on line %s';
-                $data  = [$tokens[$first]['line']];
+                $data = [$tokens[$first]['line']];
                 $phpcsFile->addError($error, $next, 'Found', $data);
             } else {
                 $styleNames[$name] = $next;
             }
-        } while ($next !== false);
-
-    }//end process()
-
-
-}//end class
+        } while ($next !== \false);
+    }
+    //end process()
+}
+//end class

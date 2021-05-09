@@ -1,6 +1,6 @@
 <?php
 
-namespace Psr\Log;
+namespace ECSPrefix20210509\Psr\Log;
 
 /**
  * Describes log levels.
@@ -8,11 +8,11 @@ namespace Psr\Log;
 class LogLevel
 {
     const EMERGENCY = 'emergency';
-    const ALERT     = 'alert';
-    const CRITICAL  = 'critical';
-    const ERROR     = 'error';
-    const WARNING   = 'warning';
-    const NOTICE    = 'notice';
-    const INFO      = 'info';
-    const DEBUG     = 'debug';
+    const ALERT = 'alert';
+    const CRITICAL = 'critical';
+    const ERROR = 'error';
+    const WARNING = 'warning';
+    const NOTICE = 'notice';
+    const INFO = 'info';
+    const DEBUG = 'debug';
 }

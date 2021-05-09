@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Comment;
 
 use PhpCsFixer\AbstractFixer;
@@ -19,11 +18,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class NoTrailingWhitespaceInCommentFixer extends AbstractFixer
+final class NoTrailingWhitespaceInCommentFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -31,15 +29,11 @@ final class NoTrailingWhitespaceInCommentFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'There MUST be no trailing spaces inside comment or PHPDoc.',
-            [new CodeSample('<?php
-// This is '.'
-// a comment. '.'
-')]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There MUST be no trailing spaces inside comment or PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+// This is ' . '
+// a comment. ' . '
+')]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -50,36 +44,32 @@ final class NoTrailingWhitespaceInCommentFixer extends AbstractFixer
     {
         return 0;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound([T_COMMENT, T_DOC_COMMENT]);
+        return $tokens->isAnyTokenKindsFound([\T_COMMENT, \T_DOC_COMMENT]);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if ($token->isGivenKind(T_DOC_COMMENT)) {
-                $tokens[$index] = new Token([T_DOC_COMMENT, Preg::replace('/(*ANY)[\h]+$/m', '', $token->getContent())]);
-
+            if ($token->isGivenKind(\T_DOC_COMMENT)) {
+                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, \PhpCsFixer\Preg::replace('/(*ANY)[\\h]+$/m', '', $token->getContent())]);
                 continue;
             }
-
-            if ($token->isGivenKind(T_COMMENT)) {
-                if ('/*' === substr($token->getContent(), 0, 2)) {
-                    $tokens[$index] = new Token([T_COMMENT, Preg::replace('/(*ANY)[\h]+$/m', '', $token->getContent())]);
+            if ($token->isGivenKind(\T_COMMENT)) {
+                if ('/*' === \substr($token->getContent(), 0, 2)) {
+                    $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, \PhpCsFixer\Preg::replace('/(*ANY)[\\h]+$/m', '', $token->getContent())]);
                 } elseif (isset($tokens[$index + 1]) && $tokens[$index + 1]->isWhitespace()) {
-                    $trimmedContent = ltrim($tokens[$index + 1]->getContent(), " \t");
+                    $trimmedContent = \ltrim($tokens[$index + 1]->getContent(), " \t");
                     if ('' !== $trimmedContent) {
-                        $tokens[$index + 1] = new Token([T_WHITESPACE, $trimmedContent]);
+                        $tokens[$index + 1] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $trimmedContent]);
                     } else {
                         $tokens->clearAt($index + 1);
                     }

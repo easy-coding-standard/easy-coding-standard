@@ -8,79 +8,68 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 /**
  * Resolves all parameter placeholders "%somevalue%" to their real values.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass
+class ResolveParameterPlaceHoldersPass extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $bag;
     private $resolveArrays;
     private $throwOnResolveException;
-
-    public function __construct($resolveArrays = true, $throwOnResolveException = true)
+    public function __construct($resolveArrays = \true, $throwOnResolveException = \true)
     {
         $this->resolveArrays = $resolveArrays;
         $this->throwOnResolveException = $throwOnResolveException;
     }
-
     /**
      * {@inheritdoc}
      *
      * @throws ParameterNotFoundException
      */
-    public function process(ContainerBuilder $container)
+    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->bag = $container->getParameterBag();
-
         try {
             parent::process($container);
-
             $aliases = [];
             foreach ($container->getAliases() as $name => $target) {
                 $this->currentId = $name;
                 $aliases[$this->bag->resolveValue($name)] = $target;
             }
             $container->setAliases($aliases);
-        } catch (ParameterNotFoundException $e) {
+        } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
             $e->setSourceId($this->currentId);
-
             throw $e;
         }
-
         $this->bag->resolve();
         $this->bag = null;
     }
-
     /**
      * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, $isRoot = \false)
     {
         $isRoot = (bool) $isRoot;
         if (\is_string($value)) {
             try {
                 $v = $this->bag->resolveValue($value);
-            } catch (ParameterNotFoundException $e) {
+            } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
                 if ($this->throwOnResolveException) {
                     throw $e;
                 }
-
                 $v = null;
                 $this->container->getDefinition($this->currentId)->addError($e->getMessage());
             }
-
             return $this->resolveArrays || !$v || !\is_array($v) ? $v : $value;
         }
-        if ($value instanceof Definition) {
+        if ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition) {
             $value->setBindings($this->processValue($value->getBindings()));
             $changes = $value->getChanges();
             if (isset($changes['class'])) {
@@ -90,13 +79,10 @@ class ResolveParameterPlaceHoldersPass extends AbstractRecursivePass
                 $value->setFile($this->bag->resolveValue($value->getFile()));
             }
         }
-
         $value = parent::processValue($value, $isRoot);
-
         if ($value && \is_array($value)) {
-            $value = array_combine($this->bag->resolveValue(array_keys($value)), $value);
+            $value = \array_combine($this->bag->resolveValue(\array_keys($value)), $value);
         }
-
         return $value;
     }
 }

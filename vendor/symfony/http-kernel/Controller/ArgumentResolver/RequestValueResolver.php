@@ -8,35 +8,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-namespace Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Yields the same instance as the request object passed along.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class RequestValueResolver implements ArgumentValueResolverInterface
+final class RequestValueResolver implements \ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function supports(Request $request, ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
-        return Request::class === $argument->getType() || is_subclass_of($argument->getType(), Request::class);
+        return \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request::class === $argument->getType() || \is_subclass_of($argument->getType(), \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request::class);
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
-    public function resolve(Request $request, ArgumentMetadata $argument)
+    public function resolve(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
-        yield $request;
+        (yield $request);
     }
 }

@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation;
 
 /**
  * HTTP header utility functions.
@@ -20,14 +19,12 @@ class HeaderUtils
 {
     const DISPOSITION_ATTACHMENT = 'attachment';
     const DISPOSITION_INLINE = 'inline';
-
     /**
      * This class should not be instantiated.
      */
     private function __construct()
     {
     }
-
     /**
      * Splits an HTTP header by one or more separators.
      *
@@ -47,29 +44,26 @@ class HeaderUtils
     {
         $header = (string) $header;
         $separators = (string) $separators;
-        $quotedSeparators = preg_quote($separators, '/');
-
-        preg_match_all('
+        $quotedSeparators = \preg_quote($separators, '/');
+        \preg_match_all('
             /
-                (?!\s)
+                (?!\\s)
                     (?:
                         # quoted-string
                         "(?:[^"\\\\]|\\\\.)*(?:"|\\\\|$)
                     |
                         # token
-                        [^"'.$quotedSeparators.']+
+                        [^"' . $quotedSeparators . ']+
                     )+
-                (?<!\s)
+                (?<!\\s)
             |
                 # separator
-                \s*
-                (?<separator>['.$quotedSeparators.'])
-                \s*
-            /x', trim($header), $matches, \PREG_SET_ORDER);
-
+                \\s*
+                (?<separator>[' . $quotedSeparators . '])
+                \\s*
+            /x', \trim($header), $matches, \PREG_SET_ORDER);
         return self::groupParts($matches, $separators);
     }
-
     /**
      * Combines an array of arrays into one associative array.
      *
@@ -88,14 +82,12 @@ class HeaderUtils
     {
         $assoc = [];
         foreach ($parts as $part) {
-            $name = strtolower($part[0]);
-            $value = isset($part[1]) ? $part[1] : true;
+            $name = \strtolower($part[0]);
+            $value = isset($part[1]) ? $part[1] : \true;
             $assoc[$name] = $value;
         }
-
         return $assoc;
     }
-
     /**
      * Joins an associative array into a string for use in an HTTP header.
      *
@@ -115,16 +107,14 @@ class HeaderUtils
         $separator = (string) $separator;
         $parts = [];
         foreach ($assoc as $name => $value) {
-            if (true === $value) {
+            if (\true === $value) {
                 $parts[] = $name;
             } else {
-                $parts[] = $name.'='.self::quote($value);
+                $parts[] = $name . '=' . self::quote($value);
             }
         }
-
-        return implode($separator.' ', $parts);
+        return \implode($separator . ' ', $parts);
     }
-
     /**
      * Encodes a string as a quoted string, if necessary.
      *
@@ -137,13 +127,11 @@ class HeaderUtils
     public static function quote($s)
     {
         $s = (string) $s;
-        if (preg_match('/^[a-z0-9!#$%&\'*.^_`|~-]+$/i', $s)) {
+        if (\preg_match('/^[a-z0-9!#$%&\'*.^_`|~-]+$/i', $s)) {
             return $s;
         }
-
-        return '"'.addcslashes($s, '"\\"').'"';
+        return '"' . \addcslashes($s, '"\\"') . '"';
     }
-
     /**
      * Decodes a quoted string.
      *
@@ -155,9 +143,8 @@ class HeaderUtils
     public static function unquote($s)
     {
         $s = (string) $s;
-        return preg_replace('/\\\\(.)|"/', '$1', $s);
+        return \preg_replace('/\\\\(.)|"/', '$1', $s);
     }
-
     /**
      * Generates an HTTP Content-Disposition field-value.
      *
@@ -179,36 +166,29 @@ class HeaderUtils
         $filename = (string) $filename;
         $filenameFallback = (string) $filenameFallback;
         if (!\in_array($disposition, [self::DISPOSITION_ATTACHMENT, self::DISPOSITION_INLINE])) {
-            throw new \InvalidArgumentException(sprintf('The disposition must be either "%s" or "%s".', self::DISPOSITION_ATTACHMENT, self::DISPOSITION_INLINE));
+            throw new \InvalidArgumentException(\sprintf('The disposition must be either "%s" or "%s".', self::DISPOSITION_ATTACHMENT, self::DISPOSITION_INLINE));
         }
-
         if ('' === $filenameFallback) {
             $filenameFallback = $filename;
         }
-
         // filenameFallback is not ASCII.
-        if (!preg_match('/^[\x20-\x7e]*$/', $filenameFallback)) {
+        if (!\preg_match('/^[\\x20-\\x7e]*$/', $filenameFallback)) {
             throw new \InvalidArgumentException('The filename fallback must only contain ASCII characters.');
         }
-
         // percent characters aren't safe in fallback.
-        if (false !== strpos($filenameFallback, '%')) {
+        if (\false !== \strpos($filenameFallback, '%')) {
             throw new \InvalidArgumentException('The filename fallback cannot contain the "%" character.');
         }
-
         // path separators aren't allowed in either.
-        if (false !== strpos($filename, '/') || false !== strpos($filename, '\\') || false !== strpos($filenameFallback, '/') || false !== strpos($filenameFallback, '\\')) {
+        if (\false !== \strpos($filename, '/') || \false !== \strpos($filename, '\\') || \false !== \strpos($filenameFallback, '/') || \false !== \strpos($filenameFallback, '\\')) {
             throw new \InvalidArgumentException('The filename and the fallback cannot contain the "/" and "\\" characters.');
         }
-
         $params = ['filename' => $filenameFallback];
         if ($filename !== $filenameFallback) {
-            $params['filename*'] = "utf-8''".rawurlencode($filename);
+            $params['filename*'] = "utf-8''" . \rawurlencode($filename);
         }
-
-        return $disposition.'; '.self::toString($params, ';');
+        return $disposition . '; ' . self::toString($params, ';');
     }
-
     /**
      * Like parse_str(), but preserves dots in variable names.
      * @param string $query
@@ -216,110 +196,90 @@ class HeaderUtils
      * @param string $separator
      * @return mixed[]
      */
-    public static function parseQuery($query, $ignoreBrackets = false, $separator = '&')
+    public static function parseQuery($query, $ignoreBrackets = \false, $separator = '&')
     {
         $query = (string) $query;
         $ignoreBrackets = (bool) $ignoreBrackets;
         $separator = (string) $separator;
         $q = [];
-
-        foreach (explode($separator, $query) as $v) {
-            if (false !== $i = strpos($v, "\0")) {
-                $v = substr($v, 0, $i);
+        foreach (\explode($separator, $query) as $v) {
+            if (\false !== ($i = \strpos($v, "\0"))) {
+                $v = \substr($v, 0, $i);
             }
-
-            if (false === $i = strpos($v, '=')) {
-                $k = urldecode($v);
+            if (\false === ($i = \strpos($v, '='))) {
+                $k = \urldecode($v);
                 $v = '';
             } else {
-                $k = urldecode(substr($v, 0, $i));
-                $v = substr($v, $i);
+                $k = \urldecode(\substr($v, 0, $i));
+                $v = \substr($v, $i);
             }
-
-            if (false !== $i = strpos($k, "\0")) {
-                $k = substr($k, 0, $i);
+            if (\false !== ($i = \strpos($k, "\0"))) {
+                $k = \substr($k, 0, $i);
             }
-
-            $k = ltrim($k, ' ');
-
+            $k = \ltrim($k, ' ');
             if ($ignoreBrackets) {
-                $q[$k][] = urldecode(substr($v, 1));
-
+                $q[$k][] = \urldecode(\substr($v, 1));
                 continue;
             }
-
-            if (false === $i = strpos($k, '[')) {
-                $q[] = bin2hex($k).$v;
+            if (\false === ($i = \strpos($k, '['))) {
+                $q[] = \bin2hex($k) . $v;
             } else {
-                $q[] = bin2hex(substr($k, 0, $i)).rawurlencode(substr($k, $i)).$v;
+                $q[] = \bin2hex(\substr($k, 0, $i)) . \rawurlencode(\substr($k, $i)) . $v;
             }
         }
-
         if ($ignoreBrackets) {
             return $q;
         }
-
-        parse_str(implode('&', $q), $q);
-
+        \parse_str(\implode('&', $q), $q);
         $query = [];
-
         foreach ($q as $k => $v) {
-            if (false !== $i = strpos($k, '_')) {
-                $query[substr_replace($k, hex2bin(substr($k, 0, $i)).'[', 0, 1 + $i)] = $v;
+            if (\false !== ($i = \strpos($k, '_'))) {
+                $query[\substr_replace($k, \hex2bin(\substr($k, 0, $i)) . '[', 0, 1 + $i)] = $v;
             } else {
-                $query[hex2bin($k)] = $v;
+                $query[\hex2bin($k)] = $v;
             }
         }
-
         return $query;
     }
-
     /**
      * @param string $separators
      * @param bool $first
      * @return mixed[]
      */
-    private static function groupParts(array $matches, $separators, $first = true)
+    private static function groupParts(array $matches, $separators, $first = \true)
     {
         $separators = (string) $separators;
         $first = (bool) $first;
         $separator = $separators[0];
-        $partSeparators = substr($separators, 1);
-
+        $partSeparators = \substr($separators, 1);
         $i = 0;
         $partMatches = [];
-        $previousMatchWasSeparator = false;
+        $previousMatchWasSeparator = \false;
         foreach ($matches as $match) {
             if (!$first && $previousMatchWasSeparator && isset($match['separator']) && $match['separator'] === $separator) {
-                $previousMatchWasSeparator = true;
+                $previousMatchWasSeparator = \true;
                 $partMatches[$i][] = $match;
             } elseif (isset($match['separator']) && $match['separator'] === $separator) {
-                $previousMatchWasSeparator = true;
+                $previousMatchWasSeparator = \true;
                 ++$i;
             } else {
-                $previousMatchWasSeparator = false;
+                $previousMatchWasSeparator = \false;
                 $partMatches[$i][] = $match;
             }
         }
-
         $parts = [];
         if ($partSeparators) {
             foreach ($partMatches as $matches) {
-                $parts[] = self::groupParts($matches, $partSeparators, false);
+                $parts[] = self::groupParts($matches, $partSeparators, \false);
             }
         } else {
             foreach ($partMatches as $matches) {
                 $parts[] = self::unquote($matches[0][0]);
             }
-
             if (!$first && 2 < \count($parts)) {
-                $parts = [
-                    $parts[0],
-                    implode($separator, \array_slice($parts, 1)),
-                ];
+                $parts = [$parts[0], \implode($separator, \array_slice($parts, 1))];
             }
         }
-
         return $parts;
     }
 }

@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\FixerConfiguration;
 
 /**
@@ -18,12 +17,10 @@ namespace PhpCsFixer\FixerConfiguration;
 final class AllowedValueSubset
 {
     private $allowedValues;
-
     public function __construct(array $allowedValues)
     {
         $this->allowedValues = $allowedValues;
     }
-
     /**
      * Checks whether the given values are a subset of the allowed ones.
      *
@@ -33,18 +30,15 @@ final class AllowedValueSubset
     public function __invoke($values)
     {
         if (!\is_array($values)) {
-            return false;
+            return \false;
         }
-
         foreach ($values as $value) {
-            if (!\in_array($value, $this->allowedValues, true)) {
-                return false;
+            if (!\in_array($value, $this->allowedValues, \true)) {
+                return \false;
             }
         }
-
-        return true;
+        return \true;
     }
-
     /**
      * @return mixed[]|null
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tests that the file name and the name of the class contained within the file match.
  *
@@ -6,16 +7,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class ClassFileNameSniff implements Sniff
+class ClassFileNameSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -23,15 +20,9 @@ class ClassFileNameSniff implements Sniff
      */
     public function register()
     {
-        return [
-            T_CLASS,
-            T_INTERFACE,
-            T_TRAIT,
-        ];
-
-    }//end register()
-
-
+        return [\T_CLASS, \T_INTERFACE, \T_TRAIT];
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -41,29 +32,22 @@ class ClassFileNameSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $fullPath = basename($phpcsFile->getFilename());
-        $fileName = substr($fullPath, 0, strrpos($fullPath, '.'));
+        $fullPath = \basename($phpcsFile->getFilename());
+        $fileName = \substr($fullPath, 0, \strrpos($fullPath, '.'));
         if ($fileName === '') {
             // No filename probably means STDIN, so we can't do this check.
             return;
         }
-
-        $tokens  = $phpcsFile->getTokens();
-        $decName = $phpcsFile->findNext(T_STRING, $stackPtr);
-
+        $tokens = $phpcsFile->getTokens();
+        $decName = $phpcsFile->findNext(\T_STRING, $stackPtr);
         if ($tokens[$decName]['content'] !== $fileName) {
             $error = '%s name doesn\'t match filename; expected "%s %s"';
-            $data  = [
-                ucfirst($tokens[$stackPtr]['content']),
-                $tokens[$stackPtr]['content'],
-                $fileName,
-            ];
+            $data = [\ucfirst($tokens[$stackPtr]['content']), $tokens[$stackPtr]['content'], $fileName];
             $phpcsFile->addError($error, $stackPtr, 'NoMatch', $data);
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

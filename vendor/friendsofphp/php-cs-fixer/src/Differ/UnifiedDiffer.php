@@ -9,17 +9,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Differ;
 
 use PhpCsFixer\Diff\Differ;
 use PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder;
 use PhpCsFixer\Preg;
-
 /**
  * @author SpacePossum
  */
-final class UnifiedDiffer implements DifferInterface
+final class UnifiedDiffer implements \PhpCsFixer\Differ\DifferInterface
 {
     /**
      * {@inheritdoc}
@@ -33,25 +31,15 @@ final class UnifiedDiffer implements DifferInterface
         $old = (string) $old;
         $new = (string) $new;
         if (null === $file) {
-            $options = [
-                'fromFile' => 'Original',
-                'toFile' => 'New',
-            ];
+            $options = ['fromFile' => 'Original', 'toFile' => 'New'];
         } else {
             $filePath = $file->getRealPath();
-
-            if (1 === Preg::match('/\s/', $filePath)) {
-                $filePath = '"'.$filePath.'"';
+            if (1 === \PhpCsFixer\Preg::match('/\\s/', $filePath)) {
+                $filePath = '"' . $filePath . '"';
             }
-
-            $options = [
-                'fromFile' => $filePath,
-                'toFile' => $filePath,
-            ];
+            $options = ['fromFile' => $filePath, 'toFile' => $filePath];
         }
-
-        $differ = new Differ(new StrictUnifiedDiffOutputBuilder($options));
-
+        $differ = new \PhpCsFixer\Diff\Differ(new \PhpCsFixer\Diff\Output\StrictUnifiedDiffOutputBuilder($options));
         return $differ->diff($old, $new);
     }
 }

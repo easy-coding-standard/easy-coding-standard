@@ -1,7 +1,6 @@
 <?php
 
-namespace Nette;
-
+namespace ECSPrefix20210509\Nette;
 
 /**
  * The exception that is thrown when the value of an argument is
@@ -10,8 +9,6 @@ namespace Nette;
 class ArgumentOutOfRangeException extends \InvalidArgumentException
 {
 }
-
-
 /**
  * The exception that is thrown when a method call is invalid for the object's
  * current state, method has been invoked at an illegal or inappropriate time.
@@ -19,16 +16,12 @@ class ArgumentOutOfRangeException extends \InvalidArgumentException
 class InvalidStateException extends \RuntimeException
 {
 }
-
-
 /**
  * The exception that is thrown when a requested method or operation is not implemented.
  */
 class NotImplementedException extends \LogicException
 {
 }
-
-
 /**
  * The exception that is thrown when an invoked method is not supported. For scenarios where
  * it is sometimes possible to perform the requested operation, see InvalidStateException.
@@ -36,64 +29,48 @@ class NotImplementedException extends \LogicException
 class NotSupportedException extends \LogicException
 {
 }
-
-
 /**
  * The exception that is thrown when a requested method or operation is deprecated.
  */
-class DeprecatedException extends NotSupportedException
+class DeprecatedException extends \ECSPrefix20210509\Nette\NotSupportedException
 {
 }
-
-
 /**
  * The exception that is thrown when accessing a class member (property or method) fails.
  */
 class MemberAccessException extends \Error
 {
 }
-
-
 /**
  * The exception that is thrown when an I/O error occurs.
  */
 class IOException extends \RuntimeException
 {
 }
-
-
 /**
  * The exception that is thrown when accessing a file that does not exist on disk.
  */
-class FileNotFoundException extends IOException
+class FileNotFoundException extends \ECSPrefix20210509\Nette\IOException
 {
 }
-
-
 /**
  * The exception that is thrown when part of a file or directory cannot be found.
  */
-class DirectoryNotFoundException extends IOException
+class DirectoryNotFoundException extends \ECSPrefix20210509\Nette\IOException
 {
 }
-
-
 /**
  * The exception that is thrown when an argument does not match with the expected value.
  */
 class InvalidArgumentException extends \InvalidArgumentException
 {
 }
-
-
 /**
  * The exception that is thrown when an illegal index was requested.
  */
 class OutOfRangeException extends \OutOfRangeException
 {
 }
-
-
 /**
  * The exception that is thrown when a value (typically returned by function) does not match with the expected value.
  */

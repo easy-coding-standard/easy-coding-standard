@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Makes sure there are no spaces around the concatenation operator.
  *
@@ -6,31 +7,25 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Strings;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-
-class ConcatenationSpacingSniff implements Sniff
+class ConcatenationSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * The number of spaces before and after a string concat.
      *
      * @var integer
      */
     public $spacing = 0;
-
     /**
      * Allow newlines instead of spaces.
      *
      * @var boolean
      */
-    public $ignoreNewlines = false;
-
-
+    public $ignoreNewlines = \false;
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -39,10 +34,8 @@ class ConcatenationSpacingSniff implements Sniff
     public function register()
     {
         return [T_STRING_CONCAT];
-
-    }//end register()
-
-
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -52,113 +45,90 @@ class ConcatenationSpacingSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        if (isset($tokens[($stackPtr + 2)]) === false) {
+        if (isset($tokens[$stackPtr + 2]) === \false) {
             // Syntax error or live coding, bow out.
             return;
         }
-
-        $ignoreBefore = false;
-        $prev         = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
-        if ($tokens[$prev]['code'] === T_END_HEREDOC || $tokens[$prev]['code'] === T_END_NOWDOC) {
+        $ignoreBefore = \false;
+        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+        if ($tokens[$prev]['code'] === \T_END_HEREDOC || $tokens[$prev]['code'] === T_END_NOWDOC) {
             // Spacing before must be preserved due to the here/nowdoc closing tag.
-            $ignoreBefore = true;
+            $ignoreBefore = \true;
         }
-
         $this->spacing = (int) $this->spacing;
-
-        if ($ignoreBefore === false) {
-            if ($tokens[($stackPtr - 1)]['code'] !== T_WHITESPACE) {
+        if ($ignoreBefore === \false) {
+            if ($tokens[$stackPtr - 1]['code'] !== \T_WHITESPACE) {
                 $before = 0;
             } else {
-                if ($tokens[($stackPtr - 2)]['line'] !== $tokens[$stackPtr]['line']) {
+                if ($tokens[$stackPtr - 2]['line'] !== $tokens[$stackPtr]['line']) {
                     $before = 'newline';
                 } else {
-                    $before = $tokens[($stackPtr - 1)]['length'];
+                    $before = $tokens[$stackPtr - 1]['length'];
                 }
             }
-
             $phpcsFile->recordMetric($stackPtr, 'Spacing before string concat', $before);
         }
-
-        if ($tokens[($stackPtr + 1)]['code'] !== T_WHITESPACE) {
+        if ($tokens[$stackPtr + 1]['code'] !== \T_WHITESPACE) {
             $after = 0;
         } else {
-            if ($tokens[($stackPtr + 2)]['line'] !== $tokens[$stackPtr]['line']) {
+            if ($tokens[$stackPtr + 2]['line'] !== $tokens[$stackPtr]['line']) {
                 $after = 'newline';
             } else {
-                $after = $tokens[($stackPtr + 1)]['length'];
+                $after = $tokens[$stackPtr + 1]['length'];
             }
         }
-
         $phpcsFile->recordMetric($stackPtr, 'Spacing after string concat', $after);
-
-        if (($ignoreBefore === true
-            || $before === $this->spacing
-            || ($before === 'newline'
-            && $this->ignoreNewlines === true))
-            && ($after === $this->spacing
-            || ($after === 'newline'
-            && $this->ignoreNewlines === true))
-        ) {
+        if (($ignoreBefore === \true || $before === $this->spacing || $before === 'newline' && $this->ignoreNewlines === \true) && ($after === $this->spacing || $after === 'newline' && $this->ignoreNewlines === \true)) {
             return;
         }
-
         if ($this->spacing === 0) {
             $message = 'Concat operator must not be surrounded by spaces';
-            $data    = [];
+            $data = [];
         } else {
             if ($this->spacing > 1) {
                 $message = 'Concat operator must be surrounded by %s spaces';
             } else {
                 $message = 'Concat operator must be surrounded by a single space';
             }
-
             $data = [$this->spacing];
         }
-
         $fix = $phpcsFile->addFixableError($message, $stackPtr, 'PaddingFound', $data);
-
-        if ($fix === true) {
-            $padding = str_repeat(' ', $this->spacing);
-            if ($ignoreBefore === false && ($before !== 'newline' || $this->ignoreNewlines === false)) {
-                if ($tokens[($stackPtr - 1)]['code'] === T_WHITESPACE) {
+        if ($fix === \true) {
+            $padding = \str_repeat(' ', $this->spacing);
+            if ($ignoreBefore === \false && ($before !== 'newline' || $this->ignoreNewlines === \false)) {
+                if ($tokens[$stackPtr - 1]['code'] === \T_WHITESPACE) {
                     $phpcsFile->fixer->beginChangeset();
-                    $phpcsFile->fixer->replaceToken(($stackPtr - 1), $padding);
-                    if ($this->spacing === 0
-                        && ($tokens[($stackPtr - 2)]['code'] === T_LNUMBER
-                        || $tokens[($stackPtr - 2)]['code'] === T_DNUMBER)
-                    ) {
-                        $phpcsFile->fixer->replaceToken(($stackPtr - 2), '('.$tokens[($stackPtr - 2)]['content'].')');
+                    $phpcsFile->fixer->replaceToken($stackPtr - 1, $padding);
+                    if ($this->spacing === 0 && ($tokens[$stackPtr - 2]['code'] === \T_LNUMBER || $tokens[$stackPtr - 2]['code'] === \T_DNUMBER)) {
+                        $phpcsFile->fixer->replaceToken($stackPtr - 2, '(' . $tokens[$stackPtr - 2]['content'] . ')');
                     }
-
                     $phpcsFile->fixer->endChangeset();
-                } else if ($this->spacing > 0) {
-                    $phpcsFile->fixer->addContent(($stackPtr - 1), $padding);
+                } else {
+                    if ($this->spacing > 0) {
+                        $phpcsFile->fixer->addContent($stackPtr - 1, $padding);
+                    }
                 }
             }
-
-            if ($after !== 'newline' || $this->ignoreNewlines === false) {
-                if ($tokens[($stackPtr + 1)]['code'] === T_WHITESPACE) {
+            if ($after !== 'newline' || $this->ignoreNewlines === \false) {
+                if ($tokens[$stackPtr + 1]['code'] === \T_WHITESPACE) {
                     $phpcsFile->fixer->beginChangeset();
-                    $phpcsFile->fixer->replaceToken(($stackPtr + 1), $padding);
-                    if ($this->spacing === 0
-                        && ($tokens[($stackPtr + 2)]['code'] === T_LNUMBER
-                        || $tokens[($stackPtr + 2)]['code'] === T_DNUMBER)
-                    ) {
-                        $phpcsFile->fixer->replaceToken(($stackPtr + 2), '('.$tokens[($stackPtr + 2)]['content'].')');
+                    $phpcsFile->fixer->replaceToken($stackPtr + 1, $padding);
+                    if ($this->spacing === 0 && ($tokens[$stackPtr + 2]['code'] === \T_LNUMBER || $tokens[$stackPtr + 2]['code'] === \T_DNUMBER)) {
+                        $phpcsFile->fixer->replaceToken($stackPtr + 2, '(' . $tokens[$stackPtr + 2]['content'] . ')');
                     }
-
                     $phpcsFile->fixer->endChangeset();
-                } else if ($this->spacing > 0) {
-                    $phpcsFile->fixer->addContent($stackPtr, $padding);
+                } else {
+                    if ($this->spacing > 0) {
+                        $phpcsFile->fixer->addContent($stackPtr, $padding);
+                    }
                 }
             }
-        }//end if
-
-    }//end process()
-
-
-}//end class
+        }
+        //end if
+    }
+    //end process()
+}
+//end class

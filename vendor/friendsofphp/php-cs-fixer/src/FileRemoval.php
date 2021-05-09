@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer;
 
 /**
@@ -28,17 +27,14 @@ final class FileRemoval
      * @var array
      */
     private $files = [];
-
     public function __construct()
     {
-        register_shutdown_function([$this, 'clean']);
+        \register_shutdown_function([$this, 'clean']);
     }
-
     public function __destruct()
     {
         $this->clean();
     }
-
     /**
      * This class is not intended to be serialized,
      * and cannot be deserialized (see __wakeup method).
@@ -46,9 +42,8 @@ final class FileRemoval
      */
     public function __sleep()
     {
-        throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
+        throw new \BadMethodCallException('Cannot serialize ' . __CLASS__);
     }
-
     /**
      * Disable the deserialization of the class to prevent attacker executing
      * code by leveraging the __destruct method.
@@ -58,9 +53,8 @@ final class FileRemoval
      */
     public function __wakeup()
     {
-        throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
+        throw new \BadMethodCallException('Cannot unserialize ' . __CLASS__);
     }
-
     /**
      * Adds a file to be removed.
      * @return void
@@ -69,9 +63,8 @@ final class FileRemoval
     public function observe($path)
     {
         $path = (string) $path;
-        $this->files[$path] = true;
+        $this->files[$path] = \true;
     }
-
     /**
      * Removes a file from shutdown removal.
      * @return void
@@ -85,7 +78,6 @@ final class FileRemoval
         }
         $this->unlink($path);
     }
-
     /**
      * Removes attached files.
      * @return void
@@ -97,7 +89,6 @@ final class FileRemoval
         }
         $this->files = [];
     }
-
     /**
      * @return void
      * @param string $path
@@ -105,6 +96,6 @@ final class FileRemoval
     private function unlink($path)
     {
         $path = (string) $path;
-        @unlink($path);
+        @\unlink($path);
     }
 }

@@ -2,17 +2,16 @@
 
 namespace Symplify\ConsolePackageBuilder\Bundle;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass;
-
-final class NamelessConsoleCommandBundle extends Bundle
+final class NamelessConsoleCommandBundle extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return void
      */
-    public function build(ContainerBuilder $containerBuilder)
+    public function build(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new NamelessConsoleCommandCompilerPass());
+        $containerBuilder->addCompilerPass(new \Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
     }
 }

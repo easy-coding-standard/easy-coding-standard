@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the DisallowMultipleStatements sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Formatting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class DisallowMultipleStatementsUnitTest extends AbstractSniffUnitTest
+class DisallowMultipleStatementsUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,17 +22,9 @@ class DisallowMultipleStatementsUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            2  => 1,
-            6  => 1,
-            7  => 1,
-            8  => 2,
-            16 => 2,
-        ];
-
-    }//end getErrorList()
-
-
+        return [2 => 1, 6 => 1, 7 => 1, 8 => 2, 16 => 2];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -47,8 +36,7 @@ class DisallowMultipleStatementsUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

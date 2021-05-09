@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the MemberVarScope sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\Scope;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class MemberVarScopeUnitTest extends AbstractSniffUnitTest
+class MemberVarScopeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,20 +22,9 @@ class MemberVarScopeUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            7  => 1,
-            25 => 1,
-            29 => 1,
-            33 => 1,
-            39 => 1,
-            41 => 1,
-            66 => 2,
-            67 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [7 => 1, 25 => 1, 29 => 1, 33 => 1, 39 => 1, 41 => 1, 66 => 2, 67 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -50,8 +36,7 @@ class MemberVarScopeUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [71 => 1];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

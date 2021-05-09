@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Cache;
 
 /**
@@ -23,14 +22,12 @@ interface FileHandlerInterface
      * @return string
      */
     public function getFile();
-
     /**
      * @return \PhpCsFixer\Cache\CacheInterface|null
      */
     public function read();
-
     /**
      * @return void
      */
-    public function write(CacheInterface $cache);
+    public function write(\PhpCsFixer\Cache\CacheInterface $cache);
 }

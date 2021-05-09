@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Discourages the use of debug functions.
  *
@@ -6,14 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff as GenericForbiddenFunctionsSniff;
-
-class DiscouragedFunctionsSniff extends GenericForbiddenFunctionsSniff
+class DiscouragedFunctionsSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff
 {
-
     /**
      * A list of forbidden functions with their alternatives.
      *
@@ -22,17 +20,12 @@ class DiscouragedFunctionsSniff extends GenericForbiddenFunctionsSniff
      *
      * @var array<string, string|null>
      */
-    public $forbiddenFunctions = [
-        'error_log' => null,
-        'print_r'   => null,
-        'var_dump'  => null,
-    ];
-
+    public $forbiddenFunctions = ['error_log' => null, 'print_r' => null, 'var_dump' => null];
     /**
      * If true, an error will be thrown; otherwise a warning.
      *
      * @var boolean
      */
-    public $error = false;
-
-}//end class
+    public $error = \false;
+}
+//end class

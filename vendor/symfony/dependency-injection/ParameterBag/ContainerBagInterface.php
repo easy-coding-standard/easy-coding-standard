@@ -8,18 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag;
 
-namespace Symfony\Component\DependencyInjection\ParameterBag;
-
-use Psr\Container\ContainerInterface;
-use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-
+use ECSPrefix20210509\Psr\Container\ContainerInterface;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 /**
  * ContainerBagInterface is the interface implemented by objects that manage service container parameters.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-interface ContainerBagInterface extends ContainerInterface
+interface ContainerBagInterface extends \ECSPrefix20210509\Psr\Container\ContainerInterface
 {
     /**
      * Gets the service container parameters.
@@ -27,7 +25,6 @@ interface ContainerBagInterface extends ContainerInterface
      * @return array An array of parameters
      */
     public function all();
-
     /**
      * Replaces parameter placeholders (%name%) by their values.
      *
@@ -36,7 +33,6 @@ interface ContainerBagInterface extends ContainerInterface
      * @throws ParameterNotFoundException if a placeholder references a parameter that does not exist
      */
     public function resolveValue($value);
-
     /**
      * Escape parameter placeholders %.
      *
@@ -45,7 +41,6 @@ interface ContainerBagInterface extends ContainerInterface
      * @return mixed
      */
     public function escapeValue($value);
-
     /**
      * Unescape parameter placeholders %.
      *

@@ -8,44 +8,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Config\Definition\Builder;
+namespace ECSPrefix20210509\Symfony\Component\Config\Definition\Builder;
 
 /**
  * This class provides a fluent interface for building a node.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class NodeBuilder implements NodeParentInterface
+class NodeBuilder implements \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NodeParentInterface
 {
     protected $parent;
     protected $nodeMapping;
-
     public function __construct()
     {
-        $this->nodeMapping = [
-            'variable' => VariableNodeDefinition::class,
-            'scalar' => ScalarNodeDefinition::class,
-            'boolean' => BooleanNodeDefinition::class,
-            'integer' => IntegerNodeDefinition::class,
-            'float' => FloatNodeDefinition::class,
-            'array' => ArrayNodeDefinition::class,
-            'enum' => EnumNodeDefinition::class,
-        ];
+        $this->nodeMapping = ['variable' => \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\VariableNodeDefinition::class, 'scalar' => \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\ScalarNodeDefinition::class, 'boolean' => \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\BooleanNodeDefinition::class, 'integer' => \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\IntegerNodeDefinition::class, 'float' => \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\FloatNodeDefinition::class, 'array' => \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition::class, 'enum' => \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\EnumNodeDefinition::class];
     }
-
     /**
      * Set the parent node.
      *
      * @return $this
      */
-    public function setParent(ParentNodeDefinitionInterface $parent = null)
+    public function setParent(\ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface $parent = null)
     {
         $this->parent = $parent;
-
         return $this;
     }
-
     /**
      * Creates a child array node.
      *
@@ -57,7 +44,6 @@ class NodeBuilder implements NodeParentInterface
         $name = (string) $name;
         return $this->node($name, 'array');
     }
-
     /**
      * Creates a child scalar node.
      *
@@ -69,7 +55,6 @@ class NodeBuilder implements NodeParentInterface
         $name = (string) $name;
         return $this->node($name, 'scalar');
     }
-
     /**
      * Creates a child Boolean node.
      *
@@ -81,7 +66,6 @@ class NodeBuilder implements NodeParentInterface
         $name = (string) $name;
         return $this->node($name, 'boolean');
     }
-
     /**
      * Creates a child integer node.
      *
@@ -93,7 +77,6 @@ class NodeBuilder implements NodeParentInterface
         $name = (string) $name;
         return $this->node($name, 'integer');
     }
-
     /**
      * Creates a child float node.
      *
@@ -105,7 +88,6 @@ class NodeBuilder implements NodeParentInterface
         $name = (string) $name;
         return $this->node($name, 'float');
     }
-
     /**
      * Creates a child EnumNode.
      *
@@ -117,7 +99,6 @@ class NodeBuilder implements NodeParentInterface
         $name = (string) $name;
         return $this->node($name, 'enum');
     }
-
     /**
      * Creates a child variable node.
      *
@@ -129,7 +110,6 @@ class NodeBuilder implements NodeParentInterface
         $name = (string) $name;
         return $this->node($name, 'variable');
     }
-
     /**
      * Returns the parent node.
      *
@@ -139,7 +119,6 @@ class NodeBuilder implements NodeParentInterface
     {
         return $this->parent;
     }
-
     /**
      * Creates a child node.
      *
@@ -154,14 +133,10 @@ class NodeBuilder implements NodeParentInterface
     {
         $type = (string) $type;
         $class = $this->getNodeClass($type);
-
         $node = new $class($name);
-
         $this->append($node);
-
         return $node;
     }
-
     /**
      * Appends a node definition.
      *
@@ -177,23 +152,20 @@ class NodeBuilder implements NodeParentInterface
      *
      * @return $this
      */
-    public function append(NodeDefinition $node)
+    public function append(\ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NodeDefinition $node)
     {
-        if ($node instanceof BuilderAwareInterface) {
+        if ($node instanceof \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\BuilderAwareInterface) {
             $builder = clone $this;
             $builder->setParent(null);
             $node->setBuilder($builder);
         }
-
         if (null !== $this->parent) {
             $this->parent->append($node);
             // Make this builder the node parent to allow for a fluid interface
             $node->setParent($this);
         }
-
         return $this;
     }
-
     /**
      * Adds or overrides a node Type.
      *
@@ -206,11 +178,9 @@ class NodeBuilder implements NodeParentInterface
     {
         $type = (string) $type;
         $class = (string) $class;
-        $this->nodeMapping[strtolower($type)] = $class;
-
+        $this->nodeMapping[\strtolower($type)] = $class;
         return $this;
     }
-
     /**
      * Returns the class name of the node definition.
      *
@@ -223,18 +193,14 @@ class NodeBuilder implements NodeParentInterface
     protected function getNodeClass($type)
     {
         $type = (string) $type;
-        $type = strtolower($type);
-
+        $type = \strtolower($type);
         if (!isset($this->nodeMapping[$type])) {
-            throw new \RuntimeException(sprintf('The node type "%s" is not registered.', $type));
+            throw new \RuntimeException(\sprintf('The node type "%s" is not registered.', $type));
         }
-
         $class = $this->nodeMapping[$type];
-
-        if (!class_exists($class)) {
-            throw new \RuntimeException(sprintf('The node class "%s" does not exist.', $class));
+        if (!\class_exists($class)) {
+            throw new \RuntimeException(\sprintf('The node class "%s" does not exist.', $class));
         }
-
         return $class;
     }
 }

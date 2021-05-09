@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the ClosingTag sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\PSR2\Tests\Files;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class ClosingTagUnitTest extends AbstractSniffUnitTest
+class ClosingTagUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,27 +22,22 @@ class ClosingTagUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile='')
+    public function getErrorList($testFile = '')
     {
         switch ($testFile) {
-        case 'ClosingTagUnitTest.1.inc':
-            return [11 => 1];
-
-        case 'ClosingTagUnitTest.4.inc':
-        case 'ClosingTagUnitTest.5.inc':
-            return [1 => 1];
-
-        case 'ClosingTagUnitTest.6.inc':
-        case 'ClosingTagUnitTest.7.inc':
-            return [5 => 1];
-
-        default:
-            return [];
+            case 'ClosingTagUnitTest.1.inc':
+                return [11 => 1];
+            case 'ClosingTagUnitTest.4.inc':
+            case 'ClosingTagUnitTest.5.inc':
+                return [1 => 1];
+            case 'ClosingTagUnitTest.6.inc':
+            case 'ClosingTagUnitTest.7.inc':
+                return [5 => 1];
+            default:
+                return [];
         }
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -57,8 +49,7 @@ class ClosingTagUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

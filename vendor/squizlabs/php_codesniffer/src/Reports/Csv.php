@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CSV report for PHP_CodeSniffer.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Reports;
 
 use PHP_CodeSniffer\Files\File;
-
-class Csv implements Report
+class Csv implements \PHP_CodeSniffer\Reports\Report
 {
-
-
     /**
      * Generate a partial report for a single processed file.
      *
@@ -29,32 +26,28 @@ class Csv implements Report
      *
      * @return bool
      */
-    public function generateFileReport($report, File $phpcsFile, $showSources=false, $width=80)
+    public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
     {
         if ($report['errors'] === 0 && $report['warnings'] === 0) {
             // Nothing to print.
-            return false;
+            return \false;
         }
-
         foreach ($report['messages'] as $line => $lineErrors) {
             foreach ($lineErrors as $column => $colErrors) {
                 foreach ($colErrors as $error) {
-                    $filename = str_replace('"', '\"', $report['filename']);
-                    $message  = str_replace('"', '\"', $error['message']);
-                    $type     = strtolower($error['type']);
-                    $source   = $error['source'];
+                    $filename = \str_replace('"', '\\"', $report['filename']);
+                    $message = \str_replace('"', '\\"', $error['message']);
+                    $type = \strtolower($error['type']);
+                    $source = $error['source'];
                     $severity = $error['severity'];
-                    $fixable  = (int) $error['fixable'];
-                    echo "\"$filename\",$line,$column,$type,\"$message\",$source,$severity,$fixable".PHP_EOL;
+                    $fixable = (int) $error['fixable'];
+                    echo "\"{$filename}\",{$line},{$column},{$type},\"{$message}\",{$source},{$severity},{$fixable}" . \PHP_EOL;
                 }
             }
         }
-
-        return true;
-
-    }//end generateFileReport()
-
-
+        return \true;
+    }
+    //end generateFileReport()
     /**
      * Generates a csv report.
      *
@@ -71,21 +64,11 @@ class Csv implements Report
      *
      * @return void
      */
-    public function generate(
-        $cachedData,
-        $totalFiles,
-        $totalErrors,
-        $totalWarnings,
-        $totalFixable,
-        $showSources=false,
-        $width=80,
-        $interactive=false,
-        $toScreen=true
-    ) {
-        echo 'File,Line,Column,Type,Message,Source,Severity,Fixable'.PHP_EOL;
+    public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
+    {
+        echo 'File,Line,Column,Type,Message,Source,Severity,Fixable' . \PHP_EOL;
         echo $cachedData;
-
-    }//end generate()
-
-
-}//end class
+    }
+    //end generate()
+}
+//end class

@@ -2,23 +2,20 @@
 
 namespace Symplify\CodingStandard\ValueObjectFactory;
 
-use Nette\Utils\Strings;
+use ECSPrefix20210509\Nette\Utils\Strings;
 use Symplify\CodingStandard\ValueObject\DocBlockLines;
-
 final class DocBlockLinesFactory
 {
     /**
      * @see https://regex101.com/r/CUxOj5/1
      * @var string
      */
-    const BEGINNING_OF_DOC_BLOCK_REGEX = '/^(\/\*\*[\n]?)/';
-
+    const BEGINNING_OF_DOC_BLOCK_REGEX = '/^(\\/\\*\\*[\\n]?)/';
     /**
      * @see https://regex101.com/r/otQGPe/1
      * @var string
      */
-    const END_OF_DOC_BLOCK_REGEX = '/(\*\/)$/';
-
+    const END_OF_DOC_BLOCK_REGEX = '/(\\*\\/)$/';
     /**
      * @param string $docBlock
      * @return \Symplify\CodingStandard\ValueObject\DocBlockLines
@@ -27,25 +24,19 @@ final class DocBlockLinesFactory
     {
         $docBlock = (string) $docBlock;
         // Remove the prefix '/**'
-        $docBlock = Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
+        $docBlock = \ECSPrefix20210509\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
         // Remove the suffix '*/'
-        $docBlock = Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
+        $docBlock = \ECSPrefix20210509\Nette\Utils\Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
         // Remove extra whitespace at the end
-        $docBlock = rtrim($docBlock);
-
+        $docBlock = \rtrim($docBlock);
         $docBlockLines = $this->splitToLines($docBlock);
-        $docBlockLines = array_map(
-            function (string $line): string {
-                $noWhitespace = Strings::trim($line, Strings::TRIM_CHARACTERS);
-                // Remove asterisks on the left side, plus additional whitespace
-                return ltrim($noWhitespace, Strings::TRIM_CHARACTERS . '*');
-            },
-            $docBlockLines
-        );
-
+        $docBlockLines = \array_map(function (string $line) : string {
+            $noWhitespace = \ECSPrefix20210509\Nette\Utils\Strings::trim($line, \ECSPrefix20210509\Nette\Utils\Strings::TRIM_CHARACTERS);
+            // Remove asterisks on the left side, plus additional whitespace
+            return \ltrim($noWhitespace, \ECSPrefix20210509\Nette\Utils\Strings::TRIM_CHARACTERS . '*');
+        }, $docBlockLines);
         return $this->createFromLines($docBlockLines);
     }
-
     /**
      * @param string[] $docBlockLines
      * @return \Symplify\CodingStandard\ValueObject\DocBlockLines
@@ -54,26 +45,20 @@ final class DocBlockLinesFactory
     {
         $descriptionLines = [];
         $otherLines = [];
-
-        $collectDescriptionLines = true;
-
+        $collectDescriptionLines = \true;
         foreach ($docBlockLines as $docBlockLine) {
-            if (Strings::startsWith($docBlockLine, '@')
-                || Strings::startsWith($docBlockLine, '{@')) {
+            if (\ECSPrefix20210509\Nette\Utils\Strings::startsWith($docBlockLine, '@') || \ECSPrefix20210509\Nette\Utils\Strings::startsWith($docBlockLine, '{@')) {
                 // The line has a special meaning (it's an annotation, or something like {@inheritdoc})
-                $collectDescriptionLines = false;
+                $collectDescriptionLines = \false;
             }
-
             if ($collectDescriptionLines) {
                 $descriptionLines[] = $docBlockLine;
             } else {
                 $otherLines[] = $docBlockLine;
             }
         }
-
-        return new DocBlockLines($descriptionLines, $otherLines);
+        return new \Symplify\CodingStandard\ValueObject\DocBlockLines($descriptionLines, $otherLines);
     }
-
     /**
      * @return mixed[]
      * @param string $string
@@ -81,6 +66,6 @@ final class DocBlockLinesFactory
     private function splitToLines($string)
     {
         $string = (string) $string;
-        return explode(PHP_EOL, $string);
+        return \explode(\PHP_EOL, $string);
     }
 }

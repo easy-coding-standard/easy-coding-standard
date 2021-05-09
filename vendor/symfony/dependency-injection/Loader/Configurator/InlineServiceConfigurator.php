@@ -8,18 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
-
-use Symfony\Component\DependencyInjection\Definition;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class InlineServiceConfigurator extends AbstractConfigurator
+class InlineServiceConfigurator extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     const FACTORY = 'service';
-
     use Traits\ArgumentTrait;
     use Traits\AutowireTrait;
     use Traits\BindTrait;
@@ -31,12 +28,10 @@ class InlineServiceConfigurator extends AbstractConfigurator
     use Traits\ParentTrait;
     use Traits\PropertyTrait;
     use Traits\TagTrait;
-
     private $id = '[inline]';
-    private $allowParent = true;
+    private $allowParent = \true;
     private $path = null;
-
-    public function __construct(Definition $definition)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition $definition)
     {
         $this->definition = $definition;
     }

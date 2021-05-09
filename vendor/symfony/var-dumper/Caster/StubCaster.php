@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-namespace Symfony\Component\VarDumper\Caster;
-
-use Symfony\Component\VarDumper\Cloner\Stub;
-
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts a caster's Stub.
  *
@@ -25,7 +23,7 @@ class StubCaster
     /**
      * @param bool $isNested
      */
-    public static function castStub(Stub $c, array $a, Stub $stub, $isNested)
+    public static function castStub(\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         if ($isNested) {
@@ -35,46 +33,38 @@ class StubCaster
             $stub->handle = $c->handle;
             $stub->cut = $c->cut;
             $stub->attr = $c->attr;
-
-            if (Stub::TYPE_REF === $c->type && !$c->class && \is_string($c->value) && !preg_match('//u', $c->value)) {
-                $stub->type = Stub::TYPE_STRING;
-                $stub->class = Stub::STRING_BINARY;
+            if (\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub::TYPE_REF === $c->type && !$c->class && \is_string($c->value) && !\preg_match('//u', $c->value)) {
+                $stub->type = \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub::TYPE_STRING;
+                $stub->class = \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub::STRING_BINARY;
             }
-
             $a = [];
         }
-
         return $a;
     }
-
     /**
      * @param bool $isNested
      */
-    public static function castCutArray(CutArrayStub $c, array $a, Stub $stub, $isNested)
+    public static function castCutArray(\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\CutArrayStub $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         return $isNested ? $c->preservedSubset : $a;
     }
-
     /**
      * @param bool $isNested
      */
-    public static function cutInternals($obj, array $a, Stub $stub, $isNested)
+    public static function cutInternals($obj, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         if ($isNested) {
             $stub->cut += \count($a);
-
             return [];
         }
-
         return $a;
     }
-
     /**
      * @param bool $isNested
      */
-    public static function castEnum(EnumStub $c, array $a, Stub $stub, $isNested)
+    public static function castEnum(\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\EnumStub $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         if ($isNested) {
@@ -83,18 +73,15 @@ class StubCaster
             $stub->value = null;
             $stub->cut = $c->cut;
             $stub->attr = $c->attr;
-
             $a = [];
-
             if ($c->value) {
-                foreach (array_keys($c->value) as $k) {
-                    $keys[] = !isset($k[0]) || "\0" !== $k[0] ? Caster::PREFIX_VIRTUAL.$k : $k;
+                foreach (\array_keys($c->value) as $k) {
+                    $keys[] = !isset($k[0]) || "\0" !== $k[0] ? \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . $k : $k;
                 }
                 // Preserve references with array_combine()
-                $a = array_combine($keys, $c->value);
+                $a = \array_combine($keys, $c->value);
             }
         }
-
         return $a;
     }
 }

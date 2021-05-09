@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\ClassNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -24,73 +23,28 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Gregor Harlan <gharlan@web.de>
  */
-final class OrderedClassElementsFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class OrderedClassElementsFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /** @internal */
     const SORT_ALPHA = 'alpha';
-
     /** @internal */
     const SORT_NONE = 'none';
-
-    const SUPPORTED_SORT_ALGORITHMS = [
-        self::SORT_NONE,
-        self::SORT_ALPHA,
-    ];
-
+    const SUPPORTED_SORT_ALGORITHMS = [self::SORT_NONE, self::SORT_ALPHA];
     /**
      * @var array Array containing all class element base types (keys) and their parent types (values)
      */
-    private static $typeHierarchy = [
-        'use_trait' => null,
-        'public' => null,
-        'protected' => null,
-        'private' => null,
-        'constant' => null,
-        'constant_public' => ['constant', 'public'],
-        'constant_protected' => ['constant', 'protected'],
-        'constant_private' => ['constant', 'private'],
-        'property' => null,
-        'property_static' => ['property'],
-        'property_public' => ['property', 'public'],
-        'property_protected' => ['property', 'protected'],
-        'property_private' => ['property', 'private'],
-        'property_public_static' => ['property_static', 'property_public'],
-        'property_protected_static' => ['property_static', 'property_protected'],
-        'property_private_static' => ['property_static', 'property_private'],
-        'method' => null,
-        'method_abstract' => ['method'],
-        'method_static' => ['method'],
-        'method_public' => ['method', 'public'],
-        'method_protected' => ['method', 'protected'],
-        'method_private' => ['method', 'private'],
-        'method_public_abstract' => ['method_abstract', 'method_public'],
-        'method_protected_abstract' => ['method_abstract', 'method_protected'],
-        'method_public_abstract_static' => ['method_abstract', 'method_static', 'method_public'],
-        'method_protected_abstract_static' => ['method_abstract', 'method_static', 'method_protected'],
-        'method_public_static' => ['method_static', 'method_public'],
-        'method_protected_static' => ['method_static', 'method_protected'],
-        'method_private_static' => ['method_static', 'method_private'],
-    ];
-
+    private static $typeHierarchy = ['use_trait' => null, 'public' => null, 'protected' => null, 'private' => null, 'constant' => null, 'constant_public' => ['constant', 'public'], 'constant_protected' => ['constant', 'protected'], 'constant_private' => ['constant', 'private'], 'property' => null, 'property_static' => ['property'], 'property_public' => ['property', 'public'], 'property_protected' => ['property', 'protected'], 'property_private' => ['property', 'private'], 'property_public_static' => ['property_static', 'property_public'], 'property_protected_static' => ['property_static', 'property_protected'], 'property_private_static' => ['property_static', 'property_private'], 'method' => null, 'method_abstract' => ['method'], 'method_static' => ['method'], 'method_public' => ['method', 'public'], 'method_protected' => ['method', 'protected'], 'method_private' => ['method', 'private'], 'method_public_abstract' => ['method_abstract', 'method_public'], 'method_protected_abstract' => ['method_abstract', 'method_protected'], 'method_public_abstract_static' => ['method_abstract', 'method_static', 'method_public'], 'method_protected_abstract_static' => ['method_abstract', 'method_static', 'method_protected'], 'method_public_static' => ['method_static', 'method_public'], 'method_protected_static' => ['method_static', 'method_protected'], 'method_private_static' => ['method_static', 'method_private']];
     /**
      * @var array Array containing special method types
      */
-    private static $specialTypes = [
-        'construct' => null,
-        'destruct' => null,
-        'magic' => null,
-        'phpunit' => null,
-    ];
-
+    private static $specialTypes = ['construct' => null, 'destruct' => null, 'magic' => null, 'phpunit' => null];
     /**
      * @var array Resolved configuration array (type => position)
      */
     private $typePosition;
-
     /**
      * {@inheritdoc}
      * @return void
@@ -98,35 +52,27 @@ final class OrderedClassElementsFixer extends AbstractFixer implements Configura
     public function configure(array $configuration)
     {
         parent::configure($configuration);
-
         $this->typePosition = [];
         $pos = 0;
         foreach ($this->configuration['order'] as $type) {
             $this->typePosition[$type] = $pos++;
         }
-
         foreach (self::$typeHierarchy as $type => $parents) {
             if (isset($this->typePosition[$type])) {
                 continue;
             }
-
             if (!$parents) {
                 $this->typePosition[$type] = null;
-
                 continue;
             }
-
             foreach ($parents as $parent) {
                 if (isset($this->typePosition[$parent])) {
                     $this->typePosition[$type] = $this->typePosition[$parent];
-
                     continue 2;
                 }
             }
-
             $this->typePosition[$type] = null;
         }
-
         $lastPosition = \count($this->configuration['order']);
         foreach ($this->typePosition as &$pos) {
             if (null === $pos) {
@@ -136,27 +82,21 @@ final class OrderedClassElementsFixer extends AbstractFixer implements Configura
             $pos *= 10;
         }
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound(Token::getClassyTokenKinds());
+        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Orders the elements of classes/interfaces/traits.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Orders the elements of classes/interfaces/traits.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 final class Example
 {
     use BarTrait;
@@ -186,20 +126,13 @@ final class Example
     protected static function protStatFunc() {}
     public function __destruct() {}
 }
-'
-                ),
-                new CodeSample(
-                    '<?php
+'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Example
 {
     public function A(){}
     private function B(){}
 }
-',
-                    ['order' => ['method_private', 'method_public']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['order' => ['method_private', 'method_public']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 class Example
 {
     public function D(){}
@@ -207,13 +140,8 @@ class Example
     public function A(){}
     public function C(){}
 }
-',
-                    ['order' => ['method_public'], 'sort_algorithm' => self::SORT_ALPHA]
-                ),
-            ]
-        );
+', ['order' => ['method_public'], 'sort_algorithm' => self::SORT_ALPHA])]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -225,120 +153,70 @@ class Example
     {
         return 65;
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         for ($i = 1, $count = $tokens->count(); $i < $count; ++$i) {
             if (!$tokens[$i]->isClassy()) {
                 continue;
             }
-
             $i = $tokens->getNextTokenOfKind($i, ['{']);
             $elements = $this->getElements($tokens, $i);
-
             if (0 === \count($elements)) {
                 continue;
             }
-
             $sorted = $this->sortElements($elements);
             $endIndex = $elements[\count($elements) - 1]['end'];
-
             if ($sorted !== $elements) {
                 $this->sortTokens($tokens, $i, $endIndex, $sorted);
             }
-
             $i = $endIndex;
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('order', 'List of strings defining order of elements.'))
-                ->setAllowedTypes(['array'])
-                ->setAllowedValues([new AllowedValueSubset(array_keys(array_merge(self::$typeHierarchy, self::$specialTypes)))])
-                ->setDefault([
-                    'use_trait',
-                    'constant_public',
-                    'constant_protected',
-                    'constant_private',
-                    'property_public',
-                    'property_protected',
-                    'property_private',
-                    'construct',
-                    'destruct',
-                    'magic',
-                    'phpunit',
-                    'method_public',
-                    'method_protected',
-                    'method_private',
-                ])
-                ->getOption(),
-            (new FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))
-                ->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)
-                ->setDefault(self::SORT_NONE)
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('order', 'List of strings defining order of elements.'))->setAllowedTypes(['array'])->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset(\array_keys(\array_merge(self::$typeHierarchy, self::$specialTypes)))])->setDefault(['use_trait', 'constant_public', 'constant_protected', 'constant_private', 'property_public', 'property_protected', 'property_private', 'construct', 'destruct', 'magic', 'phpunit', 'method_public', 'method_protected', 'method_private'])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('sort_algorithm', 'How multiple occurrences of same type statements should be sorted'))->setAllowedValues(self::SUPPORTED_SORT_ALGORITHMS)->setDefault(self::SORT_NONE)->getOption()]);
     }
-
     /**
      * @return mixed[]
      * @param int $startIndex
      */
-    private function getElements(Tokens $tokens, $startIndex)
+    private function getElements(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex)
     {
         $startIndex = (int) $startIndex;
-        static $elementTokenKinds = [CT::T_USE_TRAIT, T_CONST, T_VARIABLE, T_FUNCTION];
-
+        static $elementTokenKinds = [\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT, \T_CONST, \T_VARIABLE, \T_FUNCTION];
         ++$startIndex;
         $elements = [];
-
-        while (true) {
-            $element = [
-                'start' => $startIndex,
-                'visibility' => 'public',
-                'abstract' => false,
-                'static' => false,
-            ];
-
+        while (\true) {
+            $element = ['start' => $startIndex, 'visibility' => 'public', 'abstract' => \false, 'static' => \false];
             for ($i = $startIndex;; ++$i) {
                 $token = $tokens[$i];
-
                 // class end
                 if ($token->equals('}')) {
                     return $elements;
                 }
-
-                if ($token->isGivenKind(T_ABSTRACT)) {
-                    $element['abstract'] = true;
-
+                if ($token->isGivenKind(\T_ABSTRACT)) {
+                    $element['abstract'] = \true;
                     continue;
                 }
-
-                if ($token->isGivenKind(T_STATIC)) {
-                    $element['static'] = true;
-
+                if ($token->isGivenKind(\T_STATIC)) {
+                    $element['static'] = \true;
                     continue;
                 }
-
-                if ($token->isGivenKind([T_PROTECTED, T_PRIVATE])) {
-                    $element['visibility'] = strtolower($token->getContent());
-
+                if ($token->isGivenKind([\T_PROTECTED, \T_PRIVATE])) {
+                    $element['visibility'] = \strtolower($token->getContent());
                     continue;
                 }
-
                 if (!$token->isGivenKind($elementTokenKinds)) {
                     continue;
                 }
-
                 $type = $this->detectElementType($tokens, $i);
                 if (\is_array($type)) {
                     $element['type'] = $type[0];
@@ -346,96 +224,66 @@ class Example
                 } else {
                     $element['type'] = $type;
                 }
-
                 if ('property' === $element['type']) {
                     $element['name'] = $tokens[$i]->getContent();
-                } elseif (\in_array($element['type'], ['use_trait', 'constant', 'method', 'magic', 'construct', 'destruct'], true)) {
+                } elseif (\in_array($element['type'], ['use_trait', 'constant', 'method', 'magic', 'construct', 'destruct'], \true)) {
                     $element['name'] = $tokens[$tokens->getNextMeaningfulToken($i)]->getContent();
                 }
-
                 $element['end'] = $this->findElementEnd($tokens, $i);
-
                 break;
             }
-
             $elements[] = $element;
             $startIndex = $element['end'] + 1;
         }
     }
-
     /**
      * @return array|string type or array of type and name
      * @param int $index
      */
-    private function detectElementType(Tokens $tokens, $index)
+    private function detectElementType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         $token = $tokens[$index];
-
-        if ($token->isGivenKind(CT::T_USE_TRAIT)) {
+        if ($token->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_USE_TRAIT)) {
             return 'use_trait';
         }
-
-        if ($token->isGivenKind(T_CONST)) {
+        if ($token->isGivenKind(\T_CONST)) {
             return 'constant';
         }
-
-        if ($token->isGivenKind(T_VARIABLE)) {
+        if ($token->isGivenKind(\T_VARIABLE)) {
             return 'property';
         }
-
         $nameToken = $tokens[$tokens->getNextMeaningfulToken($index)];
-
-        if ($nameToken->equals([T_STRING, '__construct'], false)) {
+        if ($nameToken->equals([\T_STRING, '__construct'], \false)) {
             return 'construct';
         }
-
-        if ($nameToken->equals([T_STRING, '__destruct'], false)) {
+        if ($nameToken->equals([\T_STRING, '__destruct'], \false)) {
             return 'destruct';
         }
-
-        if (
-            $nameToken->equalsAny([
-                [T_STRING, 'setUpBeforeClass'],
-                [T_STRING, 'doSetUpBeforeClass'],
-                [T_STRING, 'tearDownAfterClass'],
-                [T_STRING, 'doTearDownAfterClass'],
-                [T_STRING, 'setUp'],
-                [T_STRING, 'doSetUp'],
-                [T_STRING, 'tearDown'],
-                [T_STRING, 'doTearDown'],
-            ], false)
-        ) {
-            return ['phpunit', strtolower($nameToken->getContent())];
+        if ($nameToken->equalsAny([[\T_STRING, 'setUpBeforeClass'], [\T_STRING, 'doSetUpBeforeClass'], [\T_STRING, 'tearDownAfterClass'], [\T_STRING, 'doTearDownAfterClass'], [\T_STRING, 'setUp'], [\T_STRING, 'doSetUp'], [\T_STRING, 'tearDown'], [\T_STRING, 'doTearDown']], \false)) {
+            return ['phpunit', \strtolower($nameToken->getContent())];
         }
-
-        if ('__' === substr($nameToken->getContent(), 0, 2)) {
+        if ('__' === \substr($nameToken->getContent(), 0, 2)) {
             return 'magic';
         }
-
         return 'method';
     }
-
     /**
      * @param int $index
      * @return int
      */
-    private function findElementEnd(Tokens $tokens, $index)
+    private function findElementEnd(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         $index = $tokens->getNextTokenOfKind($index, ['{', ';']);
-
         if ($tokens[$index]->equals('{')) {
-            $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
+            $index = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }
-
-        for (++$index; $tokens[$index]->isWhitespace(" \t") || $tokens[$index]->isComment(); ++$index);
-
+        for (++$index; $tokens[$index]->isWhitespace(" \t") || $tokens[$index]->isComment(); ++$index) {
+        }
         --$index;
-
         return $tokens[$index]->isWhitespace() ? $index - 1 : $index;
     }
-
     /**
      * @param array[] $elements
      *
@@ -443,35 +291,21 @@ class Example
      */
     private function sortElements(array $elements)
     {
-        static $phpunitPositions = [
-            'setupbeforeclass' => 1,
-            'dosetupbeforeclass' => 2,
-            'teardownafterclass' => 3,
-            'doteardownafterclass' => 4,
-            'setup' => 5,
-            'dosetup' => 6,
-            'teardown' => 7,
-            'doteardown' => 8,
-        ];
-
+        static $phpunitPositions = ['setupbeforeclass' => 1, 'dosetupbeforeclass' => 2, 'teardownafterclass' => 3, 'doteardownafterclass' => 4, 'setup' => 5, 'dosetup' => 6, 'teardown' => 7, 'doteardown' => 8];
         foreach ($elements as &$element) {
             $type = $element['type'];
-
             if (\array_key_exists($type, self::$specialTypes)) {
                 if (isset($this->typePosition[$type])) {
                     $element['position'] = $this->typePosition[$type];
                     if ('phpunit' === $type) {
                         $element['position'] += $phpunitPositions[$element['name']];
                     }
-
                     continue;
                 }
-
                 $type = 'method';
             }
-
-            if (\in_array($type, ['constant', 'property', 'method'], true)) {
-                $type .= '_'.$element['visibility'];
+            if (\in_array($type, ['constant', 'property', 'method'], \true)) {
+                $type .= '_' . $element['visibility'];
                 if ($element['abstract']) {
                     $type .= '_abstract';
                 }
@@ -479,54 +313,44 @@ class Example
                     $type .= '_static';
                 }
             }
-
             $element['position'] = $this->typePosition[$type];
         }
         unset($element);
-
-        usort($elements, function (array $a, array $b) {
+        \usort($elements, function (array $a, array $b) {
             if ($a['position'] === $b['position']) {
                 return $this->sortGroupElements($a, $b);
             }
-
             return $a['position'] > $b['position'] ? 1 : -1;
         });
-
         return $elements;
     }
-
     /**
      * @return int
      */
     private function sortGroupElements(array $a, array $b)
     {
         $selectedSortAlgorithm = $this->configuration['sort_algorithm'];
-
         if (self::SORT_ALPHA === $selectedSortAlgorithm) {
-            return strcasecmp($a['name'], $b['name']);
+            return \strcasecmp($a['name'], $b['name']);
         }
-
         return $a['start'] > $b['start'] ? 1 : -1;
     }
-
     /**
      * @param array[] $elements
      * @return void
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function sortTokens(Tokens $tokens, $startIndex, $endIndex, array $elements)
+    private function sortTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex, array $elements)
     {
         $startIndex = (int) $startIndex;
         $endIndex = (int) $endIndex;
         $replaceTokens = [];
-
         foreach ($elements as $element) {
             for ($i = $element['start']; $i <= $element['end']; ++$i) {
                 $replaceTokens[] = clone $tokens[$i];
             }
         }
-
         $tokens->overrideRange($startIndex + 1, $endIndex, $replaceTokens);
     }
 }

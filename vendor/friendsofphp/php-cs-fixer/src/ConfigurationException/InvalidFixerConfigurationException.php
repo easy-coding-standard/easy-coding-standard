@@ -9,11 +9,9 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\ConfigurationException;
 
 use PhpCsFixer\Console\Command\FixCommandExitStatusCalculator;
-
 /**
  * Exception thrown by Fixers on misconfiguration.
  *
@@ -22,13 +20,12 @@ use PhpCsFixer\Console\Command\FixCommandExitStatusCalculator;
  * @internal
  * @final Only internal extending this class is supported
  */
-class InvalidFixerConfigurationException extends InvalidConfigurationException
+class InvalidFixerConfigurationException extends \PhpCsFixer\ConfigurationException\InvalidConfigurationException
 {
     /**
      * @var string
      */
     private $fixerName;
-
     /**
      * @param \Throwable|null $previous
      * @param string $fixerName
@@ -38,14 +35,9 @@ class InvalidFixerConfigurationException extends InvalidConfigurationException
     {
         $fixerName = (string) $fixerName;
         $message = (string) $message;
-        parent::__construct(
-            sprintf('[%s] %s', $fixerName, $message),
-            FixCommandExitStatusCalculator::EXIT_STATUS_FLAG_HAS_INVALID_FIXER_CONFIG,
-            $previous
-        );
+        parent::__construct(\sprintf('[%s] %s', $fixerName, $message), \PhpCsFixer\Console\Command\FixCommandExitStatusCalculator::EXIT_STATUS_FLAG_HAS_INVALID_FIXER_CONFIG, $previous);
         $this->fixerName = $fixerName;
     }
-
     /**
      * @return string
      */

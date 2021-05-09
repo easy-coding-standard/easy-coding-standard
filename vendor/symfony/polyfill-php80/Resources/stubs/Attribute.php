@@ -1,6 +1,8 @@
 <?php
 
-#[Attribute(Attribute::TARGET_CLASS)]
+
+
+#[Attribute(\Attribute::TARGET_CLASS)]
 final class Attribute
 {
     const TARGET_CLASS = 1;
@@ -11,10 +13,8 @@ final class Attribute
     const TARGET_PARAMETER = 32;
     const TARGET_ALL = 63;
     const IS_REPEATABLE = 64;
-
     /** @var int */
     public $flags;
-
     /**
      * @param int $flags
      */
@@ -24,3 +24,4 @@ final class Attribute
         $this->flags = $flags;
     }
 }
+

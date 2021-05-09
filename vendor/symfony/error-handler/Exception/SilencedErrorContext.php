@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\ErrorHandler\Exception;
+namespace ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception;
 
 /**
  * Data Object that represents a Silenced Error.
@@ -19,12 +18,10 @@ namespace Symfony\Component\ErrorHandler\Exception;
 class SilencedErrorContext implements \JsonSerializable
 {
     public $count = 1;
-
     private $severity;
     private $file;
     private $line;
     private $trace;
-
     /**
      * @param int $severity
      * @param string $file
@@ -43,7 +40,6 @@ class SilencedErrorContext implements \JsonSerializable
         $this->trace = $trace;
         $this->count = $count;
     }
-
     /**
      * @return int
      */
@@ -51,7 +47,6 @@ class SilencedErrorContext implements \JsonSerializable
     {
         return $this->severity;
     }
-
     /**
      * @return string
      */
@@ -59,7 +54,6 @@ class SilencedErrorContext implements \JsonSerializable
     {
         return $this->file;
     }
-
     /**
      * @return int
      */
@@ -67,7 +61,6 @@ class SilencedErrorContext implements \JsonSerializable
     {
         return $this->line;
     }
-
     /**
      * @return mixed[]
      */
@@ -75,18 +68,11 @@ class SilencedErrorContext implements \JsonSerializable
     {
         return $this->trace;
     }
-
     /**
      * @return mixed[]
      */
     public function jsonSerialize()
     {
-        return [
-            'severity' => $this->severity,
-            'file' => $this->file,
-            'line' => $this->line,
-            'trace' => $this->trace,
-            'count' => $this->count,
-        ];
+        return ['severity' => $this->severity, 'file' => $this->file, 'line' => $this->line, 'trace' => $this->trace, 'count' => $this->count];
     }
 }

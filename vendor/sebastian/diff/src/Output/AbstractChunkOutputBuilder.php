@@ -1,4 +1,6 @@
-<?php /*
+<?php
+
+/*
  * This file is part of sebastian/diff.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
@@ -6,11 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace SebastianBergmann\Diff\Output;
+namespace ECSPrefix20210509\SebastianBergmann\Diff\Output;
 
 use function count;
-
-abstract class AbstractChunkOutputBuilder implements DiffOutputBuilderInterface
+abstract class AbstractChunkOutputBuilder implements \ECSPrefix20210509\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface
 {
     /**
      * Takes input of the diff array and returns the common parts.
@@ -21,34 +22,30 @@ abstract class AbstractChunkOutputBuilder implements DiffOutputBuilderInterface
     protected function getCommonChunks(array $diff, $lineThreshold = 5)
     {
         $lineThreshold = (int) $lineThreshold;
-        $diffSize     = count($diff);
-        $capturing    = false;
-        $chunkStart   = 0;
-        $chunkSize    = 0;
+        $diffSize = \count($diff);
+        $capturing = \false;
+        $chunkStart = 0;
+        $chunkSize = 0;
         $commonChunks = [];
-
         for ($i = 0; $i < $diffSize; ++$i) {
-            if ($diff[$i][1] === 0 /* OLD */) {
-                if ($capturing === false) {
-                    $capturing  = true;
+            if ($diff[$i][1] === 0) {
+                if ($capturing === \false) {
+                    $capturing = \true;
                     $chunkStart = $i;
-                    $chunkSize  = 0;
+                    $chunkSize = 0;
                 } else {
                     ++$chunkSize;
                 }
-            } elseif ($capturing !== false) {
+            } elseif ($capturing !== \false) {
                 if ($chunkSize >= $lineThreshold) {
                     $commonChunks[$chunkStart] = $chunkStart + $chunkSize;
                 }
-
-                $capturing = false;
+                $capturing = \false;
             }
         }
-
-        if ($capturing !== false && $chunkSize >= $lineThreshold) {
+        if ($capturing !== \false && $chunkSize >= $lineThreshold) {
             $commonChunks[$chunkStart] = $chunkStart + $chunkSize;
         }
-
         return $commonChunks;
     }
 }

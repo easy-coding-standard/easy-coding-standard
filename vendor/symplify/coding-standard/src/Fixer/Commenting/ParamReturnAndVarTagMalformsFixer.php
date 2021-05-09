@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\Commenting;
 
-use Nette\Utils\Strings;
+use ECSPrefix20210509\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -19,7 +19,6 @@ use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SwitchedTypeAndNa
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-
 /**
  * @see ParamNameTypoMalformWorker
  * @see InlineVarMalformWorker
@@ -30,24 +29,21 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer\ParamReturnAndVarTagMalformsFixerTest
  */
-final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer implements DocumentedRuleInterface
+final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
      */
     const ERROR_MESSAGE = 'Fixes @param, @return, @var and inline @var annotations broken formats';
-
     /**
      * @var string
      * @see https://regex101.com/r/8iqNuR/1
      */
     const TYPE_ANNOTATION_REGEX = '#@(param|return|var)#';
-
     /**
      * @var MalformWorkerInterface[]
      */
     private $malformWorkers = [];
-
     /**
      * @param MalformWorkerInterface[] $malformWorkers
      */
@@ -55,57 +51,49 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer impl
     {
         $this->malformWorkers = $malformWorkers;
     }
-
     /**
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new FixerDefinition(self::ERROR_MESSAGE, []);
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
     }
-
     /**
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        if (! $tokens->isAnyTokenKindsFound([T_DOC_COMMENT, T_COMMENT])) {
-            return false;
+        if (!$tokens->isAnyTokenKindsFound([\T_DOC_COMMENT, \T_COMMENT])) {
+            return \false;
         }
-        return $tokens->isAnyTokenKindsFound([T_FUNCTION, T_VARIABLE]);
+        return $tokens->isAnyTokenKindsFound([\T_FUNCTION, \T_VARIABLE]);
     }
-
     /**
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(SplFileInfo $file, Tokens $tokens)
+    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $reversedTokens = $this->reverseTokens($tokens);
         foreach ($reversedTokens as $index => $token) {
-            if (! $token->isGivenKind([T_DOC_COMMENT, T_COMMENT])) {
+            if (!$token->isGivenKind([\T_DOC_COMMENT, \T_COMMENT])) {
                 continue;
             }
-
             $docContent = $token->getContent();
-            if (! Strings::match($docContent, self::TYPE_ANNOTATION_REGEX)) {
+            if (!\ECSPrefix20210509\Nette\Utils\Strings::match($docContent, self::TYPE_ANNOTATION_REGEX)) {
                 continue;
             }
-
             $originalDocContent = $docContent;
             foreach ($this->malformWorkers as $malformWorker) {
                 $docContent = $malformWorker->work($docContent, $tokens, $index);
             }
-
             if ($docContent === $originalDocContent) {
                 continue;
             }
-
-            $tokens[$index] = new Token([T_DOC_COMMENT, $docContent]);
+            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $docContent]);
         }
     }
-
     /**
      * Must run before
      *
@@ -116,15 +104,12 @@ final class ParamReturnAndVarTagMalformsFixer extends AbstractSymplifyFixer impl
     {
         return -37;
     }
-
     /**
      * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
      */
     public function getRuleDefinition()
     {
-        return new RuleDefinition(self::ERROR_MESSAGE, [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * @param string
  */
@@ -132,8 +117,7 @@ function getPerson($name)
 {
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+, <<<'CODE_SAMPLE'
 /**
  * @param string $name
  */
@@ -141,7 +125,6 @@ function getPerson($name)
 {
 }
 CODE_SAMPLE
-            ),
-        ]);
+)]);
     }
 }

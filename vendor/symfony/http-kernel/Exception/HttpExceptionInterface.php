@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpKernel\Exception;
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Exception;
 
 /**
  * Interface for HTTP error exceptions.
@@ -24,7 +23,6 @@ interface HttpExceptionInterface extends \Throwable
      * @return int An HTTP response status code
      */
     public function getStatusCode();
-
     /**
      * Returns response headers.
      *

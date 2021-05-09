@@ -8,88 +8,76 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use Symfony\Component\DependencyInjection\Reference;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
 /**
  * Checks that all references are pointing to a valid service.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass
+class CheckExceptionOnInvalidReferenceBehaviorPass extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
 {
     private $serviceLocatorContextIds = [];
-
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->serviceLocatorContextIds = [];
         foreach ($container->findTaggedServiceIds('container.service_locator_context') as $id => $tags) {
             $this->serviceLocatorContextIds[$id] = $tags[0]['id'];
             $container->getDefinition($id)->clearTag('container.service_locator_context');
         }
-
         try {
             return parent::process($container);
         } finally {
             $this->serviceLocatorContextIds = [];
         }
     }
-
     /**
      * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = false)
+    protected function processValue($value, $isRoot = \false)
     {
         $isRoot = (bool) $isRoot;
-        if (!$value instanceof Reference) {
+        if (!$value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference) {
             return parent::processValue($value, $isRoot);
         }
-        if (ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $value->getInvalidBehavior() || $this->container->has($id = (string) $value)) {
+        if (\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $value->getInvalidBehavior() || $this->container->has($id = (string) $value)) {
             return $value;
         }
-
         $currentId = $this->currentId;
         $graph = $this->container->getCompiler()->getServiceReferenceGraph();
-
         if (isset($this->serviceLocatorContextIds[$currentId])) {
             $currentId = $this->serviceLocatorContextIds[$currentId];
             $locator = $this->container->getDefinition($this->currentId)->getFactory()[0];
-
             foreach ($locator->getArgument(0) as $k => $v) {
                 if ($v->getValues()[0] === $value) {
                     if ($k !== $id) {
-                        $currentId = $k.'" in the container provided to "'.$currentId;
+                        $currentId = $k . '" in the container provided to "' . $currentId;
                     }
-                    throw new ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
+                    throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
                 }
             }
         }
-
         if ('.' === $currentId[0] && $graph->hasNode($currentId)) {
             foreach ($graph->getNode($currentId)->getInEdges() as $edge) {
-                if (!$edge->getValue() instanceof Reference || ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $edge->getValue()->getInvalidBehavior()) {
+                if (!$edge->getValue() instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference || \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE < $edge->getValue()->getInvalidBehavior()) {
                     continue;
                 }
                 $sourceId = $edge->getSourceNode()->getId();
-
                 if ('.' !== $sourceId[0]) {
                     $currentId = $sourceId;
                     break;
                 }
             }
         }
-
-        throw new ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
+        throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, $currentId, null, $this->getAlternatives($id));
     }
-
     /**
      * @param string $id
      * @return mixed[]
@@ -102,13 +90,11 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass
             if ('' === $knownId || '.' === $knownId[0]) {
                 continue;
             }
-
-            $lev = levenshtein($id, $knownId);
-            if ($lev <= \strlen($id) / 3 || false !== strpos($knownId, $id)) {
+            $lev = \levenshtein($id, $knownId);
+            if ($lev <= \strlen($id) / 3 || \false !== \strpos($knownId, $id)) {
                 $alternatives[] = $knownId;
             }
         }
-
         return $alternatives;
     }
 }

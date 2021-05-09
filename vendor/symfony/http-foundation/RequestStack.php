@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpFoundation;
+namespace ECSPrefix20210509\Symfony\Component\HttpFoundation;
 
 /**
  * Request stack that controls the lifecycle of requests.
@@ -22,18 +21,16 @@ class RequestStack
      * @var Request[]
      */
     private $requests = [];
-
     /**
      * Pushes a Request on the stack.
      *
      * This method should generally not be called directly as the stack
      * management should be taken care of by the application itself.
      */
-    public function push(Request $request)
+    public function push(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request)
     {
         $this->requests[] = $request;
     }
-
     /**
      * Pops the current request from the stack.
      *
@@ -49,18 +46,15 @@ class RequestStack
         if (!$this->requests) {
             return null;
         }
-
-        return array_pop($this->requests);
+        return \array_pop($this->requests);
     }
-
     /**
      * @return Request|null
      */
     public function getCurrentRequest()
     {
-        return end($this->requests) ?: null;
+        return \end($this->requests) ?: null;
     }
-
     /**
      * Gets the master Request.
      *
@@ -75,10 +69,8 @@ class RequestStack
         if (!$this->requests) {
             return null;
         }
-
         return $this->requests[0];
     }
-
     /**
      * Returns the parent request of the current.
      *
@@ -93,11 +85,9 @@ class RequestStack
     public function getParentRequest()
     {
         $pos = \count($this->requests) - 2;
-
         if (!isset($this->requests[$pos])) {
             return null;
         }
-
         return $this->requests[$pos];
     }
 }

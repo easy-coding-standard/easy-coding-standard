@@ -3,7 +3,6 @@
 namespace Symplify\PackageBuilder\Exception;
 
 use Exception;
-
-final class FilePathNotAbsoluteException extends Exception
+final class FilePathNotAbsoluteException extends \Exception
 {
 }

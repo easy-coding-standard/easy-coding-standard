@@ -3,14 +3,12 @@
 namespace Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
 use Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-
-final class ExtraFileCodeSample extends AbstractCodeSample
+final class ExtraFileCodeSample extends \Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
 {
     /**
      * @var string
      */
     private $extraFile;
-
     /**
      * @param string $badCode
      * @param string $goodCode
@@ -22,10 +20,8 @@ final class ExtraFileCodeSample extends AbstractCodeSample
         $goodCode = (string) $goodCode;
         $extraFile = (string) $extraFile;
         parent::__construct($badCode, $goodCode);
-
         $this->extraFile = $extraFile;
     }
-
     /**
      * @return string
      */

@@ -8,14 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\EventListener;
 
-namespace Symfony\Component\HttpKernel\EventListener;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-
+use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\StreamedResponse;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * StreamedResponseListener is responsible for sending the Response
  * to the client.
@@ -24,31 +22,26 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class StreamedResponseListener implements EventSubscriberInterface
+class StreamedResponseListener implements \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     /**
      * Filters the Response.
      */
-    public function onKernelResponse(ResponseEvent $event)
+    public function onKernelResponse(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
-
         $response = $event->getResponse();
-
-        if ($response instanceof StreamedResponse) {
+        if ($response instanceof \ECSPrefix20210509\Symfony\Component\HttpFoundation\StreamedResponse) {
             $response->send();
         }
     }
-
     /**
      * @return mixed[]
      */
     public static function getSubscribedEvents()
     {
-        return [
-            KernelEvents::RESPONSE => ['onKernelResponse', -1024],
-        ];
+        return [\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -1024]];
     }
 }

@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Console\Helper;
+namespace ECSPrefix20210509\Symfony\Component\Console\Helper;
 
 /**
  * Helps outputting debug information when running an external program from a command.
@@ -18,12 +17,11 @@ namespace Symfony\Component\Console\Helper;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class DebugFormatterHelper extends Helper
+class DebugFormatterHelper extends \ECSPrefix20210509\Symfony\Component\Console\Helper\Helper
 {
     private $colors = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white', 'default'];
     private $started = [];
     private $count = -1;
-
     /**
      * Starts a debug formatting session.
      *
@@ -38,10 +36,8 @@ class DebugFormatterHelper extends Helper
         $message = (string) $message;
         $prefix = (string) $prefix;
         $this->started[$id] = ['border' => ++$this->count % \count($this->colors)];
-
-        return sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
+        return \sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
     }
-
     /**
      * Adds progress to a formatting session.
      *
@@ -52,7 +48,7 @@ class DebugFormatterHelper extends Helper
      * @param string $prefix
      * @param string $errorPrefix
      */
-    public function progress($id, $buffer, $error = false, $prefix = 'OUT', $errorPrefix = 'ERR')
+    public function progress($id, $buffer, $error = \false, $prefix = 'OUT', $errorPrefix = 'ERR')
     {
         $id = (string) $id;
         $buffer = (string) $buffer;
@@ -60,34 +56,29 @@ class DebugFormatterHelper extends Helper
         $prefix = (string) $prefix;
         $errorPrefix = (string) $errorPrefix;
         $message = '';
-
         if ($error) {
             if (isset($this->started[$id]['out'])) {
                 $message .= "\n";
                 unset($this->started[$id]['out']);
             }
             if (!isset($this->started[$id]['err'])) {
-                $message .= sprintf('%s<bg=red;fg=white> %s </> ', $this->getBorder($id), $errorPrefix);
-                $this->started[$id]['err'] = true;
+                $message .= \sprintf('%s<bg=red;fg=white> %s </> ', $this->getBorder($id), $errorPrefix);
+                $this->started[$id]['err'] = \true;
             }
-
-            $message .= str_replace("\n", sprintf("\n%s<bg=red;fg=white> %s </> ", $this->getBorder($id), $errorPrefix), $buffer);
+            $message .= \str_replace("\n", \sprintf("\n%s<bg=red;fg=white> %s </> ", $this->getBorder($id), $errorPrefix), $buffer);
         } else {
             if (isset($this->started[$id]['err'])) {
                 $message .= "\n";
                 unset($this->started[$id]['err']);
             }
             if (!isset($this->started[$id]['out'])) {
-                $message .= sprintf('%s<bg=green;fg=white> %s </> ', $this->getBorder($id), $prefix);
-                $this->started[$id]['out'] = true;
+                $message .= \sprintf('%s<bg=green;fg=white> %s </> ', $this->getBorder($id), $prefix);
+                $this->started[$id]['out'] = \true;
             }
-
-            $message .= str_replace("\n", sprintf("\n%s<bg=green;fg=white> %s </> ", $this->getBorder($id), $prefix), $buffer);
+            $message .= \str_replace("\n", \sprintf("\n%s<bg=green;fg=white> %s </> ", $this->getBorder($id), $prefix), $buffer);
         }
-
         return $message;
     }
-
     /**
      * Stops a formatting session.
      *
@@ -104,18 +95,13 @@ class DebugFormatterHelper extends Helper
         $successful = (bool) $successful;
         $prefix = (string) $prefix;
         $trailingEOL = isset($this->started[$id]['out']) || isset($this->started[$id]['err']) ? "\n" : '';
-
         if ($successful) {
-            return sprintf("%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
+            return \sprintf("%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
         }
-
-        $message = sprintf("%s%s<bg=red;fg=white> %s </> <fg=red>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
-
+        $message = \sprintf("%s%s<bg=red;fg=white> %s </> <fg=red>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
         unset($this->started[$id]['out'], $this->started[$id]['err']);
-
         return $message;
     }
-
     /**
      * @param string $id
      * @return string
@@ -123,9 +109,8 @@ class DebugFormatterHelper extends Helper
     private function getBorder($id)
     {
         $id = (string) $id;
-        return sprintf('<bg=%s> </>', $this->colors[$this->started[$id]['border']]);
+        return \sprintf('<bg=%s> </>', $this->colors[$this->started[$id]['border']]);
     }
-
     /**
      * {@inheritdoc}
      */

@@ -1,18 +1,13 @@
 <?php
 
-use Nette\Caching\Cache;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+namespace ECSPrefix20210509;
+
+use ECSPrefix20210509\Nette\Caching\Cache;
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\EasyCodingStandard\Caching\NetteCacheFactory;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
-
-return static function (ContainerConfigurator $containerConfigurator) {
+use function ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-
-    $services->defaults()
-        ->autowire()
-        ->autoconfigure()
-        ->public();
-
-    $services->set(Cache::class)
-        ->factory([service(NetteCacheFactory::class), 'create']);
+    $services->defaults()->autowire()->autoconfigure()->public();
+    $services->set(\ECSPrefix20210509\Nette\Caching\Cache::class)->factory([\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\EasyCodingStandard\Caching\NetteCacheFactory::class), 'create']);
 };

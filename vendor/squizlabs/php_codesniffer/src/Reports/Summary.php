@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Summary report for PHP_CodeSniffer.
  *
@@ -6,16 +7,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Reports;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util;
-
-class Summary implements Report
+class Summary implements \PHP_CodeSniffer\Reports\Report
 {
-
-
     /**
      * Generate a partial report for a single processed file.
      *
@@ -30,22 +27,16 @@ class Summary implements Report
      *
      * @return bool
      */
-    public function generateFileReport($report, File $phpcsFile, $showSources=false, $width=80)
+    public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
     {
-        if (PHP_CODESNIFFER_VERBOSITY === 0
-            && $report['errors'] === 0
-            && $report['warnings'] === 0
-        ) {
+        if (PHP_CODESNIFFER_VERBOSITY === 0 && $report['errors'] === 0 && $report['warnings'] === 0) {
             // Nothing to print.
-            return false;
+            return \false;
         }
-
-        echo $report['filename'].'>>'.$report['errors'].'>>'.$report['warnings'].PHP_EOL;
-        return true;
-
-    }//end generateFileReport()
-
-
+        echo $report['filename'] . '>>' . $report['errors'] . '>>' . $report['warnings'] . \PHP_EOL;
+        return \true;
+    }
+    //end generateFileReport()
     /**
      * Generates a summary of errors and warnings for each file processed.
      *
@@ -62,122 +53,88 @@ class Summary implements Report
      *
      * @return void
      */
-    public function generate(
-        $cachedData,
-        $totalFiles,
-        $totalErrors,
-        $totalWarnings,
-        $totalFixable,
-        $showSources=false,
-        $width=80,
-        $interactive=false,
-        $toScreen=true
-    ) {
-        $lines = explode(PHP_EOL, $cachedData);
-        array_pop($lines);
-
-        if (empty($lines) === true) {
+    public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
+    {
+        $lines = \explode(\PHP_EOL, $cachedData);
+        \array_pop($lines);
+        if (empty($lines) === \true) {
             return;
         }
-
         $reportFiles = [];
-        $maxLength   = 0;
-
+        $maxLength = 0;
         foreach ($lines as $line) {
-            $parts   = explode('>>', $line);
-            $fileLen = strlen($parts[0]);
-            $reportFiles[$parts[0]] = [
-                'errors'   => $parts[1],
-                'warnings' => $parts[2],
-                'strlen'   => $fileLen,
-            ];
-
-            $maxLength = max($maxLength, $fileLen);
+            $parts = \explode('>>', $line);
+            $fileLen = \strlen($parts[0]);
+            $reportFiles[$parts[0]] = ['errors' => $parts[1], 'warnings' => $parts[2], 'strlen' => $fileLen];
+            $maxLength = \max($maxLength, $fileLen);
         }
-
-        uksort(
-            $reportFiles,
-            function ($keyA, $keyB) {
-                $pathPartsA = explode(DIRECTORY_SEPARATOR, $keyA);
-                $pathPartsB = explode(DIRECTORY_SEPARATOR, $keyB);
-
-                do {
-                    $partA = array_shift($pathPartsA);
-                    $partB = array_shift($pathPartsB);
-                } while ($partA === $partB && empty($pathPartsA) === false && empty($pathPartsB) === false);
-
-                if (empty($pathPartsA) === false && empty($pathPartsB) === true) {
-                    return 1;
-                } else if (empty($pathPartsA) === true && empty($pathPartsB) === false) {
+        \uksort($reportFiles, function ($keyA, $keyB) {
+            $pathPartsA = \explode(\DIRECTORY_SEPARATOR, $keyA);
+            $pathPartsB = \explode(\DIRECTORY_SEPARATOR, $keyB);
+            do {
+                $partA = \array_shift($pathPartsA);
+                $partB = \array_shift($pathPartsB);
+            } while ($partA === $partB && empty($pathPartsA) === \false && empty($pathPartsB) === \false);
+            if (empty($pathPartsA) === \false && empty($pathPartsB) === \true) {
+                return 1;
+            } else {
+                if (empty($pathPartsA) === \true && empty($pathPartsB) === \false) {
                     return -1;
                 } else {
-                    return strcasecmp($partA, $partB);
+                    return \strcasecmp($partA, $partB);
                 }
             }
-        );
-
-        $width = min($width, ($maxLength + 21));
-        $width = max($width, 70);
-
-        echo PHP_EOL."\033[1m".'PHP CODE SNIFFER REPORT SUMMARY'."\033[0m".PHP_EOL;
-        echo str_repeat('-', $width).PHP_EOL;
-        echo "\033[1m".'FILE'.str_repeat(' ', ($width - 20)).'ERRORS  WARNINGS'."\033[0m".PHP_EOL;
-        echo str_repeat('-', $width).PHP_EOL;
-
+        });
+        $width = \min($width, $maxLength + 21);
+        $width = \max($width, 70);
+        echo \PHP_EOL . "\33[1m" . 'PHP CODE SNIFFER REPORT SUMMARY' . "\33[0m" . \PHP_EOL;
+        echo \str_repeat('-', $width) . \PHP_EOL;
+        echo "\33[1m" . 'FILE' . \str_repeat(' ', $width - 20) . 'ERRORS  WARNINGS' . "\33[0m" . \PHP_EOL;
+        echo \str_repeat('-', $width) . \PHP_EOL;
         foreach ($reportFiles as $file => $data) {
-            $padding = ($width - 18 - $data['strlen']);
+            $padding = $width - 18 - $data['strlen'];
             if ($padding < 0) {
-                $file    = '...'.substr($file, (($padding * -1) + 3));
+                $file = '...' . \substr($file, $padding * -1 + 3);
                 $padding = 0;
             }
-
-            echo $file.str_repeat(' ', $padding).'  ';
+            echo $file . \str_repeat(' ', $padding) . '  ';
             if ($data['errors'] !== 0) {
-                echo "\033[31m".$data['errors']."\033[0m";
-                echo str_repeat(' ', (8 - strlen((string) $data['errors'])));
+                echo "\33[31m" . $data['errors'] . "\33[0m";
+                echo \str_repeat(' ', 8 - \strlen((string) $data['errors']));
             } else {
                 echo '0       ';
             }
-
             if ($data['warnings'] !== 0) {
-                echo "\033[33m".$data['warnings']."\033[0m";
+                echo "\33[33m" . $data['warnings'] . "\33[0m";
             } else {
                 echo '0';
             }
-
-            echo PHP_EOL;
-        }//end foreach
-
-        echo str_repeat('-', $width).PHP_EOL;
-        echo "\033[1mA TOTAL OF $totalErrors ERROR";
+            echo \PHP_EOL;
+        }
+        //end foreach
+        echo \str_repeat('-', $width) . \PHP_EOL;
+        echo "\33[1mA TOTAL OF {$totalErrors} ERROR";
         if ($totalErrors !== 1) {
             echo 'S';
         }
-
-        echo ' AND '.$totalWarnings.' WARNING';
+        echo ' AND ' . $totalWarnings . ' WARNING';
         if ($totalWarnings !== 1) {
             echo 'S';
         }
-
-        echo ' WERE FOUND IN '.$totalFiles.' FILE';
+        echo ' WERE FOUND IN ' . $totalFiles . ' FILE';
         if ($totalFiles !== 1) {
             echo 'S';
         }
-
-        echo "\033[0m";
-
+        echo "\33[0m";
         if ($totalFixable > 0) {
-            echo PHP_EOL.str_repeat('-', $width).PHP_EOL;
-            echo "\033[1mPHPCBF CAN FIX $totalFixable OF THESE SNIFF VIOLATIONS AUTOMATICALLY\033[0m";
+            echo \PHP_EOL . \str_repeat('-', $width) . \PHP_EOL;
+            echo "\33[1mPHPCBF CAN FIX {$totalFixable} OF THESE SNIFF VIOLATIONS AUTOMATICALLY\33[0m";
         }
-
-        echo PHP_EOL.str_repeat('-', $width).PHP_EOL.PHP_EOL;
-
-        if ($toScreen === true && $interactive === false) {
-            Util\Timing::printRunTime();
+        echo \PHP_EOL . \str_repeat('-', $width) . \PHP_EOL . \PHP_EOL;
+        if ($toScreen === \true && $interactive === \false) {
+            \PHP_CodeSniffer\Util\Timing::printRunTime();
         }
-
-    }//end generate()
-
-
-}//end class
+    }
+    //end generate()
+}
+//end class

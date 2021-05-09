@@ -1,4 +1,5 @@
 <?php
+
 /**
  * A dummy file represents a chunk of text that does not have a file system location.
  *
@@ -11,16 +12,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Files;
 
 use PHP_CodeSniffer\Ruleset;
 use PHP_CodeSniffer\Config;
-
-class DummyFile extends File
+class DummyFile extends \PHP_CodeSniffer\Files\File
 {
-
-
     /**
      * Creates a DummyFile object and sets the content.
      *
@@ -30,35 +27,29 @@ class DummyFile extends File
      *
      * @return void
      */
-    public function __construct($content, Ruleset $ruleset, Config $config)
+    public function __construct($content, \PHP_CodeSniffer\Ruleset $ruleset, \PHP_CodeSniffer\Config $config)
     {
         $this->setContent($content);
-
         // See if a filename was defined in the content.
         // This is done by including: phpcs_input_file: [file path]
         // as the first line of content.
         $path = 'STDIN';
         if ($content !== null) {
-            if (substr($content, 0, 17) === 'phpcs_input_file:') {
-                $eolPos   = strpos($content, $this->eolChar);
-                $filename = trim(substr($content, 17, ($eolPos - 17)));
-                $content  = substr($content, ($eolPos + strlen($this->eolChar)));
-                $path     = $filename;
-
+            if (\substr($content, 0, 17) === 'phpcs_input_file:') {
+                $eolPos = \strpos($content, $this->eolChar);
+                $filename = \trim(\substr($content, 17, $eolPos - 17));
+                $content = \substr($content, $eolPos + \strlen($this->eolChar));
+                $path = $filename;
                 $this->setContent($content);
             }
         }
-
         // The CLI arg overrides anything passed in the content.
         if ($config->stdinPath !== null) {
             $path = $config->stdinPath;
         }
-
         parent::__construct($path, $ruleset, $config);
-
-    }//end __construct()
-
-
+    }
+    //end __construct()
     /**
      * Set the error, warning, and fixable counts for the file.
      *
@@ -71,12 +62,11 @@ class DummyFile extends File
      */
     public function setErrorCounts($errorCount, $warningCount, $fixableCount, $fixedCount)
     {
-        $this->errorCount   = $errorCount;
+        $this->errorCount = $errorCount;
         $this->warningCount = $warningCount;
         $this->fixableCount = $fixableCount;
-        $this->fixedCount   = $fixedCount;
-
-    }//end setErrorCounts()
-
-
-}//end class
+        $this->fixedCount = $fixedCount;
+    }
+    //end setErrorCounts()
+}
+//end class

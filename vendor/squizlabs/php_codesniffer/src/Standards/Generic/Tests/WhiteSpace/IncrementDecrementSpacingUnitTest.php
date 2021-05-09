@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the IncrementDecrementSpacing sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2018 Juliette Reinders Folmer. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\WhiteSpace;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class IncrementDecrementSpacingUnitTest extends AbstractSniffUnitTest
+class IncrementDecrementSpacingUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,29 +22,18 @@ class IncrementDecrementSpacingUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile='IncrementDecrementSpacingUnitTest.inc')
+    public function getErrorList($testFile = 'IncrementDecrementSpacingUnitTest.inc')
     {
         switch ($testFile) {
-        case 'IncrementDecrementSpacingUnitTest.inc':
-        case 'IncrementDecrementSpacingUnitTest.js':
-            return [
-                5  => 1,
-                6  => 1,
-                8  => 1,
-                10 => 1,
-                13 => 1,
-                14 => 1,
-                16 => 1,
-                17 => 1,
-            ];
-
-        default:
-            return [];
-        }//end switch
-
-    }//end getErrorList()
-
-
+            case 'IncrementDecrementSpacingUnitTest.inc':
+            case 'IncrementDecrementSpacingUnitTest.js':
+                return [5 => 1, 6 => 1, 8 => 1, 10 => 1, 13 => 1, 14 => 1, 16 => 1, 17 => 1];
+            default:
+                return [];
+        }
+        //end switch
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -59,8 +45,7 @@ class IncrementDecrementSpacingUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

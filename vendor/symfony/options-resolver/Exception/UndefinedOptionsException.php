@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\OptionsResolver\Exception;
+namespace ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception;
 
 /**
  * Exception thrown when an undefined option is passed.
@@ -19,6 +18,6 @@ namespace Symfony\Component\OptionsResolver\Exception;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class UndefinedOptionsException extends InvalidArgumentException
+class UndefinedOptionsException extends \ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
 {
 }

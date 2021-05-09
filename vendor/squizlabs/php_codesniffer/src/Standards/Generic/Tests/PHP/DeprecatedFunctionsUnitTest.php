@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the DeprecatedFunctions sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2019 Juliette Reinders Folmer. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class DeprecatedFunctionsUnitTest extends AbstractSniffUnitTest
+class DeprecatedFunctionsUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -26,20 +23,15 @@ class DeprecatedFunctionsUnitTest extends AbstractSniffUnitTest
     public function getErrorList()
     {
         $errors = [];
-
-        if (PHP_VERSION_ID >= 70200 && PHP_VERSION_ID < 80000) {
+        if (\PHP_VERSION_ID >= 70200 && \PHP_VERSION_ID < 80000) {
             $errors[3] = 1;
         }
-
-        if (PHP_VERSION_ID >= 70300 && PHP_VERSION_ID < 80000) {
+        if (\PHP_VERSION_ID >= 70300 && \PHP_VERSION_ID < 80000) {
             $errors[4] = 1;
         }
-
         return $errors;
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -51,8 +43,7 @@ class DeprecatedFunctionsUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

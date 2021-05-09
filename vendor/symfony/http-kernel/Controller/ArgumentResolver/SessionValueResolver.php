@@ -8,45 +8,40 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-namespace Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * Yields the Session.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class SessionValueResolver implements ArgumentValueResolverInterface
+final class SessionValueResolver implements \ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function supports(Request $request, ArgumentMetadata $argument)
+    public function supports(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
         if (!$request->hasSession()) {
-            return false;
+            return \false;
         }
-
         $type = $argument->getType();
-        if (SessionInterface::class !== $type && !is_subclass_of($type, SessionInterface::class)) {
-            return false;
+        if (\ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface::class !== $type && !\is_subclass_of($type, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface::class)) {
+            return \false;
         }
-
         return $request->getSession() instanceof $type;
     }
-
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
-    public function resolve(Request $request, ArgumentMetadata $argument)
+    public function resolve(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
     {
-        yield $request->getSession();
+        (yield $request->getSession());
     }
 }

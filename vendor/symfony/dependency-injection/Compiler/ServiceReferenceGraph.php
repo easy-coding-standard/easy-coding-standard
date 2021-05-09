@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * This is a directed graph of your services.
  *
@@ -29,7 +27,6 @@ class ServiceReferenceGraph
      * @var ServiceReferenceGraphNode[]
      */
     private $nodes = [];
-
     /**
      * @param string $id
      * @return bool
@@ -39,7 +36,6 @@ class ServiceReferenceGraph
         $id = (string) $id;
         return isset($this->nodes[$id]);
     }
-
     /**
      * Gets a node by identifier.
      *
@@ -51,12 +47,10 @@ class ServiceReferenceGraph
     {
         $id = (string) $id;
         if (!isset($this->nodes[$id])) {
-            throw new InvalidArgumentException(sprintf('There is no node with id "%s".', $id));
+            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no node with id "%s".', $id));
         }
-
         return $this->nodes[$id];
     }
-
     /**
      * Returns all nodes.
      *
@@ -66,7 +60,6 @@ class ServiceReferenceGraph
     {
         return $this->nodes;
     }
-
     /**
      * Clears all nodes.
      */
@@ -77,7 +70,6 @@ class ServiceReferenceGraph
         }
         $this->nodes = [];
     }
-
     /**
      * Connects 2 nodes together in the Graph.
      * @param string|null $sourceId
@@ -86,7 +78,7 @@ class ServiceReferenceGraph
      * @param bool $weak
      * @param bool $byConstructor
      */
-    public function connect($sourceId, $sourceValue, $destId, $destValue = null, $reference = null, $lazy = false, $weak = false, $byConstructor = false)
+    public function connect($sourceId, $sourceValue, $destId, $destValue = null, $reference = null, $lazy = \false, $weak = \false, $byConstructor = \false)
     {
         $lazy = (bool) $lazy;
         $weak = (bool) $weak;
@@ -94,15 +86,12 @@ class ServiceReferenceGraph
         if (null === $sourceId || null === $destId) {
             return;
         }
-
         $sourceNode = $this->createNode($sourceId, $sourceValue);
         $destNode = $this->createNode($destId, $destValue);
-        $edge = new ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor);
-
+        $edge = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor);
         $sourceNode->addOutEdge($edge);
         $destNode->addInEdge($edge);
     }
-
     /**
      * @param string $id
      * @return \Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode
@@ -113,7 +102,6 @@ class ServiceReferenceGraph
         if (isset($this->nodes[$id]) && $this->nodes[$id]->getValue() === $value) {
             return $this->nodes[$id];
         }
-
-        return $this->nodes[$id] = new ServiceReferenceGraphNode($id, $value);
+        return $this->nodes[$id] = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode($id, $value);
     }
 }

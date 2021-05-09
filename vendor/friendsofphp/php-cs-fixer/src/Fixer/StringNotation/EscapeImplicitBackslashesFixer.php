@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\StringNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -23,11 +22,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Filippo Tessarotto <zoeslam@gmail.com>
  */
-final class EscapeImplicitBackslashesFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class EscapeImplicitBackslashesFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
@@ -38,52 +36,26 @@ final class EscapeImplicitBackslashesFixer extends AbstractFixer implements Conf
         $codeSample = <<<'EOF'
 <?php
 
-$singleQuoted = 'String with \" and My\Prefix\\';
+namespace ECSPrefix20210509;
 
-$doubleQuoted = "Interpret my \n but not my \a";
-
+$singleQuoted = 'String with \\" and My\\Prefix\\';
+$doubleQuoted = "Interpret my \n but not my \\a";
 $hereDoc = <<<HEREDOC
-Interpret my \100 but not my \999
-HEREDOC;
+Interpret my @ but not my \\999
+HEREDOC
+;
 
 EOF;
-
-        return new FixerDefinition(
-            'Escape implicit backslashes in strings and heredocs to ease the understanding of which are special chars interpreted by PHP and which not.',
-            [
-                new CodeSample($codeSample),
-                new CodeSample(
-                    $codeSample,
-                    ['single_quoted' => true]
-                ),
-                new CodeSample(
-                    $codeSample,
-                    ['double_quoted' => false]
-                ),
-                new CodeSample(
-                    $codeSample,
-                    ['heredoc_syntax' => false]
-                ),
-            ],
-            'In PHP double-quoted strings and heredocs some chars like `n`, `$` or `u` have special meanings if preceded by a backslash '
-            .'(and some are special only if followed by other special chars), while a backslash preceding other chars are interpreted like a plain '
-            .'backslash. The precise list of those special chars is hard to remember and to identify quickly: this fixer escapes backslashes '
-            ."that do not start a special interpretation with the char after them.\n"
-            .'It is possible to fix also single-quoted strings: in this case there is no special chars apart from single-quote and backslash '
-            .'itself, so the fixer simply ensure that all backslashes are escaped. Both single and double backslashes are allowed in single-quoted '
-            .'strings, so the purpose in this context is mainly to have a uniformed way to have them written all over the codebase.'
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Escape implicit backslashes in strings and heredocs to ease the understanding of which are special chars interpreted by PHP and which not.', [new \PhpCsFixer\FixerDefinition\CodeSample($codeSample), new \PhpCsFixer\FixerDefinition\CodeSample($codeSample, ['single_quoted' => \true]), new \PhpCsFixer\FixerDefinition\CodeSample($codeSample, ['double_quoted' => \false]), new \PhpCsFixer\FixerDefinition\CodeSample($codeSample, ['heredoc_syntax' => \false])], 'In PHP double-quoted strings and heredocs some chars like `n`, `$` or `u` have special meanings if preceded by a backslash ' . '(and some are special only if followed by other special chars), while a backslash preceding other chars are interpreted like a plain ' . 'backslash. The precise list of those special chars is hard to remember and to identify quickly: this fixer escapes backslashes ' . "that do not start a special interpretation with the char after them.\n" . 'It is possible to fix also single-quoted strings: in this case there is no special chars apart from single-quote and backslash ' . 'itself, so the fixer simply ensure that all backslashes are escaped. Both single and double backslashes are allowed in single-quoted ' . 'strings, so the purpose in this context is mainly to have a uniformed way to have them written all over the codebase.');
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound([T_ENCAPSED_AND_WHITESPACE, T_CONSTANT_ENCAPSED_STRING]);
+        return $tokens->isAnyTokenKindsFound([\T_ENCAPSED_AND_WHITESPACE, \T_CONSTANT_ENCAPSED_STRING]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -95,80 +67,53 @@ EOF;
     {
         return 1;
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         static $singleQuotedRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![\\\'\\\\])/';
         static $doubleQuotedRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![efnrtv$"\\\\0-7]|x[0-9A-Fa-f]|u{)/';
         static $heredocSyntaxRegex = '/(?<!\\\\)\\\\((?:\\\\\\\\)*)(?![efnrtv$\\\\0-7]|x[0-9A-Fa-f]|u{)/';
-
-        $doubleQuoteOpened = false;
+        $doubleQuoteOpened = \false;
         foreach ($tokens as $index => $token) {
             $content = $token->getContent();
             if ($token->equalsAny(['"', 'b"', 'B"'])) {
                 $doubleQuoteOpened = !$doubleQuoteOpened;
             }
-            if (!$token->isGivenKind([T_ENCAPSED_AND_WHITESPACE, T_CONSTANT_ENCAPSED_STRING]) || false === strpos($content, '\\')) {
+            if (!$token->isGivenKind([\T_ENCAPSED_AND_WHITESPACE, \T_CONSTANT_ENCAPSED_STRING]) || \false === \strpos($content, '\\')) {
                 continue;
             }
-
             // Nowdoc syntax
-            if ($token->isGivenKind(T_ENCAPSED_AND_WHITESPACE) && '\'' === substr(rtrim($tokens[$index - 1]->getContent()), -1)) {
+            if ($token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE) && '\'' === \substr(\rtrim($tokens[$index - 1]->getContent()), -1)) {
                 continue;
             }
-
-            $firstTwoCharacters = strtolower(substr($content, 0, 2));
-            $isSingleQuotedString = $token->isGivenKind(T_CONSTANT_ENCAPSED_STRING) && ('\'' === $content[0] || 'b\'' === $firstTwoCharacters);
-            $isDoubleQuotedString =
-                ($token->isGivenKind(T_CONSTANT_ENCAPSED_STRING) && ('"' === $content[0] || 'b"' === $firstTwoCharacters))
-                || ($token->isGivenKind(T_ENCAPSED_AND_WHITESPACE) && $doubleQuoteOpened)
-            ;
+            $firstTwoCharacters = \strtolower(\substr($content, 0, 2));
+            $isSingleQuotedString = $token->isGivenKind(\T_CONSTANT_ENCAPSED_STRING) && ('\'' === $content[0] || 'b\'' === $firstTwoCharacters);
+            $isDoubleQuotedString = $token->isGivenKind(\T_CONSTANT_ENCAPSED_STRING) && ('"' === $content[0] || 'b"' === $firstTwoCharacters) || $token->isGivenKind(\T_ENCAPSED_AND_WHITESPACE) && $doubleQuoteOpened;
             $isHeredocSyntax = !$isSingleQuotedString && !$isDoubleQuotedString;
-            if (
-                (false === $this->configuration['single_quoted'] && $isSingleQuotedString)
-                || (false === $this->configuration['double_quoted'] && $isDoubleQuotedString)
-                || (false === $this->configuration['heredoc_syntax'] && $isHeredocSyntax)
-            ) {
+            if (\false === $this->configuration['single_quoted'] && $isSingleQuotedString || \false === $this->configuration['double_quoted'] && $isDoubleQuotedString || \false === $this->configuration['heredoc_syntax'] && $isHeredocSyntax) {
                 continue;
             }
-
             $regex = $heredocSyntaxRegex;
             if ($isSingleQuotedString) {
                 $regex = $singleQuotedRegex;
             } elseif ($isDoubleQuotedString) {
                 $regex = $doubleQuotedRegex;
             }
-
-            $newContent = Preg::replace($regex, '\\\\\\\\$1', $content);
+            $newContent = \PhpCsFixer\Preg::replace($regex, '\\\\\\\\$1', $content);
             if ($newContent !== $content) {
-                $tokens[$index] = new Token([$token->getId(), $newContent]);
+                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
             }
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('single_quoted', 'Whether to fix single-quoted strings.'))
-                ->setAllowedTypes(['bool'])
-                ->setDefault(false)
-                ->getOption(),
-            (new FixerOptionBuilder('double_quoted', 'Whether to fix double-quoted strings.'))
-                ->setAllowedTypes(['bool'])
-                ->setDefault(true)
-                ->getOption(),
-            (new FixerOptionBuilder('heredoc_syntax', 'Whether to fix heredoc syntax.'))
-                ->setAllowedTypes(['bool'])
-                ->setDefault(true)
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('single_quoted', 'Whether to fix single-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('double_quoted', 'Whether to fix double-quoted strings.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('heredoc_syntax', 'Whether to fix heredoc syntax.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption()]);
     }
 }

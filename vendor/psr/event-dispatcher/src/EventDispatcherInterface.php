@@ -1,5 +1,6 @@
 <?php
-namespace Psr\EventDispatcher;
+
+namespace ECSPrefix20210509\Psr\EventDispatcher;
 
 /**
  * Defines a dispatcher for events.

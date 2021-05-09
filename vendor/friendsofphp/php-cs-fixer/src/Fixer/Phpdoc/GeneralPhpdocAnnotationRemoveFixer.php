@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -23,12 +22,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Graham Campbell <graham@alt-three.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class GeneralPhpdocAnnotationRemoveFixer extends AbstractFixer implements ConfigurableFixerInterface
+final class GeneralPhpdocAnnotationRemoveFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
@@ -36,21 +34,13 @@ final class GeneralPhpdocAnnotationRemoveFixer extends AbstractFixer implements 
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Configured annotations should be omitted from PHPDoc.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Configured annotations should be omitted from PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
  * @internal
  * @author John Doe
  */
 function foo() {}
-',
-                    ['annotations' => ['author']]
-                ),
-                new CodeSample(
-                    '<?php
+', ['annotations' => ['author']]), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 /**
  * @author John Doe
  * @package ACME API
@@ -58,13 +48,8 @@ function foo() {}
  * @version 1.0
  */
 function foo() {}
-',
-                    ['annotations' => ['package', 'subpackage']]
-                ),
-            ]
-        );
+', ['annotations' => ['package', 'subpackage']])]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -76,62 +61,49 @@ function foo() {}
     {
         return 10;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         if (!\count($this->configuration['annotations'])) {
             return;
         }
-
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
                 continue;
             }
-
-            $doc = new DocBlock($token->getContent());
+            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
             $annotations = $doc->getAnnotationsOfType($this->configuration['annotations']);
-
             // nothing to do if there are no annotations
             if (empty($annotations)) {
                 continue;
             }
-
             foreach ($annotations as $annotation) {
                 $annotation->remove();
             }
-
             if ('' === $doc->getContent()) {
                 $tokens->clearTokenAndMergeSurroundingWhitespace($index);
             } else {
-                $tokens[$index] = new Token([T_DOC_COMMENT, $doc->getContent()]);
+                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
             }
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new FixerConfigurationResolver([
-            (new FixerOptionBuilder('annotations', 'List of annotations to remove, e.g. `["author"]`.'))
-                ->setAllowedTypes(['array'])
-                ->setDefault([])
-                ->getOption(),
-        ]);
+        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('annotations', 'List of annotations to remove, e.g. `["author"]`.'))->setAllowedTypes(['array'])->setDefault([])->getOption()]);
     }
 }

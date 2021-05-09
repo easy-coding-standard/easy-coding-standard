@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Cache;
 
 /**
@@ -23,32 +22,27 @@ interface CacheInterface
      * @return \PhpCsFixer\Cache\SignatureInterface
      */
     public function getSignature();
-
     /**
      * @param string $file
      * @return bool
      */
     public function has($file);
-
     /**
      * @return int|null
      * @param string $file
      */
     public function get($file);
-
     /**
      * @return void
      * @param string $file
      * @param int $hash
      */
     public function set($file, $hash);
-
     /**
      * @return void
      * @param string $file
      */
     public function clear($file);
-
     /**
      * @return string
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensure that all style definitions are in lowercase.
  *
@@ -6,23 +7,18 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class LowercaseStyleDefinitionSniff implements Sniff
+class LowercaseStyleDefinitionSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['CSS'];
-
-
     /**
      * Returns the token types that this sniff is interested in.
      *
@@ -31,10 +27,8 @@ class LowercaseStyleDefinitionSniff implements Sniff
     public function register()
     {
         return [T_OPEN_CURLY_BRACKET];
-
-    }//end register()
-
-
+    }
+    //end register()
     /**
      * Processes the tokens that this sniff is interested in.
      *
@@ -44,54 +38,42 @@ class LowercaseStyleDefinitionSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        $tokens  = $phpcsFile->getTokens();
-        $start   = ($stackPtr + 1);
-        $end     = ($tokens[$stackPtr]['bracket_closer'] - 1);
+        $tokens = $phpcsFile->getTokens();
+        $start = $stackPtr + 1;
+        $end = $tokens[$stackPtr]['bracket_closer'] - 1;
         $inStyle = null;
-
         for ($i = $start; $i <= $end; $i++) {
             // Skip nested definitions as they are checked individually.
             if ($tokens[$i]['code'] === T_OPEN_CURLY_BRACKET) {
                 $i = $tokens[$i]['bracket_closer'];
                 continue;
             }
-
             if ($tokens[$i]['code'] === T_STYLE) {
                 $inStyle = $tokens[$i]['content'];
             }
-
             if ($tokens[$i]['code'] === T_SEMICOLON) {
                 $inStyle = null;
             }
-
             if ($inStyle === 'progid') {
                 // Special case for IE filters.
                 continue;
             }
-
-            if ($tokens[$i]['code'] === T_STYLE
-                || ($inStyle !== null
-                && $tokens[$i]['code'] === T_STRING)
-            ) {
-                $expected = strtolower($tokens[$i]['content']);
+            if ($tokens[$i]['code'] === T_STYLE || $inStyle !== null && $tokens[$i]['code'] === \T_STRING) {
+                $expected = \strtolower($tokens[$i]['content']);
                 if ($expected !== $tokens[$i]['content']) {
                     $error = 'Style definitions must be lowercase; expected %s but found %s';
-                    $data  = [
-                        $expected,
-                        $tokens[$i]['content'],
-                    ];
-
+                    $data = [$expected, $tokens[$i]['content']];
                     $fix = $phpcsFile->addFixableError($error, $i, 'FoundUpper', $data);
-                    if ($fix === true) {
+                    if ($fix === \true) {
                         $phpcsFile->fixer->replaceToken($i, $expected);
                     }
                 }
             }
-        }//end for
-
-    }//end process()
-
-
-}//end class
+        }
+        //end for
+    }
+    //end process()
+}
+//end class

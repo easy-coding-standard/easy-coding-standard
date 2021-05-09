@@ -9,24 +9,21 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\FixerDefinition;
 
 /**
  * @author Andreas Möller <am@localheinz.com>
  */
-final class VersionSpecification implements VersionSpecificationInterface
+final class VersionSpecification implements \PhpCsFixer\FixerDefinition\VersionSpecificationInterface
 {
     /**
      * @var null|int
      */
     private $minimum;
-
     /**
      * @var null|int
      */
     private $maximum;
-
     /**
      * @throws \InvalidArgumentException
      * @param int|null $minimum
@@ -37,25 +34,20 @@ final class VersionSpecification implements VersionSpecificationInterface
         if (null === $minimum && null === $maximum) {
             throw new \InvalidArgumentException('Minimum or maximum need to be specified.');
         }
-
         if (null !== $minimum && 1 > $minimum) {
             throw new \InvalidArgumentException('Minimum needs to be either null or an integer greater than 0.');
         }
-
         if (null !== $maximum) {
             if (1 > $maximum) {
                 throw new \InvalidArgumentException('Maximum needs to be either null or an integer greater than 0.');
             }
-
             if (null !== $minimum && $maximum < $minimum) {
                 throw new \InvalidArgumentException('Maximum should not be lower than the minimum.');
             }
         }
-
         $this->minimum = $minimum;
         $this->maximum = $maximum;
     }
-
     /**
      * {@inheritdoc}
      * @param int $version
@@ -65,13 +57,11 @@ final class VersionSpecification implements VersionSpecificationInterface
     {
         $version = (int) $version;
         if (null !== $this->minimum && $version < $this->minimum) {
-            return false;
+            return \false;
         }
-
         if (null !== $this->maximum && $version > $this->maximum) {
-            return false;
+            return \false;
         }
-
-        return true;
+        return \true;
     }
 }

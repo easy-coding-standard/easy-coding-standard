@@ -9,12 +9,10 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Tokenizer\Analyzer;
 
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author Kuba Werłos <werlos@gmail.com>
  *
@@ -26,27 +24,23 @@ final class ReferenceAnalyzer
      * @param int $index
      * @return bool
      */
-    public function isReference(Tokens $tokens, $index)
+    public function isReference(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
-        if ($tokens[$index]->isGivenKind(CT::T_RETURN_REF)) {
-            return true;
+        if ($tokens[$index]->isGivenKind(\PhpCsFixer\Tokenizer\CT::T_RETURN_REF)) {
+            return \true;
         }
-
         if (!$tokens[$index]->equals('&')) {
-            return false;
+            return \false;
         }
-
         /** @var int $index */
         $index = $tokens->getPrevMeaningfulToken($index);
-        if ($tokens[$index]->equalsAny(['=', [T_AS], [T_CALLABLE], [T_DOUBLE_ARROW], [CT::T_ARRAY_TYPEHINT]])) {
-            return true;
+        if ($tokens[$index]->equalsAny(['=', [\T_AS], [\T_CALLABLE], [\T_DOUBLE_ARROW], [\PhpCsFixer\Tokenizer\CT::T_ARRAY_TYPEHINT]])) {
+            return \true;
         }
-
-        if ($tokens[$index]->isGivenKind(T_STRING)) {
+        if ($tokens[$index]->isGivenKind(\T_STRING)) {
             $index = $tokens->getPrevMeaningfulToken($index);
         }
-
-        return $tokens[$index]->equalsAny(['(', ',', [T_NS_SEPARATOR], [CT::T_NULLABLE_TYPE]]);
+        return $tokens[$index]->equalsAny(['(', ',', [\T_NS_SEPARATOR], [\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE]]);
     }
 }

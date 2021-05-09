@@ -1,20 +1,17 @@
 <?php
+
 /**
  * Checks that abstract classes are prefixed by Abstract.
  *
  * @author  Anna Borzenko <annnechko@gmail.com>
  * @license https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-
-class AbstractClassNamePrefixSniff implements Sniff
+class AbstractClassNamePrefixSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -22,11 +19,9 @@ class AbstractClassNamePrefixSniff implements Sniff
      */
     public function register()
     {
-        return [T_CLASS];
-
-    }//end register()
-
-
+        return [\T_CLASS];
+    }
+    //end register()
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -36,25 +31,22 @@ class AbstractClassNamePrefixSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
-        if ($phpcsFile->getClassProperties($stackPtr)['is_abstract'] === false) {
+        if ($phpcsFile->getClassProperties($stackPtr)['is_abstract'] === \false) {
             // This class is not abstract so we don't need to check it.
             return;
         }
-
         $className = $phpcsFile->getDeclarationName($stackPtr);
         if ($className === null) {
             // We are not interested in anonymous classes.
             return;
         }
-
-        $prefix = substr($className, 0, 8);
-        if (strtolower($prefix) !== 'abstract') {
+        $prefix = \substr($className, 0, 8);
+        if (\strtolower($prefix) !== 'abstract') {
             $phpcsFile->addError('Abstract class names must be prefixed with "Abstract"; found "%s"', $stackPtr, 'Missing', [$className]);
         }
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

@@ -8,32 +8,28 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-
-namespace Composer\Semver\Constraint;
+namespace ECSPrefix20210509\Composer\Semver\Constraint;
 
 /**
  * Blackhole of constraints, nothing escapes it
  */
-class MatchNoneConstraint implements ConstraintInterface
+class MatchNoneConstraint implements \ECSPrefix20210509\Composer\Semver\Constraint\ConstraintInterface
 {
     /** @var string|null */
     protected $prettyString;
-
     /**
      * @param ConstraintInterface $provider
      *
      * @return bool
      */
-    public function matches(ConstraintInterface $provider)
+    public function matches(\ECSPrefix20210509\Composer\Semver\Constraint\ConstraintInterface $provider)
     {
-        return false;
+        return \false;
     }
-
     public function compile($operator)
     {
         return 'false';
     }
-
     /**
      * @param string|null $prettyString
      */
@@ -41,7 +37,6 @@ class MatchNoneConstraint implements ConstraintInterface
     {
         $this->prettyString = $prettyString;
     }
-
     /**
      * @return string
      */
@@ -50,10 +45,8 @@ class MatchNoneConstraint implements ConstraintInterface
         if ($this->prettyString) {
             return $this->prettyString;
         }
-
         return (string) $this;
     }
-
     /**
      * @return string
      */
@@ -61,20 +54,18 @@ class MatchNoneConstraint implements ConstraintInterface
     {
         return '[]';
     }
-
     /**
      * {@inheritDoc}
      */
     public function getUpperBound()
     {
-        return new Bound('0.0.0.0-dev', false);
+        return new \ECSPrefix20210509\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
     }
-
     /**
      * {@inheritDoc}
      */
     public function getLowerBound()
     {
-        return new Bound('0.0.0.0-dev', false);
+        return new \ECSPrefix20210509\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
     }
 }

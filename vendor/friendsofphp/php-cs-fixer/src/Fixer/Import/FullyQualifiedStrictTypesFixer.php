@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Import;
 
 use PhpCsFixer\AbstractFixer;
@@ -27,11 +26,10 @@ use PhpCsFixer\Tokenizer\Generator\NamespacedStringTokenGenerator;
 use PhpCsFixer\Tokenizer\Resolver\TypeShortNameResolver;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * @author VeeWee <toonverwerft@gmail.com>
  */
-final class FullyQualifiedStrictTypesFixer extends AbstractFixer
+final class FullyQualifiedStrictTypesFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -39,41 +37,29 @@ final class FullyQualifiedStrictTypesFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'Transforms imported FQCN parameters and return types in function arguments to short version.',
-            [
-                new CodeSample(
-                    '<?php
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Transforms imported FQCN parameters and return types in function arguments to short version.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
 
-use Foo\Bar;
+use Foo\\Bar;
 
 class SomeClass
 {
-    public function doSomething(\Foo\Bar $foo)
+    public function doSomething(\\Foo\\Bar $foo)
     {
     }
 }
-'
-                ),
-                new VersionSpecificCodeSample(
-                    '<?php
+'), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample('<?php
 
-use Foo\Bar;
-use Foo\Bar\Baz;
+use Foo\\Bar;
+use Foo\\Bar\\Baz;
 
 class SomeClass
 {
-    public function doSomething(\Foo\Bar $foo): \Foo\Bar\Baz
+    public function doSomething(\\Foo\\Bar $foo): \\Foo\\Bar\\Baz
     {
     }
 }
-',
-                    new VersionSpecification(70000)
-                ),
-            ]
-        );
+', new \PhpCsFixer\FixerDefinition\VersionSpecification(70000))]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -85,106 +71,81 @@ class SomeClass
     {
         return 7;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(T_FUNCTION) && (
-            \count((new NamespacesAnalyzer())->getDeclarations($tokens))
-            || \count((new NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens))
-        );
+        return $tokens->isTokenKindFound(\T_FUNCTION) && (\count((new \PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer())->getDeclarations($tokens)) || \count((new \PhpCsFixer\Tokenizer\Analyzer\NamespaceUsesAnalyzer())->getDeclarationsFromTokens($tokens)));
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         $lastIndex = $tokens->count() - 1;
         for ($index = $lastIndex; $index >= 0; --$index) {
-            if (!$tokens[$index]->isGivenKind(T_FUNCTION)) {
+            if (!$tokens[$index]->isGivenKind(\T_FUNCTION)) {
                 continue;
             }
-
             // Return types are only available since PHP 7.0
             $this->fixFunctionReturnType($tokens, $index);
             $this->fixFunctionArguments($tokens, $index);
         }
     }
-
     /**
      * @return void
      * @param int $index
      */
-    private function fixFunctionArguments(Tokens $tokens, $index)
+    private function fixFunctionArguments(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
-        $arguments = (new FunctionsAnalyzer())->getFunctionArguments($tokens, $index);
-
+        $arguments = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionArguments($tokens, $index);
         foreach ($arguments as $argument) {
             if (!$argument->hasTypeAnalysis()) {
                 continue;
             }
-
             $this->detectAndReplaceTypeWithShortType($tokens, $argument->getTypeAnalysis());
         }
     }
-
     /**
      * @return void
      * @param int $index
      */
-    private function fixFunctionReturnType(Tokens $tokens, $index)
+    private function fixFunctionReturnType(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         if (\PHP_VERSION_ID < 70000) {
             return;
         }
-
-        $returnType = (new FunctionsAnalyzer())->getFunctionReturnType($tokens, $index);
+        $returnType = (new \PhpCsFixer\Tokenizer\Analyzer\FunctionsAnalyzer())->getFunctionReturnType($tokens, $index);
         if (!$returnType) {
             return;
         }
-
         $this->detectAndReplaceTypeWithShortType($tokens, $returnType);
     }
-
     /**
      * @return void
      */
-    private function detectAndReplaceTypeWithShortType(
-        Tokens $tokens,
-        TypeAnalysis $type
-    ) {
+    private function detectAndReplaceTypeWithShortType(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis $type)
+    {
         if ($type->isReservedType()) {
             return;
         }
-
         $typeName = $type->getName();
-
-        if (0 !== strpos($typeName, '\\')) {
+        if (0 !== \strpos($typeName, '\\')) {
             return;
         }
-
-        $shortType = (new TypeShortNameResolver())->resolve($tokens, $typeName);
+        $shortType = (new \PhpCsFixer\Tokenizer\Resolver\TypeShortNameResolver())->resolve($tokens, $typeName);
         if ($shortType === $typeName) {
             return;
         }
-
-        $shortType = (new NamespacedStringTokenGenerator())->generate($shortType);
-
-        if (true === $type->isNullable()) {
-            array_unshift($shortType, new Token([CT::T_NULLABLE_TYPE, '?']));
+        $shortType = (new \PhpCsFixer\Tokenizer\Generator\NamespacedStringTokenGenerator())->generate($shortType);
+        if (\true === $type->isNullable()) {
+            \array_unshift($shortType, new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_NULLABLE_TYPE, '?']));
         }
-
-        $tokens->overrideRange(
-            $type->getStartIndex(),
-            $type->getEndIndex(),
-            $shortType
-        );
+        $tokens->overrideRange($type->getStartIndex(), $type->getEndIndex(), $shortType);
     }
 }

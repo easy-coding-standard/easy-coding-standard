@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DependencyInjection;
 
-namespace Symfony\Component\HttpKernel\DependencyInjection;
-
-use Symfony\Contracts\Service\ResetInterface;
-
+use ECSPrefix20210509\Symfony\Contracts\Service\ResetInterface;
 /**
  * Resets provided services.
  *
@@ -21,22 +19,20 @@ use Symfony\Contracts\Service\ResetInterface;
  *
  * @internal
  */
-class ServicesResetter implements ResetInterface
+class ServicesResetter implements \ECSPrefix20210509\Symfony\Contracts\Service\ResetInterface
 {
     private $resettableServices;
     private $resetMethods;
-
     public function __construct(\Traversable $resettableServices, array $resetMethods)
     {
         $this->resettableServices = $resettableServices;
         $this->resetMethods = $resetMethods;
     }
-
     public function reset()
     {
         foreach ($this->resettableServices as $id => $service) {
             foreach ((array) $this->resetMethods[$id] as $resetMethod) {
-                $service->$resetMethod();
+                $service->{$resetMethod}();
             }
         }
     }

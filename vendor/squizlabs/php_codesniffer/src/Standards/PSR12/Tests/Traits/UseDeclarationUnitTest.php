@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the UseDeclaration sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\PSR12\Tests\Traits;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class UseDeclarationUnitTest extends AbstractSniffUnitTest
+class UseDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -25,33 +22,9 @@ class UseDeclarationUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList()
     {
-        return [
-            15  => 1,
-            29  => 2,
-            30  => 1,
-            42  => 1,
-            57  => 3,
-            59  => 3,
-            61  => 1,
-            63  => 5,
-            65  => 1,
-            71  => 1,
-            73  => 2,
-            76  => 1,
-            86  => 2,
-            103 => 1,
-            112 => 1,
-            122 => 1,
-            132 => 1,
-            157 => 1,
-            165 => 1,
-            170 => 1,
-            208 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [15 => 1, 29 => 2, 30 => 1, 42 => 1, 57 => 3, 59 => 3, 61 => 1, 63 => 5, 65 => 1, 71 => 1, 73 => 2, 76 => 1, 86 => 2, 103 => 1, 112 => 1, 122 => 1, 132 => 1, 157 => 1, 165 => 1, 170 => 1, 208 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -63,8 +36,7 @@ class UseDeclarationUnitTest extends AbstractSniffUnitTest
     public function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

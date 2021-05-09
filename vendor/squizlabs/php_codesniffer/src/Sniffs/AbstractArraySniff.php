@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Processes single and multi-line arrays.
  *
@@ -6,31 +7,22 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Sniffs;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-
-abstract class AbstractArraySniff implements Sniff
+abstract class AbstractArraySniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
      * @return array
      */
-    final public function register()
+    public final function register()
     {
-        return [
-            T_ARRAY,
-            T_OPEN_SHORT_ARRAY,
-        ];
-
-    }//end register()
-
-
+        return [\T_ARRAY, T_OPEN_SHORT_ARRAY];
+    }
+    //end register()
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -40,67 +32,50 @@ abstract class AbstractArraySniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        if ($tokens[$stackPtr]['code'] === T_ARRAY) {
+        if ($tokens[$stackPtr]['code'] === \T_ARRAY) {
             $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'no');
-
             $arrayStart = $tokens[$stackPtr]['parenthesis_opener'];
-            if (isset($tokens[$arrayStart]['parenthesis_closer']) === false) {
+            if (isset($tokens[$arrayStart]['parenthesis_closer']) === \false) {
                 // Incomplete array.
                 return;
             }
-
             $arrayEnd = $tokens[$arrayStart]['parenthesis_closer'];
         } else {
             $phpcsFile->recordMetric($stackPtr, 'Short array syntax used', 'yes');
             $arrayStart = $stackPtr;
-            $arrayEnd   = $tokens[$stackPtr]['bracket_closer'];
+            $arrayEnd = $tokens[$stackPtr]['bracket_closer'];
         }
-
-        $lastContent = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($arrayEnd - 1), null, true);
+        $lastContent = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $arrayEnd - 1, null, \true);
         if ($tokens[$lastContent]['code'] === T_COMMA) {
             // Last array item ends with a comma.
             $phpcsFile->recordMetric($stackPtr, 'Array end comma', 'yes');
         } else {
             $phpcsFile->recordMetric($stackPtr, 'Array end comma', 'no');
         }
-
         $indices = [];
-
         $current = $arrayStart;
-        while (($next = $phpcsFile->findNext(Tokens::$emptyTokens, ($current + 1), $arrayEnd, true)) !== false) {
+        while (($next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $current + 1, $arrayEnd, \true)) !== \false) {
             $end = $this->getNext($phpcsFile, $next, $arrayEnd);
-
-            if ($tokens[$end]['code'] === T_DOUBLE_ARROW) {
-                $indexEnd   = $phpcsFile->findPrevious(T_WHITESPACE, ($end - 1), null, true);
-                $valueStart = $phpcsFile->findNext(Tokens::$emptyTokens, ($end + 1), null, true);
-
-                $indices[] = [
-                    'index_start' => $next,
-                    'index_end'   => $indexEnd,
-                    'arrow'       => $end,
-                    'value_start' => $valueStart,
-                ];
+            if ($tokens[$end]['code'] === \T_DOUBLE_ARROW) {
+                $indexEnd = $phpcsFile->findPrevious(\T_WHITESPACE, $end - 1, null, \true);
+                $valueStart = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+                $indices[] = ['index_start' => $next, 'index_end' => $indexEnd, 'arrow' => $end, 'value_start' => $valueStart];
             } else {
                 $valueStart = $next;
-                $indices[]  = ['value_start' => $valueStart];
+                $indices[] = ['value_start' => $valueStart];
             }
-
             $current = $this->getNext($phpcsFile, $valueStart, $arrayEnd);
         }
-
         if ($tokens[$arrayStart]['line'] === $tokens[$arrayEnd]['line']) {
             $this->processSingleLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices);
         } else {
             $this->processMultiLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices);
         }
-
-    }//end process()
-
-
+    }
+    //end process()
     /**
      * Find next separator in array - either: comma or double arrow.
      *
@@ -110,33 +85,29 @@ abstract class AbstractArraySniff implements Sniff
      *
      * @return int
      */
-    private function getNext(File $phpcsFile, $ptr, $arrayEnd)
+    private function getNext(\PHP_CodeSniffer\Files\File $phpcsFile, $ptr, $arrayEnd)
     {
         $tokens = $phpcsFile->getTokens();
-
         while ($ptr < $arrayEnd) {
-            if (isset($tokens[$ptr]['scope_closer']) === true) {
+            if (isset($tokens[$ptr]['scope_closer']) === \true) {
                 $ptr = $tokens[$ptr]['scope_closer'];
-            } else if (isset($tokens[$ptr]['parenthesis_closer']) === true) {
-                $ptr = $tokens[$ptr]['parenthesis_closer'];
-            } else if (isset($tokens[$ptr]['bracket_closer']) === true) {
-                $ptr = $tokens[$ptr]['bracket_closer'];
+            } else {
+                if (isset($tokens[$ptr]['parenthesis_closer']) === \true) {
+                    $ptr = $tokens[$ptr]['parenthesis_closer'];
+                } else {
+                    if (isset($tokens[$ptr]['bracket_closer']) === \true) {
+                        $ptr = $tokens[$ptr]['bracket_closer'];
+                    }
+                }
             }
-
-            if ($tokens[$ptr]['code'] === T_COMMA
-                || $tokens[$ptr]['code'] === T_DOUBLE_ARROW
-            ) {
+            if ($tokens[$ptr]['code'] === T_COMMA || $tokens[$ptr]['code'] === \T_DOUBLE_ARROW) {
                 return $ptr;
             }
-
             ++$ptr;
         }
-
         return $ptr;
-
-    }//end getNext()
-
-
+    }
+    //end getNext()
     /**
      * Processes a single-line array definition.
      *
@@ -150,9 +121,7 @@ abstract class AbstractArraySniff implements Sniff
      *
      * @return void
      */
-    abstract protected function processSingleLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices);
-
-
+    protected abstract function processSingleLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices);
     /**
      * Processes a multi-line array definition.
      *
@@ -166,7 +135,6 @@ abstract class AbstractArraySniff implements Sniff
      *
      * @return void
      */
-    abstract protected function processMultiLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices);
-
-
-}//end class
+    protected abstract function processMultiLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices);
+}
+//end class

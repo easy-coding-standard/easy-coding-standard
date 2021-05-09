@@ -8,15 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * Storage for profiler using files.
  *
  * @author Alexandre Salomé <alexandre.salome@gmail.com>
  */
-class FileProfilerStorage implements ProfilerStorageInterface
+class FileProfilerStorage implements \ECSPrefix20210509\Symfony\Component\HttpKernel\Profiler\ProfilerStorageInterface
 {
     /**
      * Folder where profiler data are stored.
@@ -24,7 +23,6 @@ class FileProfilerStorage implements ProfilerStorageInterface
      * @var string
      */
     private $folder;
-
     /**
      * Constructs the file storage using a "dsn-like" path.
      *
@@ -36,16 +34,14 @@ class FileProfilerStorage implements ProfilerStorageInterface
     public function __construct($dsn)
     {
         $dsn = (string) $dsn;
-        if (0 !== strpos($dsn, 'file:')) {
-            throw new \RuntimeException(sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
+        if (0 !== \strpos($dsn, 'file:')) {
+            throw new \RuntimeException(\sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
         }
-        $this->folder = substr($dsn, 5);
-
-        if (!is_dir($this->folder) && false === @mkdir($this->folder, 0777, true) && !is_dir($this->folder)) {
-            throw new \RuntimeException(sprintf('Unable to create the storage directory (%s).', $this->folder));
+        $this->folder = \substr($dsn, 5);
+        if (!\is_dir($this->folder) && \false === @\mkdir($this->folder, 0777, \true) && !\is_dir($this->folder)) {
+            throw new \RuntimeException(\sprintf('Unable to create the storage directory (%s).', $this->folder));
         }
     }
-
     /**
      * {@inheritdoc}
      * @param string|null $statusCode
@@ -62,48 +58,30 @@ class FileProfilerStorage implements ProfilerStorageInterface
         $start = (int) $start;
         $end = (int) $end;
         $file = $this->getIndexFilename();
-
-        if (!file_exists($file)) {
+        if (!\file_exists($file)) {
             return [];
         }
-
-        $file = fopen($file, 'r');
-        fseek($file, 0, \SEEK_END);
-
+        $file = \fopen($file, 'r');
+        \fseek($file, 0, \SEEK_END);
         $result = [];
-        while (\count($result) < $limit && $line = $this->readLineFromFile($file)) {
-            $values = str_getcsv($line);
+        while (\count($result) < $limit && ($line = $this->readLineFromFile($file))) {
+            $values = \str_getcsv($line);
             list($csvToken, $csvIp, $csvMethod, $csvUrl, $csvTime, $csvParent, $csvStatusCode) = $values;
             $csvTime = (int) $csvTime;
-
-            if ($ip && false === strpos($csvIp, $ip) || $url && false === strpos($csvUrl, $url) || $method && false === strpos($csvMethod, $method) || $statusCode && false === strpos($csvStatusCode, $statusCode)) {
+            if ($ip && \false === \strpos($csvIp, $ip) || $url && \false === \strpos($csvUrl, $url) || $method && \false === \strpos($csvMethod, $method) || $statusCode && \false === \strpos($csvStatusCode, $statusCode)) {
                 continue;
             }
-
             if (!empty($start) && $csvTime < $start) {
                 continue;
             }
-
             if (!empty($end) && $csvTime > $end) {
                 continue;
             }
-
-            $result[$csvToken] = [
-                'token' => $csvToken,
-                'ip' => $csvIp,
-                'method' => $csvMethod,
-                'url' => $csvUrl,
-                'time' => $csvTime,
-                'parent' => $csvParent,
-                'status_code' => $csvStatusCode,
-            ];
+            $result[$csvToken] = ['token' => $csvToken, 'ip' => $csvIp, 'method' => $csvMethod, 'url' => $csvUrl, 'time' => $csvTime, 'parent' => $csvParent, 'status_code' => $csvStatusCode];
         }
-
-        fclose($file);
-
-        return array_values($result);
+        \fclose($file);
+        return \array_values($result);
     }
-
     /**
      * {@inheritdoc}
      */
@@ -112,16 +90,14 @@ class FileProfilerStorage implements ProfilerStorageInterface
         $flags = \FilesystemIterator::SKIP_DOTS;
         $iterator = new \RecursiveDirectoryIterator($this->folder, $flags);
         $iterator = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::CHILD_FIRST);
-
         foreach ($iterator as $file) {
-            if (is_file($file)) {
-                unlink($file);
+            if (\is_file($file)) {
+                \unlink($file);
             } else {
-                rmdir($file);
+                \rmdir($file);
             }
         }
     }
-
     /**
      * {@inheritdoc}
      * @return \Symfony\Component\HttpKernel\Profiler\Profile|null
@@ -130,89 +106,58 @@ class FileProfilerStorage implements ProfilerStorageInterface
     public function read($token)
     {
         $token = (string) $token;
-        if (!$token || !file_exists($file = $this->getFilename($token))) {
+        if (!$token || !\file_exists($file = $this->getFilename($token))) {
             return null;
         }
-
         if (\function_exists('gzcompress')) {
-            $file = 'compress.zlib://'.$file;
+            $file = 'compress.zlib://' . $file;
         }
-
-        return $this->createProfileFromData($token, unserialize(file_get_contents($file)));
+        return $this->createProfileFromData($token, \unserialize(\file_get_contents($file)));
     }
-
     /**
      * {@inheritdoc}
      *
      * @throws \RuntimeException
      * @return bool
      */
-    public function write(Profile $profile)
+    public function write(\ECSPrefix20210509\Symfony\Component\HttpKernel\Profiler\Profile $profile)
     {
         $file = $this->getFilename($profile->getToken());
-
-        $profileIndexed = is_file($file);
+        $profileIndexed = \is_file($file);
         if (!$profileIndexed) {
             // Create directory
             $dir = \dirname($file);
-            if (!is_dir($dir) && false === @mkdir($dir, 0777, true) && !is_dir($dir)) {
-                throw new \RuntimeException(sprintf('Unable to create the storage directory (%s).', $dir));
+            if (!\is_dir($dir) && \false === @\mkdir($dir, 0777, \true) && !\is_dir($dir)) {
+                throw new \RuntimeException(\sprintf('Unable to create the storage directory (%s).', $dir));
             }
         }
-
         $profileToken = $profile->getToken();
         // when there are errors in sub-requests, the parent and/or children tokens
         // may equal the profile token, resulting in infinite loops
         $parentToken = $profile->getParentToken() !== $profileToken ? $profile->getParentToken() : null;
-        $childrenToken = array_filter(array_map(function (Profile $p) use ($profileToken) {
+        $childrenToken = \array_filter(\array_map(function (\ECSPrefix20210509\Symfony\Component\HttpKernel\Profiler\Profile $p) use($profileToken) {
             return $profileToken !== $p->getToken() ? $p->getToken() : null;
         }, $profile->getChildren()));
-
         // Store profile
-        $data = [
-            'token' => $profileToken,
-            'parent' => $parentToken,
-            'children' => $childrenToken,
-            'data' => $profile->getCollectors(),
-            'ip' => $profile->getIp(),
-            'method' => $profile->getMethod(),
-            'url' => $profile->getUrl(),
-            'time' => $profile->getTime(),
-            'status_code' => $profile->getStatusCode(),
-        ];
-
-        $context = stream_context_create();
-
+        $data = ['token' => $profileToken, 'parent' => $parentToken, 'children' => $childrenToken, 'data' => $profile->getCollectors(), 'ip' => $profile->getIp(), 'method' => $profile->getMethod(), 'url' => $profile->getUrl(), 'time' => $profile->getTime(), 'status_code' => $profile->getStatusCode()];
+        $context = \stream_context_create();
         if (\function_exists('gzcompress')) {
-            $file = 'compress.zlib://'.$file;
-            stream_context_set_option($context, 'zlib', 'level', 3);
+            $file = 'compress.zlib://' . $file;
+            \stream_context_set_option($context, 'zlib', 'level', 3);
         }
-
-        if (false === file_put_contents($file, serialize($data), 0, $context)) {
-            return false;
+        if (\false === \file_put_contents($file, \serialize($data), 0, $context)) {
+            return \false;
         }
-
         if (!$profileIndexed) {
             // Add to index
-            if (false === $file = fopen($this->getIndexFilename(), 'a')) {
-                return false;
+            if (\false === ($file = \fopen($this->getIndexFilename(), 'a'))) {
+                return \false;
             }
-
-            fputcsv($file, [
-                $profile->getToken(),
-                $profile->getIp(),
-                $profile->getMethod(),
-                $profile->getUrl(),
-                $profile->getTime(),
-                $profile->getParentToken(),
-                $profile->getStatusCode(),
-            ]);
-            fclose($file);
+            \fputcsv($file, [$profile->getToken(), $profile->getIp(), $profile->getMethod(), $profile->getUrl(), $profile->getTime(), $profile->getParentToken(), $profile->getStatusCode()]);
+            \fclose($file);
         }
-
-        return true;
+        return \true;
     }
-
     /**
      * Gets filename to store data, associated to the token.
      *
@@ -223,12 +168,10 @@ class FileProfilerStorage implements ProfilerStorageInterface
     {
         $token = (string) $token;
         // Uses 4 last characters, because first are mostly the same.
-        $folderA = substr($token, -2, 2);
-        $folderB = substr($token, -4, 2);
-
-        return $this->folder.'/'.$folderA.'/'.$folderB.'/'.$token;
+        $folderA = \substr($token, -2, 2);
+        $folderB = \substr($token, -4, 2);
+        return $this->folder . '/' . $folderA . '/' . $folderB . '/' . $token;
     }
-
     /**
      * Gets the index filename.
      *
@@ -236,9 +179,8 @@ class FileProfilerStorage implements ProfilerStorageInterface
      */
     protected function getIndexFilename()
     {
-        return $this->folder.'/index.csv';
+        return $this->folder . '/index.csv';
     }
-
     /**
      * Reads a line in the file, backward.
      *
@@ -251,75 +193,60 @@ class FileProfilerStorage implements ProfilerStorageInterface
     protected function readLineFromFile($file)
     {
         $line = '';
-        $position = ftell($file);
-
+        $position = \ftell($file);
         if (0 === $position) {
             return null;
         }
-
-        while (true) {
-            $chunkSize = min($position, 1024);
+        while (\true) {
+            $chunkSize = \min($position, 1024);
             $position -= $chunkSize;
-            fseek($file, $position);
-
+            \fseek($file, $position);
             if (0 === $chunkSize) {
                 // bof reached
                 break;
             }
-
-            $buffer = fread($file, $chunkSize);
-
-            if (false === ($upTo = strrpos($buffer, "\n"))) {
-                $line = $buffer.$line;
+            $buffer = \fread($file, $chunkSize);
+            if (\false === ($upTo = \strrpos($buffer, "\n"))) {
+                $line = $buffer . $line;
                 continue;
             }
-
             $position += $upTo;
-            $line = substr($buffer, $upTo + 1).$line;
-            fseek($file, max(0, $position), \SEEK_SET);
-
+            $line = \substr($buffer, $upTo + 1) . $line;
+            \fseek($file, \max(0, $position), \SEEK_SET);
             if ('' !== $line) {
                 break;
             }
         }
-
         return '' === $line ? null : $line;
     }
-
     /**
      * @param string $token
      */
-    protected function createProfileFromData($token, array $data, Profile $parent = null)
+    protected function createProfileFromData($token, array $data, \ECSPrefix20210509\Symfony\Component\HttpKernel\Profiler\Profile $parent = null)
     {
         $token = (string) $token;
-        $profile = new Profile($token);
+        $profile = new \ECSPrefix20210509\Symfony\Component\HttpKernel\Profiler\Profile($token);
         $profile->setIp($data['ip']);
         $profile->setMethod($data['method']);
         $profile->setUrl($data['url']);
         $profile->setTime($data['time']);
         $profile->setStatusCode($data['status_code']);
         $profile->setCollectors($data['data']);
-
         if (!$parent && $data['parent']) {
             $parent = $this->read($data['parent']);
         }
-
         if ($parent) {
             $profile->setParent($parent);
         }
-
         foreach ($data['children'] as $token) {
-            if (!$token || !file_exists($file = $this->getFilename($token))) {
+            if (!$token || !\file_exists($file = $this->getFilename($token))) {
                 continue;
             }
-
             if (\function_exists('gzcompress')) {
-                $file = 'compress.zlib://'.$file;
+                $file = 'compress.zlib://' . $file;
             }
-
-            $profile->addChild($this->createProfileFromData($token, unserialize(file_get_contents($file)), $profile));
+            $profile->addChild($this->createProfileFromData($token, \unserialize(\file_get_contents($file)), $profile));
         }
-
         return $profile;
     }
 }

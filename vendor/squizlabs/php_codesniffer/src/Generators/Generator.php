@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The base class for all PHP_CodeSniffer documentation generators.
  *
@@ -9,30 +10,24 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Generators;
 
 use PHP_CodeSniffer\Ruleset;
 use PHP_CodeSniffer\Autoload;
-
 abstract class Generator
 {
-
     /**
      * The ruleset used for the run.
      *
      * @var \PHP_CodeSniffer\Ruleset
      */
     public $ruleset = null;
-
     /**
      * XML documentation files used to produce the final output.
      *
      * @var string[]
      */
     public $docFiles = [];
-
-
     /**
      * Constructs a doc generator.
      *
@@ -40,27 +35,19 @@ abstract class Generator
      *
      * @see generate()
      */
-    public function __construct(Ruleset $ruleset)
+    public function __construct(\PHP_CodeSniffer\Ruleset $ruleset)
     {
         $this->ruleset = $ruleset;
-
         foreach ($ruleset->sniffs as $className => $sniffClass) {
-            $file    = Autoload::getLoadedFileName($className);
-            $docFile = str_replace(
-                DIRECTORY_SEPARATOR.'Sniffs'.DIRECTORY_SEPARATOR,
-                DIRECTORY_SEPARATOR.'Docs'.DIRECTORY_SEPARATOR,
-                $file
-            );
-            $docFile = str_replace('Sniff.php', 'Standard.xml', $docFile);
-
-            if (is_file($docFile) === true) {
+            $file = \PHP_CodeSniffer\Autoload::getLoadedFileName($className);
+            $docFile = \str_replace(\DIRECTORY_SEPARATOR . 'Sniffs' . \DIRECTORY_SEPARATOR, \DIRECTORY_SEPARATOR . 'Docs' . \DIRECTORY_SEPARATOR, $file);
+            $docFile = \str_replace('Sniff.php', 'Standard.xml', $docFile);
+            if (\is_file($docFile) === \true) {
                 $this->docFiles[] = $docFile;
             }
         }
-
-    }//end __construct()
-
-
+    }
+    //end __construct()
     /**
      * Retrieves the title of the sniff from the DOMNode supplied.
      *
@@ -73,10 +60,8 @@ abstract class Generator
     protected function getTitle(\DOMNode $doc)
     {
         return $doc->getAttribute('title');
-
-    }//end getTitle()
-
-
+    }
+    //end getTitle()
     /**
      * Generates the documentation for a standard.
      *
@@ -95,10 +80,8 @@ abstract class Generator
             $documentation = $doc->getElementsByTagName('documentation')->item(0);
             $this->processSniff($documentation);
         }
-
-    }//end generate()
-
-
+    }
+    //end generate()
     /**
      * Process the documentation for a single sniff.
      *
@@ -111,7 +94,6 @@ abstract class Generator
      * @return void
      * @see    generate()
      */
-    abstract protected function processSniff(\DOMNode $doc);
-
-
-}//end class
+    protected abstract function processSniff(\DOMNode $doc);
+}
+//end class

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Verifies that inline control statements are not present.
  *
@@ -6,34 +7,25 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\ControlStructures;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-
-class InlineControlStructureSniff implements Sniff
+class InlineControlStructureSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
-    public $supportedTokenizers = [
-        'PHP',
-        'JS',
-    ];
-
+    public $supportedTokenizers = ['PHP', 'JS'];
     /**
      * If true, an error will be thrown; otherwise a warning.
      *
      * @var boolean
      */
-    public $error = true;
-
-
+    public $error = \true;
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -41,20 +33,9 @@ class InlineControlStructureSniff implements Sniff
      */
     public function register()
     {
-        return [
-            T_IF,
-            T_ELSE,
-            T_ELSEIF,
-            T_FOREACH,
-            T_WHILE,
-            T_DO,
-            T_SWITCH,
-            T_FOR,
-        ];
-
-    }//end register()
-
-
+        return [\T_IF, \T_ELSE, \T_ELSEIF, \T_FOREACH, \T_WHILE, \T_DO, \T_SWITCH, \T_FOR];
+    }
+    //end register()
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -64,255 +45,199 @@ class InlineControlStructureSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-
-        if (isset($tokens[$stackPtr]['scope_opener']) === true) {
+        if (isset($tokens[$stackPtr]['scope_opener']) === \true) {
             $phpcsFile->recordMetric($stackPtr, 'Control structure defined inline', 'no');
             return;
         }
-
         // Ignore the ELSE in ELSE IF. We'll process the IF part later.
-        if ($tokens[$stackPtr]['code'] === T_ELSE) {
-            $next = $phpcsFile->findNext(T_WHITESPACE, ($stackPtr + 1), null, true);
-            if ($tokens[$next]['code'] === T_IF) {
+        if ($tokens[$stackPtr]['code'] === \T_ELSE) {
+            $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
+            if ($tokens[$next]['code'] === \T_IF) {
                 return;
             }
         }
-
-        if ($tokens[$stackPtr]['code'] === T_WHILE || $tokens[$stackPtr]['code'] === T_FOR) {
+        if ($tokens[$stackPtr]['code'] === \T_WHILE || $tokens[$stackPtr]['code'] === \T_FOR) {
             // This could be from a DO WHILE, which doesn't have an opening brace or a while/for without body.
-            if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
-                $afterParensCloser = $phpcsFile->findNext(Tokens::$emptyTokens, ($tokens[$stackPtr]['parenthesis_closer'] + 1), null, true);
-                if ($afterParensCloser === false) {
+            if (isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
+                $afterParensCloser = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $tokens[$stackPtr]['parenthesis_closer'] + 1, null, \true);
+                if ($afterParensCloser === \false) {
                     // Live coding.
                     return;
                 }
-
                 if ($tokens[$afterParensCloser]['code'] === T_SEMICOLON) {
                     $phpcsFile->recordMetric($stackPtr, 'Control structure defined inline', 'no');
                     return;
                 }
             }
-
             // In Javascript DO WHILE loops without curly braces are legal. This
             // is only valid if a single statement is present between the DO and
             // the WHILE. We can detect this by checking only a single semicolon
             // is present between them.
-            if ($tokens[$stackPtr]['code'] === T_WHILE && $phpcsFile->tokenizerType === 'JS') {
-                $lastDo        = $phpcsFile->findPrevious(T_DO, ($stackPtr - 1));
-                $lastSemicolon = $phpcsFile->findPrevious(T_SEMICOLON, ($stackPtr - 1));
-                if ($lastDo !== false && $lastSemicolon !== false && $lastDo < $lastSemicolon) {
-                    $precedingSemicolon = $phpcsFile->findPrevious(T_SEMICOLON, ($lastSemicolon - 1));
-                    if ($precedingSemicolon === false || $precedingSemicolon < $lastDo) {
+            if ($tokens[$stackPtr]['code'] === \T_WHILE && $phpcsFile->tokenizerType === 'JS') {
+                $lastDo = $phpcsFile->findPrevious(\T_DO, $stackPtr - 1);
+                $lastSemicolon = $phpcsFile->findPrevious(T_SEMICOLON, $stackPtr - 1);
+                if ($lastDo !== \false && $lastSemicolon !== \false && $lastDo < $lastSemicolon) {
+                    $precedingSemicolon = $phpcsFile->findPrevious(T_SEMICOLON, $lastSemicolon - 1);
+                    if ($precedingSemicolon === \false || $precedingSemicolon < $lastDo) {
                         return;
                     }
                 }
             }
-        }//end if
-
-        if (isset($tokens[$stackPtr]['parenthesis_opener'], $tokens[$stackPtr]['parenthesis_closer']) === false
-            && $tokens[$stackPtr]['code'] !== T_ELSE
-        ) {
-            if ($tokens[$stackPtr]['code'] !== T_DO) {
+        }
+        //end if
+        if (isset($tokens[$stackPtr]['parenthesis_opener'], $tokens[$stackPtr]['parenthesis_closer']) === \false && $tokens[$stackPtr]['code'] !== \T_ELSE) {
+            if ($tokens[$stackPtr]['code'] !== \T_DO) {
                 // Live coding or parse error.
                 return;
             }
-
-            $nextWhile = $phpcsFile->findNext(T_WHILE, ($stackPtr + 1));
-            if ($nextWhile !== false
-                && isset($tokens[$nextWhile]['parenthesis_opener'], $tokens[$nextWhile]['parenthesis_closer']) === false
-            ) {
+            $nextWhile = $phpcsFile->findNext(\T_WHILE, $stackPtr + 1);
+            if ($nextWhile !== \false && isset($tokens[$nextWhile]['parenthesis_opener'], $tokens[$nextWhile]['parenthesis_closer']) === \false) {
                 // Live coding or parse error.
                 return;
             }
-
             unset($nextWhile);
         }
-
         $start = $stackPtr;
-        if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
+        if (isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
             $start = $tokens[$stackPtr]['parenthesis_closer'];
         }
-
-        $nextNonEmpty = $phpcsFile->findNext(Tokens::$emptyTokens, ($start + 1), null, true);
-        if ($nextNonEmpty === false) {
+        $nextNonEmpty = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $start + 1, null, \true);
+        if ($nextNonEmpty === \false) {
             // Live coding or parse error.
             return;
         }
-
-        if ($tokens[$nextNonEmpty]['code'] === T_OPEN_CURLY_BRACKET
-            || $tokens[$nextNonEmpty]['code'] === T_COLON
-        ) {
+        if ($tokens[$nextNonEmpty]['code'] === T_OPEN_CURLY_BRACKET || $tokens[$nextNonEmpty]['code'] === T_COLON) {
             // T_CLOSE_CURLY_BRACKET missing, or alternative control structure with
             // T_END... missing. Either live coding, parse error or end
             // tag in short open tags and scan run with short_open_tag=Off.
             // Bow out completely as any further detection will be unreliable
             // and create incorrect fixes or cause fixer conflicts.
-            return ($phpcsFile->numTokens + 1);
+            return $phpcsFile->numTokens + 1;
         }
-
         unset($nextNonEmpty, $start);
-
         // This is a control structure without an opening brace,
         // so it is an inline statement.
-        if ($this->error === true) {
+        if ($this->error === \true) {
             $fix = $phpcsFile->addFixableError('Inline control structures are not allowed', $stackPtr, 'NotAllowed');
         } else {
             $fix = $phpcsFile->addFixableWarning('Inline control structures are discouraged', $stackPtr, 'Discouraged');
         }
-
         $phpcsFile->recordMetric($stackPtr, 'Control structure defined inline', 'yes');
-
         // Stop here if we are not fixing the error.
-        if ($fix !== true) {
+        if ($fix !== \true) {
             return;
         }
-
         $phpcsFile->fixer->beginChangeset();
-        if (isset($tokens[$stackPtr]['parenthesis_closer']) === true) {
+        if (isset($tokens[$stackPtr]['parenthesis_closer']) === \true) {
             $closer = $tokens[$stackPtr]['parenthesis_closer'];
         } else {
             $closer = $stackPtr;
         }
-
-        if ($tokens[($closer + 1)]['code'] === T_WHITESPACE
-            || $tokens[($closer + 1)]['code'] === T_SEMICOLON
-        ) {
+        if ($tokens[$closer + 1]['code'] === \T_WHITESPACE || $tokens[$closer + 1]['code'] === T_SEMICOLON) {
             $phpcsFile->fixer->addContent($closer, ' {');
         } else {
             $phpcsFile->fixer->addContent($closer, ' { ');
         }
-
         $fixableScopeOpeners = $this->register();
-
         $lastNonEmpty = $closer;
-        for ($end = ($closer + 1); $end < $phpcsFile->numTokens; $end++) {
+        for ($end = $closer + 1; $end < $phpcsFile->numTokens; $end++) {
             if ($tokens[$end]['code'] === T_SEMICOLON) {
                 break;
             }
-
-            if ($tokens[$end]['code'] === T_CLOSE_TAG) {
+            if ($tokens[$end]['code'] === \T_CLOSE_TAG) {
                 $end = $lastNonEmpty;
                 break;
             }
-
-            if (in_array($tokens[$end]['code'], $fixableScopeOpeners, true) === true
-                && isset($tokens[$end]['scope_opener']) === false
-            ) {
+            if (\in_array($tokens[$end]['code'], $fixableScopeOpeners, \true) === \true && isset($tokens[$end]['scope_opener']) === \false) {
                 // The best way to fix nested inline scopes is middle-out.
                 // So skip this one. It will be detected and fixed on a future loop.
                 $phpcsFile->fixer->rollbackChangeset();
                 return;
             }
-
-            if (isset($tokens[$end]['scope_opener']) === true) {
+            if (isset($tokens[$end]['scope_opener']) === \true) {
                 $type = $tokens[$end]['code'];
-                $end  = $tokens[$end]['scope_closer'];
-                if ($type === T_DO || $type === T_IF || $type === T_ELSEIF || $type === T_TRY) {
-                    $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($end + 1), null, true);
-                    if ($next === false) {
+                $end = $tokens[$end]['scope_closer'];
+                if ($type === \T_DO || $type === \T_IF || $type === \T_ELSEIF || $type === \T_TRY) {
+                    $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+                    if ($next === \false) {
                         break;
                     }
-
                     $nextType = $tokens[$next]['code'];
-
                     // Let additional conditions loop and find their ending.
-                    if (($type === T_IF
-                        || $type === T_ELSEIF)
-                        && ($nextType === T_ELSEIF
-                        || $nextType === T_ELSE)
-                    ) {
+                    if (($type === \T_IF || $type === \T_ELSEIF) && ($nextType === \T_ELSEIF || $nextType === \T_ELSE)) {
                         continue;
                     }
-
                     // Account for DO... WHILE conditions.
-                    if ($type === T_DO && $nextType === T_WHILE) {
-                        $end = $phpcsFile->findNext(T_SEMICOLON, ($next + 1));
+                    if ($type === \T_DO && $nextType === \T_WHILE) {
+                        $end = $phpcsFile->findNext(T_SEMICOLON, $next + 1);
                     }
-
                     // Account for TRY... CATCH statements.
-                    if ($type === T_TRY && $nextType === T_CATCH) {
+                    if ($type === \T_TRY && $nextType === \T_CATCH) {
                         $end = $tokens[$next]['scope_closer'];
                     }
-                } else if ($type === T_CLOSURE) {
-                    // There should be a semicolon after the closing brace.
-                    $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($end + 1), null, true);
-                    if ($next !== false && $tokens[$next]['code'] === T_SEMICOLON) {
-                        $end = $next;
+                } else {
+                    if ($type === T_CLOSURE) {
+                        // There should be a semicolon after the closing brace.
+                        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+                        if ($next !== \false && $tokens[$next]['code'] === T_SEMICOLON) {
+                            $end = $next;
+                        }
                     }
-                }//end if
-
-                if ($tokens[$end]['code'] !== T_END_HEREDOC
-                    && $tokens[$end]['code'] !== T_END_NOWDOC
-                ) {
+                }
+                //end if
+                if ($tokens[$end]['code'] !== \T_END_HEREDOC && $tokens[$end]['code'] !== T_END_NOWDOC) {
                     break;
                 }
-            }//end if
-
-            if (isset($tokens[$end]['parenthesis_closer']) === true) {
-                $end          = $tokens[$end]['parenthesis_closer'];
+            }
+            //end if
+            if (isset($tokens[$end]['parenthesis_closer']) === \true) {
+                $end = $tokens[$end]['parenthesis_closer'];
                 $lastNonEmpty = $end;
                 continue;
             }
-
-            if ($tokens[$end]['code'] !== T_WHITESPACE) {
+            if ($tokens[$end]['code'] !== \T_WHITESPACE) {
                 $lastNonEmpty = $end;
             }
-        }//end for
-
+        }
+        //end for
         if ($end === $phpcsFile->numTokens) {
             $end = $lastNonEmpty;
         }
-
-        $nextContent = $phpcsFile->findNext(Tokens::$emptyTokens, ($end + 1), null, true);
-        if ($nextContent === false || $tokens[$nextContent]['line'] !== $tokens[$end]['line']) {
+        $nextContent = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $end + 1, null, \true);
+        if ($nextContent === \false || $tokens[$nextContent]['line'] !== $tokens[$end]['line']) {
             // Looks for completely empty statements.
-            $next = $phpcsFile->findNext(T_WHITESPACE, ($closer + 1), ($end + 1), true);
+            $next = $phpcsFile->findNext(\T_WHITESPACE, $closer + 1, $end + 1, \true);
         } else {
-            $next    = ($end + 1);
+            $next = $end + 1;
             $endLine = $end;
         }
-
         if ($next !== $end) {
-            if ($nextContent === false || $tokens[$nextContent]['line'] !== $tokens[$end]['line']) {
+            if ($nextContent === \false || $tokens[$nextContent]['line'] !== $tokens[$end]['line']) {
                 // Account for a comment on the end of the line.
                 for ($endLine = $end; $endLine < $phpcsFile->numTokens; $endLine++) {
-                    if (isset($tokens[($endLine + 1)]) === false
-                        || $tokens[$endLine]['line'] !== $tokens[($endLine + 1)]['line']
-                    ) {
+                    if (isset($tokens[$endLine + 1]) === \false || $tokens[$endLine]['line'] !== $tokens[$endLine + 1]['line']) {
                         break;
                     }
                 }
-
-                if (isset(Tokens::$commentTokens[$tokens[$endLine]['code']]) === false
-                    && ($tokens[$endLine]['code'] !== T_WHITESPACE
-                    || isset(Tokens::$commentTokens[$tokens[($endLine - 1)]['code']]) === false)
-                ) {
+                if (isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$endLine]['code']]) === \false && ($tokens[$endLine]['code'] !== \T_WHITESPACE || isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$endLine - 1]['code']]) === \false)) {
                     $endLine = $end;
                 }
             }
-
             if ($endLine !== $end) {
-                $endToken     = $endLine;
+                $endToken = $endLine;
                 $addedContent = '';
             } else {
-                $endToken     = $end;
+                $endToken = $end;
                 $addedContent = $phpcsFile->eolChar;
-
-                if ($tokens[$end]['code'] !== T_SEMICOLON
-                    && $tokens[$end]['code'] !== T_CLOSE_CURLY_BRACKET
-                ) {
+                if ($tokens[$end]['code'] !== T_SEMICOLON && $tokens[$end]['code'] !== T_CLOSE_CURLY_BRACKET) {
                     $phpcsFile->fixer->addContent($end, '; ');
                 }
             }
-
-            $next = $phpcsFile->findNext(T_WHITESPACE, ($endToken + 1), null, true);
-            if ($next !== false
-                && ($tokens[$next]['code'] === T_ELSE
-                || $tokens[$next]['code'] === T_ELSEIF)
-            ) {
+            $next = $phpcsFile->findNext(\T_WHITESPACE, $endToken + 1, null, \true);
+            if ($next !== \false && ($tokens[$next]['code'] === \T_ELSE || $tokens[$next]['code'] === \T_ELSEIF)) {
                 $phpcsFile->fixer->addContentBefore($next, '} ');
             } else {
                 $indent = '';
@@ -321,41 +246,32 @@ class InlineControlStructureSniff implements Sniff
                         break;
                     }
                 }
-
-                if ($tokens[$first]['code'] === T_WHITESPACE) {
+                if ($tokens[$first]['code'] === \T_WHITESPACE) {
                     $indent = $tokens[$first]['content'];
-                } else if ($tokens[$first]['code'] === T_INLINE_HTML
-                    || $tokens[$first]['code'] === T_OPEN_TAG
-                ) {
-                    $addedContent = '';
+                } else {
+                    if ($tokens[$first]['code'] === \T_INLINE_HTML || $tokens[$first]['code'] === \T_OPEN_TAG) {
+                        $addedContent = '';
+                    }
                 }
-
-                $addedContent .= $indent.'}';
-                if ($next !== false && $tokens[$endToken]['code'] === T_COMMENT) {
+                $addedContent .= $indent . '}';
+                if ($next !== \false && $tokens[$endToken]['code'] === \T_COMMENT) {
                     $addedContent .= $phpcsFile->eolChar;
                 }
-
                 $phpcsFile->fixer->addContent($endToken, $addedContent);
-            }//end if
+            }
+            //end if
         } else {
-            if ($nextContent === false || $tokens[$nextContent]['line'] !== $tokens[$end]['line']) {
+            if ($nextContent === \false || $tokens[$nextContent]['line'] !== $tokens[$end]['line']) {
                 // Account for a comment on the end of the line.
                 for ($endLine = $end; $endLine < $phpcsFile->numTokens; $endLine++) {
-                    if (isset($tokens[($endLine + 1)]) === false
-                        || $tokens[$endLine]['line'] !== $tokens[($endLine + 1)]['line']
-                    ) {
+                    if (isset($tokens[$endLine + 1]) === \false || $tokens[$endLine]['line'] !== $tokens[$endLine + 1]['line']) {
                         break;
                     }
                 }
-
-                if ($tokens[$endLine]['code'] !== T_COMMENT
-                    && ($tokens[$endLine]['code'] !== T_WHITESPACE
-                    || $tokens[($endLine - 1)]['code'] !== T_COMMENT)
-                ) {
+                if ($tokens[$endLine]['code'] !== \T_COMMENT && ($tokens[$endLine]['code'] !== \T_WHITESPACE || $tokens[$endLine - 1]['code'] !== \T_COMMENT)) {
                     $endLine = $end;
                 }
             }
-
             if ($endLine !== $end) {
                 $phpcsFile->fixer->replaceToken($end, '');
                 $phpcsFile->fixer->addNewlineBefore($endLine);
@@ -363,11 +279,10 @@ class InlineControlStructureSniff implements Sniff
             } else {
                 $phpcsFile->fixer->replaceToken($end, '}');
             }
-        }//end if
-
+        }
+        //end if
         $phpcsFile->fixer->endChangeset();
-
-    }//end process()
-
-
-}//end class
+    }
+    //end process()
+}
+//end class

@@ -8,43 +8,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Console\Output;
 
-namespace Symfony\Component\Console\Output;
-
-use Symfony\Component\Console\Exception\InvalidArgumentException;
-use Symfony\Component\Console\Formatter\OutputFormatterInterface;
-
+use ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException;
+use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface;
 /**
  * A BufferedOutput that keeps only the last N chars.
  *
  * @author Jérémy Derussé <jeremy@derusse.com>
  */
-class TrimmedBufferOutput extends Output
+class TrimmedBufferOutput extends \ECSPrefix20210509\Symfony\Component\Console\Output\Output
 {
     private $maxLength;
     private $buffer = '';
-
     /**
      * @param int|null $verbosity
      * @param int $maxLength
      * @param bool $decorated
      */
-    public function __construct(
-        $maxLength,
-        $verbosity = self::VERBOSITY_NORMAL,
-        $decorated = false,
-        OutputFormatterInterface $formatter = null
-    ) {
+    public function __construct($maxLength, $verbosity = self::VERBOSITY_NORMAL, $decorated = \false, \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter = null)
+    {
         $maxLength = (int) $maxLength;
         $decorated = (bool) $decorated;
         if ($maxLength <= 0) {
-            throw new InvalidArgumentException(sprintf('"%s()" expects a strictly positive maxLength. Got %d.', __METHOD__, $maxLength));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException(\sprintf('"%s()" expects a strictly positive maxLength. Got %d.', __METHOD__, $maxLength));
         }
-
         parent::__construct($verbosity, $decorated, $formatter);
         $this->maxLength = $maxLength;
     }
-
     /**
      * Empties buffer and returns its content.
      *
@@ -54,21 +45,17 @@ class TrimmedBufferOutput extends Output
     {
         $content = $this->buffer;
         $this->buffer = '';
-
         return $content;
     }
-
     /**
      * {@inheritdoc}
      */
     protected function doWrite($message, $newline)
     {
         $this->buffer .= $message;
-
         if ($newline) {
             $this->buffer .= \PHP_EOL;
         }
-
-        $this->buffer = substr($this->buffer, 0 - $this->maxLength);
+        $this->buffer = \substr($this->buffer, 0 - $this->maxLength);
     }
 }

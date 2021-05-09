@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection;
 
 /**
  * Parameter represents a parameter reference.
@@ -19,7 +18,6 @@ namespace Symfony\Component\DependencyInjection;
 class Parameter
 {
     private $id;
-
     /**
      * @param string $id
      */
@@ -28,7 +26,6 @@ class Parameter
         $id = (string) $id;
         $this->id = $id;
     }
-
     /**
      * @return string The parameter key
      */

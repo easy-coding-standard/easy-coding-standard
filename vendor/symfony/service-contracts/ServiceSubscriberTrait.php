@@ -8,11 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Contracts\Service;
 
-namespace Symfony\Contracts\Service;
-
-use Psr\Container\ContainerInterface;
-
+use ECSPrefix20210509\Psr\Container\ContainerInterface;
 /**
  * Implementation of ServiceSubscriberInterface that determines subscribed services from
  * private method return types. Service ids are available as "ClassName::methodName".
@@ -23,7 +21,6 @@ trait ServiceSubscriberTrait
 {
     /** @var ContainerInterface */
     protected $container;
-
     /**
      * {@inheritdoc}
      * @return mixed[]
@@ -31,37 +28,29 @@ trait ServiceSubscriberTrait
     public static function getSubscribedServices()
     {
         static $services;
-
         if (null !== $services) {
             return $services;
         }
-
         $services = \is_callable(['parent', __FUNCTION__]) ? parent::getSubscribedServices() : [];
-
         foreach ((new \ReflectionClass(self::class))->getMethods() as $method) {
             if ($method->isStatic() || $method->isAbstract() || $method->isGenerator() || $method->isInternal() || $method->getNumberOfRequiredParameters()) {
                 continue;
             }
-
             if (self::class === $method->getDeclaringClass()->name && ($returnType = $method->getReturnType()) && !$returnType->isBuiltin()) {
-                $services[self::class.'::'.$method->name] = '?'.($returnType instanceof \ReflectionNamedType ? $returnType->getName() : $returnType);
+                $services[self::class . '::' . $method->name] = '?' . ($returnType instanceof \ReflectionNamedType ? $returnType->getName() : $returnType);
             }
         }
-
         return $services;
     }
-
     /**
      * @required
      */
-    public function setContainer(ContainerInterface $container)
+    public function setContainer(\ECSPrefix20210509\Psr\Container\ContainerInterface $container)
     {
         $this->container = $container;
-
         if (\is_callable(['parent', __FUNCTION__])) {
             return parent::setContainer($container);
         }
-
         return null;
     }
 }

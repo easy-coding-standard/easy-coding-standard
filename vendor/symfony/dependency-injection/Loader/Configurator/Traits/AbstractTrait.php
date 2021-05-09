@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\Traits;
 
 trait AbstractTrait
 {
@@ -20,11 +19,10 @@ trait AbstractTrait
      * @return $this
      * @param bool $abstract
      */
-    final public function abstract($abstract = true)
+    public final function abstract($abstract = \true)
     {
         $abstract = (bool) $abstract;
         $this->definition->setAbstract($abstract);
-
         return $this;
     }
 }

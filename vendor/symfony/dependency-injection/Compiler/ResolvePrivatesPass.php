@@ -8,36 +8,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-namespace Symfony\Component\DependencyInjection\Compiler;
-
-trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s" class is deprecated.', ResolvePrivatesPass::class);
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
+trigger_deprecation('symfony/dependency-injection', '5.2', 'The "%s" class is deprecated.', \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ResolvePrivatesPass::class);
+use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @deprecated since Symfony 5.2
  */
-class ResolvePrivatesPass implements CompilerPassInterface
+class ResolvePrivatesPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         foreach ($container->getDefinitions() as $id => $definition) {
             if ($definition->isPrivate()) {
-                $definition->setPublic(false);
-                $definition->setPrivate(true);
+                $definition->setPublic(\false);
+                $definition->setPrivate(\true);
             }
         }
-
         foreach ($container->getAliases() as $id => $alias) {
             if ($alias->isPrivate()) {
-                $alias->setPublic(false);
-                $alias->setPrivate(true);
+                $alias->setPublic(\false);
+                $alias->setPrivate(\true);
             }
         }
     }

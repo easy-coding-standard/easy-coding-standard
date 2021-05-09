@@ -8,20 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\Console\CommandLoader;
 
-namespace Symfony\Component\Console\CommandLoader;
-
-use Symfony\Component\Console\Exception\CommandNotFoundException;
-
+use ECSPrefix20210509\Symfony\Component\Console\Exception\CommandNotFoundException;
 /**
  * A simple command loader using factories to instantiate commands lazily.
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class FactoryCommandLoader implements CommandLoaderInterface
+class FactoryCommandLoader implements \ECSPrefix20210509\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
 {
     private $factories;
-
     /**
      * @param callable[] $factories Indexed by command names
      */
@@ -29,7 +26,6 @@ class FactoryCommandLoader implements CommandLoaderInterface
     {
         $this->factories = $factories;
     }
-
     /**
      * {@inheritdoc}
      * @param string $name
@@ -39,7 +35,6 @@ class FactoryCommandLoader implements CommandLoaderInterface
         $name = (string) $name;
         return isset($this->factories[$name]);
     }
-
     /**
      * {@inheritdoc}
      * @param string $name
@@ -48,19 +43,16 @@ class FactoryCommandLoader implements CommandLoaderInterface
     {
         $name = (string) $name;
         if (!isset($this->factories[$name])) {
-            throw new CommandNotFoundException(sprintf('Command "%s" does not exist.', $name));
+            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
         }
-
         $factory = $this->factories[$name];
-
         return $factory();
     }
-
     /**
      * {@inheritdoc}
      */
     public function getNames()
     {
-        return array_keys($this->factories);
+        return \array_keys($this->factories);
     }
 }

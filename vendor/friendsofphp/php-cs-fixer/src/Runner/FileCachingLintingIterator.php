@@ -9,12 +9,10 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Runner;
 
 use PhpCsFixer\Linter\LinterInterface;
 use PhpCsFixer\Linter\LintingResultInterface;
-
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -26,24 +24,19 @@ final class FileCachingLintingIterator extends \CachingIterator
      * @var LintingResultInterface
      */
     private $currentResult;
-
     /**
      * @var LinterInterface
      */
     private $linter;
-
     /**
      * @var LintingResultInterface
      */
     private $nextResult;
-
-    public function __construct(\Iterator $iterator, LinterInterface $linter)
+    public function __construct(\Iterator $iterator, \PhpCsFixer\Linter\LinterInterface $linter)
     {
         parent::__construct($iterator);
-
         $this->linter = $linter;
     }
-
     /**
      * @return \PhpCsFixer\Linter\LintingResultInterface
      */
@@ -51,37 +44,30 @@ final class FileCachingLintingIterator extends \CachingIterator
     {
         return $this->currentResult;
     }
-
     /**
      * @return void
      */
     public function next()
     {
         parent::next();
-
         $this->currentResult = $this->nextResult;
-
         if ($this->hasNext()) {
             $this->nextResult = $this->handleItem($this->getInnerIterator()->current());
         }
     }
-
     /**
      * @return void
      */
     public function rewind()
     {
         parent::rewind();
-
         if ($this->valid()) {
             $this->currentResult = $this->handleItem($this->current());
         }
-
         if ($this->hasNext()) {
             $this->nextResult = $this->handleItem($this->getInnerIterator()->current());
         }
     }
-
     /**
      * @return \PhpCsFixer\Linter\LintingResultInterface
      */

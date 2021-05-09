@@ -9,7 +9,6 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-
 namespace PhpCsFixer\Fixer\Whitespace;
 
 use PhpCsFixer\AbstractFixer;
@@ -17,14 +16,13 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-
 /**
  * Fixer for rules defined in PSR2 ¶4.3, ¶4.6, ¶5.
  *
  * @author Marc Aubé
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class NoSpacesInsideParenthesisFixer extends AbstractFixer
+final class NoSpacesInsideParenthesisFixer extends \PhpCsFixer\AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -32,20 +30,8 @@ final class NoSpacesInsideParenthesisFixer extends AbstractFixer
      */
     public function getDefinition()
     {
-        return new FixerDefinition(
-            'There MUST NOT be a space after the opening parenthesis. There MUST NOT be a space before the closing parenthesis.',
-            [
-                new CodeSample("<?php\nif ( \$a ) {\n    foo( );\n}\n"),
-                new CodeSample(
-                    "<?php
-function foo( \$bar, \$baz )
-{
-}\n"
-                ),
-            ]
-        );
+        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There MUST NOT be a space after the opening parenthesis. There MUST NOT be a space before the closing parenthesis.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif ( \$a ) {\n    foo( );\n}\n"), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nfunction foo( \$bar, \$baz )\n{\n}\n")]);
     }
-
     /**
      * {@inheritdoc}
      *
@@ -57,59 +43,50 @@ function foo( \$bar, \$baz )
     {
         return 2;
     }
-
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(Tokens $tokens)
+    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         return $tokens->isTokenKindFound('(');
     }
-
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->equals('(')) {
                 continue;
             }
-
             $prevIndex = $tokens->getPrevMeaningfulToken($index);
-
             // ignore parenthesis for T_ARRAY
-            if (null !== $prevIndex && $tokens[$prevIndex]->isGivenKind(T_ARRAY)) {
+            if (null !== $prevIndex && $tokens[$prevIndex]->isGivenKind(\T_ARRAY)) {
                 continue;
             }
-
-            $endIndex = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
-
+            $endIndex = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_PARENTHESIS_BRACE, $index);
             // remove space after opening `(`
             if (!$tokens[$tokens->getNextNonWhitespace($index)]->isComment()) {
                 $this->removeSpaceAroundToken($tokens, $index + 1);
             }
-
             // remove space before closing `)` if it is not `list($a, $b, )` case
             if (!$tokens[$tokens->getPrevMeaningfulToken($endIndex)]->equals(',')) {
                 $this->removeSpaceAroundToken($tokens, $endIndex - 1);
             }
         }
     }
-
     /**
      * Remove spaces from token at a given index.
      * @return void
      * @param int $index
      */
-    private function removeSpaceAroundToken(Tokens $tokens, $index)
+    private function removeSpaceAroundToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
     {
         $index = (int) $index;
         $token = $tokens[$index];
-
-        if ($token->isWhitespace() && false === strpos($token->getContent(), "\n")) {
+        if ($token->isWhitespace() && \false === \strpos($token->getContent(), "\n")) {
             $tokens->clearAt($index);
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the DisallowRequestSuperglobal sniff.
  *
@@ -9,11 +10,8 @@
 namespace PHP_CodeSniffer\Standards\Generic\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class DisallowRequestSuperglobalUnitTest extends AbstractSniffUnitTest
+class DisallowRequestSuperglobalUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -24,15 +22,9 @@ class DisallowRequestSuperglobalUnitTest extends AbstractSniffUnitTest
      */
     protected function getErrorList()
     {
-        return [
-            2  => 1,
-            12 => 1,
-            13 => 1,
-        ];
-
-    }//end getErrorList()
-
-
+        return [2 => 1, 12 => 1, 13 => 1];
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -44,8 +36,7 @@ class DisallowRequestSuperglobalUnitTest extends AbstractSniffUnitTest
     protected function getWarningList()
     {
         return [];
-
-    }//end getWarningList()
-
-
-}//end class
+    }
+    //end getWarningList()
+}
+//end class

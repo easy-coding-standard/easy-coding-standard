@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Symfony package.
  *
@@ -7,13 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\Console\Formatter;
+namespace ECSPrefix20210509\Symfony\Component\Console\Formatter;
 
 /**
  * @author Tien Xuan Vo <tien.xuan.vo@gmail.com>
  */
-final class NullOutputFormatterStyle implements OutputFormatterStyleInterface
+final class NullOutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
 {
     /**
      * {@inheritdoc}
@@ -25,7 +25,6 @@ final class NullOutputFormatterStyle implements OutputFormatterStyleInterface
         $text = (string) $text;
         return $text;
     }
-
     /**
      * {@inheritdoc}
      * @return void
@@ -36,7 +35,6 @@ final class NullOutputFormatterStyle implements OutputFormatterStyleInterface
         $color = (string) $color;
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      * @return void
@@ -47,7 +45,6 @@ final class NullOutputFormatterStyle implements OutputFormatterStyleInterface
         $color = (string) $color;
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      * @return void
@@ -58,7 +55,6 @@ final class NullOutputFormatterStyle implements OutputFormatterStyleInterface
         $option = (string) $option;
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      * @return void
@@ -67,7 +63,6 @@ final class NullOutputFormatterStyle implements OutputFormatterStyleInterface
     {
         // do nothing
     }
-
     /**
      * {@inheritdoc}
      * @return void

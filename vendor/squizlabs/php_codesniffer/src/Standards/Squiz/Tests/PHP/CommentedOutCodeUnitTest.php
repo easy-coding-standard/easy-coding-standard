@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit test class for the CommentedOutCode sniff.
  *
@@ -6,15 +7,11 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-
-class CommentedOutCodeUnitTest extends AbstractSniffUnitTest
+class CommentedOutCodeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -26,10 +23,8 @@ class CommentedOutCodeUnitTest extends AbstractSniffUnitTest
     public function getErrorList()
     {
         return [];
-
-    }//end getErrorList()
-
-
+    }
+    //end getErrorList()
     /**
      * Returns the lines where warnings should occur.
      *
@@ -40,38 +35,21 @@ class CommentedOutCodeUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getWarningList($testFile='CommentedOutCodeUnitTest.inc')
+    public function getWarningList($testFile = 'CommentedOutCodeUnitTest.inc')
     {
         switch ($testFile) {
-        case 'CommentedOutCodeUnitTest.inc':
-            return [
-                6   => 1,
-                8   => 1,
-                15  => 1,
-                19  => 1,
-                35  => 1,
-                87  => 1,
-                91  => 1,
-                97  => 1,
-                109 => 1,
-                116 => 1,
-                128 => 1,
-                147 => 1,
-                158 => 1,
-            ];
-            break;
-        case 'CommentedOutCodeUnitTest.css':
-            return [
-                7  => 1,
-                16 => 1,
-            ];
-            break;
-        default:
-            return [];
-            break;
-        }//end switch
-
-    }//end getWarningList()
-
-
-}//end class
+            case 'CommentedOutCodeUnitTest.inc':
+                return [6 => 1, 8 => 1, 15 => 1, 19 => 1, 35 => 1, 87 => 1, 91 => 1, 97 => 1, 109 => 1, 116 => 1, 128 => 1, 147 => 1, 158 => 1];
+                break;
+            case 'CommentedOutCodeUnitTest.css':
+                return [7 => 1, 16 => 1];
+                break;
+            default:
+                return [];
+                break;
+        }
+        //end switch
+    }
+    //end getWarningList()
+}
+//end class

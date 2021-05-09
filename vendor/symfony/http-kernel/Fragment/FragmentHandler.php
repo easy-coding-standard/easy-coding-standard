@@ -8,15 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Fragment;
 
-namespace Symfony\Component\HttpKernel\Fragment;
-
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Controller\ControllerReference;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestStack;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
+use ECSPrefix20210509\Symfony\Component\HttpFoundation\StreamedResponse;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ControllerReference;
+use ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * Renders a URI that represents a resource fragment.
  *
@@ -32,12 +30,11 @@ class FragmentHandler
     private $debug;
     private $renderers = [];
     private $requestStack;
-
     /**
      * @param FragmentRendererInterface[] $renderers An array of FragmentRendererInterface instances
      * @param bool                        $debug     Whether the debug mode is enabled or not
      */
-    public function __construct(RequestStack $requestStack, array $renderers = [], $debug = false)
+    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestStack $requestStack, array $renderers = [], $debug = \false)
     {
         $debug = (bool) $debug;
         $this->requestStack = $requestStack;
@@ -46,15 +43,13 @@ class FragmentHandler
         }
         $this->debug = $debug;
     }
-
     /**
      * Adds a renderer.
      */
-    public function addRenderer(FragmentRendererInterface $renderer)
+    public function addRenderer(\ECSPrefix20210509\Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface $renderer)
     {
         $this->renderers[$renderer->getName()] = $renderer;
     }
-
     /**
      * Renders a URI and returns the Response content.
      *
@@ -76,18 +71,14 @@ class FragmentHandler
         if (!isset($options['ignore_errors'])) {
             $options['ignore_errors'] = !$this->debug;
         }
-
         if (!isset($this->renderers[$renderer])) {
-            throw new \InvalidArgumentException(sprintf('The "%s" renderer does not exist.', $renderer));
+            throw new \InvalidArgumentException(\sprintf('The "%s" renderer does not exist.', $renderer));
         }
-
-        if (!$request = $this->requestStack->getCurrentRequest()) {
+        if (!($request = $this->requestStack->getCurrentRequest())) {
             throw new \LogicException('Rendering a fragment can only be done when handling a Request.');
         }
-
         return $this->deliver($this->renderers[$renderer]->render($uri, $request, $options));
     }
-
     /**
      * Delivers the Response as a string.
      *
@@ -98,19 +89,16 @@ class FragmentHandler
      *
      * @throws \RuntimeException when the Response is not successful
      */
-    protected function deliver(Response $response)
+    protected function deliver(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response)
     {
         if (!$response->isSuccessful()) {
             $responseStatusCode = $response->getStatusCode();
-            throw new \RuntimeException(sprintf('Error when rendering "%s" (Status code is %d).', $this->requestStack->getCurrentRequest()->getUri(), $responseStatusCode), 0, new HttpException($responseStatusCode));
+            throw new \RuntimeException(\sprintf('Error when rendering "%s" (Status code is %d).', $this->requestStack->getCurrentRequest()->getUri(), $responseStatusCode), 0, new \ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\HttpException($responseStatusCode));
         }
-
-        if (!$response instanceof StreamedResponse) {
+        if (!$response instanceof \ECSPrefix20210509\Symfony\Component\HttpFoundation\StreamedResponse) {
             return $response->getContent();
         }
-
         $response->sendContent();
-
         return null;
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "composer/semver",
+    "name": "composer\/semver",
     "description": "Semver library that offers utilities, version constraint parsing and validation.",
     "type": "library",
     "license": "MIT",
@@ -13,38 +13,38 @@
         {
             "name": "Nils Adermann",
             "email": "naderman@naderman.de",
-            "homepage": "http://www.naderman.de"
+            "homepage": "http:\/\/www.naderman.de"
         },
         {
             "name": "Jordi Boggiano",
             "email": "j.boggiano@seld.be",
-            "homepage": "http://seld.be"
+            "homepage": "http:\/\/seld.be"
         },
         {
             "name": "Rob Bast",
             "email": "rob.bast@gmail.com",
-            "homepage": "http://robbast.nl"
+            "homepage": "http:\/\/robbast.nl"
         }
     ],
     "support": {
-        "irc": "irc://irc.freenode.org/composer",
-        "issues": "https://github.com/composer/semver/issues"
+        "irc": "irc:\/\/irc.freenode.org\/composer",
+        "issues": "https:\/\/github.com\/composer\/semver\/issues"
     },
     "require": {
         "php": "^5.3.2 || ^7.0 || ^8.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^4.2 || ^5",
-        "phpstan/phpstan": "^0.12.54"
+        "symfony\/phpunit-bridge": "^4.2 || ^5",
+        "phpstan\/phpstan": "^0.12.54"
     },
     "autoload": {
         "psr-4": {
-            "Composer\\Semver\\": "src"
+            "ECSPrefix20210509\\Composer\\Semver\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Composer\\Semver\\": "tests"
+            "ECSPrefix20210509\\Composer\\Semver\\": "tests"
         }
     },
     "extra": {
@@ -53,6 +53,6 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/simple-phpunit"
+        "test": "vendor\/bin\/simple-phpunit"
     }
 }

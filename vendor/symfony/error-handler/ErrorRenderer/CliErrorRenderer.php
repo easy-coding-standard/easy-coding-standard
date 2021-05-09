@@ -8,19 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Symfony\Component\ErrorHandler\ErrorRenderer;
+namespace ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorRenderer;
 
-use Symfony\Component\ErrorHandler\Exception\FlattenException;
-use Symfony\Component\VarDumper\Cloner\VarCloner;
-use Symfony\Component\VarDumper\Dumper\CliDumper;
-
+use ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner;
+use ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper;
 // Help opcache.preload discover always-needed symbols
-class_exists(CliDumper::class);
-
+\class_exists(\ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper::class);
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class CliErrorRenderer implements ErrorRendererInterface
+class CliErrorRenderer implements \ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorRenderer\ErrorRendererInterface
 {
     /**
      * {@inheritdoc}
@@ -28,20 +26,17 @@ class CliErrorRenderer implements ErrorRendererInterface
      */
     public function render(\Throwable $exception)
     {
-        $cloner = new VarCloner();
-        $dumper = new Anonymous__7bd99e4236808f08521345d76c9b0744__0();
-
-        return FlattenException::createFromThrowable($exception)
-            ->setAsString($dumper->dump($cloner->cloneVar($exception), true));
+        $cloner = new \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner();
+        $dumper = new \ECSPrefix20210509\Symfony\Component\ErrorHandler\ErrorRenderer\Anonymous__7bd99e4236808f08521345d76c9b0744__0();
+        return \ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception\FlattenException::createFromThrowable($exception)->setAsString($dumper->dump($cloner->cloneVar($exception), \true));
     }
 }
-class Anonymous__7bd99e4236808f08521345d76c9b0744__0 extends CliDumper
+class Anonymous__7bd99e4236808f08521345d76c9b0744__0 extends \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper
 {
-    protected function supportsColors(): bool
+    protected function supportsColors() : bool
     {
         $outputStream = $this->outputStream;
-        $this->outputStream = fopen('php://stdout', 'w');
-
+        $this->outputStream = \fopen('php://stdout', 'w');
         try {
             return parent::supportsColors();
         } finally {

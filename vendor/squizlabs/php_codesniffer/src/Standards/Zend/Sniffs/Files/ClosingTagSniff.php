@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Checks that the file does not end with a closing tag.
  *
@@ -6,17 +7,13 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
-
 namespace PHP_CodeSniffer\Standards\Zend\Sniffs\Files;
 
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Util\Tokens;
-
-class ClosingTagSniff implements Sniff
+class ClosingTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -24,11 +21,9 @@ class ClosingTagSniff implements Sniff
      */
     public function register()
     {
-        return [T_OPEN_TAG];
-
-    }//end register()
-
-
+        return [\T_OPEN_TAG];
+    }
+    //end register()
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -38,42 +33,35 @@ class ClosingTagSniff implements Sniff
      *
      * @return void
      */
-    public function process(File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
     {
         // Find the last non-empty token.
         $tokens = $phpcsFile->getTokens();
-        for ($last = ($phpcsFile->numTokens - 1); $last > 0; $last--) {
-            if (trim($tokens[$last]['content']) !== '') {
+        for ($last = $phpcsFile->numTokens - 1; $last > 0; $last--) {
+            if (\trim($tokens[$last]['content']) !== '') {
                 break;
             }
         }
-
-        if ($tokens[$last]['code'] === T_CLOSE_TAG) {
+        if ($tokens[$last]['code'] === \T_CLOSE_TAG) {
             $error = 'A closing tag is not permitted at the end of a PHP file';
-            $fix   = $phpcsFile->addFixableError($error, $last, 'NotAllowed');
-            if ($fix === true) {
+            $fix = $phpcsFile->addFixableError($error, $last, 'NotAllowed');
+            if ($fix === \true) {
                 $phpcsFile->fixer->beginChangeset();
                 $phpcsFile->fixer->replaceToken($last, $phpcsFile->eolChar);
-                $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($last - 1), null, true);
-                if ($tokens[$prev]['code'] !== T_SEMICOLON
-                    && $tokens[$prev]['code'] !== T_CLOSE_CURLY_BRACKET
-                    && $tokens[$prev]['code'] !== T_OPEN_TAG
-                ) {
+                $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $last - 1, null, \true);
+                if ($tokens[$prev]['code'] !== T_SEMICOLON && $tokens[$prev]['code'] !== T_CLOSE_CURLY_BRACKET && $tokens[$prev]['code'] !== \T_OPEN_TAG) {
                     $phpcsFile->fixer->addContent($prev, ';');
                 }
-
                 $phpcsFile->fixer->endChangeset();
             }
-
             $phpcsFile->recordMetric($stackPtr, 'PHP closing tag at EOF', 'yes');
         } else {
             $phpcsFile->recordMetric($stackPtr, 'PHP closing tag at EOF', 'no');
-        }//end if
-
+        }
+        //end if
         // Ignore the rest of the file.
-        return ($phpcsFile->numTokens + 1);
-
-    }//end process()
-
-
-}//end class
+        return $phpcsFile->numTokens + 1;
+    }
+    //end process()
+}
+//end class
