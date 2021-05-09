@@ -24,4 +24,4 @@ final class Attribute
         $this->flags = $flags;
     }
 }
-\class_alias('ECSPrefix20210509\\Attribute', 'Attribute', \false);
+

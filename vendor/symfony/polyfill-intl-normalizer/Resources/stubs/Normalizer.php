@@ -17,4 +17,4 @@ class Normalizer extends \ECSPrefix20210509\Symfony\Polyfill\Intl\Normalizer\Nor
     const NFC = 16;
     const NFKC = 32;
 }
-\class_alias('ECSPrefix20210509\\Normalizer', 'Normalizer', \false);
+
