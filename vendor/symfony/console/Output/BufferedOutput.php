@@ -8,14 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Output;
+
+namespace Symfony\Component\Console\Output;
 
 /**
  * @author Jean-François Simon <contact@jfsimon.fr>
  */
-class BufferedOutput extends \ECSPrefix20210509\Symfony\Component\Console\Output\Output
+class BufferedOutput extends Output
 {
     private $buffer = '';
+
     /**
      * Empties buffer and returns its content.
      *
@@ -25,8 +27,10 @@ class BufferedOutput extends \ECSPrefix20210509\Symfony\Component\Console\Output
     {
         $content = $this->buffer;
         $this->buffer = '';
+
         return $content;
     }
+
     /**
      * {@inheritdoc}
      * @param string $message
@@ -35,6 +39,7 @@ class BufferedOutput extends \ECSPrefix20210509\Symfony\Component\Console\Output
     protected function doWrite($message, $newline)
     {
         $this->buffer .= $message;
+
         if ($newline) {
             $this->buffer .= \PHP_EOL;
         }

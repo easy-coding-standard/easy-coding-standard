@@ -8,28 +8,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument;
+
+namespace Symfony\Component\DependencyInjection\Argument;
 
 /**
  * @author Guilhem Niot <guilhem.niot@gmail.com>
  */
-final class BoundArgument implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
+final class BoundArgument implements ArgumentInterface
 {
     const SERVICE_BINDING = 0;
     const DEFAULTS_BINDING = 1;
     const INSTANCEOF_BINDING = 2;
+
     private static $sequence = 0;
+
     private $value;
     private $identifier;
     private $used;
     private $type;
     private $file;
+
     /**
      * @param bool $trackUsage
      * @param int $type
      * @param string $file
      */
-    public function __construct($value, $trackUsage = \true, $type = 0, $file = null)
+    public function __construct($value, $trackUsage = true, $type = 0, $file = null)
     {
         $trackUsage = (bool) $trackUsage;
         $type = (int) $type;
@@ -37,11 +41,12 @@ final class BoundArgument implements \ECSPrefix20210509\Symfony\Component\Depend
         if ($trackUsage) {
             $this->identifier = ++self::$sequence;
         } else {
-            $this->used = \true;
+            $this->used = true;
         }
         $this->type = $type;
         $this->file = $file;
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]
@@ -50,6 +55,7 @@ final class BoundArgument implements \ECSPrefix20210509\Symfony\Component\Depend
     {
         return [$this->value, $this->identifier, $this->used, $this->type, $this->file];
     }
+
     /**
      * {@inheritdoc}
      */

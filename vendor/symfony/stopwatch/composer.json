@@ -1,9 +1,9 @@
 {
-    "name": "symfony\/stopwatch",
+    "name": "symfony/stopwatch",
     "type": "library",
     "description": "Provides a way to profile code",
     "keywords": [],
-    "homepage": "https:\/\/symfony.com",
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,19 +12,17 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https:\/\/symfony.com\/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
         "php": ">=7.2.5",
-        "symfony\/service-contracts": "^1.0|^2"
+        "symfony/service-contracts": "^1.0|^2"
     },
     "autoload": {
-        "psr-4": {
-            "ECSPrefix20210509\\Symfony\\Component\\Stopwatch\\": ""
-        },
+        "psr-4": { "Symfony\\Component\\Stopwatch\\": "" },
         "exclude-from-classmap": [
-            "\/Tests\/"
+            "/Tests/"
         ]
     },
     "minimum-stability": "dev"

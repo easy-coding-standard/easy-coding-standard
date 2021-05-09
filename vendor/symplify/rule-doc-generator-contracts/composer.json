@@ -1,10 +1,10 @@
 {
-    "name": "symplify\/rule-doc-generator-contracts",
+    "name": "symplify/rule-doc-generator-contracts",
     "description": "Contracts for production code of RuleDocGenerator",
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "nette\/utils": "^3.2"
+        "nette/utils": "^3.2"
     },
     "autoload": {
         "psr-4": {

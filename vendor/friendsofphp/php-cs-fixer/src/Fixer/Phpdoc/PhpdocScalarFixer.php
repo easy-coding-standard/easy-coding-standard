@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractPhpdocTypesFixer;
@@ -20,24 +21,36 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-final class PhpdocScalarFixer extends \PhpCsFixer\AbstractPhpdocTypesFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+final class PhpdocScalarFixer extends AbstractPhpdocTypesFixer implements ConfigurableFixerInterface
 {
     /**
      * The types to fix.
      *
      * @var array
      */
-    private static $types = ['boolean' => 'bool', 'callback' => 'callable', 'double' => 'float', 'integer' => 'int', 'real' => 'float', 'str' => 'string'];
+    private static $types = [
+        'boolean' => 'bool',
+        'callback' => 'callable',
+        'double' => 'float',
+        'integer' => 'int',
+        'real' => 'float',
+        'str' => 'string',
+    ];
+
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Scalar types should always be written in the same form. `int` not `integer`, `bool` not `boolean`, `float` not `real` or `double`.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition(
+            'Scalar types should always be written in the same form. `int` not `integer`, `bool` not `boolean`, `float` not `real` or `double`.',
+            [
+                new CodeSample('<?php
 /**
  * @param integer $a
  * @param boolean $b
@@ -49,7 +62,9 @@ function sample($a, $b, $c)
 {
     return sample2($a, $b, $c);
 }
-'), new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+'),
+                new CodeSample(
+                    '<?php
 /**
  * @param integer $a
  * @param boolean $b
@@ -59,8 +74,13 @@ function sample($a, $b, $c)
 {
     return sample2($a, $b, $c);
 }
-', ['types' => ['boolean']])]);
+',
+                    ['types' => ['boolean']]
+                ),
+            ]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -81,15 +101,23 @@ function sample($a, $b, $c)
          */
         return 15;
     }
+
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        $types = \array_keys(self::$types);
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('types', 'A list of types to fix.'))->setAllowedValues([new \PhpCsFixer\FixerConfiguration\AllowedValueSubset($types)])->setDefault($types)->getOption()]);
+        $types = array_keys(self::$types);
+
+        return new FixerConfigurationResolver([
+            (new FixerOptionBuilder('types', 'A list of types to fix.'))
+                ->setAllowedValues([new AllowedValueSubset($types)])
+                ->setDefault($types)
+                ->getOption(),
+        ]);
     }
+
     /**
      * {@inheritdoc}
      * @param string $type
@@ -98,9 +126,10 @@ function sample($a, $b, $c)
     protected function normalize($type)
     {
         $type = (string) $type;
-        if (\in_array($type, $this->configuration['types'], \true)) {
+        if (\in_array($type, $this->configuration['types'], true)) {
             return self::$types[$type];
         }
+
         return $type;
     }
 }

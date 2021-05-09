@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the NoSilencedErrors sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class NoSilencedErrorsUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class NoSilencedErrorsUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -23,8 +26,10 @@ class NoSilencedErrorsUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstract
     public function getErrorList()
     {
         return [];
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -35,8 +40,12 @@ class NoSilencedErrorsUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstract
      */
     public function getWarningList()
     {
-        return [5 => 1, 10 => 1];
-    }
-    //end getWarningList()
-}
-//end class
+        return [
+            5  => 1,
+            10 => 1,
+        ];
+
+    }//end getWarningList()
+
+
+}//end class

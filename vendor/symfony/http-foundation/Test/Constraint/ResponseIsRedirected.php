@@ -8,11 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use ECSPrefix20210509\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
-final class ResponseIsRedirected extends \ECSPrefix20210509\PHPUnit\Framework\Constraint\Constraint
+namespace Symfony\Component\HttpFoundation\Test\Constraint;
+
+use PHPUnit\Framework\Constraint\Constraint;
+use Symfony\Component\HttpFoundation\Response;
+
+final class ResponseIsRedirected extends Constraint
 {
     /**
      * {@inheritdoc}
@@ -22,6 +24,7 @@ final class ResponseIsRedirected extends \ECSPrefix20210509\PHPUnit\Framework\Co
     {
         return 'is redirected';
     }
+
     /**
      * @param Response $response
      *
@@ -32,6 +35,7 @@ final class ResponseIsRedirected extends \ECSPrefix20210509\PHPUnit\Framework\Co
     {
         return $response->isRedirect();
     }
+
     /**
      * @param Response $response
      *
@@ -40,8 +44,9 @@ final class ResponseIsRedirected extends \ECSPrefix20210509\PHPUnit\Framework\Co
      */
     protected function failureDescription($response)
     {
-        return 'the Response ' . $this->toString();
+        return 'the Response '.$this->toString();
     }
+
     /**
      * @param Response $response
      *

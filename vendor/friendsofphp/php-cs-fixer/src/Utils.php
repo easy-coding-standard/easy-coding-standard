@@ -9,10 +9,12 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer;
 
 use PhpCsFixer\Fixer\FixerInterface;
 use PhpCsFixer\Tokenizer\Token;
+
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author Graham Campbell <graham@alt-three.com>
@@ -23,6 +25,7 @@ use PhpCsFixer\Tokenizer\Token;
 final class Utils
 {
     private static $deprecations = [];
+
     /**
      * Converts a camel cased string to a snake cased string.
      * @param string $string
@@ -31,8 +34,9 @@ final class Utils
     public static function camelCaseToUnderscore($string)
     {
         $string = (string) $string;
-        return \strtolower(\PhpCsFixer\Preg::replace('/(?<!^)((?=[A-Z][^A-Z])|(?<![A-Z])(?=[A-Z]))/', '_', $string));
+        return strtolower(Preg::replace('/(?<!^)((?=[A-Z][^A-Z])|(?<![A-Z])(?=[A-Z]))/', '_', $string));
     }
+
     /**
      * Compare two integers for equality.
      *
@@ -49,25 +53,34 @@ final class Utils
         if ($a === $b) {
             return 0;
         }
+
         return $a < $b ? -1 : 1;
     }
+
     /**
      * Calculate the trailing whitespace.
      *
      * What we're doing here is grabbing everything after the final newline.
      * @return string
      */
-    public static function calculateTrailingWhitespaceIndent(\PhpCsFixer\Tokenizer\Token $token)
+    public static function calculateTrailingWhitespaceIndent(Token $token)
     {
         if (!$token->isWhitespace()) {
-            throw new \InvalidArgumentException(\sprintf('The given token must be whitespace, got "%s".', $token->getName()));
+            throw new \InvalidArgumentException(sprintf('The given token must be whitespace, got "%s".', $token->getName()));
         }
-        $str = \strrchr(\str_replace(["\r\n", "\r"], "\n", $token->getContent()), "\n");
-        if (\false === $str) {
+
+        $str = strrchr(
+            str_replace(["\r\n", "\r"], "\n", $token->getContent()),
+            "\n"
+        );
+
+        if (false === $str) {
             return '';
         }
-        return \ltrim($str, "\n");
+
+        return ltrim($str, "\n");
     }
+
     /**
      * Perform stable sorting using provided comparison function.
      *
@@ -81,20 +94,25 @@ final class Utils
      */
     public static function stableSort(array $elements, callable $getComparedValue, callable $compareValues)
     {
-        \array_walk($elements, static function (&$element, int $index) use($getComparedValue) {
+        array_walk($elements, static function (&$element, int $index) use ($getComparedValue) {
             $element = [$element, $index, $getComparedValue($element)];
         });
-        \usort($elements, static function ($a, $b) use($compareValues) {
+
+        usort($elements, static function ($a, $b) use ($compareValues) {
             $comparison = $compareValues($a[2], $b[2]);
+
             if (0 !== $comparison) {
                 return $comparison;
             }
+
             return self::cmpInt($a[1], $b[1]);
         });
-        return \array_map(static function (array $item) {
+
+        return array_map(static function (array $item) {
             return $item[0];
         }, $elements);
     }
+
     /**
      * Sort fixers by their priorities.
      *
@@ -106,12 +124,17 @@ final class Utils
     {
         // Schwartzian transform is used to improve the efficiency and avoid
         // `usort(): Array was modified by the user comparison function` warning for mocked objects.
-        return self::stableSort($fixers, static function (\PhpCsFixer\Fixer\FixerInterface $fixer) {
-            return $fixer->getPriority();
-        }, static function (int $a, int $b) {
-            return self::cmpInt($b, $a);
-        });
+        return self::stableSort(
+            $fixers,
+            static function (FixerInterface $fixer) {
+                return $fixer->getPriority();
+            },
+            static function (int $a, int $b) {
+                return self::cmpInt($b, $a);
+            }
+        );
     }
+
     /**
      * Join names in natural language wrapped in backticks, e.g. `a`, `b` and `c`.
      *
@@ -125,15 +148,20 @@ final class Utils
         if (empty($names)) {
             throw new \InvalidArgumentException('Array of names cannot be empty.');
         }
-        $names = \array_map(static function (string $name) {
-            return \sprintf('`%s`', $name);
+
+        $names = array_map(static function (string $name) {
+            return sprintf('`%s`', $name);
         }, $names);
-        $last = \array_pop($names);
+
+        $last = array_pop($names);
+
         if ($names) {
-            return \implode(', ', $names) . ' and ' . $last;
+            return implode(', ', $names).' and '.$last;
         }
+
         return $last;
     }
+
     /**
      * Handle triggering deprecation error.
      * @return void
@@ -144,12 +172,14 @@ final class Utils
     {
         $message = (string) $message;
         $exceptionClass = (string) $exceptionClass;
-        if (\getenv('PHP_CS_FIXER_FUTURE_MODE')) {
+        if (getenv('PHP_CS_FIXER_FUTURE_MODE')) {
             throw new $exceptionClass("{$message} This check was performed as `PHP_CS_FIXER_FUTURE_MODE` env var is set.");
         }
+
         self::$deprecations[] = $message;
-        @\trigger_error($message, \E_USER_DEPRECATED);
+        @trigger_error($message, E_USER_DEPRECATED);
     }
+
     /**
      * @return mixed[]
      */

@@ -9,12 +9,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer;
 
 /**
  * @internal
  */
-final class PharChecker implements \PhpCsFixer\PharCheckerInterface
+final class PharChecker implements PharCheckerInterface
 {
     /**
      * {@inheritdoc}
@@ -32,8 +33,10 @@ final class PharChecker implements \PhpCsFixer\PharCheckerInterface
             if (!$e instanceof \UnexpectedValueException && !$e instanceof \PharException) {
                 throw $e;
             }
-            return 'Failed to create Phar instance. ' . $e->getMessage();
+
+            return 'Failed to create Phar instance. '.$e->getMessage();
         }
+
         return null;
     }
 }

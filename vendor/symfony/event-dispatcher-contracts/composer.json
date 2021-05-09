@@ -1,16 +1,9 @@
 {
-    "name": "symfony\/event-dispatcher-contracts",
+    "name": "symfony/event-dispatcher-contracts",
     "type": "library",
     "description": "Generic abstractions related to dispatching event",
-    "keywords": [
-        "abstractions",
-        "contracts",
-        "decoupling",
-        "interfaces",
-        "interoperability",
-        "standards"
-    ],
-    "homepage": "https:\/\/symfony.com",
+    "keywords": ["abstractions", "contracts", "decoupling", "interfaces", "interoperability", "standards"],
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -19,20 +12,18 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https:\/\/symfony.com\/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
         "php": ">=7.2.5",
-        "psr\/event-dispatcher": "^1"
+        "psr/event-dispatcher": "^1"
     },
     "suggest": {
-        "symfony\/event-dispatcher-implementation": ""
+        "symfony/event-dispatcher-implementation": ""
     },
     "autoload": {
-        "psr-4": {
-            "ECSPrefix20210509\\Symfony\\Contracts\\EventDispatcher\\": ""
-        }
+        "psr-4": { "Symfony\\Contracts\\EventDispatcher\\": "" }
     },
     "minimum-stability": "dev",
     "extra": {
@@ -40,8 +31,8 @@
             "dev-main": "2.4-dev"
         },
         "thanks": {
-            "name": "symfony\/contracts",
-            "url": "https:\/\/github.com\/symfony\/contracts"
+            "name": "symfony/contracts",
+            "url": "https://github.com/symfony/contracts"
         }
     }
 }

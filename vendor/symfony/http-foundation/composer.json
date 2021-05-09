@@ -1,9 +1,9 @@
 {
-    "name": "symfony\/http-foundation",
+    "name": "symfony/http-foundation",
     "type": "library",
     "description": "Defines an object-oriented layer for the HTTP specification",
     "keywords": [],
-    "homepage": "https:\/\/symfony.com",
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,30 +12,28 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https:\/\/symfony.com\/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
         "php": ">=7.2.5",
-        "symfony\/deprecation-contracts": "^2.1",
-        "symfony\/polyfill-mbstring": "~1.1",
-        "symfony\/polyfill-php80": "^1.15"
+        "symfony/deprecation-contracts": "^2.1",
+        "symfony/polyfill-mbstring": "~1.1",
+        "symfony/polyfill-php80": "^1.15"
     },
     "require-dev": {
-        "predis\/predis": "~1.0",
-        "symfony\/cache": "^4.4|^5.0",
-        "symfony\/mime": "^4.4|^5.0",
-        "symfony\/expression-language": "^4.4|^5.0"
+        "predis/predis": "~1.0",
+        "symfony/cache": "^4.4|^5.0",
+        "symfony/mime": "^4.4|^5.0",
+        "symfony/expression-language": "^4.4|^5.0"
     },
-    "suggest": {
-        "symfony\/mime": "To use the file extension guesser"
+    "suggest" : {
+        "symfony/mime": "To use the file extension guesser"
     },
     "autoload": {
-        "psr-4": {
-            "ECSPrefix20210509\\Symfony\\Component\\HttpFoundation\\": ""
-        },
+        "psr-4": { "Symfony\\Component\\HttpFoundation\\": "" },
         "exclude-from-classmap": [
-            "\/Tests\/"
+            "/Tests/"
         ]
     },
     "minimum-stability": "dev"

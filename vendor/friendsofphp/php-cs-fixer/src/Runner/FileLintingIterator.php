@@ -9,10 +9,12 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Runner;
 
 use PhpCsFixer\Linter\LinterInterface;
 use PhpCsFixer\Linter\LintingResultInterface;
+
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -24,15 +26,19 @@ final class FileLintingIterator extends \IteratorIterator
      * @var LintingResultInterface
      */
     private $currentResult;
+
     /**
      * @var null|LinterInterface
      */
     private $linter;
-    public function __construct(\Iterator $iterator, \PhpCsFixer\Linter\LinterInterface $linter)
+
+    public function __construct(\Iterator $iterator, LinterInterface $linter)
     {
         parent::__construct($iterator);
+
         $this->linter = $linter;
     }
+
     /**
      * @return \PhpCsFixer\Linter\LintingResultInterface|null
      */
@@ -40,22 +46,27 @@ final class FileLintingIterator extends \IteratorIterator
     {
         return $this->currentResult;
     }
+
     /**
      * @return void
      */
     public function next()
     {
         parent::next();
+
         $this->currentResult = $this->valid() ? $this->handleItem($this->current()) : null;
     }
+
     /**
      * @return void
      */
     public function rewind()
     {
         parent::rewind();
+
         $this->currentResult = $this->valid() ? $this->handleItem($this->current()) : null;
     }
+
     /**
      * @return \PhpCsFixer\Linter\LintingResultInterface
      */

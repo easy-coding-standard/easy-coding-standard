@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
+
+namespace Symfony\Component\DependencyInjection\Compiler;
 
 /**
  * Represents an edge in your service graph.
@@ -25,12 +26,13 @@ class ServiceReferenceGraphEdge
     private $lazy;
     private $weak;
     private $byConstructor;
+
     /**
      * @param bool $lazy
      * @param bool $weak
      * @param bool $byConstructor
      */
-    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $sourceNode, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode $destNode, $value = null, $lazy = \false, $weak = \false, $byConstructor = \false)
+    public function __construct(ServiceReferenceGraphNode $sourceNode, ServiceReferenceGraphNode $destNode, $value = null, $lazy = false, $weak = false, $byConstructor = false)
     {
         $lazy = (bool) $lazy;
         $weak = (bool) $weak;
@@ -42,6 +44,7 @@ class ServiceReferenceGraphEdge
         $this->weak = $weak;
         $this->byConstructor = $byConstructor;
     }
+
     /**
      * Returns the value of the edge.
      *
@@ -51,6 +54,7 @@ class ServiceReferenceGraphEdge
     {
         return $this->value;
     }
+
     /**
      * Returns the source node.
      *
@@ -60,6 +64,7 @@ class ServiceReferenceGraphEdge
     {
         return $this->sourceNode;
     }
+
     /**
      * Returns the destination node.
      *
@@ -69,6 +74,7 @@ class ServiceReferenceGraphEdge
     {
         return $this->destNode;
     }
+
     /**
      * Returns true if the edge is lazy, meaning it's a dependency not requiring direct instantiation.
      *
@@ -78,6 +84,7 @@ class ServiceReferenceGraphEdge
     {
         return $this->lazy;
     }
+
     /**
      * Returns true if the edge is weak, meaning it shouldn't prevent removing the target service.
      *
@@ -87,6 +94,7 @@ class ServiceReferenceGraphEdge
     {
         return $this->weak;
     }
+
     /**
      * Returns true if the edge links with a constructor argument.
      *

@@ -9,10 +9,12 @@ final class GitDiffProvider
      */
     public function provide()
     {
-        $plainDiff = \shell_exec('git diff --name-only') ?: '';
-        $relativePaths = \explode(\PHP_EOL, \trim($plainDiff));
-        $realPaths = \array_map('realpath', $relativePaths);
-        $existingRealPaths = \array_filter($realPaths);
-        return \array_values($existingRealPaths);
+        $plainDiff = shell_exec('git diff --name-only') ?: '';
+        $relativePaths = explode(PHP_EOL, trim($plainDiff));
+
+        $realPaths = array_map('realpath', $relativePaths);
+        $existingRealPaths = array_filter($realPaths);
+
+        return array_values($existingRealPaths);
     }
 }

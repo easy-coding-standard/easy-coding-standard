@@ -8,28 +8,32 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Composer\Semver\Constraint;
+
+namespace Composer\Semver\Constraint;
 
 /**
  * Blackhole of constraints, nothing escapes it
  */
-class MatchNoneConstraint implements \ECSPrefix20210509\Composer\Semver\Constraint\ConstraintInterface
+class MatchNoneConstraint implements ConstraintInterface
 {
     /** @var string|null */
     protected $prettyString;
+
     /**
      * @param ConstraintInterface $provider
      *
      * @return bool
      */
-    public function matches(\ECSPrefix20210509\Composer\Semver\Constraint\ConstraintInterface $provider)
+    public function matches(ConstraintInterface $provider)
     {
-        return \false;
+        return false;
     }
+
     public function compile($operator)
     {
         return 'false';
     }
+
     /**
      * @param string|null $prettyString
      */
@@ -37,6 +41,7 @@ class MatchNoneConstraint implements \ECSPrefix20210509\Composer\Semver\Constrai
     {
         $this->prettyString = $prettyString;
     }
+
     /**
      * @return string
      */
@@ -45,8 +50,10 @@ class MatchNoneConstraint implements \ECSPrefix20210509\Composer\Semver\Constrai
         if ($this->prettyString) {
             return $this->prettyString;
         }
+
         return (string) $this;
     }
+
     /**
      * @return string
      */
@@ -54,18 +61,20 @@ class MatchNoneConstraint implements \ECSPrefix20210509\Composer\Semver\Constrai
     {
         return '[]';
     }
+
     /**
      * {@inheritDoc}
      */
     public function getUpperBound()
     {
-        return new \ECSPrefix20210509\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new Bound('0.0.0.0-dev', false);
     }
+
     /**
      * {@inheritDoc}
      */
     public function getLowerBound()
     {
-        return new \ECSPrefix20210509\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \false);
+        return new Bound('0.0.0.0-dev', false);
     }
 }

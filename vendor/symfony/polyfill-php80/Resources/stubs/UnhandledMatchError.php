@@ -1,8 +1,5 @@
 <?php
 
-
-
-class UnhandledMatchError extends \Error
+class UnhandledMatchError extends Error
 {
 }
-

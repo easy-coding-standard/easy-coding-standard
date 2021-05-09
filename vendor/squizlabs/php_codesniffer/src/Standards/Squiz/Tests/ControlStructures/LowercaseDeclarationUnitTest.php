@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the LowercaseDeclaration sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class LowercaseDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class LowercaseDeclarationUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,24 @@ class LowercaseDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abst
      */
     public function getErrorList()
     {
-        return [3 => 1, 5 => 1, 7 => 1, 9 => 1, 10 => 1, 12 => 1, 14 => 1, 15 => 1, 16 => 1, 20 => 1, 21 => 1, 24 => 1];
-    }
-    //end getErrorList()
+        return [
+            3  => 1,
+            5  => 1,
+            7  => 1,
+            9  => 1,
+            10 => 1,
+            12 => 1,
+            14 => 1,
+            15 => 1,
+            16 => 1,
+            20 => 1,
+            21 => 1,
+            24 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +54,8 @@ class LowercaseDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abst
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

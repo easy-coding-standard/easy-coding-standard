@@ -8,18 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
+
+namespace Symfony\Component\VarDumper\Caster;
 
 /**
  * Represents a file or a URL.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class LinkStub extends \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ConstStub
+class LinkStub extends ConstStub
 {
-    public $inVendor = \false;
+    public $inVendor = false;
+
     private static $vendorRoots;
     private static $composerRoots;
+
     /**
      * @param int $line
      */
@@ -27,40 +30,43 @@ class LinkStub extends \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Con
     {
         $line = (int) $line;
         $this->value = $label;
+
         if (null === $href) {
             $href = $label;
         }
         if (!\is_string($href)) {
             return;
         }
-        if (0 === \strpos($href, 'file://')) {
+        if (0 === strpos($href, 'file://')) {
             if ($href === $label) {
-                $label = \substr($label, 7);
+                $label = substr($label, 7);
             }
-            $href = \substr($href, 7);
-        } elseif (\false !== \strpos($href, '://')) {
+            $href = substr($href, 7);
+        } elseif (false !== strpos($href, '://')) {
             $this->attr['href'] = $href;
+
             return;
         }
-        if (!\is_file($href)) {
+        if (!is_file($href)) {
             return;
         }
         if ($line) {
             $this->attr['line'] = $line;
         }
-        if ($label !== ($this->attr['file'] = \realpath($href) ?: $href)) {
+        if ($label !== $this->attr['file'] = realpath($href) ?: $href) {
             return;
         }
         if ($composerRoot = $this->getComposerRoot($href, $this->inVendor)) {
             $this->attr['ellipsis'] = \strlen($href) - \strlen($composerRoot) + 1;
             $this->attr['ellipsis-type'] = 'path';
-            $this->attr['ellipsis-tail'] = 1 + ($this->inVendor ? 2 + \strlen(\implode('', \array_slice(\explode(\DIRECTORY_SEPARATOR, \substr($href, 1 - $this->attr['ellipsis'])), 0, 2))) : 0);
-        } elseif (3 < \count($ellipsis = \explode(\DIRECTORY_SEPARATOR, $href))) {
-            $this->attr['ellipsis'] = 2 + \strlen(\implode('', \array_slice($ellipsis, -2)));
+            $this->attr['ellipsis-tail'] = 1 + ($this->inVendor ? 2 + \strlen(implode('', \array_slice(explode(\DIRECTORY_SEPARATOR, substr($href, 1 - $this->attr['ellipsis'])), 0, 2))) : 0);
+        } elseif (3 < \count($ellipsis = explode(\DIRECTORY_SEPARATOR, $href))) {
+            $this->attr['ellipsis'] = 2 + \strlen(implode('', \array_slice($ellipsis, -2)));
             $this->attr['ellipsis-type'] = 'path';
             $this->attr['ellipsis-tail'] = 1;
         }
     }
+
     /**
      * @param string $file
      * @param bool $inVendor
@@ -71,36 +77,42 @@ class LinkStub extends \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Con
         $inVendor = (bool) $inVendor;
         if (null === self::$vendorRoots) {
             self::$vendorRoots = [];
-            foreach (\get_declared_classes() as $class) {
-                if ('C' === $class[0] && 0 === \strpos($class, 'ComposerAutoloaderInit')) {
+
+            foreach (get_declared_classes() as $class) {
+                if ('C' === $class[0] && 0 === strpos($class, 'ComposerAutoloaderInit')) {
                     $r = new \ReflectionClass($class);
                     $v = \dirname($r->getFileName(), 2);
-                    if (\is_file($v . '/composer/installed.json')) {
-                        self::$vendorRoots[] = $v . \DIRECTORY_SEPARATOR;
+                    if (is_file($v.'/composer/installed.json')) {
+                        self::$vendorRoots[] = $v.\DIRECTORY_SEPARATOR;
                     }
                 }
             }
         }
-        $inVendor = \false;
+        $inVendor = false;
+
         if (isset(self::$composerRoots[$dir = \dirname($file)])) {
             return self::$composerRoots[$dir];
         }
+
         foreach (self::$vendorRoots as $root) {
-            if ($inVendor = 0 === \strpos($file, $root)) {
+            if ($inVendor = 0 === strpos($file, $root)) {
                 return $root;
             }
         }
+
         $parent = $dir;
-        while (!@\is_file($parent . '/composer.json')) {
-            if (!@\file_exists($parent)) {
+        while (!@is_file($parent.'/composer.json')) {
+            if (!@file_exists($parent)) {
                 // open_basedir restriction in effect
                 break;
             }
             if ($parent === \dirname($parent)) {
-                return self::$composerRoots[$dir] = \false;
+                return self::$composerRoots[$dir] = false;
             }
+
             $parent = \dirname($parent);
         }
-        return self::$composerRoots[$dir] = $parent . \DIRECTORY_SEPARATOR;
+
+        return self::$composerRoots[$dir] = $parent.\DIRECTORY_SEPARATOR;
     }
 }

@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Cache;
 
 /**
@@ -16,28 +17,33 @@ namespace PhpCsFixer\Cache;
  *
  * @internal
  */
-final class Signature implements \PhpCsFixer\Cache\SignatureInterface
+final class Signature implements SignatureInterface
 {
     /**
      * @var string
      */
     private $phpVersion;
+
     /**
      * @var string
      */
     private $fixerVersion;
+
     /**
      * @var string
      */
     private $indent;
+
     /**
      * @var string
      */
     private $lineEnding;
+
     /**
      * @var array
      */
     private $rules;
+
     /**
      * @param string $phpVersion
      * @param string $fixerVersion
@@ -56,6 +62,7 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
         $this->lineEnding = $lineEnding;
         $this->rules = self::utf8Encode($rules);
     }
+
     /**
      * @return string
      */
@@ -63,6 +70,7 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
     {
         return $this->phpVersion;
     }
+
     /**
      * @return string
      */
@@ -70,6 +78,7 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
     {
         return $this->fixerVersion;
     }
+
     /**
      * @return string
      */
@@ -77,6 +86,7 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
     {
         return $this->indent;
     }
+
     /**
      * @return string
      */
@@ -84,6 +94,7 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
     {
         return $this->lineEnding;
     }
+
     /**
      * @return mixed[]
      */
@@ -91,14 +102,20 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
     {
         return $this->rules;
     }
+
     /**
      * @param \PhpCsFixer\Cache\SignatureInterface $signature
      * @return bool
      */
     public function equals($signature)
     {
-        return $this->phpVersion === $signature->getPhpVersion() && $this->fixerVersion === $signature->getFixerVersion() && $this->indent === $signature->getIndent() && $this->lineEnding === $signature->getLineEnding() && $this->rules === $signature->getRules();
+        return $this->phpVersion === $signature->getPhpVersion()
+            && $this->fixerVersion === $signature->getFixerVersion()
+            && $this->indent === $signature->getIndent()
+            && $this->lineEnding === $signature->getLineEnding()
+            && $this->rules === $signature->getRules();
     }
+
     /**
      * @return mixed[]
      */
@@ -107,11 +124,13 @@ final class Signature implements \PhpCsFixer\Cache\SignatureInterface
         if (!\function_exists('mb_detect_encoding')) {
             return $data;
         }
-        \array_walk_recursive($data, static function (&$item) {
-            if (\is_string($item) && !\mb_detect_encoding($item, 'utf-8', \true)) {
-                $item = \utf8_encode($item);
+
+        array_walk_recursive($data, static function (&$item) {
+            if (\is_string($item) && !mb_detect_encoding($item, 'utf-8', true)) {
+                $item = utf8_encode($item);
             }
         });
+
         return $data;
     }
 }

@@ -9,9 +9,11 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Formatter\OutputFormatter;
+
 /**
  * Generates a report according to gitlabs subset of codeclimate json files.
  *
@@ -21,7 +23,7 @@ use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter;
  *
  * @internal
  */
-final class GitlabReporter implements \PhpCsFixer\Console\Report\FixReport\ReporterInterface
+final class GitlabReporter implements ReporterInterface
 {
     /**
      * @return string
@@ -30,19 +32,31 @@ final class GitlabReporter implements \PhpCsFixer\Console\Report\FixReport\Repor
     {
         return 'gitlab';
     }
+
     /**
      * Process changed files array. Returns generated report.
      * @return string
      */
-    public function generate(\PhpCsFixer\Console\Report\FixReport\ReportSummary $reportSummary)
+    public function generate(ReportSummary $reportSummary)
     {
         $report = [];
         foreach ($reportSummary->getChanged() as $fileName => $change) {
             foreach ($change['appliedFixers'] as $fixerName) {
-                $report[] = ['description' => $fixerName, 'fingerprint' => \md5($fileName . $fixerName), 'location' => ['path' => $fileName, 'lines' => ['begin' => 0]]];
+                $report[] = [
+                    'description' => $fixerName,
+                    'fingerprint' => md5($fileName.$fixerName),
+                    'location' => [
+                        'path' => $fileName,
+                        'lines' => [
+                            'begin' => 0, // line numbers are required in the format, but not available to reports
+                        ],
+                    ],
+                ];
             }
         }
-        $jsonString = \json_encode($report);
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter::escape($jsonString) : $jsonString;
+
+        $jsonString = json_encode($report);
+
+        return $reportSummary->isDecoratedOutput() ? OutputFormatter::escape($jsonString) : $jsonString;
     }
 }

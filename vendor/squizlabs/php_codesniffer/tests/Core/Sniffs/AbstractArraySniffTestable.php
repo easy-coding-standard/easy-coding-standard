@@ -1,5 +1,4 @@
 <?php
-
 /**
  * A testable implementation of \PHP_CodeSniffer\Sniffs\AbstractArraySniff.
  *
@@ -7,17 +6,22 @@
  * @copyright 2006-2020 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core\Sniffs;
 
 use PHP_CodeSniffer\Sniffs\AbstractArraySniff;
-class AbstractArraySniffTestable extends \PHP_CodeSniffer\Sniffs\AbstractArraySniff
+
+class AbstractArraySniffTestable extends AbstractArraySniff
 {
+
     /**
      * The array indicies that were found during processing.
      *
      * @var array
      */
     public $indicies = [];
+
+
     /**
      * Processes a single-line array definition.
      *
@@ -34,8 +38,10 @@ class AbstractArraySniffTestable extends \PHP_CodeSniffer\Sniffs\AbstractArraySn
     public function processSingleLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices)
     {
         $this->indicies = $indices;
-    }
-    //end processSingleLineArray()
+
+    }//end processSingleLineArray()
+
+
     /**
      * Processes a multi-line array definition.
      *
@@ -52,7 +58,8 @@ class AbstractArraySniffTestable extends \PHP_CodeSniffer\Sniffs\AbstractArraySn
     public function processMultiLineArray($phpcsFile, $stackPtr, $arrayStart, $arrayEnd, $indices)
     {
         $this->indicies = $indices;
-    }
-    //end processMultiLineArray()
-}
-//end class
+
+    }//end processMultiLineArray()
+
+
+}//end class

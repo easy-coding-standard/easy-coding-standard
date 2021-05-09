@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the ClosureLinter sniff.
  *
@@ -7,12 +6,16 @@
  * @copyright 2019 Juliette Reinders Folmer. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Debug;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
 use PHP_CodeSniffer\Config;
-class ClosureLinterUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class ClosureLinterUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Should this test be skipped for some reason.
      *
@@ -20,13 +23,16 @@ class ClosureLinterUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSni
      */
     protected function shouldSkipTest()
     {
-        $lintPath = \PHP_CodeSniffer\Config::getExecutablePath('gjslint');
+        $lintPath = Config::getExecutablePath('gjslint');
         if ($lintPath === null) {
-            return \true;
+            return true;
         }
-        return \false;
-    }
-    //end shouldSkipTest()
+
+        return false;
+
+    }//end shouldSkipTest()
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -38,8 +44,10 @@ class ClosureLinterUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSni
     public function getErrorList()
     {
         return [];
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -50,8 +58,12 @@ class ClosureLinterUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSni
      */
     public function getWarningList()
     {
-        return [3 => 1, 5 => 1];
-    }
-    //end getWarningList()
-}
-//end class
+        return [
+            3 => 1,
+            5 => 1,
+        ];
+
+    }//end getWarningList()
+
+
+}//end class

@@ -1,7 +1,5 @@
 <?php
 
-namespace ECSPrefix20210509;
-
 use PhpCsFixer\Fixer\Alias\EregToPregFixer;
 use PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer;
 use PhpCsFixer\Fixer\Alias\SetTypeToCastFixer;
@@ -33,38 +31,58 @@ use PhpCsFixer\Fixer\PhpUnit\PhpUnitTestCaseStaticMethodCallsFixer;
 use PhpCsFixer\Fixer\Strict\StrictComparisonFixer;
 use PhpCsFixer\Fixer\Strict\StrictParamFixer;
 use PhpCsFixer\Fixer\StringNotation\StringLineEndingFixer;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-    $services->set(\PhpCsFixer\Fixer\Comment\CommentToPhpdocFixer::class);
-    $services->set(\PhpCsFixer\Fixer\LanguageConstruct\DirConstantFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Alias\EregToPregFixer::class);
-    $services->set(\PhpCsFixer\Fixer\LanguageConstruct\ErrorSuppressionFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ClassNotation\FinalInternalClassFixer::class);
-    $services->set(\PhpCsFixer\Fixer\FunctionNotation\FopenFlagOrderFixer::class);
-    $services->set(\PhpCsFixer\Fixer\FunctionNotation\FopenFlagsFixer::class)->call('configure', [['b_mode' => \false]]);
-    $services->set(\PhpCsFixer\Fixer\LanguageConstruct\FunctionToConstantFixer::class)->call('configure', [['functions' => ['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi']]]);
-    $services->set(\PhpCsFixer\Fixer\FunctionNotation\ImplodeCallFixer::class);
-    $services->set(\PhpCsFixer\Fixer\LanguageConstruct\IsNullFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Operator\LogicalOperatorsFixer::class);
-    $services->set(\PhpCsFixer\Fixer\CastNotation\ModernizeTypesCastingFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ConstantNotation\NativeConstantInvocationFixer::class)->call('configure', [['fix_built_in' => \false, 'include' => ['DIRECTORY_SEPARATOR', 'PHP_SAPI', 'PHP_VERSION_ID'], 'scope' => 'namespaced']]);
-    $services->set(\PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer::class)->call('configure', [['include' => ['@compiler_optimized'], 'scope' => 'namespaced', 'strict' => \true]]);
-    $services->set(\PhpCsFixer\Fixer\Alias\NoAliasFunctionsFixer::class)->call('configure', [['sets' => ['@all']]]);
-    $services->set(\PhpCsFixer\Fixer\Naming\NoHomoglyphNamesFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ClassNotation\NoUnneededFinalMethodFixer::class);
-    $services->set(\PhpCsFixer\Fixer\FunctionNotation\NoUnreachableDefaultArgumentValueFixer::class);
-    $services->set(\PhpCsFixer\Fixer\LanguageConstruct\NoUnsetOnPropertyFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Basic\NonPrintableCharacterFixer::class);
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitConstructFixer::class);
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitMockShortWillReturnFixer::class);
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitSetUpTearDownVisibilityFixer::class);
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer::class);
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTestAnnotationFixer::class);
-    $services->set(\PhpCsFixer\Fixer\PhpUnit\PhpUnitTestCaseStaticMethodCallsFixer::class);
-    $services->set(\PhpCsFixer\Fixer\ClassNotation\SelfAccessorFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Alias\SetTypeToCastFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Strict\StrictComparisonFixer::class);
-    $services->set(\PhpCsFixer\Fixer\Strict\StrictParamFixer::class);
-    $services->set(\PhpCsFixer\Fixer\StringNotation\StringLineEndingFixer::class);
+    $services->set(CommentToPhpdocFixer::class);
+    $services->set(DirConstantFixer::class);
+    $services->set(EregToPregFixer::class);
+    $services->set(ErrorSuppressionFixer::class);
+    $services->set(FinalInternalClassFixer::class);
+    $services->set(FopenFlagOrderFixer::class);
+    $services->set(FopenFlagsFixer::class)
+        ->call('configure', [[
+            'b_mode' => false,
+        ]]);
+    $services->set(FunctionToConstantFixer::class)
+        ->call('configure', [[
+            'functions' => ['get_called_class', 'get_class', 'get_class_this', 'php_sapi_name', 'phpversion', 'pi'],
+        ]]);
+    $services->set(ImplodeCallFixer::class);
+    $services->set(IsNullFixer::class);
+    $services->set(LogicalOperatorsFixer::class);
+    $services->set(ModernizeTypesCastingFixer::class);
+    $services->set(NativeConstantInvocationFixer::class)
+        ->call('configure', [[
+            'fix_built_in' => false,
+            'include' => ['DIRECTORY_SEPARATOR', 'PHP_SAPI', 'PHP_VERSION_ID'],
+            'scope' => 'namespaced',
+        ]]);
+    $services->set(NativeFunctionInvocationFixer::class)
+        ->call('configure', [[
+            'include' => ['@compiler_optimized'],
+            'scope' => 'namespaced',
+            'strict' => true,
+        ]]);
+    $services->set(NoAliasFunctionsFixer::class)
+        ->call('configure', [[
+            'sets' => ['@all'],
+        ]]);
+    $services->set(NoHomoglyphNamesFixer::class);
+    $services->set(NoUnneededFinalMethodFixer::class);
+    $services->set(NoUnreachableDefaultArgumentValueFixer::class);
+    $services->set(NoUnsetOnPropertyFixer::class);
+    $services->set(NonPrintableCharacterFixer::class);
+    $services->set(PhpUnitConstructFixer::class);
+    $services->set(PhpUnitMockShortWillReturnFixer::class);
+    $services->set(PhpUnitSetUpTearDownVisibilityFixer::class);
+    $services->set(PhpUnitStrictFixer::class);
+    $services->set(PhpUnitTestAnnotationFixer::class);
+    $services->set(PhpUnitTestCaseStaticMethodCallsFixer::class);
+    $services->set(SelfAccessorFixer::class);
+    $services->set(SetTypeToCastFixer::class);
+    $services->set(StrictComparisonFixer::class);
+    $services->set(StrictParamFixer::class);
+    $services->set(StringLineEndingFixer::class);
 };

@@ -8,57 +8,72 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\RedirectResponse;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ControllerEvent;
+namespace Symfony\Component\HttpKernel\DataCollector;
+
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class RouterDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\DataCollector
+class RouterDataCollector extends DataCollector
 {
     /**
      * @var \SplObjectStorage
      */
     protected $controllers;
+
     public function __construct()
     {
         $this->reset();
     }
+
     /**
      * {@inheritdoc}
      *
      * @final
      */
-    public function collect(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
-        if ($response instanceof \ECSPrefix20210509\Symfony\Component\HttpFoundation\RedirectResponse) {
-            $this->data['redirect'] = \true;
+        if ($response instanceof RedirectResponse) {
+            $this->data['redirect'] = true;
             $this->data['url'] = $response->getTargetUrl();
+
             if ($this->controllers->contains($request)) {
                 $this->data['route'] = $this->guessRoute($request, $this->controllers[$request]);
             }
         }
+
         unset($this->controllers[$request]);
     }
+
     public function reset()
     {
         $this->controllers = new \SplObjectStorage();
-        $this->data = ['redirect' => \false, 'url' => null, 'route' => null];
+
+        $this->data = [
+            'redirect' => false,
+            'url' => null,
+            'route' => null,
+        ];
     }
-    protected function guessRoute(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, $controller)
+
+    protected function guessRoute(Request $request, $controller)
     {
         return 'n/a';
     }
+
     /**
      * Remembers the controller associated to each request.
      */
-    public function onKernelController(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
+    public function onKernelController(ControllerEvent $event)
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }
+
     /**
      * @return bool Whether this request will result in a redirect
      */
@@ -66,6 +81,7 @@ class RouterDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKerne
     {
         return $this->data['redirect'];
     }
+
     /**
      * @return string|null The target URL
      */
@@ -73,6 +89,7 @@ class RouterDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKerne
     {
         return $this->data['url'];
     }
+
     /**
      * @return string|null The target route
      */
@@ -80,6 +97,7 @@ class RouterDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKerne
     {
         return $this->data['route'];
     }
+
     /**
      * {@inheritdoc}
      */

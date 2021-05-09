@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
+namespace Symfony\Component\DependencyInjection\Argument;
+
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Reference;
+
 /**
  * @author Titouan Galopin <galopintitouan@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
@@ -19,6 +21,7 @@ use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
 trait ReferenceSetArgumentTrait
 {
     private $values;
+
     /**
      * @param Reference[] $values
      */
@@ -26,6 +29,7 @@ trait ReferenceSetArgumentTrait
     {
         $this->setValues($values);
     }
+
     /**
      * @return Reference[] The values in the set
      */
@@ -33,16 +37,18 @@ trait ReferenceSetArgumentTrait
     {
         return $this->values;
     }
+
     /**
      * @param Reference[] $values The service references to put in the set
      */
     public function setValues(array $values)
     {
         foreach ($values as $k => $v) {
-            if (null !== $v && !$v instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference) {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('A "%s" must hold only Reference instances, "%s" given.', __CLASS__, \get_debug_type($v)));
+            if (null !== $v && !$v instanceof Reference) {
+                throw new InvalidArgumentException(sprintf('A "%s" must hold only Reference instances, "%s" given.', __CLASS__, get_debug_type($v)));
             }
         }
+
         $this->values = $values;
     }
 }

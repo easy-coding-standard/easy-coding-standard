@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
+namespace Symfony\Component\DependencyInjection\Compiler;
+
+use Symfony\Component\DependencyInjection\Alias;
+use Symfony\Component\DependencyInjection\Definition;
+
 /**
  * Represents a node in your service graph.
  *
@@ -25,6 +27,7 @@ class ServiceReferenceGraphNode
     private $inEdges = [];
     private $outEdges = [];
     private $value;
+
     /**
      * @param string $id    The node identifier
      * @param mixed  $value The node value
@@ -35,14 +38,17 @@ class ServiceReferenceGraphNode
         $this->id = $id;
         $this->value = $value;
     }
-    public function addInEdge(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
+
+    public function addInEdge(ServiceReferenceGraphEdge $edge)
     {
         $this->inEdges[] = $edge;
     }
-    public function addOutEdge(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge $edge)
+
+    public function addOutEdge(ServiceReferenceGraphEdge $edge)
     {
         $this->outEdges[] = $edge;
     }
+
     /**
      * Checks if the value of this node is an Alias.
      *
@@ -50,8 +56,9 @@ class ServiceReferenceGraphNode
      */
     public function isAlias()
     {
-        return $this->value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Alias;
+        return $this->value instanceof Alias;
     }
+
     /**
      * Checks if the value of this node is a Definition.
      *
@@ -59,8 +66,9 @@ class ServiceReferenceGraphNode
      */
     public function isDefinition()
     {
-        return $this->value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
+        return $this->value instanceof Definition;
     }
+
     /**
      * Returns the identifier.
      *
@@ -70,6 +78,7 @@ class ServiceReferenceGraphNode
     {
         return $this->id;
     }
+
     /**
      * Returns the in edges.
      *
@@ -79,6 +88,7 @@ class ServiceReferenceGraphNode
     {
         return $this->inEdges;
     }
+
     /**
      * Returns the out edges.
      *
@@ -88,6 +98,7 @@ class ServiceReferenceGraphNode
     {
         return $this->outEdges;
     }
+
     /**
      * Returns the value of this Node.
      *
@@ -97,6 +108,7 @@ class ServiceReferenceGraphNode
     {
         return $this->value;
     }
+
     /**
      * Clears all edges.
      */

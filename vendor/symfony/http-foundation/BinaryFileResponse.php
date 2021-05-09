@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\File\Exception\FileException;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\File\File;
+namespace Symfony\Component\HttpFoundation;
+
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * BinaryFileResponse represents an HTTP response delivering a file.
  *
@@ -21,16 +23,18 @@ use ECSPrefix20210509\Symfony\Component\HttpFoundation\File\File;
  * @author Jordan Alliot <jordan.alliot@gmail.com>
  * @author Sergey Linnik <linniksa@gmail.com>
  */
-class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response
+class BinaryFileResponse extends Response
 {
-    protected static $trustXSendfileTypeHeader = \false;
+    protected static $trustXSendfileTypeHeader = false;
+
     /**
      * @var File
      */
     protected $file;
     protected $offset = 0;
     protected $maxlen = -1;
-    protected $deleteFileAfterSend = \false;
+    protected $deleteFileAfterSend = false;
+
     /**
      * @param \SplFileInfo|string $file               The file to stream
      * @param int                 $status             The response status code
@@ -40,18 +44,21 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
      * @param bool                $autoEtag           Whether the ETag header should be automatically set
      * @param bool                $autoLastModified   Whether the Last-Modified header should be automatically set
      */
-    public function __construct($file, $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public function __construct($file, $status = 200, array $headers = [], $public = true, $contentDisposition = null, $autoEtag = false, $autoLastModified = true)
     {
         $status = (int) $status;
         $public = (bool) $public;
         $autoEtag = (bool) $autoEtag;
         $autoLastModified = (bool) $autoLastModified;
         parent::__construct(null, $status, $headers);
+
         $this->setFile($file, $contentDisposition, $autoEtag, $autoLastModified);
+
         if ($public) {
             $this->setPublic();
         }
     }
+
     /**
      * @param \SplFileInfo|string $file               The file to stream
      * @param int                 $status             The response status code
@@ -65,12 +72,14 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
      *
      * @deprecated since Symfony 5.2, use __construct() instead.
      */
-    public static function create($file = null, $status = 200, array $headers = [], $public = \true, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public static function create($file = null, $status = 200, array $headers = [], $public = true, $contentDisposition = null, $autoEtag = false, $autoLastModified = true)
     {
         $status = (int) $status;
         trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
+
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
     }
+
     /**
      * Sets the file to stream.
      *
@@ -83,32 +92,39 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
      * @param bool $autoEtag
      * @param bool $autoLastModified
      */
-    public function setFile($file, $contentDisposition = null, $autoEtag = \false, $autoLastModified = \true)
+    public function setFile($file, $contentDisposition = null, $autoEtag = false, $autoLastModified = true)
     {
         $autoEtag = (bool) $autoEtag;
         $autoLastModified = (bool) $autoLastModified;
-        if (!$file instanceof \ECSPrefix20210509\Symfony\Component\HttpFoundation\File\File) {
+        if (!$file instanceof File) {
             if ($file instanceof \SplFileInfo) {
-                $file = new \ECSPrefix20210509\Symfony\Component\HttpFoundation\File\File($file->getPathname());
+                $file = new File($file->getPathname());
             } else {
-                $file = new \ECSPrefix20210509\Symfony\Component\HttpFoundation\File\File((string) $file);
+                $file = new File((string) $file);
             }
         }
+
         if (!$file->isReadable()) {
-            throw new \ECSPrefix20210509\Symfony\Component\HttpFoundation\File\Exception\FileException('File must be readable.');
+            throw new FileException('File must be readable.');
         }
+
         $this->file = $file;
+
         if ($autoEtag) {
             $this->setAutoEtag();
         }
+
         if ($autoLastModified) {
             $this->setAutoLastModified();
         }
+
         if ($contentDisposition) {
             $this->setContentDisposition($contentDisposition);
         }
+
         return $this;
     }
+
     /**
      * Gets the file.
      *
@@ -118,22 +134,27 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
     {
         return $this->file;
     }
+
     /**
      * Automatically sets the Last-Modified header according the file modification date.
      */
     public function setAutoLastModified()
     {
         $this->setLastModified(\DateTime::createFromFormat('U', $this->file->getMTime()));
+
         return $this;
     }
+
     /**
      * Automatically sets the ETag header according to the checksum of the file.
      */
     public function setAutoEtag()
     {
-        $this->setEtag(\base64_encode(\hash_file('sha256', $this->file->getPathname(), \true)));
+        $this->setEtag(base64_encode(hash_file('sha256', $this->file->getPathname(), true)));
+
         return $this;
     }
+
     /**
      * Sets the Content-Disposition header with the given filename.
      *
@@ -151,10 +172,13 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
         if ('' === $filename) {
             $filename = $this->file->getFilename();
         }
-        if ('' === $filenameFallback && (!\preg_match('/^[\\x20-\\x7e]*$/', $filename) || \false !== \strpos($filename, '%'))) {
-            $encoding = \mb_detect_encoding($filename, null, \true) ?: '8bit';
-            for ($i = 0, $filenameLength = \mb_strlen($filename, $encoding); $i < $filenameLength; ++$i) {
-                $char = \mb_substr($filename, $i, 1, $encoding);
+
+        if ('' === $filenameFallback && (!preg_match('/^[\x20-\x7e]*$/', $filename) || false !== strpos($filename, '%'))) {
+            $encoding = mb_detect_encoding($filename, null, true) ?: '8bit';
+
+            for ($i = 0, $filenameLength = mb_strlen($filename, $encoding); $i < $filenameLength; ++$i) {
+                $char = mb_substr($filename, $i, 1, $encoding);
+
                 if ('%' === $char || \ord($char) < 32 || \ord($char) > 126) {
                     $filenameFallback .= '_';
                 } else {
@@ -162,48 +186,57 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
                 }
             }
         }
+
         $dispositionHeader = $this->headers->makeDisposition($disposition, $filename, $filenameFallback);
         $this->headers->set('Content-Disposition', $dispositionHeader);
+
         return $this;
     }
+
     /**
      * {@inheritdoc}
      */
-    public function prepare(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request)
+    public function prepare(Request $request)
     {
         if (!$this->headers->has('Content-Type')) {
             $this->headers->set('Content-Type', $this->file->getMimeType() ?: 'application/octet-stream');
         }
+
         if ('HTTP/1.0' !== $request->server->get('SERVER_PROTOCOL')) {
             $this->setProtocolVersion('1.1');
         }
+
         $this->ensureIEOverSSLCompatibility($request);
+
         $this->offset = 0;
         $this->maxlen = -1;
-        if (\false === ($fileSize = $this->file->getSize())) {
+
+        if (false === $fileSize = $this->file->getSize()) {
             return $this;
         }
         $this->headers->set('Content-Length', $fileSize);
+
         if (!$this->headers->has('Accept-Ranges')) {
             // Only accept ranges on safe HTTP methods
             $this->headers->set('Accept-Ranges', $request->isMethodSafe() ? 'bytes' : 'none');
         }
+
         if (self::$trustXSendfileTypeHeader && $request->headers->has('X-Sendfile-Type')) {
             // Use X-Sendfile, do not send any content.
             $type = $request->headers->get('X-Sendfile-Type');
             $path = $this->file->getRealPath();
             // Fall back to scheme://path for stream wrapped locations.
-            if (\false === $path) {
+            if (false === $path) {
                 $path = $this->file->getPathname();
             }
-            if ('x-accel-redirect' === \strtolower($type)) {
+            if ('x-accel-redirect' === strtolower($type)) {
                 // Do X-Accel-Mapping substitutions.
                 // @link https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/#x-accel-redirect
-                $parts = \ECSPrefix20210509\Symfony\Component\HttpFoundation\HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
+                $parts = HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
                 foreach ($parts as $part) {
                     list($pathPrefix, $location) = $part;
-                    if (\substr($path, 0, \strlen($pathPrefix)) === $pathPrefix) {
-                        $path = $location . \substr($path, \strlen($pathPrefix));
+                    if (substr($path, 0, \strlen($pathPrefix)) === $pathPrefix) {
+                        $path = $location.substr($path, \strlen($pathPrefix));
                         // Only set X-Accel-Redirect header if a valid URI can be produced
                         // as nginx does not serve arbitrary file paths.
                         $this->headers->set($type, $path);
@@ -219,33 +252,40 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
             // Process the range headers.
             if (!$request->headers->has('If-Range') || $this->hasValidIfRangeHeader($request->headers->get('If-Range'))) {
                 $range = $request->headers->get('Range');
-                if (0 === \strpos($range, 'bytes=')) {
-                    list($start, $end) = \explode('-', \substr($range, 6), 2) + [0];
-                    $end = '' === $end ? $fileSize - 1 : (int) $end;
+
+                if (0 === strpos($range, 'bytes=')) {
+                    list($start, $end) = explode('-', substr($range, 6), 2) + [0];
+
+                    $end = ('' === $end) ? $fileSize - 1 : (int) $end;
+
                     if ('' === $start) {
                         $start = $fileSize - $end;
                         $end = $fileSize - 1;
                     } else {
                         $start = (int) $start;
                     }
+
                     if ($start <= $end) {
-                        $end = \min($end, $fileSize - 1);
+                        $end = min($end, $fileSize - 1);
                         if ($start < 0 || $start > $end) {
                             $this->setStatusCode(416);
-                            $this->headers->set('Content-Range', \sprintf('bytes */%s', $fileSize));
+                            $this->headers->set('Content-Range', sprintf('bytes */%s', $fileSize));
                         } elseif ($end - $start < $fileSize - 1) {
                             $this->maxlen = $end < $fileSize ? $end - $start + 1 : -1;
                             $this->offset = $start;
+
                             $this->setStatusCode(206);
-                            $this->headers->set('Content-Range', \sprintf('bytes %s-%s/%s', $start, $end, $fileSize));
+                            $this->headers->set('Content-Range', sprintf('bytes %s-%s/%s', $start, $end, $fileSize));
                             $this->headers->set('Content-Length', $end - $start + 1);
                         }
                     }
                 }
             }
         }
+
         return $this;
     }
+
     /**
      * @param string|null $header
      * @return bool
@@ -253,13 +293,16 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
     private function hasValidIfRangeHeader($header)
     {
         if ($this->getEtag() === $header) {
-            return \true;
+            return true;
         }
-        if (null === ($lastModified = $this->getLastModified())) {
-            return \false;
+
+        if (null === $lastModified = $this->getLastModified()) {
+            return false;
         }
-        return $lastModified->format('D, d M Y H:i:s') . ' GMT' === $header;
+
+        return $lastModified->format('D, d M Y H:i:s').' GMT' === $header;
     }
+
     /**
      * Sends the file.
      *
@@ -270,19 +313,26 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
         if (!$this->isSuccessful()) {
             return parent::sendContent();
         }
+
         if (0 === $this->maxlen) {
             return $this;
         }
-        $out = \fopen('php://output', 'w');
-        $file = \fopen($this->file->getPathname(), 'r');
-        \stream_copy_to_stream($file, $out, $this->maxlen, $this->offset);
-        \fclose($out);
-        \fclose($file);
-        if ($this->deleteFileAfterSend && \is_file($this->file->getPathname())) {
-            \unlink($this->file->getPathname());
+
+        $out = fopen('php://output', 'w');
+        $file = fopen($this->file->getPathname(), 'r');
+
+        stream_copy_to_stream($file, $out, $this->maxlen, $this->offset);
+
+        fclose($out);
+        fclose($file);
+
+        if ($this->deleteFileAfterSend && is_file($this->file->getPathname())) {
+            unlink($this->file->getPathname());
         }
+
         return $this;
     }
+
     /**
      * {@inheritdoc}
      *
@@ -294,22 +344,26 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
         if (null !== $content) {
             throw new \LogicException('The content cannot be set on a BinaryFileResponse instance.');
         }
+
         return $this;
     }
+
     /**
      * {@inheritdoc}
      */
     public function getContent()
     {
-        return \false;
+        return false;
     }
+
     /**
      * Trust X-Sendfile-Type header.
      */
     public static function trustXSendfileTypeHeader()
     {
-        self::$trustXSendfileTypeHeader = \true;
+        self::$trustXSendfileTypeHeader = true;
     }
+
     /**
      * If this is set to true, the file will be unlinked after the request is sent
      * Note: If the X-Sendfile header is used, the deleteFileAfterSend setting will not be used.
@@ -317,10 +371,11 @@ class BinaryFileResponse extends \ECSPrefix20210509\Symfony\Component\HttpFounda
      * @return $this
      * @param bool $shouldDelete
      */
-    public function deleteFileAfterSend($shouldDelete = \true)
+    public function deleteFileAfterSend($shouldDelete = true)
     {
         $shouldDelete = (bool) $shouldDelete;
         $this->deleteFileAfterSend = $shouldDelete;
+
         return $this;
     }
 }

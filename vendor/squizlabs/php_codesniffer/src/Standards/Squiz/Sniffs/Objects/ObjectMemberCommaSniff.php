@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ensures the last member of an object is not followed by a comma.
  *
@@ -7,19 +6,24 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Objects;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ObjectMemberCommaSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class ObjectMemberCommaSniff implements Sniff
 {
+
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['JS'];
+
+
     /**
      * Registers the token types that this sniff wishes to listen to.
      *
@@ -28,8 +32,10 @@ class ObjectMemberCommaSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     public function register()
     {
         return [T_CLOSE_OBJECT];
-    }
-    //end register()
+
+    }//end register()
+
+
     /**
      * Process the tokens that this sniff is listening for.
      *
@@ -39,18 +45,20 @@ class ObjectMemberCommaSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $prev = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $stackPtr - 1, null, \true);
+
+        $prev = $phpcsFile->findPrevious(Tokens::$emptyTokens, ($stackPtr - 1), null, true);
         if ($tokens[$prev]['code'] === T_COMMA) {
             $error = 'Last member of object must not be followed by a comma';
-            $fix = $phpcsFile->addFixableError($error, $prev, 'Found');
-            if ($fix === \true) {
+            $fix   = $phpcsFile->addFixableError($error, $prev, 'Found');
+            if ($fix === true) {
                 $phpcsFile->fixer->replaceToken($prev, '');
             }
         }
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

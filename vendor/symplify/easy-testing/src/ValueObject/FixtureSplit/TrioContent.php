@@ -8,14 +8,17 @@ final class TrioContent
      * @var string
      */
     private $firstValue;
+
     /**
      * @var string
      */
     private $secondValue;
+
     /**
      * @var string
      */
     private $expectedResult;
+
     /**
      * @param string $firstValue
      * @param string $secondValue
@@ -30,6 +33,7 @@ final class TrioContent
         $this->secondValue = $secondValue;
         $this->expectedResult = $expectedResult;
     }
+
     /**
      * @return string
      */
@@ -37,6 +41,7 @@ final class TrioContent
     {
         return $this->firstValue;
     }
+
     /**
      * @return string
      */
@@ -44,6 +49,7 @@ final class TrioContent
     {
         return $this->secondValue;
     }
+
     /**
      * @return string
      */

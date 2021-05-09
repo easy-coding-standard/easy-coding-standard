@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Tokenizer\Analyzer\Analysis;
 
 /**
@@ -22,24 +23,28 @@ final class ArgumentAnalysis
      * @var null|string
      */
     private $default;
+
     /**
      * The name of the argument.
      *
      * @var string
      */
     private $name;
+
     /**
      * The index where the name is located in the supplied Tokens object.
      *
      * @var int
      */
     private $nameIndex;
+
     /**
      * The type analysis of the argument.
      *
      * @var ?TypeAnalysis
      */
     private $typeAnalysis;
+
     /**
      * @param string|null $default
      * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null $typeAnalysis
@@ -55,6 +60,7 @@ final class ArgumentAnalysis
         $this->default = $default ?: null;
         $this->typeAnalysis = $typeAnalysis ?: null;
     }
+
     /**
      * @return string|null
      */
@@ -62,6 +68,7 @@ final class ArgumentAnalysis
     {
         return $this->default;
     }
+
     /**
      * @return bool
      */
@@ -69,6 +76,7 @@ final class ArgumentAnalysis
     {
         return null !== $this->default;
     }
+
     /**
      * @return string
      */
@@ -76,6 +84,7 @@ final class ArgumentAnalysis
     {
         return $this->name;
     }
+
     /**
      * @return int
      */
@@ -83,6 +92,7 @@ final class ArgumentAnalysis
     {
         return $this->nameIndex;
     }
+
     /**
      * @return \PhpCsFixer\Tokenizer\Analyzer\Analysis\TypeAnalysis|null
      */
@@ -90,6 +100,7 @@ final class ArgumentAnalysis
     {
         return $this->typeAnalysis;
     }
+
     /**
      * @return bool
      */

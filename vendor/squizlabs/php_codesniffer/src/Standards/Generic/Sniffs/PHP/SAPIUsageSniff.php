@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ensures the PHP_SAPI constant is used instead of php_sapi_name().
  *
@@ -7,12 +6,16 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\PHP;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class SAPIUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class SAPIUsageSniff implements Sniff
 {
+
+
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -20,9 +23,11 @@ class SAPIUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_STRING];
-    }
-    //end register()
+        return [T_STRING];
+
+    }//end register()
+
+
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -32,21 +37,31 @@ class SAPIUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $ignore = [\T_DOUBLE_COLON => \true, \T_OBJECT_OPERATOR => \true, \T_NULLSAFE_OBJECT_OPERATOR => \true, \T_FUNCTION => \true, \T_CONST => \true];
-        $prevToken = $phpcsFile->findPrevious(\T_WHITESPACE, $stackPtr - 1, null, \true);
-        if (isset($ignore[$tokens[$prevToken]['code']]) === \true) {
+
+        $ignore = [
+            T_DOUBLE_COLON             => true,
+            T_OBJECT_OPERATOR          => true,
+            T_NULLSAFE_OBJECT_OPERATOR => true,
+            T_FUNCTION                 => true,
+            T_CONST                    => true,
+        ];
+
+        $prevToken = $phpcsFile->findPrevious(T_WHITESPACE, ($stackPtr - 1), null, true);
+        if (isset($ignore[$tokens[$prevToken]['code']]) === true) {
             // Not a call to a PHP function.
             return;
         }
-        $function = \strtolower($tokens[$stackPtr]['content']);
+
+        $function = strtolower($tokens[$stackPtr]['content']);
         if ($function === 'php_sapi_name') {
             $error = 'Use the PHP_SAPI constant instead of calling php_sapi_name()';
             $phpcsFile->addError($error, $stackPtr, 'FunctionFound');
         }
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

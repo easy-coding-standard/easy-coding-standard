@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Checks that the open tag is defined correctly.
  *
@@ -7,12 +6,16 @@
  * @copyright 2006-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PSR12\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class OpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class OpenTagSniff implements Sniff
 {
+
+
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -20,9 +23,11 @@ class OpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_OPEN_TAG];
-    }
-    //end register()
+        return [T_OPEN_TAG];
+
+    }//end register()
+
+
     /**
      * Processes this sniff when one of its tokens is encountered.
      *
@@ -32,32 +37,37 @@ class OpenTagSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return int
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         if ($stackPtr !== 0) {
             // This rule only applies if the open tag is on the first line of the file.
             return $phpcsFile->numTokens;
         }
-        $next = $phpcsFile->findNext(\T_INLINE_HTML, 0);
-        if ($next !== \false) {
+
+        $next = $phpcsFile->findNext(T_INLINE_HTML, 0);
+        if ($next !== false) {
             // This rule only applies to PHP-only files.
             return $phpcsFile->numTokens;
         }
+
         $tokens = $phpcsFile->getTokens();
-        $next = $phpcsFile->findNext(\T_WHITESPACE, $stackPtr + 1, null, \true);
-        if ($next === \false) {
+        $next   = $phpcsFile->findNext(T_WHITESPACE, ($stackPtr + 1), null, true);
+        if ($next === false) {
             // Empty file.
             return;
         }
+
         if ($tokens[$next]['line'] === $tokens[$stackPtr]['line']) {
             $error = 'Opening PHP tag must be on a line by itself';
-            $fix = $phpcsFile->addFixableError($error, $stackPtr, 'NotAlone');
-            if ($fix === \true) {
+            $fix   = $phpcsFile->addFixableError($error, $stackPtr, 'NotAlone');
+            if ($fix === true) {
                 $phpcsFile->fixer->addNewline($stackPtr);
             }
         }
+
         return $phpcsFile->numTokens;
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

@@ -4,6 +4,7 @@ namespace Symplify\CodingStandard\TokenRunner\Contract\DocBlock;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 interface MalformWorkerInterface
 {
     /**
@@ -12,5 +13,5 @@ interface MalformWorkerInterface
      * @param int $position
      * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position);
+    public function work($docContent, Tokens $tokens, $position);
 }

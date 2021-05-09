@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of sebastian/diff.
  *
@@ -8,9 +7,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace PhpCsFixer\Diff\Output;
 
-abstract class AbstractChunkOutputBuilder implements \PhpCsFixer\Diff\Output\DiffOutputBuilderInterface
+abstract class AbstractChunkOutputBuilder implements DiffOutputBuilderInterface
 {
     /**
      * Takes input of the diff array and returns the common parts.
@@ -23,30 +23,34 @@ abstract class AbstractChunkOutputBuilder implements \PhpCsFixer\Diff\Output\Dif
      */
     protected function getCommonChunks(array $diff, $lineThreshold = 5)
     {
-        $diffSize = \count($diff);
-        $capturing = \false;
-        $chunkStart = 0;
-        $chunkSize = 0;
+        $diffSize     = \count($diff);
+        $capturing    = false;
+        $chunkStart   = 0;
+        $chunkSize    = 0;
         $commonChunks = [];
+
         for ($i = 0; $i < $diffSize; ++$i) {
-            if ($diff[$i][1] === 0) {
-                if ($capturing === \false) {
-                    $capturing = \true;
+            if ($diff[$i][1] === 0 /* OLD */) {
+                if ($capturing === false) {
+                    $capturing  = true;
                     $chunkStart = $i;
-                    $chunkSize = 0;
+                    $chunkSize  = 0;
                 } else {
                     ++$chunkSize;
                 }
-            } elseif ($capturing !== \false) {
+            } elseif ($capturing !== false) {
                 if ($chunkSize >= $lineThreshold) {
                     $commonChunks[$chunkStart] = $chunkStart + $chunkSize;
                 }
-                $capturing = \false;
+
+                $capturing = false;
             }
         }
-        if ($capturing !== \false && $chunkSize >= $lineThreshold) {
+
+        if ($capturing !== false && $chunkSize >= $lineThreshold) {
             $commonChunks[$chunkStart] = $chunkStart + $chunkSize;
         }
+
         return $commonChunks;
     }
 }

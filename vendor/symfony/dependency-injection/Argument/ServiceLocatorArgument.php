@@ -8,30 +8,35 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
+namespace Symfony\Component\DependencyInjection\Argument;
+
+use Symfony\Component\DependencyInjection\Reference;
+
 /**
  * Represents a closure acting as a service locator.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceLocatorArgument implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\ArgumentInterface
+class ServiceLocatorArgument implements ArgumentInterface
 {
     use ReferenceSetArgumentTrait;
+
     private $taggedIteratorArgument;
+
     /**
      * @param Reference[]|TaggedIteratorArgument $values
      */
     public function __construct($values = [])
     {
-        if ($values instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
+        if ($values instanceof TaggedIteratorArgument) {
             $this->taggedIteratorArgument = $values;
             $this->values = [];
         } else {
             $this->setValues($values);
         }
     }
+
     /**
      * @return \Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument|null
      */

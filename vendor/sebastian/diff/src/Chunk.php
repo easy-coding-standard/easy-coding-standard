@@ -1,6 +1,4 @@
-<?php
-
-/*
+<?php /*
  * This file is part of sebastian/diff.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
@@ -8,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\SebastianBergmann\Diff;
+namespace SebastianBergmann\Diff;
 
 final class Chunk
 {
@@ -16,22 +14,27 @@ final class Chunk
      * @var int
      */
     private $start;
+
     /**
      * @var int
      */
     private $startRange;
+
     /**
      * @var int
      */
     private $end;
+
     /**
      * @var int
      */
     private $endRange;
+
     /**
      * @var Line[]
      */
     private $lines;
+
     /**
      * @param int $start
      * @param int $startRange
@@ -44,12 +47,13 @@ final class Chunk
         $startRange = (int) $startRange;
         $end = (int) $end;
         $endRange = (int) $endRange;
-        $this->start = $start;
+        $this->start      = $start;
         $this->startRange = $startRange;
-        $this->end = $end;
-        $this->endRange = $endRange;
-        $this->lines = $lines;
+        $this->end        = $end;
+        $this->endRange   = $endRange;
+        $this->lines      = $lines;
     }
+
     /**
      * @return int
      */
@@ -57,6 +61,7 @@ final class Chunk
     {
         return $this->start;
     }
+
     /**
      * @return int
      */
@@ -64,6 +69,7 @@ final class Chunk
     {
         return $this->startRange;
     }
+
     /**
      * @return int
      */
@@ -71,6 +77,7 @@ final class Chunk
     {
         return $this->end;
     }
+
     /**
      * @return int
      */
@@ -78,6 +85,7 @@ final class Chunk
     {
         return $this->endRange;
     }
+
     /**
      * @return mixed[]
      */
@@ -85,6 +93,7 @@ final class Chunk
     {
         return $this->lines;
     }
+
     /**
      * @param Line[] $lines
      * @return void
@@ -92,10 +101,11 @@ final class Chunk
     public function setLines(array $lines)
     {
         foreach ($lines as $line) {
-            if (!$line instanceof \ECSPrefix20210509\SebastianBergmann\Diff\Line) {
-                throw new \ECSPrefix20210509\SebastianBergmann\Diff\InvalidArgumentException();
+            if (!$line instanceof Line) {
+                throw new InvalidArgumentException;
             }
         }
+
         $this->lines = $lines;
     }
 }

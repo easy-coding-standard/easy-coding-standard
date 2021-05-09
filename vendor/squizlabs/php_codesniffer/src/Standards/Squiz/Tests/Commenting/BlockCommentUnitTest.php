@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the BlockComment sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\Commenting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class BlockCommentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class BlockCommentUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Get a list of CLI values to set before the file is tested.
      *
@@ -23,8 +26,10 @@ class BlockCommentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSnif
     public function setCliValues($testFile, $config)
     {
         $config->tabWidth = 4;
-    }
-    //end setCliValues()
+
+    }//end setCliValues()
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -35,10 +40,50 @@ class BlockCommentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSnif
      */
     public function getErrorList()
     {
-        $errors = [3 => 1, 8 => 1, 20 => 1, 24 => 1, 30 => 1, 31 => 1, 34 => 1, 40 => 1, 45 => 1, 49 => 1, 51 => 1, 53 => 1, 57 => 1, 60 => 1, 61 => 1, 63 => 1, 65 => 1, 68 => 1, 70 => 1, 72 => 1, 75 => 1, 84 => 1, 87 => 1, 89 => 1, 92 => 1, 111 => 1, 159 => 1, 181 => 1, 188 => 1, 208 => 1, 214 => 1, 226 => 1, 227 => 1, 232 => 1, 233 => 1, 256 => 1];
+        $errors = [
+            3   => 1,
+            8   => 1,
+            20  => 1,
+            24  => 1,
+            30  => 1,
+            31  => 1,
+            34  => 1,
+            40  => 1,
+            45  => 1,
+            49  => 1,
+            51  => 1,
+            53  => 1,
+            57  => 1,
+            60  => 1,
+            61  => 1,
+            63  => 1,
+            65  => 1,
+            68  => 1,
+            70  => 1,
+            72  => 1,
+            75  => 1,
+            84  => 1,
+            87  => 1,
+            89  => 1,
+            92  => 1,
+            111 => 1,
+            159 => 1,
+            181 => 1,
+            188 => 1,
+            208 => 1,
+            214 => 1,
+            226 => 1,
+            227 => 1,
+            232 => 1,
+            233 => 1,
+            256 => 1,
+        ];
+
         return $errors;
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -50,7 +95,8 @@ class BlockCommentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSnif
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

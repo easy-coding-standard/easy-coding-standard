@@ -8,29 +8,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DependencyInjection;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass as BaseMergeExtensionConfigurationPass;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+namespace Symfony\Component\HttpKernel\DependencyInjection;
+
+use Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass as BaseMergeExtensionConfigurationPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
 /**
  * Ensures certain extensions are always loaded.
  *
  * @author Kris Wallsmith <kris@symfony.com>
  */
-class MergeExtensionConfigurationPass extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\MergeExtensionConfigurationPass
+class MergeExtensionConfigurationPass extends BaseMergeExtensionConfigurationPass
 {
     private $extensions;
+
     public function __construct(array $extensions)
     {
         $this->extensions = $extensions;
     }
-    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+
+    public function process(ContainerBuilder $container)
     {
         foreach ($this->extensions as $extension) {
             if (!\count($container->getExtensionConfig($extension))) {
                 $container->loadFromExtension($extension, []);
             }
         }
+
         parent::process($container);
     }
 }

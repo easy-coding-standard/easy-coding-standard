@@ -4,20 +4,24 @@ namespace Symplify\Skipper\SkipCriteriaResolver;
 
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\Skipper\ValueObject\Option;
+
 final class SkippedClassAndCodesResolver
 {
     /**
      * @var array<string, string[]|null>
      */
     private $skippedClassAndCodes = [];
+
     /**
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+
+    public function __construct(ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
+
     /**
      * @return mixed[]
      */
@@ -26,18 +30,23 @@ final class SkippedClassAndCodesResolver
         if ($this->skippedClassAndCodes !== []) {
             return $this->skippedClassAndCodes;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\Symplify\Skipper\ValueObject\Option::SKIP);
+
+        $skip = $this->parameterProvider->provideArrayParameter(Option::SKIP);
+
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
-            if (\is_int($key)) {
+            if (is_int($key)) {
                 $key = $value;
                 $value = null;
             }
-            if (\substr_count($key, '.') !== 1) {
+
+            if (substr_count($key, '.') !== 1) {
                 continue;
             }
+
             $this->skippedClassAndCodes[$key] = $value;
         }
+
         return $this->skippedClassAndCodes;
     }
 }

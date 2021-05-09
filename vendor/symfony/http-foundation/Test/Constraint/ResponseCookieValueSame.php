@@ -8,17 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Test\Constraint;
 
-use ECSPrefix20210509\PHPUnit\Framework\Constraint\Constraint;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Cookie;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
-final class ResponseCookieValueSame extends \ECSPrefix20210509\PHPUnit\Framework\Constraint\Constraint
+namespace Symfony\Component\HttpFoundation\Test\Constraint;
+
+use PHPUnit\Framework\Constraint\Constraint;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
+
+final class ResponseCookieValueSame extends Constraint
 {
     private $name;
     private $value;
     private $path;
     private $domain;
+
     /**
      * @param string $name
      * @param string $value
@@ -35,22 +38,25 @@ final class ResponseCookieValueSame extends \ECSPrefix20210509\PHPUnit\Framework
         $this->path = $path;
         $this->domain = $domain;
     }
+
     /**
      * {@inheritdoc}
      * @return string
      */
     public function toString()
     {
-        $str = \sprintf('has cookie "%s"', $this->name);
+        $str = sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
-            $str .= \sprintf(' with path "%s"', $this->path);
+            $str .= sprintf(' with path "%s"', $this->path);
         }
         if ($this->domain) {
-            $str .= \sprintf(' for domain "%s"', $this->domain);
+            $str .= sprintf(' for domain "%s"', $this->domain);
         }
-        $str .= \sprintf(' with value "%s"', $this->value);
+        $str .= sprintf(' with value "%s"', $this->value);
+
         return $str;
     }
+
     /**
      * @param Response $response
      *
@@ -61,10 +67,12 @@ final class ResponseCookieValueSame extends \ECSPrefix20210509\PHPUnit\Framework
     {
         $cookie = $this->getCookie($response);
         if (!$cookie) {
-            return \false;
+            return false;
         }
+
         return $this->value === $cookie->getValue();
     }
+
     /**
      * @param Response $response
      *
@@ -73,17 +81,20 @@ final class ResponseCookieValueSame extends \ECSPrefix20210509\PHPUnit\Framework
      */
     protected function failureDescription($response)
     {
-        return 'the Response ' . $this->toString();
+        return 'the Response '.$this->toString();
     }
+
     /**
      * @return \Symfony\Component\HttpFoundation\Cookie|null
      */
-    protected function getCookie(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response)
+    protected function getCookie(Response $response)
     {
         $cookies = $response->headers->getCookies();
-        $filteredCookies = \array_filter($cookies, function (\ECSPrefix20210509\Symfony\Component\HttpFoundation\Cookie $cookie) {
+
+        $filteredCookies = array_filter($cookies, function (Cookie $cookie) {
             return $cookie->getName() === $this->name && $cookie->getPath() === $this->path && $cookie->getDomain() === $this->domain;
         });
-        return \reset($filteredCookies) ?: null;
+
+        return reset($filteredCookies) ?: null;
     }
 }

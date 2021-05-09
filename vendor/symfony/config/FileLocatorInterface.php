@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config;
 
-use ECSPrefix20210509\Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+namespace Symfony\Component\Config;
+
+use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
@@ -28,5 +30,5 @@ interface FileLocatorInterface
      * @throws \InvalidArgumentException        If $name is empty
      * @throws FileLocatorFileNotFoundException If a file is not found
      */
-    public function locate($name, $currentPath = null, $first = \true);
+    public function locate($name, $currentPath = null, $first = true);
 }

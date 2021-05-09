@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the OneTraitPerFile sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2010-2014 Alexander Obuhovich
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Files;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class OneTraitPerFileUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class OneTraitPerFileUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,14 @@ class OneTraitPerFileUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractS
      */
     public function getErrorList()
     {
-        return [6 => 1, 10 => 1];
-    }
-    //end getErrorList()
+        return [
+            6  => 1,
+            10 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +44,8 @@ class OneTraitPerFileUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractS
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

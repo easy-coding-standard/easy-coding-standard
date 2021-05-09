@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\CastNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -18,10 +19,11 @@ use PhpCsFixer\FixerDefinition\VersionSpecification;
 use PhpCsFixer\FixerDefinition\VersionSpecificCodeSample;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author SpacePossum
  */
-final class ShortScalarCastFixer extends \PhpCsFixer\AbstractFixer
+final class ShortScalarCastFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -29,33 +31,60 @@ final class ShortScalarCastFixer extends \PhpCsFixer\AbstractFixer
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Cast `(boolean)` and `(integer)` should be written as `(bool)` and `(int)`, `(double)` and `(real)` as `(float)`, `(binary)` as `(string)`.', [new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\n\$a = (boolean) \$b;\n\$a = (integer) \$b;\n\$a = (double) \$b;\n\$a = (real) \$b;\n\n\$a = (binary) \$b;\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(null, 70399)), new \PhpCsFixer\FixerDefinition\VersionSpecificCodeSample("<?php\n\$a = (boolean) \$b;\n\$a = (integer) \$b;\n\$a = (double) \$b;\n\n\$a = (binary) \$b;\n", new \PhpCsFixer\FixerDefinition\VersionSpecification(70400))]);
+        return new FixerDefinition(
+            'Cast `(boolean)` and `(integer)` should be written as `(bool)` and `(int)`, `(double)` and `(real)` as `(float)`, `(binary)` as `(string)`.',
+            [
+                new VersionSpecificCodeSample(
+                    "<?php\n\$a = (boolean) \$b;\n\$a = (integer) \$b;\n\$a = (double) \$b;\n\$a = (real) \$b;\n\n\$a = (binary) \$b;\n",
+                    new VersionSpecification(null, 70399)
+                ),
+                new VersionSpecificCodeSample(
+                    "<?php\n\$a = (boolean) \$b;\n\$a = (integer) \$b;\n\$a = (double) \$b;\n\n\$a = (binary) \$b;\n",
+                    new VersionSpecification(70400)
+                ),
+            ]
+        );
     }
+
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getCastTokenKinds());
+        return $tokens->isAnyTokenKindsFound(Token::getCastTokenKinds());
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        static $castMap = ['boolean' => 'bool', 'integer' => 'int', 'double' => 'float', 'real' => 'float', 'binary' => 'string'];
+        static $castMap = [
+            'boolean' => 'bool',
+            'integer' => 'int',
+            'double' => 'float',
+            'real' => 'float',
+            'binary' => 'string',
+        ];
+
         for ($index = 0, $count = $tokens->count(); $index < $count; ++$index) {
             if (!$tokens[$index]->isCast()) {
                 continue;
             }
-            $castFrom = \trim(\substr($tokens[$index]->getContent(), 1, -1));
-            $castFromLowered = \strtolower($castFrom);
+
+            $castFrom = trim(substr($tokens[$index]->getContent(), 1, -1));
+            $castFromLowered = strtolower($castFrom);
+
             if (!\array_key_exists($castFromLowered, $castMap)) {
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$tokens[$index]->getId(), \str_replace($castFrom, $castMap[$castFromLowered], $tokens[$index]->getContent())]);
+
+            $tokens[$index] = new Token([
+                $tokens[$index]->getId(),
+                str_replace($castFrom, $castMap[$castFromLowered], $tokens[$index]->getContent()),
+            ]);
         }
     }
 }

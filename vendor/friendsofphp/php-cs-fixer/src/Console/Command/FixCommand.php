@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Console\Command;
 
 use PhpCsFixer\Config;
@@ -22,54 +23,63 @@ use PhpCsFixer\Console\Report\FixReport\ReportSummary;
 use PhpCsFixer\Error\ErrorsManager;
 use PhpCsFixer\Runner\Runner;
 use PhpCsFixer\ToolInfoInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Terminal;
-use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventDispatcher;
-use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Terminal;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
  * @internal
  */
-final class FixCommand extends \ECSPrefix20210509\Symfony\Component\Console\Command\Command
+final class FixCommand extends Command
 {
     protected static $defaultName = 'fix';
+
     /**
      * @var EventDispatcherInterface
      */
     private $eventDispatcher;
+
     /**
      * @var ErrorsManager
      */
     private $errorsManager;
+
     /**
      * @var Stopwatch
      */
     private $stopwatch;
+
     /**
      * @var ConfigInterface
      */
     private $defaultConfig;
+
     /**
      * @var ToolInfoInterface
      */
     private $toolInfo;
-    public function __construct(\PhpCsFixer\ToolInfoInterface $toolInfo)
+
+    public function __construct(ToolInfoInterface $toolInfo)
     {
         parent::__construct();
-        $this->defaultConfig = new \PhpCsFixer\Config();
-        $this->errorsManager = new \PhpCsFixer\Error\ErrorsManager();
-        $this->eventDispatcher = new \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventDispatcher();
-        $this->stopwatch = new \ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch();
+
+        $this->defaultConfig = new Config();
+        $this->errorsManager = new ErrorsManager();
+        $this->eventDispatcher = new EventDispatcher();
+        $this->stopwatch = new Stopwatch();
         $this->toolInfo = $toolInfo;
     }
+
     /**
      * {@inheritdoc}
      *
@@ -179,80 +189,182 @@ Exit code of the fix command is built using following bit flags:
 * 32 - Configuration error of a Fixer.
 * 64 - Exception raised within the application.
 
-EOF;
+EOF
+            ;
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
     protected function configure()
     {
-        $this->setDefinition([new \ECSPrefix20210509\Symfony\Component\Console\Input\InputArgument('path', \ECSPrefix20210509\Symfony\Component\Console\Input\InputArgument::IS_ARRAY, 'The path.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('path-mode', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Specify path mode (can be override or intersection).', \PhpCsFixer\Console\ConfigurationResolver::PATH_MODE_OVERRIDE), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('allow-risky', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Are risky fixers allowed (can be yes or no).'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('config', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('dry-run', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Only shows which files would have been modified.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('rules', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The rules.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('using-cache', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Does cache should be used (can be yes or no).'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('cache-file', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The path to the cache file.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('diff', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Also produce diff for each file.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('format', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'To output results in other formats.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('stop-on-violation', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Stop execution on first violation.'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('show-progress', '', \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'Type of progress indicator (none, dots).')])->setDescription('Fixes a directory or a file.');
+        $this
+            ->setDefinition(
+                [
+                    new InputArgument('path', InputArgument::IS_ARRAY, 'The path.'),
+                    new InputOption('path-mode', '', InputOption::VALUE_REQUIRED, 'Specify path mode (can be override or intersection).', ConfigurationResolver::PATH_MODE_OVERRIDE),
+                    new InputOption('allow-risky', '', InputOption::VALUE_REQUIRED, 'Are risky fixers allowed (can be yes or no).'),
+                    new InputOption('config', '', InputOption::VALUE_REQUIRED, 'The path to a .php-cs-fixer.php file.'),
+                    new InputOption('dry-run', '', InputOption::VALUE_NONE, 'Only shows which files would have been modified.'),
+                    new InputOption('rules', '', InputOption::VALUE_REQUIRED, 'The rules.'),
+                    new InputOption('using-cache', '', InputOption::VALUE_REQUIRED, 'Does cache should be used (can be yes or no).'),
+                    new InputOption('cache-file', '', InputOption::VALUE_REQUIRED, 'The path to the cache file.'),
+                    new InputOption('diff', '', InputOption::VALUE_NONE, 'Also produce diff for each file.'),
+                    new InputOption('format', '', InputOption::VALUE_REQUIRED, 'To output results in other formats.'),
+                    new InputOption('stop-on-violation', '', InputOption::VALUE_NONE, 'Stop execution on first violation.'),
+                    new InputOption('show-progress', '', InputOption::VALUE_REQUIRED, 'Type of progress indicator (none, dots).'),
+                ]
+            )
+            ->setDescription('Fixes a directory or a file.')
+        ;
     }
+
     /**
      * {@inheritdoc}
      * @return int
      */
-    protected function execute(\ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $verbosity = $output->getVerbosity();
+
         $passedConfig = $input->getOption('config');
         $passedRules = $input->getOption('rules');
+
         if (null !== $passedConfig && null !== $passedRules) {
-            throw new \PhpCsFixer\ConfigurationException\InvalidConfigurationException('Passing both `--config` and `--rules` options is not allowed.');
+            throw new InvalidConfigurationException('Passing both `--config` and `--rules` options is not allowed.');
         }
-        $resolver = new \PhpCsFixer\Console\ConfigurationResolver($this->defaultConfig, ['allow-risky' => $input->getOption('allow-risky'), 'config' => $passedConfig, 'dry-run' => $input->getOption('dry-run'), 'rules' => $passedRules, 'path' => $input->getArgument('path'), 'path-mode' => $input->getOption('path-mode'), 'using-cache' => $input->getOption('using-cache'), 'cache-file' => $input->getOption('cache-file'), 'format' => $input->getOption('format'), 'diff' => $input->getOption('diff'), 'stop-on-violation' => $input->getOption('stop-on-violation'), 'verbosity' => $verbosity, 'show-progress' => $input->getOption('show-progress')], \getcwd(), $this->toolInfo);
+
+        $resolver = new ConfigurationResolver(
+            $this->defaultConfig,
+            [
+                'allow-risky' => $input->getOption('allow-risky'),
+                'config' => $passedConfig,
+                'dry-run' => $input->getOption('dry-run'),
+                'rules' => $passedRules,
+                'path' => $input->getArgument('path'),
+                'path-mode' => $input->getOption('path-mode'),
+                'using-cache' => $input->getOption('using-cache'),
+                'cache-file' => $input->getOption('cache-file'),
+                'format' => $input->getOption('format'),
+                'diff' => $input->getOption('diff'),
+                'stop-on-violation' => $input->getOption('stop-on-violation'),
+                'verbosity' => $verbosity,
+                'show-progress' => $input->getOption('show-progress'),
+            ],
+            getcwd(),
+            $this->toolInfo
+        );
+
         $reporter = $resolver->getReporter();
-        $stdErr = $output instanceof \ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface ? $output->getErrorOutput() : ('txt' === $reporter->getFormat() ? $output : null);
+
+        $stdErr = $output instanceof ConsoleOutputInterface
+            ? $output->getErrorOutput()
+            : ('txt' === $reporter->getFormat() ? $output : null)
+        ;
+
         if (null !== $stdErr) {
-            if (\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $verbosity) {
+            if (OutputInterface::VERBOSITY_VERBOSE <= $verbosity) {
                 $stdErr->writeln($this->getApplication()->getLongVersion());
-                $stdErr->writeln(\sprintf('Runtime: <info>PHP %s</info>', \PHP_VERSION));
+                $stdErr->writeln(sprintf('Runtime: <info>PHP %s</info>', PHP_VERSION));
             }
+
             $configFile = $resolver->getConfigFile();
-            $stdErr->writeln(\sprintf('Loaded config <comment>%s</comment>%s.', $resolver->getConfig()->getName(), null === $configFile ? '' : ' from "' . $configFile . '"'));
+            $stdErr->writeln(sprintf('Loaded config <comment>%s</comment>%s.', $resolver->getConfig()->getName(), null === $configFile ? '' : ' from "'.$configFile.'"'));
+
             if ($resolver->getUsingCache()) {
                 $cacheFile = $resolver->getCacheFile();
-                if (\is_file($cacheFile)) {
-                    $stdErr->writeln(\sprintf('Using cache file "%s".', $cacheFile));
+
+                if (is_file($cacheFile)) {
+                    $stdErr->writeln(sprintf('Using cache file "%s".', $cacheFile));
                 }
             }
         }
+
         $progressType = $resolver->getProgress();
         $finder = $resolver->getFinder();
+
         if (null !== $stdErr && $resolver->configFinderIsOverridden()) {
-            $stdErr->writeln(\sprintf($stdErr->isDecorated() ? '<bg=yellow;fg=black;>%s</>' : '%s', 'Paths from configuration file have been overridden by paths provided as command arguments.'));
+            $stdErr->writeln(
+                sprintf($stdErr->isDecorated() ? '<bg=yellow;fg=black;>%s</>' : '%s', 'Paths from configuration file have been overridden by paths provided as command arguments.')
+            );
         }
+
         if ('none' === $progressType || null === $stdErr) {
-            $progressOutput = new \PhpCsFixer\Console\Output\NullOutput();
+            $progressOutput = new NullOutput();
         } else {
-            $finder = new \ArrayIterator(\iterator_to_array($finder));
-            $progressOutput = new \PhpCsFixer\Console\Output\ProcessOutput($stdErr, $this->eventDispatcher, (new \ECSPrefix20210509\Symfony\Component\Console\Terminal())->getWidth(), \count($finder));
+            $finder = new \ArrayIterator(iterator_to_array($finder));
+            $progressOutput = new ProcessOutput(
+                $stdErr,
+                $this->eventDispatcher,
+                (new Terminal())->getWidth(),
+                \count($finder)
+            );
         }
-        $runner = new \PhpCsFixer\Runner\Runner($finder, $resolver->getFixers(), $resolver->getDiffer(), 'none' !== $progressType ? $this->eventDispatcher : null, $this->errorsManager, $resolver->getLinter(), $resolver->isDryRun(), $resolver->getCacheManager(), $resolver->getDirectory(), $resolver->shouldStopOnViolation());
+
+        $runner = new Runner(
+            $finder,
+            $resolver->getFixers(),
+            $resolver->getDiffer(),
+            'none' !== $progressType ? $this->eventDispatcher : null,
+            $this->errorsManager,
+            $resolver->getLinter(),
+            $resolver->isDryRun(),
+            $resolver->getCacheManager(),
+            $resolver->getDirectory(),
+            $resolver->shouldStopOnViolation()
+        );
+
         $this->stopwatch->start('fixFiles');
         $changed = $runner->fix();
         $this->stopwatch->stop('fixFiles');
+
         $progressOutput->printLegend();
+
         $fixEvent = $this->stopwatch->getEvent('fixFiles');
-        $reportSummary = new \PhpCsFixer\Console\Report\FixReport\ReportSummary($changed, $fixEvent->getDuration(), $fixEvent->getMemory(), \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERBOSE <= $verbosity, $resolver->isDryRun(), $output->isDecorated());
-        $output->isDecorated() ? $output->write($reporter->generate($reportSummary)) : $output->write($reporter->generate($reportSummary), \false, \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface::OUTPUT_RAW);
+
+        $reportSummary = new ReportSummary(
+            $changed,
+            $fixEvent->getDuration(),
+            $fixEvent->getMemory(),
+            OutputInterface::VERBOSITY_VERBOSE <= $verbosity,
+            $resolver->isDryRun(),
+            $output->isDecorated()
+        );
+
+        $output->isDecorated()
+            ? $output->write($reporter->generate($reportSummary))
+            : $output->write($reporter->generate($reportSummary), false, OutputInterface::OUTPUT_RAW)
+        ;
+
         $invalidErrors = $this->errorsManager->getInvalidErrors();
         $exceptionErrors = $this->errorsManager->getExceptionErrors();
         $lintErrors = $this->errorsManager->getLintErrors();
+
         if (null !== $stdErr) {
-            $errorOutput = new \PhpCsFixer\Console\Output\ErrorOutput($stdErr);
+            $errorOutput = new ErrorOutput($stdErr);
+
             if (\count($invalidErrors) > 0) {
                 $errorOutput->listErrors('linting before fixing', $invalidErrors);
             }
+
             if (\count($exceptionErrors) > 0) {
                 $errorOutput->listErrors('fixing', $exceptionErrors);
             }
+
             if (\count($lintErrors) > 0) {
                 $errorOutput->listErrors('linting after fixing', $lintErrors);
             }
         }
-        $exitStatusCalculator = new \PhpCsFixer\Console\Command\FixCommandExitStatusCalculator();
-        return $exitStatusCalculator->calculate($resolver->isDryRun(), \count($changed) > 0, \count($invalidErrors) > 0, \count($exceptionErrors) > 0, \count($lintErrors) > 0);
+
+        $exitStatusCalculator = new FixCommandExitStatusCalculator();
+
+        return $exitStatusCalculator->calculate(
+            $resolver->isDryRun(),
+            \count($changed) > 0,
+            \count($invalidErrors) > 0,
+            \count($exceptionErrors) > 0,
+            \count($lintErrors) > 0
+        );
     }
 }

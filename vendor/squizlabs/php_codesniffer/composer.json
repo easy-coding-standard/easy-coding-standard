@@ -1,12 +1,12 @@
 {
-    "name": "squizlabs\/php_codesniffer",
+    "name": "squizlabs/php_codesniffer",
     "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
     "type": "library",
     "keywords": [
         "phpcs",
         "standards"
     ],
-    "homepage": "https:\/\/github.com\/squizlabs\/PHP_CodeSniffer",
+    "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -15,9 +15,9 @@
         }
     ],
     "support": {
-        "issues": "https:\/\/github.com\/squizlabs\/PHP_CodeSniffer\/issues",
-        "wiki": "https:\/\/github.com\/squizlabs\/PHP_CodeSniffer\/wiki",
-        "source": "https:\/\/github.com\/squizlabs\/PHP_CodeSniffer"
+        "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+        "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki",
+        "source": "https://github.com/squizlabs/PHP_CodeSniffer"
     },
     "extra": {
         "branch-alias": {
@@ -31,10 +31,10 @@
         "ext-simplexml": "*"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+        "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
     },
     "bin": [
-        "bin\/phpcs",
-        "bin\/phpcbf"
+        "bin/phpcs",
+        "bin/phpcbf"
     ]
 }

@@ -9,18 +9,20 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Tokenizer\Transformer;
 
 use PhpCsFixer\Tokenizer\AbstractTransformer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * Transforms attribute related Tokens.
  *
  * @internal
  */
-final class AttributeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class AttributeTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -31,6 +33,7 @@ final class AttributeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
         // must run before all other transformers that might touch attributes
         return 200;
     }
+
     /**
      * {@inheritdoc}
      * @return int
@@ -39,34 +42,42 @@ final class AttributeTransformer extends \PhpCsFixer\Tokenizer\AbstractTransform
     {
         return 80000;
     }
+
     /**
      * {@inheritdoc}
      * @return void
      * @param int $index
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
+    public function process(Tokens $tokens, Token $token, $index)
     {
         $index = (int) $index;
-        if (!$tokens[$index]->isGivenKind(\T_ATTRIBUTE)) {
+        if (!$tokens[$index]->isGivenKind(T_ATTRIBUTE)) {
             return;
         }
+
         $level = 1;
+
         do {
             ++$index;
+
             if ($tokens[$index]->equals('[')) {
                 ++$level;
             } elseif ($tokens[$index]->equals(']')) {
                 --$level;
             }
         } while (0 < $level);
-        $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE, ']']);
+
+        $tokens[$index] = new Token([CT::T_ATTRIBUTE_CLOSE, ']']);
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
     public function getCustomTokens()
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_ATTRIBUTE_CLOSE];
+        return [
+            CT::T_ATTRIBUTE_CLOSE,
+        ];
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the FunctionCommentThrowTag sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\Commenting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class FunctionCommentThrowTagUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class FunctionCommentThrowTagUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,23 @@ class FunctionCommentThrowTagUnitTest extends \PHP_CodeSniffer\Tests\Standards\A
      */
     public function getErrorList()
     {
-        return [9 => 1, 21 => 1, 35 => 1, 47 => 1, 61 => 2, 106 => 1, 123 => 1, 200 => 1, 219 => 1, 287 => 1, 397 => 1];
-    }
-    //end getErrorList()
+        return [
+            9   => 1,
+            21  => 1,
+            35  => 1,
+            47  => 1,
+            61  => 2,
+            106 => 1,
+            123 => 1,
+            200 => 1,
+            219 => 1,
+            287 => 1,
+            397 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +53,8 @@ class FunctionCommentThrowTagUnitTest extends \PHP_CodeSniffer\Tests\Standards\A
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

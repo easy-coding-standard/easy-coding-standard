@@ -1,13 +1,16 @@
 <?php
 
-namespace ECSPrefix20210509\Nette;
+namespace Nette;
+
 
 interface HtmlStringable
 {
-    /**
-     * Returns string in HTML format
-     * @return string
-     */
-    function __toString();
+	/**
+	 * Returns string in HTML format
+	 * @return string
+	 */
+	function __toString();
 }
-\interface_exists(\ECSPrefix20210509\Nette\Utils\IHtmlString::class);
+
+
+interface_exists(Utils\IHtmlString::class);

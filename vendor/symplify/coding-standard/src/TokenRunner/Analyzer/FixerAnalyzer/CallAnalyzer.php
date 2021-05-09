@@ -4,6 +4,7 @@ namespace Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 final class CallAnalyzer
 {
     /**
@@ -11,18 +12,22 @@ final class CallAnalyzer
      * @param int $bracketPosition
      * @return bool
      */
-    public function isMethodCall(\PhpCsFixer\Tokenizer\Tokens $tokens, $bracketPosition)
+    public function isMethodCall(Tokens $tokens, $bracketPosition)
     {
         $bracketPosition = (int) $bracketPosition;
-        $objectToken = new \PhpCsFixer\Tokenizer\Token([\T_OBJECT_OPERATOR, '->']);
-        $whitespaceToken = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']);
+        $objectToken = new Token([T_OBJECT_OPERATOR, '->']);
+        $whitespaceToken = new Token([T_WHITESPACE, ' ']);
+
         $previousTokenOfKindPosition = $tokens->getPrevTokenOfKind($bracketPosition, [$objectToken, $whitespaceToken]);
+
         // probably a function call
         if ($previousTokenOfKindPosition === null) {
-            return \false;
+            return false;
         }
+
         /** @var Token $token */
         $token = $tokens[$previousTokenOfKindPosition];
-        return $token->isGivenKind(\T_OBJECT_OPERATOR);
+
+        return $token->isGivenKind(T_OBJECT_OPERATOR);
     }
 }

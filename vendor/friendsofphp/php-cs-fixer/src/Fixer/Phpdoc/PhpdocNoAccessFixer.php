@@ -9,17 +9,19 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractProxyFixer;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
+
 /**
  * @author Graham Campbell <graham@alt-three.com>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocNoAccessFixer extends \PhpCsFixer\AbstractProxyFixer
+final class PhpdocNoAccessFixer extends AbstractProxyFixer
 {
     /**
      * {@inheritdoc}
@@ -27,7 +29,11 @@ final class PhpdocNoAccessFixer extends \PhpCsFixer\AbstractProxyFixer
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('`@access` annotations should be omitted from PHPDoc.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition(
+            '`@access` annotations should be omitted from PHPDoc.',
+            [
+                new CodeSample(
+                    '<?php
 class Foo
 {
     /**
@@ -36,8 +42,12 @@ class Foo
      */
     private $bar;
 }
-')]);
+'
+                ),
+            ]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -49,14 +59,16 @@ class Foo
     {
         return parent::getPriority();
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
     protected function createProxyFixers()
     {
-        $fixer = new \PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer();
+        $fixer = new GeneralPhpdocAnnotationRemoveFixer();
         $fixer->configure(['annotations' => ['access']]);
+
         return [$fixer];
     }
 }

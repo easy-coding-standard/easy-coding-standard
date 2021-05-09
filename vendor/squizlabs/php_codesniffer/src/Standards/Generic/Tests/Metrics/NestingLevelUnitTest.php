@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the NestingLevel sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Metrics;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class NestingLevelUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class NestingLevelUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -23,8 +26,10 @@ class NestingLevelUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSnif
     public function getErrorList()
     {
         return [73 => 1];
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -35,8 +40,12 @@ class NestingLevelUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSnif
      */
     public function getWarningList()
     {
-        return [27 => 1, 46 => 1];
-    }
-    //end getWarningList()
-}
-//end class
+        return [
+            27 => 1,
+            46 => 1,
+        ];
+
+    }//end getWarningList()
+
+
+}//end class

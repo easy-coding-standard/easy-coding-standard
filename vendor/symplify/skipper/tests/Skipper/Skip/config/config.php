@@ -1,25 +1,30 @@
 <?php
 
-declare (strict_types=1);
-namespace ECSPrefix20210509;
+declare(strict_types=1);
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip;
 use Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip;
 use Symplify\Skipper\ValueObject\Option;
-return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) : void {
+
+return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(\Symplify\Skipper\ValueObject\Option::SKIP, [
+
+    $parameters->set(Option::SKIP, [
         // classes
-        \Symplify\Skipper\Tests\Skipper\Skip\Source\SomeClassToSkip::class,
-        \Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class => ['Fixture/someFile', '*/someDirectory/*'],
+        SomeClassToSkip::class,
+
+        AnotherClassToSkip::class => ['Fixture/someFile', '*/someDirectory/*'],
+
         // code
-        \Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someCode' => null,
-        \Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someOtherCode' => ['*/someDirectory/*'],
-        \Symplify\Skipper\Tests\Skipper\Skip\Source\AnotherClassToSkip::class . '.someAnotherCode' => ['someDirectory/*'],
+        AnotherClassToSkip::class . '.someCode' => null,
+        AnotherClassToSkip::class . '.someOtherCode' => ['*/someDirectory/*'],
+        AnotherClassToSkip::class . '.someAnotherCode' => ['someDirectory/*'],
+
         // file paths
         __DIR__ . '/../Fixture/AlwaysSkippedPath',
-        '*\\PathSkippedWithMask\\*',
+        '*\PathSkippedWithMask\*',
+
         // messages
         'some fishy code at line 5!' => null,
         'some another fishy code at line 5!' => ['someDirectory/*'],

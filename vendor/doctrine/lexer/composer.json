@@ -1,5 +1,5 @@
 {
-    "name": "doctrine\/lexer",
+    "name": "doctrine/lexer",
     "type": "library",
     "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
     "keywords": [
@@ -9,39 +9,26 @@
         "annotations",
         "docblock"
     ],
-    "homepage": "https:\/\/www.doctrine-project.org\/projects\/lexer.html",
+    "homepage": "https://www.doctrine-project.org/projects/lexer.html",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Guilherme Blanco",
-            "email": "guilhermeblanco@gmail.com"
-        },
-        {
-            "name": "Roman Borschel",
-            "email": "roman@code-factory.org"
-        },
-        {
-            "name": "Johannes Schmitt",
-            "email": "schmittjoh@gmail.com"
-        }
+        {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},
+        {"name": "Roman Borschel", "email": "roman@code-factory.org"},
+        {"name": "Johannes Schmitt", "email": "schmittjoh@gmail.com"}
     ],
     "require": {
         "php": "^7.2 || ^8.0"
     },
     "require-dev": {
-        "doctrine\/coding-standard": "^6.0",
-        "phpstan\/phpstan": "^0.11.8",
-        "phpunit\/phpunit": "^8.2"
+        "doctrine/coding-standard": "^6.0",
+        "phpstan/phpstan": "^0.11.8",
+        "phpunit/phpunit": "^8.2"
     },
     "autoload": {
-        "psr-4": {
-            "ECSPrefix20210509\\Doctrine\\Common\\Lexer\\": "lib\/Doctrine\/Common\/Lexer"
-        }
+        "psr-4": { "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer" }
     },
     "autoload-dev": {
-        "psr-4": {
-            "ECSPrefix20210509\\Doctrine\\Tests\\": "tests\/Doctrine"
-        }
+        "psr-4": { "Doctrine\\Tests\\": "tests/Doctrine" }
     },
     "extra": {
         "branch-alias": {

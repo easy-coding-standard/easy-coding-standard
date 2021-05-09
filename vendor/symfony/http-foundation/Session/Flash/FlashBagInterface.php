@@ -8,15 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Flash;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+namespace Symfony\Component\HttpFoundation\Session\Flash;
+
+use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+
 /**
  * FlashBagInterface.
  *
  * @author Drak <drak@zikula.org>
  */
-interface FlashBagInterface extends \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+interface FlashBagInterface extends SessionBagInterface
 {
     /**
      * Adds a flash message for the given type.
@@ -25,6 +27,7 @@ interface FlashBagInterface extends \ECSPrefix20210509\Symfony\Component\HttpFou
      * @param string $type
      */
     public function add($type, $message);
+
     /**
      * Registers one or more messages for a given type.
      *
@@ -32,6 +35,7 @@ interface FlashBagInterface extends \ECSPrefix20210509\Symfony\Component\HttpFou
      * @param string $type
      */
     public function set($type, $messages);
+
     /**
      * Gets flash messages for a given type.
      *
@@ -41,12 +45,14 @@ interface FlashBagInterface extends \ECSPrefix20210509\Symfony\Component\HttpFou
      * @return array
      */
     public function peek($type, array $default = []);
+
     /**
      * Gets all flash messages.
      *
      * @return array
      */
     public function peekAll();
+
     /**
      * Gets and clears flash from the stack.
      *
@@ -56,16 +62,19 @@ interface FlashBagInterface extends \ECSPrefix20210509\Symfony\Component\HttpFou
      * @param string $type
      */
     public function get($type, array $default = []);
+
     /**
      * Gets and clears flashes from the stack.
      *
      * @return array
      */
     public function all();
+
     /**
      * Sets all flash messages.
      */
     public function setAll(array $messages);
+
     /**
      * Has flash messages for a given type?
      *
@@ -73,6 +82,7 @@ interface FlashBagInterface extends \ECSPrefix20210509\Symfony\Component\HttpFou
      * @param string $type
      */
     public function has($type);
+
     /**
      * Returns a list of all defined types.
      *

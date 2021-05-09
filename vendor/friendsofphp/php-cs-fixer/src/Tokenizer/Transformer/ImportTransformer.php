@@ -9,12 +9,14 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Tokenizer\Transformer;
 
 use PhpCsFixer\Tokenizer\AbstractTransformer;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * Transform const/function import tokens.
  *
@@ -26,7 +28,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-final class ImportTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
+final class ImportTransformer extends AbstractTransformer
 {
     /**
      * {@inheritdoc}
@@ -36,28 +38,35 @@ final class ImportTransformer extends \PhpCsFixer\Tokenizer\AbstractTransformer
     {
         return 50600;
     }
+
     /**
      * {@inheritdoc}
      * @return void
      * @param int $index
      */
-    public function process(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $index)
+    public function process(Tokens $tokens, Token $token, $index)
     {
         $index = (int) $index;
-        if (!$token->isGivenKind([\T_CONST, \T_FUNCTION])) {
+        if (!$token->isGivenKind([T_CONST, T_FUNCTION])) {
             return;
         }
+
         $prevToken = $tokens[$tokens->getPrevMeaningfulToken($index)];
-        if ($prevToken->isGivenKind(\T_USE)) {
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([$token->isGivenKind(\T_FUNCTION) ? \PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT : \PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, $token->getContent()]);
+
+        if ($prevToken->isGivenKind(T_USE)) {
+            $tokens[$index] = new Token([
+                $token->isGivenKind(T_FUNCTION) ? CT::T_FUNCTION_IMPORT : CT::T_CONST_IMPORT,
+                $token->getContent(),
+            ]);
         }
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
     public function getCustomTokens()
     {
-        return [\PhpCsFixer\Tokenizer\CT::T_CONST_IMPORT, \PhpCsFixer\Tokenizer\CT::T_FUNCTION_IMPORT];
+        return [CT::T_CONST_IMPORT, CT::T_FUNCTION_IMPORT];
     }
 }

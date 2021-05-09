@@ -8,16 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Attribute;
+
+namespace Symfony\Component\HttpFoundation\Session\Attribute;
 
 /**
  * This class relates to session attribute storage.
  */
-class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface, \IteratorAggregate, \Countable
+class AttributeBag implements AttributeBagInterface, \IteratorAggregate, \Countable
 {
     private $name = 'attributes';
     private $storageKey;
+
     protected $attributes = [];
+
     /**
      * @param string $storageKey The key used to store attributes in the session
      */
@@ -26,6 +29,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
         $storageKey = (string) $storageKey;
         $this->storageKey = $storageKey;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -33,6 +37,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
     {
         return $this->name;
     }
+
     /**
      * @param string $name
      */
@@ -41,13 +46,15 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
         $name = (string) $name;
         $this->name = $name;
     }
+
     /**
      * {@inheritdoc}
      */
     public function initialize(array &$attributes)
     {
-        $this->attributes =& $attributes;
+        $this->attributes = &$attributes;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -55,6 +62,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
     {
         return $this->storageKey;
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -64,6 +72,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
         $name = (string) $name;
         return \array_key_exists($name, $this->attributes);
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -73,6 +82,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
         $name = (string) $name;
         return \array_key_exists($name, $this->attributes) ? $this->attributes[$name] : $default;
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -82,6 +92,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
         $name = (string) $name;
         $this->attributes[$name] = $value;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -89,6 +100,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
     {
         return $this->attributes;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -99,6 +111,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
             $this->set($key, $value);
         }
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -111,8 +124,10 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
             $retval = $this->attributes[$name];
             unset($this->attributes[$name]);
         }
+
         return $retval;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -120,8 +135,10 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
     {
         $return = $this->attributes;
         $this->attributes = [];
+
         return $return;
     }
+
     /**
      * Returns an iterator for attributes.
      *
@@ -131,6 +148,7 @@ class AttributeBag implements \ECSPrefix20210509\Symfony\Component\HttpFoundatio
     {
         return new \ArrayIterator($this->attributes);
     }
+
     /**
      * Returns the number of attributes.
      *

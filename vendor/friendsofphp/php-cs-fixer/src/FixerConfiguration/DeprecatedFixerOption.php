@@ -9,27 +9,31 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\FixerConfiguration;
 
-final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\DeprecatedFixerOptionInterface
+final class DeprecatedFixerOption implements DeprecatedFixerOptionInterface
 {
     /**
      * @var FixerOptionInterface
      */
     private $option;
+
     /**
      * @var string
      */
     private $deprecationMessage;
+
     /**
      * @param string $deprecationMessage
      */
-    public function __construct(\PhpCsFixer\FixerConfiguration\FixerOptionInterface $option, $deprecationMessage)
+    public function __construct(FixerOptionInterface $option, $deprecationMessage)
     {
         $deprecationMessage = (string) $deprecationMessage;
         $this->option = $option;
         $this->deprecationMessage = $deprecationMessage;
     }
+
     /**
      * {@inheritdoc}
      * @return string
@@ -38,6 +42,7 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     {
         return $this->option->getName();
     }
+
     /**
      * {@inheritdoc}
      * @return string
@@ -46,6 +51,7 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     {
         return $this->option->getDescription();
     }
+
     /**
      * {@inheritdoc}
      * @return bool
@@ -54,6 +60,7 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     {
         return $this->option->hasDefault();
     }
+
     /**
      * {@inheritdoc}
      */
@@ -61,6 +68,7 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     {
         return $this->option->getDefault();
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]|null
@@ -69,6 +77,7 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     {
         return $this->option->getAllowedTypes();
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]|null
@@ -77,6 +86,7 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     {
         return $this->option->getAllowedValues();
     }
+
     /**
      * {@inheritdoc}
      * @return \Closure|null
@@ -85,6 +95,7 @@ final class DeprecatedFixerOption implements \PhpCsFixer\FixerConfiguration\Depr
     {
         return $this->option->getNormalizer();
     }
+
     /**
      * @return string
      */

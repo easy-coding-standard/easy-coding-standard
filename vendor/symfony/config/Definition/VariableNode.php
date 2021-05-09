@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config\Definition;
 
-use ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+namespace Symfony\Component\Config\Definition;
+
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+
 /**
  * This node represents a value of variable type in the config tree.
  *
@@ -19,16 +21,18 @@ use ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\InvalidConfi
  *
  * @author Jeremy Mikola <jmikola@gmail.com>
  */
-class VariableNode extends \ECSPrefix20210509\Symfony\Component\Config\Definition\BaseNode implements \ECSPrefix20210509\Symfony\Component\Config\Definition\PrototypeNodeInterface
+class VariableNode extends BaseNode implements PrototypeNodeInterface
 {
-    protected $defaultValueSet = \false;
+    protected $defaultValueSet = false;
     protected $defaultValue;
-    protected $allowEmptyValue = \true;
+    protected $allowEmptyValue = true;
+
     public function setDefaultValue($value)
     {
-        $this->defaultValueSet = \true;
+        $this->defaultValueSet = true;
         $this->defaultValue = $value;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -36,14 +40,17 @@ class VariableNode extends \ECSPrefix20210509\Symfony\Component\Config\Definitio
     {
         return $this->defaultValueSet;
     }
+
     /**
      * {@inheritdoc}
      */
     public function getDefaultValue()
     {
         $v = $this->defaultValue;
+
         return $v instanceof \Closure ? $v() : $v;
     }
+
     /**
      * Sets if this node is allowed to have an empty value.
      *
@@ -54,6 +61,7 @@ class VariableNode extends \ECSPrefix20210509\Symfony\Component\Config\Definitio
         $boolean = (bool) $boolean;
         $this->allowEmptyValue = $boolean;
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -63,12 +71,14 @@ class VariableNode extends \ECSPrefix20210509\Symfony\Component\Config\Definitio
         $name = (string) $name;
         $this->name = $name;
     }
+
     /**
      * {@inheritdoc}
      */
     protected function validateType($value)
     {
     }
+
     /**
      * {@inheritdoc}
      */
@@ -77,23 +87,28 @@ class VariableNode extends \ECSPrefix20210509\Symfony\Component\Config\Definitio
         // deny environment variables only when using custom validators
         // this avoids ever passing an empty value to final validation closures
         if (!$this->allowEmptyValue && $this->isHandlingPlaceholder() && $this->finalValidationClosures) {
-            $e = new \ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an environment variable when empty values are not allowed by definition and are validated.', $this->getPath()));
+            $e = new InvalidConfigurationException(sprintf('The path "%s" cannot contain an environment variable when empty values are not allowed by definition and are validated.', $this->getPath()));
             if ($hint = $this->getInfo()) {
                 $e->addHint($hint);
             }
             $e->setPath($this->getPath());
+
             throw $e;
         }
+
         if (!$this->allowEmptyValue && $this->isValueEmpty($value)) {
-            $ex = new \ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException(\sprintf('The path "%s" cannot contain an empty value, but got %s.', $this->getPath(), \json_encode($value)));
+            $ex = new InvalidConfigurationException(sprintf('The path "%s" cannot contain an empty value, but got %s.', $this->getPath(), json_encode($value)));
             if ($hint = $this->getInfo()) {
                 $ex->addHint($hint);
             }
             $ex->setPath($this->getPath());
+
             throw $ex;
         }
+
         return $value;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -101,6 +116,7 @@ class VariableNode extends \ECSPrefix20210509\Symfony\Component\Config\Definitio
     {
         return $value;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -108,6 +124,7 @@ class VariableNode extends \ECSPrefix20210509\Symfony\Component\Config\Definitio
     {
         return $rightSide;
     }
+
     /**
      * Evaluates if the given value is to be treated as empty.
      *

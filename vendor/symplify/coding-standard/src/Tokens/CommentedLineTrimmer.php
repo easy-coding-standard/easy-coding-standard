@@ -2,7 +2,8 @@
 
 namespace Symplify\CodingStandard\Tokens;
 
-use ECSPrefix20210509\Nette\Utils\Strings;
+use Nette\Utils\Strings;
+
 /**
  * Heavily inspired by
  *
@@ -14,6 +15,7 @@ final class CommentedLineTrimmer
      * @var string[]
      */
     const OPENING_LINE = ['//', '#'];
+
     /**
      * @param string $tokenContent
      * @return string
@@ -22,11 +24,13 @@ final class CommentedLineTrimmer
     {
         $tokenContent = (string) $tokenContent;
         foreach (self::OPENING_LINE as $openingLine) {
-            if (!\ECSPrefix20210509\Nette\Utils\Strings::startsWith($tokenContent, $openingLine)) {
+            if (! Strings::startsWith($tokenContent, $openingLine)) {
                 continue;
             }
-            return \substr($tokenContent, \strlen($openingLine));
+
+            return substr($tokenContent, strlen($openingLine));
         }
+
         return $tokenContent;
     }
 }

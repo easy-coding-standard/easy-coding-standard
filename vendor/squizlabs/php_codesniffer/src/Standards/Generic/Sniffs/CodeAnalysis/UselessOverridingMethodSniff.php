@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Detects unnecessary overridden methods that simply call their parent.
  *
@@ -19,13 +18,17 @@
  * @copyright 2007-2014 Manuel Pichler. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class UselessOverridingMethodSniff implements Sniff
 {
+
+
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -33,9 +36,11 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_FUNCTION];
-    }
-    //end register()
+        return [T_FUNCTION];
+
+    }//end register()
+
+
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -45,99 +50,112 @@ class UselessOverridingMethodSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $token = $tokens[$stackPtr];
+        $token  = $tokens[$stackPtr];
+
         // Skip function without body.
-        if (isset($token['scope_opener']) === \false) {
+        if (isset($token['scope_opener']) === false) {
             return;
         }
+
         // Get function name.
         $methodName = $phpcsFile->getDeclarationName($stackPtr);
+
         // Get all parameters from method signature.
         $signature = [];
         foreach ($phpcsFile->getMethodParameters($stackPtr) as $param) {
             $signature[] = $param['name'];
         }
+
         $next = ++$token['scope_opener'];
-        $end = --$token['scope_closer'];
+        $end  = --$token['scope_closer'];
+
         for (; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \true) {
+
+            if (isset(Tokens::$emptyTokens[$code]) === true) {
                 continue;
-            } else {
-                if ($code === \T_RETURN) {
-                    continue;
-                }
+            } else if ($code === T_RETURN) {
+                continue;
             }
+
             break;
         }
+
         // Any token except 'parent' indicates correct code.
         if ($tokens[$next]['code'] !== T_PARENT) {
             return;
         }
+
         // Find next non empty token index, should be double colon.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($next + 1), null, true);
+
         // Skip for invalid code.
-        if ($next === \false || $tokens[$next]['code'] !== \T_DOUBLE_COLON) {
+        if ($next === false || $tokens[$next]['code'] !== T_DOUBLE_COLON) {
             return;
         }
+
         // Find next non empty token index, should be the function name.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($next + 1), null, true);
+
         // Skip for invalid code or other method.
-        if ($next === \false || $tokens[$next]['content'] !== $methodName) {
+        if ($next === false || $tokens[$next]['content'] !== $methodName) {
             return;
         }
+
         // Find next non empty token index, should be the open parenthesis.
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($next + 1), null, true);
+
         // Skip for invalid code.
-        if ($next === \false || $tokens[$next]['code'] !== T_OPEN_PARENTHESIS) {
+        if ($next === false || $tokens[$next]['code'] !== T_OPEN_PARENTHESIS) {
             return;
         }
-        $parameters = [''];
+
+        $parameters       = [''];
         $parenthesisCount = 1;
-        $count = \count($tokens);
+        $count            = count($tokens);
         for (++$next; $next < $count; ++$next) {
             $code = $tokens[$next]['code'];
+
             if ($code === T_OPEN_PARENTHESIS) {
                 ++$parenthesisCount;
-            } else {
-                if ($code === T_CLOSE_PARENTHESIS) {
-                    --$parenthesisCount;
-                } else {
-                    if ($parenthesisCount === 1 && $code === T_COMMA) {
-                        $parameters[] = '';
-                    } else {
-                        if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \false) {
-                            $parameters[\count($parameters) - 1] .= $tokens[$next]['content'];
-                        }
-                    }
-                }
+            } else if ($code === T_CLOSE_PARENTHESIS) {
+                --$parenthesisCount;
+            } else if ($parenthesisCount === 1 && $code === T_COMMA) {
+                $parameters[] = '';
+            } else if (isset(Tokens::$emptyTokens[$code]) === false) {
+                $parameters[(count($parameters) - 1)] .= $tokens[$next]['content'];
             }
+
             if ($parenthesisCount === 0) {
                 break;
             }
-        }
-        //end for
-        $next = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $next + 1, null, \true);
-        if ($next === \false || $tokens[$next]['code'] !== T_SEMICOLON) {
+        }//end for
+
+        $next = $phpcsFile->findNext(Tokens::$emptyTokens, ($next + 1), null, true);
+        if ($next === false || $tokens[$next]['code'] !== T_SEMICOLON) {
             return;
         }
+
         // Check rest of the scope.
         for (++$next; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
             // Skip for any other content.
-            if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \false) {
+            if (isset(Tokens::$emptyTokens[$code]) === false) {
                 return;
             }
         }
-        $parameters = \array_map('trim', $parameters);
-        $parameters = \array_filter($parameters);
-        if (\count($parameters) === \count($signature) && $parameters === $signature) {
+
+        $parameters = array_map('trim', $parameters);
+        $parameters = array_filter($parameters);
+
+        if (count($parameters) === count($signature) && $parameters === $signature) {
             $phpcsFile->addWarning('Possible useless method overriding detected', $stackPtr, 'Found');
         }
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

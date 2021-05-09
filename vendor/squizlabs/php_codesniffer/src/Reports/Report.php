@@ -1,5 +1,4 @@
 <?php
-
 /**
  * An interface that PHP_CodeSniffer reports must implement.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Reports;
 
 use PHP_CodeSniffer\Files\File;
+
 interface Report
 {
+
+
     /**
      * Generate a partial report for a single processed file.
      *
@@ -26,7 +29,9 @@ interface Report
      *
      * @return bool
      */
-    public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80);
+    public function generateFileReport($report, File $phpcsFile, $showSources=false, $width=80);
+
+
     /**
      * Generate the actual report.
      *
@@ -43,6 +48,17 @@ interface Report
      *
      * @return void
      */
-    public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true);
-}
-//end interface
+    public function generate(
+        $cachedData,
+        $totalFiles,
+        $totalErrors,
+        $totalWarnings,
+        $totalFixable,
+        $showSources=false,
+        $width=80,
+        $interactive=false,
+        $toScreen=true
+    );
+
+
+}//end interface

@@ -8,15 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Formatter;
 
-use ECSPrefix20210509\Symfony\Component\Console\Color;
+namespace Symfony\Component\Console\Formatter;
+
+use Symfony\Component\Console\Color;
+
 /**
  * Formatter style class for defining styles.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class OutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface
+class OutputFormatterStyle implements OutputFormatterStyleInterface
 {
     private $color;
     private $foreground;
@@ -24,6 +26,7 @@ class OutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Conso
     private $options;
     private $href;
     private $handlesHrefGracefully;
+
     /**
      * Initializes output formatter style.
      *
@@ -32,24 +35,27 @@ class OutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Conso
      */
     public function __construct($foreground = null, $background = null, array $options = [])
     {
-        $this->color = new \ECSPrefix20210509\Symfony\Component\Console\Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
+        $this->color = new Color($this->foreground = $foreground ?: '', $this->background = $background ?: '', $this->options = $options);
     }
+
     /**
      * {@inheritdoc}
      * @param string $color
      */
     public function setForeground($color = null)
     {
-        $this->color = new \ECSPrefix20210509\Symfony\Component\Console\Color($this->foreground = $color ?: '', $this->background, $this->options);
+        $this->color = new Color($this->foreground = $color ?: '', $this->background, $this->options);
     }
+
     /**
      * {@inheritdoc}
      * @param string $color
      */
     public function setBackground($color = null)
     {
-        $this->color = new \ECSPrefix20210509\Symfony\Component\Console\Color($this->foreground, $this->background = $color ?: '', $this->options);
+        $this->color = new Color($this->foreground, $this->background = $color ?: '', $this->options);
     }
+
     /**
      * @return void
      * @param string $url
@@ -59,6 +65,7 @@ class OutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Conso
         $url = (string) $url;
         $this->href = $url;
     }
+
     /**
      * {@inheritdoc}
      * @param string $option
@@ -67,8 +74,9 @@ class OutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Conso
     {
         $option = (string) $option;
         $this->options[] = $option;
-        $this->color = new \ECSPrefix20210509\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
+        $this->color = new Color($this->foreground, $this->background, $this->options);
     }
+
     /**
      * {@inheritdoc}
      * @param string $option
@@ -76,19 +84,22 @@ class OutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Conso
     public function unsetOption($option)
     {
         $option = (string) $option;
-        $pos = \array_search($option, $this->options);
-        if (\false !== $pos) {
+        $pos = array_search($option, $this->options);
+        if (false !== $pos) {
             unset($this->options[$pos]);
         }
-        $this->color = new \ECSPrefix20210509\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options);
+
+        $this->color = new Color($this->foreground, $this->background, $this->options);
     }
+
     /**
      * {@inheritdoc}
      */
     public function setOptions(array $options)
     {
-        $this->color = new \ECSPrefix20210509\Symfony\Component\Console\Color($this->foreground, $this->background, $this->options = $options);
+        $this->color = new Color($this->foreground, $this->background, $this->options = $options);
     }
+
     /**
      * {@inheritdoc}
      * @param string $text
@@ -97,11 +108,14 @@ class OutputFormatterStyle implements \ECSPrefix20210509\Symfony\Component\Conso
     {
         $text = (string) $text;
         if (null === $this->handlesHrefGracefully) {
-            $this->handlesHrefGracefully = 'JetBrains-JediTerm' !== \getenv('TERMINAL_EMULATOR') && (!\getenv('KONSOLE_VERSION') || (int) \getenv('KONSOLE_VERSION') > 201100);
+            $this->handlesHrefGracefully = 'JetBrains-JediTerm' !== getenv('TERMINAL_EMULATOR')
+                && (!getenv('KONSOLE_VERSION') || (int) getenv('KONSOLE_VERSION') > 201100);
         }
+
         if (null !== $this->href && $this->handlesHrefGracefully) {
-            $text = "\33]8;;{$this->href}\33\\{$text}\33]8;;\33\\";
+            $text = "\033]8;;$this->href\033\\$text\033]8;;\033\\";
         }
+
         return $this->color->apply($text);
     }
 }

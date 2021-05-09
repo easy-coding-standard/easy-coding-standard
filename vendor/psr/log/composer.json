@@ -1,17 +1,13 @@
 {
-    "name": "psr\/log",
+    "name": "psr/log",
     "description": "Common interface for logging libraries",
-    "keywords": [
-        "psr",
-        "psr-3",
-        "log"
-    ],
-    "homepage": "https:\/\/github.com\/php-fig\/log",
+    "keywords": ["psr", "psr-3", "log"],
+    "homepage": "https://github.com/php-fig/log",
     "license": "MIT",
     "authors": [
         {
             "name": "PHP-FIG",
-            "homepage": "https:\/\/www.php-fig.org\/"
+            "homepage": "https://www.php-fig.org/"
         }
     ],
     "require": {
@@ -19,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210509\\Psr\\Log\\": "Psr\/Log\/"
+            "Psr\\Log\\": "Psr/Log/"
         }
     },
     "extra": {

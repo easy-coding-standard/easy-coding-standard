@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the GetRequestData sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\MySource\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class GetRequestDataUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class GetRequestDataUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,19 @@ class GetRequestDataUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSn
      */
     public function getErrorList()
     {
-        return [2 => 1, 5 => 1, 8 => 1, 21 => 1, 26 => 1, 27 => 1, 28 => 1];
-    }
-    //end getErrorList()
+        return [
+            2  => 1,
+            5  => 1,
+            8  => 1,
+            21 => 1,
+            26 => 1,
+            27 => 1,
+            28 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +49,8 @@ class GetRequestDataUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSn
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

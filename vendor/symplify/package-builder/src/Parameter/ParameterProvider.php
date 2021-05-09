@@ -2,9 +2,10 @@
 
 namespace Symplify\PackageBuilder\Parameter;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+
 /**
  * @see \Symplify\PackageBuilder\Tests\Parameter\ParameterProviderTest
  */
@@ -14,14 +15,16 @@ final class ParameterProvider
      * @var array<string, mixed>
      */
     private $parameters = [];
+
     /**
      * @param Container|ContainerInterface $container
      */
-    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
         $parameterBag = $container->getParameterBag();
         $this->parameters = $parameterBag->all();
     }
+
     /**
      * @param string $name
      * @return bool
@@ -31,6 +34,7 @@ final class ParameterProvider
         $name = (string) $name;
         return isset($this->parameters[$name]);
     }
+
     /**
      * @api
      * @return mixed|null
@@ -41,6 +45,7 @@ final class ParameterProvider
         $name = (string) $name;
         return isset($this->parameters[$name]) ? $this->parameters[$name] : null;
     }
+
     /**
      * @api
      * @param string $name
@@ -50,8 +55,10 @@ final class ParameterProvider
     {
         $name = (string) $name;
         $this->ensureParameterIsSet($name);
+
         return (string) $this->parameters[$name];
     }
+
     /**
      * @api
      * @return mixed[]
@@ -61,8 +68,10 @@ final class ParameterProvider
     {
         $name = (string) $name;
         $this->ensureParameterIsSet($name);
+
         return $this->parameters[$name];
     }
+
     /**
      * @api
      * @param string $parameterName
@@ -71,8 +80,9 @@ final class ParameterProvider
     public function provideBoolParameter($parameterName)
     {
         $parameterName = (string) $parameterName;
-        return isset($this->parameters[$parameterName]) ? $this->parameters[$parameterName] : \false;
+        return isset($this->parameters[$parameterName]) ? $this->parameters[$parameterName] : false;
     }
+
     /**
      * @return void
      * @param string $name
@@ -82,6 +92,7 @@ final class ParameterProvider
         $name = (string) $name;
         $this->parameters[$name] = $value;
     }
+
     /**
      * @api
      * @return mixed[]
@@ -90,6 +101,7 @@ final class ParameterProvider
     {
         return $this->parameters;
     }
+
     /**
      * @api
      * @param string $name
@@ -99,8 +111,10 @@ final class ParameterProvider
     {
         $name = (string) $name;
         $this->ensureParameterIsSet($name);
+
         return (int) $this->parameters[$name];
     }
+
     /**
      * @api
      * @return void
@@ -109,9 +123,10 @@ final class ParameterProvider
     public function ensureParameterIsSet($name)
     {
         $name = (string) $name;
-        if (\array_key_exists($name, $this->parameters)) {
+        if (array_key_exists($name, $this->parameters)) {
             return;
         }
-        throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
+
+        throw new ParameterNotFoundException($name);
     }
 }

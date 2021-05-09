@@ -2,37 +2,41 @@
 
 namespace Symplify\PackageBuilder\Testing;
 
-use ECSPrefix20210509\PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface;
-use ECSPrefix20210509\Symfony\Contracts\Service\ResetInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Contracts\Service\ResetInterface;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+
 /**
  * Inspiration
  *
  * @see https://github.com/symfony/symfony/blob/master/src/Symfony/Bundle/FrameworkBundle/Test/KernelTestCase.php
  */
-abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
+abstract class AbstractKernelTestCase extends TestCase
 {
     /**
      * @var KernelInterface
      */
     protected static $kernel;
+
     /**
      * @var ContainerInterface|Container
      */
     protected static $container;
+
     /**
      * @var array<string, KernelInterface>
      */
     private static $kernelsByHash = [];
+
     /**
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
@@ -44,11 +48,16 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framewo
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
         $configsHash = $this->resolveConfigsHash($configFilePaths);
+
         $this->ensureKernelShutdown();
+
         $bootedKernel = $this->createBootedKernelFromConfigs($kernelClass, $configsHash, $configFilePaths);
+
         static::$kernel = $bootedKernel;
+
         return $bootedKernel;
     }
+
     /**
      * @param class-string<KernelInterface> $kernelClass
      * @param string[]|SmartFileInfo[] $configs
@@ -60,16 +69,20 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framewo
         // unwrap file infos to real paths
         $configFilePaths = $this->resolveConfigFilePaths($configs);
         $configsHash = $this->resolveConfigsHash($configFilePaths);
+
         if (isset(self::$kernelsByHash[$configsHash])) {
             static::$kernel = self::$kernelsByHash[$configsHash];
             self::$container = static::$kernel->getContainer();
         } else {
             $bootedKernel = $this->createBootedKernelFromConfigs($kernelClass, $configsHash, $configFilePaths);
+
             static::$kernel = $bootedKernel;
             self::$kernelsByHash[$configsHash] = $bootedKernel;
         }
+
         return static::$kernel;
     }
+
     /**
      * Syntax sugger to remove static from the test cases vission
      *
@@ -81,10 +94,12 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framewo
     {
         $type = (string) $type;
         if (self::$container === null) {
-            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException('First, crewate container with booKernel(KernelClass::class)');
+            throw new ShouldNotHappenException('First, crewate container with booKernel(KernelClass::class)');
         }
+
         return self::$container->get($type);
     }
+
     /**
      * @return void
      * @param string $kernelClass
@@ -93,12 +108,15 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framewo
     {
         $kernelClass = (string) $kernelClass;
         $this->ensureKernelShutdown();
-        $kernel = new $kernelClass('test', \true);
-        if (!$kernel instanceof \ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface) {
-            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+
+        $kernel = new $kernelClass('test', true);
+        if (! $kernel instanceof KernelInterface) {
+            throw new ShouldNotHappenException();
         }
+
         static::$kernel = $this->bootAndReturnKernel($kernel);
     }
+
     /**
      * Shuts the kernel down if it was used in the test.
      * @return void
@@ -108,20 +126,24 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framewo
         if (static::$kernel !== null) {
             // make sure boot() is called
             // @see https://github.com/symfony/symfony/pull/31202/files
-            $kernelReflectionClass = new \ReflectionClass(static::$kernel);
+            $kernelReflectionClass = new ReflectionClass(static::$kernel);
+
             $containerReflectionProperty = $kernelReflectionClass->getProperty('container');
-            $containerReflectionProperty->setAccessible(\true);
+            $containerReflectionProperty->setAccessible(true);
+
             $kernel = $containerReflectionProperty->getValue(static::$kernel);
             if ($kernel !== null) {
                 $container = static::$kernel->getContainer();
                 static::$kernel->shutdown();
-                if ($container instanceof \ECSPrefix20210509\Symfony\Contracts\Service\ResetInterface) {
+                if ($container instanceof ResetInterface) {
                     $container->reset();
                 }
             }
         }
+
         static::$container = null;
     }
+
     /**
      * @param string[] $configs
      * @return string
@@ -130,10 +152,12 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framewo
     {
         $configsHash = '';
         foreach ($configs as $config) {
-            $configsHash .= \md5_file($config);
+            $configsHash .= md5_file($config);
         }
-        return \md5($configsHash);
+
+        return md5($configsHash);
     }
+
     /**
      * @param string[]|SmartFileInfo[] $configs
      * @return mixed[]
@@ -141,57 +165,78 @@ abstract class AbstractKernelTestCase extends \ECSPrefix20210509\PHPUnit\Framewo
     protected function resolveConfigFilePaths(array $configs)
     {
         $configFilePaths = [];
+
         foreach ($configs as $config) {
-            $configFilePaths[] = $config instanceof \Symplify\SmartFileSystem\SmartFileInfo ? $config->getRealPath() : $config;
+            $configFilePaths[] = $config instanceof SmartFileInfo ? $config->getRealPath() : $config;
         }
+
         return $configFilePaths;
     }
+
     /**
      * @return void
      */
-    private function ensureIsConfigAwareKernel(\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    private function ensureIsConfigAwareKernel(KernelInterface $kernel)
     {
-        if ($kernel instanceof \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface) {
+        if ($kernel instanceof ExtraConfigAwareKernelInterface) {
             return;
         }
-        throw new \Symplify\PackageBuilder\Exception\HttpKernel\MissingInterfaceException(\sprintf('"%s" is missing an "%s" interface', \get_class($kernel), \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface::class));
+
+        throw new MissingInterfaceException(sprintf(
+            '"%s" is missing an "%s" interface',
+            get_class($kernel),
+            ExtraConfigAwareKernelInterface::class
+        ));
     }
+
     /**
      * @return \Symfony\Component\HttpKernel\KernelInterface
      */
-    private function bootAndReturnKernel(\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface $kernel)
+    private function bootAndReturnKernel(KernelInterface $kernel)
     {
         $kernel->boot();
+
         $container = $kernel->getContainer();
+
         // private → public service hack?
         if ($container->has('test.service_container')) {
             $container = $container->get('test.service_container');
         }
-        if (!$container instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface) {
-            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+
+        if (! $container instanceof ContainerInterface) {
+            throw new ShouldNotHappenException();
         }
+
         // has output? keep it silent out of tests
-        if ($container->has(\ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle::class)) {
-            $symfonyStyle = $container->get(\ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle::class);
-            $symfonyStyle->setVerbosity(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
+        if ($container->has(SymfonyStyle::class)) {
+            $symfonyStyle = $container->get(SymfonyStyle::class);
+            $symfonyStyle->setVerbosity(OutputInterface::VERBOSITY_QUIET);
         }
+
         static::$container = $container;
+
         return $kernel;
     }
+
     /**
      * @param string[] $configFilePaths
      * @param string $kernelClass
      * @param string $configsHash
      * @return \Symfony\Component\HttpKernel\KernelInterface
      */
-    private function createBootedKernelFromConfigs($kernelClass, $configsHash, array $configFilePaths)
-    {
+    private function createBootedKernelFromConfigs(
+        $kernelClass,
+        $configsHash,
+        array $configFilePaths
+    ) {
         $kernelClass = (string) $kernelClass;
         $configsHash = (string) $configsHash;
-        $kernel = new $kernelClass('test_' . $configsHash, \true);
+        $kernel = new $kernelClass('test_' . $configsHash, true);
         $this->ensureIsConfigAwareKernel($kernel);
+
         /** @var ExtraConfigAwareKernelInterface $kernel */
         $kernel->setConfigs($configFilePaths);
+
         return $this->bootAndReturnKernel($kernel);
     }
 }

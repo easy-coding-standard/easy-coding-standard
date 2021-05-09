@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the MethodDeclaration sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PSR2\Tests\Methods;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class MethodDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class MethodDeclarationUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,26 @@ class MethodDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstrac
      */
     public function getErrorList()
     {
-        return [9 => 1, 11 => 1, 13 => 1, 15 => 3, 24 => 1, 34 => 1, 36 => 1, 38 => 1, 40 => 3, 50 => 1, 52 => 1, 54 => 1, 56 => 3, 63 => 2];
-    }
-    //end getErrorList()
+        return [
+            9  => 1,
+            11 => 1,
+            13 => 1,
+            15 => 3,
+            24 => 1,
+            34 => 1,
+            36 => 1,
+            38 => 1,
+            40 => 3,
+            50 => 1,
+            52 => 1,
+            54 => 1,
+            56 => 3,
+            63 => 2,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -35,8 +55,15 @@ class MethodDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstrac
      */
     public function getWarningList()
     {
-        return [5 => 1, 21 => 1, 30 => 1, 46 => 1, 63 => 1];
-    }
-    //end getWarningList()
-}
-//end class
+        return [
+            5  => 1,
+            21 => 1,
+            30 => 1,
+            46 => 1,
+            63 => 1,
+        ];
+
+    }//end getWarningList()
+
+
+}//end class

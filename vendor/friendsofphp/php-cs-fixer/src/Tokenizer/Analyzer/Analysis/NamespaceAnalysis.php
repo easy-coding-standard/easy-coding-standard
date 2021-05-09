@@ -9,12 +9,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Tokenizer\Analyzer\Analysis;
 
 /**
  * @internal
  */
-final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\StartEndTokenAwareAnalysis
+final class NamespaceAnalysis implements StartEndTokenAwareAnalysis
 {
     /**
      * The fully qualified namespace name.
@@ -22,36 +23,42 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
      * @var string
      */
     private $fullName;
+
     /**
      * The short version of the namespace.
      *
      * @var string
      */
     private $shortName;
+
     /**
      * The start index of the namespace declaration in the analyzed Tokens.
      *
      * @var int
      */
     private $startIndex;
+
     /**
      * The end index of the namespace declaration in the analyzed Tokens.
      *
      * @var int
      */
     private $endIndex;
+
     /**
      * The start index of the scope of the namespace in the analyzed Tokens.
      *
      * @var int
      */
     private $scopeStartIndex;
+
     /**
      * The end index of the scope of the namespace in the analyzed Tokens.
      *
      * @var int
      */
     private $scopeEndIndex;
+
     /**
      * @param string $fullName
      * @param string $shortName
@@ -75,6 +82,7 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
         $this->scopeStartIndex = $scopeStartIndex;
         $this->scopeEndIndex = $scopeEndIndex;
     }
+
     /**
      * @return string
      */
@@ -82,6 +90,7 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
     {
         return $this->fullName;
     }
+
     /**
      * @return string
      */
@@ -89,6 +98,7 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
     {
         return $this->shortName;
     }
+
     /**
      * @return int
      */
@@ -96,6 +106,7 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
     {
         return $this->startIndex;
     }
+
     /**
      * @return int
      */
@@ -103,6 +114,7 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
     {
         return $this->endIndex;
     }
+
     /**
      * @return int
      */
@@ -110,6 +122,7 @@ final class NamespaceAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis
     {
         return $this->scopeStartIndex;
     }
+
     /**
      * @return int
      */

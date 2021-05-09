@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tests the comment tokenization with Windows line endings.
  *
@@ -10,12 +9,16 @@
  * @copyright 2020 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core\Tokenizer;
 
 use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
 use PHP_CodeSniffer\Util\Tokens;
-class StableCommentWhitespaceWinTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
+
+class StableCommentWhitespaceWinTest extends AbstractMethodUnitTest
 {
+
+
     /**
      * Test that comment tokenization with new lines at the end of the comment is stable.
      *
@@ -29,16 +32,20 @@ class StableCommentWhitespaceWinTest extends \PHP_CodeSniffer\Tests\Core\Abstrac
      */
     public function testCommentTokenization($testMarker, $expectedTokens)
     {
-        $tokens = self::$phpcsFile->getTokens();
-        $comment = $this->getTargetToken($testMarker, \PHP_CodeSniffer\Util\Tokens::$commentTokens);
+        $tokens  = self::$phpcsFile->getTokens();
+        $comment = $this->getTargetToken($testMarker, Tokens::$commentTokens);
+
         foreach ($expectedTokens as $key => $tokenInfo) {
-            $this->assertSame(\constant($tokenInfo['type']), $tokens[$comment]['code']);
+            $this->assertSame(constant($tokenInfo['type']), $tokens[$comment]['code']);
             $this->assertSame($tokenInfo['type'], $tokens[$comment]['type']);
             $this->assertSame($tokenInfo['content'], $tokens[$comment]['content']);
+
             ++$comment;
         }
-    }
-    //end testCommentTokenization()
+
+    }//end testCommentTokenization()
+
+
     /**
      * Data provider.
      *
@@ -48,48 +55,313 @@ class StableCommentWhitespaceWinTest extends \PHP_CodeSniffer\Tests\Core\Abstrac
      */
     public function dataCommentTokenization()
     {
-        return [['/* testSingleLineSlashComment */', [['type' => 'T_COMMENT', 'content' => '// Comment
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testSingleLineSlashCommentTrailing */', [['type' => 'T_COMMENT', 'content' => '// Comment
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testSingleLineSlashAnnotation */', [['type' => 'T_PHPCS_DISABLE', 'content' => '// phpcs:disable Stnd.Cat
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testMultiLineSlashComment */', [['type' => 'T_COMMENT', 'content' => '// Comment1
-'], ['type' => 'T_COMMENT', 'content' => '// Comment2
-'], ['type' => 'T_COMMENT', 'content' => '// Comment3
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testMultiLineSlashCommentWithIndent */', [['type' => 'T_COMMENT', 'content' => '// Comment1
-'], ['type' => 'T_WHITESPACE', 'content' => '    '], ['type' => 'T_COMMENT', 'content' => '// Comment2
-'], ['type' => 'T_WHITESPACE', 'content' => '    '], ['type' => 'T_COMMENT', 'content' => '// Comment3
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testMultiLineSlashCommentWithAnnotationStart */', [['type' => 'T_PHPCS_IGNORE', 'content' => '// phpcs:ignore Stnd.Cat
-'], ['type' => 'T_COMMENT', 'content' => '// Comment2
-'], ['type' => 'T_COMMENT', 'content' => '// Comment3
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testMultiLineSlashCommentWithAnnotationMiddle */', [['type' => 'T_COMMENT', 'content' => '// Comment1
-'], ['type' => 'T_PHPCS_IGNORE', 'content' => '// @phpcs:ignore Stnd.Cat
-'], ['type' => 'T_COMMENT', 'content' => '// Comment3
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testMultiLineSlashCommentWithAnnotationEnd */', [['type' => 'T_COMMENT', 'content' => '// Comment1
-'], ['type' => 'T_COMMENT', 'content' => '// Comment2
-'], ['type' => 'T_PHPCS_IGNORE', 'content' => '// phpcs:ignore Stnd.Cat
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testSingleLineSlashCommentNoNewLineAtEnd */', [['type' => 'T_COMMENT', 'content' => '// Slash '], ['type' => 'T_CLOSE_TAG', 'content' => '?>
-']]], ['/* testSingleLineHashComment */', [['type' => 'T_COMMENT', 'content' => '# Comment
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testSingleLineHashCommentTrailing */', [['type' => 'T_COMMENT', 'content' => '# Comment
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testMultiLineHashComment */', [['type' => 'T_COMMENT', 'content' => '# Comment1
-'], ['type' => 'T_COMMENT', 'content' => '# Comment2
-'], ['type' => 'T_COMMENT', 'content' => '# Comment3
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testMultiLineHashCommentWithIndent */', [['type' => 'T_COMMENT', 'content' => '# Comment1
-'], ['type' => 'T_WHITESPACE', 'content' => '    '], ['type' => 'T_COMMENT', 'content' => '# Comment2
-'], ['type' => 'T_WHITESPACE', 'content' => '    '], ['type' => 'T_COMMENT', 'content' => '# Comment3
-'], ['type' => 'T_WHITESPACE', 'content' => '
-']]], ['/* testSingleLineHashCommentNoNewLineAtEnd */', [['type' => 'T_COMMENT', 'content' => '# Hash '], ['type' => 'T_CLOSE_TAG', 'content' => '?>
-']]], ['/* testCommentAtEndOfFile */', [['type' => 'T_COMMENT', 'content' => '/* Comment']]]];
-    }
-    //end dataCommentTokenization()
-}
-//end class
+        return [
+            [
+                '/* testSingleLineSlashComment */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testSingleLineSlashCommentTrailing */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testSingleLineSlashAnnotation */',
+                [
+                    [
+                        'type'    => 'T_PHPCS_DISABLE',
+                        'content' => '// phpcs:disable Stnd.Cat
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testMultiLineSlashComment */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment1
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment2
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment3
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testMultiLineSlashCommentWithIndent */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment1
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '    ',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment2
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '    ',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment3
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testMultiLineSlashCommentWithAnnotationStart */',
+                [
+                    [
+                        'type'    => 'T_PHPCS_IGNORE',
+                        'content' => '// phpcs:ignore Stnd.Cat
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment2
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment3
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testMultiLineSlashCommentWithAnnotationMiddle */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment1
+',
+                    ],
+                    [
+                        'type'    => 'T_PHPCS_IGNORE',
+                        'content' => '// @phpcs:ignore Stnd.Cat
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment3
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testMultiLineSlashCommentWithAnnotationEnd */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment1
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Comment2
+',
+                    ],
+                    [
+                        'type'    => 'T_PHPCS_IGNORE',
+                        'content' => '// phpcs:ignore Stnd.Cat
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testSingleLineSlashCommentNoNewLineAtEnd */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '// Slash ',
+                    ],
+                    [
+                        'type'    => 'T_CLOSE_TAG',
+                        'content' => '?>
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testSingleLineHashComment */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testSingleLineHashCommentTrailing */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testMultiLineHashComment */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment1
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment2
+',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment3
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testMultiLineHashCommentWithIndent */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment1
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '    ',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment2
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '    ',
+                    ],
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Comment3
+',
+                    ],
+                    [
+                        'type'    => 'T_WHITESPACE',
+                        'content' => '
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testSingleLineHashCommentNoNewLineAtEnd */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '# Hash ',
+                    ],
+                    [
+                        'type'    => 'T_CLOSE_TAG',
+                        'content' => '?>
+',
+                    ],
+                ],
+            ],
+            [
+                '/* testCommentAtEndOfFile */',
+                [
+                    [
+                        'type'    => 'T_COMMENT',
+                        'content' => '/* Comment',
+                    ],
+                ],
+            ],
+        ];
+
+    }//end dataCommentTokenization()
+
+
+}//end class

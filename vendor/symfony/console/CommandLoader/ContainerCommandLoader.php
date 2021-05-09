@@ -8,27 +8,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\CommandLoader;
 
-use ECSPrefix20210509\Psr\Container\ContainerInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Exception\CommandNotFoundException;
+namespace Symfony\Component\Console\CommandLoader;
+
+use Psr\Container\ContainerInterface;
+use Symfony\Component\Console\Exception\CommandNotFoundException;
+
 /**
  * Loads commands from a PSR-11 container.
  *
  * @author Robin Chalas <robin.chalas@gmail.com>
  */
-class ContainerCommandLoader implements \ECSPrefix20210509\Symfony\Component\Console\CommandLoader\CommandLoaderInterface
+class ContainerCommandLoader implements CommandLoaderInterface
 {
     private $container;
     private $commandMap;
+
     /**
      * @param array $commandMap An array with command names as keys and service ids as values
      */
-    public function __construct(\ECSPrefix20210509\Psr\Container\ContainerInterface $container, array $commandMap)
+    public function __construct(ContainerInterface $container, array $commandMap)
     {
         $this->container = $container;
         $this->commandMap = $commandMap;
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -37,10 +41,12 @@ class ContainerCommandLoader implements \ECSPrefix20210509\Symfony\Component\Con
     {
         $name = (string) $name;
         if (!$this->has($name)) {
-            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\CommandNotFoundException(\sprintf('Command "%s" does not exist.', $name));
+            throw new CommandNotFoundException(sprintf('Command "%s" does not exist.', $name));
         }
+
         return $this->container->get($this->commandMap[$name]);
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -50,11 +56,12 @@ class ContainerCommandLoader implements \ECSPrefix20210509\Symfony\Component\Con
         $name = (string) $name;
         return isset($this->commandMap[$name]) && $this->container->has($this->commandMap[$name]);
     }
+
     /**
      * {@inheritdoc}
      */
     public function getNames()
     {
-        return \array_keys($this->commandMap);
+        return array_keys($this->commandMap);
     }
 }

@@ -3,6 +3,7 @@
 namespace Symplify\EasyCodingStandard\Bootstrap;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class ConfigHasher
 {
     /**
@@ -14,8 +15,9 @@ final class ConfigHasher
     {
         $hash = '';
         foreach ($configFileInfos as $config) {
-            $hash .= \md5_file($config->getRealPath());
+            $hash .= md5_file($config->getRealPath());
         }
+
         return $hash;
     }
 }

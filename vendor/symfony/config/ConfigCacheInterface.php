@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config;
 
-use ECSPrefix20210509\Symfony\Component\Config\Resource\ResourceInterface;
+namespace Symfony\Component\Config;
+
+use Symfony\Component\Config\Resource\ResourceInterface;
+
 /**
  * Interface for ConfigCache.
  *
@@ -24,6 +26,7 @@ interface ConfigCacheInterface
      * @return string The cache file path
      */
     public function getPath();
+
     /**
      * Checks if the cache is still fresh.
      *
@@ -32,6 +35,7 @@ interface ConfigCacheInterface
      * @return bool Whether the cache is still fresh
      */
     public function isFresh();
+
     /**
      * Writes the given content into the cache file. Metadata will be stored
      * independently and can be used to check cache freshness at a later time.

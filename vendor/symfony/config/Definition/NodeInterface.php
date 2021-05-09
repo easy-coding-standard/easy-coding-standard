@@ -8,11 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config\Definition;
 
-use ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
-use ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use ECSPrefix20210509\Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+namespace Symfony\Component\Config\Definition;
+
+use Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+
 /**
  * Common Interface among all nodes.
  *
@@ -29,24 +31,28 @@ interface NodeInterface
      * @return string The name of the node
      */
     public function getName();
+
     /**
      * Returns the path of the node.
      *
      * @return string The node path
      */
     public function getPath();
+
     /**
      * Returns true when the node is required.
      *
      * @return bool If the node is required
      */
     public function isRequired();
+
     /**
      * Returns true when the node has a default value.
      *
      * @return bool If the node has a default value
      */
     public function hasDefaultValue();
+
     /**
      * Returns the default value of the node.
      *
@@ -55,6 +61,7 @@ interface NodeInterface
      * @throws \RuntimeException if the node has no default value
      */
     public function getDefaultValue();
+
     /**
      * Normalizes a value.
      *
@@ -65,6 +72,7 @@ interface NodeInterface
      * @throws InvalidTypeException if the value type is invalid
      */
     public function normalize($value);
+
     /**
      * Merges two values together.
      *
@@ -77,6 +85,7 @@ interface NodeInterface
      * @throws InvalidTypeException        if the value type is invalid
      */
     public function merge($leftSide, $rightSide);
+
     /**
      * Finalizes a value.
      *

@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
+namespace Symfony\Component\HttpKernel;
+
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Signs URIs.
  *
@@ -20,6 +22,7 @@ class UriSigner
 {
     private $secret;
     private $parameter;
+
     /**
      * @param string $secret    A secret
      * @param string $parameter Query string parameter to use
@@ -31,6 +34,7 @@ class UriSigner
         $this->secret = $secret;
         $this->parameter = $parameter;
     }
+
     /**
      * Signs a URI.
      *
@@ -43,16 +47,19 @@ class UriSigner
     public function sign($uri)
     {
         $uri = (string) $uri;
-        $url = \parse_url($uri);
+        $url = parse_url($uri);
         if (isset($url['query'])) {
-            \parse_str($url['query'], $params);
+            parse_str($url['query'], $params);
         } else {
             $params = [];
         }
+
         $uri = $this->buildUrl($url, $params);
         $params[$this->parameter] = $this->computeHash($uri);
+
         return $this->buildUrl($url, $params);
     }
+
     /**
      * Checks that a URI contains the correct hash.
      *
@@ -62,28 +69,34 @@ class UriSigner
     public function check($uri)
     {
         $uri = (string) $uri;
-        $url = \parse_url($uri);
+        $url = parse_url($uri);
         if (isset($url['query'])) {
-            \parse_str($url['query'], $params);
+            parse_str($url['query'], $params);
         } else {
             $params = [];
         }
+
         if (empty($params[$this->parameter])) {
-            return \false;
+            return false;
         }
+
         $hash = $params[$this->parameter];
         unset($params[$this->parameter]);
-        return \hash_equals($this->computeHash($this->buildUrl($url, $params)), $hash);
+
+        return hash_equals($this->computeHash($this->buildUrl($url, $params)), $hash);
     }
+
     /**
      * @return bool
      */
-    public function checkRequest(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request)
+    public function checkRequest(Request $request)
     {
-        $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?' . $qs : '';
+        $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?'.$qs : '';
+
         // we cannot use $request->getUri() here as we want to work with the original URI (no query string reordering)
-        return $this->check($request->getSchemeAndHttpHost() . $request->getBaseUrl() . $request->getPathInfo() . $qs);
+        return $this->check($request->getSchemeAndHttpHost().$request->getBaseUrl().$request->getPathInfo().$qs);
     }
+
     /**
      * @param string $uri
      * @return string
@@ -91,24 +104,27 @@ class UriSigner
     private function computeHash($uri)
     {
         $uri = (string) $uri;
-        return \base64_encode(\hash_hmac('sha256', $uri, $this->secret, \true));
+        return base64_encode(hash_hmac('sha256', $uri, $this->secret, true));
     }
+
     /**
      * @return string
      */
     private function buildUrl(array $url, array $params = [])
     {
-        \ksort($params, \SORT_STRING);
-        $url['query'] = \http_build_query($params, '', '&');
-        $scheme = isset($url['scheme']) ? $url['scheme'] . '://' : '';
+        ksort($params, \SORT_STRING);
+        $url['query'] = http_build_query($params, '', '&');
+
+        $scheme = isset($url['scheme']) ? $url['scheme'].'://' : '';
         $host = isset($url['host']) ? $url['host'] : '';
-        $port = isset($url['port']) ? ':' . $url['port'] : '';
+        $port = isset($url['port']) ? ':'.$url['port'] : '';
         $user = isset($url['user']) ? $url['user'] : '';
-        $pass = isset($url['pass']) ? ':' . $url['pass'] : '';
-        $pass = $user || $pass ? "{$pass}@" : '';
+        $pass = isset($url['pass']) ? ':'.$url['pass'] : '';
+        $pass = ($user || $pass) ? "$pass@" : '';
         $path = isset($url['path']) ? $url['path'] : '';
-        $query = isset($url['query']) && $url['query'] ? '?' . $url['query'] : '';
-        $fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
-        return $scheme . $user . $pass . $host . $port . $path . $query . $fragment;
+        $query = isset($url['query']) && $url['query'] ? '?'.$url['query'] : '';
+        $fragment = isset($url['fragment']) ? '#'.$url['fragment'] : '';
+
+        return $scheme.$user.$pass.$host.$port.$path.$query.$fragment;
     }
 }

@@ -8,6 +8,7 @@ final class LineKind
      * @var int
      */
     const ARRAYS = 1;
+
     /**
      * @var int
      */

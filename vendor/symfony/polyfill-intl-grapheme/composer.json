@@ -1,16 +1,9 @@
 {
-    "name": "symfony\/polyfill-intl-grapheme",
+    "name": "symfony/polyfill-intl-grapheme",
     "type": "library",
     "description": "Symfony polyfill for intl's grapheme_* functions",
-    "keywords": [
-        "polyfill",
-        "shim",
-        "compatibility",
-        "portable",
-        "intl",
-        "grapheme"
-    ],
-    "homepage": "https:\/\/symfony.com",
+    "keywords": ["polyfill", "shim", "compatibility", "portable", "intl", "grapheme"],
+    "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
         {
@@ -19,19 +12,15 @@
         },
         {
             "name": "Symfony Community",
-            "homepage": "https:\/\/symfony.com\/contributors"
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {
         "php": ">=7.1"
     },
     "autoload": {
-        "psr-4": {
-            "ECSPrefix20210509\\Symfony\\Polyfill\\Intl\\Grapheme\\": ""
-        },
-        "files": [
-            "bootstrap.php"
-        ]
+        "psr-4": { "Symfony\\Polyfill\\Intl\\Grapheme\\": "" },
+        "files": [ "bootstrap.php" ]
     },
     "suggest": {
         "ext-intl": "For best performance"
@@ -42,8 +31,8 @@
             "dev-main": "1.22-dev"
         },
         "thanks": {
-            "name": "symfony\/polyfill",
-            "url": "https:\/\/github.com\/symfony\/polyfill"
+            "name": "symfony/polyfill",
+            "url": "https://github.com/symfony/polyfill"
         }
     }
 }

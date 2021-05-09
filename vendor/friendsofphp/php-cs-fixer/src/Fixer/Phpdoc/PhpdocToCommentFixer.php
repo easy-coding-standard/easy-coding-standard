@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -18,20 +19,22 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author Ceeram <ceeram@cakephp.org>
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class PhpdocToCommentFixer extends \PhpCsFixer\AbstractFixer
+final class PhpdocToCommentFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
+
     /**
      * {@inheritdoc}
      *
@@ -48,39 +51,52 @@ final class PhpdocToCommentFixer extends \PhpCsFixer\AbstractFixer
          */
         return 25;
     }
+
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Docblocks should only be used on structural elements.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition(
+            'Docblocks should only be used on structural elements.',
+            [
+                new CodeSample(
+                    '<?php
 $first = true;// needed because by default first docblock is never fixed.
 
 /** This should not be a docblock */
 foreach($connections as $key => $sqlite) {
     $sqlite->open($path);
 }
-')]);
+'
+                ),
+            ]
+        );
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        $commentsAnalyzer = new \PhpCsFixer\Tokenizer\Analyzer\CommentsAnalyzer();
+        $commentsAnalyzer = new CommentsAnalyzer();
+
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(T_DOC_COMMENT)) {
                 continue;
             }
+
             if ($commentsAnalyzer->isHeaderComment($tokens, $index)) {
                 continue;
             }
+
             if ($commentsAnalyzer->isBeforeStructuralElement($tokens, $index)) {
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_COMMENT, '/*' . \ltrim($token->getContent(), '/*')]);
+
+            $tokens[$index] = new Token([T_COMMENT, '/*'.ltrim($token->getContent(), '/*')]);
         }
     }
 }

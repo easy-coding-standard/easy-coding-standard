@@ -3,6 +3,7 @@
 namespace Symplify\PackageBuilder\Yaml;
 
 use Closure;
+
 final class ParametersMerger
 {
     /**
@@ -15,19 +16,23 @@ final class ParametersMerger
      */
     public function merge($left, $right)
     {
-        if (\is_array($left) && \is_array($right)) {
+        if (is_array($left) && is_array($right)) {
             return $this->mergeLeftToRightWithCallable($left, $right, function ($leftValue, $rightValue) {
                 return $this->merge($leftValue, $rightValue);
             });
         }
+
         if ($left !== null) {
             return $left;
         }
-        if (!\is_array($right)) {
+
+        if (! is_array($right)) {
             return $left;
         }
+
         return $right;
     }
+
     /**
      * The same as above, just with the case if both values being non-array, it will combined them to array:
      *
@@ -37,28 +42,32 @@ final class ParametersMerger
      */
     public function mergeWithCombine($left, $right)
     {
-        if (\is_array($left) && \is_array($right)) {
+        if (is_array($left) && is_array($right)) {
             return $this->mergeLeftToRightWithCallable($left, $right, function ($leftValue, $rightValue) {
                 return $this->mergeWithCombine($leftValue, $rightValue);
             });
         }
-        if ($left === null && \is_array($right)) {
+
+        if ($left === null && is_array($right)) {
             return $right;
         }
-        if (!empty($right) && (array) $left !== (array) $right) {
+
+        if (! empty($right) && (array) $left !== (array) $right) {
             return $this->mergeWithCombine((array) $right, (array) $left);
         }
+
         return $left;
     }
+
     /**
      * @return mixed[]
      */
-    private function mergeLeftToRightWithCallable(array $left, array $right, \Closure $mergeCallback)
+    private function mergeLeftToRightWithCallable(array $left, array $right, Closure $mergeCallback)
     {
         foreach ($left as $key => $val) {
-            if (\is_int($key)) {
+            if (is_int($key)) {
                 // prevent duplicated values in unindexed arrays
-                if (!\in_array($val, $right, \true)) {
+                if (! in_array($val, $right, true)) {
                     $right[] = $val;
                 }
             } else {
@@ -68,6 +77,7 @@ final class ParametersMerger
                 $right[$key] = $val;
             }
         }
+
         return $right;
     }
 }

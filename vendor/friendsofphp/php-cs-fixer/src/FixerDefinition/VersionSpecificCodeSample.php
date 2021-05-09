@@ -9,31 +9,38 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\FixerDefinition;
 
 /**
  * @author Andreas Möller <am@localheinz.com>
  */
-final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\VersionSpecificCodeSampleInterface
+final class VersionSpecificCodeSample implements VersionSpecificCodeSampleInterface
 {
     /**
      * @var CodeSampleInterface
      */
     private $codeSample;
+
     /**
      * @var VersionSpecificationInterface
      */
     private $versionSpecification;
+
     /**
      * @param mixed[]|null $configuration
      * @param string $code
      */
-    public function __construct($code, \PhpCsFixer\FixerDefinition\VersionSpecificationInterface $versionSpecification, $configuration = null)
-    {
+    public function __construct(
+        $code,
+        VersionSpecificationInterface $versionSpecification,
+        $configuration = null
+    ) {
         $code = (string) $code;
-        $this->codeSample = new \PhpCsFixer\FixerDefinition\CodeSample($code, $configuration);
+        $this->codeSample = new CodeSample($code, $configuration);
         $this->versionSpecification = $versionSpecification;
     }
+
     /**
      * {@inheritdoc}
      * @return string
@@ -42,6 +49,7 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
     {
         return $this->codeSample->getCode();
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]|null
@@ -50,6 +58,7 @@ final class VersionSpecificCodeSample implements \PhpCsFixer\FixerDefinition\Ver
     {
         return $this->codeSample->getConfiguration();
     }
+
     /**
      * {@inheritdoc}
      * @param int $version

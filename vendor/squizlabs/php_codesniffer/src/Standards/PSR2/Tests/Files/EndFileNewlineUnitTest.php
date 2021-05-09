@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the EndFileNewline sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PSR2\Tests\Files;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class EndFileNewlineUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class EndFileNewlineUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,22 +25,23 @@ class EndFileNewlineUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSn
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile = '')
+    public function getErrorList($testFile='')
     {
         switch ($testFile) {
-            case 'EndFileNewlineUnitTest.1.inc':
-            case 'EndFileNewlineUnitTest.3.inc':
-            case 'EndFileNewlineUnitTest.6.inc':
-            case 'EndFileNewlineUnitTest.7.inc':
-            case 'EndFileNewlineUnitTest.9.inc':
-            case 'EndFileNewlineUnitTest.10.inc':
-                return [2 => 1];
-            default:
-                return [];
-        }
-        //end switch
-    }
-    //end getErrorList()
+        case 'EndFileNewlineUnitTest.1.inc':
+        case 'EndFileNewlineUnitTest.3.inc':
+        case 'EndFileNewlineUnitTest.6.inc':
+        case 'EndFileNewlineUnitTest.7.inc':
+        case 'EndFileNewlineUnitTest.9.inc':
+        case 'EndFileNewlineUnitTest.10.inc':
+            return [2 => 1];
+        default:
+            return [];
+        }//end switch
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -48,10 +52,11 @@ class EndFileNewlineUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSn
      *
      * @return array<int, int>
      */
-    public function getWarningList($testFile = '')
+    public function getWarningList($testFile='')
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

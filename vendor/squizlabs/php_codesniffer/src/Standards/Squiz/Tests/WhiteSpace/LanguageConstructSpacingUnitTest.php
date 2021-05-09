@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the LanguageConstructSpacing sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\WhiteSpace;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class LanguageConstructSpacingUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class LanguageConstructSpacingUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,23 @@ class LanguageConstructSpacingUnitTest extends \PHP_CodeSniffer\Tests\Standards\
      */
     public function getErrorList()
     {
-        return [3 => 1, 7 => 1, 11 => 1, 15 => 1, 19 => 1, 23 => 1, 27 => 1, 31 => 1, 34 => 1, 35 => 1, 39 => 1];
-    }
-    //end getErrorList()
+        return [
+            3  => 1,
+            7  => 1,
+            11 => 1,
+            15 => 1,
+            19 => 1,
+            23 => 1,
+            27 => 1,
+            31 => 1,
+            34 => 1,
+            35 => 1,
+            39 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +53,8 @@ class LanguageConstructSpacingUnitTest extends \PHP_CodeSniffer\Tests\Standards\
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

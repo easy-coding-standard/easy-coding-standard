@@ -8,37 +8,42 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix20210509\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix20210509\Symfony\Component\Config\Definition\Processor;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Container;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\LogicException;
+namespace Symfony\Component\DependencyInjection\Extension;
+
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Exception\LogicException;
+
 /**
  * Provides useful features shared by many extensions.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Extension implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension\ExtensionInterface, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface
+abstract class Extension implements ExtensionInterface, ConfigurationExtensionInterface
 {
     private $processedConfigs = [];
+
     /**
      * {@inheritdoc}
      */
     public function getXsdValidationBasePath()
     {
-        return \false;
+        return false;
     }
+
     /**
      * {@inheritdoc}
      */
     public function getNamespace()
     {
-        return 'http://example.org/schema/dic/' . $this->getAlias();
+        return 'http://example.org/schema/dic/'.$this->getAlias();
     }
+
     /**
      * Returns the recommended alias to use in XML.
      *
@@ -62,48 +67,58 @@ abstract class Extension implements \ECSPrefix20210509\Symfony\Component\Depende
     public function getAlias()
     {
         $className = static::class;
-        if ('Extension' != \substr($className, -9)) {
-            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\BadMethodCallException('This extension does not follow the naming convention; you must overwrite the getAlias() method.');
+        if ('Extension' != substr($className, -9)) {
+            throw new BadMethodCallException('This extension does not follow the naming convention; you must overwrite the getAlias() method.');
         }
-        $classBaseName = \substr(\strrchr($className, '\\'), 1, -9);
-        return \ECSPrefix20210509\Symfony\Component\DependencyInjection\Container::underscore($classBaseName);
+        $classBaseName = substr(strrchr($className, '\\'), 1, -9);
+
+        return Container::underscore($classBaseName);
     }
+
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration(array $config, \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function getConfiguration(array $config, ContainerBuilder $container)
     {
         $class = static::class;
-        if (\false !== \strpos($class, "\0")) {
-            return null;
-            // ignore anonymous classes
+
+        if (false !== strpos($class, "\0")) {
+            return null; // ignore anonymous classes
         }
-        $class = \substr_replace($class, '\\Configuration', \strrpos($class, '\\'));
+
+        $class = substr_replace($class, '\Configuration', strrpos($class, '\\'));
         $class = $container->getReflectionClass($class);
+
         if (!$class) {
             return null;
         }
-        if (!$class->implementsInterface(\ECSPrefix20210509\Symfony\Component\Config\Definition\ConfigurationInterface::class)) {
-            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\LogicException(\sprintf('The extension configuration class "%s" must implement "%s".', $class->getName(), \ECSPrefix20210509\Symfony\Component\Config\Definition\ConfigurationInterface::class));
+
+        if (!$class->implementsInterface(ConfigurationInterface::class)) {
+            throw new LogicException(sprintf('The extension configuration class "%s" must implement "%s".', $class->getName(), ConfigurationInterface::class));
         }
+
         if (!($constructor = $class->getConstructor()) || !$constructor->getNumberOfRequiredParameters()) {
             return $class->newInstance();
         }
+
         return null;
     }
+
     /**
      * @return mixed[]
      */
-    protected final function processConfiguration(\ECSPrefix20210509\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, array $configs)
+    final protected function processConfiguration(ConfigurationInterface $configuration, array $configs)
     {
-        $processor = new \ECSPrefix20210509\Symfony\Component\Config\Definition\Processor();
+        $processor = new Processor();
+
         return $this->processedConfigs[] = $processor->processConfiguration($configuration, $configs);
     }
+
     /**
      * @internal
      * @return mixed[]
      */
-    public final function getProcessedConfigs()
+    final public function getProcessedConfigs()
     {
         try {
             return $this->processedConfigs;
@@ -111,16 +126,18 @@ abstract class Extension implements \ECSPrefix20210509\Symfony\Component\Depende
             $this->processedConfigs = [];
         }
     }
+
     /**
      * @return bool Whether the configuration is enabled
      *
      * @throws InvalidArgumentException When the config is not enableable
      */
-    protected function isConfigEnabled(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $config)
+    protected function isConfigEnabled(ContainerBuilder $container, array $config)
     {
         if (!\array_key_exists('enabled', $config)) {
-            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException("The config array has no 'enabled' key.");
+            throw new InvalidArgumentException("The config array has no 'enabled' key.");
         }
+
         return (bool) $container->getParameterBag()->resolveValue($config['enabled']);
     }
 }

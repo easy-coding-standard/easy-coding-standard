@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210509\Doctrine\Common\Annotations;
+namespace Doctrine\Common\Annotations;
 
 use function array_key_exists;
 use function array_merge;
@@ -10,7 +10,9 @@ use function is_file;
 use function str_replace;
 use function stream_resolve_include_path;
 use function strpos;
+
 use const DIRECTORY_SEPARATOR;
+
 final class AnnotationRegistry
 {
     /**
@@ -24,34 +26,39 @@ final class AnnotationRegistry
      * @var string[][]|string[]|null[]
      */
     private static $autoloadNamespaces = [];
+
     /**
      * A map of autoloader callables.
      *
      * @var callable[]
      */
     private static $loaders = [];
+
     /**
      * An array of classes which cannot be found
      *
      * @var null[] indexed by class name
      */
     private static $failedToAutoload = [];
+
     /**
      * Whenever registerFile() was used. Disables use of standard autoloader.
      *
      * @var bool
      */
-    private static $registerFileUsed = \false;
+    private static $registerFileUsed = false;
+
     /**
      * @return void
      */
     public static function reset()
     {
         self::$autoloadNamespaces = [];
-        self::$loaders = [];
-        self::$failedToAutoload = [];
-        self::$registerFileUsed = \false;
+        self::$loaders            = [];
+        self::$failedToAutoload   = [];
+        self::$registerFileUsed   = false;
     }
+
     /**
      * Registers file.
      *
@@ -63,9 +70,11 @@ final class AnnotationRegistry
     public static function registerFile($file)
     {
         $file = (string) $file;
-        self::$registerFileUsed = \true;
+        self::$registerFileUsed = true;
+
         require_once $file;
     }
+
     /**
      * Adds a namespace with one or many directories to look for files or null for the include path.
      *
@@ -83,6 +92,7 @@ final class AnnotationRegistry
         $namespace = (string) $namespace;
         self::$autoloadNamespaces[$namespace] = $dirs;
     }
+
     /**
      * Registers multiple namespaces.
      *
@@ -96,8 +106,9 @@ final class AnnotationRegistry
      */
     public static function registerAutoloadNamespaces(array $namespaces)
     {
-        self::$autoloadNamespaces = \array_merge(self::$autoloadNamespaces, $namespaces);
+        self::$autoloadNamespaces = array_merge(self::$autoloadNamespaces, $namespaces);
     }
+
     /**
      * Registers an autoloading callable for annotations, much like spl_autoload_register().
      *
@@ -112,8 +123,9 @@ final class AnnotationRegistry
     {
         // Reset our static cache now that we have a new loader to work with
         self::$failedToAutoload = [];
-        self::$loaders[] = $callable;
+        self::$loaders[]        = $callable;
     }
+
     /**
      * Registers an autoloading callable for annotations, if it is not already registered
      *
@@ -123,11 +135,13 @@ final class AnnotationRegistry
      */
     public static function registerUniqueLoader(callable $callable)
     {
-        if (\in_array($callable, self::$loaders, \true)) {
+        if (in_array($callable, self::$loaders, true)) {
             return;
         }
+
         self::registerLoader($callable);
     }
+
     /**
      * Autoloads an annotation class silently.
      * @param string $class
@@ -136,41 +150,56 @@ final class AnnotationRegistry
     public static function loadAnnotationClass($class)
     {
         $class = (string) $class;
-        if (\class_exists($class, \false)) {
-            return \true;
+        if (class_exists($class, false)) {
+            return true;
         }
-        if (\array_key_exists($class, self::$failedToAutoload)) {
-            return \false;
+
+        if (array_key_exists($class, self::$failedToAutoload)) {
+            return false;
         }
+
         foreach (self::$autoloadNamespaces as $namespace => $dirs) {
-            if (\strpos($class, $namespace) !== 0) {
+            if (strpos($class, $namespace) !== 0) {
                 continue;
             }
-            $file = \str_replace('\\', \DIRECTORY_SEPARATOR, $class) . '.php';
+
+            $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
+
             if ($dirs === null) {
-                $path = \stream_resolve_include_path($file);
+                $path = stream_resolve_include_path($file);
                 if ($path) {
                     require $path;
-                    return \true;
+
+                    return true;
                 }
             } else {
                 foreach ((array) $dirs as $dir) {
-                    if (\is_file($dir . \DIRECTORY_SEPARATOR . $file)) {
-                        require $dir . \DIRECTORY_SEPARATOR . $file;
-                        return \true;
+                    if (is_file($dir . DIRECTORY_SEPARATOR . $file)) {
+                        require $dir . DIRECTORY_SEPARATOR . $file;
+
+                        return true;
                     }
                 }
             }
         }
+
         foreach (self::$loaders as $loader) {
-            if ($loader($class) === \true) {
-                return \true;
+            if ($loader($class) === true) {
+                return true;
             }
         }
-        if (self::$loaders === [] && self::$autoloadNamespaces === [] && self::$registerFileUsed === \false && \class_exists($class)) {
-            return \true;
+
+        if (
+            self::$loaders === [] &&
+            self::$autoloadNamespaces === [] &&
+            self::$registerFileUsed === false &&
+            class_exists($class)
+        ) {
+            return true;
         }
+
         self::$failedToAutoload[$class] = null;
-        return \false;
+
+        return false;
     }
 }

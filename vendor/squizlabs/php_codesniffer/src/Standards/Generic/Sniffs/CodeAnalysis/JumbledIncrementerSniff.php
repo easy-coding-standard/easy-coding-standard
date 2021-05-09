@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Detects incrementer jumbling in for loops.
  *
@@ -27,12 +26,16 @@
  * @copyright 2007-2014 Manuel Pichler. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class JumbledIncrementerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class JumbledIncrementerSniff implements Sniff
 {
+
+
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -40,9 +43,11 @@ class JumbledIncrementerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_FOR];
-    }
-    //end register()
+        return [T_FOR];
+
+    }//end register()
+
+
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -52,37 +57,46 @@ class JumbledIncrementerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $token = $tokens[$stackPtr];
+        $token  = $tokens[$stackPtr];
+
         // Skip for-loop without body.
-        if (isset($token['scope_opener']) === \false) {
+        if (isset($token['scope_opener']) === false) {
             return;
         }
+
         // Find incrementors for outer loop.
         $outer = $this->findIncrementers($tokens, $token);
+
         // Skip if empty.
-        if (\count($outer) === 0) {
+        if (count($outer) === 0) {
             return;
         }
+
         // Find nested for loops.
         $start = ++$token['scope_opener'];
-        $end = --$token['scope_closer'];
+        $end   = --$token['scope_closer'];
+
         for (; $start <= $end; ++$start) {
-            if ($tokens[$start]['code'] !== \T_FOR) {
+            if ($tokens[$start]['code'] !== T_FOR) {
                 continue;
             }
+
             $inner = $this->findIncrementers($tokens, $tokens[$start]);
-            $diff = \array_intersect($outer, $inner);
-            if (\count($diff) !== 0) {
+            $diff  = array_intersect($outer, $inner);
+
+            if (count($diff) !== 0) {
                 $error = 'Loop incrementor (%s) jumbling with inner loop';
-                $data = [\join(', ', $diff)];
+                $data  = [join(', ', $diff)];
                 $phpcsFile->addWarning($error, $stackPtr, 'Found', $data);
             }
         }
-    }
-    //end process()
+
+    }//end process()
+
+
     /**
      * Get all used variables in the incrementer part of a for statement.
      *
@@ -94,25 +108,27 @@ class JumbledIncrementerSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     protected function findIncrementers(array $tokens, array $token)
     {
         // Skip invalid statement.
-        if (isset($token['parenthesis_opener']) === \false) {
+        if (isset($token['parenthesis_opener']) === false) {
             return [];
         }
+
         $start = ++$token['parenthesis_opener'];
-        $end = --$token['parenthesis_closer'];
+        $end   = --$token['parenthesis_closer'];
+
         $incrementers = [];
-        $semicolons = 0;
+        $semicolons   = 0;
         for ($next = $start; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
             if ($code === T_SEMICOLON) {
                 ++$semicolons;
-            } else {
-                if ($semicolons === 2 && $code === \T_VARIABLE) {
-                    $incrementers[] = $tokens[$next]['content'];
-                }
+            } else if ($semicolons === 2 && $code === T_VARIABLE) {
+                $incrementers[] = $tokens[$next]['content'];
             }
         }
+
         return $incrementers;
-    }
-    //end findIncrementers()
-}
-//end class
+
+    }//end findIncrementers()
+
+
+}//end class

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the DebugCode sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\MySource\Tests\Debug;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class DebugCodeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class DebugCodeUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,14 @@ class DebugCodeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUn
      */
     public function getErrorList()
     {
-        return [2 => 1, 3 => 1];
-    }
-    //end getErrorList()
+        return [
+            2 => 1,
+            3 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +44,8 @@ class DebugCodeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUn
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

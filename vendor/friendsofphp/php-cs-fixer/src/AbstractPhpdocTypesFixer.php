@@ -9,12 +9,14 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer;
 
 use PhpCsFixer\DocBlock\Annotation;
 use PhpCsFixer\DocBlock\DocBlock;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * This abstract fixer provides a base for fixers to fix types in PHPDoc.
  *
@@ -22,7 +24,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  *
  * @internal
  */
-abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
+abstract class AbstractPhpdocTypesFixer extends AbstractFixer
 {
     /**
      * The annotation tags search inside.
@@ -30,49 +32,59 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
      * @var string[]
      */
     protected $tags;
+
     /**
      * {@inheritdoc}
      */
     public function __construct()
     {
         parent::__construct();
-        $this->tags = \PhpCsFixer\DocBlock\Annotation::getTagsWithTypes();
+
+        $this->tags = Annotation::getTagsWithTypes();
     }
+
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(T_DOC_COMMENT)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
+
+            $doc = new DocBlock($token->getContent());
             $annotations = $doc->getAnnotationsOfType($this->tags);
+
             if (empty($annotations)) {
                 continue;
             }
+
             foreach ($annotations as $annotation) {
                 $this->fixTypes($annotation);
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+
+            $tokens[$index] = new Token([T_DOC_COMMENT, $doc->getContent()]);
         }
     }
+
     /**
      * Actually normalize the given type.
      * @param string $type
      * @return string
      */
-    protected abstract function normalize($type);
+    abstract protected function normalize($type);
+
     /**
      * Fix the types at the given line.
      *
@@ -81,14 +93,17 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
      * This will be nicely handled behind the scenes for us by the annotation class.
      * @return void
      */
-    private function fixTypes(\PhpCsFixer\DocBlock\Annotation $annotation)
+    private function fixTypes(Annotation $annotation)
     {
         $types = $annotation->getTypes();
+
         $new = $this->normalizeTypes($types);
+
         if ($types !== $new) {
             $annotation->setTypes($new);
         }
     }
+
     /**
      * @param string[] $types
      *
@@ -99,8 +114,10 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
         foreach ($types as $index => $type) {
             $types[$index] = $this->normalizeType($type);
         }
+
         return $types;
     }
+
     /**
      * Prepare the type and normalize it.
      * @param string $type
@@ -109,9 +126,10 @@ abstract class AbstractPhpdocTypesFixer extends \PhpCsFixer\AbstractFixer
     private function normalizeType($type)
     {
         $type = (string) $type;
-        if ('[]' === \substr($type, -2)) {
-            return $this->normalizeType(\substr($type, 0, -2)) . '[]';
+        if ('[]' === substr($type, -2)) {
+            return $this->normalizeType(substr($type, 0, -2)).'[]';
         }
+
         return $this->normalize($type);
     }
 }

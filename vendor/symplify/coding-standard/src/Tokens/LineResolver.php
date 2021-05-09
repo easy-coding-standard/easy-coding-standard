@@ -4,6 +4,7 @@ namespace Symplify\CodingStandard\Tokens;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 final class LineResolver
 {
     /**
@@ -11,18 +12,21 @@ final class LineResolver
      * @param int $position
      * @return int
      */
-    public function resolve(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function resolve(Tokens $tokens, $position)
     {
         $position = (int) $position;
         $lineCount = 0;
         for ($i = 0; $i < $position; ++$i) {
-            if (!isset($tokens[$i])) {
+            if (! isset($tokens[$i])) {
                 break;
             }
+
             /** @var Token $token */
             $token = $tokens[$i];
-            $lineCount += \substr_count($token->getContent(), \PHP_EOL);
+
+            $lineCount += substr_count($token->getContent(), PHP_EOL);
         }
+
         return $lineCount;
     }
 }

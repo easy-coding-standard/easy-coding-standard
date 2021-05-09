@@ -8,28 +8,33 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Event;
 
-use ECSPrefix20210509\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210509\Symfony\Contracts\EventDispatcher\Event;
+namespace Symfony\Component\Console\Event;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Contracts\EventDispatcher\Event;
+
 /**
  * Allows to inspect input and output of a command.
  *
  * @author Francesco Levorato <git@flevour.net>
  */
-class ConsoleEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\Event
+class ConsoleEvent extends Event
 {
     protected $command;
+
     private $input;
     private $output;
-    public function __construct(\ECSPrefix20210509\Symfony\Component\Console\Command\Command $command = null, \ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output)
+
+    public function __construct(Command $command = null, InputInterface $input, OutputInterface $output)
     {
         $this->command = $command;
         $this->input = $input;
         $this->output = $output;
     }
+
     /**
      * Gets the command that is executed.
      *
@@ -39,6 +44,7 @@ class ConsoleEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         return $this->command;
     }
+
     /**
      * Gets the input instance.
      *
@@ -48,6 +54,7 @@ class ConsoleEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         return $this->input;
     }
+
     /**
      * Gets the output instance.
      *

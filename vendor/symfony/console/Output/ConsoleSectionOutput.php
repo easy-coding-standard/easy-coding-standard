@@ -8,36 +8,40 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Output;
 
-use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Helper\Helper;
-use ECSPrefix20210509\Symfony\Component\Console\Terminal;
+namespace Symfony\Component\Console\Output;
+
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use Symfony\Component\Console\Helper\Helper;
+use Symfony\Component\Console\Terminal;
+
 /**
  * @author Pierre du Plessis <pdples@gmail.com>
  * @author Gabriel Ostrolucký <gabriel.ostrolucky@gmail.com>
  */
-class ConsoleSectionOutput extends \ECSPrefix20210509\Symfony\Component\Console\Output\StreamOutput
+class ConsoleSectionOutput extends StreamOutput
 {
     private $content = [];
     private $lines = 0;
     private $sections;
     private $terminal;
+
     /**
      * @param resource               $stream
      * @param ConsoleSectionOutput[] $sections
      * @param int $verbosity
      * @param bool $decorated
      */
-    public function __construct($stream, array &$sections, $verbosity, $decorated, \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function __construct($stream, array &$sections, $verbosity, $decorated, OutputFormatterInterface $formatter)
     {
         $verbosity = (int) $verbosity;
         $decorated = (bool) $decorated;
         parent::__construct($stream, $verbosity, $decorated, $formatter);
-        \array_unshift($sections, $this);
-        $this->sections =& $sections;
-        $this->terminal = new \ECSPrefix20210509\Symfony\Component\Console\Terminal();
+        array_unshift($sections, $this);
+        $this->sections = &$sections;
+        $this->terminal = new Terminal();
     }
+
     /**
      * Clears previous output for this section.
      *
@@ -48,16 +52,19 @@ class ConsoleSectionOutput extends \ECSPrefix20210509\Symfony\Component\Console\
         if (empty($this->content) || !$this->isDecorated()) {
             return;
         }
+
         if ($lines) {
-            \array_splice($this->content, -($lines * 2));
-            // Multiply lines by 2 to cater for each new line added between content
+            array_splice($this->content, -($lines * 2)); // Multiply lines by 2 to cater for each new line added between content
         } else {
             $lines = $this->lines;
             $this->content = [];
         }
+
         $this->lines -= $lines;
-        parent::doWrite($this->popStreamContentUntilCurrentSection($lines), \false);
+
+        parent::doWrite($this->popStreamContentUntilCurrentSection($lines), false);
     }
+
     /**
      * Overwrites the previous output with a new message.
      *
@@ -68,13 +75,15 @@ class ConsoleSectionOutput extends \ECSPrefix20210509\Symfony\Component\Console\
         $this->clear();
         $this->writeln($message);
     }
+
     /**
      * @return string
      */
     public function getContent()
     {
-        return \implode('', $this->content);
+        return implode('', $this->content);
     }
+
     /**
      * @internal
      * @param string $input
@@ -82,12 +91,13 @@ class ConsoleSectionOutput extends \ECSPrefix20210509\Symfony\Component\Console\
     public function addContent($input)
     {
         $input = (string) $input;
-        foreach (\explode(\PHP_EOL, $input) as $lineContent) {
-            $this->lines += \ceil($this->getDisplayLength($lineContent) / $this->terminal->getWidth()) ?: 1;
+        foreach (explode(\PHP_EOL, $input) as $lineContent) {
+            $this->lines += ceil($this->getDisplayLength($lineContent) / $this->terminal->getWidth()) ?: 1;
             $this->content[] = $lineContent;
             $this->content[] = \PHP_EOL;
         }
     }
+
     /**
      * {@inheritdoc}
      */
@@ -95,13 +105,18 @@ class ConsoleSectionOutput extends \ECSPrefix20210509\Symfony\Component\Console\
     {
         if (!$this->isDecorated()) {
             parent::doWrite($message, $newline);
+
             return;
         }
+
         $erasedContent = $this->popStreamContentUntilCurrentSection();
+
         $this->addContent($message);
-        parent::doWrite($message, \true);
-        parent::doWrite($erasedContent, \false);
+
+        parent::doWrite($message, true);
+        parent::doWrite($erasedContent, false);
     }
+
     /**
      * At initial stage, cursor is at the end of stream output. This method makes cursor crawl upwards until it hits
      * current section. Then it erases content it crawled through. Optionally, it erases part of current section too.
@@ -113,21 +128,26 @@ class ConsoleSectionOutput extends \ECSPrefix20210509\Symfony\Component\Console\
         $numberOfLinesToClearFromCurrentSection = (int) $numberOfLinesToClearFromCurrentSection;
         $numberOfLinesToClear = $numberOfLinesToClearFromCurrentSection;
         $erasedContent = [];
+
         foreach ($this->sections as $section) {
             if ($section === $this) {
                 break;
             }
+
             $numberOfLinesToClear += $section->lines;
             $erasedContent[] = $section->getContent();
         }
+
         if ($numberOfLinesToClear > 0) {
             // move cursor up n lines
-            parent::doWrite(\sprintf("\33[%dA", $numberOfLinesToClear), \false);
+            parent::doWrite(sprintf("\x1b[%dA", $numberOfLinesToClear), false);
             // erase to end of screen
-            parent::doWrite("\33[0J", \false);
+            parent::doWrite("\x1b[0J", false);
         }
-        return \implode('', \array_reverse($erasedContent));
+
+        return implode('', array_reverse($erasedContent));
     }
+
     /**
      * @param string $text
      * @return string
@@ -135,6 +155,6 @@ class ConsoleSectionOutput extends \ECSPrefix20210509\Symfony\Component\Console\
     private function getDisplayLength($text)
     {
         $text = (string) $text;
-        return \ECSPrefix20210509\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($this->getFormatter(), \str_replace("\t", '        ', $text));
+        return Helper::strlenWithoutDecoration($this->getFormatter(), str_replace("\t", '        ', $text));
     }
 }

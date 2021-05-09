@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\Handler;
+
+namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
  * Session handler using the mongodb/mongodb package and MongoDB driver extension.
@@ -18,17 +19,20 @@ namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\Han
  * @see https://packagist.org/packages/mongodb/mongodb
  * @see https://php.net/mongodb
  */
-class MongoDbSessionHandler extends \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\Handler\AbstractSessionHandler
+class MongoDbSessionHandler extends AbstractSessionHandler
 {
     private $mongo;
+
     /**
      * @var \MongoDB\Collection
      */
     private $collection;
+
     /**
      * @var array
      */
     private $options;
+
     /**
      * Constructor.
      *
@@ -59,21 +63,30 @@ class MongoDbSessionHandler extends \ECSPrefix20210509\Symfony\Component\HttpFou
      *
      * @throws \InvalidArgumentException When "database" or "collection" not provided
      */
-    public function __construct(\ECSPrefix20210509\MongoDB\Client $mongo, array $options)
+    public function __construct(\MongoDB\Client $mongo, array $options)
     {
         if (!isset($options['database']) || !isset($options['collection'])) {
             throw new \InvalidArgumentException('You must provide the "database" and "collection" option for MongoDBSessionHandler.');
         }
+
         $this->mongo = $mongo;
-        $this->options = \array_merge(['id_field' => '_id', 'data_field' => 'data', 'time_field' => 'time', 'expiry_field' => 'expires_at'], $options);
+
+        $this->options = array_merge([
+            'id_field' => '_id',
+            'data_field' => 'data',
+            'time_field' => 'time',
+            'expiry_field' => 'expires_at',
+        ], $options);
     }
+
     /**
      * @return bool
      */
     public function close()
     {
-        return \true;
+        return true;
     }
+
     /**
      * {@inheritdoc}
      * @param string $sessionId
@@ -81,17 +94,25 @@ class MongoDbSessionHandler extends \ECSPrefix20210509\Symfony\Component\HttpFou
     protected function doDestroy($sessionId)
     {
         $sessionId = (string) $sessionId;
-        $this->getCollection()->deleteOne([$this->options['id_field'] => $sessionId]);
-        return \true;
+        $this->getCollection()->deleteOne([
+            $this->options['id_field'] => $sessionId,
+        ]);
+
+        return true;
     }
+
     /**
      * @return bool
      */
     public function gc($maxlifetime)
     {
-        $this->getCollection()->deleteMany([$this->options['expiry_field'] => ['$lt' => new \MongoDB\BSON\UTCDateTime()]]);
-        return \true;
+        $this->getCollection()->deleteMany([
+            $this->options['expiry_field'] => ['$lt' => new \MongoDB\BSON\UTCDateTime()],
+        ]);
+
+        return true;
     }
+
     /**
      * {@inheritdoc}
      * @param string $sessionId
@@ -101,20 +122,41 @@ class MongoDbSessionHandler extends \ECSPrefix20210509\Symfony\Component\HttpFou
     {
         $sessionId = (string) $sessionId;
         $data = (string) $data;
-        $expiry = new \MongoDB\BSON\UTCDateTime((\time() + (int) \ini_get('session.gc_maxlifetime')) * 1000);
-        $fields = [$this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(), $this->options['expiry_field'] => $expiry, $this->options['data_field'] => new \MongoDB\BSON\Binary($data, \MongoDB\BSON\Binary::TYPE_OLD_BINARY)];
-        $this->getCollection()->updateOne([$this->options['id_field'] => $sessionId], ['$set' => $fields], ['upsert' => \true]);
-        return \true;
+        $expiry = new \MongoDB\BSON\UTCDateTime((time() + (int) ini_get('session.gc_maxlifetime')) * 1000);
+
+        $fields = [
+            $this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(),
+            $this->options['expiry_field'] => $expiry,
+            $this->options['data_field'] => new \MongoDB\BSON\Binary($data, \MongoDB\BSON\Binary::TYPE_OLD_BINARY),
+        ];
+
+        $this->getCollection()->updateOne(
+            [$this->options['id_field'] => $sessionId],
+            ['$set' => $fields],
+            ['upsert' => true]
+        );
+
+        return true;
     }
+
     /**
      * @return bool
      */
     public function updateTimestamp($sessionId, $data)
     {
-        $expiry = new \MongoDB\BSON\UTCDateTime((\time() + (int) \ini_get('session.gc_maxlifetime')) * 1000);
-        $this->getCollection()->updateOne([$this->options['id_field'] => $sessionId], ['$set' => [$this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(), $this->options['expiry_field'] => $expiry]]);
-        return \true;
+        $expiry = new \MongoDB\BSON\UTCDateTime((time() + (int) ini_get('session.gc_maxlifetime')) * 1000);
+
+        $this->getCollection()->updateOne(
+            [$this->options['id_field'] => $sessionId],
+            ['$set' => [
+                $this->options['time_field'] => new \MongoDB\BSON\UTCDateTime(),
+                $this->options['expiry_field'] => $expiry,
+            ]]
+        );
+
+        return true;
     }
+
     /**
      * {@inheritdoc}
      * @param string $sessionId
@@ -122,12 +164,18 @@ class MongoDbSessionHandler extends \ECSPrefix20210509\Symfony\Component\HttpFou
     protected function doRead($sessionId)
     {
         $sessionId = (string) $sessionId;
-        $dbData = $this->getCollection()->findOne([$this->options['id_field'] => $sessionId, $this->options['expiry_field'] => ['$gte' => new \MongoDB\BSON\UTCDateTime()]]);
+        $dbData = $this->getCollection()->findOne([
+            $this->options['id_field'] => $sessionId,
+            $this->options['expiry_field'] => ['$gte' => new \MongoDB\BSON\UTCDateTime()],
+        ]);
+
         if (null === $dbData) {
             return '';
         }
+
         return $dbData[$this->options['data_field']]->getData();
     }
+
     /**
      * @return \MongoDB\Collection
      */
@@ -136,8 +184,10 @@ class MongoDbSessionHandler extends \ECSPrefix20210509\Symfony\Component\HttpFou
         if (null === $this->collection) {
             $this->collection = $this->mongo->selectCollection($this->options['database'], $this->options['collection']);
         }
+
         return $this->collection;
     }
+
     /**
      * @return \MongoDB\Client
      */

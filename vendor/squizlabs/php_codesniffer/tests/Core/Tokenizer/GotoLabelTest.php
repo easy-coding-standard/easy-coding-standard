@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tests the tokenization of goto declarations and statements.
  *
@@ -7,11 +6,15 @@
  * @copyright 2020 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core\Tokenizer;
 
 use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
-class GotoLabelTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
+
+class GotoLabelTest extends AbstractMethodUnitTest
 {
+
+
     /**
      * Verify that the label in a goto statement is tokenized as T_STRING.
      *
@@ -26,11 +29,15 @@ class GotoLabelTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
     public function testGotoStatement($testMarker, $testContent)
     {
         $tokens = self::$phpcsFile->getTokens();
-        $label = $this->getTargetToken($testMarker, \T_STRING);
+
+        $label = $this->getTargetToken($testMarker, T_STRING);
+
         $this->assertInternalType('int', $label);
         $this->assertSame($testContent, $tokens[$label]['content']);
-    }
-    //end testGotoStatement()
+
+    }//end testGotoStatement()
+
+
     /**
      * Data provider.
      *
@@ -40,9 +47,20 @@ class GotoLabelTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
      */
     public function dataGotoStatement()
     {
-        return [['/* testGotoStatement */', 'marker'], ['/* testGotoStatementInLoop */', 'end']];
-    }
-    //end dataGotoStatement()
+        return [
+            [
+                '/* testGotoStatement */',
+                'marker',
+            ],
+            [
+                '/* testGotoStatementInLoop */',
+                'end',
+            ],
+        ];
+
+    }//end dataGotoStatement()
+
+
     /**
      * Verify that the label in a goto declaration is tokenized as T_GOTO_LABEL.
      *
@@ -57,11 +75,15 @@ class GotoLabelTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
     public function testGotoDeclaration($testMarker, $testContent)
     {
         $tokens = self::$phpcsFile->getTokens();
+
         $label = $this->getTargetToken($testMarker, T_GOTO_LABEL);
+
         $this->assertInternalType('int', $label);
         $this->assertSame($testContent, $tokens[$label]['content']);
-    }
-    //end testGotoDeclaration()
+
+    }//end testGotoDeclaration()
+
+
     /**
      * Data provider.
      *
@@ -71,9 +93,20 @@ class GotoLabelTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
      */
     public function dataGotoDeclaration()
     {
-        return [['/* testGotoDeclaration */', 'marker:'], ['/* testGotoDeclarationOutsideLoop */', 'end:']];
-    }
-    //end dataGotoDeclaration()
+        return [
+            [
+                '/* testGotoDeclaration */',
+                'marker:',
+            ],
+            [
+                '/* testGotoDeclarationOutsideLoop */',
+                'end:',
+            ],
+        ];
+
+    }//end dataGotoDeclaration()
+
+
     /**
      * Verify that the constant used in a switch - case statement is not confused with a goto label.
      *
@@ -88,11 +121,14 @@ class GotoLabelTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
     public function testNotAGotoDeclaration($testMarker, $testContent)
     {
         $tokens = self::$phpcsFile->getTokens();
-        $target = $this->getTargetToken($testMarker, [T_GOTO_LABEL, \T_STRING], $testContent);
-        $this->assertSame(\T_STRING, $tokens[$target]['code']);
+        $target = $this->getTargetToken($testMarker, [T_GOTO_LABEL, T_STRING], $testContent);
+
+        $this->assertSame(T_STRING, $tokens[$target]['code']);
         $this->assertSame('T_STRING', $tokens[$target]['type']);
-    }
-    //end testNotAGotoDeclaration()
+
+    }//end testNotAGotoDeclaration()
+
+
     /**
      * Data provider.
      *
@@ -102,8 +138,34 @@ class GotoLabelTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
      */
     public function dataNotAGotoDeclaration()
     {
-        return [['/* testNotGotoDeclarationGlobalConstant */', 'CONSTANT'], ['/* testNotGotoDeclarationNamespacedConstant */', 'CONSTANT'], ['/* testNotGotoDeclarationClassConstant */', 'CONSTANT'], ['/* testNotGotoDeclarationClassProperty */', 'property'], ['/* testNotGotoDeclarationGlobalConstantInTernary */', 'CONST_A'], ['/* testNotGotoDeclarationGlobalConstantInTernary */', 'CONST_B']];
-    }
-    //end dataNotAGotoDeclaration()
-}
-//end class
+        return [
+            [
+                '/* testNotGotoDeclarationGlobalConstant */',
+                'CONSTANT',
+            ],
+            [
+                '/* testNotGotoDeclarationNamespacedConstant */',
+                'CONSTANT',
+            ],
+            [
+                '/* testNotGotoDeclarationClassConstant */',
+                'CONSTANT',
+            ],
+            [
+                '/* testNotGotoDeclarationClassProperty */',
+                'property',
+            ],
+            [
+                '/* testNotGotoDeclarationGlobalConstantInTernary */',
+                'CONST_A',
+            ],
+            [
+                '/* testNotGotoDeclarationGlobalConstantInTernary */',
+                'CONST_B',
+            ],
+        ];
+
+    }//end dataNotAGotoDeclaration()
+
+
+}//end class

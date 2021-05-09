@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Composer\Semver\Constraint;
+
+namespace Composer\Semver\Constraint;
 
 class Bound
 {
@@ -16,10 +17,12 @@ class Bound
      * @var string
      */
     private $version;
+
     /**
      * @var bool
      */
     private $isInclusive;
+
     /**
      * @param string $version
      * @param bool   $isInclusive
@@ -29,6 +32,7 @@ class Bound
         $this->version = $version;
         $this->isInclusive = $isInclusive;
     }
+
     /**
      * @return string
      */
@@ -36,6 +40,7 @@ class Bound
     {
         return $this->version;
     }
+
     /**
      * @return bool
      */
@@ -43,14 +48,17 @@ class Bound
     {
         return $this->isInclusive;
     }
+
     public function isZero()
     {
         return $this->getVersion() === '0.0.0.0-dev' && $this->isInclusive();
     }
+
     public function isPositiveInfinity()
     {
-        return $this->getVersion() === \PHP_INT_MAX . '.0.0.0' && !$this->isInclusive();
+        return $this->getVersion() === PHP_INT_MAX.'.0.0.0' && !$this->isInclusive();
     }
+
     /**
      * Compares a bound to another with a given operator.
      *
@@ -59,39 +67,50 @@ class Bound
      *
      * @return bool
      */
-    public function compareTo(\ECSPrefix20210509\Composer\Semver\Constraint\Bound $other, $operator)
+    public function compareTo(Bound $other, $operator)
     {
-        if (!\in_array($operator, array('<', '>'), \true)) {
+        if (!\in_array($operator, array('<', '>'), true)) {
             throw new \InvalidArgumentException('Does not support any other operator other than > or <.');
         }
+
         // If they are the same it doesn't matter
         if ($this == $other) {
-            return \false;
+            return false;
         }
-        $compareResult = \version_compare($this->getVersion(), $other->getVersion());
+
+        $compareResult = version_compare($this->getVersion(), $other->getVersion());
+
         // Not the same version means we don't need to check if the bounds are inclusive or not
         if (0 !== $compareResult) {
-            return ('>' === $operator ? 1 : -1) === $compareResult;
+            return (('>' === $operator) ? 1 : -1) === $compareResult;
         }
+
         // Question we're answering here is "am I higher than $other?"
         return '>' === $operator ? $other->isInclusive() : !$other->isInclusive();
     }
+
     public function __toString()
     {
-        return \sprintf('%s [%s]', $this->getVersion(), $this->isInclusive() ? 'inclusive' : 'exclusive');
+        return sprintf(
+            '%s [%s]',
+            $this->getVersion(),
+            $this->isInclusive() ? 'inclusive' : 'exclusive'
+        );
     }
+
     /**
      * @return self
      */
     public static function zero()
     {
-        return new \ECSPrefix20210509\Composer\Semver\Constraint\Bound('0.0.0.0-dev', \true);
+        return new Bound('0.0.0.0-dev', true);
     }
+
     /**
      * @return self
      */
     public static function positiveInfinity()
     {
-        return new \ECSPrefix20210509\Composer\Semver\Constraint\Bound(\PHP_INT_MAX . '.0.0.0', \false);
+        return new Bound(PHP_INT_MAX.'.0.0.0', false);
     }
 }

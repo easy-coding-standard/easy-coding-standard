@@ -1,10 +1,12 @@
 <?php
 
-namespace ECSPrefix20210509\Nette\Utils;
+namespace Nette\Utils;
 
-use ECSPrefix20210509\Nette;
-use ECSPrefix20210509\Nette\HtmlStringable;
+use Nette;
+use Nette\HtmlStringable;
 use function is_array, is_float, is_object, is_string;
+
+
 /**
  * HTML helper.
  *
@@ -222,581 +224,710 @@ use function is_array, is_float, is_object, is_string;
  * @method self width(?int $val)
  * @method self wrap(?string $val)
  */
-class Html implements \ArrayAccess, \Countable, \IteratorAggregate, \ECSPrefix20210509\Nette\HtmlStringable
+class Html implements \ArrayAccess, \Countable, \IteratorAggregate, HtmlStringable
 {
-    use Nette\SmartObject;
-    /** @var array<string, mixed>  element's attributes */
-    public $attrs = [];
-    /** @var bool  use XHTML syntax? */
-    public static $xhtml = \false;
-    /** @var array<string, int>  void elements */
-    public static $emptyElements = ['img' => 1, 'hr' => 1, 'br' => 1, 'input' => 1, 'meta' => 1, 'area' => 1, 'embed' => 1, 'keygen' => 1, 'source' => 1, 'base' => 1, 'col' => 1, 'link' => 1, 'param' => 1, 'basefont' => 1, 'frame' => 1, 'isindex' => 1, 'wbr' => 1, 'command' => 1, 'track' => 1];
-    /** @var array<int, Html|string> nodes */
-    protected $children = [];
-    /** @var string  element's name */
-    private $name;
-    /** @var bool  is element empty? */
-    private $isEmpty;
-    /**
-     * Constructs new HTML element.
-     * @param  array|string $attrs element's attributes or plain text content
-     * @return static
-     * @param string $name
-     */
-    public static function el($name = null, $attrs = null)
-    {
-        $el = new static();
-        $parts = \explode(' ', (string) $name, 2);
-        $el->setName($parts[0]);
-        if (\is_array($attrs)) {
-            $el->attrs = $attrs;
-        } elseif ($attrs !== null) {
-            $el->setText($attrs);
-        }
-        if (isset($parts[1])) {
-            foreach (\ECSPrefix20210509\Nette\Utils\Strings::matchAll($parts[1] . ' ', '#([a-z0-9:-]+)(?:=(["\'])?(.*?)(?(2)\\2|\\s))?#i') as $m) {
-                $el->attrs[$m[1]] = isset($m[3]) ? $m[3] : \true;
-            }
-        }
-        return $el;
-    }
-    /**
-     * Returns an object representing HTML text.
-     * @return $this
-     * @param string $html
-     */
-    public static function fromHtml($html)
-    {
-        $html = (string) $html;
-        return (new static())->setHtml($html);
-    }
-    /**
-     * Returns an object representing plain text.
-     * @return $this
-     * @param string $text
-     */
-    public static function fromText($text)
-    {
-        $text = (string) $text;
-        return (new static())->setText($text);
-    }
-    /**
-     * Converts to HTML.
-     * @return string
-     */
-    public final function toHtml()
-    {
-        return $this->render();
-    }
-    /**
-     * Converts to plain text.
-     * @return string
-     */
-    public final function toText()
-    {
-        return $this->getText();
-    }
-    /**
-     * Converts given HTML code to plain text.
-     * @param string $html
-     * @return string
-     */
-    public static function htmlToText($html)
-    {
-        $html = (string) $html;
-        return \html_entity_decode(\strip_tags($html), \ENT_QUOTES | \ENT_HTML5, 'UTF-8');
-    }
-    /**
-     * Changes element's name.
-     * @return static
-     * @param string $name
-     * @param bool $isEmpty
-     */
-    public final function setName($name, $isEmpty = null)
-    {
-        $name = (string) $name;
-        $isEmpty = (bool) $isEmpty;
-        $this->name = $name;
-        $this->isEmpty = isset($isEmpty) ? $isEmpty : isset(static::$emptyElements[$name]);
-        return $this;
-    }
-    /**
-     * Returns element's name.
-     * @return string
-     */
-    public final function getName()
-    {
-        return $this->name;
-    }
-    /**
-     * Is element empty?
-     * @return bool
-     */
-    public final function isEmpty()
-    {
-        return $this->isEmpty;
-    }
-    /**
-     * Sets multiple attributes.
-     * @return static
-     */
-    public function addAttributes(array $attrs)
-    {
-        $this->attrs = \array_merge($this->attrs, $attrs);
-        return $this;
-    }
-    /**
-     * Appends value to element's attribute.
-     * @param  mixed  $value
-     * @param  mixed  $option
-     * @return static
-     * @param string $name
-     */
-    public function appendAttribute($name, $value, $option = \true)
-    {
-        $name = (string) $name;
-        if (\is_array($value)) {
-            $prev = isset($this->attrs[$name]) ? (array) $this->attrs[$name] : [];
-            $this->attrs[$name] = $value + $prev;
-        } elseif ((string) $value === '') {
-            $tmp =& $this->attrs[$name];
-            // appending empty value? -> ignore, but ensure it exists
-        } elseif (!isset($this->attrs[$name]) || \is_array($this->attrs[$name])) {
-            // needs array
-            $this->attrs[$name][$value] = $option;
-        } else {
-            $this->attrs[$name] = [$this->attrs[$name] => \true, $value => $option];
-        }
-        return $this;
-    }
-    /**
-     * Sets element's attribute.
-     * @param  mixed  $value
-     * @return static
-     * @param string $name
-     */
-    public function setAttribute($name, $value)
-    {
-        $name = (string) $name;
-        $this->attrs[$name] = $value;
-        return $this;
-    }
-    /**
-     * Returns element's attribute.
-     * @return mixed
-     * @param string $name
-     */
-    public function getAttribute($name)
-    {
-        $name = (string) $name;
-        return isset($this->attrs[$name]) ? $this->attrs[$name] : null;
-    }
-    /**
-     * Unsets element's attribute.
-     * @return static
-     * @param string $name
-     */
-    public function removeAttribute($name)
-    {
-        $name = (string) $name;
-        unset($this->attrs[$name]);
-        return $this;
-    }
-    /**
-     * Unsets element's attributes.
-     * @return static
-     */
-    public function removeAttributes(array $attributes)
-    {
-        foreach ($attributes as $name) {
-            unset($this->attrs[$name]);
-        }
-        return $this;
-    }
-    /**
-     * Overloaded setter for element's attribute.
-     * @param  mixed  $value
-     * @return void
-     * @param string $name
-     */
-    public final function __set($name, $value)
-    {
-        $name = (string) $name;
-        $this->attrs[$name] = $value;
-    }
-    /**
-     * Overloaded getter for element's attribute.
-     * @return mixed
-     * @param string $name
-     */
-    public final function &__get($name)
-    {
-        $name = (string) $name;
-        return $this->attrs[$name];
-    }
-    /**
-     * Overloaded tester for element's attribute.
-     * @param string $name
-     * @return bool
-     */
-    public final function __isset($name)
-    {
-        $name = (string) $name;
-        return isset($this->attrs[$name]);
-    }
-    /**
-     * Overloaded unsetter for element's attribute.
-     * @return void
-     * @param string $name
-     */
-    public final function __unset($name)
-    {
-        $name = (string) $name;
-        unset($this->attrs[$name]);
-    }
-    /**
-     * Overloaded setter for element's attribute.
-     * @return mixed
-     * @param string $m
-     */
-    public final function __call($m, array $args)
-    {
-        $m = (string) $m;
-        $p = \substr($m, 0, 3);
-        if ($p === 'get' || $p === 'set' || $p === 'add') {
-            $m = \substr($m, 3);
-            $m[0] = $m[0] | " ";
-            if ($p === 'get') {
-                return isset($this->attrs[$m]) ? $this->attrs[$m] : null;
-            } elseif ($p === 'add') {
-                $args[] = \true;
-            }
-        }
-        if (\count($args) === 0) {
-            // invalid
-        } elseif (\count($args) === 1) {
-            // set
-            $this->attrs[$m] = $args[0];
-        } else {
-            // add
-            $this->appendAttribute($m, $args[0], $args[1]);
-        }
-        return $this;
-    }
-    /**
-     * Special setter for element's attribute.
-     * @return static
-     * @param string $path
-     */
-    public final function href($path, array $query = null)
-    {
-        $path = (string) $path;
-        if ($query) {
-            $query = \http_build_query($query, '', '&');
-            if ($query !== '') {
-                $path .= '?' . $query;
-            }
-        }
-        $this->attrs['href'] = $path;
-        return $this;
-    }
-    /**
-     * Setter for data-* attributes. Booleans are converted to 'true' resp. 'false'.
-     * @param  mixed  $value
-     * @return static
-     * @param string $name
-     */
-    public function data($name, $value = null)
-    {
-        $name = (string) $name;
-        if (\func_num_args() === 1) {
-            $this->attrs['data'] = $name;
-        } else {
-            $this->attrs["data-{$name}"] = \is_bool($value) ? \json_encode($value) : $value;
-        }
-        return $this;
-    }
-    /**
-     * Sets element's HTML content.
-     * @param  HtmlStringable|string  $html
-     * @return static
-     */
-    public final function setHtml($html)
-    {
-        $this->children = [(string) $html];
-        return $this;
-    }
-    /**
-     * Returns element's HTML content.
-     * @return string
-     */
-    public final function getHtml()
-    {
-        return \implode('', $this->children);
-    }
-    /**
-     * Sets element's textual content.
-     * @param  HtmlStringable|string|int|float  $text
-     * @return static
-     */
-    public final function setText($text)
-    {
-        if (!$text instanceof \ECSPrefix20210509\Nette\HtmlStringable) {
-            $text = \htmlspecialchars((string) $text, \ENT_NOQUOTES, 'UTF-8');
-        }
-        $this->children = [(string) $text];
-        return $this;
-    }
-    /**
-     * Returns element's textual content.
-     * @return string
-     */
-    public final function getText()
-    {
-        return self::htmlToText($this->getHtml());
-    }
-    /**
-     * Adds new element's child.
-     * @param  HtmlStringable|string  $child  Html node or raw HTML string
-     * @return static
-     */
-    public final function addHtml($child)
-    {
-        return $this->insert(null, $child);
-    }
-    /**
-     * Appends plain-text string to element content.
-     * @param  HtmlStringable|string|int|float  $text
-     * @return static
-     */
-    public function addText($text)
-    {
-        if (!$text instanceof \ECSPrefix20210509\Nette\HtmlStringable) {
-            $text = \htmlspecialchars((string) $text, \ENT_NOQUOTES, 'UTF-8');
-        }
-        return $this->insert(null, $text);
-    }
-    /**
-     * Creates and adds a new Html child.
-     * @param  array|string $attrs  element's attributes or raw HTML string
-     * @return static  created element
-     * @param string $name
-     */
-    public final function create($name, $attrs = null)
-    {
-        $name = (string) $name;
-        $this->insert(null, $child = static::el($name, $attrs));
-        return $child;
-    }
-    /**
-     * Inserts child node.
-     * @param  HtmlStringable|string $child Html node or raw HTML string
-     * @return static
-     * @param int|null $index
-     * @param bool $replace
-     */
-    public function insert($index, $child, $replace = \false)
-    {
-        $replace = (bool) $replace;
-        $child = $child instanceof self ? $child : (string) $child;
-        if ($index === null) {
-            // append
-            $this->children[] = $child;
-        } else {
-            // insert or replace
-            \array_splice($this->children, $index, $replace ? 1 : 0, [$child]);
-        }
-        return $this;
-    }
-    /**
-     * Inserts (replaces) child node (\ArrayAccess implementation).
-     * @param  int|null  $index  position or null for appending
-     * @param  Html|string  $child  Html node or raw HTML string
-     * @return void
-     */
-    public final function offsetSet($index, $child)
-    {
-        $this->insert($index, $child, \true);
-    }
-    /**
-     * Returns child node (\ArrayAccess implementation).
-     * @param  int  $index
-     * @return static|string
-     */
-    public final function offsetGet($index)
-    {
-        return $this->children[$index];
-    }
-    /**
-     * Exists child node? (\ArrayAccess implementation).
-     * @param  int  $index
-     * @return bool
-     */
-    public final function offsetExists($index)
-    {
-        return isset($this->children[$index]);
-    }
-    /**
-     * Removes child node (\ArrayAccess implementation).
-     * @param  int  $index
-     * @return void
-     */
-    public function offsetUnset($index)
-    {
-        if (isset($this->children[$index])) {
-            \array_splice($this->children, $index, 1);
-        }
-    }
-    /**
-     * Returns children count.
-     * @return int
-     */
-    public final function count()
-    {
-        return \count($this->children);
-    }
-    /**
-     * Removes all children.
-     * @return void
-     */
-    public function removeChildren()
-    {
-        $this->children = [];
-    }
-    /**
-     * Iterates over elements.
-     * @return \ArrayIterator
-     */
-    public final function getIterator()
-    {
-        return new \ArrayIterator($this->children);
-    }
-    /**
-     * Returns all children.
-     * @return mixed[]
-     */
-    public final function getChildren()
-    {
-        return $this->children;
-    }
-    /**
-     * Renders element's start tag, content and end tag.
-     * @param int $indent
-     * @return string
-     */
-    public final function render($indent = null)
-    {
-        $s = $this->startTag();
-        if (!$this->isEmpty) {
-            // add content
-            if ($indent !== null) {
-                $indent++;
-            }
-            foreach ($this->children as $child) {
-                if ($child instanceof self) {
-                    $s .= $child->render($indent);
-                } else {
-                    $s .= $child;
-                }
-            }
-            // add end tag
-            $s .= $this->endTag();
-        }
-        if ($indent !== null) {
-            return "\n" . \str_repeat("\t", $indent - 1) . $s . "\n" . \str_repeat("\t", \max(0, $indent - 2));
-        }
-        return $s;
-    }
-    /**
-     * @return string
-     */
-    public final function __toString()
-    {
-        try {
-            return $this->render();
-        } catch (\Throwable $e) {
-            if (\PHP_VERSION_ID >= 70400) {
-                throw $e;
-            }
-            \trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", \E_USER_ERROR);
-            return '';
-        }
-    }
-    /**
-     * Returns element's start tag.
-     * @return string
-     */
-    public final function startTag()
-    {
-        return $this->name ? '<' . $this->name . $this->attributes() . (static::$xhtml && $this->isEmpty ? ' />' : '>') : '';
-    }
-    /**
-     * Returns element's end tag.
-     * @return string
-     */
-    public final function endTag()
-    {
-        return $this->name && !$this->isEmpty ? '</' . $this->name . '>' : '';
-    }
-    /**
-     * Returns element's attributes.
-     * @internal
-     * @return string
-     */
-    public final function attributes()
-    {
-        if (!\is_array($this->attrs)) {
-            return '';
-        }
-        $s = '';
-        $attrs = $this->attrs;
-        foreach ($attrs as $key => $value) {
-            if ($value === null || $value === \false) {
-                continue;
-            } elseif ($value === \true) {
-                if (static::$xhtml) {
-                    $s .= ' ' . $key . '="' . $key . '"';
-                } else {
-                    $s .= ' ' . $key;
-                }
-                continue;
-            } elseif (\is_array($value)) {
-                if (\strncmp($key, 'data-', 5) === 0) {
-                    $value = \ECSPrefix20210509\Nette\Utils\Json::encode($value);
-                } else {
-                    $tmp = null;
-                    foreach ($value as $k => $v) {
-                        if ($v != null) {
-                            // intentionally ==, skip nulls & empty string
-                            // composite 'style' vs. 'others'
-                            $tmp[] = $v === \true ? $k : (\is_string($k) ? $k . ':' . $v : $v);
-                        }
-                    }
-                    if ($tmp === null) {
-                        continue;
-                    }
-                    $value = \implode($key === 'style' || !\strncmp($key, 'on', 2) ? ';' : ' ', $tmp);
-                }
-            } elseif (\is_float($value)) {
-                $value = \rtrim(\rtrim(\number_format($value, 10, '.', ''), '0'), '.');
-            } else {
-                $value = (string) $value;
-            }
-            $q = \strpos($value, '"') === \false ? '"' : "'";
-            $s .= ' ' . $key . '=' . $q . \str_replace(['&', $q, '<'], ['&amp;', $q === '"' ? '&quot;' : '&#39;', self::$xhtml ? '&lt;' : '<'], $value) . (\strpos($value, '`') !== \false && \strpbrk($value, ' <>"\'') === \false ? ' ' : '') . $q;
-        }
-        $s = \str_replace('@', '&#64;', $s);
-        return $s;
-    }
-    /**
-     * Clones all children too.
-     */
-    public function __clone()
-    {
-        foreach ($this->children as $key => $value) {
-            if (\is_object($value)) {
-                $this->children[$key] = clone $value;
-            }
-        }
-    }
+	use Nette\SmartObject;
+
+	/** @var array<string, mixed>  element's attributes */
+	public $attrs = [];
+
+	/** @var bool  use XHTML syntax? */
+	public static $xhtml = false;
+
+	/** @var array<string, int>  void elements */
+	public static $emptyElements = [
+		'img' => 1, 'hr' => 1, 'br' => 1, 'input' => 1, 'meta' => 1, 'area' => 1, 'embed' => 1, 'keygen' => 1,
+		'source' => 1, 'base' => 1, 'col' => 1, 'link' => 1, 'param' => 1, 'basefont' => 1, 'frame' => 1,
+		'isindex' => 1, 'wbr' => 1, 'command' => 1, 'track' => 1,
+	];
+
+	/** @var array<int, Html|string> nodes */
+	protected $children = [];
+
+	/** @var string  element's name */
+	private $name;
+
+	/** @var bool  is element empty? */
+	private $isEmpty;
+
+
+	/**
+	 * Constructs new HTML element.
+	 * @param  array|string $attrs element's attributes or plain text content
+	 * @return static
+	 * @param string $name
+	 */
+	public static function el($name = null, $attrs = null)
+	{
+		$el = new static;
+		$parts = explode(' ', (string) $name, 2);
+		$el->setName($parts[0]);
+
+		if (is_array($attrs)) {
+			$el->attrs = $attrs;
+
+		} elseif ($attrs !== null) {
+			$el->setText($attrs);
+		}
+
+		if (isset($parts[1])) {
+			foreach (Strings::matchAll($parts[1] . ' ', '#([a-z0-9:-]+)(?:=(["\'])?(.*?)(?(2)\2|\s))?#i') as $m) {
+				$el->attrs[$m[1]] = isset($m[3]) ? $m[3] : true;
+			}
+		}
+
+		return $el;
+	}
+
+
+	/**
+	 * Returns an object representing HTML text.
+	 * @return $this
+	 * @param string $html
+	 */
+	public static function fromHtml($html)
+	{
+		$html = (string) $html;
+		return (new static)->setHtml($html);
+	}
+
+
+	/**
+	 * Returns an object representing plain text.
+	 * @return $this
+	 * @param string $text
+	 */
+	public static function fromText($text)
+	{
+		$text = (string) $text;
+		return (new static)->setText($text);
+	}
+
+
+	/**
+	 * Converts to HTML.
+	 * @return string
+	 */
+	final public function toHtml()
+	{
+		return $this->render();
+	}
+
+
+	/**
+	 * Converts to plain text.
+	 * @return string
+	 */
+	final public function toText()
+	{
+		return $this->getText();
+	}
+
+
+	/**
+	 * Converts given HTML code to plain text.
+	 * @param string $html
+	 * @return string
+	 */
+	public static function htmlToText($html)
+	{
+		$html = (string) $html;
+		return html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+	}
+
+
+	/**
+	 * Changes element's name.
+	 * @return static
+	 * @param string $name
+	 * @param bool $isEmpty
+	 */
+	final public function setName($name, $isEmpty = null)
+	{
+		$name = (string) $name;
+		$isEmpty = (bool) $isEmpty;
+		$this->name = $name;
+		$this->isEmpty = isset($isEmpty) ? $isEmpty : isset(static::$emptyElements[$name]);
+		return $this;
+	}
+
+
+	/**
+	 * Returns element's name.
+	 * @return string
+	 */
+	final public function getName()
+	{
+		return $this->name;
+	}
+
+
+	/**
+	 * Is element empty?
+	 * @return bool
+	 */
+	final public function isEmpty()
+	{
+		return $this->isEmpty;
+	}
+
+
+	/**
+	 * Sets multiple attributes.
+	 * @return static
+	 */
+	public function addAttributes(array $attrs)
+	{
+		$this->attrs = array_merge($this->attrs, $attrs);
+		return $this;
+	}
+
+
+	/**
+	 * Appends value to element's attribute.
+	 * @param  mixed  $value
+	 * @param  mixed  $option
+	 * @return static
+	 * @param string $name
+	 */
+	public function appendAttribute($name, $value, $option = true)
+	{
+		$name = (string) $name;
+		if (is_array($value)) {
+			$prev = isset($this->attrs[$name]) ? (array) $this->attrs[$name] : [];
+			$this->attrs[$name] = $value + $prev;
+
+		} elseif ((string) $value === '') {
+			$tmp = &$this->attrs[$name]; // appending empty value? -> ignore, but ensure it exists
+
+		} elseif (!isset($this->attrs[$name]) || is_array($this->attrs[$name])) { // needs array
+			$this->attrs[$name][$value] = $option;
+
+		} else {
+			$this->attrs[$name] = [$this->attrs[$name] => true, $value => $option];
+		}
+		return $this;
+	}
+
+
+	/**
+	 * Sets element's attribute.
+	 * @param  mixed  $value
+	 * @return static
+	 * @param string $name
+	 */
+	public function setAttribute($name, $value)
+	{
+		$name = (string) $name;
+		$this->attrs[$name] = $value;
+		return $this;
+	}
+
+
+	/**
+	 * Returns element's attribute.
+	 * @return mixed
+	 * @param string $name
+	 */
+	public function getAttribute($name)
+	{
+		$name = (string) $name;
+		return isset($this->attrs[$name]) ? $this->attrs[$name] : null;
+	}
+
+
+	/**
+	 * Unsets element's attribute.
+	 * @return static
+	 * @param string $name
+	 */
+	public function removeAttribute($name)
+	{
+		$name = (string) $name;
+		unset($this->attrs[$name]);
+		return $this;
+	}
+
+
+	/**
+	 * Unsets element's attributes.
+	 * @return static
+	 */
+	public function removeAttributes(array $attributes)
+	{
+		foreach ($attributes as $name) {
+			unset($this->attrs[$name]);
+		}
+		return $this;
+	}
+
+
+	/**
+	 * Overloaded setter for element's attribute.
+	 * @param  mixed  $value
+	 * @return void
+	 * @param string $name
+	 */
+	final public function __set($name, $value)
+	{
+		$name = (string) $name;
+		$this->attrs[$name] = $value;
+	}
+
+
+	/**
+	 * Overloaded getter for element's attribute.
+	 * @return mixed
+	 * @param string $name
+	 */
+	final public function &__get($name)
+	{
+		$name = (string) $name;
+		return $this->attrs[$name];
+	}
+
+
+	/**
+	 * Overloaded tester for element's attribute.
+	 * @param string $name
+	 * @return bool
+	 */
+	final public function __isset($name)
+	{
+		$name = (string) $name;
+		return isset($this->attrs[$name]);
+	}
+
+
+	/**
+	 * Overloaded unsetter for element's attribute.
+	 * @return void
+	 * @param string $name
+	 */
+	final public function __unset($name)
+	{
+		$name = (string) $name;
+		unset($this->attrs[$name]);
+	}
+
+
+	/**
+	 * Overloaded setter for element's attribute.
+	 * @return mixed
+	 * @param string $m
+	 */
+	final public function __call($m, array $args)
+	{
+		$m = (string) $m;
+		$p = substr($m, 0, 3);
+		if ($p === 'get' || $p === 'set' || $p === 'add') {
+			$m = substr($m, 3);
+			$m[0] = $m[0] | "\x20";
+			if ($p === 'get') {
+				return isset($this->attrs[$m]) ? $this->attrs[$m] : null;
+
+			} elseif ($p === 'add') {
+				$args[] = true;
+			}
+		}
+
+		if (count($args) === 0) { // invalid
+
+		} elseif (count($args) === 1) { // set
+			$this->attrs[$m] = $args[0];
+
+		} else { // add
+			$this->appendAttribute($m, $args[0], $args[1]);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Special setter for element's attribute.
+	 * @return static
+	 * @param string $path
+	 */
+	final public function href($path, array $query = null)
+	{
+		$path = (string) $path;
+		if ($query) {
+			$query = http_build_query($query, '', '&');
+			if ($query !== '') {
+				$path .= '?' . $query;
+			}
+		}
+		$this->attrs['href'] = $path;
+		return $this;
+	}
+
+
+	/**
+	 * Setter for data-* attributes. Booleans are converted to 'true' resp. 'false'.
+	 * @param  mixed  $value
+	 * @return static
+	 * @param string $name
+	 */
+	public function data($name, $value = null)
+	{
+		$name = (string) $name;
+		if (func_num_args() === 1) {
+			$this->attrs['data'] = $name;
+		} else {
+			$this->attrs["data-$name"] = is_bool($value)
+				? json_encode($value)
+				: $value;
+		}
+		return $this;
+	}
+
+
+	/**
+	 * Sets element's HTML content.
+	 * @param  HtmlStringable|string  $html
+	 * @return static
+	 */
+	final public function setHtml($html)
+	{
+		$this->children = [(string) $html];
+		return $this;
+	}
+
+
+	/**
+	 * Returns element's HTML content.
+	 * @return string
+	 */
+	final public function getHtml()
+	{
+		return implode('', $this->children);
+	}
+
+
+	/**
+	 * Sets element's textual content.
+	 * @param  HtmlStringable|string|int|float  $text
+	 * @return static
+	 */
+	final public function setText($text)
+	{
+		if (!$text instanceof HtmlStringable) {
+			$text = htmlspecialchars((string) $text, ENT_NOQUOTES, 'UTF-8');
+		}
+		$this->children = [(string) $text];
+		return $this;
+	}
+
+
+	/**
+	 * Returns element's textual content.
+	 * @return string
+	 */
+	final public function getText()
+	{
+		return self::htmlToText($this->getHtml());
+	}
+
+
+	/**
+	 * Adds new element's child.
+	 * @param  HtmlStringable|string  $child  Html node or raw HTML string
+	 * @return static
+	 */
+	final public function addHtml($child)
+	{
+		return $this->insert(null, $child);
+	}
+
+
+	/**
+	 * Appends plain-text string to element content.
+	 * @param  HtmlStringable|string|int|float  $text
+	 * @return static
+	 */
+	public function addText($text)
+	{
+		if (!$text instanceof HtmlStringable) {
+			$text = htmlspecialchars((string) $text, ENT_NOQUOTES, 'UTF-8');
+		}
+		return $this->insert(null, $text);
+	}
+
+
+	/**
+	 * Creates and adds a new Html child.
+	 * @param  array|string $attrs  element's attributes or raw HTML string
+	 * @return static  created element
+	 * @param string $name
+	 */
+	final public function create($name, $attrs = null)
+	{
+		$name = (string) $name;
+		$this->insert(null, $child = static::el($name, $attrs));
+		return $child;
+	}
+
+
+	/**
+	 * Inserts child node.
+	 * @param  HtmlStringable|string $child Html node or raw HTML string
+	 * @return static
+	 * @param int|null $index
+	 * @param bool $replace
+	 */
+	public function insert($index, $child, $replace = false)
+	{
+		$replace = (bool) $replace;
+		$child = $child instanceof self ? $child : (string) $child;
+		if ($index === null) { // append
+			$this->children[] = $child;
+
+		} else { // insert or replace
+			array_splice($this->children, $index, $replace ? 1 : 0, [$child]);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Inserts (replaces) child node (\ArrayAccess implementation).
+	 * @param  int|null  $index  position or null for appending
+	 * @param  Html|string  $child  Html node or raw HTML string
+	 * @return void
+	 */
+	final public function offsetSet($index, $child)
+	{
+		$this->insert($index, $child, true);
+	}
+
+
+	/**
+	 * Returns child node (\ArrayAccess implementation).
+	 * @param  int  $index
+	 * @return static|string
+	 */
+	final public function offsetGet($index)
+	{
+		return $this->children[$index];
+	}
+
+
+	/**
+	 * Exists child node? (\ArrayAccess implementation).
+	 * @param  int  $index
+	 * @return bool
+	 */
+	final public function offsetExists($index)
+	{
+		return isset($this->children[$index]);
+	}
+
+
+	/**
+	 * Removes child node (\ArrayAccess implementation).
+	 * @param  int  $index
+	 * @return void
+	 */
+	public function offsetUnset($index)
+	{
+		if (isset($this->children[$index])) {
+			array_splice($this->children, $index, 1);
+		}
+	}
+
+
+	/**
+	 * Returns children count.
+	 * @return int
+	 */
+	final public function count()
+	{
+		return count($this->children);
+	}
+
+
+	/**
+	 * Removes all children.
+	 * @return void
+	 */
+	public function removeChildren()
+	{
+		$this->children = [];
+	}
+
+
+	/**
+	 * Iterates over elements.
+	 * @return \ArrayIterator
+	 */
+	final public function getIterator()
+	{
+		return new \ArrayIterator($this->children);
+	}
+
+
+	/**
+	 * Returns all children.
+	 * @return mixed[]
+	 */
+	final public function getChildren()
+	{
+		return $this->children;
+	}
+
+
+	/**
+	 * Renders element's start tag, content and end tag.
+	 * @param int $indent
+	 * @return string
+	 */
+	final public function render($indent = null)
+	{
+		$s = $this->startTag();
+
+		if (!$this->isEmpty) {
+			// add content
+			if ($indent !== null) {
+				$indent++;
+			}
+			foreach ($this->children as $child) {
+				if ($child instanceof self) {
+					$s .= $child->render($indent);
+				} else {
+					$s .= $child;
+				}
+			}
+
+			// add end tag
+			$s .= $this->endTag();
+		}
+
+		if ($indent !== null) {
+			return "\n" . str_repeat("\t", $indent - 1) . $s . "\n" . str_repeat("\t", max(0, $indent - 2));
+		}
+		return $s;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	final public function __toString()
+	{
+		try {
+			return $this->render();
+		} catch (\Throwable $e) {
+			if (PHP_VERSION_ID >= 70400) {
+				throw $e;
+			}
+			trigger_error('Exception in ' . __METHOD__ . "(): {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", E_USER_ERROR);
+			return '';
+		}
+	}
+
+
+	/**
+	 * Returns element's start tag.
+	 * @return string
+	 */
+	final public function startTag()
+	{
+		return $this->name
+			? '<' . $this->name . $this->attributes() . (static::$xhtml && $this->isEmpty ? ' />' : '>')
+			: '';
+	}
+
+
+	/**
+	 * Returns element's end tag.
+	 * @return string
+	 */
+	final public function endTag()
+	{
+		return $this->name && !$this->isEmpty ? '</' . $this->name . '>' : '';
+	}
+
+
+	/**
+	 * Returns element's attributes.
+	 * @internal
+	 * @return string
+	 */
+	final public function attributes()
+	{
+		if (!is_array($this->attrs)) {
+			return '';
+		}
+
+		$s = '';
+		$attrs = $this->attrs;
+		foreach ($attrs as $key => $value) {
+			if ($value === null || $value === false) {
+				continue;
+
+			} elseif ($value === true) {
+				if (static::$xhtml) {
+					$s .= ' ' . $key . '="' . $key . '"';
+				} else {
+					$s .= ' ' . $key;
+				}
+				continue;
+
+			} elseif (is_array($value)) {
+				if (strncmp($key, 'data-', 5) === 0) {
+					$value = Json::encode($value);
+
+				} else {
+					$tmp = null;
+					foreach ($value as $k => $v) {
+						if ($v != null) { // intentionally ==, skip nulls & empty string
+							// composite 'style' vs. 'others'
+							$tmp[] = $v === true
+								? $k
+								: (is_string($k) ? $k . ':' . $v : $v);
+						}
+					}
+					if ($tmp === null) {
+						continue;
+					}
+
+					$value = implode($key === 'style' || !strncmp($key, 'on', 2) ? ';' : ' ', $tmp);
+				}
+
+			} elseif (is_float($value)) {
+				$value = rtrim(rtrim(number_format($value, 10, '.', ''), '0'), '.');
+
+			} else {
+				$value = (string) $value;
+			}
+
+			$q = strpos($value, '"') === false ? '"' : "'";
+			$s .= ' ' . $key . '=' . $q
+				. str_replace(
+					['&', $q, '<'],
+					['&amp;', $q === '"' ? '&quot;' : '&#39;', self::$xhtml ? '&lt;' : '<'],
+					$value
+				)
+				. (strpos($value, '`') !== false && strpbrk($value, ' <>"\'') === false ? ' ' : '')
+				. $q;
+		}
+
+		$s = str_replace('@', '&#64;', $s);
+		return $s;
+	}
+
+
+	/**
+	 * Clones all children too.
+	 */
+	public function __clone()
+	{
+		foreach ($this->children as $key => $value) {
+			if (is_object($value)) {
+				$this->children[$key] = clone $value;
+			}
+		}
+	}
 }

@@ -9,12 +9,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Tokenizer\Analyzer\Analysis;
 
 /**
  * @internal
  */
-final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\StartEndTokenAwareAnalysis
+final class TypeAnalysis implements StartEndTokenAwareAnalysis
 {
     /**
      * This list contains soft and hard reserved types that can be used or will be used by PHP at some point.
@@ -27,23 +28,42 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
      *
      * @var array
      */
-    private static $reservedTypes = ['array', 'bool', 'callable', 'int', 'iterable', 'float', 'mixed', 'numeric', 'object', 'resource', 'self', 'string', 'void'];
+    private static $reservedTypes = [
+        'array',
+        'bool',
+        'callable',
+        'int',
+        'iterable',
+        'float',
+        'mixed',
+        'numeric',
+        'object',
+        'resource',
+        'self',
+        'string',
+        'void',
+    ];
+
     /**
      * @var string
      */
     private $name;
+
     /**
      * @var int
      */
     private $startIndex;
+
     /**
      * @var int
      */
     private $endIndex;
+
     /**
      * @var bool
      */
     private $nullable;
+
     /**
      * @param string $name
      * @param int $startIndex
@@ -55,14 +75,17 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
         $startIndex = (int) $startIndex;
         $endIndex = (int) $endIndex;
         $this->name = $name;
-        $this->nullable = \false;
-        if (0 === \strpos($name, '?')) {
-            $this->name = \substr($name, 1);
-            $this->nullable = \true;
+        $this->nullable = false;
+
+        if (0 === strpos($name, '?')) {
+            $this->name = substr($name, 1);
+            $this->nullable = true;
         }
+
         $this->startIndex = $startIndex;
         $this->endIndex = $endIndex;
     }
+
     /**
      * @return string
      */
@@ -70,6 +93,7 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
     {
         return $this->name;
     }
+
     /**
      * @return int
      */
@@ -77,6 +101,7 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
     {
         return $this->startIndex;
     }
+
     /**
      * @return int
      */
@@ -84,13 +109,15 @@ final class TypeAnalysis implements \PhpCsFixer\Tokenizer\Analyzer\Analysis\Star
     {
         return $this->endIndex;
     }
+
     /**
      * @return bool
      */
     public function isReservedType()
     {
-        return \in_array($this->name, self::$reservedTypes, \true);
+        return \in_array($this->name, self::$reservedTypes, true);
     }
+
     /**
      * @return bool
      */

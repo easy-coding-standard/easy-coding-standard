@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the ConstantVisibility sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2019 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PSR12\Tests\Properties;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class ConstantVisibilityUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class ConstantVisibilityUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -23,8 +26,10 @@ class ConstantVisibilityUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstra
     public function getErrorList()
     {
         return [];
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +41,8 @@ class ConstantVisibilityUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstra
     public function getWarningList()
     {
         return [4 => 1];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

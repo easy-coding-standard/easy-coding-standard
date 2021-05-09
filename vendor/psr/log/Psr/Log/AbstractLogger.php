@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210509\Psr\Log;
+namespace Psr\Log;
 
 /**
  * This is a simple Logger implementation that other Loggers can inherit from.
@@ -9,7 +9,7 @@ namespace ECSPrefix20210509\Psr\Log;
  * reduce boilerplate code that a simple Logger that does the same thing with
  * messages regardless of the error level has to implement.
  */
-abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterface
+abstract class AbstractLogger implements LoggerInterface
 {
     /**
      * System is unusable.
@@ -21,8 +21,9 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function emergency($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::EMERGENCY, $message, $context);
+        $this->log(LogLevel::EMERGENCY, $message, $context);
     }
+
     /**
      * Action must be taken immediately.
      *
@@ -36,8 +37,9 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function alert($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::ALERT, $message, $context);
+        $this->log(LogLevel::ALERT, $message, $context);
     }
+
     /**
      * Critical conditions.
      *
@@ -50,8 +52,9 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function critical($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::CRITICAL, $message, $context);
+        $this->log(LogLevel::CRITICAL, $message, $context);
     }
+
     /**
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
@@ -63,8 +66,9 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function error($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::ERROR, $message, $context);
+        $this->log(LogLevel::ERROR, $message, $context);
     }
+
     /**
      * Exceptional occurrences that are not errors.
      *
@@ -78,8 +82,9 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function warning($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::WARNING, $message, $context);
+        $this->log(LogLevel::WARNING, $message, $context);
     }
+
     /**
      * Normal but significant events.
      *
@@ -90,8 +95,9 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function notice($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::NOTICE, $message, $context);
+        $this->log(LogLevel::NOTICE, $message, $context);
     }
+
     /**
      * Interesting events.
      *
@@ -104,8 +110,9 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function info($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::INFO, $message, $context);
+        $this->log(LogLevel::INFO, $message, $context);
     }
+
     /**
      * Detailed debug information.
      *
@@ -116,6 +123,6 @@ abstract class AbstractLogger implements \ECSPrefix20210509\Psr\Log\LoggerInterf
      */
     public function debug($message, array $context = array())
     {
-        $this->log(\ECSPrefix20210509\Psr\Log\LogLevel::DEBUG, $message, $context);
+        $this->log(LogLevel::DEBUG, $message, $context);
     }
 }

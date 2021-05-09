@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Finder\Iterator;
+
+namespace Symfony\Component\Finder\Iterator;
 
 /**
  * PathFilterIterator filters files by path patterns (e.g. some/special/dir).
@@ -16,7 +17,7 @@ namespace ECSPrefix20210509\Symfony\Component\Finder\Iterator;
  * @author Fabien Potencier  <fabien@symfony.com>
  * @author Włodzimierz Gajda <gajdaw@gajdaw.pl>
  */
-class PathFilterIterator extends \ECSPrefix20210509\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
+class PathFilterIterator extends MultiplePcreFilterIterator
 {
     /**
      * Filters the iterator values.
@@ -26,11 +27,14 @@ class PathFilterIterator extends \ECSPrefix20210509\Symfony\Component\Finder\Ite
     public function accept()
     {
         $filename = $this->current()->getRelativePathname();
+
         if ('\\' === \DIRECTORY_SEPARATOR) {
-            $filename = \str_replace('\\', '/', $filename);
+            $filename = str_replace('\\', '/', $filename);
         }
+
         return $this->isAccepted($filename);
     }
+
     /**
      * Converts strings to regexp.
      *
@@ -48,6 +52,6 @@ class PathFilterIterator extends \ECSPrefix20210509\Symfony\Component\Finder\Ite
     protected function toRegex($str)
     {
         $str = (string) $str;
-        return $this->isRegex($str) ? $str : '/' . \preg_quote($str, '/') . '/';
+        return $this->isRegex($str) ? $str : '/'.preg_quote($str, '/').'/';
     }
 }

@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Finder\Comparator;
+
+namespace Symfony\Component\Finder\Comparator;
 
 /**
  * NumberComparator compiles a simple comparison to an anonymous
@@ -31,7 +32,7 @@ namespace ECSPrefix20210509\Symfony\Component\Finder\Comparator;
  *
  * @see http://physics.nist.gov/cuu/Units/binary.html
  */
-class NumberComparator extends \ECSPrefix20210509\Symfony\Component\Finder\Comparator\Comparator
+class NumberComparator extends Comparator
 {
     /**
      * @param string|null $test A comparison string or an integer
@@ -40,16 +41,17 @@ class NumberComparator extends \ECSPrefix20210509\Symfony\Component\Finder\Compa
      */
     public function __construct($test)
     {
-        if (!\preg_match('#^\\s*(==|!=|[<>]=?)?\\s*([0-9\\.]+)\\s*([kmg]i?)?\\s*$#i', $test, $matches)) {
-            throw new \InvalidArgumentException(\sprintf('Don\'t understand "%s" as a number test.', $test));
+        if (!preg_match('#^\s*(==|!=|[<>]=?)?\s*([0-9\.]+)\s*([kmg]i?)?\s*$#i', $test, $matches)) {
+            throw new \InvalidArgumentException(sprintf('Don\'t understand "%s" as a number test.', $test));
         }
+
         $target = $matches[2];
-        if (!\is_numeric($target)) {
-            throw new \InvalidArgumentException(\sprintf('Invalid number "%s".', $target));
+        if (!is_numeric($target)) {
+            throw new \InvalidArgumentException(sprintf('Invalid number "%s".', $target));
         }
         if (isset($matches[3])) {
             // magnitude
-            switch (\strtolower($matches[3])) {
+            switch (strtolower($matches[3])) {
                 case 'k':
                     $target *= 1000;
                     break;
@@ -70,6 +72,7 @@ class NumberComparator extends \ECSPrefix20210509\Symfony\Component\Finder\Compa
                     break;
             }
         }
+
         $this->setTarget($target);
         $this->setOperator(isset($matches[1]) ? $matches[1] : '==');
     }

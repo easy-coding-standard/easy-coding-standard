@@ -8,10 +8,12 @@ final class LineLengthAndPosition
      * @var int
      */
     private $lineLength;
+
     /**
      * @var int
      */
     private $currentPosition;
+
     /**
      * @param int $lineLength
      * @param int $currentPosition
@@ -23,6 +25,7 @@ final class LineLengthAndPosition
         $this->lineLength = $lineLength;
         $this->currentPosition = $currentPosition;
     }
+
     /**
      * @return int
      */
@@ -30,6 +33,7 @@ final class LineLengthAndPosition
     {
         return $this->lineLength;
     }
+
     /**
      * @return int
      */

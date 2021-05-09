@@ -1,6 +1,4 @@
-<?php
-
-/*
+<?php /*
  * This file is part of sebastian/diff.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
@@ -8,21 +6,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\SebastianBergmann\Diff;
+namespace SebastianBergmann\Diff;
 
 final class Line
 {
-    const ADDED = 1;
-    const REMOVED = 2;
+    const ADDED     = 1;
+
+    const REMOVED   = 2;
+
     const UNCHANGED = 3;
+
     /**
      * @var int
      */
     private $type;
+
     /**
      * @var string
      */
     private $content;
+
     /**
      * @param int $type
      * @param string $content
@@ -31,9 +34,10 @@ final class Line
     {
         $type = (int) $type;
         $content = (string) $content;
-        $this->type = $type;
+        $this->type    = $type;
         $this->content = $content;
     }
+
     /**
      * @return string
      */
@@ -41,6 +45,7 @@ final class Line
     {
         return $this->content;
     }
+
     /**
      * @return int
      */

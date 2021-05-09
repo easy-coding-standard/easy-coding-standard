@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Discourage the use of the PHP `goto` language construct.
  *
@@ -7,12 +6,16 @@
  * @copyright 2006-2017 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\PHP;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DiscourageGotoSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class DiscourageGotoSniff implements Sniff
 {
+
+
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -20,9 +23,14 @@ class DiscourageGotoSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_GOTO, T_GOTO_LABEL];
-    }
-    //end register()
+        return [
+            T_GOTO,
+            T_GOTO_LABEL,
+        ];
+
+    }//end register()
+
+
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -32,10 +40,11 @@ class DiscourageGotoSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $phpcsFile->addWarning('Use of the GOTO language construct is discouraged', $stackPtr, 'Found');
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

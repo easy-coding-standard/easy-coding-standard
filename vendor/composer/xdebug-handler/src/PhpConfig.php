@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Composer\XdebugHandler;
+
+namespace Composer\XdebugHandler;
 
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>
@@ -25,6 +26,7 @@ class PhpConfig
         $this->getDataAndReset();
         return array();
     }
+
     /**
      * Use standard restart settings
      *
@@ -35,8 +37,10 @@ class PhpConfig
         if ($data = $this->getDataAndReset()) {
             return array('-n', '-c', $data['tmpIni']);
         }
+
         return array();
     }
+
     /**
      * Use environment variables to persist settings
      *
@@ -48,8 +52,10 @@ class PhpConfig
             $this->updateEnv('PHPRC', $data['tmpIni']);
             $this->updateEnv('PHP_INI_SCAN_DIR', '');
         }
+
         return array();
     }
+
     /**
      * Returns restart data if available and resets the environment
      *
@@ -57,12 +63,14 @@ class PhpConfig
      */
     private function getDataAndReset()
     {
-        if ($data = \ECSPrefix20210509\Composer\XdebugHandler\XdebugHandler::getRestartSettings()) {
+        if ($data = XdebugHandler::getRestartSettings()) {
             $this->updateEnv('PHPRC', $data['phprc']);
             $this->updateEnv('PHP_INI_SCAN_DIR', $data['scanDir']);
         }
+
         return $data;
     }
+
     /**
      * Updates a restart settings value in the environment
      *
@@ -71,6 +79,6 @@ class PhpConfig
      */
     private function updateEnv($name, $value)
     {
-        \ECSPrefix20210509\Composer\XdebugHandler\Process::setEnv($name, \false !== $value ? $value : null);
+        Process::setEnv($name, false !== $value ? $value : null);
     }
 }

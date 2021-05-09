@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
+namespace Symfony\Component\HttpKernel\Event;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+
 /**
  * Allows to create a response for a thrown exception.
  *
@@ -25,22 +27,26 @@ use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ExceptionEvent extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\RequestEvent
+final class ExceptionEvent extends RequestEvent
 {
     private $throwable;
+
     /**
      * @var bool
      */
-    private $allowCustomResponseCode = \false;
+    private $allowCustomResponseCode = false;
+
     /**
      * @param int $requestType
      */
-    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, $requestType, \Throwable $e)
+    public function __construct(HttpKernelInterface $kernel, Request $request, $requestType, \Throwable $e)
     {
         $requestType = (int) $requestType;
         parent::__construct($kernel, $request, $requestType);
+
         $this->setThrowable($e);
     }
+
     /**
      * @return \Throwable
      */
@@ -48,6 +54,7 @@ final class ExceptionEvent extends \ECSPrefix20210509\Symfony\Component\HttpKern
     {
         return $this->throwable;
     }
+
     /**
      * Replaces the thrown exception.
      *
@@ -58,14 +65,16 @@ final class ExceptionEvent extends \ECSPrefix20210509\Symfony\Component\HttpKern
     {
         $this->throwable = $exception;
     }
+
     /**
      * Mark the event as allowing a custom response code.
      * @return void
      */
     public function allowCustomResponseCode()
     {
-        $this->allowCustomResponseCode = \true;
+        $this->allowCustomResponseCode = true;
     }
+
     /**
      * Returns true if the event allows a custom response code.
      * @return bool

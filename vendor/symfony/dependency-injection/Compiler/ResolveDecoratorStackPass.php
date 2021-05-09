@@ -8,21 +8,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference;
+namespace Symfony\Component\DependencyInjection\Compiler;
+
+use Symfony\Component\DependencyInjection\Alias;
+use Symfony\Component\DependencyInjection\ChildDefinition;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use Symfony\Component\DependencyInjection\Reference;
+
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveDecoratorStackPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+class ResolveDecoratorStackPass implements CompilerPassInterface
 {
     private $tag;
+
     /**
      * @param string $tag
      */
@@ -31,81 +34,101 @@ class ResolveDecoratorStackPass implements \ECSPrefix20210509\Symfony\Component\
         $tag = (string) $tag;
         $this->tag = $tag;
     }
-    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+
+    public function process(ContainerBuilder $container)
     {
         $stacks = [];
+
         foreach ($container->findTaggedServiceIds($this->tag) as $id => $tags) {
             $definition = $container->getDefinition($id);
-            if (!$definition instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition) {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": only definitions with a "parent" can have the "%s" tag.', $id, $this->tag));
+
+            if (!$definition instanceof ChildDefinition) {
+                throw new InvalidArgumentException(sprintf('Invalid service "%s": only definitions with a "parent" can have the "%s" tag.', $id, $this->tag));
             }
-            if (!($stack = $definition->getArguments())) {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": the stack of decorators is empty.', $id));
+
+            if (!$stack = $definition->getArguments()) {
+                throw new InvalidArgumentException(sprintf('Invalid service "%s": the stack of decorators is empty.', $id));
             }
+
             $stacks[$id] = $stack;
         }
+
         if (!$stacks) {
             return;
         }
+
         $resolvedDefinitions = [];
+
         foreach ($container->getDefinitions() as $id => $definition) {
             if (!isset($stacks[$id])) {
                 $resolvedDefinitions[$id] = $definition;
                 continue;
             }
-            foreach (\array_reverse($this->resolveStack($stacks, [$id]), \true) as $k => $v) {
+
+            foreach (array_reverse($this->resolveStack($stacks, [$id]), true) as $k => $v) {
                 $resolvedDefinitions[$k] = $v;
             }
+
             $alias = $container->setAlias($id, $k);
-            if (isset($definition->getChanges()['public']) ? $definition->getChanges()['public'] : \false) {
+
+            if (isset($definition->getChanges()['public']) ? $definition->getChanges()['public'] : false) {
                 $alias->setPublic($definition->isPublic());
             }
+
             if ($definition->isDeprecated()) {
-                $alias->setDeprecated(...\array_values($definition->getDeprecation('%alias_id%')));
+                $alias->setDeprecated(...array_values($definition->getDeprecation('%alias_id%')));
             }
         }
+
         $container->setDefinitions($resolvedDefinitions);
     }
+
     /**
      * @return mixed[]
      */
     private function resolveStack(array $stacks, array $path)
     {
         $definitions = [];
-        $id = \end($path);
-        $prefix = '.' . $id . '.';
+        $id = end($path);
+        $prefix = '.'.$id.'.';
+
         if (!isset($stacks[$id])) {
-            return [$id => new \ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition($id)];
+            return [$id => new ChildDefinition($id)];
         }
-        if (\key($path) !== ($searchKey = \array_search($id, $path))) {
-            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, \array_slice($path, $searchKey));
+
+        if (key($path) !== $searchKey = array_search($id, $path)) {
+            throw new ServiceCircularReferenceException($id, \array_slice($path, $searchKey));
         }
+
         foreach ($stacks[$id] as $k => $definition) {
-            if ($definition instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition && isset($stacks[$definition->getParent()])) {
+            if ($definition instanceof ChildDefinition && isset($stacks[$definition->getParent()])) {
                 $path[] = $definition->getParent();
-                $definition = \unserialize(\serialize($definition));
-                // deep clone
-            } elseif ($definition instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition) {
-                $definitions[$decoratedId = $prefix . $k] = $definition;
+                $definition = unserialize(serialize($definition)); // deep clone
+            } elseif ($definition instanceof Definition) {
+                $definitions[$decoratedId = $prefix.$k] = $definition;
                 continue;
-            } elseif ($definition instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Reference || $definition instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Alias) {
+            } elseif ($definition instanceof Reference || $definition instanceof Alias) {
                 $path[] = (string) $definition;
             } else {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Invalid service "%s": unexpected value of type "%s" found in the stack of decorators.', $id, \get_debug_type($definition)));
+                throw new InvalidArgumentException(sprintf('Invalid service "%s": unexpected value of type "%s" found in the stack of decorators.', $id, get_debug_type($definition)));
             }
-            $p = $prefix . $k;
+
+            $p = $prefix.$k;
+
             foreach ($this->resolveStack($stacks, $path) as $k => $v) {
-                $definitions[$decoratedId = $p . $k] = $definition instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition ? $definition->setParent($k) : new \ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition($k);
+                $definitions[$decoratedId = $p.$k] = $definition instanceof ChildDefinition ? $definition->setParent($k) : new ChildDefinition($k);
                 $definition = null;
             }
-            \array_pop($path);
+            array_pop($path);
         }
+
         if (1 === \count($path)) {
             foreach ($definitions as $k => $definition) {
-                $definition->setPublic(\false)->setTags([])->setDecoratedService($decoratedId);
+                $definition->setPublic(false)->setTags([])->setDecoratedService($decoratedId);
             }
             $definition->setDecoratedService(null);
         }
+
         return $definitions;
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Discourages the use of deprecated PHP functions.
  *
@@ -8,10 +7,12 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\PHP;
 
-class DeprecatedFunctionsSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff
+class DeprecatedFunctionsSniff extends ForbiddenFunctionsSniff
 {
+
     /**
      * A list of forbidden functions with their alternatives.
      *
@@ -21,6 +22,8 @@ class DeprecatedFunctionsSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs
      * @var array<string, string|null>
      */
     public $forbiddenFunctions = [];
+
+
     /**
      * Constructor.
      *
@@ -28,15 +31,19 @@ class DeprecatedFunctionsSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs
      */
     public function __construct()
     {
-        $functions = \get_defined_functions();
+        $functions = get_defined_functions();
+
         foreach ($functions['internal'] as $functionName) {
             $function = new \ReflectionFunction($functionName);
-            if ($function->isDeprecated() === \true) {
+
+            if ($function->isDeprecated() === true) {
                 $this->forbiddenFunctions[$functionName] = null;
             }
         }
-    }
-    //end __construct()
+
+    }//end __construct()
+
+
     /**
      * Generates the error or warning for this sniff.
      *
@@ -48,17 +55,19 @@ class DeprecatedFunctionsSniff extends \PHP_CodeSniffer\Standards\Generic\Sniffs
      *
      * @return void
      */
-    protected function addError($phpcsFile, $stackPtr, $function, $pattern = null)
+    protected function addError($phpcsFile, $stackPtr, $function, $pattern=null)
     {
-        $data = [$function];
+        $data  = [$function];
         $error = 'Function %s() has been deprecated';
-        $type = 'Deprecated';
-        if ($this->error === \true) {
+        $type  = 'Deprecated';
+
+        if ($this->error === true) {
             $phpcsFile->addError($error, $stackPtr, $type, $data);
         } else {
             $phpcsFile->addWarning($error, $stackPtr, $type, $data);
         }
-    }
-    //end addError()
-}
-//end class
+
+    }//end addError()
+
+
+}//end class

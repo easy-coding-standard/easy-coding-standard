@@ -16,69 +16,86 @@ use Symplify\PackageBuilder\ValueObject\MethodName;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLinePromotedPropertyFixer\StandaloneLinePromotedPropertyFixerTest
  */
-final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class StandaloneLinePromotedPropertyFixer extends AbstractSymplifyFixer implements DocumentedRuleInterface
 {
     /**
      * @var string
      */
     const ERROR_MESSAGE = 'Promoted property should be on standalone line';
+
     /**
      * @var BlockFinder
      */
     private $blockFinder;
+
     /**
      * @var TokensNewliner
      */
     private $tokensNewliner;
-    public function __construct(\Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder $blockFinder, \Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner $tokensNewliner)
+
+    public function __construct(BlockFinder $blockFinder, TokensNewliner $tokensNewliner)
     {
         $this->blockFinder = $blockFinder;
         $this->tokensNewliner = $tokensNewliner;
     }
+
     /**
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
+        return new FixerDefinition(self::ERROR_MESSAGE, []);
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound([\PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED, \PhpCsFixer\Tokenizer\CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE]);
+        return $tokens->isAnyTokenKindsFound([
+            CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PUBLIC,
+            CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PROTECTED,
+            CT::T_CONSTRUCTOR_PROPERTY_PROMOTION_PRIVATE,
+        ]);
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(\SplFileInfo $splFileInfo, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(SplFileInfo $splFileInfo, Tokens $tokens)
     {
         // function arguments, function call parameters, lambda use()
-        for ($position = \count($tokens) - 1; $position >= 0; --$position) {
+        for ($position = count($tokens) - 1; $position >= 0; --$position) {
             /** @var Token $token */
             $token = $tokens[$position];
-            if (!$token->isGivenKind([\T_FUNCTION])) {
+
+            if (! $token->isGivenKind([T_FUNCTION])) {
                 continue;
             }
+
             $functionName = $this->getFunctionName($tokens, $position);
-            if ($functionName !== \Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
+            if ($functionName !== MethodName::CONSTRUCTOR) {
                 continue;
             }
+
             $this->processFunction($tokens, $position);
         }
     }
+
     /**
      * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
      */
     public function getRuleDefinition()
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(self::ERROR_MESSAGE, [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 final class PromotedProperties
 {
     public function __construct(public int $age, private string $name)
@@ -86,7 +103,8 @@ final class PromotedProperties
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 final class PromotedProperties
 {
     public function __construct(
@@ -96,34 +114,39 @@ final class PromotedProperties
     }
 }
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return void
      * @param int $position
      */
-    private function processFunction(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function processFunction(Tokens $tokens, $position)
     {
         $position = (int) $position;
         $blockInfo = $this->blockFinder->findInTokensByEdge($tokens, $position);
-        if (!$blockInfo instanceof \Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo) {
+        if (! $blockInfo instanceof BlockInfo) {
             return;
         }
+
         $this->tokensNewliner->breakItems($blockInfo, $tokens);
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return string|null
      * @param int $position
      */
-    private function getFunctionName(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function getFunctionName(Tokens $tokens, $position)
     {
         $position = (int) $position;
         $nextToken = $this->getNextMeaningfulToken($tokens, $position);
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (! $nextToken instanceof Token) {
             return null;
         }
+
         return $nextToken->getContent();
     }
 }

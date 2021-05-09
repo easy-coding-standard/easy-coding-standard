@@ -1,27 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="<?php 
-namespace ECSPrefix20210509;
-
-echo $this->charset;
-?>" />
+    <meta charset="<?= $this->charset; ?>" />
     <meta name="robots" content="noindex,nofollow,noarchive" />
-    <title>An Error Occurred: <?php 
-echo $statusText;
-?></title>
-    <style><?php 
-echo $this->include('assets/css/error.css');
-?></style>
+    <title>An Error Occurred: <?= $statusText; ?></title>
+    <style><?= $this->include('assets/css/error.css'); ?></style>
 </head>
 <body>
 <div class="container">
     <h1>Oops! An Error Occurred</h1>
-    <h2>The server returned a "<?php 
-echo $statusCode;
-?> <?php 
-echo $statusText;
-?>".</h2>
+    <h2>The server returned a "<?= $statusCode; ?> <?= $statusText; ?>".</h2>
 
     <p>
         Something is broken. Please let us know what you were doing when this error occurred.
@@ -30,4 +18,3 @@ echo $statusText;
 </div>
 </body>
 </html>
-<?php 

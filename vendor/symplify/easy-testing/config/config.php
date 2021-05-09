@@ -1,10 +1,27 @@
 <?php
 
-namespace ECSPrefix20210509;
+use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyTesting\Console\EasyTestingConsoleApplication;
+use Symplify\PackageBuilder\Console\Command\CommandNaming;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-    $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Symplify\\EasyTesting\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/DataProvider', __DIR__ . '/../src/HttpKernel', __DIR__ . '/../src/ValueObject']);
+
+    $services->defaults()
+        ->public()
+        ->autowire()
+        ->autoconfigure();
+
+    $services->load('Symplify\EasyTesting\\', __DIR__ . '/../src')
+        ->exclude([
+            __DIR__ . '/../src/DataProvider',
+            __DIR__ . '/../src/HttpKernel',
+            __DIR__ . '/../src/ValueObject',
+        ]);
+
+    // console
+    $services->set(EasyTestingConsoleApplication::class);
+    $services->alias(Application::class, EasyTestingConsoleApplication::class);
+    $services->set(CommandNaming::class);
 };

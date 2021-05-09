@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Checks that only one class is declared per file.
  *
@@ -7,12 +6,16 @@
  * @copyright 2010-2014 Andy Grunwald
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class OneClassPerFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class OneClassPerFileSniff implements Sniff
 {
+
+
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -20,9 +23,11 @@ class OneClassPerFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_CLASS];
-    }
-    //end register()
+        return [T_CLASS];
+
+    }//end register()
+
+
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -32,14 +37,15 @@ class OneClassPerFileSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $nextClass = $phpcsFile->findNext($this->register(), $stackPtr + 1);
-        if ($nextClass !== \false) {
+        $nextClass = $phpcsFile->findNext($this->register(), ($stackPtr + 1));
+        if ($nextClass !== false) {
             $error = 'Only one class is allowed in a file';
             $phpcsFile->addError($error, $nextClass, 'MultipleFound');
         }
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

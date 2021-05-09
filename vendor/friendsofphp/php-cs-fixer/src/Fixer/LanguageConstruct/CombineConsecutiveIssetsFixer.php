@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\LanguageConstruct;
 
 use PhpCsFixer\AbstractFixer;
@@ -17,10 +18,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author SpacePossum
  */
-final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
+final class CombineConsecutiveIssetsFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -28,8 +30,12 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Using `isset($var) &&` multiple times should be done in one call.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$a = isset(\$a) && isset(\$b);\n")]);
+        return new FixerDefinition(
+            'Using `isset($var) &&` multiple times should be done in one call.',
+            [new CodeSample("<?php\n\$a = isset(\$a) && isset(\$b);\n")]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -40,87 +46,108 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
     {
         return 3;
     }
+
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isAllTokenKindsFound([\T_ISSET, \T_BOOLEAN_AND]);
+        return $tokens->isAllTokenKindsFound([T_ISSET, T_BOOLEAN_AND]);
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         $tokenCount = $tokens->count();
+
         for ($index = 1; $index < $tokenCount; ++$index) {
-            if (!$tokens[$index]->isGivenKind(\T_ISSET) || !$tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny(['(', '{', ';', '=', [\T_OPEN_TAG], [\T_BOOLEAN_AND], [\T_BOOLEAN_OR]])) {
+            if (!$tokens[$index]->isGivenKind(T_ISSET)
+                || !$tokens[$tokens->getPrevMeaningfulToken($index)]->equalsAny(['(', '{', ';', '=', [T_OPEN_TAG], [T_BOOLEAN_AND], [T_BOOLEAN_OR]])) {
                 continue;
             }
+
             $issetInfo = $this->getIssetInfo($tokens, $index);
-            $issetCloseBraceIndex = \end($issetInfo);
-            // ')' token
-            $insertLocation = \prev($issetInfo) + 1;
-            // one index after the previous meaningful of ')'
+            $issetCloseBraceIndex = end($issetInfo); // ')' token
+            $insertLocation = prev($issetInfo) + 1; // one index after the previous meaningful of ')'
+
             $booleanAndTokenIndex = $tokens->getNextMeaningfulToken($issetCloseBraceIndex);
-            while ($tokens[$booleanAndTokenIndex]->isGivenKind(\T_BOOLEAN_AND)) {
+
+            while ($tokens[$booleanAndTokenIndex]->isGivenKind(T_BOOLEAN_AND)) {
                 $issetIndex = $tokens->getNextMeaningfulToken($booleanAndTokenIndex);
-                if (!$tokens[$issetIndex]->isGivenKind(\T_ISSET)) {
+                if (!$tokens[$issetIndex]->isGivenKind(T_ISSET)) {
                     $index = $issetIndex;
+
                     break;
                 }
+
                 // fetch info about the 'isset' statement that we're merging
                 $nextIssetInfo = $this->getIssetInfo($tokens, $issetIndex);
-                $nextMeaningfulTokenIndex = $tokens->getNextMeaningfulToken(\end($nextIssetInfo));
+
+                $nextMeaningfulTokenIndex = $tokens->getNextMeaningfulToken(end($nextIssetInfo));
                 $nextMeaningfulToken = $tokens[$nextMeaningfulTokenIndex];
-                if (!$nextMeaningfulToken->equalsAny([')', '}', ';', [\T_CLOSE_TAG], [\T_BOOLEAN_AND], [\T_BOOLEAN_OR]])) {
+
+                if (!$nextMeaningfulToken->equalsAny([')', '}', ';', [T_CLOSE_TAG], [T_BOOLEAN_AND], [T_BOOLEAN_OR]])) {
                     $index = $nextMeaningfulTokenIndex;
+
                     break;
                 }
+
                 // clone what we want to move, do not clone '(' and ')' of the 'isset' statement we're merging
                 $clones = $this->getTokenClones($tokens, \array_slice($nextIssetInfo, 1, -1));
+
                 // clean up no the tokens of the 'isset' statement we're merging
-                $this->clearTokens($tokens, \array_merge($nextIssetInfo, [$issetIndex, $booleanAndTokenIndex]));
+                $this->clearTokens($tokens, array_merge($nextIssetInfo, [$issetIndex, $booleanAndTokenIndex]));
+
                 // insert the tokens to create the new statement
-                \array_unshift($clones, new \PhpCsFixer\Tokenizer\Token(','), new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, ' ']));
+                array_unshift($clones, new Token(','), new Token([T_WHITESPACE, ' ']));
                 $tokens->insertAt($insertLocation, $clones);
+
                 // correct some counts and offset based on # of tokens inserted
                 $numberOfTokensInserted = \count($clones);
                 $tokenCount += $numberOfTokensInserted;
                 $issetCloseBraceIndex += $numberOfTokensInserted;
                 $insertLocation += $numberOfTokensInserted;
+
                 $booleanAndTokenIndex = $tokens->getNextMeaningfulToken($issetCloseBraceIndex);
             }
         }
     }
+
     /**
      * @param int[] $indexes
      * @return void
      */
-    private function clearTokens(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes)
+    private function clearTokens(Tokens $tokens, array $indexes)
     {
         foreach ($indexes as $index) {
             $tokens->clearTokenAndMergeSurroundingWhitespace($index);
         }
     }
+
     /**
      * @param int $index of T_ISSET
      *
      * @return mixed[] indexes of meaningful tokens belonging to the isset statement
      */
-    private function getIssetInfo(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function getIssetInfo(Tokens $tokens, $index)
     {
         $index = (int) $index;
         $openIndex = $tokens->getNextMeaningfulToken($index);
+
         $braceOpenCount = 1;
         $meaningfulTokenIndexes = [$openIndex];
+
         for ($i = $openIndex + 1;; ++$i) {
             if ($tokens[$i]->isWhitespace() || $tokens[$i]->isComment()) {
                 continue;
             }
+
             $meaningfulTokenIndexes[] = $i;
+
             if ($tokens[$i]->equals(')')) {
                 --$braceOpenCount;
                 if (0 === $braceOpenCount) {
@@ -130,19 +157,23 @@ final class CombineConsecutiveIssetsFixer extends \PhpCsFixer\AbstractFixer
                 ++$braceOpenCount;
             }
         }
+
         return $meaningfulTokenIndexes;
     }
+
     /**
      * @param int[] $indexes
      *
      * @return mixed[]
      */
-    private function getTokenClones(\PhpCsFixer\Tokenizer\Tokens $tokens, array $indexes)
+    private function getTokenClones(Tokens $tokens, array $indexes)
     {
         $clones = [];
+
         foreach ($indexes as $i) {
             $clones[] = clone $tokens[$i];
         }
+
         return $clones;
     }
 }

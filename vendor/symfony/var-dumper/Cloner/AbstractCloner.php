@@ -8,25 +8,193 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Cloner;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Exception\ThrowingCasterException;
+namespace Symfony\Component\VarDumper\Cloner;
+
+use Symfony\Component\VarDumper\Caster\Caster;
+use Symfony\Component\VarDumper\Exception\ThrowingCasterException;
+
 /**
  * AbstractCloner implements a generic caster mechanism for objects and resources.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\ClonerInterface
+abstract class AbstractCloner implements ClonerInterface
 {
-    public static $defaultCasters = ['__PHP_Incomplete_Class' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\Caster', 'castPhpIncompleteClass'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\CutStub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'castStub'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\CutArrayStub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'castCutArray'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ConstStub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'castStub'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\EnumStub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'castEnum'], 'Closure' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castClosure'], 'Generator' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castGenerator'], 'ReflectionType' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castType'], 'ReflectionAttribute' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castAttribute'], 'ReflectionGenerator' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castReflectionGenerator'], 'ReflectionClass' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castClass'], 'ReflectionClassConstant' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castClassConstant'], 'ReflectionFunctionAbstract' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castFunctionAbstract'], 'ReflectionMethod' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castMethod'], 'ReflectionParameter' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castParameter'], 'ReflectionProperty' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castProperty'], 'ReflectionReference' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castReference'], 'ReflectionExtension' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castExtension'], 'ReflectionZendExtension' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ReflectionCaster', 'castZendExtension'], 'ECSPrefix20210509\\Doctrine\\Common\\Persistence\\ObjectManager' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\Doctrine\\Common\\Proxy\\Proxy' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DoctrineCaster', 'castCommonProxy'], 'ECSPrefix20210509\\Doctrine\\ORM\\Proxy\\Proxy' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DoctrineCaster', 'castOrmProxy'], 'ECSPrefix20210509\\Doctrine\\ORM\\PersistentCollection' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DoctrineCaster', 'castPersistentCollection'], 'ECSPrefix20210509\\Doctrine\\Persistence\\ObjectManager' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'DOMException' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castException'], 'DOMStringList' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castLength'], 'DOMNameList' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castLength'], 'DOMImplementation' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castImplementation'], 'DOMImplementationList' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castLength'], 'DOMNode' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castNode'], 'DOMNameSpaceNode' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castNameSpaceNode'], 'DOMDocument' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castDocument'], 'DOMNodeList' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castLength'], 'DOMNamedNodeMap' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castLength'], 'DOMCharacterData' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castCharacterData'], 'DOMAttr' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castAttr'], 'DOMElement' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castElement'], 'DOMText' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castText'], 'DOMTypeinfo' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castTypeinfo'], 'DOMDomError' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castDomError'], 'DOMLocator' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castLocator'], 'DOMDocumentType' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castDocumentType'], 'DOMNotation' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castNotation'], 'DOMEntity' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castEntity'], 'DOMProcessingInstruction' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castProcessingInstruction'], 'DOMXPath' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DOMCaster', 'castXPath'], 'XMLReader' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\XmlReaderCaster', 'castXmlReader'], 'ErrorException' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ExceptionCaster', 'castErrorException'], 'Exception' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ExceptionCaster', 'castException'], 'Error' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ExceptionCaster', 'castError'], 'ECSPrefix20210509\\Symfony\\Bridge\\Monolog\\Logger' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\Symfony\\Component\\DependencyInjection\\ContainerInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\Symfony\\Component\\EventDispatcher\\EventDispatcherInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\Symfony\\Component\\HttpClient\\CurlHttpClient' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SymfonyCaster', 'castHttpClient'], 'ECSPrefix20210509\\Symfony\\Component\\HttpClient\\NativeHttpClient' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SymfonyCaster', 'castHttpClient'], 'ECSPrefix20210509\\Symfony\\Component\\HttpClient\\Response\\CurlResponse' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SymfonyCaster', 'castHttpClientResponse'], 'ECSPrefix20210509\\Symfony\\Component\\HttpClient\\Response\\NativeResponse' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SymfonyCaster', 'castHttpClientResponse'], 'ECSPrefix20210509\\Symfony\\Component\\HttpFoundation\\Request' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SymfonyCaster', 'castRequest'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Exception\\ThrowingCasterException' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ExceptionCaster', 'castThrowingCasterException'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\TraceStub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ExceptionCaster', 'castTraceStub'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\FrameStub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ExceptionCaster', 'castFrameStub'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Cloner\\AbstractCloner' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\Symfony\\Component\\ErrorHandler\\Exception\\SilencedErrorContext' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ExceptionCaster', 'castSilencedErrorContext'], 'ECSPrefix20210509\\Imagine\\Image\\ImageInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ImagineCaster', 'castImage'], 'ECSPrefix20210509\\Ramsey\\Uuid\\UuidInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\UuidCaster', 'castRamseyUuid'], 'ECSPrefix20210509\\ProxyManager\\Proxy\\ProxyInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ProxyManagerCaster', 'castProxy'], 'PHPUnit_Framework_MockObject_MockObject' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\PHPUnit\\Framework\\MockObject\\MockObject' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\PHPUnit\\Framework\\MockObject\\Stub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\Prophecy\\Prophecy\\ProphecySubjectInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'ECSPrefix20210509\\Mockery\\MockInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\StubCaster', 'cutInternals'], 'PDO' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\PdoCaster', 'castPdo'], 'PDOStatement' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\PdoCaster', 'castPdoStatement'], 'AMQPConnection' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\AmqpCaster', 'castConnection'], 'AMQPChannel' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\AmqpCaster', 'castChannel'], 'AMQPQueue' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\AmqpCaster', 'castQueue'], 'AMQPExchange' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\AmqpCaster', 'castExchange'], 'AMQPEnvelope' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\AmqpCaster', 'castEnvelope'], 'ArrayObject' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castArrayObject'], 'ArrayIterator' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castArrayIterator'], 'SplDoublyLinkedList' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castDoublyLinkedList'], 'SplFileInfo' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castFileInfo'], 'SplFileObject' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castFileObject'], 'SplHeap' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castHeap'], 'SplObjectStorage' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castObjectStorage'], 'SplPriorityQueue' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castHeap'], 'OuterIterator' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castOuterIterator'], 'WeakReference' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\SplCaster', 'castWeakReference'], 'Redis' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RedisCaster', 'castRedis'], 'RedisArray' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RedisCaster', 'castRedisArray'], 'RedisCluster' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RedisCaster', 'castRedisCluster'], 'DateTimeInterface' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DateCaster', 'castDateTime'], 'DateInterval' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DateCaster', 'castInterval'], 'DateTimeZone' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DateCaster', 'castTimeZone'], 'DatePeriod' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DateCaster', 'castPeriod'], 'GMP' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\GmpCaster', 'castGmp'], 'MessageFormatter' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\IntlCaster', 'castMessageFormatter'], 'NumberFormatter' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\IntlCaster', 'castNumberFormatter'], 'IntlTimeZone' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\IntlCaster', 'castIntlTimeZone'], 'IntlCalendar' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\IntlCaster', 'castIntlCalendar'], 'IntlDateFormatter' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\IntlCaster', 'castIntlDateFormatter'], 'Memcached' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\MemcachedCaster', 'castMemcached'], 'ECSPrefix20210509\\Ds\\Collection' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DsCaster', 'castCollection'], 'ECSPrefix20210509\\Ds\\Map' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DsCaster', 'castMap'], 'ECSPrefix20210509\\Ds\\Pair' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DsCaster', 'castPair'], 'ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DsPairStub' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\DsCaster', 'castPairStub'], 'CurlHandle' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castCurl'], ':curl' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castCurl'], ':dba' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castDba'], ':dba persistent' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castDba'], 'GdImage' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castGd'], ':gd' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castGd'], ':mysql link' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castMysqlLink'], ':pgsql large object' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\PgSqlCaster', 'castLargeObject'], ':pgsql link' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\PgSqlCaster', 'castLink'], ':pgsql link persistent' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\PgSqlCaster', 'castLink'], ':pgsql result' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\PgSqlCaster', 'castResult'], ':process' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castProcess'], ':stream' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castStream'], 'OpenSSLCertificate' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castOpensslX509'], ':OpenSSL X.509' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castOpensslX509'], ':persistent stream' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castStream'], ':stream-context' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\ResourceCaster', 'castStreamContext'], 'XmlParser' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\XmlResourceCaster', 'castXml'], ':xml' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\XmlResourceCaster', 'castXml'], 'RdKafka' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castRdKafka'], 'ECSPrefix20210509\\RdKafka\\Conf' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castConf'], 'ECSPrefix20210509\\RdKafka\\KafkaConsumer' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castKafkaConsumer'], 'ECSPrefix20210509\\RdKafka\\Metadata\\Broker' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castBrokerMetadata'], 'ECSPrefix20210509\\RdKafka\\Metadata\\Collection' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castCollectionMetadata'], 'ECSPrefix20210509\\RdKafka\\Metadata\\Partition' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castPartitionMetadata'], 'ECSPrefix20210509\\RdKafka\\Metadata\\Topic' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castTopicMetadata'], 'ECSPrefix20210509\\RdKafka\\Message' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castMessage'], 'ECSPrefix20210509\\RdKafka\\Topic' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castTopic'], 'ECSPrefix20210509\\RdKafka\\TopicPartition' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castTopicPartition'], 'ECSPrefix20210509\\RdKafka\\TopicConf' => ['ECSPrefix20210509\\Symfony\\Component\\VarDumper\\Caster\\RdKafkaCaster', 'castTopicConf']];
+    public static $defaultCasters = [
+        '__PHP_Incomplete_Class' => ['Symfony\Component\VarDumper\Caster\Caster', 'castPhpIncompleteClass'],
+
+        'Symfony\Component\VarDumper\Caster\CutStub' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'castStub'],
+        'Symfony\Component\VarDumper\Caster\CutArrayStub' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'castCutArray'],
+        'Symfony\Component\VarDumper\Caster\ConstStub' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'castStub'],
+        'Symfony\Component\VarDumper\Caster\EnumStub' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'castEnum'],
+
+        'Closure' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castClosure'],
+        'Generator' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castGenerator'],
+        'ReflectionType' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castType'],
+        'ReflectionAttribute' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castAttribute'],
+        'ReflectionGenerator' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castReflectionGenerator'],
+        'ReflectionClass' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castClass'],
+        'ReflectionClassConstant' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castClassConstant'],
+        'ReflectionFunctionAbstract' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castFunctionAbstract'],
+        'ReflectionMethod' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castMethod'],
+        'ReflectionParameter' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castParameter'],
+        'ReflectionProperty' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castProperty'],
+        'ReflectionReference' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castReference'],
+        'ReflectionExtension' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castExtension'],
+        'ReflectionZendExtension' => ['Symfony\Component\VarDumper\Caster\ReflectionCaster', 'castZendExtension'],
+
+        'Doctrine\Common\Persistence\ObjectManager' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'Doctrine\Common\Proxy\Proxy' => ['Symfony\Component\VarDumper\Caster\DoctrineCaster', 'castCommonProxy'],
+        'Doctrine\ORM\Proxy\Proxy' => ['Symfony\Component\VarDumper\Caster\DoctrineCaster', 'castOrmProxy'],
+        'Doctrine\ORM\PersistentCollection' => ['Symfony\Component\VarDumper\Caster\DoctrineCaster', 'castPersistentCollection'],
+        'Doctrine\Persistence\ObjectManager' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+
+        'DOMException' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castException'],
+        'DOMStringList' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castLength'],
+        'DOMNameList' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castLength'],
+        'DOMImplementation' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castImplementation'],
+        'DOMImplementationList' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castLength'],
+        'DOMNode' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castNode'],
+        'DOMNameSpaceNode' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castNameSpaceNode'],
+        'DOMDocument' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castDocument'],
+        'DOMNodeList' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castLength'],
+        'DOMNamedNodeMap' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castLength'],
+        'DOMCharacterData' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castCharacterData'],
+        'DOMAttr' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castAttr'],
+        'DOMElement' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castElement'],
+        'DOMText' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castText'],
+        'DOMTypeinfo' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castTypeinfo'],
+        'DOMDomError' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castDomError'],
+        'DOMLocator' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castLocator'],
+        'DOMDocumentType' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castDocumentType'],
+        'DOMNotation' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castNotation'],
+        'DOMEntity' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castEntity'],
+        'DOMProcessingInstruction' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castProcessingInstruction'],
+        'DOMXPath' => ['Symfony\Component\VarDumper\Caster\DOMCaster', 'castXPath'],
+
+        'XMLReader' => ['Symfony\Component\VarDumper\Caster\XmlReaderCaster', 'castXmlReader'],
+
+        'ErrorException' => ['Symfony\Component\VarDumper\Caster\ExceptionCaster', 'castErrorException'],
+        'Exception' => ['Symfony\Component\VarDumper\Caster\ExceptionCaster', 'castException'],
+        'Error' => ['Symfony\Component\VarDumper\Caster\ExceptionCaster', 'castError'],
+        'Symfony\Bridge\Monolog\Logger' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'Symfony\Component\DependencyInjection\ContainerInterface' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'Symfony\Component\EventDispatcher\EventDispatcherInterface' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'Symfony\Component\HttpClient\CurlHttpClient' => ['Symfony\Component\VarDumper\Caster\SymfonyCaster', 'castHttpClient'],
+        'Symfony\Component\HttpClient\NativeHttpClient' => ['Symfony\Component\VarDumper\Caster\SymfonyCaster', 'castHttpClient'],
+        'Symfony\Component\HttpClient\Response\CurlResponse' => ['Symfony\Component\VarDumper\Caster\SymfonyCaster', 'castHttpClientResponse'],
+        'Symfony\Component\HttpClient\Response\NativeResponse' => ['Symfony\Component\VarDumper\Caster\SymfonyCaster', 'castHttpClientResponse'],
+        'Symfony\Component\HttpFoundation\Request' => ['Symfony\Component\VarDumper\Caster\SymfonyCaster', 'castRequest'],
+        'Symfony\Component\VarDumper\Exception\ThrowingCasterException' => ['Symfony\Component\VarDumper\Caster\ExceptionCaster', 'castThrowingCasterException'],
+        'Symfony\Component\VarDumper\Caster\TraceStub' => ['Symfony\Component\VarDumper\Caster\ExceptionCaster', 'castTraceStub'],
+        'Symfony\Component\VarDumper\Caster\FrameStub' => ['Symfony\Component\VarDumper\Caster\ExceptionCaster', 'castFrameStub'],
+        'Symfony\Component\VarDumper\Cloner\AbstractCloner' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'Symfony\Component\ErrorHandler\Exception\SilencedErrorContext' => ['Symfony\Component\VarDumper\Caster\ExceptionCaster', 'castSilencedErrorContext'],
+
+        'Imagine\Image\ImageInterface' => ['Symfony\Component\VarDumper\Caster\ImagineCaster', 'castImage'],
+
+        'Ramsey\Uuid\UuidInterface' => ['Symfony\Component\VarDumper\Caster\UuidCaster', 'castRamseyUuid'],
+
+        'ProxyManager\Proxy\ProxyInterface' => ['Symfony\Component\VarDumper\Caster\ProxyManagerCaster', 'castProxy'],
+        'PHPUnit_Framework_MockObject_MockObject' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'PHPUnit\Framework\MockObject\MockObject' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'PHPUnit\Framework\MockObject\Stub' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'Prophecy\Prophecy\ProphecySubjectInterface' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+        'Mockery\MockInterface' => ['Symfony\Component\VarDumper\Caster\StubCaster', 'cutInternals'],
+
+        'PDO' => ['Symfony\Component\VarDumper\Caster\PdoCaster', 'castPdo'],
+        'PDOStatement' => ['Symfony\Component\VarDumper\Caster\PdoCaster', 'castPdoStatement'],
+
+        'AMQPConnection' => ['Symfony\Component\VarDumper\Caster\AmqpCaster', 'castConnection'],
+        'AMQPChannel' => ['Symfony\Component\VarDumper\Caster\AmqpCaster', 'castChannel'],
+        'AMQPQueue' => ['Symfony\Component\VarDumper\Caster\AmqpCaster', 'castQueue'],
+        'AMQPExchange' => ['Symfony\Component\VarDumper\Caster\AmqpCaster', 'castExchange'],
+        'AMQPEnvelope' => ['Symfony\Component\VarDumper\Caster\AmqpCaster', 'castEnvelope'],
+
+        'ArrayObject' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castArrayObject'],
+        'ArrayIterator' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castArrayIterator'],
+        'SplDoublyLinkedList' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castDoublyLinkedList'],
+        'SplFileInfo' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castFileInfo'],
+        'SplFileObject' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castFileObject'],
+        'SplHeap' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castHeap'],
+        'SplObjectStorage' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castObjectStorage'],
+        'SplPriorityQueue' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castHeap'],
+        'OuterIterator' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castOuterIterator'],
+        'WeakReference' => ['Symfony\Component\VarDumper\Caster\SplCaster', 'castWeakReference'],
+
+        'Redis' => ['Symfony\Component\VarDumper\Caster\RedisCaster', 'castRedis'],
+        'RedisArray' => ['Symfony\Component\VarDumper\Caster\RedisCaster', 'castRedisArray'],
+        'RedisCluster' => ['Symfony\Component\VarDumper\Caster\RedisCaster', 'castRedisCluster'],
+
+        'DateTimeInterface' => ['Symfony\Component\VarDumper\Caster\DateCaster', 'castDateTime'],
+        'DateInterval' => ['Symfony\Component\VarDumper\Caster\DateCaster', 'castInterval'],
+        'DateTimeZone' => ['Symfony\Component\VarDumper\Caster\DateCaster', 'castTimeZone'],
+        'DatePeriod' => ['Symfony\Component\VarDumper\Caster\DateCaster', 'castPeriod'],
+
+        'GMP' => ['Symfony\Component\VarDumper\Caster\GmpCaster', 'castGmp'],
+
+        'MessageFormatter' => ['Symfony\Component\VarDumper\Caster\IntlCaster', 'castMessageFormatter'],
+        'NumberFormatter' => ['Symfony\Component\VarDumper\Caster\IntlCaster', 'castNumberFormatter'],
+        'IntlTimeZone' => ['Symfony\Component\VarDumper\Caster\IntlCaster', 'castIntlTimeZone'],
+        'IntlCalendar' => ['Symfony\Component\VarDumper\Caster\IntlCaster', 'castIntlCalendar'],
+        'IntlDateFormatter' => ['Symfony\Component\VarDumper\Caster\IntlCaster', 'castIntlDateFormatter'],
+
+        'Memcached' => ['Symfony\Component\VarDumper\Caster\MemcachedCaster', 'castMemcached'],
+
+        'Ds\Collection' => ['Symfony\Component\VarDumper\Caster\DsCaster', 'castCollection'],
+        'Ds\Map' => ['Symfony\Component\VarDumper\Caster\DsCaster', 'castMap'],
+        'Ds\Pair' => ['Symfony\Component\VarDumper\Caster\DsCaster', 'castPair'],
+        'Symfony\Component\VarDumper\Caster\DsPairStub' => ['Symfony\Component\VarDumper\Caster\DsCaster', 'castPairStub'],
+
+        'CurlHandle' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castCurl'],
+        ':curl' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castCurl'],
+
+        ':dba' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castDba'],
+        ':dba persistent' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castDba'],
+
+        'GdImage' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castGd'],
+        ':gd' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castGd'],
+
+        ':mysql link' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castMysqlLink'],
+        ':pgsql large object' => ['Symfony\Component\VarDumper\Caster\PgSqlCaster', 'castLargeObject'],
+        ':pgsql link' => ['Symfony\Component\VarDumper\Caster\PgSqlCaster', 'castLink'],
+        ':pgsql link persistent' => ['Symfony\Component\VarDumper\Caster\PgSqlCaster', 'castLink'],
+        ':pgsql result' => ['Symfony\Component\VarDumper\Caster\PgSqlCaster', 'castResult'],
+        ':process' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castProcess'],
+        ':stream' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castStream'],
+
+        'OpenSSLCertificate' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castOpensslX509'],
+        ':OpenSSL X.509' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castOpensslX509'],
+
+        ':persistent stream' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castStream'],
+        ':stream-context' => ['Symfony\Component\VarDumper\Caster\ResourceCaster', 'castStreamContext'],
+
+        'XmlParser' => ['Symfony\Component\VarDumper\Caster\XmlResourceCaster', 'castXml'],
+        ':xml' => ['Symfony\Component\VarDumper\Caster\XmlResourceCaster', 'castXml'],
+
+        'RdKafka' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castRdKafka'],
+        'RdKafka\Conf' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castConf'],
+        'RdKafka\KafkaConsumer' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castKafkaConsumer'],
+        'RdKafka\Metadata\Broker' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castBrokerMetadata'],
+        'RdKafka\Metadata\Collection' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castCollectionMetadata'],
+        'RdKafka\Metadata\Partition' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castPartitionMetadata'],
+        'RdKafka\Metadata\Topic' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castTopicMetadata'],
+        'RdKafka\Message' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castMessage'],
+        'RdKafka\Topic' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castTopic'],
+        'RdKafka\TopicPartition' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castTopicPartition'],
+        'RdKafka\TopicConf' => ['Symfony\Component\VarDumper\Caster\RdKafkaCaster', 'castTopicConf'],
+    ];
+
     protected $maxItems = 2500;
     protected $maxString = -1;
     protected $minDepth = 1;
+
     private $casters = [];
     private $prevErrorHandler;
     private $classInfo = [];
     private $filter = 0;
+
     /**
      * @param callable[]|null $casters A map of casters
      *
@@ -39,6 +207,7 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
         }
         $this->addCasters($casters);
     }
+
     /**
      * Adds casters for resources and objects.
      *
@@ -55,6 +224,7 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
             $this->casters[$type][] = $callback;
         }
     }
+
     /**
      * Sets the maximum number of items to clone past the minimum depth in nested structures.
      * @param int $maxItems
@@ -64,6 +234,7 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
         $maxItems = (int) $maxItems;
         $this->maxItems = $maxItems;
     }
+
     /**
      * Sets the maximum cloned length for strings.
      * @param int $maxString
@@ -73,6 +244,7 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
         $maxString = (int) $maxString;
         $this->maxString = $maxString;
     }
+
     /**
      * Sets the minimum tree depth where we are guaranteed to clone all the items.  After this
      * depth is reached, only setMaxItems items will be cloned.
@@ -83,6 +255,7 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
         $minDepth = (int) $minDepth;
         $this->minDepth = $minDepth;
     }
+
     /**
      * Clones a PHP variable.
      *
@@ -93,30 +266,34 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
      */
     public function cloneVar($var, $filter = 0)
     {
-        $this->prevErrorHandler = \set_error_handler(function ($type, $msg, $file, $line, $context = []) {
+        $this->prevErrorHandler = set_error_handler(function ($type, $msg, $file, $line, $context = []) {
             if (\E_RECOVERABLE_ERROR === $type || \E_USER_ERROR === $type) {
                 // Cloner never dies
                 throw new \ErrorException($msg, 0, $type, $file, $line);
             }
+
             if ($this->prevErrorHandler) {
                 return ($this->prevErrorHandler)($type, $msg, $file, $line, $context);
             }
-            return \false;
+
+            return false;
         });
         $this->filter = $filter;
-        if ($gc = \gc_enabled()) {
-            \gc_disable();
+
+        if ($gc = gc_enabled()) {
+            gc_disable();
         }
         try {
-            return new \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data($this->doClone($var));
+            return new Data($this->doClone($var));
         } finally {
             if ($gc) {
-                \gc_enable();
+                gc_enable();
             }
-            \restore_error_handler();
+            restore_error_handler();
             $this->prevErrorHandler = null;
         }
     }
+
     /**
      * Effectively clones the PHP variable.
      *
@@ -124,7 +301,8 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
      *
      * @return array The cloned variable represented in an array
      */
-    protected abstract function doClone($var);
+    abstract protected function doClone($var);
+
     /**
      * Casts an object to an array representation.
      *
@@ -132,35 +310,44 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
      *
      * @return array The object casted as array
      */
-    protected function castObject(\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    protected function castObject(Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         $obj = $stub->value;
         $class = $stub->class;
-        if (\PHP_VERSION_ID < 80000 ? "\0" === (isset($class[15]) ? $class[15] : null) : \false !== \strpos($class, "@anonymous\0")) {
-            $stub->class = \get_debug_type($obj);
+
+        if (\PHP_VERSION_ID < 80000 ? "\0" === (isset($class[15]) ? $class[15] : null) : false !== strpos($class, "@anonymous\0")) {
+            $stub->class = get_debug_type($obj);
         }
         if (isset($this->classInfo[$class])) {
             list($i, $parents, $hasDebugInfo, $fileInfo) = $this->classInfo[$class];
         } else {
             $i = 2;
             $parents = [$class];
-            $hasDebugInfo = \method_exists($class, '__debugInfo');
-            foreach (\class_parents($class) as $p) {
+            $hasDebugInfo = method_exists($class, '__debugInfo');
+
+            foreach (class_parents($class) as $p) {
                 $parents[] = $p;
                 ++$i;
             }
-            foreach (\class_implements($class) as $p) {
+            foreach (class_implements($class) as $p) {
                 $parents[] = $p;
                 ++$i;
             }
             $parents[] = '*';
+
             $r = new \ReflectionClass($class);
-            $fileInfo = $r->isInternal() || $r->isSubclassOf(\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub::class) ? [] : ['file' => $r->getFileName(), 'line' => $r->getStartLine()];
+            $fileInfo = $r->isInternal() || $r->isSubclassOf(Stub::class) ? [] : [
+                'file' => $r->getFileName(),
+                'line' => $r->getStartLine(),
+            ];
+
             $this->classInfo[$class] = [$i, $parents, $hasDebugInfo, $fileInfo];
         }
+
         $stub->attr += $fileInfo;
-        $a = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::castObject($obj, $class, $hasDebugInfo, $stub->class);
+        $a = Caster::castObject($obj, $class, $hasDebugInfo, $stub->class);
+
         try {
             while ($i--) {
                 if (!empty($this->casters[$p = $parents[$i]])) {
@@ -170,10 +357,12 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
                 }
             }
         } catch (\Exception $e) {
-            $a = [(\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT === $stub->type ? \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL : '') . '⚠' => new \ECSPrefix20210509\Symfony\Component\VarDumper\Exception\ThrowingCasterException($e)] + $a;
+            $a = [(Stub::TYPE_OBJECT === $stub->type ? Caster::PREFIX_VIRTUAL : '').'⚠' => new ThrowingCasterException($e)] + $a;
         }
+
         return $a;
     }
+
     /**
      * Casts a resource to an array representation.
      *
@@ -181,21 +370,23 @@ abstract class AbstractCloner implements \ECSPrefix20210509\Symfony\Component\Va
      *
      * @return array The resource casted as array
      */
-    protected function castResource(\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    protected function castResource(Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         $a = [];
         $res = $stub->value;
         $type = $stub->class;
+
         try {
-            if (!empty($this->casters[':' . $type])) {
-                foreach ($this->casters[':' . $type] as $callback) {
+            if (!empty($this->casters[':'.$type])) {
+                foreach ($this->casters[':'.$type] as $callback) {
                     $a = $callback($res, $a, $stub, $isNested, $this->filter);
                 }
             }
         } catch (\Exception $e) {
-            $a = [(\ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT === $stub->type ? \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL : '') . '⚠' => new \ECSPrefix20210509\Symfony\Component\VarDumper\Exception\ThrowingCasterException($e)] + $a;
+            $a = [(Stub::TYPE_OBJECT === $stub->type ? Caster::PREFIX_VIRTUAL : '').'⚠' => new ThrowingCasterException($e)] + $a;
         }
+
         return $a;
     }
 }

@@ -8,20 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+namespace Symfony\Component\DependencyInjection\ParameterBag;
+
+use Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
+
 /**
  * Holds parameters.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface
+class ParameterBag implements ParameterBagInterface
 {
     protected $parameters = [];
-    protected $resolved = \false;
+    protected $resolved = false;
+
     /**
      * @param array $parameters An array of parameters
      */
@@ -29,6 +32,7 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
     {
         $this->add($parameters);
     }
+
     /**
      * Clears all parameters.
      */
@@ -36,6 +40,7 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
     {
         $this->parameters = [];
     }
+
     /**
      * Adds parameters to the service container parameters.
      *
@@ -47,6 +52,7 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
             $this->set($key, $value);
         }
     }
+
     /**
      * {@inheritdoc}
      */
@@ -54,6 +60,7 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
     {
         return $this->parameters;
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -62,19 +69,21 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
     {
         if (!\array_key_exists($name, $this->parameters)) {
             if (!$name) {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name);
+                throw new ParameterNotFoundException($name);
             }
+
             $alternatives = [];
             foreach ($this->parameters as $key => $parameterValue) {
-                $lev = \levenshtein($name, $key);
-                if ($lev <= \strlen($name) / 3 || \false !== \strpos($key, $name)) {
+                $lev = levenshtein($name, $key);
+                if ($lev <= \strlen($name) / 3 || false !== strpos($key, $name)) {
                     $alternatives[] = $key;
                 }
             }
+
             $nonNestedAlternative = null;
-            if (!\count($alternatives) && \false !== \strpos($name, '.')) {
-                $namePartsLength = \array_map('strlen', \explode('.', $name));
-                $key = \substr($name, 0, -1 * (1 + \array_pop($namePartsLength)));
+            if (!\count($alternatives) && false !== strpos($name, '.')) {
+                $namePartsLength = array_map('strlen', explode('.', $name));
+                $key = substr($name, 0, -1 * (1 + array_pop($namePartsLength)));
                 while (\count($namePartsLength)) {
                     if ($this->has($key)) {
                         if (\is_array($this->get($key))) {
@@ -82,13 +91,17 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
                         }
                         break;
                     }
-                    $key = \substr($key, 0, -1 * (1 + \array_pop($namePartsLength)));
+
+                    $key = substr($key, 0, -1 * (1 + array_pop($namePartsLength)));
                 }
             }
-            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException($name, null, null, null, $alternatives, $nonNestedAlternative);
+
+            throw new ParameterNotFoundException($name, null, null, null, $alternatives, $nonNestedAlternative);
         }
+
         return $this->parameters[$name];
     }
+
     /**
      * Sets a service container parameter.
      *
@@ -100,6 +113,7 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
         $name = (string) $name;
         $this->parameters[$name] = $value;
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -108,6 +122,7 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
     {
         return \array_key_exists((string) $name, $this->parameters);
     }
+
     /**
      * Removes a parameter.
      *
@@ -118,6 +133,7 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
         $name = (string) $name;
         unset($this->parameters[$name]);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -126,19 +142,23 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
         if ($this->resolved) {
             return;
         }
+
         $parameters = [];
         foreach ($this->parameters as $key => $value) {
             try {
                 $value = $this->resolveValue($value);
                 $parameters[$key] = $this->unescapeValue($value);
-            } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException $e) {
+            } catch (ParameterNotFoundException $e) {
                 $e->setSourceKey($key);
+
                 throw $e;
             }
         }
+
         $this->parameters = $parameters;
-        $this->resolved = \true;
+        $this->resolved = true;
     }
+
     /**
      * Replaces parameter placeholders (%name%) by their values.
      *
@@ -158,13 +178,17 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
             foreach ($value as $k => $v) {
                 $args[\is_string($k) ? $this->resolveValue($k, $resolving) : $k] = $this->resolveValue($v, $resolving);
             }
+
             return $args;
         }
+
         if (!\is_string($value) || 2 > \strlen($value)) {
             return $value;
         }
+
         return $this->resolveString($value, $resolving);
     }
+
     /**
      * Resolves parameters inside a string.
      *
@@ -183,68 +207,86 @@ class ParameterBag implements \ECSPrefix20210509\Symfony\Component\DependencyInj
         // we do this to deal with non string values (Boolean, integer, ...)
         // as the preg_replace_callback throw an exception when trying
         // a non-string in a parameter value
-        if (\preg_match('/^%([^%\\s]+)%$/', $value, $match)) {
+        if (preg_match('/^%([^%\s]+)%$/', $value, $match)) {
             $key = $match[1];
+
             if (isset($resolving[$key])) {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($resolving));
+                throw new ParameterCircularReferenceException(array_keys($resolving));
             }
-            $resolving[$key] = \true;
+
+            $resolving[$key] = true;
+
             return $this->resolved ? $this->get($key) : $this->resolveValue($this->get($key), $resolving);
         }
-        return \preg_replace_callback('/%%|%([^%\\s]+)%/', function ($match) use($resolving, $value) {
+
+        return preg_replace_callback('/%%|%([^%\s]+)%/', function ($match) use ($resolving, $value) {
             // skip %%
             if (!isset($match[1])) {
                 return '%%';
             }
+
             $key = $match[1];
             if (isset($resolving[$key])) {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ParameterCircularReferenceException(\array_keys($resolving));
+                throw new ParameterCircularReferenceException(array_keys($resolving));
             }
+
             $resolved = $this->get($key);
-            if (!\is_string($resolved) && !\is_numeric($resolved)) {
-                throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, \get_debug_type($resolved), $value));
+
+            if (!\is_string($resolved) && !is_numeric($resolved)) {
+                throw new RuntimeException(sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type "%s" inside string value "%s".', $key, get_debug_type($resolved), $value));
             }
+
             $resolved = (string) $resolved;
-            $resolving[$key] = \true;
+            $resolving[$key] = true;
+
             return $this->isResolved() ? $resolved : $this->resolveString($resolved, $resolving);
         }, $value);
     }
+
     public function isResolved()
     {
         return $this->resolved;
     }
+
     /**
      * {@inheritdoc}
      */
     public function escapeValue($value)
     {
         if (\is_string($value)) {
-            return \str_replace('%', '%%', $value);
+            return str_replace('%', '%%', $value);
         }
+
         if (\is_array($value)) {
             $result = [];
             foreach ($value as $k => $v) {
                 $result[$k] = $this->escapeValue($v);
             }
+
             return $result;
         }
+
         return $value;
     }
+
     /**
      * {@inheritdoc}
      */
     public function unescapeValue($value)
     {
         if (\is_string($value)) {
-            return \str_replace('%%', '%', $value);
+            return str_replace('%%', '%', $value);
         }
+
         if (\is_array($value)) {
             $result = [];
             foreach ($value as $k => $v) {
                 $result[$k] = $this->unescapeValue($v);
             }
+
             return $result;
         }
+
         return $value;
     }
 }

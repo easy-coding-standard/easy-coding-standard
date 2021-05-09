@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Stops inline IF statements from being used.
  *
@@ -7,18 +6,26 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\PHP;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DisallowInlineIfSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class DisallowInlineIfSniff implements Sniff
 {
+
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
-    public $supportedTokenizers = ['PHP', 'JS'];
+    public $supportedTokenizers = [
+        'PHP',
+        'JS',
+    ];
+
+
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -27,8 +34,10 @@ class DisallowInlineIfSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     public function register()
     {
         return [T_INLINE_THEN];
-    }
-    //end register()
+
+    }//end register()
+
+
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -38,10 +47,11 @@ class DisallowInlineIfSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $phpcsFile->addError('Inline IF statements are not allowed', $stackPtr, 'Found');
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

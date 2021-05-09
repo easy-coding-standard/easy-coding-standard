@@ -8,15 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
+namespace Symfony\Component\VarDumper\Caster;
+
+use Symfony\Component\VarDumper\Cloner\Stub;
+
 /**
  * Represents a PHP constant and its value.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ConstStub extends \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub
+class ConstStub extends Stub
 {
     /**
      * @param string $name
@@ -27,6 +29,7 @@ class ConstStub extends \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\St
         $this->class = $name;
         $this->value = 1 < \func_num_args() ? $value : $name;
     }
+
     /**
      * @return string
      */

@@ -1,9 +1,12 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Symplify\AutowireArrayParameter\Tests\Source\Collected;
 
 use Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface;
-final class FirstServiceOfFirstCollected implements \Symplify\AutowireArrayParameter\Tests\Source\Contract\FirstCollectedInterface
+
+final class FirstServiceOfFirstCollected implements FirstCollectedInterface
 {
+
 }

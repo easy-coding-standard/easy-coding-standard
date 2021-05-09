@@ -8,14 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Caster\CutStub;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ReflectionCaster;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\ClonerInterface;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner;
+namespace Symfony\Component\HttpKernel\DataCollector;
+
+use Symfony\Component\VarDumper\Caster\CutStub;
+use Symfony\Component\VarDumper\Caster\ReflectionCaster;
+use Symfony\Component\VarDumper\Cloner\ClonerInterface;
+use Symfony\Component\VarDumper\Cloner\Data;
+use Symfony\Component\VarDumper\Cloner\Stub;
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+
 /**
  * DataCollector.
  *
@@ -24,16 +26,18 @@ use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Bernhard Schussek <bschussek@symfony.com>
  */
-abstract class DataCollector implements \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface
+abstract class DataCollector implements DataCollectorInterface
 {
     /**
      * @var array|Data
      */
     protected $data = [];
+
     /**
      * @var ClonerInterface
      */
     private $cloner;
+
     /**
      * Converts the variable into a serializable Data instance.
      *
@@ -46,33 +50,40 @@ abstract class DataCollector implements \ECSPrefix20210509\Symfony\Component\Htt
      */
     protected function cloneVar($var)
     {
-        if ($var instanceof \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Data) {
+        if ($var instanceof Data) {
             return $var;
         }
         if (null === $this->cloner) {
-            $this->cloner = new \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner();
+            $this->cloner = new VarCloner();
             $this->cloner->setMaxItems(-1);
             $this->cloner->addCasters($this->getCasters());
         }
+
         return $this->cloner->cloneVar($var);
     }
+
     /**
      * @return callable[] The casters to add to the cloner
      */
     protected function getCasters()
     {
-        $casters = ['*' => function ($v, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $s, $isNested) {
-            if (!$v instanceof \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub) {
-                foreach ($a as $k => $v) {
-                    if (\is_object($v) && !$v instanceof \DateTimeInterface && !$v instanceof \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub) {
-                        $a[$k] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\CutStub($v);
+        $casters = [
+            '*' => function ($v, array $a, Stub $s, $isNested) {
+                if (!$v instanceof Stub) {
+                    foreach ($a as $k => $v) {
+                        if (\is_object($v) && !$v instanceof \DateTimeInterface && !$v instanceof Stub) {
+                            $a[$k] = new CutStub($v);
+                        }
                     }
                 }
-            }
-            return $a;
-        }] + \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ReflectionCaster::UNSET_CLOSURE_FILE_INFO;
+
+                return $a;
+            },
+        ] + ReflectionCaster::UNSET_CLOSURE_FILE_INFO;
+
         return $casters;
     }
+
     /**
      * @return array
      */
@@ -80,19 +91,22 @@ abstract class DataCollector implements \ECSPrefix20210509\Symfony\Component\Htt
     {
         return ['data'];
     }
+
     public function __wakeup()
     {
     }
+
     /**
      * @internal to prevent implementing \Serializable
      */
-    protected final function serialize()
+    final protected function serialize()
     {
     }
+
     /**
      * @internal to prevent implementing \Serializable
      */
-    protected final function unserialize($data)
+    final protected function unserialize($data)
     {
     }
 }

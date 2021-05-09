@@ -8,16 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+namespace Symfony\Component\DependencyInjection\Loader\Configurator;
+
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class PrototypeConfigurator extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class PrototypeConfigurator extends AbstractServiceConfigurator
 {
     const FACTORY = 'load';
+
     use Traits\AbstractTrait;
     use Traits\ArgumentTrait;
     use Traits\AutoconfigureTrait;
@@ -33,42 +36,49 @@ class PrototypeConfigurator extends \ECSPrefix20210509\Symfony\Component\Depende
     use Traits\PublicTrait;
     use Traits\ShareTrait;
     use Traits\TagTrait;
+
     private $loader;
     private $resource;
     private $excludes;
     private $allowParent;
+
     /**
      * @param string $namespace
      * @param string $resource
      * @param bool $allowParent
      */
-    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition $defaults, $namespace, $resource, $allowParent)
+    public function __construct(ServicesConfigurator $parent, PhpFileLoader $loader, Definition $defaults, $namespace, $resource, $allowParent)
     {
         $namespace = (string) $namespace;
         $resource = (string) $resource;
         $allowParent = (bool) $allowParent;
-        $definition = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition();
+        $definition = new Definition();
         if (!$defaults->isPublic() || !$defaults->isPrivate()) {
             $definition->setPublic($defaults->isPublic());
         }
         $definition->setAutowired($defaults->isAutowired());
         $definition->setAutoconfigured($defaults->isAutoconfigured());
         // deep clone, to avoid multiple process of the same instance in the passes
-        $definition->setBindings(\unserialize(\serialize($defaults->getBindings())));
+        $definition->setBindings(unserialize(serialize($defaults->getBindings())));
         $definition->setChanges([]);
+
         $this->loader = $loader;
         $this->resource = $resource;
         $this->allowParent = $allowParent;
+
         parent::__construct($parent, $definition, $namespace, $defaults->getTags());
     }
+
     public function __destruct()
     {
         parent::__destruct();
+
         if ($this->loader) {
             $this->loader->registerClasses($this->definition, $this->id, $this->resource, $this->excludes);
         }
         $this->loader = null;
     }
+
     /**
      * Excludes files from registration using glob patterns.
      *
@@ -76,9 +86,10 @@ class PrototypeConfigurator extends \ECSPrefix20210509\Symfony\Component\Depende
      *
      * @return $this
      */
-    public final function exclude($excludes)
+    final public function exclude($excludes)
     {
         $this->excludes = (array) $excludes;
+
         return $this;
     }
 }

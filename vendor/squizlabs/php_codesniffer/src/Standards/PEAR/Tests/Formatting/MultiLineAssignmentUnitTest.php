@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the MultiLineAssignment sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PEAR\Tests\Formatting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class MultiLineAssignmentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class MultiLineAssignmentUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,15 @@ class MultiLineAssignmentUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstr
      */
     public function getErrorList()
     {
-        return [3 => 1, 6 => 1, 8 => 1];
-    }
-    //end getErrorList()
+        return [
+            3 => 1,
+            6 => 1,
+            8 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +45,8 @@ class MultiLineAssignmentUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstr
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

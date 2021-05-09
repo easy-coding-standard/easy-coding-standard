@@ -1,27 +1,27 @@
 {
-    "name": "symplify\/coding-standard",
+    "name": "symplify/coding-standard",
     "description": "Set of Symplify rules for PHP_CodeSniffer and PHP CS Fixer.",
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "nette\/utils": "^3.2",
-        "friendsofphp\/php-cs-fixer": "^3.0",
-        "symplify\/symplify-kernel": "dev-main",
-        "symplify\/package-builder": "dev-main",
-        "symplify\/autowire-array-parameter": "dev-main",
-        "symplify\/rule-doc-generator-contracts": "dev-main"
+        "nette/utils": "^3.2",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "symplify/symplify-kernel": "dev-main",
+        "symplify/package-builder": "dev-main",
+        "symplify/autowire-array-parameter": "dev-main",
+        "symplify/rule-doc-generator-contracts": "dev-main"
     },
     "require-dev": {
-        "nette\/application": "^3.1",
-        "nette\/bootstrap": "^3.1",
-        "symplify\/easy-coding-standard-tester": "dev-main",
-        "symfony\/http-kernel": "^4.4|^5.2",
-        "doctrine\/orm": "^2.7",
-        "symplify\/smart-file-system": "dev-main",
-        "symfony\/framework-bundle": "^4.4|^5.2",
-        "symplify\/php-config-printer": "dev-main",
-        "phpunit\/phpunit": "^9.5",
-        "symplify\/rule-doc-generator": "dev-main"
+        "nette/application": "^3.1",
+        "nette/bootstrap": "^3.1",
+        "symplify/easy-coding-standard-tester": "dev-main",
+        "symfony/http-kernel": "^4.4|^5.2",
+        "doctrine/orm": "^2.7",
+        "symplify/smart-file-system": "dev-main",
+        "symfony/framework-bundle": "^4.4|^5.2",
+        "symplify/php-config-printer": "dev-main",
+        "phpunit/phpunit": "^9.5",
+        "symplify/rule-doc-generator": "dev-main"
     },
     "autoload": {
         "psr-4": {

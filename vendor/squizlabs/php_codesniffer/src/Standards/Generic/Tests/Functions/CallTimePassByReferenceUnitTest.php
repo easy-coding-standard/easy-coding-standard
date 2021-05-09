@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the CallTimePassByReference sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Functions;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class CallTimePassByReferenceUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class CallTimePassByReferenceUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,18 @@ class CallTimePassByReferenceUnitTest extends \PHP_CodeSniffer\Tests\Standards\A
      */
     public function getErrorList()
     {
-        return [9 => 1, 12 => 1, 15 => 1, 18 => 2, 23 => 1, 30 => 1];
-    }
-    //end getErrorList()
+        return [
+            9  => 1,
+            12 => 1,
+            15 => 1,
+            18 => 2,
+            23 => 1,
+            30 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +48,8 @@ class CallTimePassByReferenceUnitTest extends \PHP_CodeSniffer\Tests\Standards\A
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

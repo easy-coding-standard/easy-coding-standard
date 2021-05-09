@@ -1,5 +1,4 @@
 <?php
-
 /**
  * A simple sniff for detecting a BOM definition that may corrupt application work.
  *
@@ -8,12 +7,15 @@
  * @copyright 2010-2014 mediaSELF Sp. z o.o.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Files;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class ByteOrderMarkSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class ByteOrderMarkSniff implements Sniff
 {
+
     /**
      * List of supported BOM definitions.
      *
@@ -21,7 +23,13 @@ class ByteOrderMarkSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @var array
      */
-    protected $bomDefinitions = ['UTF-8' => 'efbbbf', 'UTF-16 (BE)' => 'feff', 'UTF-16 (LE)' => 'fffe'];
+    protected $bomDefinitions = [
+        'UTF-8'       => 'efbbbf',
+        'UTF-16 (BE)' => 'feff',
+        'UTF-16 (LE)' => 'fffe',
+    ];
+
+
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -29,9 +37,11 @@ class ByteOrderMarkSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_INLINE_HTML];
-    }
-    //end register()
+        return [T_INLINE_HTML];
+
+    }//end register()
+
+
     /**
      * Processes this sniff, when one of its tokens is encountered.
      *
@@ -41,26 +51,30 @@ class ByteOrderMarkSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         // The BOM will be the very first token in the file.
         if ($stackPtr !== 0) {
             return;
         }
+
         $tokens = $phpcsFile->getTokens();
+
         foreach ($this->bomDefinitions as $bomName => $expectedBomHex) {
-            $bomByteLength = \strlen($expectedBomHex) / 2;
-            $htmlBomHex = \bin2hex(\substr($tokens[$stackPtr]['content'], 0, $bomByteLength));
+            $bomByteLength = (strlen($expectedBomHex) / 2);
+            $htmlBomHex    = bin2hex(substr($tokens[$stackPtr]['content'], 0, $bomByteLength));
             if ($htmlBomHex === $expectedBomHex) {
                 $errorData = [$bomName];
-                $error = 'File contains %s byte order mark, which may corrupt your application';
+                $error     = 'File contains %s byte order mark, which may corrupt your application';
                 $phpcsFile->addError($error, $stackPtr, 'Found', $errorData);
                 $phpcsFile->recordMetric($stackPtr, 'Using byte order mark', 'yes');
                 return;
             }
         }
+
         $phpcsFile->recordMetric($stackPtr, 'Using byte order mark', 'no');
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

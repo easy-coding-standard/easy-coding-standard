@@ -9,6 +9,7 @@ final class Option
      * @var string
      */
     const SKIP = 'skip';
+
     /**
      * @api
      * @var string

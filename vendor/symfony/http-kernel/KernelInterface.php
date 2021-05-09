@@ -8,11 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel;
 
-use ECSPrefix20210509\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+namespace Symfony\Component\HttpKernel;
+
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+
 /**
  * The Kernel is the heart of the Symfony system.
  *
@@ -24,7 +26,7 @@ use ECSPrefix20210509\Symfony\Component\HttpKernel\Bundle\BundleInterface;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface KernelInterface extends \ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface
+interface KernelInterface extends HttpKernelInterface
 {
     /**
      * Returns an array of bundles to register.
@@ -32,26 +34,31 @@ interface KernelInterface extends \ECSPrefix20210509\Symfony\Component\HttpKerne
      * @return iterable|BundleInterface[] An iterable of bundle instances
      */
     public function registerBundles();
+
     /**
      * Loads the container configuration.
      */
-    public function registerContainerConfiguration(\ECSPrefix20210509\Symfony\Component\Config\Loader\LoaderInterface $loader);
+    public function registerContainerConfiguration(LoaderInterface $loader);
+
     /**
      * Boots the current kernel.
      */
     public function boot();
+
     /**
      * Shutdowns the kernel.
      *
      * This method is mainly useful when doing functional testing.
      */
     public function shutdown();
+
     /**
      * Gets the registered bundle instances.
      *
      * @return BundleInterface[] An array of registered bundle instances
      */
     public function getBundles();
+
     /**
      * Returns a bundle.
      *
@@ -61,6 +68,7 @@ interface KernelInterface extends \ECSPrefix20210509\Symfony\Component\HttpKerne
      * @param string $name
      */
     public function getBundle($name);
+
     /**
      * Returns the file path for a given bundle resource.
      *
@@ -80,36 +88,42 @@ interface KernelInterface extends \ECSPrefix20210509\Symfony\Component\HttpKerne
      * @param string $name
      */
     public function locateResource($name);
+
     /**
      * Gets the environment.
      *
      * @return string The current environment
      */
     public function getEnvironment();
+
     /**
      * Checks if debug mode is enabled.
      *
      * @return bool true if debug mode is enabled, false otherwise
      */
     public function isDebug();
+
     /**
      * Gets the project dir (path of the project's composer file).
      *
      * @return string
      */
     public function getProjectDir();
+
     /**
      * Gets the current container.
      *
      * @return ContainerInterface
      */
     public function getContainer();
+
     /**
      * Gets the request start time (not available if debug is disabled).
      *
      * @return float The request start timestamp
      */
     public function getStartTime();
+
     /**
      * Gets the cache directory.
      *
@@ -120,12 +134,14 @@ interface KernelInterface extends \ECSPrefix20210509\Symfony\Component\HttpKerne
      * @return string The cache directory
      */
     public function getCacheDir();
+
     /**
      * Gets the log directory.
      *
      * @return string The log directory
      */
     public function getLogDir();
+
     /**
      * Gets the charset of the application.
      *

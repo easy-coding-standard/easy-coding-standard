@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config\Resource;
+
+namespace Symfony\Component\Config\Resource;
 
 /**
  * FileExistenceResource represents a resource stored on the filesystem.
@@ -20,10 +21,12 @@ namespace ECSPrefix20210509\Symfony\Component\Config\Resource;
  *
  * @final
  */
-class FileExistenceResource implements \ECSPrefix20210509\Symfony\Component\Config\Resource\SelfCheckingResourceInterface
+class FileExistenceResource implements SelfCheckingResourceInterface
 {
     private $resource;
+
     private $exists;
+
     /**
      * @param string $resource The file path to the resource
      */
@@ -31,8 +34,9 @@ class FileExistenceResource implements \ECSPrefix20210509\Symfony\Component\Conf
     {
         $resource = (string) $resource;
         $this->resource = $resource;
-        $this->exists = \file_exists($resource);
+        $this->exists = file_exists($resource);
     }
+
     /**
      * {@inheritdoc}
      * @return string
@@ -41,6 +45,7 @@ class FileExistenceResource implements \ECSPrefix20210509\Symfony\Component\Conf
     {
         return $this->resource;
     }
+
     /**
      * @return string The file path to the resource
      */
@@ -48,6 +53,7 @@ class FileExistenceResource implements \ECSPrefix20210509\Symfony\Component\Conf
     {
         return $this->resource;
     }
+
     /**
      * {@inheritdoc}
      * @param int $timestamp
@@ -56,6 +62,6 @@ class FileExistenceResource implements \ECSPrefix20210509\Symfony\Component\Conf
     public function isFresh($timestamp)
     {
         $timestamp = (int) $timestamp;
-        return \file_exists($this->resource) === $this->exists;
+        return file_exists($this->resource) === $this->exists;
     }
 }

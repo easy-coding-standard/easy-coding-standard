@@ -2,9 +2,10 @@
 
 namespace Symplify\CodingStandard\TokenAnalyzer;
 
-use ECSPrefix20210509\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 final class NewlineAnalyzer
 {
     /**
@@ -12,36 +13,42 @@ final class NewlineAnalyzer
      * @param int $i
      * @return bool
      */
-    public function doesContentBeforeBracketRequireNewline(\PhpCsFixer\Tokenizer\Tokens $tokens, $i)
+    public function doesContentBeforeBracketRequireNewline(Tokens $tokens, $i)
     {
         $i = (int) $i;
         $previousMeaningfulTokenPosition = $tokens->getPrevNonWhitespace($i);
         if ($previousMeaningfulTokenPosition === null) {
-            return \false;
+            return false;
         }
+
         $previousToken = $tokens[$previousMeaningfulTokenPosition];
-        if (!$previousToken->isGivenKind(\T_STRING)) {
-            return \false;
+        if (! $previousToken->isGivenKind(T_STRING)) {
+            return false;
         }
+
         $previousPreviousMeaningfulTokenPosition = $tokens->getPrevNonWhitespace($previousMeaningfulTokenPosition);
         if ($previousPreviousMeaningfulTokenPosition === null) {
-            return \false;
+            return false;
         }
+
         $previousPreviousToken = $tokens[$previousPreviousMeaningfulTokenPosition];
         if ($previousPreviousToken->getContent() === '{') {
-            return \true;
+            return true;
         }
+
         // is a function
-        return $previousPreviousToken->isGivenKind([\T_RETURN, \T_DOUBLE_COLON, T_OPEN_CURLY_BRACKET]);
+        return $previousPreviousToken->isGivenKind([T_RETURN, T_DOUBLE_COLON, T_OPEN_CURLY_BRACKET]);
     }
+
     /**
      * @return bool
      */
-    public function isNewlineToken(\PhpCsFixer\Tokenizer\Token $currentToken)
+    public function isNewlineToken(Token $currentToken)
     {
-        if (!$currentToken->isWhitespace()) {
-            return \false;
+        if (! $currentToken->isWhitespace()) {
+            return false;
         }
-        return \ECSPrefix20210509\Nette\Utils\Strings::contains($currentToken->getContent(), "\n");
+
+        return Strings::contains($currentToken->getContent(), "\n");
     }
 }

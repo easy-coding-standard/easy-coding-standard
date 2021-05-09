@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tests the conversion of bitwise or tokens to type union tokens.
  *
@@ -7,11 +6,15 @@
  * @copyright 2020 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core\Tokenizer;
 
 use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
-class BitwiseOrTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
+
+class BitwiseOrTest extends AbstractMethodUnitTest
 {
+
+
     /**
      * Test that non-union type bitwise or tokens are still tokenized as bitwise or.
      *
@@ -25,11 +28,14 @@ class BitwiseOrTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
     public function testBitwiseOr($testMarker)
     {
         $tokens = self::$phpcsFile->getTokens();
+
         $opener = $this->getTargetToken($testMarker, [T_BITWISE_OR, T_TYPE_UNION]);
         $this->assertSame(T_BITWISE_OR, $tokens[$opener]['code']);
         $this->assertSame('T_BITWISE_OR', $tokens[$opener]['type']);
-    }
-    //end testBitwiseOr()
+
+    }//end testBitwiseOr()
+
+
     /**
      * Data provider.
      *
@@ -39,9 +45,27 @@ class BitwiseOrTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
      */
     public function dataBitwiseOr()
     {
-        return [['/* testBitwiseOr1 */'], ['/* testBitwiseOr2 */'], ['/* testBitwiseOrPropertyDefaultValue */'], ['/* testBitwiseOrParamDefaultValue */'], ['/* testBitwiseOr3 */'], ['/* testBitwiseOrClosureParamDefault */'], ['/* testBitwiseOrArrowParamDefault */'], ['/* testBitwiseOrArrowExpression */'], ['/* testBitwiseOrInArrayKey */'], ['/* testBitwiseOrInArrayValue */'], ['/* testBitwiseOrInShortArrayKey */'], ['/* testBitwiseOrInShortArrayValue */'], ['/* testBitwiseOrTryCatch */'], ['/* testBitwiseOrNonArrowFnFunctionCall */'], ['/* testLiveCoding */']];
-    }
-    //end dataBitwiseOr()
+        return [
+            ['/* testBitwiseOr1 */'],
+            ['/* testBitwiseOr2 */'],
+            ['/* testBitwiseOrPropertyDefaultValue */'],
+            ['/* testBitwiseOrParamDefaultValue */'],
+            ['/* testBitwiseOr3 */'],
+            ['/* testBitwiseOrClosureParamDefault */'],
+            ['/* testBitwiseOrArrowParamDefault */'],
+            ['/* testBitwiseOrArrowExpression */'],
+            ['/* testBitwiseOrInArrayKey */'],
+            ['/* testBitwiseOrInArrayValue */'],
+            ['/* testBitwiseOrInShortArrayKey */'],
+            ['/* testBitwiseOrInShortArrayValue */'],
+            ['/* testBitwiseOrTryCatch */'],
+            ['/* testBitwiseOrNonArrowFnFunctionCall */'],
+            ['/* testLiveCoding */'],
+        ];
+
+    }//end dataBitwiseOr()
+
+
     /**
      * Test that bitwise or tokens when used as part of a union type are tokenized as `T_TYPE_UNION`.
      *
@@ -55,11 +79,14 @@ class BitwiseOrTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
     public function testTypeUnion($testMarker)
     {
         $tokens = self::$phpcsFile->getTokens();
+
         $opener = $this->getTargetToken($testMarker, [T_BITWISE_OR, T_TYPE_UNION]);
         $this->assertSame(T_TYPE_UNION, $tokens[$opener]['code']);
         $this->assertSame('T_TYPE_UNION', $tokens[$opener]['type']);
-    }
-    //end testTypeUnion()
+
+    }//end testTypeUnion()
+
+
     /**
      * Data provider.
      *
@@ -69,8 +96,29 @@ class BitwiseOrTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
      */
     public function dataTypeUnion()
     {
-        return [['/* testTypeUnionPropertySimple */'], ['/* testTypeUnionPropertyReverseModifierOrder */'], ['/* testTypeUnionPropertyMulti1 */'], ['/* testTypeUnionPropertyMulti2 */'], ['/* testTypeUnionPropertyMulti3 */'], ['/* testTypeUnionParam1 */'], ['/* testTypeUnionParam2 */'], ['/* testTypeUnionParam3 */'], ['/* testTypeUnionReturnType */'], ['/* testTypeUnionConstructorPropertyPromotion */'], ['/* testTypeUnionAbstractMethodReturnType1 */'], ['/* testTypeUnionAbstractMethodReturnType2 */'], ['/* testTypeUnionClosureParamIllegalNullable */'], ['/* testTypeUnionWithReference */'], ['/* testTypeUnionWithSpreadOperator */'], ['/* testTypeUnionClosureReturn */'], ['/* testTypeUnionArrowParam */'], ['/* testTypeUnionArrowReturnType */'], ['/* testTypeUnionNonArrowFunctionDeclaration */']];
-    }
-    //end dataTypeUnion()
-}
-//end class
+        return [
+            ['/* testTypeUnionPropertySimple */'],
+            ['/* testTypeUnionPropertyReverseModifierOrder */'],
+            ['/* testTypeUnionPropertyMulti1 */'],
+            ['/* testTypeUnionPropertyMulti2 */'],
+            ['/* testTypeUnionPropertyMulti3 */'],
+            ['/* testTypeUnionParam1 */'],
+            ['/* testTypeUnionParam2 */'],
+            ['/* testTypeUnionParam3 */'],
+            ['/* testTypeUnionReturnType */'],
+            ['/* testTypeUnionConstructorPropertyPromotion */'],
+            ['/* testTypeUnionAbstractMethodReturnType1 */'],
+            ['/* testTypeUnionAbstractMethodReturnType2 */'],
+            ['/* testTypeUnionClosureParamIllegalNullable */'],
+            ['/* testTypeUnionWithReference */'],
+            ['/* testTypeUnionWithSpreadOperator */'],
+            ['/* testTypeUnionClosureReturn */'],
+            ['/* testTypeUnionArrowParam */'],
+            ['/* testTypeUnionArrowReturnType */'],
+            ['/* testTypeUnionNonArrowFunctionDeclaration */'],
+        ];
+
+    }//end dataTypeUnion()
+
+
+}//end class

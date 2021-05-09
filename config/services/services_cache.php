@@ -1,20 +1,18 @@
 <?php
 
-namespace ECSPrefix20210509;
+use Nette\Caching\Cache;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\EasyCodingStandard\Caching\NetteCacheFactory;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
-use ECSPrefix20210509\Psr\Cache\CacheItemPoolInterface;
-use ECSPrefix20210509\Psr\SimpleCache\CacheInterface;
-use ECSPrefix20210509\Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapter;
-use ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
-use ECSPrefix20210509\Symfony\Component\Cache\Psr16Cache;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-    $services->defaults()->autowire()->autoconfigure()->public();
-    $services->set(\ECSPrefix20210509\Symfony\Component\Cache\Psr16Cache::class);
-    $services->alias(\ECSPrefix20210509\Psr\SimpleCache\CacheInterface::class, \ECSPrefix20210509\Symfony\Component\Cache\Psr16Cache::class);
-    $services->set(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\FilesystemAdapter::class)->args(['$namespace' => '%cache_namespace%', '$defaultLifetime' => 0, '$directory' => '%cache_directory%']);
-    $services->alias(\ECSPrefix20210509\Psr\Cache\CacheItemPoolInterface::class, \ECSPrefix20210509\Symfony\Component\Cache\Adapter\FilesystemAdapter::class);
-    $services->alias(\ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapterInterface::class, \ECSPrefix20210509\Symfony\Component\Cache\Adapter\TagAwareAdapter::class);
+
+    $services->defaults()
+        ->autowire()
+        ->autoconfigure()
+        ->public();
+
+    $services->set(Cache::class)
+        ->factory([service(NetteCacheFactory::class), 'create']);
 };

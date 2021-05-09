@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tests for the \PHP_CodeSniffer\Files\File:findExtendedClassName method.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core\File;
 
 use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
-class FindExtendedClassNameTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
+
+class FindExtendedClassNameTest extends AbstractMethodUnitTest
 {
+
+
     /**
      * Test retrieving the name of the class being extended by another class
      * (or interface).
@@ -25,11 +28,13 @@ class FindExtendedClassNameTest extends \PHP_CodeSniffer\Tests\Core\AbstractMeth
      */
     public function testFindExtendedClassName($identifier, $expected)
     {
-        $OOToken = $this->getTargetToken($identifier, [\T_CLASS, T_ANON_CLASS, \T_INTERFACE]);
-        $result = self::$phpcsFile->findExtendedClassName($OOToken);
+        $OOToken = $this->getTargetToken($identifier, [T_CLASS, T_ANON_CLASS, T_INTERFACE]);
+        $result  = self::$phpcsFile->findExtendedClassName($OOToken);
         $this->assertSame($expected, $result);
-    }
-    //end testFindExtendedClassName()
+
+    }//end testFindExtendedClassName()
+
+
     /**
      * Data provider for the FindExtendedClassName test.
      *
@@ -39,8 +44,50 @@ class FindExtendedClassNameTest extends \PHP_CodeSniffer\Tests\Core\AbstractMeth
      */
     public function dataExtendedClass()
     {
-        return [['/* testExtendedClass */', 'testFECNClass'], ['/* testNamespacedClass */', '\\PHP_CodeSniffer\\Tests\\Core\\File\\testFECNClass'], ['/* testNonExtendedClass */', \false], ['/* testInterface */', \false], ['/* testInterfaceThatExtendsInterface */', 'testFECNInterface'], ['/* testInterfaceThatExtendsFQCNInterface */', '\\PHP_CodeSniffer\\Tests\\Core\\File\\testFECNInterface'], ['/* testNestedExtendedClass */', \false], ['/* testNestedExtendedAnonClass */', 'testFECNAnonClass'], ['/* testClassThatExtendsAndImplements */', 'testFECNClass'], ['/* testClassThatImplementsAndExtends */', 'testFECNClass']];
-    }
-    //end dataExtendedClass()
-}
-//end class
+        return [
+            [
+                '/* testExtendedClass */',
+                'testFECNClass',
+            ],
+            [
+                '/* testNamespacedClass */',
+                '\PHP_CodeSniffer\Tests\Core\File\testFECNClass',
+            ],
+            [
+                '/* testNonExtendedClass */',
+                false,
+            ],
+            [
+                '/* testInterface */',
+                false,
+            ],
+            [
+                '/* testInterfaceThatExtendsInterface */',
+                'testFECNInterface',
+            ],
+            [
+                '/* testInterfaceThatExtendsFQCNInterface */',
+                '\PHP_CodeSniffer\Tests\Core\File\testFECNInterface',
+            ],
+            [
+                '/* testNestedExtendedClass */',
+                false,
+            ],
+            [
+                '/* testNestedExtendedAnonClass */',
+                'testFECNAnonClass',
+            ],
+            [
+                '/* testClassThatExtendsAndImplements */',
+                'testFECNClass',
+            ],
+            [
+                '/* testClassThatImplementsAndExtends */',
+                'testFECNClass',
+            ],
+        ];
+
+    }//end dataExtendedClass()
+
+
+}//end class

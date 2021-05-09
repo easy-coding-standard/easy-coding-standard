@@ -9,13 +9,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\RuleSet\Sets;
 
 use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
+
 /**
  * @internal
  */
-final class PHP80MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
+final class PHP80MigrationRiskySet extends AbstractRuleSetDescription
 {
     /**
      * @return mixed[]
@@ -23,14 +25,18 @@ final class PHP80MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDe
     public function getRules()
     {
         return [
-            '@PHP74Migration:risky' => \true,
-            'no_alias_functions' => ['sets' => ['@all']],
-            'no_php4_constructor' => \true,
-            'no_unneeded_final_method' => \true,
-            // final private method (not constructor) are no longer allowed >= PHP8.0
-            'no_unreachable_default_argument_value' => \true,
+            '@PHP74Migration:risky' => true,
+            'no_alias_functions' => [
+                'sets' => [
+                    '@all',
+                ],
+            ],
+            'no_php4_constructor' => true,
+            'no_unneeded_final_method' => true, // final private method (not constructor) are no longer allowed >= PHP8.0
+            'no_unreachable_default_argument_value' => true,
         ];
     }
+
     /**
      * @return string
      */

@@ -8,15 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Attribute;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+namespace Symfony\Component\HttpFoundation\Session\Attribute;
+
+use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+
 /**
  * Attributes store.
  *
  * @author Drak <drak@zikula.org>
  */
-interface AttributeBagInterface extends \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+interface AttributeBagInterface extends SessionBagInterface
 {
     /**
      * Checks if an attribute is defined.
@@ -25,6 +27,7 @@ interface AttributeBagInterface extends \ECSPrefix20210509\Symfony\Component\Htt
      * @param string $name
      */
     public function has($name);
+
     /**
      * Returns an attribute.
      *
@@ -34,6 +37,7 @@ interface AttributeBagInterface extends \ECSPrefix20210509\Symfony\Component\Htt
      * @param string $name
      */
     public function get($name, $default = null);
+
     /**
      * Sets an attribute.
      *
@@ -41,13 +45,16 @@ interface AttributeBagInterface extends \ECSPrefix20210509\Symfony\Component\Htt
      * @param string $name
      */
     public function set($name, $value);
+
     /**
      * Returns attributes.
      *
      * @return array
      */
     public function all();
+
     public function replace(array $attributes);
+
     /**
      * Removes an attribute.
      *

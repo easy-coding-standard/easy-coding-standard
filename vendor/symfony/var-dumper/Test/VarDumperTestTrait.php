@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Test;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper;
+namespace Symfony\Component\VarDumper\Test;
+
+use Symfony\Component\VarDumper\Cloner\VarCloner;
+use Symfony\Component\VarDumper\Dumper\CliDumper;
+
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
@@ -20,7 +22,11 @@ trait VarDumperTestTrait
     /**
      * @internal
      */
-    private $varDumperConfig = ['casters' => [], 'flags' => null];
+    private $varDumperConfig = [
+        'casters' => [],
+        'flags' => null,
+    ];
+
     /**
      * @return void
      * @param int $flags
@@ -31,6 +37,7 @@ trait VarDumperTestTrait
         $this->varDumperConfig['casters'] = $casters;
         $this->varDumperConfig['flags'] = $flags;
     }
+
     /**
      * @after
      * @return void
@@ -40,6 +47,7 @@ trait VarDumperTestTrait
         $this->varDumperConfig['casters'] = [];
         $this->varDumperConfig['flags'] = null;
     }
+
     /**
      * @param int $filter
      * @param string $message
@@ -50,6 +58,7 @@ trait VarDumperTestTrait
         $message = (string) $message;
         $this->assertSame($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
     }
+
     /**
      * @param int $filter
      * @param string $message
@@ -60,6 +69,7 @@ trait VarDumperTestTrait
         $message = (string) $message;
         $this->assertStringMatchesFormat($this->prepareExpectation($expected, $filter), $this->getDump($data, null, $filter), $message);
     }
+
     /**
      * @return string|null
      * @param int $filter
@@ -67,22 +77,25 @@ trait VarDumperTestTrait
     protected function getDump($data, $key = null, $filter = 0)
     {
         $filter = (int) $filter;
-        if (null === ($flags = $this->varDumperConfig['flags'])) {
-            $flags = \getenv('DUMP_LIGHT_ARRAY') ? \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_LIGHT_ARRAY : 0;
-            $flags |= \getenv('DUMP_STRING_LENGTH') ? \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_STRING_LENGTH : 0;
-            $flags |= \getenv('DUMP_COMMA_SEPARATOR') ? \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper::DUMP_COMMA_SEPARATOR : 0;
+        if (null === $flags = $this->varDumperConfig['flags']) {
+            $flags = getenv('DUMP_LIGHT_ARRAY') ? CliDumper::DUMP_LIGHT_ARRAY : 0;
+            $flags |= getenv('DUMP_STRING_LENGTH') ? CliDumper::DUMP_STRING_LENGTH : 0;
+            $flags |= getenv('DUMP_COMMA_SEPARATOR') ? CliDumper::DUMP_COMMA_SEPARATOR : 0;
         }
-        $cloner = new \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\VarCloner();
+
+        $cloner = new VarCloner();
         $cloner->addCasters($this->varDumperConfig['casters']);
         $cloner->setMaxItems(-1);
-        $dumper = new \ECSPrefix20210509\Symfony\Component\VarDumper\Dumper\CliDumper(null, null, $flags);
-        $dumper->setColors(\false);
-        $data = $cloner->cloneVar($data, $filter)->withRefHandles(\false);
-        if (null !== $key && null === ($data = $data->seek($key))) {
+        $dumper = new CliDumper(null, null, $flags);
+        $dumper->setColors(false);
+        $data = $cloner->cloneVar($data, $filter)->withRefHandles(false);
+        if (null !== $key && null === $data = $data->seek($key)) {
             return null;
         }
-        return \rtrim($dumper->dump($data, \true));
+
+        return rtrim($dumper->dump($data, true));
     }
+
     /**
      * @param int $filter
      * @return string
@@ -93,6 +106,7 @@ trait VarDumperTestTrait
         if (!\is_string($expected)) {
             $expected = $this->getDump($expected, null, $filter);
         }
-        return \rtrim($expected);
+
+        return rtrim($expected);
     }
 }

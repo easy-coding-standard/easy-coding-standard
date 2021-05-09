@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\ClassNotation;
 
 use PhpCsFixer\AbstractFixer;
@@ -18,26 +19,32 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author Ceeram <ceeram@cakephp.org>
  */
-final class NoBlankLinesAfterClassOpeningFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class NoBlankLinesAfterClassOpeningFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isAnyTokenKindsFound(\PhpCsFixer\Tokenizer\Token::getClassyTokenKinds());
+        return $tokens->isAnyTokenKindsFound(Token::getClassyTokenKinds());
     }
+
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should be no empty lines after class opening brace.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition(
+            'There should be no empty lines after class opening brace.',
+            [
+                new CodeSample(
+                    '<?php
 final class Sample
 {
 
@@ -45,8 +52,12 @@ final class Sample
     {
     }
 }
-')]);
+'
+                ),
+            ]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -57,36 +68,40 @@ final class Sample
     {
         return 0;
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
             if (!$token->isClassy()) {
                 continue;
             }
+
             $startBraceIndex = $tokens->getNextTokenOfKind($index, ['{']);
             if (!$tokens[$startBraceIndex + 1]->isWhitespace()) {
                 continue;
             }
+
             $this->fixWhitespace($tokens, $startBraceIndex + 1);
         }
     }
+
     /**
      * Cleanup a whitespace token.
      * @return void
      * @param int $index
      */
-    private function fixWhitespace(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixWhitespace(Tokens $tokens, $index)
     {
         $index = (int) $index;
         $content = $tokens[$index]->getContent();
         // if there is more than one new line in the whitespace, then we need to fix it
-        if (\substr_count($content, "\n") > 1) {
+        if (substr_count($content, "\n") > 1) {
             // the final bit of the whitespace must be the next statement's indentation
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_WHITESPACE, $this->whitespacesConfig->getLineEnding() . \substr($content, \strrpos($content, "\n") + 1)]);
+            $tokens[$index] = new Token([T_WHITESPACE, $this->whitespacesConfig->getLineEnding().substr($content, strrpos($content, "\n") + 1)]);
         }
     }
 }

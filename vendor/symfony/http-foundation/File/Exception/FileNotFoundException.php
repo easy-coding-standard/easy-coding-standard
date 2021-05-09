@@ -8,14 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\File\Exception;
+
+namespace Symfony\Component\HttpFoundation\File\Exception;
 
 /**
  * Thrown when a file was not found.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-class FileNotFoundException extends \ECSPrefix20210509\Symfony\Component\HttpFoundation\File\Exception\FileException
+class FileNotFoundException extends FileException
 {
     /**
      * @param string $path
@@ -23,6 +24,6 @@ class FileNotFoundException extends \ECSPrefix20210509\Symfony\Component\HttpFou
     public function __construct($path)
     {
         $path = (string) $path;
-        parent::__construct(\sprintf('The file "%s" does not exist', $path));
+        parent::__construct(sprintf('The file "%s" does not exist', $path));
     }
 }

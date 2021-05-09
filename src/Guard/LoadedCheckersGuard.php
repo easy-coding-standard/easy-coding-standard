@@ -3,38 +3,57 @@
 namespace Symplify\EasyCodingStandard\Guard;
 
 use Symplify\EasyCodingStandard\Application\FileProcessorCollector;
-use Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException;
+use Symplify\EasyCodingStandard\Bootstrap\NoCheckersLoaderReporter;
+
 final class LoadedCheckersGuard
 {
     /**
      * @var FileProcessorCollector
      */
     private $fileProcessorCollector;
-    public function __construct(\Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
-    {
+
+    /**
+     * @var NoCheckersLoaderReporter
+     */
+    private $noCheckersLoaderReporter;
+
+    public function __construct(
+        FileProcessorCollector $fileProcessorCollector,
+        NoCheckersLoaderReporter $noCheckersLoaderReporter
+    ) {
         $this->fileProcessorCollector = $fileProcessorCollector;
+        $this->noCheckersLoaderReporter = $noCheckersLoaderReporter;
     }
+
+    /**
+     * @return bool
+     */
+    public function areSomeCheckerRegistered()
+    {
+        $checkerCount = $this->getCheckerCount();
+        return $checkerCount !== 0;
+    }
+
     /**
      * @return void
      */
-    public function ensureSomeCheckersAreRegistered()
+    public function report()
     {
-        $checkerCount = $this->getCheckerCount();
-        if ($checkerCount !== 0) {
-            return;
-        }
-        throw new \Symplify\EasyCodingStandard\Configuration\Exception\NoCheckersLoadedException();
+        $this->noCheckersLoaderReporter->report();
     }
+
     /**
      * @return int
      */
     private function getCheckerCount()
     {
         $checkerCount = 0;
+
         $fileProcessors = $this->fileProcessorCollector->getFileProcessors();
         foreach ($fileProcessors as $fileProcessor) {
-            $checkerCount += \count($fileProcessor->getCheckers());
+            $checkerCount += count($fileProcessor->getCheckers());
         }
+
         return $checkerCount;
     }
 }

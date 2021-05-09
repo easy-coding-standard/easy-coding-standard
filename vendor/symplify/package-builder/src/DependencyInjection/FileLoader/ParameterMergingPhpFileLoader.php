@@ -2,26 +2,30 @@
 
 namespace Symplify\PackageBuilder\DependencyInjection\FileLoader;
 
-use ECSPrefix20210509\Symfony\Component\Config\FileLocatorInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\Config\FileLocatorInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symplify\PackageBuilder\Yaml\ParametersMerger;
+
 /**
  * The need:
  * - https://github.com/symfony/symfony/issues/26713
  * - https://github.com/symfony/symfony/pull/21313#issuecomment-372037445
  */
-final class ParameterMergingPhpFileLoader extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ParameterMergingPhpFileLoader extends PhpFileLoader
 {
     /**
      * @var ParametersMerger
      */
     private $parametersMerger;
-    public function __construct(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20210509\Symfony\Component\Config\FileLocatorInterface $fileLocator)
+
+    public function __construct(ContainerBuilder $containerBuilder, FileLocatorInterface $fileLocator)
     {
-        $this->parametersMerger = new \Symplify\PackageBuilder\Yaml\ParametersMerger();
+        $this->parametersMerger = new ParametersMerger();
+
         parent::__construct($containerBuilder, $fileLocator);
     }
+
     /**
      * Same as parent, just merging parameters instead overriding them
      *
@@ -35,9 +39,12 @@ final class ParameterMergingPhpFileLoader extends \ECSPrefix20210509\Symfony\Com
         // get old parameters
         $parameterBag = $this->container->getParameterBag();
         $oldParameters = $parameterBag->all();
+
         parent::load($resource);
+
         foreach ($oldParameters as $key => $oldValue) {
             $newValue = $this->parametersMerger->merge($oldValue, $this->container->getParameter($key));
+
             $this->container->setParameter($key, $newValue);
         }
     }

@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Finder\Iterator;
 
-use ECSPrefix20210509\Symfony\Component\Finder\Comparator\NumberComparator;
+namespace Symfony\Component\Finder\Iterator;
+
+use Symfony\Component\Finder\Comparator\NumberComparator;
+
 /**
  * SizeRangeFilterIterator filters out files that are not in the given size range.
  *
@@ -19,6 +21,7 @@ use ECSPrefix20210509\Symfony\Component\Finder\Comparator\NumberComparator;
 class SizeRangeFilterIterator extends \FilterIterator
 {
     private $comparators = [];
+
     /**
      * @param \Iterator          $iterator    The Iterator to filter
      * @param NumberComparator[] $comparators An array of NumberComparator instances
@@ -26,8 +29,10 @@ class SizeRangeFilterIterator extends \FilterIterator
     public function __construct(\Iterator $iterator, array $comparators)
     {
         $this->comparators = $comparators;
+
         parent::__construct($iterator);
     }
+
     /**
      * Filters the iterator values.
      *
@@ -37,14 +42,16 @@ class SizeRangeFilterIterator extends \FilterIterator
     {
         $fileinfo = $this->current();
         if (!$fileinfo->isFile()) {
-            return \true;
+            return true;
         }
+
         $filesize = $fileinfo->getSize();
         foreach ($this->comparators as $compare) {
             if (!$compare->test($filesize)) {
-                return \false;
+                return false;
             }
         }
-        return \true;
+
+        return true;
     }
 }

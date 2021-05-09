@@ -2,8 +2,9 @@
 
 namespace Symplify\CodingStandard\DocBlock;
 
-use ECSPrefix20210509\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use Symplify\CodingStandard\Tokens\CommentedLineTrimmer;
+
 /**
  * Heavily inspired by
  *
@@ -15,15 +16,18 @@ final class Decommenter
      * @see https://regex101.com/r/MbNMeH/1
      * @var string
      */
-    const LINE_BREAKER_REGEX = '#[\\-=\\#\\*]{2,}#';
+    const LINE_BREAKER_REGEX = '#[\-=\#\*]{2,}#';
+
     /**
      * @var CommentedLineTrimmer
      */
     private $commentedLineTrimmer;
-    public function __construct(\Symplify\CodingStandard\Tokens\CommentedLineTrimmer $commentedLineTrimmer)
+
+    public function __construct(CommentedLineTrimmer $commentedLineTrimmer)
     {
         $this->commentedLineTrimmer = $commentedLineTrimmer;
     }
+
     /**
      * @param string $content
      * @return string
@@ -31,14 +35,18 @@ final class Decommenter
     public function decoment($content)
     {
         $content = (string) $content;
-        $lines = \explode(\PHP_EOL, $content);
+        $lines = explode(PHP_EOL, $content);
+
         foreach ($lines as $key => $line) {
             $lines[$key] = $this->commentedLineTrimmer->trim($line);
         }
-        $uncommentedContent = \implode(\PHP_EOL, $lines);
-        $uncommentedContent = \ltrim($uncommentedContent);
+
+        $uncommentedContent = implode(PHP_EOL, $lines);
+        $uncommentedContent = ltrim($uncommentedContent);
+
         return $this->clearContent($uncommentedContent);
     }
+
     /**
      * Quite a few comments use multiple dashes, equals signs etc to frame comments and licence headers.
      * @param string $content
@@ -47,6 +55,6 @@ final class Decommenter
     private function clearContent($content)
     {
         $content = (string) $content;
-        return \ECSPrefix20210509\Nette\Utils\Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
+        return Strings::replace($content, self::LINE_BREAKER_REGEX, '-');
     }
 }

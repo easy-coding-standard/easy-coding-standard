@@ -4,16 +4,19 @@ namespace Symplify\RuleDocGenerator\ValueObject;
 
 use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 use Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-abstract class AbstractCodeSample implements \Symplify\RuleDocGenerator\Contract\CodeSampleInterface
+
+abstract class AbstractCodeSample implements CodeSampleInterface
 {
     /**
      * @var string
      */
     private $goodCode;
+
     /**
      * @var string
      */
     private $badCode;
+
     /**
      * @param string $badCode
      * @param string $goodCode
@@ -22,18 +25,22 @@ abstract class AbstractCodeSample implements \Symplify\RuleDocGenerator\Contract
     {
         $badCode = (string) $badCode;
         $goodCode = (string) $goodCode;
-        $badCode = \trim($badCode);
-        $goodCode = \trim($goodCode);
+        $badCode = trim($badCode);
+        $goodCode = trim($goodCode);
+
         if ($badCode === '') {
-            throw new \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException('Bad sample good code cannot be empty');
+            throw new ShouldNotHappenException('Bad sample good code cannot be empty');
         }
+
         if ($goodCode === $badCode) {
-            $errorMessage = \sprintf('Good and bad code cannot be identical: "%s"', $goodCode);
-            throw new \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException($errorMessage);
+            $errorMessage = sprintf('Good and bad code cannot be identical: "%s"', $goodCode);
+            throw new ShouldNotHappenException($errorMessage);
         }
+
         $this->goodCode = $goodCode;
         $this->badCode = $badCode;
     }
+
     /**
      * @return string
      */
@@ -41,6 +48,7 @@ abstract class AbstractCodeSample implements \Symplify\RuleDocGenerator\Contract
     {
         return $this->goodCode;
     }
+
     /**
      * @return string
      */

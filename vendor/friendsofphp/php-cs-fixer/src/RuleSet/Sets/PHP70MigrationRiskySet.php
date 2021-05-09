@@ -9,21 +9,35 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\RuleSet\Sets;
 
 use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
+
 /**
  * @internal
  */
-final class PHP70MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
+final class PHP70MigrationRiskySet extends AbstractRuleSetDescription
 {
     /**
      * @return mixed[]
      */
     public function getRules()
     {
-        return ['@PHP56Migration:risky' => \true, 'combine_nested_dirname' => \true, 'declare_strict_types' => \true, 'non_printable_character' => \true, 'random_api_migration' => ['replacements' => ['mt_rand' => 'random_int', 'rand' => 'random_int']]];
+        return [
+            '@PHP56Migration:risky' => true,
+            'combine_nested_dirname' => true,
+            'declare_strict_types' => true,
+            'non_printable_character' => true,
+            'random_api_migration' => [
+                'replacements' => [
+                    'mt_rand' => 'random_int',
+                    'rand' => 'random_int',
+                ],
+            ],
+        ];
     }
+
     /**
      * @return string
      */

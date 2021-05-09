@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the UnnecessaryStringConcat sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Strings;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class UnnecessaryStringConcatUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class UnnecessaryStringConcatUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,22 +25,36 @@ class UnnecessaryStringConcatUnitTest extends \PHP_CodeSniffer\Tests\Standards\A
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile = 'UnnecessaryStringConcatUnitTest.inc')
+    public function getErrorList($testFile='UnnecessaryStringConcatUnitTest.inc')
     {
         switch ($testFile) {
-            case 'UnnecessaryStringConcatUnitTest.inc':
-                return [2 => 1, 6 => 1, 9 => 1, 12 => 1, 19 => 1, 20 => 1];
-                break;
-            case 'UnnecessaryStringConcatUnitTest.js':
-                return [1 => 1, 8 => 1, 11 => 1, 14 => 1, 15 => 1];
-                break;
-            default:
-                return [];
-                break;
-        }
-        //end switch
-    }
-    //end getErrorList()
+        case 'UnnecessaryStringConcatUnitTest.inc':
+            return [
+                2  => 1,
+                6  => 1,
+                9  => 1,
+                12 => 1,
+                19 => 1,
+                20 => 1,
+            ];
+            break;
+        case 'UnnecessaryStringConcatUnitTest.js':
+            return [
+                1  => 1,
+                8  => 1,
+                11 => 1,
+                14 => 1,
+                15 => 1,
+            ];
+            break;
+        default:
+            return [];
+            break;
+        }//end switch
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -49,7 +66,8 @@ class UnnecessaryStringConcatUnitTest extends \PHP_CodeSniffer\Tests\Standards\A
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

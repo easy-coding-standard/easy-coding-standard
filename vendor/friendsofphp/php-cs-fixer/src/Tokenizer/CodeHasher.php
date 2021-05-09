@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Tokenizer;
 
 /**
@@ -22,6 +23,7 @@ final class CodeHasher
     {
         // cannot create instance of util. class
     }
+
     /**
      * Calculate hash for code.
      * @param string $code
@@ -30,6 +32,6 @@ final class CodeHasher
     public static function calculateCodeHash($code)
     {
         $code = (string) $code;
-        return (string) \crc32($code);
+        return (string) crc32($code);
     }
 }

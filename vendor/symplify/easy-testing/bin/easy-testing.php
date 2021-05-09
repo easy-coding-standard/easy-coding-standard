@@ -1,9 +1,8 @@
 <?php
 
-namespace ECSPrefix20210509;
-
 use Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
 use Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+
 $possibleAutoloadPaths = [
     // dependency
     __DIR__ . '/../../../autoload.php',
@@ -12,11 +11,14 @@ $possibleAutoloadPaths = [
     // monorepo
     __DIR__ . '/../../../vendor/autoload.php',
 ];
+
 foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
-    if (\file_exists($possibleAutoloadPath)) {
+    if (file_exists($possibleAutoloadPath)) {
         require_once $possibleAutoloadPath;
         break;
     }
 }
-$kernelBootAndApplicationRun = new \Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\Symplify\EasyTesting\HttpKernel\EasyTestingKernel::class);
+
+
+$kernelBootAndApplicationRun = new KernelBootAndApplicationRun(EasyTestingKernel::class);
 $kernelBootAndApplicationRun->run();

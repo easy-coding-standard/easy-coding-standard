@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Tokenizer\Analyzer\Analysis;
 
 /**
@@ -22,14 +23,17 @@ final class SwitchAnalysis
      * @var int
      */
     private $casesStart;
+
     /**
      * @var int
      */
     private $casesEnd;
+
     /**
      * @var CaseAnalysis[]
      */
     private $cases = [];
+
     /**
      * @param CaseAnalysis[] $cases
      * @param int $casesStart
@@ -43,6 +47,7 @@ final class SwitchAnalysis
         $this->casesEnd = $casesEnd;
         $this->cases = $cases;
     }
+
     /**
      * @return int
      */
@@ -50,6 +55,7 @@ final class SwitchAnalysis
     {
         return $this->casesStart;
     }
+
     /**
      * @return int
      */
@@ -57,6 +63,7 @@ final class SwitchAnalysis
     {
         return $this->casesEnd;
     }
+
     /**
      * @return mixed[]
      */

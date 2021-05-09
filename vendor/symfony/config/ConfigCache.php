@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config;
 
-use ECSPrefix20210509\Symfony\Component\Config\Resource\SelfCheckingResourceChecker;
+namespace Symfony\Component\Config;
+
+use Symfony\Component\Config\Resource\SelfCheckingResourceChecker;
+
 /**
  * ConfigCache caches arbitrary content in files on disk.
  *
@@ -21,9 +23,10 @@ use ECSPrefix20210509\Symfony\Component\Config\Resource\SelfCheckingResourceChec
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class ConfigCache extends \ECSPrefix20210509\Symfony\Component\Config\ResourceCheckerConfigCache
+class ConfigCache extends ResourceCheckerConfigCache
 {
     private $debug;
+
     /**
      * @param string $file  The absolute cache path
      * @param bool   $debug Whether debugging is enabled or not
@@ -33,12 +36,15 @@ class ConfigCache extends \ECSPrefix20210509\Symfony\Component\Config\ResourceCh
         $file = (string) $file;
         $debug = (bool) $debug;
         $this->debug = $debug;
+
         $checkers = [];
-        if (\true === $this->debug) {
-            $checkers = [new \ECSPrefix20210509\Symfony\Component\Config\Resource\SelfCheckingResourceChecker()];
+        if (true === $this->debug) {
+            $checkers = [new SelfCheckingResourceChecker()];
         }
+
         parent::__construct($file, $checkers);
     }
+
     /**
      * Checks if the cache is still fresh.
      *
@@ -49,9 +55,10 @@ class ConfigCache extends \ECSPrefix20210509\Symfony\Component\Config\ResourceCh
      */
     public function isFresh()
     {
-        if (!$this->debug && \is_file($this->getPath())) {
-            return \true;
+        if (!$this->debug && is_file($this->getPath())) {
+            return true;
         }
+
         return parent::isFresh();
     }
 }

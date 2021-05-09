@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Detects for-loops that can be simplified to a while-loop.
  *
@@ -20,13 +19,17 @@
  * @copyright 2007-2014 Manuel Pichler. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class ForLoopShouldBeWhileLoopSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class ForLoopShouldBeWhileLoopSniff implements Sniff
 {
+
+
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
@@ -34,9 +37,11 @@ class ForLoopShouldBeWhileLoopSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_FOR];
-    }
-    //end register()
+        return [T_FOR];
+
+    }//end register()
+
+
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -46,33 +51,41 @@ class ForLoopShouldBeWhileLoopSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $token = $tokens[$stackPtr];
+        $token  = $tokens[$stackPtr];
+
         // Skip invalid statement.
-        if (isset($token['parenthesis_opener']) === \false) {
+        if (isset($token['parenthesis_opener']) === false) {
             return;
         }
+
         $next = ++$token['parenthesis_opener'];
-        $end = --$token['parenthesis_closer'];
-        $parts = [0, 0, 0];
+        $end  = --$token['parenthesis_closer'];
+
+        $parts = [
+            0,
+            0,
+            0,
+        ];
         $index = 0;
+
         for (; $next <= $end; ++$next) {
             $code = $tokens[$next]['code'];
             if ($code === T_SEMICOLON) {
                 ++$index;
-            } else {
-                if (isset(\PHP_CodeSniffer\Util\Tokens::$emptyTokens[$code]) === \false) {
-                    ++$parts[$index];
-                }
+            } else if (isset(Tokens::$emptyTokens[$code]) === false) {
+                ++$parts[$index];
             }
         }
+
         if ($parts[0] === 0 && $parts[2] === 0 && $parts[1] > 0) {
             $error = 'This FOR loop can be simplified to a WHILE loop';
             $phpcsFile->addWarning($error, $stackPtr, 'CanSimplify');
         }
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

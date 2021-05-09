@@ -8,13 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+namespace Symfony\Component\HttpKernel\DataCollector;
+
+use Symfony\Component\ErrorHandler\Exception\SilencedErrorContext;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
+
 /**
  * LogDataCollector.
  *
@@ -22,40 +24,45 @@ use ECSPrefix20210509\Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
  *
  * @final
  */
-class LoggerDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class LoggerDataCollector extends DataCollector implements LateDataCollectorInterface
 {
     private $logger;
     private $containerPathPrefix;
     private $currentRequest;
     private $requestStack;
+
     /**
      * @param string $containerPathPrefix
      */
-    public function __construct($logger = null, $containerPathPrefix = null, \ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
+    public function __construct($logger = null, $containerPathPrefix = null, RequestStack $requestStack = null)
     {
-        if (null !== $logger && $logger instanceof \ECSPrefix20210509\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
+        if (null !== $logger && $logger instanceof DebugLoggerInterface) {
             $this->logger = $logger;
         }
+
         $this->containerPathPrefix = $containerPathPrefix;
         $this->requestStack = $requestStack;
     }
+
     /**
      * {@inheritdoc}
      */
-    public function collect(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         $this->currentRequest = $this->requestStack && $this->requestStack->getMasterRequest() !== $request ? $request : null;
     }
+
     /**
      * {@inheritdoc}
      */
     public function reset()
     {
-        if ($this->logger instanceof \ECSPrefix20210509\Symfony\Component\HttpKernel\Log\DebugLoggerInterface) {
+        if ($this->logger instanceof DebugLoggerInterface) {
             $this->logger->clear();
         }
         $this->data = [];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -66,40 +73,48 @@ class LoggerDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKerne
             $this->data = $this->computeErrorsCount($containerDeprecationLogs);
             // get compiler logs later (only when they are needed) to improve performance
             $this->data['compiler_logs'] = [];
-            $this->data['compiler_logs_filepath'] = $this->containerPathPrefix . 'Compiler.log';
-            $this->data['logs'] = $this->sanitizeLogs(\array_merge($this->logger->getLogs($this->currentRequest), $containerDeprecationLogs));
+            $this->data['compiler_logs_filepath'] = $this->containerPathPrefix.'Compiler.log';
+            $this->data['logs'] = $this->sanitizeLogs(array_merge($this->logger->getLogs($this->currentRequest), $containerDeprecationLogs));
             $this->data = $this->cloneVar($this->data);
         }
         $this->currentRequest = null;
     }
+
     public function getLogs()
     {
         return isset($this->data['logs']) ? $this->data['logs'] : [];
     }
+
     public function getPriorities()
     {
         return isset($this->data['priorities']) ? $this->data['priorities'] : [];
     }
+
     public function countErrors()
     {
         return isset($this->data['error_count']) ? $this->data['error_count'] : 0;
     }
+
     public function countDeprecations()
     {
         return isset($this->data['deprecation_count']) ? $this->data['deprecation_count'] : 0;
     }
+
     public function countWarnings()
     {
         return isset($this->data['warning_count']) ? $this->data['warning_count'] : 0;
     }
+
     public function countScreams()
     {
         return isset($this->data['scream_count']) ? $this->data['scream_count'] : 0;
     }
+
     public function getCompilerLogs()
     {
         return $this->cloneVar($this->getContainerCompilerLogs(isset($this->data['compiler_logs_filepath']) ? $this->data['compiler_logs_filepath'] : null));
     }
+
     /**
      * {@inheritdoc}
      */
@@ -107,132 +122,177 @@ class LoggerDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKerne
     {
         return 'logger';
     }
+
     /**
      * @return mixed[]
      */
     private function getContainerDeprecationLogs()
     {
-        if (null === $this->containerPathPrefix || !\is_file($file = $this->containerPathPrefix . 'Deprecations.log')) {
+        if (null === $this->containerPathPrefix || !is_file($file = $this->containerPathPrefix.'Deprecations.log')) {
             return [];
         }
-        if ('' === ($logContent = \trim(\file_get_contents($file)))) {
+
+        if ('' === $logContent = trim(file_get_contents($file))) {
             return [];
         }
-        $bootTime = \filemtime($file);
+
+        $bootTime = filemtime($file);
         $logs = [];
-        foreach (\unserialize($logContent) as $log) {
-            $log['context'] = ['exception' => new \ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext($log['type'], $log['file'], $log['line'], $log['trace'], $log['count'])];
+        foreach (unserialize($logContent) as $log) {
+            $log['context'] = ['exception' => new SilencedErrorContext($log['type'], $log['file'], $log['line'], $log['trace'], $log['count'])];
             $log['timestamp'] = $bootTime;
             $log['priority'] = 100;
             $log['priorityName'] = 'DEBUG';
             $log['channel'] = null;
-            $log['scream'] = \false;
+            $log['scream'] = false;
             unset($log['type'], $log['file'], $log['line'], $log['trace'], $log['trace'], $log['count']);
             $logs[] = $log;
         }
+
         return $logs;
     }
+
     /**
      * @param string $compilerLogsFilepath
      * @return mixed[]
      */
     private function getContainerCompilerLogs($compilerLogsFilepath = null)
     {
-        if (!\is_file($compilerLogsFilepath)) {
+        if (!is_file($compilerLogsFilepath)) {
             return [];
         }
+
         $logs = [];
-        foreach (\file($compilerLogsFilepath, \FILE_IGNORE_NEW_LINES) as $log) {
-            $log = \explode(': ', $log, 2);
-            if (!isset($log[1]) || !\preg_match('/^[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*+(?:\\\\[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*+)++$/', $log[0])) {
-                $log = ['Unknown Compiler Pass', \implode(': ', $log)];
+        foreach (file($compilerLogsFilepath, \FILE_IGNORE_NEW_LINES) as $log) {
+            $log = explode(': ', $log, 2);
+            if (!isset($log[1]) || !preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+(?:\\\\[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+)++$/', $log[0])) {
+                $log = ['Unknown Compiler Pass', implode(': ', $log)];
             }
+
             $logs[$log[0]][] = ['message' => $log[1]];
         }
+
         return $logs;
     }
+
     private function sanitizeLogs(array $logs)
     {
         $sanitizedLogs = [];
         $silencedLogs = [];
+
         foreach ($logs as $log) {
             if (!$this->isSilencedOrDeprecationErrorLog($log)) {
                 $sanitizedLogs[] = $log;
+
                 continue;
             }
-            $message = '_' . $log['message'];
+
+            $message = '_'.$log['message'];
             $exception = $log['context']['exception'];
-            if ($exception instanceof \ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
-                if (isset($silencedLogs[$h = \spl_object_hash($exception)])) {
+
+            if ($exception instanceof SilencedErrorContext) {
+                if (isset($silencedLogs[$h = spl_object_hash($exception)])) {
                     continue;
                 }
-                $silencedLogs[$h] = \true;
+                $silencedLogs[$h] = true;
+
                 if (!isset($sanitizedLogs[$message])) {
-                    $sanitizedLogs[$message] = $log + ['errorCount' => 0, 'scream' => \true];
+                    $sanitizedLogs[$message] = $log + [
+                        'errorCount' => 0,
+                        'scream' => true,
+                    ];
                 }
                 $sanitizedLogs[$message]['errorCount'] += $exception->count;
+
                 continue;
             }
-            $errorId = \md5("{$exception->getSeverity()}/{$exception->getLine()}/{$exception->getFile()}\0{$message}", \true);
+
+            $errorId = md5("{$exception->getSeverity()}/{$exception->getLine()}/{$exception->getFile()}\0{$message}", true);
+
             if (isset($sanitizedLogs[$errorId])) {
                 ++$sanitizedLogs[$errorId]['errorCount'];
             } else {
-                $log += ['errorCount' => 1, 'scream' => \false];
+                $log += [
+                    'errorCount' => 1,
+                    'scream' => false,
+                ];
+
                 $sanitizedLogs[$errorId] = $log;
             }
         }
-        return \array_values($sanitizedLogs);
+
+        return array_values($sanitizedLogs);
     }
+
     /**
      * @return bool
      */
     private function isSilencedOrDeprecationErrorLog(array $log)
     {
         if (!isset($log['context']['exception'])) {
-            return \false;
+            return false;
         }
+
         $exception = $log['context']['exception'];
-        if ($exception instanceof \ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
-            return \true;
+
+        if ($exception instanceof SilencedErrorContext) {
+            return true;
         }
-        if ($exception instanceof \ErrorException && \in_array($exception->getSeverity(), [\E_DEPRECATED, \E_USER_DEPRECATED], \true)) {
-            return \true;
+
+        if ($exception instanceof \ErrorException && \in_array($exception->getSeverity(), [\E_DEPRECATED, \E_USER_DEPRECATED], true)) {
+            return true;
         }
-        return \false;
+
+        return false;
     }
+
     /**
      * @return mixed[]
      */
     private function computeErrorsCount(array $containerDeprecationLogs)
     {
         $silencedLogs = [];
-        $count = ['error_count' => $this->logger->countErrors($this->currentRequest), 'deprecation_count' => 0, 'warning_count' => 0, 'scream_count' => 0, 'priorities' => []];
+        $count = [
+            'error_count' => $this->logger->countErrors($this->currentRequest),
+            'deprecation_count' => 0,
+            'warning_count' => 0,
+            'scream_count' => 0,
+            'priorities' => [],
+        ];
+
         foreach ($this->logger->getLogs($this->currentRequest) as $log) {
             if (isset($count['priorities'][$log['priority']])) {
                 ++$count['priorities'][$log['priority']]['count'];
             } else {
-                $count['priorities'][$log['priority']] = ['count' => 1, 'name' => $log['priorityName']];
+                $count['priorities'][$log['priority']] = [
+                    'count' => 1,
+                    'name' => $log['priorityName'],
+                ];
             }
             if ('WARNING' === $log['priorityName']) {
                 ++$count['warning_count'];
             }
+
             if ($this->isSilencedOrDeprecationErrorLog($log)) {
                 $exception = $log['context']['exception'];
-                if ($exception instanceof \ECSPrefix20210509\Symfony\Component\ErrorHandler\Exception\SilencedErrorContext) {
-                    if (isset($silencedLogs[$h = \spl_object_hash($exception)])) {
+                if ($exception instanceof SilencedErrorContext) {
+                    if (isset($silencedLogs[$h = spl_object_hash($exception)])) {
                         continue;
                     }
-                    $silencedLogs[$h] = \true;
+                    $silencedLogs[$h] = true;
                     $count['scream_count'] += $exception->count;
                 } else {
                     ++$count['deprecation_count'];
                 }
             }
         }
+
         foreach ($containerDeprecationLogs as $deprecationLog) {
             $count['deprecation_count'] += $deprecationLog['context']['exception']->count;
         }
-        \ksort($count['priorities']);
+
+        ksort($count['priorities']);
+
         return $count;
     }
 }

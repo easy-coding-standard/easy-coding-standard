@@ -8,14 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+namespace Symfony\Component\DependencyInjection\Compiler;
+
+use Symfony\Component\DependencyInjection\ChildDefinition;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Exception\ExceptionInterface;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+
 /**
  * This replaces all ChildDefinition instances with their equivalent fully
  * merged Definition instance.
@@ -23,16 +25,17 @@ use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceCir
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ResolveChildDefinitionsPass extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\AbstractRecursivePass
+class ResolveChildDefinitionsPass extends AbstractRecursivePass
 {
     private $currentPath;
+
     /**
      * @param bool $isRoot
      */
-    protected function processValue($value, $isRoot = \false)
+    protected function processValue($value, $isRoot = false)
     {
         $isRoot = (bool) $isRoot;
-        if (!$value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition) {
+        if (!$value instanceof Definition) {
             return parent::processValue($value, $isRoot);
         }
         if ($isRoot) {
@@ -40,57 +43,66 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210509\Symfony\Component\D
             // container to ensure we are not operating on stale data
             $value = $this->container->getDefinition($this->currentId);
         }
-        if ($value instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition) {
+        if ($value instanceof ChildDefinition) {
             $this->currentPath = [];
             $value = $this->resolveDefinition($value);
             if ($isRoot) {
                 $this->container->setDefinition($this->currentId, $value);
             }
         }
+
         return parent::processValue($value, $isRoot);
     }
+
     /**
      * Resolves the definition.
      *
      * @throws RuntimeException When the definition is invalid
      * @return \Symfony\Component\DependencyInjection\Definition
      */
-    private function resolveDefinition(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition $definition)
+    private function resolveDefinition(ChildDefinition $definition)
     {
         try {
             return $this->doResolveDefinition($definition);
-        } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException $e) {
+        } catch (ServiceCircularReferenceException $e) {
             throw $e;
-        } catch (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ExceptionInterface $e) {
+        } catch (ExceptionInterface $e) {
             $r = new \ReflectionProperty($e, 'message');
-            $r->setAccessible(\true);
-            $r->setValue($e, \sprintf('Service "%s": %s', $this->currentId, $e->getMessage()));
+            $r->setAccessible(true);
+            $r->setValue($e, sprintf('Service "%s": %s', $this->currentId, $e->getMessage()));
+
             throw $e;
         }
     }
+
     /**
      * @return \Symfony\Component\DependencyInjection\Definition
      */
-    private function doResolveDefinition(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition $definition)
+    private function doResolveDefinition(ChildDefinition $definition)
     {
         if (!$this->container->has($parent = $definition->getParent())) {
-            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Parent definition "%s" does not exist.', $parent));
+            throw new RuntimeException(sprintf('Parent definition "%s" does not exist.', $parent));
         }
-        $searchKey = \array_search($parent, $this->currentPath);
+
+        $searchKey = array_search($parent, $this->currentPath);
         $this->currentPath[] = $parent;
-        if (\false !== $searchKey) {
-            throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($parent, \array_slice($this->currentPath, $searchKey));
+
+        if (false !== $searchKey) {
+            throw new ServiceCircularReferenceException($parent, \array_slice($this->currentPath, $searchKey));
         }
+
         $parentDef = $this->container->findDefinition($parent);
-        if ($parentDef instanceof \ECSPrefix20210509\Symfony\Component\DependencyInjection\ChildDefinition) {
+        if ($parentDef instanceof ChildDefinition) {
             $id = $this->currentId;
             $this->currentId = $parent;
             $parentDef = $this->resolveDefinition($parentDef);
             $this->container->setDefinition($parent, $parentDef);
             $this->currentId = $id;
         }
-        $this->container->log($this, \sprintf('Resolving inheritance for "%s" (parent: %s).', $this->currentId, $parent));
-        $def = new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Definition();
+
+        $this->container->log($this, sprintf('Resolving inheritance for "%s" (parent: %s).', $this->currentId, $parent));
+        $def = new Definition();
+
         // merge in parent definition
         // purposely ignored attributes: abstract, shared, tags, autoconfigured
         $def->setClass($parentDef->getClass());
@@ -108,7 +120,9 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210509\Symfony\Component\D
         $def->setLazy($parentDef->isLazy());
         $def->setAutowired($parentDef->isAutowired());
         $def->setChanges($parentDef->getChanges());
+
         $def->setBindings($definition->getBindings() + $parentDef->getBindings());
+
         // overwrite with values specified in the decorator
         $changes = $definition->getChanges();
         if (isset($changes['class'])) {
@@ -136,7 +150,7 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210509\Symfony\Component\D
                 $deprecation = $definition->getDeprecation('%service_id%');
                 $def->setDeprecated($deprecation['package'], $deprecation['version'], $deprecation['message']);
             } else {
-                $def->setDeprecated(\false);
+                $def->setDeprecated(false);
             }
         }
         if (isset($changes['autowired'])) {
@@ -150,35 +164,41 @@ class ResolveChildDefinitionsPass extends \ECSPrefix20210509\Symfony\Component\D
             if (null === $decoratedService) {
                 $def->setDecoratedService($decoratedService);
             } else {
-                $def->setDecoratedService($decoratedService[0], $decoratedService[1], $decoratedService[2], isset($decoratedService[3]) ? $decoratedService[3] : \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
+                $def->setDecoratedService($decoratedService[0], $decoratedService[1], $decoratedService[2], isset($decoratedService[3]) ? $decoratedService[3] : ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE);
             }
         }
+
         // merge arguments
         foreach ($definition->getArguments() as $k => $v) {
-            if (\is_numeric($k)) {
+            if (is_numeric($k)) {
                 $def->addArgument($v);
-            } elseif (0 === \strpos($k, 'index_')) {
-                $def->replaceArgument((int) \substr($k, \strlen('index_')), $v);
+            } elseif (0 === strpos($k, 'index_')) {
+                $def->replaceArgument((int) substr($k, \strlen('index_')), $v);
             } else {
                 $def->setArgument($k, $v);
             }
         }
+
         // merge properties
         foreach ($definition->getProperties() as $k => $v) {
             $def->setProperty($k, $v);
         }
+
         // append method calls
         if ($calls = $definition->getMethodCalls()) {
-            $def->setMethodCalls(\array_merge($def->getMethodCalls(), $calls));
+            $def->setMethodCalls(array_merge($def->getMethodCalls(), $calls));
         }
+
         $def->addError($parentDef);
         $def->addError($definition);
+
         // these attributes are always taken from the child
         $def->setAbstract($definition->isAbstract());
         $def->setTags($definition->getTags());
         // autoconfigure is never taken from parent (on purpose)
         // and it's not legal on an instanceof
         $def->setAutoconfigured($definition->isAutoconfigured());
+
         return $def;
     }
 }

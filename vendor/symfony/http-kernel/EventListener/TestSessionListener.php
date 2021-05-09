@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210509\Psr\Container\ContainerInterface;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface;
+namespace Symfony\Component\HttpKernel\EventListener;
+
+use Psr\Container\ContainerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 /**
  * Sets the session in the request.
  *
@@ -19,14 +21,16 @@ use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface;
  *
  * @final
  */
-class TestSessionListener extends \ECSPrefix20210509\Symfony\Component\HttpKernel\EventListener\AbstractTestSessionListener
+class TestSessionListener extends AbstractTestSessionListener
 {
     private $container;
-    public function __construct(\ECSPrefix20210509\Psr\Container\ContainerInterface $container, array $sessionOptions = [])
+
+    public function __construct(ContainerInterface $container, array $sessionOptions = [])
     {
         $this->container = $container;
         parent::__construct($sessionOptions);
     }
+
     /**
      * @return \Symfony\Component\HttpFoundation\Session\SessionInterface|null
      */
@@ -35,6 +39,7 @@ class TestSessionListener extends \ECSPrefix20210509\Symfony\Component\HttpKerne
         if (!$this->container->has('session')) {
             return null;
         }
+
         return $this->container->get('session');
     }
 }

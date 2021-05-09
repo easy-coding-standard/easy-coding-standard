@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Config;
 
-use ECSPrefix20210509\Symfony\Component\Config\Resource\ResourceInterface;
+namespace Symfony\Component\DependencyInjection\Config;
+
+use Symfony\Component\Config\Resource\ResourceInterface;
+
 /**
  * Tracks container parameters.
  *
@@ -18,9 +20,10 @@ use ECSPrefix20210509\Symfony\Component\Config\Resource\ResourceInterface;
  *
  * @final
  */
-class ContainerParametersResource implements \ECSPrefix20210509\Symfony\Component\Config\Resource\ResourceInterface
+class ContainerParametersResource implements ResourceInterface
 {
     private $parameters;
+
     /**
      * @param array $parameters The container parameters to track
      */
@@ -28,14 +31,16 @@ class ContainerParametersResource implements \ECSPrefix20210509\Symfony\Componen
     {
         $this->parameters = $parameters;
     }
+
     /**
      * {@inheritdoc}
      * @return string
      */
     public function __toString()
     {
-        return 'container_parameters_' . \md5(\serialize($this->parameters));
+        return 'container_parameters_'.md5(serialize($this->parameters));
     }
+
     /**
      * @return array Tracked parameters
      */

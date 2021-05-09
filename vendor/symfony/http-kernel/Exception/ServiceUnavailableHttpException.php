@@ -8,12 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Exception;
+
+namespace Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Ben Ramsey <ben@benramsey.com>
  */
-class ServiceUnavailableHttpException extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\HttpException
+class ServiceUnavailableHttpException extends HttpException
 {
     /**
      * @param int|string|null $retryAfter The number of seconds or HTTP-date after which the request may be retried
@@ -26,6 +27,7 @@ class ServiceUnavailableHttpException extends \ECSPrefix20210509\Symfony\Compone
         if ($retryAfter) {
             $headers['Retry-After'] = $retryAfter;
         }
+
         parent::__construct(503, $message, $previous, $headers, $code);
     }
 }

@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+namespace Symfony\Component\DependencyInjection\Loader;
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 /**
  * PhpFileLoader loads service definitions from a PHP file.
  *
@@ -19,9 +21,10 @@ use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class PhpFileLoader extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\FileLoader
+class PhpFileLoader extends FileLoader
 {
-    protected $autoRegisterAliasesForSinglyImplementedInterfaces = \false;
+    protected $autoRegisterAliasesForSinglyImplementedInterfaces = false;
+
     /**
      * {@inheritdoc}
      */
@@ -30,23 +33,28 @@ class PhpFileLoader extends \ECSPrefix20210509\Symfony\Component\DependencyInjec
         // the container and loader variables are exposed to the included file below
         $container = $this->container;
         $loader = $this;
+
         $path = $this->locator->locate($resource);
         $this->setCurrentDir(\dirname($path));
         $this->container->fileExists($path);
+
         // the closure forbids access to the private scope in the included file
-        $load = \Closure::bind(function ($path) use($container, $loader, $resource, $type) {
+        $load = \Closure::bind(function ($path) use ($container, $loader, $resource, $type) {
             return include $path;
-        }, $this, \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\ProtectedPhpFileLoader::class);
+        }, $this, ProtectedPhpFileLoader::class);
+
         try {
             $callback = $load($path);
+
             if (\is_object($callback) && \is_callable($callback)) {
-                $callback(new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator($this->container, $this, $this->instanceof, $path, $resource), $this->container, $this);
+                $callback(new ContainerConfigurator($this->container, $this, $this->instanceof, $path, $resource), $this->container, $this);
             }
         } finally {
             $this->instanceof = [];
             $this->registerAliasesForSinglyImplementedInterfaces();
         }
     }
+
     /**
      * {@inheritdoc}
      * @param string $type
@@ -54,17 +62,20 @@ class PhpFileLoader extends \ECSPrefix20210509\Symfony\Component\DependencyInjec
     public function supports($resource, $type = null)
     {
         if (!\is_string($resource)) {
-            return \false;
+            return false;
         }
-        if (null === $type && 'php' === \pathinfo($resource, \PATHINFO_EXTENSION)) {
-            return \true;
+
+        if (null === $type && 'php' === pathinfo($resource, \PATHINFO_EXTENSION)) {
+            return true;
         }
+
         return 'php' === $type;
     }
 }
+
 /**
  * @internal
  */
-final class ProtectedPhpFileLoader extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\PhpFileLoader
+final class ProtectedPhpFileLoader extends PhpFileLoader
 {
 }

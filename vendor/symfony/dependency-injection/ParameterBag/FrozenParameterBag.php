@@ -8,15 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\LogicException;
+namespace Symfony\Component\DependencyInjection\ParameterBag;
+
+use Symfony\Component\DependencyInjection\Exception\LogicException;
+
 /**
  * Holds read-only parameters.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FrozenParameterBag extends \ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\ParameterBag
+class FrozenParameterBag extends ParameterBag
 {
     /**
      * For performance reasons, the constructor assumes that
@@ -29,22 +31,25 @@ class FrozenParameterBag extends \ECSPrefix20210509\Symfony\Component\Dependency
     public function __construct(array $parameters = [])
     {
         $this->parameters = $parameters;
-        $this->resolved = \true;
+        $this->resolved = true;
     }
+
     /**
      * {@inheritdoc}
      */
     public function clear()
     {
-        throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\LogicException('Impossible to call clear() on a frozen ParameterBag.');
+        throw new LogicException('Impossible to call clear() on a frozen ParameterBag.');
     }
+
     /**
      * {@inheritdoc}
      */
     public function add(array $parameters)
     {
-        throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\LogicException('Impossible to call add() on a frozen ParameterBag.');
+        throw new LogicException('Impossible to call add() on a frozen ParameterBag.');
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -52,8 +57,9 @@ class FrozenParameterBag extends \ECSPrefix20210509\Symfony\Component\Dependency
     public function set($name, $value)
     {
         $name = (string) $name;
-        throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\LogicException('Impossible to call set() on a frozen ParameterBag.');
+        throw new LogicException('Impossible to call set() on a frozen ParameterBag.');
     }
+
     /**
      * {@inheritdoc}
      * @param string $name
@@ -61,6 +67,6 @@ class FrozenParameterBag extends \ECSPrefix20210509\Symfony\Component\Dependency
     public function remove($name)
     {
         $name = (string) $name;
-        throw new \ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\LogicException('Impossible to call remove() on a frozen ParameterBag.');
+        throw new LogicException('Impossible to call remove() on a frozen ParameterBag.');
     }
 }

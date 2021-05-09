@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Filesystem\Exception;
+
+namespace Symfony\Component\Filesystem\Exception;
 
 /**
  * Exception class thrown when a file couldn't be found.
@@ -16,7 +17,7 @@ namespace ECSPrefix20210509\Symfony\Component\Filesystem\Exception;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Christian Gärtner <christiangaertner.film@googlemail.com>
  */
-class FileNotFoundException extends \ECSPrefix20210509\Symfony\Component\Filesystem\Exception\IOException
+class FileNotFoundException extends IOException
 {
     /**
      * @param string $message
@@ -30,9 +31,10 @@ class FileNotFoundException extends \ECSPrefix20210509\Symfony\Component\Filesys
             if (null === $path) {
                 $message = 'File could not be found.';
             } else {
-                $message = \sprintf('File "%s" could not be found.', $path);
+                $message = sprintf('File "%s" could not be found.', $path);
             }
         }
+
         parent::__construct($message, $code, $previous, $path);
     }
 }

@@ -1,17 +1,13 @@
 {
-    "name": "psr\/event-dispatcher",
+    "name": "psr/event-dispatcher",
     "description": "Standard interfaces for event handling.",
     "type": "library",
-    "keywords": [
-        "psr",
-        "psr-14",
-        "events"
-    ],
+    "keywords": ["psr", "psr-14", "events"],
     "license": "MIT",
     "authors": [
         {
             "name": "PHP-FIG",
-            "homepage": "http:\/\/www.php-fig.org\/"
+            "homepage": "http://www.php-fig.org/"
         }
     ],
     "require": {
@@ -19,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210509\\Psr\\EventDispatcher\\": "src\/"
+            "Psr\\EventDispatcher\\": "src/"
         }
     },
     "extra": {

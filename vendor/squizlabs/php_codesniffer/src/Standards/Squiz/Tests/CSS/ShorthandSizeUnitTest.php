@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the ShorthandSize sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\CSS;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class ShorthandSizeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class ShorthandSizeUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,22 @@ class ShorthandSizeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSni
      */
     public function getErrorList()
     {
-        return [8 => 1, 9 => 1, 10 => 1, 11 => 1, 12 => 1, 13 => 1, 15 => 1, 16 => 1, 17 => 1, 21 => 1];
-    }
-    //end getErrorList()
+        return [
+            8  => 1,
+            9  => 1,
+            10 => 1,
+            11 => 1,
+            12 => 1,
+            13 => 1,
+            15 => 1,
+            16 => 1,
+            17 => 1,
+            21 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +52,8 @@ class ShorthandSizeUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSni
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

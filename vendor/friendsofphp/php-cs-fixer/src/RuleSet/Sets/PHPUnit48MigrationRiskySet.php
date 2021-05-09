@@ -9,22 +9,30 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\RuleSet\Sets;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion;
 use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
+
 /**
  * @internal
  */
-final class PHPUnit48MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
+final class PHPUnit48MigrationRiskySet extends AbstractRuleSetDescription
 {
     /**
      * @return mixed[]
      */
     public function getRules()
     {
-        return ['@PHPUnit43Migration:risky' => \true, 'php_unit_namespaced' => ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_4_8]];
+        return [
+            '@PHPUnit43Migration:risky' => true,
+            'php_unit_namespaced' => [
+                'target' => PhpUnitTargetVersion::VERSION_4_8,
+            ],
+        ];
     }
+
     /**
      * @return string
      */

@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\Operator;
 
 use PhpCsFixer\AbstractFixer;
@@ -17,10 +18,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
 use PhpCsFixer\Tokenizer\TokensAnalyzer;
+
 /**
  * @author Gregor Harlan <gharlan@web.de>
  */
-final class UnaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
+final class UnaryOperatorSpacesFixer extends AbstractFixer
 {
     /**
      * {@inheritdoc}
@@ -28,8 +30,12 @@ final class UnaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Unary operators should be placed adjacent to their operands.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n\$sample ++;\n-- \$sample;\n\$sample = ! ! \$a;\n\$sample = ~  \$c;\nfunction & foo(){}\n")]);
+        return new FixerDefinition(
+            'Unary operators should be placed adjacent to their operands.',
+            [new CodeSample("<?php\n\$sample ++;\n-- \$sample;\n\$sample = ! ! \$a;\n\$sample = ~  \$c;\nfunction & foo(){}\n")]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -40,30 +46,36 @@ final class UnaryOperatorSpacesFixer extends \PhpCsFixer\AbstractFixer
     {
         return 0;
     }
+
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return \true;
+        return true;
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
-        $tokensAnalyzer = new \PhpCsFixer\Tokenizer\TokensAnalyzer($tokens);
+        $tokensAnalyzer = new TokensAnalyzer($tokens);
+
         for ($index = $tokens->count() - 1; $index >= 0; --$index) {
             if ($tokensAnalyzer->isUnarySuccessorOperator($index)) {
                 if (!$tokens[$tokens->getPrevNonWhitespace($index)]->isComment()) {
                     $tokens->removeLeadingWhitespace($index);
                 }
+
                 continue;
             }
+
             if ($tokensAnalyzer->isUnaryPredecessorOperator($index)) {
                 $tokens->removeTrailingWhitespace($index);
+
                 continue;
             }
         }

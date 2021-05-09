@@ -8,23 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\OptionsResolver;
 
-use ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\AccessException;
+namespace Symfony\Component\OptionsResolver;
+
+use Symfony\Component\OptionsResolver\Exception\AccessException;
+
 final class OptionConfigurator
 {
     private $name;
     private $resolver;
+
     /**
      * @param string $name
      */
-    public function __construct($name, \ECSPrefix20210509\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
+    public function __construct($name, OptionsResolver $resolver)
     {
         $name = (string) $name;
         $this->name = $name;
         $this->resolver = $resolver;
         $this->resolver->setDefined($name);
     }
+
     /**
      * Adds allowed types for this option.
      *
@@ -37,8 +41,10 @@ final class OptionConfigurator
     public function allowedTypes(...$types)
     {
         $this->resolver->setAllowedTypes($this->name, $types);
+
         return $this;
     }
+
     /**
      * Sets allowed values for this option.
      *
@@ -51,8 +57,10 @@ final class OptionConfigurator
     public function allowedValues(...$values)
     {
         $this->resolver->setAllowedValues($this->name, $values);
+
         return $this;
     }
+
     /**
      * Sets the default value for this option.
      *
@@ -65,8 +73,10 @@ final class OptionConfigurator
     public function default($value)
     {
         $this->resolver->setDefault($this->name, $value);
+
         return $this;
     }
+
     /**
      * Defines an option configurator with the given name.
      * @return $this
@@ -77,6 +87,7 @@ final class OptionConfigurator
         $option = (string) $option;
         return $this->resolver->define($option);
     }
+
     /**
      * Marks this option as deprecated.
      *
@@ -91,8 +102,10 @@ final class OptionConfigurator
         $package = (string) $package;
         $version = (string) $version;
         $this->resolver->setDeprecated($this->name, $package, $version, $message);
+
         return $this;
     }
+
     /**
      * Sets the normalizer for this option.
      *
@@ -105,8 +118,10 @@ final class OptionConfigurator
     public function normalize(\Closure $normalizer)
     {
         $this->resolver->setNormalizer($this->name, $normalizer);
+
         return $this;
     }
+
     /**
      * Marks this option as required.
      *
@@ -117,8 +132,10 @@ final class OptionConfigurator
     public function required()
     {
         $this->resolver->setRequired($this->name);
+
         return $this;
     }
+
     /**
      * Sets an info message for an option.
      *
@@ -131,6 +148,7 @@ final class OptionConfigurator
     {
         $info = (string) $info;
         $this->resolver->setInfo($this->name, $info);
+
         return $this;
     }
 }

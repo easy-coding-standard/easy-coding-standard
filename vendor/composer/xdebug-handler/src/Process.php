@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Composer\XdebugHandler;
+
+namespace Composer\XdebugHandler;
 
 /**
  * Process utility functions
@@ -29,29 +30,37 @@ class Process
      *
      * @return string The escaped argument
      */
-    public static function escape($arg, $meta = \true, $module = \false)
+    public static function escape($arg, $meta = true, $module = false)
     {
-        if (!\defined('PHP_WINDOWS_VERSION_BUILD')) {
-            return "'" . \str_replace("'", "'\\''", $arg) . "'";
+        if (!defined('PHP_WINDOWS_VERSION_BUILD')) {
+            return "'".str_replace("'", "'\\''", $arg)."'";
         }
-        $quote = \strpbrk($arg, " \t") !== \false || $arg === '';
-        $arg = \preg_replace('/(\\\\*)"/', '$1$1\\"', $arg, -1, $dquotes);
+
+        $quote = strpbrk($arg, " \t") !== false || $arg === '';
+
+        $arg = preg_replace('/(\\\\*)"/', '$1$1\\"', $arg, -1, $dquotes);
+
         if ($meta) {
-            $meta = $dquotes || \preg_match('/%[^%]+%/', $arg);
+            $meta = $dquotes || preg_match('/%[^%]+%/', $arg);
+
             if (!$meta) {
-                $quote = $quote || \strpbrk($arg, '^&|<>()') !== \false;
+                $quote = $quote || strpbrk($arg, '^&|<>()') !== false;
             } elseif ($module && !$dquotes && $quote) {
-                $meta = \false;
+                $meta = false;
             }
         }
+
         if ($quote) {
-            $arg = '"' . \preg_replace('/(\\\\*)$/', '$1$1', $arg) . '"';
+            $arg = '"'.preg_replace('/(\\\\*)$/', '$1$1', $arg).'"';
         }
+
         if ($meta) {
-            $arg = \preg_replace('/(["^&|<>()%])/', '^$1', $arg);
+            $arg = preg_replace('/(["^&|<>()%])/', '^$1', $arg);
         }
+
         return $arg;
     }
+
     /**
      * Escapes an array of arguments that make up a shell command
      *
@@ -61,12 +70,14 @@ class Process
      */
     public static function escapeShellCommand(array $args)
     {
-        $cmd = self::escape(\array_shift($args), \true, \true);
+        $cmd = self::escape(array_shift($args), true, true);
         foreach ($args as $arg) {
-            $cmd .= ' ' . self::escape($arg);
+            $cmd .= ' '.self::escape($arg);
         }
+
         return $cmd;
     }
+
     /**
      * Makes putenv environment changes available in $_SERVER and $_ENV
      *
@@ -78,22 +89,26 @@ class Process
     public static function setEnv($name, $value = null)
     {
         $unset = null === $value;
-        if (!\putenv($unset ? $name : $name . '=' . $value)) {
-            return \false;
+
+        if (!putenv($unset ? $name : $name.'='.$value)) {
+            return false;
         }
+
         if ($unset) {
             unset($_SERVER[$name]);
         } else {
             $_SERVER[$name] = $value;
         }
+
         // Update $_ENV if it is being used
-        if (\false !== \stripos((string) \ini_get('variables_order'), 'E')) {
+        if (false !== stripos((string) ini_get('variables_order'), 'E')) {
             if ($unset) {
                 unset($_ENV[$name]);
             } else {
                 $_ENV[$name] = $value;
             }
         }
-        return \true;
+
+        return true;
     }
 }

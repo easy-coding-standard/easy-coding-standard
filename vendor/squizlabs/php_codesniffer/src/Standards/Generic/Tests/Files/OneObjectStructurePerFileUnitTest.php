@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the OneObjectStructurePerFile sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\Files;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class OneObjectStructurePerFileUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class OneObjectStructurePerFileUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,16 @@ class OneObjectStructurePerFileUnitTest extends \PHP_CodeSniffer\Tests\Standards
      */
     public function getErrorList()
     {
-        return [6 => 1, 10 => 1, 14 => 1, 18 => 1];
-    }
-    //end getErrorList()
+        return [
+            6  => 1,
+            10 => 1,
+            14 => 1,
+            18 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +46,8 @@ class OneObjectStructurePerFileUnitTest extends \PHP_CodeSniffer\Tests\Standards
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

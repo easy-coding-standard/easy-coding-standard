@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ensures all class keywords are lowercase.
  *
@@ -7,13 +6,17 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Classes;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
-class LowercaseClassKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class LowercaseClassKeywordsSniff implements Sniff
 {
+
+
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -21,16 +24,19 @@ class LowercaseClassKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        $targets = \PHP_CodeSniffer\Util\Tokens::$ooScopeTokens;
-        $targets[] = \T_EXTENDS;
-        $targets[] = \T_IMPLEMENTS;
-        $targets[] = \T_ABSTRACT;
-        $targets[] = \T_FINAL;
-        $targets[] = \T_VAR;
-        $targets[] = \T_CONST;
+        $targets   = Tokens::$ooScopeTokens;
+        $targets[] = T_EXTENDS;
+        $targets[] = T_IMPLEMENTS;
+        $targets[] = T_ABSTRACT;
+        $targets[] = T_FINAL;
+        $targets[] = T_VAR;
+        $targets[] = T_CONST;
+
         return $targets;
-    }
-    //end register()
+
+    }//end register()
+
+
     /**
      * Processes this test, when one of its tokens is encountered.
      *
@@ -40,20 +46,27 @@ class LowercaseClassKeywordsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $content = $tokens[$stackPtr]['content'];
-        $contentLc = \strtolower($content);
+
+        $content   = $tokens[$stackPtr]['content'];
+        $contentLc = strtolower($content);
         if ($content !== $contentLc) {
             $error = '%s keyword must be lowercase; expected "%s" but found "%s"';
-            $data = [\strtoupper($content), $contentLc, $content];
+            $data  = [
+                strtoupper($content),
+                $contentLc,
+                $content,
+            ];
+
             $fix = $phpcsFile->addFixableError($error, $stackPtr, 'FoundUppercase', $data);
-            if ($fix === \true) {
+            if ($fix === true) {
                 $phpcsFile->fixer->replaceToken($stackPtr, $contentLc);
             }
         }
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

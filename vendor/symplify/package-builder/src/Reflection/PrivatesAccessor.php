@@ -4,6 +4,7 @@ namespace Symplify\PackageBuilder\Reflection;
 
 use ReflectionProperty;
 use Symplify\PHPStanRules\Exception\ShouldNotHappenException;
+
 /**
  * @see \Symplify\PackageBuilder\Tests\Reflection\PrivatesAccessorTest
  */
@@ -18,9 +19,11 @@ final class PrivatesAccessor
     {
         $propertyName = (string) $propertyName;
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
-        $propertyReflection->setAccessible(\true);
+        $propertyReflection->setAccessible(true);
+
         return $propertyReflection->getValue($object);
     }
+
     /**
      * @param object $object
      * @return void
@@ -30,9 +33,11 @@ final class PrivatesAccessor
     {
         $propertyName = (string) $propertyName;
         $propertyReflection = $this->resolvePropertyReflection($object, $propertyName);
-        $propertyReflection->setAccessible(\true);
+        $propertyReflection->setAccessible(true);
+
         $propertyReflection->setValue($object, $value);
     }
+
     /**
      * @param object $object
      * @param string $propertyName
@@ -41,13 +46,15 @@ final class PrivatesAccessor
     private function resolvePropertyReflection($object, $propertyName)
     {
         $propertyName = (string) $propertyName;
-        if (\property_exists($object, $propertyName)) {
-            return new \ReflectionProperty($object, $propertyName);
+        if (property_exists($object, $propertyName)) {
+            return new ReflectionProperty($object, $propertyName);
         }
-        $parentClass = \get_parent_class($object);
-        if ($parentClass === \false) {
-            throw new \Symplify\PHPStanRules\Exception\ShouldNotHappenException();
+
+        $parentClass = get_parent_class($object);
+        if ($parentClass === false) {
+            throw new ShouldNotHappenException();
         }
-        return new \ReflectionProperty($parentClass, $propertyName);
+
+        return new ReflectionProperty($parentClass, $propertyName);
     }
 }

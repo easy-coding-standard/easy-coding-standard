@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Exception;
+
+namespace Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
@@ -26,44 +27,69 @@ class ControllerDoesNotReturnResponseException extends \LogicException
         $file = (string) $file;
         $line = (int) $line;
         parent::__construct($message);
-        if (!($controllerDefinition = $this->parseControllerDefinition($controller))) {
+
+        if (!$controllerDefinition = $this->parseControllerDefinition($controller)) {
             return;
         }
+
         $this->file = $controllerDefinition['file'];
         $this->line = $controllerDefinition['line'];
         $r = new \ReflectionProperty(\Exception::class, 'trace');
-        $r->setAccessible(\true);
-        $r->setValue($this, \array_merge([['line' => $line, 'file' => $file]], $this->getTrace()));
+        $r->setAccessible(true);
+        $r->setValue($this, array_merge([
+            [
+                'line' => $line,
+                'file' => $file,
+            ],
+        ], $this->getTrace()));
     }
+
     /**
      * @return mixed[]|null
      */
     private function parseControllerDefinition(callable $controller)
     {
-        if (\is_string($controller) && \false !== \strpos($controller, '::')) {
-            $controller = \explode('::', $controller);
+        if (\is_string($controller) && false !== strpos($controller, '::')) {
+            $controller = explode('::', $controller);
         }
+
         if (\is_array($controller)) {
             try {
                 $r = new \ReflectionMethod($controller[0], $controller[1]);
-                return ['file' => $r->getFileName(), 'line' => $r->getEndLine()];
+
+                return [
+                    'file' => $r->getFileName(),
+                    'line' => $r->getEndLine(),
+                ];
             } catch (\ReflectionException $e) {
                 return null;
             }
         }
+
         if ($controller instanceof \Closure) {
             $r = new \ReflectionFunction($controller);
-            return ['file' => $r->getFileName(), 'line' => $r->getEndLine()];
+
+            return [
+                'file' => $r->getFileName(),
+                'line' => $r->getEndLine(),
+            ];
         }
+
         if (\is_object($controller)) {
             $r = new \ReflectionClass($controller);
+
             try {
                 $line = $r->getMethod('__invoke')->getEndLine();
             } catch (\ReflectionException $e) {
                 $line = $r->getEndLine();
             }
-            return ['file' => $r->getFileName(), 'line' => $line];
+
+            return [
+                'file' => $r->getFileName(),
+                'line' => $line,
+            ];
         }
+
         return null;
     }
 }

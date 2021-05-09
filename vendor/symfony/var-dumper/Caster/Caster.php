@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
+namespace Symfony\Component\VarDumper\Caster;
+
+use Symfony\Component\VarDumper\Cloner\Stub;
+
 /**
  * Helper for filtering out properties in casters.
  *
@@ -30,9 +32,11 @@ class Caster
     const EXCLUDE_EMPTY = 128;
     const EXCLUDE_NOT_IMPORTANT = 256;
     const EXCLUDE_STRICT = 512;
+
     const PREFIX_VIRTUAL = "\0~\0";
     const PREFIX_DYNAMIC = "\0+\0";
     const PREFIX_PROTECTED = "\0*\0";
+
     /**
      * Casts objects to arrays and adds the dynamic property prefix.
      *
@@ -43,7 +47,7 @@ class Caster
      * @param string $class
      * @param string $debugClass
      */
-    public static function castObject($obj, $class, $hasDebugInfo = \false, $debugClass = null)
+    public static function castObject($obj, $class, $hasDebugInfo = false, $debugClass = null)
     {
         $class = (string) $class;
         $hasDebugInfo = (bool) $hasDebugInfo;
@@ -52,55 +56,63 @@ class Caster
                 $debugInfo = $obj->__debugInfo();
             } catch (\Exception $e) {
                 // ignore failing __debugInfo()
-                $hasDebugInfo = \false;
+                $hasDebugInfo = false;
             }
         }
+
         $a = $obj instanceof \Closure ? [] : (array) $obj;
+
         if ($obj instanceof \__PHP_Incomplete_Class) {
             return $a;
         }
+
         if ($a) {
             static $publicProperties = [];
-            $debugClass = isset($debugClass) ? $debugClass : \get_debug_type($obj);
+            $debugClass = isset($debugClass) ? $debugClass : get_debug_type($obj);
+
             $i = 0;
             $prefixedKeys = [];
             foreach ($a as $k => $v) {
                 if ("\0" !== (isset($k[0]) ? $k[0] : '')) {
                     if (!isset($publicProperties[$class])) {
                         foreach ((new \ReflectionClass($class))->getProperties(\ReflectionProperty::IS_PUBLIC) as $prop) {
-                            $publicProperties[$class][$prop->name] = \true;
+                            $publicProperties[$class][$prop->name] = true;
                         }
                     }
                     if (!isset($publicProperties[$class][$k])) {
-                        $prefixedKeys[$i] = self::PREFIX_DYNAMIC . $k;
+                        $prefixedKeys[$i] = self::PREFIX_DYNAMIC.$k;
                     }
-                } elseif ($debugClass !== $class && 1 === \strpos($k, $class)) {
-                    $prefixedKeys[$i] = "\0" . $debugClass . \strrchr($k, "\0");
+                } elseif ($debugClass !== $class && 1 === strpos($k, $class)) {
+                    $prefixedKeys[$i] = "\0".$debugClass.strrchr($k, "\0");
                 }
                 ++$i;
             }
             if ($prefixedKeys) {
-                $keys = \array_keys($a);
+                $keys = array_keys($a);
                 foreach ($prefixedKeys as $i => $k) {
                     $keys[$i] = $k;
                 }
-                $a = \array_combine($keys, $a);
+                $a = array_combine($keys, $a);
             }
         }
+
         if ($hasDebugInfo && \is_array($debugInfo)) {
             foreach ($debugInfo as $k => $v) {
                 if (!isset($k[0]) || "\0" !== $k[0]) {
-                    if (\array_key_exists(self::PREFIX_DYNAMIC . $k, $a)) {
+                    if (\array_key_exists(self::PREFIX_DYNAMIC.$k, $a)) {
                         continue;
                     }
-                    $k = self::PREFIX_VIRTUAL . $k;
+                    $k = self::PREFIX_VIRTUAL.$k;
                 }
+
                 unset($a[$k]);
                 $a[$k] = $v;
             }
         }
+
         return $a;
     }
+
     /**
      * Filters out the specified properties.
      *
@@ -118,20 +130,23 @@ class Caster
     {
         $filter = (int) $filter;
         $count = 0;
+
         foreach ($a as $k => $v) {
             $type = self::EXCLUDE_STRICT & $filter;
+
             if (null === $v) {
                 $type |= self::EXCLUDE_NULL & $filter;
                 $type |= self::EXCLUDE_EMPTY & $filter;
-            } elseif (\false === $v || '' === $v || '0' === $v || 0 === $v || 0.0 === $v || [] === $v) {
+            } elseif (false === $v || '' === $v || '0' === $v || 0 === $v || 0.0 === $v || [] === $v) {
                 $type |= self::EXCLUDE_EMPTY & $filter;
             }
-            if (self::EXCLUDE_NOT_IMPORTANT & $filter && !\in_array($k, $listedProperties, \true)) {
+            if ((self::EXCLUDE_NOT_IMPORTANT & $filter) && !\in_array($k, $listedProperties, true)) {
                 $type |= self::EXCLUDE_NOT_IMPORTANT;
             }
-            if (self::EXCLUDE_VERBOSE & $filter && \in_array($k, $listedProperties, \true)) {
+            if ((self::EXCLUDE_VERBOSE & $filter) && \in_array($k, $listedProperties, true)) {
                 $type |= self::EXCLUDE_VERBOSE;
             }
+
             if (!isset($k[1]) || "\0" !== $k[0]) {
                 $type |= self::EXCLUDE_PUBLIC & $filter;
             } elseif ('~' === $k[1]) {
@@ -143,24 +158,28 @@ class Caster
             } else {
                 $type |= self::EXCLUDE_PRIVATE & $filter;
             }
-            if (self::EXCLUDE_STRICT & $filter ? $type === $filter : $type) {
+
+            if ((self::EXCLUDE_STRICT & $filter) ? $type === $filter : $type) {
                 unset($a[$k]);
                 ++$count;
             }
         }
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      * @return mixed[]
      */
-    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         if (isset($a['__PHP_Incomplete_Class_Name'])) {
-            $stub->class .= '(' . $a['__PHP_Incomplete_Class_Name'] . ')';
+            $stub->class .= '('.$a['__PHP_Incomplete_Class_Name'].')';
             unset($a['__PHP_Incomplete_Class_Name']);
         }
+
         return $a;
     }
 }

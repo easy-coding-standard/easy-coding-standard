@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Cache;
 
 /**
@@ -22,22 +23,27 @@ interface SignatureInterface
      * @return string
      */
     public function getPhpVersion();
+
     /**
      * @return string
      */
     public function getFixerVersion();
+
     /**
      * @return string
      */
     public function getIndent();
+
     /**
      * @return string
      */
     public function getLineEnding();
+
     /**
      * @return mixed[]
      */
     public function getRules();
+
     /**
      * @param SignatureInterface $signature
      * @return bool

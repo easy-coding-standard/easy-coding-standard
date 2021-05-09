@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the ScopeClosingBrace sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class ScopeClosingBraceUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class ScopeClosingBraceUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,28 @@ class ScopeClosingBraceUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstrac
      */
     public function getErrorList()
     {
-        return [11 => 1, 13 => 1, 24 => 1, 30 => 1, 61 => 1, 65 => 1, 85 => 1, 89 => 1, 98 => 1, 122 => 1, 127 => 1, 135 => 1, 141 => 1, 146 => 1, 149 => 1, 154 => 1];
-    }
-    //end getErrorList()
+        return [
+            11  => 1,
+            13  => 1,
+            24  => 1,
+            30  => 1,
+            61  => 1,
+            65  => 1,
+            85  => 1,
+            89  => 1,
+            98  => 1,
+            122 => 1,
+            127 => 1,
+            135 => 1,
+            141 => 1,
+            146 => 1,
+            149 => 1,
+            154 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +58,8 @@ class ScopeClosingBraceUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstrac
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

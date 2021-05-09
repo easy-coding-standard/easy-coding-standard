@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -20,10 +21,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-final class PhpdocSummaryFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\WhitespacesAwareFixerInterface
+final class PhpdocSummaryFixer extends AbstractFixer implements WhitespacesAwareFixerInterface
 {
     /**
      * {@inheritdoc}
@@ -31,13 +33,17 @@ final class PhpdocSummaryFixer extends \PhpCsFixer\AbstractFixer implements \Php
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPDoc summary should end in either a full stop, exclamation mark, or question mark.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
+        return new FixerDefinition(
+            'PHPDoc summary should end in either a full stop, exclamation mark, or question mark.',
+            [new CodeSample('<?php
 /**
  * Foo function is great
  */
 function foo () {}
-')]);
+')]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -49,36 +55,42 @@ function foo () {}
     {
         return 0;
     }
+
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(T_DOC_COMMENT)) {
                 continue;
             }
-            $doc = new \PhpCsFixer\DocBlock\DocBlock($token->getContent());
-            $end = (new \PhpCsFixer\DocBlock\ShortDescription($doc))->getEnd();
+
+            $doc = new DocBlock($token->getContent());
+            $end = (new ShortDescription($doc))->getEnd();
+
             if (null !== $end) {
                 $line = $doc->getLine($end);
-                $content = \rtrim($line->getContent());
+                $content = rtrim($line->getContent());
+
                 if (!$this->isCorrectlyFormatted($content)) {
-                    $line->setContent($content . '.' . $this->whitespacesConfig->getLineEnding());
-                    $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, $doc->getContent()]);
+                    $line->setContent($content.'.'.$this->whitespacesConfig->getLineEnding());
+                    $tokens[$index] = new Token([T_DOC_COMMENT, $doc->getContent()]);
                 }
             }
         }
     }
+
     /**
      * Is the last line of the short description correctly formatted?
      * @param string $content
@@ -87,9 +99,10 @@ function foo () {}
     private function isCorrectlyFormatted($content)
     {
         $content = (string) $content;
-        if (\false !== \stripos($content, '{@inheritdoc}')) {
-            return \true;
+        if (false !== stripos($content, '{@inheritdoc}')) {
+            return true;
         }
-        return $content !== \rtrim($content, '.。!?¡¿！？');
+
+        return $content !== rtrim($content, '.。!?¡¿！？');
     }
 }

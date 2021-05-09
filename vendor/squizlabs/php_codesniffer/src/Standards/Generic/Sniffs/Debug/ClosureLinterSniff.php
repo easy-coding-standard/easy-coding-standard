@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Runs gjslint on the file.
  *
@@ -7,14 +6,17 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Sniffs\Debug;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Common;
-class ClosureLinterSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class ClosureLinterSniff implements Sniff
 {
+
     /**
      * A list of error codes that should show errors.
      *
@@ -23,18 +25,22 @@ class ClosureLinterSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @var integer
      */
     public $errorCodes = [];
+
     /**
      * A list of error codes to ignore.
      *
      * @var integer
      */
     public $ignoreCodes = [];
+
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['JS'];
+
+
     /**
      * Returns the token types that this sniff is interested in.
      *
@@ -42,9 +48,11 @@ class ClosureLinterSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      */
     public function register()
     {
-        return [\T_OPEN_TAG];
-    }
-    //end register()
+        return [T_OPEN_TAG];
+
+    }//end register()
+
+
     /**
      * Processes the tokens that this sniff is interested in.
      *
@@ -55,44 +63,55 @@ class ClosureLinterSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @return void
      * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If jslint.js could not be run
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
-        $lintPath = \PHP_CodeSniffer\Config::getExecutablePath('gjslint');
+        $lintPath = Config::getExecutablePath('gjslint');
         if ($lintPath === null) {
             return;
         }
+
         $fileName = $phpcsFile->getFilename();
-        $lintPath = \PHP_CodeSniffer\Util\Common::escapeshellcmd($lintPath);
-        $cmd = $lintPath . ' --nosummary --notime --unix_mode ' . \escapeshellarg($fileName);
-        \exec($cmd, $output, $retval);
-        if (\is_array($output) === \false) {
+
+        $lintPath = Common::escapeshellcmd($lintPath);
+        $cmd      = $lintPath.' --nosummary --notime --unix_mode '.escapeshellarg($fileName);
+        exec($cmd, $output, $retval);
+
+        if (is_array($output) === false) {
             return;
         }
+
         foreach ($output as $finding) {
-            $matches = [];
-            $numMatches = \preg_match('/^(.*):([0-9]+):\\(.*?([0-9]+)\\)(.*)$/', $finding, $matches);
+            $matches    = [];
+            $numMatches = preg_match('/^(.*):([0-9]+):\(.*?([0-9]+)\)(.*)$/', $finding, $matches);
             if ($numMatches === 0) {
                 continue;
             }
+
             // Skip error codes we are ignoring.
             $code = $matches[3];
-            if (\in_array($code, $this->ignoreCodes) === \true) {
+            if (in_array($code, $this->ignoreCodes) === true) {
                 continue;
             }
-            $line = (int) $matches[2];
-            $error = \trim($matches[4]);
+
+            $line  = (int) $matches[2];
+            $error = trim($matches[4]);
+
             $message = 'gjslint says: (%s) %s';
-            $data = [$code, $error];
-            if (\in_array($code, $this->errorCodes) === \true) {
+            $data    = [
+                $code,
+                $error,
+            ];
+            if (in_array($code, $this->errorCodes) === true) {
                 $phpcsFile->addErrorOnLine($message, $line, 'ExternalToolError', $data);
             } else {
                 $phpcsFile->addWarningOnLine($message, $line, 'ExternalTool', $data);
             }
-        }
-        //end foreach
+        }//end foreach
+
         // Ignore the rest of the file.
-        return $phpcsFile->numTokens + 1;
-    }
-    //end process()
-}
-//end class
+        return ($phpcsFile->numTokens + 1);
+
+    }//end process()
+
+
+}//end class

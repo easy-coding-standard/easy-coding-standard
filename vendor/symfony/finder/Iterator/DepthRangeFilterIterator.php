@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Finder\Iterator;
+
+namespace Symfony\Component\Finder\Iterator;
 
 /**
  * DepthRangeFilterIterator limits the directory depth.
@@ -18,6 +19,7 @@ namespace ECSPrefix20210509\Symfony\Component\Finder\Iterator;
 class DepthRangeFilterIterator extends \FilterIterator
 {
     private $minDepth = 0;
+
     /**
      * @param \RecursiveIteratorIterator $iterator The Iterator to filter
      * @param int                        $minDepth The min depth
@@ -29,8 +31,10 @@ class DepthRangeFilterIterator extends \FilterIterator
         $maxDepth = (int) $maxDepth;
         $this->minDepth = $minDepth;
         $iterator->setMaxDepth(\PHP_INT_MAX === $maxDepth ? -1 : $maxDepth);
+
         parent::__construct($iterator);
     }
+
     /**
      * Filters the iterator values.
      *

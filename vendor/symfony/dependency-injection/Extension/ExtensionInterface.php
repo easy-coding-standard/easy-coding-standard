@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection\Extension;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+namespace Symfony\Component\DependencyInjection\Extension;
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
 /**
  * ExtensionInterface is the interface implemented by container extension classes.
  *
@@ -23,19 +25,22 @@ interface ExtensionInterface
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
      */
-    public function load(array $configs, \ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $container);
+    public function load(array $configs, ContainerBuilder $container);
+
     /**
      * Returns the namespace to be used for this extension (XML namespace).
      *
      * @return string The XML namespace
      */
     public function getNamespace();
+
     /**
      * Returns the base path for the XSD files.
      *
      * @return string|false
      */
     public function getXsdValidationBasePath();
+
     /**
      * Returns the recommended alias to use in XML.
      *
@@ -45,9 +50,3 @@ interface ExtensionInterface
      */
     public function getAlias();
 }
-/**
- * ExtensionInterface is the interface implemented by container extension classes.
- *
- * @author Fabien Potencier <fabien@symfony.com>
- */
-\class_alias('ECSPrefix20210509\\Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface', 'Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface', \false);

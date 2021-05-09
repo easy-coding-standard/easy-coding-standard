@@ -9,21 +9,24 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\FixerDefinition;
 
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
-final class CodeSample implements \PhpCsFixer\FixerDefinition\CodeSampleInterface
+final class CodeSample implements CodeSampleInterface
 {
     /**
      * @var string
      */
     private $code;
+
     /**
      * @var null|array
      */
     private $configuration;
+
     /**
      * @param mixed[]|null $configuration
      * @param string $code
@@ -34,6 +37,7 @@ final class CodeSample implements \PhpCsFixer\FixerDefinition\CodeSampleInterfac
         $this->code = $code;
         $this->configuration = $configuration;
     }
+
     /**
      * @return string
      */
@@ -41,6 +45,7 @@ final class CodeSample implements \PhpCsFixer\FixerDefinition\CodeSampleInterfac
     {
         return $this->code;
     }
+
     /**
      * @return mixed[]|null
      */

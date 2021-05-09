@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage;
+
+namespace Symfony\Component\HttpFoundation\Session\Storage;
 
 /**
  * MockFileSessionStorage is used to mock sessions for
@@ -21,56 +22,69 @@ namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage;
  *
  * @author Drak <drak@zikula.org>
  */
-class MockFileSessionStorage extends \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage
+class MockFileSessionStorage extends MockArraySessionStorage
 {
     private $savePath;
+
     /**
      * @param string $savePath Path of directory to save session files
      * @param string $name
      */
-    public function __construct($savePath = null, $name = 'MOCKSESSID', \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    public function __construct($savePath = null, $name = 'MOCKSESSID', MetadataBag $metaBag = null)
     {
         $name = (string) $name;
         if (null === $savePath) {
-            $savePath = \sys_get_temp_dir();
+            $savePath = sys_get_temp_dir();
         }
-        if (!\is_dir($savePath) && !@\mkdir($savePath, 0777, \true) && !\is_dir($savePath)) {
-            throw new \RuntimeException(\sprintf('Session Storage was not able to create directory "%s".', $savePath));
+
+        if (!is_dir($savePath) && !@mkdir($savePath, 0777, true) && !is_dir($savePath)) {
+            throw new \RuntimeException(sprintf('Session Storage was not able to create directory "%s".', $savePath));
         }
+
         $this->savePath = $savePath;
+
         parent::__construct($name, $metaBag);
     }
+
     /**
      * {@inheritdoc}
      */
     public function start()
     {
         if ($this->started) {
-            return \true;
+            return true;
         }
+
         if (!$this->id) {
             $this->id = $this->generateId();
         }
+
         $this->read();
-        $this->started = \true;
-        return \true;
+
+        $this->started = true;
+
+        return true;
     }
+
     /**
      * {@inheritdoc}
      * @param bool $destroy
      * @param int $lifetime
      */
-    public function regenerate($destroy = \false, $lifetime = null)
+    public function regenerate($destroy = false, $lifetime = null)
     {
         $destroy = (bool) $destroy;
         if (!$this->started) {
             $this->start();
         }
+
         if ($destroy) {
             $this->destroy();
         }
+
         return parent::regenerate($destroy, $lifetime);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -79,31 +93,36 @@ class MockFileSessionStorage extends \ECSPrefix20210509\Symfony\Component\HttpFo
         if (!$this->started) {
             throw new \RuntimeException('Trying to save a session that was not started yet or was already closed.');
         }
+
         $data = $this->data;
+
         foreach ($this->bags as $bag) {
             if (empty($data[$key = $bag->getStorageKey()])) {
                 unset($data[$key]);
             }
         }
-        if ([$key = $this->metadataBag->getStorageKey()] === \array_keys($data)) {
+        if ([$key = $this->metadataBag->getStorageKey()] === array_keys($data)) {
             unset($data[$key]);
         }
+
         try {
             if ($data) {
                 $path = $this->getFilePath();
-                $tmp = $path . \bin2hex(\random_bytes(6));
-                \file_put_contents($tmp, \serialize($data));
-                \rename($tmp, $path);
+                $tmp = $path.bin2hex(random_bytes(6));
+                file_put_contents($tmp, serialize($data));
+                rename($tmp, $path);
             } else {
                 $this->destroy();
             }
         } finally {
             $this->data = $data;
         }
+
         // this is needed when the session object is re-used across multiple requests
         // in functional tests.
-        $this->started = \false;
+        $this->started = false;
     }
+
     /**
      * Deletes a session from persistent storage.
      * Deliberately leaves session data in memory intact.
@@ -111,36 +130,38 @@ class MockFileSessionStorage extends \ECSPrefix20210509\Symfony\Component\HttpFo
      */
     private function destroy()
     {
-        \set_error_handler(static function () {
-        });
+        set_error_handler(static function () {});
         try {
-            \unlink($this->getFilePath());
+            unlink($this->getFilePath());
         } finally {
-            \restore_error_handler();
+            restore_error_handler();
         }
     }
+
     /**
      * Calculate path to file.
      * @return string
      */
     private function getFilePath()
     {
-        return $this->savePath . '/' . $this->id . '.mocksess';
+        return $this->savePath.'/'.$this->id.'.mocksess';
     }
+
     /**
      * Reads session from storage and loads session.
      * @return void
      */
     private function read()
     {
-        \set_error_handler(static function () {
-        });
+        set_error_handler(static function () {});
         try {
-            $data = \file_get_contents($this->getFilePath());
+            $data = file_get_contents($this->getFilePath());
         } finally {
-            \restore_error_handler();
+            restore_error_handler();
         }
-        $this->data = $data ? \unserialize($data) : [];
+
+        $this->data = $data ? unserialize($data) : [];
+
         $this->loadSession();
     }
 }

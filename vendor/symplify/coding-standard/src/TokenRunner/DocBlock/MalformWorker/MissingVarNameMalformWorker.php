@@ -2,57 +2,67 @@
 
 namespace Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker;
 
-use ECSPrefix20210509\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-final class MissingVarNameMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
+
+final class MissingVarNameMalformWorker implements MalformWorkerInterface
 {
     /**
      * @var string
      * @see https://regex101.com/r/QtWnWv/3
      */
-    const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\\/\\*\\* @var )(?<type>[\\\\\\w\\|]+)(?<close>\\s+\\*\\/)$#';
+    const VAR_WITHOUT_NAME_REGEX = '#^(?<open>\/\*\* @var )(?<type>[\\\\\w\|]+)(?<close>\s+\*\/)$#';
+
     /**
      * @param Tokens<Token> $tokens
      * @param string $docContent
      * @param int $position
      * @return string
      */
-    public function work($docContent, \PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    public function work($docContent, Tokens $tokens, $position)
     {
         $docContent = (string) $docContent;
         $position = (int) $position;
-        if (!\ECSPrefix20210509\Nette\Utils\Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
+        if (! Strings::match($docContent, self::VAR_WITHOUT_NAME_REGEX)) {
             return $docContent;
         }
+
         $nextVariableToken = $this->getNextVariableToken($tokens, $position);
-        if (!$nextVariableToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (! $nextVariableToken instanceof Token) {
             return $docContent;
         }
-        return \ECSPrefix20210509\Nette\Utils\Strings::replace($docContent, self::VAR_WITHOUT_NAME_REGEX, function (array $match) use($nextVariableToken) : string {
+
+        return Strings::replace($docContent, self::VAR_WITHOUT_NAME_REGEX, function (array $match) use (
+            $nextVariableToken
+        ): string {
             return $match['open'] . $match['type'] . ' ' . $nextVariableToken->getContent() . $match['close'];
         });
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return \PhpCsFixer\Tokenizer\Token|null
      * @param int $position
      */
-    private function getNextVariableToken(\PhpCsFixer\Tokenizer\Tokens $tokens, $position)
+    private function getNextVariableToken(Tokens $tokens, $position)
     {
         $position = (int) $position;
         $nextMeaningfulTokenPosition = $tokens->getNextMeaningfulToken($position);
         if ($nextMeaningfulTokenPosition === null) {
             return null;
         }
+
         $nextToken = isset($tokens[$nextMeaningfulTokenPosition]) ? $tokens[$nextMeaningfulTokenPosition] : null;
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
+        if (! $nextToken instanceof Token) {
             return null;
         }
-        if (!$nextToken->isGivenKind(\T_VARIABLE)) {
+
+        if (! $nextToken->isGivenKind(T_VARIABLE)) {
             return null;
         }
+
         return $nextToken;
     }
 }

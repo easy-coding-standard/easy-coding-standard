@@ -4,32 +4,43 @@ namespace Symplify\CodingStandard\TokenAnalyzer;
 
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 final class SymfonyClosureAnalyzer
 {
     /**
      * @var Token[]
      */
     private $symfonyClosureContainerConfiguratorFunctionTokens = [];
+
     public function __construct()
     {
-        $this->symfonyClosureContainerConfiguratorFunctionTokens = [new \PhpCsFixer\Tokenizer\Token('('), new \PhpCsFixer\Tokenizer\Token([\T_STRING, 'ContainerConfigurator']), new \PhpCsFixer\Tokenizer\Token([\T_VARIABLE, '$containerConfigurator']), new \PhpCsFixer\Tokenizer\Token(')')];
+        $this->symfonyClosureContainerConfiguratorFunctionTokens = [
+            new Token('('),
+            new Token([T_STRING, 'ContainerConfigurator']),
+            new Token([T_VARIABLE, '$containerConfigurator']),
+            new Token(')'),
+        ];
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isContainerConfiguratorClosure(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isContainerConfiguratorClosure(Tokens $tokens)
     {
         foreach ($tokens as $token) {
-            if (!$token->isGivenKind(\T_FUNCTION)) {
+            if (! $token->isGivenKind(T_FUNCTION)) {
                 continue;
             }
+
             $closureSequence = $tokens->findSequence($this->symfonyClosureContainerConfiguratorFunctionTokens);
             if ($closureSequence === null) {
                 continue;
             }
-            return \true;
+
+            return true;
         }
-        return \false;
+
+        return false;
     }
 }

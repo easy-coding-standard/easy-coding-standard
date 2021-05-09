@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\ControlStructure;
 
 use PhpCsFixer\AbstractNoUselessElseFixer;
@@ -16,27 +17,35 @@ use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author SpacePossum
  */
-final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
+final class NoUselessElseFixer extends AbstractNoUselessElseFixer
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(\T_ELSE);
+        return $tokens->isTokenKindFound(T_ELSE);
     }
+
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('There should not be useless `else` cases.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\nif (\$a) {\n    return 1;\n} else {\n    return 2;\n}\n")]);
+        return new FixerDefinition(
+            'There should not be useless `else` cases.',
+            [
+                new CodeSample("<?php\nif (\$a) {\n    return 1;\n} else {\n    return 2;\n}\n"),
+            ]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -48,72 +57,82 @@ final class NoUselessElseFixer extends \PhpCsFixer\AbstractNoUselessElseFixer
     {
         return parent::getPriority();
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(\T_ELSE)) {
+            if (!$token->isGivenKind(T_ELSE)) {
                 continue;
             }
+
             // `else if` vs. `else` and alternative syntax `else:` checks
-            if ($tokens[$tokens->getNextMeaningfulToken($index)]->equalsAny([':', [\T_IF]])) {
+            if ($tokens[$tokens->getNextMeaningfulToken($index)]->equalsAny([':', [T_IF]])) {
                 continue;
             }
+
             // clean up `else` if it is an empty statement
             $this->fixEmptyElse($tokens, $index);
             if ($tokens->isEmptyAt($index)) {
                 continue;
             }
+
             // clean up `else` if possible
             if ($this->isSuperfluousElse($tokens, $index)) {
                 $this->clearElse($tokens, $index);
             }
         }
     }
+
     /**
      * Remove tokens part of an `else` statement if not empty (i.e. no meaningful tokens inside).
      *
      * @param int $index T_ELSE index
      * @return void
      */
-    private function fixEmptyElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function fixEmptyElse(Tokens $tokens, $index)
     {
         $index = (int) $index;
         $next = $tokens->getNextMeaningfulToken($index);
+
         if ($tokens[$next]->equals('{')) {
-            $close = $tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $next);
-            if (1 === $close - $next) {
-                // '{}'
+            $close = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $next);
+            if (1 === $close - $next) { // '{}'
                 $this->clearElse($tokens, $index);
-            } elseif ($tokens->getNextMeaningfulToken($next) === $close) {
-                // '{/**/}'
+            } elseif ($tokens->getNextMeaningfulToken($next) === $close) { // '{/**/}'
                 $this->clearElse($tokens, $index);
             }
+
             return;
         }
+
         // short `else`
-        $end = $tokens->getNextTokenOfKind($index, [';', [\T_CLOSE_TAG]]);
+        $end = $tokens->getNextTokenOfKind($index, [';', [T_CLOSE_TAG]]);
         if ($next === $end) {
             $this->clearElse($tokens, $index);
         }
     }
+
     /**
      * @param int $index index of T_ELSE
      * @return void
      */
-    private function clearElse(\PhpCsFixer\Tokenizer\Tokens $tokens, $index)
+    private function clearElse(Tokens $tokens, $index)
     {
         $index = (int) $index;
         $tokens->clearTokenAndMergeSurroundingWhitespace($index);
+
         // clear T_ELSE and the '{' '}' if there are any
         $next = $tokens->getNextMeaningfulToken($index);
+
         if (!$tokens[$next]->equals('{')) {
             return;
         }
-        $tokens->clearTokenAndMergeSurroundingWhitespace($tokens->findBlockEnd(\PhpCsFixer\Tokenizer\Tokens::BLOCK_TYPE_CURLY_BRACE, $next));
+
+        $tokens->clearTokenAndMergeSurroundingWhitespace($tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $next));
         $tokens->clearTokenAndMergeSurroundingWhitespace($next);
     }
 }

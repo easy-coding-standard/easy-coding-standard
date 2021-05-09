@@ -9,6 +9,7 @@ final class Option
      * @var string
      */
     const CONFIG = 'config';
+
     /**
      * @api
      * @var string

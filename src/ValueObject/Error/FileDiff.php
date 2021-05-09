@@ -3,31 +3,40 @@
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class FileDiff
 {
     /**
      * @var string
      */
     private $diff;
+
     /**
      * @var string[]
      */
     private $appliedCheckers = [];
+
     /**
      * @var string
      */
     private $consoleFormattedDiff;
+
     /**
      * @var SmartFileInfo
      */
     private $smartFileInfo;
+
     /**
      * @param string[] $appliedCheckers
      * @param string $diff
      * @param string $consoleFormattedDiff
      */
-    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, $consoleFormattedDiff, array $appliedCheckers)
-    {
+    public function __construct(
+        SmartFileInfo $smartFileInfo,
+        $diff,
+        $consoleFormattedDiff,
+        array $appliedCheckers
+    ) {
         $diff = (string) $diff;
         $consoleFormattedDiff = (string) $consoleFormattedDiff;
         $this->diff = $diff;
@@ -35,6 +44,7 @@ final class FileDiff
         $this->consoleFormattedDiff = $consoleFormattedDiff;
         $this->smartFileInfo = $smartFileInfo;
     }
+
     /**
      * @return string
      */
@@ -42,6 +52,7 @@ final class FileDiff
     {
         return $this->diff;
     }
+
     /**
      * @return string
      */
@@ -49,15 +60,18 @@ final class FileDiff
     {
         return $this->consoleFormattedDiff;
     }
+
     /**
      * @return mixed[]
      */
     public function getAppliedCheckers()
     {
-        $this->appliedCheckers = \array_unique($this->appliedCheckers);
-        \sort($this->appliedCheckers);
+        $this->appliedCheckers = array_unique($this->appliedCheckers);
+        sort($this->appliedCheckers);
+
         return $this->appliedCheckers;
     }
+
     /**
      * @return string
      */

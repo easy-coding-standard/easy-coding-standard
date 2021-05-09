@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
+namespace Symfony\Component\VarDumper\Caster;
+
+use Symfony\Component\VarDumper\Cloner\Stub;
+
 /**
  * Casts Reflector related classes to array representation.
  *
@@ -20,306 +22,428 @@ use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
  */
 class ReflectionCaster
 {
-    const UNSET_CLOSURE_FILE_INFO = ['Closure' => __CLASS__ . '::unsetClosureFileInfo'];
-    const EXTRA_MAP = ['docComment' => 'getDocComment', 'extension' => 'getExtensionName', 'isDisabled' => 'isDisabled', 'isDeprecated' => 'isDeprecated', 'isInternal' => 'isInternal', 'isUserDefined' => 'isUserDefined', 'isGenerator' => 'isGenerator', 'isVariadic' => 'isVariadic'];
+    const UNSET_CLOSURE_FILE_INFO = ['Closure' => __CLASS__.'::unsetClosureFileInfo'];
+
+    const EXTRA_MAP = [
+        'docComment' => 'getDocComment',
+        'extension' => 'getExtensionName',
+        'isDisabled' => 'isDisabled',
+        'isDeprecated' => 'isDeprecated',
+        'isInternal' => 'isInternal',
+        'isUserDefined' => 'isUserDefined',
+        'isGenerator' => 'isGenerator',
+        'isVariadic' => 'isVariadic',
+    ];
+
     /**
      * @param bool $isNested
      * @param int $filter
      */
-    public static function castClosure(\Closure $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
+    public static function castClosure(\Closure $c, array $a, Stub $stub, $isNested, $filter = 0)
     {
         $isNested = (bool) $isNested;
         $filter = (int) $filter;
-        $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
+        $prefix = Caster::PREFIX_VIRTUAL;
         $c = new \ReflectionFunction($c);
+
         $a = static::castFunctionAbstract($c, $a, $stub, $isNested, $filter);
-        if (\false === \strpos($c->name, '{closure}')) {
-            $stub->class = isset($a[$prefix . 'class']) ? $a[$prefix . 'class']->value . '::' . $c->name : $c->name;
-            unset($a[$prefix . 'class']);
+
+        if (false === strpos($c->name, '{closure}')) {
+            $stub->class = isset($a[$prefix.'class']) ? $a[$prefix.'class']->value.'::'.$c->name : $c->name;
+            unset($a[$prefix.'class']);
         }
-        unset($a[$prefix . 'extra']);
+        unset($a[$prefix.'extra']);
+
         $stub->class .= self::getSignature($a);
+
         if ($f = $c->getFileName()) {
             $stub->attr['file'] = $f;
             $stub->attr['line'] = $c->getStartLine();
         }
-        unset($a[$prefix . 'parameters']);
-        if ($filter & \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE) {
+
+        unset($a[$prefix.'parameters']);
+
+        if ($filter & Caster::EXCLUDE_VERBOSE) {
             $stub->cut += ($c->getFileName() ? 2 : 0) + \count($a);
+
             return [];
         }
+
         if ($f) {
-            $a[$prefix . 'file'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\LinkStub($f, $c->getStartLine());
-            $a[$prefix . 'line'] = $c->getStartLine() . ' to ' . $c->getEndLine();
+            $a[$prefix.'file'] = new LinkStub($f, $c->getStartLine());
+            $a[$prefix.'line'] = $c->getStartLine().' to '.$c->getEndLine();
         }
+
         return $a;
     }
+
     public static function unsetClosureFileInfo(\Closure $c, array $a)
     {
-        unset($a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'file'], $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'line']);
+        unset($a[Caster::PREFIX_VIRTUAL.'file'], $a[Caster::PREFIX_VIRTUAL.'line']);
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castGenerator(\Generator $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castGenerator(\Generator $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         // Cannot create ReflectionGenerator based on a terminated Generator
         try {
             $reflectionGenerator = new \ReflectionGenerator($c);
         } catch (\Exception $e) {
-            $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'closed'] = \true;
+            $a[Caster::PREFIX_VIRTUAL.'closed'] = true;
+
             return $a;
         }
+
         return self::castReflectionGenerator($reflectionGenerator, $a, $stub, $isNested);
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castType(\ReflectionType $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castType(\ReflectionType $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
+        $prefix = Caster::PREFIX_VIRTUAL;
+
         if ($c instanceof \ReflectionNamedType || \PHP_VERSION_ID < 80000) {
-            $a += [$prefix . 'name' => $c instanceof \ReflectionNamedType ? $c->getName() : (string) $c, $prefix . 'allowsNull' => $c->allowsNull(), $prefix . 'isBuiltin' => $c->isBuiltin()];
+            $a += [
+                $prefix.'name' => $c instanceof \ReflectionNamedType ? $c->getName() : (string) $c,
+                $prefix.'allowsNull' => $c->allowsNull(),
+                $prefix.'isBuiltin' => $c->isBuiltin(),
+            ];
         } elseif ($c instanceof \ReflectionUnionType) {
-            $a[$prefix . 'allowsNull'] = $c->allowsNull();
-            self::addMap($a, $c, ['types' => 'getTypes']);
+            $a[$prefix.'allowsNull'] = $c->allowsNull();
+            self::addMap($a, $c, [
+                'types' => 'getTypes',
+            ]);
         } else {
-            $a[$prefix . 'allowsNull'] = $c->allowsNull();
+            $a[$prefix.'allowsNull'] = $c->allowsNull();
         }
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castAttribute(\ReflectionAttribute $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castAttribute(\ReflectionAttribute $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        self::addMap($a, $c, ['name' => 'getName', 'arguments' => 'getArguments']);
+        self::addMap($a, $c, [
+            'name' => 'getName',
+            'arguments' => 'getArguments',
+        ]);
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castReflectionGenerator(\ReflectionGenerator $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castReflectionGenerator(\ReflectionGenerator $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
+        $prefix = Caster::PREFIX_VIRTUAL;
+
         if ($c->getThis()) {
-            $a[$prefix . 'this'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\CutStub($c->getThis());
+            $a[$prefix.'this'] = new CutStub($c->getThis());
         }
         $function = $c->getFunction();
-        $frame = ['class' => $function->class !== null ? $function->class : null, 'type' => isset($function->class) ? $function->isStatic() ? '::' : '->' : null, 'function' => $function->name, 'file' => $c->getExecutingFile(), 'line' => $c->getExecutingLine()];
+        $frame = [
+            'class' => $function->class !== null ? $function->class : null,
+            'type' => isset($function->class) ? ($function->isStatic() ? '::' : '->') : null,
+            'function' => $function->name,
+            'file' => $c->getExecutingFile(),
+            'line' => $c->getExecutingLine(),
+        ];
         if ($trace = $c->getTrace(\DEBUG_BACKTRACE_IGNORE_ARGS)) {
             $function = new \ReflectionGenerator($c->getExecutingGenerator());
-            \array_unshift($trace, ['function' => 'yield', 'file' => $function->getExecutingFile(), 'line' => $function->getExecutingLine() - 1]);
+            array_unshift($trace, [
+                'function' => 'yield',
+                'file' => $function->getExecutingFile(),
+                'line' => $function->getExecutingLine() - 1,
+            ]);
             $trace[] = $frame;
-            $a[$prefix . 'trace'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\TraceStub($trace, \false, 0, -1, -1);
+            $a[$prefix.'trace'] = new TraceStub($trace, false, 0, -1, -1);
         } else {
-            $function = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\FrameStub($frame, \false, \true);
-            $function = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ExceptionCaster::castFrameStub($function, [], $function, \true);
-            $a[$prefix . 'executing'] = $function[$prefix . 'src'];
+            $function = new FrameStub($frame, false, true);
+            $function = ExceptionCaster::castFrameStub($function, [], $function, true);
+            $a[$prefix.'executing'] = $function[$prefix.'src'];
         }
-        $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'closed'] = \false;
+
+        $a[Caster::PREFIX_VIRTUAL.'closed'] = false;
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      * @param int $filter
      */
-    public static function castClass(\ReflectionClass $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
+    public static function castClass(\ReflectionClass $c, array $a, Stub $stub, $isNested, $filter = 0)
     {
         $isNested = (bool) $isNested;
         $filter = (int) $filter;
-        $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
+        $prefix = Caster::PREFIX_VIRTUAL;
+
         if ($n = \Reflection::getModifierNames($c->getModifiers())) {
-            $a[$prefix . 'modifiers'] = \implode(' ', $n);
+            $a[$prefix.'modifiers'] = implode(' ', $n);
         }
-        self::addMap($a, $c, ['extends' => 'getParentClass', 'implements' => 'getInterfaceNames', 'constants' => 'getReflectionConstants']);
+
+        self::addMap($a, $c, [
+            'extends' => 'getParentClass',
+            'implements' => 'getInterfaceNames',
+            'constants' => 'getReflectionConstants',
+        ]);
+
         foreach ($c->getProperties() as $n) {
-            $a[$prefix . 'properties'][$n->name] = $n;
+            $a[$prefix.'properties'][$n->name] = $n;
         }
+
         foreach ($c->getMethods() as $n) {
-            $a[$prefix . 'methods'][$n->name] = $n;
+            $a[$prefix.'methods'][$n->name] = $n;
         }
+
         self::addAttributes($a, $c, $prefix);
-        if (!($filter & \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE) && !$isNested) {
+
+        if (!($filter & Caster::EXCLUDE_VERBOSE) && !$isNested) {
             self::addExtra($a, $c);
         }
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      * @param int $filter
      */
-    public static function castFunctionAbstract(\ReflectionFunctionAbstract $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter = 0)
+    public static function castFunctionAbstract(\ReflectionFunctionAbstract $c, array $a, Stub $stub, $isNested, $filter = 0)
     {
         $isNested = (bool) $isNested;
         $filter = (int) $filter;
-        $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
-        self::addMap($a, $c, ['returnsReference' => 'returnsReference', 'returnType' => 'getReturnType', 'class' => 'getClosureScopeClass', 'this' => 'getClosureThis']);
-        if (isset($a[$prefix . 'returnType'])) {
-            $v = $a[$prefix . 'returnType'];
+        $prefix = Caster::PREFIX_VIRTUAL;
+
+        self::addMap($a, $c, [
+            'returnsReference' => 'returnsReference',
+            'returnType' => 'getReturnType',
+            'class' => 'getClosureScopeClass',
+            'this' => 'getClosureThis',
+        ]);
+
+        if (isset($a[$prefix.'returnType'])) {
+            $v = $a[$prefix.'returnType'];
             $v = $v instanceof \ReflectionNamedType ? $v->getName() : (string) $v;
-            $a[$prefix . 'returnType'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ClassStub($a[$prefix . 'returnType'] instanceof \ReflectionNamedType && $a[$prefix . 'returnType']->allowsNull() && 'mixed' !== $v ? '?' . $v : $v, [\class_exists($v, \false) || \interface_exists($v, \false) || \trait_exists($v, \false) ? $v : '', '']);
+            $a[$prefix.'returnType'] = new ClassStub($a[$prefix.'returnType'] instanceof \ReflectionNamedType && $a[$prefix.'returnType']->allowsNull() && 'mixed' !== $v ? '?'.$v : $v, [class_exists($v, false) || interface_exists($v, false) || trait_exists($v, false) ? $v : '', '']);
         }
-        if (isset($a[$prefix . 'class'])) {
-            $a[$prefix . 'class'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ClassStub($a[$prefix . 'class']);
+        if (isset($a[$prefix.'class'])) {
+            $a[$prefix.'class'] = new ClassStub($a[$prefix.'class']);
         }
-        if (isset($a[$prefix . 'this'])) {
-            $a[$prefix . 'this'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\CutStub($a[$prefix . 'this']);
+        if (isset($a[$prefix.'this'])) {
+            $a[$prefix.'this'] = new CutStub($a[$prefix.'this']);
         }
+
         foreach ($c->getParameters() as $v) {
-            $k = '$' . $v->name;
+            $k = '$'.$v->name;
             if ($v->isVariadic()) {
-                $k = '...' . $k;
+                $k = '...'.$k;
             }
             if ($v->isPassedByReference()) {
-                $k = '&' . $k;
+                $k = '&'.$k;
             }
-            $a[$prefix . 'parameters'][$k] = $v;
+            $a[$prefix.'parameters'][$k] = $v;
         }
-        if (isset($a[$prefix . 'parameters'])) {
-            $a[$prefix . 'parameters'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\EnumStub($a[$prefix . 'parameters']);
+        if (isset($a[$prefix.'parameters'])) {
+            $a[$prefix.'parameters'] = new EnumStub($a[$prefix.'parameters']);
         }
+
         self::addAttributes($a, $c, $prefix);
-        if (!($filter & \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE) && ($v = $c->getStaticVariables())) {
+
+        if (!($filter & Caster::EXCLUDE_VERBOSE) && $v = $c->getStaticVariables()) {
             foreach ($v as $k => &$v) {
                 if (\is_object($v)) {
-                    $a[$prefix . 'use']['$' . $k] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\CutStub($v);
+                    $a[$prefix.'use']['$'.$k] = new CutStub($v);
                 } else {
-                    $a[$prefix . 'use']['$' . $k] =& $v;
+                    $a[$prefix.'use']['$'.$k] = &$v;
                 }
             }
             unset($v);
-            $a[$prefix . 'use'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\EnumStub($a[$prefix . 'use']);
+            $a[$prefix.'use'] = new EnumStub($a[$prefix.'use']);
         }
-        if (!($filter & \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::EXCLUDE_VERBOSE) && !$isNested) {
+
+        if (!($filter & Caster::EXCLUDE_VERBOSE) && !$isNested) {
             self::addExtra($a, $c);
         }
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castClassConstant(\ReflectionClassConstant $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castClassConstant(\ReflectionClassConstant $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'modifiers'] = \implode(' ', \Reflection::getModifierNames($c->getModifiers()));
-        $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'value'] = $c->getValue();
+        $a[Caster::PREFIX_VIRTUAL.'modifiers'] = implode(' ', \Reflection::getModifierNames($c->getModifiers()));
+        $a[Caster::PREFIX_VIRTUAL.'value'] = $c->getValue();
+
         self::addAttributes($a, $c);
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castMethod(\ReflectionMethod $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castMethod(\ReflectionMethod $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'modifiers'] = \implode(' ', \Reflection::getModifierNames($c->getModifiers()));
+        $a[Caster::PREFIX_VIRTUAL.'modifiers'] = implode(' ', \Reflection::getModifierNames($c->getModifiers()));
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castParameter(\ReflectionParameter $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castParameter(\ReflectionParameter $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
-        self::addMap($a, $c, ['position' => 'getPosition', 'isVariadic' => 'isVariadic', 'byReference' => 'isPassedByReference', 'allowsNull' => 'allowsNull']);
+        $prefix = Caster::PREFIX_VIRTUAL;
+
+        self::addMap($a, $c, [
+            'position' => 'getPosition',
+            'isVariadic' => 'isVariadic',
+            'byReference' => 'isPassedByReference',
+            'allowsNull' => 'allowsNull',
+        ]);
+
         self::addAttributes($a, $c, $prefix);
+
         if ($v = $c->getType()) {
-            $a[$prefix . 'typeHint'] = $v instanceof \ReflectionNamedType ? $v->getName() : (string) $v;
+            $a[$prefix.'typeHint'] = $v instanceof \ReflectionNamedType ? $v->getName() : (string) $v;
         }
-        if (isset($a[$prefix . 'typeHint'])) {
-            $v = $a[$prefix . 'typeHint'];
-            $a[$prefix . 'typeHint'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ClassStub($v, [\class_exists($v, \false) || \interface_exists($v, \false) || \trait_exists($v, \false) ? $v : '', '']);
+
+        if (isset($a[$prefix.'typeHint'])) {
+            $v = $a[$prefix.'typeHint'];
+            $a[$prefix.'typeHint'] = new ClassStub($v, [class_exists($v, false) || interface_exists($v, false) || trait_exists($v, false) ? $v : '', '']);
         } else {
-            unset($a[$prefix . 'allowsNull']);
+            unset($a[$prefix.'allowsNull']);
         }
+
         try {
-            $a[$prefix . 'default'] = $v = $c->getDefaultValue();
+            $a[$prefix.'default'] = $v = $c->getDefaultValue();
             if ($c->isDefaultValueConstant()) {
-                $a[$prefix . 'default'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ConstStub($c->getDefaultValueConstantName(), $v);
+                $a[$prefix.'default'] = new ConstStub($c->getDefaultValueConstantName(), $v);
             }
             if (null === $v) {
-                unset($a[$prefix . 'allowsNull']);
+                unset($a[$prefix.'allowsNull']);
             }
         } catch (\ReflectionException $e) {
         }
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castProperty(\ReflectionProperty $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castProperty(\ReflectionProperty $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'modifiers'] = \implode(' ', \Reflection::getModifierNames($c->getModifiers()));
+        $a[Caster::PREFIX_VIRTUAL.'modifiers'] = implode(' ', \Reflection::getModifierNames($c->getModifiers()));
+
         self::addAttributes($a, $c);
         self::addExtra($a, $c);
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castReference(\ReflectionReference $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castReference(\ReflectionReference $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'id'] = $c->getId();
+        $a[Caster::PREFIX_VIRTUAL.'id'] = $c->getId();
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castExtension(\ReflectionExtension $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castExtension(\ReflectionExtension $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        self::addMap($a, $c, ['version' => 'getVersion', 'dependencies' => 'getDependencies', 'iniEntries' => 'getIniEntries', 'isPersistent' => 'isPersistent', 'isTemporary' => 'isTemporary', 'constants' => 'getConstants', 'functions' => 'getFunctions', 'classes' => 'getClasses']);
+        self::addMap($a, $c, [
+            'version' => 'getVersion',
+            'dependencies' => 'getDependencies',
+            'iniEntries' => 'getIniEntries',
+            'isPersistent' => 'isPersistent',
+            'isTemporary' => 'isTemporary',
+            'constants' => 'getConstants',
+            'functions' => 'getFunctions',
+            'classes' => 'getClasses',
+        ]);
+
         return $a;
     }
+
     /**
      * @param bool $isNested
      */
-    public static function castZendExtension(\ReflectionZendExtension $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castZendExtension(\ReflectionZendExtension $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        self::addMap($a, $c, ['version' => 'getVersion', 'author' => 'getAuthor', 'copyright' => 'getCopyright', 'url' => 'getURL']);
+        self::addMap($a, $c, [
+            'version' => 'getVersion',
+            'author' => 'getAuthor',
+            'copyright' => 'getCopyright',
+            'url' => 'getURL',
+        ]);
+
         return $a;
     }
+
     public static function getSignature(array $a)
     {
-        $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL;
+        $prefix = Caster::PREFIX_VIRTUAL;
         $signature = '';
-        if (isset($a[$prefix . 'parameters'])) {
-            foreach ($a[$prefix . 'parameters']->value as $k => $param) {
+
+        if (isset($a[$prefix.'parameters'])) {
+            foreach ($a[$prefix.'parameters']->value as $k => $param) {
                 $signature .= ', ';
                 if ($type = $param->getType()) {
                     if (!$type instanceof \ReflectionNamedType) {
-                        $signature .= $type . ' ';
+                        $signature .= $type.' ';
                     } else {
                         if (!$param->isOptional() && $param->allowsNull() && 'mixed' !== $type->getName()) {
                             $signature .= '?';
                         }
-                        $signature .= \substr(\strrchr('\\' . $type->getName(), '\\'), 1) . ' ';
+                        $signature .= substr(strrchr('\\'.$type->getName(), '\\'), 1).' ';
                     }
                 }
                 $signature .= $k;
+
                 if (!$param->isDefaultValueAvailable()) {
                     continue;
                 }
                 $v = $param->getDefaultValue();
                 $signature .= ' = ';
+
                 if ($param->isDefaultValueConstant()) {
-                    $signature .= \substr(\strrchr('\\' . $param->getDefaultValueConstantName(), '\\'), 1);
+                    $signature .= substr(strrchr('\\'.$param->getDefaultValueConstantName(), '\\'), 1);
                 } elseif (null === $v) {
                     $signature .= 'null';
                 } elseif (\is_array($v)) {
-                    $signature .= $v ? '[…' . \count($v) . ']' : '[]';
+                    $signature .= $v ? '[…'.\count($v).']' : '[]';
                 } elseif (\is_string($v)) {
-                    $signature .= 10 > \strlen($v) && \false === \strpos($v, '\\') ? "'{$v}'" : "'…" . \strlen($v) . "'";
+                    $signature .= 10 > \strlen($v) && false === strpos($v, '\\') ? "'{$v}'" : "'…".\strlen($v)."'";
                 } elseif (\is_bool($v)) {
                     $signature .= $v ? 'true' : 'false';
                 } else {
@@ -327,50 +451,59 @@ class ReflectionCaster
                 }
             }
         }
-        $signature = (empty($a[$prefix . 'returnsReference']) ? '' : '&') . '(' . \substr($signature, 2) . ')';
-        if (isset($a[$prefix . 'returnType'])) {
-            $signature .= ': ' . \substr(\strrchr('\\' . $a[$prefix . 'returnType'], '\\'), 1);
+        $signature = (empty($a[$prefix.'returnsReference']) ? '' : '&').'('.substr($signature, 2).')';
+
+        if (isset($a[$prefix.'returnType'])) {
+            $signature .= ': '.substr(strrchr('\\'.$a[$prefix.'returnType'], '\\'), 1);
         }
+
         return $signature;
     }
+
     private static function addExtra(array &$a, \Reflector $c)
     {
-        $x = isset($a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'extra']) ? $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'extra']->value : [];
-        if (\method_exists($c, 'getFileName') && ($m = $c->getFileName())) {
-            $x['file'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\LinkStub($m, $c->getStartLine());
-            $x['line'] = $c->getStartLine() . ' to ' . $c->getEndLine();
+        $x = isset($a[Caster::PREFIX_VIRTUAL.'extra']) ? $a[Caster::PREFIX_VIRTUAL.'extra']->value : [];
+
+        if (method_exists($c, 'getFileName') && $m = $c->getFileName()) {
+            $x['file'] = new LinkStub($m, $c->getStartLine());
+            $x['line'] = $c->getStartLine().' to '.$c->getEndLine();
         }
+
         self::addMap($x, $c, self::EXTRA_MAP, '');
+
         if ($x) {
-            $a[\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'extra'] = new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\EnumStub($x);
+            $a[Caster::PREFIX_VIRTUAL.'extra'] = new EnumStub($x);
         }
     }
+
     /**
      * @param object $c
      * @param string $prefix
      */
-    private static function addMap(array &$a, $c, array $map, $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL)
+    private static function addMap(array &$a, $c, array $map, $prefix = Caster::PREFIX_VIRTUAL)
     {
         $prefix = (string) $prefix;
         foreach ($map as $k => $m) {
             if (\PHP_VERSION_ID >= 80000 && 'isDisabled' === $k) {
                 continue;
             }
-            if (\method_exists($c, $m) && \false !== ($m = $c->{$m}()) && null !== $m) {
-                $a[$prefix . $k] = $m instanceof \Reflector ? $m->name : $m;
+
+            if (method_exists($c, $m) && false !== ($m = $c->$m()) && null !== $m) {
+                $a[$prefix.$k] = $m instanceof \Reflector ? $m->name : $m;
             }
         }
     }
+
     /**
      * @return void
      * @param string $prefix
      */
-    private static function addAttributes(array &$a, \Reflector $c, $prefix = \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL)
+    private static function addAttributes(array &$a, \Reflector $c, $prefix = Caster::PREFIX_VIRTUAL)
     {
         $prefix = (string) $prefix;
         if (\PHP_VERSION_ID >= 80000) {
             foreach ($c->getAttributes() as $n) {
-                $a[$prefix . 'attributes'][] = $n;
+                $a[$prefix.'attributes'][] = $n;
             }
         }
     }

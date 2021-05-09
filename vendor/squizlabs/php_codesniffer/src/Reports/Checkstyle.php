@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Checkstyle report for PHP_CodeSniffer.
  *
@@ -7,12 +6,16 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Reports;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Files\File;
-class Checkstyle implements \PHP_CodeSniffer\Reports\Report
+
+class Checkstyle implements Report
 {
+
+
     /**
      * Generate a partial report for a single processed file.
      *
@@ -27,24 +30,28 @@ class Checkstyle implements \PHP_CodeSniffer\Reports\Report
      *
      * @return bool
      */
-    public function generateFileReport($report, \PHP_CodeSniffer\Files\File $phpcsFile, $showSources = \false, $width = 80)
+    public function generateFileReport($report, File $phpcsFile, $showSources=false, $width=80)
     {
-        $out = new \XMLWriter();
+        $out = new \XMLWriter;
         $out->openMemory();
-        $out->setIndent(\true);
+        $out->setIndent(true);
+
         if ($report['errors'] === 0 && $report['warnings'] === 0) {
             // Nothing to print.
-            return \false;
+            return false;
         }
+
         $out->startElement('file');
         $out->writeAttribute('name', $report['filename']);
+
         foreach ($report['messages'] as $line => $lineErrors) {
             foreach ($lineErrors as $column => $colErrors) {
                 foreach ($colErrors as $error) {
-                    $error['type'] = \strtolower($error['type']);
+                    $error['type'] = strtolower($error['type']);
                     if ($phpcsFile->config->encoding !== 'utf-8') {
-                        $error['message'] = \iconv($phpcsFile->config->encoding, 'utf-8', $error['message']);
+                        $error['message'] = iconv($phpcsFile->config->encoding, 'utf-8', $error['message']);
                     }
+
                     $out->startElement('error');
                     $out->writeAttribute('line', $line);
                     $out->writeAttribute('column', $column);
@@ -54,13 +61,16 @@ class Checkstyle implements \PHP_CodeSniffer\Reports\Report
                     $out->endElement();
                 }
             }
-        }
-        //end foreach
+        }//end foreach
+
         $out->endElement();
         echo $out->flush();
-        return \true;
-    }
-    //end generateFileReport()
+
+        return true;
+
+    }//end generateFileReport()
+
+
     /**
      * Prints all violations for processed files, in a Checkstyle format.
      *
@@ -77,13 +87,23 @@ class Checkstyle implements \PHP_CodeSniffer\Reports\Report
      *
      * @return void
      */
-    public function generate($cachedData, $totalFiles, $totalErrors, $totalWarnings, $totalFixable, $showSources = \false, $width = 80, $interactive = \false, $toScreen = \true)
-    {
-        echo '<?xml version="1.0" encoding="UTF-8"?>' . \PHP_EOL;
-        echo '<checkstyle version="' . \PHP_CodeSniffer\Config::VERSION . '">' . \PHP_EOL;
+    public function generate(
+        $cachedData,
+        $totalFiles,
+        $totalErrors,
+        $totalWarnings,
+        $totalFixable,
+        $showSources=false,
+        $width=80,
+        $interactive=false,
+        $toScreen=true
+    ) {
+        echo '<?xml version="1.0" encoding="UTF-8"?>'.PHP_EOL;
+        echo '<checkstyle version="'.Config::VERSION.'">'.PHP_EOL;
         echo $cachedData;
-        echo '</checkstyle>' . \PHP_EOL;
-    }
-    //end generate()
-}
-//end class
+        echo '</checkstyle>'.PHP_EOL;
+
+    }//end generate()
+
+
+}//end class

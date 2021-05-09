@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the ObjectOperatorIndent sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PEAR\Tests\WhiteSpace;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class ObjectOperatorIndentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class ObjectOperatorIndentUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,37 @@ class ObjectOperatorIndentUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abst
      */
     public function getErrorList()
     {
-        return [3 => 2, 6 => 1, 15 => 1, 27 => 1, 37 => 1, 38 => 1, 48 => 1, 49 => 1, 50 => 1, 65 => 1, 69 => 1, 73 => 1, 79 => 1, 80 => 1, 81 => 1, 82 => 1, 95 => 1, 103 => 1, 119 => 2, 122 => 1, 131 => 1, 134 => 1, 140 => 1, 141 => 1, 142 => 1];
-    }
-    //end getErrorList()
+        return [
+            3   => 2,
+            6   => 1,
+            15  => 1,
+            27  => 1,
+            37  => 1,
+            38  => 1,
+            48  => 1,
+            49  => 1,
+            50  => 1,
+            65  => 1,
+            69  => 1,
+            73  => 1,
+            79  => 1,
+            80  => 1,
+            81  => 1,
+            82  => 1,
+            95  => 1,
+            103 => 1,
+            119 => 2,
+            122 => 1,
+            131 => 1,
+            134 => 1,
+            140 => 1,
+            141 => 1,
+            142 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +67,8 @@ class ObjectOperatorIndentUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abst
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

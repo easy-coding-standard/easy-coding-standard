@@ -2,46 +2,56 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+
+final class RemoveExcludedCheckersCompilerPass implements CompilerPassInterface
 {
     /**
      * @return void
      */
-    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(ContainerBuilder $containerBuilder)
     {
         $excludedCheckers = $this->getExcludedCheckersFromParameterBag($containerBuilder->getParameterBag());
+
         $definitions = $containerBuilder->getDefinitions();
         foreach ($definitions as $id => $definition) {
-            if (!\in_array($definition->getClass(), $excludedCheckers, \true)) {
+            if (! in_array($definition->getClass(), $excludedCheckers, true)) {
                 continue;
             }
+
             $containerBuilder->removeDefinition($id);
         }
     }
+
     /**
      * @return mixed[]
      */
-    private function getExcludedCheckersFromParameterBag(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface $parameterBag)
+    private function getExcludedCheckersFromParameterBag(ParameterBagInterface $parameterBag)
     {
+
         // parts of "skip" parameter
-        if (!$parameterBag->has(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP)) {
+        if (! $parameterBag->has(Option::SKIP)) {
             return [];
         }
+
         $excludedCheckers = [];
-        $skip = (array) $parameterBag->get(\Symplify\EasyCodingStandard\ValueObject\Option::SKIP);
+
+        $skip = (array) $parameterBag->get(Option::SKIP);
         foreach ($skip as $key => $value) {
             $excludedChecker = $this->matchFullClassSkip($key, $value);
             if ($excludedChecker === null) {
                 continue;
             }
+
             $excludedCheckers[] = $excludedChecker;
         }
-        return \array_unique($excludedCheckers);
+
+        return array_unique($excludedCheckers);
     }
+
     /**
      * @param mixed $key
      * @param mixed $value
@@ -50,17 +60,17 @@ final class RemoveExcludedCheckersCompilerPass implements \ECSPrefix20210509\Sym
     private function matchFullClassSkip($key, $value)
     {
         // "SomeClass::class" => null
-        if (\is_string($key) && \class_exists($key) && $value === null) {
+        if (is_string($key) && class_exists($key) && $value === null) {
             return $key;
         }
         // "SomeClass::class"
-        if (!\is_int($key)) {
+        if (! is_int($key)) {
             return null;
         }
-        if (!\is_string($value)) {
+        if (! is_string($value)) {
             return null;
         }
-        if (!\class_exists($value)) {
+        if (! class_exists($value)) {
             return null;
         }
         return $value;

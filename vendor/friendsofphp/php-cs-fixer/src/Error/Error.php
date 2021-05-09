@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Error;
 
 /**
@@ -24,34 +25,42 @@ final class Error
      * Error which has occurred in linting phase, before applying any fixers.
      */
     const TYPE_INVALID = 1;
+
     /**
      * Error which has occurred during fixing phase.
      */
     const TYPE_EXCEPTION = 2;
+
     /**
      * Error which has occurred in linting phase, after applying any fixers.
      */
     const TYPE_LINT = 3;
+
     /**
      * @var int
      */
     private $type;
+
     /**
      * @var string
      */
     private $filePath;
+
     /**
      * @var null|\Throwable
      */
     private $source;
+
     /**
      * @var array
      */
     private $appliedFixers;
+
     /**
      * @var null|string
      */
     private $diff;
+
     /**
      * @param \Throwable|null $source
      * @param string|null $diff
@@ -68,6 +77,7 @@ final class Error
         $this->appliedFixers = $appliedFixers;
         $this->diff = $diff;
     }
+
     /**
      * @return string
      */
@@ -75,6 +85,7 @@ final class Error
     {
         return $this->filePath;
     }
+
     /**
      * @return \Throwable|null
      */
@@ -82,6 +93,7 @@ final class Error
     {
         return $this->source;
     }
+
     /**
      * @return int
      */
@@ -89,6 +101,7 @@ final class Error
     {
         return $this->type;
     }
+
     /**
      * @return mixed[]
      */
@@ -96,6 +109,7 @@ final class Error
     {
         return $this->appliedFixers;
     }
+
     /**
      * @return string|null
      */

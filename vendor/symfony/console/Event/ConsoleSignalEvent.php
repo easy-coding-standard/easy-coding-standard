@@ -8,26 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Event;
 
-use ECSPrefix20210509\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
+namespace Symfony\Component\Console\Event;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * @author marie <marie@users.noreply.github.com>
  */
-final class ConsoleSignalEvent extends \ECSPrefix20210509\Symfony\Component\Console\Event\ConsoleEvent
+final class ConsoleSignalEvent extends ConsoleEvent
 {
     private $handlingSignal;
+
     /**
      * @param int $handlingSignal
      */
-    public function __construct(\ECSPrefix20210509\Symfony\Component\Console\Command\Command $command, \ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, $handlingSignal)
+    public function __construct(Command $command, InputInterface $input, OutputInterface $output, $handlingSignal)
     {
         $handlingSignal = (int) $handlingSignal;
         parent::__construct($command, $input, $output);
         $this->handlingSignal = $handlingSignal;
     }
+
     /**
      * @return int
      */

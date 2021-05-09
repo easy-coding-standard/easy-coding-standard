@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Finder\Iterator;
+
+namespace Symfony\Component\Finder\Iterator;
 
 /**
  * FilecontentFilterIterator filters files by their contents using patterns (regexps or strings).
@@ -16,7 +17,7 @@ namespace ECSPrefix20210509\Symfony\Component\Finder\Iterator;
  * @author Fabien Potencier  <fabien@symfony.com>
  * @author Włodzimierz Gajda <gajdaw@gajdaw.pl>
  */
-class FilecontentFilterIterator extends \ECSPrefix20210509\Symfony\Component\Finder\Iterator\MultiplePcreFilterIterator
+class FilecontentFilterIterator extends MultiplePcreFilterIterator
 {
     /**
      * Filters the iterator values.
@@ -26,18 +27,23 @@ class FilecontentFilterIterator extends \ECSPrefix20210509\Symfony\Component\Fin
     public function accept()
     {
         if (!$this->matchRegexps && !$this->noMatchRegexps) {
-            return \true;
+            return true;
         }
+
         $fileinfo = $this->current();
+
         if ($fileinfo->isDir() || !$fileinfo->isReadable()) {
-            return \false;
+            return false;
         }
+
         $content = $fileinfo->getContents();
         if (!$content) {
-            return \false;
+            return false;
         }
+
         return $this->isAccepted($content);
     }
+
     /**
      * Converts string to regexp if necessary.
      *
@@ -48,6 +54,6 @@ class FilecontentFilterIterator extends \ECSPrefix20210509\Symfony\Component\Fin
     protected function toRegex($str)
     {
         $str = (string) $str;
-        return $this->isRegex($str) ? $str : '/' . \preg_quote($str, '/') . '/';
+        return $this->isRegex($str) ? $str : '/'.preg_quote($str, '/').'/';
     }
 }

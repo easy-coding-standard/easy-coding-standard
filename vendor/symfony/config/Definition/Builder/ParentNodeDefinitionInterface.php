@@ -8,14 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config\Definition\Builder;
+
+namespace Symfony\Component\Config\Definition\Builder;
 
 /**
  * An interface that must be implemented by nodes which can have children.
  *
  * @author Victor Berchet <victor@suumit.com>
  */
-interface ParentNodeDefinitionInterface extends \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\BuilderAwareInterface
+interface ParentNodeDefinitionInterface extends BuilderAwareInterface
 {
     /**
      * Returns a builder to add children nodes.
@@ -23,6 +24,7 @@ interface ParentNodeDefinitionInterface extends \ECSPrefix20210509\Symfony\Compo
      * @return NodeBuilder
      */
     public function children();
+
     /**
      * Appends a node definition.
      *
@@ -38,7 +40,8 @@ interface ParentNodeDefinitionInterface extends \ECSPrefix20210509\Symfony\Compo
      *
      * @return $this
      */
-    public function append(\ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NodeDefinition $node);
+    public function append(NodeDefinition $node);
+
     /**
      * Gets the child node definitions.
      *

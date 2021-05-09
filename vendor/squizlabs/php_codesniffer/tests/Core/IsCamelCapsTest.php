@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tests for the \PHP_CodeSniffer\Util\Common::isCamelCaps method.
  *
@@ -7,12 +6,16 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core;
 
 use PHP_CodeSniffer\Util\Common;
-use ECSPrefix20210509\PHPUnit\Framework\TestCase;
-class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class IsCamelCapsTest extends TestCase
 {
+
+
     /**
      * Test valid public function/method names.
      *
@@ -20,10 +23,12 @@ class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
      */
     public function testValidNotClassFormatPublic()
     {
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('thisIsCamelCaps', \false, \true, \true));
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('thisISCamelCaps', \false, \true, \false));
-    }
-    //end testValidNotClassFormatPublic()
+        $this->assertTrue(Common::isCamelCaps('thisIsCamelCaps', false, true, true));
+        $this->assertTrue(Common::isCamelCaps('thisISCamelCaps', false, true, false));
+
+    }//end testValidNotClassFormatPublic()
+
+
     /**
      * Test invalid public function/method names.
      *
@@ -31,18 +36,22 @@ class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
      */
     public function testInvalidNotClassFormatPublic()
     {
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('_thisIsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('thisISCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('ThisIsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('3thisIsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('*thisIsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('-thisIsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('this*IsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('this-IsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('this_IsCamelCaps', \false, \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('this_is_camel_caps', \false, \true, \true));
-    }
-    //end testInvalidNotClassFormatPublic()
+        $this->assertFalse(Common::isCamelCaps('_thisIsCamelCaps', false, true, true));
+        $this->assertFalse(Common::isCamelCaps('thisISCamelCaps', false, true, true));
+        $this->assertFalse(Common::isCamelCaps('ThisIsCamelCaps', false, true, true));
+
+        $this->assertFalse(Common::isCamelCaps('3thisIsCamelCaps', false, true, true));
+        $this->assertFalse(Common::isCamelCaps('*thisIsCamelCaps', false, true, true));
+        $this->assertFalse(Common::isCamelCaps('-thisIsCamelCaps', false, true, true));
+
+        $this->assertFalse(Common::isCamelCaps('this*IsCamelCaps', false, true, true));
+        $this->assertFalse(Common::isCamelCaps('this-IsCamelCaps', false, true, true));
+        $this->assertFalse(Common::isCamelCaps('this_IsCamelCaps', false, true, true));
+        $this->assertFalse(Common::isCamelCaps('this_is_camel_caps', false, true, true));
+
+    }//end testInvalidNotClassFormatPublic()
+
+
     /**
      * Test valid private method names.
      *
@@ -50,12 +59,14 @@ class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
      */
     public function testValidNotClassFormatPrivate()
     {
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('_thisIsCamelCaps', \false, \false, \true));
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('_thisISCamelCaps', \false, \false, \false));
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('_i18N', \false, \false, \true));
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('_i18n', \false, \false, \true));
-    }
-    //end testValidNotClassFormatPrivate()
+        $this->assertTrue(Common::isCamelCaps('_thisIsCamelCaps', false, false, true));
+        $this->assertTrue(Common::isCamelCaps('_thisISCamelCaps', false, false, false));
+        $this->assertTrue(Common::isCamelCaps('_i18N', false, false, true));
+        $this->assertTrue(Common::isCamelCaps('_i18n', false, false, true));
+
+    }//end testValidNotClassFormatPrivate()
+
+
     /**
      * Test invalid private method names.
      *
@@ -63,17 +74,20 @@ class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
      */
     public function testInvalidNotClassFormatPrivate()
     {
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('thisIsCamelCaps', \false, \false, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('_thisISCamelCaps', \false, \false, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('_ThisIsCamelCaps', \false, \false, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('__thisIsCamelCaps', \false, \false, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('__thisISCamelCaps', \false, \false, \false));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('3thisIsCamelCaps', \false, \false, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('*thisIsCamelCaps', \false, \false, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('-thisIsCamelCaps', \false, \false, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('_this_is_camel_caps', \false, \false, \true));
-    }
-    //end testInvalidNotClassFormatPrivate()
+        $this->assertFalse(Common::isCamelCaps('thisIsCamelCaps', false, false, true));
+        $this->assertFalse(Common::isCamelCaps('_thisISCamelCaps', false, false, true));
+        $this->assertFalse(Common::isCamelCaps('_ThisIsCamelCaps', false, false, true));
+        $this->assertFalse(Common::isCamelCaps('__thisIsCamelCaps', false, false, true));
+        $this->assertFalse(Common::isCamelCaps('__thisISCamelCaps', false, false, false));
+
+        $this->assertFalse(Common::isCamelCaps('3thisIsCamelCaps', false, false, true));
+        $this->assertFalse(Common::isCamelCaps('*thisIsCamelCaps', false, false, true));
+        $this->assertFalse(Common::isCamelCaps('-thisIsCamelCaps', false, false, true));
+        $this->assertFalse(Common::isCamelCaps('_this_is_camel_caps', false, false, true));
+
+    }//end testInvalidNotClassFormatPrivate()
+
+
     /**
      * Test valid class names.
      *
@@ -81,11 +95,13 @@ class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
      */
     public function testValidClassFormatPublic()
     {
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('ThisIsCamelCaps', \true, \true, \true));
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('ThisISCamelCaps', \true, \true, \false));
-        $this->assertTrue(\PHP_CodeSniffer\Util\Common::isCamelCaps('This3IsCamelCaps', \true, \true, \false));
-    }
-    //end testValidClassFormatPublic()
+        $this->assertTrue(Common::isCamelCaps('ThisIsCamelCaps', true, true, true));
+        $this->assertTrue(Common::isCamelCaps('ThisISCamelCaps', true, true, false));
+        $this->assertTrue(Common::isCamelCaps('This3IsCamelCaps', true, true, false));
+
+    }//end testValidClassFormatPublic()
+
+
     /**
      * Test invalid class names.
      *
@@ -93,11 +109,13 @@ class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
      */
     public function testInvalidClassFormat()
     {
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('thisIsCamelCaps', \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('This-IsCamelCaps', \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('This_Is_Camel_Caps', \true));
-    }
-    //end testInvalidClassFormat()
+        $this->assertFalse(Common::isCamelCaps('thisIsCamelCaps', true));
+        $this->assertFalse(Common::isCamelCaps('This-IsCamelCaps', true));
+        $this->assertFalse(Common::isCamelCaps('This_Is_Camel_Caps', true));
+
+    }//end testInvalidClassFormat()
+
+
     /**
      * Test invalid class names with the private flag set.
      *
@@ -108,9 +126,10 @@ class IsCamelCapsTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
      */
     public function testInvalidClassFormatPrivate()
     {
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('_ThisIsCamelCaps', \true, \true));
-        $this->assertFalse(\PHP_CodeSniffer\Util\Common::isCamelCaps('_ThisIsCamelCaps', \true, \false));
-    }
-    //end testInvalidClassFormatPrivate()
-}
-//end class
+        $this->assertFalse(Common::isCamelCaps('_ThisIsCamelCaps', true, true));
+        $this->assertFalse(Common::isCamelCaps('_ThisIsCamelCaps', true, false));
+
+    }//end testInvalidClassFormatPrivate()
+
+
+}//end class

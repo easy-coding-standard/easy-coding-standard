@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the InlineIfDeclaration sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class InlineIfDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class InlineIfDeclarationUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Get a list of CLI values to set before the file is tested.
      *
@@ -22,8 +25,10 @@ class InlineIfDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstr
     public function getCliValues($testFile)
     {
         return ['--encoding=utf-8'];
-    }
-    //end getCliValues()
+
+    }//end getCliValues()
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -34,9 +39,24 @@ class InlineIfDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstr
      */
     public function getErrorList()
     {
-        return [4 => 1, 5 => 1, 6 => 1, 7 => 1, 8 => 1, 9 => 1, 10 => 1, 13 => 1, 20 => 1, 24 => 4, 44 => 1, 47 => 1];
-    }
-    //end getErrorList()
+        return [
+            4  => 1,
+            5  => 1,
+            6  => 1,
+            7  => 1,
+            8  => 1,
+            9  => 1,
+            10 => 1,
+            13 => 1,
+            20 => 1,
+            24 => 4,
+            44 => 1,
+            47 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -48,7 +68,8 @@ class InlineIfDeclarationUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstr
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

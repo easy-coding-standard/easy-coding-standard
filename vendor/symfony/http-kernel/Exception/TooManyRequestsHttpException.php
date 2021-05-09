@@ -8,14 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Exception;
+
+namespace Symfony\Component\HttpKernel\Exception;
 
 /**
  * @author Ben Ramsey <ben@benramsey.com>
  *
  * @see http://tools.ietf.org/html/rfc6585
  */
-class TooManyRequestsHttpException extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\HttpException
+class TooManyRequestsHttpException extends HttpException
 {
     /**
      * @param int|string|null $retryAfter The number of seconds or HTTP-date after which the request may be retried
@@ -28,6 +29,7 @@ class TooManyRequestsHttpException extends \ECSPrefix20210509\Symfony\Component\
         if ($retryAfter) {
             $headers['Retry-After'] = $retryAfter;
         }
+
         parent::__construct(429, $message, $previous, $headers, $code);
     }
 }

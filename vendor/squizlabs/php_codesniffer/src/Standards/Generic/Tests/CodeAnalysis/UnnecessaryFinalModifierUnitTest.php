@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the UnnecessaryFinalModifier sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2007-2014 Manuel Pichler. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\CodeAnalysis;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class UnnecessaryFinalModifierUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class UnnecessaryFinalModifierUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -23,8 +26,10 @@ class UnnecessaryFinalModifierUnitTest extends \PHP_CodeSniffer\Tests\Standards\
     public function getErrorList()
     {
         return [];
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -35,8 +40,14 @@ class UnnecessaryFinalModifierUnitTest extends \PHP_CodeSniffer\Tests\Standards\
      */
     public function getWarningList()
     {
-        return [11 => 1, 12 => 1, 15 => 1, 18 => 1];
-    }
-    //end getWarningList()
-}
-//end class
+        return [
+            11 => 1,
+            12 => 1,
+            15 => 1,
+            18 => 1,
+        ];
+
+    }//end getWarningList()
+
+
+}//end class

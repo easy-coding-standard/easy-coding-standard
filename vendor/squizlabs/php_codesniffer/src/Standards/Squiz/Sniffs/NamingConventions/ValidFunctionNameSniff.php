@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ensures method names are correct.
  *
@@ -7,13 +6,17 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\NamingConventions;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions\ValidFunctionNameSniff as PEARValidFunctionNameSniff;
 use PHP_CodeSniffer\Util\Common;
-class ValidFunctionNameSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\NamingConventions\ValidFunctionNameSniff
+
+class ValidFunctionNameSniff extends PEARValidFunctionNameSniff
 {
+
+
     /**
      * Processes the tokens outside the scope.
      *
@@ -23,24 +26,29 @@ class ValidFunctionNameSniff extends \PHP_CodeSniffer\Standards\PEAR\Sniffs\Nami
      *
      * @return void
      */
-    protected function processTokenOutsideScope(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processTokenOutsideScope(File $phpcsFile, $stackPtr)
     {
         $functionName = $phpcsFile->getDeclarationName($stackPtr);
         if ($functionName === null) {
             return;
         }
+
         $errorData = [$functionName];
+
         // Does this function claim to be magical?
-        if (\preg_match('|^__[^_]|', $functionName) !== 0) {
+        if (preg_match('|^__[^_]|', $functionName) !== 0) {
             $error = 'Function name "%s" is invalid; only PHP magic methods should be prefixed with a double underscore';
             $phpcsFile->addError($error, $stackPtr, 'DoubleUnderscore', $errorData);
-            $functionName = \ltrim($functionName, '_');
+
+            $functionName = ltrim($functionName, '_');
         }
-        if (\PHP_CodeSniffer\Util\Common::isCamelCaps($functionName, \false, \true, \false) === \false) {
+
+        if (Common::isCamelCaps($functionName, false, true, false) === false) {
             $error = 'Function name "%s" is not in camel caps format';
             $phpcsFile->addError($error, $stackPtr, 'NotCamelCaps', $errorData);
         }
-    }
-    //end processTokenOutsideScope()
-}
-//end class
+
+    }//end processTokenOutsideScope()
+
+
+}//end class

@@ -8,47 +8,57 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch;
+namespace Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\Stopwatch\Stopwatch;
+
 /**
  * Provides timing information via the stopwatch.
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
  */
-final class TraceableValueResolver implements \ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface
+final class TraceableValueResolver implements ArgumentValueResolverInterface
 {
     private $inner;
     private $stopwatch;
-    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface $inner, \ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
+
+    public function __construct(ArgumentValueResolverInterface $inner, Stopwatch $stopwatch)
     {
         $this->inner = $inner;
         $this->stopwatch = $stopwatch;
     }
+
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function supports(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function supports(Request $request, ArgumentMetadata $argument)
     {
-        $method = \get_class($this->inner) . '::' . __FUNCTION__;
+        $method = \get_class($this->inner).'::'.__FUNCTION__;
         $this->stopwatch->start($method, 'controller.argument_value_resolver');
+
         $return = $this->inner->supports($request, $argument);
+
         $this->stopwatch->stop($method);
+
         return $return;
     }
+
     /**
      * {@inheritdoc}
      * @return mixed[]
      */
-    public function resolve(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata $argument)
+    public function resolve(Request $request, ArgumentMetadata $argument)
     {
-        $method = \get_class($this->inner) . '::' . __FUNCTION__;
+        $method = \get_class($this->inner).'::'.__FUNCTION__;
         $this->stopwatch->start($method, 'controller.argument_value_resolver');
+
         yield from $this->inner->resolve($request, $argument);
+
         $this->stopwatch->stop($method);
     }
 }

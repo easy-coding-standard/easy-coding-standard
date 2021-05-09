@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Descriptor;
 
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
+namespace Symfony\Component\Console\Descriptor;
+
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * Descriptor interface.
  *
@@ -23,5 +25,5 @@ interface DescriptorInterface
      *
      * @param object $object
      */
-    public function describe(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, $object, array $options = []);
+    public function describe(OutputInterface $output, $object, array $options = []);
 }

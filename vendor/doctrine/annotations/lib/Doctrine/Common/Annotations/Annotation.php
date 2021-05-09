@@ -1,9 +1,11 @@
 <?php
 
-namespace ECSPrefix20210509\Doctrine\Common\Annotations;
+namespace Doctrine\Common\Annotations;
 
 use BadMethodCallException;
+
 use function sprintf;
+
 /**
  * Annotations class.
  */
@@ -15,15 +17,17 @@ class Annotation
      * @var mixed
      */
     public $value;
+
     /**
      * @param array<string, mixed> $data Key-value for properties to be defined in this class.
      */
-    public final function __construct(array $data)
+    final public function __construct(array $data)
     {
         foreach ($data as $key => $value) {
-            $this->{$key} = $value;
+            $this->$key = $value;
         }
     }
+
     /**
      * Error handler for unknown property accessor in Annotation class.
      *
@@ -33,8 +37,11 @@ class Annotation
      */
     public function __get($name)
     {
-        throw new \BadMethodCallException(\sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class));
+        throw new BadMethodCallException(
+            sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class)
+        );
     }
+
     /**
      * Error handler for unknown property mutator in Annotation class.
      *
@@ -45,6 +52,8 @@ class Annotation
      */
     public function __set($name, $value)
     {
-        throw new \BadMethodCallException(\sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class));
+        throw new BadMethodCallException(
+            sprintf("Unknown property '%s' on annotation '%s'.", $name, static::class)
+        );
     }
 }

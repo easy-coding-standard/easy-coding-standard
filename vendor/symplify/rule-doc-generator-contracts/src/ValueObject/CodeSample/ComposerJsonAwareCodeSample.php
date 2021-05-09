@@ -3,12 +3,14 @@
 namespace Symplify\RuleDocGenerator\ValueObject\CodeSample;
 
 use Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample;
-final class ComposerJsonAwareCodeSample extends \Symplify\RuleDocGenerator\ValueObject\AbstractCodeSample
+
+final class ComposerJsonAwareCodeSample extends AbstractCodeSample
 {
     /**
      * @var string
      */
     private $composerJson;
+
     /**
      * @param string $badCode
      * @param string $goodCode
@@ -20,8 +22,10 @@ final class ComposerJsonAwareCodeSample extends \Symplify\RuleDocGenerator\Value
         $goodCode = (string) $goodCode;
         $composerJson = (string) $composerJson;
         parent::__construct($badCode, $goodCode);
+
         $this->composerJson = $composerJson;
     }
+
     /**
      * @return string
      */

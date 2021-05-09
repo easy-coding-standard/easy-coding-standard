@@ -8,7 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Cloner;
+
+namespace Symfony\Component\VarDumper\Cloner;
 
 /**
  * Represents the main properties of a PHP variable.
@@ -22,10 +23,13 @@ class Stub
     const TYPE_ARRAY = 3;
     const TYPE_OBJECT = 4;
     const TYPE_RESOURCE = 5;
+
     const STRING_BINARY = 1;
     const STRING_UTF8 = 2;
+
     const ARRAY_ASSOC = 1;
     const ARRAY_INDEXED = 2;
+
     public $type = self::TYPE_REF;
     public $class = '';
     public $value;
@@ -34,7 +38,9 @@ class Stub
     public $refCount = 0;
     public $position = 0;
     public $attr = [];
+
     private static $defaultProperties = [];
+
     /**
      * @internal
      * @return mixed[]
@@ -42,17 +48,21 @@ class Stub
     public function __sleep()
     {
         $properties = [];
+
         if (!isset(self::$defaultProperties[$c = static::class])) {
-            self::$defaultProperties[$c] = \get_class_vars($c);
+            self::$defaultProperties[$c] = get_class_vars($c);
+
             foreach ((new \ReflectionClass($c))->getStaticProperties() as $k => $v) {
                 unset(self::$defaultProperties[$c][$k]);
             }
         }
+
         foreach (self::$defaultProperties[$c] as $k => $v) {
-            if ($this->{$k} !== $v) {
+            if ($this->$k !== $v) {
                 $properties[] = $k;
             }
         }
+
         return $properties;
     }
 }

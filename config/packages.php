@@ -1,10 +1,15 @@
 <?php
 
-namespace ECSPrefix20210509;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+return static function (ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
-    $services->defaults()->public()->autowire()->autoconfigure();
-    $services->load('Symplify\\EasyCodingStandard\\', __DIR__ . '/../packages')->exclude(['*/Exception/*', '*/ValueObject/*', __DIR__ . '/../packages/SniffRunner/ValueObject/File.php']);
+
+    $services->defaults()
+        ->public()
+        ->autowire()
+        ->autoconfigure();
+
+    $services->load('Symplify\EasyCodingStandard\\', __DIR__ . '/../packages')
+        ->exclude(['*/Exception/*', '*/ValueObject/*', __DIR__ . '/../packages/SniffRunner/ValueObject/File.php']);
 };

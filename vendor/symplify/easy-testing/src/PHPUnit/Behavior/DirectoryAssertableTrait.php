@@ -2,10 +2,11 @@
 
 namespace Symplify\EasyTesting\PHPUnit\Behavior;
 
-use ECSPrefix20210509\Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\Finder;
 use Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
+
 /**
  * Use only in "\PHPUnit\Framework\TestCase"
  *
@@ -26,17 +27,31 @@ trait DirectoryAssertableTrait
         $outputDirectory = (string) $outputDirectory;
         $expectedFileInfos = $this->findFileInfosInDirectory($expectedDirectory);
         $outputFileInfos = $this->findFileInfosInDirectory($outputDirectory);
-        $fileInfosByRelativeFilePath = $this->groupFileInfosByRelativeFilePath($expectedFileInfos, $expectedDirectory, $outputFileInfos, $outputDirectory);
+
+        $fileInfosByRelativeFilePath = $this->groupFileInfosByRelativeFilePath(
+            $expectedFileInfos,
+            $expectedDirectory,
+            $outputFileInfos,
+            $outputDirectory
+        );
+
         foreach ($fileInfosByRelativeFilePath as $relativeFilePath => $expectedAndOutputFileInfoPair) {
             // output file exists
             $this->assertFileExists($outputDirectory . '/' . $relativeFilePath);
-            if (!$expectedAndOutputFileInfoPair->doesOutputFileExist()) {
+
+            if (! $expectedAndOutputFileInfoPair->doesOutputFileExist()) {
                 continue;
             }
+
             // they have the same content
-            $this->assertSame($expectedAndOutputFileInfoPair->getExpectedFileContent(), $expectedAndOutputFileInfoPair->getOutputFileContent(), $relativeFilePath);
+            $this->assertSame(
+                $expectedAndOutputFileInfoPair->getExpectedFileContent(),
+                $expectedAndOutputFileInfoPair->getOutputFileContent(),
+                $relativeFilePath
+            );
         }
     }
+
     /**
      * @return mixed[]
      * @param string $directory
@@ -44,11 +59,14 @@ trait DirectoryAssertableTrait
     private function findFileInfosInDirectory($directory)
     {
         $directory = (string) $directory;
-        $firstDirectoryFinder = new \ECSPrefix20210509\Symfony\Component\Finder\Finder();
-        $firstDirectoryFinder->files()->in($directory);
-        $finderSanitizer = new \Symplify\SmartFileSystem\Finder\FinderSanitizer();
+        $firstDirectoryFinder = new Finder();
+        $firstDirectoryFinder->files()
+            ->in($directory);
+
+        $finderSanitizer = new FinderSanitizer();
         return $finderSanitizer->sanitize($firstDirectoryFinder);
     }
+
     /**
      * @param SmartFileInfo[] $expectedFileInfos
      * @param SmartFileInfo[] $outputFileInfos
@@ -56,27 +74,46 @@ trait DirectoryAssertableTrait
      * @param string $expectedDirectory
      * @param string $outputDirectory
      */
-    private function groupFileInfosByRelativeFilePath(array $expectedFileInfos, $expectedDirectory, array $outputFileInfos, $outputDirectory)
-    {
+    private function groupFileInfosByRelativeFilePath(
+        array $expectedFileInfos,
+        $expectedDirectory,
+        array $outputFileInfos,
+        $outputDirectory
+    ) {
         $expectedDirectory = (string) $expectedDirectory;
         $outputDirectory = (string) $outputDirectory;
         $fileInfosByRelativeFilePath = [];
+
         foreach ($expectedFileInfos as $expectedFileInfo) {
             $relativeFilePath = $expectedFileInfo->getRelativeFilePathFromDirectory($expectedDirectory);
+
             // match output file info
-            $outputFileInfo = $this->resolveFileInfoByRelativeFilePath($outputFileInfos, $outputDirectory, $relativeFilePath);
-            $fileInfosByRelativeFilePath[$relativeFilePath] = new \Symplify\EasyTesting\ValueObject\ExpectedAndOutputFileInfoPair($expectedFileInfo, $outputFileInfo);
+            $outputFileInfo = $this->resolveFileInfoByRelativeFilePath(
+                $outputFileInfos,
+                $outputDirectory,
+                $relativeFilePath
+            );
+
+            $fileInfosByRelativeFilePath[$relativeFilePath] = new ExpectedAndOutputFileInfoPair(
+                $expectedFileInfo,
+                $outputFileInfo
+            );
         }
+
         return $fileInfosByRelativeFilePath;
     }
+
     /**
      * @param SmartFileInfo[] $fileInfos
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      * @param string $directory
      * @param string $desiredRelativeFilePath
      */
-    private function resolveFileInfoByRelativeFilePath(array $fileInfos, $directory, $desiredRelativeFilePath)
-    {
+    private function resolveFileInfoByRelativeFilePath(
+        array $fileInfos,
+        $directory,
+        $desiredRelativeFilePath
+    ) {
         $directory = (string) $directory;
         $desiredRelativeFilePath = (string) $desiredRelativeFilePath;
         foreach ($fileInfos as $fileInfo) {
@@ -84,8 +121,10 @@ trait DirectoryAssertableTrait
             if ($desiredRelativeFilePath !== $relativeFilePath) {
                 continue;
             }
+
             return $fileInfo;
         }
+
         return null;
     }
 }

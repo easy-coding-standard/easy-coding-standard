@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\EventDispatcher;
 
-use ECSPrefix20210509\Symfony\Contracts\EventDispatcher\Event;
+namespace Symfony\Component\EventDispatcher;
+
+use Symfony\Contracts\EventDispatcher\Event;
+
 /**
  * Event encapsulation class.
  *
@@ -18,10 +20,11 @@ use ECSPrefix20210509\Symfony\Contracts\EventDispatcher\Event;
  *
  * @author Drak <drak@zikula.org>
  */
-class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\Event implements \ArrayAccess, \IteratorAggregate
+class GenericEvent extends Event implements \ArrayAccess, \IteratorAggregate
 {
     protected $subject;
     protected $arguments;
+
     /**
      * Encapsulate an event with $subject and $args.
      *
@@ -33,6 +36,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
         $this->subject = $subject;
         $this->arguments = $arguments;
     }
+
     /**
      * Getter for subject property.
      *
@@ -42,6 +46,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         return $this->subject;
     }
+
     /**
      * Get argument by key.
      *
@@ -56,8 +61,10 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
         if ($this->hasArgument($key)) {
             return $this->arguments[$key];
         }
-        throw new \InvalidArgumentException(\sprintf('Argument "%s" not found.', $key));
+
+        throw new \InvalidArgumentException(sprintf('Argument "%s" not found.', $key));
     }
+
     /**
      * Add argument to event.
      *
@@ -70,8 +77,10 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         $key = (string) $key;
         $this->arguments[$key] = $value;
+
         return $this;
     }
+
     /**
      * Getter for all arguments.
      *
@@ -81,6 +90,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         return $this->arguments;
     }
+
     /**
      * Set args property.
      *
@@ -89,8 +99,10 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     public function setArguments(array $args = [])
     {
         $this->arguments = $args;
+
         return $this;
     }
+
     /**
      * Has argument.
      *
@@ -102,6 +114,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
         $key = (string) $key;
         return \array_key_exists($key, $this->arguments);
     }
+
     /**
      * ArrayAccess for argument getter.
      *
@@ -115,6 +128,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         return $this->getArgument($key);
     }
+
     /**
      * ArrayAccess for argument setter.
      *
@@ -125,6 +139,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         $this->setArgument($key, $value);
     }
+
     /**
      * ArrayAccess for unset argument.
      *
@@ -136,6 +151,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
             unset($this->arguments[$key]);
         }
     }
+
     /**
      * ArrayAccess has argument.
      *
@@ -147,6 +163,7 @@ class GenericEvent extends \ECSPrefix20210509\Symfony\Contracts\EventDispatcher\
     {
         return $this->hasArgument($key);
     }
+
     /**
      * IteratorAggregate for iterating over the object like an array.
      *

@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use ECSPrefix20210509\Nette\Utils\Strings;
+use Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
@@ -12,50 +12,63 @@ use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
 use Symplify\EasyCodingStandard\ValueObject\Error\SystemError;
 use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class ErrorAndDiffCollector
 {
     /**
      * @var CodingStandardError[]
      */
     private $codingStandardErrors = [];
+
     /**
      * @var SystemError[]
      */
     private $systemErrors = [];
+
     /**
      * @var FileDiff[]
      */
     private $fileDiffs = [];
+
     /**
      * @var ChangedFilesDetector
      */
     private $changedFilesDetector;
+
     /**
      * @var FileDiffFactory
      */
     private $fileDiffFactory;
+
     /**
      * @var ErrorFactory
      */
     private $errorFactory;
+
     /**
      * @var CurrentParentFileInfoProvider
      */
     private $currentParentFileInfoProvider;
-    public function __construct(\Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\FileDiffFactory $fileDiffFactory, \Symplify\EasyCodingStandard\Error\ErrorFactory $errorFactory, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
-    {
+
+    public function __construct(
+        ChangedFilesDetector $changedFilesDetector,
+        FileDiffFactory $fileDiffFactory,
+        ErrorFactory $errorFactory,
+        CurrentParentFileInfoProvider $currentParentFileInfoProvider
+    ) {
         $this->changedFilesDetector = $changedFilesDetector;
         $this->fileDiffFactory = $fileDiffFactory;
         $this->errorFactory = $errorFactory;
         $this->currentParentFileInfoProvider = $currentParentFileInfoProvider;
     }
+
     /**
      * @param class-string $sourceClass
      * @return void
      * @param int $line
      * @param string $message
      */
-    public function addErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $line, $message, $sourceClass)
+    public function addErrorMessage(SmartFileInfo $fileInfo, $line, $message, $sourceClass)
     {
         $line = (int) $line;
         $message = (string) $message;
@@ -64,23 +77,27 @@ final class ErrorAndDiffCollector
             // skip sniff errors
             return;
         }
+
         $this->ensureIsFixerOrChecker($sourceClass);
         $this->changedFilesDetector->invalidateFileInfo($fileInfo);
+
         $codingStandardError = $this->errorFactory->create($line, $message, $sourceClass, $fileInfo);
         $this->codingStandardErrors[] = $codingStandardError;
     }
+
     /**
      * @return void
      * @param int $line
      * @param string $message
      */
-    public function addSystemErrorMessage(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $line, $message)
+    public function addSystemErrorMessage(SmartFileInfo $smartFileInfo, $line, $message)
     {
         $line = (int) $line;
         $message = (string) $message;
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
-        $this->systemErrors[] = new \Symplify\EasyCodingStandard\ValueObject\Error\SystemError($line, $message, $smartFileInfo);
+        $this->systemErrors[] = new SystemError($line, $message, $smartFileInfo);
     }
+
     /**
      * @return mixed[]
      */
@@ -88,6 +105,7 @@ final class ErrorAndDiffCollector
     {
         return $this->codingStandardErrors;
     }
+
     /**
      * @return mixed[]
      */
@@ -95,20 +113,28 @@ final class ErrorAndDiffCollector
     {
         return $this->systemErrors;
     }
+
     /**
      * @param class-string[] $appliedCheckers
      * @return void
      * @param string $diff
      */
-    public function addDiffForFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
+    public function addDiffForFileInfo(SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
     {
         $diff = (string) $diff;
         $this->changedFilesDetector->invalidateFileInfo($smartFileInfo);
+
         foreach ($appliedCheckers as $appliedChecker) {
             $this->ensureIsFixerOrChecker($appliedChecker);
         }
-        $this->fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers($smartFileInfo, $diff, $appliedCheckers);
+
+        $this->fileDiffs[] = $this->fileDiffFactory->createFromDiffAndAppliedCheckers(
+            $smartFileInfo,
+            $diff,
+            $appliedCheckers
+        );
     }
+
     /**
      * @return mixed[]
      */
@@ -116,6 +142,7 @@ final class ErrorAndDiffCollector
     {
         return $this->fileDiffs;
     }
+
     /**
      * Used by external sniff/fixer testing classes
      * @return void
@@ -125,6 +152,7 @@ final class ErrorAndDiffCollector
         $this->codingStandardErrors = [];
         $this->fileDiffs = [];
     }
+
     /**
      * @return void
      * @param string $sourceClass
@@ -133,16 +161,19 @@ final class ErrorAndDiffCollector
     {
         $sourceClass = (string) $sourceClass;
         // remove dot suffix of "."
-        if (\ECSPrefix20210509\Nette\Utils\Strings::contains($sourceClass, '.')) {
-            $sourceClass = (string) \ECSPrefix20210509\Nette\Utils\Strings::before($sourceClass, '.', 1);
+        if (Strings::contains($sourceClass, '.')) {
+            $sourceClass = (string) Strings::before($sourceClass, '.', 1);
         }
-        if (\is_a($sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
+
+        if (is_a($sourceClass, FixerInterface::class, true)) {
             return;
         }
-        if (\is_a($sourceClass, \PHP_CodeSniffer\Sniffs\Sniff::class, \true)) {
+
+        if (is_a($sourceClass, Sniff::class, true)) {
             return;
         }
-        $message = \sprintf('Source class "%s" must be "%s" or "%s"', $sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \PHP_CodeSniffer\Sniffs\Sniff::class);
-        throw new \Symplify\EasyCodingStandard\Exception\NotSniffNorFixerException($message);
+
+        $message = sprintf('Source class "%s" must be "%s" or "%s"', $sourceClass, FixerInterface::class, Sniff::class);
+        throw new NotSniffNorFixerException($message);
     }
 }

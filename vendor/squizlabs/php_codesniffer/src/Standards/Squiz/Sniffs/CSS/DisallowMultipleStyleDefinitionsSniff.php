@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ensure that each style definition is on a line by itself.
  *
@@ -7,18 +6,23 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\CSS;
 
 use PHP_CodeSniffer\Files\File;
 use PHP_CodeSniffer\Sniffs\Sniff;
-class DisallowMultipleStyleDefinitionsSniff implements \PHP_CodeSniffer\Sniffs\Sniff
+
+class DisallowMultipleStyleDefinitionsSniff implements Sniff
 {
+
     /**
      * A list of tokenizers this sniff supports.
      *
      * @var array
      */
     public $supportedTokenizers = ['CSS'];
+
+
     /**
      * Returns the token types that this sniff is interested in.
      *
@@ -27,8 +31,10 @@ class DisallowMultipleStyleDefinitionsSniff implements \PHP_CodeSniffer\Sniffs\S
     public function register()
     {
         return [T_STYLE];
-    }
-    //end register()
+
+    }//end register()
+
+
     /**
      * Processes the tokens that this sniff is interested in.
      *
@@ -38,25 +44,28 @@ class DisallowMultipleStyleDefinitionsSniff implements \PHP_CodeSniffer\Sniffs\S
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $next = $phpcsFile->findNext(T_STYLE, $stackPtr + 1);
-        if ($next === \false) {
+        $next   = $phpcsFile->findNext(T_STYLE, ($stackPtr + 1));
+        if ($next === false) {
             return;
         }
+
         if ($tokens[$next]['content'] === 'progid') {
             // Special case for IE filters.
             return;
         }
+
         if ($tokens[$next]['line'] === $tokens[$stackPtr]['line']) {
             $error = 'Each style definition must be on a line by itself';
-            $fix = $phpcsFile->addFixableError($error, $next, 'Found');
-            if ($fix === \true) {
+            $fix   = $phpcsFile->addFixableError($error, $next, 'Found');
+            if ($fix === true) {
                 $phpcsFile->fixer->addNewlineBefore($next);
             }
         }
-    }
-    //end process()
-}
-//end class
+
+    }//end process()
+
+
+}//end class

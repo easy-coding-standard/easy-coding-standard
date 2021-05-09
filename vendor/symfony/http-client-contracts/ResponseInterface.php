@@ -8,14 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Contracts\HttpClient;
 
-use ECSPrefix20210509\Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use ECSPrefix20210509\Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use ECSPrefix20210509\Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
-use ECSPrefix20210509\Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use ECSPrefix20210509\Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use ECSPrefix20210509\Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+namespace Symfony\Contracts\HttpClient;
+
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+
 /**
  * A (lazily retrieved) HTTP response.
  *
@@ -30,6 +32,7 @@ interface ResponseInterface
      * @return int
      */
     public function getStatusCode();
+
     /**
      * Gets the HTTP headers of the response.
      *
@@ -42,7 +45,8 @@ interface ResponseInterface
      * @throws ClientExceptionInterface      On a 4xx when $throw is true
      * @throws ServerExceptionInterface      On a 5xx when $throw is true
      */
-    public function getHeaders($throw = \true);
+    public function getHeaders($throw = true);
+
     /**
      * Gets the response body as a string.
      *
@@ -54,7 +58,8 @@ interface ResponseInterface
      * @throws ServerExceptionInterface      On a 5xx when $throw is true
      * @return string
      */
-    public function getContent($throw = \true);
+    public function getContent($throw = true);
+
     /**
      * Gets the response body decoded as array, typically from a JSON payload.
      *
@@ -67,7 +72,8 @@ interface ResponseInterface
      * @throws ServerExceptionInterface      On a 5xx when $throw is true
      * @return mixed[]
      */
-    public function toArray($throw = \true);
+    public function toArray($throw = true);
+
     /**
      * Closes the response stream and all related buffers.
      *
@@ -75,6 +81,7 @@ interface ResponseInterface
      * @return void
      */
     public function cancel();
+
     /**
      * Returns info coming from the transport layer.
      *

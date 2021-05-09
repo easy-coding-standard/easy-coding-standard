@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210509\Ramsey\Uuid\UuidInterface;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
+namespace Symfony\Component\VarDumper\Caster;
+
+use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\VarDumper\Cloner\Stub;
+
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
@@ -21,10 +23,13 @@ final class UuidCaster
      * @param bool $isNested
      * @return mixed[]
      */
-    public static function castRamseyUuid(\ECSPrefix20210509\Ramsey\Uuid\UuidInterface $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castRamseyUuid(UuidInterface $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $a += [\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'uuid' => (string) $c];
+        $a += [
+            Caster::PREFIX_VIRTUAL.'uuid' => (string) $c,
+        ];
+
         return $a;
     }
 }

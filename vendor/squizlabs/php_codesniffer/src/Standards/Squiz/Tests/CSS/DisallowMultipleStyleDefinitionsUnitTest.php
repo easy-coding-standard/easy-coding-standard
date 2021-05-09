@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the DisallowMultipleStyleDefinitions sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\CSS;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class DisallowMultipleStyleDefinitionsUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class DisallowMultipleStyleDefinitionsUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,17 @@ class DisallowMultipleStyleDefinitionsUnitTest extends \PHP_CodeSniffer\Tests\St
      */
     public function getErrorList()
     {
-        return [3 => 1, 5 => 2, 10 => 4, 15 => 2, 17 => 1];
-    }
-    //end getErrorList()
+        return [
+            3  => 1,
+            5  => 2,
+            10 => 4,
+            15 => 2,
+            17 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +47,8 @@ class DisallowMultipleStyleDefinitionsUnitTest extends \PHP_CodeSniffer\Tests\St
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

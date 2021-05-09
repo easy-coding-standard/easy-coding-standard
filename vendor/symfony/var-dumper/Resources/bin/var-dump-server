@@ -1,6 +1,5 @@
 #!/usr/bin/env php
-<?php 
-namespace ECSPrefix20210509;
+<?php
 
 /*
  * This file is part of the Symfony package.
@@ -10,36 +9,55 @@ namespace ECSPrefix20210509;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 /**
  * Starts a dump server to collect and output dumps on a single place with multiple formats support.
  *
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-use ECSPrefix20210509\Psr\Log\LoggerInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Application;
-use ECSPrefix20210509\Symfony\Component\Console\Input\ArgvInput;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210509\Symfony\Component\Console\Logger\ConsoleLogger;
-use ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutput;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Command\ServerDumpCommand;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Server\DumpServer;
-function includeIfExists(string $file) : bool
+
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\VarDumper\Command\ServerDumpCommand;
+use Symfony\Component\VarDumper\Server\DumpServer;
+
+function includeIfExists(string $file): bool
 {
-    return \file_exists($file) && (include $file);
+    return file_exists($file) && include $file;
 }
-if (!\ECSPrefix20210509\includeIfExists(__DIR__ . '/../../../../autoload.php') && !\ECSPrefix20210509\includeIfExists(__DIR__ . '/../../vendor/autoload.php') && !\ECSPrefix20210509\includeIfExists(__DIR__ . '/../../../../../../vendor/autoload.php')) {
-    \fwrite(\STDERR, 'Install dependencies using Composer.' . \PHP_EOL);
+
+if (
+    !includeIfExists(__DIR__ . '/../../../../autoload.php') &&
+    !includeIfExists(__DIR__ . '/../../vendor/autoload.php') &&
+    !includeIfExists(__DIR__ . '/../../../../../../vendor/autoload.php')
+) {
+    fwrite(STDERR, 'Install dependencies using Composer.'.PHP_EOL);
     exit(1);
 }
-if (!\class_exists(\ECSPrefix20210509\Symfony\Component\Console\Application::class)) {
-    \fwrite(\STDERR, 'You need the "symfony/console" component in order to run the VarDumper server.' . \PHP_EOL);
+
+if (!class_exists(Application::class)) {
+    fwrite(STDERR, 'You need the "symfony/console" component in order to run the VarDumper server.'.PHP_EOL);
     exit(1);
 }
-$input = new \ECSPrefix20210509\Symfony\Component\Console\Input\ArgvInput();
-$output = new \ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutput();
+
+$input = new ArgvInput();
+$output = new ConsoleOutput();
 $defaultHost = '127.0.0.1:9912';
-$host = $input->getParameterOption(['--host'], $_SERVER['VAR_DUMPER_SERVER'] ?? $defaultHost, \true);
-$logger = \interface_exists(\ECSPrefix20210509\Psr\Log\LoggerInterface::class) ? new \ECSPrefix20210509\Symfony\Component\Console\Logger\ConsoleLogger($output->getErrorOutput()) : null;
-$app = new \ECSPrefix20210509\Symfony\Component\Console\Application();
-$app->getDefinition()->addOption(new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('--host', null, \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The address the server should listen to', $defaultHost));
-$app->add($command = new \ECSPrefix20210509\Symfony\Component\VarDumper\Command\ServerDumpCommand(new \ECSPrefix20210509\Symfony\Component\VarDumper\Server\DumpServer($host, $logger)))->getApplication()->setDefaultCommand($command->getName(), \true)->run($input, $output);
+$host = $input->getParameterOption(['--host'], $_SERVER['VAR_DUMPER_SERVER'] ?? $defaultHost, true);
+$logger = interface_exists(LoggerInterface::class) ? new ConsoleLogger($output->getErrorOutput()) : null;
+
+$app = new Application();
+
+$app->getDefinition()->addOption(
+    new InputOption('--host', null, InputOption::VALUE_REQUIRED, 'The address the server should listen to', $defaultHost)
+);
+
+$app->add($command = new ServerDumpCommand(new DumpServer($host, $logger)))
+    ->getApplication()
+    ->setDefaultCommand($command->getName(), true)
+    ->run($input, $output)
+;

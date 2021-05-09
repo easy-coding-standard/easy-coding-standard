@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the SubversionProperties sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2019 Juliette Reinders Folmer. All rights reserved.
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Generic\Tests\VersionControl;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class SubversionPropertiesUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class SubversionPropertiesUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Should this test be skipped for some reason.
      *
@@ -20,9 +23,11 @@ class SubversionPropertiesUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abst
     protected function shouldSkipTest()
     {
         // This sniff cannot be tested as no SVN version control directory is available.
-        return \true;
-    }
-    //end shouldSkipTest()
+        return true;
+
+    }//end shouldSkipTest()
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -34,8 +39,10 @@ class SubversionPropertiesUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abst
     public function getErrorList()
     {
         return [];
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -47,7 +54,8 @@ class SubversionPropertiesUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abst
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

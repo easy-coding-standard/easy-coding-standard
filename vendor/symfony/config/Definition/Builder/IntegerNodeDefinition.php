@@ -8,15 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Config\Definition\Builder;
 
-use ECSPrefix20210509\Symfony\Component\Config\Definition\IntegerNode;
+namespace Symfony\Component\Config\Definition\Builder;
+
+use Symfony\Component\Config\Definition\IntegerNode;
+
 /**
  * This class provides a fluent interface for defining an integer node.
  *
  * @author Jeanmonod David <david.jeanmonod@gmail.com>
  */
-class IntegerNodeDefinition extends \ECSPrefix20210509\Symfony\Component\Config\Definition\Builder\NumericNodeDefinition
+class IntegerNodeDefinition extends NumericNodeDefinition
 {
     /**
      * Instantiates a Node.
@@ -25,6 +27,6 @@ class IntegerNodeDefinition extends \ECSPrefix20210509\Symfony\Component\Config\
      */
     protected function instantiateNode()
     {
-        return new \ECSPrefix20210509\Symfony\Component\Config\Definition\IntegerNode($this->name, $this->parent, $this->min, $this->max, $this->pathSeparator);
+        return new IntegerNode($this->name, $this->parent, $this->min, $this->max, $this->pathSeparator);
     }
 }

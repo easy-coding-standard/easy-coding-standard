@@ -9,33 +9,39 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Console\SelfUpdate;
 
-use ECSPrefix20210509\Composer\Semver\Comparator;
-use ECSPrefix20210509\Composer\Semver\Semver;
-use ECSPrefix20210509\Composer\Semver\VersionParser;
+use Composer\Semver\Comparator;
+use Composer\Semver\Semver;
+use Composer\Semver\VersionParser;
+
 /**
  * @internal
  */
-final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersionCheckerInterface
+final class NewVersionChecker implements NewVersionCheckerInterface
 {
     /**
      * @var GithubClientInterface
      */
     private $githubClient;
+
     /**
      * @var VersionParser
      */
     private $versionParser;
+
     /**
      * @var null|string[]
      */
     private $availableVersions;
-    public function __construct(\PhpCsFixer\Console\SelfUpdate\GithubClientInterface $githubClient)
+
+    public function __construct(GithubClientInterface $githubClient)
     {
         $this->githubClient = $githubClient;
-        $this->versionParser = new \ECSPrefix20210509\Composer\Semver\VersionParser();
+        $this->versionParser = new VersionParser();
     }
+
     /**
      * {@inheritdoc}
      * @return string
@@ -43,8 +49,10 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     public function getLatestVersion()
     {
         $this->retrieveAvailableVersions();
+
         return $this->availableVersions[0];
     }
+
     /**
      * {@inheritdoc}
      * @return string|null
@@ -54,14 +62,18 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
     {
         $majorVersion = (int) $majorVersion;
         $this->retrieveAvailableVersions();
-        $semverConstraint = '^' . $majorVersion;
+
+        $semverConstraint = '^'.$majorVersion;
+
         foreach ($this->availableVersions as $availableVersion) {
-            if (\ECSPrefix20210509\Composer\Semver\Semver::satisfies($availableVersion, $semverConstraint)) {
+            if (Semver::satisfies($availableVersion, $semverConstraint)) {
                 return $availableVersion;
             }
         }
+
         return null;
     }
+
     /**
      * {@inheritdoc}
      * @param string $versionA
@@ -74,14 +86,18 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
         $versionB = (string) $versionB;
         $versionA = $this->versionParser->normalize($versionA);
         $versionB = $this->versionParser->normalize($versionB);
-        if (\ECSPrefix20210509\Composer\Semver\Comparator::lessThan($versionA, $versionB)) {
+
+        if (Comparator::lessThan($versionA, $versionB)) {
             return -1;
         }
-        if (\ECSPrefix20210509\Composer\Semver\Comparator::greaterThan($versionA, $versionB)) {
+
+        if (Comparator::greaterThan($versionA, $versionB)) {
             return 1;
         }
+
         return 0;
     }
+
     /**
      * @return void
      */
@@ -90,17 +106,21 @@ final class NewVersionChecker implements \PhpCsFixer\Console\SelfUpdate\NewVersi
         if (null !== $this->availableVersions) {
             return;
         }
+
         foreach ($this->githubClient->getTags() as $tag) {
             $version = $tag['name'];
+
             try {
                 $this->versionParser->normalize($version);
-                if ('stable' === \ECSPrefix20210509\Composer\Semver\VersionParser::parseStability($version)) {
+
+                if ('stable' === VersionParser::parseStability($version)) {
                     $this->availableVersions[] = $version;
                 }
             } catch (\UnexpectedValueException $exception) {
                 // not a valid version tag
             }
         }
-        $this->availableVersions = \ECSPrefix20210509\Composer\Semver\Semver::rsort($this->availableVersions);
+
+        $this->availableVersions = Semver::rsort($this->availableVersions);
     }
 }

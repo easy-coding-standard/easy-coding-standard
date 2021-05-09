@@ -8,30 +8,37 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Controller;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch;
+namespace Symfony\Component\HttpKernel\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Stopwatch\Stopwatch;
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class TraceableArgumentResolver implements \ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface
+class TraceableArgumentResolver implements ArgumentResolverInterface
 {
     private $resolver;
     private $stopwatch;
-    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface $resolver, \ECSPrefix20210509\Symfony\Component\Stopwatch\Stopwatch $stopwatch)
+
+    public function __construct(ArgumentResolverInterface $resolver, Stopwatch $stopwatch)
     {
         $this->resolver = $resolver;
         $this->stopwatch = $stopwatch;
     }
+
     /**
      * {@inheritdoc}
      */
-    public function getArguments(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, callable $controller)
+    public function getArguments(Request $request, callable $controller)
     {
         $e = $this->stopwatch->start('controller.get_arguments');
+
         $ret = $this->resolver->getArguments($request, $controller);
+
         $e->stop();
+
         return $ret;
     }
 }

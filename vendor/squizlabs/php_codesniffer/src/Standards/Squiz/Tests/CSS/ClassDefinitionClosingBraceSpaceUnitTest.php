@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the ClassDefinitionClosingBraceSpace sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\CSS;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class ClassDefinitionClosingBraceSpaceUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class ClassDefinitionClosingBraceSpaceUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,23 @@ class ClassDefinitionClosingBraceSpaceUnitTest extends \PHP_CodeSniffer\Tests\St
      */
     public function getErrorList()
     {
-        return [2 => 1, 11 => 1, 44 => 1, 47 => 1, 51 => 1, 53 => 1, 57 => 1, 59 => 1, 67 => 1, 69 => 1, 81 => 2];
-    }
-    //end getErrorList()
+        return [
+            2  => 1,
+            11 => 1,
+            44 => 1,
+            47 => 1,
+            51 => 1,
+            53 => 1,
+            57 => 1,
+            59 => 1,
+            67 => 1,
+            69 => 1,
+            81 => 2,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +53,8 @@ class ClassDefinitionClosingBraceSpaceUnitTest extends \PHP_CodeSniffer\Tests\St
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

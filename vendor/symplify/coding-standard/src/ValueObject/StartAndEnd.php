@@ -8,10 +8,12 @@ final class StartAndEnd
      * @var int
      */
     private $start;
+
     /**
      * @var int
      */
     private $end;
+
     /**
      * @param int $start
      * @param int $end
@@ -23,6 +25,7 @@ final class StartAndEnd
         $this->start = $start;
         $this->end = $end;
     }
+
     /**
      * @return int
      */
@@ -30,6 +33,7 @@ final class StartAndEnd
     {
         return $this->start;
     }
+
     /**
      * @return int
      */

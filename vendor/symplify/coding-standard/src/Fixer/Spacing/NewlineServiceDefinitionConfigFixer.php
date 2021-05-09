@@ -13,81 +13,104 @@ use Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\NewlineServiceDefinitionConfigFixer\NewlineServiceDefinitionConfigFixerTest
  */
-final class NewlineServiceDefinitionConfigFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class NewlineServiceDefinitionConfigFixer extends AbstractSymplifyFixer implements DocumentedRuleInterface
 {
     /**
      * @var string
      */
     const ERROR_MESSAGE = 'Add newline for a fluent call on service definition in Symfony config';
+
     /**
      * @var string[]
      */
     const FLUENT_METHOD_NAMES = ['call', 'property', 'args', 'arg'];
+
     /**
      * @var WhitespacesFixerConfig
      */
     private $whitespacesFixerConfig;
+
     /**
      * @var SymfonyClosureAnalyzer
      */
     private $symfonyClosureAnalyzer;
-    public function __construct(\PhpCsFixer\WhitespacesFixerConfig $whitespacesFixerConfig, \Symplify\CodingStandard\TokenAnalyzer\SymfonyClosureAnalyzer $symfonyClosureAnalyzer)
-    {
+
+    public function __construct(
+        WhitespacesFixerConfig $whitespacesFixerConfig,
+        SymfonyClosureAnalyzer $symfonyClosureAnalyzer
+    ) {
         $this->whitespacesFixerConfig = $whitespacesFixerConfig;
         $this->symfonyClosureAnalyzer = $symfonyClosureAnalyzer;
     }
+
     /**
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition(self::ERROR_MESSAGE, []);
+        return new FixerDefinition(self::ERROR_MESSAGE, []);
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isAllTokenKindsFound([\T_RETURN, \T_STATIC, \T_FUNCTION, \T_VARIABLE, \T_STRING, \T_OBJECT_OPERATOR]);
+        return $tokens->isAllTokenKindsFound([T_RETURN, T_STATIC, T_FUNCTION, T_VARIABLE, T_STRING, T_OBJECT_OPERATOR]);
     }
+
     /**
      * @param Tokens<Token> $tokens
      * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function fix(SplFileInfo $file, Tokens $tokens)
     {
-        if (!$this->symfonyClosureAnalyzer->isContainerConfiguratorClosure($tokens)) {
+        if (! $this->symfonyClosureAnalyzer->isContainerConfiguratorClosure($tokens)) {
             return;
         }
+
         $reversedTokens = $this->reverseTokens($tokens);
+
         foreach ($reversedTokens as $index => $token) {
-            if (!$token->isGivenKind(\T_OBJECT_OPERATOR)) {
+            if (! $token->isGivenKind(T_OBJECT_OPERATOR)) {
                 continue;
             }
-            if (!$this->isNextTokenMethodCallNamed($tokens, $index, self::FLUENT_METHOD_NAMES)) {
+
+            if (! $this->isNextTokenMethodCallNamed($tokens, $index, self::FLUENT_METHOD_NAMES)) {
                 continue;
             }
+
             $previousToken = $this->getPreviousToken($tokens, $index);
-            if (!$previousToken instanceof \PhpCsFixer\Tokenizer\Token) {
+            if (! $previousToken instanceof Token) {
                 continue;
             }
+
             if ($previousToken->isWhitespace()) {
                 continue;
             }
-            $newlineAndIndent = $this->whitespacesFixerConfig->getLineEnding() . \str_repeat($this->whitespacesFixerConfig->getIndent(), 2);
+
+            $newlineAndIndent = $this->whitespacesFixerConfig->getLineEnding() . str_repeat(
+                $this->whitespacesFixerConfig->getIndent(),
+                2
+            );
+
             $tokens->ensureWhitespaceAtIndex($index, 0, $newlineAndIndent);
         }
     }
+
     /**
      * @return \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
      */
     public function getRuleDefinition()
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(self::ERROR_MESSAGE, [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 
@@ -96,7 +119,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(LineLengthFixer::class)->call('configure', [['values']]);
 };
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 
@@ -106,8 +130,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [['values']]);
 };
 CODE_SAMPLE
-)]);
+            ),
+        ]);
     }
+
     /**
      * Must run before
      *
@@ -118,22 +144,25 @@ CODE_SAMPLE
     {
         return 39;
     }
+
     /**
      * @param string[] $methodNames
      * @param Tokens<Token> $tokens
      * @param int $index
      * @return bool
      */
-    private function isNextTokenMethodCallNamed(\PhpCsFixer\Tokenizer\Tokens $tokens, $index, array $methodNames)
+    private function isNextTokenMethodCallNamed(Tokens $tokens, $index, array $methodNames)
     {
         $index = (int) $index;
         $nextToken = $this->getNextMeaningfulToken($tokens, $index);
-        if (!$nextToken instanceof \PhpCsFixer\Tokenizer\Token) {
-            return \false;
+        if (! $nextToken instanceof Token) {
+            return false;
         }
-        if (!$nextToken->isGivenKind(\T_STRING)) {
-            return \false;
+
+        if (! $nextToken->isGivenKind(T_STRING)) {
+            return false;
         }
-        return \in_array($nextToken->getContent(), $methodNames, \true);
+
+        return in_array($nextToken->getContent(), $methodNames, true);
     }
 }

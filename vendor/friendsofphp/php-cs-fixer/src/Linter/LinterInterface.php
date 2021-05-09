@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Linter;
 
 /**
@@ -22,12 +23,14 @@ interface LinterInterface
      * @return bool
      */
     public function isAsync();
+
     /**
      * Lint PHP file.
      * @param string $path
      * @return \PhpCsFixer\Linter\LintingResultInterface
      */
     public function lintFile($path);
+
     /**
      * Lint PHP code.
      * @param string $source

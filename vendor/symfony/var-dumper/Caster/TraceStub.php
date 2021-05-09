@@ -8,27 +8,30 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
+namespace Symfony\Component\VarDumper\Caster;
+
+use Symfony\Component\VarDumper\Cloner\Stub;
+
 /**
  * Represents a backtrace as returned by debug_backtrace() or Exception->getTrace().
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class TraceStub extends \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub
+class TraceStub extends Stub
 {
     public $keepArgs;
     public $sliceOffset;
     public $sliceLength;
     public $numberingOffset;
+
     /**
      * @param bool $keepArgs
      * @param int $sliceOffset
      * @param int $sliceLength
      * @param int $numberingOffset
      */
-    public function __construct(array $trace, $keepArgs = \true, $sliceOffset = 0, $sliceLength = null, $numberingOffset = 0)
+    public function __construct(array $trace, $keepArgs = true, $sliceOffset = 0, $sliceLength = null, $numberingOffset = 0)
     {
         $keepArgs = (bool) $keepArgs;
         $sliceOffset = (int) $sliceOffset;

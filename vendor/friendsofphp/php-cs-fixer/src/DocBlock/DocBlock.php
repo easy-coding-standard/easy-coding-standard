@@ -9,11 +9,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\DocBlock;
 
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis;
 use PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceUseAnalysis;
+
 /**
  * This class represents a docblock.
  *
@@ -31,20 +33,24 @@ final class DocBlock
      * @var Line[]
      */
     private $lines = [];
+
     /**
      * The array of annotations.
      *
      * @var null|Annotation[]
      */
     private $annotations;
+
     /**
      * @var null|NamespaceAnalysis
      */
     private $namespace;
+
     /**
      * @var NamespaceUseAnalysis[]
      */
     private $namespaceUses;
+
     /**
      * @param \PhpCsFixer\Tokenizer\Analyzer\Analysis\NamespaceAnalysis|null $namespace
      * @param string $content
@@ -52,12 +58,14 @@ final class DocBlock
     public function __construct($content, $namespace = null, array $namespaceUses = [])
     {
         $content = (string) $content;
-        foreach (\PhpCsFixer\Preg::split('/([^\\n\\r]+\\R*)/', $content, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE) as $line) {
-            $this->lines[] = new \PhpCsFixer\DocBlock\Line($line);
+        foreach (Preg::split('/([^\n\r]+\R*)/', $content, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE) as $line) {
+            $this->lines[] = new Line($line);
         }
+
         $this->namespace = $namespace;
         $this->namespaceUses = $namespaceUses;
     }
+
     /**
      * Get the string representation of object.
      * @return string
@@ -66,6 +74,7 @@ final class DocBlock
     {
         return $this->getContent();
     }
+
     /**
      * Get this docblock's lines.
      *
@@ -75,6 +84,7 @@ final class DocBlock
     {
         return $this->lines;
     }
+
     /**
      * Get a single line.
      * @return \PhpCsFixer\DocBlock\Line|null
@@ -85,6 +95,7 @@ final class DocBlock
         $pos = (int) $pos;
         return isset($this->lines[$pos]) ? $this->lines[$pos] : null;
     }
+
     /**
      * Get this docblock's annotations.
      *
@@ -95,13 +106,15 @@ final class DocBlock
         if (null !== $this->annotations) {
             return $this->annotations;
         }
+
         $this->annotations = [];
         $total = \count($this->lines);
+
         for ($index = 0; $index < $total; ++$index) {
             if ($this->lines[$index]->containsATag()) {
                 // get all the lines that make up the annotation
-                $lines = \array_slice($this->lines, $index, $this->findAnnotationLength($index), \true);
-                $annotation = new \PhpCsFixer\DocBlock\Annotation($lines, $this->namespace, $this->namespaceUses);
+                $lines = \array_slice($this->lines, $index, $this->findAnnotationLength($index), true);
+                $annotation = new Annotation($lines, $this->namespace, $this->namespaceUses);
                 // move the index to the end of the annotation to avoid
                 // checking it again because we know the lines inside the
                 // current annotation cannot be part of another annotation
@@ -110,8 +123,10 @@ final class DocBlock
                 $this->annotations[] = $annotation;
             }
         }
+
         return $this->annotations;
     }
+
     /**
      * @return bool
      */
@@ -119,6 +134,7 @@ final class DocBlock
     {
         return 1 !== \count($this->lines);
     }
+
     /**
      * Take a one line doc block, and turn it into a multi line doc block.
      * @return void
@@ -132,13 +148,26 @@ final class DocBlock
         if ($this->isMultiLine()) {
             return;
         }
+
         $lineContent = $this->getSingleLineDocBlockEntry($this->lines[0]);
+
         if ('' === $lineContent) {
-            $this->lines = [new \PhpCsFixer\DocBlock\Line('/**' . $lineEnd), new \PhpCsFixer\DocBlock\Line($indent . ' *' . $lineEnd), new \PhpCsFixer\DocBlock\Line($indent . ' */')];
+            $this->lines = [
+                new Line('/**'.$lineEnd),
+                new Line($indent.' *'.$lineEnd),
+                new Line($indent.' */'),
+            ];
+
             return;
         }
-        $this->lines = [new \PhpCsFixer\DocBlock\Line('/**' . $lineEnd), new \PhpCsFixer\DocBlock\Line($indent . ' * ' . $lineContent . $lineEnd), new \PhpCsFixer\DocBlock\Line($indent . ' */')];
+
+        $this->lines = [
+            new Line('/**'.$lineEnd),
+            new Line($indent.' * '.$lineContent.$lineEnd),
+            new Line($indent.' */'),
+        ];
     }
+
     /**
      * @return void
      */
@@ -147,18 +176,26 @@ final class DocBlock
         if (!$this->isMultiLine()) {
             return;
         }
-        $usefulLines = \array_filter($this->lines, static function (\PhpCsFixer\DocBlock\Line $line) {
-            return $line->containsUsefulContent();
-        });
+
+        $usefulLines = array_filter(
+            $this->lines,
+            static function (Line $line) {
+                return $line->containsUsefulContent();
+            }
+        );
+
         if (1 < \count($usefulLines)) {
             return;
         }
+
         $lineContent = '';
         if (\count($usefulLines)) {
-            $lineContent = $this->getSingleLineDocBlockEntry(\array_shift($usefulLines));
+            $lineContent = $this->getSingleLineDocBlockEntry(array_shift($usefulLines));
         }
-        $this->lines = [new \PhpCsFixer\DocBlock\Line('/** ' . $lineContent . ' */')];
+
+        $this->lines = [new Line('/** '.$lineContent.' */')];
     }
+
     /**
      * @return \PhpCsFixer\DocBlock\Annotation|null
      * @param int $pos
@@ -167,8 +204,10 @@ final class DocBlock
     {
         $pos = (int) $pos;
         $annotations = $this->getAnnotations();
+
         return isset($annotations[$pos]) ? $annotations[$pos] : null;
     }
+
     /**
      * Get specific types of annotations only.
      *
@@ -182,6 +221,7 @@ final class DocBlock
     {
         $annotations = [];
         $types = (array) $types;
+
         foreach ($this->getAnnotations() as $annotation) {
             $tag = $annotation->getTag()->getName();
             foreach ($types as $type) {
@@ -190,16 +230,19 @@ final class DocBlock
                 }
             }
         }
+
         return $annotations;
     }
+
     /**
      * Get the actual content of this docblock.
      * @return string
      */
     public function getContent()
     {
-        return \implode('', $this->lines);
+        return implode('', $this->lines);
     }
+
     /**
      * @param int $start
      * @return int
@@ -208,11 +251,13 @@ final class DocBlock
     {
         $start = (int) $start;
         $index = $start;
+
         while ($line = $this->getLine(++$index)) {
             if ($line->containsATag()) {
                 // we've 100% reached the end of the description if we get here
                 break;
             }
+
             if (!$line->containsUsefulContent()) {
                 // if next line is also non-useful, or contains a tag, then we're done here
                 $next = $this->getLine($index + 1);
@@ -222,24 +267,30 @@ final class DocBlock
                 // otherwise, continue, the annotation must have contained a blank line in its description
             }
         }
+
         return $index - $start;
     }
+
     /**
      * @return string
      */
-    private function getSingleLineDocBlockEntry(\PhpCsFixer\DocBlock\Line $line)
+    private function getSingleLineDocBlockEntry(Line $line)
     {
         $lineString = $line->getContent();
+
         if (0 === \strlen($lineString)) {
             return $lineString;
         }
-        $lineString = \str_replace('*/', '', $lineString);
-        $lineString = \trim($lineString);
-        if ('/**' === \substr($lineString, 0, 3)) {
-            $lineString = \substr($lineString, 3);
-        } elseif ('*' === \substr($lineString, 0, 1)) {
-            $lineString = \substr($lineString, 1);
+
+        $lineString = str_replace('*/', '', $lineString);
+        $lineString = trim($lineString);
+
+        if ('/**' === substr($lineString, 0, 3)) {
+            $lineString = substr($lineString, 3);
+        } elseif ('*' === substr($lineString, 0, 1)) {
+            $lineString = substr($lineString, 1);
         }
-        return \trim($lineString);
+
+        return trim($lineString);
     }
 }

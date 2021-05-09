@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the ControlSignature sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\Squiz\Tests\ControlStructures;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class ControlSignatureUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class ControlSignatureUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,31 @@ class ControlSignatureUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstract
      *
      * @return array<int, int>
      */
-    public function getErrorList($testFile = 'ControlSignatureUnitTest.inc')
+    public function getErrorList($testFile='ControlSignatureUnitTest.inc')
     {
-        $errors = [7 => 1, 12 => 1, 15 => 1, 18 => 1, 20 => 1, 22 => 2, 28 => 2, 32 => 1, 38 => 2, 42 => 1, 48 => 2, 52 => 1, 62 => 2, 66 => 2, 76 => 4, 80 => 2, 94 => 1, 99 => 1, 108 => 1, 112 => 1];
+        $errors = [
+            7   => 1,
+            12  => 1,
+            15  => 1,
+            18  => 1,
+            20  => 1,
+            22  => 2,
+            28  => 2,
+            32  => 1,
+            38  => 2,
+            42  => 1,
+            48  => 2,
+            52  => 1,
+            62  => 2,
+            66  => 2,
+            76  => 4,
+            80  => 2,
+            94  => 1,
+            99  => 1,
+            108 => 1,
+            112 => 1,
+        ];
+
         if ($testFile === 'ControlSignatureUnitTest.inc') {
             $errors[122] = 1;
             $errors[130] = 2;
@@ -52,11 +77,13 @@ class ControlSignatureUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstract
             $errors[279] = 1;
             $errors[283] = 1;
             $errors[306] = 3;
-        }
-        //end if
+        }//end if
+
         return $errors;
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -68,7 +95,8 @@ class ControlSignatureUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstract
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

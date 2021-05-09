@@ -8,17 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210509\Psr\Container\ContainerInterface;
-use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Session;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\FinishRequestEvent;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\RequestEvent;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents;
+namespace Symfony\Component\HttpKernel\EventListener;
+
+use Psr\Container\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException;
+use Symfony\Component\HttpKernel\KernelEvents;
+
 /**
  * Sets the session onto the request on the "kernel.request" event and saves
  * it on the "kernel.response" event.
@@ -34,48 +36,55 @@ use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @internal
  */
-abstract class AbstractSessionListener implements \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface
+abstract class AbstractSessionListener implements EventSubscriberInterface
 {
     const NO_AUTO_CACHE_CONTROL_HEADER = 'Symfony-Session-NoAutoCacheControl';
+
     protected $container;
     private $sessionUsageStack = [];
     private $debug;
+
     /**
      * @param bool $debug
      */
-    public function __construct(\ECSPrefix20210509\Psr\Container\ContainerInterface $container = null, $debug = \false)
+    public function __construct(ContainerInterface $container = null, $debug = false)
     {
         $debug = (bool) $debug;
         $this->container = $container;
         $this->debug = $debug;
     }
-    public function onKernelRequest(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\RequestEvent $event)
+
+    public function onKernelRequest(RequestEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
+
         $request = $event->getRequest();
         if (!$request->hasSession()) {
             $sess = null;
-            $request->setSessionFactory(function () use(&$sess) {
-                return isset($sess) ? $sess : ($sess = $this->getSession());
-            });
+            $request->setSessionFactory(function () use (&$sess) { return isset($sess) ? $sess : ($sess = $this->getSession()); });
         }
+
         $session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null;
-        $this->sessionUsageStack[] = $session instanceof \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() : 0;
+        $this->sessionUsageStack[] = $session instanceof Session ? $session->getUsageIndex() : 0;
     }
-    public function onKernelResponse(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+
+    public function onKernelResponse(ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
+
         $response = $event->getResponse();
         $autoCacheControl = !$response->headers->has(self::NO_AUTO_CACHE_CONTROL_HEADER);
         // Always remove the internal header if present
         $response->headers->remove(self::NO_AUTO_CACHE_CONTROL_HEADER);
-        if (!($session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : $event->getRequest()->getSession())) {
+
+        if (!$session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : $event->getRequest()->getSession()) {
             return;
         }
+
         if ($session->isStarted()) {
             /*
              * Saves the session, in case it is still open, before sending the response/headers.
@@ -104,28 +113,39 @@ abstract class AbstractSessionListener implements \ECSPrefix20210509\Symfony\Com
              */
             $session->save();
         }
-        if ($session instanceof \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Session ? $session->getUsageIndex() === \end($this->sessionUsageStack) : !$session->isStarted()) {
+
+        if ($session instanceof Session ? $session->getUsageIndex() === end($this->sessionUsageStack) : !$session->isStarted()) {
             return;
         }
+
         if ($autoCacheControl) {
-            $response->setExpires(new \DateTime())->setPrivate()->setMaxAge(0)->headers->addCacheControlDirective('must-revalidate');
+            $response
+                ->setExpires(new \DateTime())
+                ->setPrivate()
+                ->setMaxAge(0)
+                ->headers->addCacheControlDirective('must-revalidate');
         }
-        if (!$event->getRequest()->attributes->get('_stateless', \false)) {
+
+        if (!$event->getRequest()->attributes->get('_stateless', false)) {
             return;
         }
+
         if ($this->debug) {
-            throw new \ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
+            throw new UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
         }
+
         if ($this->container->has('logger')) {
             $this->container->get('logger')->warning('Session was used while the request was declared stateless.');
         }
     }
-    public function onFinishRequest(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\FinishRequestEvent $event)
+
+    public function onFinishRequest(FinishRequestEvent $event)
     {
         if ($event->isMasterRequest()) {
-            \array_pop($this->sessionUsageStack);
+            array_pop($this->sessionUsageStack);
         }
     }
+
     /**
      * @return void
      */
@@ -134,44 +154,53 @@ abstract class AbstractSessionListener implements \ECSPrefix20210509\Symfony\Com
         if (!$this->debug) {
             return;
         }
+
         if ($this->container && $this->container->has('session_collector')) {
             $this->container->get('session_collector')();
         }
-        if (!($requestStack = $this->container && $this->container->has('request_stack') ? $this->container->get('request_stack') : null)) {
+
+        if (!$requestStack = $this->container && $this->container->has('request_stack') ? $this->container->get('request_stack') : null) {
             return;
         }
-        $stateless = \false;
+
+        $stateless = false;
         $clonedRequestStack = clone $requestStack;
         while (null !== ($request = $clonedRequestStack->pop()) && !$stateless) {
             $stateless = $request->attributes->get('_stateless');
         }
+
         if (!$stateless) {
             return;
         }
-        if (!($session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : $requestStack->getCurrentRequest()->getSession())) {
+
+        if (!$session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : $requestStack->getCurrentRequest()->getSession()) {
             return;
         }
+
         if ($session->isStarted()) {
             $session->save();
         }
-        throw new \ECSPrefix20210509\Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
+
+        throw new UnexpectedSessionUsageException('Session was used while the request was declared stateless.');
     }
+
     /**
      * @return mixed[]
      */
     public static function getSubscribedEvents()
     {
         return [
-            \ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::REQUEST => ['onKernelRequest', 128],
+            KernelEvents::REQUEST => ['onKernelRequest', 128],
             // low priority to come after regular response listeners, but higher than StreamedResponseListener
-            \ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => ['onKernelResponse', -1000],
-            \ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::FINISH_REQUEST => ['onFinishRequest'],
+            KernelEvents::RESPONSE => ['onKernelResponse', -1000],
+            KernelEvents::FINISH_REQUEST => ['onFinishRequest'],
         ];
     }
+
     /**
      * Gets the session object.
      *
      * @return SessionInterface|null A SessionInterface instance or null if no session is available
      */
-    protected abstract function getSession();
+    abstract protected function getSession();
 }

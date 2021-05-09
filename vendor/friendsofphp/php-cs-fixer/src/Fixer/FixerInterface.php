@@ -9,10 +9,12 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer;
 
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  * @author Fabien Potencier <fabien@symfony.com>
@@ -29,7 +31,8 @@ interface FixerInterface
      * need no fixing for sure.
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens);
+    public function isCandidate(Tokens $tokens);
+
     /**
      * Check if fixer is risky or not.
      *
@@ -37,6 +40,7 @@ interface FixerInterface
      * @return bool
      */
     public function isRisky();
+
     /**
      * Fixes a file.
      *
@@ -44,12 +48,14 @@ interface FixerInterface
      * @param Tokens       $tokens Tokens collection
      * @return void
      */
-    public function fix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens);
+    public function fix(\SplFileInfo $file, Tokens $tokens);
+
     /**
      * Returns the definition of the fixer.
      * @return \PhpCsFixer\FixerDefinition\FixerDefinitionInterface
      */
     public function getDefinition();
+
     /**
      * Returns the name of the fixer.
      *
@@ -58,6 +64,7 @@ interface FixerInterface
      * @return string The name of the fixer
      */
     public function getName();
+
     /**
      * Returns the priority of the fixer.
      *
@@ -65,6 +72,7 @@ interface FixerInterface
      * @return int
      */
     public function getPriority();
+
     /**
      * Returns true if the file is supported by this fixer.
      *

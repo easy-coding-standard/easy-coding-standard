@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tests for the \PHP_CodeSniffer\Util\Common::isCamelCaps method.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core\Autoloader;
 
-use ECSPrefix20210509\PHPUnit\Framework\TestCase;
-class DetermineLoadedClassTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+
+class DetermineLoadedClassTest extends TestCase
 {
+
+
     /**
      * Load the test files.
      *
@@ -19,9 +22,11 @@ class DetermineLoadedClassTest extends \ECSPrefix20210509\PHPUnit\Framework\Test
      */
     public static function setUpBeforeClass()
     {
-        include __DIR__ . '/TestFiles/Sub/C.inc';
-    }
-    //end setUpBeforeClass()
+        include __DIR__.'/TestFiles/Sub/C.inc';
+
+    }//end setUpBeforeClass()
+
+
     /**
      * Test for when class list is ordered.
      *
@@ -29,12 +34,29 @@ class DetermineLoadedClassTest extends \ECSPrefix20210509\PHPUnit\Framework\Test
      */
     public function testOrdered()
     {
-        $classesBeforeLoad = ['classes' => [], 'interfaces' => [], 'traits' => []];
-        $classesAfterLoad = ['classes' => ['PHP_CodeSniffer\\Tests\\Core\\Autoloader\\A', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\B', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\C', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C'], 'interfaces' => [], 'traits' => []];
+        $classesBeforeLoad = [
+            'classes'    => [],
+            'interfaces' => [],
+            'traits'     => [],
+        ];
+
+        $classesAfterLoad = [
+            'classes'    => [
+                'PHP_CodeSniffer\Tests\Core\Autoloader\A',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\B',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\C',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C',
+            ],
+            'interfaces' => [],
+            'traits'     => [],
+        ];
+
         $className = \PHP_CodeSniffer\Autoload::determineLoadedClass($classesBeforeLoad, $classesAfterLoad);
-        $this->assertEquals('PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C', $className);
-    }
-    //end testOrdered()
+        $this->assertEquals('PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C', $className);
+
+    }//end testOrdered()
+
+
     /**
      * Test for when class list is out of order.
      *
@@ -42,17 +64,55 @@ class DetermineLoadedClassTest extends \ECSPrefix20210509\PHPUnit\Framework\Test
      */
     public function testUnordered()
     {
-        $classesBeforeLoad = ['classes' => [], 'interfaces' => [], 'traits' => []];
-        $classesAfterLoad = ['classes' => ['PHP_CodeSniffer\\Tests\\Core\\Autoloader\\A', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\C', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\B'], 'interfaces' => [], 'traits' => []];
+        $classesBeforeLoad = [
+            'classes'    => [],
+            'interfaces' => [],
+            'traits'     => [],
+        ];
+
+        $classesAfterLoad = [
+            'classes'    => [
+                'PHP_CodeSniffer\Tests\Core\Autoloader\A',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\C',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\B',
+            ],
+            'interfaces' => [],
+            'traits'     => [],
+        ];
+
         $className = \PHP_CodeSniffer\Autoload::determineLoadedClass($classesBeforeLoad, $classesAfterLoad);
-        $this->assertEquals('PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C', $className);
-        $classesAfterLoad = ['classes' => ['PHP_CodeSniffer\\Tests\\Core\\Autoloader\\A', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\C', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\B'], 'interfaces' => [], 'traits' => []];
+        $this->assertEquals('PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C', $className);
+
+        $classesAfterLoad = [
+            'classes'    => [
+                'PHP_CodeSniffer\Tests\Core\Autoloader\A',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\C',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\B',
+            ],
+            'interfaces' => [],
+            'traits'     => [],
+        ];
+
         $className = \PHP_CodeSniffer\Autoload::determineLoadedClass($classesBeforeLoad, $classesAfterLoad);
-        $this->assertEquals('PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C', $className);
-        $classesAfterLoad = ['classes' => ['PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\A', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\C', 'PHP_CodeSniffer\\Tests\\Core\\Autoloader\\B'], 'interfaces' => [], 'traits' => []];
+        $this->assertEquals('PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C', $className);
+
+        $classesAfterLoad = [
+            'classes'    => [
+                'PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\A',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\C',
+                'PHP_CodeSniffer\Tests\Core\Autoloader\B',
+            ],
+            'interfaces' => [],
+            'traits'     => [],
+        ];
+
         $className = \PHP_CodeSniffer\Autoload::determineLoadedClass($classesBeforeLoad, $classesAfterLoad);
-        $this->assertEquals('PHP_CodeSniffer\\Tests\\Core\\Autoloader\\Sub\\C', $className);
-    }
-    //end testUnordered()
-}
-//end class
+        $this->assertEquals('PHP_CodeSniffer\Tests\Core\Autoloader\Sub\C', $className);
+
+    }//end testUnordered()
+
+
+}//end class

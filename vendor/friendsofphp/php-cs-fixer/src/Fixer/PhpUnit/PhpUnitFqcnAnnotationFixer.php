@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\PhpUnit;
 
 use PhpCsFixer\Fixer\AbstractPhpUnitFixer;
@@ -18,10 +19,11 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+
 /**
  * @author Roland Franssen <franssen.roland@gmail.com>
  */
-final class PhpUnitFqcnAnnotationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnitFixer
+final class PhpUnitFqcnAnnotationFixer extends AbstractPhpUnitFixer
 {
     /**
      * {@inheritdoc}
@@ -29,21 +31,27 @@ final class PhpUnitFqcnAnnotationFixer extends \PhpCsFixer\Fixer\AbstractPhpUnit
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('PHPUnit annotations should be a FQCNs including a root namespace.', [new \PhpCsFixer\FixerDefinition\CodeSample('<?php
-final class MyTest extends \\PHPUnit_Framework_TestCase
+        return new FixerDefinition(
+            'PHPUnit annotations should be a FQCNs including a root namespace.',
+            [new CodeSample(
+                '<?php
+final class MyTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException InvalidArgumentException
-     * @covers Project\\NameSpace\\Something
-     * @coversDefaultClass Project\\Default
-     * @uses Project\\Test\\Util
+     * @covers Project\NameSpace\Something
+     * @coversDefaultClass Project\Default
+     * @uses Project\Test\Util
      */
     public function testSomeTest()
     {
     }
 }
-')]);
+'
+            )]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -54,34 +62,42 @@ final class MyTest extends \\PHPUnit_Framework_TestCase
     {
         return -9;
     }
+
     /**
      * {@inheritdoc}
      * @return void
      * @param int $startIndex
      * @param int $endIndex
      */
-    protected function applyPhpUnitClassFix(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    protected function applyPhpUnitClassFix(Tokens $tokens, $startIndex, $endIndex)
     {
         $startIndex = (int) $startIndex;
         $endIndex = (int) $endIndex;
-        $prevDocCommentIndex = $tokens->getPrevTokenOfKind($startIndex, [[\T_DOC_COMMENT]]);
+        $prevDocCommentIndex = $tokens->getPrevTokenOfKind($startIndex, [[T_DOC_COMMENT]]);
+
         if (null !== $prevDocCommentIndex) {
             $startIndex = $prevDocCommentIndex;
         }
+
         $this->fixPhpUnitClass($tokens, $startIndex, $endIndex);
     }
+
     /**
      * @return void
      * @param int $startIndex
      * @param int $endIndex
      */
-    private function fixPhpUnitClass(\PhpCsFixer\Tokenizer\Tokens $tokens, $startIndex, $endIndex)
+    private function fixPhpUnitClass(Tokens $tokens, $startIndex, $endIndex)
     {
         $startIndex = (int) $startIndex;
         $endIndex = (int) $endIndex;
         for ($index = $startIndex; $index < $endIndex; ++$index) {
-            if ($tokens[$index]->isGivenKind(\T_DOC_COMMENT)) {
-                $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, \PhpCsFixer\Preg::replace('~^(\\s*\\*\\s*@(?:expectedException|covers|coversDefaultClass|uses)\\h+)(?!(?:self|static)::)(\\w.*)$~m', '$1\\\\$2', $tokens[$index]->getContent())]);
+            if ($tokens[$index]->isGivenKind(T_DOC_COMMENT)) {
+                $tokens[$index] = new Token([T_DOC_COMMENT, Preg::replace(
+                    '~^(\s*\*\s*@(?:expectedException|covers|coversDefaultClass|uses)\h+)(?!(?:self|static)::)(\w.*)$~m',
+                    '$1\\\\$2',
+                    $tokens[$index]->getContent()
+                )]);
             }
         }
     }

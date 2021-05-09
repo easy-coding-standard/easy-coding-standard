@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the InlineComment sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\PEAR\Tests\Commenting;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class InlineCommentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class InlineCommentUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -22,9 +25,18 @@ class InlineCommentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSni
      */
     public function getErrorList()
     {
-        return [15 => 1, 24 => 1, 25 => 1, 27 => 1, 28 => 1, 29 => 1];
-    }
-    //end getErrorList()
+        return [
+            15 => 1,
+            24 => 1,
+            25 => 1,
+            27 => 1,
+            28 => 1,
+            29 => 1,
+        ];
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -36,7 +48,8 @@ class InlineCommentUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSni
     public function getWarningList()
     {
         return [];
-    }
-    //end getWarningList()
-}
-//end class
+
+    }//end getWarningList()
+
+
+}//end class

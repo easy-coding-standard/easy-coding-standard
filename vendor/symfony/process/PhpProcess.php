@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Process;
 
-use ECSPrefix20210509\Symfony\Component\Process\Exception\LogicException;
-use ECSPrefix20210509\Symfony\Component\Process\Exception\RuntimeException;
+namespace Symfony\Component\Process;
+
+use Symfony\Component\Process\Exception\LogicException;
+use Symfony\Component\Process\Exception\RuntimeException;
+
 /**
  * PhpProcess runs a PHP script in an independent process.
  *
@@ -21,7 +23,7 @@ use ECSPrefix20210509\Symfony\Component\Process\Exception\RuntimeException;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class PhpProcess extends \ECSPrefix20210509\Symfony\Component\Process\Process
+class PhpProcess extends Process
 {
     /**
      * @param string      $script  The PHP script to run (as a string)
@@ -35,19 +37,21 @@ class PhpProcess extends \ECSPrefix20210509\Symfony\Component\Process\Process
         $script = (string) $script;
         $timeout = (int) $timeout;
         if (null === $php) {
-            $executableFinder = new \ECSPrefix20210509\Symfony\Component\Process\PhpExecutableFinder();
-            $php = $executableFinder->find(\false);
-            $php = \false === $php ? null : \array_merge([$php], $executableFinder->findArguments());
+            $executableFinder = new PhpExecutableFinder();
+            $php = $executableFinder->find(false);
+            $php = false === $php ? null : array_merge([$php], $executableFinder->findArguments());
         }
         if ('phpdbg' === \PHP_SAPI) {
-            $file = \tempnam(\sys_get_temp_dir(), 'dbg');
-            \file_put_contents($file, $script);
-            \register_shutdown_function('unlink', $file);
+            $file = tempnam(sys_get_temp_dir(), 'dbg');
+            file_put_contents($file, $script);
+            register_shutdown_function('unlink', $file);
             $php[] = $file;
             $script = null;
         }
+
         parent::__construct($php, $cwd, $env, $script, $timeout);
     }
+
     /**
      * {@inheritdoc}
      * @param float|null $timeout
@@ -58,16 +62,18 @@ class PhpProcess extends \ECSPrefix20210509\Symfony\Component\Process\Process
     {
         $command = (string) $command;
         $cwd = (string) $cwd;
-        throw new \ECSPrefix20210509\Symfony\Component\Process\Exception\LogicException(\sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
+        throw new LogicException(sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
     }
+
     /**
      * {@inheritdoc}
      */
     public function start(callable $callback = null, array $env = [])
     {
         if (null === $this->getCommandLine()) {
-            throw new \ECSPrefix20210509\Symfony\Component\Process\Exception\RuntimeException('Unable to find the PHP executable.');
+            throw new RuntimeException('Unable to find the PHP executable.');
         }
+
         parent::start($callback, $env);
     }
 }

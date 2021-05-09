@@ -8,29 +8,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector;
 
-use ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Cookie;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\RequestStack;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Response;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface;
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ControllerEvent;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents;
+namespace Symfony\Component\HttpKernel\DataCollector;
+
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
+
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @final
  */
-class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\DataCollector implements \ECSPrefix20210509\Symfony\Component\EventDispatcher\EventSubscriberInterface, \ECSPrefix20210509\Symfony\Component\HttpKernel\DataCollector\LateDataCollectorInterface
+class RequestDataCollector extends DataCollector implements EventSubscriberInterface, LateDataCollectorInterface
 {
     protected $controllers;
     private $sessionUsages = [];
     private $requestStack;
+
     /**
      * @param \Symfony\Component\HttpFoundation\RequestStack|null $requestStack
      */
@@ -39,10 +42,11 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
         $this->controllers = new \SplObjectStorage();
         $this->requestStack = $requestStack;
     }
+
     /**
      * {@inheritdoc}
      */
-    public function collect(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         // attributes are serialized and as they can be anything, they need to be converted to strings.
         $attributes = [];
@@ -55,181 +59,261 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
                 $attributes[$key] = $value;
             }
         }
+
         $content = $request->getContent();
+
         $sessionMetadata = [];
         $sessionAttributes = [];
         $flashes = [];
         if ($request->hasSession()) {
             $session = $request->getSession();
             if ($session->isStarted()) {
-                $sessionMetadata['Created'] = \date(\DATE_RFC822, $session->getMetadataBag()->getCreated());
-                $sessionMetadata['Last used'] = \date(\DATE_RFC822, $session->getMetadataBag()->getLastUsed());
+                $sessionMetadata['Created'] = date(\DATE_RFC822, $session->getMetadataBag()->getCreated());
+                $sessionMetadata['Last used'] = date(\DATE_RFC822, $session->getMetadataBag()->getLastUsed());
                 $sessionMetadata['Lifetime'] = $session->getMetadataBag()->getLifetime();
                 $sessionAttributes = $session->all();
                 $flashes = $session->getFlashBag()->peekAll();
             }
         }
+
         $statusCode = $response->getStatusCode();
+
         $responseCookies = [];
         foreach ($response->headers->getCookies() as $cookie) {
             $responseCookies[$cookie->getName()] = $cookie;
         }
+
         $dotenvVars = [];
-        foreach (\explode(',', isset($_SERVER['SYMFONY_DOTENV_VARS']) ? $_SERVER['SYMFONY_DOTENV_VARS'] : (isset($_ENV['SYMFONY_DOTENV_VARS']) ? $_ENV['SYMFONY_DOTENV_VARS'] : '')) as $name) {
+        foreach (explode(',', isset($_SERVER['SYMFONY_DOTENV_VARS']) ? $_SERVER['SYMFONY_DOTENV_VARS'] : (isset($_ENV['SYMFONY_DOTENV_VARS']) ? $_ENV['SYMFONY_DOTENV_VARS'] : '')) as $name) {
             if ('' !== $name && isset($_ENV[$name])) {
                 $dotenvVars[$name] = $_ENV[$name];
             }
         }
-        $this->data = ['method' => $request->getMethod(), 'format' => $request->getRequestFormat(), 'content_type' => $response->headers->get('Content-Type', 'text/html'), 'status_text' => isset(\ECSPrefix20210509\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode]) ? \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response::$statusTexts[$statusCode] : '', 'status_code' => $statusCode, 'request_query' => $request->query->all(), 'request_request' => $request->request->all(), 'request_files' => $request->files->all(), 'request_headers' => $request->headers->all(), 'request_server' => $request->server->all(), 'request_cookies' => $request->cookies->all(), 'request_attributes' => $attributes, 'route' => $route, 'response_headers' => $response->headers->all(), 'response_cookies' => $responseCookies, 'session_metadata' => $sessionMetadata, 'session_attributes' => $sessionAttributes, 'session_usages' => \array_values($this->sessionUsages), 'stateless_check' => $this->requestStack && $this->requestStack->getMasterRequest()->attributes->get('_stateless', \false), 'flashes' => $flashes, 'path_info' => $request->getPathInfo(), 'controller' => 'n/a', 'locale' => $request->getLocale(), 'dotenv_vars' => $dotenvVars];
+
+        $this->data = [
+            'method' => $request->getMethod(),
+            'format' => $request->getRequestFormat(),
+            'content_type' => $response->headers->get('Content-Type', 'text/html'),
+            'status_text' => isset(Response::$statusTexts[$statusCode]) ? Response::$statusTexts[$statusCode] : '',
+            'status_code' => $statusCode,
+            'request_query' => $request->query->all(),
+            'request_request' => $request->request->all(),
+            'request_files' => $request->files->all(),
+            'request_headers' => $request->headers->all(),
+            'request_server' => $request->server->all(),
+            'request_cookies' => $request->cookies->all(),
+            'request_attributes' => $attributes,
+            'route' => $route,
+            'response_headers' => $response->headers->all(),
+            'response_cookies' => $responseCookies,
+            'session_metadata' => $sessionMetadata,
+            'session_attributes' => $sessionAttributes,
+            'session_usages' => array_values($this->sessionUsages),
+            'stateless_check' => $this->requestStack && $this->requestStack->getMasterRequest()->attributes->get('_stateless', false),
+            'flashes' => $flashes,
+            'path_info' => $request->getPathInfo(),
+            'controller' => 'n/a',
+            'locale' => $request->getLocale(),
+            'dotenv_vars' => $dotenvVars,
+        ];
+
         if (isset($this->data['request_headers']['php-auth-pw'])) {
             $this->data['request_headers']['php-auth-pw'] = '******';
         }
+
         if (isset($this->data['request_server']['PHP_AUTH_PW'])) {
             $this->data['request_server']['PHP_AUTH_PW'] = '******';
         }
+
         if (isset($this->data['request_request']['_password'])) {
-            $encodedPassword = \rawurlencode($this->data['request_request']['_password']);
-            $content = \str_replace('_password=' . $encodedPassword, '_password=******', $content);
+            $encodedPassword = rawurlencode($this->data['request_request']['_password']);
+            $content = str_replace('_password='.$encodedPassword, '_password=******', $content);
             $this->data['request_request']['_password'] = '******';
         }
+
         $this->data['content'] = $content;
+
         foreach ($this->data as $key => $value) {
             if (!\is_array($value)) {
                 continue;
             }
             if ('request_headers' === $key || 'response_headers' === $key) {
-                $this->data[$key] = \array_map(function ($v) {
-                    return isset($v[0]) && !isset($v[1]) ? $v[0] : $v;
-                }, $value);
+                $this->data[$key] = array_map(function ($v) { return isset($v[0]) && !isset($v[1]) ? $v[0] : $v; }, $value);
             }
         }
+
         if (isset($this->controllers[$request])) {
             $this->data['controller'] = $this->parseController($this->controllers[$request]);
             unset($this->controllers[$request]);
         }
-        if ($request->attributes->has('_redirected') && ($redirectCookie = $request->cookies->get('sf_redirect'))) {
-            $this->data['redirect'] = \json_decode($redirectCookie, \true);
+
+        if ($request->attributes->has('_redirected') && $redirectCookie = $request->cookies->get('sf_redirect')) {
+            $this->data['redirect'] = json_decode($redirectCookie, true);
+
             $response->headers->clearCookie('sf_redirect');
         }
+
         if ($response->isRedirect()) {
-            $response->headers->setCookie(new \ECSPrefix20210509\Symfony\Component\HttpFoundation\Cookie('sf_redirect', \json_encode(['token' => $response->headers->get('x-debug-token'), 'route' => $request->attributes->get('_route', 'n/a'), 'method' => $request->getMethod(), 'controller' => $this->parseController($request->attributes->get('_controller')), 'status_code' => $statusCode, 'status_text' => \ECSPrefix20210509\Symfony\Component\HttpFoundation\Response::$statusTexts[(int) $statusCode]]), 0, '/', null, $request->isSecure(), \true, \false, 'lax'));
+            $response->headers->setCookie(new Cookie(
+                'sf_redirect',
+                json_encode([
+                    'token' => $response->headers->get('x-debug-token'),
+                    'route' => $request->attributes->get('_route', 'n/a'),
+                    'method' => $request->getMethod(),
+                    'controller' => $this->parseController($request->attributes->get('_controller')),
+                    'status_code' => $statusCode,
+                    'status_text' => Response::$statusTexts[(int) $statusCode],
+                ]),
+                0, '/', null, $request->isSecure(), true, false, 'lax'
+            ));
         }
-        $this->data['identifier'] = $this->data['route'] ?: (\is_array($this->data['controller']) ? $this->data['controller']['class'] . '::' . $this->data['controller']['method'] . '()' : $this->data['controller']);
+
+        $this->data['identifier'] = $this->data['route'] ?: (\is_array($this->data['controller']) ? $this->data['controller']['class'].'::'.$this->data['controller']['method'].'()' : $this->data['controller']);
+
         if ($response->headers->has('x-previous-debug-token')) {
             $this->data['forward_token'] = $response->headers->get('x-previous-debug-token');
         }
     }
+
     public function lateCollect()
     {
         $this->data = $this->cloneVar($this->data);
     }
+
     public function reset()
     {
         $this->data = [];
         $this->controllers = new \SplObjectStorage();
         $this->sessionUsages = [];
     }
+
     public function getMethod()
     {
         return $this->data['method'];
     }
+
     public function getPathInfo()
     {
         return $this->data['path_info'];
     }
+
     public function getRequestRequest()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_request']->getValue());
+        return new ParameterBag($this->data['request_request']->getValue());
     }
+
     public function getRequestQuery()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_query']->getValue());
+        return new ParameterBag($this->data['request_query']->getValue());
     }
+
     public function getRequestFiles()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_files']->getValue());
+        return new ParameterBag($this->data['request_files']->getValue());
     }
+
     public function getRequestHeaders()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_headers']->getValue());
+        return new ParameterBag($this->data['request_headers']->getValue());
     }
-    public function getRequestServer($raw = \false)
+
+    public function getRequestServer($raw = false)
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_server']->getValue($raw));
+        return new ParameterBag($this->data['request_server']->getValue($raw));
     }
-    public function getRequestCookies($raw = \false)
+
+    public function getRequestCookies($raw = false)
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_cookies']->getValue($raw));
+        return new ParameterBag($this->data['request_cookies']->getValue($raw));
     }
+
     public function getRequestAttributes()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['request_attributes']->getValue());
+        return new ParameterBag($this->data['request_attributes']->getValue());
     }
+
     public function getResponseHeaders()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['response_headers']->getValue());
+        return new ParameterBag($this->data['response_headers']->getValue());
     }
+
     public function getResponseCookies()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['response_cookies']->getValue());
+        return new ParameterBag($this->data['response_cookies']->getValue());
     }
+
     public function getSessionMetadata()
     {
         return $this->data['session_metadata']->getValue();
     }
+
     public function getSessionAttributes()
     {
         return $this->data['session_attributes']->getValue();
     }
+
     public function getStatelessCheck()
     {
         return $this->data['stateless_check'];
     }
+
     public function getSessionUsages()
     {
         return $this->data['session_usages'];
     }
+
     public function getFlashes()
     {
         return $this->data['flashes']->getValue();
     }
+
     public function getContent()
     {
         return $this->data['content'];
     }
+
     public function isJsonRequest()
     {
-        return 1 === \preg_match('{^application/(?:\\w+\\++)*json$}i', $this->data['request_headers']['content-type']);
+        return 1 === preg_match('{^application/(?:\w+\++)*json$}i', $this->data['request_headers']['content-type']);
     }
+
     public function getPrettyJson()
     {
-        $decoded = \json_decode($this->getContent());
-        return \JSON_ERROR_NONE === \json_last_error() ? \json_encode($decoded, \JSON_PRETTY_PRINT) : null;
+        $decoded = json_decode($this->getContent());
+
+        return \JSON_ERROR_NONE === json_last_error() ? json_encode($decoded, \JSON_PRETTY_PRINT) : null;
     }
+
     public function getContentType()
     {
         return $this->data['content_type'];
     }
+
     public function getStatusText()
     {
         return $this->data['status_text'];
     }
+
     public function getStatusCode()
     {
         return $this->data['status_code'];
     }
+
     public function getFormat()
     {
         return $this->data['format'];
     }
+
     public function getLocale()
     {
         return $this->data['locale'];
     }
+
     public function getDotenvVars()
     {
-        return new \ECSPrefix20210509\Symfony\Component\HttpFoundation\ParameterBag($this->data['dotenv_vars']->getValue());
+        return new ParameterBag($this->data['dotenv_vars']->getValue());
     }
+
     /**
      * Gets the route name.
      *
@@ -241,10 +325,12 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
     {
         return $this->data['route'];
     }
+
     public function getIdentifier()
     {
         return $this->data['identifier'];
     }
+
     /**
      * Gets the route parameters.
      *
@@ -256,6 +342,7 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
     {
         return isset($this->data['request_attributes']['_route_params']) ? $this->data['request_attributes']['_route_params']->getValue() : [];
     }
+
     /**
      * Gets the parsed controller.
      *
@@ -266,6 +353,7 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
     {
         return $this->data['controller'];
     }
+
     /**
      * Gets the previous request attributes.
      *
@@ -274,29 +362,38 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
      */
     public function getRedirect()
     {
-        return isset($this->data['redirect']) ? $this->data['redirect'] : \false;
+        return isset($this->data['redirect']) ? $this->data['redirect'] : false;
     }
+
     public function getForwardToken()
     {
         return isset($this->data['forward_token']) ? $this->data['forward_token'] : null;
     }
-    public function onKernelController(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ControllerEvent $event)
+
+    public function onKernelController(ControllerEvent $event)
     {
         $this->controllers[$event->getRequest()] = $event->getController();
     }
-    public function onKernelResponse(\ECSPrefix20210509\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+
+    public function onKernelResponse(ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
+
         if ($event->getRequest()->cookies->has('sf_redirect')) {
-            $event->getRequest()->attributes->set('_redirected', \true);
+            $event->getRequest()->attributes->set('_redirected', true);
         }
     }
+
     public static function getSubscribedEvents()
     {
-        return [\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::CONTROLLER => 'onKernelController', \ECSPrefix20210509\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
+        return [
+            KernelEvents::CONTROLLER => 'onKernelController',
+            KernelEvents::RESPONSE => 'onKernelResponse',
+        ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -304,30 +401,41 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
     {
         return 'request';
     }
+
     /**
      * @return void
      */
     public function collectSessionUsage()
     {
-        $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
+        $trace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
+
         $traceEndIndex = \count($trace) - 1;
         for ($i = $traceEndIndex; $i > 0; --$i) {
-            if (null !== ($class = isset($trace[$i]['class']) ? $trace[$i]['class'] : null) && (\is_subclass_of($class, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionInterface::class) || \is_subclass_of($class, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\SessionBagInterface::class))) {
+            if (null !== ($class = isset($trace[$i]['class']) ? $trace[$i]['class'] : null) && (is_subclass_of($class, SessionInterface::class) || is_subclass_of($class, SessionBagInterface::class))) {
                 $traceEndIndex = $i;
                 break;
             }
         }
-        if (\count($trace) - 1 === $traceEndIndex) {
+
+        if ((\count($trace) - 1) === $traceEndIndex) {
             return;
         }
+
         // Remove part of the backtrace that belongs to session only
-        \array_splice($trace, 0, $traceEndIndex);
+        array_splice($trace, 0, $traceEndIndex);
+
         // Merge identical backtraces generated by internal call reports
-        $name = \sprintf('%s:%s', isset($trace[1]['class']) ? $trace[1]['class'] : $trace[0]['file'], $trace[0]['line']);
+        $name = sprintf('%s:%s', isset($trace[1]['class']) ? $trace[1]['class'] : $trace[0]['file'], $trace[0]['line']);
         if (!\array_key_exists($name, $this->sessionUsages)) {
-            $this->sessionUsages[$name] = ['name' => $name, 'file' => $trace[0]['file'], 'line' => $trace[0]['line'], 'trace' => $trace];
+            $this->sessionUsages[$name] = [
+                'name' => $name,
+                'file' => $trace[0]['file'],
+                'line' => $trace[0]['line'],
+                'trace' => $trace,
+            ];
         }
     }
+
     /**
      * Parse a controller.
      *
@@ -337,38 +445,68 @@ class RequestDataCollector extends \ECSPrefix20210509\Symfony\Component\HttpKern
      */
     protected function parseController($controller)
     {
-        if (\is_string($controller) && \false !== \strpos($controller, '::')) {
-            $controller = \explode('::', $controller);
+        if (\is_string($controller) && false !== strpos($controller, '::')) {
+            $controller = explode('::', $controller);
         }
+
         if (\is_array($controller)) {
             try {
                 $r = new \ReflectionMethod($controller[0], $controller[1]);
-                return ['class' => \is_object($controller[0]) ? \get_debug_type($controller[0]) : $controller[0], 'method' => $controller[1], 'file' => $r->getFileName(), 'line' => $r->getStartLine()];
+
+                return [
+                    'class' => \is_object($controller[0]) ? get_debug_type($controller[0]) : $controller[0],
+                    'method' => $controller[1],
+                    'file' => $r->getFileName(),
+                    'line' => $r->getStartLine(),
+                ];
             } catch (\ReflectionException $e) {
                 if (\is_callable($controller)) {
                     // using __call or  __callStatic
-                    return ['class' => \is_object($controller[0]) ? \get_debug_type($controller[0]) : $controller[0], 'method' => $controller[1], 'file' => 'n/a', 'line' => 'n/a'];
+                    return [
+                        'class' => \is_object($controller[0]) ? get_debug_type($controller[0]) : $controller[0],
+                        'method' => $controller[1],
+                        'file' => 'n/a',
+                        'line' => 'n/a',
+                    ];
                 }
             }
         }
+
         if ($controller instanceof \Closure) {
             $r = new \ReflectionFunction($controller);
-            $controller = ['class' => $r->getName(), 'method' => null, 'file' => $r->getFileName(), 'line' => $r->getStartLine()];
-            if (\false !== \strpos($r->name, '{closure}')) {
+
+            $controller = [
+                'class' => $r->getName(),
+                'method' => null,
+                'file' => $r->getFileName(),
+                'line' => $r->getStartLine(),
+            ];
+
+            if (false !== strpos($r->name, '{closure}')) {
                 return $controller;
             }
             $controller['method'] = $r->name;
+
             if ($class = $r->getClosureScopeClass()) {
                 $controller['class'] = $class->name;
             } else {
                 return $r->name;
             }
+
             return $controller;
         }
+
         if (\is_object($controller)) {
             $r = new \ReflectionClass($controller);
-            return ['class' => $r->getName(), 'method' => null, 'file' => $r->getFileName(), 'line' => $r->getStartLine()];
+
+            return [
+                'class' => $r->getName(),
+                'method' => null,
+                'file' => $r->getFileName(),
+                'line' => $r->getStartLine(),
+            ];
         }
+
         return \is_string($controller) ? $controller : 'n/a';
     }
 }

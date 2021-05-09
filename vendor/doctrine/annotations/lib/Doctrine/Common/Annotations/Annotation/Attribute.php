@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210509\Doctrine\Common\Annotations\Annotation;
+namespace Doctrine\Common\Annotations\Annotation;
 
 /**
  * Annotation that can be used to signal to the parser
@@ -12,8 +12,10 @@ final class Attribute
 {
     /** @var string */
     public $name;
+
     /** @var string */
     public $type;
+
     /** @var bool */
-    public $required = \false;
+    public $required = false;
 }

@@ -1,10 +1,8 @@
 {
-    "name": "php-cs-fixer\/diff",
-    "description": "sebastian\/diff v3 backport support for PHP 5.6+",
-    "keywords": [
-        "diff"
-    ],
-    "homepage": "https:\/\/github.com\/PHP-CS-Fixer",
+    "name": "php-cs-fixer/diff",
+    "description": "sebastian/diff v3 backport support for PHP 5.6+",
+    "keywords": ["diff"],
+    "homepage": "https://github.com/PHP-CS-Fixer",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -20,8 +18,8 @@
         "php": "^5.6 || ^7.0 || ^8.0"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^5.7.23 || ^6.4.3 || ^7.0",
-        "symfony\/process": "^3.3"
+        "phpunit/phpunit": "^5.7.23 || ^6.4.3 || ^7.0",
+        "symfony/process": "^3.3"
     },
     "config": {
         "optimize-autoloader": true,
@@ -29,7 +27,7 @@
     },
     "autoload": {
         "classmap": [
-            "src\/"
+            "src/"
         ]
     },
     "autoload-dev": {

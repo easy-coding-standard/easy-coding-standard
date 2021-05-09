@@ -8,12 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Helper;
 
-use ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210509\Symfony\Component\Process\Exception\ProcessFailedException;
-use ECSPrefix20210509\Symfony\Component\Process\Process;
+namespace Symfony\Component\Console\Helper;
+
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 /**
  * The ProcessHelper class provides helpers to run external processes.
  *
@@ -21,7 +23,7 @@ use ECSPrefix20210509\Symfony\Component\Process\Process;
  *
  * @final
  */
-class ProcessHelper extends \ECSPrefix20210509\Symfony\Component\Console\Helper\Helper
+class ProcessHelper extends Helper
 {
     /**
      * Runs an external process.
@@ -34,47 +36,59 @@ class ProcessHelper extends \ECSPrefix20210509\Symfony\Component\Console\Helper\
      * @param string $error
      * @param int $verbosity
      */
-    public function run(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_VERY_VERBOSE)
+    public function run(OutputInterface $output, $cmd, $error = null, callable $callback = null, $verbosity = OutputInterface::VERBOSITY_VERY_VERBOSE)
     {
         $verbosity = (int) $verbosity;
-        if (!\class_exists(\ECSPrefix20210509\Symfony\Component\Process\Process::class)) {
+        if (!class_exists(Process::class)) {
             throw new \LogicException('The ProcessHelper cannot be run as the Process component is not installed. Try running "compose require symfony/process".');
         }
-        if ($output instanceof \ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+
+        if ($output instanceof ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
+
         $formatter = $this->getHelperSet()->get('debug_formatter');
-        if ($cmd instanceof \ECSPrefix20210509\Symfony\Component\Process\Process) {
+
+        if ($cmd instanceof Process) {
             $cmd = [$cmd];
         }
+
         if (!\is_array($cmd)) {
-            throw new \TypeError(\sprintf('The "command" argument of "%s()" must be an array or a "%s" instance, "%s" given.', __METHOD__, \ECSPrefix20210509\Symfony\Component\Process\Process::class, \get_debug_type($cmd)));
+            throw new \TypeError(sprintf('The "command" argument of "%s()" must be an array or a "%s" instance, "%s" given.', __METHOD__, Process::class, get_debug_type($cmd)));
         }
+
         if (\is_string(isset($cmd[0]) ? $cmd[0] : null)) {
-            $process = new \ECSPrefix20210509\Symfony\Component\Process\Process($cmd);
+            $process = new Process($cmd);
             $cmd = [];
-        } elseif ((isset($cmd[0]) ? $cmd[0] : null) instanceof \ECSPrefix20210509\Symfony\Component\Process\Process) {
+        } elseif ((isset($cmd[0]) ? $cmd[0] : null) instanceof Process) {
             $process = $cmd[0];
             unset($cmd[0]);
         } else {
-            throw new \InvalidArgumentException(\sprintf('Invalid command provided to "%s()": the command should be an array whose first element is either the path to the binary to run or a "Process" object.', __METHOD__));
+            throw new \InvalidArgumentException(sprintf('Invalid command provided to "%s()": the command should be an array whose first element is either the path to the binary to run or a "Process" object.', __METHOD__));
         }
+
         if ($verbosity <= $output->getVerbosity()) {
-            $output->write($formatter->start(\spl_object_hash($process), $this->escapeString($process->getCommandLine())));
+            $output->write($formatter->start(spl_object_hash($process), $this->escapeString($process->getCommandLine())));
         }
+
         if ($output->isDebug()) {
             $callback = $this->wrapCallback($output, $process, $callback);
         }
+
         $process->run($callback, $cmd);
+
         if ($verbosity <= $output->getVerbosity()) {
-            $message = $process->isSuccessful() ? 'Command ran successfully' : \sprintf('%s Command did not run successfully', $process->getExitCode());
-            $output->write($formatter->stop(\spl_object_hash($process), $message, $process->isSuccessful()));
+            $message = $process->isSuccessful() ? 'Command ran successfully' : sprintf('%s Command did not run successfully', $process->getExitCode());
+            $output->write($formatter->stop(spl_object_hash($process), $message, $process->isSuccessful()));
         }
+
         if (!$process->isSuccessful() && null !== $error) {
-            $output->writeln(\sprintf('<error>%s</error>', $this->escapeString($error)));
+            $output->writeln(sprintf('<error>%s</error>', $this->escapeString($error)));
         }
+
         return $process;
     }
+
     /**
      * Runs the process.
      *
@@ -92,31 +106,38 @@ class ProcessHelper extends \ECSPrefix20210509\Symfony\Component\Console\Helper\
      * @see run()
      * @param string $error
      */
-    public function mustRun(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, $cmd, $error = null, callable $callback = null)
+    public function mustRun(OutputInterface $output, $cmd, $error = null, callable $callback = null)
     {
         $process = $this->run($output, $cmd, $error, $callback);
+
         if (!$process->isSuccessful()) {
-            throw new \ECSPrefix20210509\Symfony\Component\Process\Exception\ProcessFailedException($process);
+            throw new ProcessFailedException($process);
         }
+
         return $process;
     }
+
     /**
      * Wraps a Process callback to add debugging output.
      * @return callable
      */
-    public function wrapCallback(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210509\Symfony\Component\Process\Process $process, callable $callback = null)
+    public function wrapCallback(OutputInterface $output, Process $process, callable $callback = null)
     {
-        if ($output instanceof \ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if ($output instanceof ConsoleOutputInterface) {
             $output = $output->getErrorOutput();
         }
+
         $formatter = $this->getHelperSet()->get('debug_formatter');
-        return function ($type, $buffer) use($output, $process, $callback, $formatter) {
-            $output->write($formatter->progress(\spl_object_hash($process), $this->escapeString($buffer), \ECSPrefix20210509\Symfony\Component\Process\Process::ERR === $type));
+
+        return function ($type, $buffer) use ($output, $process, $callback, $formatter) {
+            $output->write($formatter->progress(spl_object_hash($process), $this->escapeString($buffer), Process::ERR === $type));
+
             if (null !== $callback) {
                 $callback($type, $buffer);
             }
         };
     }
+
     /**
      * @param string $str
      * @return string
@@ -124,8 +145,9 @@ class ProcessHelper extends \ECSPrefix20210509\Symfony\Component\Console\Helper\
     private function escapeString($str)
     {
         $str = (string) $str;
-        return \str_replace('<', '\\<', $str);
+        return str_replace('<', '\\<', $str);
     }
+
     /**
      * {@inheritdoc}
      * @return string

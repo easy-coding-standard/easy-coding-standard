@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tests for the \PHP_CodeSniffer\Files\File:findEndOfStatement method.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Tests\Core\File;
 
 use PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest;
-class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodUnitTest
+
+class FindEndOfStatementTest extends AbstractMethodUnitTest
 {
+
+
     /**
      * Test a simple assignment.
      *
@@ -19,11 +22,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testSimpleAssignment()
     {
-        $start = $this->getTargetToken('/* testSimpleAssignment */', \T_VARIABLE);
+        $start = $this->getTargetToken('/* testSimpleAssignment */', T_VARIABLE);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 5, $found);
-    }
-    //end testSimpleAssignment()
+
+        $this->assertSame(($start + 5), $found);
+
+    }//end testSimpleAssignment()
+
+
     /**
      * Test a direct call to a control structure.
      *
@@ -31,11 +37,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testControlStructure()
     {
-        $start = $this->getTargetToken('/* testControlStructure */', \T_WHILE);
+        $start = $this->getTargetToken('/* testControlStructure */', T_WHILE);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 6, $found);
-    }
-    //end testControlStructure()
+
+        $this->assertSame(($start + 6), $found);
+
+    }//end testControlStructure()
+
+
     /**
      * Test the assignment of a closure.
      *
@@ -43,11 +52,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testClosureAssignment()
     {
-        $start = $this->getTargetToken('/* testClosureAssignment */', \T_VARIABLE, '$a');
+        $start = $this->getTargetToken('/* testClosureAssignment */', T_VARIABLE, '$a');
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 13, $found);
-    }
-    //end testClosureAssignment()
+
+        $this->assertSame(($start + 13), $found);
+
+    }//end testClosureAssignment()
+
+
     /**
      * Test using a heredoc in a function argument.
      *
@@ -56,19 +68,26 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
     public function testHeredocFunctionArg()
     {
         // Find the end of the function.
-        $start = $this->getTargetToken('/* testHeredocFunctionArg */', \T_STRING, 'myFunction');
+        $start = $this->getTargetToken('/* testHeredocFunctionArg */', T_STRING, 'myFunction');
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 10, $found);
+
+        $this->assertSame(($start + 10), $found);
+
         // Find the end of the heredoc.
         $start += 2;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 4, $found);
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 4), $found);
+
         // Find the end of the last arg.
-        $start = $found + 2;
+        $start = ($found + 2);
         $found = self::$phpcsFile->findEndOfStatement($start);
+
         $this->assertSame($start, $found);
-    }
-    //end testHeredocFunctionArg()
+
+    }//end testHeredocFunctionArg()
+
+
     /**
      * Test parts of a switch statement.
      *
@@ -77,19 +96,26 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
     public function testSwitch()
     {
         // Find the end of the switch.
-        $start = $this->getTargetToken('/* testSwitch */', \T_SWITCH);
+        $start = $this->getTargetToken('/* testSwitch */', T_SWITCH);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 28, $found);
+
+        $this->assertSame(($start + 28), $found);
+
         // Find the end of the case.
         $start += 9;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 8, $found);
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 8), $found);
+
         // Find the end of default case.
         $start += 11;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 6, $found);
-    }
-    //end testSwitch()
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 6), $found);
+
+    }//end testSwitch()
+
+
     /**
      * Test statements that are array values.
      *
@@ -98,19 +124,26 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
     public function testStatementAsArrayValue()
     {
         // Test short array syntax.
-        $start = $this->getTargetToken('/* testStatementAsArrayValue */', \T_NEW);
+        $start = $this->getTargetToken('/* testStatementAsArrayValue */', T_NEW);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 2, $found);
+
+        $this->assertSame(($start + 2), $found);
+
         // Test long array syntax.
         $start += 12;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 2, $found);
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 2), $found);
+
         // Test same statement outside of array.
         $start += 10;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 3, $found);
-    }
-    //end testStatementAsArrayValue()
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 3), $found);
+
+    }//end testStatementAsArrayValue()
+
+
     /**
      * Test a use group.
      *
@@ -118,11 +151,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testUseGroup()
     {
-        $start = $this->getTargetToken('/* testUseGroup */', \T_USE);
+        $start = $this->getTargetToken('/* testUseGroup */', T_USE);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 23, $found);
-    }
-    //end testUseGroup()
+
+        $this->assertSame(($start + 23), $found);
+
+    }//end testUseGroup()
+
+
     /**
      * Test arrow function as array value.
      *
@@ -130,11 +166,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testArrowFunctionArrayValue()
     {
-        $start = $this->getTargetToken('/* testArrowFunctionArrayValue */', \T_FN);
+        $start = $this->getTargetToken('/* testArrowFunctionArrayValue */', T_FN);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 9, $found);
-    }
-    //end testArrowFunctionArrayValue()
+
+        $this->assertSame(($start + 9), $found);
+
+    }//end testArrowFunctionArrayValue()
+
+
     /**
      * Test static arrow function.
      *
@@ -142,13 +181,17 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testStaticArrowFunction()
     {
-        $static = $this->getTargetToken('/* testStaticArrowFunction */', \T_STATIC);
-        $fn = $this->getTargetToken('/* testStaticArrowFunction */', \T_FN);
+        $static = $this->getTargetToken('/* testStaticArrowFunction */', T_STATIC);
+        $fn     = $this->getTargetToken('/* testStaticArrowFunction */', T_FN);
+
         $endOfStatementStatic = self::$phpcsFile->findEndOfStatement($static);
-        $endOfStatementFn = self::$phpcsFile->findEndOfStatement($fn);
+        $endOfStatementFn     = self::$phpcsFile->findEndOfStatement($fn);
+
         $this->assertSame($endOfStatementFn, $endOfStatementStatic);
-    }
-    //end testStaticArrowFunction()
+
+    }//end testStaticArrowFunction()
+
+
     /**
      * Test arrow function with return value.
      *
@@ -156,11 +199,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testArrowFunctionReturnValue()
     {
-        $start = $this->getTargetToken('/* testArrowFunctionReturnValue */', \T_FN);
+        $start = $this->getTargetToken('/* testArrowFunctionReturnValue */', T_FN);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 18, $found);
-    }
-    //end testArrowFunctionReturnValue()
+
+        $this->assertSame(($start + 18), $found);
+
+    }//end testArrowFunctionReturnValue()
+
+
     /**
      * Test arrow function used as a function argument.
      *
@@ -168,11 +214,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testArrowFunctionAsArgument()
     {
-        $start = $this->getTargetToken('/* testArrowFunctionAsArgument */', \T_FN);
+        $start = $this->getTargetToken('/* testArrowFunctionAsArgument */', T_FN);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 8, $found);
-    }
-    //end testArrowFunctionAsArgument()
+
+        $this->assertSame(($start + 8), $found);
+
+    }//end testArrowFunctionAsArgument()
+
+
     /**
      * Test arrow function with arrays used as a function argument.
      *
@@ -180,11 +229,14 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testArrowFunctionWithArrayAsArgument()
     {
-        $start = $this->getTargetToken('/* testArrowFunctionWithArrayAsArgument */', \T_FN);
+        $start = $this->getTargetToken('/* testArrowFunctionWithArrayAsArgument */', T_FN);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 17, $found);
-    }
-    //end testArrowFunctionWithArrayAsArgument()
+
+        $this->assertSame(($start + 17), $found);
+
+    }//end testArrowFunctionWithArrayAsArgument()
+
+
     /**
      * Test simple match expression case.
      *
@@ -192,14 +244,19 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testMatchCase()
     {
-        $start = $this->getTargetToken('/* testMatchCase */', \T_LNUMBER);
+        $start = $this->getTargetToken('/* testMatchCase */', T_LNUMBER);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 5, $found);
-        $start = $this->getTargetToken('/* testMatchCase */', \T_CONSTANT_ENCAPSED_STRING);
+
+        $this->assertSame(($start + 5), $found);
+
+        $start = $this->getTargetToken('/* testMatchCase */', T_CONSTANT_ENCAPSED_STRING);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 1, $found);
-    }
-    //end testMatchCase()
+
+        $this->assertSame(($start + 1), $found);
+
+    }//end testMatchCase()
+
+
     /**
      * Test simple match expression default case.
      *
@@ -209,12 +266,17 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
     {
         $start = $this->getTargetToken('/* testMatchDefault */', T_MATCH_DEFAULT);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 4, $found);
-        $start = $this->getTargetToken('/* testMatchDefault */', \T_CONSTANT_ENCAPSED_STRING);
+
+        $this->assertSame(($start + 4), $found);
+
+        $start = $this->getTargetToken('/* testMatchDefault */', T_CONSTANT_ENCAPSED_STRING);
         $found = self::$phpcsFile->findEndOfStatement($start);
+
         $this->assertSame($start, $found);
-    }
-    //end testMatchDefault()
+
+    }//end testMatchDefault()
+
+
     /**
      * Test multiple comma-separated match expression case values.
      *
@@ -222,14 +284,17 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testMatchMultipleCase()
     {
-        $start = $this->getTargetToken('/* testMatchMultipleCase */', \T_LNUMBER);
+        $start = $this->getTargetToken('/* testMatchMultipleCase */', T_LNUMBER);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 13, $found);
+        $this->assertSame(($start + 13), $found);
+
         $start += 6;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 7, $found);
-    }
-    //end testMatchMultipleCase()
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+        $this->assertSame(($start + 7), $found);
+
+    }//end testMatchMultipleCase()
+
+
     /**
      * Test match expression default case with trailing comma.
      *
@@ -239,9 +304,12 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
     {
         $start = $this->getTargetToken('/* testMatchDefaultComma */', T_MATCH_DEFAULT);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 5, $found);
-    }
-    //end testMatchDefaultComma()
+
+        $this->assertSame(($start + 5), $found);
+
+    }//end testMatchDefaultComma()
+
+
     /**
      * Test match expression with function call.
      *
@@ -249,14 +317,19 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testMatchFunctionCall()
     {
-        $start = $this->getTargetToken('/* testMatchFunctionCall */', \T_STRING);
+        $start = $this->getTargetToken('/* testMatchFunctionCall */', T_STRING);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 12, $found);
+
+        $this->assertSame(($start + 12), $found);
+
         $start += 8;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 1, $found);
-    }
-    //end testMatchFunctionCall()
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 1), $found);
+
+    }//end testMatchFunctionCall()
+
+
     /**
      * Test match expression with function call in the arm.
      *
@@ -265,15 +338,20 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
     public function testMatchFunctionCallArm()
     {
         // Check the first case.
-        $start = $this->getTargetToken('/* testMatchFunctionCallArm */', \T_STRING);
+        $start = $this->getTargetToken('/* testMatchFunctionCallArm */', T_STRING);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 21, $found);
+
+        $this->assertSame(($start + 21), $found);
+
         // Check the second case.
         $start += 24;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 21, $found);
-    }
-    //end testMatchFunctionCallArm()
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 21), $found);
+
+    }//end testMatchFunctionCallArm()
+
+
     /**
      * Test match expression with closure.
      *
@@ -281,14 +359,19 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testMatchClosure()
     {
-        $start = $this->getTargetToken('/* testMatchClosure */', \T_LNUMBER);
+        $start = $this->getTargetToken('/* testMatchClosure */', T_LNUMBER);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 14, $found);
+
+        $this->assertSame(($start + 14), $found);
+
         $start += 17;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 14, $found);
-    }
-    //end testMatchClosure()
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 14), $found);
+
+    }//end testMatchClosure()
+
+
     /**
      * Test match expression with array declaration.
      *
@@ -296,14 +379,19 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testMatchArray()
     {
-        $start = $this->getTargetToken('/* testMatchArray */', \T_LNUMBER);
+        $start = $this->getTargetToken('/* testMatchArray */', T_LNUMBER);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 11, $found);
+
+        $this->assertSame(($start + 11), $found);
+
         $start += 14;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 22, $found);
-    }
-    //end testMatchArray()
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 22), $found);
+
+    }//end testMatchArray()
+
+
     /**
      * Test nested match expressions.
      *
@@ -311,13 +399,17 @@ class FindEndOfStatementTest extends \PHP_CodeSniffer\Tests\Core\AbstractMethodU
      */
     public function testNestedMatch()
     {
-        $start = $this->getTargetToken('/* testNestedMatch */', \T_LNUMBER);
+        $start = $this->getTargetToken('/* testNestedMatch */', T_LNUMBER);
         $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 30, $found);
+
+        $this->assertSame(($start + 30), $found);
+
         $start += 21;
-        $found = self::$phpcsFile->findEndOfStatement($start);
-        $this->assertSame($start + 5, $found);
-    }
-    //end testNestedMatch()
-}
-//end class
+        $found  = self::$phpcsFile->findEndOfStatement($start);
+
+        $this->assertSame(($start + 5), $found);
+
+    }//end testNestedMatch()
+
+
+}//end class

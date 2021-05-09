@@ -8,9 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+namespace Symfony\Component\DependencyInjection;
+
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
+
 /**
  * The EnvVarProcessorInterface is implemented by objects that manage environment-like variables.
  *
@@ -30,6 +32,7 @@ interface EnvVarProcessorInterface
      * @throws RuntimeException on error
      */
     public function getEnv($prefix, $name, \Closure $getEnv);
+
     /**
      * @return string[] The PHP-types managed by getEnv(), keyed by prefixes
      */

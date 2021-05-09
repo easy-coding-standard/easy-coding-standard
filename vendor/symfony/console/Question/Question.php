@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Question;
 
-use ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException;
-use ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException;
+namespace Symfony\Component\Console\Question;
+
+use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Exception\LogicException;
+
 /**
  * Represents a Question.
  *
@@ -21,14 +23,15 @@ class Question
 {
     private $question;
     private $attempts;
-    private $hidden = \false;
-    private $hiddenFallback = \true;
+    private $hidden = false;
+    private $hiddenFallback = true;
     private $autocompleterCallback;
     private $validator;
     private $default;
     private $normalizer;
-    private $trimmable = \true;
-    private $multiline = \false;
+    private $trimmable = true;
+    private $multiline = false;
+
     /**
      * @param string $question The question to ask to the user
      * @param mixed  $default  The default answer to return if the user enters nothing
@@ -39,6 +42,7 @@ class Question
         $this->question = $question;
         $this->default = $default;
     }
+
     /**
      * Returns the question.
      *
@@ -48,6 +52,7 @@ class Question
     {
         return $this->question;
     }
+
     /**
      * Returns the default answer.
      *
@@ -57,6 +62,7 @@ class Question
     {
         return $this->default;
     }
+
     /**
      * Returns whether the user response accepts newline characters.
      * @return bool
@@ -65,6 +71,7 @@ class Question
     {
         return $this->multiline;
     }
+
     /**
      * Sets whether the user response should accept newline characters.
      *
@@ -75,8 +82,10 @@ class Question
     {
         $multiline = (bool) $multiline;
         $this->multiline = $multiline;
+
         return $this;
     }
+
     /**
      * Returns whether the user response must be hidden.
      *
@@ -86,6 +95,7 @@ class Question
     {
         return $this->hidden;
     }
+
     /**
      * Sets whether the user response must be hidden or not.
      *
@@ -98,11 +108,14 @@ class Question
     public function setHidden($hidden)
     {
         if ($this->autocompleterCallback) {
-            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
+            throw new LogicException('A hidden question cannot use the autocompleter.');
         }
+
         $this->hidden = (bool) $hidden;
+
         return $this;
     }
+
     /**
      * In case the response can not be hidden, whether to fallback on non-hidden question or not.
      *
@@ -112,6 +125,7 @@ class Question
     {
         return $this->hiddenFallback;
     }
+
     /**
      * Sets whether to fallback on non-hidden question if the response can not be hidden.
      *
@@ -122,8 +136,10 @@ class Question
     public function setHiddenFallback($fallback)
     {
         $this->hiddenFallback = (bool) $fallback;
+
         return $this;
     }
+
     /**
      * Gets values for the autocompleter.
      *
@@ -132,8 +148,10 @@ class Question
     public function getAutocompleterValues()
     {
         $callback = $this->getAutocompleterCallback();
+
         return $callback ? $callback('') : null;
     }
+
     /**
      * Sets values for the autocompleter.
      *
@@ -145,20 +163,23 @@ class Question
     public function setAutocompleterValues($values)
     {
         if (\is_array($values)) {
-            $values = $this->isAssoc($values) ? \array_merge(\array_keys($values), \array_values($values)) : \array_values($values);
-            $callback = static function () use($values) {
+            $values = $this->isAssoc($values) ? array_merge(array_keys($values), array_values($values)) : array_values($values);
+
+            $callback = static function () use ($values) {
                 return $values;
             };
         } elseif ($values instanceof \Traversable) {
             $valueCache = null;
-            $callback = static function () use($values, &$valueCache) {
-                return isset($valueCache) ? $valueCache : ($valueCache = \iterator_to_array($values, \false));
+            $callback = static function () use ($values, &$valueCache) {
+                return isset($valueCache) ? $valueCache : ($valueCache = iterator_to_array($values, false));
             };
         } else {
             $callback = null;
         }
+
         return $this->setAutocompleterCallback($callback);
     }
+
     /**
      * Gets the callback function used for the autocompleter.
      * @return callable|null
@@ -167,6 +188,7 @@ class Question
     {
         return $this->autocompleterCallback;
     }
+
     /**
      * Sets the callback function used for the autocompleter.
      *
@@ -177,11 +199,14 @@ class Question
     public function setAutocompleterCallback(callable $callback = null)
     {
         if ($this->hidden && null !== $callback) {
-            throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\LogicException('A hidden question cannot use the autocompleter.');
+            throw new LogicException('A hidden question cannot use the autocompleter.');
         }
+
         $this->autocompleterCallback = $callback;
+
         return $this;
     }
+
     /**
      * Sets a validator for the question.
      *
@@ -190,8 +215,10 @@ class Question
     public function setValidator(callable $validator = null)
     {
         $this->validator = $validator;
+
         return $this;
     }
+
     /**
      * Gets the validator for the question.
      *
@@ -201,6 +228,7 @@ class Question
     {
         return $this->validator;
     }
+
     /**
      * Sets the maximum number of attempts.
      *
@@ -216,12 +244,15 @@ class Question
         if (null !== $attempts) {
             $attempts = (int) $attempts;
             if ($attempts < 1) {
-                throw new \ECSPrefix20210509\Symfony\Component\Console\Exception\InvalidArgumentException('Maximum number of attempts must be a positive value.');
+                throw new InvalidArgumentException('Maximum number of attempts must be a positive value.');
             }
         }
+
         $this->attempts = $attempts;
+
         return $this;
     }
+
     /**
      * Gets the maximum number of attempts.
      *
@@ -233,6 +264,7 @@ class Question
     {
         return $this->attempts;
     }
+
     /**
      * Sets a normalizer for the response.
      *
@@ -243,8 +275,10 @@ class Question
     public function setNormalizer(callable $normalizer)
     {
         $this->normalizer = $normalizer;
+
         return $this;
     }
+
     /**
      * Gets the normalizer for the response.
      *
@@ -256,10 +290,12 @@ class Question
     {
         return $this->normalizer;
     }
+
     protected function isAssoc(array $array)
     {
-        return (bool) \count(\array_filter(\array_keys($array), 'is_string'));
+        return (bool) \count(array_filter(array_keys($array), 'is_string'));
     }
+
     /**
      * @return bool
      */
@@ -267,6 +303,7 @@ class Question
     {
         return $this->trimmable;
     }
+
     /**
      * @return $this
      * @param bool $trimmable
@@ -275,6 +312,7 @@ class Question
     {
         $trimmable = (bool) $trimmable;
         $this->trimmable = $trimmable;
+
         return $this;
     }
 }

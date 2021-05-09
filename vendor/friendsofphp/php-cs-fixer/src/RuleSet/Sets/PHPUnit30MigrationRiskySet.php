@@ -9,22 +9,29 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\RuleSet\Sets;
 
 use PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion;
 use PhpCsFixer\RuleSet\AbstractRuleSetDescription;
+
 /**
  * @internal
  */
-final class PHPUnit30MigrationRiskySet extends \PhpCsFixer\RuleSet\AbstractRuleSetDescription
+final class PHPUnit30MigrationRiskySet extends AbstractRuleSetDescription
 {
     /**
      * @return mixed[]
      */
     public function getRules()
     {
-        return ['php_unit_dedicate_assert' => ['target' => \PhpCsFixer\Fixer\PhpUnit\PhpUnitTargetVersion::VERSION_3_0]];
+        return [
+            'php_unit_dedicate_assert' => [
+                'target' => PhpUnitTargetVersion::VERSION_3_0,
+            ],
+        ];
     }
+
     /**
      * @return string
      */

@@ -10,33 +10,49 @@ use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
 use PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException;
-final class ConflictingCheckersCompilerPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+
+final class ConflictingCheckersCompilerPass implements CompilerPassInterface
 {
     /**
      * These groups do the opposite of each other, e.g. Yoda vs NoYoda.
      *
      * @var string[][]
      */
-    const CONFLICTING_CHECKER_GROUPS = [['ECSPrefix20210509\\SlevomatCodingStandard\\Sniffs\\ControlStructures\\DisallowYodaComparisonSniff', \PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer::class], [\PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\LowerCaseConstantSniff::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], [\PhpCsFixer\Fixer\Casing\ConstantCaseFixer::class, \PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\UpperCaseConstantSniff::class], ['ECSPrefix20210509\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\LanguageConstruct\DeclareEqualNormalizeFixer::class], ['ECSPrefix20210509\\SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff', \PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer::class], [\PHP_CodeSniffer\Standards\PSR12\Sniffs\Files\FileHeaderSniff::class, \PhpCsFixer\Fixer\Phpdoc\NoBlankLinesAfterPhpdocFixer::class]];
+    const CONFLICTING_CHECKER_GROUPS = [
+        ['SlevomatCodingStandard\Sniffs\ControlStructures\DisallowYodaComparisonSniff', YodaStyleFixer::class],
+        [LowerCaseConstantSniff::class, UpperCaseConstantSniff::class],
+        [ConstantCaseFixer::class, UpperCaseConstantSniff::class],
+        ['SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff', DeclareEqualNormalizeFixer::class],
+        ['SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff', BlankLineAfterOpeningTagFixer::class],
+        [FileHeaderSniff::class, NoBlankLinesAfterPhpdocFixer::class],
+    ];
+
     /**
      * @return void
      */
-    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(ContainerBuilder $containerBuilder)
     {
         $checkers = $containerBuilder->getServiceIds();
         if ($checkers === []) {
             return;
         }
+
         foreach (self::CONFLICTING_CHECKER_GROUPS as $viceVersaMatchingCheckerGroup) {
-            if (!$this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
+            if (! $this->isMatch($checkers, $viceVersaMatchingCheckerGroup)) {
                 continue;
             }
-            throw new \Symplify\EasyCodingStandard\Configuration\Exception\ConflictingCheckersLoadedException(\sprintf('Checkers "%s" mutually exclude each other. Use only one or exclude ' . 'the unwanted one in "parameters > skip" in your config.', \implode('" and "', $viceVersaMatchingCheckerGroup)));
+
+            throw new ConflictingCheckersLoadedException(sprintf(
+                'Checkers "%s" mutually exclude each other. Use only one or exclude '
+                . 'the unwanted one in "parameters > skip" in your config.',
+                implode('" and "', $viceVersaMatchingCheckerGroup)
+            ));
         }
     }
+
     /**
      * @param mixed[] $checkers
      * @param string[] $matchingCheckerGroup
@@ -44,9 +60,10 @@ final class ConflictingCheckersCompilerPass implements \ECSPrefix20210509\Symfon
      */
     private function isMatch(array $checkers, array $matchingCheckerGroup)
     {
-        $checkers = \array_flip($checkers);
-        $matchingCheckerGroup = \array_flip($matchingCheckerGroup);
-        $foundCheckers = \array_intersect_key($matchingCheckerGroup, $checkers);
-        return \count($foundCheckers) === \count($matchingCheckerGroup);
+        $checkers = array_flip($checkers);
+        $matchingCheckerGroup = array_flip($matchingCheckerGroup);
+
+        $foundCheckers = array_intersect_key($matchingCheckerGroup, $checkers);
+        return count($foundCheckers) === count($matchingCheckerGroup);
     }
 }

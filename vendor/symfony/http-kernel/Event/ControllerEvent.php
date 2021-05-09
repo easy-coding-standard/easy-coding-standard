@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpKernel\Event;
 
-use ECSPrefix20210509\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
+namespace Symfony\Component\HttpKernel\Event;
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+
 /**
  * Allows filtering of a controller callable.
  *
@@ -23,17 +25,20 @@ use ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface;
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
-final class ControllerEvent extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Event\KernelEvent
+final class ControllerEvent extends KernelEvent
 {
     private $controller;
+
     /**
      * @param int|null $requestType
      */
-    public function __construct(\ECSPrefix20210509\Symfony\Component\HttpKernel\HttpKernelInterface $kernel, callable $controller, \ECSPrefix20210509\Symfony\Component\HttpFoundation\Request $request, $requestType)
+    public function __construct(HttpKernelInterface $kernel, callable $controller, Request $request, $requestType)
     {
         parent::__construct($kernel, $request, $requestType);
+
         $this->setController($controller);
     }
+
     /**
      * @return callable
      */
@@ -41,6 +46,7 @@ final class ControllerEvent extends \ECSPrefix20210509\Symfony\Component\HttpKer
     {
         return $this->controller;
     }
+
     /**
      * @return void
      */

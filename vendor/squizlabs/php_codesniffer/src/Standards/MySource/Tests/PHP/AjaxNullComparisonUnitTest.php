@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit test class for the AjaxNullComparison sniff.
  *
@@ -7,11 +6,15 @@
  * @copyright 2006-2015 Squiz Pty Ltd (ABN 77 084 670 600)
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  */
+
 namespace PHP_CodeSniffer\Standards\MySource\Tests\PHP;
 
 use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
-class AjaxNullComparisonUnitTest extends \PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest
+
+class AjaxNullComparisonUnitTest extends AbstractSniffUnitTest
 {
+
+
     /**
      * Returns the lines where errors should occur.
      *
@@ -23,8 +26,10 @@ class AjaxNullComparisonUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstra
     public function getErrorList()
     {
         return [];
-    }
-    //end getErrorList()
+
+    }//end getErrorList()
+
+
     /**
      * Returns the lines where warnings should occur.
      *
@@ -35,8 +40,16 @@ class AjaxNullComparisonUnitTest extends \PHP_CodeSniffer\Tests\Standards\Abstra
      */
     public function getWarningList()
     {
-        return [41 => 1, 53 => 1, 64 => 1, 77 => 1, 92 => 1, 122 => 1];
-    }
-    //end getWarningList()
-}
-//end class
+        return [
+            41  => 1,
+            53  => 1,
+            64  => 1,
+            77  => 1,
+            92  => 1,
+            122 => 1,
+        ];
+
+    }//end getWarningList()
+
+
+}//end class

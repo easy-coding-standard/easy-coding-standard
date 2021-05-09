@@ -8,10 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210509\Imagine\Image\ImageInterface;
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
+namespace Symfony\Component\VarDumper\Caster;
+
+use Imagine\Image\ImageInterface;
+use Symfony\Component\VarDumper\Cloner\Stub;
+
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
@@ -21,15 +23,20 @@ final class ImagineCaster
      * @param bool $isNested
      * @return mixed[]
      */
-    public static function castImage(\ECSPrefix20210509\Imagine\Image\ImageInterface $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castImage(ImageInterface $c, array $a, Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         $imgData = $c->get('png');
         if (\strlen($imgData) > 1 * 1000 * 1000) {
-            $a += [\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'image' => new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ConstStub($c->getSize())];
+            $a += [
+                Caster::PREFIX_VIRTUAL.'image' => new ConstStub($c->getSize()),
+            ];
         } else {
-            $a += [\ECSPrefix20210509\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'image' => new \ECSPrefix20210509\Symfony\Component\VarDumper\Caster\ImgStub($imgData, 'image/png', $c->getSize())];
+            $a += [
+                Caster::PREFIX_VIRTUAL.'image' => new ImgStub($imgData, 'image/png', $c->getSize()),
+            ];
         }
+
         return $a;
     }
 }

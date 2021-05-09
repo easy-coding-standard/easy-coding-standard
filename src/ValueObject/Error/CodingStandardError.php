@@ -3,30 +3,35 @@
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
 use Symplify\SmartFileSystem\SmartFileInfo;
+
 final class CodingStandardError
 {
     /**
      * @var int
      */
     private $line;
+
     /**
      * @var string
      */
     private $message;
+
     /**
      * @var string
      */
     private $checkerClass;
+
     /**
      * @var SmartFileInfo
      */
     private $fileInfo;
+
     /**
      * @param int $line
      * @param string $message
      * @param string $checkerClass
      */
-    public function __construct($line, $message, $checkerClass, \Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    public function __construct($line, $message, $checkerClass, SmartFileInfo $fileInfo)
     {
         $line = (int) $line;
         $message = (string) $message;
@@ -36,6 +41,7 @@ final class CodingStandardError
         $this->checkerClass = $checkerClass;
         $this->fileInfo = $fileInfo;
     }
+
     /**
      * @return int
      */
@@ -43,6 +49,7 @@ final class CodingStandardError
     {
         return $this->line;
     }
+
     /**
      * @return string
      */
@@ -50,6 +57,7 @@ final class CodingStandardError
     {
         return $this->message;
     }
+
     /**
      * @return string
      */
@@ -57,6 +65,7 @@ final class CodingStandardError
     {
         return $this->checkerClass;
     }
+
     /**
      * @return string
      */
@@ -64,6 +73,7 @@ final class CodingStandardError
     {
         return $this->getRelativeFilePathFromCwd() . ':' . $this->line;
     }
+
     /**
      * @return string
      */

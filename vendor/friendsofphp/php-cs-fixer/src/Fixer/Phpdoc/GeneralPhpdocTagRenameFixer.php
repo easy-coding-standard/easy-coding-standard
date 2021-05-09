@@ -9,6 +9,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace PhpCsFixer\Fixer\Phpdoc;
 
 use PhpCsFixer\AbstractFixer;
@@ -22,9 +23,10 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Preg;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use ECSPrefix20210509\Symfony\Component\OptionsResolver\Options;
-final class GeneralPhpdocTagRenameFixer extends \PhpCsFixer\AbstractFixer implements \PhpCsFixer\Fixer\ConfigurableFixerInterface
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Options;
+
+final class GeneralPhpdocTagRenameFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
     /**
      * {@inheritdoc}
@@ -32,8 +34,36 @@ final class GeneralPhpdocTagRenameFixer extends \PhpCsFixer\AbstractFixer implem
      */
     public function getDefinition()
     {
-        return new \PhpCsFixer\FixerDefinition\FixerDefinition('Renames PHPDoc tags.', [new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", ['replacements' => ['inheritDocs' => 'inheritDoc']]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", ['replacements' => ['inheritDocs' => 'inheritDoc'], 'fix_annotation' => \false]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", ['replacements' => ['inheritDocs' => 'inheritDoc'], 'fix_inline' => \false]), new \PhpCsFixer\FixerDefinition\CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", ['replacements' => ['inheritDocs' => 'inheritDoc'], 'case_sensitive' => \true])]);
+        return new FixerDefinition(
+            'Renames PHPDoc tags.',
+            [
+                new CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", [
+                    'replacements' => [
+                        'inheritDocs' => 'inheritDoc',
+                    ],
+                ]),
+                new CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", [
+                    'replacements' => [
+                        'inheritDocs' => 'inheritDoc',
+                    ],
+                    'fix_annotation' => false,
+                ]),
+                new CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", [
+                    'replacements' => [
+                        'inheritDocs' => 'inheritDoc',
+                    ],
+                    'fix_inline' => false,
+                ]),
+                new CodeSample("<?php\n/**\n * @inheritDocs\n * {@inheritdocs}\n */\n", [
+                    'replacements' => [
+                        'inheritDocs' => 'inheritDoc',
+                    ],
+                    'case_sensitive' => true,
+                ]),
+            ]
+        );
     }
+
     /**
      * {@inheritdoc}
      *
@@ -46,85 +76,141 @@ final class GeneralPhpdocTagRenameFixer extends \PhpCsFixer\AbstractFixer implem
         // must be run before PhpdocAddMissingParamAnnotationFixer
         return 11;
     }
+
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isCandidate(\PhpCsFixer\Tokenizer\Tokens $tokens)
+    public function isCandidate(Tokens $tokens)
     {
-        return $tokens->isTokenKindFound(\T_DOC_COMMENT);
+        return $tokens->isTokenKindFound(T_DOC_COMMENT);
     }
+
     /**
      * {@inheritdoc}
      * @return \PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface
      */
     protected function createConfigurationDefinition()
     {
-        return new \PhpCsFixer\FixerConfiguration\FixerConfigurationResolver([(new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('fix_annotation', 'Whether annotation tags should be fixed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('fix_inline', 'Whether inline tags should be fixed.'))->setAllowedTypes(['bool'])->setDefault(\true)->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('replacements', 'A map of tags to replace.'))->setAllowedTypes(['array'])->setNormalizer(function (\ECSPrefix20210509\Symfony\Component\OptionsResolver\Options $options, $value) {
-            $normalizedValue = [];
-            foreach ($value as $from => $to) {
-                if (!\is_string($from)) {
-                    throw new \ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException('Tag to replace must be a string.');
-                }
-                if (!\is_string($to)) {
-                    throw new \ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Tag to replace to from "%s" must be a string.', $from));
-                }
-                if (1 !== \PhpCsFixer\Preg::match('#^\\S+$#', $to) || \false !== \strpos($to, '*/')) {
-                    throw new \ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Tag "%s" cannot be replaced by invalid tag "%s".', $from, $to));
-                }
-                $from = \trim($from);
-                $to = \trim($to);
-                if (!$options['case_sensitive']) {
-                    $lowercaseFrom = \strtolower($from);
-                    if (isset($normalizedValue[$lowercaseFrom]) && $normalizedValue[$lowercaseFrom] !== $to) {
-                        throw new \ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Tag "%s" cannot be configured to be replaced with several different tags when case sensitivity is off.', $from));
+        return new FixerConfigurationResolver([
+            (new FixerOptionBuilder('fix_annotation', 'Whether annotation tags should be fixed.'))
+                ->setAllowedTypes(['bool'])
+                ->setDefault(true)
+                ->getOption(),
+            (new FixerOptionBuilder('fix_inline', 'Whether inline tags should be fixed.'))
+                ->setAllowedTypes(['bool'])
+                ->setDefault(true)
+                ->getOption(),
+            (new FixerOptionBuilder('replacements', 'A map of tags to replace.'))
+                ->setAllowedTypes(['array'])
+                ->setNormalizer(function (Options $options, $value) {
+                    $normalizedValue = [];
+
+                    foreach ($value as $from => $to) {
+                        if (!\is_string($from)) {
+                            throw new InvalidOptionsException('Tag to replace must be a string.');
+                        }
+
+                        if (!\is_string($to)) {
+                            throw new InvalidOptionsException(sprintf(
+                                'Tag to replace to from "%s" must be a string.',
+                                $from
+                            ));
+                        }
+
+                        if (1 !== Preg::match('#^\S+$#', $to) || false !== strpos($to, '*/')) {
+                            throw new InvalidOptionsException(sprintf(
+                                'Tag "%s" cannot be replaced by invalid tag "%s".',
+                                $from,
+                                $to
+                            ));
+                        }
+
+                        $from = trim($from);
+                        $to = trim($to);
+
+                        if (!$options['case_sensitive']) {
+                            $lowercaseFrom = strtolower($from);
+
+                            if (isset($normalizedValue[$lowercaseFrom]) && $normalizedValue[$lowercaseFrom] !== $to) {
+                                throw new InvalidOptionsException(sprintf(
+                                    'Tag "%s" cannot be configured to be replaced with several different tags when case sensitivity is off.',
+                                    $from
+                                ));
+                            }
+
+                            $from = $lowercaseFrom;
+                        }
+
+                        $normalizedValue[$from] = $to;
                     }
-                    $from = $lowercaseFrom;
-                }
-                $normalizedValue[$from] = $to;
-            }
-            foreach ($normalizedValue as $from => $to) {
-                if (isset($normalizedValue[$to]) && $normalizedValue[$to] !== $to) {
-                    throw new \ECSPrefix20210509\Symfony\Component\OptionsResolver\Exception\InvalidOptionsException(\sprintf('Cannot change tag "%1$s" to tag "%2$s", as the tag "%2$s" is configured to be replaced to "%3$s".', $from, $to, $normalizedValue[$to]));
-                }
-            }
-            return $normalizedValue;
-        })->setDefault([])->getOption(), (new \PhpCsFixer\FixerConfiguration\FixerOptionBuilder('case_sensitive', 'Whether tags should be replaced only if they have exact same casing.'))->setAllowedTypes(['bool'])->setDefault(\false)->getOption()]);
+
+                    foreach ($normalizedValue as $from => $to) {
+                        if (isset($normalizedValue[$to]) && $normalizedValue[$to] !== $to) {
+                            throw new InvalidOptionsException(sprintf(
+                                'Cannot change tag "%1$s" to tag "%2$s", as the tag "%2$s" is configured to be replaced to "%3$s".',
+                                $from,
+                                $to,
+                                $normalizedValue[$to]
+                            ));
+                        }
+                    }
+
+                    return $normalizedValue;
+                })
+                ->setDefault([])
+                ->getOption(),
+            (new FixerOptionBuilder('case_sensitive', 'Whether tags should be replaced only if they have exact same casing.'))
+                ->setAllowedTypes(['bool'])
+                ->setDefault(false)
+                ->getOption(),
+        ]);
     }
+
     /**
      * {@inheritdoc}
      * @return void
      */
-    protected function applyFix(\SplFileInfo $file, \PhpCsFixer\Tokenizer\Tokens $tokens)
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens)
     {
         if (!$this->configuration['replacements']) {
             return;
         }
+
         if ($this->configuration['fix_annotation']) {
             if ($this->configuration['fix_inline']) {
-                $regex = '/"[^"]*"(*SKIP)(*FAIL)|\\b(?<=@)(%s)\\b/';
+                $regex = '/"[^"]*"(*SKIP)(*FAIL)|\b(?<=@)(%s)\b/';
             } else {
-                $regex = '/"[^"]*"(*SKIP)(*FAIL)|(?<!\\{@)(?<=@)(%s)(?!\\})/';
+                $regex = '/"[^"]*"(*SKIP)(*FAIL)|(?<!\{@)(?<=@)(%s)(?!\})/';
             }
         } else {
-            $regex = '/(?<={@)(%s)(?=[ \\t}])/';
+            $regex = '/(?<={@)(%s)(?=[ \t}])/';
         }
+
         $caseInsensitive = !$this->configuration['case_sensitive'];
         $replacements = $this->configuration['replacements'];
-        $regex = \sprintf($regex, \implode('|', \array_keys($replacements)));
+        $regex = sprintf($regex, implode('|', array_keys($replacements)));
+
         if ($caseInsensitive) {
             $regex .= 'i';
         }
+
         foreach ($tokens as $index => $token) {
-            if (!$token->isGivenKind(\T_DOC_COMMENT)) {
+            if (!$token->isGivenKind(T_DOC_COMMENT)) {
                 continue;
             }
-            $tokens[$index] = new \PhpCsFixer\Tokenizer\Token([\T_DOC_COMMENT, \PhpCsFixer\Preg::replaceCallback($regex, function (array $matches) use($caseInsensitive, $replacements) {
-                if ($caseInsensitive) {
-                    $matches[1] = \strtolower($matches[1]);
-                }
-                return $replacements[$matches[1]];
-            }, $token->getContent())]);
+
+            $tokens[$index] = new Token([T_DOC_COMMENT, Preg::replaceCallback(
+                $regex,
+                function (array $matches) use ($caseInsensitive, $replacements) {
+                    if ($caseInsensitive) {
+                        $matches[1] = strtolower($matches[1]);
+                    }
+
+                    return $replacements[$matches[1]];
+                },
+                $token->getContent()
+            )]);
         }
     }
 }
