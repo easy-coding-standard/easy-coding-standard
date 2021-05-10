@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\Naming;
 
-use ECSPrefix20210509\Nette\Utils\Strings;
+use ECSPrefix20210510\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -117,11 +117,11 @@ CODE_SAMPLE
     private function fixStartToken(\PhpCsFixer\Tokenizer\Tokens $tokens, \PhpCsFixer\Tokenizer\Token $token, $position)
     {
         $position = (int) $position;
-        $match = \ECSPrefix20210509\Nette\Utils\Strings::match($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX);
+        $match = \ECSPrefix20210510\Nette\Utils\Strings::match($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX);
         if (!isset($match['name'])) {
             return;
         }
-        $newContent = \ECSPrefix20210509\Nette\Utils\Strings::replace($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX, '$1' . $this->keyword . '$4');
+        $newContent = \ECSPrefix20210510\Nette\Utils\Strings::replace($token->getContent(), self::START_HEREDOC_NOWDOC_NAME_REGEX, '$1' . $this->keyword . '$4');
         $tokens[$position] = new \PhpCsFixer\Tokenizer\Token([$token->getId(), $newContent]);
     }
     /**

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210510\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210510\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Helper for filtering out properties in casters.
  *
@@ -154,7 +154,7 @@ class Caster
      * @param bool $isNested
      * @return mixed[]
      */
-    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \ECSPrefix20210509\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPhpIncompleteClass(\__PHP_Incomplete_Class $c, array $a, \ECSPrefix20210510\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         if (isset($a['__PHP_Incomplete_Class_Name'])) {

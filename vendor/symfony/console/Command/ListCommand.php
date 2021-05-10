@@ -8,26 +8,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Command;
+namespace ECSPrefix20210510\Symfony\Component\Console\Command;
 
-use ECSPrefix20210509\Symfony\Component\Console\Helper\DescriptorHelper;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputArgument;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Helper\DescriptorHelper;
+use ECSPrefix20210510\Symfony\Component\Console\Input\InputArgument;
+use ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface;
 /**
  * ListCommand displays the list of all available commands for the application.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ListCommand extends \ECSPrefix20210509\Symfony\Component\Console\Command\Command
+class ListCommand extends \ECSPrefix20210510\Symfony\Component\Console\Command\Command
 {
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
-        $this->setName('list')->setDefinition([new \ECSPrefix20210509\Symfony\Component\Console\Input\InputArgument('namespace', \ECSPrefix20210509\Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'The namespace name'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('raw', null, \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'To output raw command list'), new \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption('format', null, \ECSPrefix20210509\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt')])->setDescription('List commands')->setHelp(<<<'EOF'
+        $this->setName('list')->setDefinition([new \ECSPrefix20210510\Symfony\Component\Console\Input\InputArgument('namespace', \ECSPrefix20210510\Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'The namespace name'), new \ECSPrefix20210510\Symfony\Component\Console\Input\InputOption('raw', null, \ECSPrefix20210510\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'To output raw command list'), new \ECSPrefix20210510\Symfony\Component\Console\Input\InputOption('format', null, \ECSPrefix20210510\Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt')])->setDescription('List commands')->setHelp(<<<'EOF'
 The <info>%command.name%</info> command lists all commands:
 
   <info>%command.full_name%</info>
@@ -49,9 +49,9 @@ EOF
     /**
      * {@inheritdoc}
      */
-    protected function execute(\ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface $output)
     {
-        $helper = new \ECSPrefix20210509\Symfony\Component\Console\Helper\DescriptorHelper();
+        $helper = new \ECSPrefix20210510\Symfony\Component\Console\Helper\DescriptorHelper();
         $helper->describe($output, $this->getApplication(), ['format' => $input->getOption('format'), 'raw_text' => $input->getOption('raw'), 'namespace' => $input->getArgument('namespace')]);
         return 0;
     }

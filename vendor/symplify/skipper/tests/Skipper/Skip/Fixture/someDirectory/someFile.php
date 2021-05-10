@@ -1,6 +1,6 @@
 <?php
 
 declare (strict_types=1);
-namespace ECSPrefix20210509;
+namespace ECSPrefix20210510;
 
 echo 'hello';

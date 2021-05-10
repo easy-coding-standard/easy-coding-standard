@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210509\Doctrine\Common\Annotations;
+namespace ECSPrefix20210510\Doctrine\Common\Annotations;
 
 /**
  *  A list of annotations that are implicitly ignored during the parsing process.

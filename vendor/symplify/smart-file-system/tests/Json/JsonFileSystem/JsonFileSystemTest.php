@@ -3,11 +3,11 @@
 declare (strict_types=1);
 namespace Symplify\SmartFileSystem\Tests\Json\JsonFileSystem;
 
-use ECSPrefix20210509\PHPUnit\Framework\TestCase;
+use ECSPrefix20210510\PHPUnit\Framework\TestCase;
 use Symplify\SmartFileSystem\FileSystemGuard;
 use Symplify\SmartFileSystem\Json\JsonFileSystem;
 use Symplify\SmartFileSystem\SmartFileSystem;
-final class JsonFileSystemTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
+final class JsonFileSystemTest extends \ECSPrefix20210510\PHPUnit\Framework\TestCase
 {
     /**
      * @var string

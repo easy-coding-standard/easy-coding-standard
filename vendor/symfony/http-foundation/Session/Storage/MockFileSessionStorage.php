@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage;
+namespace ECSPrefix20210510\Symfony\Component\HttpFoundation\Session\Storage;
 
 /**
  * MockFileSessionStorage is used to mock sessions for
@@ -21,14 +21,14 @@ namespace ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage;
  *
  * @author Drak <drak@zikula.org>
  */
-class MockFileSessionStorage extends \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage
+class MockFileSessionStorage extends \ECSPrefix20210510\Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage
 {
     private $savePath;
     /**
      * @param string $savePath Path of directory to save session files
      * @param string $name
      */
-    public function __construct($savePath = null, $name = 'MOCKSESSID', \ECSPrefix20210509\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
+    public function __construct($savePath = null, $name = 'MOCKSESSID', \ECSPrefix20210510\Symfony\Component\HttpFoundation\Session\Storage\MetadataBag $metaBag = null)
     {
         $name = (string) $name;
         if (null === $savePath) {

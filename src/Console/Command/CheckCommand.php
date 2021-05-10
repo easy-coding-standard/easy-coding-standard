@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
 use Symplify\PackageBuilder\Console\ShellCode;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
@@ -28,7 +28,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
     /**
      * @return int
      */
-    protected function execute(\ECSPrefix20210509\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface $output)
     {
         if ($this->loadedCheckersGuard->areSomeCheckerRegistered() === \false) {
             $this->loadedCheckersGuard->report();

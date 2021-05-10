@@ -2,8 +2,8 @@
 
 namespace Symplify\SymplifyKernel\ValueObject;
 
-use ECSPrefix20210509\Symfony\Component\Console\Application;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Application;
+use ECSPrefix20210510\Symfony\Component\HttpKernel\KernelInterface;
 use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
@@ -69,14 +69,14 @@ final class KernelBootAndApplicationRun
         $kernel->boot();
         $container = $kernel->getContainer();
         /** @var Application $application */
-        $application = $container->get(\ECSPrefix20210509\Symfony\Component\Console\Application::class);
+        $application = $container->get(\ECSPrefix20210510\Symfony\Component\Console\Application::class);
         exit($application->run());
     }
     /**
      * @return void
      * @param string $kernelClass
      */
-    private function setExtraConfigs(\ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface $kernel, $kernelClass)
+    private function setExtraConfigs(\ECSPrefix20210510\Symfony\Component\HttpKernel\KernelInterface $kernel, $kernelClass)
     {
         $kernelClass = (string) $kernelClass;
         if ($this->extraConfigs === []) {
@@ -97,8 +97,8 @@ final class KernelBootAndApplicationRun
     private function setKernelClass($kernelClass)
     {
         $kernelClass = (string) $kernelClass;
-        if (!\is_a($kernelClass, \ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface::class, \true)) {
-            $message = \sprintf('Class "%s" must by type of "%s"', $kernelClass, \ECSPrefix20210509\Symfony\Component\HttpKernel\KernelInterface::class);
+        if (!\is_a($kernelClass, \ECSPrefix20210510\Symfony\Component\HttpKernel\KernelInterface::class, \true)) {
+            $message = \sprintf('Class "%s" must by type of "%s"', $kernelClass, \ECSPrefix20210510\Symfony\Component\HttpKernel\KernelInterface::class);
             throw new \Symplify\SymplifyKernel\Exception\BootException($message);
         }
         $this->kernelClass = $kernelClass;

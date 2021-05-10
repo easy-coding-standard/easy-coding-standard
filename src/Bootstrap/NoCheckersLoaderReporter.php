@@ -2,14 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\Bootstrap;
 
-use ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210510\Symfony\Component\Console\Style\SymfonyStyle;
 final class NoCheckersLoaderReporter
 {
     /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\ECSPrefix20210509\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\ECSPrefix20210510\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
     }

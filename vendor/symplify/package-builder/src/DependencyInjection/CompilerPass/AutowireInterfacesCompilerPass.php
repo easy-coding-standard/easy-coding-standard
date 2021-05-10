@@ -2,9 +2,9 @@
 
 namespace Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder;
-final class AutowireInterfacesCompilerPass implements \ECSPrefix20210509\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+use ECSPrefix20210510\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use ECSPrefix20210510\Symfony\Component\DependencyInjection\ContainerBuilder;
+final class AutowireInterfacesCompilerPass implements \ECSPrefix20210510\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var string[]
@@ -20,7 +20,7 @@ final class AutowireInterfacesCompilerPass implements \ECSPrefix20210509\Symfony
     /**
      * @return void
      */
-    public function process(\ECSPrefix20210509\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
+    public function process(\ECSPrefix20210510\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();
         foreach ($containerBuilderDefinitions as $definition) {

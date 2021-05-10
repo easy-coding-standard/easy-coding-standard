@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210509;
+namespace ECSPrefix20210510;
 
 use PhpCsFixer\Fixer\Alias\NoMixedEchoPrintFixer;
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
@@ -105,8 +105,8 @@ use PhpCsFixer\Fixer\Whitespace\NoSpacesInsideParenthesisFixer;
 use PhpCsFixer\Fixer\Whitespace\NoTrailingWhitespaceFixer;
 use PhpCsFixer\Fixer\Whitespace\NoWhitespaceInBlankLineFixer;
 use PhpCsFixer\Fixer\Whitespace\SingleBlankLineAtEofFixer;
-use ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-return static function (\ECSPrefix20210509\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use ECSPrefix20210510\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+return static function (\ECSPrefix20210510\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $services = $containerConfigurator->services();
     $services->set(\PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer::class)->call('configure', [['syntax' => 'short']]);
     $services->set(\PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer::class);

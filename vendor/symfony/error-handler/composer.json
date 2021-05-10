@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ECSPrefix20210509\\Symfony\\Component\\ErrorHandler\\": ""
+            "ECSPrefix20210510\\Symfony\\Component\\ErrorHandler\\": ""
         },
         "exclude-from-classmap": [
             "\/Tests\/"

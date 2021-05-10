@@ -2,8 +2,8 @@
 
 namespace Symplify\SmartFileSystem;
 
-use ECSPrefix20210509\Nette\Utils\Strings;
-use ECSPrefix20210509\Symfony\Component\Finder\SplFileInfo;
+use ECSPrefix20210510\Nette\Utils\Strings;
+use ECSPrefix20210510\Symfony\Component\Finder\SplFileInfo;
 use Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\SmartFileSystem\Exception\DirectoryNotFoundException;
@@ -11,7 +11,7 @@ use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 /**
  * @see \Symplify\SmartFileSystem\Tests\SmartFileInfo\SmartFileInfoTest
  */
-final class SmartFileInfo extends \ECSPrefix20210509\Symfony\Component\Finder\SplFileInfo
+final class SmartFileInfo extends \ECSPrefix20210510\Symfony\Component\Finder\SplFileInfo
 {
     /**
      * @var string
@@ -34,7 +34,7 @@ final class SmartFileInfo extends \ECSPrefix20210509\Symfony\Component\Finder\Sp
             throw new \Symplify\SmartFileSystem\Exception\FileNotFoundException(\sprintf('File path "%s" was not found while creating "%s" object.', $filePath, self::class));
         }
         // real path doesn't work in PHAR: https://www.php.net/manual/en/function.realpath.php
-        if (\ECSPrefix20210509\Nette\Utils\Strings::startsWith($filePath, 'phar://')) {
+        if (\ECSPrefix20210510\Nette\Utils\Strings::startsWith($filePath, 'phar://')) {
             $relativeFilePath = $filePath;
             $relativeDirectoryPath = \dirname($filePath);
         } else {
@@ -71,7 +71,7 @@ final class SmartFileInfo extends \ECSPrefix20210509\Symfony\Component\Finder\Sp
      */
     public function getRealPathWithoutSuffix()
     {
-        return \ECSPrefix20210509\Nette\Utils\Strings::replace($this->getRealPath(), self::LAST_SUFFIX_REGEX, '');
+        return \ECSPrefix20210510\Nette\Utils\Strings::replace($this->getRealPath(), self::LAST_SUFFIX_REGEX, '');
     }
     /**
      * @return string
@@ -125,7 +125,7 @@ final class SmartFileInfo extends \ECSPrefix20210509\Symfony\Component\Finder\Sp
     public function endsWith($string)
     {
         $string = (string) $string;
-        return \ECSPrefix20210509\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
+        return \ECSPrefix20210510\Nette\Utils\Strings::endsWith($this->getNormalizedRealPath(), $string);
     }
     /**
      * @param string $string
@@ -162,7 +162,7 @@ final class SmartFileInfo extends \ECSPrefix20210509\Symfony\Component\Finder\Sp
     public function startsWith($partialPath)
     {
         $partialPath = (string) $partialPath;
-        return \ECSPrefix20210509\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
+        return \ECSPrefix20210510\Nette\Utils\Strings::startsWith($this->getNormalizedRealPath(), $partialPath);
     }
     /**
      * @return string

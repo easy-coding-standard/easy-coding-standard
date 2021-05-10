@@ -2,14 +2,14 @@
 
 namespace Symplify\SymplifyKernel\HttpKernel;
 
-use ECSPrefix20210509\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use ECSPrefix20210509\Symfony\Component\HttpKernel\Kernel;
+use ECSPrefix20210510\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20210510\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210510\Symfony\Component\HttpKernel\Kernel;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use Symplify\SymplifyKernel\Strings\KernelUniqueHasher;
-abstract class AbstractSymplifyKernel extends \ECSPrefix20210509\Symfony\Component\HttpKernel\Kernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
+abstract class AbstractSymplifyKernel extends \ECSPrefix20210510\Symfony\Component\HttpKernel\Kernel implements \Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface
 {
     /**
      * @var string[]
@@ -52,7 +52,7 @@ abstract class AbstractSymplifyKernel extends \ECSPrefix20210509\Symfony\Compone
     /**
      * @return void
      */
-    public function registerContainerConfiguration(\ECSPrefix20210509\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    public function registerContainerConfiguration(\ECSPrefix20210510\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         foreach ($this->configs as $config) {
             $loader->load($config);

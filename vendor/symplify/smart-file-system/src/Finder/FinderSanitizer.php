@@ -2,10 +2,10 @@
 
 namespace Symplify\SmartFileSystem\Finder;
 
-use ECSPrefix20210509\Nette\Utils\Finder as NetteFinder;
+use ECSPrefix20210510\Nette\Utils\Finder as NetteFinder;
 use SplFileInfo;
-use ECSPrefix20210509\Symfony\Component\Finder\Finder as SymfonyFinder;
-use ECSPrefix20210509\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
+use ECSPrefix20210510\Symfony\Component\Finder\Finder as SymfonyFinder;
+use ECSPrefix20210510\Symfony\Component\Finder\SplFileInfo as SymfonySplFileInfo;
 use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Finder\FinderSanitizer\FinderSanitizerTest

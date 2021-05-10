@@ -3,10 +3,10 @@
 declare (strict_types=1);
 namespace Symplify\EasyTesting\Tests\DataProvider\StaticFixtureFinder;
 
-use ECSPrefix20210509\PHPUnit\Framework\TestCase;
+use ECSPrefix20210510\PHPUnit\Framework\TestCase;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-final class StaticFixtureFinderTest extends \ECSPrefix20210509\PHPUnit\Framework\TestCase
+final class StaticFixtureFinderTest extends \ECSPrefix20210510\PHPUnit\Framework\TestCase
 {
     public function testYieldDirectory() : void
     {

@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210509\Symfony\Component\Console\Style;
+namespace ECSPrefix20210510\Symfony\Component\Console\Style;
 
-use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Helper\ProgressBar;
-use ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface;
-use ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Formatter\OutputFormatterInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Helper\ProgressBar;
+use ECSPrefix20210510\Symfony\Component\Console\Output\ConsoleOutputInterface;
+use ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface;
 /**
  * Decorates output to add console style guide helpers.
  *
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-abstract class OutputStyle implements \ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface, \ECSPrefix20210509\Symfony\Component\Console\Style\StyleInterface
+abstract class OutputStyle implements \ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface, \ECSPrefix20210510\Symfony\Component\Console\Style\StyleInterface
 {
     private $output;
-    public function __construct(\ECSPrefix20210509\Symfony\Component\Console\Output\OutputInterface $output)
+    public function __construct(\ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $this->output = $output;
     }
@@ -42,7 +42,7 @@ abstract class OutputStyle implements \ECSPrefix20210509\Symfony\Component\Conso
     public function createProgressBar($max = 0)
     {
         $max = (int) $max;
-        return new \ECSPrefix20210509\Symfony\Component\Console\Helper\ProgressBar($this->output, $max);
+        return new \ECSPrefix20210510\Symfony\Component\Console\Helper\ProgressBar($this->output, $max);
     }
     /**
      * {@inheritdoc}
@@ -99,7 +99,7 @@ abstract class OutputStyle implements \ECSPrefix20210509\Symfony\Component\Conso
     /**
      * {@inheritdoc}
      */
-    public function setFormatter(\ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
+    public function setFormatter(\ECSPrefix20210510\Symfony\Component\Console\Formatter\OutputFormatterInterface $formatter)
     {
         $this->output->setFormatter($formatter);
     }
@@ -140,7 +140,7 @@ abstract class OutputStyle implements \ECSPrefix20210509\Symfony\Component\Conso
     }
     protected function getErrorOutput()
     {
-        if (!$this->output instanceof \ECSPrefix20210509\Symfony\Component\Console\Output\ConsoleOutputInterface) {
+        if (!$this->output instanceof \ECSPrefix20210510\Symfony\Component\Console\Output\ConsoleOutputInterface) {
             return $this->output;
         }
         return $this->output->getErrorOutput();

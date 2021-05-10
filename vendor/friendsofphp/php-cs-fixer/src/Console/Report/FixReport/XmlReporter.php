@@ -11,7 +11,7 @@
  */
 namespace PhpCsFixer\Console\Report\FixReport;
 
-use ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter;
+use ECSPrefix20210510\Symfony\Component\Console\Formatter\OutputFormatter;
 /**
  * @author Boris Gorbylev <ekho@ekho.name>
  *
@@ -62,7 +62,7 @@ final class XmlReporter implements \PhpCsFixer\Console\Report\FixReport\Reporter
             $root->appendChild($this->createMemoryElement($reportSummary->getMemory(), $dom));
         }
         $dom->formatOutput = \true;
-        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210509\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
+        return $reportSummary->isDecoratedOutput() ? \ECSPrefix20210510\Symfony\Component\Console\Formatter\OutputFormatter::escape($dom->saveXML()) : $dom->saveXML();
     }
     /**
      * @return \DOMElement
