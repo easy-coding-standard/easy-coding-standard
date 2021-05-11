@@ -16,6 +16,7 @@ return array(
     'Symplify\\EasyCodingStandard\\' => array($baseDir . '/src', $baseDir . '/packages'),
     'Symplify\\ConsolePackageBuilder\\' => array($vendorDir . '/symplify/console-package-builder/src'),
     'Symplify\\ConsoleColorDiff\\' => array($vendorDir . '/symplify/console-color-diff/src'),
+    'Symplify\\ComposerJsonManipulator\\' => array($vendorDir . '/symplify/composer-json-manipulator/src'),
     'Symplify\\CodingStandard\\' => array($vendorDir . '/symplify/coding-standard/src'),
     'Symplify\\AutowireArrayParameter\\' => array($vendorDir . '/symplify/autowire-array-parameter/src'),
     'PhpCsFixer\\' => array($vendorDir . '/friendsofphp/php-cs-fixer/src'),

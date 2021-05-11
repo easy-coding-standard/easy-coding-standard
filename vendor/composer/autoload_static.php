@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0
+class ComposerStaticInit950af6409a10d63f351839c9ea863d44
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -32,6 +32,7 @@ class ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0
             'Symplify\\EasyCodingStandard\\' => 28,
             'Symplify\\ConsolePackageBuilder\\' => 31,
             'Symplify\\ConsoleColorDiff\\' => 26,
+            'Symplify\\ComposerJsonManipulator\\' => 33,
             'Symplify\\CodingStandard\\' => 24,
             'Symplify\\AutowireArrayParameter\\' => 32,
         ),
@@ -116,6 +117,10 @@ class ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0
         'Symplify\\ConsoleColorDiff\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/console-color-diff/src',
+        ),
+        'Symplify\\ComposerJsonManipulator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src',
         ),
         'Symplify\\CodingStandard\\' => 
         array (
@@ -1685,6 +1690,18 @@ class ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0
         'Symplify\\CodingStandard\\ValueObjectFactory\\DocBlockLinesFactory' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObjectFactory/DocBlockLinesFactory.php',
         'Symplify\\CodingStandard\\ValueObject\\DocBlockLines' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/DocBlockLines.php',
         'Symplify\\CodingStandard\\ValueObject\\StartAndEnd' => __DIR__ . '/..' . '/symplify/coding-standard/src/ValueObject/StartAndEnd.php',
+        'Symplify\\ComposerJsonManipulator\\Bundle\\ComposerJsonManipulatorBundle' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Bundle/ComposerJsonManipulatorBundle.php',
+        'Symplify\\ComposerJsonManipulator\\ComposerJsonFactory' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ComposerJsonFactory.php',
+        'Symplify\\ComposerJsonManipulator\\DependencyInjection\\Extension\\ComposerJsonManipulatorExtension' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/DependencyInjection/Extension/ComposerJsonManipulatorExtension.php',
+        'Symplify\\ComposerJsonManipulator\\FileSystem\\JsonFileManager' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/FileSystem/JsonFileManager.php',
+        'Symplify\\ComposerJsonManipulator\\Json\\JsonCleaner' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Json/JsonCleaner.php',
+        'Symplify\\ComposerJsonManipulator\\Json\\JsonInliner' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Json/JsonInliner.php',
+        'Symplify\\ComposerJsonManipulator\\Printer\\ComposerJsonPrinter' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Printer/ComposerJsonPrinter.php',
+        'Symplify\\ComposerJsonManipulator\\Sorter\\ComposerPackageSorter' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/Sorter/ComposerPackageSorter.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJson' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJson.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerJsonSection' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerJsonSection.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\ComposerValues' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/ComposerValues.php',
+        'Symplify\\ComposerJsonManipulator\\ValueObject\\Option' => __DIR__ . '/..' . '/symplify/composer-json-manipulator/src/ValueObject/Option.php',
         'Symplify\\ConsoleColorDiff\\Bundle\\ConsoleColorDiffBundle' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Bundle/ConsoleColorDiffBundle.php',
         'Symplify\\ConsoleColorDiff\\Console\\Formatter\\ColorConsoleDiffFormatter' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Console/Formatter/ColorConsoleDiffFormatter.php',
         'Symplify\\ConsoleColorDiff\\Console\\Output\\ConsoleDiffer' => __DIR__ . '/..' . '/symplify/console-color-diff/src/Console/Output/ConsoleDiffer.php',
@@ -1891,9 +1908,9 @@ class ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4a0a8cc86fb504642659610aba4c99b0::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit950af6409a10d63f351839c9ea863d44::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit950af6409a10d63f351839c9ea863d44::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit950af6409a10d63f351839c9ea863d44::$classMap;
 
         }, null, ClassLoader::class);
     }
