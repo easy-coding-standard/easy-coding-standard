@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\ArrayNotation;
 
-use ECSPrefix20210510\Nette\Utils\Strings;
+use ECSPrefix20210511\Nette\Utils\Strings;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\Token;
@@ -147,7 +147,7 @@ CODE_SAMPLE
             return;
         }
         // already whitespace
-        if (\ECSPrefix20210510\Nette\Utils\Strings::contains($previousCloserToken->getContent(), "\n")) {
+        if (\ECSPrefix20210511\Nette\Utils\Strings::contains($previousCloserToken->getContent(), "\n")) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($preArrayCloserPosition, 1, $this->whitespacesFixerConfig->getLineEnding());
@@ -166,7 +166,7 @@ CODE_SAMPLE
             return;
         }
         // already is whitespace
-        if (\ECSPrefix20210510\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
+        if (\ECSPrefix20210511\Nette\Utils\Strings::contains($nextToken->getContent(), "\n")) {
             return;
         }
         $tokens->ensureWhitespaceAtIndex($postArrayOpenerPosition, 0, $this->whitespacesFixerConfig->getLineEnding());

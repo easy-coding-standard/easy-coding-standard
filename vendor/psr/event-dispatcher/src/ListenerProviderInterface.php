@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210510\Psr\EventDispatcher;
+namespace ECSPrefix20210511\Psr\EventDispatcher;
 
 /**
  * Mapper from an event to the listeners that are applicable to that event.

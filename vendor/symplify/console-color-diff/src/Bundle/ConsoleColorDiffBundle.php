@@ -2,9 +2,9 @@
 
 namespace Symplify\ConsoleColorDiff\Bundle;
 
-use ECSPrefix20210510\Symfony\Component\HttpKernel\Bundle\Bundle;
+use ECSPrefix20210511\Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension;
-final class ConsoleColorDiffBundle extends \ECSPrefix20210510\Symfony\Component\HttpKernel\Bundle\Bundle
+final class ConsoleColorDiffBundle extends \ECSPrefix20210511\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null

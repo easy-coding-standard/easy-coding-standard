@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210510\SebastianBergmann\Diff;
+namespace ECSPrefix20210511\SebastianBergmann\Diff;
 
 final class Chunk
 {
@@ -92,8 +92,8 @@ final class Chunk
     public function setLines(array $lines)
     {
         foreach ($lines as $line) {
-            if (!$line instanceof \ECSPrefix20210510\SebastianBergmann\Diff\Line) {
-                throw new \ECSPrefix20210510\SebastianBergmann\Diff\InvalidArgumentException();
+            if (!$line instanceof \ECSPrefix20210511\SebastianBergmann\Diff\Line) {
+                throw new \ECSPrefix20210511\SebastianBergmann\Diff\InvalidArgumentException();
             }
         }
         $this->lines = $lines;

@@ -2,7 +2,7 @@
 
 namespace Symplify\Skipper\FileSystem;
 
-use ECSPrefix20210510\Nette\Utils\Strings;
+use ECSPrefix20210511\Nette\Utils\Strings;
 /**
  * @see \Symplify\Skipper\Tests\FileSystem\PathNormalizerTest
  */
@@ -26,14 +26,14 @@ final class PathNormalizer
     {
         $path = (string) $path;
         // ends with *
-        if (\ECSPrefix20210510\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
+        if (\ECSPrefix20210511\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;
         }
         // starts with *
-        if (\ECSPrefix20210510\Nette\Utils\Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_REGEX)) {
+        if (\ECSPrefix20210511\Nette\Utils\Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_REGEX)) {
             return $path . '*';
         }
-        if (\ECSPrefix20210510\Nette\Utils\Strings::contains($path, '..')) {
+        if (\ECSPrefix20210511\Nette\Utils\Strings::contains($path, '..')) {
             $path = \realpath($path);
             if ($path === \false) {
                 return '';

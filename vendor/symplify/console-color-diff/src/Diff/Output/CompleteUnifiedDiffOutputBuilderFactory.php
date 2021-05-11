@@ -2,7 +2,7 @@
 
 namespace Symplify\ConsoleColorDiff\Diff\Output;
 
-use ECSPrefix20210510\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use ECSPrefix20210511\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * Creates @see UnifiedDiffOutputBuilder with "$contextLines = 1000;"
@@ -23,7 +23,7 @@ final class CompleteUnifiedDiffOutputBuilderFactory
      */
     public function create()
     {
-        $unifiedDiffOutputBuilder = new \ECSPrefix20210510\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('');
+        $unifiedDiffOutputBuilder = new \ECSPrefix20210511\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('');
         $this->privatesAccessor->setPrivateProperty($unifiedDiffOutputBuilder, 'contextLines', 10000);
         return $unifiedDiffOutputBuilder;
     }

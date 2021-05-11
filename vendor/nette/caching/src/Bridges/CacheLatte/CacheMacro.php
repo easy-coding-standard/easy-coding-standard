@@ -1,14 +1,14 @@
 <?php
 
-namespace ECSPrefix20210510\Nette\Bridges\CacheLatte;
+namespace ECSPrefix20210511\Nette\Bridges\CacheLatte;
 
-use ECSPrefix20210510\Latte;
-use ECSPrefix20210510\Nette;
-use ECSPrefix20210510\Nette\Caching\Cache;
+use ECSPrefix20210511\Latte;
+use ECSPrefix20210511\Nette;
+use ECSPrefix20210511\Nette\Caching\Cache;
 /**
  * Macro {cache} ... {/cache}
  */
-final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
+final class CacheMacro implements \ECSPrefix20210511\Latte\IMacro
 {
     use Nette\SmartObject;
     /** @var bool */
@@ -35,22 +35,22 @@ final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
      * New node is found.
      * @return bool
      */
-    public function nodeOpened(\ECSPrefix20210510\Latte\MacroNode $node)
+    public function nodeOpened(\ECSPrefix20210511\Latte\MacroNode $node)
     {
         if ($node->modifiers) {
-            throw new \ECSPrefix20210510\Latte\CompileException('Modifiers are not allowed in ' . $node->getNotation());
+            throw new \ECSPrefix20210511\Latte\CompileException('Modifiers are not allowed in ' . $node->getNotation());
         }
         $this->used = \true;
         $node->empty = \false;
-        $node->openingCode = \ECSPrefix20210510\Latte\PhpWriter::using($node)->write('<?php if (Nette\\Bridges\\CacheLatte\\CacheMacro::createCache($this->global->cacheStorage, %var, $this->global->cacheStack, %node.array?)) /* line %var */ try { ?>', \ECSPrefix20210510\Nette\Utils\Random::generate(), $node->startLine);
+        $node->openingCode = \ECSPrefix20210511\Latte\PhpWriter::using($node)->write('<?php if (Nette\\Bridges\\CacheLatte\\CacheMacro::createCache($this->global->cacheStorage, %var, $this->global->cacheStack, %node.array?)) /* line %var */ try { ?>', \ECSPrefix20210511\Nette\Utils\Random::generate(), $node->startLine);
     }
     /**
      * Node is closed.
      * @return void
      */
-    public function nodeClosed(\ECSPrefix20210510\Latte\MacroNode $node)
+    public function nodeClosed(\ECSPrefix20210511\Latte\MacroNode $node)
     {
-        $node->closingCode = \ECSPrefix20210510\Latte\PhpWriter::using($node)->write('<?php
+        $node->closingCode = \ECSPrefix20210511\Latte\PhpWriter::using($node)->write('<?php
 				Nette\\Bridges\\CacheLatte\\CacheMacro::endCache($this->global->cacheStack, %node.array?) /* line %var */;
 				} catch (\\Throwable $ʟ_e) {
 					Nette\\Bridges\\CacheLatte\\CacheMacro::rollback($this->global->cacheStack); throw $ʟ_e;
@@ -60,13 +60,13 @@ final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
     /**
      * @return void
      */
-    public static function initRuntime(\ECSPrefix20210510\Latte\Runtime\Template $template)
+    public static function initRuntime(\ECSPrefix20210511\Latte\Runtime\Template $template)
     {
         if (!empty($template->global->cacheStack)) {
             $file = (new \ReflectionClass($template))->getFileName();
             if (@\is_file($file)) {
                 // @ - may trigger error
-                \end($template->global->cacheStack)->dependencies[\ECSPrefix20210510\Nette\Caching\Cache::FILES][] = $file;
+                \end($template->global->cacheStack)->dependencies[\ECSPrefix20210511\Nette\Caching\Cache::FILES][] = $file;
             }
         }
     }
@@ -76,7 +76,7 @@ final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
      * @param mixed[]|null $parents
      * @param string $key
      */
-    public static function createCache(\ECSPrefix20210510\Nette\Caching\Storage $cacheStorage, $key, &$parents, array $args = null)
+    public static function createCache(\ECSPrefix20210511\Nette\Caching\Storage $cacheStorage, $key, &$parents, array $args = null)
     {
         $key = (string) $key;
         if ($args) {
@@ -86,9 +86,9 @@ final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
             $key = \array_merge([$key], \array_intersect_key($args, \range(0, \count($args))));
         }
         if ($parents) {
-            \end($parents)->dependencies[\ECSPrefix20210510\Nette\Caching\Cache::ITEMS][] = $key;
+            \end($parents)->dependencies[\ECSPrefix20210511\Nette\Caching\Cache::ITEMS][] = $key;
         }
-        $cache = new \ECSPrefix20210510\Nette\Caching\Cache($cacheStorage, 'Nette.Templating.Cache');
+        $cache = new \ECSPrefix20210511\Nette\Caching\Cache($cacheStorage, 'Nette.Templating.Cache');
         if ($helper = $cache->start($key)) {
             $parents[] = $helper;
         }
@@ -102,7 +102,7 @@ final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
     public static function endCache(array &$parents, array $args = null)
     {
         $helper = \array_pop($parents);
-        if (!$helper instanceof \ECSPrefix20210510\Nette\Caching\OutputHelper) {
+        if (!$helper instanceof \ECSPrefix20210511\Nette\Caching\OutputHelper) {
             return;
         }
         if (isset($args['dependencies'])) {
@@ -112,8 +112,8 @@ final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
             $args['expiration'] = $args['expire'];
             // back compatibility
         }
-        $helper->dependencies[\ECSPrefix20210510\Nette\Caching\Cache::TAGS] = isset($args['tags']) ? $args['tags'] : null;
-        $helper->dependencies[\ECSPrefix20210510\Nette\Caching\Cache::EXPIRATION] = isset($args['expiration']) ? $args['expiration'] : '+ 7 days';
+        $helper->dependencies[\ECSPrefix20210511\Nette\Caching\Cache::TAGS] = isset($args['tags']) ? $args['tags'] : null;
+        $helper->dependencies[\ECSPrefix20210511\Nette\Caching\Cache::EXPIRATION] = isset($args['expiration']) ? $args['expiration'] : '+ 7 days';
         $helper->end();
     }
     /**
@@ -123,7 +123,7 @@ final class CacheMacro implements \ECSPrefix20210510\Latte\IMacro
     public static function rollback(array &$parents)
     {
         $helper = \array_pop($parents);
-        if ($helper instanceof \ECSPrefix20210510\Nette\Caching\OutputHelper) {
+        if ($helper instanceof \ECSPrefix20210511\Nette\Caching\OutputHelper) {
             $helper->rollback();
         }
     }

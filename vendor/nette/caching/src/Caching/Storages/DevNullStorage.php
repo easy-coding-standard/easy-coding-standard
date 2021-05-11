@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210510\Nette\Caching\Storages;
+namespace ECSPrefix20210511\Nette\Caching\Storages;
 
-use ECSPrefix20210510\Nette;
+use ECSPrefix20210511\Nette;
 /**
  * Cache dummy storage.
  */
-class DevNullStorage implements \ECSPrefix20210510\Nette\Caching\Storage
+class DevNullStorage implements \ECSPrefix20210511\Nette\Caching\Storage
 {
     use Nette\SmartObject;
     /**

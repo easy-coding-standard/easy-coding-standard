@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyTesting;
 
-use ECSPrefix20210510\Nette\Utils\Strings;
+use ECSPrefix20210511\Nette\Utils\Strings;
 use Symplify\EasyTesting\ValueObject\InputAndExpected;
 use Symplify\EasyTesting\ValueObject\InputFileInfoAndExpected;
 use Symplify\EasyTesting\ValueObject\InputFileInfoAndExpectedFileInfo;
@@ -20,11 +20,11 @@ final class StaticFixtureSplitter
      */
     public static function splitFileInfoToInputAndExpected(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
-        $splitLineCount = \count(\ECSPrefix20210510\Nette\Utils\Strings::matchAll($smartFileInfo->getContents(), \Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX));
+        $splitLineCount = \count(\ECSPrefix20210511\Nette\Utils\Strings::matchAll($smartFileInfo->getContents(), \Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX));
         // if more or less, it could be a test cases for monorepo line in it
         if ($splitLineCount === 1) {
             // input → expected
-            list($input, $expected) = \ECSPrefix20210510\Nette\Utils\Strings::split($smartFileInfo->getContents(), \Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
+            list($input, $expected) = \ECSPrefix20210511\Nette\Utils\Strings::split($smartFileInfo->getContents(), \Symplify\EasyTesting\ValueObject\SplitLine::SPLIT_LINE_REGEX);
             $expected = self::retypeExpected($expected);
             return new \Symplify\EasyTesting\ValueObject\InputAndExpected($input, $expected);
         }
@@ -93,7 +93,7 @@ final class StaticFixtureSplitter
     private static function createTemporaryPathWithPrefix(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $prefix)
     {
         $prefix = (string) $prefix;
-        $hash = \ECSPrefix20210510\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
+        $hash = \ECSPrefix20210511\Nette\Utils\Strings::substring(\md5($smartFileInfo->getRealPath()), -20);
         $fileBaseName = $smartFileInfo->getBasename('.inc');
         return self::getTemporaryPath() . \sprintf('/%s_%s_%s', $prefix, $hash, $fileBaseName);
     }

@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Tokens;
 
-use ECSPrefix20210510\Nette\Utils\Strings;
+use ECSPrefix20210511\Nette\Utils\Strings;
 /**
  * Heavily inspired by
  *
@@ -22,7 +22,7 @@ final class CommentedLineTrimmer
     {
         $tokenContent = (string) $tokenContent;
         foreach (self::OPENING_LINE as $openingLine) {
-            if (!\ECSPrefix20210510\Nette\Utils\Strings::startsWith($tokenContent, $openingLine)) {
+            if (!\ECSPrefix20210511\Nette\Utils\Strings::startsWith($tokenContent, $openingLine)) {
                 continue;
             }
             return \substr($tokenContent, \strlen($openingLine));

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210510\Nette\Utils;
+namespace ECSPrefix20210511\Nette\Utils;
 
-use ECSPrefix20210510\Nette;
+use ECSPrefix20210511\Nette;
 /**
  * Secure random string generator.
  */
@@ -25,9 +25,9 @@ final class Random
         }, $charlist), 3);
         $chLen = \strlen($charlist);
         if ($length < 1) {
-            throw new \ECSPrefix20210510\Nette\InvalidArgumentException('Length must be greater than zero.');
+            throw new \ECSPrefix20210511\Nette\InvalidArgumentException('Length must be greater than zero.');
         } elseif ($chLen < 2) {
-            throw new \ECSPrefix20210510\Nette\InvalidArgumentException('Character list must contain at least two chars.');
+            throw new \ECSPrefix20210511\Nette\InvalidArgumentException('Character list must contain at least two chars.');
         }
         $res = '';
         for ($i = 0; $i < $length; $i++) {

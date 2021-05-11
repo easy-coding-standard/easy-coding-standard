@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210510\Nette\Utils;
+namespace ECSPrefix20210511\Nette\Utils;
 
-use ECSPrefix20210510\Nette;
+use ECSPrefix20210511\Nette;
 /**
  * Provides objects to work as array.
  */
@@ -48,7 +48,7 @@ class ArrayHash extends \stdClass implements \ArrayAccess, \Countable, \Iterator
     {
         if (!\is_scalar($key)) {
             // prevents null
-            throw new \ECSPrefix20210510\Nette\InvalidArgumentException(\sprintf('Key must be either a string or an integer, %s given.', \gettype($key)));
+            throw new \ECSPrefix20210511\Nette\InvalidArgumentException(\sprintf('Key must be either a string or an integer, %s given.', \gettype($key)));
         }
         $this->{$key} = $value;
     }

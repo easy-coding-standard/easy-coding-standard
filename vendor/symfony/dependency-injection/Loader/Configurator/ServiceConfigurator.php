@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210510\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20210510\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210510\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceConfigurator extends \ECSPrefix20210510\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
+class ServiceConfigurator extends \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractServiceConfigurator
 {
     const FACTORY = 'services';
     use Traits\AbstractTrait;
@@ -45,7 +45,7 @@ class ServiceConfigurator extends \ECSPrefix20210510\Symfony\Component\Dependenc
      * @param bool $allowParent
      * @param string $path
      */
-    public function __construct(\ECSPrefix20210510\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, $allowParent, \ECSPrefix20210510\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210510\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, $path = null)
+    public function __construct(\ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerBuilder $container, array $instanceof, $allowParent, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition $definition, $id, array $defaultTags, $path = null)
     {
         $allowParent = (bool) $allowParent;
         $this->container = $container;

@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
 use Symplify\PackageBuilder\Console\ShellCode;
 final class InitCommand extends \Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
@@ -18,7 +18,7 @@ final class InitCommand extends \Symplify\PackageBuilder\Console\Command\Abstrac
     /**
      * @return int
      */
-    protected function execute(\ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $rectorConfigFiles = $this->smartFileSystem->exists(\getcwd() . '/ecs.php');
         if (!$rectorConfigFiles) {

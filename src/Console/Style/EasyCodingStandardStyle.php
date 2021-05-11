@@ -2,14 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\Console\Style;
 
-use ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210510\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210510\Symfony\Component\Console\Terminal;
+use ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210511\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210511\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
 use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
-final class EasyCodingStandardStyle extends \ECSPrefix20210510\Symfony\Component\Console\Style\SymfonyStyle
+final class EasyCodingStandardStyle extends \ECSPrefix20210511\Symfony\Component\Console\Style\SymfonyStyle
 {
     /**
      * To fit in Linux/Windows terminal windows to prevent overflow.
@@ -21,7 +21,7 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210510\Symfony\Component
      * @var Terminal
      */
     private $terminal;
-    public function __construct(\ECSPrefix20210510\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210510\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210510\Symfony\Component\Console\Terminal $terminal)
+    public function __construct(\ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210511\Symfony\Component\Console\Terminal $terminal)
     {
         parent::__construct($input, $output);
         $this->terminal = $terminal;

@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210510\Symfony\Component\HttpFoundation\RateLimiter;
+namespace ECSPrefix20210511\Symfony\Component\HttpFoundation\RateLimiter;
 
-use ECSPrefix20210510\Symfony\Component\HttpFoundation\Request;
-use ECSPrefix20210510\Symfony\Component\RateLimiter\RateLimit;
+use ECSPrefix20210511\Symfony\Component\HttpFoundation\Request;
+use ECSPrefix20210511\Symfony\Component\RateLimiter\RateLimit;
 /**
  * A special type of limiter that deals with requests.
  *
@@ -27,9 +27,9 @@ interface RequestRateLimiterInterface
     /**
      * @return \Symfony\Component\RateLimiter\RateLimit
      */
-    public function consume(\ECSPrefix20210510\Symfony\Component\HttpFoundation\Request $request);
+    public function consume(\ECSPrefix20210511\Symfony\Component\HttpFoundation\Request $request);
     /**
      * @return void
      */
-    public function reset(\ECSPrefix20210510\Symfony\Component\HttpFoundation\Request $request);
+    public function reset(\ECSPrefix20210511\Symfony\Component\HttpFoundation\Request $request);
 }

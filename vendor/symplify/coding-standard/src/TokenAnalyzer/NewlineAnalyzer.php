@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\TokenAnalyzer;
 
-use ECSPrefix20210510\Nette\Utils\Strings;
+use ECSPrefix20210511\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 final class NewlineAnalyzer
@@ -42,6 +42,6 @@ final class NewlineAnalyzer
         if (!$currentToken->isWhitespace()) {
             return \false;
         }
-        return \ECSPrefix20210510\Nette\Utils\Strings::contains($currentToken->getContent(), "\n");
+        return \ECSPrefix20210511\Nette\Utils\Strings::contains($currentToken->getContent(), "\n");
     }
 }

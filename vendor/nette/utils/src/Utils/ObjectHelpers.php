@@ -1,9 +1,9 @@
 <?php
 
-namespace ECSPrefix20210510\Nette\Utils;
+namespace ECSPrefix20210511\Nette\Utils;
 
-use ECSPrefix20210510\Nette;
-use ECSPrefix20210510\Nette\MemberAccessException;
+use ECSPrefix20210511\Nette;
+use ECSPrefix20210511\Nette\MemberAccessException;
 /**
  * Nette\SmartObject helpers.
  */
@@ -22,7 +22,7 @@ final class ObjectHelpers
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
         }), self::parseFullDoc($rc, '~^[ \\t*]*@property(?:-read)?[ \\t]+(?:\\S+[ \\t]+)??\\$(\\w+)~m')), $name);
-        throw new \ECSPrefix20210510\Nette\MemberAccessException("Cannot read an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
+        throw new \ECSPrefix20210511\Nette\MemberAccessException("Cannot read an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
     /** @throws MemberAccessException
      * @return void
@@ -36,7 +36,7 @@ final class ObjectHelpers
         $hint = self::getSuggestion(\array_merge(\array_filter($rc->getProperties(\ReflectionProperty::IS_PUBLIC), function ($p) {
             return !$p->isStatic();
         }), self::parseFullDoc($rc, '~^[ \\t*]*@property(?:-write)?[ \\t]+(?:\\S+[ \\t]+)??\\$(\\w+)~m')), $name);
-        throw new \ECSPrefix20210510\Nette\MemberAccessException("Cannot write to an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
+        throw new \ECSPrefix20210511\Nette\MemberAccessException("Cannot write to an undeclared property {$class}::\${$name}" . ($hint ? ", did you mean \${$hint}?" : '.'));
     }
     /** @throws MemberAccessException
      * @return void
@@ -51,7 +51,7 @@ final class ObjectHelpers
             // called parent::$method()
             $class = 'parent';
         }
-        throw new \ECSPrefix20210510\Nette\MemberAccessException("Call to undefined method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
+        throw new \ECSPrefix20210511\Nette\MemberAccessException("Call to undefined method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
     }
     /** @throws MemberAccessException
      * @return void
@@ -64,7 +64,7 @@ final class ObjectHelpers
         $hint = self::getSuggestion(\array_filter((new \ReflectionClass($class))->getMethods(\ReflectionMethod::IS_PUBLIC), function ($m) {
             return $m->isStatic();
         }), $method);
-        throw new \ECSPrefix20210510\Nette\MemberAccessException("Call to undefined static method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
+        throw new \ECSPrefix20210511\Nette\MemberAccessException("Call to undefined static method {$class}::{$method}()" . ($hint ? ", did you mean {$hint}()?" : '.'));
     }
     /**
      * Returns array of magic properties defined by annotation @property.

@@ -4,7 +4,7 @@ namespace Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
 use ReflectionParameter;
-use ECSPrefix20210510\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition;
 use Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
 final class ParameterSkipper
 {
@@ -14,7 +14,7 @@ final class ParameterSkipper
      * @var string[]
      * @noRector
      */
-    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210510\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210510\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210510\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210510\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210510\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210510\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210510\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210510\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210511\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210511\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210511\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210511\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210511\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210511\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210511\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210511\\Sonata\\Twig\\Extension\\TemplateExtension'];
     /**
      * @var ParameterTypeResolver
      */
@@ -34,7 +34,7 @@ final class ParameterSkipper
     /**
      * @return bool
      */
-    public function shouldSkipParameter(\ReflectionMethod $reflectionMethod, \ECSPrefix20210510\Symfony\Component\DependencyInjection\Definition $definition, \ReflectionParameter $reflectionParameter)
+    public function shouldSkipParameter(\ReflectionMethod $reflectionMethod, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition $definition, \ReflectionParameter $reflectionParameter)
     {
         if (!$this->isArrayType($reflectionParameter)) {
             return \true;

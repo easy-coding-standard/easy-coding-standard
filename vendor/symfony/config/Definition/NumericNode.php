@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210510\Symfony\Component\Config\Definition;
+namespace ECSPrefix20210511\Symfony\Component\Config\Definition;
 
-use ECSPrefix20210510\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use ECSPrefix20210511\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 /**
  * This node represents a numeric value in the config tree.
  *
  * @author David Jeanmonod <david.jeanmonod@gmail.com>
  */
-class NumericNode extends \ECSPrefix20210510\Symfony\Component\Config\Definition\ScalarNode
+class NumericNode extends \ECSPrefix20210511\Symfony\Component\Config\Definition\ScalarNode
 {
     protected $min;
     protected $max;
@@ -24,7 +24,7 @@ class NumericNode extends \ECSPrefix20210510\Symfony\Component\Config\Definition
      * @param string|null $name
      * @param string $pathSeparator
      */
-    public function __construct($name, \ECSPrefix20210510\Symfony\Component\Config\Definition\NodeInterface $parent = null, $min = null, $max = null, $pathSeparator = \ECSPrefix20210510\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
+    public function __construct($name, \ECSPrefix20210511\Symfony\Component\Config\Definition\NodeInterface $parent = null, $min = null, $max = null, $pathSeparator = \ECSPrefix20210511\Symfony\Component\Config\Definition\BaseNode::DEFAULT_PATH_SEPARATOR)
     {
         $pathSeparator = (string) $pathSeparator;
         parent::__construct($name, $parent, $pathSeparator);
@@ -45,7 +45,7 @@ class NumericNode extends \ECSPrefix20210510\Symfony\Component\Config\Definition
             $errorMsg = \sprintf('The value %s is too big for path "%s". Should be less than or equal to %s', $value, $this->getPath(), $this->max);
         }
         if (isset($errorMsg)) {
-            $ex = new \ECSPrefix20210510\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException($errorMsg);
+            $ex = new \ECSPrefix20210511\Symfony\Component\Config\Definition\Exception\InvalidConfigurationException($errorMsg);
             $ex->setPath($this->getPath());
             throw $ex;
         }

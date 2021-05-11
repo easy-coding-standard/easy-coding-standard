@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210510\Psr\Container;
+namespace ECSPrefix20210511\Psr\Container;
 
 /**
  * Base interface representing a generic exception in a container.
