@@ -1,17 +1,17 @@
 <?php
 
-namespace ECSPrefix20210511;
+namespace ECSPrefix20210512;
 
-use ECSPrefix20210511\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use ECSPrefix20210512\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\ComposerJsonManipulator\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\PackageBuilder\Reflection\PrivatesCaller;
 use Symplify\SmartFileSystem\SmartFileSystem;
-use function ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\service;
-return static function (\ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
+use function ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\service;
+return static function (\ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator $containerConfigurator) {
     $parameters = $containerConfigurator->parameters();
     $parameters->set(\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS, ['keywords']);
     $services = $containerConfigurator->services();
@@ -19,7 +19,7 @@ return static function (\ECSPrefix20210511\Symfony\Component\DependencyInjection
     $services->load('Symplify\\ComposerJsonManipulator\\', __DIR__ . '/../src')->exclude([__DIR__ . '/../src/Bundle']);
     $services->set(\Symplify\SmartFileSystem\SmartFileSystem::class);
     $services->set(\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);
-    $services->set(\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::class)]);
+    $services->set(\Symplify\PackageBuilder\Parameter\ParameterProvider::class)->args([\ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\service(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::class)]);
     $services->set(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class);
-    $services->set(\ECSPrefix20210511\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
+    $services->set(\ECSPrefix20210512\Symfony\Component\Console\Style\SymfonyStyle::class)->factory([\ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\service(\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory::class), 'create']);
 };

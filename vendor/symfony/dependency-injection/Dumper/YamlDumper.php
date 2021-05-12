@@ -8,32 +8,32 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\DependencyInjection\Dumper;
+namespace ECSPrefix20210512\Symfony\Component\DependencyInjection\Dumper;
 
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Alias;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Parameter;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20210511\Symfony\Component\ExpressionLanguage\Expression;
-use ECSPrefix20210511\Symfony\Component\Yaml\Dumper as YmlDumper;
-use ECSPrefix20210511\Symfony\Component\Yaml\Parser;
-use ECSPrefix20210511\Symfony\Component\Yaml\Tag\TaggedValue;
-use ECSPrefix20210511\Symfony\Component\Yaml\Yaml;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Alias;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Parameter;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210512\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20210512\Symfony\Component\Yaml\Dumper as YmlDumper;
+use ECSPrefix20210512\Symfony\Component\Yaml\Parser;
+use ECSPrefix20210512\Symfony\Component\Yaml\Tag\TaggedValue;
+use ECSPrefix20210512\Symfony\Component\Yaml\Yaml;
 /**
  * YamlDumper dumps a service container as a YAML string.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjection\Dumper\Dumper
+class YamlDumper extends \ECSPrefix20210512\Symfony\Component\DependencyInjection\Dumper\Dumper
 {
     private $dumper;
     /**
@@ -43,11 +43,11 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
      */
     public function dump(array $options = [])
     {
-        if (!\class_exists(\ECSPrefix20210511\Symfony\Component\Yaml\Dumper::class)) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to dump the container as the Symfony Yaml Component is not installed.');
+        if (!\class_exists(\ECSPrefix20210512\Symfony\Component\Yaml\Dumper::class)) {
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to dump the container as the Symfony Yaml Component is not installed.');
         }
         if (null === $this->dumper) {
-            $this->dumper = new \ECSPrefix20210511\Symfony\Component\Yaml\Dumper();
+            $this->dumper = new \ECSPrefix20210512\Symfony\Component\Yaml\Dumper();
         }
         return $this->container->resolveEnvPlaceholders($this->addParameters() . "\n" . $this->addServices());
     }
@@ -55,7 +55,7 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
      * @param string $id
      * @return string
      */
-    private function addService($id, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition $definition)
+    private function addService($id, \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition $definition)
     {
         $id = (string) $id;
         $code = "    {$id}:\n";
@@ -129,9 +129,9 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
             if (0 !== $priority) {
                 $code .= \sprintf("        decoration_priority: %s\n", $priority);
             }
-            $decorationOnInvalid = isset($decoratedService[3]) ? $decoratedService[3] : \ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
-            if (\in_array($decorationOnInvalid, [\ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE])) {
-                $invalidBehavior = \ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $decorationOnInvalid ? 'null' : 'ignore';
+            $decorationOnInvalid = isset($decoratedService[3]) ? $decoratedService[3] : \ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
+            if (\in_array($decorationOnInvalid, [\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_INVALID_REFERENCE, \ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE])) {
+                $invalidBehavior = \ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::NULL_ON_INVALID_REFERENCE === $decorationOnInvalid ? 'null' : 'ignore';
                 $code .= \sprintf("        decoration_on_invalid: %s\n", $invalidBehavior);
             }
         }
@@ -147,7 +147,7 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
      * @param string $alias
      * @return string
      */
-    private function addServiceAlias($alias, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Alias $id)
+    private function addServiceAlias($alias, \ECSPrefix20210512\Symfony\Component\DependencyInjection\Alias $id)
     {
         $alias = (string) $alias;
         $deprecated = '';
@@ -209,7 +209,7 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
     private function dumpCallable($callable)
     {
         if (\is_array($callable)) {
-            if ($callable[0] instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference) {
+            if ($callable[0] instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference) {
                 $callable = [$this->getServiceCall((string) $callable[0], $callable[0]), $callable[1]];
             } else {
                 $callable = [$callable[0], $callable[1]];
@@ -226,12 +226,12 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
      */
     private function dumpValue($value)
     {
-        if ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
+        if ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
             $value = $value->getValues()[0];
         }
-        if ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+        if ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             $tag = $value;
-            if ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument || $value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument && ($tag = $value->getTaggedIteratorArgument())) {
+            if ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument || $value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument && ($tag = $value->getTaggedIteratorArgument())) {
                 if (null === $tag->getIndexAttribute()) {
                     $content = $tag->getTag();
                 } else {
@@ -243,16 +243,16 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
                         $content['default_priority_method'] = $tag->getDefaultPriorityMethod();
                     }
                 }
-                return new \ECSPrefix20210511\Symfony\Component\Yaml\Tag\TaggedValue($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument ? 'tagged_iterator' : 'tagged_locator', $content);
+                return new \ECSPrefix20210512\Symfony\Component\Yaml\Tag\TaggedValue($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument ? 'tagged_iterator' : 'tagged_locator', $content);
             }
-            if ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\IteratorArgument) {
+            if ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\IteratorArgument) {
                 $tag = 'iterator';
-            } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
+            } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument) {
                 $tag = 'service_locator';
             } else {
-                throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Unspecified Yaml tag for type "%s".', \get_debug_type($value)));
+                throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Unspecified Yaml tag for type "%s".', \get_debug_type($value)));
             }
-            return new \ECSPrefix20210511\Symfony\Component\Yaml\Tag\TaggedValue($tag, $this->dumpValue($value->getValues()));
+            return new \ECSPrefix20210512\Symfony\Component\Yaml\Tag\TaggedValue($tag, $this->dumpValue($value->getValues()));
         }
         if (\is_array($value)) {
             $code = [];
@@ -260,18 +260,18 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
                 $code[$k] = $this->dumpValue($v);
             }
             return $code;
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference) {
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference) {
             return $this->getServiceCall((string) $value, $value);
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Parameter) {
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Parameter) {
             return $this->getParameterCall((string) $value);
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\ExpressionLanguage\Expression) {
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\ExpressionLanguage\Expression) {
             return $this->getExpressionCall((string) $value);
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition) {
-            return new \ECSPrefix20210511\Symfony\Component\Yaml\Tag\TaggedValue('service', (new \ECSPrefix20210511\Symfony\Component\Yaml\Parser())->parse("_:\n" . $this->addService('_', $value), \ECSPrefix20210511\Symfony\Component\Yaml\Yaml::PARSE_CUSTOM_TAGS)['_']['_']);
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\AbstractArgument) {
-            return new \ECSPrefix20210511\Symfony\Component\Yaml\Tag\TaggedValue('abstract', $value->getText());
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition) {
+            return new \ECSPrefix20210512\Symfony\Component\Yaml\Tag\TaggedValue('service', (new \ECSPrefix20210512\Symfony\Component\Yaml\Parser())->parse("_:\n" . $this->addService('_', $value), \ECSPrefix20210512\Symfony\Component\Yaml\Yaml::PARSE_CUSTOM_TAGS)['_']['_']);
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\AbstractArgument) {
+            return new \ECSPrefix20210512\Symfony\Component\Yaml\Tag\TaggedValue('abstract', $value->getText());
         } elseif (\is_object($value) || \is_resource($value)) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException('Unable to dump a service container if a parameter is an object or a resource.');
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException('Unable to dump a service container if a parameter is an object or a resource.');
         }
         return $value;
     }
@@ -279,16 +279,16 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
      * @param string $id
      * @return string
      */
-    private function getServiceCall($id, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference $reference = null)
+    private function getServiceCall($id, \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference $reference = null)
     {
         $id = (string) $id;
         if (null !== $reference) {
             switch ($reference->getInvalidBehavior()) {
-                case \ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE:
+                case \ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE:
                     break;
-                case \ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE:
+                case \ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE:
                     break;
-                case \ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE:
+                case \ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE:
                     return \sprintf('@!%s', $id);
                 default:
                     return \sprintf('@?%s', $id);
@@ -325,7 +325,7 @@ class YamlDumper extends \ECSPrefix20210511\Symfony\Component\DependencyInjectio
         foreach ($parameters as $key => $value) {
             if (\is_array($value)) {
                 $value = $this->prepareParameters($value, $escape);
-            } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference || \is_string($value) && 0 === \strpos($value, '@')) {
+            } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference || \is_string($value) && 0 === \strpos($value, '@')) {
                 $value = '@' . $value;
             }
             $filtered[$key] = $value;

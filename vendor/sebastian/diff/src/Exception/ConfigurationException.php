@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\SebastianBergmann\Diff;
+namespace ECSPrefix20210512\SebastianBergmann\Diff;
 
 use function get_class;
 use function gettype;
 use function is_object;
 use function sprintf;
 use Exception;
-final class ConfigurationException extends \ECSPrefix20210511\SebastianBergmann\Diff\InvalidArgumentException
+final class ConfigurationException extends \ECSPrefix20210512\SebastianBergmann\Diff\InvalidArgumentException
 {
     /**
      * @param string $option

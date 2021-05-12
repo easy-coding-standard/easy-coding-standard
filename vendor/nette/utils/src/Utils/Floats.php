@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210511\Nette\Utils;
+namespace ECSPrefix20210512\Nette\Utils;
 
-use ECSPrefix20210511\Nette;
+use ECSPrefix20210512\Nette;
 /**
  * Floating-point numbers comparison.
  */

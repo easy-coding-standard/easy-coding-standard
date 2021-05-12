@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210511\Nette\Caching;
+namespace ECSPrefix20210512\Nette\Caching;
 
 /**
  * Cache storage.
@@ -37,4 +37,4 @@ interface Storage
      */
     function clean(array $conditions);
 }
-\class_exists(\ECSPrefix20210511\Nette\Caching\IStorage::class);
+\class_exists(\ECSPrefix20210512\Nette\Caching\IStorage::class);

@@ -2,7 +2,7 @@
 
 namespace Symplify\Skipper\SkipCriteriaResolver;
 
-use ECSPrefix20210511\Nette\Utils\Strings;
+use ECSPrefix20210512\Nette\Utils\Strings;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\Skipper\ValueObject\Option;
 use Symplify\SmartFileSystem\Normalizer\PathNormalizer;
@@ -45,7 +45,7 @@ final class SkippedPathsResolver
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }
-            if (\ECSPrefix20210511\Nette\Utils\Strings::contains($value, '*')) {
+            if (\ECSPrefix20210512\Nette\Utils\Strings::contains($value, '*')) {
                 $this->skippedPaths[] = $this->pathNormalizer->normalizePath($value);
                 continue;
             }

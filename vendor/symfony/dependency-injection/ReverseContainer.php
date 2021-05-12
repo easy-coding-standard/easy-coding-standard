@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210512\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20210511\Psr\Container\ContainerInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20210512\Psr\Container\ContainerInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 /**
  * Turns public and "container.reversible" services back to their ids.
  *
@@ -26,7 +26,7 @@ final class ReverseContainer
     /**
      * @param string $tagName
      */
-    public function __construct(\ECSPrefix20210511\Symfony\Component\DependencyInjection\Container $serviceContainer, \ECSPrefix20210511\Psr\Container\ContainerInterface $reversibleLocator, $tagName = 'container.reversible')
+    public function __construct(\ECSPrefix20210512\Symfony\Component\DependencyInjection\Container $serviceContainer, \ECSPrefix20210512\Psr\Container\ContainerInterface $reversibleLocator, $tagName = 'container.reversible')
     {
         $tagName = (string) $tagName;
         $this->serviceContainer = $serviceContainer;
@@ -34,7 +34,7 @@ final class ReverseContainer
         $this->tagName = $tagName;
         $this->getServiceId = \Closure::bind(function (object $service) {
             return (\array_search($service, $this->services, \true) ?: \array_search($service, $this->privates, \true)) ?: null;
-        }, $serviceContainer, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Container::class);
+        }, $serviceContainer, \ECSPrefix20210512\Symfony\Component\DependencyInjection\Container::class);
     }
     /**
      * Returns the id of the passed object when it exists as a service.
@@ -71,7 +71,7 @@ final class ReverseContainer
             return $this->reversibleLocator->get($id);
         }
         if (isset($this->serviceContainer->getRemovedIds()[$id])) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service is private and cannot be accessed by reference. You should either make it public, or tag it as "%s".', $id, $this->tagName));
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service is private and cannot be accessed by reference. You should either make it public, or tag it as "%s".', $id, $this->tagName));
         }
         // will throw a ServiceNotFoundException
         $this->serviceContainer->get($id);

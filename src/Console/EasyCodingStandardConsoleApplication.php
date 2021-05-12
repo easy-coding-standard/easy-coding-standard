@@ -2,19 +2,19 @@
 
 namespace Symplify\EasyCodingStandard\Console;
 
-use ECSPrefix20210511\Composer\XdebugHandler\XdebugHandler;
-use ECSPrefix20210511\Nette\Utils\Strings;
-use ECSPrefix20210511\Symfony\Component\Console\Application;
-use ECSPrefix20210511\Symfony\Component\Console\Command\Command;
-use ECSPrefix20210511\Symfony\Component\Console\Input\InputDefinition;
-use ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210511\Symfony\Component\Console\Input\InputOption;
-use ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210512\Composer\XdebugHandler\XdebugHandler;
+use ECSPrefix20210512\Nette\Utils\Strings;
+use ECSPrefix20210512\Symfony\Component\Console\Application;
+use ECSPrefix20210512\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210512\Symfony\Component\Console\Input\InputDefinition;
+use ECSPrefix20210512\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210512\Symfony\Component\Console\Input\InputOption;
+use ECSPrefix20210512\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210511\Symfony\Component\Console\Application
+final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210512\Symfony\Component\Console\Application
 {
     /**
      * @param Command[] $commands
@@ -35,12 +35,12 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210511\Symf
     /**
      * @return int
      */
-    public function doRun(\ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface $output)
+    public function doRun(\ECSPrefix20210512\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210512\Symfony\Component\Console\Output\OutputInterface $output)
     {
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
         if (!$isXdebugAllowed && !\defined('PHPUNIT_COMPOSER_INSTALL')) {
-            $xdebugHandler = new \ECSPrefix20210511\Composer\XdebugHandler\XdebugHandler('ecs');
+            $xdebugHandler = new \ECSPrefix20210512\Composer\XdebugHandler\XdebugHandler('ecs');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }
@@ -62,7 +62,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210511\Symf
     /**
      * @return bool
      */
-    private function shouldPrintMetaInformation(\ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface $input)
+    private function shouldPrintMetaInformation(\ECSPrefix20210512\Symfony\Component\Console\Input\InputInterface $input)
     {
         $hasNoArguments = $input->getFirstArgument() === null;
         $hasVersionOption = $input->hasParameterOption('--version');
@@ -78,10 +78,10 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210511\Symf
     /**
      * @return void
      */
-    private function addExtraOptions(\ECSPrefix20210511\Symfony\Component\Console\Input\InputDefinition $inputDefinition)
+    private function addExtraOptions(\ECSPrefix20210512\Symfony\Component\Console\Input\InputDefinition $inputDefinition)
     {
-        $inputDefinition->addOption(new \ECSPrefix20210511\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::XDEBUG, null, \ECSPrefix20210511\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
-        $inputDefinition->addOption(new \ECSPrefix20210511\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG, null, \ECSPrefix20210511\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")'));
+        $inputDefinition->addOption(new \ECSPrefix20210512\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::XDEBUG, null, \ECSPrefix20210512\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Allow running xdebug'));
+        $inputDefinition->addOption(new \ECSPrefix20210512\Symfony\Component\Console\Input\InputOption(\Symplify\EasyCodingStandard\ValueObject\Option::DEBUG, null, \ECSPrefix20210512\Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Run in debug mode (alias for "-vvv")'));
     }
     /**
      * @return string
@@ -92,7 +92,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210511\Symf
         if (\file_exists(__DIR__ . '/../../vendor/composer/InstalledVersions.php')) {
             require_once __DIR__ . '/../../vendor/composer/InstalledVersions.php';
         }
-        $installedRawData = \ECSPrefix20210511\Composer\InstalledVersions::getRawData();
+        $installedRawData = \ECSPrefix20210512\Composer\InstalledVersions::getRawData();
         $ecsPackageData = isset($installedRawData['versions']['symplify/easy-coding-standard']) ? $installedRawData['versions']['symplify/easy-coding-standard'] : null;
         if ($ecsPackageData === null) {
             return 'Unknown';
@@ -102,7 +102,7 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210511\Symf
         }
         if ($ecsPackageData['version'] === 'dev-main') {
             if ($ecsPackageData['reference'] !== null) {
-                return 'dev-main@' . \ECSPrefix20210511\Nette\Utils\Strings::substring($ecsPackageData['reference'], 0, 7);
+                return 'dev-main@' . \ECSPrefix20210512\Nette\Utils\Strings::substring($ecsPackageData['reference'], 0, 7);
             }
             return isset($ecsPackageData['aliases'][0]) ? $ecsPackageData['aliases'][0] : 'dev-main';
         }

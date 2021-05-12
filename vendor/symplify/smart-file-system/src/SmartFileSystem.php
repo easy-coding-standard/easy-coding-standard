@@ -2,13 +2,13 @@
 
 namespace Symplify\SmartFileSystem;
 
-use ECSPrefix20210511\Nette\Utils\Strings;
-use ECSPrefix20210511\Symfony\Component\Filesystem\Exception\IOException;
-use ECSPrefix20210511\Symfony\Component\Filesystem\Filesystem;
+use ECSPrefix20210512\Nette\Utils\Strings;
+use ECSPrefix20210512\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix20210512\Symfony\Component\Filesystem\Filesystem;
 /**
  * @see \Symplify\SmartFileSystem\Tests\SmartFileSystem\SmartFileSystemTest
  */
-final class SmartFileSystem extends \ECSPrefix20210511\Symfony\Component\Filesystem\Filesystem
+final class SmartFileSystem extends \ECSPrefix20210512\Symfony\Component\Filesystem\Filesystem
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ final class SmartFileSystem extends \ECSPrefix20210511\Symfony\Component\Filesys
         $source = @\file_get_contents($filename);
         if (!$source) {
             $message = \sprintf('Failed to read "%s" file: "%s"', $filename, $this->getLastError());
-            throw new \ECSPrefix20210511\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
+            throw new \ECSPrefix20210512\Symfony\Component\Filesystem\Exception\IOException($message, 0, null, $filename);
         }
         return $source;
     }
@@ -74,6 +74,6 @@ final class SmartFileSystem extends \ECSPrefix20210511\Symfony\Component\Filesys
     {
         $message = isset(\error_get_last()['message']) ? \error_get_last()['message'] : '';
         $message = \ini_get('html_errors') ? $this->htmlToText($message) : $message;
-        return \ECSPrefix20210511\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
+        return \ECSPrefix20210512\Nette\Utils\Strings::replace($message, self::BEFORE_COLLON_REGEX, '');
     }
 }

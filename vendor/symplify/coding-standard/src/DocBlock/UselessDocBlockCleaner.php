@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\DocBlock;
 
-use ECSPrefix20210511\Nette\Utils\Strings;
+use ECSPrefix20210512\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 final class UselessDocBlockCleaner
 {
@@ -55,7 +55,7 @@ final class UselessDocBlockCleaner
         $position = (int) $position;
         $docContent = (string) $docContent;
         foreach (self::CLEANING_REGEXES as $cleaningRegex) {
-            $docContent = \ECSPrefix20210511\Nette\Utils\Strings::replace($docContent, $cleaningRegex, '');
+            $docContent = \ECSPrefix20210512\Nette\Utils\Strings::replace($docContent, $cleaningRegex, '');
         }
         return $this->cleanClassMethodCommentMimicMethodName($tokens, $position, $docContent);
     }
@@ -69,14 +69,14 @@ final class UselessDocBlockCleaner
     {
         $index = (int) $index;
         $docContent = (string) $docContent;
-        $matchMethodClass = \ECSPrefix20210511\Nette\Utils\Strings::match($docContent, self::COMMENT_METHOD_CLASS_REGEX);
+        $matchMethodClass = \ECSPrefix20210512\Nette\Utils\Strings::match($docContent, self::COMMENT_METHOD_CLASS_REGEX);
         if ($matchMethodClass) {
             return $docContent;
         }
         if (!$this->isNextFunction($reversedTokens, $index)) {
             return $docContent;
         }
-        $matchAnyMethodClass = \ECSPrefix20210511\Nette\Utils\Strings::match($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX);
+        $matchAnyMethodClass = \ECSPrefix20210512\Nette\Utils\Strings::match($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX);
         if (!$matchAnyMethodClass) {
             return $docContent;
         }
@@ -86,7 +86,7 @@ final class UselessDocBlockCleaner
         if (\strtolower($obviousMethodComment) !== \strtolower($methodNameContent)) {
             return $docContent;
         }
-        return \ECSPrefix20210511\Nette\Utils\Strings::replace($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX, '');
+        return \ECSPrefix20210512\Nette\Utils\Strings::replace($docContent, self::COMMENT_ANY_METHOD_CLASS_REGEX, '');
     }
     /**
      * @param int $index
@@ -107,6 +107,6 @@ final class UselessDocBlockCleaner
     private function removeSpaces($content)
     {
         $content = (string) $content;
-        return \ECSPrefix20210511\Nette\Utils\Strings::replace($content, self::SPACE_STAR_SLASH_REGEX, '');
+        return \ECSPrefix20210512\Nette\Utils\Strings::replace($content, self::SPACE_STAR_SLASH_REGEX, '');
     }
 }

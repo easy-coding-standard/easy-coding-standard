@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\Config\Loader;
+namespace ECSPrefix20210512\Symfony\Component\Config\Loader;
 
-use ECSPrefix20210511\Symfony\Component\Config\Exception\LoaderLoadException;
+use ECSPrefix20210512\Symfony\Component\Config\Exception\LoaderLoadException;
 /**
  * Loader is the abstract class used by all built-in loaders.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-abstract class Loader implements \ECSPrefix20210511\Symfony\Component\Config\Loader\LoaderInterface
+abstract class Loader implements \ECSPrefix20210512\Symfony\Component\Config\Loader\LoaderInterface
 {
     protected $resolver;
     /**
@@ -29,7 +29,7 @@ abstract class Loader implements \ECSPrefix20210511\Symfony\Component\Config\Loa
     /**
      * {@inheritdoc}
      */
-    public function setResolver(\ECSPrefix20210511\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
+    public function setResolver(\ECSPrefix20210512\Symfony\Component\Config\Loader\LoaderResolverInterface $resolver)
     {
         $this->resolver = $resolver;
     }
@@ -62,7 +62,7 @@ abstract class Loader implements \ECSPrefix20210511\Symfony\Component\Config\Loa
         }
         $loader = null === $this->resolver ? \false : $this->resolver->resolve($resource, $type);
         if (\false === $loader) {
-            throw new \ECSPrefix20210511\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
+            throw new \ECSPrefix20210512\Symfony\Component\Config\Exception\LoaderLoadException($resource, null, 0, null, $type);
         }
         return $loader;
     }

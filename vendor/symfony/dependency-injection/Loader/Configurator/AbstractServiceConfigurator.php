@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-abstract class AbstractServiceConfigurator extends \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+abstract class AbstractServiceConfigurator extends \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     protected $parent;
     protected $id;
@@ -20,7 +20,7 @@ abstract class AbstractServiceConfigurator extends \ECSPrefix20210511\Symfony\Co
     /**
      * @param string $id
      */
-    public function __construct(\ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition $definition, $id = null, array $defaultTags = [])
+    public function __construct(\ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator $parent, \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition $definition, $id = null, array $defaultTags = [])
     {
         $this->parent = $parent;
         $this->definition = $definition;

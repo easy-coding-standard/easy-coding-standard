@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\VarDumper\Command\Descriptor;
+namespace ECSPrefix20210512\Symfony\Component\VarDumper\Command\Descriptor;
 
-use ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Data;
-use ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\HtmlDumper;
+use ECSPrefix20210512\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210512\Symfony\Component\VarDumper\Dumper\HtmlDumper;
 /**
  * Describe collected data clones for html output.
  *
@@ -20,11 +20,11 @@ use ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\HtmlDumper;
  *
  * @final
  */
-class HtmlDescriptor implements \ECSPrefix20210511\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
+class HtmlDescriptor implements \ECSPrefix20210512\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
 {
     private $dumper;
     private $initialized = \false;
-    public function __construct(\ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper)
+    public function __construct(\ECSPrefix20210512\Symfony\Component\VarDumper\Dumper\HtmlDumper $dumper)
     {
         $this->dumper = $dumper;
     }
@@ -32,7 +32,7 @@ class HtmlDescriptor implements \ECSPrefix20210511\Symfony\Component\VarDumper\C
      * @return void
      * @param int $clientId
      */
-    public function describe(\ECSPrefix20210511\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
+    public function describe(\ECSPrefix20210512\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
     {
         $clientId = (int) $clientId;
         if (!$this->initialized) {

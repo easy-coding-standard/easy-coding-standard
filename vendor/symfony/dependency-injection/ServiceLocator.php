@@ -8,21 +8,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\DependencyInjection;
+namespace ECSPrefix20210512\Symfony\Component\DependencyInjection;
 
-use ECSPrefix20210511\Psr\Container\ContainerExceptionInterface;
-use ECSPrefix20210511\Psr\Container\NotFoundExceptionInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use ECSPrefix20210511\Symfony\Contracts\Service\ServiceLocatorTrait;
-use ECSPrefix20210511\Symfony\Contracts\Service\ServiceProviderInterface;
-use ECSPrefix20210511\Symfony\Contracts\Service\ServiceSubscriberInterface;
+use ECSPrefix20210512\Psr\Container\ContainerExceptionInterface;
+use ECSPrefix20210512\Psr\Container\NotFoundExceptionInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use ECSPrefix20210512\Symfony\Contracts\Service\ServiceLocatorTrait;
+use ECSPrefix20210512\Symfony\Contracts\Service\ServiceProviderInterface;
+use ECSPrefix20210512\Symfony\Contracts\Service\ServiceSubscriberInterface;
 /**
  * @author Robin Chalas <robin.chalas@gmail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ServiceLocator implements \ECSPrefix20210511\Symfony\Contracts\Service\ServiceProviderInterface
+class ServiceLocator implements \ECSPrefix20210512\Symfony\Contracts\Service\ServiceProviderInterface
 {
     use ServiceLocatorTrait {
         get as private doGet;
@@ -41,7 +41,7 @@ class ServiceLocator implements \ECSPrefix20210511\Symfony\Contracts\Service\Ser
         }
         try {
             return $this->doGet($id);
-        } catch (\ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
+        } catch (\ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException $e) {
             $what = \sprintf('service "%s" required by "%s"', $id, $this->externalId);
             $message = \preg_replace('/service "\\.service_locator\\.[^"]++"/', $what, $e->getMessage());
             if ($e->getMessage() === $message) {
@@ -67,7 +67,7 @@ class ServiceLocator implements \ECSPrefix20210511\Symfony\Contracts\Service\Ser
      * @return static
      * @param string $externalId
      */
-    public function withContext($externalId, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Container $container)
+    public function withContext($externalId, \ECSPrefix20210512\Symfony\Component\DependencyInjection\Container $container)
     {
         $externalId = (string) $externalId;
         $locator = clone $this;
@@ -84,7 +84,7 @@ class ServiceLocator implements \ECSPrefix20210511\Symfony\Contracts\Service\Ser
         $id = (string) $id;
         if ($this->loading) {
             $msg = \sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', \end($this->loading), $id, $this->formatAlternatives());
-            return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], $msg);
+            return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], $msg);
         }
         $class = \debug_backtrace(\DEBUG_BACKTRACE_PROVIDE_OBJECT | \DEBUG_BACKTRACE_IGNORE_ARGS, 4);
         $class = isset($class[3]['object']) ? \get_class($class[3]['object']) : null;
@@ -99,7 +99,7 @@ class ServiceLocator implements \ECSPrefix20210511\Symfony\Contracts\Service\Ser
             try {
                 $this->container->get($id);
                 $class = null;
-            } catch (\ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException $e) {
+            } catch (\ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException $e) {
                 if ($e->getAlternatives()) {
                     $msg[] = \sprintf('did you mean %s? Anyway,', $this->formatAlternatives($e->getAlternatives(), 'or'));
                 } else {
@@ -114,12 +114,12 @@ class ServiceLocator implements \ECSPrefix20210511\Symfony\Contracts\Service\Ser
         }
         if (!$class) {
             // no-op
-        } elseif (\is_subclass_of($class, \ECSPrefix20210511\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
+        } elseif (\is_subclass_of($class, \ECSPrefix20210512\Symfony\Contracts\Service\ServiceSubscriberInterface::class)) {
             $msg[] = \sprintf('Unless you need extra laziness, try using dependency injection instead. Otherwise, you need to declare it using "%s::getSubscribedServices()".', \preg_replace('/([^\\\\]++\\\\)++/', '', $class));
         } else {
             $msg[] = 'Try using dependency injection instead.';
         }
-        return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], \implode(' ', $msg));
+        return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException($id, \end($this->loading) ?: null, null, [], \implode(' ', $msg));
     }
     /**
      * @param string $id
@@ -128,7 +128,7 @@ class ServiceLocator implements \ECSPrefix20210511\Symfony\Contracts\Service\Ser
     private function createCircularReferenceException($id, array $path)
     {
         $id = (string) $id;
-        return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, $path);
+        return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException($id, $path);
     }
     /**
      * @param string $separator

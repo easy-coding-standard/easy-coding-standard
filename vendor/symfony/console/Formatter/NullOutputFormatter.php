@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\Console\Formatter;
+namespace ECSPrefix20210512\Symfony\Component\Console\Formatter;
 
 /**
  * @author Tien Xuan Vo <tien.xuan.vo@gmail.com>
  */
-final class NullOutputFormatter implements \ECSPrefix20210511\Symfony\Component\Console\Formatter\OutputFormatterInterface
+final class NullOutputFormatter implements \ECSPrefix20210512\Symfony\Component\Console\Formatter\OutputFormatterInterface
 {
     private $style;
     /**
@@ -37,7 +37,7 @@ final class NullOutputFormatter implements \ECSPrefix20210511\Symfony\Component\
             return $this->style;
         }
         // to comply with the interface we must return a OutputFormatterStyleInterface
-        return $this->style = new \ECSPrefix20210511\Symfony\Component\Console\Formatter\NullOutputFormatterStyle();
+        return $this->style = new \ECSPrefix20210512\Symfony\Component\Console\Formatter\NullOutputFormatterStyle();
     }
     /**
      * {@inheritdoc}
@@ -72,7 +72,7 @@ final class NullOutputFormatter implements \ECSPrefix20210511\Symfony\Component\
      * @return void
      * @param string $name
      */
-    public function setStyle($name, \ECSPrefix20210511\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
+    public function setStyle($name, \ECSPrefix20210512\Symfony\Component\Console\Formatter\OutputFormatterStyleInterface $style)
     {
         $name = (string) $name;
         // do nothing

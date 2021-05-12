@@ -2,8 +2,8 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210512\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
@@ -14,7 +14,7 @@ final class EasyCodingStandardContainerFactory
     /**
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    public function createFromFromInput(\ECSPrefix20210511\Symfony\Component\Console\Input\InputInterface $input)
+    public function createFromFromInput(\ECSPrefix20210512\Symfony\Component\Console\Input\InputInterface $input)
     {
         $ecsConfigsResolver = new \Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver();
         $bootstrapConfigs = $ecsConfigsResolver->resolveFromInput($input);

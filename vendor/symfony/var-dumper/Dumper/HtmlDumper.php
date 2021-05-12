@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\VarDumper\Dumper;
+namespace ECSPrefix20210512\Symfony\Component\VarDumper\Dumper;
 
-use ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Cursor;
-use ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Cursor;
+use ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Data;
 /**
  * HtmlDumper dumps variables as HTML.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class HtmlDumper extends \ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\CliDumper
+class HtmlDumper extends \ECSPrefix20210512\Symfony\Component\VarDumper\Dumper\CliDumper
 {
     public static $defaultOutput = 'php://output';
     protected static $themes = ['dark' => ['default' => 'background-color:#18171B; color:#FF8400; line-height:1.2em; font:12px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: break-all', 'num' => 'font-weight:bold; color:#1299DA', 'const' => 'font-weight:bold', 'str' => 'font-weight:bold; color:#56DB3A', 'note' => 'color:#1299DA', 'ref' => 'color:#A0A0A0', 'public' => 'color:#FFFFFF', 'protected' => 'color:#FFFFFF', 'private' => 'color:#FFFFFF', 'meta' => 'color:#B729D9', 'key' => 'color:#56DB3A', 'index' => 'color:#1299DA', 'ellipsis' => 'color:#FF8400', 'ns' => 'user-select:none;'], 'light' => ['default' => 'background:none; color:#CC7832; line-height:1.2em; font:12px Menlo, Monaco, Consolas, monospace; word-wrap: break-word; white-space: pre-wrap; position:relative; z-index:99999; word-break: break-all', 'num' => 'font-weight:bold; color:#1299DA', 'const' => 'font-weight:bold', 'str' => 'font-weight:bold; color:#629755;', 'note' => 'color:#6897BB', 'ref' => 'color:#6E6E6E', 'public' => 'color:#262626', 'protected' => 'color:#262626', 'private' => 'color:#262626', 'meta' => 'color:#B729D9', 'key' => 'color:#789339', 'index' => 'color:#1299DA', 'ellipsis' => 'color:#CC7832', 'ns' => 'user-select:none;']];
@@ -39,7 +39,7 @@ class HtmlDumper extends \ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\C
     public function __construct($output = null, $charset = null, $flags = 0)
     {
         $flags = (int) $flags;
-        \ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\AbstractDumper::__construct($output, $charset, $flags);
+        \ECSPrefix20210512\Symfony\Component\VarDumper\Dumper\AbstractDumper::__construct($output, $charset, $flags);
         $this->dumpId = 'sf-dump-' . \mt_rand();
         $this->displayOptions['fileLinkFormat'] = \ini_get('xdebug.file_link_format') ?: \get_cfg_var('xdebug.file_link_format');
         $this->styles = isset(static::$themes['dark']) ? static::$themes['dark'] : self::$themes['dark'];
@@ -97,7 +97,7 @@ class HtmlDumper extends \ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\C
      * {@inheritdoc}
      * @param mixed[] $extraDisplayOptions
      */
-    public function dump(\ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, $extraDisplayOptions = [])
+    public function dump(\ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Data $data, $output = null, $extraDisplayOptions = [])
     {
         $this->extraDisplayOptions = $extraDisplayOptions;
         $result = parent::dump($data, $output);
@@ -744,7 +744,7 @@ EOHTML
      * @param bool $bin
      * @param int $cut
      */
-    public function dumpString(\ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut)
+    public function dumpString(\ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut)
     {
         $str = (string) $str;
         $bin = (bool) $bin;
@@ -766,11 +766,11 @@ EOHTML
      * @param int $type
      * @param bool $hasChild
      */
-    public function enterHash(\ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild)
+    public function enterHash(\ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild)
     {
         $type = (int) $type;
         $hasChild = (bool) $hasChild;
-        if (\ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT === $type) {
+        if (\ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT === $type) {
             $cursor->attr['depth'] = $cursor->depth;
         }
         parent::enterHash($cursor, $type, $class, \false);
@@ -784,7 +784,7 @@ EOHTML
         if ($hasChild) {
             $this->line .= '<samp data-depth=' . ($cursor->depth + 1);
             if ($cursor->refIndex) {
-                $r = \ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT !== $type ? 1 - (\ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Cursor::HASH_RESOURCE !== $type) : 2;
+                $r = \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Cursor::HASH_OBJECT !== $type ? 1 - (\ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Cursor::HASH_RESOURCE !== $type) : 2;
                 $r .= $r && 0 < $cursor->softRefHandle ? $cursor->softRefHandle : $cursor->refIndex;
                 $this->line .= \sprintf(' id=%s-ref%s', $this->dumpId, $r);
             }
@@ -798,7 +798,7 @@ EOHTML
      * @param bool $hasChild
      * @param int $cut
      */
-    public function leaveHash(\ECSPrefix20210511\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild, $cut)
+    public function leaveHash(\ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild, $cut)
     {
         $type = (int) $type;
         $hasChild = (bool) $hasChild;
@@ -913,9 +913,9 @@ EOHTML
         $this->lastDepth = $depth;
         $this->line = \mb_convert_encoding($this->line, 'HTML-ENTITIES', 'UTF-8');
         if (-1 === $depth) {
-            \ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine(0);
+            \ECSPrefix20210512\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine(0);
         }
-        \ECSPrefix20210511\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine($depth);
+        \ECSPrefix20210512\Symfony\Component\VarDumper\Dumper\AbstractDumper::dumpLine($depth);
     }
     /**
      * @param string $file

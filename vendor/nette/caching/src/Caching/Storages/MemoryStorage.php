@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210511\Nette\Caching\Storages;
+namespace ECSPrefix20210512\Nette\Caching\Storages;
 
-use ECSPrefix20210511\Nette;
+use ECSPrefix20210512\Nette;
 /**
  * Memory cache storage.
  */
-class MemoryStorage implements \ECSPrefix20210511\Nette\Caching\Storage
+class MemoryStorage implements \ECSPrefix20210512\Nette\Caching\Storage
 {
     use Nette\SmartObject;
     /** @var array */
@@ -49,7 +49,7 @@ class MemoryStorage implements \ECSPrefix20210511\Nette\Caching\Storage
      */
     public function clean(array $conditions)
     {
-        if (!empty($conditions[\ECSPrefix20210511\Nette\Caching\Cache::ALL])) {
+        if (!empty($conditions[\ECSPrefix20210512\Nette\Caching\Cache::ALL])) {
             $this->data = [];
         }
     }

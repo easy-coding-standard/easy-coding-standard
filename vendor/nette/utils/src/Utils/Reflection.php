@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210511\Nette\Utils;
+namespace ECSPrefix20210512\Nette\Utils;
 
-use ECSPrefix20210511\Nette;
+use ECSPrefix20210512\Nette;
 /**
  * PHP reflection helpers.
  */
@@ -99,9 +99,9 @@ final class Reflection
                 }
                 return $types;
             }
-            throw new \ECSPrefix20210511\Nette\InvalidStateException('The ' . self::toString($reflection) . ' is not expected to have a union type.');
+            throw new \ECSPrefix20210512\Nette\InvalidStateException('The ' . self::toString($reflection) . ' is not expected to have a union type.');
         } else {
-            throw new \ECSPrefix20210511\Nette\InvalidStateException('Unexpected type of ' . self::toString($reflection));
+            throw new \ECSPrefix20210512\Nette\InvalidStateException('Unexpected type of ' . self::toString($reflection));
         }
     }
     /**
@@ -214,7 +214,7 @@ final class Reflection
         } elseif ($ref instanceof \ReflectionParameter) {
             return '$' . $ref->name . ' in ' . self::toString($ref->getDeclaringFunction());
         } else {
-            throw new \ECSPrefix20210511\Nette\InvalidArgumentException();
+            throw new \ECSPrefix20210512\Nette\InvalidArgumentException();
         }
     }
     /**
@@ -229,7 +229,7 @@ final class Reflection
         $name = (string) $name;
         $lower = \strtolower($name);
         if (empty($name)) {
-            throw new \ECSPrefix20210511\Nette\InvalidArgumentException('Class name must not be empty.');
+            throw new \ECSPrefix20210512\Nette\InvalidArgumentException('Class name must not be empty.');
         } elseif (isset(self::BUILTIN_TYPES[$lower])) {
             return $lower;
         } elseif ($lower === 'self' || $lower === 'static') {
@@ -253,7 +253,7 @@ final class Reflection
     public static function getUseStatements(\ReflectionClass $class)
     {
         if ($class->isAnonymous()) {
-            throw new \ECSPrefix20210511\Nette\NotImplementedException('Anonymous classes are not supported.');
+            throw new \ECSPrefix20210512\Nette\NotImplementedException('Anonymous classes are not supported.');
         }
         static $cache = [];
         if (!isset($cache[$name = $class->name])) {

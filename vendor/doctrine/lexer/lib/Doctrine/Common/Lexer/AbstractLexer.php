@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210511\Doctrine\Common\Lexer;
+namespace ECSPrefix20210512\Doctrine\Common\Lexer;
 
 use ReflectionClass;
 use const PREG_SPLIT_DELIM_CAPTURE;

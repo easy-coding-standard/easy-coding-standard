@@ -8,20 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210512\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\LogicException;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\ExpressionLanguage;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20210511\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\LogicException;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\ExpressionLanguage;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210512\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
+abstract class AbstractRecursivePass implements \ECSPrefix20210512\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface
 {
     /**
      * @var ContainerBuilder
@@ -34,7 +34,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Compo
     /**
      * {@inheritdoc}
      */
-    public function process(\ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    public function process(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $this->container = $container;
         try {
@@ -80,11 +80,11 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Compo
                     $value[$k] = $processedValue;
                 }
             }
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             $value->setValues($this->processValue($value->getValues()));
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\ExpressionLanguage\Expression && $this->processExpressions) {
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\ExpressionLanguage\Expression && $this->processExpressions) {
             $this->getExpressionLanguage()->compile((string) $value, ['this' => 'container']);
-        } elseif ($value instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition) {
+        } elseif ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition) {
             $value->setArguments($this->processValue($value->getArguments()));
             $value->setProperties($this->processValue($value->getProperties()));
             $value->setMethodCalls($this->processValue($value->getMethodCalls()));
@@ -104,7 +104,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Compo
      * @throws RuntimeException
      * @param bool $required
      */
-    protected function getConstructor(\ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition $definition, $required)
+    protected function getConstructor(\ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition $definition, $required)
     {
         $required = (bool) $required;
         if ($definition->isSynthetic()) {
@@ -112,7 +112,7 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Compo
         }
         if (\is_string($factory = $definition->getFactory())) {
             if (!\function_exists($factory)) {
-                throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": function "%s" does not exist.', $this->currentId, $factory));
+                throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": function "%s" does not exist.', $this->currentId, $factory));
             }
             $r = new \ReflectionFunction($factory);
             if (\false !== $r->getFileName() && \file_exists($r->getFileName())) {
@@ -122,32 +122,32 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Compo
         }
         if ($factory) {
             list($class, $method) = $factory;
-            if ($class instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference) {
+            if ($class instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference) {
                 $class = $this->container->findDefinition((string) $class)->getClass();
-            } elseif ($class instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition) {
+            } elseif ($class instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition) {
                 $class = $class->getClass();
             } elseif (null === $class) {
                 $class = $definition->getClass();
             }
             if ('__construct' === $method) {
-                throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": "__construct()" cannot be used as a factory method.', $this->currentId));
+                throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": "__construct()" cannot be used as a factory method.', $this->currentId));
             }
-            return $this->getReflectionMethod(new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition($class), $method);
+            return $this->getReflectionMethod(new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition($class), $method);
         }
         $class = $definition->getClass();
         try {
             if (!($r = $this->container->getReflectionClass($class))) {
-                throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": class "%s" does not exist.', $this->currentId, $class));
+                throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": class "%s" does not exist.', $this->currentId, $class));
             }
         } catch (\ReflectionException $e) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": ', $this->currentId) . \lcfirst($e->getMessage()));
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": ', $this->currentId) . \lcfirst($e->getMessage()));
         }
         if (!($r = $r->getConstructor())) {
             if ($required) {
-                throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": class%s has no constructor.', $this->currentId, \sprintf($class !== $this->currentId ? ' "%s"' : '', $class)));
+                throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": class%s has no constructor.', $this->currentId, \sprintf($class !== $this->currentId ? ' "%s"' : '', $class)));
             }
         } elseif (!$r->isPublic()) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": ', $this->currentId) . \sprintf($class !== $this->currentId ? 'constructor of class "%s"' : 'its constructor', $class) . ' must be public.');
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": ', $this->currentId) . \sprintf($class !== $this->currentId ? 'constructor of class "%s"' : 'its constructor', $class) . ' must be public.');
         }
         return $r;
     }
@@ -157,24 +157,24 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Compo
      * @return \ReflectionFunctionAbstract
      * @param string $method
      */
-    protected function getReflectionMethod(\ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition $definition, $method)
+    protected function getReflectionMethod(\ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition $definition, $method)
     {
         $method = (string) $method;
         if ('__construct' === $method) {
             return $this->getConstructor($definition, \true);
         }
         if (!($class = $definition->getClass())) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": the class is not set.', $this->currentId));
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": the class is not set.', $this->currentId));
         }
         if (!($r = $this->container->getReflectionClass($class))) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": class "%s" does not exist.', $this->currentId, $class));
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": class "%s" does not exist.', $this->currentId, $class));
         }
         if (!$r->hasMethod($method)) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": method "%s()" does not exist.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method));
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": method "%s()" does not exist.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method));
         }
         $r = $r->getMethod($method);
         if (!$r->isPublic()) {
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": method "%s()" must be public.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method));
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('Invalid service "%s": method "%s()" must be public.', $this->currentId, $class !== $this->currentId ? $class . '::' . $method : $method));
         }
         return $r;
     }
@@ -184,18 +184,18 @@ abstract class AbstractRecursivePass implements \ECSPrefix20210511\Symfony\Compo
     private function getExpressionLanguage()
     {
         if (null === $this->expressionLanguage) {
-            if (!\class_exists(\ECSPrefix20210511\Symfony\Component\DependencyInjection\ExpressionLanguage::class)) {
-                throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
+            if (!\class_exists(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ExpressionLanguage::class)) {
+                throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\LogicException('Unable to use expressions as the Symfony ExpressionLanguage component is not installed.');
             }
             $providers = $this->container->getExpressionLanguageProviders();
-            $this->expressionLanguage = new \ECSPrefix20210511\Symfony\Component\DependencyInjection\ExpressionLanguage(null, $providers, function (string $arg) : string {
+            $this->expressionLanguage = new \ECSPrefix20210512\Symfony\Component\DependencyInjection\ExpressionLanguage(null, $providers, function (string $arg) : string {
                 if ('""' === \substr_replace($arg, '', 1, -1)) {
                     $id = \stripcslashes(\substr($arg, 1, -1));
                     $this->inExpression = \true;
-                    $arg = $this->processValue(new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference($id));
+                    $arg = $this->processValue(new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference($id));
                     $this->inExpression = \false;
-                    if (!$arg instanceof \ECSPrefix20210511\Symfony\Component\DependencyInjection\Reference) {
-                        throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('"%s::processValue()" must return a Reference when processing an expression, "%s" returned for service("%s").', static::class, \get_debug_type($arg), $id));
+                    if (!$arg instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference) {
+                        throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\RuntimeException(\sprintf('"%s::processValue()" must return a Reference when processing an expression, "%s" returned for service("%s").', static::class, \get_debug_type($arg), $id));
                     }
                     $arg = \sprintf('"%s"', $arg);
                 }

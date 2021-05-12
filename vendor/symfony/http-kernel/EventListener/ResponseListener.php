@@ -8,11 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\HttpKernel\EventListener;
+namespace ECSPrefix20210512\Symfony\Component\HttpKernel\EventListener;
 
-use ECSPrefix20210511\Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use ECSPrefix20210511\Symfony\Component\HttpKernel\Event\ResponseEvent;
-use ECSPrefix20210511\Symfony\Component\HttpKernel\KernelEvents;
+use ECSPrefix20210512\Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use ECSPrefix20210512\Symfony\Component\HttpKernel\Event\ResponseEvent;
+use ECSPrefix20210512\Symfony\Component\HttpKernel\KernelEvents;
 /**
  * ResponseListener fixes the Response headers based on the Request.
  *
@@ -20,7 +20,7 @@ use ECSPrefix20210511\Symfony\Component\HttpKernel\KernelEvents;
  *
  * @final
  */
-class ResponseListener implements \ECSPrefix20210511\Symfony\Component\EventDispatcher\EventSubscriberInterface
+class ResponseListener implements \ECSPrefix20210512\Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $charset;
     /**
@@ -34,7 +34,7 @@ class ResponseListener implements \ECSPrefix20210511\Symfony\Component\EventDisp
     /**
      * Filters the Response.
      */
-    public function onKernelResponse(\ECSPrefix20210511\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
+    public function onKernelResponse(\ECSPrefix20210512\Symfony\Component\HttpKernel\Event\ResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -50,6 +50,6 @@ class ResponseListener implements \ECSPrefix20210511\Symfony\Component\EventDisp
      */
     public static function getSubscribedEvents()
     {
-        return [\ECSPrefix20210511\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
+        return [\ECSPrefix20210512\Symfony\Component\HttpKernel\KernelEvents::RESPONSE => 'onKernelResponse'];
     }
 }

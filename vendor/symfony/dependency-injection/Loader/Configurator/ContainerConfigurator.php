@@ -8,22 +8,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator;
+namespace ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator;
 
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
-use ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use ECSPrefix20210511\Symfony\Component\ExpressionLanguage\Expression;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use ECSPrefix20210512\Symfony\Component\ExpressionLanguage\Expression;
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ContainerConfigurator extends \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
+class ContainerConfigurator extends \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator
 {
     const FACTORY = 'container';
     private $container;
@@ -36,7 +36,7 @@ class ContainerConfigurator extends \ECSPrefix20210511\Symfony\Component\Depende
      * @param string $path
      * @param string $file
      */
-    public function __construct(\ECSPrefix20210511\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, $path, $file)
+    public function __construct(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder $container, \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\PhpFileLoader $loader, array &$instanceof, $path, $file)
     {
         $path = (string) $path;
         $file = (string) $file;
@@ -53,10 +53,10 @@ class ContainerConfigurator extends \ECSPrefix20210511\Symfony\Component\Depende
     {
         $namespace = (string) $namespace;
         if (!$this->container->hasExtension($namespace)) {
-            $extensions = \array_filter(\array_map(function (\ECSPrefix20210511\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
+            $extensions = \array_filter(\array_map(function (\ECSPrefix20210512\Symfony\Component\DependencyInjection\Extension\ExtensionInterface $ext) {
                 return $ext->getAlias();
             }, $this->container->getExtensions()));
-            throw new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no extension able to load the configuration for "%s" (in "%s"). Looked for namespace "%s", found "%s".', $namespace, $this->file, $namespace, $extensions ? \implode('", "', $extensions) : 'none'));
+            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no extension able to load the configuration for "%s" (in "%s"). Looked for namespace "%s", found "%s".', $namespace, $this->file, $namespace, $extensions ? \implode('", "', $extensions) : 'none'));
         }
         $this->container->loadFromExtension($namespace, static::processValue($config));
     }
@@ -75,14 +75,14 @@ class ContainerConfigurator extends \ECSPrefix20210511\Symfony\Component\Depende
      */
     public final function parameters()
     {
-        return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ParametersConfigurator($this->container);
+        return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\ParametersConfigurator($this->container);
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator
      */
     public final function services()
     {
-        return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator($this->container, $this->loader, $this->instanceof, $this->path, $this->anonymousCount);
+        return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\ServicesConfigurator($this->container, $this->loader, $this->instanceof, $this->path, $this->anonymousCount);
     }
     /**
      * @return static
@@ -99,7 +99,7 @@ class ContainerConfigurator extends \ECSPrefix20210511\Symfony\Component\Depende
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  */
-\class_alias('ECSPrefix20210511\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', 'Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', \false);
+\class_alias('ECSPrefix20210512\\Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', 'Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ContainerConfigurator', \false);
 /**
  * Creates a parameter.
  * @param string $name
@@ -121,7 +121,7 @@ function ref($id)
 {
     $id = (string) $id;
     trigger_deprecation('symfony/dependency-injection', '5.1', '"%s()" is deprecated, use "service()" instead.', __FUNCTION__);
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator($id);
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator($id);
 }
 /**
  * Creates a reference to a service.
@@ -131,7 +131,7 @@ function ref($id)
 function service($serviceId)
 {
     $serviceId = (string) $serviceId;
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator($serviceId);
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\ReferenceConfigurator($serviceId);
 }
 /**
  * Creates an inline service.
@@ -144,7 +144,7 @@ function inline($class = null)
 {
     $class = (string) $class;
     trigger_deprecation('symfony/dependency-injection', '5.1', '"%s()" is deprecated, use "inline_service()" instead.', __FUNCTION__);
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator(new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition($class));
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator(new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition($class));
 }
 /**
  * Creates an inline service.
@@ -154,7 +154,7 @@ function inline($class = null)
 function inline_service($class = null)
 {
     $class = (string) $class;
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator(new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Definition($class));
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\InlineServiceConfigurator(new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition($class));
 }
 /**
  * Creates a service locator.
@@ -164,7 +164,7 @@ function inline_service($class = null)
  */
 function service_locator(array $values)
 {
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument(\ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator::processValue($values, \true));
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument(\ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator::processValue($values, \true));
 }
 /**
  * Creates a lazy iterator.
@@ -174,7 +174,7 @@ function service_locator(array $values)
  */
 function iterator(array $values)
 {
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\IteratorArgument(\ECSPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator::processValue($values, \true));
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\IteratorArgument(\ECSPrefix20210512\Symfony\Component\DependencyInjection\Loader\Configurator\AbstractConfigurator::processValue($values, \true));
 }
 /**
  * Creates a lazy iterator by tag name.
@@ -190,7 +190,7 @@ function tagged_iterator($tag, $indexAttribute = null, $defaultIndexMethod = nul
     $indexAttribute = (string) $indexAttribute;
     $defaultIndexMethod = (string) $defaultIndexMethod;
     $defaultPriorityMethod = (string) $defaultPriorityMethod;
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \false, $defaultPriorityMethod);
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \false, $defaultPriorityMethod);
 }
 /**
  * Creates a service locator by tag name.
@@ -204,7 +204,7 @@ function tagged_locator($tag, $indexAttribute = null, $defaultIndexMethod = null
     $tag = (string) $tag;
     $indexAttribute = (string) $indexAttribute;
     $defaultIndexMethod = (string) $defaultIndexMethod;
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument(new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \true));
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument(new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument($tag, $indexAttribute, $defaultIndexMethod, \true));
 }
 /**
  * Creates an expression.
@@ -214,7 +214,7 @@ function tagged_locator($tag, $indexAttribute = null, $defaultIndexMethod = null
 function expr($expression)
 {
     $expression = (string) $expression;
-    return new \ECSPrefix20210511\Symfony\Component\ExpressionLanguage\Expression($expression);
+    return new \ECSPrefix20210512\Symfony\Component\ExpressionLanguage\Expression($expression);
 }
 /**
  * Creates an abstract argument.
@@ -224,5 +224,5 @@ function expr($expression)
 function abstract_arg($description)
 {
     $description = (string) $description;
-    return new \ECSPrefix20210511\Symfony\Component\DependencyInjection\Argument\AbstractArgument($description);
+    return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\AbstractArgument($description);
 }

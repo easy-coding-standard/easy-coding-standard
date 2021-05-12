@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210511;
+namespace ECSPrefix20210512;
 
 // decoupled in own "*.php" file, so ECS, Rector and PHPStan works out of the box here
 use PHP_CodeSniffer\Util\Tokens;
-use ECSPrefix20210511\Symfony\Component\Console\Input\ArgvInput;
+use ECSPrefix20210512\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
 use Symplify\PackageBuilder\Console\ShellCode;
@@ -12,13 +12,13 @@ use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 \gc_disable();
 # 1. autoload
-$autoloadIncluder = new \ECSPrefix20210511\AutoloadIncluder();
+$autoloadIncluder = new \ECSPrefix20210512\AutoloadIncluder();
 $autoloadIncluder->includeCwdVendorAutoloadIfExists();
 $autoloadIncluder->autoloadProjectAutoloaderFile('/../../autoload.php');
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 $autoloadIncluder->includePhpCodeSnifferAutoloadIfNotInPharAndInitliazeTokens();
 try {
-    $input = new \ECSPrefix20210511\Symfony\Component\Console\Input\ArgvInput();
+    $input = new \ECSPrefix20210512\Symfony\Component\Console\Input\ArgvInput();
     $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
     $container = $ecsContainerFactory->createFromFromInput($input);
 } catch (\Throwable $throwable) {
@@ -123,4 +123,4 @@ final class AutoloadIncluder
 /**
  * Inspired by https://github.com/rectorphp/rector/pull/2373/files#diff-0fc04a2bb7928cac4ae339d5a8bf67f3
  */
-\class_alias('ECSPrefix20210511\\AutoloadIncluder', 'AutoloadIncluder', \false);
+\class_alias('ECSPrefix20210512\\AutoloadIncluder', 'AutoloadIncluder', \false);
