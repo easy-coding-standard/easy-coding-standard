@@ -529,7 +529,7 @@ class Table
                 if (isset($this->columnMaxWidths[$column]) && \ECSPrefix20210512\Symfony\Component\Console\Helper\Helper::strlenWithoutDecoration($formatter, $cell) > $this->columnMaxWidths[$column]) {
                     $cell = $formatter->formatAndWrap($cell, $this->columnMaxWidths[$column] * $colspan);
                 }
-                if (!\strstr($cell, "\n")) {
+                if (!\strstr(isset($cell) ? $cell : '', "\n")) {
                     continue;
                 }
                 $escaped = \implode("\n", \array_map([\ECSPrefix20210512\Symfony\Component\Console\Formatter\OutputFormatter::class, 'escapeTrailingBackslash'], \explode("\n", $cell)));

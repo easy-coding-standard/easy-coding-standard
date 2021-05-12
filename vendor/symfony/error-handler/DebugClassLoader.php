@@ -10,6 +10,7 @@
  */
 namespace ECSPrefix20210512\Symfony\Component\ErrorHandler;
 
+use ECSPrefix20210512\Composer\InstalledVersions;
 use ECSPrefix20210512\Doctrine\Common\Persistence\Proxy as LegacyProxy;
 use ECSPrefix20210512\Doctrine\Persistence\Proxy;
 use ECSPrefix20210512\Mockery\MockInterface;
@@ -338,6 +339,10 @@ class DebugClassLoader
                         self::$method[$class] = self::$method[$use];
                     }
                 } elseif (!$refl->isInterface()) {
+                    if (!\strncmp($vendor, \str_replace('_', '\\', $use), $vendorLen) && 0 === \strpos($className, 'Symfony\\') && (!\class_exists(\ECSPrefix20210512\Composer\InstalledVersions::class) || 'symfony/symfony' !== \ECSPrefix20210512\Composer\InstalledVersions::getRootPackage()['name'])) {
+                        // skip "same vendor" @method deprecations for Symfony\* classes unless symfony/symfony is being tested
+                        continue;
+                    }
                     $hasCall = $refl->hasMethod('__call');
                     $hasStaticCall = $refl->hasMethod('__callStatic');
                     foreach (self::$method[$use] as $method) {

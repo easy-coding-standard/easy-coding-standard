@@ -228,6 +228,7 @@ class YamlDumper extends \ECSPrefix20210512\Symfony\Component\DependencyInjectio
     {
         if ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument) {
             $value = $value->getValues()[0];
+            return new \ECSPrefix20210512\Symfony\Component\Yaml\Tag\TaggedValue('service_closure', $this->getServiceCall((string) $value, $value));
         }
         if ($value instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ArgumentInterface) {
             $tag = $value;

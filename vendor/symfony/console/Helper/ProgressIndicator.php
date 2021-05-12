@@ -166,7 +166,7 @@ class ProgressIndicator
                 return $formatter($this);
             }
             return $matches[0];
-        }, $this->format));
+        }, $this->format !== null ? $this->format : ''));
     }
     /**
      * @return string

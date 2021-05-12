@@ -15,6 +15,7 @@ use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\AbstractArg
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\BoundArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\ChildDefinition;
@@ -631,6 +632,13 @@ class YamlFileLoader extends \ECSPrefix20210512\Symfony\Component\DependencyInje
                 } catch (\ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException $e) {
                     throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"!iterator" tag only accepts arrays of "@service" references in "%s".', $file));
                 }
+            }
+            if ('service_closure' === $value->getTag()) {
+                $argument = $this->resolveServices($argument, $file, $isParameter);
+                if (!$argument instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference) {
+                    throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('"!service_closure" tag only accepts service references in "%s".', $file));
+                }
+                return new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument($argument);
             }
             if ('service_locator' === $value->getTag()) {
                 if (!\is_array($argument)) {

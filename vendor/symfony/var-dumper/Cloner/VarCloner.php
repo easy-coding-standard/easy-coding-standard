@@ -172,7 +172,6 @@ class VarCloner extends \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Ab
                         }
                         break;
                     case \is_object($v):
-                    case $v instanceof \__PHP_Incomplete_Class:
                         if (empty($objRefs[$h = \spl_object_id($v)])) {
                             $stub = new \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub();
                             $stub->type = \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub::TYPE_OBJECT;

@@ -15,6 +15,7 @@ use ECSPrefix20210512\Symfony\Component\DependencyInjection\Alias;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\BoundArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\IteratorArgument;
+use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use ECSPrefix20210512\Symfony\Component\DependencyInjection\ChildDefinition;
@@ -443,6 +444,12 @@ class XmlFileLoader extends \ECSPrefix20210512\Symfony\Component\DependencyInjec
                     } catch (\ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException $e) {
                         throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Tag "<%s>" with type="iterator" only accepts collections of type="service" references in "%s".', $name, $file));
                     }
+                    break;
+                case 'service_closure':
+                    if ('' === $arg->getAttribute('id')) {
+                        throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Tag "<%s>" with type="service_closure" has no or empty "id" attribute in "%s".', $name, $file));
+                    }
+                    $arguments[$key] = new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument(new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Reference($arg->getAttribute('id'), $invalidBehavior));
                     break;
                 case 'service_locator':
                     $arg = $this->getArgumentsAsPhp($arg, $name, $file);
