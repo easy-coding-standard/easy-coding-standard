@@ -24,7 +24,8 @@ final class KernelUniqueHasher
         $kernelClass = (string) $kernelClass;
         $this->ensureIsNotGenericKernelClass($kernelClass);
         $shortClassName = (string) \ECSPrefix20210512\Nette\Utils\Strings::after($kernelClass, '\\', -1);
-        return $this->stringsConverter->camelCaseToGlue($shortClassName, '_');
+        $userSpecificShortClassName = $shortClassName . \get_current_user();
+        return $this->stringsConverter->camelCaseToGlue($userSpecificShortClassName, '_');
     }
     /**
      * @return void
