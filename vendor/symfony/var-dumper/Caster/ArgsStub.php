@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210513\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Represents a list of function arguments.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ArgsStub extends \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\EnumStub
+class ArgsStub extends \ECSPrefix20210513\Symfony\Component\VarDumper\Caster\EnumStub
 {
     private static $parameters = [];
     /**
@@ -29,7 +29,7 @@ class ArgsStub extends \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\Enu
         list($variadic, $params) = self::getParameters($function, $class);
         $values = [];
         foreach ($args as $k => $v) {
-            $values[$k] = !\is_scalar($v) && !$v instanceof \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub ? new \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\CutStub($v) : $v;
+            $values[$k] = !\is_scalar($v) && !$v instanceof \ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub ? new \ECSPrefix20210513\Symfony\Component\VarDumper\Caster\CutStub($v) : $v;
         }
         if (null === $params) {
             parent::__construct($values, \false);
@@ -38,7 +38,7 @@ class ArgsStub extends \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\Enu
         if (\count($values) < \count($params)) {
             $params = \array_slice($params, 0, \count($values));
         } elseif (\count($values) > \count($params)) {
-            $values[] = new \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\EnumStub(\array_splice($values, \count($params)), \false);
+            $values[] = new \ECSPrefix20210513\Symfony\Component\VarDumper\Caster\EnumStub(\array_splice($values, \count($params)), \false);
             $params[] = $variadic;
         }
         if (['...'] === $params) {

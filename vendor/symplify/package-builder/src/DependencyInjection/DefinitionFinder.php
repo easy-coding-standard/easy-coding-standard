@@ -2,8 +2,8 @@
 
 namespace Symplify\PackageBuilder\DependencyInjection;
 
-use ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210512\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210513\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210513\Symfony\Component\DependencyInjection\Definition;
 use Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
 use Throwable;
 /**
@@ -15,7 +15,7 @@ final class DefinitionFinder
      * @return mixed[]
      * @param string $type
      */
-    public function findAllByType(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    public function findAllByType(\ECSPrefix20210513\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         $type = (string) $type;
         $definitions = [];
@@ -35,7 +35,7 @@ final class DefinitionFinder
      * @param string $type
      * @return \Symfony\Component\DependencyInjection\Definition
      */
-    public function getByType(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    public function getByType(\ECSPrefix20210513\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         $type = (string) $type;
         $definition = $this->getByTypeIfExists($containerBuilder, $type);
@@ -48,7 +48,7 @@ final class DefinitionFinder
      * @return \Symfony\Component\DependencyInjection\Definition|null
      * @param string $type
      */
-    private function getByTypeIfExists(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
+    private function getByTypeIfExists(\ECSPrefix20210513\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, $type)
     {
         $type = (string) $type;
         $containerBuilderDefinitions = $containerBuilder->getDefinitions();

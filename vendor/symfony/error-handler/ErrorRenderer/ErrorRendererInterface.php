@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\ErrorHandler\ErrorRenderer;
+namespace ECSPrefix20210513\Symfony\Component\ErrorHandler\ErrorRenderer;
 
-use ECSPrefix20210512\Symfony\Component\ErrorHandler\Exception\FlattenException;
+use ECSPrefix20210513\Symfony\Component\ErrorHandler\Exception\FlattenException;
 /**
  * Formats an exception to be used as response content.
  *

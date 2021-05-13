@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210512\Nette;
+namespace ECSPrefix20210513\Nette;
 
 /**
  * The exception that is thrown when the value of an argument is
@@ -32,7 +32,7 @@ class NotSupportedException extends \LogicException
 /**
  * The exception that is thrown when a requested method or operation is deprecated.
  */
-class DeprecatedException extends \ECSPrefix20210512\Nette\NotSupportedException
+class DeprecatedException extends \ECSPrefix20210513\Nette\NotSupportedException
 {
 }
 /**
@@ -50,13 +50,13 @@ class IOException extends \RuntimeException
 /**
  * The exception that is thrown when accessing a file that does not exist on disk.
  */
-class FileNotFoundException extends \ECSPrefix20210512\Nette\IOException
+class FileNotFoundException extends \ECSPrefix20210513\Nette\IOException
 {
 }
 /**
  * The exception that is thrown when part of a file or directory cannot be found.
  */
-class DirectoryNotFoundException extends \ECSPrefix20210512\Nette\IOException
+class DirectoryNotFoundException extends \ECSPrefix20210513\Nette\IOException
 {
 }
 /**

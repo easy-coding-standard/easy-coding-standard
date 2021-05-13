@@ -8,34 +8,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\DependencyInjection\Config;
+namespace ECSPrefix20210513\Symfony\Component\DependencyInjection\Config;
 
-use ECSPrefix20210512\Symfony\Component\Config\Resource\ResourceInterface;
-use ECSPrefix20210512\Symfony\Component\Config\ResourceCheckerInterface;
-use ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210513\Symfony\Component\Config\Resource\ResourceInterface;
+use ECSPrefix20210513\Symfony\Component\Config\ResourceCheckerInterface;
+use ECSPrefix20210513\Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Maxime Steinhausser <maxime.steinhausser@gmail.com>
  */
-class ContainerParametersResourceChecker implements \ECSPrefix20210512\Symfony\Component\Config\ResourceCheckerInterface
+class ContainerParametersResourceChecker implements \ECSPrefix20210513\Symfony\Component\Config\ResourceCheckerInterface
 {
     /** @var ContainerInterface */
     private $container;
-    public function __construct(\ECSPrefix20210512\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    public function __construct(\ECSPrefix20210513\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
         $this->container = $container;
     }
     /**
      * {@inheritdoc}
      */
-    public function supports(\ECSPrefix20210512\Symfony\Component\Config\Resource\ResourceInterface $metadata)
+    public function supports(\ECSPrefix20210513\Symfony\Component\Config\Resource\ResourceInterface $metadata)
     {
-        return $metadata instanceof \ECSPrefix20210512\Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
+        return $metadata instanceof \ECSPrefix20210513\Symfony\Component\DependencyInjection\Config\ContainerParametersResource;
     }
     /**
      * {@inheritdoc}
      * @param int $timestamp
      */
-    public function isFresh(\ECSPrefix20210512\Symfony\Component\Config\Resource\ResourceInterface $resource, $timestamp)
+    public function isFresh(\ECSPrefix20210513\Symfony\Component\Config\Resource\ResourceInterface $resource, $timestamp)
     {
         $timestamp = (int) $timestamp;
         foreach ($resource->getParameters() as $key => $value) {

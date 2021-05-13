@@ -11,7 +11,7 @@
  */
 namespace PhpCsFixer\Doctrine\Annotation;
 
-use ECSPrefix20210512\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer;
 /**
  * A Doctrine annotation token.
  *
@@ -31,7 +31,7 @@ final class Token
      * @param int    $type    The type
      * @param string $content The content
      */
-    public function __construct($type = \ECSPrefix20210512\Doctrine\Common\Annotations\DocLexer::T_NONE, $content = '')
+    public function __construct($type = \ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer::T_NONE, $content = '')
     {
         $type = (int) $type;
         $content = (string) $content;

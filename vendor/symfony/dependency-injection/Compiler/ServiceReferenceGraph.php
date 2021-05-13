@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210513\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210513\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 /**
  * This is a directed graph of your services.
  *
@@ -47,7 +47,7 @@ class ServiceReferenceGraph
     {
         $id = (string) $id;
         if (!isset($this->nodes[$id])) {
-            throw new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no node with id "%s".', $id));
+            throw new \ECSPrefix20210513\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('There is no node with id "%s".', $id));
         }
         return $this->nodes[$id];
     }
@@ -88,7 +88,7 @@ class ServiceReferenceGraph
         }
         $sourceNode = $this->createNode($sourceId, $sourceValue);
         $destNode = $this->createNode($destId, $destValue);
-        $edge = new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor);
+        $edge = new \ECSPrefix20210513\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor);
         $sourceNode->addOutEdge($edge);
         $destNode->addInEdge($edge);
     }
@@ -102,6 +102,6 @@ class ServiceReferenceGraph
         if (isset($this->nodes[$id]) && $this->nodes[$id]->getValue() === $value) {
             return $this->nodes[$id];
         }
-        return $this->nodes[$id] = new \ECSPrefix20210512\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode($id, $value);
+        return $this->nodes[$id] = new \ECSPrefix20210513\Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode($id, $value);
     }
 }

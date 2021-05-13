@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210513\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * @author Jan Schädlich <jan.schaedlich@sensiolabs.de>
  *
@@ -23,10 +23,10 @@ class MemcachedCaster
     /**
      * @param bool $isNested
      */
-    public static function castMemcached(\Memcached $c, array $a, \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castMemcached(\Memcached $c, array $a, \ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
-        $a += [\ECSPrefix20210512\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'servers' => $c->getServerList(), \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'options' => new \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\EnumStub(self::getNonDefaultOptions($c))];
+        $a += [\ECSPrefix20210513\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'servers' => $c->getServerList(), \ECSPrefix20210513\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'options' => new \ECSPrefix20210513\Symfony\Component\VarDumper\Caster\EnumStub(self::getNonDefaultOptions($c))];
         return $a;
     }
     /**

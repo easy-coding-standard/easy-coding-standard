@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210513\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts GMP objects to array representation.
  *
@@ -26,11 +26,11 @@ class GmpCaster
      * @param int $filter
      * @return mixed[]
      */
-    public static function castGmp(\GMP $gmp, array $a, \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
+    public static function castGmp(\GMP $gmp, array $a, \ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested, $filter)
     {
         $isNested = (bool) $isNested;
         $filter = (int) $filter;
-        $a[\ECSPrefix20210512\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'value'] = new \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\ConstStub(\gmp_strval($gmp), \gmp_strval($gmp));
+        $a[\ECSPrefix20210513\Symfony\Component\VarDumper\Caster\Caster::PREFIX_VIRTUAL . 'value'] = new \ECSPrefix20210513\Symfony\Component\VarDumper\Caster\ConstStub(\gmp_strval($gmp), \gmp_strval($gmp));
         return $a;
     }
 }

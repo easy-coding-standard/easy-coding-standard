@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Set;
 
-use ECSPrefix20210512\Nette\Utils\Strings;
+use ECSPrefix20210513\Nette\Utils\Strings;
 use ReflectionClass;
 use Symplify\SetConfigResolver\ValueObject\Set;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -37,7 +37,7 @@ final class ConstantReflectionSetFactory
             }
             $setName = $this->constantToDashes($name);
             // back compatible names without "-"
-            $setName = \ECSPrefix20210512\Nette\Utils\Strings::replace($setName, self::REMOVE_DASH_BEFORE_NUMBER_REGEX, '$1$2');
+            $setName = \ECSPrefix20210513\Nette\Utils\Strings::replace($setName, self::REMOVE_DASH_BEFORE_NUMBER_REGEX, '$1$2');
             $sets[] = new \Symplify\SetConfigResolver\ValueObject\Set($setName, new \Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
         return $sets;
@@ -50,6 +50,6 @@ final class ConstantReflectionSetFactory
     {
         $string = (string) $string;
         $string = \strtolower($string);
-        return \ECSPrefix20210512\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
+        return \ECSPrefix20210513\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }
 }

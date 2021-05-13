@@ -2,9 +2,9 @@
 
 namespace Symplify\PackageBuilder\Contract\HttpKernel;
 
-use ECSPrefix20210512\Symfony\Component\HttpKernel\KernelInterface;
+use ECSPrefix20210513\Symfony\Component\HttpKernel\KernelInterface;
 use Symplify\SmartFileSystem\SmartFileInfo;
-interface ExtraConfigAwareKernelInterface extends \ECSPrefix20210512\Symfony\Component\HttpKernel\KernelInterface
+interface ExtraConfigAwareKernelInterface extends \ECSPrefix20210513\Symfony\Component\HttpKernel\KernelInterface
 {
     /**
      * @param string[]|SmartFileInfo[] $configs

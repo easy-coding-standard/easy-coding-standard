@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210513\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210512\Doctrine\Common\Proxy\Proxy as CommonProxy;
-use ECSPrefix20210512\Doctrine\ORM\PersistentCollection;
-use ECSPrefix20210512\Doctrine\ORM\Proxy\Proxy as OrmProxy;
-use ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210513\Doctrine\Common\Proxy\Proxy as CommonProxy;
+use ECSPrefix20210513\Doctrine\ORM\PersistentCollection;
+use ECSPrefix20210513\Doctrine\ORM\Proxy\Proxy as OrmProxy;
+use ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts Doctrine related classes to array representation.
  *
@@ -26,7 +26,7 @@ class DoctrineCaster
     /**
      * @param bool $isNested
      */
-    public static function castCommonProxy(\ECSPrefix20210512\Doctrine\Common\Proxy\Proxy $proxy, array $a, \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castCommonProxy(\ECSPrefix20210513\Doctrine\Common\Proxy\Proxy $proxy, array $a, \ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         foreach (['__cloner__', '__initializer__'] as $k) {
@@ -40,7 +40,7 @@ class DoctrineCaster
     /**
      * @param bool $isNested
      */
-    public static function castOrmProxy(\ECSPrefix20210512\Doctrine\ORM\Proxy\Proxy $proxy, array $a, \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castOrmProxy(\ECSPrefix20210513\Doctrine\ORM\Proxy\Proxy $proxy, array $a, \ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         foreach (['_entityPersister', '_identifier'] as $k) {
@@ -54,12 +54,12 @@ class DoctrineCaster
     /**
      * @param bool $isNested
      */
-    public static function castPersistentCollection(\ECSPrefix20210512\Doctrine\ORM\PersistentCollection $coll, array $a, \ECSPrefix20210512\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castPersistentCollection(\ECSPrefix20210513\Doctrine\ORM\PersistentCollection $coll, array $a, \ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         foreach (['snapshot', 'association', 'typeClass'] as $k) {
             if (\array_key_exists($k = "\0Doctrine\\ORM\\PersistentCollection\0" . $k, $a)) {
-                $a[$k] = new \ECSPrefix20210512\Symfony\Component\VarDumper\Caster\CutStub($a[$k]);
+                $a[$k] = new \ECSPrefix20210513\Symfony\Component\VarDumper\Caster\CutStub($a[$k]);
             }
         }
         return $a;

@@ -2,10 +2,10 @@
 
 namespace Symplify\EasyTesting\Console;
 
-use ECSPrefix20210512\Symfony\Component\Console\Application;
-use ECSPrefix20210512\Symfony\Component\Console\Command\Command;
+use ECSPrefix20210513\Symfony\Component\Console\Application;
+use ECSPrefix20210513\Symfony\Component\Console\Command\Command;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-final class EasyTestingConsoleApplication extends \ECSPrefix20210512\Symfony\Component\Console\Application
+final class EasyTestingConsoleApplication extends \ECSPrefix20210513\Symfony\Component\Console\Application
 {
     /**
      * @param Command[] $commands

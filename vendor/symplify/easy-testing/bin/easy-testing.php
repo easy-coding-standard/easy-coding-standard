@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210512;
+namespace ECSPrefix20210513;
 
 use Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
 use Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;

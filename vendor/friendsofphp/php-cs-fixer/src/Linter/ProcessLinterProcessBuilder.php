@@ -11,7 +11,7 @@
  */
 namespace PhpCsFixer\Linter;
 
-use ECSPrefix20210512\Symfony\Component\Process\Process;
+use ECSPrefix20210513\Symfony\Component\Process\Process;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
@@ -38,6 +38,6 @@ final class ProcessLinterProcessBuilder
     public function build($path)
     {
         $path = (string) $path;
-        return new \ECSPrefix20210512\Symfony\Component\Process\Process([$this->executable, '-l', $path]);
+        return new \ECSPrefix20210513\Symfony\Component\Process\Process([$this->executable, '-l', $path]);
     }
 }

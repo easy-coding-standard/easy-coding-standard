@@ -2,8 +2,8 @@
 
 namespace Symplify\SetConfigResolver\Bootstrap;
 
-use ECSPrefix20210512\Nette\Utils\ObjectHelpers;
-use ECSPrefix20210512\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210513\Nette\Utils\ObjectHelpers;
+use ECSPrefix20210513\Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 /**
@@ -26,7 +26,7 @@ final class InvalidSetReporter
     public function report(\Symplify\SetConfigResolver\Exception\SetNotFoundException $setNotFoundException)
     {
         $message = $setNotFoundException->getMessage();
-        $suggestedSet = \ECSPrefix20210512\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
+        $suggestedSet = \ECSPrefix20210513\Nette\Utils\ObjectHelpers::getSuggestion($setNotFoundException->getAvailableSetNames(), $setNotFoundException->getSetName());
         if ($suggestedSet !== null) {
             $message .= \sprintf('. Did you mean "%s"?', $suggestedSet);
             $this->symfonyStyle->error($message);

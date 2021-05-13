@@ -25,9 +25,9 @@ use PhpCsFixer\Linter\LinterInterface;
 use PhpCsFixer\Linter\LintingException;
 use PhpCsFixer\Linter\LintingResultInterface;
 use PhpCsFixer\Tokenizer\Tokens;
-use ECSPrefix20210512\Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use ECSPrefix20210512\Symfony\Component\Filesystem\Exception\IOException;
-use ECSPrefix20210512\Symfony\Contracts\EventDispatcher\Event;
+use ECSPrefix20210513\Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ECSPrefix20210513\Symfony\Component\Filesystem\Exception\IOException;
+use ECSPrefix20210513\Symfony\Contracts\EventDispatcher\Event;
 /**
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  */
@@ -179,17 +179,17 @@ final class Runner
             if (!$this->isDryRun) {
                 $fileName = $file->getRealPath();
                 if (!\file_exists($fileName)) {
-                    throw new \ECSPrefix20210512\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s" (no longer) exists.', $file->getPathname()), 0, null, $file->getPathname());
+                    throw new \ECSPrefix20210513\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s" (no longer) exists.', $file->getPathname()), 0, null, $file->getPathname());
                 }
                 if (\is_dir($fileName)) {
-                    throw new \ECSPrefix20210512\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write file "%s" as the location exists as directory.', $fileName), 0, null, $fileName);
+                    throw new \ECSPrefix20210513\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write file "%s" as the location exists as directory.', $fileName), 0, null, $fileName);
                 }
                 if (!\is_writable($fileName)) {
-                    throw new \ECSPrefix20210512\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write to file "%s" as it is not writable.', $fileName), 0, null, $fileName);
+                    throw new \ECSPrefix20210513\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Cannot write to file "%s" as it is not writable.', $fileName), 0, null, $fileName);
                 }
                 if (\false === @\file_put_contents($fileName, $new)) {
                     $error = \error_get_last();
-                    throw new \ECSPrefix20210512\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s", "%s".', $fileName, $error ? $error['message'] : 'no reason available'), 0, null, $fileName);
+                    throw new \ECSPrefix20210513\Symfony\Component\Filesystem\Exception\IOException(\sprintf('Failed to write file "%s", "%s".', $fileName, $error ? $error['message'] : 'no reason available'), 0, null, $fileName);
                 }
             }
         }
@@ -212,14 +212,14 @@ final class Runner
      * @return void
      * @param string $name
      */
-    private function dispatchEvent($name, \ECSPrefix20210512\Symfony\Contracts\EventDispatcher\Event $event)
+    private function dispatchEvent($name, \ECSPrefix20210513\Symfony\Contracts\EventDispatcher\Event $event)
     {
         $name = (string) $name;
         if (null === $this->eventDispatcher) {
             return;
         }
         // BC compatibility < Sf 4.3
-        if (!$this->eventDispatcher instanceof \ECSPrefix20210512\Symfony\Contracts\EventDispatcher\EventDispatcherInterface) {
+        if (!$this->eventDispatcher instanceof \ECSPrefix20210513\Symfony\Contracts\EventDispatcher\EventDispatcherInterface) {
             $this->eventDispatcher->dispatch($name, $event);
             return;
         }

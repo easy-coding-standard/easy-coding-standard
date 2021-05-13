@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210512\Nette\Caching;
+namespace ECSPrefix20210513\Nette\Caching;
 
-use ECSPrefix20210512\Nette;
+use ECSPrefix20210513\Nette;
 /**
  * Output caching helper.
  */
@@ -15,7 +15,7 @@ class OutputHelper
     private $cache;
     /** @var string */
     private $key;
-    public function __construct(\ECSPrefix20210512\Nette\Caching\Cache $cache, $key)
+    public function __construct(\ECSPrefix20210513\Nette\Caching\Cache $cache, $key)
     {
         $this->cache = $cache;
         $this->key = $key;
@@ -28,7 +28,7 @@ class OutputHelper
     public function end(array $dependencies = [])
     {
         if ($this->cache === null) {
-            throw new \ECSPrefix20210512\Nette\InvalidStateException('Output cache has already been saved.');
+            throw new \ECSPrefix20210513\Nette\InvalidStateException('Output cache has already been saved.');
         }
         $this->cache->save($this->key, \ob_get_flush(), $dependencies + $this->dependencies);
         $this->cache = null;

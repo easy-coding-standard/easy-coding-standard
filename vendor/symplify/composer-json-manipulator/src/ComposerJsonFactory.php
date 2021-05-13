@@ -2,7 +2,7 @@
 
 namespace Symplify\ComposerJsonManipulator;
 
-use ECSPrefix20210512\Nette\Utils\Json;
+use ECSPrefix20210513\Nette\Utils\Json;
 use Symplify\ComposerJsonManipulator\FileSystem\JsonFileManager;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
@@ -27,7 +27,7 @@ final class ComposerJsonFactory
     public function createFromString($jsonString)
     {
         $jsonString = (string) $jsonString;
-        $jsonArray = \ECSPrefix20210512\Nette\Utils\Json::decode($jsonString, \ECSPrefix20210512\Nette\Utils\Json::FORCE_ARRAY);
+        $jsonArray = \ECSPrefix20210513\Nette\Utils\Json::decode($jsonString, \ECSPrefix20210513\Nette\Utils\Json::FORCE_ARRAY);
         return $this->createFromArray($jsonArray);
     }
     /**

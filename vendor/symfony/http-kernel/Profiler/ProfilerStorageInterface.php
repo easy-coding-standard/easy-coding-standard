@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210512\Symfony\Component\HttpKernel\Profiler;
+namespace ECSPrefix20210513\Symfony\Component\HttpKernel\Profiler;
 
 /**
  * ProfilerStorageInterface.
@@ -52,7 +52,7 @@ interface ProfilerStorageInterface
      *
      * @return bool Write operation successful
      */
-    public function write(\ECSPrefix20210512\Symfony\Component\HttpKernel\Profiler\Profile $profile);
+    public function write(\ECSPrefix20210513\Symfony\Component\HttpKernel\Profiler\Profile $profile);
     /**
      * Purges all data from the database.
      */
