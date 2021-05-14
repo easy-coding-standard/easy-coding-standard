@@ -6,7 +6,7 @@ use ECSPrefix20210514\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\ValueObject\StartAndEnd;
-use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * Heavily inspired by
  *
@@ -36,7 +36,7 @@ final class CommentedContentResolver
         $position = (int) $position;
         $token = $tokens[$position];
         if (!$token->isGivenKind(\T_COMMENT)) {
-            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         $lastLineSeen = $this->lineResolver->resolve($tokens, $position);
         $startPosition = $position;

@@ -1,16 +1,16 @@
 <?php
 
-namespace Symplify\EasyTesting\DataProvider;
+namespace ECSPrefix20210514\Symplify\EasyTesting\DataProvider;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem;
 final class StaticFixtureUpdater
 {
     /**
      * @return void
      * @param string $changedContent
      */
-    public static function updateFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent, \Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
+    public static function updateFixtureContent(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent, \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $fixtureFileInfo)
     {
         $changedContent = (string) $changedContent;
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
@@ -23,7 +23,7 @@ final class StaticFixtureUpdater
      * @return void
      * @param string $newOriginalContent
      */
-    public static function updateExpectedFixtureContent($newOriginalContent, \Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo)
+    public static function updateExpectedFixtureContent($newOriginalContent, \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $expectedFixtureFileInfo)
     {
         $newOriginalContent = (string) $newOriginalContent;
         if (!\getenv('UPDATE_TESTS') && !\getenv('UT')) {
@@ -36,13 +36,13 @@ final class StaticFixtureUpdater
      */
     private static function getSmartFileSystem()
     {
-        return new \Symplify\SmartFileSystem\SmartFileSystem();
+        return new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem();
     }
     /**
      * @param string $changedContent
      * @return string
      */
-    private static function resolveNewFixtureContent(\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent)
+    private static function resolveNewFixtureContent(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $originalFileInfo, $changedContent)
     {
         $changedContent = (string) $changedContent;
         if ($originalFileInfo->getContents() === $changedContent) {

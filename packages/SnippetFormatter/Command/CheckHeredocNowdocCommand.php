@@ -7,7 +7,7 @@ use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand;
 use Symplify\EasyCodingStandard\SnippetFormatter\Application\SnippetFormatterApplication;
 use Symplify\EasyCodingStandard\SnippetFormatter\ValueObject\SnippetPattern;
-use Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode;
 final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
@@ -34,7 +34,7 @@ final class CheckHeredocNowdocCommand extends \Symplify\EasyCodingStandard\Conso
     {
         if ($this->loadedCheckersGuard->areSomeCheckerRegistered() === \false) {
             $this->loadedCheckersGuard->report();
-            return \Symplify\PackageBuilder\Console\ShellCode::ERROR;
+            return \ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
         $this->configuration->resolveFromInput($input);
         $sources = $this->configuration->getSources();

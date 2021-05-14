@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\ComposerJsonManipulator\Sorter;
+namespace ECSPrefix20210514\Symplify\ComposerJsonManipulator\Sorter;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\ComposerJsonManipulator\DependencyInjection\Extension;
+namespace ECSPrefix20210514\Symplify\ComposerJsonManipulator\DependencyInjection\Extension;
 
 use ECSPrefix20210514\Symfony\Component\Config\FileLocator;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;

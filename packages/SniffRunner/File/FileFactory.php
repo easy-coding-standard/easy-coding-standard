@@ -7,8 +7,8 @@ use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\ValueObject\File;
-use Symplify\Skipper\Skipper\Skipper;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\File\FileFactoryTest
  */
@@ -34,7 +34,7 @@ final class FileFactory
      * @var EasyCodingStandardStyle
      */
     private $easyCodingStandardStyle;
-    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct(\PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210514\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $this->fixer = $fixer;
         $this->errorAndDiffCollector = $errorAndDiffCollector;
@@ -45,7 +45,7 @@ final class FileFactory
     /**
      * @return \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File
      */
-    public function createFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function createFromFileInfo(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         return new \Symplify\EasyCodingStandard\SniffRunner\ValueObject\File($smartFileInfo->getRelativeFilePath(), $smartFileInfo->getContents(), $this->fixer, $this->errorAndDiffCollector, $this->skipper, $this->appliedCheckersCollector, $this->easyCodingStandardStyle);
     }

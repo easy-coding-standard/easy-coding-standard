@@ -1,9 +1,9 @@
 <?php
 
-namespace Symplify\Skipper\SkipCriteriaResolver;
+namespace ECSPrefix20210514\Symplify\Skipper\SkipCriteriaResolver;
 
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\Skipper\ValueObject\Option;
+use ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210514\Symplify\Skipper\ValueObject\Option;
 final class SkippedMessagesResolver
 {
     /**
@@ -14,7 +14,7 @@ final class SkippedMessagesResolver
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
@@ -26,7 +26,7 @@ final class SkippedMessagesResolver
         if ($this->skippedMessages !== []) {
             return $this->skippedMessages;
         }
-        $skip = $this->parameterProvider->provideArrayParameter(\Symplify\Skipper\ValueObject\Option::SKIP);
+        $skip = $this->parameterProvider->provideArrayParameter(\ECSPrefix20210514\Symplify\Skipper\ValueObject\Option::SKIP);
         foreach ($skip as $key => $value) {
             // e.g. [SomeClass::class] → shift values to [SomeClass::class => null]
             if (\is_int($key)) {

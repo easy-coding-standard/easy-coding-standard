@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\DependencyInjection\CompilerPass;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection\CompilerPass;
 
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;

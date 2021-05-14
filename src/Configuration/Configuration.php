@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Output\JsonOutputFormatter;
 use Symplify\EasyCodingStandard\Exception\Configuration\SourceNotFoundException;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class Configuration
 {
     /**
@@ -42,7 +42,7 @@ final class Configuration
      * @var bool
      */
     private $doesMatchGitDiff = \false;
-    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->paths = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::PATHS);
     }

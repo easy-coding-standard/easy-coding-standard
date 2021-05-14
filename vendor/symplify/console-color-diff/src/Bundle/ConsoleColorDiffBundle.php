@@ -1,9 +1,9 @@
 <?php
 
-namespace Symplify\ConsoleColorDiff\Bundle;
+namespace ECSPrefix20210514\Symplify\ConsoleColorDiff\Bundle;
 
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension;
+use ECSPrefix20210514\Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension;
 final class ConsoleColorDiffBundle extends \ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
@@ -11,6 +11,6 @@ final class ConsoleColorDiffBundle extends \ECSPrefix20210514\Symfony\Component\
      */
     protected function createContainerExtension()
     {
-        return new \Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension();
+        return new \ECSPrefix20210514\Symplify\ConsoleColorDiff\DependencyInjection\Extension\ConsoleColorDiffExtension();
     }
 }

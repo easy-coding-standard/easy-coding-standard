@@ -1,10 +1,10 @@
 <?php
 
-namespace Symplify\PackageBuilder\DependencyInjection;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection;
 
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition;
-use Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
+use ECSPrefix20210514\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException;
 use Throwable;
 /**
  * @see \Symplify\PackageBuilder\Tests\DependencyInjection\DefinitionFinderTest
@@ -42,7 +42,7 @@ final class DefinitionFinder
         if ($definition !== null) {
             return $definition;
         }
-        throw new \Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException(\sprintf('Definition for type "%s" was not found.', $type));
+        throw new \ECSPrefix20210514\Symplify\PackageBuilder\Exception\DependencyInjection\DefinitionForTypeNotFoundException(\sprintf('Definition for type "%s" was not found.', $type));
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Definition|null

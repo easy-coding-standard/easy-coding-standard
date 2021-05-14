@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\Skipper\FileSystem;
+namespace ECSPrefix20210514\Symplify\Skipper\FileSystem;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 /**

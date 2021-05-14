@@ -6,7 +6,7 @@ use ECSPrefix20210514\Nette\Utils\Strings;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
 use Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface;
-use Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
+use ECSPrefix20210514\Symplify\PackageBuilder\Configuration\StaticEolConfiguration;
 final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStandard\TokenRunner\Contract\DocBlock\MalformWorkerInterface
 {
     /**
@@ -38,7 +38,7 @@ final class InlineVariableDocBlockMalformWorker implements \Symplify\CodingStand
             return $docContent;
         }
         // more than 2 newlines - keep it
-        if (\substr_count($docContent, \Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar()) > 2) {
+        if (\substr_count($docContent, \ECSPrefix20210514\Symplify\PackageBuilder\Configuration\StaticEolConfiguration::getEolChar()) > 2) {
             return $docContent;
         }
         // asterisk start

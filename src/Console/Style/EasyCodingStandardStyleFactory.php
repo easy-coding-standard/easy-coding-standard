@@ -7,8 +7,8 @@ use ECSPrefix20210514\Symfony\Component\Console\Input\ArgvInput;
 use ECSPrefix20210514\Symfony\Component\Console\Output\ConsoleOutput;
 use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20210514\Symfony\Component\Console\Terminal;
-use Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
-use Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix20210514\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class EasyCodingStandardStyleFactory
 {
     /**
@@ -21,7 +21,7 @@ final class EasyCodingStandardStyleFactory
     private $terminal;
     public function __construct(\ECSPrefix20210514\Symfony\Component\Console\Terminal $terminal)
     {
-        $this->privatesCaller = new \Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesCaller = new \ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $this->terminal = $terminal;
     }
     /**
@@ -38,7 +38,7 @@ final class EasyCodingStandardStyleFactory
             $consoleOutput->setVerbosity(\ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
         }
         // disable output for tests
-        if (\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\ECSPrefix20210514\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $consoleOutput->setVerbosity(\ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
         return new \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle($argvInput, $consoleOutput, $this->terminal);

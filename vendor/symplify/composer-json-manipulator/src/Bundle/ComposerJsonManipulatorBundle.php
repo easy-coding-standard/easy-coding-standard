@@ -1,9 +1,9 @@
 <?php
 
-namespace Symplify\ComposerJsonManipulator\Bundle;
+namespace ECSPrefix20210514\Symplify\ComposerJsonManipulator\Bundle;
 
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension;
+use ECSPrefix20210514\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension;
 final class ComposerJsonManipulatorBundle extends \ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
@@ -11,6 +11,6 @@ final class ComposerJsonManipulatorBundle extends \ECSPrefix20210514\Symfony\Com
      */
     protected function createContainerExtension()
     {
-        return new \Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension();
+        return new \ECSPrefix20210514\Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension();
     }
 }

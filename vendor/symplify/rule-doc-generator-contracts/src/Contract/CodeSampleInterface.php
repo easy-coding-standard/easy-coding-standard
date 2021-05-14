@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20210514\Symplify\RuleDocGenerator\Contract;
 
 interface CodeSampleInterface
 {

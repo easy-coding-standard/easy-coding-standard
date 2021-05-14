@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Parameter;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Parameter;
 
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Container;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\SetConfigResolver\Console;
+namespace ECSPrefix20210514\Symplify\SetConfigResolver\Console;
 
 use ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface;
 final class OptionValueResolver

@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\SmartFileSystem\Normalizer;
+namespace ECSPrefix20210514\Symplify\SmartFileSystem\Normalizer;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 /**

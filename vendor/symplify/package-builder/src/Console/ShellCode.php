@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Console;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Console;
 
 final class ShellCode
 {

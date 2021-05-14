@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiff
 {
     /**
@@ -26,7 +26,7 @@ final class FileDiff
      * @param string $diff
      * @param string $consoleFormattedDiff
      */
-    public function __construct(\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, $consoleFormattedDiff, array $appliedCheckers)
+    public function __construct(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, $consoleFormattedDiff, array $appliedCheckers)
     {
         $diff = (string) $diff;
         $consoleFormattedDiff = (string) $consoleFormattedDiff;

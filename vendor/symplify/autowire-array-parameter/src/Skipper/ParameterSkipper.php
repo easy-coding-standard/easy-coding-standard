@@ -1,11 +1,11 @@
 <?php
 
-namespace Symplify\AutowireArrayParameter\Skipper;
+namespace ECSPrefix20210514\Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
 use ReflectionParameter;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition;
-use Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix20210514\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
 final class ParameterSkipper
 {
     /**
@@ -26,7 +26,7 @@ final class ParameterSkipper
     /**
      * @param string[] $excludedFatalClasses
      */
-    public function __construct(\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver $parameterTypeResolver, array $excludedFatalClasses)
+    public function __construct(\ECSPrefix20210514\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver $parameterTypeResolver, array $excludedFatalClasses)
     {
         $this->parameterTypeResolver = $parameterTypeResolver;
         $this->excludedFatalClasses = \array_merge(self::DEFAULT_EXCLUDED_FATAL_CLASSES, $excludedFatalClasses);

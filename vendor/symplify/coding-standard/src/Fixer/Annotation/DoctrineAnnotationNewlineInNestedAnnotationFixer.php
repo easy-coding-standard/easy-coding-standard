@@ -11,13 +11,13 @@ use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\DoctrineBlockFinder;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Annotation\DoctrineAnnotationNewlineInNestedAnnotationFixer\DoctrineAnnotationNewlineInNestedAnnotationFixerTest
  */
-final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer\AbstractDoctrineAnnotationFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer\AbstractDoctrineAnnotationFixer implements \ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -56,7 +56,7 @@ final class DoctrineAnnotationNewlineInNestedAnnotationFixer extends \PhpCsFixer
      */
     public function getRuleDefinition()
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 use Doctrine\ORM\Mapping as ORM;
 
 /**

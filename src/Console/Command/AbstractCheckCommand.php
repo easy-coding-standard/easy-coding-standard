@@ -10,8 +10,8 @@ use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-abstract class AbstractCheckCommand extends \Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+abstract class AbstractCheckCommand extends \ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var Configuration

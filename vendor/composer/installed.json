@@ -3147,12 +3147,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\AutowireArrayParameter\\": "src"
+                    "ECSPrefix20210514\\Symplify\\AutowireArrayParameter\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\AutowireArrayParameter\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\AutowireArrayParameter\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3253,12 +3253,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\ComposerJsonManipulator\\": "src"
+                    "ECSPrefix20210514\\Symplify\\ComposerJsonManipulator\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\ComposerJsonManipulator\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3301,12 +3301,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\ConsoleColorDiff\\": "src"
+                    "ECSPrefix20210514\\Symplify\\ConsoleColorDiff\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\ConsoleColorDiff\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\ConsoleColorDiff\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3348,12 +3348,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\ConsolePackageBuilder\\": "src"
+                    "ECSPrefix20210514\\Symplify\\ConsolePackageBuilder\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\ConsolePackageBuilder\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3402,12 +3402,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\EasyTesting\\": "src"
+                    "ECSPrefix20210514\\Symplify\\EasyTesting\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\EasyTesting\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\EasyTesting\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3453,12 +3453,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\PackageBuilder\\": "src"
+                    "ECSPrefix20210514\\Symplify\\PackageBuilder\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\PackageBuilder\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\PackageBuilder\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3493,7 +3493,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\RuleDocGenerator\\": "src"
+                    "ECSPrefix20210514\\Symplify\\RuleDocGenerator\\": "src"
                 }
             },
             "license": [
@@ -3538,12 +3538,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\SetConfigResolver\\": "src"
+                    "ECSPrefix20210514\\Symplify\\SetConfigResolver\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\SetConfigResolver\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\SetConfigResolver\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3588,12 +3588,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\Skipper\\": "src"
+                    "ECSPrefix20210514\\Symplify\\Skipper\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\Skipper\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\Skipper\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3634,12 +3634,12 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\SmartFileSystem\\": "src"
+                    "ECSPrefix20210514\\Symplify\\SmartFileSystem\\": "src"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Symplify\\SmartFileSystem\\Tests\\": "tests"
+                    "ECSPrefix20210514\\Symplify\\SmartFileSystem\\Tests\\": "tests"
                 }
             },
             "license": [
@@ -3683,7 +3683,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Symplify\\SymplifyKernel\\": "src"
+                    "ECSPrefix20210514\\Symplify\\SymplifyKernel\\": "src"
                 }
             },
             "license": [

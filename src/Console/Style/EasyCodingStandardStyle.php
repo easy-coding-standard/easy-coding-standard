@@ -7,8 +7,8 @@ use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210514\Symfony\Component\Console\Terminal;
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
-use Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class EasyCodingStandardStyle extends \ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle
 {
     /**
@@ -48,9 +48,9 @@ final class EasyCodingStandardStyle extends \ECSPrefix20210514\Symfony\Component
      */
     public function enableDebugProgressBar()
     {
-        $privatesAccessor = new \Symplify\PackageBuilder\Reflection\PrivatesAccessor();
+        $privatesAccessor = new \ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesAccessor();
         $progressBar = $privatesAccessor->getPrivateProperty($this, 'progressBar');
-        $privatesCaller = new \Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $privatesCaller = new \ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesCaller();
         $privatesCaller->callPrivateMethod($progressBar, 'setRealFormat', ['debug']);
     }
     /**

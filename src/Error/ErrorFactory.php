@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\Error;
 
 use Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 final class ErrorFactory
 {
     /**
@@ -12,7 +12,7 @@ final class ErrorFactory
      * @param string $sourceClass
      * @return \Symplify\EasyCodingStandard\ValueObject\Error\CodingStandardError
      */
-    public function create($line, $message, $sourceClass, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function create($line, $message, $sourceClass, \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $line = (int) $line;
         $message = (string) $message;

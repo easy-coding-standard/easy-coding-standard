@@ -9,7 +9,7 @@ use ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderResolver;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Config\FileLocator;
 use ECSPrefix20210514\Symfony\Component\HttpKernel\KernelInterface;
-use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
+use ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
 final class DelegatingLoaderFactory
 {
     /**
@@ -37,7 +37,7 @@ final class DelegatingLoaderFactory
      */
     private function createFromContainerBuilderAndFileLocator(\ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder, \ECSPrefix20210514\Symfony\Component\Config\FileLocator $simpleFileLocator)
     {
-        $loaders = [new \ECSPrefix20210514\Symfony\Component\Config\Loader\GlobFileLoader($simpleFileLocator), new \Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $simpleFileLocator)];
+        $loaders = [new \ECSPrefix20210514\Symfony\Component\Config\Loader\GlobFileLoader($simpleFileLocator), new \ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $simpleFileLocator)];
         $loaderResolver = new \ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderResolver($loaders);
         return new \ECSPrefix20210514\Symfony\Component\Config\Loader\DelegatingLoader($loaderResolver);
     }

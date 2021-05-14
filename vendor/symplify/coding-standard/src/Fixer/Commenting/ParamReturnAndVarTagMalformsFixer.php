@@ -16,9 +16,9 @@ use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\ParamNameTypoMalf
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousReturnNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SuperfluousVarNameMalformWorker;
 use Symplify\CodingStandard\TokenRunner\DocBlock\MalformWorker\SwitchedTypeAndNameMalformWorker;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see ParamNameTypoMalformWorker
  * @see InlineVarMalformWorker
@@ -29,7 +29,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Symplify\CodingStandard\Tests\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer\ParamReturnAndVarTagMalformsFixerTest
  */
-final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -109,7 +109,7 @@ final class ParamReturnAndVarTagMalformsFixer extends \Symplify\CodingStandard\F
      */
     public function getRuleDefinition()
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 /**
  * @param string
  */

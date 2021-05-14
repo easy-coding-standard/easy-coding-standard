@@ -6,8 +6,8 @@ use ECSPrefix20210514\Nette\Caching\Cache;
 use ECSPrefix20210514\Nette\Caching\Storages\FileStorage;
 use ECSPrefix20210514\Nette\Caching\Storages\SQLiteJournal;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem;
 final class NetteCacheFactory
 {
     /**
@@ -18,7 +18,7 @@ final class NetteCacheFactory
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;

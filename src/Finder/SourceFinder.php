@@ -5,9 +5,9 @@ namespace Symplify\EasyCodingStandard\Finder;
 use ECSPrefix20210514\Symfony\Component\Finder\Finder;
 use Symplify\EasyCodingStandard\Git\GitDiffProvider;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210514\Symplify\SmartFileSystem\Finder\FinderSanitizer;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Finder\SourceFinderTest
  */
@@ -25,7 +25,7 @@ final class SourceFinder
      * @var GitDiffProvider
      */
     private $gitDiffProvider;
-    public function __construct(\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider)
+    public function __construct(\ECSPrefix20210514\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider, \Symplify\EasyCodingStandard\Git\GitDiffProvider $gitDiffProvider)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileExtensions = $parameterProvider->provideArrayParameter(\Symplify\EasyCodingStandard\ValueObject\Option::FILE_EXTENSIONS);
@@ -42,7 +42,7 @@ final class SourceFinder
         $fileInfos = [];
         foreach ($source as $singleSource) {
             if (\is_file($singleSource)) {
-                $fileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($singleSource);
+                $fileInfos[] = new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($singleSource);
             } else {
                 $filesInDirectory = $this->processDirectory($singleSource);
                 $fileInfos = \array_merge($fileInfos, $filesInDirectory);

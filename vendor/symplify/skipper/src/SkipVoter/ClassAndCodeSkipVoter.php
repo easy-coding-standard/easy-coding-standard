@@ -1,15 +1,15 @@
 <?php
 
-namespace Symplify\Skipper\SkipVoter;
+namespace ECSPrefix20210514\Symplify\Skipper\SkipVoter;
 
-use Symplify\Skipper\Contract\SkipVoterInterface;
-use Symplify\Skipper\Matcher\FileInfoMatcher;
-use Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\Skipper\Contract\SkipVoterInterface;
+use ECSPrefix20210514\Symplify\Skipper\Matcher\FileInfoMatcher;
+use ECSPrefix20210514\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * Matching class and code, e.g. App\Category\ArraySniff.SomeCode
  */
-final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVoterInterface
+final class ClassAndCodeSkipVoter implements \ECSPrefix20210514\Symplify\Skipper\Contract\SkipVoterInterface
 {
     /**
      * @var SkippedClassAndCodesResolver
@@ -19,7 +19,7 @@ final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVote
      * @var FileInfoMatcher
      */
     private $fileInfoMatcher;
-    public function __construct(\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
+    public function __construct(\ECSPrefix20210514\Symplify\Skipper\SkipCriteriaResolver\SkippedClassAndCodesResolver $skippedClassAndCodesResolver, \ECSPrefix20210514\Symplify\Skipper\Matcher\FileInfoMatcher $fileInfoMatcher)
     {
         $this->skippedClassAndCodesResolver = $skippedClassAndCodesResolver;
         $this->fileInfoMatcher = $fileInfoMatcher;
@@ -39,7 +39,7 @@ final class ClassAndCodeSkipVoter implements \Symplify\Skipper\Contract\SkipVote
      * @param string $element
      * @return bool
      */
-    public function shouldSkip($element, \Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function shouldSkip($element, \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $skippedClassAndCodes = $this->skippedClassAndCodesResolver->resolve();
         if (!\array_key_exists($element, $skippedClassAndCodes)) {

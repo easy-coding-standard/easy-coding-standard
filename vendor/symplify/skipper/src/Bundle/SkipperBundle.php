@@ -1,9 +1,9 @@
 <?php
 
-namespace Symplify\Skipper\Bundle;
+namespace ECSPrefix20210514\Symplify\Skipper\Bundle;
 
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\Skipper\DependencyInjection\Extension\SkipperExtension;
+use ECSPrefix20210514\Symplify\Skipper\DependencyInjection\Extension\SkipperExtension;
 final class SkipperBundle extends \ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
@@ -11,6 +11,6 @@ final class SkipperBundle extends \ECSPrefix20210514\Symfony\Component\HttpKerne
      */
     protected function createContainerExtension()
     {
-        return new \Symplify\Skipper\DependencyInjection\Extension\SkipperExtension();
+        return new \ECSPrefix20210514\Symplify\Skipper\DependencyInjection\Extension\SkipperExtension();
     }
 }

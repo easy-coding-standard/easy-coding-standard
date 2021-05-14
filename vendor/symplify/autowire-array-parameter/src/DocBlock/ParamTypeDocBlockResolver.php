@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\AutowireArrayParameter\DocBlock;
+namespace ECSPrefix20210514\Symplify\AutowireArrayParameter\DocBlock;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 /**

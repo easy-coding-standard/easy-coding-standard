@@ -7,8 +7,8 @@ use PHP_CodeSniffer\Util\Tokens;
 use ECSPrefix20210514\Symfony\Component\Console\Input\ArgvInput;
 use Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication;
 use Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory;
-use Symplify\PackageBuilder\Console\ShellCode;
-use Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory;
 // performance boost
 \gc_disable();
 # 1. autoload
@@ -22,10 +22,10 @@ try {
     $ecsContainerFactory = new \Symplify\EasyCodingStandard\DependencyInjection\EasyCodingStandardContainerFactory();
     $container = $ecsContainerFactory->createFromFromInput($input);
 } catch (\Throwable $throwable) {
-    $symfonyStyleFactory = new \Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
+    $symfonyStyleFactory = new \ECSPrefix20210514\Symplify\PackageBuilder\Console\Style\SymfonyStyleFactory();
     $symfonyStyle = $symfonyStyleFactory->create();
     $symfonyStyle->error($throwable->getMessage());
-    exit(\Symplify\PackageBuilder\Console\ShellCode::ERROR);
+    exit(\ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::ERROR);
 }
 $application = $container->get(\Symplify\EasyCodingStandard\Console\EasyCodingStandardConsoleApplication::class);
 exit($application->run());

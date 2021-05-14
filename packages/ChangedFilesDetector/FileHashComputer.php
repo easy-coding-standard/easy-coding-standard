@@ -8,8 +8,8 @@ use ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderResolver;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symplify\EasyCodingStandard\Exception\Configuration\FileNotFoundException;
-use Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
-use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader;
+use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\ChangedFilesDetector\FileHashComputer\FileHashComputerTest
  */
@@ -58,11 +58,11 @@ final class FileHashComputer
     {
         $filePath = (string) $filePath;
         $fileLocator = new \ECSPrefix20210514\Symfony\Component\Config\FileLocator([\dirname($filePath)]);
-        $loaders = [new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];
+        $loaders = [new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Loader\GlobFileLoader($containerBuilder, $fileLocator), new \ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection\FileLoader\ParameterMergingPhpFileLoader($containerBuilder, $fileLocator)];
         $loaderResolver = new \ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderResolver($loaders);
         $loader = $loaderResolver->resolve($filePath);
         if (!$loader) {
-            throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $loader;
     }

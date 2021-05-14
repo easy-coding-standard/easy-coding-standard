@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\ValueObject;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\ValueObject;
 
 final class Option
 {

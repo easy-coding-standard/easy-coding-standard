@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Strings;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Strings;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 /**

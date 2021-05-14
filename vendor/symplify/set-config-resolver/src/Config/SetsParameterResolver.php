@@ -1,13 +1,13 @@
 <?php
 
-namespace Symplify\SetConfigResolver\Config;
+namespace ECSPrefix20210514\Symplify\SetConfigResolver\Config;
 
 use ECSPrefix20210514\Symfony\Component\Config\FileLocator;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
-use Symplify\Astral\Exception\ShouldNotHappenException;
-use Symplify\SetConfigResolver\SetResolver;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\Astral\Exception\ShouldNotHappenException;
+use ECSPrefix20210514\Symplify\SetConfigResolver\SetResolver;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 final class SetsParameterResolver
 {
     /**
@@ -18,7 +18,7 @@ final class SetsParameterResolver
      * @var SetResolver
      */
     private $setResolver;
-    public function __construct(\Symplify\SetConfigResolver\SetResolver $setResolver)
+    public function __construct(\ECSPrefix20210514\Symplify\SetConfigResolver\SetResolver $setResolver)
     {
         $this->setResolver = $setResolver;
     }
@@ -40,17 +40,17 @@ final class SetsParameterResolver
     /**
      * @return mixed[]
      */
-    private function resolveSetsFromFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo)
+    private function resolveSetsFromFileInfo(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo)
     {
         if ($configFileInfo->hasSuffixes(['yml', 'yaml'])) {
-            throw new \Symplify\Astral\Exception\ShouldNotHappenException('Only PHP config suffix is supported now. Migrete your Symfony config to PHP');
+            throw new \ECSPrefix20210514\Symplify\Astral\Exception\ShouldNotHappenException('Only PHP config suffix is supported now. Migrete your Symfony config to PHP');
         }
         return $this->resolveSetsParameterFromPhpFileInfo($configFileInfo);
     }
     /**
      * @return mixed[]
      */
-    private function resolveSetsParameterFromPhpFileInfo(\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo)
+    private function resolveSetsParameterFromPhpFileInfo(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $configFileInfo)
     {
         // php file loader
         $containerBuilder = new \ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder();

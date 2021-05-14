@@ -1,11 +1,11 @@
 <?php
 
-namespace Symplify\SmartFileSystem\Json;
+namespace ECSPrefix20210514\Symplify\SmartFileSystem\Json;
 
 use ECSPrefix20210514\Nette\Utils\Arrays;
 use ECSPrefix20210514\Nette\Utils\Json;
-use Symplify\SmartFileSystem\FileSystemGuard;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210514\Symplify\SmartFileSystem\FileSystemGuard;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Json\JsonFileSystem\JsonFileSystemTest
  */
@@ -19,7 +19,7 @@ final class JsonFileSystem
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\ECSPrefix20210514\Symplify\SmartFileSystem\FileSystemGuard $fileSystemGuard, \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->fileSystemGuard = $fileSystemGuard;
         $this->smartFileSystem = $smartFileSystem;

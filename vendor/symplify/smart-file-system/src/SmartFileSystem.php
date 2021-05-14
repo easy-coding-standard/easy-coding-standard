@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\SmartFileSystem;
+namespace ECSPrefix20210514\Symplify\SmartFileSystem;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 use ECSPrefix20210514\Symfony\Component\Filesystem\Exception\IOException;
@@ -37,7 +37,7 @@ final class SmartFileSystem extends \ECSPrefix20210514\Symfony\Component\Filesys
     public function readFileToSmartFileInfo($filename)
     {
         $filename = (string) $filename;
-        return new \Symplify\SmartFileSystem\SmartFileInfo($filename);
+        return new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($filename);
     }
     /**
      * Converts given HTML code to plain text

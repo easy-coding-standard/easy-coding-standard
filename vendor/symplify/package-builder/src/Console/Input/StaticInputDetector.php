@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Console\Input;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Console\Input;
 
 use ECSPrefix20210514\Symfony\Component\Console\Input\ArgvInput;
 final class StaticInputDetector

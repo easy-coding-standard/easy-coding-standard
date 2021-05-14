@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Console\Command;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Console\Command;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 use ECSPrefix20210514\Symfony\Component\Console\Command\Command;

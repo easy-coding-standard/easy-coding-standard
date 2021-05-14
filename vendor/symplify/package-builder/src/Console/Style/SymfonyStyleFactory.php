@@ -1,14 +1,14 @@
 <?php
 
-namespace Symplify\PackageBuilder\Console\Style;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Console\Style;
 
 use ECSPrefix20210514\Symfony\Component\Console\Application;
 use ECSPrefix20210514\Symfony\Component\Console\Input\ArgvInput;
 use ECSPrefix20210514\Symfony\Component\Console\Output\ConsoleOutput;
 use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
 use ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
-use Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use ECSPrefix20210514\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesCaller;
 final class SymfonyStyleFactory
 {
     /**
@@ -17,7 +17,7 @@ final class SymfonyStyleFactory
     private $privatesCaller;
     public function __construct()
     {
-        $this->privatesCaller = new \Symplify\PackageBuilder\Reflection\PrivatesCaller();
+        $this->privatesCaller = new \ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesCaller();
     }
     /**
      * @return \Symfony\Component\Console\Style\SymfonyStyle
@@ -37,7 +37,7 @@ final class SymfonyStyleFactory
             $consoleOutput->setVerbosity(\ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_DEBUG);
         }
         // disable output for tests
-        if (\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\ECSPrefix20210514\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $consoleOutput->setVerbosity(\ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface::VERBOSITY_QUIET);
         }
         return new \ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle($argvInput, $consoleOutput);

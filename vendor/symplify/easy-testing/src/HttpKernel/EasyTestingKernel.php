@@ -1,10 +1,10 @@
 <?php
 
-namespace Symplify\EasyTesting\HttpKernel;
+namespace ECSPrefix20210514\Symplify\EasyTesting\HttpKernel;
 
 use ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderInterface;
-use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class EasyTestingKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20210514\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class EasyTestingKernel extends \ECSPrefix20210514\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return void

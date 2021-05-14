@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\Skipper\ValueObject;
+namespace ECSPrefix20210514\Symplify\Skipper\ValueObject;
 
 final class Option
 {

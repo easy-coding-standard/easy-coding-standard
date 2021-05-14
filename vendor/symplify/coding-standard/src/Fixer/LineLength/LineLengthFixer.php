@@ -16,16 +16,16 @@ use Symplify\CodingStandard\TokenAnalyzer\FunctionCallNameMatcher;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\LineLengthTransformer;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\LineLengthFixerTest
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\LineLengthFixer\ConfiguredLineLengthFixerTest
  */
-final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @api
@@ -138,7 +138,7 @@ final class LineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSympl
      */
     public function getRuleDefinition()
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 function some($veryLong, $superLong, $oneMoreTime)
 {
 }
@@ -187,7 +187,7 @@ CODE_SAMPLE
      */
     public function getConfigurationDefinition()
     {
-        throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     /**
      * @param Tokens<Token> $tokens

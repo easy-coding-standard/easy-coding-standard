@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Composer;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Composer;
 
 use ECSPrefix20210514\Composer\Autoload\ClassLoader;
 use ECSPrefix20210514\Nette\Utils\Strings;

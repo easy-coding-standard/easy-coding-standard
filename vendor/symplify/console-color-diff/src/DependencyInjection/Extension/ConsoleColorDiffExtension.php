@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\ConsoleColorDiff\DependencyInjection\Extension;
+namespace ECSPrefix20210514\Symplify\ConsoleColorDiff\DependencyInjection\Extension;
 
 use ECSPrefix20210514\Symfony\Component\Config\FileLocator;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;

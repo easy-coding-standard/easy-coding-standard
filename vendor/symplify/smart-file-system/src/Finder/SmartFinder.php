@@ -1,10 +1,10 @@
 <?php
 
-namespace Symplify\SmartFileSystem\Finder;
+namespace ECSPrefix20210514\Symplify\SmartFileSystem\Finder;
 
 use ECSPrefix20210514\Symfony\Component\Finder\Finder;
-use Symplify\SmartFileSystem\FileSystemFilter;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SmartFileSystem\FileSystemFilter;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\SmartFileSystem\Tests\Finder\SmartFinder\SmartFinderTest
  */
@@ -18,7 +18,7 @@ final class SmartFinder
      * @var FileSystemFilter
      */
     private $fileSystemFilter;
-    public function __construct(\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter)
+    public function __construct(\ECSPrefix20210514\Symplify\SmartFileSystem\Finder\FinderSanitizer $finderSanitizer, \ECSPrefix20210514\Symplify\SmartFileSystem\FileSystemFilter $fileSystemFilter)
     {
         $this->finderSanitizer = $finderSanitizer;
         $this->fileSystemFilter = $fileSystemFilter;
@@ -61,7 +61,7 @@ final class SmartFinder
         }
         $files = $this->fileSystemFilter->filterFiles($directoriesOrFiles);
         foreach ($files as $file) {
-            $fileInfos[] = new \Symplify\SmartFileSystem\SmartFileInfo($file);
+            $fileInfos[] = new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($file);
         }
         return $fileInfos;
     }

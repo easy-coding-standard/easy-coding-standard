@@ -1,8 +1,8 @@
 <?php
 
-namespace Symplify\RuleDocGenerator\Contract;
+namespace ECSPrefix20210514\Symplify\RuleDocGenerator\Contract;
 
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 interface RuleCodeSamplePrinterInterface
 {
     /**
@@ -13,5 +13,5 @@ interface RuleCodeSamplePrinterInterface
     /**
      * @return mixed[]
      */
-    public function print(\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
+    public function print(\ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\CodeSampleInterface $codeSample, \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition $ruleDefinition);
 }

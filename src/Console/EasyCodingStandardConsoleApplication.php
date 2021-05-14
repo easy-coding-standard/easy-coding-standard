@@ -13,7 +13,7 @@ use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Console\Command\CheckCommand;
 use Symplify\EasyCodingStandard\Console\Output\ConsoleOutputFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Option;
-use Symplify\PackageBuilder\Console\Command\CommandNaming;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\CommandNaming;
 final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210514\Symfony\Component\Console\Application
 {
     /**
@@ -24,13 +24,13 @@ final class EasyCodingStandardConsoleApplication extends \ECSPrefix20210514\Symf
         $version = $this->resolveEasyCodingStandardVersion();
         parent::__construct('EasyCodingStandard', $version);
         // @see https://tomasvotruba.com/blog/2020/10/26/the-bullet-proof-symfony-command-naming/
-        $commandNaming = new \Symplify\PackageBuilder\Console\Command\CommandNaming();
+        $commandNaming = new \ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\CommandNaming();
         foreach ($commands as $command) {
             $commandName = $commandNaming->resolveFromCommand($command);
             $command->setName($commandName);
             $this->add($command);
         }
-        $this->setDefaultCommand(\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class));
+        $this->setDefaultCommand(\ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\CommandNaming::classToName(\Symplify\EasyCodingStandard\Console\Command\CheckCommand::class));
     }
     /**
      * @return int

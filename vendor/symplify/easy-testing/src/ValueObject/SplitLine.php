@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\EasyTesting\ValueObject;
+namespace ECSPrefix20210514\Symplify\EasyTesting\ValueObject;
 
 final class SplitLine
 {

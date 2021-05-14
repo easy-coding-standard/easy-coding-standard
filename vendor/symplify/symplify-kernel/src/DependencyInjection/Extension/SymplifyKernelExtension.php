@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\SymplifyKernel\DependencyInjection\Extension;
+namespace ECSPrefix20210514\Symplify\SymplifyKernel\DependencyInjection\Extension;
 
 use ECSPrefix20210514\Symfony\Component\Config\FileLocator;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;

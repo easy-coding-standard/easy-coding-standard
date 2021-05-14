@@ -1,9 +1,9 @@
 <?php
 
-namespace Symplify\PackageBuilder\Contract\HttpKernel;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Contract\HttpKernel;
 
 use ECSPrefix20210514\Symfony\Component\HttpKernel\KernelInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
 interface ExtraConfigAwareKernelInterface extends \ECSPrefix20210514\Symfony\Component\HttpKernel\KernelInterface
 {
     /**

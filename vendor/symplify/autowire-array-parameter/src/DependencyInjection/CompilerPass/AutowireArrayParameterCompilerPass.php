@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
+namespace ECSPrefix20210514\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 use ReflectionClass;
@@ -9,10 +9,10 @@ use ECSPrefix20210514\Symfony\Component\DependencyInjection\Compiler\CompilerPas
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition;
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\Reference;
-use Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
-use Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
-use Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
-use Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
+use ECSPrefix20210514\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use ECSPrefix20210514\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper;
+use ECSPrefix20210514\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder;
 /**
  * @inspiration https://github.com/nette/di/pull/178
  * @see \Symplify\AutowireArrayParameter\Tests\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPassTest
@@ -49,10 +49,10 @@ final class AutowireArrayParameterCompilerPass implements \ECSPrefix20210514\Sym
      */
     public function __construct(array $excludedFatalClasses = [])
     {
-        $this->definitionFinder = new \Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
-        $paramTypeDocBlockResolver = new \Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
-        $this->parameterTypeResolver = new \Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
-        $this->parameterSkipper = new \Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
+        $this->definitionFinder = new \ECSPrefix20210514\Symplify\PackageBuilder\DependencyInjection\DefinitionFinder();
+        $paramTypeDocBlockResolver = new \ECSPrefix20210514\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver();
+        $this->parameterTypeResolver = new \ECSPrefix20210514\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver($paramTypeDocBlockResolver);
+        $this->parameterSkipper = new \ECSPrefix20210514\Symplify\AutowireArrayParameter\Skipper\ParameterSkipper($this->parameterTypeResolver, $excludedFatalClasses);
     }
     /**
      * @return void

@@ -9,9 +9,9 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\Guard\LoadedCheckersGuard;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
-use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-use Symplify\PackageBuilder\Console\ShellCode;
-final class ShowCommand extends \Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode;
+final class ShowCommand extends \ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @var SniffFileProcessor
@@ -56,13 +56,13 @@ final class ShowCommand extends \Symplify\PackageBuilder\Console\Command\Abstrac
     {
         if ($this->loadedCheckersGuard->areSomeCheckerRegistered() === \false) {
             $this->loadedCheckersGuard->report();
-            return \Symplify\PackageBuilder\Console\ShellCode::ERROR;
+            return \ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
         $totalCheckerCount = \count($this->sniffFileProcessor->getCheckers()) + \count($this->fixerFileProcessor->getCheckers());
         $this->checkerListReporter->report($this->sniffFileProcessor->getCheckers(), 'PHP_CodeSniffer');
         $this->checkerListReporter->report($this->fixerFileProcessor->getCheckers(), 'PHP-CS-Fixer');
         $successMessage = \sprintf('Loaded %d checker%s in total', $totalCheckerCount, $totalCheckerCount === 1 ? '' : 's');
         $this->easyCodingStandardStyle->success($successMessage);
-        return \Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

@@ -5,7 +5,7 @@ namespace Symplify\EasyCodingStandard\Console\Command;
 use ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface;
 use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
-use Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
@@ -32,7 +32,7 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
     {
         if ($this->loadedCheckersGuard->areSomeCheckerRegistered() === \false) {
             $this->loadedCheckersGuard->report();
-            return \Symplify\PackageBuilder\Console\ShellCode::ERROR;
+            return \ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
         $this->configuration->resolveFromInput($input);
         // CLI paths override parameter paths

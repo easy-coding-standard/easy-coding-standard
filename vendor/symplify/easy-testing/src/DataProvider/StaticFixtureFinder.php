@@ -1,14 +1,14 @@
 <?php
 
-namespace Symplify\EasyTesting\DataProvider;
+namespace ECSPrefix20210514\Symplify\EasyTesting\DataProvider;
 
 use Iterator;
 use ECSPrefix20210514\Nette\Utils\Strings;
 use ECSPrefix20210514\Symfony\Component\Finder\Finder;
 use ECSPrefix20210514\Symfony\Component\Finder\SplFileInfo;
-use Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210514\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\EasyTesting\Tests\DataProvider\StaticFixtureFinder\StaticFixtureFinderTest
  */
@@ -70,9 +70,9 @@ final class StaticFixtureFinder
     {
         foreach ($fileInfos as $fileInfo) {
             try {
-                $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
+                $smartFileInfo = new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
                 (yield [$smartFileInfo]);
-            } catch (\Symplify\SmartFileSystem\Exception\FileNotFoundException $fileNotFoundException) {
+            } catch (\ECSPrefix20210514\Symplify\SmartFileSystem\Exception\FileNotFoundException $fileNotFoundException) {
             }
         }
     }
@@ -84,9 +84,9 @@ final class StaticFixtureFinder
     {
         foreach ($fileInfos as $fileInfo) {
             try {
-                $smartFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
+                $smartFileInfo = new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($fileInfo->getRealPath());
                 (yield $fileInfo->getRelativePathname() => [$smartFileInfo]);
-            } catch (\Symplify\SmartFileSystem\Exception\FileNotFoundException $e) {
+            } catch (\ECSPrefix20210514\Symplify\SmartFileSystem\Exception\FileNotFoundException $e) {
             }
         }
     }
@@ -134,6 +134,6 @@ final class StaticFixtureFinder
         if ($relativeFilePaths === []) {
             return;
         }
-        throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException(\sprintf('Files "%s" have invalid suffix, use "%s" suffix instead', \implode('", ', $relativeFilePaths), $suffix));
+        throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException(\sprintf('Files "%s" have invalid suffix, use "%s" suffix instead', \implode('", ', $relativeFilePaths), $suffix));
     }
 }

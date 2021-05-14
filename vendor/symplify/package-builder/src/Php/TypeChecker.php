@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Php;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Php;
 
 final class TypeChecker
 {

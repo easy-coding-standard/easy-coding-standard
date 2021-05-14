@@ -4,7 +4,7 @@ namespace Symplify\CodingStandard\Bundle;
 
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix20210514\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
 use Symplify\CodingStandard\DependencyInjection\Extension\SymplifyCodingStandardExtension;
 /**
  * This class is dislocated in non-standard location, so it's not added by symfony/flex to bundles.php and cause app to
@@ -17,7 +17,7 @@ final class SymplifyCodingStandardBundle extends \ECSPrefix20210514\Symfony\Comp
      */
     public function build(\ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new \Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \ECSPrefix20210514\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null

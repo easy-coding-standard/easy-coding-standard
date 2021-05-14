@@ -1,11 +1,11 @@
 <?php
 
-namespace Symplify\SymplifyKernel\Bundle;
+namespace ECSPrefix20210514\Symplify\SymplifyKernel\Bundle;
 
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
+use ECSPrefix20210514\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
+use ECSPrefix20210514\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension;
 final class SymplifyKernelBundle extends \ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
@@ -13,13 +13,13 @@ final class SymplifyKernelBundle extends \ECSPrefix20210514\Symfony\Component\Ht
      */
     public function build(\ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new \Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
+        $containerBuilder->addCompilerPass(new \ECSPrefix20210514\Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass());
     }
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
      */
     protected function createContainerExtension()
     {
-        return new \Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
+        return new \ECSPrefix20210514\Symplify\SymplifyKernel\DependencyInjection\Extension\SymplifyKernelExtension();
     }
 }

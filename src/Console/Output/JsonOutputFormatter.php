@@ -6,7 +6,7 @@ use ECSPrefix20210514\Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
-use Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\Console\Output\JsonOutputFormatterTest
  */
@@ -38,7 +38,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         $json = $this->createJsonContent($errorAndDiffResult);
         $this->easyCodingStandardStyle->writeln($json);
         $errorCount = $errorAndDiffResult->getErrorCount();
-        return $errorCount === 0 ? \Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return $errorCount === 0 ? \ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::SUCCESS : \ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
      * @return string

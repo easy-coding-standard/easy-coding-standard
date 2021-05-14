@@ -7,8 +7,8 @@ use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
-use Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
+use ECSPrefix20210514\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
+use ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
 final class EasyCodingStandardContainerFactory
 {
     /**
@@ -23,10 +23,10 @@ final class EasyCodingStandardContainerFactory
     /**
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    public function createFromFromBootstrapConfigs(\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs)
+    public function createFromFromBootstrapConfigs(\ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs)
     {
         $environment = 'prod' . \random_int(1, 100000);
-        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
+        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20210514\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
         $configFileInfos = $bootstrapConfigs->getConfigFileInfos();
         if ($configFileInfos !== []) {
             $easyCodingStandardKernel->setConfigs($configFileInfos);

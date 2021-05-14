@@ -4,9 +4,9 @@ namespace Symplify\EasyCodingStandard\Set;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 use ReflectionClass;
-use Symplify\SetConfigResolver\ValueObject\Set;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Set;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class ConstantReflectionSetFactory
 {
     /**
@@ -33,12 +33,12 @@ final class ConstantReflectionSetFactory
         foreach ($constants as $name => $setPath) {
             if (!\file_exists($setPath)) {
                 $message = \sprintf('Set file "%s" not found. Check %s::%s', $setPath, $setClassName, $name);
-                throw new \Symplify\SymplifyKernel\Exception\ShouldNotHappenException($message);
+                throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($message);
             }
             $setName = $this->constantToDashes($name);
             // back compatible names without "-"
             $setName = \ECSPrefix20210514\Nette\Utils\Strings::replace($setName, self::REMOVE_DASH_BEFORE_NUMBER_REGEX, '$1$2');
-            $sets[] = new \Symplify\SetConfigResolver\ValueObject\Set($setName, new \Symplify\SmartFileSystem\SmartFileInfo($setPath));
+            $sets[] = new \ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Set($setName, new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
         return $sets;
     }

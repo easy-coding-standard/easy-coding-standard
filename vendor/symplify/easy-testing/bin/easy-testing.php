@@ -2,8 +2,8 @@
 
 namespace ECSPrefix20210514;
 
-use Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
-use Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
+use ECSPrefix20210514\Symplify\EasyTesting\HttpKernel\EasyTestingKernel;
+use ECSPrefix20210514\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun;
 $possibleAutoloadPaths = [
     // dependency
     __DIR__ . '/../../../autoload.php',
@@ -18,5 +18,5 @@ foreach ($possibleAutoloadPaths as $possibleAutoloadPath) {
         break;
     }
 }
-$kernelBootAndApplicationRun = new \Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\Symplify\EasyTesting\HttpKernel\EasyTestingKernel::class);
+$kernelBootAndApplicationRun = new \ECSPrefix20210514\Symplify\SymplifyKernel\ValueObject\KernelBootAndApplicationRun(\ECSPrefix20210514\Symplify\EasyTesting\HttpKernel\EasyTestingKernel::class);
 $kernelBootAndApplicationRun->run();

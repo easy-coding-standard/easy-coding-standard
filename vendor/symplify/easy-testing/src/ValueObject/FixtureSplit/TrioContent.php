@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\EasyTesting\ValueObject\FixtureSplit;
+namespace ECSPrefix20210514\Symplify\EasyTesting\ValueObject\FixtureSplit;
 
 final class TrioContent
 {

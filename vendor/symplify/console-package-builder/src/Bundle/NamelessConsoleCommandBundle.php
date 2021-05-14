@@ -1,10 +1,10 @@
 <?php
 
-namespace Symplify\ConsolePackageBuilder\Bundle;
+namespace ECSPrefix20210514\Symplify\ConsolePackageBuilder\Bundle;
 
 use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass;
+use ECSPrefix20210514\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass;
 final class NamelessConsoleCommandBundle extends \ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
@@ -12,6 +12,6 @@ final class NamelessConsoleCommandBundle extends \ECSPrefix20210514\Symfony\Comp
      */
     public function build(\ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder $containerBuilder)
     {
-        $containerBuilder->addCompilerPass(new \Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
+        $containerBuilder->addCompilerPass(new \ECSPrefix20210514\Symplify\ConsolePackageBuilder\DependencyInjection\CompilerPass\NamelessConsoleCommandCompilerPass());
     }
 }

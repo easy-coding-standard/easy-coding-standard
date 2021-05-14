@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\ConsoleColorDiff\Console\Formatter;
+namespace ECSPrefix20210514\Symplify\ConsoleColorDiff\Console\Formatter;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 use ECSPrefix20210514\Symfony\Component\Console\Formatter\OutputFormatter;

@@ -1,13 +1,13 @@
 <?php
 
-namespace Symplify\Skipper\HttpKernel;
+namespace ECSPrefix20210514\Symplify\Skipper\HttpKernel;
 
 use ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderInterface;
 use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symplify\Skipper\Bundle\SkipperBundle;
-use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
-use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
-final class SkipperKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
+use ECSPrefix20210514\Symplify\Skipper\Bundle\SkipperBundle;
+use ECSPrefix20210514\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
+use ECSPrefix20210514\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
+final class SkipperKernel extends \ECSPrefix20210514\Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel
 {
     /**
      * @return void
@@ -22,6 +22,6 @@ final class SkipperKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSy
      */
     public function registerBundles()
     {
-        return [new \Symplify\Skipper\Bundle\SkipperBundle(), new \Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
+        return [new \ECSPrefix20210514\Symplify\Skipper\Bundle\SkipperBundle(), new \ECSPrefix20210514\Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle()];
     }
 }

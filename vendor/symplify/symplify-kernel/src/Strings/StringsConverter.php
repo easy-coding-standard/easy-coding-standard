@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\SymplifyKernel\Strings;
+namespace ECSPrefix20210514\Symplify\SymplifyKernel\Strings;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
 final class StringsConverter

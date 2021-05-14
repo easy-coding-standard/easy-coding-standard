@@ -1,6 +1,6 @@
 <?php
 
-namespace Symplify\PackageBuilder\Neon;
+namespace ECSPrefix20210514\Symplify\PackageBuilder\Neon;
 
 use ECSPrefix20210514\Nette\Neon\Encoder;
 use ECSPrefix20210514\Nette\Neon\Neon;

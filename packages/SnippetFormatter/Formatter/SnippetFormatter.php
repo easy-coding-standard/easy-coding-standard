@@ -6,8 +6,8 @@ use ECSPrefix20210514\Nette\Utils\Strings;
 use Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor;
 use Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor;
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem;
 use Throwable;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SnippetFormatter\Markdown\MarkdownSnippetFormatterTest
@@ -62,7 +62,7 @@ final class SnippetFormatter
      * @var bool
      */
     private $isPhp73OrAbove = \false;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor, \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
+    public function __construct(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem, \Symplify\EasyCodingStandard\FixerRunner\Application\FixerFileProcessor $fixerFileProcessor, \Symplify\EasyCodingStandard\SniffRunner\Application\SniffFileProcessor $sniffFileProcessor, \Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider $currentParentFileInfoProvider)
     {
         $this->smartFileSystem = $smartFileSystem;
         $this->fixerFileProcessor = $fixerFileProcessor;
@@ -75,7 +75,7 @@ final class SnippetFormatter
      * @param string $kind
      * @return string
      */
-    public function format(\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $snippetRegex, $kind)
+    public function format(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $fileInfo, $snippetRegex, $kind)
     {
         $snippetRegex = (string) $snippetRegex;
         $kind = (string) $kind;
@@ -117,7 +117,7 @@ final class SnippetFormatter
         }
         $fileContent = $this->isPhp73OrAbove ? \ltrim($content, \PHP_EOL) : $content;
         $this->smartFileSystem->dumpFile($temporaryFilePath, $fileContent);
-        $temporaryFileInfo = new \Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
+        $temporaryFileInfo = new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($temporaryFilePath);
         try {
             $this->fixerFileProcessor->processFile($temporaryFileInfo);
             $this->sniffFileProcessor->processFile($temporaryFileInfo);

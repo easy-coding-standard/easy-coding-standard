@@ -1,12 +1,12 @@
 <?php
 
-namespace Symplify\RuleDocGenerator\ValueObject;
+namespace ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject;
 
 use ECSPrefix20210514\Nette\Utils\Strings;
-use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
-use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
-use Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
+use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 final class RuleDefinition
 {
     /**
@@ -34,7 +34,7 @@ final class RuleDefinition
         $description = (string) $description;
         $this->description = $description;
         if ($codeSamples === []) {
-            throw new \Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
+            throw new \ECSPrefix20210514\Symplify\RuleDocGenerator\Exception\PoorDocumentationException('Provide at least one code sample, so people can practically see what the rule does');
         }
         $this->codeSamples = $codeSamples;
     }
@@ -60,7 +60,7 @@ final class RuleDefinition
     public function getRuleClass()
     {
         if ($this->ruleClass === null) {
-            throw new \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210514\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException();
         }
         return $this->ruleClass;
     }
@@ -80,7 +80,7 @@ final class RuleDefinition
     public function getRuleFilePath()
     {
         if ($this->ruleFilePath === null) {
-            throw new \Symplify\RuleDocGenerator\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210514\Symplify\RuleDocGenerator\Exception\ShouldNotHappenException();
         }
         return $this->ruleFilePath;
     }
@@ -104,7 +104,7 @@ final class RuleDefinition
     public function isConfigurable()
     {
         foreach ($this->codeSamples as $codeSample) {
-            if ($codeSample instanceof \Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
+            if ($codeSample instanceof \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample) {
                 return \true;
             }
         }

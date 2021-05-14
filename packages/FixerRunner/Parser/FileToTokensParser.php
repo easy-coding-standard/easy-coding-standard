@@ -3,14 +3,14 @@
 namespace Symplify\EasyCodingStandard\FixerRunner\Parser;
 
 use PhpCsFixer\Tokenizer\Tokens;
-use Symplify\SmartFileSystem\SmartFileSystem;
+use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem;
 final class FileToTokensParser
 {
     /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
-    public function __construct(\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
+    public function __construct(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileSystem $smartFileSystem)
     {
         $this->smartFileSystem = $smartFileSystem;
     }

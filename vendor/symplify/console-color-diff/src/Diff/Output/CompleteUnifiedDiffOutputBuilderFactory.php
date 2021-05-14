@@ -1,9 +1,9 @@
 <?php
 
-namespace Symplify\ConsoleColorDiff\Diff\Output;
+namespace ECSPrefix20210514\Symplify\ConsoleColorDiff\Diff\Output;
 
 use ECSPrefix20210514\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
-use Symplify\PackageBuilder\Reflection\PrivatesAccessor;
+use ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesAccessor;
 /**
  * Creates @see UnifiedDiffOutputBuilder with "$contextLines = 1000;"
  */
@@ -13,7 +13,7 @@ final class CompleteUnifiedDiffOutputBuilderFactory
      * @var PrivatesAccessor
      */
     private $privatesAccessor;
-    public function __construct(\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
+    public function __construct(\ECSPrefix20210514\Symplify\PackageBuilder\Reflection\PrivatesAccessor $privatesAccessor)
     {
         $this->privatesAccessor = $privatesAccessor;
     }
