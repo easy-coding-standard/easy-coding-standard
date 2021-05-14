@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210513\Nette\Utils;
+namespace ECSPrefix20210514\Nette\Utils;
 
-use ECSPrefix20210513\Nette;
+use ECSPrefix20210514\Nette;
 /**
  * Nette\Object behaviour mixin.
  * @deprecated
@@ -17,7 +17,7 @@ final class ObjectMixin
     {
         $value = (string) $value;
         \trigger_error(__METHOD__ . '() has been renamed to Nette\\Utils\\ObjectHelpers::getSuggestion()', \E_USER_DEPRECATED);
-        return \ECSPrefix20210513\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
+        return \ECSPrefix20210514\Nette\Utils\ObjectHelpers::getSuggestion($possibilities, $value);
     }
     /**
      * @return void

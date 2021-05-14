@@ -8,16 +8,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210513\Symfony\Component\ErrorHandler;
+namespace ECSPrefix20210514\Symfony\Component\ErrorHandler;
 
-use ECSPrefix20210513\Composer\InstalledVersions;
-use ECSPrefix20210513\Doctrine\Common\Persistence\Proxy as LegacyProxy;
-use ECSPrefix20210513\Doctrine\Persistence\Proxy;
-use ECSPrefix20210513\Mockery\MockInterface;
-use ECSPrefix20210513\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
-use ECSPrefix20210513\PHPUnit\Framework\MockObject\MockObject;
-use ECSPrefix20210513\Prophecy\Prophecy\ProphecySubjectInterface;
-use ECSPrefix20210513\ProxyManager\Proxy\ProxyInterface;
+use ECSPrefix20210514\Composer\InstalledVersions;
+use ECSPrefix20210514\Doctrine\Common\Persistence\Proxy as LegacyProxy;
+use ECSPrefix20210514\Doctrine\Persistence\Proxy;
+use ECSPrefix20210514\Mockery\MockInterface;
+use ECSPrefix20210514\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation;
+use ECSPrefix20210514\PHPUnit\Framework\MockObject\MockObject;
+use ECSPrefix20210514\Prophecy\Prophecy\ProphecySubjectInterface;
+use ECSPrefix20210514\ProxyManager\Proxy\ProxyInterface;
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
@@ -113,8 +113,8 @@ class DebugClassLoader
     public static function enable()
     {
         // Ensures we don't hit https://bugs.php.net/42098
-        \class_exists(\ECSPrefix20210513\Symfony\Component\ErrorHandler\ErrorHandler::class);
-        \class_exists(\ECSPrefix20210513\Psr\Log\LogLevel::class);
+        \class_exists(\ECSPrefix20210514\Symfony\Component\ErrorHandler\ErrorHandler::class);
+        \class_exists(\ECSPrefix20210514\Psr\Log\LogLevel::class);
         if (!\is_array($functions = \spl_autoload_functions())) {
             return;
         }
@@ -169,7 +169,7 @@ class DebugClassLoader
         foreach ($offsets as $getSymbols => $i) {
             $symbols = $getSymbols();
             for (; $i < \count($symbols); ++$i) {
-                if (!\is_subclass_of($symbols[$i], \ECSPrefix20210513\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210513\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210513\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210513\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210513\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210513\Mockery\MockInterface::class)) {
+                if (!\is_subclass_of($symbols[$i], \ECSPrefix20210514\PHPUnit\Framework\MockObject\MockObject::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210514\Prophecy\Prophecy\ProphecySubjectInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210514\Doctrine\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210514\ProxyManager\Proxy\ProxyInterface::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210514\Doctrine\Common\Persistence\Proxy::class) && !\is_subclass_of($symbols[$i], \ECSPrefix20210514\Mockery\MockInterface::class)) {
                     $loader->checkClass($symbols[$i]);
                 }
             }
@@ -339,7 +339,7 @@ class DebugClassLoader
                         self::$method[$class] = self::$method[$use];
                     }
                 } elseif (!$refl->isInterface()) {
-                    if (!\strncmp($vendor, \str_replace('_', '\\', $use), $vendorLen) && 0 === \strpos($className, 'Symfony\\') && (!\class_exists(\ECSPrefix20210513\Composer\InstalledVersions::class) || 'symfony/symfony' !== \ECSPrefix20210513\Composer\InstalledVersions::getRootPackage()['name'])) {
+                    if (!\strncmp($vendor, \str_replace('_', '\\', $use), $vendorLen) && 0 === \strpos($className, 'Symfony\\') && (!\class_exists(\ECSPrefix20210514\Composer\InstalledVersions::class) || 'symfony/symfony' !== \ECSPrefix20210514\Composer\InstalledVersions::getRootPackage()['name'])) {
                         // skip "same vendor" @method deprecations for Symfony\* classes unless symfony/symfony is being tested
                         continue;
                     }
@@ -472,7 +472,7 @@ class DebugClassLoader
                     $finalOrInternal = \true;
                 }
             }
-            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \ECSPrefix20210513\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
+            if ($finalOrInternal || $method->isConstructor() || \false === \strpos($doc, '@param') || \ECSPrefix20210514\PHPUnit\Framework\MockObject\Matcher\StatelessInvocation::class === $class) {
                 continue;
             }
             if (!\preg_match_all('#\\n\\s+\\* @param +((?(?!callable *\\().*?|callable *\\(.*\\).*?))(?<= )\\$([a-zA-Z0-9_\\x7f-\\xff]++)#', $doc, $matches, \PREG_SET_ORDER)) {

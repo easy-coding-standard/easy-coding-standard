@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210513\Doctrine\Common\Annotations;
+namespace ECSPrefix20210514\Doctrine\Common\Annotations;
 
 use InvalidArgumentException;
 use ReflectionClass;
@@ -31,9 +31,9 @@ use function var_export;
  *
  * @deprecated the FileCacheReader is deprecated and will be removed
  *             in version 2.0.0 of doctrine/annotations. Please use the
- *             {@see \Doctrine\Common\Annotations\CachedReader} instead.
+ *             {@see \Doctrine\Common\Annotations\PsrCachedReader} instead.
  */
-class FileCacheReader implements \ECSPrefix20210513\Doctrine\Common\Annotations\Reader
+class FileCacheReader implements \ECSPrefix20210514\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $reader;
@@ -54,7 +54,7 @@ class FileCacheReader implements \ECSPrefix20210513\Doctrine\Common\Annotations\
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(\ECSPrefix20210513\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
+    public function __construct(\ECSPrefix20210514\Doctrine\Common\Annotations\Reader $reader, $cacheDir, $debug = \false, $umask = 02)
     {
         if (!\is_int($umask)) {
             throw new \InvalidArgumentException(\sprintf('The parameter umask must be an integer, was: %s', \gettype($umask)));

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210513\Nette\Localization;
+namespace ECSPrefix20210514\Nette\Localization;
 
 /**
  * Translator adapter.
@@ -15,4 +15,4 @@ interface Translator
      */
     function translate($message, ...$parameters);
 }
-\interface_exists(\ECSPrefix20210513\Nette\Localization\Nette\Localization\ITranslator::class);
+\interface_exists(\ECSPrefix20210514\Nette\Localization\Nette\Localization\ITranslator::class);

@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
-use ECSPrefix20210513\Nette\Utils\Strings;
+use ECSPrefix20210514\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -157,7 +157,7 @@ CODE_SAMPLE
     private function resolveIndentationStringFor($docBlock)
     {
         $docBlock = (string) $docBlock;
-        $matches = \ECSPrefix20210513\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
+        $matches = \ECSPrefix20210514\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
         return isset($matches[self::INDENTATION_PART]) ? $matches[self::INDENTATION_PART] : '';
     }
     /**

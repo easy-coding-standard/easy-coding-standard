@@ -10,7 +10,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use ECSPrefix20210513\Symfony\Polyfill\Php80 as p;
+use ECSPrefix20210514\Symfony\Polyfill\Php80 as p;
 if (\PHP_VERSION_ID >= 80000) {
     return;
 }
@@ -27,7 +27,7 @@ if (!\function_exists('fdiv')) {
     {
         $num1 = (double) $num1;
         $num2 = (double) $num2;
-        return \ECSPrefix20210513\Symfony\Polyfill\Php80\Php80::fdiv($num1, $num2);
+        return \ECSPrefix20210514\Symfony\Polyfill\Php80\Php80::fdiv($num1, $num2);
     }
 }
 if (!\function_exists('preg_last_error_msg')) {
@@ -36,7 +36,7 @@ if (!\function_exists('preg_last_error_msg')) {
      */
     function preg_last_error_msg()
     {
-        return \ECSPrefix20210513\Symfony\Polyfill\Php80\Php80::preg_last_error_msg();
+        return \ECSPrefix20210514\Symfony\Polyfill\Php80\Php80::preg_last_error_msg();
     }
 }
 if (!\function_exists('str_contains')) {
@@ -49,7 +49,7 @@ if (!\function_exists('str_contains')) {
     {
         $haystack = (string) $haystack;
         $needle = (string) $needle;
-        return \ECSPrefix20210513\Symfony\Polyfill\Php80\Php80::str_contains($haystack, $needle);
+        return \ECSPrefix20210514\Symfony\Polyfill\Php80\Php80::str_contains($haystack, $needle);
     }
 }
 if (!\function_exists('str_starts_with')) {
@@ -62,7 +62,7 @@ if (!\function_exists('str_starts_with')) {
     {
         $haystack = (string) $haystack;
         $needle = (string) $needle;
-        return \ECSPrefix20210513\Symfony\Polyfill\Php80\Php80::str_starts_with($haystack, $needle);
+        return \ECSPrefix20210514\Symfony\Polyfill\Php80\Php80::str_starts_with($haystack, $needle);
     }
 }
 if (!\function_exists('str_ends_with')) {
@@ -75,7 +75,7 @@ if (!\function_exists('str_ends_with')) {
     {
         $haystack = (string) $haystack;
         $needle = (string) $needle;
-        return \ECSPrefix20210513\Symfony\Polyfill\Php80\Php80::str_ends_with($haystack, $needle);
+        return \ECSPrefix20210514\Symfony\Polyfill\Php80\Php80::str_ends_with($haystack, $needle);
     }
 }
 if (!\function_exists('get_debug_type')) {
@@ -84,7 +84,7 @@ if (!\function_exists('get_debug_type')) {
      */
     function get_debug_type($value)
     {
-        return \ECSPrefix20210513\Symfony\Polyfill\Php80\Php80::get_debug_type($value);
+        return \ECSPrefix20210514\Symfony\Polyfill\Php80\Php80::get_debug_type($value);
     }
 }
 if (!\function_exists('get_resource_id')) {
@@ -93,6 +93,6 @@ if (!\function_exists('get_resource_id')) {
      */
     function get_resource_id($resource)
     {
-        return \ECSPrefix20210513\Symfony\Polyfill\Php80\Php80::get_resource_id($resource);
+        return \ECSPrefix20210514\Symfony\Polyfill\Php80\Php80::get_resource_id($resource);
     }
 }

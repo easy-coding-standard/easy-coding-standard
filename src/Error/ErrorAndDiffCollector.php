@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use ECSPrefix20210513\Nette\Utils\Strings;
+use ECSPrefix20210514\Nette\Utils\Strings;
 use PHP_CodeSniffer\Sniffs\Sniff;
 use PhpCsFixer\Fixer\FixerInterface;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
@@ -133,8 +133,8 @@ final class ErrorAndDiffCollector
     {
         $sourceClass = (string) $sourceClass;
         // remove dot suffix of "."
-        if (\ECSPrefix20210513\Nette\Utils\Strings::contains($sourceClass, '.')) {
-            $sourceClass = (string) \ECSPrefix20210513\Nette\Utils\Strings::before($sourceClass, '.', 1);
+        if (\ECSPrefix20210514\Nette\Utils\Strings::contains($sourceClass, '.')) {
+            $sourceClass = (string) \ECSPrefix20210514\Nette\Utils\Strings::before($sourceClass, '.', 1);
         }
         if (\is_a($sourceClass, \PhpCsFixer\Fixer\FixerInterface::class, \true)) {
             return;

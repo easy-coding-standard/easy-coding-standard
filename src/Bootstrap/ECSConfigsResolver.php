@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Bootstrap;
 
-use ECSPrefix20210513\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface;
 use Symplify\EasyCodingStandard\Set\ConstantReflectionSetFactory;
 use Symplify\EasyCodingStandard\Set\EasyCodingStandardSetProvider;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
@@ -24,7 +24,7 @@ final class ECSConfigsResolver
     /**
      * @return \Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs
      */
-    public function resolveFromInput(\ECSPrefix20210513\Symfony\Component\Console\Input\InputInterface $input)
+    public function resolveFromInput(\ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface $input)
     {
         $configFileInfos = [];
         $mainConfigFileInfo = $this->setAwareConfigResolver->resolveFromInputWithFallback($input, ['ecs.php']);

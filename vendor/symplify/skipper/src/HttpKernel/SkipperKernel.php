@@ -2,8 +2,8 @@
 
 namespace Symplify\Skipper\HttpKernel;
 
-use ECSPrefix20210513\Symfony\Component\Config\Loader\LoaderInterface;
-use ECSPrefix20210513\Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderInterface;
+use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symplify\Skipper\Bundle\SkipperBundle;
 use Symplify\SymplifyKernel\Bundle\SymplifyKernelBundle;
 use Symplify\SymplifyKernel\HttpKernel\AbstractSymplifyKernel;
@@ -12,7 +12,7 @@ final class SkipperKernel extends \Symplify\SymplifyKernel\HttpKernel\AbstractSy
     /**
      * @return void
      */
-    public function registerContainerConfiguration(\ECSPrefix20210513\Symfony\Component\Config\Loader\LoaderInterface $loader)
+    public function registerContainerConfiguration(\ECSPrefix20210514\Symfony\Component\Config\Loader\LoaderInterface $loader)
     {
         $loader->load(__DIR__ . '/../../config/config.php');
         parent::registerContainerConfiguration($loader);

@@ -2,7 +2,7 @@
 
 namespace Symplify\RuleDocGenerator\ValueObject;
 
-use ECSPrefix20210513\Nette\Utils\Strings;
+use ECSPrefix20210514\Nette\Utils\Strings;
 use Symplify\RuleDocGenerator\Contract\CodeSampleInterface;
 use Symplify\RuleDocGenerator\Exception\PoorDocumentationException;
 use Symplify\RuleDocGenerator\Exception\ShouldNotHappenException;
@@ -89,7 +89,7 @@ final class RuleDefinition
      */
     public function getRuleShortClass()
     {
-        return (string) \ECSPrefix20210513\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
+        return (string) \ECSPrefix20210514\Nette\Utils\Strings::after($this->ruleClass, '\\', -1);
     }
     /**
      * @return mixed[]

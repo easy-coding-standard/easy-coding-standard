@@ -11,7 +11,7 @@
  */
 namespace PhpCsFixer\Fixer\DoctrineAnnotation;
 
-use ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer;
+use ECSPrefix20210514\Doctrine\Common\Annotations\DocLexer;
 use PhpCsFixer\AbstractDoctrineAnnotationFixer;
 use PhpCsFixer\Doctrine\Annotation\Tokens;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolver;
@@ -62,19 +62,19 @@ final class DoctrineAnnotationArrayAssignmentFixer extends \PhpCsFixer\AbstractD
     {
         $scopes = [];
         foreach ($tokens as $token) {
-            if ($token->isType(\ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
+            if ($token->isType(\ECSPrefix20210514\Doctrine\Common\Annotations\DocLexer::T_OPEN_PARENTHESIS)) {
                 $scopes[] = 'annotation';
                 continue;
             }
-            if ($token->isType(\ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
+            if ($token->isType(\ECSPrefix20210514\Doctrine\Common\Annotations\DocLexer::T_OPEN_CURLY_BRACES)) {
                 $scopes[] = 'array';
                 continue;
             }
-            if ($token->isType([\ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, \ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES])) {
+            if ($token->isType([\ECSPrefix20210514\Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, \ECSPrefix20210514\Doctrine\Common\Annotations\DocLexer::T_CLOSE_CURLY_BRACES])) {
                 \array_pop($scopes);
                 continue;
             }
-            if ('array' === \end($scopes) && $token->isType([\ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer::T_EQUALS, \ECSPrefix20210513\Doctrine\Common\Annotations\DocLexer::T_COLON])) {
+            if ('array' === \end($scopes) && $token->isType([\ECSPrefix20210514\Doctrine\Common\Annotations\DocLexer::T_EQUALS, \ECSPrefix20210514\Doctrine\Common\Annotations\DocLexer::T_COLON])) {
                 $token->setContent($this->configuration['operator']);
             }
         }

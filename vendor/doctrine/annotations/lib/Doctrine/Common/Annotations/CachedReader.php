@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210513\Doctrine\Common\Annotations;
+namespace ECSPrefix20210514\Doctrine\Common\Annotations;
 
-use ECSPrefix20210513\Doctrine\Common\Cache\Cache;
+use ECSPrefix20210514\Doctrine\Common\Cache\Cache;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -14,8 +14,12 @@ use function max;
 use function time;
 /**
  * A cache aware annotation reader.
+ *
+ * @deprecated the CachedReader is deprecated and will be removed
+ *             in version 2.0.0 of doctrine/annotations. Please use the
+ *             {@see \Doctrine\Common\Annotations\PsrCachedReader} instead.
  */
-final class CachedReader implements \ECSPrefix20210513\Doctrine\Common\Annotations\Reader
+final class CachedReader implements \ECSPrefix20210514\Doctrine\Common\Annotations\Reader
 {
     /** @var Reader */
     private $delegate;
@@ -30,7 +34,7 @@ final class CachedReader implements \ECSPrefix20210513\Doctrine\Common\Annotatio
     /**
      * @param bool $debug
      */
-    public function __construct(\ECSPrefix20210513\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210513\Doctrine\Common\Cache\Cache $cache, $debug = \false)
+    public function __construct(\ECSPrefix20210514\Doctrine\Common\Annotations\Reader $reader, \ECSPrefix20210514\Doctrine\Common\Cache\Cache $cache, $debug = \false)
     {
         $this->delegate = $reader;
         $this->cache = $cache;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210513\Nette;
+namespace ECSPrefix20210514\Nette;
 
 interface HtmlStringable
 {
@@ -10,4 +10,4 @@ interface HtmlStringable
      */
     function __toString();
 }
-\interface_exists(\ECSPrefix20210513\Nette\Utils\IHtmlString::class);
+\interface_exists(\ECSPrefix20210514\Nette\Utils\IHtmlString::class);

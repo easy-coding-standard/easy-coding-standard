@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix20210513;
+namespace ECSPrefix20210514;
 
 /**
  * PHP_CodeSniffer detects violations of a defined coding standard.

@@ -2,7 +2,7 @@
 
 namespace Symplify\SetConfigResolver;
 
-use ECSPrefix20210513\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface;
 use Symplify\SetConfigResolver\Console\Option\OptionName;
 use Symplify\SetConfigResolver\Console\OptionValueResolver;
 use Symplify\SmartFileSystem\Exception\FileNotFoundException;
@@ -20,7 +20,7 @@ abstract class AbstractConfigResolver
     /**
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    public function resolveFromInput(\ECSPrefix20210513\Symfony\Component\Console\Input\InputInterface $input)
+    public function resolveFromInput(\ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface $input)
     {
         $configValue = $this->optionValueResolver->getOptionValue($input, \Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
         if ($configValue !== null) {
@@ -36,7 +36,7 @@ abstract class AbstractConfigResolver
      * @param string[] $fallbackFiles
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    public function resolveFromInputWithFallback(\ECSPrefix20210513\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles)
+    public function resolveFromInputWithFallback(\ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles)
     {
         $configFileInfo = $this->resolveFromInput($input);
         if ($configFileInfo !== null) {

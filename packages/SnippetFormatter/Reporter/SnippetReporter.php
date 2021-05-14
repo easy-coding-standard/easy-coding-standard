@@ -2,14 +2,14 @@
 
 namespace Symplify\EasyCodingStandard\SnippetFormatter\Reporter;
 
-use ECSPrefix20210513\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle;
 final class SnippetReporter
 {
     /**
      * @var SymfonyStyle
      */
     private $symfonyStyle;
-    public function __construct(\ECSPrefix20210513\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
+    public function __construct(\ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle)
     {
         $this->symfonyStyle = $symfonyStyle;
     }

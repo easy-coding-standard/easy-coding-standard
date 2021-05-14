@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\Console\Output;
 
-use ECSPrefix20210513\Nette\Utils\Json;
+use ECSPrefix20210514\Nette\Utils\Json;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
@@ -61,7 +61,7 @@ final class JsonOutputFormatter implements \Symplify\EasyCodingStandard\Contract
         foreach ($fileDiffs as $fileDiff) {
             $errorsArray[self::FILES][$fileDiff->getRelativeFilePathFromCwd()]['diffs'][] = ['diff' => $fileDiff->getDiff(), 'applied_checkers' => $fileDiff->getAppliedCheckers()];
         }
-        return \ECSPrefix20210513\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210513\Nette\Utils\Json::PRETTY);
+        return \ECSPrefix20210514\Nette\Utils\Json::encode($errorsArray, \ECSPrefix20210514\Nette\Utils\Json::PRETTY);
     }
     /**
      * @return mixed[]

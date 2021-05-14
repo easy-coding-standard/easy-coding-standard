@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210513\Symfony\Component\VarDumper\Cloner;
+namespace ECSPrefix20210514\Symfony\Component\VarDumper\Cloner;
 
 /**
  * DumperInterface used by Data objects.
@@ -23,7 +23,7 @@ interface DumperInterface
      * @param string                $type  The PHP type of the value being dumped
      * @param string|int|float|bool $value The scalar value being dumped
      */
-    public function dumpScalar(\ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $value);
+    public function dumpScalar(\ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $value);
     /**
      * Dumps a string.
      *
@@ -31,7 +31,7 @@ interface DumperInterface
      * @param bool   $bin Whether $str is UTF-8 or binary encoded
      * @param int    $cut The number of characters $str has been cut by
      */
-    public function dumpString(\ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut);
+    public function dumpString(\ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $str, $bin, $cut);
     /**
      * Dumps while entering an hash.
      *
@@ -39,7 +39,7 @@ interface DumperInterface
      * @param string|int $class    The object class, resource type or array count
      * @param bool       $hasChild When the dump of the hash has child item
      */
-    public function enterHash(\ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild);
+    public function enterHash(\ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild);
     /**
      * Dumps while leaving an hash.
      *
@@ -48,5 +48,5 @@ interface DumperInterface
      * @param bool       $hasChild When the dump of the hash has child item
      * @param int        $cut      The number of items the hash has been cut by
      */
-    public function leaveHash(\ECSPrefix20210513\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild, $cut);
+    public function leaveHash(\ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Cursor $cursor, $type, $class, $hasChild, $cut);
 }

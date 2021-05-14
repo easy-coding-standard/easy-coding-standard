@@ -2,9 +2,9 @@
 
 namespace Symplify\ComposerJsonManipulator\Bundle;
 
-use ECSPrefix20210513\Symfony\Component\HttpKernel\Bundle\Bundle;
+use ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symplify\ComposerJsonManipulator\DependencyInjection\Extension\ComposerJsonManipulatorExtension;
-final class ComposerJsonManipulatorBundle extends \ECSPrefix20210513\Symfony\Component\HttpKernel\Bundle\Bundle
+final class ComposerJsonManipulatorBundle extends \ECSPrefix20210514\Symfony\Component\HttpKernel\Bundle\Bundle
 {
     /**
      * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
