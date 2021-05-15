@@ -3,7 +3,6 @@
 namespace ECSPrefix20210515\Symplify\ConsoleColorDiff\Console\Output;
 
 use ECSPrefix20210515\SebastianBergmann\Diff\Differ;
-use ECSPrefix20210515\Symfony\Component\Console\Style\SymfonyStyle;
 use ECSPrefix20210515\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
 final class ConsoleDiffer
 {
@@ -12,16 +11,11 @@ final class ConsoleDiffer
      */
     private $differ;
     /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-    /**
      * @var ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\ECSPrefix20210515\Symfony\Component\Console\Style\SymfonyStyle $symfonyStyle, \ECSPrefix20210515\SebastianBergmann\Diff\Differ $differ, \ECSPrefix20210515\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(\ECSPrefix20210515\SebastianBergmann\Diff\Differ $differ, \ECSPrefix20210515\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
-        $this->symfonyStyle = $symfonyStyle;
         $this->differ = $differ;
         $this->colorConsoleDiffFormatter = $colorConsoleDiffFormatter;
     }
@@ -36,17 +30,5 @@ final class ConsoleDiffer
         $new = (string) $new;
         $diff = $this->differ->diff($old, $new);
         return $this->colorConsoleDiffFormatter->format($diff);
-    }
-    /**
-     * @return void
-     * @param string $old
-     * @param string $new
-     */
-    public function diffAndPrint($old, $new)
-    {
-        $old = (string) $old;
-        $new = (string) $new;
-        $formattedDiff = $this->diff($old, $new);
-        $this->symfonyStyle->writeln($formattedDiff);
     }
 }
