@@ -2,19 +2,19 @@
 
 namespace Symplify\EasyCodingStandard\DependencyInjection;
 
-use ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerInterface;
+use ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\ContainerInterface;
 use Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel;
-use ECSPrefix20210514\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
-use ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
+use ECSPrefix20210515\Symplify\PackageBuilder\Console\Input\StaticInputDetector;
+use ECSPrefix20210515\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs;
 final class EasyCodingStandardContainerFactory
 {
     /**
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    public function createFromFromInput(\ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface $input)
+    public function createFromFromInput(\ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface $input)
     {
         $ecsConfigsResolver = new \Symplify\EasyCodingStandard\Bootstrap\ECSConfigsResolver();
         $bootstrapConfigs = $ecsConfigsResolver->resolveFromInput($input);
@@ -23,10 +23,10 @@ final class EasyCodingStandardContainerFactory
     /**
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    public function createFromFromBootstrapConfigs(\ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs)
+    public function createFromFromBootstrapConfigs(\ECSPrefix20210515\Symplify\SetConfigResolver\ValueObject\Bootstrap\BootstrapConfigs $bootstrapConfigs)
     {
         $environment = 'prod' . \random_int(1, 100000);
-        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20210514\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
+        $easyCodingStandardKernel = new \Symplify\EasyCodingStandard\HttpKernel\EasyCodingStandardKernel($environment, \ECSPrefix20210515\Symplify\PackageBuilder\Console\Input\StaticInputDetector::isDebug());
         $configFileInfos = $bootstrapConfigs->getConfigFileInfos();
         if ($configFileInfos !== []) {
             $easyCodingStandardKernel->setConfigs($configFileInfos);

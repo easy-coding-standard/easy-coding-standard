@@ -2,11 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
-use ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode;
-final class InitCommand extends \ECSPrefix20210514\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
+use ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210515\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210515\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode;
+final class InitCommand extends \ECSPrefix20210515\Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand
 {
     /**
      * @return void
@@ -18,7 +18,7 @@ final class InitCommand extends \ECSPrefix20210514\Symplify\PackageBuilder\Conso
     /**
      * @return int
      */
-    protected function execute(\ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210515\Symfony\Component\Console\Output\OutputInterface $output)
     {
         $rectorConfigFiles = $this->smartFileSystem->exists(\getcwd() . '/ecs.php');
         if (!$rectorConfigFiles) {
@@ -27,6 +27,6 @@ final class InitCommand extends \ECSPrefix20210514\Symplify\PackageBuilder\Conso
         } else {
             $this->symfonyStyle->warning('The "ecs.php" configuration file already exists');
         }
-        return \ECSPrefix20210514\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+        return \ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
     }
 }

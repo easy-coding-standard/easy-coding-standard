@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\ComposerJsonManipulator\Json;
+namespace ECSPrefix20210515\Symplify\ComposerJsonManipulator\Json;
 
-use ECSPrefix20210514\Nette\Utils\Strings;
-use ECSPrefix20210514\Symplify\ComposerJsonManipulator\ValueObject\Option;
-use ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider;
+use ECSPrefix20210515\Nette\Utils\Strings;
+use ECSPrefix20210515\Symplify\ComposerJsonManipulator\ValueObject\Option;
+use ECSPrefix20210515\Symplify\PackageBuilder\Parameter\ParameterProvider;
 final class JsonInliner
 {
     /**
@@ -16,7 +16,7 @@ final class JsonInliner
      * @var ParameterProvider
      */
     private $parameterProvider;
-    public function __construct(\ECSPrefix20210514\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
+    public function __construct(\ECSPrefix20210515\Symplify\PackageBuilder\Parameter\ParameterProvider $parameterProvider)
     {
         $this->parameterProvider = $parameterProvider;
     }
@@ -27,14 +27,14 @@ final class JsonInliner
     public function inlineSections($jsonContent)
     {
         $jsonContent = (string) $jsonContent;
-        if (!$this->parameterProvider->hasParameter(\ECSPrefix20210514\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS)) {
+        if (!$this->parameterProvider->hasParameter(\ECSPrefix20210515\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS)) {
             return $jsonContent;
         }
-        $inlineSections = $this->parameterProvider->provideArrayParameter(\ECSPrefix20210514\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS);
+        $inlineSections = $this->parameterProvider->provideArrayParameter(\ECSPrefix20210515\Symplify\ComposerJsonManipulator\ValueObject\Option::INLINE_SECTIONS);
         foreach ($inlineSections as $inlineSection) {
             $pattern = '#("' . \preg_quote($inlineSection, '#') . '": )\\[(.*?)\\](,)#ms';
-            $jsonContent = \ECSPrefix20210514\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
-                $inlined = \ECSPrefix20210514\Nette\Utils\Strings::replace($match[2], self::SPACE_REGEX, ' ');
+            $jsonContent = \ECSPrefix20210515\Nette\Utils\Strings::replace($jsonContent, $pattern, function (array $match) : string {
+                $inlined = \ECSPrefix20210515\Nette\Utils\Strings::replace($match[2], self::SPACE_REGEX, ' ');
                 $inlined = \trim($inlined);
                 $inlined = '[' . $inlined . ']';
                 return $match[1] . $inlined . $match[3];

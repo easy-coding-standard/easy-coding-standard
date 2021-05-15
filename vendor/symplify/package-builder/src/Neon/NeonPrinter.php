@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\PackageBuilder\Neon;
+namespace ECSPrefix20210515\Symplify\PackageBuilder\Neon;
 
-use ECSPrefix20210514\Nette\Neon\Encoder;
-use ECSPrefix20210514\Nette\Neon\Neon;
-use ECSPrefix20210514\Nette\Utils\Strings;
+use ECSPrefix20210515\Nette\Neon\Encoder;
+use ECSPrefix20210515\Nette\Neon\Neon;
+use ECSPrefix20210515\Nette\Utils\Strings;
 final class NeonPrinter
 {
     /**
@@ -23,7 +23,7 @@ final class NeonPrinter
      */
     public function printNeon(array $phpStanNeon)
     {
-        $neonContent = \ECSPrefix20210514\Nette\Neon\Neon::encode($phpStanNeon, \ECSPrefix20210514\Nette\Neon\Encoder::BLOCK);
+        $neonContent = \ECSPrefix20210515\Nette\Neon\Neon::encode($phpStanNeon, \ECSPrefix20210515\Nette\Neon\Encoder::BLOCK);
         // tabs to spaces for consistency
         $neonContent = $this->replaceTabsWithSpaces($neonContent);
         // inline single tags, dummy
@@ -38,7 +38,7 @@ final class NeonPrinter
     private function replaceTabsWithSpaces($neonContent)
     {
         $neonContent = (string) $neonContent;
-        return \ECSPrefix20210514\Nette\Utils\Strings::replace($neonContent, '#\\t#', '    ');
+        return \ECSPrefix20210515\Nette\Utils\Strings::replace($neonContent, '#\\t#', '    ');
     }
     /**
      * @param string $neonContent
@@ -47,7 +47,7 @@ final class NeonPrinter
     private function inlineSingleTags($neonContent)
     {
         $neonContent = (string) $neonContent;
-        return \ECSPrefix20210514\Nette\Utils\Strings::replace($neonContent, self::TAGS_REGEX, 'tags: [$1]');
+        return \ECSPrefix20210515\Nette\Utils\Strings::replace($neonContent, self::TAGS_REGEX, 'tags: [$1]');
     }
     /**
      * @param string $neonContent
@@ -56,6 +56,6 @@ final class NeonPrinter
     private function fixDoubleSpaceInArguments($neonContent)
     {
         $neonContent = (string) $neonContent;
-        return \ECSPrefix20210514\Nette\Utils\Strings::replace($neonContent, self::ARGUMENTS_DOUBLE_SPACE_REGEX, '$1');
+        return \ECSPrefix20210515\Nette\Utils\Strings::replace($neonContent, self::ARGUMENTS_DOUBLE_SPACE_REGEX, '$1');
     }
 }

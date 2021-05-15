@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\DependencyInjection\Compiler;
+namespace ECSPrefix20210515\Symfony\Component\DependencyInjection\Compiler;
 
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder;
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\Reference;
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\TypedReference;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\ContainerBuilder;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\Reference;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\TypedReference;
 /**
  * Trait that allows a generic method to find and sort service by priority option in the tag.
  *
@@ -36,10 +36,10 @@ trait PriorityTaggedServiceTrait
      *
      * @return mixed[]
      */
-    private function findAndSortTaggedServices($tagName, \ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder $container)
+    private function findAndSortTaggedServices($tagName, \ECSPrefix20210515\Symfony\Component\DependencyInjection\ContainerBuilder $container)
     {
         $indexAttribute = $defaultIndexMethod = $needsIndexes = $defaultPriorityMethod = null;
-        if ($tagName instanceof \ECSPrefix20210514\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
+        if ($tagName instanceof \ECSPrefix20210515\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument) {
             $indexAttribute = $tagName->getIndexAttribute();
             $defaultIndexMethod = $tagName->getDefaultIndexMethod();
             $needsIndexes = $tagName->needsIndexes();
@@ -58,7 +58,7 @@ trait PriorityTaggedServiceTrait
                 if (isset($attribute['priority'])) {
                     $priority = $attribute['priority'];
                 } elseif (null === $defaultPriority && $defaultPriorityMethod && $class) {
-                    $defaultPriority = \ECSPrefix20210514\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefaultPriority($container, $serviceId, $class, $defaultPriorityMethod, $tagName);
+                    $defaultPriority = \ECSPrefix20210515\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefaultPriority($container, $serviceId, $class, $defaultPriorityMethod, $tagName);
                 }
                 $priority = isset($priority) ? $priority : (isset($defaultPriority) ? $defaultPriority : ($defaultPriority = 0));
                 if (null === $indexAttribute && !$defaultIndexMethod && !$needsIndexes) {
@@ -68,7 +68,7 @@ trait PriorityTaggedServiceTrait
                 if (null !== $indexAttribute && isset($attribute[$indexAttribute])) {
                     $index = $attribute[$indexAttribute];
                 } elseif (null === $defaultIndex && $defaultPriorityMethod && $class) {
-                    $defaultIndex = \ECSPrefix20210514\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefaultIndex($container, $serviceId, $class, isset($defaultIndexMethod) ? $defaultIndexMethod : 'getDefaultName', $tagName, $indexAttribute);
+                    $defaultIndex = \ECSPrefix20210515\Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceUtil::getDefaultIndex($container, $serviceId, $class, isset($defaultIndexMethod) ? $defaultIndexMethod : 'getDefaultName', $tagName, $indexAttribute);
                 }
                 $index = isset($index) ? $index : (isset($defaultIndex) ? $defaultIndex : ($defaultIndex = $serviceId));
                 $services[] = [$priority, ++$i, $index, $serviceId, $class];
@@ -92,11 +92,11 @@ trait PriorityTaggedServiceTrait
         $refs = [];
         foreach ($services as list(, , $index, $serviceId, $class)) {
             if (!$class) {
-                $reference = new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Reference($serviceId);
+                $reference = new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Reference($serviceId);
             } elseif ($index === $serviceId) {
-                $reference = new \ECSPrefix20210514\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class);
+                $reference = new \ECSPrefix20210515\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class);
             } else {
-                $reference = new \ECSPrefix20210514\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class, \ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder::EXCEPTION_ON_INVALID_REFERENCE, $index);
+                $reference = new \ECSPrefix20210515\Symfony\Component\DependencyInjection\TypedReference($serviceId, $class, \ECSPrefix20210515\Symfony\Component\DependencyInjection\ContainerBuilder::EXCEPTION_ON_INVALID_REFERENCE, $index);
             }
             if (null === $index) {
                 $refs[] = $reference;
@@ -121,7 +121,7 @@ class PriorityTaggedServiceUtil
      * @param string $defaultIndexMethod
      * @param string $tagName
      */
-    public static function getDefaultIndex(\ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultIndexMethod, $tagName, $indexAttribute)
+    public static function getDefaultIndex(\ECSPrefix20210515\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultIndexMethod, $tagName, $indexAttribute)
     {
         $serviceId = (string) $serviceId;
         $class = (string) $class;
@@ -137,14 +137,14 @@ class PriorityTaggedServiceUtil
             $message = [\sprintf('Method "%s::%s()" should ', $class, $defaultIndexMethod), '.'];
         }
         if (!($rm = $r->getMethod($defaultIndexMethod))->isStatic()) {
-            throw new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be static', $message));
+            throw new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be static', $message));
         }
         if (!$rm->isPublic()) {
-            throw new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be public', $message));
+            throw new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode('be public', $message));
         }
         $defaultIndex = $rm->invoke(null);
         if (!\is_string($defaultIndex)) {
-            throw new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode(\sprintf('return a string (got "%s")', \get_debug_type($defaultIndex)), $message));
+            throw new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\implode(\sprintf('return a string (got "%s")', \get_debug_type($defaultIndex)), $message));
         }
         return $defaultIndex;
     }
@@ -156,7 +156,7 @@ class PriorityTaggedServiceUtil
      * @param string $defaultPriorityMethod
      * @param string $tagName
      */
-    public static function getDefaultPriority(\ECSPrefix20210514\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultPriorityMethod, $tagName)
+    public static function getDefaultPriority(\ECSPrefix20210515\Symfony\Component\DependencyInjection\ContainerBuilder $container, $serviceId, $class, $defaultPriorityMethod, $tagName)
     {
         $serviceId = (string) $serviceId;
         $class = (string) $class;
@@ -166,14 +166,14 @@ class PriorityTaggedServiceUtil
             return null;
         }
         if (!($rm = $r->getMethod($defaultPriorityMethod))->isStatic()) {
-            throw new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Either method "%s::%s()" should be static or tag "%s" on service "%s" is missing attribute "priority".', $class, $defaultPriorityMethod, $tagName, $serviceId));
+            throw new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Either method "%s::%s()" should be static or tag "%s" on service "%s" is missing attribute "priority".', $class, $defaultPriorityMethod, $tagName, $serviceId));
         }
         if (!$rm->isPublic()) {
-            throw new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Either method "%s::%s()" should be public or tag "%s" on service "%s" is missing attribute "priority".', $class, $defaultPriorityMethod, $tagName, $serviceId));
+            throw new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Either method "%s::%s()" should be public or tag "%s" on service "%s" is missing attribute "priority".', $class, $defaultPriorityMethod, $tagName, $serviceId));
         }
         $defaultPriority = $rm->invoke(null);
         if (!\is_int($defaultPriority)) {
-            throw new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Method "%s::%s()" should return an integer (got "%s") or tag "%s" on service "%s" is missing attribute "priority".', $class, $defaultPriorityMethod, \get_debug_type($defaultPriority), $tagName, $serviceId));
+            throw new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\InvalidArgumentException(\sprintf('Method "%s::%s()" should return an integer (got "%s") or tag "%s" on service "%s" is missing attribute "priority".', $class, $defaultPriorityMethod, \get_debug_type($defaultPriority), $tagName, $serviceId));
         }
         return $defaultPriority;
     }

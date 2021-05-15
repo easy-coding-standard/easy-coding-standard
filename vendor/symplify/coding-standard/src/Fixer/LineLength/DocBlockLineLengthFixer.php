@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\Fixer\LineLength;
 
-use ECSPrefix20210514\Nette\Utils\Strings;
+use ECSPrefix20210515\Nette\Utils\Strings;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
 use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
@@ -12,15 +12,15 @@ use PhpCsFixer\Tokenizer\Tokens;
 use SplFileInfo;
 use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\ValueObjectFactory\DocBlockLinesFactory;
-use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
-use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210515\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface;
+use ECSPrefix20210515\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210515\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\LineLength\DocBlockLineLengthFixer\DocBlockLineLengthFixerTest
  */
-final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210515\Symplify\RuleDocGenerator\Contract\ConfigurableRuleInterface, \PhpCsFixer\Fixer\ConfigurableFixerInterface, \ECSPrefix20210515\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @api
@@ -124,7 +124,7 @@ final class DocBlockLineLengthFixer extends \Symplify\CodingStandard\Fixer\Abstr
      */
     public function getRuleDefinition()
     {
-        return new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample(<<<'CODE_SAMPLE'
 /**
  * Super long doc block description
  */
@@ -148,7 +148,7 @@ CODE_SAMPLE
      */
     public function getConfigurationDefinition()
     {
-        throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+        throw new \ECSPrefix20210515\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
     }
     /**
      * @param string $docBlock
@@ -157,7 +157,7 @@ CODE_SAMPLE
     private function resolveIndentationStringFor($docBlock)
     {
         $docBlock = (string) $docBlock;
-        $matches = \ECSPrefix20210514\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
+        $matches = \ECSPrefix20210515\Nette\Utils\Strings::match($docBlock, self::INDENTATION_BEFORE_ASTERISK_REGEX);
         return isset($matches[self::INDENTATION_PART]) ? $matches[self::INDENTATION_PART] : '';
     }
     /**

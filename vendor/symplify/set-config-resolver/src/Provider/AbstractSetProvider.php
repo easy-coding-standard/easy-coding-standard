@@ -1,13 +1,13 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\SetConfigResolver\Provider;
+namespace ECSPrefix20210515\Symplify\SetConfigResolver\Provider;
 
-use ECSPrefix20210514\Nette\Utils\Strings;
-use ECSPrefix20210514\Symplify\SetConfigResolver\Contract\SetProviderInterface;
-use ECSPrefix20210514\Symplify\SetConfigResolver\Exception\SetNotFoundException;
-use ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Set;
-use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
-abstract class AbstractSetProvider implements \ECSPrefix20210514\Symplify\SetConfigResolver\Contract\SetProviderInterface
+use ECSPrefix20210515\Nette\Utils\Strings;
+use ECSPrefix20210515\Symplify\SetConfigResolver\Contract\SetProviderInterface;
+use ECSPrefix20210515\Symplify\SetConfigResolver\Exception\SetNotFoundException;
+use ECSPrefix20210515\Symplify\SetConfigResolver\ValueObject\Set;
+use ECSPrefix20210515\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+abstract class AbstractSetProvider implements \ECSPrefix20210515\Symplify\SetConfigResolver\Contract\SetProviderInterface
 {
     /**
      * @return mixed[]
@@ -49,10 +49,10 @@ abstract class AbstractSetProvider implements \ECSPrefix20210514\Symplify\SetCon
                 }
                 return $set;
             }
-        } catch (\ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException $shouldNotHappenException) {
+        } catch (\ECSPrefix20210515\Symplify\SymplifyKernel\Exception\ShouldNotHappenException $shouldNotHappenException) {
         }
         $message = \sprintf('Set "%s" was not found', $desiredSetName);
-        throw new \ECSPrefix20210514\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
+        throw new \ECSPrefix20210515\Symplify\SetConfigResolver\Exception\SetNotFoundException($message, $desiredSetName, $this->provideSetNames());
     }
     /**
      * @param string $setPath
@@ -61,9 +61,9 @@ abstract class AbstractSetProvider implements \ECSPrefix20210514\Symplify\SetCon
     private function resolveSetUniquePathId($setPath)
     {
         $setPath = (string) $setPath;
-        $setPath = \ECSPrefix20210514\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
+        $setPath = \ECSPrefix20210515\Nette\Utils\Strings::after($setPath, \DIRECTORY_SEPARATOR, -2);
         if ($setPath === null) {
-            throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
+            throw new \ECSPrefix20210515\Symplify\SymplifyKernel\Exception\ShouldNotHappenException();
         }
         return $setPath;
     }

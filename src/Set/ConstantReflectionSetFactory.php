@@ -2,11 +2,11 @@
 
 namespace Symplify\EasyCodingStandard\Set;
 
-use ECSPrefix20210514\Nette\Utils\Strings;
+use ECSPrefix20210515\Nette\Utils\Strings;
 use ReflectionClass;
-use ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Set;
-use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
-use ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
+use ECSPrefix20210515\Symplify\SetConfigResolver\ValueObject\Set;
+use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210515\Symplify\SymplifyKernel\Exception\ShouldNotHappenException;
 final class ConstantReflectionSetFactory
 {
     /**
@@ -33,12 +33,12 @@ final class ConstantReflectionSetFactory
         foreach ($constants as $name => $setPath) {
             if (!\file_exists($setPath)) {
                 $message = \sprintf('Set file "%s" not found. Check %s::%s', $setPath, $setClassName, $name);
-                throw new \ECSPrefix20210514\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($message);
+                throw new \ECSPrefix20210515\Symplify\SymplifyKernel\Exception\ShouldNotHappenException($message);
             }
             $setName = $this->constantToDashes($name);
             // back compatible names without "-"
-            $setName = \ECSPrefix20210514\Nette\Utils\Strings::replace($setName, self::REMOVE_DASH_BEFORE_NUMBER_REGEX, '$1$2');
-            $sets[] = new \ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Set($setName, new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($setPath));
+            $setName = \ECSPrefix20210515\Nette\Utils\Strings::replace($setName, self::REMOVE_DASH_BEFORE_NUMBER_REGEX, '$1$2');
+            $sets[] = new \ECSPrefix20210515\Symplify\SetConfigResolver\ValueObject\Set($setName, new \ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo($setPath));
         }
         return $sets;
     }
@@ -50,6 +50,6 @@ final class ConstantReflectionSetFactory
     {
         $string = (string) $string;
         $string = \strtolower($string);
-        return \ECSPrefix20210514\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
+        return \ECSPrefix20210515\Nette\Utils\Strings::replace($string, self::UNDERSCORE_REGEX, '-');
     }
 }

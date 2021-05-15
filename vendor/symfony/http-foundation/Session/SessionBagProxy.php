@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\HttpFoundation\Session;
+namespace ECSPrefix20210515\Symfony\Component\HttpFoundation\Session;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
  *
  * @internal
  */
-final class SessionBagProxy implements \ECSPrefix20210514\Symfony\Component\HttpFoundation\Session\SessionBagInterface
+final class SessionBagProxy implements \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\SessionBagInterface
 {
     private $bag;
     private $data;
@@ -25,7 +25,7 @@ final class SessionBagProxy implements \ECSPrefix20210514\Symfony\Component\Http
      * @param int|null $usageIndex
      * @param callable|null $usageReporter
      */
-    public function __construct(\ECSPrefix20210514\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag, array &$data, &$usageIndex, $usageReporter)
+    public function __construct(\ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag, array &$data, &$usageIndex, $usageReporter)
     {
         $this->bag = $bag;
         $this->data =& $data;

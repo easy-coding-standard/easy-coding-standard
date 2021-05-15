@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\Config\Definition\Dumper;
+namespace ECSPrefix20210515\Symfony\Component\Config\Definition\Dumper;
 
-use ECSPrefix20210514\Symfony\Component\Config\Definition\ArrayNode;
-use ECSPrefix20210514\Symfony\Component\Config\Definition\BaseNode;
-use ECSPrefix20210514\Symfony\Component\Config\Definition\ConfigurationInterface;
-use ECSPrefix20210514\Symfony\Component\Config\Definition\EnumNode;
-use ECSPrefix20210514\Symfony\Component\Config\Definition\NodeInterface;
-use ECSPrefix20210514\Symfony\Component\Config\Definition\PrototypedArrayNode;
-use ECSPrefix20210514\Symfony\Component\Config\Definition\ScalarNode;
-use ECSPrefix20210514\Symfony\Component\Config\Definition\VariableNode;
-use ECSPrefix20210514\Symfony\Component\Yaml\Inline;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\ArrayNode;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\BaseNode;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\ConfigurationInterface;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\EnumNode;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\NodeInterface;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\PrototypedArrayNode;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\ScalarNode;
+use ECSPrefix20210515\Symfony\Component\Config\Definition\VariableNode;
+use ECSPrefix20210515\Symfony\Component\Yaml\Inline;
 /**
  * Dumps a Yaml reference configuration for the given configuration/node instance.
  *
@@ -27,23 +27,23 @@ use ECSPrefix20210514\Symfony\Component\Yaml\Inline;
 class YamlReferenceDumper
 {
     private $reference;
-    public function dump(\ECSPrefix20210514\Symfony\Component\Config\Definition\ConfigurationInterface $configuration)
+    public function dump(\ECSPrefix20210515\Symfony\Component\Config\Definition\ConfigurationInterface $configuration)
     {
         return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree());
     }
     /**
      * @param string $path
      */
-    public function dumpAtPath(\ECSPrefix20210514\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, $path)
+    public function dumpAtPath(\ECSPrefix20210515\Symfony\Component\Config\Definition\ConfigurationInterface $configuration, $path)
     {
         $path = (string) $path;
         $rootNode = $node = $configuration->getConfigTreeBuilder()->buildTree();
         foreach (\explode('.', $path) as $step) {
-            if (!$node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\ArrayNode) {
+            if (!$node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\ArrayNode) {
                 throw new \UnexpectedValueException(\sprintf('Unable to find node at path "%s.%s".', $rootNode->getName(), $path));
             }
             /** @var NodeInterface[] $children */
-            $children = $node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\PrototypedArrayNode ? $this->getPrototypeChildren($node) : $node->getChildren();
+            $children = $node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\PrototypedArrayNode ? $this->getPrototypeChildren($node) : $node->getChildren();
             foreach ($children as $child) {
                 if ($child->getName() === $step) {
                     $node = $child;
@@ -54,7 +54,7 @@ class YamlReferenceDumper
         }
         return $this->dumpNode($node);
     }
-    public function dumpNode(\ECSPrefix20210514\Symfony\Component\Config\Definition\NodeInterface $node)
+    public function dumpNode(\ECSPrefix20210515\Symfony\Component\Config\Definition\NodeInterface $node)
     {
         $this->reference = '';
         $this->writeNode($node);
@@ -66,7 +66,7 @@ class YamlReferenceDumper
      * @param int $depth
      * @param bool $prototypedArray
      */
-    private function writeNode(\ECSPrefix20210514\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210514\Symfony\Component\Config\Definition\NodeInterface $parentNode = null, $depth = 0, $prototypedArray = \false)
+    private function writeNode(\ECSPrefix20210515\Symfony\Component\Config\Definition\NodeInterface $node, \ECSPrefix20210515\Symfony\Component\Config\Definition\NodeInterface $parentNode = null, $depth = 0, $prototypedArray = \false)
     {
         $depth = (int) $depth;
         $prototypedArray = (bool) $prototypedArray;
@@ -75,13 +75,13 @@ class YamlReferenceDumper
         $defaultArray = null;
         $children = null;
         $example = null;
-        if ($node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\BaseNode) {
+        if ($node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\BaseNode) {
             $example = $node->getExample();
         }
         // defaults
-        if ($node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\ArrayNode) {
+        if ($node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\ArrayNode) {
             $children = $node->getChildren();
-            if ($node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\PrototypedArrayNode) {
+            if ($node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\PrototypedArrayNode) {
                 $children = $this->getPrototypeChildren($node);
             }
             if (!$children) {
@@ -91,10 +91,10 @@ class YamlReferenceDumper
                     $default = '[]';
                 }
             }
-        } elseif ($node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\EnumNode) {
+        } elseif ($node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\EnumNode) {
             $comments[] = 'One of ' . \implode('; ', \array_map('json_encode', $node->getValues()));
-            $default = $node->hasDefaultValue() ? \ECSPrefix20210514\Symfony\Component\Yaml\Inline::dump($node->getDefaultValue()) : '~';
-        } elseif (\ECSPrefix20210514\Symfony\Component\Config\Definition\VariableNode::class === \get_class($node) && \is_array($example)) {
+            $default = $node->hasDefaultValue() ? \ECSPrefix20210515\Symfony\Component\Yaml\Inline::dump($node->getDefaultValue()) : '~';
+        } elseif (\ECSPrefix20210515\Symfony\Component\Config\Definition\VariableNode::class === \get_class($node) && \is_array($example)) {
             // If there is an array example, we are sure we dont need to print a default value
             $default = '';
         } else {
@@ -108,7 +108,7 @@ class YamlReferenceDumper
                         $default = '[]';
                     }
                 } else {
-                    $default = \ECSPrefix20210514\Symfony\Component\Yaml\Inline::dump($default);
+                    $default = \ECSPrefix20210515\Symfony\Component\Yaml\Inline::dump($default);
                 }
             }
         }
@@ -117,19 +117,19 @@ class YamlReferenceDumper
             $comments[] = 'Required';
         }
         // deprecated?
-        if ($node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\BaseNode && $node->isDeprecated()) {
+        if ($node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\BaseNode && $node->isDeprecated()) {
             $deprecation = $node->getDeprecation($node->getName(), $parentNode ? $parentNode->getPath() : $node->getPath());
             $comments[] = \sprintf('Deprecated (%s)', ($deprecation['package'] || $deprecation['version'] ? "Since {$deprecation['package']} {$deprecation['version']}: " : '') . $deprecation['message']);
         }
         // example
         if ($example && !\is_array($example)) {
-            $comments[] = 'Example: ' . \ECSPrefix20210514\Symfony\Component\Yaml\Inline::dump($example);
+            $comments[] = 'Example: ' . \ECSPrefix20210515\Symfony\Component\Yaml\Inline::dump($example);
         }
         $default = '' != (string) $default ? ' ' . $default : '';
         $comments = \count($comments) ? '# ' . \implode(', ', $comments) : '';
         $key = $prototypedArray ? '-' : $node->getName() . ':';
         $text = \rtrim(\sprintf('%-21s%s %s', $key, $default, $comments), ' ');
-        if ($node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\BaseNode && ($info = $node->getInfo())) {
+        if ($node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\BaseNode && ($info = $node->getInfo())) {
             $this->writeLine('');
             // indenting multi-line info
             $info = \str_replace("\n", \sprintf("\n%" . $depth * 4 . 's# ', ' '), $info);
@@ -147,11 +147,11 @@ class YamlReferenceDumper
             $this->writeLine('');
             $message = \count($example) > 1 ? 'Examples' : 'Example';
             $this->writeLine('# ' . $message . ':', $depth * 4 + 4);
-            $this->writeArray(\array_map([\ECSPrefix20210514\Symfony\Component\Yaml\Inline::class, 'dump'], $example), $depth + 1);
+            $this->writeArray(\array_map([\ECSPrefix20210515\Symfony\Component\Yaml\Inline::class, 'dump'], $example), $depth + 1);
         }
         if ($children) {
             foreach ($children as $childNode) {
-                $this->writeNode($childNode, $node, $depth + 1, $node instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\PrototypedArrayNode && !$node->getKeyAttribute());
+                $this->writeNode($childNode, $node, $depth + 1, $node instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\PrototypedArrayNode && !$node->getKeyAttribute());
             }
         }
     }
@@ -194,18 +194,18 @@ class YamlReferenceDumper
     /**
      * @return mixed[]
      */
-    private function getPrototypeChildren(\ECSPrefix20210514\Symfony\Component\Config\Definition\PrototypedArrayNode $node)
+    private function getPrototypeChildren(\ECSPrefix20210515\Symfony\Component\Config\Definition\PrototypedArrayNode $node)
     {
         $prototype = $node->getPrototype();
         $key = $node->getKeyAttribute();
         // Do not expand prototype if it isn't an array node nor uses attribute as key
-        if (!$key && !$prototype instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\ArrayNode) {
+        if (!$key && !$prototype instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\ArrayNode) {
             return $node->getChildren();
         }
-        if ($prototype instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\ArrayNode) {
-            $keyNode = new \ECSPrefix20210514\Symfony\Component\Config\Definition\ArrayNode($key, $node);
+        if ($prototype instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\ArrayNode) {
+            $keyNode = new \ECSPrefix20210515\Symfony\Component\Config\Definition\ArrayNode($key, $node);
             $children = $prototype->getChildren();
-            if ($prototype instanceof \ECSPrefix20210514\Symfony\Component\Config\Definition\PrototypedArrayNode && $prototype->getKeyAttribute()) {
+            if ($prototype instanceof \ECSPrefix20210515\Symfony\Component\Config\Definition\PrototypedArrayNode && $prototype->getKeyAttribute()) {
                 $children = $this->getPrototypeChildren($prototype);
             }
             // add children
@@ -213,7 +213,7 @@ class YamlReferenceDumper
                 $keyNode->addChild($childNode);
             }
         } else {
-            $keyNode = new \ECSPrefix20210514\Symfony\Component\Config\Definition\ScalarNode($key, $node);
+            $keyNode = new \ECSPrefix20210515\Symfony\Component\Config\Definition\ScalarNode($key, $node);
         }
         $info = 'Prototype';
         if (null !== $prototype->getInfo()) {

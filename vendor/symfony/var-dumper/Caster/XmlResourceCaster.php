@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210515\Symfony\Component\VarDumper\Caster;
 
-use ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Stub;
+use ECSPrefix20210515\Symfony\Component\VarDumper\Cloner\Stub;
 /**
  * Casts XML resources to array representation.
  *
@@ -24,7 +24,7 @@ class XmlResourceCaster
     /**
      * @param bool $isNested
      */
-    public static function castXml($h, array $a, \ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
+    public static function castXml($h, array $a, \ECSPrefix20210515\Symfony\Component\VarDumper\Cloner\Stub $stub, $isNested)
     {
         $isNested = (bool) $isNested;
         $a['current_byte_index'] = \xml_get_current_byte_index($h);
@@ -32,7 +32,7 @@ class XmlResourceCaster
         $a['current_line_number'] = \xml_get_current_line_number($h);
         $a['error_code'] = \xml_get_error_code($h);
         if (isset(self::XML_ERRORS[$a['error_code']])) {
-            $a['error_code'] = new \ECSPrefix20210514\Symfony\Component\VarDumper\Caster\ConstStub(self::XML_ERRORS[$a['error_code']], $a['error_code']);
+            $a['error_code'] = new \ECSPrefix20210515\Symfony\Component\VarDumper\Caster\ConstStub(self::XML_ERRORS[$a['error_code']], $a['error_code']);
         }
         return $a;
     }

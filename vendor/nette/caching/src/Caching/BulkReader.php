@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210514\Nette\Caching;
+namespace ECSPrefix20210515\Nette\Caching;
 
 /**
  * Cache storage with a bulk read support.
@@ -13,4 +13,4 @@ interface BulkReader
      */
     function bulkRead(array $keys);
 }
-\class_exists(\ECSPrefix20210514\Nette\Caching\IBulkReader::class);
+\class_exists(\ECSPrefix20210515\Nette\Caching\IBulkReader::class);

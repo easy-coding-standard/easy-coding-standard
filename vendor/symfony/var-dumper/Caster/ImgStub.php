@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\VarDumper\Caster;
+namespace ECSPrefix20210515\Symfony\Component\VarDumper\Caster;
 
 /**
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
-class ImgStub extends \ECSPrefix20210514\Symfony\Component\VarDumper\Caster\ConstStub
+class ImgStub extends \ECSPrefix20210515\Symfony\Component\VarDumper\Caster\ConstStub
 {
     /**
      * @param string $data

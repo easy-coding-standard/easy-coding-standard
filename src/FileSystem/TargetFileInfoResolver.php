@@ -3,7 +3,7 @@
 namespace Symplify\EasyCodingStandard\FileSystem;
 
 use Symplify\EasyCodingStandard\SnippetFormatter\Provider\CurrentParentFileInfoProvider;
-use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
 final class TargetFileInfoResolver
 {
     /**
@@ -19,7 +19,7 @@ final class TargetFileInfoResolver
      * $smartFileInfo is only temporary snippet, so original markdown file should be used
      * @return \Symplify\SmartFileSystem\SmartFileInfo
      */
-    public function resolveTargetFileInfo(\ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function resolveTargetFileInfo(\ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         $currentParentFileInfo = $this->currentParentFileInfoProvider->provide();
         if ($currentParentFileInfo !== null) {

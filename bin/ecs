@@ -1,5 +1,5 @@
 #!/usr/bin/env php
 <?php 
-namespace ECSPrefix20210514;
+namespace ECSPrefix20210515;
 
 require __DIR__ . '/ecs.php';

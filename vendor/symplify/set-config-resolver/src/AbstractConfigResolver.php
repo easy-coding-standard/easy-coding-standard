@@ -1,12 +1,12 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\SetConfigResolver;
+namespace ECSPrefix20210515\Symplify\SetConfigResolver;
 
-use ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210514\Symplify\SetConfigResolver\Console\Option\OptionName;
-use ECSPrefix20210514\Symplify\SetConfigResolver\Console\OptionValueResolver;
-use ECSPrefix20210514\Symplify\SmartFileSystem\Exception\FileNotFoundException;
-use ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210515\Symplify\SetConfigResolver\Console\Option\OptionName;
+use ECSPrefix20210515\Symplify\SetConfigResolver\Console\OptionValueResolver;
+use ECSPrefix20210515\Symplify\SmartFileSystem\Exception\FileNotFoundException;
+use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
 abstract class AbstractConfigResolver
 {
     /**
@@ -15,18 +15,18 @@ abstract class AbstractConfigResolver
     private $optionValueResolver;
     public function __construct()
     {
-        $this->optionValueResolver = new \ECSPrefix20210514\Symplify\SetConfigResolver\Console\OptionValueResolver();
+        $this->optionValueResolver = new \ECSPrefix20210515\Symplify\SetConfigResolver\Console\OptionValueResolver();
     }
     /**
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    public function resolveFromInput(\ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface $input)
+    public function resolveFromInput(\ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface $input)
     {
-        $configValue = $this->optionValueResolver->getOptionValue($input, \ECSPrefix20210514\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
+        $configValue = $this->optionValueResolver->getOptionValue($input, \ECSPrefix20210515\Symplify\SetConfigResolver\Console\Option\OptionName::CONFIG);
         if ($configValue !== null) {
             if (!\file_exists($configValue)) {
                 $message = \sprintf('File "%s" was not found', $configValue);
-                throw new \ECSPrefix20210514\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
+                throw new \ECSPrefix20210515\Symplify\SmartFileSystem\Exception\FileNotFoundException($message);
             }
             return $this->createFileInfo($configValue);
         }
@@ -36,7 +36,7 @@ abstract class AbstractConfigResolver
      * @param string[] $fallbackFiles
      * @return \Symplify\SmartFileSystem\SmartFileInfo|null
      */
-    public function resolveFromInputWithFallback(\ECSPrefix20210514\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles)
+    public function resolveFromInputWithFallback(\ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface $input, array $fallbackFiles)
     {
         $configFileInfo = $this->resolveFromInput($input);
         if ($configFileInfo !== null) {
@@ -65,6 +65,6 @@ abstract class AbstractConfigResolver
     private function createFileInfo($configValue)
     {
         $configValue = (string) $configValue;
-        return new \ECSPrefix20210514\Symplify\SmartFileSystem\SmartFileInfo($configValue);
+        return new \ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo($configValue);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\SetConfigResolver\Contract;
+namespace ECSPrefix20210515\Symplify\SetConfigResolver\Contract;
 
-use ECSPrefix20210514\Symplify\SetConfigResolver\ValueObject\Set;
+use ECSPrefix20210515\Symplify\SetConfigResolver\ValueObject\Set;
 interface SetProviderInterface
 {
     /**

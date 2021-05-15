@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210514\Nette\Utils;
+namespace ECSPrefix20210515\Nette\Utils;
 
-use ECSPrefix20210514\Nette;
+use ECSPrefix20210515\Nette;
 /**
  * DateTime.
  */
@@ -62,7 +62,7 @@ class DateTime extends \DateTime implements \JsonSerializable
         $second = (double) $second;
         $s = \sprintf('%04d-%02d-%02d %02d:%02d:%02.5F', $year, $month, $day, $hour, $minute, $second);
         if (!\checkdate($month, $day, $year) || $hour < 0 || $hour > 23 || $minute < 0 || $minute > 59 || $second < 0 || $second >= 60) {
-            throw new \ECSPrefix20210514\Nette\InvalidArgumentException("Invalid date '{$s}'");
+            throw new \ECSPrefix20210515\Nette\InvalidArgumentException("Invalid date '{$s}'");
         }
         return new static($s);
     }
@@ -80,7 +80,7 @@ class DateTime extends \DateTime implements \JsonSerializable
         } elseif (\is_string($timezone)) {
             $timezone = new \DateTimeZone($timezone);
         } elseif (!$timezone instanceof \DateTimeZone) {
-            throw new \ECSPrefix20210514\Nette\InvalidArgumentException('Invalid timezone given');
+            throw new \ECSPrefix20210515\Nette\InvalidArgumentException('Invalid timezone given');
         }
         $date = parent::createFromFormat($format, $time, $timezone);
         return $date ? static::from($date) : \false;

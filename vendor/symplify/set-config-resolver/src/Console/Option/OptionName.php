@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\SetConfigResolver\Console\Option;
+namespace ECSPrefix20210515\Symplify\SetConfigResolver\Console\Option;
 
 final class OptionName
 {

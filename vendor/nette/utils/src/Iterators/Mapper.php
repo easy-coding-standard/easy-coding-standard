@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210514\Nette\Iterators;
+namespace ECSPrefix20210515\Nette\Iterators;
 
 /**
  * Applies the callback to the elements of the inner iterator.

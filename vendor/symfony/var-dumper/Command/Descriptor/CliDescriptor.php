@@ -8,14 +8,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\VarDumper\Command\Descriptor;
+namespace ECSPrefix20210515\Symfony\Component\VarDumper\Command\Descriptor;
 
-use ECSPrefix20210514\Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use ECSPrefix20210514\Symfony\Component\Console\Input\ArrayInput;
-use ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface;
-use ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle;
-use ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Data;
-use ECSPrefix20210514\Symfony\Component\VarDumper\Dumper\CliDumper;
+use ECSPrefix20210515\Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use ECSPrefix20210515\Symfony\Component\Console\Input\ArrayInput;
+use ECSPrefix20210515\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210515\Symfony\Component\Console\Style\SymfonyStyle;
+use ECSPrefix20210515\Symfony\Component\VarDumper\Cloner\Data;
+use ECSPrefix20210515\Symfony\Component\VarDumper\Dumper\CliDumper;
 /**
  * Describe collected data clones for cli output.
  *
@@ -23,24 +23,24 @@ use ECSPrefix20210514\Symfony\Component\VarDumper\Dumper\CliDumper;
  *
  * @final
  */
-class CliDescriptor implements \ECSPrefix20210514\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
+class CliDescriptor implements \ECSPrefix20210515\Symfony\Component\VarDumper\Command\Descriptor\DumpDescriptorInterface
 {
     private $dumper;
     private $lastIdentifier;
     private $supportsHref;
-    public function __construct(\ECSPrefix20210514\Symfony\Component\VarDumper\Dumper\CliDumper $dumper)
+    public function __construct(\ECSPrefix20210515\Symfony\Component\VarDumper\Dumper\CliDumper $dumper)
     {
         $this->dumper = $dumper;
-        $this->supportsHref = \method_exists(\ECSPrefix20210514\Symfony\Component\Console\Formatter\OutputFormatterStyle::class, 'setHref');
+        $this->supportsHref = \method_exists(\ECSPrefix20210515\Symfony\Component\Console\Formatter\OutputFormatterStyle::class, 'setHref');
     }
     /**
      * @return void
      * @param int $clientId
      */
-    public function describe(\ECSPrefix20210514\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210514\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
+    public function describe(\ECSPrefix20210515\Symfony\Component\Console\Output\OutputInterface $output, \ECSPrefix20210515\Symfony\Component\VarDumper\Cloner\Data $data, array $context, $clientId)
     {
         $clientId = (int) $clientId;
-        $io = $output instanceof \ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle ? $output : new \ECSPrefix20210514\Symfony\Component\Console\Style\SymfonyStyle(new \ECSPrefix20210514\Symfony\Component\Console\Input\ArrayInput([]), $output);
+        $io = $output instanceof \ECSPrefix20210515\Symfony\Component\Console\Style\SymfonyStyle ? $output : new \ECSPrefix20210515\Symfony\Component\Console\Style\SymfonyStyle(new \ECSPrefix20210515\Symfony\Component\Console\Input\ArrayInput([]), $output);
         $this->dumper->setColors($output->isDecorated());
         $rows = [['date', \date('r', $context['timestamp'])]];
         $lastIdentifier = $this->lastIdentifier;

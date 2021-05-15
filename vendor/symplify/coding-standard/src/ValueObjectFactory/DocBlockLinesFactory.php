@@ -2,7 +2,7 @@
 
 namespace Symplify\CodingStandard\ValueObjectFactory;
 
-use ECSPrefix20210514\Nette\Utils\Strings;
+use ECSPrefix20210515\Nette\Utils\Strings;
 use Symplify\CodingStandard\ValueObject\DocBlockLines;
 final class DocBlockLinesFactory
 {
@@ -24,16 +24,16 @@ final class DocBlockLinesFactory
     {
         $docBlock = (string) $docBlock;
         // Remove the prefix '/**'
-        $docBlock = \ECSPrefix20210514\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
+        $docBlock = \ECSPrefix20210515\Nette\Utils\Strings::replace($docBlock, self::BEGINNING_OF_DOC_BLOCK_REGEX);
         // Remove the suffix '*/'
-        $docBlock = \ECSPrefix20210514\Nette\Utils\Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
+        $docBlock = \ECSPrefix20210515\Nette\Utils\Strings::replace($docBlock, self::END_OF_DOC_BLOCK_REGEX);
         // Remove extra whitespace at the end
         $docBlock = \rtrim($docBlock);
         $docBlockLines = $this->splitToLines($docBlock);
         $docBlockLines = \array_map(function (string $line) : string {
-            $noWhitespace = \ECSPrefix20210514\Nette\Utils\Strings::trim($line, \ECSPrefix20210514\Nette\Utils\Strings::TRIM_CHARACTERS);
+            $noWhitespace = \ECSPrefix20210515\Nette\Utils\Strings::trim($line, \ECSPrefix20210515\Nette\Utils\Strings::TRIM_CHARACTERS);
             // Remove asterisks on the left side, plus additional whitespace
-            return \ltrim($noWhitespace, \ECSPrefix20210514\Nette\Utils\Strings::TRIM_CHARACTERS . '*');
+            return \ltrim($noWhitespace, \ECSPrefix20210515\Nette\Utils\Strings::TRIM_CHARACTERS . '*');
         }, $docBlockLines);
         return $this->createFromLines($docBlockLines);
     }
@@ -47,7 +47,7 @@ final class DocBlockLinesFactory
         $otherLines = [];
         $collectDescriptionLines = \true;
         foreach ($docBlockLines as $docBlockLine) {
-            if (\ECSPrefix20210514\Nette\Utils\Strings::startsWith($docBlockLine, '@') || \ECSPrefix20210514\Nette\Utils\Strings::startsWith($docBlockLine, '{@')) {
+            if (\ECSPrefix20210515\Nette\Utils\Strings::startsWith($docBlockLine, '@') || \ECSPrefix20210515\Nette\Utils\Strings::startsWith($docBlockLine, '{@')) {
                 // The line has a special meaning (it's an annotation, or something like {@inheritdoc})
                 $collectDescriptionLines = \false;
             }

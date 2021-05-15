@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\Skipper\FileSystem;
+namespace ECSPrefix20210515\Symplify\Skipper\FileSystem;
 
-use ECSPrefix20210514\Nette\Utils\Strings;
+use ECSPrefix20210515\Nette\Utils\Strings;
 /**
  * @see \Symplify\Skipper\Tests\FileSystem\PathNormalizerTest
  */
@@ -26,14 +26,14 @@ final class PathNormalizer
     {
         $path = (string) $path;
         // ends with *
-        if (\ECSPrefix20210514\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
+        if (\ECSPrefix20210515\Nette\Utils\Strings::match($path, self::ONLY_ENDS_WITH_ASTERISK_REGEX)) {
             return '*' . $path;
         }
         // starts with *
-        if (\ECSPrefix20210514\Nette\Utils\Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_REGEX)) {
+        if (\ECSPrefix20210515\Nette\Utils\Strings::match($path, self::ONLY_STARTS_WITH_ASTERISK_REGEX)) {
             return $path . '*';
         }
-        if (\ECSPrefix20210514\Nette\Utils\Strings::contains($path, '..')) {
+        if (\ECSPrefix20210515\Nette\Utils\Strings::contains($path, '..')) {
             $path = \realpath($path);
             if ($path === \false) {
                 return '';

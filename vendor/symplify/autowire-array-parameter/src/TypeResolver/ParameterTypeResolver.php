@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\AutowireArrayParameter\TypeResolver;
+namespace ECSPrefix20210515\Symplify\AutowireArrayParameter\TypeResolver;
 
-use ECSPrefix20210514\Nette\Utils\Reflection;
+use ECSPrefix20210515\Nette\Utils\Reflection;
 use ReflectionMethod;
-use ECSPrefix20210514\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
+use ECSPrefix20210515\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver;
 final class ParameterTypeResolver
 {
     /**
@@ -15,7 +15,7 @@ final class ParameterTypeResolver
      * @var array<string, string>
      */
     private $resolvedParameterTypesCached = [];
-    public function __construct(\ECSPrefix20210514\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver $paramTypeDocBlockResolver)
+    public function __construct(\ECSPrefix20210515\Symplify\AutowireArrayParameter\DocBlock\ParamTypeDocBlockResolver $paramTypeDocBlockResolver)
     {
         $this->paramTypeDocBlockResolver = $paramTypeDocBlockResolver;
     }
@@ -43,7 +43,7 @@ final class ParameterTypeResolver
         if (\ctype_lower($resolvedType[0])) {
             return null;
         }
-        $resolvedClass = \ECSPrefix20210514\Nette\Utils\Reflection::expandClassName($resolvedType, $declaringReflectionClass);
+        $resolvedClass = \ECSPrefix20210515\Nette\Utils\Reflection::expandClassName($resolvedType, $declaringReflectionClass);
         $this->resolvedParameterTypesCached[$uniqueKey] = $resolvedClass;
         return $resolvedClass;
     }

@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
+namespace ECSPrefix20210515\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper;
 
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\Definition;
 /**
  * Null dumper, negates any proxy code generation for any given service definition.
  *
@@ -18,13 +18,13 @@ use ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition;
  *
  * @final
  */
-class NullDumper implements \ECSPrefix20210514\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface
+class NullDumper implements \ECSPrefix20210515\Symfony\Component\DependencyInjection\LazyProxy\PhpDumper\DumperInterface
 {
     /**
      * {@inheritdoc}
      * @return bool
      */
-    public function isProxyCandidate(\ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition $definition)
+    public function isProxyCandidate(\ECSPrefix20210515\Symfony\Component\DependencyInjection\Definition $definition)
     {
         return \false;
     }
@@ -34,7 +34,7 @@ class NullDumper implements \ECSPrefix20210514\Symfony\Component\DependencyInjec
      * @param string $factoryCode
      * @return string
      */
-    public function getProxyFactoryCode(\ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition $definition, $id, $factoryCode)
+    public function getProxyFactoryCode(\ECSPrefix20210515\Symfony\Component\DependencyInjection\Definition $definition, $id, $factoryCode)
     {
         $id = (string) $id;
         $factoryCode = (string) $factoryCode;
@@ -44,7 +44,7 @@ class NullDumper implements \ECSPrefix20210514\Symfony\Component\DependencyInjec
      * {@inheritdoc}
      * @return string
      */
-    public function getProxyCode(\ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition $definition)
+    public function getProxyCode(\ECSPrefix20210515\Symfony\Component\DependencyInjection\Definition $definition)
     {
         return '';
     }

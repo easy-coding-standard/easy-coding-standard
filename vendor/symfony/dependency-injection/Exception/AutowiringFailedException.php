@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception;
+namespace ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception;
 
 /**
  * Thrown when a definition cannot be autowired.
  */
-class AutowiringFailedException extends \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\RuntimeException
+class AutowiringFailedException extends \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\RuntimeException
 {
     private $serviceId;
     private $messageCallback;
@@ -35,7 +35,7 @@ class AutowiringFailedException extends \ECSPrefix20210514\Symfony\Component\Dep
         }
         $this->messageCallback = $message;
         parent::__construct('', $code, $previous);
-        $this->message = new \ECSPrefix20210514\Symfony\Component\DependencyInjection\Exception\Anonymous__f2200998121b1c0886562f1a6a7e315b__0($this->message, $this->messageCallback);
+        $this->message = new \ECSPrefix20210515\Symfony\Component\DependencyInjection\Exception\Anonymous__f2200998121b1c0886562f1a6a7e315b__0($this->message, $this->messageCallback);
     }
     /**
      * @return \Closure|null

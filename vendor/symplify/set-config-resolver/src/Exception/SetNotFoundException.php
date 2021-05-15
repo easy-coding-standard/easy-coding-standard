@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\SetConfigResolver\Exception;
+namespace ECSPrefix20210515\Symplify\SetConfigResolver\Exception;
 
 use Exception;
 final class SetNotFoundException extends \Exception

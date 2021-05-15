@@ -12,14 +12,14 @@ use Symplify\CodingStandard\Fixer\AbstractSymplifyFixer;
 use Symplify\CodingStandard\TokenRunner\Analyzer\FixerAnalyzer\BlockFinder;
 use Symplify\CodingStandard\TokenRunner\Transformer\FixerTransformer\TokensNewliner;
 use Symplify\CodingStandard\TokenRunner\ValueObject\BlockInfo;
-use ECSPrefix20210514\Symplify\PackageBuilder\ValueObject\MethodName;
-use ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use ECSPrefix20210515\Symplify\PackageBuilder\ValueObject\MethodName;
+use ECSPrefix20210515\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Symplify\CodingStandard\Tests\Fixer\Spacing\StandaloneLinePromotedPropertyFixer\StandaloneLinePromotedPropertyFixerTest
  */
-final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210514\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
+final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard\Fixer\AbstractSymplifyFixer implements \ECSPrefix20210515\Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface
 {
     /**
      * @var string
@@ -67,7 +67,7 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
                 continue;
             }
             $functionName = $this->getFunctionName($tokens, $position);
-            if ($functionName !== \ECSPrefix20210514\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
+            if ($functionName !== \ECSPrefix20210515\Symplify\PackageBuilder\ValueObject\MethodName::CONSTRUCTOR) {
                 continue;
             }
             $this->processFunction($tokens, $position);
@@ -78,7 +78,7 @@ final class StandaloneLinePromotedPropertyFixer extends \Symplify\CodingStandard
      */
     public function getRuleDefinition()
     {
-        return new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210514\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new \ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\RuleDefinition(self::ERROR_MESSAGE, [new \ECSPrefix20210515\Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
 final class PromotedProperties
 {
     public function __construct(public int $age, private string $name)

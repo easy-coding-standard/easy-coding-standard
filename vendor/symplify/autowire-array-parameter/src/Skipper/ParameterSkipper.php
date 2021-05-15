@@ -1,11 +1,11 @@
 <?php
 
-namespace ECSPrefix20210514\Symplify\AutowireArrayParameter\Skipper;
+namespace ECSPrefix20210515\Symplify\AutowireArrayParameter\Skipper;
 
 use ReflectionMethod;
 use ReflectionParameter;
-use ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition;
-use ECSPrefix20210514\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
+use ECSPrefix20210515\Symfony\Component\DependencyInjection\Definition;
+use ECSPrefix20210515\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver;
 final class ParameterSkipper
 {
     /**
@@ -14,7 +14,7 @@ final class ParameterSkipper
      * @var string[]
      * @noRector
      */
-    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210514\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210514\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210514\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210514\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210514\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210514\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210514\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210514\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210515\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210515\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210515\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210515\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210515\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210515\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210515\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210515\\Sonata\\Twig\\Extension\\TemplateExtension'];
     /**
      * @var ParameterTypeResolver
      */
@@ -26,7 +26,7 @@ final class ParameterSkipper
     /**
      * @param string[] $excludedFatalClasses
      */
-    public function __construct(\ECSPrefix20210514\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver $parameterTypeResolver, array $excludedFatalClasses)
+    public function __construct(\ECSPrefix20210515\Symplify\AutowireArrayParameter\TypeResolver\ParameterTypeResolver $parameterTypeResolver, array $excludedFatalClasses)
     {
         $this->parameterTypeResolver = $parameterTypeResolver;
         $this->excludedFatalClasses = \array_merge(self::DEFAULT_EXCLUDED_FATAL_CLASSES, $excludedFatalClasses);
@@ -34,7 +34,7 @@ final class ParameterSkipper
     /**
      * @return bool
      */
-    public function shouldSkipParameter(\ReflectionMethod $reflectionMethod, \ECSPrefix20210514\Symfony\Component\DependencyInjection\Definition $definition, \ReflectionParameter $reflectionParameter)
+    public function shouldSkipParameter(\ReflectionMethod $reflectionMethod, \ECSPrefix20210515\Symfony\Component\DependencyInjection\Definition $definition, \ReflectionParameter $reflectionParameter)
     {
         if (!$this->isArrayType($reflectionParameter)) {
             return \true;
