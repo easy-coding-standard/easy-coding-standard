@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
 final class CodingStandardError
 {
     /**
@@ -26,7 +26,7 @@ final class CodingStandardError
      * @param string $message
      * @param string $checkerClass
      */
-    public function __construct($line, $message, $checkerClass, \ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    public function __construct($line, $message, $checkerClass, \ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $line = (int) $line;
         $message = (string) $message;

@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210515\Nette\Iterators;
+namespace ECSPrefix20210516\Nette\Iterators;
 
-use ECSPrefix20210515\Nette;
+use ECSPrefix20210516\Nette;
 /**
  * Smarter caching iterator.
  *
@@ -33,7 +33,7 @@ class CachingIterator extends \CachingIterator implements \Countable
         } elseif ($iterator instanceof \Traversable) {
             $iterator = new \IteratorIterator($iterator);
         } else {
-            throw new \ECSPrefix20210515\Nette\InvalidArgumentException(\sprintf('Invalid argument passed to %s; array or Traversable expected, %s given.', self::class, \is_object($iterator) ? \get_class($iterator) : \gettype($iterator)));
+            throw new \ECSPrefix20210516\Nette\InvalidArgumentException(\sprintf('Invalid argument passed to %s; array or Traversable expected, %s given.', self::class, \is_object($iterator) ? \get_class($iterator) : \gettype($iterator)));
         }
         parent::__construct($iterator, 0);
     }
@@ -97,7 +97,7 @@ class CachingIterator extends \CachingIterator implements \Countable
         if ($inner instanceof \Countable) {
             return $inner->count();
         } else {
-            throw new \ECSPrefix20210515\Nette\NotSupportedException('Iterator is not countable.');
+            throw new \ECSPrefix20210516\Nette\NotSupportedException('Iterator is not countable.');
         }
     }
     /**

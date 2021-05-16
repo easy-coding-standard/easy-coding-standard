@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210515\Nette\Utils;
+namespace ECSPrefix20210516\Nette\Utils;
 
-use ECSPrefix20210515\Nette;
+use ECSPrefix20210516\Nette;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 /**
@@ -95,7 +95,7 @@ class Finder implements \IteratorAggregate, \Countable
     public function from(...$paths)
     {
         if ($this->paths) {
-            throw new \ECSPrefix20210515\Nette\InvalidStateException('Directory to search has already been specified.');
+            throw new \ECSPrefix20210516\Nette\InvalidStateException('Directory to search has already been specified.');
         }
         $this->paths = \is_array($paths[0]) ? $paths[0] : $paths;
         $this->cursor =& $this->exclude;
@@ -149,7 +149,7 @@ class Finder implements \IteratorAggregate, \Countable
     public function getIterator()
     {
         if (!$this->paths) {
-            throw new \ECSPrefix20210515\Nette\InvalidStateException('Call in() or from() to specify directory to search.');
+            throw new \ECSPrefix20210516\Nette\InvalidStateException('Call in() or from() to specify directory to search.');
         } elseif (\count($this->paths) === 1) {
             return $this->buildIterator((string) $this->paths[0]);
         } else {
@@ -252,7 +252,7 @@ class Finder implements \IteratorAggregate, \Countable
         if (\func_num_args() === 1) {
             // in $operator is predicate
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?((?:\\d*\\.)?\\d+)\\s*(K|M|G|)B?$#Di', $operator, $matches)) {
-                throw new \ECSPrefix20210515\Nette\InvalidArgumentException('Invalid size predicate format.');
+                throw new \ECSPrefix20210516\Nette\InvalidArgumentException('Invalid size predicate format.');
             }
             list(, $operator, $size, $unit) = $matches;
             static $units = ['' => 1, 'k' => 1000.0, 'm' => 1000000.0, 'g' => 1000000000.0];
@@ -275,12 +275,12 @@ class Finder implements \IteratorAggregate, \Countable
         if (\func_num_args() === 1) {
             // in $operator is predicate
             if (!\preg_match('#^(?:([=<>!]=?|<>)\\s*)?(.+)$#Di', $operator, $matches)) {
-                throw new \ECSPrefix20210515\Nette\InvalidArgumentException('Invalid date predicate format.');
+                throw new \ECSPrefix20210516\Nette\InvalidArgumentException('Invalid date predicate format.');
             }
             list(, $operator, $date) = $matches;
             $operator = $operator ?: '=';
         }
-        $date = \ECSPrefix20210515\Nette\Utils\DateTime::from($date)->format('U');
+        $date = \ECSPrefix20210516\Nette\Utils\DateTime::from($date)->format('U');
         return $this->filter(function (\RecursiveDirectoryIterator $file) use($operator, $date) : bool {
             return self::compare($file->getMTime(), $operator, $date);
         });
@@ -310,7 +310,7 @@ class Finder implements \IteratorAggregate, \Countable
             case '<>':
                 return $l != $r;
             default:
-                throw new \ECSPrefix20210515\Nette\InvalidArgumentException("Unknown operator {$operator}.");
+                throw new \ECSPrefix20210516\Nette\InvalidArgumentException("Unknown operator {$operator}.");
         }
     }
     /********************* extension methods ****************d*g**/
@@ -320,7 +320,7 @@ class Finder implements \IteratorAggregate, \Countable
     public function __call($name, array $args)
     {
         $name = (string) $name;
-        return isset(self::$extMethods[$name]) ? self::$extMethods[$name]($this, ...$args) : \ECSPrefix20210515\Nette\Utils\ObjectHelpers::strictCall(\get_class($this), $name, \array_keys(self::$extMethods));
+        return isset(self::$extMethods[$name]) ? self::$extMethods[$name]($this, ...$args) : \ECSPrefix20210516\Nette\Utils\ObjectHelpers::strictCall(\get_class($this), $name, \array_keys(self::$extMethods));
     }
     /**
      * @return void

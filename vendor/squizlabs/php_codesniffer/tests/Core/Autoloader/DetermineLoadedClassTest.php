@@ -9,8 +9,8 @@
  */
 namespace PHP_CodeSniffer\Tests\Core\Autoloader;
 
-use ECSPrefix20210515\PHPUnit\Framework\TestCase;
-class DetermineLoadedClassTest extends \ECSPrefix20210515\PHPUnit\Framework\TestCase
+use ECSPrefix20210516\PHPUnit\Framework\TestCase;
+class DetermineLoadedClassTest extends \ECSPrefix20210516\PHPUnit\Framework\TestCase
 {
     /**
      * Load the test files.

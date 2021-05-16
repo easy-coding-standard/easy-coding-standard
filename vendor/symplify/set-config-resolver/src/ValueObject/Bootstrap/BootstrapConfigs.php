@@ -1,8 +1,8 @@
 <?php
 
-namespace ECSPrefix20210515\Symplify\SetConfigResolver\ValueObject\Bootstrap;
+namespace ECSPrefix20210516\Symplify\SetConfigResolver\ValueObject\Bootstrap;
 
-use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
 final class BootstrapConfigs
 {
     /**
@@ -34,7 +34,7 @@ final class BootstrapConfigs
      */
     public function getConfigFileInfos()
     {
-        if (!$this->mainConfigFileInfo instanceof \ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo) {
+        if (!$this->mainConfigFileInfo instanceof \ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo) {
             return $this->setConfigFileInfos;
         }
         return \array_merge($this->setConfigFileInfos, [$this->mainConfigFileInfo]);

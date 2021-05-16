@@ -1,15 +1,15 @@
 <?php
 
-namespace ECSPrefix20210515\Symplify\SetConfigResolver\Console;
+namespace ECSPrefix20210516\Symplify\SetConfigResolver\Console;
 
-use ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210516\Symfony\Component\Console\Input\InputInterface;
 final class OptionValueResolver
 {
     /**
      * @param string[] $optionNames
      * @return string|null
      */
-    public function getOptionValue(\ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface $input, array $optionNames)
+    public function getOptionValue(\ECSPrefix20210516\Symfony\Component\Console\Input\InputInterface $input, array $optionNames)
     {
         foreach ($optionNames as $optionName) {
             if ($input->hasParameterOption($optionName, \true)) {

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210515\SebastianBergmann\Diff;
+namespace ECSPrefix20210516\SebastianBergmann\Diff;
 
 use const PHP_INT_SIZE;
 use const PREG_SPLIT_DELIM_CAPTURE;
@@ -31,8 +31,8 @@ use function prev;
 use function reset;
 use function sprintf;
 use function substr;
-use ECSPrefix20210515\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface;
-use ECSPrefix20210515\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
+use ECSPrefix20210516\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface;
+use ECSPrefix20210516\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 final class Differ
 {
     const OLD = 0;
@@ -51,17 +51,17 @@ final class Differ
      */
     public function __construct($outputBuilder = null)
     {
-        if ($outputBuilder instanceof \ECSPrefix20210515\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface) {
+        if ($outputBuilder instanceof \ECSPrefix20210516\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface) {
             $this->outputBuilder = $outputBuilder;
         } elseif (null === $outputBuilder) {
-            $this->outputBuilder = new \ECSPrefix20210515\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder();
+            $this->outputBuilder = new \ECSPrefix20210516\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder();
         } elseif (\is_string($outputBuilder)) {
             // PHPUnit 6.1.4, 6.2.0, 6.2.1, 6.2.2, and 6.2.3 support
             // @see https://github.com/sebastianbergmann/phpunit/issues/2734#issuecomment-314514056
             // @deprecated
-            $this->outputBuilder = new \ECSPrefix20210515\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder($outputBuilder);
+            $this->outputBuilder = new \ECSPrefix20210516\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder($outputBuilder);
         } else {
-            throw new \ECSPrefix20210515\SebastianBergmann\Diff\InvalidArgumentException(\sprintf('Expected builder to be an instance of DiffOutputBuilderInterface, <null> or a string, got %s.', \is_object($outputBuilder) ? 'instance of "' . \get_class($outputBuilder) . '"' : \gettype($outputBuilder) . ' "' . $outputBuilder . '"'));
+            throw new \ECSPrefix20210516\SebastianBergmann\Diff\InvalidArgumentException(\sprintf('Expected builder to be an instance of DiffOutputBuilderInterface, <null> or a string, got %s.', \is_object($outputBuilder) ? 'instance of "' . \get_class($outputBuilder) . '"' : \gettype($outputBuilder) . ' "' . $outputBuilder . '"'));
         }
     }
     /**
@@ -71,7 +71,7 @@ final class Differ
      * @param array|string $to
      * @return string
      */
-    public function diff($from, $to, \ECSPrefix20210515\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null)
+    public function diff($from, $to, \ECSPrefix20210516\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null)
     {
         $diff = $this->diffToArray($this->normalizeDiffInput($from), $this->normalizeDiffInput($to), $lcs);
         return $this->outputBuilder->getDiff($diff);
@@ -92,17 +92,17 @@ final class Differ
      * @param LongestCommonSubsequenceCalculator $lcs
      * @return mixed[]
      */
-    public function diffToArray($from, $to, \ECSPrefix20210515\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null)
+    public function diffToArray($from, $to, \ECSPrefix20210516\SebastianBergmann\Diff\LongestCommonSubsequenceCalculator $lcs = null)
     {
         if (\is_string($from)) {
             $from = $this->splitStringByLines($from);
         } elseif (!\is_array($from)) {
-            throw new \ECSPrefix20210515\SebastianBergmann\Diff\InvalidArgumentException('"from" must be an array or string.');
+            throw new \ECSPrefix20210516\SebastianBergmann\Diff\InvalidArgumentException('"from" must be an array or string.');
         }
         if (\is_string($to)) {
             $to = $this->splitStringByLines($to);
         } elseif (!\is_array($to)) {
-            throw new \ECSPrefix20210515\SebastianBergmann\Diff\InvalidArgumentException('"to" must be an array or string.');
+            throw new \ECSPrefix20210516\SebastianBergmann\Diff\InvalidArgumentException('"to" must be an array or string.');
         }
         list($from, $to, $start, $end) = self::getArrayDiffParted($from, $to);
         if ($lcs === null) {
@@ -173,9 +173,9 @@ final class Differ
         // will typically allocate a bit more memory than this.
         $memoryLimit = 100 * 1024 * 1024;
         if ($this->calculateEstimatedFootprint($from, $to) > $memoryLimit) {
-            return new \ECSPrefix20210515\SebastianBergmann\Diff\MemoryEfficientLongestCommonSubsequenceCalculator();
+            return new \ECSPrefix20210516\SebastianBergmann\Diff\MemoryEfficientLongestCommonSubsequenceCalculator();
         }
-        return new \ECSPrefix20210515\SebastianBergmann\Diff\TimeEfficientLongestCommonSubsequenceCalculator();
+        return new \ECSPrefix20210516\SebastianBergmann\Diff\TimeEfficientLongestCommonSubsequenceCalculator();
     }
     /**
      * Calculates the estimated memory footprint for the DP-based method.

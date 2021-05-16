@@ -2,7 +2,7 @@
 
 namespace Symplify\EasyCodingStandard\ValueObject\Error;
 
-use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
 final class SystemError
 {
     /**
@@ -21,7 +21,7 @@ final class SystemError
      * @param int $line
      * @param string $message
      */
-    public function __construct($line, $message, \ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    public function __construct($line, $message, \ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $line = (int) $line;
         $message = (string) $message;

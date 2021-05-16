@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210515\Symplify\PackageBuilder\Matcher;
+namespace ECSPrefix20210516\Symplify\PackageBuilder\Matcher;
 
 final class ArrayStringAndFnMatcher
 {

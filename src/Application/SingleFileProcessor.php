@@ -5,8 +5,8 @@ namespace Symplify\EasyCodingStandard\Application;
 use ParseError;
 use Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
-use ECSPrefix20210515\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210516\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
 final class SingleFileProcessor
 {
     /**
@@ -25,7 +25,7 @@ final class SingleFileProcessor
      * @var FileProcessorCollector
      */
     private $fileProcessorCollector;
-    public function __construct(\ECSPrefix20210515\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
+    public function __construct(\ECSPrefix20210516\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\ChangedFilesDetector\ChangedFilesDetector $changedFilesDetector, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \Symplify\EasyCodingStandard\Application\FileProcessorCollector $fileProcessorCollector)
     {
         $this->skipper = $skipper;
         $this->changedFilesDetector = $changedFilesDetector;
@@ -35,7 +35,7 @@ final class SingleFileProcessor
     /**
      * @return void
      */
-    public function processFileInfo(\ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
+    public function processFileInfo(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo)
     {
         if ($this->skipper->shouldSkipFileInfo($smartFileInfo)) {
             return;

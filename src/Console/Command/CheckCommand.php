@@ -2,10 +2,10 @@
 
 namespace Symplify\EasyCodingStandard\Console\Command;
 
-use ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface;
-use ECSPrefix20210515\Symfony\Component\Console\Output\OutputInterface;
+use ECSPrefix20210516\Symfony\Component\Console\Input\InputInterface;
+use ECSPrefix20210516\Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCodingStandard\Reporter\ProcessedFileReporter;
-use ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210516\Symplify\PackageBuilder\Console\ShellCode;
 final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\AbstractCheckCommand
 {
     /**
@@ -28,11 +28,11 @@ final class CheckCommand extends \Symplify\EasyCodingStandard\Console\Command\Ab
     /**
      * @return int
      */
-    protected function execute(\ECSPrefix20210515\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210515\Symfony\Component\Console\Output\OutputInterface $output)
+    protected function execute(\ECSPrefix20210516\Symfony\Component\Console\Input\InputInterface $input, \ECSPrefix20210516\Symfony\Component\Console\Output\OutputInterface $output)
     {
         if (!$this->loadedCheckersGuard->areSomeCheckerRegistered()) {
             $this->loadedCheckersGuard->report();
-            return \ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+            return \ECSPrefix20210516\Symplify\PackageBuilder\Console\ShellCode::ERROR;
         }
         $this->configuration->resolveFromInput($input);
         // CLI paths override parameter paths

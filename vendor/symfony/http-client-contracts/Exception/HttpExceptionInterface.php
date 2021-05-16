@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210515\Symfony\Contracts\HttpClient\Exception;
+namespace ECSPrefix20210516\Symfony\Contracts\HttpClient\Exception;
 
-use ECSPrefix20210515\Symfony\Contracts\HttpClient\ResponseInterface;
+use ECSPrefix20210516\Symfony\Contracts\HttpClient\ResponseInterface;
 /**
  * Base interface for HTTP-related exceptions.
  *
  * @author Anton Chernikov <anton_ch1989@mail.ru>
  */
-interface HttpExceptionInterface extends \ECSPrefix20210515\Symfony\Contracts\HttpClient\Exception\ExceptionInterface
+interface HttpExceptionInterface extends \ECSPrefix20210516\Symfony\Contracts\HttpClient\Exception\ExceptionInterface
 {
     /**
      * @return \Symfony\Contracts\HttpClient\ResponseInterface

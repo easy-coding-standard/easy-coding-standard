@@ -1,6 +1,6 @@
 <?php
 
-namespace ECSPrefix20210515\Nette\Utils;
+namespace ECSPrefix20210516\Nette\Utils;
 
 /**
  * The exception that is thrown when an image error occurs.
@@ -11,7 +11,7 @@ class ImageException extends \Exception
 /**
  * The exception that indicates invalid image file.
  */
-class UnknownImageFileException extends \ECSPrefix20210515\Nette\Utils\ImageException
+class UnknownImageFileException extends \ECSPrefix20210516\Nette\Utils\ImageException
 {
 }
 /**

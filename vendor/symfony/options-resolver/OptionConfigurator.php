@@ -8,9 +8,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210515\Symfony\Component\OptionsResolver;
+namespace ECSPrefix20210516\Symfony\Component\OptionsResolver;
 
-use ECSPrefix20210515\Symfony\Component\OptionsResolver\Exception\AccessException;
+use ECSPrefix20210516\Symfony\Component\OptionsResolver\Exception\AccessException;
 final class OptionConfigurator
 {
     private $name;
@@ -18,7 +18,7 @@ final class OptionConfigurator
     /**
      * @param string $name
      */
-    public function __construct($name, \ECSPrefix20210515\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
+    public function __construct($name, \ECSPrefix20210516\Symfony\Component\OptionsResolver\OptionsResolver $resolver)
     {
         $name = (string) $name;
         $this->name = $name;

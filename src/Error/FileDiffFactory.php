@@ -2,16 +2,16 @@
 
 namespace Symplify\EasyCodingStandard\Error;
 
-use ECSPrefix20210515\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
+use ECSPrefix20210516\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileDiffFactory
 {
     /**
      * @var ColorConsoleDiffFormatter
      */
     private $colorConsoleDiffFormatter;
-    public function __construct(\ECSPrefix20210515\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
+    public function __construct(\ECSPrefix20210516\Symplify\ConsoleColorDiff\Console\Formatter\ColorConsoleDiffFormatter $colorConsoleDiffFormatter)
     {
         $this->colorConsoleDiffFormatter = $colorConsoleDiffFormatter;
     }
@@ -20,7 +20,7 @@ final class FileDiffFactory
      * @param string $diff
      * @return \Symplify\EasyCodingStandard\ValueObject\Error\FileDiff
      */
-    public function createFromDiffAndAppliedCheckers(\ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
+    public function createFromDiffAndAppliedCheckers(\ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $smartFileInfo, $diff, array $appliedCheckers)
     {
         $diff = (string) $diff;
         $consoleFormattedDiff = $this->colorConsoleDiffFormatter->format($diff);

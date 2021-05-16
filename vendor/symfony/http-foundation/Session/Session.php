@@ -8,23 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace ECSPrefix20210515\Symfony\Component\HttpFoundation\Session;
+namespace ECSPrefix20210516\Symfony\Component\HttpFoundation\Session;
 
-use ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
-use ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
-use ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
-use ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+use ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
+use ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
+use ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+use ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
 // Help opcache.preload discover always-needed symbols
-\class_exists(\ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag::class);
-\class_exists(\ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Flash\FlashBag::class);
-\class_exists(\ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\SessionBagProxy::class);
+\class_exists(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag::class);
+\class_exists(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Flash\FlashBag::class);
+\class_exists(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\SessionBagProxy::class);
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Drak <drak@zikula.org>
  */
-class Session implements \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\SessionInterface, \IteratorAggregate, \Countable
+class Session implements \ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\SessionInterface, \IteratorAggregate, \Countable
 {
     protected $storage;
     private $flashName;
@@ -32,14 +32,14 @@ class Session implements \ECSPrefix20210515\Symfony\Component\HttpFoundation\Ses
     private $data = [];
     private $usageIndex = 0;
     private $usageReporter;
-    public function __construct(\ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage = null, \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes = null, \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes = null, callable $usageReporter = null)
+    public function __construct(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface $storage = null, \ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface $attributes = null, \ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface $flashes = null, callable $usageReporter = null)
     {
-        $this->storage = isset($storage) ? $storage : new \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
+        $this->storage = isset($storage) ? $storage : new \ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage();
         $this->usageReporter = $usageReporter;
-        $attributes = isset($attributes) ? $attributes : new \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
+        $attributes = isset($attributes) ? $attributes : new \ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag();
         $this->attributeName = $attributes->getName();
         $this->registerBag($attributes);
-        $flashes = isset($flashes) ? $flashes : new \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
+        $flashes = isset($flashes) ? $flashes : new \ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\Flash\FlashBag();
         $this->flashName = $flashes->getName();
         $this->registerBag($flashes);
     }
@@ -232,9 +232,9 @@ class Session implements \ECSPrefix20210515\Symfony\Component\HttpFoundation\Ses
     /**
      * {@inheritdoc}
      */
-    public function registerBag(\ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag)
+    public function registerBag(\ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\SessionBagInterface $bag)
     {
-        $this->storage->registerBag(new \ECSPrefix20210515\Symfony\Component\HttpFoundation\Session\SessionBagProxy($bag, $this->data, $this->usageIndex, $this->usageReporter));
+        $this->storage->registerBag(new \ECSPrefix20210516\Symfony\Component\HttpFoundation\Session\SessionBagProxy($bag, $this->data, $this->usageIndex, $this->usageReporter));
     }
     /**
      * {@inheritdoc}

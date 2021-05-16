@@ -1,10 +1,10 @@
 <?php
 
-namespace ECSPrefix20210515\Nette\Caching\Storages;
+namespace ECSPrefix20210516\Nette\Caching\Storages;
 
 /**
  * @deprecated
  */
-class NewMemcachedStorage extends \ECSPrefix20210515\Nette\Caching\Storages\MemcachedStorage
+class NewMemcachedStorage extends \ECSPrefix20210516\Nette\Caching\Storages\MemcachedStorage
 {
 }

@@ -7,7 +7,7 @@ use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface;
 use Symplify\EasyCodingStandard\ValueObject\Error\ErrorAndDiffResult;
 use Symplify\EasyCodingStandard\ValueObject\Error\FileDiff;
-use ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode;
+use ECSPrefix20210516\Symplify\PackageBuilder\Console\ShellCode;
 final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contract\Console\Output\OutputFormatterInterface
 {
     /**
@@ -40,7 +40,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
                 $this->easyCodingStandardStyle->newLine();
             }
             $this->easyCodingStandardStyle->success('No errors found. Great job - your code is shiny in style!');
-            return \ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+            return \ECSPrefix20210516\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         $this->easyCodingStandardStyle->newLine();
         return $this->configuration->isFixer() ? $this->printAfterFixerStatus($errorAndDiffResult) : $this->printNoFixerStatus($errorAndDiffResult);
@@ -87,10 +87,10 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
         if ($errorAndDiffResult->getErrorCount() === 0) {
             $successMessage = \sprintf('%d error%s successfully fixed and no other errors found!', $errorAndDiffResult->getFileDiffsCount(), $errorAndDiffResult->getFileDiffsCount() === 1 ? '' : 's');
             $this->easyCodingStandardStyle->success($successMessage);
-            return \ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
+            return \ECSPrefix20210516\Symplify\PackageBuilder\Console\ShellCode::SUCCESS;
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getErrorCount(), $errorAndDiffResult->getFileDiffsCount());
-        return \ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return \ECSPrefix20210516\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
      * @return int
@@ -111,7 +111,7 @@ final class ConsoleOutputFormatter implements \Symplify\EasyCodingStandard\Contr
             $this->easyCodingStandardStyle->warning($systemError->getMessage());
         }
         $this->printErrorMessageFromErrorCounts($errorAndDiffResult->getErrorCount(), $errorAndDiffResult->getFileDiffsCount());
-        return \ECSPrefix20210515\Symplify\PackageBuilder\Console\ShellCode::ERROR;
+        return \ECSPrefix20210516\Symplify\PackageBuilder\Console\ShellCode::ERROR;
     }
     /**
      * @return void

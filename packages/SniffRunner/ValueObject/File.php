@@ -13,8 +13,8 @@ use Symplify\EasyCodingStandard\Application\AppliedCheckersCollector;
 use Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle;
 use Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector;
 use Symplify\EasyCodingStandard\SniffRunner\Exception\File\NotImplementedException;
-use ECSPrefix20210515\Symplify\Skipper\Skipper\Skipper;
-use ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo;
+use ECSPrefix20210516\Symplify\Skipper\Skipper\Skipper;
+use ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Symplify\EasyCodingStandard\Tests\SniffRunner\ValueObject\FileTest
  */
@@ -70,7 +70,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @param string $path
      * @param string $content
      */
-    public function __construct($path, $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210515\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
+    public function __construct($path, $content, \PHP_CodeSniffer\Fixer $fixer, \Symplify\EasyCodingStandard\Error\ErrorAndDiffCollector $errorAndDiffCollector, \ECSPrefix20210516\Symplify\Skipper\Skipper\Skipper $skipper, \Symplify\EasyCodingStandard\Application\AppliedCheckersCollector $appliedCheckersCollector, \Symplify\EasyCodingStandard\Console\Style\EasyCodingStandardStyle $easyCodingStandardStyle)
     {
         $path = (string) $path;
         $content = (string) $content;
@@ -167,7 +167,7 @@ final class File extends \PHP_CodeSniffer\Files\File
      * @param Sniff[][] $tokenListeners
      * @return void
      */
-    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20210515\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
+    public function processWithTokenListenersAndFileInfo(array $tokenListeners, \ECSPrefix20210516\Symplify\SmartFileSystem\SmartFileInfo $fileInfo)
     {
         $this->tokenListeners = $tokenListeners;
         $this->fileInfo = $fileInfo;
