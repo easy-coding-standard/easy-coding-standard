@@ -12,9 +12,8 @@ final class ParameterSkipper
      * Classes that create circular dependencies
      *
      * @var string[]
-     * @noRector
      */
-    private const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210517\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210517\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210517\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210517\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210517\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210517\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210517\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210517\\Sonata\\Twig\\Extension\\TemplateExtension'];
+    const DEFAULT_EXCLUDED_FATAL_CLASSES = ['ECSPrefix20210517\\Symfony\\Component\\Form\\FormExtensionInterface', 'ECSPrefix20210517\\Symfony\\Component\\Asset\\PackageInterface', 'ECSPrefix20210517\\Symfony\\Component\\Config\\Loader\\LoaderInterface', 'ECSPrefix20210517\\Symfony\\Component\\VarDumper\\Dumper\\ContextProvider\\ContextProviderInterface', 'ECSPrefix20210517\\EasyCorp\\Bundle\\EasyAdminBundle\\Form\\Type\\Configurator\\TypeConfiguratorInterface', 'ECSPrefix20210517\\Sonata\\CoreBundle\\Model\\Adapter\\AdapterInterface', 'ECSPrefix20210517\\Sonata\\Doctrine\\Adapter\\AdapterChain', 'ECSPrefix20210517\\Sonata\\Twig\\Extension\\TemplateExtension'];
     /**
      * @var ParameterTypeResolver
      */
