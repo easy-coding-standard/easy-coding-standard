@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 // inspired by https://github.com/phpstan/phpstan/blob/master/bootstrap.php
 
@@ -21,4 +21,3 @@ spl_autoload_register(function (string $class): void {
         $composerAutoloader->loadClass($class);
     }
 });
-
