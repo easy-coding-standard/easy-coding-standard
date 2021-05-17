@@ -12,7 +12,6 @@ return array(
     'ECSPrefix20210517\\Symplify\\SymplifyKernel\\' => array($vendorDir . '/symplify/symplify-kernel/src'),
     'ECSPrefix20210517\\Symplify\\SmartFileSystem\\' => array($vendorDir . '/symplify/smart-file-system/src'),
     'ECSPrefix20210517\\Symplify\\Skipper\\' => array($vendorDir . '/symplify/skipper/src'),
-    'ECSPrefix20210517\\Symplify\\SetConfigResolver\\' => array($vendorDir . '/symplify/set-config-resolver/src'),
     'ECSPrefix20210517\\Symplify\\RuleDocGenerator\\' => array($vendorDir . '/symplify/rule-doc-generator-contracts/src'),
     'ECSPrefix20210517\\Symplify\\PackageBuilder\\' => array($vendorDir . '/symplify/package-builder/src'),
     'ECSPrefix20210517\\Symplify\\EasyTesting\\' => array($vendorDir . '/symplify/easy-testing/src'),

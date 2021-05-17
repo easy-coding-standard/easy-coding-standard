@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338
+class ComposerStaticIniteb2785c02c5d7f8d9d98a8935e53a144
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -34,7 +34,6 @@ class ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338
             'ECSPrefix20210517\\Symplify\\SymplifyKernel\\' => 42,
             'ECSPrefix20210517\\Symplify\\SmartFileSystem\\' => 43,
             'ECSPrefix20210517\\Symplify\\Skipper\\' => 35,
-            'ECSPrefix20210517\\Symplify\\SetConfigResolver\\' => 45,
             'ECSPrefix20210517\\Symplify\\RuleDocGenerator\\' => 44,
             'ECSPrefix20210517\\Symplify\\PackageBuilder\\' => 42,
             'ECSPrefix20210517\\Symplify\\EasyTesting\\' => 39,
@@ -102,10 +101,6 @@ class ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338
         'ECSPrefix20210517\\Symplify\\Skipper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symplify/skipper/src',
-        ),
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symplify/set-config-resolver/src',
         ),
         'ECSPrefix20210517\\Symplify\\RuleDocGenerator\\' => 
         array (
@@ -1239,19 +1234,6 @@ class ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338
         'ECSPrefix20210517\\Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ConfiguredCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/CodeSample/ConfiguredCodeSample.php',
         'ECSPrefix20210517\\Symplify\\RuleDocGenerator\\ValueObject\\CodeSample\\ExtraFileCodeSample' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/CodeSample/ExtraFileCodeSample.php',
         'ECSPrefix20210517\\Symplify\\RuleDocGenerator\\ValueObject\\RuleDefinition' => __DIR__ . '/..' . '/symplify/rule-doc-generator-contracts/src/ValueObject/RuleDefinition.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\AbstractConfigResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/AbstractConfigResolver.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\Bootstrap\\InvalidSetReporter' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Bootstrap/InvalidSetReporter.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\ConfigResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/ConfigResolver.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\Config\\SetsParameterResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Config/SetsParameterResolver.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\Console\\OptionValueResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Console/OptionValueResolver.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\Console\\Option\\OptionName' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Console/Option/OptionName.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\Contract\\SetProviderInterface' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Contract/SetProviderInterface.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\Exception\\SetNotFoundException' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Exception/SetNotFoundException.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\Provider\\AbstractSetProvider' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/Provider/AbstractSetProvider.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\SetAwareConfigResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/SetAwareConfigResolver.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\SetResolver' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/SetResolver.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\ValueObject\\Bootstrap\\BootstrapConfigs' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/ValueObject/Bootstrap/BootstrapConfigs.php',
-        'ECSPrefix20210517\\Symplify\\SetConfigResolver\\ValueObject\\Set' => __DIR__ . '/..' . '/symplify/set-config-resolver/src/ValueObject/Set.php',
         'ECSPrefix20210517\\Symplify\\Skipper\\Bundle\\SkipperBundle' => __DIR__ . '/..' . '/symplify/skipper/src/Bundle/SkipperBundle.php',
         'ECSPrefix20210517\\Symplify\\Skipper\\Contract\\SkipVoterInterface' => __DIR__ . '/..' . '/symplify/skipper/src/Contract/SkipVoterInterface.php',
         'ECSPrefix20210517\\Symplify\\Skipper\\DependencyInjection\\Extension\\SkipperExtension' => __DIR__ . '/..' . '/symplify/skipper/src/DependencyInjection/Extension/SkipperExtension.php',
@@ -1835,7 +1817,6 @@ class ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338
         'Symplify\\EasyCodingStandard\\Application\\FileProcessorCollector' => __DIR__ . '/../..' . '/src/Application/FileProcessorCollector.php',
         'Symplify\\EasyCodingStandard\\Application\\SingleFileProcessor' => __DIR__ . '/../..' . '/src/Application/SingleFileProcessor.php',
         'Symplify\\EasyCodingStandard\\Bootstrap\\ConfigHasher' => __DIR__ . '/../..' . '/src/Bootstrap/ConfigHasher.php',
-        'Symplify\\EasyCodingStandard\\Bootstrap\\ECSConfigsResolver' => __DIR__ . '/../..' . '/src/Bootstrap/ECSConfigsResolver.php',
         'Symplify\\EasyCodingStandard\\Bootstrap\\NoCheckersLoaderReporter' => __DIR__ . '/../..' . '/src/Bootstrap/NoCheckersLoaderReporter.php',
         'Symplify\\EasyCodingStandard\\Bundle\\EasyCodingStandardBundle' => __DIR__ . '/../..' . '/src/Bundle/EasyCodingStandardBundle.php',
         'Symplify\\EasyCodingStandard\\Caching\\NetteCacheFactory' => __DIR__ . '/../..' . '/src/Caching/NetteCacheFactory.php',
@@ -1889,8 +1870,6 @@ class ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338
         'Symplify\\EasyCodingStandard\\Guard\\LoadedCheckersGuard' => __DIR__ . '/../..' . '/src/Guard/LoadedCheckersGuard.php',
         'Symplify\\EasyCodingStandard\\HttpKernel\\EasyCodingStandardKernel' => __DIR__ . '/../..' . '/src/HttpKernel/EasyCodingStandardKernel.php',
         'Symplify\\EasyCodingStandard\\Reporter\\ProcessedFileReporter' => __DIR__ . '/../..' . '/src/Reporter/ProcessedFileReporter.php',
-        'Symplify\\EasyCodingStandard\\Set\\ConstantReflectionSetFactory' => __DIR__ . '/../..' . '/src/Set/ConstantReflectionSetFactory.php',
-        'Symplify\\EasyCodingStandard\\Set\\EasyCodingStandardSetProvider' => __DIR__ . '/../..' . '/src/Set/EasyCodingStandardSetProvider.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Application\\SniffFileProcessor' => __DIR__ . '/../..' . '/packages/SniffRunner/Application/SniffFileProcessor.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\ClassNotFoundException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/ClassNotFoundException.php',
         'Symplify\\EasyCodingStandard\\SniffRunner\\Exception\\File\\FileNotFoundException' => __DIR__ . '/../..' . '/packages/SniffRunner/Exception/File/FileNotFoundException.php',
@@ -1918,9 +1897,9 @@ class ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7c254ed24ae892fb9c60bb4ff5c7a338::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticIniteb2785c02c5d7f8d9d98a8935e53a144::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticIniteb2785c02c5d7f8d9d98a8935e53a144::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticIniteb2785c02c5d7f8d9d98a8935e53a144::$classMap;
 
         }, null, ClassLoader::class);
     }
